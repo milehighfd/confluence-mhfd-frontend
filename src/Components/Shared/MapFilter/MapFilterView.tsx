@@ -443,7 +443,7 @@ export default ({
                   <Popover key="sBEOJIkyAevN" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
                 <img key="ATpYRAYLlutV" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover> <Switch key="j85MnoOfyc1H" checked={switches[FLOODPLAINS.name]}  size="small" onClick={(value) => onChange(value, FLOODPLAINS)} />
-            </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>} */}
+            </p> 
 
             <p>
               <img key="vlF3N8QYaD41" src="/Icons/Filters/ic_FEMA.png" width="18px" alt="" />

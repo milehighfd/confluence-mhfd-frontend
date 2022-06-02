@@ -232,7 +232,6 @@ const WorkRequestMap = (type: any) => {
           const area = turf.area(polygon);
           setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
         } 
-        // distanceContainer.appendChild(value);
       } else if(geojsonMeasures.features.length == 1){
         setAreaValue('0');
         setDistanceValue('0');
@@ -1082,10 +1081,6 @@ const WorkRequestMap = (type: any) => {
   const addLayersSource = (key: string, tiles: Array<string>) => {
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.addVectorSource(key,tiles);
-      // map.map.addSource(key, {
-      //   type: 'vector',
-      //   tiles: tiles
-      // });
       addTilesLayers(key);
     }
   }

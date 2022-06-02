@@ -19,15 +19,13 @@ const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
 
-export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
-  getComponentCounter, setZoomProjectOrProblem }:
+export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomProjectOrProblem }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
   const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
-  const { favorites, favoriteProblemCards, favoriteProjectCards } = useMapState();
-  const { saveUserInformation } = useProfileDispatch();
+  const { favorites } = useMapState();
   const showComponents = () => {
     const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
@@ -35,7 +33,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   const user = store.getState().profile.userInformation;
 
   useEffect(() => {
-    // console.log(user.designation);
     favoriteList(user.email);
   },
   []);
@@ -56,7 +53,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   }, [favorites, deleteFavorite, addFavorite]);
 
 
-  const { autcomplete, spinMapLoaded, bboxComponents, selectedLayers } = useSelector((state: any) => ({
+  const { bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
     bboxComponents: state.map.bboxComponents,
@@ -72,10 +69,8 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     if (bcbbox.length && bcbbox[0] != null) {
       updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
       setZoomProjectOrProblem(bcbbox[0]);
-      // saveUserInformation(user);
     }
   }, [bboxComponents]);
-  const { setOpacityLayer } = useMapDispatch();
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
@@ -115,7 +110,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
 
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});
-    // setOpacityLayer(false);
   }
 
   return (
@@ -150,7 +144,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                   event.stopPropagation();
 
                   activeCard ?  deleteFavorite(user.email, (data.id || data.problemid), data.type) : addFavorite(user.email, (data.id || data.problemid), data.type);
-                  //favoriteList(user.email);
                 }
                }
                 >

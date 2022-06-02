@@ -38,7 +38,6 @@ export const updateColorList = (colorList: any) => {
     putData(SERVER.EDIT_NOTE_LIST(colorList._id),colorList, getToken()).then(
       (r:any)=>{
         if(r) {
-          //maybe this endpoint should return the new complete list instead of the new but meanwhile i am going to call colorslist
           dispatch(getColorsList());
         }
       }

@@ -164,8 +164,6 @@ const HorizontalBarChart = ({
 
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
-      // .attr("width", width)
-      // .attr("height", height)
 
     let lines = svg
       .selectAll('.hlines')
@@ -301,7 +299,6 @@ const HorizontalBarChart = ({
     }
 
     var countYFn = (d: any) => {
-      // return yFn(d) + ((heightFn() + fontSizeFn()) / 2);
       return yFn(d) + fontSizeFn() - 1;
     }
 

@@ -11,7 +11,6 @@ const initGA = () => {
 
 const useInitializeApp = () => {
   const history = useHistory();
-  // const { isLatestVersion, emptyCacheStorage } = useClearCache();
   const { getMapTables } = useMapDispatch();
   useEffect(() => {
     SELECT_ALL_FILTERS.forEach((layer) => {
@@ -32,14 +31,6 @@ const useInitializeApp = () => {
       ReactGA.pageview(location.pathname);
     })
   }, [history]);
-
-  // useEffect(() => {
-  //   if (!isLatestVersion) {
-  //     if (window.confirm("There is a new version available, update?") == true) {
-  //       emptyCacheStorage();
-  //     }
-  //   }
-  // }, [isLatestVersion])
 };
 
 export default useInitializeApp;

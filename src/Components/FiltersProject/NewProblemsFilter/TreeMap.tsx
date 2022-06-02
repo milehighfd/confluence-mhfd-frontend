@@ -86,8 +86,6 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
-      // .attr("width", width)
-      // .attr("height", height)
 
     var _root = d3.hierarchy(data).sum(function (d: any) { return d.value })
     d3.treemap()

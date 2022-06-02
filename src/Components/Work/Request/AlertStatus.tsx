@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Alert } from 'antd';
 
 export const AlertStatus = ({ type, message }: {

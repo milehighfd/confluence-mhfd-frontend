@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Modal, Button } from 'antd';
+import { Layout, Menu, Modal } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../../../constants/constants";
@@ -114,17 +114,6 @@ export default () => {
             <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>settings</span>
           </Link>
         </Menu.Item> : ''}
-        {/* <Menu.Item key="9" className="menu-desktop">
-          <a onClick={showModal}>
-            <i className="anticon mdi mdi-help-circle-outline"/>
-            <span></span>
-          </a>
-        </Menu.Item>
-        <Menu.Item key="10" className="menu-desktop">
-          <Link to={''}>
-            <i className="anticon mdi mdi-logout" />
-          </Link>
-        </Menu.Item> */}
     </Menu>
     <Modal
        centered

@@ -1093,7 +1093,7 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "#f19b32",  ///naranja
+      "circle-color": "#f19b32", 
       "circle-stroke-width": [
           "interpolate",
           ["linear"],
@@ -1144,7 +1144,7 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(33, 87%, 57%)", //naranja
+      "circle-color": "hsl(33, 87%, 57%)", 
       "circle-stroke-width": 2,
       "circle-stroke-color": "#968888",
       "circle-opacity": [
@@ -1187,7 +1187,7 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(33, 83%, 22%)", //cafe
+      "circle-color": "hsl(33, 83%, 22%)", 
       "circle-translate": [1, 1],
       "circle-radius": 5,
       "circle-opacity": [
@@ -1221,7 +1221,7 @@ const MEP_PROJECTS_STYLES = {
     type: 'circle',
     'source-layer': 'pluto15v1',
     "paint": {
-      "circle-color": "hsl(33, 97%, 91%)", //marron claro
+      "circle-color": "hsl(33, 97%, 91%)", 
       "circle-opacity": [
         "interpolate",
         ["linear"],
@@ -2262,47 +2262,6 @@ export const PROJECTS_STYLES = {
           ]
       }
     },
-    // {
-    //   type: 'symbol',
-    //   'source-layer': 'pluto15v1',
-    //   "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-    //   "layout": {
-    //     "text-field": ["to-string", ["get", "projectname"]],
-    //     "text-justify": "auto",
-    //     "text-anchor": "top-left",
-    //     "text-radial-offset": 1,
-    //     "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
-    //   },
-    //   "paint": {
-    //     "text-color": [
-    //       "interpolate",
-    //       ["exponential", 1],
-    //       ["zoom"],
-    //       0,
-    //       "hsla(0, 0%, 100%, 0)",
-    //       12.66,
-    //       "hsla(0, 0%, 100%, 0)",
-    //       13,
-    //       "hsla(0, 0%, 100%, 0.74)",
-    //       22,
-    //       "hsl(0, 0%, 100%)"
-    //     ],
-    //       "text-halo-color": [
-    //           "step",
-    //           ["zoom"],
-    //           "hsla(0, 0%, 0%, 0)",
-    //           13,
-    //           "hsla(0, 0%, 0%, 0.25)",
-    //           15,
-    //           "hsl(0, 0%, 0%)",
-    //           22,
-    //           "hsla(0, 0%, 0%, 0.61)"
-    //       ],
-    //       "text-halo-width": 0.25,
-    //       "text-halo-blur": 35,
-    //       "text-opacity": ["step", ["zoom"], 0, 12, 1, 22, 1]
-    //   }
-    // } 
   ],
   [PROJECTS_DRAFT]: [
     {
@@ -2766,7 +2725,6 @@ export const tileStyles = {
   ],
   [EFFECTIVE_REACHES]: [
   {
-      // light 
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {
@@ -2786,7 +2744,6 @@ export const tileStyles = {
     }
   },
   {
-    // dark 
   type: 'line',
   'source-layer': 'pluto15v1',
   layout: {
@@ -2807,7 +2764,6 @@ export const tileStyles = {
     'line-offset':-2
   }
 },{
-  //ef-endpoint-blut
   type: 'circle',
   'source-layer': 'pluto15v1',
   layout: {},
@@ -2840,7 +2796,6 @@ export const tileStyles = {
   }
 },
 {
-  //ef-endpoint
   type: 'circle',
   'source-layer': 'pluto15v1',
   layout: {},
@@ -2871,7 +2826,6 @@ export const tileStyles = {
     "circle-blur":0,
     "circle-opacity":1,
     
-    // "circle-pitche-scale":"map"
   }
 }
 ],
@@ -3357,7 +3311,6 @@ export const tileStyles = {
     }
   }], 
   [STREAMS_FILTERS]: [
-    //special with diff source 
     {
       "source_name":MHFD_STREAMS_FILTERS,
       type: 'line',
@@ -3563,23 +3516,6 @@ export const tileStyles = {
     'source-layer': 'pluto15v1',
     layout: {},
     "paint": {
-      // "line-color": [
-      //     "interpolate",
-      //     ["linear"],
-      //     ["zoom"],
-      //     0,
-      //     "hsla(0, 0%, 0%, 0.12)",
-      //     10.5,
-      //     "hsla(210, 69%, 51%, 0.34)",
-      //     11,
-      //     "hsla(210, 71%, 35%, 0.67)",
-      //     12,
-      //     "hsl(210, 71%, 37%)",
-      //     12.58,
-      //     "hsl(210, 69%, 62%)",
-      //     22,
-      //     "hsl(210, 69%, 77%)"
-      // ],
       "line-color": "#0ff500",
       "line-width": [
           "interpolate",
@@ -3748,7 +3684,6 @@ export const tileStyles = {
     }
   },
   {
-    //zoom-mid
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
@@ -3799,7 +3734,6 @@ export const tileStyles = {
     }
   }, 
   {
-    // zoom-near
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
@@ -3837,7 +3771,6 @@ export const tileStyles = {
     }
   }, 
   {
-    // copy4
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
