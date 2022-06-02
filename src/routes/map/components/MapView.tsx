@@ -711,7 +711,7 @@ const MapView = () => {
               getGalleryProjects();
             }
           }}>
-          <span className="menu-item-text">{item.title}</span>
+          <span className="menu-item-text" style={{ height: '10px' }}>{item.title}</span>
         </Menu.Item>
       ))}
     </Menu>
