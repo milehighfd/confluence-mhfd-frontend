@@ -1437,9 +1437,9 @@
     background: transparent;
   }
   .ant-tabs-ink-bar {
-    height: 3px !important;
+    height: 2px !important;
     background-color: $purple;
-    margin-bottom: 2.5px;
+    margin-bottom: 1.5px !important;
   }
   .ant-collapse-content {
     background-color: $opacity00;
@@ -1454,8 +1454,8 @@
   }
 }
 .over-00{
-  margin-top: -2px;
-  margin-left: -7px;
+  margin-top: -3px;
+  margin-left: -6px;
   .ant-tabs-bar {
     margin: 0 15px 16px !important;
   }
@@ -1583,10 +1583,9 @@
   }
 }
 .card-map{
-  padding-right: 7px;
+  padding: 8px 8px 0px 8px;
   .card-title-s{
     height: 40px;
-    width: 220px;
   }
   .ant-card-bordered {
     border: none;
@@ -1596,9 +1595,12 @@
     border-radius: 10px 10px 6px 6px;
   }
   .ant-card{
+    width: 100% !important;
     background: $white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
     border-radius: 8px 8px 6px 6px;
+    padding: 0px;
+    margin: 0px;
   }
   .ant-card-hoverable:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
@@ -1695,7 +1697,7 @@
   -ms-transform: translate(-50%, -50%);
   background: rgba(0,0,0,0.5);
   height: 100%;
-  width: 100%;
+  width: 100% !important;
   border-radius: 6px 6px 0px 0px;
 }
 .card-button-hover:hover .image {

@@ -678,7 +678,7 @@ const MapView = () => {
   }
 
   const genExtra = () => (
-    <Row justify="space-around" align="top" style={{ cursor: 'pointer' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col>
         <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent', fontSize: '12px', marginTop: '-6px', color: 'rgba(17, 9, 60, 0.5)' }}>
           Apply map view to filters
@@ -777,7 +777,7 @@ const MapView = () => {
   }
   let filterLabel = `Filters `;
   return <>
-  <div className="fr-area" style={{ }}>Explore Confluence</div>
+  <div className="fr-area">Explore Confluence</div>
     <div className="mhfd-mobile">
       <h6>About the Platform</h6>
       <p>Confluence is your one-stop Mile High Flood District data portal.
