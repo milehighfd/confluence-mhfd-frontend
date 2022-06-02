@@ -211,7 +211,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
         <div className="logo-00">
           <img src="/Icons/Confluence-Color-Tagline.svg" alt="" />
         </div>
-        <TabPane  tab="Welcome!" key="1">
+        <TabPane tab="Welcome!" key="1">
          <img className="img-tuto" src="/Icons/tuto.png" alt="" width="485px" />
            <div className="content">
               <p>
@@ -348,6 +348,8 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             </p>
          </div>
         </TabPane>
+      </Tabs>
+      <div>
         <Button className="btn-purple" onClick={() => {
           const auxKey = +key + 1;
           if(auxKey === 9) {
@@ -356,7 +358,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             setKey('' + auxKey)
           }
         }} >Continue</Button>
-      </Tabs>
+      </div>
     </Modal>
     <Modal
      visible={state.visible1}

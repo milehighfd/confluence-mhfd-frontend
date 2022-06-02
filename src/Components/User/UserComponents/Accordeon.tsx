@@ -155,18 +155,18 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
 
   const genExtra = () => (
     <Row className="user-head" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col span={19} onClick={() => {
+      <Col xs={{ span: 19 }} lg={{ span: 19 }} onClick={() => {
         console.log('click click');
         setActivated(!activated);
       }}>
         <h6>{pos + '. ' + user.firstName + ' ' + user.lastName}</h6>
       </Col>
-      <Col span={3} style={{ textAlign: 'right' }}>
+      <Col xs={{ span: 3 }} lg={{ span: 3 }} style={{ textAlign: 'right' }}>
         <div>
           <Switch className={'switch-options'} checked={user.status === 'approved' ? true: false} onChange={handleSwitchButton} />
         </div>
       </Col>
-      <Col span={1} style={{ textAlign: 'right' }} onClick={() => {
+      <Col xs={{ span: 1 }} lg={{ span: 1 }} style={{ textAlign: 'right' }} onClick={() => {
         setActivated(!activated);
       }} >
         <img src={activated ? "/Icons/icon-21.svg" : "/Icons/icon-20.svg"} alt="" />
@@ -217,11 +217,11 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
             <hr></hr>
             <div className="gutter-example">
               <h3>USER DESIGNATION</h3>
-              <Row gutter={16}>
+              <Row gutter={[16, 16]}>
                 <Radio.Group name="designation" value={designation} onChange={(event) => {
                   values.designation = event.target.value;
                   setDesignation(event.target.value);
-                }} style={{ width: '100%' }}>
+                }} style={{display: 'inline-flex', width: '100%', alignSelf: 'stretch'}}>
                   {RADIO_ITEMS.map((item: { value: string, name: string }, index: number) => {
                     return <RadioItemsView key={index} index={index} value={item.value} name={item.name} />
                   })}

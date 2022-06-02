@@ -86,7 +86,6 @@ export const saveCapital = (data: any) => {
     })
   };
 };
-
 export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -113,7 +112,6 @@ export const saveMaintenance = (data: any) => {
     })
   };
 };
-
 export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -140,7 +138,6 @@ export const saveStudy = (data: any) => {
     })
   };
 };
-
 export const editSpecial = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -248,7 +245,6 @@ export const editMaintenance = (data: any) => {
     })
   };
 };
-
 export const editCapital = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
@@ -344,7 +340,6 @@ export const changeAddLocationState = (isAddLocation: boolean) => {
     dispatch({type: types.ADD_LOCATION, isAddLocation});
   }
 }
-
 export const getComponentsIntersected = (geom: any) => {
   
   return (dispatch: Function) => {
@@ -360,24 +355,6 @@ export const setComponentIntersected = (listComponents: any) => {
     dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
   }
 } 
-
-export const getComponentsSorted = ( components: any) => {
-  return (dispatch: Function) => {
-    datasets.postData(SERVER.GET_LIST_COMPONENTS_SORTED, components, datasets.getToken()).then(listComponents => {
-      dispatch({type: types.SET_LIST_COMPONENTS, listComponents});
-    });
-  }
-}
-// this can receive geom or not, if geom add components, else just update components fields 
-export const addComponentsByPolygon = (components: any, geom: any) => {
-  return (dispatch: Function) => {
-    datasets.postData(SERVER.ADD_COMPONENTS_POLYGON, {components, geom}, datasets.getToken()).then(data => {
-      // set components and set streams 
-      // dispatch({type: types.SET_LIST_COMPONENTS, listComponents: data.components });
-      // dispatch({type: types.SET_STREAM_INTERSECTED, streamIntersected: data.geom});
-    });
-  }
-}
 
 export const getServiceAreaPoint = (geom:any ) => {
   return (dispatch: Function) => {

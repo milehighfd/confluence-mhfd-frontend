@@ -97,7 +97,6 @@
     left: 0px;
     margin-bottom: 30px;
     padding-left: 24px;
-
     img{
       width: 140px;
     }
@@ -119,18 +118,29 @@
   }
   .ant-tabs-ink-bar{
     background-color: $green;
+    width: 5px !important;
   }
   .ant-modal-body{
+    margin-top: -18px;
     padding-left: 0px;
+    border-radius: 6px;
+    height: 540px;
   }
   .ant-tabs .ant-tabs-left-bar .ant-tabs-tab {
     text-align: left;
   }
   .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, .ant-tabs .ant-tabs-right-bar .ant-tabs-tab {
     margin: 0px 0 8px 0;
+    color: $purple00;
   }
   .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
     color: $purple00;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $black !important;
+  }
+  .ant-tabs-left>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab, .ant-tabs-left>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab, .ant-tabs-right>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab, .ant-tabs-right>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
+    margin-top: 10px;
   }
   .ant-tabs{
     color: $opacity;
@@ -149,11 +159,6 @@
     font-size: 16px;
     color: $purple00;
   }
-  .btn-purple{
-    width: 140px;
-    padding: 10px 0px;
-    height: 40px;
-  }
   .ant-modal-close-x {
     width: 40px;
     height: 40px;
@@ -163,6 +168,12 @@
   }
   .ant-tabs .ant-tabs-left-bar .ant-tabs-nav-scroll, .ant-tabs .ant-tabs-right-bar .ant-tabs-nav-scroll {
     width: 192px;
+  }
+  .btn-purple{
+    width: 140px;
+    padding: 10px 0px;
+    height: 40px;
+    left: 210px;
   }
 }
 .notification-icon{
