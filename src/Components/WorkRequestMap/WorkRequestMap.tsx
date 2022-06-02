@@ -1021,7 +1021,6 @@ const WorkRequestMap = (type: any) => {
           let boardids = idsBoardProjects;
           allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
         } else {
-          console.log('carajo que ', new Date);
           allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111'] ] ]);
         }
       }
@@ -1073,12 +1072,10 @@ const WorkRequestMap = (type: any) => {
     }
   }
   const updateLayerSource = (key: string, tiles: Array<string>) => {
-    console.log('maaaaa',map.getSource(key), tiles, tiles.hasOwnProperty('error'), key);
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.addVectorSource(key,tiles);
       addTilesLayers(key);
     } else if (map.getSource(key)) {
-      console.log('map', map.getSource(key));
       map.getSource(key).setTiles(tiles);
       addTilesLayers(key); 
     }
