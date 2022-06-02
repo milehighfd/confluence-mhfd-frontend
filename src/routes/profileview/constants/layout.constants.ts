@@ -1,15 +1,3 @@
-// ProfileView Constants
-// export const content = (<div className="popoveer-00">View Problems within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
-// export const content00 = (<div className="popoveer-00">View Projects within the Area of Interest, as defined by the "Default Map Zoom Area" in the "Edit Profile" section</div>);
-// SidebarVire Constants
-export const stateValue = {
-  visible: false
-}
-// Collaborators Constants
-// export const genExtra = () => (
-//     <img src="/Icons/icon-20.svg" alt=""/>
-//   );
-
 
 import * as Yup from "yup";
 

@@ -12,12 +12,9 @@ const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
 const ConfirmPasswordRoute = lazy(() => import('./routes/confirm-password'));
 const MapRoute = lazy(() => import('./routes/map'));
-
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
-const ProfileView = lazy(() => import('./Components/Profile/ProfileView')); 
-// const ProfileView = lazy(() => import('../src/routes/profile-view/index'));   // 
-// const ProfileRoute = lazy(() => import('./routes/profileview'));   // 
+const ProfileView= lazy(() => import('./routes/profileview'));   // 
 const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
 const UserView = lazy(() => import('./Components/User/UserView'));

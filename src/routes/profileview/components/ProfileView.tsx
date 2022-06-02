@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, Tabs, Popover, Spin } from 'antd';
 
-import Navbar from  "./ProfileView" 
+import Navbar from "../../../../src/Components/Shared/Navbar/NavbarContainer"
 import SidebarView from "./SidebarView";
 import Collaborators from "./Collaborators";
 import TabPaneView from "./TabPaneView";
 import UserInformationView from "./UserInformationView";
+import ProfileHeader from "./ProfileHeader";
+import ProfileFilter from "./ProfileFilter";
+
 
 import { useMapDispatch, useMapState } from "../../../../src/hook/mapHook";
 import { useProfileState } from "../../../../src/hook/profileHook";
@@ -38,11 +41,13 @@ const ProfileView = () => {
       <Layout>
         <SidebarView></SidebarView>
         <Layout className="map-00 profile-00">
+          {/* <ProfileHeader /> */}
           <Row className="profile-header">
-            <UserInformationView
-              key="userProfile"
-              setFilter={setFilter} />
-          </Row>
+              <UserInformationView
+                key="userProfile"
+                setFilter={setFilter} />
+            </Row>
+          {/* <ProfileFilter /> */}
           <Row>
             <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
               <Spin className="loading-01" spinning={favoritesLoader > 0}>

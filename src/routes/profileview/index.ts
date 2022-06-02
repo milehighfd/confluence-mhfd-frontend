@@ -1,3 +1,3 @@
-import ProfileProvider from './components/ProfileProvider';
+import ProfileView from './components/ProfileView';
 
-export default ProfileProvider;
+export default ProfileView;
