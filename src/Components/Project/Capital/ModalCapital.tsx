@@ -712,7 +712,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             />
             <br/>
             {/*Second Section*/}
-            <h5>2. SELECT COMPONENTS</h5>
+            <h5>2. SELECT COMPONENTS <span className="required">&nbsp;*</span>&nbsp;<img src="/Icons/icon-08.svg" className="img-required" /></h5>
 
             <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
@@ -829,7 +829,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               }
             </Collapse>
             <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover>
-            <h5>3. PROJECT GEOMETRY </h5>
+            <h5>3. PROJECT GEOMETRY<span className="required">&nbsp;*</span></h5>
 
             <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>

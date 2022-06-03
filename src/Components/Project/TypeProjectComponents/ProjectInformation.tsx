@@ -51,7 +51,14 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
   }, [reasonForm, subReasonForm]);
   return(
     <>
-      <h5>1. Project Information</h5>
+      <Row>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
+          <h5>1. Project Information<span className="required">&nbsp;*</span></h5>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
+          <p className="required-text"><span className="required">*&nbsp;</span>Required</p>
+        </Col>
+      </Row>
       <Row gutter={[16, 16]}>
         {type && type === NEW_PROJECT_TYPES.Study && (
           <>
