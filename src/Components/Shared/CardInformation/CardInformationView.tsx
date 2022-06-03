@@ -122,11 +122,11 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
         setVisible={setVisible}
       />}
 
-      <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', width: '100%', alignSelf: 'stretch'}}>
-      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : ''}}>
+      <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', alignSelf: 'stretch', width: '100%'}}>
+      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
         <Card
           hoverable
-          style={{width: '100%', marginTop: '7px', marginLeft: '2px', marginRight: '-10px'}}
+          style={{ width: '100%' }}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}

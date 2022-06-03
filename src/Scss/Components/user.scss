@@ -77,25 +77,25 @@
   font-family: $ubunto;
   
   .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: $black !important;
-    font-weight: 500;
+    color: $purple !important;
     font-size: 16px;
     font-family: $ubunto;
-    font-weight: 400;
+    font-weight: 400 !important;
   }
   .ant-tabs-nav .ant-tabs-tab {
-    padding: 12px 0px;
+    padding: 11.5px 0px !important;
     font-size: 16px;
     font-family: $ubunto;
     color: $opacity;
     font-weight: 400;
   }
   .ant-tabs-ink-bar {
-    height: 3px;
-    background-color: $black;
+    height: 3px !important;
+    background-color: $purple;
+    margin-bottom: 1.5px;
   }
   .ant-tabs-nav .ant-tabs-tab:hover {
-    color: $black;
+    color: $purple;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
     display: none;

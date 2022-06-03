@@ -197,10 +197,10 @@
     background-color: transparent;
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector{
-    border-radius: 6px !important;
+    border-radius: 4px !important;
   }
   .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
-    border-radius: 6px !important;
+    border-radius: 4px !important;
   }
   .ant-input-affix-wrapper .ant-input-suffix {
     left: 12px;
@@ -208,7 +208,7 @@
   }
   .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
     margin-right: -30px;
-    margin-top: 4px;
+    margin-top: 2.5px;
     z-index: 100;
     padding: 3.5px;
     border: 0;
@@ -1329,7 +1329,7 @@
   padding: 11px;
   height: 40px;
   line-height: 14px;
-  margin: 5px 0px;
+  margin-top: -6px;
   position: relative;
   font-size: 12px;
 
@@ -1374,7 +1374,7 @@
   padding: 11px;
   height: 40px;
   line-height: 14px;
-  margin: 5px 0px;
+  margin-top: -6px;
   position: relative;
   font-size: 12px;
 
@@ -1395,22 +1395,23 @@
 }
 .tabs-map{
   .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
-    color: $black !important;
-    padding: 0px -10px 0px -10px !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
+    color: $purple !important;
+    padding: 0px -10px 0px -10px!important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
   }
   .ant-tabs-nav .ant-tabs-tab {
     padding: 15px 0px 15px 0px !important;
     margin: 0 20px 0 0;
     font-size: 15px;
+    color: $opacity;
+    font-weight: 400;
   }
   .ant-tabs-ink-bar {
-    background-color: $black !important;
+    background-color: $purple !important;
   }
   .ant-tabs-nav .ant-tabs-tab:hover {
-    color: $dark !important;
-    background-color: transparent;
+    color: $purple !important;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: none;
@@ -1435,6 +1436,11 @@
     border: none;
     background: transparent;
   }
+  .ant-tabs-ink-bar {
+    height: 2px !important;
+    background-color: $purple;
+    margin-bottom: 1.5px !important;
+  }
   .ant-collapse-content {
     background-color: $opacity00;
     border-top: none;
@@ -1446,12 +1452,12 @@
   .ant-collapse-content>.ant-collapse-content-box {
     padding: 20px 15px 0px 15px;
   }
-
 }
 .over-00{
-  color: $dark !important;
+  margin-top: -3px;
+  margin-left: -6px;
   .ant-tabs-bar {
-    margin: 0 15px 16px;
+    margin: 0 15px 16px !important;
   }
 }
 
@@ -1577,10 +1583,9 @@
   }
 }
 .card-map{
-  padding-right: 7px;
+  padding: 8px 8px 0px 8px;
   .card-title-s{
     height: 40px;
-    width: 220px;
   }
   .ant-card-bordered {
     border: none;
@@ -1590,9 +1595,12 @@
     border-radius: 10px 10px 6px 6px;
   }
   .ant-card{
+    width: 100% !important;
     background: $white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
     border-radius: 8px 8px 6px 6px;
+    padding: 0px;
+    margin: 0px;
   }
   .ant-card-hoverable:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
@@ -1689,7 +1697,7 @@
   -ms-transform: translate(-50%, -50%);
   background: rgba(0,0,0,0.5);
   height: 100%;
-  width: 100%;
+  width: 100% !important;
   border-radius: 6px 6px 0px 0px;
 }
 .card-button-hover:hover .image {
