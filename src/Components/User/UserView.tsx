@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Tabs, Pagination, Button, Table } from 'antd';
-import Navbar from "../Shared/Navbar/NavbarContainer";
-import SidebarView from "../Shared/Sidebar/SidebarView";
+import Navbar from "../../routes/profile-view/components/NavbarContainer";
+import SidebarView from "../../routes/profile-view/components/SidebarView";
 import Accordeon from './UserComponents/Accordeon';
 import UserFilters from './UserFilters';
 import { SERVER } from "../../Config/Server.config";

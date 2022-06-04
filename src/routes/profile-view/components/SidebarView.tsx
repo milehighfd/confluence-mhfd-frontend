@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Layout } from 'antd';
-import '../../../Scss/Components/sidebar.scss';
 import SidebarMenu from './SidebarMenu';
 import SidebarModal from './SidebarModal';
+import '../../../Scss/Components/sidebar.scss';
 
 const { Sider } = Layout; 
 
-export default () => {
+const SidebarView = () => {
 
   const [collapsed, setCollapsed] = useState<boolean>(true);
 
@@ -15,3 +15,5 @@ export default () => {
     <SidebarModal />
   </Sider>
 };
+
+export default SidebarView;

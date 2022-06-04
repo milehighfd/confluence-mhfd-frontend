@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Modal } from 'antd';
 import '../../../Scss/Components/sidebar.scss';
+import { stateValue } from "../constants/layout.constants";
 
-const stateValue = {
-    visible: false
-}
-
-export default () => {
+const SidebarModal = () => {
     const [state, setState] = useState(stateValue);
 
     const handleOk = (e: any) => {
@@ -24,7 +21,7 @@ export default () => {
     };
 
   return (
-    <Modal
+  <Modal
     centered
     visible={state.visible}
     onOk={handleOk}
@@ -54,3 +51,5 @@ export default () => {
   </Modal>
   )
 };
+
+export default SidebarModal;

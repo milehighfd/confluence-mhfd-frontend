@@ -5,7 +5,7 @@ import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
 import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
 import { User } from "../../../Classes/TypeList";
-import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
+import ModalEditUserView from "./ModalEditUserView";
 import '../../../Scss/Components/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
 import { useMapDispatch } from "../../../hook/mapHook";
@@ -451,3 +451,4 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   </Header>
 
 }
+

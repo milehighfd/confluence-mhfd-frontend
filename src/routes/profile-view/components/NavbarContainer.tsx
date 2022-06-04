@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
-import NavbarView from './NavbarView';
+import  NavbarView from './NavbarView';
 import { bindActionCreators } from 'redux';
-import { replaceAppUser } from '../../../store/actions/appUser';
-import { updateUserInformation, getGroupOrganization } from '../../../store/actions/ProfileActions';
+import { replaceAppUser } from '../../../../src/store/actions/appUser';
+import { updateUserInformation, getGroupOrganization } from '../../../../src/store/actions/ProfileActions';
 
 const mapStateToProps = (state: any) => {
   return {

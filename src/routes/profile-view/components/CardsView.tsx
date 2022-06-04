@@ -78,8 +78,6 @@ const CardsView = ({
                         </div>
                         </div>
                     </div>
-                    
-
                 }
             >
                 <div style={{ height: 40 }}>

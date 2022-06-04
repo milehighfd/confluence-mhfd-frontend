@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Upload, Table, Button, Popover } from 'antd';
 
-import Navbar from '../Shared/Navbar/NavbarContainer';
-import SidebarView from '../Shared/Sidebar/SidebarView';
+import Navbar from '../../routes/profile-view/components/NavbarContainer';
+import SidebarView from '../../routes/profile-view/components/SidebarView';
 import moment from 'moment';
 import { useAttachmentDispatch, useAttachmentState } from '../../hook/attachmentHook';
 

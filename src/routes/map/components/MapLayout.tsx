@@ -3,8 +3,8 @@ import { Layout, Row, Col, Button, message } from 'antd';
 
 import Map from './Map';
 import MapView from './MapView';
-import Navbar from "../../../Components/Shared/Navbar/NavbarContainer";
-import SidebarView from "../../../Components/Shared/Sidebar/SidebarView";
+import Navbar from "../../../routes/profile-view/components/NavbarContainer";
+import SidebarView from "../../profile-view/components/SidebarView";
 import LoadingView from '../../../Components/Loading/LoadingView';
 
 import { COMPLETE_SCREEN, EMPTY_SCREEN, MAP_RESIZABLE_TRANSITION, PROBLEMS_TRIGGER, PROJECTS_MAP_STYLES, MEDIUM_SCREEN_RIGHT, MEDIUM_SCREEN_LEFT } from "../constants/layout.constants";

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, Tabs, Popover, Spin } from 'antd';
 
-import Navbar from "../Shared/Navbar/NavbarContainer";
-import SidebarView from "../Shared/Sidebar/SidebarView";
-import Collaborators from "./ProfileComponents/Collaborators";
-import TabPaneView from "./ProfileComponents/TabPaneView";
-import UserInformationView from "./ProfileComponents/UserInformationView";
+import Navbar from "../../routes/profile-view/components/NavbarContainer";
+import SidebarView from "../../routes/profile-view/components/SidebarView";
+import Collaborators from "../../routes/profile-view/components/Collaborators";
+import TabPaneView from "../../routes/profile-view/components/TabPaneView";
+import UserInformationView from "../../routes/profile-view/components/UserInformationView";
 
 import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { useProfileState } from "../../hook/profileHook";

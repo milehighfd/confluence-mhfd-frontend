@@ -5,14 +5,12 @@ import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "../constants/layout.constants";
 import '../../../Scss/Components/sidebar.scss';
 
-
-export default () => {
+const SidebarMenu = () => {
    
      const [collapsed, setCollapsed] = useState<boolean>(true);
      const location = useLocation();
      const appUser = store.getState().appUser;
      const indexOf = "" + ROUTERS_SIDEBAR.indexOf(location.pathname);
-   
      const showWorkRequestPlan = (appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff')
      const userApproved = appUser.status === 'approved';
    
@@ -91,17 +89,8 @@ export default () => {
           <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>settings</span>
         </Link>
       </Menu.Item> : ''}
-      {/* <Menu.Item key="9" className="menu-desktop">
-        <a onClick={showModal}>
-          <i className="anticon mdi mdi-help-circle-outline"/>
-          <span></span>
-        </a>
-      </Menu.Item>
-      <Menu.Item key="10" className="menu-desktop">
-        <Link to={''}>
-          <i className="anticon mdi mdi-logout" />
-        </Link>
-      </Menu.Item> */}
   </Menu>
   )
 }
+
+export default SidebarMenu;
