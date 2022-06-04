@@ -42,7 +42,6 @@ const openNotification = () => {
   });
 };
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-// important note tabkeys order must be fits with popovers messages, take care about the order!
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -101,8 +100,6 @@ const RequestView = ({ type, isFirstRendering }: {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
       setRightWitdh(MEDIUM_SCREEN_RIGHT);
-      // setLeftWidth(COMPLETE_SCREEN);
-      // setRightWitdh(EMPTY_SCREEN);
       setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
     } else {
       setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
@@ -246,7 +243,6 @@ const RequestView = ({ type, isFirstRendering }: {
         _locality = userResponse.organization;
       }
       getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
-      // getData(`${'http://localhost:3003'}/locality/${type}`, getToken())
         .then(
           (r: any) => {
             setLocalities(r.localities);
@@ -317,7 +313,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setCurrentDataForBoard(data);
     setColumns(defaultColumns);
     postData(`${SERVER.URL_BASE}/board/`, data)
-    // postData(`${'http://localhost:3003'}/board/`, data)
       .then(
         (r: any) => {
           if (!r) return;
@@ -351,7 +346,6 @@ const RequestView = ({ type, isFirstRendering }: {
 
             let cols = generateColumns(projects, year, tabKey);
             setColumns(cols);
-            // console.log('my cols ', cols);
           }
         },
         (e) => {
@@ -406,7 +400,6 @@ const RequestView = ({ type, isFirstRendering }: {
         projecttype: tabKey
       }
       postData(`${SERVER.URL_BASE}/board/`, data)
-      // postData(`${'http://localhost:3003'}/board/`, data)
         .then(
           (r: any) => {
             if (!r) return;
@@ -590,7 +583,6 @@ const RequestView = ({ type, isFirstRendering }: {
         newObj[`position${posIdx+1}`] = pos;
       })
 
-      // Remove old references to project
       temporalColumns = temporalColumns.map((tc: any) => {
         return {
           ...tc,
@@ -777,10 +769,10 @@ const RequestView = ({ type, isFirstRendering }: {
                         }}
                       >
                         <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
-                          prefix={<i className="mdi mdi-circle"></i>}
-                          suffix={dropdownIsOpen ? <UpOutlined /> : <DownOutlined />} />
+                          prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '999'}}></i>}
+                          suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)', marginRight: '-18px', marginLeft: '-6px' }}/>
                       </AutoComplete> : <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
-                          readOnly={true} prefix={<i className="mdi mdi-circle"></i>} />
+                          readOnly={true} prefix={<i className="mdi mdi-circle"></i>}/>
                       }
                       
                     </div>
@@ -790,10 +782,10 @@ const RequestView = ({ type, isFirstRendering }: {
                       defaultValue={year}
                       value={`Year ${year}`}
                       onChange={setYear}
-                      className={'ant-select-2'}>
+                      className={'ant-select-2'} >
                       {
                         years.map((y, i) => (
-                          <Option key={i} value={y}>Year {y}</Option>
+                          <Option key={i} value={y} style={{marginRight: '10px', marginLeft: '10px'}}>Year {y}</Option>
                         ))
                       }
                     </Select>

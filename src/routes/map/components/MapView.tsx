@@ -571,7 +571,7 @@ const MapView = () => {
         setData(auxData);
       }
     }
-    setNameZoomArea(zoomarea); // add for the dropdown
+    setNameZoomArea(zoomarea); 
   }, []);
 
   const handleToggle = () => {
@@ -678,9 +678,9 @@ const MapView = () => {
   }
 
   const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer', marginTop: '-3px' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col>
-        <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent' }}>
+        <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent', fontSize: '12px', marginTop: '-6px', color: 'rgba(17, 9, 60, 0.5)' }}>
           Apply map view to filters
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)
@@ -711,7 +711,7 @@ const MapView = () => {
               getGalleryProjects();
             }
           }}>
-          <span className="menu-item-text">{item.title}</span>
+          <span className="menu-item-text" style={{ height: '10px' }}>{item.title}</span>
         </Menu.Item>
       ))}
     </Menu>
@@ -784,7 +784,7 @@ const MapView = () => {
       MHFD has developed Confluence from the ground up to meet the unique data needs of a
       regional flood control and stream management district.</p>
     </div>
-    <div className="count" style={{ paddingBottom: '0px' }}>
+    <div className="count" style={{ paddingBottom: '0px', marginTop: '1px' }}>
       {displayModal && visible && <DetailedModal
         detailed={detailed}
         type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
@@ -847,9 +847,9 @@ const MapView = () => {
           </Col>
         </Row>
       </div>
-
       {!toggleFilters ?
-        <Tabs onTabClick={(e: string) => {
+        <div style={{ marginRight: '-9px' }}>
+          <Tabs onTabClick={(e: string) => {
           if (e === '0') {
             setTabActive('0');
             setTabCards(PROBLEMS_TRIGGER);
@@ -915,7 +915,7 @@ const MapView = () => {
               totalElements = cardInformation.length;
             }
             return (
-              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
+              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom" style={{width: '100%'}}>{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
                 <GenericTabView
                   key={value + index}
                   type={value}
@@ -926,6 +926,7 @@ const MapView = () => {
             );
           })}
         </Tabs>
+        </div>
         :
         <FiltersProjectView
           tabActive={tabActive}

@@ -91,7 +91,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
       setState(auxState);
     };
   const [redirect, setRedirect] = useState(false);
-  // const user = store.getState().profile.userInformation;
   const name = user.firstName;
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
   const location = useLocation().pathname.split('/');
@@ -139,7 +138,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const hideProfile = () => {
     setOpenProfile(false);
   }
-  //  className="menu-login-dropdown" className="login-dropdown"
   const menu = (
     <Menu className="menu-login-dropdown">
       {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }

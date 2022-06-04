@@ -29,7 +29,6 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   const fillColor = '#ffdd04';
   const opaquedColor = '#fce9a6';
 
-  // TODO: change data on component endpoint
   data = data.map((d: any) => {
     return {
       ...d,
@@ -128,10 +127,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
 
     var svg = d3
       .select(svgRef.current)
-      // .attr('width', width + 20)
-      // .attr('height', height + 20)
       .attr("viewBox", `0 0 ${width + 20} ${height + 20}`)
-      // .attr('transform', `translate(${25}, 0)`)
 
     var x = d3.scaleBand()
       .rangeRound([marginLeft, width])

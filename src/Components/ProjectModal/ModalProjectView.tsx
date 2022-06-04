@@ -46,15 +46,11 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   const [visibleStudy, setVisibleStudy] = useState(false);
   const [allowed, setAllowed] = useState<string[]>([]);
   const {getAttachmentByProject} = useAttachmentDispatch();
-  const showModal = () => {
-    setVisibleModal(true);
-    setNameProject('');
-  };
+  
   const handleOk = (e: any) => {  
     let dataForBoard = {...currentData};
     dataForBoard.projecttype = typeProject;
     postData(`${SERVER.URL_BASE}/board/`, dataForBoard)
-    // postData(`${'http://localhost:3003'}/board/`, data)
       .then(
         (r: any) => {
           let { board, projects } = r; 
@@ -243,10 +239,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       data={data}
       editable= {editable}
      />}
-     {/*<Button show modal */}
-     {/*<Button type="primary" onClick={showModal}>
-       Open Modal
-     </Button>*/}
      {visibleModal && <Modal
        title="Create Project"
        centered
@@ -265,11 +257,9 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
          </Button>,
        ]}
      >
-     {/*Name*/}
       <h4>Name</h4>
       <Input placeholder="Name your project in the format: STREAM NAME @ LOCATION 202X" onChange={(nameProject)=> onChange(nameProject)} value= {nameProject} onPressEnter = {handleOk}  />
       <br/><br/>
-      {/*Buttons*/}
       <h4>Choose a Project Type</h4>
       <Row gutter={[16, 16]} >
         {
@@ -349,7 +339,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       </Row>
       <br/>
 
-      {/*Buttons*/}
       {visibleSubType && <> <h4>Choose a Subtype</h4>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management)} >

@@ -3,8 +3,6 @@ import React from 'react';
 import { boardType } from './RequestTypes';
 import { formatter } from './RequestViewUtil';
 
-
-
 const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
   type: boardType,
   countySum: any,

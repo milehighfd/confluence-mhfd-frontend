@@ -42,12 +42,10 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       color: DEFAULT_COLOR,
       opacity: 1,
     },...colorsList];
-    // filter by available colors 
     auxColorList = auxColorList.filter((color: any)=> {
       const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color._id);
       return findColor;
     })
-    // add selected field
     auxColorList.forEach((color: any) => {
       const findColor = currentSelected.find((selected: any) => selected._id === color._id);
       if (findColor) {
@@ -228,7 +226,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Zoom to</span>
       </Menu.Item>
       <Menu.Item onClick={() => {
-        //it's destroying the app , but the endpoint works well :) <3
         deleteNote(note._id);
       }}>
         <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
@@ -298,7 +295,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       const indexOfBelow = newTree[index].children.findIndex((note: any) => note.id === below);
       if (indexOfBelow !== -1) {
         console.log(indexOfBelow, newTree[index].children.length);
-        // selectedNote[position] = newTree[indexOfBelow][position];
         if (indexOfBelow + 1 < newTree[index].children.length) {
           console.log('enter to this if');
           selectedNote.data['position'] = ~~((newTree[index].children[indexOfBelow].data['position'] 
@@ -321,7 +317,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       const indexOfBelow = newTree.findIndex((note: any) => note.id === below);
       console.log('my indexOf Below ', indexOfBelow, newTree.length);
       if (indexOfBelow !== -1) {
-        // selectedNote[position] = newTree[indexOfBelow][position];
         if (indexOfBelow + 1 < newTree.length) {
           selectedNote.data['position'] = ~~((newTree[indexOfBelow].data['position'] + newTree[indexOfBelow + 1].data['position']) / 2);
         } else {
@@ -362,7 +357,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       title={<div className="comment-title">
               <h5>MAP NOTES</h5>
               <Button onClick={onClose}>
-                {/* <img src="/Icons/left-arrow.svg" alt="" width="18px" /> */}
                 <span className="arrow-left"></span>
               </Button>
             </div>}
@@ -376,13 +370,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       style={{ marginLeft: '58px', width: '0px'}}
     >
       <h3>
-      {/* Feature Layers
-      <Dropdown overlay={createOptions} trigger={['click']}>
-        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-         + <DownOutlined />
-      </a>
-      </Dropdown> */}
-        {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button></h3> */}
       </h3>
       <div className="a-layers">
         <span className="title">Feature Layers</span>  
@@ -401,10 +388,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         mapFunctions={mapFunctions}
         swapPositions={swapPositions}
       />            
-      {/* <Button className={swSave===true? "button-active" :"btn-opacity" } onClick={() => {addToMap(); setSwSave(true);}}  >+</Button>
-      <Popover trigger="focus" placement="bottomRight" content={content} overlayClassName="popover-note">
-        <Button className="type-popover"><i className="mdi mdi-circle-medium"></i> {filter === 'all' ? 'All Types' : filter[0].toUpperCase() + filter.slice(1)} <DownOutlined /></Button>
-      </Popover>  */}
       </Drawer>
   </>
   )

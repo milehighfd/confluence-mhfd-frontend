@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline , Tooltip } from 'antd';
+import { useSelector } from 'react-redux';
+import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { AlertView } from "../../Alerts/AlertView";
@@ -13,20 +13,12 @@ import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 
-const { TextArea } = Input;
 const { Option } = Select;
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Projects identified in a MHFD master plan that increase conveyance or reduce flow and require a 50% local match.</div>);
 const contentIndComp = (<div className="popver-info">Independent Components should be added to represent any known project components that are not already shown in the Components layer. Independent Component costs should reflect only the cost of construction; they will have Overhead Costs applied to them</div>);
-const content01 = (<div className="popver-info"></div>);
-const content02 = (<div className="popver-info"></div>);
-const content03 = (<div className="popver-info"></div>);
-const content04 = (<div className="popver-info"></div>);
-const content05 = (<div className="popver-info"></div>);
 const contentOverheadCost = (<div className="popver-info"> Overhead Cost includes all costs beyond the costs of physical construction (Subtotal Cost). The default values shown here can and should be changed when different percentages are anticipated, such as in urban settings. Please add a description explaining any changes from default values. </div>);
 const contentAdditionalCost = (<div className="popver-info"> Enter any additional costs here that were not captured previously as Components, Independent Components, or Overhead Costs. Additional Costs (unlike Independent Components) will NOT have Overhead Costs applied to them. </div>);
-const content08 = (<div className="popver-info"></div>);
-const content09 = (<div className="popver-info"></div>);
 const content10 = (<div className="popver-info">The Component Status indicates whether or not the Component has already been built (Complete) or still needs to be built (Proposed).</div>);
 let flagInit = false;
 const stateValue = {
@@ -38,14 +30,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 0
 });
-const genExtra = () => (
-  <Row className="tab-head-project">
-    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>West Tollgate Creek GSB Drops </Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>Aurora</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 5}} xxl={{ span: 5 }}>PrelimDesign</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 3}} xxl={{ span: 4 }}>$450,200</Col>
-  </Row>
-);
+
 const genExtra05 = (totalIndependentComp: any) => (
   <Row className="tab-head-project">
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Component</Col>
@@ -110,11 +95,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
 }
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
-  let Component = {
-    type:"Unnamend Component",
-    status:"Proposssssed",
-    original_cost:0,
-  };
+ 
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const {userInformation,organization} = useProfileState();
@@ -135,7 +116,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
   const [componentsToSave, setComponentsToSave] = useState([]);
-  const [panelUnnamedComponent, setPanelUnnamedComponent] = useState<any[]>([]);
   const [problems, setProblems] = useState({});
   const [geom, setGeom] = useState();
   const [name, setName ] = useState(false);
@@ -147,14 +127,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [keys, setKeys] = useState<any>(['-false']);
   const [additionalCost, setAdditionalCost] = useState<number>(0);
   const [additionalDescription, setAdditionalDescription] = useState("");
-  const [totalCost, setTotalCost] = useState(0);
   const [overheadDescription, setOverheadDescription] = useState("");
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
   const history = useHistory();
-  const [prevList, setPrevList] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
 
   useEffect(()=>{
@@ -220,7 +198,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }
       setSponsor(data.sponsor);
       setTimeout(()=>{
-        // setStreamIntersected({geom:data.createdCoordinates});
         getGEOMByProjectId(data.projectid)
       },2200);
     } else {
@@ -232,9 +209,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[data]);
 
   useEffect(()=>{
-    // if(independentComponents.length > 0) {
       setIndependentComponents(independentComponents);
-    // }
   },[independentComponents]);
   useEffect(()=>{
     if(componentsFromMap.length > 0 ) {
@@ -254,24 +229,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const myset = new Set(keys);
-      // Object.keys(listComponents.groups).map((key: any,id:any) => {
-      //   if (listComponents.groups[key].components.length) {
-      //     idKey.push(id + '-collapse1');
-      //   }
-      // });
-      // console.log("ID KEYS", idKey);
-      // setKeys(idKey);
       Object.keys(listComponents.groups).map((key:any, id:any) => {
         if(!groups[key]){
           myset.add(key+'-collapse1');
         } else if( listComponents.groups[key].components.length != groups[key].components.length){
           myset.add(key+'-collapse1');
         }
-        
-        // si es undefined se pone al idkey, sino 
-        // if (listComponents.groups[key].components.length) { 
-        //   idKey.push(key+'-collapse1')
-        // }
       });
       setKeys(Array.from(myset));
       setGroups(listComponents.groups);
@@ -343,11 +306,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.additionalcostdescription = additionalDescription;
       capital.components = componentsToSave? JSON.stringify(componentsToSave, null, 2 ): [];
       capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
-     // capital.locality = locality? locality:'';
       capital.editProject = editprojectid;
       capital.cover = cover;
       capital.estimatedcost = getTotalCost();
-      // console.log( JSON.stringify(capital, null, 2),"****+++CAPITAL******")
       if(swSave){
         editProjectCapital(capital);
       }
@@ -385,19 +346,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
     return totalSumCost;
   }
-  const projectReturn = useSelector((state:any)=>({
-    state
-  }));
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
     
     if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== ''  && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0){
-      // if(locality === "no locality" ){
-      //   setDisable(false);
-      // }else{
         setDisable(false);
-      // }\
     }
     else{setDisable(true);}
   },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected]);
@@ -407,9 +361,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[nameProject]);
   const onChange = (e: any) =>{
     setNameProject(e.target.value);
-    /*if(name===true){
-      setNameProject(e.target.value);
-    }*/
   };
   const apllyName = ()=>{
     if(name === true){
@@ -431,22 +382,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const handleOk = (e: any) => {
       setVisibleAlert( true);
   };
-
-  // useEffect(()=>{
-  //   if(swSave === true){
-  //     // if(locality !== currentServiceAreaCounty.jurisdiction){
-  //     //   alert("It is not within your jurisdiction.");
-  //     // }
-  //   }else{
-  //     if(currentServiceAreaCounty.jurisdiction ){
-  //       // if(locality !== currentServiceAreaCounty.jurisdiction){
-  //       //   if(locality !== "no locality"){
-  //       //    alert("It is not within your jurisdiction.");
-  //       //   }
-  //       // }
-  //     }
-  //   }
-  // },[currentServiceAreaCounty.jurisdiction]);
 
   const handleCancel = (e: any) => {
     console.log(e);
@@ -559,7 +494,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     for(let ic of currentComponents) {
       if( ic.index == indComp.index) {
         let newIC = indComp;
-        //newIC[key] = value.target.value;
         let newValue=value.target.value
         if(key === 'cost'){
           let vAlue = newValue.replace("$", "");
@@ -616,18 +550,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     getZoomGeomProblem(problemid);
   }
   const setKeyOpenClose = (groupid: any) => {
-    // if( keys.find((key:any) => (groupid+'-collapse1') == key) ) {
-    //   console.log("IS HERE", keys, groupid);
-    //   let k = keys.filter((key:any) => ((groupid+'-collapse1') != key && '-1200-collapse1' != key ));
-    //   if(k.length > 0) {
-    //     setKeys(k);
-    //   } else {
-    //     setKeys(['-1200-collapse1'])
-    //   }
-      
-    // } else {
-    //   setKeys([...keys, groupid+'-collapse1']);
-    // }
   }
   
   const getTextWidth = (text: any) => {
@@ -668,7 +590,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
-          {/* mapitash */}
           <CreateProjectMap type="CAPITAL" locality={locality} projectid={projectid} isEdit={swSave} problemId={problemId}></CreateProjectMap>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
@@ -687,10 +608,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     height: lengthName > 259 ? 'unset' :'34px'
                   }} />
                 </label>
-                {/*<Input placeholder={nameProject} onChange={(nameProject)=> onChange(nameProject)}  />*/}
-                {/*<Button className="btn-transparent">
-                  <img src="/Icons/icon-04.svg" alt="" height="18px" onClick={()=> apllyName()} />
-                </Button>*/}
                 <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
 
@@ -705,13 +622,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
           <div className="body-project">
 
-            {/*First Section*/}
             <ProjectInformation
               description = {description}
               setDescription = {setDescription}
             />
             <br/>
-            {/*Second Section*/}
             <h5>2. SELECT COMPONENTS</h5>
 
             <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
@@ -846,13 +761,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <p>Overhead Cost <Popover content={contentOverheadCost}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom: '2px'}} /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
-                {/* <Select placeholder="75%" dropdownClassName="menu-medium" >
-                  <Option value="75">75%</Option>
-                  <Option value="80">80%</Option>
-                  <Option value="85">85%</Option>
-                  <Option value="90">90%</Option>
-                  <Option value="95">95%</Option>
-                </Select> */}
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(getOverheadCost())}</Col>
             </Row>
@@ -1156,11 +1064,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format(getTotalCost() ? getTotalCost() : 0)}</b></Col>
             </Row>
 
-            {/*Section*/}
-            {/* <h5>3. GENERATE PROJECT <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
-            <Button className="btn-green">Show Project</Button> */}
-
-            {/*Section*/}
             <br></br>
             <LocationInformation
               setServiceArea = {setServiceArea}
@@ -1180,7 +1083,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             />
             <br/>
 
-            {/*Section*/}
             <UploadAttachment
               files={files}
               setFiles={setFiles}

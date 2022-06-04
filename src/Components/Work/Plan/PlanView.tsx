@@ -93,12 +93,6 @@ export default () => {
     }
   ])
 
-  useEffect(() => {
-    // WsService.receiveUpdate('work-plan', (data: any) => {
-    //   setColumns(data);
-    // })
-  }, [])
-
   const generateCard = (project: any) => {
     const {
       projectid,
@@ -161,7 +155,6 @@ export default () => {
       }
       return c;
     })
-    // WsService.sendUpdate('work-plan', newColumns);
     setColumns(newColumns);
   }
 
@@ -174,7 +167,6 @@ export default () => {
           <Row>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <div className="map">
-               {/* here goes the map*/}
               </div>
 
               <Button className="btn-coll" >

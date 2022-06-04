@@ -18,12 +18,12 @@ export const PROJECTS_MAP_STYLES = {
 };
 
 export const PROJECTS_POLYGONS = 'projects_polygon_';
-export const PROJECTS_DRAFT = 'mhfd_projects_created';
+export const PROJECTS_DRAFT = 'mhfd_projects_created' + process.env.REACT_APP_NODE_ENV ? ('_' + (process.env.REACT_APP_NODE_ENV === 'production' ? 'prod' :  process.env.REACT_APP_NODE_ENV)) : '';
 
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
-export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins';//'mep_projects_detention_basins';
-export const MEP_PROJECTS_CHANNELS = 'mep_channels'; //'mep_projects_channels';
-export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls'; // 'mep_projects_storm_outfalls';
+export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins';
+export const MEP_PROJECTS_CHANNELS = 'mep_channels'; 
+export const MEP_PROJECTS_STORM_OUTFALLS = 'mep_outfalls'; 
 
 export const ROUTINE_NATURAL_AREAS = 'routine_natural_area';
 export const ROUTINE_WEED_CONTROL = 'routine_weed_control';

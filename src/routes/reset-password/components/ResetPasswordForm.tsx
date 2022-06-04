@@ -7,11 +7,12 @@ import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
+import { REQUIRED } from "./constantsResetPassword";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email()
-    .required('Required'),
+    .required(REQUIRED),
   recaptcha: Yup.string()
     .min(5)
     .required()

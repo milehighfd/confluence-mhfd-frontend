@@ -209,7 +209,7 @@
   img {
     height: 20vh;
     object-fit: cover;
-    width: 100%;
+    width: 100% !important;
     border-radius: 6px 6px 0px 0px !important;
   }
   .ant-card-cover{
