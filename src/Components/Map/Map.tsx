@@ -869,11 +869,12 @@ const Map = ({ leftWidth,
                   getParamFilterComponents(boundsMap, optionscomp);
                 },1300);
               }
-              map.once('idle',() => {
-                setTimeout(()=>{
-                  loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
-                },1000);
-              });
+              // commented to prevent filter of dropdown area 
+              // map.once('idle',() => {
+              //   setTimeout(()=>{
+                  // loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+              //   },1000);
+              // });
            }
    
           },5000);
