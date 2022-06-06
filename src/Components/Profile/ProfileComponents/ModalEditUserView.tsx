@@ -248,7 +248,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <div id="sign-up-organization">
-                <Dropdown placement="topCenter" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                <Dropdown placement="top" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button className="btn-borde" style={{ paddingLeft: '10px' }} >
                     {values.zoomarea ? values.zoomarea : 'Default map zoom area'}
                     <img src="/Icons/icon-12.svg" alt="" />
