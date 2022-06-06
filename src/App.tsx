@@ -39,8 +39,8 @@ const App = () => {
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
+        <Route path={`/map`} component={MapRoute} />
         {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />}
-        {datasets.getToken() && appUser.email && <Route path={`/map`} component={MapRoute} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||

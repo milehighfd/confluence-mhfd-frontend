@@ -4,43 +4,8 @@ import * as detailedTypes from '../types/detailedTypes';
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
-import { ProjectTypes, OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
+import { OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
 import store from '..';
-
-export const createNewProjectForm = (data: ProjectTypes, files: Array<any>) => {
-    return (dispatch: Function, getState: Function) => {
-        const state = getState();
-        const county = state.map.newProject.jurisdiction;
-        const coordinates = state.map.newProject.coordinates;
-
-        if (coordinates.length) {
-            const dataForm: FormData = new FormData();
-            for (const key in data) {
-                dataForm.append(key, '' + data[key]);
-            }
-            dataForm.append('county', county);
-            dataForm.append('coordinates', JSON.stringify(coordinates));
-            if (files) {
-                for (const file of files) {
-                    dataForm.append('file', file.originFileObj);
-                }
-            }
-
-            datasets.postDataMultipart(SERVER.CREATE_PROJECT, dataForm, datasets.getToken()).then(project => {
-                if (project?._id) {
-                }
-            });
-        } else {
-            dispatch({ type: types.SET_ERROR_MESSAGE, error: constants.NO_POLYGON_ERROR });
-        }
-    }
-}
-
-export const clearErrorMessage = () => {
-    return (dispatch: Function) => {
-        dispatch({ type: types.SET_ERROR_MESSAGE, error: '' });
-    }
-}
 
 export const getMapTables = (trigger: string, name?: string) => {
     return (dispatch: Function, getState: Function) => {
@@ -56,6 +21,16 @@ export const getMapTables = (trigger: string, name?: string) => {
         }
     }
 }
+
+export const getMapWithSublayers = (trigger: any, tiles: any, name: any) => ({
+    type: types.GET_MAP_WITH_SUBLAYERS,
+    data: { trigger, tiles, name }
+});
+
+export const getMapLayers = (trigger: any, tiles: any) => ({
+    type: types.GET_MAP_LAYERS,
+    data: { trigger, tiles }
+});
 
 export const updateSelectedLayers = (selectedLayer: any) => {
     return (dispatch: Function) => {

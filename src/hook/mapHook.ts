@@ -14,8 +14,8 @@ import {
   existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
   getComponentsByProblemId, getMapTables,
   getComponentsByProjid, replaceFilterCoordinates, resetMap,
-  clearErrorMessage, setFilterCoordinates, setProblemKeyword,
-  setProjectKeyword, getParamsFilter
+  setFilterCoordinates, setProblemKeyword,
+  setProjectKeyword, getParamsFilter, getMapWithSublayers, getMapLayers
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
@@ -154,7 +154,6 @@ export const useMapDispatch = () => {
     getMapTables: (trigger: any, name?: any) => {
       dispatch(getMapTables(trigger, name));
     },
-
     getComponentsByProjid: (projectid: any, setCounter: Function) => {
       dispatch(getComponentsByProjid(projectid, setCounter));
     },
@@ -163,9 +162,6 @@ export const useMapDispatch = () => {
     },
     resetMap: () => {
       dispatch(resetMap());
-    },
-    clearErrorMessage: () => {
-      dispatch(clearErrorMessage());
     },
     setFilterCoordinates: (coordinates: string, tab: string) => {
       dispatch(setFilterCoordinates(coordinates, tab));
@@ -178,6 +174,12 @@ export const useMapDispatch = () => {
     },
     getParamsFilter: (bounds: string) => {
       dispatch(getParamsFilter(bounds));
+    },
+    getMapWithSublayers: (trigger: any, tiles: any, name: any) => {
+      dispatch(getMapWithSublayers(trigger, tiles, name));
+    },
+    getMapLayers: (trigger: any, tiles: any) => {
+      dispatch(getMapLayers(trigger, tiles));
     }
   }
 }
