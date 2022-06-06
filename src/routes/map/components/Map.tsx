@@ -640,11 +640,11 @@ const Map = ({
                   getParamFilterComponents(boundsMap, optionscomp);
                 },1300);
               }
-              map.once('idle',() => {
-                setTimeout(()=>{
-                  loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
-                },1000);
-              });
+              // map.once('idle',() => {
+              //   setTimeout(()=>{
+              //     loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+              //   },1000);
+              // });
            }
    
           },5000);
