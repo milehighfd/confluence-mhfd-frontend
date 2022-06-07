@@ -221,7 +221,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     <Menu
       theme="dark"
       mode="horizontal"
-      style={{ float: 'right' }}
       items={itemMenuRight}
       defaultSelectedKeys={['0']}
     >
