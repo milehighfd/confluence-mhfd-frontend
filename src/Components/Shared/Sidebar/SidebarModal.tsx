@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { Modal } from 'antd';
 import '../../../Scss/Components/sidebar.scss';
-import { stateValue } from "../constants/layout.constants";
+import { stateValue } from "./constants/layout.constants";
+
 
 const SidebarModal = () => {
-    const [state, setState] = useState(stateValue);
+  const [state, setState] = useState(stateValue);
 
-    const handleOk = (e: any) => {
-      console.log(e);
-      const auxState = {...state};
-      auxState.visible = false;
-      setState(auxState);
-    };
+  const handleOk = (e: any) => {
+    console.log(e);
+    const auxState = {...state};
+    auxState.visible = false;
+    setState(auxState);
+  };
 
-    const handleCancel = (e: any) => {
-      console.log(e);
-      const auxState = {...state};
-      auxState.visible = false;
-      setState(auxState);
-    };
+  const handleCancel = (e: any) => {
+    console.log(e);
+    const auxState = {...state};
+    auxState.visible = false;
+    setState(auxState);
+  };
 
   return (
   <Modal

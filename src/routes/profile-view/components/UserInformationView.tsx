@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Col, Button, Upload, message, Popover } from 'antd';
 import { PROJECT_TYPES_AND_NAME } from '../../../constants/constants';
-import ModalEditUserView from '../../../../src/Components/Profile/ProfileComponents/ModalEditUserView';
+import ModalEditUserView from './ModalEditUserView';
 import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
 import { useMapState } from '../../../hook/mapHook';
 

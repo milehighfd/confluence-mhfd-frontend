@@ -14,7 +14,7 @@ const ConfirmPasswordRoute = lazy(() => import('./routes/confirm-password'));
 const MapRoute = lazy(() => import('./routes/map'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
-const ProfileView= lazy(() => import('./routes/profile-view'));   // 
+const ProfileView = lazy(() => import('./routes/profile-view')); 
 const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
 const UserView = lazy(() => import('./Components/User/UserView'));
@@ -48,7 +48,7 @@ const App = () => {
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserView} />}
         {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentView} />}
-        {/* {(loading && <Route path={`/`} component={LoadingView} />)} */}
+        {(loading && <Route path={`/`} component={LoadingView} />)}
       </Suspense>
     </Switch>
   );

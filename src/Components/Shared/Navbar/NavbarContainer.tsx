@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import  NavbarView from './NavbarView';
+import  NavbarView from '../../../../src/routes/profile-view/components/NavbarView';
 import { bindActionCreators } from 'redux';
 import { replaceAppUser } from '../../../../src/store/actions/appUser';
 import { updateUserInformation, getGroupOrganization } from '../../../../src/store/actions/ProfileActions';
@@ -19,4 +19,5 @@ const mapDispatchToProps = (dispatch: any) => ({
     getGroupOrganization,
     }, dispatch)
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(NavbarView);

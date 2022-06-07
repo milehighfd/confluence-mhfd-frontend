@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete } from 'antd';
 import { PlusCircleFilled, RightOutlined, DownOutlined } from '@ant-design/icons';
-import Navbar from "../../../routes/profile-view/components/NavbarContainer";
-import SidebarView from "../../../routes/profile-view/components/SidebarView";
+import Navbar from "../../Shared/Navbar/NavbarContainer";
+import SidebarView from "../../Shared/Sidebar/SidebarView";
 import WsService from "../Request/WsService";
 
 const { Option } = Select;
