@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel } from 'antd';
+import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel, MenuProps } from 'antd';
 import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import * as datasets from "../../../Config/datasets";
 import { Redirect, useLocation } from "react-router-dom";
@@ -146,18 +146,20 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const menu = (
     <Menu
       className="menu-login-dropdown"
+      style={{ marginTop: '12px'}}
+      mode={'inline'}
       items={items}
       onClick={({ key }) => {
         switch(key) {
           case 'my-profile':
             showProfile();
-            return;
-          case 'my-profile':
+            break;
+          case 'tutorial':
             showModal();
-            return;
-          case 'my-profile':
+            break;
+          case 'logout':
             logout();
-            return;
+            break;
         }
       }}
     />
@@ -166,6 +168,48 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   if (redirect) {
     return <Redirect to="/login" />
   }
+
+  const itemMenuRight: MenuProps['items'] = [
+    {
+      key: 'my-notification',
+      label: (
+        <>
+          <Popover content={content}>
+            <button className="notification-icon"></button>
+          </Popover>
+          <label className="ll-0" style={{marginTop: '-1px' }}></label>
+        </>
+      )
+    },
+    {
+      key: 'my-login',
+      label: (
+        <Dropdown overlay={menu}>
+          <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()} style={{ marginLeft: '-34px', marginRight: '-24px', color: 'white', marginTop: '-1px' }}>
+            {user.photo ?
+              <img src={user.photo} className="ll-img" alt="profile" />
+              :
+              <label className="ll-00">
+                {initialName}
+              </label>
+            }
+            {name} <CaretDownOutlined />
+          </a>
+        </Dropdown>
+      )
+    },
+    {
+      key: 'my-tutorial',
+      label: (
+        location[1] === ROUTERS.MAP && location.length === 2 &&
+        <div className="tutorial">
+          <Button className="btn-question" onClick={showModal1}>
+            <QuestionCircleOutlined />
+          </Button>
+        </div>
+      )
+    }
+  ];
 
   return <Header className="header">
     <div className="logo"
@@ -177,34 +221,10 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     <Menu
       theme="dark"
       mode="horizontal"
+      style={{ float: 'right' }}
+      items={itemMenuRight}
       defaultSelectedKeys={['0']}
-      style={{ lineHeight: '60px', float: 'right', marginRight: '-4px' }}
     >
-      <Menu.Item>
-       <Popover content={content}>
-         <button className="notification-icon"></button>
-       </Popover>
-      </Menu.Item>
-      <label className="ll-0"></label>
-      <Dropdown overlay={menu}>
-        <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()}>
-            {user.photo ?
-              <img src={user.photo} className="ll-img" alt="profile" />
-              :
-              <label className="ll-00">
-                {initialName}
-              </label>
-            }
-            {name} <CaretDownOutlined />
-        </a>
-      </Dropdown>
-      {location[1] === ROUTERS.MAP && location.length === 2 && <Menu.Item>
-       <div className="tutorial">
-        <Button className="btn-question" onClick={showModal1}>
-          <QuestionCircleOutlined />
-        </Button>
-       </div>
-      </Menu.Item>}
     </Menu>
 
     <Modal

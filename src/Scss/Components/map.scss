@@ -593,6 +593,7 @@
 .filter-map{
   max-height: calc(100vh - 170px);
   overflow-y: auto;
+  overflow-x: hidden;
   height: auto;
   h6{
     font-size: 16px;
@@ -1662,6 +1663,15 @@
     position: relative;
     top: -5px;
   }
+}
+.menu-dropdown-map {
+  margin-top: -10px;
+  border-radius: 0px !important;
+  padding: 6px 0px !important;
+}
+.ant-popover-placement-bottomLeft .ant-popover-arrow {
+  margin-top: -10px !important;
+  left: 12px;
 }
 .card-button-hover{
   position: relative;
