@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Button } from 'antd';
 import Map from './Map';
 import MapView from './MapView';
-import Navbar from "../../../../src/Components/Shared/Navbar/NavbarContainer";
-import SidebarView from "../../../../src/Components/Shared/Sidebar/SidebarView";
+import Navbar from "../../../Components/Shared/Navbar/NavbarContainer";
+import SidebarView from "../../../Components/Shared/Sidebar/SidebarView";
 import LoadingView from '../../../Components/Loading/LoadingView';
 import {
   COMPLETE_SCREEN,
