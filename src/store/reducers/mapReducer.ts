@@ -2,7 +2,6 @@ import * as types from '../types/mapTypes';
 import { PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, STREAMS_FILTERS, MHFD_BOUNDARY_FILTERS, XSTREAMS } from '../../constants/constants';
 
 const initState = {
-    error: '',
     autocomplete: '',
     selectedOnMap: { id: -1, tab: '' },
     newProject: {
@@ -452,11 +451,6 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 problems: action.problems
-            }
-        case types.SET_ERROR_MESSAGE:
-            return {
-                ...state,
-                error: action.error
             }
         case types.FILTER_PROJECTS:
             return {

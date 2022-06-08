@@ -508,7 +508,9 @@ const Map = ({
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
           setOpacityLayer(true);
-              map.removeLayer('mask');
+              if (map.getLayer('mask')) {
+                map.removeLayer('mask');
+              }
               if(map.getSource('mask')) {
                 map.getSource('mask').setData(poly);
               } else {
@@ -638,11 +640,11 @@ const Map = ({
                   getParamFilterComponents(boundsMap, optionscomp);
                 },1300);
               }
-              map.once('idle',() => {
-                setTimeout(()=>{
-                  loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
-                },1000);
-              });
+              // map.once('idle',() => {
+              //   setTimeout(()=>{
+              //     loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+              //   },1000);
+              // });
            }
    
           },5000);
@@ -1102,13 +1104,17 @@ const Map = ({
             topStreams()
             topEffectiveReaches();
             topProjects();
-            map.moveLayer('borderMASK');
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('borderMASK');
+            }
             topHovereableLayers();
             topStreamLabels();
             topLabels();
             topServiceArea();
             topComponents();
-            map.moveLayer('servicearea');
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('servicearea');
+            }
         },800);
     }
     const topHovereableLayers = () => {

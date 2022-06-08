@@ -138,16 +138,29 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const hideProfile = () => {
     setOpenProfile(false);
   }
+  const items = [
+    { key: 'my-profile', label: 'My Profile' },
+    { key: 'tutorial', label: 'Tutorial' },
+    { key: 'logout', label: localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout' },
+  ];
   const menu = (
-    <Menu className="menu-login-dropdown">
-      {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }
-      <Menu.Item className="login-dropdown" onClick={showModal}>Tutorial</Menu.Item>
-      <Menu.Item className="login-dropdown" onClick={logout}>
-        {
-          localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout'
+    <Menu
+      className="menu-login-dropdown"
+      items={items}
+      onClick={({ key }) => {
+        switch(key) {
+          case 'my-profile':
+            showProfile();
+            return;
+          case 'my-profile':
+            showModal();
+            return;
+          case 'my-profile':
+            logout();
+            return;
         }
-      </Menu.Item>
-    </Menu>
+      }}
+    />
   );
 
   if (redirect) {

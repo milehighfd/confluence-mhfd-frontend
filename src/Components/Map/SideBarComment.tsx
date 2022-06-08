@@ -163,11 +163,13 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       setSwSave(true);
     }
   }
+  const items = [
+    { label: 'New Folder', key: 'create-folder' },
+    { label: 'New Map Note', key: 'create-note' },
+  ];
+
   const createOptions = (
-    <Menu onClick={onSelectCreateOption}>
-      <Menu.Item key="create-folder">New Folder</Menu.Item>
-      <Menu.Item key="create-note">New Map Note</Menu.Item>
-    </Menu>
+    <Menu onClick={onSelectCreateOption} items={items} />
   );
 
   const data = [
@@ -211,27 +213,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     openEditNote: openEditNote,
     flyTo: flyTo,
     deleteNote: deleteNote,
-  };
-  const contentmenu = (note: any) =>  {
-    return (
-    <Menu className="js-mm-00">
-      <Menu.Item onClick={() => {
-        openEditNote(note);
-      }}>
-        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
-      </Menu.Item>
-      <Menu.Item onClick={() => {
-        flyTo(note.longitude, note.latitude, 12);
-      }}>
-        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Zoom to</span>
-      </Menu.Item>
-      <Menu.Item onClick={() => {
-        deleteNote(note._id);
-      }}>
-        <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
-      </Menu.Item>
-    </Menu>
-  )
   };
   const calculateTimeAgo = (time: Date): string => {
     const currentTime = new Date();
