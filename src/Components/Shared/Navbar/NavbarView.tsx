@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { Redirect, useLocation } from 'react-router-dom';
 import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel } from 'antd';
 import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import * as datasets from "../../../Config/datasets";
-import { Redirect, useLocation } from "react-router-dom";
-import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
-import { User } from "../../../Classes/TypeList";
-import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
-import '../../../Scss/Components/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
-import { useMapDispatch } from "../../../hook/mapHook";
-import { useProfileDispatch } from "../../../hook/profileHook";
-import { useUsersState } from "../../../hook/usersHook";
+import * as datasets from '../../../Config/datasets';
+import { ROUTERS, ROUTER_TITLE } from '../../../constants/constants';
+import { User } from '../../../Classes/TypeList';
+import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
+import { useMapDispatch } from '../../../hook/mapHook';
+import { useProfileDispatch } from '../../../hook/profileHook';
+import { useUsersState } from '../../../hook/usersHook';
+import '../../../Scss/Components/navbar.scss';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -464,3 +464,4 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   </Header>
 
 }
+

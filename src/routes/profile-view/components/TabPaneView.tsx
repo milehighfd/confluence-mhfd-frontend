@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Input, Row, Dropdown, Button, Menu } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
 import CardsView from "./CardsView";
 import { SORTED_PROBLEMS, SORTED_PROJECTS } from '../../../constants/constants';
 import store from '../../../store';

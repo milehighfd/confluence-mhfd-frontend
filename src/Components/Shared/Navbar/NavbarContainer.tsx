@@ -19,4 +19,5 @@ const mapDispatchToProps = (dispatch: any) => ({
     getGroupOrganization,
     }, dispatch)
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(NavbarView);

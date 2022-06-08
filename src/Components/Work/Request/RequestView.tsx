@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, notification, Popover } from 'antd';
 import { DownOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
-import SidebarView from "../../Shared/Sidebar/SidebarView";
+import SidebarView from"../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from "../../../constants/constants";
 import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';

@@ -222,18 +222,6 @@ export const SELECT_ALL_FILTERS = [
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
 
-export const PROJECT_TYPES_AND_NAME = [
-  {
-    name: 'Capital', id: 'Capital'
-  },
-  {
-    name: 'Maintenance', id: 'Maintenance'
-  },
-  {
-    name: 'Study', id: 'Study'
-  }
-]
-
 export const NEW_PROJECT_FORM_COST = {
   subtotal: 0,
   additional: {
