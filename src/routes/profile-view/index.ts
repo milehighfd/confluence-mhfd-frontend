@@ -1,3 +1,3 @@
-import ProfileView from './components/ProfileLayout';
+import ProfileLayout from './components/ProfileLayout';
 
-export default ProfileView;
+export default ProfileLayout;
