@@ -73,75 +73,60 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
   }
-  let menuPopupItem: MenuProps['items'] = [
-    {
-      key: 'popup-title',
-      label: (
-        <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)' }}>
+
+  const menu = () => {
+    const onClickPopupCard = (e: any) => {
+      stopModal(e);
+      switch (e.key) {
+        case 'popup-show-components':
+          showComponents();
+          break;
+        case 'popup-zoom':
+          changeCenter();
+          return;
+        default:
+          break;
+      }
+    };
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: 'popup-title',
+        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)' }}>
           LIST ACTIONS
         </label>
-      )
-    },
-    {
-      key: 'popup-show-components',
-      label: (
-        <span className="menu-item-text" style={{ display: data.totalComponents ? 'inline' : 'none' }}>Show Components</span>
-      ),
-
-    },
-    {
-      key: 'popup-zoom',
-      label: (
-        <span className="menu-item-text">Zoom to Feature</span>
-      )
-    },
-    {
-      key: 'popup-favorite',
-      label: (
-        <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Favorite Card</span>
-      )
-    },
-    {
-      key: 'popup-comment',
-      label: (
-        <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
-      )
-    },
-    {
-      key: 'popup-add-team',
-      label: (
-        <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
-      )
+      },
+      {
+        key: 'popup-show-components',
+        label: <span className="menu-item-text" style={{ display: data.totalComponents ? 'inline' : 'none' }}>Show Components</span>
+      },
+      {
+        key: 'popup-zoom',
+        label: <span className="menu-item-text">Zoom to Feature</span>
+      },
+      {
+        key: 'popup-favorite',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Favorite Card</span>
+      },
+      {
+        key: 'popup-comment',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
+      },
+      {
+        key: 'popup-add-team',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
+      }
+    ];
+    if (!data.totalComponents) {
+      menuPopupItem.splice(1, 1);
     }
-  ];
-
-  if (!data.totalComponents) {
-    menuPopupItem.splice(1, 1);
-  }
-
-  const onClickPopupCard = (e: any) => {
-    stopModal(e);
-    switch (e.key) {
-      case 'popup-show-components':
-        showComponents();
-        break;
-      case 'popup-zoom':
-        changeCenter();
-        return;
-      default:
-        break;
-    }
-  };
-
-  const menu = (
-    <Menu
+    return <Menu
       className="menu-dropdown-map"
       style={{ backgroundColor: 'white', border: 0 }}
       items={menuPopupItem}
       onClick={onClickPopupCard}
     >
     </Menu>
-  );
+  };
 
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});
