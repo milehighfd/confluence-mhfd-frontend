@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover, MenuProps  } from "antd";
+import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover, MenuProps } from "antd";
 import { useFormik } from "formik";
 
 import { User } from '../../../Classes/TypeList';
@@ -57,29 +57,23 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     }
   });
 
-  const itemMenu: MenuProps['items'] = [];
-  const itemMenuZoom: MenuProps['items'] = [];
-
-  const generateItemMenu = (content: Array<any>) => {
-    content.forEach((element, index) => {
-      itemMenu.push({
-        key: `${index}|${element}`,
-        label: (
-          <span>{element}</span>
-        )
-      });
-    });
-  };
-
-  if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
-    generateItemMenu(JURISDICTION);
-  } else if (values.designation === CONSULTANT) {
-    generateItemMenu(CONSULTANT_CONTRACTOR);
-  } else {
-    generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
-  }
-
   const menu = () => {
+    const itemMenu: MenuProps['items'] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        itemMenu.push({
+          key: `${index}|${element}`,
+          label: <span>{element}</span>
+        });
+      });
+    };
+    if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
+      generateItemMenu(JURISDICTION);
+    } else if (values.designation === CONSULTANT) {
+      generateItemMenu(CONSULTANT_CONTRACTOR);
+    } else {
+      generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+    }
     return <Menu
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
@@ -91,17 +85,15 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     </Menu>
   };
 
-  groupOrganization.forEach((item: { aoi: string, values: Array<{ name: string }> }, index: number) => {
-    itemMenuZoom.push({
-      key: `${index}|${item.aoi}`,
-      label: (
-        <span>{item.aoi}</span>
-      )
-    });
-  });
-
   const menuZoom = () => {
-    return <Menu 
+    const itemMenuZoom: MenuProps['items'] = [];
+    groupOrganization.forEach((item: { aoi: string, values: Array<{ name: string }> }, index: number) => {
+      itemMenuZoom.push({
+        key: `${index}|${item.aoi}`,
+        label: <span>{item.aoi}</span>
+      });
+    });
+    return <Menu
       key={'area-zoom'}
       className="js-mm-00 sign-menu-organization"
       items={itemMenuZoom}
@@ -138,7 +130,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
   return <div className="edit-profile">
     <Button className="btn-opacity" onClick={showModal}>
       <img src="/Icons/icon-72.svg" alt="" height="18px" /> Edit Profile
-     </Button>
+    </Button>
     <Modal
       centered
       visible={state.visible}
@@ -202,7 +194,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
                   </Button>
                 </Dropdown>
               </div> :
-              <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
+                <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
             </Col>
           </Row>
         </div>
@@ -245,7 +237,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         </div>
         <hr></hr>
         <div className="gutter-example">
-          <h6>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h6>
+          <h6>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{ marginTop: '-3px', cursor: 'pointer' }} /></Popover></h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <div id="sign-up-organization">
@@ -259,13 +251,13 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               </div>
             </Col>
             <Col className="gutter-row" span={3}>
-                <Button className="btn-borde" onClick={() => {
-                  values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood District';
-                  const auxTitle = 'Mile High Flood District';
-                  setTitle(auxTitle);
-                }} style={{padding: '0px', textAlignLast: 'center'}} >
-                  Default
-                </Button>
+              <Button className="btn-borde" onClick={() => {
+                values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood District';
+                const auxTitle = 'Mile High Flood District';
+                setTitle(auxTitle);
+              }} style={{ padding: '0px', textAlignLast: 'center' }} >
+                Default
+              </Button>
             </Col>
           </Row>
         </div>
