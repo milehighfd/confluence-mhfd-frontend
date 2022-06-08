@@ -1,9 +1,0 @@
-<svg id="question" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
-  <g id="Grupo_235" data-name="Grupo 235">
-    <g id="Grupo_234" data-name="Grupo 234">
-      <circle id="Elipse_1" data-name="Elipse 1" cx="0.913" cy="0.913" r="0.913" transform="translate(9.587 14.609)" fill="#fff"/>
-      <path id="Trazado_273" data-name="Trazado 273" d="M10.5,0A10.5,10.5,0,1,0,21,10.5,10.512,10.512,0,0,0,10.5,0Zm0,20.087A9.587,9.587,0,1,1,20.087,10.5,9.6,9.6,0,0,1,10.5,20.087Z" fill="#fff"/>
-      <path id="Trazado_274" data-name="Trazado 274" d="M178.967,96A3.01,3.01,0,0,0,176,99.044a.457.457,0,0,0,.913,0,2.1,2.1,0,0,1,2.054-2.131,2.069,2.069,0,0,1,2.054,2.08,2.12,2.12,0,0,1-2.054,2.079.457.457,0,0,0-.457.457v2.688a.457.457,0,0,0,.913,0v-2.269a3.033,3.033,0,0,0,2.511-2.956A2.984,2.984,0,0,0,178.967,96Z" transform="translate(-168.467 -91.891)" fill="#fff"/>
-    </g>
-  </g>
-</svg>
