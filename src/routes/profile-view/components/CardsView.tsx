@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Card, Button } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
-import DetailedModal from '../../../../src/Components/Shared/Modals/DetailedModal';
+import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
 import { numberWithCommas } from '../../../utils/utils';
 
 const CardsView = ({

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Layout } from 'antd';
-import Navbar from '../../../../src/Components/Shared/Navbar/NavbarContainer';
-import SidebarView from '../../../../src/Components/Shared/Sidebar/SidebarView';
+import Navbar from '../../../Components/Shared/Navbar/NavbarContainer';
+import SidebarView from '../../../Components/Shared/Sidebar/SidebarView';
 import ProfileBody from './ProfileBody';
 
 import { useMapDispatch } from '../../../hook/mapHook';

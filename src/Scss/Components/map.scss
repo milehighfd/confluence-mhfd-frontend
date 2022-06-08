@@ -161,13 +161,13 @@
     margin: 0px 15px;
   }
   .btn-02{
-    -webkit-mask: url('../../../public/Icons/icon-05.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/icon-05.svg') no-repeat center;
     height: 16px;
     background: $white;
     padding: 17.5px 9px;
   }
   Button:hover > .btn-02{
-    -webkit-mask: url('../../../public/Icons/icon-05.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/icon-05.svg') no-repeat center;
     height: 16px;
     background: $dark !important;
     margin-top: -2px;
@@ -355,7 +355,7 @@
     position: absolute;
   }
    button .img-icon{
-    -webkit-mask: url('../../../public/Icons/u_ruler-combined.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/u_ruler-combined.svg') no-repeat center;
     height: 35px;
     width: 35px;
     background: $purple00;
@@ -447,14 +447,14 @@
     margin-top: 16px;
   }
    button .img-icon{
-    -webkit-mask: url('../../../public/Icons/ic_boundary.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/ic_boundary.svg') no-repeat center;
     height: 18px;
     width: 16px;
     background: $purple00;
   }
   .ant-btn:hover > .img-icon {
     opacity: 1;
-    -webkit-mask: url('../../../public/Icons/ic_boundary.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/ic_boundary.svg') no-repeat center;
     height: 18px;
     width: 16px;
     background: $green !important;
@@ -463,7 +463,7 @@
     display: none;
   }
   button .img-icon-01{
-   -webkit-mask: url('../../../public/Icons/newnotes.svg') no-repeat center;
+   -webkit-mask: url('../../Icons/newnotes.svg') no-repeat center;
    height: 100%;
    width: 100%;
    background: $purple00;
@@ -471,14 +471,14 @@
  }
  .ant-btn:hover > .img-icon-01 {
    opacity: 1;
-   -webkit-mask: url('../../../public/Icons/newnotes.svg') no-repeat center;
+   -webkit-mask: url('../../Icons/newnotes.svg') no-repeat center;
    height: 100%;
    width:100%;
    background: $green !important;
    -webkit-mask-size: 20px 20px;
  }
  button .img-icon-04{
-    -webkit-mask: url('../../../public/Icons/ic-history.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/ic-history.svg') no-repeat center;
     height: 100%;
     width: 100%;
     background: $purple00;
@@ -486,14 +486,14 @@
   }
   .ant-btn:hover > .img-icon-04 {
     opacity: 1;
-    -webkit-mask: url('../../../public/Icons/ic-history.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/ic-history.svg') no-repeat center;
     height: 100%;
     width:100%;
     background: $green !important;
     -webkit-mask-size: 20px 20px;
   }
   button .img-icon-05{
-    -webkit-mask: url('../../../public/Icons/ic-home.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/ic-home.svg') no-repeat center;
     height: 100%;
     width: 100%;
     background: $purple00;
@@ -501,7 +501,7 @@
   }
   .ant-btn:hover > .img-icon-05 {
     opacity: 1;
-    -webkit-mask: url('../../../public/Icons/ic-home.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/ic-home.svg') no-repeat center;
     height: 100%;
     width:100%;
     background: $green !important;
@@ -906,16 +906,16 @@
   height: 32px !important;
 }
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
-  background-image: url('../../../public/Icons/icon-35.svg') !important;
+  background-image: url('../../Icons/icon-35.svg') !important;
   background-repeat: no-repeat;
   background-size: 13px 13px;
 }
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
-  background-image: url('../../../public/Icons/icon-36.svg') !important;
+  background-image: url('../../Icons/icon-36.svg') !important;
   background-position: 52%;
 }
 .mapboxgl-ctrl button.mapboxgl-ctrl-compass .mapboxgl-ctrl-icon {
-    background-image: url('../../../public/Icons/icon-74.svg') !important;
+    background-image: url('../../Icons/icon-74.svg') !important;
     background-size: 7px !important;
 }
 .mapboxgl-ctrl-group:not(:empty) {
@@ -1242,7 +1242,7 @@
     background: transparent;
   }
   button .img-filter{
-    -webkit-mask: url('../../../public/Icons/icon-73.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/icon-73.svg') no-repeat center;
     height: 16px;
     width: 18px;
     background: $opacity02;
@@ -1250,20 +1250,20 @@
   }
   .ant-btn:hover > .img-filter{
     opacity: 1;
-    -webkit-mask: url('../../../public/Icons/icon-73.svg') no-repeat center;
+    -webkit-mask: url('../../Icons/icon-73.svg') no-repeat center;
     height: 16px;
     width: 18px;
     background: $green !important;
     padding: 7px;
   }
   button .img-sortBy{
-    background: url('../../../public/Icons/ic_sort_by_active.svg') no-repeat center;
+    background: url('../../Icons/ic_sort_by_active.svg') no-repeat center;
     height: 16px;
     width: 18px;
     padding: 7px;
   }
   .ant-btn:hover > .img-sortBy{
-    background: url('../../../public/Icons/ic_sort_by_hover.svg') no-repeat center;
+    background: url('../../Icons/ic_sort_by_hover.svg') no-repeat center;
     height: 16px;
     width: 18px;
     padding: 7px;
@@ -1277,7 +1277,7 @@
      cursor: pointer;
 
       .img-filter00{
-   //     -webkit-mask: url('../../../public/Icons/icon-83.svg') no-repeat center;
+   //     -webkit-mask: url('../../Icons/icon-83.svg') no-repeat center;
         height: 18px;
         width: 18px;
         background: $opacity02;
@@ -1287,7 +1287,7 @@
     }
     .sort-buttons:hover > .img-filter00{
       opacity: 1;
-   //   -webkit-mask: url('../../../public/Icons/icon-83.svg') no-repeat center;
+   //   -webkit-mask: url('../../Icons/icon-83.svg') no-repeat center;
       height: 18px;
       width: 18px;
       background: $green !important;
@@ -1317,7 +1317,7 @@
 }
 .sort-content:hover > .sort-buttons > .img-filter00{
   opacity: 1;
-  //-webkit-mask: url('../../../public/Icons/icon-83.svg') no-repeat center;
+  //-webkit-mask: url('../../Icons/icon-83.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: $green !important;
@@ -1391,7 +1391,7 @@
   }
 }
 .img-negative{
-  background-image: url('../../../public/Icons/icon-21.svg') !important;
+  background-image: url('../../Icons/icon-21.svg') !important;
 }
 .tabs-map{
   .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -1728,27 +1728,27 @@
     width: 26px;
   }
   button .like-img{
-    background-image: url('../../../public/Icons/icon-81.svg') !important;
+    background-image: url('../../Icons/icon-81.svg') !important;
     height: 20px;
     width: 22px;
     background-repeat: no-repeat;
   }
   .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
   .ant-btn:active > .like-img, .ant-btn.active > .like-img{
-    background-image: url('../../../public/Icons/icon-82.svg');
+    background-image: url('../../Icons/icon-82.svg');
     height: 20px;
     width: 22px;
     background-repeat: no-repeat;
   }
   button .like-img-on{
-    background-image: url('../../../public/Icons/icon-82.svg');
+    background-image: url('../../Icons/icon-82.svg');
     height: 20px;
     width: 22px;
     background-repeat: no-repeat;
   }
   .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
   .ant-btn:active > .like-img, .ant-btn.active > .like-img{
-    background-image: url('../../../public/Icons/icon-82.svg');
+    background-image: url('../../Icons/icon-82.svg');
     height: 20px;
     width: 22px;
     background-repeat: no-repeat;
@@ -1944,54 +1944,54 @@
 
 
 .img-measure-00{
-  -webkit-mask: url('../../../public/Icons/fi_play-circle.svg') no-repeat center;
+  -webkit-mask: url('../../Icons/fi_play-circle.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
 .img-measure-01{
-  -webkit-mask: url('../../../public/Icons/noun-line.svg') no-repeat center;
+  -webkit-mask: url('../../Icons/noun-line.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
 .img-measure-png-01 {
-  src: url('../../../public/Icons/icon-line.png') no-repeat center;
+  src: url('../../Icons/icon-line.png') no-repeat center;
   height: 18px;
   width: 18px;
   margin-bottom: 2px;
 }
 .img-measure-02{
-  background: url('../../../public/Icons/noun-polygon.svg') no-repeat center;
+  background: url('../../Icons/noun-polygon.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
 .img-measure-png-02{
-  src: url('../../../public/Icons/icon-polygon.png') no-repeat center;
+  src: url('../../Icons/icon-polygon.png') no-repeat center;
   height: 18px;
   width: 18px;
   margin-bottom: 2px;
 }
 .img-measure-03{
-  -webkit-mask: url('../../../public/Icons/u_qrcode-scan.svg') no-repeat center;
+  -webkit-mask: url('../../Icons/u_qrcode-scan.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
 .img-measure-04{
-  -webkit-mask: url('../../../public/Icons/fi_trash-2.svg') no-repeat center;
+  -webkit-mask: url('../../Icons/fi_trash-2.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
   margin-bottom: 2px;
 }
 .img-measure-05{
-  -webkit-mask: url('../../../public/Icons/fi_x-circle.svg') no-repeat center;
+  -webkit-mask: url('../../Icons/fi_x-circle.svg') no-repeat center;
   height: 18px;
   width: 18px;
   background: black;
@@ -2091,7 +2091,7 @@
 }
 .img-circle {
   opacity: 1;
-  -webkit-mask: url('../../../public/Icons/circlecomment.svg') no-repeat center;
+  -webkit-mask: url('../../Icons/circlecomment.svg') no-repeat center;
   height: 20px;
   width: 20px;
   border-radius: 20px;
@@ -2099,11 +2099,11 @@
   margin-bottom: 3px;
 }
 .img-circle.selected { 
-    content: url("../../../public/Icons/ic-ok.svg");
+    content: url("../../Icons/ic-ok.svg");
 }
 
 .close-measure-button {
-  background: url('../../../public/Icons/ic_close-white.svg') no-repeat center;
+  background: url('../../Icons/ic_close-white.svg') no-repeat center;
   height: 10px !important;
   width: 10px !important;
   font-size: large;
