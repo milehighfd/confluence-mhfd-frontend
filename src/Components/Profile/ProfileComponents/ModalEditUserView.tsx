@@ -1,12 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover  } from "antd";
-import { useFormik } from "formik";
-
+import React, { useState, useEffect } from 'react';
+import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover  } from 'antd';
+import { useFormik } from 'formik';
 import { User } from '../../../Classes/TypeList';
-import MenuAreaView from "../../../../src/Components/User/UserComponents/MenuAreaView";
-
-import { VALIDATION_USER_PROFILE } from '../constants/validation';
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION, OTHER, JURISDICTION } from "../../../constants/constants";
+import MenuAreaView from '../../User/UserComponents/MenuAreaView';
+import { VALIDATION_USER_PROFILE } from '../../../constants/validation';
+import {
+  ADMIN,
+  STAFF,
+  GOVERNMENT_ADMIN,
+  GOVERNMENT_STAFF,
+  ORGANIZATION,
+  CONSULTANT_CONTRACTOR,
+  CITIES,
+  COUNTIES,
+  SERVICE_AREA,
+  RADIO_ITEMS,
+  CONSULTANT,
+  DROPDOWN_ORGANIZATION,
+  OTHER,
+  JURISDICTION
+} from '../../../constants/constants';
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 

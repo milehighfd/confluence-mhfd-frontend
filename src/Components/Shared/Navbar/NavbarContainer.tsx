@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import  NavbarView from '../../../../src/routes/profile-view/components/NavbarView';
+import  NavbarView from './NavbarView';
 import { bindActionCreators } from 'redux';
 import { replaceAppUser } from '../../../../src/store/actions/appUser';
 import { updateUserInformation, getGroupOrganization } from '../../../../src/store/actions/ProfileActions';
