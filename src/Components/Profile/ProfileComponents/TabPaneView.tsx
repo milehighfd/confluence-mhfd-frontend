@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Row, Dropdown, Button, Menu } from 'antd';
+import { Input, Row, Dropdown, Button, Menu, MenuProps } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -46,19 +46,24 @@ const TabPaneView = ({
     auxState.hasMore = true;
     setState(auxState);
   }, [totalElement])
+  const onClickItemMenu = (e: any)=> {
+    const auxOptions = { ...options };
+    auxOptions.column = e.key;
+    setOptions(auxOptions);
+    search(user.email, type === 'Problems', auxOptions);
+  };
+  const itemMenu: MenuProps['items'] = [];
+  valueDropdown.forEach((element) => {
+    itemMenu.push({
+      key: element.name,
+      label: (
+        <span className="menu-item-text">{element.title}</span>
+      )
+    })
+  });
+
   const menu = () => {
-    return <Menu className="js-mm-00">
-      {valueDropdown.map((item: { name: string, title: string }, index: number) => {
-        return <Menu.Item key={index} onClick={() => {
-          const auxOptions = { ...options };
-          auxOptions.column = item.name;
-          setOptions(auxOptions);
-          console.log('aux ', auxOptions);
-          search(user.email, type === 'Problems', auxOptions);
-        }}>
-          <span className="menu-item-text">{item.title}</span>
-        </Menu.Item>
-      })}
+    return <Menu className="js-mm-00" items={itemMenu} onClick={onClickItemMenu} defaultSelectedKeys={['problemname']}>
     </Menu>
   }
   const fetchMoreData = () => {

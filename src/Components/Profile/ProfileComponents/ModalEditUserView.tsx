@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover  } from "antd";
+import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover, MenuProps  } from "antd";
 import { useFormik } from "formik";
 
 import { User } from '../../../Classes/TypeList';
@@ -57,60 +57,61 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     }
   });
 
+  const itemMenu: MenuProps['items'] = [];
+  const itemMenuZoom: MenuProps['items'] = [];
+
+  const generateItemMenu = (content: Array<any>) => {
+    content.forEach((element, index) => {
+      itemMenu.push({
+        key: `${index}|${element}`,
+        label: (
+          <span>{element}</span>
+        )
+      });
+    });
+  };
+
+  if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
+    generateItemMenu(JURISDICTION);
+  } else if (values.designation === CONSULTANT) {
+    generateItemMenu(CONSULTANT_CONTRACTOR);
+  } else {
+    generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+  }
+
   const menu = () => {
-    return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-            <Menu.ItemGroup key="g1">
-              {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-            </Menu.ItemGroup>
-        </Menu> :
-        (values.designation === CONSULTANT) ?
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu> :
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu>
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event) => {
+        values.organization = event.key.split('|')[1];
+        setTitle(values.organization);
+      }}>
+    </Menu>
   };
+
+  groupOrganization.forEach((item: { aoi: string, values: Array<{ name: string }> }, index: number) => {
+    itemMenuZoom.push({
+      key: `${index}|${item.aoi}`,
+      label: (
+        <span>{item.aoi}</span>
+      )
+    });
+  });
+
   const menuZoom = () => {
-    return <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.zoomarea = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-            <Menu.ItemGroup>
-              {
-                groupOrganization.map((item: {aoi: string, values: Array<{name: string}>}, index: number) => {
-                  return <Menu.Item key={item.aoi}><span>{item.aoi}</span></Menu.Item>
-                })
-              }
-            </Menu.ItemGroup>
-        </Menu>
+    return <Menu 
+      key={'area-zoom'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenuZoom}
+      onClick={(event) => {
+        values.zoomarea = event.key.split('|')[1];
+        setTitle(values.zoomarea);
+      }}>
+    </Menu>
   };
+
   const stateValue = {
     visible: isVisible ? isVisible : false
   }
