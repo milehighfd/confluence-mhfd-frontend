@@ -642,6 +642,13 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
+  const renderOption = (item: string) => {
+    return {
+      key: `${item}|${item}`,
+      value: item,
+      label: item
+    };
+  };
   return <>
     {  showModalProject &&
       <ModalProjectView
@@ -744,13 +751,13 @@ const RequestView = ({ type, isFirstRendering }: {
                         <AutoComplete
                         onDropdownVisibleChange={setDropdownIsOpen}
                         className={'ant-select-1'}
-                        dataSource={dataAutocomplete}
+                        options={dataAutocomplete.map(renderOption)}
                         placeholder={localityFilter}
                         filterOption={(inputValue, option: any) => {
                           if (dataAutocomplete.includes(inputValue)) {
                             return true;
                           }
-                          return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+                          return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
                         }}
                         onSelect={onSelect}
                         value={localityFilter}

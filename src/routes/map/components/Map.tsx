@@ -2811,20 +2811,16 @@ const Map = ({
             hideLayers(selectedLayer);
         }
     }
-    const renderOption = (): Array<any> => {
-      let items: Array<any> = [];
-      mapSearch.forEach((element: any) => {
-        items.push({
-          key: `${element.text}|${element.place_name}`,
-          value: `${element.center[0]},${element.center[1]}?${element.text}|${element.place_name}`,
-          label: <div className="global-search-item">
-            <h6>{element.text}</h6>
-            <p>{element.place_name}</p>
-          </div>
-        })
-      });
-      return items;
-    }
+    const renderOption = (item: any) => {
+      return {
+        key: `${item.text}|${item.place_name}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: <div className="global-search-item">
+          <h6>{item.text}</h6>
+          <p>{item.place_name}</p>
+        </div>
+      };
+    };
     const [keyword, setKeyword] = useState('');
 
     const handleSearch = (value: string) => {
@@ -3097,7 +3093,7 @@ const Map = ({
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
                     style={{ width: 240 }}
-                    options={renderOption()}
+                    options={mapSearch.map(renderOption)}
                     onSelect={onSelect}
                     onSearch={handleSearch}
                     value={keyword}
