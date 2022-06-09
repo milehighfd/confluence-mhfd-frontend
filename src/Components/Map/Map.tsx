@@ -1607,7 +1607,7 @@ const Map = ({ leftWidth,
             for (const filterField in toFilter) {
                 let filters = toFilter[filterField];
                 if (key === 'mhfd_projects' && filterField === 'status' && !filters) {
-                  filters = 'Active,Closeout,Closed';
+                  filters = 'Active,Closeout,Closed,Approved';
                 }
                 if (filterField === 'component_type') {
                     showSelectedComponents(filters.split(','));
@@ -1755,6 +1755,9 @@ const Map = ({ leftWidth,
             }
 
             if (map.getLayer(key + '_' + index)) {
+              if (key.includes('mhfd_projects')) {
+               console.log('filter projects ', key + '_' + index, allFilters); 
+              }
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
