@@ -122,7 +122,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         if (index !== -1) {
           return type == 'servicearea'?CHART_CONSTANTS_INV.opacityFull:CHART_CONSTANTS.opacityFull;
         } else {
-          return type == 'servicearea'?CHART_CONSTANTS_INV.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque;
+          return type == 'servicearea'?CHART_CONSTANTS_INV.opacityOpaque: CHART_CONSTANTS.opacityOpaque;
         }
       })
 
