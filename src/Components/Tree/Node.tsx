@@ -43,7 +43,9 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
         mapFunctions.deleteNote(note.id);
         console.log(note.id);
       })
-    }, {
+    }];
+  } else {
+    items = [{
       key: '3',
       label: <span style={{ color: '#FF0000' }}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
