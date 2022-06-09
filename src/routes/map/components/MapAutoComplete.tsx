@@ -18,7 +18,9 @@ const MapAutoComplete = ({
       return false;
     }
     return true;
-  }).map((item: { aoi: string }) => { return <AutoComplete.Option className="list-line" key={item.aoi}>{item.aoi}</AutoComplete.Option> }));
+  }).map((item: { aoi: string }) => {
+    return { key: item.aoi, value: item.aoi, label: item.aoi }
+  }));
 
   const onSelect = (value: any, isSelect?: any) => {
     setvalueA(value);
@@ -31,7 +33,9 @@ const MapAutoComplete = ({
         return false;
       }
       return true;
-    }).map((item: { aoi: string }) => { return <AutoComplete.Option className="list-line" key={item.aoi}>{item.aoi}</AutoComplete.Option> }));
+    }).map((item: { aoi: string }) => {
+      return { key: item.aoi, value: item.aoi, label: item.aoi }
+    }));
   }, [groupOrganization]);
 
   useEffect(() => {
@@ -45,18 +49,19 @@ const MapAutoComplete = ({
           <AutoComplete
             style={{ width: '200' }}
             onDropdownVisibleChange={setDropdownIsOpen}
-            dataSource={dataAutocomplete}
+            options={dataAutocomplete}
             placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
             filterOption={(inputValue, option: any) => {
+              option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
               if (dataAutocomplete.map((r: any) => r.key).includes(inputValue)) {
                 return true;
               }
-              return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+              return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
             }}
             onSelect={onSelect}
             value={valueA}
             onSearch={(input2: any) => {
-              setvalueA(input2)
+              setvalueA(input2);
             }}
           >
             <Input

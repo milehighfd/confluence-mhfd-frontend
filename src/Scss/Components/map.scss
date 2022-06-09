@@ -1088,6 +1088,19 @@
     transition: all 0.5s;
   }
 }
+.ant-select-item-option{
+  padding: 7.5px 10px 8px 10px;
+  margin: 0px 10px;
+  text-align: left;
+  font-size: 14px;
+  color: $black !important;
+  border-bottom: 1px solid $opacity01;
+}
+.ant-select-item-option-active{
+  background-color: #e1f1f6 !important;
+  color: $black !important;
+  font-weight: 500;
+}
 
 .ant-input-clear-icon {
   position: absolute;
