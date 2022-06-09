@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Menu, Popover } from 'antd';
+import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
 import { useProjectDispatch } from '../../../hook/projectHook';
 import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
@@ -65,34 +65,43 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       })
   }
 
-  const content = (
-    <Menu className="js-mm-00">
-      <Menu.Item onClick={() => setShowModalProject(true)}>
-        <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop:'-2px' }} /> Edit Project</span>
-      </Menu.Item>
-      {
-        editable &&
-        <Menu.Item onClick={() => setShowAmountModal(true)}>
-          <span>
-            <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop:'-2px', marginRight:'8.8px' }} />
-            Edit Amount
-          </span>
-        </Menu.Item>
-      }
-      <Menu.Item onClick={()=> setZoomProject(project.projectData)}>
-        <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop:'-2px', marginRight:'4.6px' }} /> Zoom to</span>
-      </Menu.Item>
-      {
-        editable &&
-      <Menu.Item onClick={() => setShowDeleteAlert(true)}>
-        <span>
-          <img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop:'-3px', marginRight:'6.8px'}} />
-          Delete
-        </span>
-      </Menu.Item>
-      }
+  const content = () => {
+    const items: MenuProps['items'] = [{
+      key: '0',
+      label: <span>
+        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        Edit Project
+      </span>,
+      onClick: (() => setShowModalProject(true))
+    }, {
+      key: '1',
+      label: <span>
+        <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '8.8px' }} />
+        Edit Amount
+      </span>,
+      onClick: (() => setShowAmountModal(true))
+    }, {
+      key: '2',
+      label: <span>
+        <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
+        Zoom to
+      </span>,
+      onClick: (() => setZoomProject(project.projectData))
+    }, {
+      key: '3',
+      label: <span>
+        <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px', marginRight: '6.8px' }} />
+        Delete
+      </span>,
+      onClick: (() => setShowDeleteAlert(true))
+    }];
+    if (!editable) {
+      items.pop();
+      items.splice(1, 1);
+    }
+    return <Menu className="js-mm-00" items={items}>
     </Menu>
-  );
+  };
 
   const onDragStart = (e: any, id: any) => {
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
