@@ -1166,11 +1166,11 @@ const Map = ({ leftWidth,
             if( (lnglat.lat > bounds._ne.lat || lnglat.lng > bounds._ne.lng) ){
                 neInside = false;
             }
-            if (!(swInside && neInside)) {
-                markerGeocoder.remove();
-                setMarkerGeocoder(undefined);
-                setKeyword('');
-            }
+            // if (!(swInside && neInside)) {
+            //     markerGeocoder.remove();
+            //     setMarkerGeocoder(undefined);
+            //     setKeyword('');
+            // }
         }
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);
@@ -2461,14 +2461,6 @@ const Map = ({ leftWidth,
             return;
         }
         map.on('click', async (e: any) => {
-            if(markerGeocoder){
-              markerGeocoder.remove();
-              setMarkerGeocoder(undefined);
-            }
-            if(searchMarker){
-              searchMarker.remove();
-              setKeyword('');
-            }
             if(isMeasuring) {
               measureFunction(e);
             } else {
@@ -3794,6 +3786,18 @@ const Map = ({ leftWidth,
     const [keyword, setKeyword] = useState('');
     const [options, setOptions] = useState<Array<any>>([]);
 
+    useEffect(() => {
+      if (keyword === '') {
+        if(markerGeocoder){
+          markerGeocoder.remove();
+          setMarkerGeocoder(undefined);
+        }
+        if(searchMarker){
+          searchMarker.remove();
+          setKeyword('');
+        }
+      }
+    }, [keyword]);
     const handleSearch = (value: string) => {
         setKeyword(value)
         mapSearchQuery(value);
@@ -3927,14 +3931,14 @@ const Map = ({ leftWidth,
                     document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
                     document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
                 }
-                let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
-                closebuttons.forEach((element:any) => {
-                    element.addEventListener('click', () => {
-                      searchMarker.remove();
-                      setKeyword('');
-                      setMarkerGeocoder(undefined);
-                    })
-                });
+                // let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
+                // closebuttons.forEach((element:any) => {
+                //     element.addEventListener('click', () => {
+                //       searchMarker.remove();
+                //       setKeyword('');
+                //       setMarkerGeocoder(undefined);
+                //     })
+                // });
 
                 searchMarker.setPopup(searchPopup);
                 searchMarker.addTo(map);
