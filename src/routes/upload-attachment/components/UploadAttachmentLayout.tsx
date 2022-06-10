@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Upload, Table, Button, Popover } from 'antd';
 
-import Navbar from '../../routes/profile-view/components/NavbarContainer';
-import SidebarView from '../../routes/profile-view/components/SidebarView';
+import Navbar from '../../profile-view/components/NavbarContainer';
+import SidebarView from '../../profile-view/components/SidebarView';
 import moment from 'moment';
-import { useAttachmentDispatch, useAttachmentState } from '../../hook/attachmentHook';
+import { useAttachmentDispatch, useAttachmentState } from '../../../hook/attachmentHook';
 
 const content = (<div className="popoveer-00">Upload media e.g. video, images, documents and other file types associated with problems or images. Max. size of 10MB per file.</div>);
 
