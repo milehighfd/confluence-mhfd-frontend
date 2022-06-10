@@ -4173,7 +4173,7 @@ const Map = ({ leftWidth,
 
             </div>*/}
             <div className="measure-button">
-              {!measuringState && <Button style={{ borderRadius: '4px' }} onMouseEnter={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
+              {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
               {measuringState && 
               <div className='measurecontainer'> 
                 <div id={'measure-block'} className="measure-block" onMouseLeave={()=> setMeasuringState(false)}>
