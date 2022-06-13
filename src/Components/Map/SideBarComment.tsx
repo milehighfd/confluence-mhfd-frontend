@@ -12,9 +12,9 @@ const { TextArea } = Input;
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
   const DEFAULT_COLOR = '#FFE121';
-  const { notes, groups, availableColors } = useNotesState();
+  const { notes, groups, availableColors, isnewnote } = useNotesState();
   const { colorsList } = useColorListState();
-  const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup } = useNoteDispatch();
+  const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup, setIsnewNote } = useNoteDispatch();
   const { setIdsFilter } = useColorListDispatch();
   const [filter, setFilter] = useState('all');
   const { userInformation } = useProfileState();
@@ -29,7 +29,14 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     setCounterFilters(counterArray);
   }
   useEffect(() => {
+    if(isnewnote) {
+      resetFilters();
+      setIsnewNote(false);
+    }
+  }, [isnewnote]);
+  useEffect(() => {
     getGroups();
+    console.log('console.log();');
     getNotes();
     getAvailableColors();
   }, []);
@@ -129,7 +136,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     setCurrentSelected(newValues);
-    console.log('parsing ids ', idstoParse);
     if (idstoParse.includes(null)) {
       idstoParse = idstoParse.filter((id:any) => id !== null);
       idstoParse.push('&hasNull=true');
@@ -157,9 +163,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   }
 
   const onSelectCreateOption = (key: any) => {
-    console.log(key);
     if (key.key === 'create-folder') {
-      console.log('enter here');
       createGroup('Untitled Folder');
       resetFilters();
     } else {

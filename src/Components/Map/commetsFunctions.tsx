@@ -438,7 +438,7 @@ export const rotateIcon = (direction: string) => {
 } 
 
 export const divListOfelements = (listOfElements: any, changeValueOfElement: any) => {
-  return  <div className='list-popup-comment'>
+  return  <div id='list-popup-comment'>
     <div className="listofelements" id="currentItemsinList">
             {listOfElements.map((el:any, index:any)=> 
               el && 
