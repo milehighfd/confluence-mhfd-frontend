@@ -970,6 +970,7 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
         <Row type="flex" justify="space-around" align="middle">
           <Col span={11}>
             <Search
+              id="search-input"
               allowClear
               className="searchfilter"
               placeholder="Search"
@@ -982,12 +983,19 @@ const MapView = ({ filters, removeFilter, getDropdownFilters,
                 }
               }}
               onSearch={(e) => {
-
                 if (tabActive === '0') {
-                  setProblemKeyword(keywordProblem);
+                  if (e === '') {
+                    setProblemKeyword(e);
+                  } else {
+                    setProblemKeyword(keywordProblem);
+                  }
                   getGalleryProblems();
                 } else {
-                  setProjectKeyword(keywordProject);
+                  if (e === '') {
+                    setProjectKeyword(e); 
+                  } else {
+                    setProjectKeyword(keywordProject);
+                  }
                   getGalleryProjects();
                 }
               }}
