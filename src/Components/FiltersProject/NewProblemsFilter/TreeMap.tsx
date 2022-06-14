@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
 import { CHART_CONSTANTS, CHART_CONSTANTS_INV } from './Charts.constants';
+import { ColorContext } from '../../../context/ColorContext';
 
 const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -15,19 +16,21 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [isHovered, setIsHovered] = useState(false);
-
+  const { color,setColor } = useContext(ColorContext);
+  
   useEffect(() => {
     let sData = selected === '' ? [] : selected.split(',')
     setSelectedData(sData);
   }, [selected])
 
-  let color: string;
+  //let color: string;
 
-  if (type === 'servicearea') {
-    color = '#251963';
-  } else {
-    color = '#66d5ff';
-  }
+  if (type) {
+    setColor('#251963');
+  } /* else {
+    setColor('#66d5ff');
+  } */
+  console.log(color);
 
   let sum = 0;
   (data || []).forEach((d: any) => {

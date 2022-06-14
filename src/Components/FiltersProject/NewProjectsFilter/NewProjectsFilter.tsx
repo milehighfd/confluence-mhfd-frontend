@@ -6,6 +6,7 @@ import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
+import { ColorProvider } from "../../../context/ColorContext";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -158,18 +159,22 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.servicearea &&
-                    <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
-                        selected={filterProjectOptions.servicearea} defaultValue={''}
-                        onSelect={(e: string) => apply(e, 'servicearea')} />
+                    <ColorProvider>
+                        <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
+                            selected={filterProjectOptions.servicearea} defaultValue={''}
+                            onSelect={(e: string) => apply(e, 'servicearea')} />
+                    </ColorProvider>
                 }
             </Col>
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.county &&
-                    <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
-                        selected={filterProjectOptions.county} defaultValue={''}
-                        onSelect={(items: any) => apply(items, 'county')} />
+                    <ColorProvider>
+                        <TreeMap data={paramProjects.county} tab={'project'}
+                            selected={filterProjectOptions.county} defaultValue={''}
+                            onSelect={(items: any) => apply(items, 'county')} />
+                    </ColorProvider>
                 }
             </Col>
         </Row>
