@@ -2706,9 +2706,9 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          11,
+          13,
           0,
-          12,
+          16,
           1
         ],
         "circle-radius": 1
@@ -2727,10 +2727,10 @@ export const tileStyles = {
           13,
           0,
           15,
-          0.9
+          20
         ],
         "circle-stroke-color": "#000000",
-        "circle-radius": 3,
+        "circle-radius": 6,
         "circle-stroke-width": 0
       }
     },
@@ -2744,10 +2744,10 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          11,
+          13,
           0,
-          12,
-          0.9
+          15,
+          20
         ],
         "circle-stroke-color": "#9cebed",
         "circle-radius": 2,
@@ -2758,7 +2758,7 @@ export const tileStyles = {
           13,
           0,
           15,
-          3
+          9
         ],
         "circle-stroke-opacity": 0.4
       }
