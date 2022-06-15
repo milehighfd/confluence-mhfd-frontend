@@ -9,7 +9,7 @@ import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import EventService from '../../services/EventService';
-import { getData, getToken, postData } from "../../Config/datasets";
+import { getData, getToken, postDataAsyn } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import {
   PROBLEMS_TRIGGER,
@@ -38,6 +38,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
 import { GlobalMapHook } from '../../utils/globalMapHook';
+
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -292,7 +293,6 @@ const WorkRequestMap = (type: any) => {
   
   const {getNext, getCurrent, getPrevious, getPercentage, addHistoric, hasNext, hasPrevious} = GlobalMapHook();
 
-
   useEffect(()=>{
     if(zoomProject && zoomProject.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
@@ -332,9 +332,8 @@ const WorkRequestMap = (type: any) => {
           }
       }
     }
-    
-
 }, [zoomEndCounter, dragEndCounter]);
+
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map4');
@@ -379,29 +378,32 @@ const WorkRequestMap = (type: any) => {
     }
   },[highlightedComponent]);
   
-  useEffect(()=>{
-    let filterProjectsDraft = {...filterProjects}; 
+  useEffect(() => {
+    setAllLayers(empty);
+    let filterProjectsDraft = { ...filterProjects };
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
-    if(idsBoardProjects.length) {
-      wait(()=>{
-        map.isRendered(()=>{
+    //removeLayers(PROJECTS_DRAFT);
+    if (idsBoardProjects.length) {
+      wait(() => {
+        map.isRendered(() => {
           let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-          postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-            updateLayerSource(PROJECTS_DRAFT, tiles);
-            showLayers(PROJECTS_DRAFT);
-            map.isRendered(()=>{
-              setTimeout(()=>{
-                applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
-              },700);
+          const promises: Promise<any>[] = [];
+          promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
+          Promise.all(promises)
+            .then((tiles) => {
+              updateLayerSource(PROJECTS_DRAFT, tiles[0]);
+              showLayers(PROJECTS_DRAFT);
             });
+          map.isRendered(() => {
+            setTimeout(()=>{
+              applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
+            },700);
           });
-          
         });
-      
       });
     }
-  },[idsBoardProjects]);
+  }, [idsBoardProjects]);
   
   useEffect(() => {
     let mask
@@ -1071,12 +1073,12 @@ const WorkRequestMap = (type: any) => {
     }
   }
   const updateLayerSource = (key: string, tiles: Array<string>) => {
-    console.log('maaaaa',map.getSource(key), tiles, tiles.hasOwnProperty('error'), key);
+    /* console.log('maaaaa',map.getSource(key), tiles, tiles.hasOwnProperty('error'), key); */
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
-      map.addVectorSource(key,tiles);
+      map.addVectorSource(key, tiles);
       addTilesLayers(key);
     } else if (map.getSource(key)) {
-      console.log('map', map.getSource(key));
+      /* console.log('map', map.getSource(key)); */
       map.getSource(key).setTiles(tiles);
       addTilesLayers(key); 
     }
@@ -1089,7 +1091,6 @@ const WorkRequestMap = (type: any) => {
   }
   const removeLayersSource = (key: string) => {
     if (map.getSource(key)) { 
-      
       map.map.removeSource(key);
     }
   }
@@ -1161,10 +1162,10 @@ const WorkRequestMap = (type: any) => {
           filter: ['in', 'cartodb_id']
         });
       }
-
     });
     addMapListeners(key);
   }
+
   const addMapListeners = async (key: string) => {
     const styles = { ...tileStyles as any };
     const availableLayers: any[] = [];
@@ -2210,18 +2211,16 @@ const epochTransform = (dateParser: any) => {
     getListComponentsByComponentsAndPolygon(newComponents, null);
     removePopup();
   }
+
   useEffect(() => {
-    if (allLayers.length < 100) {
-      return;
-    }
-    
-    EventService.setRef('click',eventClick);
+    EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
     map.map.on('click',eventToClick);
     return ()=> {
       map.map.off(eventToClick);
     }
   }, [allLayers]);
+
   const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => ReactDOMServer.renderToStaticMarkup(
 
     <>
