@@ -2724,9 +2724,9 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          11,
+          13,
           0,
-          12,
+          15,
           0.9
         ],
         "circle-stroke-color": "#000000",
@@ -2755,9 +2755,9 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          11,
+          13,
           0,
-          12,
+          15,
           3
         ],
         "circle-stroke-opacity": 0.4
