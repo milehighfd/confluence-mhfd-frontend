@@ -723,7 +723,12 @@ const Map = ({ leftWidth,
           //     //     }
           //     // });
           // } else {
-              map.removeLayer('mask');
+              if (map.getLayer('mask')) {
+                map.removeLayer('mask');
+              }
+              if (map.getLayer('border')) {
+                map.removeLayer('border');
+              }
               // map.removeSource('mask');
               if(map.getSource('mask')) {
                 map.getSource('mask').setData(poly);
@@ -1482,6 +1487,7 @@ const Map = ({ leftWidth,
         });
         await selectedLayers.forEach((layer: LayersType) => {
           if(layer === 'area_based_mask' || layer === 'border') {
+            console.log('adding layermask', layer);
             addLayerMask(layer);
             return;
           }
@@ -1499,13 +1505,20 @@ const Map = ({ leftWidth,
             topStreams()
             topEffectiveReaches();
             topProjects();
-            map.moveLayer('borderMASK');
             topHovereableLayers();
             topStreamLabels();
             topLabels();
             topServiceArea();
             topComponents();
-            map.moveLayer('servicearea');
+            if (map.getLayer('servicearea')) {
+              map.moveLayer('servicearea');
+            }
+            if (map.getLayer('area_based_maskMASK')) {
+              map.moveLayer('area_based_maskMASK');
+            };
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('borderMASK');
+            };
         },800);
     }
     const topHovereableLayers = () => {
@@ -1931,6 +1944,9 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_' + index)) {
+              if(key === 'area_based_mask' || key === 'border') {
+                console.log('about to visible', key);
+              }
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
                 if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
                     showSelectedComponents(filterComponents.component_type.split(','));
@@ -1950,6 +1966,9 @@ const Map = ({ leftWidth,
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_' + index)) {
+              if(key === 'area_based_mask' || key === 'border') {
+                console.log('about to hide', key);
+              }
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             }
         });
@@ -3731,6 +3750,7 @@ const Map = ({ leftWidth,
         const deleteLayers = selectedLayers.filter(layer => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
           if(layer === 'border' || layer === 'area_based_mask') {
+            console.log('remove  mask', layer);
             removeLayerMask(layer);
           } else {
             removeTilesHandler(layer);
