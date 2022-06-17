@@ -2706,12 +2706,15 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          13,
+          12.9,
           0,
-          16,
+          14,
+          0.9,
+          15,
           1
         ],
-        "circle-radius": 1
+        'circle-radius': 1,
+        'circle-pitch-scale': 'map'
       }
     },
     {
@@ -2724,14 +2727,17 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          13,
+          12.9,
           0,
+          14,
+          0.9,
           15,
-          20
+          0.9
         ],
         "circle-stroke-color": "#000000",
-        "circle-radius": 6,
-        "circle-stroke-width": 0
+        "circle-radius": 3,
+        "circle-stroke-width": 0,
+        "circle-stroke-opacity": 1
       }
     },
     {
@@ -2744,10 +2750,12 @@ export const tileStyles = {
           "interpolate",
           ["linear"],
           ["zoom"],
-          13,
+          12.9,
           0,
+          14,
+          0.9,
           15,
-          20
+          1
         ],
         "circle-stroke-color": "#9cebed",
         "circle-radius": 2,
@@ -2757,8 +2765,8 @@ export const tileStyles = {
           ["zoom"],
           13,
           0,
-          15,
-          9
+          14,
+          3
         ],
         "circle-stroke-opacity": 0.4
       }
