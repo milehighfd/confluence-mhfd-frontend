@@ -6,7 +6,7 @@ import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import RheoStat from "../NewProblemsFilter/RheoStat";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
-import { ColorContext, ColorProvider } from './../../../context/ColorContext';
+import { ColorContext } from "../../../context/ColorContext";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the component is located.</div>);
@@ -20,7 +20,6 @@ const content16 = (<div className="popoveer-00"><b>Year of Study</b> refers to t
 const content17 = (<div className="popoveer-00"><b>Estimated Cost</b> is the Estimated Cost of implementing or addressing a Component as part of a Capital or Maintenance project.</div>);
 
 export const NewComponentsFilter = () => {
-    const {setColor} = useContext(ColorContext);
     const {
         getGalleryProblems, 
         getGalleryProjects,
@@ -74,12 +73,6 @@ export const NewComponentsFilter = () => {
         });
 
     const axisLabel = 'Number of Components';
-    const setColorChange = (value: string)=>{
-        console.log(222)
-        setTimeout(() => {
-            setColor('red');
-        }, 3000);
-    };
 
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 295 }}>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
@@ -132,23 +125,22 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.servicearea && 
-                    <ColorProvider>
-                    { setColorChange('red') }
-                        <TreeMap data={paramComponents.servicearea} tab={'component'} type="servicearea"
+                    <ColorContext.Provider value="#251963">
+                        <TreeMap data={paramComponents.servicearea} tab={'component'} type={'servicearea'}
                             selected={filterComponentOptions.servicearea} defaultValue={''}
                             onSelect={(items: any) =>  apply(items, 'servicearea')} />
-                    </ColorProvider>
+                    </ColorContext.Provider>
                 }
             </Col>
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.county &&
-                    <ColorProvider>
+                    <ColorContext.Provider  value="#66d5ff">
                         <TreeMap data={paramComponents.county} tab={'component'}
                             selected={filterComponentOptions.county} defaultValue={''}
                             onSelect={(items: any) => apply(items, 'county')} />
-                    </ColorProvider>
+                    </ColorContext.Provider>
                 }
             </Col>
         </Row>

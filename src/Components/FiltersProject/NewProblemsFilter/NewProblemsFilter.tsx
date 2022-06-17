@@ -6,7 +6,7 @@ import BarChart from './BarChart';
 import TreeMap from './TreeMap';
 import HorizontalBarChart from './HorizontalBarChart';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
-import { ColorProvider } from '../../../context/ColorContext';
+import { ColorContext } from '../../../context/ColorContext';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -145,22 +145,22 @@ export const NewProblemsFilter = () => {
                     <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.servicearea &&
-                        <ColorProvider>
+                        <ColorContext.Provider value="#251963">
                             <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'project'}
                             selected={filterProblemOptions.servicearea} defaultValue={''}
                             onSelect={(e: string) => apply(e, 'servicearea')} />
-                        </ColorProvider>
+                        </ColorContext.Provider>
                     }
                 </Col>
                 <Col span={12}>
                     <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.county &&
-                        <ColorProvider>
+                        <ColorContext.Provider  value="#66d5ff">
                             <TreeMap data={paramProblems.county} tab={'problem'}
                                 selected={filterProblemOptions.county} defaultValue={''}
                                 onSelect={(items: any) => apply(items, 'county')} />
-                        </ColorProvider>
+                        </ColorContext.Provider>
                     }
                 </Col>
             </Row>

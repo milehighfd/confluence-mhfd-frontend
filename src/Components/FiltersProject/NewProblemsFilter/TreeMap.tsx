@@ -16,21 +16,12 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [isHovered, setIsHovered] = useState(false);
-  const { color,setColor } = useContext(ColorContext);
   
   useEffect(() => {
     let sData = selected === '' ? [] : selected.split(',')
     setSelectedData(sData);
   }, [selected])
-
-  //let color: string;
-
-  if (type) {
-    setColor('#251963');
-  } /* else {
-    setColor('#66d5ff');
-  } */
-  console.log(color);
+  const color = useContext(ColorContext);
 
   let sum = 0;
   (data || []).forEach((d: any) => {
