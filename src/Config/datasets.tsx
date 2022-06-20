@@ -13,6 +13,24 @@ export const postData = (url: any, body: any, token?: any) => {
     });
 }
 
+export const postDataAsyn = async (url: any, body: any, token?: any) => {
+    const headers = token ? JSONOptions(token) : JSONDefault();
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(body)
+        }).then(response => response.json())
+            .then(data => { return (data); })
+            .catch((err) => {
+                console.log(err);
+            });
+        return response;
+    } catch (e) {
+        console.log(`😱 request failed: ${e}`);
+    };
+}
+
 export const postDataMultipart = (url: any, body: any, token?: any) => {
     const headers = token ? MultiPartOptions(token) : MultiPart();
     return fetch(url, {

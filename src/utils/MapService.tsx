@@ -324,9 +324,9 @@ export class MapService {
             this.map.addImage('pjm2', image);
         }
     });
-    this.map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean-50.png', (error: any, image: any) => {
+    this.map.loadImage('custom-sprite/Urbanclimbtosafetysign_origclean.png', (error: any, image: any) => {
         if (error) {
-            console.log('error on load Urbanclimbtosafetysign_origclean-50.png', error);
+            console.log('error on load Urbanclimbtosafetysign_origclean.png', error);
             return;
         }
         if (!this.map.hasImage('Urbanclimbtosafetysign_origclean')) {

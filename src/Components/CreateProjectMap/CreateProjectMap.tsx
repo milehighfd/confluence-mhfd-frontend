@@ -9,7 +9,6 @@ import * as turf from '@turf/turf';
 import { getData, getToken, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import EventService from '../../services/EventService';
 import {
   PROBLEMS_TRIGGER,
