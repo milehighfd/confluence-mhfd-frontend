@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
@@ -7,7 +7,6 @@ import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './../M
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import EventService from '../../services/EventService';
 import { getData, getToken, postDataAsyn } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
@@ -39,6 +38,7 @@ import { Input, AutoComplete } from 'antd';
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
 import { GlobalMapHook } from '../../utils/globalMapHook';
 
+let mapid = 'map4';
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -72,7 +72,7 @@ const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
 const factorm2toacre = 0.00024710538146717;
 const WorkRequestMap = (type: any) => {
-  let html = document.getElementById('map4');
+  let html = document.getElementById(mapid);
   
   const [measuringState, setMeasuringState] = useState(isMeasuring);
   const [measuringState2, setMeasuringState2] = useState(isMeasuring);
@@ -336,12 +336,12 @@ const WorkRequestMap = (type: any) => {
 
   useEffect(() => {
     const waiting = () => {
-      html = document.getElementById('map4');
+      html = document.getElementById(mapid);
       if (!html) {
         setTimeout(waiting, 50);
       } else {
         if (!map) {
-          map = new MapService('map4');
+          map = new MapService(mapid);
           setLayersSelectedOnInit();
           map.loadImages();
           let _ = 0;
@@ -357,16 +357,15 @@ const WorkRequestMap = (type: any) => {
     };
     map = undefined;
     waiting();
-    EventService.setRef('click',eventClick);
     changeAddLocationState(false);
     componentsList = [];
     return () => {
       setBoardProjects(['-8888'])
+      map = undefined;
     }
   }, []);
   useEffect(()=>{
     popup.remove();
-    map.resize()
   },[type.change]);
   useEffect(()=>{
     if (map) {
@@ -790,27 +789,35 @@ const WorkRequestMap = (type: any) => {
   const topProjects = () => {
     const styles = { ...tileStyles as any };   
       styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
-        map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        if (map.map.getLayer(`${PROJECTS_LINE}_${index}`)) {
+          map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        }
       })
   }
   const topComponents = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
     for (const component of COMPONENT_LAYERS.tiles) {
       styles[component].forEach((style: LayerStylesType, index: number) => {
-        map.map.moveLayer(`${component}_${index}`);
+        if(map.map.getLayer(`${component}_${index}`)){
+          map.map.moveLayer(`${component}_${index}`);
+        }
       })
     }
   }
   const topServiceArea = () => {
     const styles = { ...tileStyles as any };
       styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
-        map.map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+        if (map.map.getLayer(`${SERVICE_AREA_FILTERS}_${index}`)) {
+          map.map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+        }
       })
   }
   const topEffectiveReaches = () => {
     const styles = { ...tileStyles as any };   
     styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
-      map.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      if (map.map.getLayer(`${EFFECTIVE_REACHES}_${index}`)) {
+        map.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      }
     })
   }
   const topStreams = () => {
@@ -1021,7 +1028,6 @@ const WorkRequestMap = (type: any) => {
           let boardids = idsBoardProjects;
           allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
         } else {
-          console.log('carajo que ', new Date);
           allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111'] ] ]);
         }
       }
@@ -2044,9 +2050,11 @@ const epochTransform = (dateParser: any) => {
 
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
-        popup.setLngLat(e.lngLat)
-          .setHTML(html)
-          .addTo(map.map);
+        // popup.setLngLat(e.lngLat)
+        //   .setHTML(html)
+        //   .addTo(map.map);
+        console.log('about to add popuppp', e.lngLat, JSON.stringify(e.lngLat));
+        map.addPopUp({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
         
         for (const index in popups) {
           let menuElement = document.getElementById('menu-' + index);
@@ -2213,11 +2221,14 @@ const epochTransform = (dateParser: any) => {
   }
 
   useEffect(() => {
+    // EventService.reset();new 
     EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
     map.map.on('click',eventToClick);
     return ()=> {
-      map.map.off(eventToClick);
+      if (map) {
+        map.map.off(eventToClick);
+      }
     }
   }, [allLayers]);
 
@@ -2272,11 +2283,11 @@ const epochTransform = (dateParser: any) => {
     </>
   );
  
-  const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
+  const loadMainPopup =  useCallback((id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
     <>
       <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={ep?ep:false}></MainPopup>
     </>
-  );
+  ), []);;
 
   const loadStreamPopup = (index: number, item: any) => (
     <>
@@ -2334,7 +2345,7 @@ const epochTransform = (dateParser: any) => {
   return <>
     <div className="map">
     <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
-      <div id="map4" style={{ height: '100%', width: '100%' }}></div>
+      <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}

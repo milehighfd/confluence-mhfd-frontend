@@ -8,8 +8,6 @@ import { MAPBOX_TOKEN, MAP_DROPDOWN_ITEMS } from '../../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import { polygonFill, polygonStroke, selectedComponents } from '../../constants/mapStyles';
 import { ComponentType } from '../../Classes/MapTypes';
 import { ComponentPopup } from './MapPopups';
