@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete } from 'antd';
+import { Layout, Button, Input, Row, Col, Popover, Select, Tabs, Dropdown, Menu, Collapse, Timeline, Drawer, AutoComplete, MenuProps } from 'antd';
 import { PlusCircleFilled, RightOutlined, DownOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Shared/Sidebar/SidebarView";
@@ -23,22 +23,23 @@ const genExtra = () => (
     <div>$1,000,000</div>
   </div>
 );
-const content = (
-  <Menu className="js-mm-00">
-    <Menu.Item>
-      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Edit Project</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{opacity:'0.5'}}/> Edit Amount</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5'}}/> Zoom to</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px"/> Delete</span>
-    </Menu.Item>
+const content = () => {
+  const items: MenuProps['items'] = [{
+    key: '0',
+    label: <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Edit Project</span>
+  }, {
+    key: '1',
+    label: <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} /> Edit Amount</span>
+  }, {
+    key: '2',
+    label: <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
+  }, {
+    key: '3',
+    label: <span style={{ color: '#FF0000' }}><img src="/Icons/icon-16.svg" alt="" width="10px" /> Delete</span>
+  }];
+  return <Menu className="js-mm-00" items={items}>
   </Menu>
-);
+};
 
 export default () => {
 

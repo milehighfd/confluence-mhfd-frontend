@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu } from 'antd';
+import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu, MenuProps } from 'antd';
 import { useFormik } from 'formik';
 
 import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, DROPDOWN_ORGANIZATION, GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from "../../../constants/constants";
@@ -21,44 +21,72 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
   const visible = {
     visible: false
   };
+
   const menu = () => {
-    return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          const item: any = event.item;
-          values.zoomarea = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          <label className="label-sg">{'Regional Agency'}</label>
-          {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g2">
-          <label className="label-sg">{'City'}</label>
-          {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g3">
-          <label className="label-sg">{'City and County'}</label>
-          {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g4">
-          <label className="label-sg">{'Unincorporated County'}</label>
-          {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-      </Menu> :
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          const item: any = event.item;
-          values.zoomarea = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          {groupOrganization.map((item: any, index: number) => (<Menu.Item key={index + "g1"}><span>{item.aoi}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-      </Menu>
+    let itemMenu: MenuProps['items']
+    let regional: any = [];
+    let city: any = [];
+    let county: any = [];
+    let unincorporated: any = [];
+    const genetareMenuItem = (list: Array<any>): Array<any> => {
+      let items: Array<any> = [];
+      list.forEach((element: string, index: number) => {
+        items.push({
+          key: `${index}|${element}`,
+          label: <span style={{ marginLeft: '12px' }}>{element}</span>
+        });
+      });
+      return items;
+    };
+    if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
+      regional = genetareMenuItem(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY);
+      city = genetareMenuItem(DROPDOWN_ORGANIZATION.CITY);
+      county = genetareMenuItem(DROPDOWN_ORGANIZATION.CITY_AND_COUNTY);
+      unincorporated = genetareMenuItem(DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY);
+      itemMenu = [
+        {
+          key: 'regional-items',
+          type: 'group',
+          label: <label className="label-sg">{'Regional Agency'}</label>,
+          children: regional
+        },
+        {
+          key: 'city-items',
+          type: 'group',
+          label: <label className="label-sg">{'City'}</label>,
+          children: city
+        },
+        {
+          key: 'county-items',
+          type: 'group',
+          label: <label className="label-sg">{'City and County'}</label>,
+          children: county
+        },
+        {
+          key: 'unincorporated-items',
+          type: 'group',
+          label: <label className="label-sg">{'Unincorporated County'}</label>,
+          children: unincorporated
+        },
+      ];
+    } else {
+      itemMenu = groupOrganization.map((item: any, index: number) => {
+        return {
+          key: `${index}|${item.aoi}`,
+          label: <span>{item.aoi}</span>
+        }
+      });
+    }
+    return <Menu
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event) => {
+        values.zoomarea = event.key.split('|')[1];
+        setTitle(values.zoomarea);
+      }}>
+    </Menu>
   };
+
   const [modal, setModal] = useState(visible);
   const [modalDelete, setModalDelete] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(user.activated);

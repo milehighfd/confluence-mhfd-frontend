@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
 import { useLocation } from "react-router-dom";
 
 import GenericTabView from "../../../Components/Shared/GenericTab/GenericTabView";
@@ -694,28 +694,32 @@ const MapView = () => {
       </Col>
     </Row>
   );
+
   const menuSort = (listSort: Array<{ name: string, title: string }>) => {
-    return <Menu className="js-mm-00">
-      {listSort.map((item: { name: string, title: string }) => (
-        <Menu.Item key={item.name}
-          onClick={() => {
-            if (tabActive === '0') {
-              const auxOptions = { ...filterProblemOptions };
-              auxOptions.column = item.name;
-              setFilterProblemOptions(auxOptions);
-              getGalleryProblems();
-            } else {
-              const auxOptions = { ...filterProjectOptions };
-              auxOptions.column = item.name;
-              setFilterProjectOptions(auxOptions);
-              getGalleryProjects();
-            }
-          }}>
-          <span className="menu-item-text" style={{ height: '10px' }}>{item.title}</span>
-        </Menu.Item>
-      ))}
-    </Menu>
-  }
+    const itemMenu: MenuProps['items'] = [];
+    listSort.forEach((element: { name: string, title: string }, index: number) => {
+      itemMenu.push({
+        key: `${index}|${element.title}`,
+        label: <span className="menu-item-text" style={{ height: '10px' }}>{element.title}</span>,
+        onClick: (() => {
+          if (tabActive === '0') {
+            const auxOptions = { ...filterProblemOptions };
+            auxOptions.column = element.name;
+            setFilterProblemOptions(auxOptions);
+            getGalleryProblems();
+          } else {
+            const auxOptions = { ...filterProjectOptions };
+            auxOptions.column = element.name;
+            setFilterProjectOptions(auxOptions);
+            getGalleryProjects();
+          }
+        })
+      });
+    });
+    return <Menu className="js-mm-00" items={itemMenu}>
+    </Menu>;
+  };
+
   const onResetClick = () => {
     RheoStatService.reset();
     if (tabActive === '0') {

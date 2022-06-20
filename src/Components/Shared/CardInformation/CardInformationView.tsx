@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Card, Popover, Menu, Button } from "antd";
+import { Col, Card, Popover, Menu, Button, MenuProps } from "antd";
 import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
@@ -52,7 +52,6 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     setActiveCard(status);
   }, [favorites, deleteFavorite, addFavorite]);
 
-
   const { bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
@@ -61,7 +60,6 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
   }));
   const changeCenter = () => {
     setZoomProjectOrProblem(data.coordinates);
-
   }
 
   useEffect(() => {
@@ -75,38 +73,60 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
   }
-  const menu = (
-    <Menu>
-      <Menu.Item className="drop-head" style={{cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)'}}  onClick={(e: any) => stopModal(e)}>
-        LIST ACTIONS
-      </Menu.Item>
 
-      {data.totalComponents ? <Menu.Item onClick={(e: any) => {
-         e.domEvent.stopPropagation();
-         e.domEvent.nativeEvent.stopImmediatePropagation();
-         showComponents();
-      }}>
-        <span className="menu-item-text">Show Components</span>
-      </Menu.Item> : <></>
+  const menu = () => {
+    const onClickPopupCard = (e: any) => {
+      stopModal(e);
+      switch (e.key) {
+        case 'popup-show-components':
+          showComponents();
+          break;
+        case 'popup-zoom':
+          changeCenter();
+          return;
+        default:
+          break;
       }
-      <Menu.Item onClick={(e: any) => {
-         e.domEvent.stopPropagation();
-         e.domEvent.nativeEvent.stopImmediatePropagation();
-        changeCenter();
-      }}>
-        <span className="menu-item-text">Zoom to Feature</span>
-      </Menu.Item>
-      <Menu.Item onClick={(e: any) => stopModal(e)}>
-        <span className="menu-item-text" style={{opacity: 0.5}}>Favorite Card</span>
-      </Menu.Item>
-      <Menu.Item onClick={(e: any) => stopModal(e)}>
-        <span className="menu-item-text" style={{opacity: 0.5}}>Comment</span>
-      </Menu.Item>
-      <Menu.Item onClick={(e: any) => stopModal(e)}>
-        <span className="menu-item-text" style={{opacity: 0.5}}>Add Team Member</span>
-      </Menu.Item>
+    };
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: 'popup-title',
+        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)' }}>
+          LIST ACTIONS
+        </label>
+      },
+      {
+        key: 'popup-show-components',
+        label: <span className="menu-item-text" style={{ display: data.totalComponents ? 'inline' : 'none' }}>Show Components</span>
+      },
+      {
+        key: 'popup-zoom',
+        label: <span className="menu-item-text">Zoom to Feature</span>
+      },
+      {
+        key: 'popup-favorite',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Favorite Card</span>
+      },
+      {
+        key: 'popup-comment',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
+      },
+      {
+        key: 'popup-add-team',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
+      }
+    ];
+    if (!data.totalComponents) {
+      menuPopupItem.splice(1, 1);
+    }
+    return <Menu
+      className="menu-dropdown-map"
+      style={{ backgroundColor: 'white', border: 0 }}
+      items={menuPopupItem}
+      onClick={onClickPopupCard}
+    >
     </Menu>
-  );
+  };
 
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});

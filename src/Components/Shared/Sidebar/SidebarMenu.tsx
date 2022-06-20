@@ -1,95 +1,104 @@
 import React, { useState } from "react";
-import { Menu } from 'antd';
+import { Menu, MenuProps } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/sidebar.scss';
 
-const SidebarMenu = () => { 
+const SidebarMenu = () => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const location = useLocation();
   const appUser = store.getState().appUser;
   const indexOf = "" + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const showWorkRequestPlan = (appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff')
   const userApproved = appUser.status === 'approved';
-   
-return (
-  <Menu theme="dark" defaultSelectedKeys={[indexOf]} mode="inline" >
-  {(appUser.designation !== 'guest') ?
-  <Menu.Item key="0" className="menu-mobile">
-    <Link to={'/profile-view'} style={{ textDecoration: 'none' }}>
-      <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="22px" height="18px"/>
-      <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="22px" height="18px" />
-      <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>my confluence</span>
+  const itemMenuSidebar: MenuProps['items'] = [{
+    key: '0',
+    label: <Link to={'/profile-view'} style={{ textDecoration: 'none' }}>
+      <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="22px" height="20px" />
+      <img className="img-a anticon" src="/Icons/menu-green-01.svg" alt="" width="22px" height="22px" />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>my confluence</span>
     </Link>
-  </Menu.Item> : ''}
-  <Menu.Item key="1" className="menu-mobile" style={{padding: '0px 0px 0px 0px'}}>
-    <Link to={'/map'} >
-      <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="18px" />
-      <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="18px" />
-      <span style={{marginLeft: collapsed ? '-20px' : '-2px', padding: '0'}}>map view</span>
+  }, {
+    key: '1',
+    label: <Link to={'/map'} >
+      <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
+      <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px', padding: '0' }}>map view</span>
     </Link>
-  </Menu.Item>
-  {showWorkRequestPlan &&
-    <Menu.Item key="4" className="menu-mobile">
-      <Link to={userApproved ? '/work-request': '#'}>
-        <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}} />
-        <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}} />
-        <span>work request</span>
-        <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>work request</span>
-      </Link>
-    </Menu.Item>
+  }, {
+    key: '4',
+    label: <Link to={userApproved ? '/work-request' : '#'}>
+      <img className="img-h anticon" src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <img className="img-a anticon" src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>work request</span>
+    </Link>
+  }, {
+    key: '3',
+    label: <Link to={userApproved ? '/work-plan' : '#'}>
+      <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>work plan</span>
+    </Link>
+  }, {
+    key: '5',
+    label: <Link to={'/map'}>
+      <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
+      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-6px' }}>project management</span>
+    </Link>
+  }, {
+    key: '2',
+    label: <Link to={'/map'}>
+      <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
+      <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>watershed story</span>
+    </Link>
+  }, {
+    key: '6',
+    label: <Link to={'/upload-attachment'}>
+      <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="22px" height="22px" />
+      <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="22px" height="22px" />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>uploader</span>
+    </Link>
+  }, {
+    key: '7',
+    label: <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
+      <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
+      <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>feedback</span>
+    </a>
+  }, {
+    key: '8',
+    label: <Link to={'/user'}>
+      <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
+      <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>settings</span>
+    </Link>
+  }];
+  const removeItemArray = (key: string) => {
+    let index = itemMenuSidebar.map((x: any) => x.key).indexOf(key);
+    if (index > -1) {
+      itemMenuSidebar.splice(index, 1);
+    }
+  };
+  if (!((appUser.designation === 'admin') && (appUser.status === 'approved'))) {
+    removeItemArray('8');
   }
-  {showWorkRequestPlan ?
-  <Menu.Item key="3" className="menu-mobile">
-    <Link to={userApproved ? '/work-plan': '#'}>
-      <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
-      <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" height="18px" style={{opacity: userApproved ? '1': '0.2'}}/>
-      <span style={{marginLeft: collapsed ? '-20px' : '0px'}}>project management</span>
-    </Link>
-  </Menu.Item> : ''}
-  {(appUser.designation !== 'guest') ?
-  <Menu.Item key="5" className="menu-mobile">
-    <Link to={'/map'}>
-      <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}}  />
-      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}}  />
-      <span style={{marginLeft: collapsed ? '-20px' : '0px'}}>project management</span>
-    </Link>
-  </Menu.Item> : ''}
-  {(appUser.designation !== 'guest') ?
-  <Menu.Item key="2" className="menu-mobile">
-    <Link to={'/map'}>
-      <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}} />
-      <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" height="18px" style={{opacity: '0.2'}}  />
-      <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>watershed story</span>
-    </Link>
-  </Menu.Item> : ''}
-  {(appUser.designation === 'admin' ||
-    appUser.designation === 'staff') && (appUser.status === 'approved') ?
-    <Menu.Item key="6" className="menu-mobile">
-      <Link to={'/upload-attachment'}>
-        <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="22px" height="18px" />
-        <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="22px" height="18px" />
-        <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>uploader</span>
-      </Link>
-    </Menu.Item> : ''}
-    <Menu.Item key="7" className="menu-mobile">
-      <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
-        <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" height="18px" />
-        <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="22px" height="18px" />
-        <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>feedback</span>
-      </a>
-    </Menu.Item>
-  {(appUser.designation === 'admin') && (appUser.status === 'approved') ?
-    <Menu.Item key="8" className="menu-mobile">
-      <Link to={'/user'}>
-        <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" height="18px" />
-        <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" height="18px" />
-        <span style={{marginLeft: collapsed ? '-20px' : '-2px'}}>settings</span>
-      </Link>
-    </Menu.Item> : ''}
+  if (!((appUser.designation === 'admin' || appUser.designation === 'staff') && (appUser.status === 'approved'))) {
+    removeItemArray('6');
+  }
+  if (!(appUser.designation !== 'guest')) {
+    removeItemArray('0');
+    removeItemArray('2');
+    removeItemArray('5');
+  }
+  if (!showWorkRequestPlan) {
+    removeItemArray('3');
+    removeItemArray('4');
+  }
+  return <Menu theme="dark" className="menu-mobile" defaultSelectedKeys={[indexOf]} mode="inline" items={itemMenuSidebar}>
   </Menu>
-  )
 }
 
 export default SidebarMenu;

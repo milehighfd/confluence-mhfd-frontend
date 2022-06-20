@@ -2808,15 +2808,15 @@ const Map = ({
         }
     }
     const renderOption = (item: any) => {
-        return (
-            <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + '|' + item.place_name}>
-                <div className="global-search-item">
-                    <h6>{item.text}</h6>
-                    <p>{item.place_name}</p>
-                </div>
-            </Option>
-        );
-    }
+      return {
+        key: `${item.text}|${item.place_name}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: <div className="global-search-item">
+          <h6>{item.text}</h6>
+          <p>{item.place_name}</p>
+        </div>
+      };
+    };
     const [keyword, setKeyword] = useState('');
 
     const handleSearch = (value: string) => {
@@ -3089,7 +3089,7 @@ const Map = ({
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
                     style={{ width: 240 }}
-                    dataSource={mapSearch.map(renderOption)}
+                    options={mapSearch.map(renderOption)}
                     onSelect={onSelect}
                     onSearch={handleSearch}
                     value={keyword}

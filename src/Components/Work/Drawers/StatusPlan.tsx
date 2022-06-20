@@ -1,23 +1,30 @@
 import React, { useState } from "react";
-import { Drawer, Button, Dropdown, Menu, List } from 'antd';
+import { Drawer, Button, Dropdown, Menu, List, MenuProps } from 'antd';
 import { CloseOutlined, DownOutlined } from '@ant-design/icons';
 
-const menu = (
-  <Menu className="menu-utilities">
-    <Menu.Item key="0">
-      <h6><i className="mdi mdi-circle" style={{color:'#29C499'}}></i> Approved</h6>
+const menu = () => {
+  const items: MenuProps['items'] = [{
+    key: '0',
+    label: (<>
+      <h6><i className="mdi mdi-circle" style={{ color: '#29C499' }}></i> Approved</h6>
       <p>MHFD Staff approves the Work Request.</p>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <h6><i className="mdi mdi-circle" style={{color:'#FFC664'}}></i> Under Review</h6>
+    </>)
+  }, {
+    key: '1',
+    label: (<>
+      <h6><i className="mdi mdi-circle" style={{ color: '#FFC664' }}></i> Under Review</h6>
       <p>MHFD Managers are currently reviewing the Work Plan proposal submitted by Staff.</p>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <h6><i className="mdi mdi-circle" style={{color:'#D1D1D1'}}></i> Not Initiated</h6>
+    </>),
+  }, {
+    key: '2',
+    label: (<>
+      <h6><i className="mdi mdi-circle" style={{ color: '#D1D1D1' }}></i> Not Initiated</h6>
       <p>MHFD Manager have not received the Work Plan proposal. </p>
-    </Menu.Item>
-  </Menu>
-);
+    </>),
+  }];
+  return <Menu className="menu-utilities" items={items}>
+  </Menu>;
+};
 
 const data = [
   {

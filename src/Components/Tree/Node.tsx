@@ -1,50 +1,64 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNoteDispatch } from '../../hook/notesHook';
-import { Popover, Menu } from 'antd';
+import { Popover, Menu, MenuProps } from 'antd';
 import { useProfileState } from '../../hook/profileHook';
 
-const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any) =>  {
-
-  return (
-  <Menu className="js-mm-00">
-   { !isFolder ?
-    <Menu.Item onClick={(e: any) => {
-      console.log('my event ',e );
-      console.log(note);
-      mapFunctions.openEditNote({
-        longitude: note.data.longitude,
-        latitude: note.data.latitude,
-        content: note.data.content,
-        color: note.data.color,
-        id: note.id
-      });
-    }}>
-      <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Edit Comment</span>
-    </Menu.Item> : null}
-    {!isFolder ? 
-    <Menu.Item onClick={(e: any) => {
-      console.log(note.data.longitude, note.data.latitude);
-      mapFunctions.flyTo(note.data.longitude, note.data.latitude);
-    }}>
-      <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{opacity:'0.5', marginTop:'-2px'}}/> Zoom to</span>
-    </Menu.Item> : null }
-    {!isFolder ? 
-    <Menu.Item onClick={(e: any) => {
-      mapFunctions.deleteNote(note.id);
-      console.log(note.id);
-    }}>
-      <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
-    </Menu.Item> : null}
-    {isFolder ? 
-      <Menu.Item onClick={(e: any) => {
+const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGroup: any) => {
+  let items: MenuProps['items'] = [];
+  if (!isFolder) {
+    items = [{
+      key: '0',
+      label: <span>
+        <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        Edit Comment
+      </span>,
+      onClick: ((e: any) => {
+        console.log('my event ', e);
+        console.log(note);
+        mapFunctions.openEditNote({
+          longitude: note.data.longitude,
+          latitude: note.data.latitude,
+          content: note.data.content,
+          color: note.data.color,
+          id: note.id
+        });
+      })
+    }, {
+      key: '1',
+      label: <span>
+        <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+        Zoom to
+      </span>,
+      onClick: ((e: any) => {
+        console.log(note.data.longitude, note.data.latitude);
+        mapFunctions.flyTo(note.data.longitude, note.data.latitude);
+      })
+    }, {
+      key: '2',
+      label: <span style={{ color: '#FF0000' }}>
+        <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
+        Delete
+      </span>,
+      onClick: ((e: any) => {
+        mapFunctions.deleteNote(note.id);
+        console.log(note.id);
+      })
+    }];
+  } else {
+    items = [{
+      key: '3',
+      label: <span style={{ color: '#FF0000' }}>
+        <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
+        Delete
+      </span>,
+      onClick: ((e: any) => {
         e.domEvent.stopPropagation();
         deleteGroup(note.id);
-      }}>
-        <span style={{color:'#FF0000'}}><img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop:'-3px'}}/> Delete</span>
-      </Menu.Item> : null
-    }
-  </Menu>
-)
+      })
+    }];
+  }
+  return <Menu className="js-mm-00" items={items}>
+  </Menu>;
 };
 
 export const Node = ({ 
