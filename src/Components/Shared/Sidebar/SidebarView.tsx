@@ -8,7 +8,7 @@ const { Sider } = Layout;
 const SidebarView = () => {
   const [collapsed, setCollapsed] = useState<boolean>(true);
   return <Sider collapsedWidth="58" collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} style={{ 'zIndex': 1000 }}>
-    <SidebarMenu />
+    <SidebarMenu collapsed={collapsed}/>
     <SidebarModal />
   </Sider>
 };
