@@ -670,7 +670,7 @@ const Map = ({
           'custom-sprite/pjm2.png',
           'custom-sprite/ic-stripered.png',
           'custom-sprite/ic-stripeviolet.png',
-          'custom-sprite/Urbanclimbtosafetysign_origclean-50.png',
+          'custom-sprite/Urbanclimbtosafetysign_origclean.png',
         ];
         imagesPaths.forEach((imagePath: string) => {
           map.loadImage(imagePath, (error: any, image: any) => {
