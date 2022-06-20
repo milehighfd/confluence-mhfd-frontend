@@ -465,4 +465,34 @@
   height: calc(100vh - 53px) !important;
   overflow-y: auto;
 }
+.profile-menu{
+  color: $opacity !important;
+  .ant-menu-item > a:hover, .ant-menu-item > a:focus,
+  .ant-dropdown-menu-item > a:hover, .ant-dropdown-menu-item > a:focus {
+    color: $purple;
+    font-weight: 500;
+  }
+  .ant-dropdown-menu-item{
+    padding-top: 0px;
+    padding-left: 20px !important;
+    text-align: left;
+  }
+  .ant-dropdown-menu-item:hover{
+    background: none;
+    background-color: #e6f7ff !important;
+  }
+  span{
+    font-size: 12px;
+    color: $purple00;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid rgba(61, 46, 138, 0.07);
+    width: 100%;
+    display: inline-block;
+  }
+  span:hover{
+    color: #251863;
+    font-weight: 500;
+  }
+}
 // END PROFILE

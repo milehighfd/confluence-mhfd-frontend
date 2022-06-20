@@ -111,7 +111,7 @@
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     color: $opacity;
     position: relative;
-    background-color: #fff;
+    background-color: $white;
     border: 0;
     transition: all .3s cubic-bezier(.645,.045,.355,1);
     box-shadow: none !important;
@@ -589,6 +589,7 @@
 
 // Utilities
 .work-utilities{
+  overflow-y: hidden !important;
   h5{
     font-size: 16px;
     color: $purple00;
@@ -671,14 +672,14 @@
     }
   }
   .graph{
-    height: 250px;
+    height: 240px;
     margin-bottom: 15px;
   }
   .graph-title {
     margin-top: 30px;
   }
   .svg-scroll-analytics {
-    height: 250px;
+    height: 240px;
     overflow-y: auto;
     margin-right: 20px;
     padding-top: 6px;
@@ -716,6 +717,14 @@
         float: right;
       }
     }
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    color: $opacity;
+    position: relative;
+    background-color: $white;
+    border: 0;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    box-shadow: none !important;
   }
 }
 .status-dd-option {
