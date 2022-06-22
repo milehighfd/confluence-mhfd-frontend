@@ -33,7 +33,8 @@ export const NewProblemsFilter = () => {
 
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
-        if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field) {
+        if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field
+    || 'mhfdmanager' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
@@ -122,7 +123,66 @@ export const NewProblemsFilter = () => {
                     }
                 </Col>
                 <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    {
+                        paramProblems.solutionstatus &&
+                         <CheckBoxFilters 
+                         labels={
+                             {
+                                 '0': '0 - 25%',
+                                 '25': '25 - 50%',
+                                 '50': '50 - 75%',
+                                 '75': '75 - 100%'
+                             }
+                         }
+                         data={paramProblems.solutionstatus}
+                         selected={filterProblemOptions.solutionstatus}
+                         defaultValue={''}
+                         onSelect={(items: any) => {
+                             console.log(items);
+                             console.log(paramProblems);
+                             console.log(paramProblems.solutionstatus);
+                             console.log(filterProblemOptions, ' filtered');
+                             apply(items, 'solutionstatus');
+                         }}
+                     />
+                    }
+                </Col>
+            </Row>
+
+            <Row className="filt-00">
+                <Col span={12}>
+                    <h5 className="filter-title chart-filter-title">Problem Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    {
+                        paramProblems.priority &&
+                        <CheckBoxFilters data={paramProblems.priority}
+                            defaultValue={''}
+                            selected={filterProblemOptions.priority}
+                            onSelect={(items: any) => {
+                                apply(items, 'priority');
+                            }} />
+                    }
+                </Col>
+                <Col span={12}>
+                    <h5 className="filter-title">MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <>
+                        <CheckBoxFilters
+                            defaultValue={''}
+                            selected={filterProblemOptions.mhfdmanager}
+                            data={paramProblems.mhfdmanager}
+                            onSelect={(items: any) => {
+                                apply(items, 'mhfdmanager');
+                            }}
+                        />
+                    </>
+                </Col>
+            </Row>
+
+            
+
+            <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
+                <Col span={12}>
+                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.cost &&
                         <RheoStat
@@ -134,42 +194,6 @@ export const NewProblemsFilter = () => {
                         />
                     }
                 </Col>
-            </Row>
-
-            <Row className="filt-00">
-                <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    {
-                        paramProblems.solutionstatus &&
-                        <HorizontalBarChart type={'solutionstatus'} defaultValue={''} axisLabel={axisLabel}
-                            data={paramProblems.solutionstatus} color={'#251963'}
-                            selected={filterProblemOptions.solutionstatus} 
-                            onSelect={(items: any) => {
-                                console.log(items);
-                                console.log(paramProblems);
-                                console.log(paramProblems.solutionstatus);
-                                console.log(filterProblemOptions, ' filtered');
-                                apply(items, 'solutionstatus');
-                            }}  opacityFull={0.6} opacityOpaque={1}/>
-                    }
-                </Col>
-                <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    {
-                        paramProblems.priority &&
-                        <BarChart data={paramProblems.priority}
-                            defaultValue={''} axisLabel={axisLabel}
-                            selected={filterProblemOptions.priority}
-                            onSelect={(items: any) => {
-                                apply(items, 'priority');
-                            }} />
-                    }
-                </Col>
-            </Row>
-
-            
-
-            <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
                     <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
@@ -192,28 +216,6 @@ export const NewProblemsFilter = () => {
                         </Select>
                     </>
                 </Col>
-                <Col span={12}>
-                    <h5 className="filter-title">MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <>
-                        <div>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
-                            <u>Reset</u>
-                        </Button>
-                        </div>
-                        <Select placeholder="- Select -" value={filterProblemOptions.mhfdmanager ? filterProblemOptions.mhfdmanager : '- Select -'}
-                            style={{ width: '100%' }} onChange={(e: string) => {
-                                apply(e, 'mhfdmanager');
-                            }}>
-                            {(paramProblems.mhfdmanager || []).map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
-                </Col>
             </Row>
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
@@ -229,7 +231,24 @@ export const NewProblemsFilter = () => {
                         </Button>
                         </div>
                         <CheckBoxFilters 
+                            labels={
+                                {
+                                    '0': '0 - 25%',
+                                    '25': '25 - 50%',
+                                    '50': '50 - 75%',
+                                    '75': '75 - 100%'
+                                }
+                            }
                             data={paramProblems.solutionstatus}
+                            selected={filterProblemOptions.solutionstatus}
+                            defaultValue={''}
+                            onSelect={(items: any) => {
+                                console.log(items);
+                                console.log(paramProblems);
+                                console.log(paramProblems.solutionstatus);
+                                console.log(filterProblemOptions, ' filtered');
+                                apply(items, 'solutionstatus');
+                            }}
                         />
                     </>
                 </Col>
