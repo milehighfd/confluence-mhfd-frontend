@@ -264,7 +264,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       <Row gutter={[16, 16]} >
         {
           allowed.includes(NEW_PROJECT_TYPES.Capital) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Capital) }>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Capital) } style={{ paddingBottom:'10px' }}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Capital?"button-project button-project-active" : "button-project" } >
             <div className="project-img">
               <img src="/Icons/project/capital.svg" alt="" height="30px" />
@@ -278,7 +278,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         }
         {
           allowed.includes(NEW_PROJECT_TYPES.Maintenance) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Maintenance) }>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Maintenance) } style={{ paddingBottom:'10px' }}>
         <Button className={typeProject===NEW_PROJECT_TYPES.Maintenance?"button-project button-project-active" : "button-project" }>
           <div className="project-img">
             <img src="/Icons/project/maintenance.svg" alt="" height="30px" />
@@ -294,7 +294,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       <Row gutter={[16, 16]}>
         {
           allowed.includes(NEW_PROJECT_TYPES.Study) &&
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Study) }>
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Study) } style={{ paddingBottom:'10px' }}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Study?"button-project button-project-active" : "button-project" } >
             <div className="project-img">
               <img src="/Icons/project/study.svg" alt="" height="30px" />
@@ -341,13 +341,13 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
 
       {visibleSubType && <> <h4>Choose a Subtype</h4>
       <Row gutter={[16, 16]}>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management)} >
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management)} style={{ paddingBottom:'10px' }}>
           <Popover content={content00} ><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management? "btn-opacity-active btn-opacity" : "btn-opacity"}>Trash & Debris Mngt</Button></Popover>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management)} >
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management)} style={{ paddingBottom:'10px' }}>
           <Popover content={content01}><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management? "btn-opacity-active btn-opacity" : "btn-opacity"}>Vegetation Management</Button></Popover>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal)}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal)} style={{ paddingBottom:'10px' }}>
           <Popover content={content02}><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal? "btn-opacity-active btn-opacity" : "btn-opacity"}>Sediment Removal</Button></Popover>
         </Col>
       </Row>
