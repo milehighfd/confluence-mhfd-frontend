@@ -6,6 +6,7 @@ import BarChart from './BarChart';
 import TreeMap from './TreeMap';
 import HorizontalBarChart from './HorizontalBarChart';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
+import { CheckBoxFilters } from '../CheckboxFilters';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -88,6 +89,27 @@ export const NewProblemsFilter = () => {
 
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
+            <Row className="filt-00">
+                <Col span={12}>
+                    <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    {
+                        paramProblems.servicearea &&
+                        <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'project'}
+                            selected={filterProblemOptions.servicearea} defaultValue={''}
+                            onSelect={(e: string) => apply(e, 'servicearea')} />
+                    }
+                </Col>
+                <Col span={12}>
+                    <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    {
+                        paramProblems.county &&
+                        <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
+                            selected={filterProblemOptions.county} defaultValue={''}
+                            onSelect={(items: any) => apply(items, 'county')} />
+                    }
+                </Col>
+            </Row>
+
             <Row className="filt-00" style={{ marginTop: '10px' }}>
                 <Col span={12}>
                     <h5 className="filter-title chart-filter-title">Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -122,7 +144,13 @@ export const NewProblemsFilter = () => {
                         <HorizontalBarChart type={'solutionstatus'} defaultValue={''} axisLabel={axisLabel}
                             data={paramProblems.solutionstatus} color={'#251963'}
                             selected={filterProblemOptions.solutionstatus} 
-                            onSelect={(items: any) => apply(items, 'solutionstatus')}  opacityFull={0.6} opacityOpaque={1}/>
+                            onSelect={(items: any) => {
+                                console.log(items);
+                                console.log(paramProblems);
+                                console.log(paramProblems.solutionstatus);
+                                console.log(filterProblemOptions, ' filtered');
+                                apply(items, 'solutionstatus');
+                            }}  opacityFull={0.6} opacityOpaque={1}/>
                     }
                 </Col>
                 <Col span={12}>
@@ -139,26 +167,7 @@ export const NewProblemsFilter = () => {
                 </Col>
             </Row>
 
-            <Row className="filt-00">
-                <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    {
-                        paramProblems.servicearea &&
-                        <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'project'}
-                            selected={filterProblemOptions.servicearea} defaultValue={''}
-                            onSelect={(e: string) => apply(e, 'servicearea')} />
-                    }
-                </Col>
-                <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    {
-                        paramProblems.county &&
-                        <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
-                            selected={filterProblemOptions.county} defaultValue={''}
-                            onSelect={(items: any) => apply(items, 'county')} />
-                    }
-                </Col>
-            </Row>
+            
 
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
@@ -203,6 +212,25 @@ export const NewProblemsFilter = () => {
                                 return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
                             })}
                         </Select>
+                    </>
+                </Col>
+            </Row>
+            <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
+                <Col span={12}>
+                    <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <>
+                        <div>
+                        <Button className="btn-svg" onClick={() => { }}>
+                            <u>Apply</u>
+                        </Button>
+                        &nbsp;|&nbsp;
+                        <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
+                            <u>Reset</u>
+                        </Button>
+                        </div>
+                        <CheckBoxFilters 
+                            data={paramProblems.solutionstatus}
+                        />
                     </>
                 </Col>
             </Row>
