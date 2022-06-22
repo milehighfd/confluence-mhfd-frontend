@@ -259,7 +259,10 @@
   }
 }
 .img-banner {
-  width: 1066px;
+  overflow: hidden;
+  width: 130vh;
+
+  // width: 1066px;
   height: 1080px;
 }
 .user-card{
