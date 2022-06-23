@@ -24,9 +24,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   let color: string;
 
   if (type === 'servicearea') {
-    color = '#251963';
+    color = '#5D3DC7';
   } else {
-    color = '#66d5ff';
+    color = '#047CD7';
   }
 
   let sum = 0;
@@ -118,9 +118,9 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .style("opacity", function (d: any) {
         let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
-          return type == 'servicearea'?CHART_CONSTANTS_INV.opacityFull:CHART_CONSTANTS.opacityFull;
+          return 1;
         } else {
-          return type == 'servicearea'?CHART_CONSTANTS_INV.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque;
+          return 0.6;
         }
       })
 
