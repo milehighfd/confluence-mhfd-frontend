@@ -19,18 +19,19 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   }, [data]);
   const newData = [
     {
-      value: 'Flood Hazard',
+      value: type == 'problemtype' ? 'Flood Hazard' : 'Maintenance',
       counter: 45
     },
     {
-      value: 'Stream Function',
+      value: type == 'problemtype' ? 'Stream Function' : 'Study Areas',
       counter: 30
     }, 
     {
-      value: 'Failure Development',
+      value: type == 'problemtype' ? 'Failure Development' : 'Capital Projects',
       counter: 25
     }
   ]
+  const labelValues = type === 'problemtype' ? 'Problems' : 'Projects';
   data = newData;
   useEffect(() => {
     let total: any;
@@ -46,18 +47,18 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
     const width = 200;
     const height = 200;
-    const radius = 70;
+    const radius = 50;
 
     var arc = d3.arc()
       .innerRadius(radius * 0.57)
       .outerRadius(radius);
-
+    
     var arc2 = d3.arc()
       .innerRadius(radius * 0.72)
       .outerRadius(radius + 5);
     var arc3 = d3.arc()
-      .innerRadius(radius * 0.63)
-      .outerRadius(radius * 1.15);
+      .innerRadius(radius * 0.60)
+      .outerRadius(radius * 1.2);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
       .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff"]);
@@ -68,9 +69,9 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${width + 100} ${height + 75}`)
+      .attr("viewBox", `0 0 ${width + 50} ${height + 50}`)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      .attr("transform", "translate(" + width / 1.9 + "," + height / 3 + ")");
     
     var data_ready: any = pie(pieChartData)
     var slices = svg
@@ -165,53 +166,98 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) {  return d.data.key == 'Human Connection'? 'Community Values':d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = (i % 2 === 0 ? -radius : 30) + 27;
-        let yo = ((radius + Math.floor(i / 2) * 20) + 35);
+        let xo = -radius + (i * 69) - 33;
+        let yo = radius + 30;
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 14)
+      .style("font-size", 7)
 
     legendsText
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = (i % 2 === 0 ? -radius : 30) + 27;
-        let yo = ((radius + Math.floor(i / 2) * 20) + 35);
+        let xo = -radius + (i * 69) - 33;
+        let yo = radius + 30;
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 14)
+      .style("font-size", 7)
 
-    var legendsBar = svg
+      var legendsCounterText = svg
       .selectAll('slices')
       .data(data_ready)
 
-    legendsBar.exit().remove();
+    legendsCounterText.exit().remove();
 
-    legendsBar
+    legendsCounterText
+      .enter()
+      .append('text')
+      .text(function (d: any) {  return d.data.counter + ' ' + labelValues })
+      .attr("transform", (d: any, i) => {
+        let xo = -radius + (i * 69) - 33;
+        let yo = radius + 43;
+        return `translate(${xo},${yo})`;
+      })
+      .style("font-size", 7)
+
+    legendsCounterText
+      .text(function (d: any) { return d.data.key })
+      .attr("transform", (d: any, i) => {
+        let xo = -radius + (i * 69) - 33;
+        let yo = radius + 43;
+        return `translate(${xo},${yo})`;
+      })
+      .style("font-size", 7)
+
+    var legendsCircles = svg 
+      .selectAll('slices')
+      .data(data_ready);
+
+    legendsCircles.exit().remove();
+
+    legendsCircles
+      .enter().append("circle")
+      .style("stroke", "gray")
       .style("fill", (d: any): any => {
         return color(d.data.key)
       })
-      .attr("x", (d: any, i) => {
-        return (i % 2 === 0 ? -radius : 33)
+      .attr("r", 5)
+      .attr("cx", (d: any, i) => {
+        return -radius + (i * 69) - 40
       })
-      .attr("y", (d: any, i) => {
-        return radius + 29.5 + Math.floor(i / 2) * 20
-      })
-      .attr('width', 15)
-      .attr('height', 4)
+      .attr("cy", (d: any, i) => {
+        return radius + 29.5
+      });
+    // var legendsBar = svg
+    //   .selectAll('slices')
+    //   .data(data_ready)
 
-    legendsBar.enter()
-      .append('rect')
-      .style("fill", (d: any): any => {
-        return color(d.data.key)
-      })
-      .attr("x", (d: any, i) => {
-        return (i % 2 === 0 ? -radius : 33)
-      })
-      .attr("y", (d: any, i) => {
-        return radius + 29.5 + Math.floor(i / 2) * 20
-      })
-      .attr('width', 15)
-      .attr('height', 4)
+    // legendsBar.exit().remove();
+
+    // legendsBar
+    //   .style("fill", (d: any): any => {
+    //     return color(d.data.key)
+    //   })
+    //   .attr("x", (d: any, i) => {
+    //     return (i % 2 === 0 ? -radius : 33)
+    //   })
+    //   .attr("y", (d: any, i) => {
+    //     return radius + 29.5 + Math.floor(i / 2) * 20
+    //   })
+    //   .attr('width', 15)
+    //   .attr('height', 4)
+
+    // legendsBar.enter()
+    //   .append('rect')
+    //   .style("fill", (d: any): any => {
+    //     return color(d.data.key)
+    //   })
+    //   .attr("x", (d: any, i) => {
+    //     return (i % 2 === 0 ? -radius : 33)
+    //   })
+    //   .attr("y", (d: any, i) => {
+    //     return radius + 29.5 + Math.floor(i / 2) * 20
+    //   })
+    //   .attr('width', 15)
+    //   .attr('height', 4)
 
   }, [data, selectedData]);
 
