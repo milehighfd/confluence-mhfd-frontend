@@ -29,6 +29,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   const opaquedColor = '#2ac49a';
 
   useEffect(() => {
+    console.log(data);
     if (data.length > 0) {
       setLeft(Math.floor(data[0].min / 1000))
       setRight(Math.floor((data[data.length - 1].max + 0.001) / 1000))
@@ -239,6 +240,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
   }, [data, selectedData]);
 
   const apply = () => {
+    console.log('selected Data', selectedData);
     onSelect(selectedData);
     if (RheoStatService.getRef(type)) {
       RheoStatService.getRef(type).value([0, 20]);
