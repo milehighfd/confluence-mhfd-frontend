@@ -60,6 +60,9 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
   });
 
   useEffect(() => {
+    console.log('selectedData', selectedData);
+  },[selectedData]);
+  useEffect(() => {
 
     const keyFn = (d: any) => {
       return d.value;

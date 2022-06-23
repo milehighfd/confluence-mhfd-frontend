@@ -7,6 +7,8 @@ import TreeMap from "../NewProblemsFilter/TreeMap";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 import { CheckBoxFilters } from '../CheckboxFilters';
+import { DropdownFilters } from "../DropdownFilters";
+import { DropdownFiltersYears } from "../DropdownFiltersYears";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -147,7 +149,7 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.mhfddollarsallocated &&
-                    <RheoStat type={'mhfddollarsallocated'} axisLabel={axisLabel} defaultValue={[]}
+                    <DropdownFilters type={'mhfddollarsallocated'} axisLabel={axisLabel} defaultValue={[]}
                         data={paramProjects.mhfddollarsallocated}
                         selected={filterProjectOptions.mhfddollarsallocated}
                         onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
@@ -159,7 +161,7 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.startyear &&
-                    <RheoStatYear type={'startyear'} axisLabel={axisLabel} defaultValue={''}
+                    <DropdownFiltersYears type={'startyear'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.startyear}
                         selected={filterProjectOptions.startyear}
                         onSelect={(e: string) => apply(e, 'startyear')} />
@@ -169,7 +171,7 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.completedyear &&
-                    <RheoStatYear type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
+                    <DropdownFiltersYears type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.completedyear}
                         selected={filterProjectOptions.completedyear}
                         onSelect={(e: string) => apply(e, 'completedyear')} />

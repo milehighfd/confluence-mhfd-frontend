@@ -11,7 +11,7 @@ const status = 'status';
 const component_type = 'component_type';
 const { Option } = Select;
 
-export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, labels, showControls = true }: any) => {
+export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultValue, labels, showControls = true }: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
@@ -19,9 +19,9 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
   //   console.log(selectedData);
   // }, [selectedData]);
 
-  // useEffect(() => {
-  //   console.log('this is the data', data);
-  // }, [data]);
+  useEffect(() => {
+    console.log('this is the data', data);
+  }, [data]);
   // useEffect(() => {
   //   if (selected && selected.length) {
   //     let temporal = selected
@@ -39,8 +39,12 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
   // }, [selected]);
 
   const apply = () => {
-    onSelect(transformSelectedData(selectedData));
-  };
+    if (type === 'yearofstudy') {
+      onSelect(selectedData);
+    } else {
+      onSelect(selectedData.join(','));
+    }
+  }
 
   const reset = () => {
     onSelect(defaultValue);
@@ -55,8 +59,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
       for(let i = minIndex; i <= maxIndex; i++ ) {
-        let value = `${data[i].value},${data[i].max}`;
-        sData.push(value);
+        sData.push(data[i].value);
       }    
       setSelectedData(sData);
     }
