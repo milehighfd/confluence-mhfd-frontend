@@ -6,6 +6,8 @@ import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import RheoStat from "../NewProblemsFilter/RheoStat";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
+import { DropdownFilters } from "../DropdownFilters";
+import { DropdownFiltersYears } from "../DropdownFiltersYears";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the component is located.</div>);
@@ -89,7 +91,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
-                    <RheoStat type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
+                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
                         data={paramComponents.estimatedcost}
                         selected={filterComponentOptions.estimatedcost}
                         onSelect={(items: any) => apply(items, 'estimatedcost')} />
@@ -112,7 +114,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
-                    <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
+                    <DropdownFiltersYears type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
                         data={paramComponents.yearofstudy}
                         selected={filterComponentOptions.yearofstudy}
                         onSelect={(e: string) => apply(e, 'yearofstudy')} />

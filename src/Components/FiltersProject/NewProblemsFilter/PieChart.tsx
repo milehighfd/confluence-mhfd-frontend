@@ -46,7 +46,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     });
 
     const width = 200;
-    const height = 200;
+    const height = 180;
     const radius = 50;
 
     var arc = d3.arc()
@@ -69,7 +69,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${width + 50} ${height + 50}`)
+      .attr("viewBox", `0 0 ${width + 50} ${height}`)
       .append("g")
       .attr("transform", "translate(" + width / 1.9 + "," + height / 3 + ")");
     

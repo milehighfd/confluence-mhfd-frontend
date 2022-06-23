@@ -79,7 +79,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
       <div className='dropdown-container-filter'>
         <Select
           placeholder="- no min -"
-          value={minIndex === -1 ? '- no min -' : data[minIndex].min}
+          value={minIndex === -1 ? '- no min -' : data[minIndex]?.min}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             setMinIndex(e);
@@ -87,13 +87,13 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
         >
           {(data || []).map((element: any, index: number) => {
             return (
-              element && <Option key={index} value={index}>{`${element.min} `}</Option>
+              element && <Option key={index} value={index}>{`${element?.min} `}</Option>
             );
           })}
         </Select>
         <Select
           placeholder="- no max -"
-          value={maxIndex === -1 ? '- no max -' : data[maxIndex].min}
+          value={maxIndex === -1 ? '- no max -' : data[maxIndex]?.min}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             if ( e > minIndex ) {
@@ -105,7 +105,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
         >
           {(data || []).map((element: any, index: number) => {
             return (
-              element && <Option key={index} value={index}>{`${element.min} `}</Option>
+              element && <Option key={index} value={index}>{`${element?.min} `}</Option>
             );
           })}
         </Select>
