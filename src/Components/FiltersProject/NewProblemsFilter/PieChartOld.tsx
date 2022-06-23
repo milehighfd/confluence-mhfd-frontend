@@ -14,24 +14,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     setSelectedData(selected ? selected.split(',') : []);
   }, [selected]);
 
-  useEffect(() => {
-    console.log('data', data);
-  }, [data]);
-  const newData = [
-    {
-      value: 'Flood Hazard',
-      counter: 45
-    },
-    {
-      value: 'Stream Function',
-      counter: 30
-    }, 
-    {
-      value: 'Failure Development',
-      counter: 25
-    }
-  ]
-  data = newData;
+
   useEffect(() => {
     let total: any;
     let pieChartData: any;
@@ -44,23 +27,21 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       }
     });
 
-    const width = 200;
-    const height = 200;
-    const radius = 70;
+    const width = 180;
+    const height = 180;
+    const radius = 85;
 
     var arc = d3.arc()
       .innerRadius(radius * 0.57)
       .outerRadius(radius);
 
     var arc2 = d3.arc()
-      .innerRadius(radius * 0.72)
+      .innerRadius(radius * 0.57)
       .outerRadius(radius + 5);
-    var arc3 = d3.arc()
-      .innerRadius(radius * 0.63)
-      .outerRadius(radius * 1.15);
+
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
-      .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff"]);
+      .range(["#251963", "#fd687e", "#ffdd04", "#29c49a", "#66d5ff"]);
 
     var pie = d3.pie()
       .value(function (d: any) { return d.value; })
@@ -76,9 +57,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     var slices = svg
       .selectAll('slices')
       .data(data_ready)
-    var slicesSelected = svg
-      .selectAll('slices')
-      .data(data_ready)
+
     let clickFn = (d: any) => {
       let index = selectedData.indexOf(d.data.key);
       if (index !== -1) {
@@ -88,71 +67,61 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       }
     }
 
-    // slices
-    //   .attr('fill', (d: any): any => { return (color(d.data.key)) })
-    //   .style("opacity", (d: any) => {
-    //     let index = selectedData.indexOf(d.data.key);
-    //     return index === -1 ? ( type == 'projecttype'? CHART_CONSTANTS.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque) : ( type == 'projecttype'? CHART_CONSTANTS.opacityFull: CHART_CONSTANTS_INV.opacityFull);
-    //   })
-    //   .on('click', clickFn)
-    //   .transition().duration(2000)
-    //   .attr('d', (d: any) => {
-    //     let index = selectedData.indexOf(d.data.key);
-    //     return index !== -1 ? arc2(d) : arc(d)
-    //   })
-    slicesSelected
-    .enter()
-    .append('path')
-    .attr('fill', (d: any): any => { return '#ddd'; })
-      .style("opacity", 0.5)
-    .on('click', clickFn)
-    .transition().duration(2000)
-    .attr('d', (d: any) => {
-      let index = selectedData.indexOf(d.data.key);
-      return index === -1 ? arc2(d) : arc3(d);
-    })
-
-  slicesSelected.exit().remove();
+    slices
+      .attr('fill', (d: any): any => { return (color(d.data.key)) })
+      .style("opacity", (d: any) => {
+        let index = selectedData.indexOf(d.data.key);
+        return index === -1 ? ( type == 'projecttype'? CHART_CONSTANTS.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque) : ( type == 'projecttype'? CHART_CONSTANTS.opacityFull: CHART_CONSTANTS_INV.opacityFull);
+      })
+      .on('click', clickFn)
+      .transition().duration(2000)
+      .attr('d', (d: any) => {
+        let index = selectedData.indexOf(d.data.key);
+        return index !== -1 ? arc2(d) : arc(d)
+      })
 
     slices
       .enter()
       .append('path')
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
-      .style("opacity", 1)
+      .style("opacity", (d: any) => {
+        let index = selectedData.indexOf(d.data.key);
+        return index === -1 ? ( type == 'projecttype'? CHART_CONSTANTS.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque) : ( type == 'projecttype'? CHART_CONSTANTS.opacityFull: CHART_CONSTANTS_INV.opacityFull);
+      })
       .on('click', clickFn)
-      // .transition().duration(2000)
+      .transition().duration(2000)
       .attr('d', (d: any) => {
-        return arc2(d);
+        let index = selectedData.indexOf(d.data.key);
+        return index !== -1 ? (type == 'projecttype'?arc2(d):arc(d)) : (type == 'projecttype'?arc(d):arc2(d))
       })
 
     slices.exit().remove();
 
+    var texts = svg
+      .selectAll('slices')
+      .data(data_ready);
 
-    // var texts = svg
-    //   .selectAll('slices')
-    //   .data(data_ready);
+    texts
+      .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
+      .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("fill", "white")
+      .attr('font-weight', 'bold')
+      .style("text-anchor", "middle")
+      .style("font-size", 12)
+      .on('click', clickFn)
 
-    // texts
-    //   .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
-    //   .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
-    //   .attr("fill", "white")
-    //   .attr('font-weight', 'bold')
-    //   .style("text-anchor", "middle")
-    //   .style("font-size", 12)
-    //   .on('click', clickFn)
+    texts
+      .enter()
+      .append('text')
+      .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
+      .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("fill", "white")
+      .attr('font-weight', 'bold')
+      .style("text-anchor", "middle")
+      .style("font-size", 12)
+      .on('click', clickFn)
 
-    // texts
-    //   .enter()
-    //   .append('text')
-    //   .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
-    //   .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
-    //   .attr("fill", "white")
-    //   .attr('font-weight', 'bold')
-    //   .style("text-anchor", "middle")
-    //   .style("font-size", 12)
-    //   .on('click', clickFn)
-
-    // texts.exit().remove()
+    texts.exit().remove()
 
     var legendsText = svg
       .selectAll('slices')
