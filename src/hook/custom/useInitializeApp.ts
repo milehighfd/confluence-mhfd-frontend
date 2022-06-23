@@ -8,6 +8,8 @@ const initGA = () => {
 };
 
 const useInitializeApp = () => {
+  const { isLatestVersion, emptyCacheStorage } = useClearCache();
+
   const history = useHistory();
 
   useEffect(() => { initGA(); }, []);
@@ -17,6 +19,14 @@ const useInitializeApp = () => {
       ReactGA.pageview(location.pathname);
     })
   }, [history]);
+
+  useEffect(() => {
+    if (!isLatestVersion) {
+      if (window.confirm("There is a new version available, update?") == true) {
+        emptyCacheStorage();
+      }
+    }
+  }, [isLatestVersion]);
 };
 
 export default useInitializeApp;
