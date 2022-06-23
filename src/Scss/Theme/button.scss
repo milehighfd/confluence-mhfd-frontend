@@ -163,6 +163,9 @@
     // background-color: #5E63E4 !important;
     // border-color: #5E63E4 !important;
   }
+  .ant-checkbox-inner {
+    border: 0.5px solid $purple !important;
+  }
   .ant-checkbox-wrapper:hover .ant-checkbox-inner,
   .ant-checkbox:hover .ant-checkbox-inner,
   .ant-checkbox-checked::after,
@@ -172,7 +175,10 @@
     border-radius: 3px;
   }
   .ant-checkbox-checked:after {
-    border: 1px solid $purple;
+    border: 0.1px solid $purple;
+  }
+  .ant-checkbox-inner:focus-visible {
+    outline-offset: 0.5px;;
   }
   .ant-checkbox-wrapper {
     // color: #5E63E4 !important;
