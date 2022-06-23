@@ -221,15 +221,6 @@ export const NewProblemsFilter = () => {
                 <Col span={12}>
                     <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
-                        <div>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
-                            <u>Reset</u>
-                        </Button>
-                        </div>
                         <CheckBoxFilters 
                             labels={
                                 {

@@ -69,8 +69,12 @@ export const CheckBoxFilters = ({
         {data && data.map((element: any) => (
           <>
             <Checkbox value={element.value} key={element.value}>
-              {showLabel(element.value)}
+            {showLabel(element.value)}
             </Checkbox>
+            <>
+
+            </>
+            
           </>
         ))}
       </Checkbox.Group>
