@@ -182,20 +182,24 @@ export const NewProblemsFilter = () => {
 
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
-                    <h5 className="filter-title chart-filter-title">Solution Status <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.cost &&
                         <RheoStat
                             defaultValue={[]} axisLabel={axisLabel}
                             data={paramProblems.cost}
                             selected={filterProblemOptions.cost} onSelect={(items: string) => {
+                                console.log(paramProblems.cost);
+                                console.log(items);
                                 apply(items, 'cost');
                             }}
                         />
                     }
                 </Col>
+            </Row>
+            <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
                 <Col span={12}>
-                    <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>
                         <Button className="btn-svg" onClick={() => { }}>
@@ -214,33 +218,6 @@ export const NewProblemsFilter = () => {
                                 return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
                             })}
                         </Select>
-                    </>
-                </Col>
-            </Row>
-            <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
-                <Col span={12}>
-                    <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                    <>
-                        <CheckBoxFilters 
-                            labels={
-                                {
-                                    '0': '0 - 25%',
-                                    '25': '25 - 50%',
-                                    '50': '50 - 75%',
-                                    '75': '75 - 100%'
-                                }
-                            }
-                            data={paramProblems.solutionstatus}
-                            selected={filterProblemOptions.solutionstatus}
-                            defaultValue={''}
-                            onSelect={(items: any) => {
-                                console.log(items);
-                                console.log(paramProblems);
-                                console.log(paramProblems.solutionstatus);
-                                console.log(filterProblemOptions, ' filtered');
-                                apply(items, 'solutionstatus');
-                            }}
-                        />
                     </>
                 </Col>
             </Row>

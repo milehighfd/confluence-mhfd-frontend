@@ -21,16 +21,18 @@ export const CheckBoxFilters = ({
   }, [selectedData]);
 
   useEffect(() => {
-    let temporal = selected.split(',')
-    .filter((r: any) => r !== '')
-    .map((r: any) => {
-      if (type === solutionstatus) {
-        return +r;
-      } else {
-        return r;
-      }
-    });
-    setSelectedData(temporal);
+    if (selected && selected.length) {
+      let temporal = selected.split(',')
+      .filter((r: any) => r !== '')
+      .map((r: any) => {
+        if (type === solutionstatus) {
+          return +r;
+        } else {
+          return r;
+        }
+      });
+      setSelectedData(temporal);
+    }
   }, [selected]);
 
   const apply = () => {
