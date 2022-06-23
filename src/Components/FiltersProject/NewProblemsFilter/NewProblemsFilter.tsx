@@ -7,6 +7,7 @@ import TreeMap from './TreeMap';
 import HorizontalBarChart from './HorizontalBarChart';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { CheckBoxFilters } from '../CheckboxFilters';
+import { DropdownFilters } from '../DropdownFilters';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -185,15 +186,24 @@ export const NewProblemsFilter = () => {
                     <h5 className="filter-title chart-filter-title">Solution Cost <Popover content={content02}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.cost &&
-                        <RheoStat
-                            defaultValue={[]} axisLabel={axisLabel}
+                        // <RheoStat
+                        //     defaultValue={[]} axisLabel={axisLabel}
+                        //     data={paramProblems.cost}
+                        //     selected={filterProblemOptions.cost} onSelect={(items: string) => {
+                        //         console.log(paramProblems.cost);
+                        //         console.log(items);
+                        //         apply(items, 'cost');
+                        //     }}
+                        // />
+                        <DropdownFilters 
+                        defaultValue={[]} axisLabel={axisLabel}
                             data={paramProblems.cost}
                             selected={filterProblemOptions.cost} onSelect={(items: string) => {
                                 console.log(paramProblems.cost);
                                 console.log(items);
                                 apply(items, 'cost');
                             }}
-                        />
+                            />
                     }
                 </Col>
             </Row>
