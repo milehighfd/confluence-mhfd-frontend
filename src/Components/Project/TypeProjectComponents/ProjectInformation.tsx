@@ -49,7 +49,11 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
   }, [reasonForm, subReasonForm]);
   return(
     <>
-      <h5>1. Project Information</h5>
+      <Row>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
+          <h5>1. Project Information</h5>
+        </Col>
+      </Row>
       <Row gutter={[16, 16]}>
         {type && type === NEW_PROJECT_TYPES.Study && (
           <>
@@ -91,7 +95,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
         )}
       </Row>
       <br />
-      <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+      <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} placeholder="Add description" onChange={(description)=>apllyDescription(description)} value={description}/>
     </>
   );
