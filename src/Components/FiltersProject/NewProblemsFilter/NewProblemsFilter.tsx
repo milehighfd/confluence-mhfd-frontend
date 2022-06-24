@@ -208,7 +208,7 @@ export const NewProblemsFilter = () => {
                 </Col>
             </Row>
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
-                <Col span={12}>
+                <Col span={12} style={{ paddingRight: '20px'}}>
                 <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>
@@ -221,7 +221,7 @@ export const NewProblemsFilter = () => {
                         </Button>
                         </div>
                         <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
-                            style={{ width: '100%' }} onChange={(e: string) => {
+                            style={{ width: '100%', borderRadius: '5px' }} onChange={(e: string) => {
                                 apply(e, 'jurisdiction');
                             }}>
                             {(paramProblems.jurisdiction || []).map((element: any, index: number) => {

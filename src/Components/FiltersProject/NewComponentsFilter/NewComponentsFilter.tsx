@@ -126,7 +126,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
-                    <RheoStat type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
+                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
                         data={paramComponents.estimatedcost}
                         selected={filterComponentOptions.estimatedcost}
                         onSelect={(items: any) => apply(items, 'estimatedcost')} />
