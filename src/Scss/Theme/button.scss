@@ -208,3 +208,18 @@
     box-shadow: none;
   }
 }
+.dropdown-container-filter {
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 5px;
+  }
+}
+.rc-virtual-list-scrollbar-thumb {
+  background: $purple !important;
+  width: 60% !important;
+}
+.ant-select-dropdown-hidden {
+  border-radius: 5px !important;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 5px !important;
+}

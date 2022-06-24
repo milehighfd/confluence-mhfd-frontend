@@ -1,4 +1,4 @@
-import { Button, Dropdown, Menu, Select } from 'antd';
+import { Button, Dropdown, Menu, Select, Row, Col } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 
@@ -90,38 +90,42 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
         <div style={{ marginBottom: 10 }}></div>
       )}
       <div className='dropdown-container-filter'>
-        <Select
-          placeholder="No min"
-          value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
-          style={{ width: '100%' }}
-          onChange={(e: number) => {
-            setMinIndex(e);
-          }}
-        >
-          {(data || []).map((element: any, index: number) => {
-            return (
-              element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
-            );
-          })}
-        </Select>
-        <Select
-          placeholder="No max"
-          value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
-          style={{ width: '100%' }}
-          onChange={(e: number) => {
-            if ( e > minIndex ) {
-              setMaxIndex(e);
-            } else {
-              setMaxIndex(minIndex + 1);
-            }
-          }}
-        >
-          {(data || []).map((element: any, index: number) => {
-            return (
-              element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
-            );
-          })}
-        </Select>
+        <Col xs={{ span: 48 }} lg={{ span: 24 }}  style={{ paddingLeft: '0px' }}>
+          <Select
+            placeholder="No min"
+            value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
+            style={{ width: '100%' }}
+            onChange={(e: number) => {
+              setMinIndex(e);
+            }}
+          >
+            {(data || []).map((element: any, index: number) => {
+              return (
+                element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
+              );
+            })}
+          </Select>
+        </Col>
+        <Col xs={{ span: 48 }} lg={{ span: 24 }} >
+          <Select
+            placeholder="No max"
+            value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
+            style={{ width: '100%' }}
+            onChange={(e: number) => {
+              if ( e > minIndex ) {
+                setMaxIndex(e);
+              } else {
+                setMaxIndex(minIndex + 1);
+              }
+            }}
+          >
+            {(data || []).map((element: any, index: number) => {
+              return (
+                element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
+              );
+            })}
+          </Select>
+        </Col>
       </div>
     </>
   );
