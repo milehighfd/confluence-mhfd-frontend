@@ -133,7 +133,9 @@ export const NewComponentsFilter = () => {
                         onSelect={(items: any) => apply(items, 'estimatedcost')} />
                 }
             </Col>
-            <Col span={12}>
+        </Row>
+        <Row className="filt-00">
+            <Col span={24}>
                 <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
