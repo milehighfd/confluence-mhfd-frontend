@@ -139,7 +139,7 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.estimatedCost &&
-                    <RheoStat type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
+                    <DropdownFilters type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
                         onSelect={(items: string) => apply(items, 'totalcost')} />

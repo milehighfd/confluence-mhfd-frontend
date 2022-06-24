@@ -7,6 +7,8 @@ import RheoStat from "../NewProblemsFilter/RheoStat";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 import { CheckBoxFilters } from '../CheckboxFilters';
+import { DropdownFilters } from "../DropdownFilters";
+import { DropdownFiltersYears } from "../DropdownFiltersYears";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the component is located.</div>);
@@ -110,11 +112,11 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.status &&
-                    <CheckBoxFilters defaultValue={''}
-                        data={paramComponents.status}
-                        selected={filterComponentOptions.status}
-                        onSelect={(items: any) => apply(items, 'status')}/>
+                    paramComponents.estimatedcost &&
+                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
+                        data={paramComponents.estimatedcost}
+                        selected={filterComponentOptions.estimatedcost}
+                        onSelect={(items: any) => apply(items, 'estimatedcost')} />
                 }
             </Col>
         </Row>
@@ -134,7 +136,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
-                    <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
+                    <DropdownFiltersYears type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
                         data={paramComponents.yearofstudy}
                         selected={filterComponentOptions.yearofstudy}
                         onSelect={(e: string) => apply(e, 'yearofstudy')} />

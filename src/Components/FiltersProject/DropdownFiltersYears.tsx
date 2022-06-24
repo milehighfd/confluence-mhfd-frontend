@@ -59,7 +59,9 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
       for(let i = minIndex; i <= maxIndex; i++ ) {
-        sData.push(data[i].value);
+        if (data[i]) {
+          sData.push(data[i].value);
+        }
       }    
       setSelectedData(sData);
     }
@@ -82,7 +84,7 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
       <div className='dropdown-container-filter'>
         <Select
           placeholder="- no min -"
-          value={minIndex === -1 ? '- no min -' : data[minIndex].value}
+          value={minIndex === -1 ? '- no min -' : data[minIndex]?.value}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             setMinIndex(e);
@@ -90,13 +92,13 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
         >
           {(data || []).map((element: any, index: number) => {
             return (
-              element && <Option key={index} value={index}>{`${element.value} `}</Option>
+              element && <Option key={index} value={index}>{`${element?.value} `}</Option>
             );
           })}
         </Select>
         <Select
           placeholder="- no max -"
-          value={maxIndex === -1 ? '- no max -' : data[maxIndex].value}
+          value={maxIndex === -1 ? '- no max -' : data[maxIndex]?.value}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             if ( e > minIndex ) {
@@ -108,7 +110,7 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
         >
           {(data || []).map((element: any, index: number) => {
             return (
-              element && <Option key={index} value={index}>{`${element.value} `}</Option>
+              element && <Option key={index} value={index}>{`${element?.value} `}</Option>
             );
           })}
         </Select>
