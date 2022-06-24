@@ -106,7 +106,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
             })}
           </Select>
         </Col>
-        <Col xs={{ span: 48 }} lg={{ span: 24 }} >
+        <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{ paddingRight: '0px' }} >
           <Select
             placeholder="No max"
             value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
