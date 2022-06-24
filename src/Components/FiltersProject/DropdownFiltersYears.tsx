@@ -1,4 +1,4 @@
-import { Button, Dropdown, Menu, Select } from 'antd';
+import { Button, Dropdown, Menu, Select, Col } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 
@@ -84,42 +84,51 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
         <div style={{ marginBottom: 10 }}></div>
       )}
       <div className='dropdown-container-filter'>
-        <Select
-          placeholder="Min year"
-          value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
-          style={{ width: '100%' }}
-          onChange={(e: number) => {
-            if (e < maxIndex || maxIndex === -1) {
-              setMinIndex(e);
-            } else {
-              setMinIndex(maxIndex - 1);
-            }
-          }}
-        >
-          {(data || []).map((element: any, index: number) => {
-            return (
-              element && <Option key={index} value={index}>{`${element?.value} `}</Option>
-            );
-          })}
-        </Select>
-        <Select
-          placeholder="Max year"
-          value={maxIndex === -1 ? 'Max year' : data[maxIndex]?.value}
-          style={{ width: '100%' }}
-          onChange={(e: number) => {
-            if ( e > minIndex ) {
-              setMaxIndex(e);
-            } else {
-              setMaxIndex(minIndex + 1);
-            }
-          }}
-        >
-          {(data || []).map((element: any, index: number) => {
-            return (
-              element && <Option key={index} value={index}>{`${element?.value} `}</Option>
-            );
-          })}
-        </Select>
+        <Col span={11}>
+          <Select
+            placeholder="Min year"
+            value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
+            style={{ width: '100%' }}
+            onChange={(e: number) => {
+              if (e < maxIndex || maxIndex === -1) {
+                setMinIndex(e);
+              } else {
+                setMinIndex(maxIndex - 1);
+              }
+            }}
+          >
+            {(data || []).map((element: any, index: number) => {
+              return (
+                element && <Option key={index} value={index}>{`${element?.value} `}</Option>
+              );
+            })}
+          </Select>
+        </Col>
+        <span style={{
+          color: '#9f9fad',
+          fontSize: '18px',
+          padding: '0px 10px'
+        }}>-</span>
+        <Col span={11}>
+          <Select
+            placeholder="Max year"
+            value={maxIndex === -1 ? 'Max year' : data[maxIndex]?.value}
+            style={{ width: '100%' }}
+            onChange={(e: number) => {
+              if ( e > minIndex ) {
+                setMaxIndex(e);
+              } else {
+                setMaxIndex(minIndex + 1);
+              }
+            }}
+          >
+            {(data || []).map((element: any, index: number) => {
+              return (
+                element && <Option key={index} value={index}>{`${element?.value} `}</Option>
+              );
+            })}
+          </Select>
+        </Col>
       </div>
     </>
   );

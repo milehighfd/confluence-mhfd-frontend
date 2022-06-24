@@ -92,7 +92,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
         <div style={{ marginBottom: 10 }}></div>
       )}
       <div className='dropdown-container-filter'>
-        <Col xs={{ span: 48 }} lg={{ span: 24 }}  style={{ paddingLeft: '0px' }}>
+        <Col xs={{ span: 48 }} lg={{ span: 24 }}  style={{ paddingLeft: '0px', paddingRight: '14px' }}>
           <Select
             placeholder="No min"
             value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
@@ -112,7 +112,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
             })}
           </Select>
         </Col>
-        <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{ paddingRight: '0px' }} >
+        <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{ paddingRight: '0px', paddingLeft:'14px' }} >
           <Select
             placeholder="No max"
             value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}

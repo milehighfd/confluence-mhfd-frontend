@@ -145,7 +145,9 @@ export const NewProjectsFilter = () => {
                         onSelect={(items: string) => apply(items, 'totalcost')} />
                 }
             </Col>
-            <Col span={12}>
+        </Row>
+        <Row className="filt-00">
+            <Col span={12} >
                 <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.mhfddollarsallocated &&
@@ -157,7 +159,7 @@ export const NewProjectsFilter = () => {
             </Col>
         </Row>
         <Row className="filt-00">
-            <Col span={12} className="filter-menu">
+            <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">
                 <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.startyear &&
@@ -167,7 +169,7 @@ export const NewProjectsFilter = () => {
                         onSelect={(e: string) => apply(e, 'startyear')} />
                 }
             </Col>
-            <Col span={12}>
+            <Col span={12} style={{ paddingLeft: '14px', paddingRight: '0px' }} >
                 <h5 className="filter-title chart-filter-title">Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.completedyear &&
@@ -179,7 +181,7 @@ export const NewProjectsFilter = () => {
             </Col>
         </Row>
 
-        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
+        <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px' }} gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
