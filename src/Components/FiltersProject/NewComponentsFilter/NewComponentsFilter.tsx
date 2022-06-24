@@ -112,11 +112,11 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.estimatedcost &&
-                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
-                        data={paramComponents.estimatedcost}
-                        selected={filterComponentOptions.estimatedcost}
-                        onSelect={(items: any) => apply(items, 'estimatedcost')} />
+                    paramComponents.status &&
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramComponents.status}
+                        selected={filterComponentOptions.status}
+                        onSelect={(items: any) => apply(items, 'status')} />
                 }
             </Col>
         </Row>
