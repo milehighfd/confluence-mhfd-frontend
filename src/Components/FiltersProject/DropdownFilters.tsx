@@ -23,10 +23,10 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
     let million = false;
     let amount = money;
     if (+money >= 1_000_000) {
-      amount = +money / 1_000_000;
+      amount = (+money / 1_000_000);
       million = true;
     }
-    return `$${amount}${million ? 'M' : ''}`;
+    return `$${amount.toFixed(1)}${million ? 'M' : ''}`;
   }
   // useEffect(() => {
   //   console.log(selectedData);
