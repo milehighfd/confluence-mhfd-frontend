@@ -1781,8 +1781,25 @@
 // END MAP
 
 // FILTERS MAP
+hr.linedropdown {
+  align-content: center;
+  margin-right: auto;
+  opacity: 0.2;
+  margin-top: 14px;
+  /* margin-bottom: 24px; */
+  /* border: 1.5px solid; */
+  border-radius: 5px;
+  margin-left: auto;
+  width: 71%;
+}
+hr.filters-line {
+  opacity: 0.1;
+  margin-bottom: 24px;
+  border: 1.5px solid;
+  border-radius: 5px;
+}
 .filt-00{
-  margin-bottom: 30px;
+  margin-bottom: 18px;
   h5{
     font-size: 14px;
     color: $opacity;

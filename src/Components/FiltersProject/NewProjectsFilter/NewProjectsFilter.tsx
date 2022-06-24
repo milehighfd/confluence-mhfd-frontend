@@ -112,6 +112,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -134,6 +135,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -158,6 +160,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">
                 <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -181,7 +184,9 @@ export const NewProjectsFilter = () => {
             </Col>
         </Row>
 
-        <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px' }} gutter={[24, 16]} style={{marginBottom: 25}}>
+        
+        <hr className='filters-line'></hr>
+        <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
             <Col span={12}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {

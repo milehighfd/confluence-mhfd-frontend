@@ -98,6 +98,7 @@ export const NewComponentsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>

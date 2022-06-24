@@ -104,11 +104,9 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
             })}
           </Select>
         </Col>
-        <span style={{
-          color: '#9f9fad',
-          fontSize: '18px',
-          padding: '0px 10px'
-        }}>-</span>
+        <Col span={2} >
+          <hr className='linedropdown'></hr>
+        </Col>
         <Col span={11}>
           <Select
             placeholder="Max year"
