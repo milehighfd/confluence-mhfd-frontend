@@ -58,6 +58,8 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
   const reset = () => {
     onSelect(defaultValue);
     setSelectedData([]);
+    setMinIndex(-1);
+    setMaxIndex(-1);
   };
 
   const showLabel = (label: string) => {
@@ -96,7 +98,11 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
             value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
             style={{ width: '100%' }}
             onChange={(e: number) => {
-              setMinIndex(e);
+              if (e < maxIndex || maxIndex === -1) {
+                setMinIndex(e);
+              } else {
+                setMinIndex(maxIndex - 1);
+              }
             }}
           >
             {(data || []).map((element: any, index: number) => {

@@ -49,6 +49,8 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
   const reset = () => {
     onSelect(defaultValue);
     setSelectedData([]);
+    setMinIndex(-1);
+    setMaxIndex(-1);
   };
 
   const showLabel = (label: string) => {
@@ -87,7 +89,11 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
           value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
           style={{ width: '100%' }}
           onChange={(e: number) => {
-            setMinIndex(e);
+            if (e < maxIndex || maxIndex === -1) {
+              setMinIndex(e);
+            } else {
+              setMinIndex(maxIndex - 1);
+            }
           }}
         >
           {(data || []).map((element: any, index: number) => {
