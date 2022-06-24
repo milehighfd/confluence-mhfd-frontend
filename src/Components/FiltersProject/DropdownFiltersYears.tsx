@@ -83,8 +83,8 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
       )}
       <div className='dropdown-container-filter'>
         <Select
-          placeholder="- no min -"
-          value={minIndex === -1 ? '- no min -' : data[minIndex]?.value}
+          placeholder="Min year"
+          value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             setMinIndex(e);
@@ -97,8 +97,8 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
           })}
         </Select>
         <Select
-          placeholder="- no max -"
-          value={maxIndex === -1 ? '- no max -' : data[maxIndex]?.value}
+          placeholder="Max year"
+          value={maxIndex === -1 ? 'Max year' : data[maxIndex]?.value}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             if ( e > minIndex ) {

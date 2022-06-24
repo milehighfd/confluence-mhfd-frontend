@@ -15,6 +15,19 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
+
+  const moneyFormat = (money: any) => {
+    if (isNaN(+money)) {
+      return money;
+    }
+    let million = false;
+    let amount = money;
+    if (+money >= 1_000_000) {
+      amount = +money / 1_000_000;
+      million = true;
+    }
+    return `$${amount}${million ? 'M' : ''}`;
+  }
   // useEffect(() => {
   //   console.log(selectedData);
   // }, [selectedData]);
@@ -78,8 +91,8 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
       )}
       <div className='dropdown-container-filter'>
         <Select
-          placeholder="- no min -"
-          value={minIndex === -1 ? '- no min -' : data[minIndex]?.min}
+          placeholder="No min"
+          value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             setMinIndex(e);
@@ -87,13 +100,13 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
         >
           {(data || []).map((element: any, index: number) => {
             return (
-              element && <Option key={index} value={index}>{`${element?.min} `}</Option>
+              element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
             );
           })}
         </Select>
         <Select
-          placeholder="- no max -"
-          value={maxIndex === -1 ? '- no max -' : data[maxIndex]?.min}
+          placeholder="No max"
+          value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
           style={{ width: '100%' }}
           onChange={(e: number) => {
             if ( e > minIndex ) {
@@ -105,7 +118,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
         >
           {(data || []).map((element: any, index: number) => {
             return (
-              element && <Option key={index} value={index}>{`${element?.min} `}</Option>
+              element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
             );
           })}
         </Select>
