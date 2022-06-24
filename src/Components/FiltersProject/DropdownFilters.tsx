@@ -68,7 +68,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
       for(let i = minIndex; i <= maxIndex; i++ ) {
-        let value = `${data[i].value},${data[i].max}`;
+        let value = `${data[i].min},${data[i].max}`;
         sData.push(value);
       }    
       setSelectedData(sData);
