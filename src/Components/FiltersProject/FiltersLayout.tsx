@@ -223,7 +223,6 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
         <div className="btn-footer" style={{ marginTop: '25px' }}>
             <Button onClick={() => reset()} style={{ width: '140px' }} className="btn-borde">Reset</Button>
-            {/* <Button onClick={() => apply()} style={{ width: '140px' }} className="btn-purple">Apply</Button> */}
         </div>
     </div>
     </>
@@ -233,7 +232,6 @@ export const ProblemsFilter = ({ paramProblems, filterProblemOptions, setFilterP
 
 export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterProjectOptions, getGalleryProjects, setToggleFilters } : any) => {
     const apply = (values: any, field: string) => {
-        //console.log('filterProjectOptions:::', filterProjectOptions, paramProjects);
 
         const options = {...filterProjectOptions};
         if('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
@@ -295,9 +293,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
                         <span className="filt-s">{element.counter}</span>
                     </p>
                 })}
-                {/* <p><Checkbox value='Capital'>Capital</Checkbox></p>
-                <p><Checkbox value='Maintenance'>Maintenance</Checkbox></p>
-                <p><Checkbox value='Study'>Study</Checkbox></p> */}
             </Checkbox.Group>
         </Col>
         <Col span={12}>
@@ -500,7 +495,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 
     <div className="btn-footer" style={{ marginTop: '25px' }}>
         <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-borde">Reset</Button>
-        {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-purple">Apply</Button> */}
     </div>
     </div>
 </>
@@ -508,7 +502,6 @@ export const ProjectsFilter = ({ paramProjects, filterProjectOptions, setFilterP
 
 export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFilterComponentOptions, getGalleryProblems, getGalleryProjects, setToggleFilters} : any) => {
     const { setLabelFilterProjects, setLabelFilterProblems } = useMapDispatch();
-    //const { labelsFiltersProjects, labelsFiltersProblems } = useMapState();
 
     const apply = (values: any, field: string) => {
         console.log('value: ' + values + ", field: " + field);
@@ -523,7 +516,6 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
         } else {
             options[field] = values;
         }
-        //let labelsProjects = [...labelsFiltersProjects];
         setFilterComponentOptions(options);
         getGalleryProjects();
         getGalleryProblems();
@@ -651,7 +643,6 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
             </Row>
             <div className="btn-footer" style={{ marginTop: '25px' }}>
                  <Button style={{ width: '140px' }} onClick={() => reset()} className="btn-borde">Reset</Button>
-                {/* <Button style={{ width: '140px' }} onClick={() => apply()} className="btn-purple">Apply</Button> */}
             </div>
         </div>
     </>

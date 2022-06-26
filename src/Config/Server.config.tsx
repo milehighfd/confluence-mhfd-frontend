@@ -16,7 +16,6 @@ export const SERVER = (function () {
     const ATTACHMENT = 'attachments';
     const CREATE_PROJECT = 'create';
     const FILTERS = 'filters';
-    // const PROBLEMTYPE = 'projecttype';
     const PROJECT_FILTERS = 'project-filter';
     const CREATE_PROJECT_DEBRIS = 'createMaintenanceDebris';
     const CREATE_PROJECT_CAPITAL = 'createCapital';
@@ -34,7 +33,6 @@ export const SERVER = (function () {
     const ME = 'me';
     const ADMIN = 'admin';
     const MAP = 'map';
-    // const LIST = 'list';
     const CHANGE_USER_STATE = 'change-user-state';
     const EDIT_USER = 'edit-user';
     const FILTER_PROJECT = 'filters';
@@ -110,13 +108,9 @@ export const SERVER = (function () {
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
     const NEW_NOTES = 'newnotes';
-    const NOTE_LIST = 'notelist';
     const GROUP_TYPE = 'group';
     const COLOR = 'color';
-    const DELETE_NOTE_LIST = 'delete-note-list';
-    const UPDATE_COLOR_LIST = 'update-note-list';
     const NOTE_TYPE = 'note';
-    const NOTES = 'notes';
     const PROJECTS_BBOX = 'projects-bbox';
     const BY_PROJECT = 'by-project';
     const GET_AVAILABLE_COLORS = 'get-available-colors';
@@ -179,7 +173,6 @@ export const SERVER = (function () {
         FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         MAP_CENTER_SEARCH: `${URL_BASE.BASE}/${MAP}/${GET_AOI_CENTER}`,
-        // GROUP_ORGANIZATION: `${URL_BASE.BASE}/${GALLERY}/${GROUP_ORGANIZATION}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/complete`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,

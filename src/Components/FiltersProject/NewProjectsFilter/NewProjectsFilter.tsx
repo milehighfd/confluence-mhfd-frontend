@@ -66,31 +66,7 @@ export const NewProjectsFilter = () => {
         options.county = options.county.replace("County","").trim();
         getParamFilterProjects(boundsMap, options)
     }
-    const reset = () => {
-        const options = { ...filterProjectOptions };
-        options.projecttype = 'Maintenance,Capital';
-        options.status = 'Initiated,Preliminary Design,Construction,Final Design,Hydrology,Floodplain,Alternatives,Conceptual';
-        options.mhfddollarsallocated = [];
-        options.workplanyear = '';
-        options.startyear = '';
-        options.completedyear = '';
-        options.problemtype = '';
-        options.mhfdmanager = '';
-        options.jurisdiction = '';
-        options.totalcost = [];
-        options.streamname = '';
-        options.county = '';
-        options.lgmanager = '';
-        options.creator = '';
-        options.problemtype = '';
-        options.consultant = '';
-        options.contractor = '';
-        options.servicearea = '';
-        setFilterProjectOptions(options);
-        getGalleryProjects();
-        getParamFilterProjects(boundsMap, options)
-    }
-
+    
     ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {
         if (paramProjects[key]) {
             paramProjects.completedyear.sort((a: any, b: any) => {

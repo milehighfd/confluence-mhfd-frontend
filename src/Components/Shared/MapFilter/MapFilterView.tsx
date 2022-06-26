@@ -118,7 +118,7 @@ export default ({
     } else {
       newGroups['hydrologic'] = false;
     }
-    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD] && switches[DWR_DAM_SAFETY]
+    if (switches[FLOODPLAINS.name] && switches[FEMA_FLOOD_HAZARD]
       && switches[EFFECTIVE_REACHES] && switches[ACTIVE_LOMS]) {
       newGroups['hydraulic'] = true;
     } else {
@@ -139,7 +139,7 @@ export default ({
     } else {
       newGroups['environmental'] = false;
     }
-    if(switches[CLIMB_TO_SAFETY]){
+    if(switches[CLIMB_TO_SAFETY]  && switches[DWR_DAM_SAFETY]){
       newGroups['humanConnection'] = true;
     } else {
       newGroups['humanConnection'] = false;
@@ -227,12 +227,12 @@ export default ({
   const genExtra02 = () => {
     return (
     <div className="filter-coll-header" key="b7mtKLHIGhIh">
-       <div key="5JuWcFwrgJKd" style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] || switches[DWR_DAM_SAFETY] 
+       <div key="5JuWcFwrgJKd" style={(switches[FLOODPLAINS.name] || switches[FEMA_FLOOD_HAZARD] 
         || switches[ACTIVE_LOMS] || switches[EFFECTIVE_REACHES]) ? weightStyle : emptyStyle}>HYDRAULIC</div>
       <Switch key="KIwYxEF3V7Z8" checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
-          FEMA_FLOOD_HAZARD, DWR_DAM_SAFETY, ACTIVE_LOMS
+          FEMA_FLOOD_HAZARD, ACTIVE_LOMS
          ], 'hydraulic')}
        }/>
     </div>
@@ -266,10 +266,10 @@ export default ({
   };
   const genExtra05 = () => (
     <div className="filter-coll-header" key="SXd5tUbO4bNP">
-      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] ? weightStyle : emptyStyle}>HUMAN CONNECTION</div>
+      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] || switches[DWR_DAM_SAFETY] ? weightStyle : emptyStyle}>COMMUNITY VALUE</div>
       <Switch key="G4JLgeipeBlQ" checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
-          changeGroup(value, [CLIMB_TO_SAFETY], 'humanConnection')
+          changeGroup(value, [CLIMB_TO_SAFETY, DWR_DAM_SAFETY], 'humanConnection')
         }}/>
     </div>
   );
@@ -443,7 +443,7 @@ export default ({
                   <Popover key="sBEOJIkyAevN" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.floodplains)}>
                 <img key="ATpYRAYLlutV" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover> <Switch key="j85MnoOfyc1H" checked={switches[FLOODPLAINS.name]}  size="small" onClick={(value) => onChange(value, FLOODPLAINS)} />
-            </p> {/* <Checkbox value={FLOODPLAINS}></Checkbox>} */}
+            </p> 
 
             <p>
               <img key="vlF3N8QYaD41" src="/Icons/Filters/ic_FEMA.png" width="18px" alt="" />
@@ -471,15 +471,6 @@ export default ({
                 <img key="fTqKGbHenWRl" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="gk2KxaVeyGuv" checked={switches[ACTIVE_LOMS]} size="small" onClick={(value) => onChange(value, ACTIVE_LOMS)} />
-            </p>
-            
-            <p>
-              <img key="9YinsTRVwIpC" src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
-                  DWR Dam Safety
-                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
-                <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
-              </Popover>
-              <Switch key="1fMvx97oGwQr" size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
             </p>
           </Panel>
           <Panel header="" key="4" extra={genExtra03()}>
@@ -521,6 +512,14 @@ export default ({
                 <img key="L61ORS6cONfm" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="hVGdPFx6B4xs" size="small" checked={switches[CLIMB_TO_SAFETY]} onClick={(value) => onChange(value, CLIMB_TO_SAFETY)} />
+            </p>
+            <p>
+              <img key="9YinsTRVwIpC" src="/Icons/Filters/ic_DWR.png" width="18px" alt="" />
+                  DWR Dam Safety
+                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
+                <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key="1fMvx97oGwQr" size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
             </p>
           </Panel>
           <Panel header="" key="7" extra={genExtra06()}>

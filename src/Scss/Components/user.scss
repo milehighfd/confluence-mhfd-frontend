@@ -10,9 +10,9 @@
   div{
     margin: 0px 15px 20px 0px;
     .ant-input {
-      width: 246px;
+      width: 240px;
       height: 36px;
-      border-radius: 4px;
+      border-radius: 5px !important;
       border: 1.3px solid rgba(37,24,99,.1);
       color: $black;
     }
@@ -75,27 +75,27 @@
   overflow-y: auto;
   padding: 15px 0px;
   font-family: $ubunto;
-
-  .ant-tabs-nav .ant-tabs-tab-active {
-    color: $purple00 !important;
-    font-weight: 500;
+  
+  .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: $purple !important;
     font-size: 16px;
     font-family: $ubunto;
-    font-weight: 400;
+    font-weight: 400 !important;
   }
   .ant-tabs-nav .ant-tabs-tab {
-    padding: 12px 0px;
+    padding: 11.5px 0px !important;
     font-size: 16px;
     font-family: $ubunto;
     color: $opacity;
     font-weight: 400;
   }
   .ant-tabs-ink-bar {
-    height: 3px;
+    height: 3px !important;
     background-color: $purple;
+    margin-bottom: 1.5px;
   }
   .ant-tabs-nav .ant-tabs-tab:hover {
-    color: $purple00;
+    color: $purple;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow{
     display: none;
@@ -104,7 +104,7 @@
     position: relative;
     padding: 12px 15px;
     padding-left: 15px;
-    color: $purple00;
+    color: $black;
     line-height: 22px;
     background: $white;
     border-radius: 4px !important;
@@ -121,7 +121,7 @@
     padding: 35px 80px 0px 80px;
   }
   .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
-    border-color: $purple;
+    border-color: $black;
   }
   .ant-input-search-icon {
     color: $purple;
@@ -129,8 +129,8 @@
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: none;
   }
-  .ant-table-thead > tr > th{
-    background: transparent;
+  .ant-table-thead > tr > th {
+    background-color: transparent;
     border-bottom: none;
     padding: 0px 16px;
     color: $opacity;
@@ -142,6 +142,7 @@
     border-radius: 4px;
   }
   .ant-table table {
+    background-color: transparent;
     border-collapse: separate !important;
     border-spacing: 0px 10px !important;
   }
@@ -153,6 +154,9 @@
   }
   .ant-pagination-item-active a {
     color: $white;
+  }
+  .ant-pagination-options {
+    display: none;
   }
   .ant-pagination-item-active {
     background: $green;
@@ -200,11 +204,17 @@
 .pagi-00{
   float: right;
 }
+.ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-extra{
+  width: 100% !important;
+}
+
 .user-tab{
   h6{
     font-size: 18px;
     color: $purple00;
+    width: 100%;
   }
+  
   .ant-input {
     height: 38px;
     padding: 4px 11px;
@@ -215,6 +225,7 @@
     border: solid 1.3px rgba(37, 24, 99, 0.1);
     font-weight: lighter;
   }
+
   hr{
     border-bottom: dashed 1.3px #251863;
     border-width: 1px;
@@ -248,7 +259,10 @@
   }
 }
 .img-banner {
-  width: 1066px;
+  overflow: hidden;
+  width: 130vh;
+
+  // width: 1066px;
   height: 1080px;
 }
 .user-card{

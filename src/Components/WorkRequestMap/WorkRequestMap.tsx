@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
@@ -7,9 +7,8 @@ import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './../M
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import EventService from '../../services/EventService';
-import { getData, getToken, postData } from "../../Config/datasets";
+import { getData, getToken, postDataAsyn } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import {
   PROBLEMS_TRIGGER,
@@ -24,7 +23,8 @@ import {
   NEARMAP_TOKEN,
   MUNICIPALITIES_FILTERS,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS, STREAMS_POINT
+  EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS, STREAMS_POINT,
+  PROJECTS_DRAFT
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -37,6 +37,8 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { useAttachmentDispatch } from "../../hook/attachmentHook";
 import { GlobalMapHook } from '../../utils/globalMapHook';
+
+let mapid = 'map4';
 let map: any;
 let coordX = -1;
 let coordY = -1;
@@ -70,7 +72,7 @@ const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
 const factorm2toacre = 0.00024710538146717;
 const WorkRequestMap = (type: any) => {
-  let html = document.getElementById('map4');
+  let html = document.getElementById(mapid);
   
   const [measuringState, setMeasuringState] = useState(isMeasuring);
   const [measuringState2, setMeasuringState2] = useState(isMeasuring);
@@ -232,7 +234,6 @@ const WorkRequestMap = (type: any) => {
           const area = turf.area(polygon);
           setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
         } 
-        // distanceContainer.appendChild(value);
       } else if(geojsonMeasures.features.length == 1){
         setAreaValue('0');
         setDistanceValue('0');
@@ -292,7 +293,6 @@ const WorkRequestMap = (type: any) => {
   
   const {getNext, getCurrent, getPrevious, getPercentage, addHistoric, hasNext, hasPrevious} = GlobalMapHook();
 
-
   useEffect(()=>{
     if(zoomProject && zoomProject.projectid) {
       getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
@@ -332,17 +332,16 @@ const WorkRequestMap = (type: any) => {
           }
       }
     }
-    
-
 }, [zoomEndCounter, dragEndCounter]);
+
   useEffect(() => {
     const waiting = () => {
-      html = document.getElementById('map4');
+      html = document.getElementById(mapid);
       if (!html) {
         setTimeout(waiting, 50);
       } else {
         if (!map) {
-          map = new MapService('map4');
+          map = new MapService(mapid);
           setLayersSelectedOnInit();
           map.loadImages();
           let _ = 0;
@@ -358,16 +357,15 @@ const WorkRequestMap = (type: any) => {
     };
     map = undefined;
     waiting();
-    EventService.setRef('click',eventClick);
     changeAddLocationState(false);
     componentsList = [];
     return () => {
       setBoardProjects(['-8888'])
+      map = undefined;
     }
   }, []);
   useEffect(()=>{
     popup.remove();
-    map.resize()
   },[type.change]);
   useEffect(()=>{
     if (map) {
@@ -379,29 +377,32 @@ const WorkRequestMap = (type: any) => {
     }
   },[highlightedComponent]);
   
-  useEffect(()=>{
-    let filterProjectsDraft = {...filterProjects}; 
+  useEffect(() => {
+    setAllLayers(empty);
+    let filterProjectsDraft = { ...filterProjects };
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
-    if(idsBoardProjects.length) {
-      wait(()=>{
-        map.isRendered(()=>{
+    //removeLayers(PROJECTS_DRAFT);
+    if (idsBoardProjects.length) {
+      wait(() => {
+        map.isRendered(() => {
           let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-          postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-            updateLayerSource('mhfd_projects_created', tiles);
-            showLayers('mhfd_projects_created');
-            map.isRendered(()=>{
-              setTimeout(()=>{
-                applyFiltersIDs('mhfd_projects_created', filterProjectsDraft);
-              },700);
+          const promises: Promise<any>[] = [];
+          promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
+          Promise.all(promises)
+            .then((tiles) => {
+              updateLayerSource(PROJECTS_DRAFT, tiles[0]);
+              showLayers(PROJECTS_DRAFT);
             });
+          map.isRendered(() => {
+            setTimeout(()=>{
+              applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
+            },700);
           });
-          
         });
-      
       });
     }
-  },[idsBoardProjects]);
+  }, [idsBoardProjects]);
   
   useEffect(() => {
     let mask
@@ -788,27 +789,35 @@ const WorkRequestMap = (type: any) => {
   const topProjects = () => {
     const styles = { ...tileStyles as any };   
       styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
-        map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        if (map.map.getLayer(`${PROJECTS_LINE}_${index}`)) {
+          map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        }
       })
   }
   const topComponents = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
     for (const component of COMPONENT_LAYERS.tiles) {
       styles[component].forEach((style: LayerStylesType, index: number) => {
-        map.map.moveLayer(`${component}_${index}`);
+        if(map.map.getLayer(`${component}_${index}`)){
+          map.map.moveLayer(`${component}_${index}`);
+        }
       })
     }
   }
   const topServiceArea = () => {
     const styles = { ...tileStyles as any };
       styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
-        map.map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+        if (map.map.getLayer(`${SERVICE_AREA_FILTERS}_${index}`)) {
+          map.map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+        }
       })
   }
   const topEffectiveReaches = () => {
     const styles = { ...tileStyles as any };   
     styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
-      map.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      if (map.map.getLayer(`${EFFECTIVE_REACHES}_${index}`)) {
+        map.map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+      }
     })
   }
   const topStreams = () => {
@@ -837,7 +846,7 @@ const WorkRequestMap = (type: any) => {
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
         
-        if(key === 'mhfd_projects_created') {
+        if(key === PROJECTS_DRAFT) {
           
           let allFilters:any = ['in', ['get', 'projectid'], ['literal', []]];
           if(idsBoardProjects && idsBoardProjects.length > 0 ){
@@ -1014,12 +1023,11 @@ const WorkRequestMap = (type: any) => {
         return;
       }
       const allFilters: any[] = ['all'];
-      if(key ==='mhfd_projects_created') { 
+      if(key ===PROJECTS_DRAFT) { 
         if(idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0]!='-8888'){
           let boardids = idsBoardProjects;
           allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
         } else {
-          console.log('carajo que ', new Date);
           allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111'] ] ]);
         }
       }
@@ -1071,10 +1079,12 @@ const WorkRequestMap = (type: any) => {
     }
   }
   const updateLayerSource = (key: string, tiles: Array<string>) => {
+    /* console.log('maaaaa',map.getSource(key), tiles, tiles.hasOwnProperty('error'), key); */
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
-      map.addVectorSource(key,tiles);
+      map.addVectorSource(key, tiles);
       addTilesLayers(key);
-    } else {
+    } else if (map.getSource(key)) {
+      /* console.log('map', map.getSource(key)); */
       map.getSource(key).setTiles(tiles);
       addTilesLayers(key); 
     }
@@ -1082,16 +1092,11 @@ const WorkRequestMap = (type: any) => {
   const addLayersSource = (key: string, tiles: Array<string>) => {
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.addVectorSource(key,tiles);
-      // map.map.addSource(key, {
-      //   type: 'vector',
-      //   tiles: tiles
-      // });
       addTilesLayers(key);
     }
   }
   const removeLayersSource = (key: string) => {
     if (map.getSource(key)) { 
-      
       map.map.removeSource(key);
     }
   }
@@ -1099,7 +1104,7 @@ const WorkRequestMap = (type: any) => {
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes('mhfd_projects_created')) {
+      if (key.includes(PROJECTS_DRAFT)) {
         if (map.map.getLayer(key + '_' + index)) {
           return;
         }
@@ -1163,10 +1168,10 @@ const WorkRequestMap = (type: any) => {
           filter: ['in', 'cartodb_id']
         });
       }
-
     });
     addMapListeners(key);
   }
+
   const addMapListeners = async (key: string) => {
     const styles = { ...tileStyles as any };
     const availableLayers: any[] = [];
@@ -1444,25 +1449,25 @@ const epochTransform = (dateParser: any) => {
         continue;
       }
       let itemValue: any = {};
-      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === 'mhfd_projects_created') {
+      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === PROJECTS_DRAFT) {
         getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id
         );
-        if(feature.source === 'mhfd_projects_created') {
+        if(feature.source === PROJECTS_DRAFT) {
           isEditPopup =true;
         }
         const item = {
           type: 'project',
-          title: feature.source === 'mhfd_projects_created'? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
+          title: feature.source === PROJECTS_DRAFT? (feature.properties.projecttype+" "+MENU_OPTIONS.PROJECT):MENU_OPTIONS.PROJECT,
           name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-          organization: feature.source === 'mhfd_projects_created'? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
-          value: feature.source === 'mhfd_projects_created' ? (
+          organization: feature.source === PROJECTS_DRAFT? (feature.properties.jurisdiction?(feature.properties.jurisdiction.replaceAll(',',', ')): type.locality.locality):(feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor'),
+          value: feature.source === PROJECTS_DRAFT ? (
             feature.properties.projecttype.toLowerCase() === 'capital' ? feature.properties.estimatedcost : getTotalAmount(feature.properties.cartodb_id)
           ) : (
             feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1'
           ),
-          projecctype: feature.source === 'mhfd_projects_created'?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
+          projecctype: feature.source === PROJECTS_DRAFT?('STATUS'):(feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-'),
           component_count: feature.properties.component_count,
           status: feature.properties.status ? feature.properties.status : '-',
           objectid: feature.properties.objectid,
@@ -2045,9 +2050,11 @@ const epochTransform = (dateParser: any) => {
 
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
-        popup.setLngLat(e.lngLat)
-          .setHTML(html)
-          .addTo(map.map);
+        // popup.setLngLat(e.lngLat)
+        //   .setHTML(html)
+        //   .addTo(map.map);
+        console.log('about to add popuppp', e.lngLat, JSON.stringify(e.lngLat));
+        map.addPopUp({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
         
         for (const index in popups) {
           let menuElement = document.getElementById('menu-' + index);
@@ -2212,18 +2219,19 @@ const epochTransform = (dateParser: any) => {
     getListComponentsByComponentsAndPolygon(newComponents, null);
     removePopup();
   }
+
   useEffect(() => {
-    if (allLayers.length < 100) {
-      return;
-    }
-    
-    EventService.setRef('click',eventClick);
+    // EventService.reset();new 
+    EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
     map.map.on('click',eventToClick);
     return ()=> {
-      map.map.off(eventToClick);
+      if (map) {
+        map.map.off(eventToClick);
+      }
     }
   }, [allLayers]);
+
   const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => ReactDOMServer.renderToStaticMarkup(
 
     <>
@@ -2275,11 +2283,11 @@ const epochTransform = (dateParser: any) => {
     </>
   );
  
-  const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
+  const loadMainPopup =  useCallback((id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
     <>
       <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={ep?ep:false}></MainPopup>
     </>
-  );
+  ), []);;
 
   const loadStreamPopup = (index: number, item: any) => (
     <>
@@ -2298,14 +2306,14 @@ const epochTransform = (dateParser: any) => {
   );
 
   const renderOption = (item: any) => {
-    return (
-      <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + ' ' + item.place_name}>
-        <div className="global-search-item">
-          <h6>{item.text}</h6>
-          <p>{item.place_name}</p>
-        </div>
-      </Option>
-    );
+    return {
+      key: `${item.text}|${item.place_name}`,
+      value: `${item.center[0]},${item.center[1]}?${item.text} ${item.place_name}`,
+      label: <div className="global-search-item">
+        <h6>{item.text}</h6>
+        <p>{item.place_name}</p>
+      </div>
+    };
   }
   const [keyword, setKeyword] = useState('');
 
@@ -2337,7 +2345,7 @@ const epochTransform = (dateParser: any) => {
   return <>
     <div className="map">
     <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
-      <div id="map4" style={{ height: '100%', width: '100%' }}></div>
+      <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
@@ -2360,12 +2368,12 @@ const epochTransform = (dateParser: any) => {
         <AutoComplete
           dropdownMatchSelectWidth={true}
           style={{ width: 200 }}
-          dataSource={mapSearch.map(renderOption)}
+          options={mapSearch.map(renderOption)}
           onSelect={onSelect}
           onSearch={handleSearch}
           value={keyword}
         >
-          <Input.Search allowClear size="large" placeholder="Stream or Locationss" />
+          <Input.Search allowClear placeholder="Stream or Location" />
         </AutoComplete>
       </div>
       <div className="measure-button">

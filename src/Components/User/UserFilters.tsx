@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown, Button, Input, Menu } from 'antd';
+import { Dropdown, Button, Input, Menu, MenuProps } from 'antd';
 import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, RADIO_ITEMS } from "../../constants/constants";
 import { OptionsFiltersUser } from '../../Classes/TypeList';
 
@@ -13,58 +13,77 @@ const SORT_ITEMS = [{ name: 'Name', value: 'name' },
 const ROLES = ['MHFD Senior Manager', 'MHFD Staff', 'Local Government', 'Consultant / Contractor', 'Other'];
 export default ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
-  const menu = (list: Array<string>, title: string, defaultValue: string) => (
-    <Menu className="js-mm-00 sign-menu"
+
+  const menu = (list: Array<string>, title: string, defaultValue: string) => {
+    const itemMenu: MenuProps['items'] = [];
+    if (defaultValue) {
+      itemMenu.push({ key: `all|${title}`, label: <span>Organization - All</span> });
+    }
+    list.forEach((element: string, index: number) => {
+      itemMenu.push({
+        key: `${index}|${element}`,
+        label: <span className="user-filter-items-text">{element}</span>
+      });
+    });
+    return <Menu
+      className="js-mm-00 sign-menu"
+      items={itemMenu}
       onClick={(event) => {
-        const item: any = event.item;
         const auxOption = { ...option };
-        const val = event.key !== 'all' ? item.props.children.props.children : ''
-        if (title === 'organization') {
-          auxOption.organization = val;
-        } else if (title === 'serviceArea') {
-          auxOption.serviceArea = val;
-        } else if (title === 'designation') {
-          auxOption.designation = event.key !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';
-        } else if (!title) {
-          auxOption.sort = SORT_ITEMS.filter(item => item.name === val)[0].value;
-        }
+        const val = event.key.split('|')[0] !== 'all' ? event.key.split('|')[1] : '';
+        switch (title) {
+          case 'organization':
+            auxOption.organization = val;
+            break;
+          case 'serviceArea':
+            auxOption.serviceArea = val;
+            break;
+          case 'designation':
+            auxOption.designation = event.key.split('|')[0] !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';
+            break;
+          default:
+            auxOption.sort = SORT_ITEMS.filter(item => item.name === val)[0].value;
+            break;
+        };
         setOption(auxOption);
         search(auxOption);
       }}>
-      {defaultValue ? <Menu.Item key="all">
-        <span className="user-filter-items-text">
-          {defaultValue} - All
-          </span>
-      </Menu.Item> : ''}
-      {list.map((element: string, index: number) => {
-        return <Menu.Item key={index}>
-          <span className="user-filter-items-text">
-            {element}
-          </span>
-        </Menu.Item>
-      })}
     </Menu>
-  );
-  const MenuOrganization = () => (<Menu className="js-mm-00 sign-menu-organization"
-    onClick={(event) => {
-      const item: any = event.item;
-      const auxOption = { ...option };
-      const val = event.key !== 'all' ? item.props.children.props.children : ''
-      auxOption.organization = val;
-      setOption(auxOption);
-      search(auxOption);
-    }}>
-    <Menu.Item key={"all"}><span>Organization - All</span></Menu.Item>
-    <Menu.ItemGroup key="g1" title="Organization">
-      {ORGANIZATION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-    </Menu.ItemGroup>
-    <Menu.ItemGroup key="g2" title="Consultant / Contractor">
-      {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
-    </Menu.ItemGroup>
-    {/* <Menu.ItemGroup key="g3" title="Jurisdiction">
-      {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-    </Menu.ItemGroup> */}
-  </Menu>);
+  };
+
+  const MenuOrganization = () => {
+    const itemOrganization: any = [];
+    const itemConsultant: any = [];
+    ORGANIZATION.forEach((item: string, index: number) => {
+      itemOrganization.push({
+        key: `${index}|${item}`,
+        label: <span>{item}</span>
+      });
+    });
+    CONSULTANT_CONTRACTOR.forEach((item: string, index: number) => {
+      itemConsultant.push({
+        key: `${index}|${item}`,
+        label: <span>{item}</span>
+      });
+    });
+    const itemMenuOrganization: MenuProps['items'] = [
+      { key: 'all|all', label: <span>Organization - All</span> },
+      { key: 'organization-items', type: 'group', label: 'Organization', children: itemOrganization },
+      { key: 'consultant-items', type: 'group', label: 'Consultant / Contractor', children: itemConsultant },
+    ];
+    return <Menu
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenuOrganization}
+      onClick={(event) => {
+        const auxOption = { ...option };
+        const val = event.key !== 'all|all' ? event.key.split('|')[1] : '';
+        auxOption.organization = val;
+        setOption(auxOption);
+        search(auxOption);
+      }}>
+    </Menu>
+  };
+
   return (
     <div className="user-filter">
       <div>
@@ -76,7 +95,7 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
             setOption(auxOption);
             search(auxOption);
           }}
-          style={{ width: 240 }}
+          style={{ width: 240, paddingRight: '10px' }}
         />
       </div>
 

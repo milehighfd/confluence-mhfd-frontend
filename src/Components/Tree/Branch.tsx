@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState } from 'react';
 
 import { Node } from './Node';
 
@@ -43,9 +43,7 @@ export const Branch = ({ item, level, onDragAndDrop, swapPositions, setTree, map
       return newTree;
     });
   }
-  // useEffect(() => {
-  //   console.log(open, item);
-  // }, [open]);
+  
   return (
     <>
       <Node

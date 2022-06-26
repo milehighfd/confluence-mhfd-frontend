@@ -46,7 +46,6 @@ export const NewComponentsFilter = () => {
         } else {
             options[field] = values;
         }
-        //let labelsProjects = [...labelsFiltersProjects];
         setFilterComponentOptions(options);
         getGalleryProjects();
         getGalleryProblems();
@@ -56,7 +55,6 @@ export const NewComponentsFilter = () => {
     const filterFunction = (r: any) => {
         return r.value !== null && r.value !== '';
     }
-
 
     ['watershed', 'jurisdiction', 'county', 'servicearea', 'status']
         .forEach((key: string) => {

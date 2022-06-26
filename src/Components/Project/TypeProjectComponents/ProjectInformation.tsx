@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Input, Row, Col, Popover, Select, Table, Upload, Checkbox, Collapse, Timeline } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
-import {  NEW_PROJECT_TYPES, PROJECT_INFORMATION, SERVICE_AREA, SERVICE_AREA_VALUE, STUDY_REASON, STUDY_SUB_REASON } from "../../../constants/constants";
-
+import { Input, Row, Col, Popover, Select } from 'antd';
+import {  NEW_PROJECT_TYPES,  STUDY_REASON, STUDY_SUB_REASON } from "../../../constants/constants";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -39,7 +37,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
     }
   };
   useEffect(() => {
-    if(setReason && reasonForm !== STUDY_REASON[3]){ //STUDY_REASON[3] === 'Other'
+    if(setReason && reasonForm !== STUDY_REASON[3]){ 
       setReason(reasonForm)
     }
     if(setReason && reasonForm === STUDY_REASON[3]){
@@ -51,7 +49,11 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
   }, [reasonForm, subReasonForm]);
   return(
     <>
-      <h5>1. Project Information</h5>
+      <Row>
+        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
+          <h5>1. Project Information</h5>
+        </Col>
+      </Row>
       <Row gutter={[16, 16]}>
         {type && type === NEW_PROJECT_TYPES.Study && (
           <>
@@ -68,7 +70,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
             </Col>
           </>
         )}
-        {reasonForm && reasonForm === STUDY_REASON[2] && ( // STUDY_REASON[2] = 'Master plan recommendations are outdated'
+        {reasonForm && reasonForm === STUDY_REASON[2] && ( 
           <>
             <Col xs={{ span: 24 }} lg={{ span: 12 }}>
               <label className="sub-title">Sub-Reason for Study</label>
@@ -83,7 +85,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
           </>
         )}
 
-        {reasonForm && reasonForm === STUDY_REASON[3] && ( // STUDY_REASON[3] = 'Other'
+        {reasonForm && reasonForm === STUDY_REASON[3] && ( 
           <>
             <Col xs={{ span: 24 }} lg={{ span: 12 }}>
               <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
@@ -93,7 +95,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
         )}
       </Row>
       <br />
-      <label className="sub-title">Description <Popover content={content00}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+      <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} placeholder="Add description" onChange={(description)=>apllyDescription(description)} value={description}/>
     </>
   );

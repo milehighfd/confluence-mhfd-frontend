@@ -7,7 +7,6 @@ export const EMPTY_SCREEN = 0;
 export const MEDIUM_SCREEN_LEFT = 15;
 export const MEDIUM_SCREEN_RIGHT = 9;
 
-
 export const MAP_RESIZABLE_TRANSITION = 0.7;
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoibWlsZWhpZ2hmZCIsImEiOiJjazRqZjg1YWQwZTN2M2RudmhuNXZtdWFyIn0.oU_jVFAr808WPbcVOFnzbg';
@@ -146,7 +145,7 @@ export const ROUTINE_MAINTENANCE = {
 
 export const PROJECTS_POLYGONS = 'projects_polygon_';
 export const PROJECTS_LINE = 'mhfd_projects';
-export const PROJECTS_DRAFT = 'mhfd_projects_created';
+export const PROJECTS_DRAFT = 'mhfd_projects_created' + (process.env.REACT_APP_NODE_ENV ? ( '_' + (process.env.REACT_APP_NODE_ENV === 'production' ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '');
 export const STUDIES = 'studies';
 
 export const PROJECTS_MAP_STYLES = {
@@ -210,18 +209,6 @@ export const SELECT_ALL_FILTERS = [
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
-
-export const PROJECT_TYPES_AND_NAME = [
-  {
-    name: 'Capital', id: 'Capital'
-  },
-  {
-    name: 'Maintenance', id: 'Maintenance'
-  },
-  {
-    name: 'Study', id: 'Study'
-  }
-]
 
 export const DROPDOWN_ORGANIZATION = {
   REGIONAL_AGENCY_PUBLIC: [
@@ -799,7 +786,6 @@ export const GOVERNMENT_ADMIN = "government_admin";
 export const GOVERNMENT_STAFF = "government_staff";
 export const CONSULTANT = "consultant";
 export const OTHER = "other";
-export const NO_POLYGON_ERROR = 'Must draw a polygon on the map to continue.';
 
 export const FILTER_PROBLEMS_TRIGGER = 'Problems';
 export const FILTER_PROJECTS_TRIGGER = 'Projects';
@@ -872,8 +858,6 @@ export const popUps = {
   active_lomcs: 'A Letter of Map Change (LOMC) is issued when FEMA is requested to revise its effective flood map to reflect changed flooding conditions. reflects an official change to an effective Flood Insurance Rate Map (FIRM).',
   effective_reaches: 'The Effective Model Reaches catalogue and track the hydraulic model information used to create the effective Flood Insurance Rate Maps (FIRMs) available from the Federal Emergency Management Agency (FEMA).'
 }
-
-/* Menu Opctions */
 
 export const MENU_OPTIONS =
 {
@@ -1002,16 +986,3 @@ export const ICON_POPUPS = [
   ['Stream', "/Icons/Filters/ic_streams.png"],
   ['Stream Management Corridor', "/Icons/ic_SMC_Watershed@2x.png"],
 ]
-
-/*  // Mapbox Custom Styles
-    mapbox://styles/mapbox/streets-v11
-    mapbox://styles/mapbox/outdoors-v11
-    mapbox://styles/mapbox/light-v10
-    mapbox://styles/mapbox/dark-v10
-    mapbox://styles/mapbox/satellite-v9
-    mapbox://styles/mapbox/satellite-streets-v11
-    mapbox://styles/mapbox/navigation-preview-day-v4
-    mapbox://styles/mapbox/navigation-preview-night-v4
-    mapbox://styles/mapbox/navigation-guidance-day-v4
-    mapbox://styles/mapbox/navigation-guidance-night-v4
-*/

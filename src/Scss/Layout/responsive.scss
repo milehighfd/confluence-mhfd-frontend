@@ -90,7 +90,7 @@
   }
   // LOGIN
   .img-banner {
-    width: auto;
+    width: 155vh;
     height: 100vh;
   }
   .social01 a {
@@ -221,7 +221,7 @@
 @media (min-width: 3000px) {
   // LOGIN
   .img-banner {
-    width: auto;
+    width: 195vh;
     height: 100vh;
   }
   .social01 a {
@@ -595,7 +595,7 @@
       background-size: 43px;
     }
     button .like-img-on{
-      background-image: url('../../../public/Icons/icon-82.svg');
+      background-image: url('../../Icons/icon-82.svg');
       height: 40px;
       width: 48px;
       background-repeat: no-repeat;
@@ -603,7 +603,7 @@
     }
     .ant-btn:hover > .like-img, .ant-btn:focus > .like-img,
     .ant-btn:active > .like-img, .ant-btn.active > .like-img{
-      background-image: url('../../../public/Icons/icon-82.svg');
+      background-image: url('../../Icons/icon-82.svg');
       height: 40px;
       width: 48px;
       background-repeat: no-repeat;

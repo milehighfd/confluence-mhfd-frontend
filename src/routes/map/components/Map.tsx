@@ -4,10 +4,6 @@ import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-
 import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button } from 'antd';
 import { MapProps, ObjectLayerType, LayerStylesType } from '../../../Classes/MapTypes';
@@ -131,7 +127,6 @@ const Map = ({
     setSelectedOnMap,
     getParamsFilter,
     mapSearchQuery,
-    setApplyFilter,
     setBoundMap,
     getParamFilterComponents,
     getParamFilterProblems,
@@ -509,7 +504,9 @@ const Map = ({
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
           setOpacityLayer(true);
-              map.removeLayer('mask');
+              if (map.getLayer('mask')) {
+                map.removeLayer('mask');
+              }
               if(map.getSource('mask')) {
                 map.getSource('mask').setData(poly);
               } else {
@@ -639,11 +636,11 @@ const Map = ({
                   getParamFilterComponents(boundsMap, optionscomp);
                 },1300);
               }
-              map.once('idle',() => {
-                setTimeout(()=>{
-                  loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
-                },1000);
-              });
+              // map.once('idle',() => {
+              //   setTimeout(()=>{
+              //     loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
+              //   },1000);
+              // });
            }
    
           },5000);
@@ -673,7 +670,7 @@ const Map = ({
           'custom-sprite/pjm2.png',
           'custom-sprite/ic-stripered.png',
           'custom-sprite/ic-stripeviolet.png',
-          'custom-sprite/Urbanclimbtosafetysign_origclean-50.png',
+          'custom-sprite/Urbanclimbtosafetysign_origclean.png',
         ];
         imagesPaths.forEach((imagePath: string) => {
           map.loadImage(imagePath, (error: any, image: any) => {
@@ -1103,13 +1100,17 @@ const Map = ({
             topStreams()
             topEffectiveReaches();
             topProjects();
-            map.moveLayer('borderMASK');
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('borderMASK');
+            }
             topHovereableLayers();
             topStreamLabels();
             topLabels();
             topServiceArea();
             topComponents();
-            map.moveLayer('servicearea');
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('servicearea');
+            }
         },800);
     }
     const topHovereableLayers = () => {
@@ -2807,15 +2808,15 @@ const Map = ({
         }
     }
     const renderOption = (item: any) => {
-        return (
-            <Option key={item.center[0] + ',' + item.center[1] + '?' + item.text + '|' + item.place_name}>
-                <div className="global-search-item">
-                    <h6>{item.text}</h6>
-                    <p>{item.place_name}</p>
-                </div>
-            </Option>
-        );
-    }
+      return {
+        key: `${item.text}|${item.place_name}`,
+        value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
+        label: <div className="global-search-item">
+          <h6>{item.text}</h6>
+          <p>{item.place_name}</p>
+        </div>
+      };
+    };
     const [keyword, setKeyword] = useState('');
 
     const handleSearch = (value: string) => {
@@ -3088,12 +3089,12 @@ const Map = ({
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
                     style={{ width: 240 }}
-                    dataSource={mapSearch.map(renderOption)}
+                    options={mapSearch.map(renderOption)}
                     onSelect={onSelect}
                     onSearch={handleSearch}
                     value={keyword}
                 >
-                  <Input.Search allowClear placeholder="Stream or Location" />
+                  <Input.Search allowClear placeholder="Stream or Location"  />
                 </AutoComplete>
             </div>
             <div className="measure-button">

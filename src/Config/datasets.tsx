@@ -13,8 +13,25 @@ export const postData = (url: any, body: any, token?: any) => {
     });
 }
 
+export const postDataAsyn = async (url: any, body: any, token?: any) => {
+    const headers = token ? JSONOptions(token) : JSONDefault();
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(body)
+        }).then(response => response.json())
+            .then(data => { return (data); })
+            .catch((err) => {
+                console.log(err);
+            });
+        return response;
+    } catch (e) {
+        console.log(`😱 request failed: ${e}`);
+    };
+}
+
 export const postDataMultipart = (url: any, body: any, token?: any) => {
-    // console.log('my body ', body);
     const headers = token ? MultiPartOptions(token) : MultiPart();
     return fetch(url, {
         method: 'POST',
@@ -122,8 +139,6 @@ export const JSONOptions = (token?: any) => {
 }
 export const MultiPartOptions = (token?: any) => {
     let headers = new Headers();
-    // headers.append('Accept', 'application/json');
-    // headers.append('Content-Type', 'multipart/form-data');
     if (token) {
         headers.append('Authorization', 'Bearer ' + token);
     }
@@ -141,8 +156,6 @@ export const JSONDefault = () => {
 
 export const MultiPart = () => {
     let headers = new Headers();
-    // headers.append('Accept', 'application/json');
-    // headers.append('Content-Type', 'multipart/form-data');
     return headers;
 }
 

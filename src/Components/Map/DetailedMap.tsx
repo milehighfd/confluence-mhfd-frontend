@@ -8,8 +8,6 @@ import { MAPBOX_TOKEN, MAP_DROPDOWN_ITEMS } from '../../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import { polygonFill, polygonStroke, selectedComponents } from '../../constants/mapStyles';
 import { ComponentType } from '../../Classes/MapTypes';
 import { ComponentPopup } from './MapPopups';
@@ -32,9 +30,9 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
     (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
     map = new mapboxgl.Map({
       container: 'detailedMap',
-      style: dropdownItems.items[dropdownItems.default].style, //hosted style id
-      center: getCenterCoordinates(coordinates), // starting position [lng, lat]
-      zoom: 12.4 // starting zoom
+      style: dropdownItems.items[dropdownItems.default].style, 
+      center: getCenterCoordinates(coordinates), 
+      zoom: 12.4
     });
 
     const nav = new mapboxgl.NavigationControl({ showCompass: false });
@@ -115,12 +113,10 @@ export default ({ coordinates, components } : { coordinates : PolygonCoords, com
         .addTo(map);
     });
 
-    // Change the cursor to a pointer when the mouse is over the states layer.
     map.on('mouseenter', trigger, () => {
       map.getCanvas().style.cursor = 'pointer';
     });
 
-    // Change it back to a pointer when it leaves.
     map.on('mouseleave', trigger, () => {
       map.getCanvas().style.cursor = '';
     });

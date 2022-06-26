@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Card, Popover, Menu, Button } from "antd";
+import { Col, Card, Popover, Menu, Button, MenuProps } from "antd";
 import DetailedModal from "../Modals/DetailedModal";
 
 import { numberWithCommas } from '../../../utils/utils';
@@ -19,15 +19,13 @@ const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
 
-export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, detailed, loaderDetailedPage, setHighlighted, getComponentsByProblemId, componentsOfProblems, loaderTableCompoents, selectedOnMap, componentCounter,
-  getComponentCounter, setZoomProjectOrProblem }:
+export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomProjectOrProblem }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
   const [visible, setVisible] = useState(false);
   const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
-  const { favorites, favoriteProblemCards, favoriteProjectCards } = useMapState();
-  const { saveUserInformation } = useProfileDispatch();
+  const { favorites } = useMapState();
   const showComponents = () => {
     const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
@@ -35,7 +33,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   const user = store.getState().profile.userInformation;
 
   useEffect(() => {
-    // console.log(user.designation);
     favoriteList(user.email);
   },
   []);
@@ -55,8 +52,7 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     setActiveCard(status);
   }, [favorites, deleteFavorite, addFavorite]);
 
-
-  const { autcomplete, spinMapLoaded, bboxComponents, selectedLayers } = useSelector((state: any) => ({
+  const { bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
     bboxComponents: state.map.bboxComponents,
@@ -64,7 +60,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
   }));
   const changeCenter = () => {
     setZoomProjectOrProblem(data.coordinates);
-
   }
 
   useEffect(() => {
@@ -72,50 +67,69 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
     if (bcbbox.length && bcbbox[0] != null) {
       updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
       setZoomProjectOrProblem(bcbbox[0]);
-      // saveUserInformation(user);
     }
   }, [bboxComponents]);
-  const { setOpacityLayer } = useMapDispatch();
   const stopModal = (e: any) => {
     e.domEvent.stopPropagation();
     e.domEvent.nativeEvent.stopImmediatePropagation();
   }
-  const menu = (
-    <Menu>
-      <Menu.Item className="drop-head" style={{cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)'}}  onClick={(e: any) => stopModal(e)}>
-        LIST ACTIONS
-      </Menu.Item>
 
-      {data.totalComponents ? <Menu.Item onClick={(e: any) => {
-         e.domEvent.stopPropagation();
-         e.domEvent.nativeEvent.stopImmediatePropagation();
-         showComponents();
-      }}>
-        <span className="menu-item-text">Show Components</span>
-      </Menu.Item> : <></>
+  const menu = () => {
+    const onClickPopupCard = (e: any) => {
+      stopModal(e);
+      switch (e.key) {
+        case 'popup-show-components':
+          showComponents();
+          break;
+        case 'popup-zoom':
+          changeCenter();
+          return;
+        default:
+          break;
       }
-      <Menu.Item onClick={(e: any) => {
-         e.domEvent.stopPropagation();
-         e.domEvent.nativeEvent.stopImmediatePropagation();
-        changeCenter();
-      }}>
-        <span className="menu-item-text">Zoom to Feature</span>
-      </Menu.Item>
-      <Menu.Item onClick={(e: any) => stopModal(e)}>
-        <span className="menu-item-text" style={{opacity: 0.5}}>Favorite Card</span>
-      </Menu.Item>
-      <Menu.Item onClick={(e: any) => stopModal(e)}>
-        <span className="menu-item-text" style={{opacity: 0.5}}>Comment</span>
-      </Menu.Item>
-      <Menu.Item onClick={(e: any) => stopModal(e)}>
-        <span className="menu-item-text" style={{opacity: 0.5}}>Add Team Member</span>
-      </Menu.Item>
+    };
+    let menuPopupItem: MenuProps['items'] = [
+      {
+        key: 'popup-title',
+        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)' }}>
+          LIST ACTIONS
+        </label>
+      },
+      {
+        key: 'popup-show-components',
+        label: <span className="menu-item-text" style={{ display: data.totalComponents ? 'inline' : 'none' }}>Show Components</span>
+      },
+      {
+        key: 'popup-zoom',
+        label: <span className="menu-item-text">Zoom to Feature</span>
+      },
+      {
+        key: 'popup-favorite',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Favorite Card</span>
+      },
+      {
+        key: 'popup-comment',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Comment</span>
+      },
+      {
+        key: 'popup-add-team',
+        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
+      }
+    ];
+    if (!data.totalComponents) {
+      menuPopupItem.splice(1, 1);
+    }
+    return <Menu
+      className="menu-dropdown-map"
+      style={{ backgroundColor: 'white', border: 0 }}
+      items={menuPopupItem}
+      onClick={onClickPopupCard}
+    >
     </Menu>
-  );
+  };
 
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});
-    // setOpacityLayer(false);
   }
 
   return (
@@ -128,11 +142,11 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
         setVisible={setVisible}
       />}
 
-      <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', width: '100%', alignSelf: 'stretch'}}>
-      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : ''}}>
+      <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', alignSelf: 'stretch', width: '100%'}}>
+      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
         <Card
           hoverable
-          style={{width: '100%', marginTop: '7px', marginLeft: '2px', marginRight: '-10px'}}
+          style={{ width: '100%' }}
           onClick={() => setVisible(true)}
           onMouseEnter={() =>  setValuesMap(data.type, data.value)}
           onMouseLeave={()=> setValuesMap('','')}
@@ -150,7 +164,6 @@ export default ({ data, type, getDetailedPageProblem, getDetailedPageProject, de
                   event.stopPropagation();
 
                   activeCard ?  deleteFavorite(user.email, (data.id || data.problemid), data.type) : addFavorite(user.email, (data.id || data.problemid), data.type);
-                  //favoriteList(user.email);
                 }
                }
                 >

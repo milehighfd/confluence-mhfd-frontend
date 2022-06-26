@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, AutoComplete } from 'antd';
-import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
+import { useLocation } from "react-router-dom";
 
 import GenericTabView from "../../../Components/Shared/GenericTab/GenericTabView";
 import FiltersProjectView from "../../../Components/FiltersProject/FiltersProjectView";
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../../constants/constants';
-import { FilterTypes } from "../../../Classes/MapTypes";
-import { useLocation } from "react-router-dom";
 import DetailedModal from "../../../Components/Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
-import { useSelector } from "react-redux";
 import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 import { useDetailedState } from "../../../hook/detailedHook";
+import MapAutoComplete from "./MapAutoComplete";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
@@ -23,7 +21,6 @@ contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active
 
 const { TabPane } = Tabs;
 const { Search } = Input;
-const { Option } = AutoComplete;
 let counterZoomArea = 0 ;
 
 const MapView = () => {
@@ -48,7 +45,8 @@ const MapView = () => {
     filterProjectOptions,
     filterComponentOptions,
     applyFilter,
-    spinFilters: spinFilter
+    spinFilters: spinFilter,
+    spinMapLoaded
   } = useMapState();
   const {
     detailed,
@@ -73,10 +71,7 @@ const MapView = () => {
   } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
   const { userInformation, groupOrganization } = useProfileState();
-  const {
-    designation,
-    zoomarea
-  } = userInformation;
+  const { zoomarea } = userInformation;
   const {
     tabCards,
     nameZoomArea,
@@ -95,12 +90,6 @@ const MapView = () => {
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
 
-  const [valueA, setvalueA] = useState('');
-  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-
-  useEffect(() => {
-    setvalueA(nameZoomArea);
-  }, [nameZoomArea]);
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
@@ -582,7 +571,7 @@ const MapView = () => {
         setData(auxData);
       }
     }
-    setNameZoomArea(zoomarea); // add for the dropdown
+    setNameZoomArea(zoomarea); 
   }, []);
 
   const handleToggle = () => {
@@ -654,51 +643,10 @@ const MapView = () => {
       }
     }
   }
-  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
-    if (item.aoi === undefined) {
-      return false;
-    }
-    return true;
-  }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> }));
 
-  useEffect(()=>{
-    setDataAutocomplete(groupOrganization.filter(function (item: any) {
-      if (item.aoi === undefined) {
-        return false;
-      }
-      return true;
-    }).map((item: { aoi: string }) => { return <Option className="list-line" key={item.aoi}>{item.aoi}</Option> }));
-  },[groupOrganization]);
-  const setValueInFilters = (value: any, type: any, filterOptions: any, withSuffix: boolean = false) => {
-    const options = { ...filterOptions };
-    options.jurisdiction = '';
-    options.county = '';
-    options.servicearea = '';
-    if (!withSuffix) {
-      if (value.includes('County')) {
-        let index = value.indexOf('County');
-        if (index !== -1) {
-          value = value.substr(0, index - 1);
-        }
-      }
-      if (value.includes('Service Area')) {
-        let index = value.indexOf('Service Area');
-        if (index !== -1) {
-          value = value.substr(0, index - 1);
-        }
-      }
-    }
-    if(type == "Service Area") {
-      options.servicearea = value;
-    } else if(type) {
-      options[type.toLowerCase()] = value;
-    }
-    return options;
-  }
   const onSelect = (value: any, isSelect?:any) => {
     console.log('Selected:', value, isSelect);
     setAutocomplete(value);
-    setvalueA(value);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
         aoi: element.aoi,
@@ -715,11 +663,6 @@ const MapView = () => {
     setBBOXComponents({ bbox: [], centroids: [] })
   };
 
-  const { spinMapLoaded } = useSelector((state: any) => ({
-    spinMapLoaded: state.map.spinMapLoaded,
-    autcomplete: state.map.autocomplete
-    }));
-
   const sortClick = () => {
     if (tabActive === '0') {
       const auxOptions = { ...filterProblemOptions };
@@ -735,9 +678,9 @@ const MapView = () => {
   }
 
   const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer', marginTop: '-3px' }}>
+    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col>
-        <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent' }}>
+        <div className={(spinFilter || spinCardProblems || spinCardProjects ||spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect'} style={{ borderColor:'transparent', fontSize: '12px', marginTop: '-6px', color: 'rgba(17, 9, 60, 0.5)' }}>
           Apply map view to filters
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)
@@ -751,28 +694,32 @@ const MapView = () => {
       </Col>
     </Row>
   );
+
   const menuSort = (listSort: Array<{ name: string, title: string }>) => {
-    return <Menu className="js-mm-00">
-      {listSort.map((item: { name: string, title: string }) => (
-        <Menu.Item key={item.name}
-          onClick={() => {
-            if (tabActive === '0') {
-              const auxOptions = { ...filterProblemOptions };
-              auxOptions.column = item.name;
-              setFilterProblemOptions(auxOptions);
-              getGalleryProblems();
-            } else {
-              const auxOptions = { ...filterProjectOptions };
-              auxOptions.column = item.name;
-              setFilterProjectOptions(auxOptions);
-              getGalleryProjects();
-            }
-          }}>
-          <span className="menu-item-text">{item.title}</span>
-        </Menu.Item>
-      ))}
-    </Menu>
-  }
+    const itemMenu: MenuProps['items'] = [];
+    listSort.forEach((element: { name: string, title: string }, index: number) => {
+      itemMenu.push({
+        key: `${index}|${element.title}`,
+        label: <span className="menu-item-text" style={{ height: '10px' }}>{element.title}</span>,
+        onClick: (() => {
+          if (tabActive === '0') {
+            const auxOptions = { ...filterProblemOptions };
+            auxOptions.column = element.name;
+            setFilterProblemOptions(auxOptions);
+            getGalleryProblems();
+          } else {
+            const auxOptions = { ...filterProjectOptions };
+            auxOptions.column = element.name;
+            setFilterProjectOptions(auxOptions);
+            getGalleryProjects();
+          }
+        })
+      });
+    });
+    return <Menu className="js-mm-00" items={itemMenu}>
+    </Menu>;
+  };
+
   const onResetClick = () => {
     RheoStatService.reset();
     if (tabActive === '0') {
@@ -841,7 +788,7 @@ const MapView = () => {
       MHFD has developed Confluence from the ground up to meet the unique data needs of a
       regional flood control and stream management district.</p>
     </div>
-    <div className="count" style={{ paddingBottom: '0px' }}>
+    <div className="count" style={{ paddingBottom: '0px', marginTop: '1px' }}>
       {displayModal && visible && <DetailedModal
         detailed={detailed}
         type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
@@ -849,33 +796,9 @@ const MapView = () => {
         visible={visible}
         setVisible={setVisible}
       />}
-      <Row className="head-m mobile-display">
-        <Col span={24} id="westminter">
-          <div className="auto-complete-map">
-            <AutoComplete
-              style={{ width: '200' }}
-              onDropdownVisibleChange={setDropdownIsOpen}
-              dataSource={dataAutocomplete}
-              placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
-              filterOption={(inputValue, option: any) => {
-                if (dataAutocomplete.map((r: any) => r.key).includes(inputValue)) {
-                  return true;
-                }
-                return option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
-              }}
-              onSelect={onSelect}
-              value={valueA}
-              onSearch={(input2: any) => {
-                setvalueA(input2)
-              }}
-              >
-
-              <Input id={'miclase'} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)',marginRight: '-18px' }} suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} />
-            </AutoComplete>
-          </div>
-        </Col>
-      </Row>
-
+      <MapAutoComplete
+        onAutoCompleteSelected={onSelect}
+      />
       <div className="head-filter mobile-display">
         <Row justify="space-around" align="middle">
           <Col span={11}>
@@ -928,9 +851,9 @@ const MapView = () => {
           </Col>
         </Row>
       </div>
-
       {!toggleFilters ?
-        <Tabs onTabClick={(e: string) => {
+        <div style={{ marginRight: '-9px' }}>
+          <Tabs onTabClick={(e: string) => {
           if (e === '0') {
             setTabActive('0');
             setTabCards(PROBLEMS_TRIGGER);
@@ -996,7 +919,7 @@ const MapView = () => {
               totalElements = cardInformation.length;
             }
             return (
-              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom">{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
+              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom" style={{width: '100%'}}>{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
                 <GenericTabView
                   key={value + index}
                   type={value}
@@ -1007,6 +930,7 @@ const MapView = () => {
             );
           })}
         </Tabs>
+        </div>
         :
         <FiltersProjectView
           tabActive={tabActive}

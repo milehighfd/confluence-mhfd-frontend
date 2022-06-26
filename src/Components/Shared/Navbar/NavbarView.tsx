@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel } from 'antd';
+import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel, MenuProps } from 'antd';
+import { Redirect, useLocation } from 'react-router-dom';
 import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import * as datasets from "../../../Config/datasets";
-import { Redirect, useLocation } from "react-router-dom";
-import { ROUTERS, ROUTER_TITLE } from "../../../constants/constants";
-import { User } from "../../../Classes/TypeList";
-import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
-import '../../../Scss/Components/navbar.scss';
 import {DoubleRightOutlined} from '@ant-design/icons';
-import { useMapDispatch } from "../../../hook/mapHook";
-import { useProfileDispatch } from "../../../hook/profileHook";
-import { useUsersState } from "../../../hook/usersHook";
+import * as datasets from '../../../Config/datasets';
+import { ROUTERS, ROUTER_TITLE } from '../../../constants/constants';
+import { User } from '../../../Classes/TypeList';
+import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
+import { useMapDispatch } from '../../../hook/mapHook';
+import { useProfileDispatch } from '../../../hook/profileHook';
+import { useUsersState } from '../../../hook/usersHook';
+import '../../../Scss/Components/navbar.scss';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -91,7 +91,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
       setState(auxState);
     };
   const [redirect, setRedirect] = useState(false);
-  // const user = store.getState().profile.userInformation;
   const name = user.firstName;
   const initialName = user.firstName.charAt(0) + user.lastName.charAt(0);
   const location = useLocation().pathname.split('/');
@@ -139,22 +138,78 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   const hideProfile = () => {
     setOpenProfile(false);
   }
-  //  className="menu-login-dropdown" className="login-dropdown"
+  const items = [
+    { key: 'my-profile', label: 'My Profile' },
+    { key: 'tutorial', label: 'Tutorial' },
+    { key: 'logout', label: localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout' },
+  ];
   const menu = (
-    <Menu className="menu-login-dropdown">
-      {user.designation !== 'guest' ? <Menu.Item className="login-dropdown" onClick={showProfile}>My Profile</Menu.Item> : '' }
-      <Menu.Item className="login-dropdown" onClick={showModal}>Tutorial</Menu.Item>
-      <Menu.Item className="login-dropdown" onClick={logout}>
-        {
-          localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout'
+    <Menu
+      className="menu-login-dropdown"
+      style={{ marginTop: '12px'}}
+      mode={'inline'}
+      items={items}
+      onClick={({ key }) => {
+        switch(key) {
+          case 'my-profile':
+            showProfile();
+            break;
+          case 'tutorial':
+            showModal();
+            break;
+          case 'logout':
+            logout();
+            break;
         }
-      </Menu.Item>
-    </Menu>
+      }}
+    />
   );
 
   if (redirect) {
     return <Redirect to="/login" />
   }
+
+  const itemMenuRight: MenuProps['items'] = [
+    {
+      key: 'my-notification',
+      label: (
+        <>
+          <Popover content={content}>
+            <button className="notification-icon"></button>
+          </Popover>
+          <label className="ll-0" style={{marginTop: '-1px' }}></label>
+        </>
+      )
+    },
+    {
+      key: 'my-login',
+      label: (
+        <Dropdown overlay={menu}>
+          <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()} style={{ marginLeft: '-34px', marginRight: '-24px', color: 'white', marginTop: '-1px' }}>
+            {user.photo ?
+              <img src={user.photo} className="ll-img" alt="profile" />
+              :
+              <label className="ll-00">
+                {initialName}
+              </label>
+            }
+            {name} <CaretDownOutlined />
+          </a>
+        </Dropdown>
+      )
+    },
+    {
+      key: 'my-tutorial',
+      label: (
+        location[1] === ROUTERS.MAP && location.length === 2 &&
+        <div className="tutorial">
+          <Button className="btn-question" onClick={showModal1}>
+            <QuestionCircleOutlined />
+          </Button>
+        </div>
+      )
+    }
+  ];
 
   return <Header className="header">
     <div className="logo"
@@ -166,34 +221,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     <Menu
       theme="dark"
       mode="horizontal"
+      items={itemMenuRight}
       defaultSelectedKeys={['0']}
-      style={{ lineHeight: '60px', float: 'right', marginRight: '-4px' }}
     >
-      <Menu.Item>
-       <Popover content={content}>
-         <button className="notification-icon"></button>
-       </Popover>
-      </Menu.Item>
-      <label className="ll-0"></label>
-      <Dropdown overlay={menu}>
-        <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()}>
-            {user.photo ?
-              <img src={user.photo} className="ll-img" alt="profile" />
-              :
-              <label className="ll-00">
-                {initialName}
-              </label>
-            }
-            {name} <CaretDownOutlined />
-        </a>
-      </Dropdown>
-      {location[1] === ROUTERS.MAP && location.length === 2 && <Menu.Item>
-       <div className="tutorial">
-        <Button className="btn-question" onClick={showModal1}>
-          <QuestionCircleOutlined />
-        </Button>
-       </div>
-      </Menu.Item>}
     </Menu>
 
     <Modal
@@ -211,7 +241,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
         <div className="logo-00">
           <img src="/Icons/Confluence-Color-Tagline.svg" alt="" />
         </div>
-        <TabPane  tab="Welcome!" key="1">
+        <TabPane tab="Welcome!" key="1">
          <img className="img-tuto" src="/Icons/tuto.png" alt="" width="485px" />
            <div className="content">
               <p>
@@ -348,6 +378,8 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             </p>
          </div>
         </TabPane>
+      </Tabs>
+      <div>
         <Button className="btn-purple" onClick={() => {
           const auxKey = +key + 1;
           if(auxKey === 9) {
@@ -356,7 +388,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             setKey('' + auxKey)
           }
         }} >Continue</Button>
-      </Tabs>
+      </div>
     </Modal>
     <Modal
      visible={state.visible1}
@@ -451,3 +483,4 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   </Header>
 
 }
+

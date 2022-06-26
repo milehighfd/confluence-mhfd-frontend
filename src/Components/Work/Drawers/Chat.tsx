@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Drawer, Row, Col, Input, Button } from 'antd';
-import { CloseOutlined, RightOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 
 export default () => {
   const [visible, setVisible] = useState(false);

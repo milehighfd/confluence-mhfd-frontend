@@ -4,8 +4,6 @@ import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachm
 import { Attachment } from "../../Work/Request/RequestTypes";
 import { saveAs } from 'file-saver';
 
-
-
 let counter = 0;
 
 export const UploadAttachment = ({ files, setFiles, setCover , isCapital, originModal}: {

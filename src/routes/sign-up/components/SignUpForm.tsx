@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Form, Button, Menu, Dropdown } from 'antd';
+import { Row, Col, Form, Button, Menu, Dropdown, MenuProps } from 'antd';
 import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, JURISDICTION, OTHER, STAFF } from "../../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../../Config/Server.config";
@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { VALIDATION_SIGN_UP } from "../../../constants/validation";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
+import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
 
 const SignUpForm = () => {
   const {
@@ -16,67 +17,70 @@ const SignUpForm = () => {
   } = useAppUserDispatch();
   const roles = ROLES;
   const validationSchema = VALIDATION_SIGN_UP;
-  const [message, setMessage] = useState({ message: '', color: '#28C499' });
+  const [message, setMessage] = useState({ message: '', color: COLOR });
   const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);
-  const [targetButton, setTargetButton] = useState('staff');
+  const [targetButton, setTargetButton] = useState(STAFF_CONSTANT);
   const [organization, setOrganization] = useState(ROLES[0].options);
   const [other, setOther] = useState({ value: '', visible: false });
   const menu = () => {
-    return (values.designation === GOVERNMENT_STAFF) ?
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          const item: any = event.item;
-          values.organization = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-      </Menu> :
-      (values.designation === CONSULTANT) ?
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item onClick={() => {
-              const auxOther = { ...other };
-              auxOther.value = '';
-              auxOther.visible = false;
-              setOther(auxOther);
-            }} key={index + "g1"}><span>{item}</span></Menu.Item>))}
-            <Menu.Item onClick={() => {
-              const auxOther = { ...other };
-              auxOther.visible = true;
-              setOther(auxOther);
-            }} key={"other"}><span>Other</span></Menu.Item>
-          </Menu.ItemGroup>
-        </Menu> :
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu>
+    const itemMenu: MenuProps['items'] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        itemMenu.push({
+          key: `${index}|${element}`,
+          label: <span>{element}</span>
+        });
+      });
+    };
+    const generateItemMenuConsultant = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        itemMenu.push({
+          key: `${index}|${element}`,
+          label: <span>{element}</span>,
+          onClick: (() => {
+            const auxOther = { ...other };
+            auxOther.value = '';
+            auxOther.visible = false;
+            setOther(auxOther);
+          })
+        });
+      });
+    };
+    if (values.designation === GOVERNMENT_STAFF) {
+      generateItemMenu(JURISDICTION);
+    } else if (values.designation === CONSULTANT) {
+      generateItemMenuConsultant(CONSULTANT_CONTRACTOR);
+      itemMenu.push({
+        key: '999|other',
+        label: <span>Other</span>,
+        onClick: (() => {
+          const auxOther = { ...other };
+          auxOther.visible = true;
+          setOther(auxOther);
+        })
+      });
+    } else {
+      generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+    }
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event) => {
+        values.organization = event.key.split('|')[1];
+        setTitle(values.organization);
+      }}>
+    </Menu>
   };
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
-      designation: 'staff',
+      designation: STAFF_CONSTANT,
       firstName: '',
       lastName: '',
       email: '',
       password: '',
-      organization: 'Mile High Flood District',
+      organization: MILE_HIGH_FLOOD_DISTRICT,
       recaptcha: '',
       zoomarea: ''
     },
@@ -89,7 +93,7 @@ const SignUpForm = () => {
         values.organization = other.value;
       }
       setTitle(title);
-      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : 'Mile High Flood District';
+      values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : MILE_HIGH_FLOOD_DISTRICT;
       datasets.postData(SERVER.SIGN_UP, values).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
@@ -117,13 +121,13 @@ const SignUpForm = () => {
       <h1>
         Sign Up!
       </h1>
-      <Row style={{ marginTop: '15px' }}>
+      <Row style={{ marginTop: '15px', marginRight: '-20px' }}>
         <span className="loginLabels">Define your user role:</span>
         <Col className="signup">
           {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
-            return <Button key={index} style={{ width: role.style }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {
+            return <Button key={index} style={{ width: role.style, marginRight: '10px' }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {
               values.designation = role.value;
-              values.organization = role.value === STAFF ? 'Mile High Flood District' : '';
+              values.organization = role.value === STAFF ? MILE_HIGH_FLOOD_DISTRICT : '';
               const auxTitle = role.value;
               setTargetButton(role.value);
               setOrganization(role.options);

@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover  } from "antd";
+import { Modal, Row, Input, Dropdown, Col, Button, Menu, Form, Popover, MenuProps } from "antd";
 import { useFormik } from "formik";
-
 import { User } from '../../../Classes/TypeList';
-import MenuAreaView from "../../User/UserComponents/MenuAreaView";
-
-import { VALIDATION_USER_PROFILE } from "../../../constants/validation";
-import { ADMIN, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, ORGANIZATION, CONSULTANT_CONTRACTOR, CITIES, COUNTIES, SERVICE_AREA, RADIO_ITEMS, CONSULTANT, DROPDOWN_ORGANIZATION, OTHER, JURISDICTION } from "../../../constants/constants";
+import MenuAreaView from '../../User/UserComponents/MenuAreaView';
+import { VALIDATION_USER_PROFILE } from '../../../constants/validation';
+import {
+  ADMIN,
+  STAFF,
+  GOVERNMENT_ADMIN,
+  GOVERNMENT_STAFF,
+  ORGANIZATION,
+  CONSULTANT_CONTRACTOR,
+  CITIES,
+  COUNTIES,
+  SERVICE_AREA,
+  RADIO_ITEMS,
+  CONSULTANT,
+  DROPDOWN_ORGANIZATION,
+  OTHER,
+  JURISDICTION
+} from '../../../constants/constants';
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
@@ -58,59 +71,52 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
   });
 
   const menu = () => {
-    return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-            <Menu.ItemGroup key="g1">
-              {JURISDICTION.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-            </Menu.ItemGroup>
-        </Menu> :
-        (values.designation === CONSULTANT) ?
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            {CONSULTANT_CONTRACTOR.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu> :
-        <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.organization = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-          <Menu.ItemGroup key="g1">
-            {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-          </Menu.ItemGroup>
-        </Menu>
+    const itemMenu: MenuProps['items'] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        itemMenu.push({
+          key: `${index}|${element}`,
+          label: <span>{element}</span>
+        });
+      });
+    };
+    if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
+      generateItemMenu(JURISDICTION);
+    } else if (values.designation === CONSULTANT) {
+      generateItemMenu(CONSULTANT_CONTRACTOR);
+    } else {
+      generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+    }
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event) => {
+        values.organization = event.key.split('|')[1];
+        setTitle(values.organization);
+      }}>
+    </Menu>
   };
+
   const menuZoom = () => {
-    return <Menu className="js-mm-00 sign-menu-organization"
-          onClick={(event) => {
-            const item: any = event.item;
-            values.zoomarea = item.props.children.props.children;
-            const auxTitle = item.props.children.props.children;
-            setTitle(auxTitle);
-          }}>
-            <Menu.ItemGroup>
-              {
-                groupOrganization.map((item: {aoi: string, values: Array<{name: string}>}, index: number) => {
-                  return <Menu.Item key={item.aoi}><span>{item.aoi}</span></Menu.Item>
-                })
-              }
-            </Menu.ItemGroup>
-        </Menu>
+    const itemMenuZoom: MenuProps['items'] = [];
+    groupOrganization.forEach((item: { aoi: string, values: Array<{ name: string }> }, index: number) => {
+      itemMenuZoom.push({
+        key: `${index}|${item.aoi}`,
+        label: <span>{item.aoi}</span>
+      });
+    });
+    return <Menu
+      key={'area-zoom'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenuZoom}
+      onClick={(event) => {
+        values.zoomarea = event.key.split('|')[1];
+        setTitle(values.zoomarea);
+      }}>
+    </Menu>
   };
+
   const stateValue = {
     visible: isVisible ? isVisible : false
   }
@@ -137,7 +143,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
   return <div className="edit-profile">
     <Button className="btn-opacity" onClick={showModal}>
       <img src="/Icons/icon-72.svg" alt="" height="18px" /> Edit Profile
-     </Button>
+    </Button>
     <Modal
       centered
       visible={state.visible}
@@ -201,7 +207,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
                   </Button>
                 </Dropdown>
               </div> :
-              <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
+                <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
             </Col>
           </Row>
         </div>
@@ -244,11 +250,11 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         </div>
         <hr></hr>
         <div className="gutter-example">
-          <h6>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{marginTop:'-3px', cursor: 'pointer'}} /></Popover></h6>
+          <h6>DEFAULT MAP ZOOM AREA <Popover content={content}><img src="/Icons/icon-19.svg" alt="" style={{ marginTop: '-3px', cursor: 'pointer' }} /></Popover></h6>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
               <div id="sign-up-organization">
-                <Dropdown placement="topCenter" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                <Dropdown placement="top" overlay={menuZoom} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button className="btn-borde" style={{ paddingLeft: '10px' }} >
                     {values.zoomarea ? values.zoomarea : 'Default map zoom area'}
                     <img src="/Icons/icon-12.svg" alt="" />
@@ -258,13 +264,13 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               </div>
             </Col>
             <Col className="gutter-row" span={3}>
-                <Button className="btn-borde" onClick={() => {
-                  values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood District';
-                  const auxTitle = 'Mile High Flood District';
-                  setTitle(auxTitle);
-                }} style={{padding: '0px', textAlignLast: 'center'}} >
-                  Default
-                </Button>
+              <Button className="btn-borde" onClick={() => {
+                values.zoomarea = (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? values.organization : 'Mile High Flood District';
+                const auxTitle = 'Mile High Flood District';
+                setTitle(auxTitle);
+              }} style={{ padding: '0px', textAlignLast: 'center' }} >
+                Default
+              </Button>
             </Col>
           </Row>
         </div>

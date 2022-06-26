@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu } from 'antd';
+import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu, MenuProps } from 'antd';
 import { useFormik } from 'formik';
 
 import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, DROPDOWN_ORGANIZATION, GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from "../../../constants/constants";
@@ -21,45 +21,72 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
   const visible = {
     visible: false
   };
+
   const menu = () => {
-    return (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ?
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          // values, setTitle
-          const item: any = event.item;
-          values.zoomarea = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          <label className="label-sg">{'Regional Agency'}</label>
-          {DROPDOWN_ORGANIZATION.REGIONAL_AGENCY.map((item: string, index: number) => (<Menu.Item key={index + "g1"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g2">
-          <label className="label-sg">{'City'}</label>
-          {DROPDOWN_ORGANIZATION.CITY.map((item: string, index: number) => (<Menu.Item key={index + "g2"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g3">
-          <label className="label-sg">{'City and County'}</label>
-          {DROPDOWN_ORGANIZATION.CITY_AND_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g3"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-        <Menu.ItemGroup key="g4">
-          <label className="label-sg">{'Unincorporated County'}</label>
-          {DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY.map((item: string, index: number) => (<Menu.Item key={index + "g4"}><span>{item}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-      </Menu> :
-      <Menu className="js-mm-00 sign-menu-organization"
-        onClick={(event) => {
-          const item: any = event.item;
-          values.zoomarea = item.props.children.props.children;
-          const auxTitle = item.props.children.props.children;
-          setTitle(auxTitle);
-        }}>
-        <Menu.ItemGroup key="g1">
-          {groupOrganization.map((item: any, index: number) => (<Menu.Item key={index + "g1"}><span>{item.aoi}</span></Menu.Item>))}
-        </Menu.ItemGroup>
-      </Menu>
+    let itemMenu: MenuProps['items']
+    let regional: any = [];
+    let city: any = [];
+    let county: any = [];
+    let unincorporated: any = [];
+    const genetareMenuItem = (list: Array<any>): Array<any> => {
+      let items: Array<any> = [];
+      list.forEach((element: string, index: number) => {
+        items.push({
+          key: `${index}|${element}`,
+          label: <span style={{ marginLeft: '12px' }}>{element}</span>
+        });
+      });
+      return items;
+    };
+    if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
+      regional = genetareMenuItem(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY);
+      city = genetareMenuItem(DROPDOWN_ORGANIZATION.CITY);
+      county = genetareMenuItem(DROPDOWN_ORGANIZATION.CITY_AND_COUNTY);
+      unincorporated = genetareMenuItem(DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY);
+      itemMenu = [
+        {
+          key: 'regional-items',
+          type: 'group',
+          label: <label className="label-sg">{'Regional Agency'}</label>,
+          children: regional
+        },
+        {
+          key: 'city-items',
+          type: 'group',
+          label: <label className="label-sg">{'City'}</label>,
+          children: city
+        },
+        {
+          key: 'county-items',
+          type: 'group',
+          label: <label className="label-sg">{'City and County'}</label>,
+          children: county
+        },
+        {
+          key: 'unincorporated-items',
+          type: 'group',
+          label: <label className="label-sg">{'Unincorporated County'}</label>,
+          children: unincorporated
+        },
+      ];
+    } else {
+      itemMenu = groupOrganization.map((item: any, index: number) => {
+        return {
+          key: `${index}|${item.aoi}`,
+          label: <span>{item.aoi}</span>
+        }
+      });
+    }
+    return <Menu
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event) => {
+        values.zoomarea = event.key.split('|')[1];
+        setTitle(values.zoomarea);
+      }}>
+    </Menu>
   };
+
   const [modal, setModal] = useState(visible);
   const [modalDelete, setModalDelete] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(user.activated);
@@ -155,18 +182,18 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
 
   const genExtra = () => (
     <Row className="user-head" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col span={19} onClick={() => {
+      <Col xs={{ span: 19 }} lg={{ span: 19 }} onClick={() => {
         console.log('click click');
         setActivated(!activated);
       }}>
         <h6>{pos + '. ' + user.firstName + ' ' + user.lastName}</h6>
       </Col>
-      <Col span={3} style={{ textAlign: 'right' }}>
+      <Col xs={{ span: 3 }} lg={{ span: 3 }} style={{ textAlign: 'right' }}>
         <div>
           <Switch className={'switch-options'} checked={user.status === 'approved' ? true: false} onChange={handleSwitchButton} />
         </div>
       </Col>
-      <Col span={1} style={{ textAlign: 'right' }} onClick={() => {
+      <Col xs={{ span: 1 }} lg={{ span: 1 }} style={{ textAlign: 'right' }} onClick={() => {
         setActivated(!activated);
       }} >
         <img src={activated ? "/Icons/icon-21.svg" : "/Icons/icon-20.svg"} alt="" />
@@ -217,11 +244,11 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
             <hr></hr>
             <div className="gutter-example">
               <h3>USER DESIGNATION</h3>
-              <Row gutter={16}>
+              <Row gutter={[16, 16]}>
                 <Radio.Group name="designation" value={designation} onChange={(event) => {
                   values.designation = event.target.value;
                   setDesignation(event.target.value);
-                }} style={{ width: '100%' }}>
+                }} style={{display: 'inline-flex', width: '100%', alignSelf: 'stretch'}}>
                   {RADIO_ITEMS.map((item: { value: string, name: string }, index: number) => {
                     return <RadioItemsView key={index} index={index} value={item.value} name={item.name} />
                   })}
@@ -303,7 +330,6 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
         </Panel>
       </Collapse>
       <Alert save={result} visible={modal} setVisible={setModal} message={message} />
-      {/* <Alert save={deleteUserDatabase(user._id)} visible={modalDelete} setVisible={setModalDelete} message={messageDelete} /> */}
     </>
   )
 }
