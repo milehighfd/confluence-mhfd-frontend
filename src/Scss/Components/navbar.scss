@@ -80,16 +80,25 @@
   font-size: 12px;
 }
 .login-dropdown:hover {
-  background: none;
+  background: $white;
   color: $green;
   font-weight: bold;
 }
 .menu-login-dropdown {
+  background: $white;
   margin-top: -20px;
   border-radius: 0px !important;
   padding: 6px 0px;
 }
-
+.ant-dropdown-menu-item{
+  color: $opacity;
+  font-size: 12px !important;
+}
+.ant-dropdown-menu-item-active{
+  background: white !important;
+  color: $green;
+  font-weight: bold;
+}
 .tutorial{
   .btn-question{
     -webkit-mask: url('../../Icons/icon-27.svg') no-repeat center;

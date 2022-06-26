@@ -61,7 +61,7 @@ const TabPaneView = ({
         label: <span className="menu-item-text">{element.title}</span>
       })
     });
-    return <Menu className="js-mm-00" items={itemMenu} onClick={onClickItemMenu} defaultSelectedKeys={['problemname']}>
+    return <Menu className="profile-menu" items={itemMenu} onClick={onClickItemMenu} defaultSelectedKeys={['problemname']}>
     </Menu>
   }
   const fetchMoreData = () => {

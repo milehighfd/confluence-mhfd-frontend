@@ -5,11 +5,10 @@ import store from "../../../store";
 import { ROUTERS_SIDEBAR } from "./constants/layout.constants";
 import '../../../Scss/Components/sidebar.scss';
 
-const SidebarMenu = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(true);
+const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const location = useLocation();
   const appUser = store.getState().appUser;
-  const indexOf = "" + ROUTERS_SIDEBAR.indexOf(location.pathname);
+  const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const showWorkRequestPlan = (appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff')
   const userApproved = appUser.status === 'approved';
   const itemMenuSidebar: MenuProps['items'] = [{
