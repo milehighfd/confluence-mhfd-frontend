@@ -568,7 +568,7 @@ export const ComponentsFilter = ({paramComponents, filterComponentOptions, setFi
 
             <Row className="filt-00">
                 <Col span={12}>
-                    <h5>Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5>Year Of Study<Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <div className="check-scroll">
                       <Checkbox.Group value={filterComponentOptions.yearofstudy.split(',')} onChange={(item) => {
                         apply(item, 'yearofstudy');

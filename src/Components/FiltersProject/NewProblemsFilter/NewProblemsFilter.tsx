@@ -210,7 +210,7 @@ export const NewProblemsFilter = () => {
             </Row>
             <hr className='filters-line'></hr>
             <Row className="filt-00" gutter={[24, 16]} style={{paddingBottom: 10}}>
-                <Col span={12} style={{ paddingRight: '20px'}}>
+                <Col span={11} style={{ paddingRight: '20px'}}>
                 <h5 className="filter-title">Jurisdiction <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <div>

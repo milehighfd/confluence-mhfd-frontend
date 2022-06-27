@@ -1790,7 +1790,9 @@ hr.linedropdown {
   /* border: 1.5px solid; */
   border-radius: 5px;
   margin-left: auto;
-  width: 71%;
+  width: 40%;
+  background-color: #4a4a4a8a;
+  border: 1.2px solid #4a4a4a8a;
 }
 hr.filters-line {
   opacity: 0.1;
@@ -1798,7 +1800,7 @@ hr.filters-line {
   border: 1.5px solid;
   border-radius: 5px;
   background-color: #4a4a4a8a;
-  border: 2px solid #4a4a4a8a;
+  border: 1.5px solid #4a4a4a8a;
 }
 .filt-00{
   margin-bottom: 18px;

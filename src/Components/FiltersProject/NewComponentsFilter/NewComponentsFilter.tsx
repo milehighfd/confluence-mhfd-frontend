@@ -9,6 +9,7 @@ import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 import { CheckBoxFilters } from '../CheckboxFilters';
 import { DropdownFilters } from "../DropdownFilters";
 import { DropdownFiltersYears } from "../DropdownFiltersYears";
+import { DropdownFiltersYearsMax } from "../DropdownFilterMax";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the component is located.</div>);
@@ -135,11 +136,11 @@ export const NewComponentsFilter = () => {
             </Col>
         </Row>
         <Row className="filt-00">
-            <Col span={24}>
+            <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.yearofstudy &&
-                    <DropdownFiltersYears type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
+                    <DropdownFiltersYearsMax type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
                         data={paramComponents.yearofstudy}
                         selected={filterComponentOptions.yearofstudy}
                         onSelect={(e: string) => apply(e, 'yearofstudy')} />
