@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AutoComplete, Col, Input, Row } from 'antd';
 import { useProfileState } from '../../../hook/profileHook';
 import { useMapState } from '../../../hook/mapHook';
@@ -13,6 +13,7 @@ const MapAutoComplete = ({
   const { groupOrganization } = useProfileState();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [valueA, setvalueA] = useState('');
+  const ref = useRef<any>(null);
   const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
     if (item.aoi === undefined) {
       return false;
@@ -26,7 +27,6 @@ const MapAutoComplete = ({
     setvalueA(value);
     onAutoCompleteSelected(value, isSelect);
   };
-
   useEffect(() => {
     setDataAutocomplete(groupOrganization.filter(function (item: any) {
       if (item.aoi === undefined) {
@@ -41,14 +41,12 @@ const MapAutoComplete = ({
   useEffect(() => {
     setvalueA(nameZoomArea);
   }, [nameZoomArea]);
-
   return (
     <Row className="head-m mobile-display">
       <Col span={24} id="westminter">
-        <div className="auto-complete-map">
+        <div className="auto-complete-map" >
           <AutoComplete
             style={{ width: '200' }}
-            onDropdownVisibleChange={setDropdownIsOpen}
             options={dataAutocomplete}
             placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
             filterOption={(inputValue, option: any) => {
@@ -63,15 +61,20 @@ const MapAutoComplete = ({
             onSearch={(input2: any) => {
               setvalueA(input2);
             }}
+            open={dropdownIsOpen}
+            onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
+            onBlur={() => setDropdownIsOpen(false)}
           >
-            <Input.Search
+            <Input
+            ref={ref}
               id={'miclase'}
-              style={{
+              style={{  
                 border: 'none',
                 boxShadow: 'none',
                 borderBottom: '1px solid rgba(37, 24, 99, 0.3)',
                 marginRight: '-18px'
               }}
+              
               suffix={
                 dropdownIsOpen ?
                   <UpOutlined style={{ marginRight: '-18px' }}/> :
