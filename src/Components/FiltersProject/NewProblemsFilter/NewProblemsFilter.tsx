@@ -223,7 +223,7 @@ export const NewProblemsFilter = () => {
                         </Button>
                         </div>
                         <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
-                            style={{ width: '100%', borderRadius: '5px' }} onChange={(e: string) => {
+                            style={{ width: '100%', borderRadius: '5px', fontSize: '12px' }} onChange={(e: string) => {
                                 apply(e, 'jurisdiction');
                             }}>
                             {(paramProblems.jurisdiction || []).map((element: any, index: number) => {

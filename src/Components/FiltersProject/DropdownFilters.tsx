@@ -96,7 +96,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
           <Select
             placeholder="No min"
             value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
-            style={{ width: '100%' }}
+            style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
                 setMinIndex(e);
@@ -119,7 +119,7 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
           <Select
             placeholder="No max"
             value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
-            style={{ width: '100%' }}
+            style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if ( e > minIndex ) {
                 setMaxIndex(e);

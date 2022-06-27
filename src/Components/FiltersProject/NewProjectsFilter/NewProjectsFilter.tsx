@@ -243,7 +243,7 @@ export const NewProjectsFilter = () => {
                         <Button className="btn-svg" onClick={() => { apply('', 'lgmanager') }}>
                             <u>Reset</u>
                         </Button>
-                        <Select value={filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                        <Select value={filterProjectOptions.lgmanager ? filterProjectOptions.lgmanager : '- Select -'} style={{ width: '100%', fontSize: '12px' }} onChange={(e: string) => {
                             apply(e, 'lgmanager');
                         }}>
                             {paramProjects.lgmanager.map((element: any, index: number) => {
@@ -265,7 +265,7 @@ export const NewProjectsFilter = () => {
                         <Button className="btn-svg" onClick={() => { apply('', 'streamname') }}>
                             <u>Reset</u>
                         </Button>
-                        <Select value={filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                        <Select value={filterProjectOptions.streamname ? filterProjectOptions.streamname : '- Select -'} style={{ width: '100%', fontSize: '12px' }} onChange={(e: string) => {
                             apply(e, 'streamname');
                         }}>
                             {paramProjects.streamname.map((element: any, index: number) => {
@@ -289,7 +289,7 @@ export const NewProjectsFilter = () => {
                         <Button className="btn-svg" onClick={() => { apply([], 'workplanyear') }}>
                             <u>Reset</u>
                         </Button>
-                        <Select value={filterProjectOptions.workplanyear ? filterProjectOptions.workplanyear : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
+                        <Select value={filterProjectOptions.workplanyear ? filterProjectOptions.workplanyear : '- Select -'} style={{ width: '100%', fontSize: '12px' }} onChange={(e: string) => {
                             apply([`${e}`], 'workplanyear');
                         }}>
                             {paramProjects.workplanyear.map((element: any, index: number) => {

@@ -88,7 +88,7 @@ export const DropdownFiltersYearsMax = ({ data, type, selected, onSelect, defaul
           <Select
             placeholder="Min year"
             value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
-            style={{ width: '100%' }}
+            style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
                 setMinIndex(e);
@@ -111,7 +111,7 @@ export const DropdownFiltersYearsMax = ({ data, type, selected, onSelect, defaul
           <Select
             placeholder="Max year"
             value={maxIndex === -1 ? 'Max year' : data[maxIndex]?.value}
-            style={{ width: '100%' }}
+            style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if ( e > minIndex ) {
                 setMaxIndex(e);
