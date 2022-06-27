@@ -340,7 +340,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         className="tremap-popup">
           { popupContent &&
             <>
-              <b>{nameFormatter(popupContent.data.name)}</b>: {popupContent.data.value}
+              <b>{nameFormatter(popupContent.data.name)}</b>: {numberFormatter(popupContent.data.value)}
             </>
           }
       </div>
