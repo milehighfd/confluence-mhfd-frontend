@@ -22,11 +22,13 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }, [selected])
 
   let color: string;
-
+  let colorUnselected: string;
   if (type === 'servicearea') {
-    color = '#5D3DC7';
+    color = "#5E63E4";
+    colorUnselected = "#8893E7";
   } else {
     color = '#047CD7';
+    colorUnselected = '#82C7FD';
   }
 
   let sum = 0;
@@ -98,30 +100,33 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .data(_root.leaves())
 
     rects.exit()
-      .transition().duration(2000)
+      .transition().duration(1000)
       .attr('width', 0)
       .attr('height', 0)
       .style("opacity", 0)
       .remove()
 
     rects
-      .transition().duration(2000)
+      .style("fill", function (d: any) {
+        let index = selectedData.indexOf(d.data.name);
+        if (index !== -1) {
+          return color;
+        } else {
+          return colorUnselected;
+        }
+      })
+      .transition().duration(1000)
       .attr("rx", rounded)
       .attr("ry", rounded)
       .attr("x", function (d: any) { return d.x0 })
       .attr("y", function (d: any) { return d.y0 })
       .attr('width', function (d: any) { return d.x1 - d.x0; })
       .attr('height', function (d: any) { return d.y1 - d.y0; })
-      .style("fill", color)
+ 
     
     rects
       .style("opacity", function (d: any) {
-        let index = selectedData.indexOf(d.data.name);
-        if (index !== -1) {
-          return 1;
-        } else {
-          return 0.6;
-        }
+        return 1;
       })
 
     let mouseOverFn = function(d: any) {
@@ -146,23 +151,26 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
       .append("rect");
 
     newRects
-      .transition().duration(2000)
+      .style("fill", function (d: any) {
+        let index = selectedData.indexOf(d.data.name);
+        if (index !== -1) {
+          return color;
+        } else {
+          return colorUnselected;
+        }
+      })
+      .transition().duration(1000)
       .attr("rx", rounded)
       .attr("ry", rounded)
       .attr("x", function (d: any) { return d.x0 })
       .attr("y", function (d: any) { return d.y0 })
       .attr('width', function (d: any) { return d.x1 - d.x0; })
-      .attr('height', function (d: any) { return d.y1 - d.y0; })
-      .style("fill", color)
+      .attr('height', function (d: any) { return d.y1 - d.y0; });
+
 
     newRects
       .style("opacity", function (d: any) {
-        let index = selectedData.indexOf(d.data.name);
-        if (index !== -1) {
-          return CHART_CONSTANTS.opacityFull;
-        } else {
-          return CHART_CONSTANTS.opacityOpaque;
-        }
+        return CHART_CONSTANTS.opacityFull;
       })
       .on('click', clickFn)
       .on('mouseover', mouseOverFn).on('mouseleave', mouseLeaveFn)
