@@ -6,6 +6,9 @@ import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
+import { CheckBoxFilters } from '../CheckboxFilters';
+import { DropdownFilters } from "../DropdownFilters";
+import { DropdownFiltersYears } from "../DropdownFiltersYears";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -39,7 +42,9 @@ export const NewProjectsFilter = () => {
     const { boundsMap } = useMapState();
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
-        if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field) {
+        if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
+        || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
+        || 'mhfdmanager' === field) {
             let newValue = '';
             if ('workplanyear' === field) {
                 options['status'] = options['status'] + ',Complete';
@@ -87,72 +92,6 @@ export const NewProjectsFilter = () => {
     const axisLabel = 'Number of Projects';
 
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
-        <Row className="filt-00" style={{ marginTop: '10px' }}>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.projecttype &&
-                    <PieChart type={'projecttype'} defaultValue={''}
-                        data={paramProjects.projecttype}
-                        selected={filterProjectOptions.projecttype}
-                        onSelect={(e: string) => apply(e, 'projecttype')} />
-                }
-            </Col>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.estimatedCost &&
-                    <RheoStat type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
-                        data={paramProjects.estimatedCost}
-                        selected={filterProjectOptions.totalcost}
-                        onSelect={(items: string) => apply(items, 'totalcost')} />
-                }
-            </Col>
-        </Row>
-        <Row className="filt-00">
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.status &&
-                    <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramProjects.status} color={'#251963'}
-                        selected={filterProjectOptions.status}
-                        onSelect={(items: any) => apply(items, 'status')} />
-                }
-            </Col>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.mhfddollarsallocated &&
-                    <RheoStat type={'mhfddollarsallocated'} axisLabel={axisLabel} defaultValue={[]}
-                        data={paramProjects.mhfddollarsallocated}
-                        selected={filterProjectOptions.mhfddollarsallocated}
-                        onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
-                }
-            </Col>
-        </Row>
-        <Row className="filt-00">
-            <Col span={12} className="filter-menu">
-                <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.startyear &&
-                    <RheoStatYear type={'startyear'} axisLabel={axisLabel} defaultValue={''}
-                        data={paramProjects.startyear}
-                        selected={filterProjectOptions.startyear}
-                        onSelect={(e: string) => apply(e, 'startyear')} />
-                }
-            </Col>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.completedyear &&
-                    <RheoStatYear type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
-                        data={paramProjects.completedyear}
-                        selected={filterProjectOptions.completedyear}
-                        onSelect={(e: string) => apply(e, 'completedyear')} />
-                }
-            </Col>
-        </Row>
         <Row className="filt-00">
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -173,50 +112,99 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
+        <Row className="filt-00" style={{ marginTop: '10px' }}>
+            <Col span={12}>
+                <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.projecttype &&
+                    <PieChart type={'projecttype'} defaultValue={''}
+                        data={paramProjects.projecttype}
+                        selected={filterProjectOptions.projecttype}
+                        onSelect={(e: string) => apply(e, 'projecttype')} />
+                }
+            </Col>
+            <Col span={12}>
+                <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.status &&
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramProjects.status.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                        selected={filterProjectOptions.status}
+                        onSelect={(items: any) => apply(items, 'status')} />
+                }
+            </Col>
+        </Row>
+        <hr className='filters-line'></hr>
+        <Row className="filt-00">
+            <Col span={12}>
+                <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.estimatedCost &&
+                    <DropdownFilters type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
+                        data={paramProjects.estimatedCost}
+                        selected={filterProjectOptions.totalcost}
+                        onSelect={(items: string) => apply(items, 'totalcost')} />
+                }
+            </Col>
+        </Row>
+        <Row className="filt-00">
+            <Col span={12} >
+                <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.mhfddollarsallocated &&
+                    <DropdownFilters type={'mhfddollarsallocated'} axisLabel={axisLabel} defaultValue={[]}
+                        data={paramProjects.mhfddollarsallocated}
+                        selected={filterProjectOptions.mhfddollarsallocated}
+                        onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
+                }
+            </Col>
+        </Row>
+        <hr className='filters-line'></hr>
+        <Row className="filt-00">
+            <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">
+                <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.startyear &&
+                    <DropdownFiltersYears type={'startyear'} axisLabel={axisLabel} defaultValue={''}
+                        data={paramProjects.startyear}
+                        selected={filterProjectOptions.startyear}
+                        onSelect={(e: string) => apply(e, 'startyear')} />
+                }
+            </Col>
+            <Col span={12} style={{ paddingLeft: '14px', paddingRight: '0px' }} >
+                <h5 className="filter-title chart-filter-title">Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramProjects.completedyear &&
+                    <DropdownFiltersYears type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
+                        data={paramProjects.completedyear}
+                        selected={filterProjectOptions.completedyear}
+                        onSelect={(e: string) => apply(e, 'completedyear')} />
+                }
+            </Col>
+        </Row>
 
-        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
+        
+        <hr className='filters-line'></hr>
+        <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
             <Col span={12}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.consultant &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'consultant') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterProjectOptions.consultant ? filterProjectOptions.consultant : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'consultant');
-                        }}>
-                            {paramProjects.consultant.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
+                    <CheckBoxFilters defaultValue={''}
+                    data={paramProjects.consultant.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                    selected={filterProjectOptions.consultant}
+                    onSelect={(items: any) => apply(items, 'consultant')} />
                 }
             </Col>
             <Col span={12}>
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.contractor &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'contractor') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterProjectOptions.contractor ? filterProjectOptions.contractor : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'contractor');
-                        }}>
-                            {paramProjects.contractor.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
+                    <CheckBoxFilters defaultValue={''}
+                    data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                    selected={filterProjectOptions.contractor}
+                    onSelect={(items: any) => apply(items, 'contractor')} />
                 }
             </Col>
         </Row>
@@ -225,44 +213,20 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.jurisdiction &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterProjectOptions.jurisdiction ? filterProjectOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'jurisdiction');
-                        }}>
-                            {paramProjects.jurisdiction.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramProjects.jurisdiction.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                        selected={filterProjectOptions.jurisdiction}
+                        onSelect={(items: any) => apply(items, 'jurisdiction')} />
                 }
             </Col>
             <Col span={12}>
                 <h5 className="filter-title">MHFD Project Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects.mhfdmanager &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterProjectOptions.mhfdmanager ? filterProjectOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'mhfdmanager');
-                        }}>
-                            {paramProjects.mhfdmanager.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramProjects.mhfdmanager.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                        selected={filterProjectOptions.mhfdmanager}
+                        onSelect={(items: any) => apply(items, 'mhfdmanager')} />
                 }
             </Col>
         </Row>

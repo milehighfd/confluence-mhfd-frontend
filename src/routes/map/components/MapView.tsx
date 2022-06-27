@@ -497,6 +497,7 @@ const MapView = () => {
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
       let c = 0;
+      console.log(filterProjects[key]);
       const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         for (let index = 0; index < tag.length; index++) {

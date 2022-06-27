@@ -26,17 +26,17 @@
   background: #e9e7ef;
   border-radius: 5px;
 }
-.work-request::-webkit-scrollbar, #graph::-webkit-scrollbar, .work-table::-webkit-scrollbar,{
+.work-request::-webkit-scrollbar, #graph::-webkit-scrollbar, .work-table::-webkit-scrollbar {
   height: 4px;
 }
-.work-request::-webkit-scrollbar-thumb, #graph::-webkit-scrollbar-thumb, .work-table::-webkit-scrollbar-thumb, {
+.work-request::-webkit-scrollbar-thumb, #graph::-webkit-scrollbar-thumb, .work-table::-webkit-scrollbar-thumb {
   background: #e9e7ef;
   border-radius: 5px;
 }
 .scroll-footer::-webkit-scrollbar {
   width: 4px;
 }
-.scroll-footer::-webkit-scrollbar-thumb,  {
+.scroll-footer::-webkit-scrollbar-thumb {
   background: $purple;
   border-radius: 5px;
 }

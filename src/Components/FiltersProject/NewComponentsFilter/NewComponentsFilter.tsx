@@ -6,6 +6,9 @@ import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import RheoStat from "../NewProblemsFilter/RheoStat";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
+import { CheckBoxFilters } from '../CheckboxFilters';
+import { DropdownFilters } from "../DropdownFilters";
+import { DropdownFiltersYears } from "../DropdownFiltersYears";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the component is located.</div>);
@@ -36,7 +39,8 @@ export const NewComponentsFilter = () => {
     const apply = (values: any, field: string) => {
         console.log('value: ' + values + ", field: " + field);
         const options = { ...filterComponentOptions };
-        if ('component_type' === field || 'status' === field || 'yearofstudy' === field) {
+        if ('component_type' === field || 'status' === field || 'yearofstudy' === field
+        || 'jurisdiction' === field || 'mhfdmanager' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = values[index];
@@ -74,54 +78,9 @@ export const NewComponentsFilter = () => {
     const axisLabel = 'Number of Components';
 
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 295 }}>
-        <Row className="filt-00" style={{ marginTop: '10px' }}>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramComponents.component_type &&
-                    <HorizontalBarChart type={'component_type'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.component_type} color={'#35BCFF'}
-                        selected={filterComponentOptions.component_type}
-                        onSelect={(items: any) => apply(items, 'component_type')} opacityFull={0.6} opacityOpaque={1}/>
-                }
-            </Col>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramComponents.estimatedcost &&
-                    <RheoStat type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
-                        data={paramComponents.estimatedcost}
-                        selected={filterComponentOptions.estimatedcost}
-                        onSelect={(items: any) => apply(items, 'estimatedcost')} />
-                }
-            </Col>
-        </Row>
-
-        <Row className="filt-00">
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramComponents.status &&
-                    <HorizontalBarChart type={'status'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.status} color={'#251963'}
-                        selected={filterComponentOptions.status}
-                        onSelect={(items: any) => apply(items, 'status')} opacityFull={0.6} opacityOpaque={1}/>
-                }
-            </Col>
-            <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramComponents.yearofstudy &&
-                    <RheoStatYear type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.yearofstudy}
-                        selected={filterComponentOptions.yearofstudy}
-                        onSelect={(e: string) => apply(e, 'yearofstudy')} />
-                }
-            </Col>
-        </Row>
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
-                <h5 className="filter-title chart-filter-title">Watershed Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.servicearea &&
                     <TreeMap data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
@@ -139,50 +98,74 @@ export const NewComponentsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
+        <Row className="filt-00" style={{ marginTop: '10px' }}>
+            <Col span={12}>
+                <h5 className="filter-title chart-filter-title">Component Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramComponents.component_type &&
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramComponents.component_type.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                        selected={filterComponentOptions.component_type}
+                        onSelect={(items: any) => apply(items, 'component_type')} />
+                }
+            </Col>
+            <Col span={12}>
+                <h5 className="filter-title chart-filter-title">Component Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramComponents.status &&
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramComponents.status}
+                        selected={filterComponentOptions.status}
+                        onSelect={(items: any) => apply(items, 'status')} />
+                }
+            </Col>
+        </Row>
+
+        <Row className="filt-00">
+        <Col span={12}>
+                <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramComponents.estimatedcost &&
+                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
+                        data={paramComponents.estimatedcost}
+                        selected={filterComponentOptions.estimatedcost}
+                        onSelect={(items: any) => apply(items, 'estimatedcost')} />
+                }
+            </Col>
+        </Row>
+        <Row className="filt-00">
+            <Col span={24}>
+                <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                {
+                    paramComponents.yearofstudy &&
+                    <DropdownFiltersYears type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
+                        data={paramComponents.yearofstudy}
+                        selected={filterComponentOptions.yearofstudy}
+                        onSelect={(e: string) => apply(e, 'yearofstudy')} />
+                }
+            </Col>
+        </Row>
 
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
                 <h5 className="filter-title ">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.jurisdiction &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                    &nbsp;|&nbsp;
-                    <Button className="btn-svg" onClick={() => { apply('', 'jurisdiction') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterComponentOptions.jurisdiction ? filterComponentOptions.jurisdiction : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'jurisdiction');
-                        }}>
-                            {paramComponents.jurisdiction.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramComponents.jurisdiction}
+                        selected={filterComponentOptions.jurisdiction}
+                        onSelect={(items: any) => apply(items, 'jurisdiction')}/>
                 }
             </Col>
             <Col span={12}>
                 <h5 className="filter-title ">MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.watershed &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                    &nbsp;|&nbsp;
-                    <Button className="btn-svg" onClick={() => { apply('', 'mhfdmanager') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterComponentOptions.mhfdmanager ? filterComponentOptions.mhfdmanager : '- Select -'} style={{ width: '100%' }} onChange={(e: string) => {
-                            apply(e, 'mhfdmanager');
-                        }}>
-                            {paramComponents.watershed.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
-                            })}
-                        </Select>
-                    </>
+                    <CheckBoxFilters defaultValue={''}
+                        data={paramComponents.watershed}
+                        selected={filterComponentOptions.mhfdmanager}
+                        onSelect={(items: any) => apply(items, 'mhfdmanager')}/>
                 }
             </Col>
         </Row>

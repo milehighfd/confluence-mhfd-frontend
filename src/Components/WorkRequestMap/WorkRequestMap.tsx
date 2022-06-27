@@ -8,7 +8,7 @@ import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import EventService from '../../services/EventService';
-import { getData, getToken, postDataAsyn } from "../../Config/datasets";
+import { getData, getToken, postDataAsyn, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import {
   PROBLEMS_TRIGGER,
@@ -84,7 +84,7 @@ const WorkRequestMap = (type: any) => {
   const user = store.getState().profile.userInformation;
   const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
   const {clear} = useAttachmentDispatch();
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getMapTables, getComponentsByProjid } = useMapDispatch();
+  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getMapWithSublayers, getMapLayers, getComponentsByProjid } = useMapDispatch();
   const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects, getZoomGeomProblem, getZoomGeomComp } = useProjectDispatch();
   const { selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const {groupOrganization} = useProfileState();
@@ -133,6 +133,7 @@ const WorkRequestMap = (type: any) => {
     type: '',
     cartoid: ''
 });
+
 
   const setIsMeasuring = (value: boolean) => {
     isMeasuring = value;
@@ -333,7 +334,17 @@ const WorkRequestMap = (type: any) => {
       }
     }
 }, [zoomEndCounter, dragEndCounter]);
-
+const loadData = (trigger: any, name?: string) => {
+  return new Promise((resolve) => {
+    const requestData = { table: trigger };
+    postData(SERVER.MAP_TABLES, requestData, getToken())
+      .then(tiles => {
+        resolve(true);
+        if (name) getMapWithSublayers(trigger, tiles, name);
+        else getMapLayers(trigger, tiles);
+      });
+  });
+}
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById(mapid);
@@ -359,6 +370,20 @@ const WorkRequestMap = (type: any) => {
     waiting();
     changeAddLocationState(false);
     componentsList = [];
+    const promises: Promise<any>[] = [];
+    SELECT_ALL_FILTERS.forEach((layer) => {
+      if (typeof layer === 'object') {
+        layer.tiles.forEach((subKey: string) => {
+          promises.push(loadData(subKey, layer.name));
+        });
+      } else {
+        promises.push(loadData(layer));
+      }
+    });
+    Promise.all(promises)
+      .then(() => {
+        console.log('loaded');
+      })
     return () => {
       setBoardProjects(['-8888'])
       map = undefined;
