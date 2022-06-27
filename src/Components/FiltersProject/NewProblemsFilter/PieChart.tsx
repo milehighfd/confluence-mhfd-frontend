@@ -155,6 +155,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
     // texts.exit().remove()
 
+    var fontSize = 8.5;
     var legendsText = svg
       .selectAll('slices')
       .data(data_ready)
@@ -166,20 +167,20 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) {  return d.data.key == 'Human Connection'? 'Community Values':d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 69) - 33;
-        let yo = radius + 30;
+        let xo = -radius + (i * 70) - 36;
+        let yo = radius + 32;
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 7)
+      .style("font-size", fontSize)
 
     legendsText
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 69) - 33;
-        let yo = radius + 30;
+        let xo = -radius + (i * 70) - 36;
+        let yo = radius + 32;
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 7)
+      .style("font-size", fontSize)
 
       var legendsCounterText = svg
       .selectAll('slices')
@@ -192,20 +193,20 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) {  return d.data.counter + ' ' + labelValues })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 69) - 33;
-        let yo = radius + 43;
+        let xo = -radius + (i * 70) - 36;
+        let yo = radius + 45;
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 7)
+      .style("font-size", fontSize)
 
     legendsCounterText
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 69) - 33;
-        let yo = radius + 43;
+        let xo = -radius + (i * 70) - 36;
+        let yo = radius + 45;
         return `translate(${xo},${yo})`;
       })
-      .style("font-size", 7)
+      .style("font-size", fontSize)
 
     var legendsCircles = svg 
       .selectAll('slices')
@@ -221,7 +222,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       })
       .attr("r", 5)
       .attr("cx", (d: any, i) => {
-        return -radius + (i * 69) - 40
+        return -radius + (i * 70) - 45
       })
       .attr("cy", (d: any, i) => {
         return radius + 29.5
