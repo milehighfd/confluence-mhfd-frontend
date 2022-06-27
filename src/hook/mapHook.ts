@@ -15,7 +15,8 @@ import {
   getComponentsByProblemId, getMapTables,
   getComponentsByProjid, replaceFilterCoordinates, resetMap,
   setFilterCoordinates, setProblemKeyword,
-  setProjectKeyword, getParamsFilter, getMapWithSublayers, getMapLayers
+  setProjectKeyword, getParamsFilter, getMapWithSublayers, getMapLayers,
+  getComponentsCounter, getProjectCounter, getProblemCounter,
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
@@ -35,6 +36,9 @@ export const useMapDispatch = () => {
       dispatch(getParamFilterProjects(bounds, data));
     },
     getTabCounters: (bounds: string, problemsOpts: any, projectsOpts: any, componentOpts: any) => {
+      dispatch(getProblemCounter(bounds, problemsOpts));
+      dispatch(getProjectCounter(bounds, projectsOpts));
+      dispatch(getComponentsCounter(bounds, componentOpts));
     },
     getParamFilterProblems: (bounds: string, data?: any) => {
       dispatch(getParamFilterProblems(bounds, data));

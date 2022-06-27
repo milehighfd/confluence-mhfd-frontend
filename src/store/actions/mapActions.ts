@@ -452,6 +452,33 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         })
     }
 }
+export const getProblemCounter = (bounds: string, options: any) => {
+  return (dispatch: Function) => {
+      datasets.postData(SERVER.COUNTER_PROBLEMS + '?bounds=' + bounds, options).then(params => {
+          if(params) {
+              dispatch({type: types.SET_COUNTER_TAB, key: 'problems', total: params.total})
+          }
+      })
+  }
+}
+export const getProjectCounter = (bounds: string, options: any) => {
+  return (dispatch: Function) => {
+      datasets.postData(SERVER.COUNTER_PROJECTS + '?bounds=' + bounds, options).then(params => {
+          if(params){
+              dispatch({type: types.SET_COUNTER_TAB, key: 'projects', total: params.total})
+          }
+      })
+  }
+}
+export const getComponentsCounter = (bounds: string, options: any) => {
+  return (dispatch: Function) => {
+      datasets.postData(SERVER.COUNTER_COMPONENTS + '?bounds=' + bounds, options).then(params => {
+          if(params) {
+              dispatch({type: types.SET_COUNTER_TAB, key: 'components', total: params.total})
+          }
+      })
+  }
+}
 export const getParamFilterProblems = (bounds: string, data?: any) => {
     if (data) {
         data.county = data.county.replace("County", "").trim();

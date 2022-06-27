@@ -796,6 +796,15 @@ const mapReducer = (state = initState, action: any) => {
                 currentPopup: action.currentPopup
             }
         }
+        case types.SET_COUNTER_TAB: {
+          return {
+              ...state,
+              totals: {
+                  ...state.totals,
+                  [action.key]: action.total
+              }
+          }
+      }
         case types.FAVORITE_LOADER: {
             return {
                 ...state,
