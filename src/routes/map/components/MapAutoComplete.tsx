@@ -64,7 +64,7 @@ const MapAutoComplete = ({
               setvalueA(input2);
             }}
           >
-            <Input
+            <Input.Search
               id={'miclase'}
               style={{
                 border: 'none',
@@ -74,7 +74,7 @@ const MapAutoComplete = ({
               }}
               suffix={
                 dropdownIsOpen ?
-                  <UpOutlined style={{ marginRight: '-18px' }} /> :
+                  <UpOutlined style={{ marginRight: '-18px' }}/> :
                   <DownOutlined style={{ marginRight: '-18px' }} />
               }
             />

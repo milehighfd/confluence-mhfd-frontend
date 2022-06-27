@@ -46,7 +46,7 @@ export default ({
     const genExtra = () => (
         <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>
-            <div className={(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect' }>
+            <div className={(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect' } style={{ borderColor:'transparent', fontSize: '12px', marginTop: '-6px', color: 'rgba(17, 9, 60, 0.5)' }}>
                 Apply map view to filters
               <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
                       setApplyFilter(!applyFilter);
