@@ -247,7 +247,7 @@ export const NewProjectsFilter = () => {
                             apply(e, 'lgmanager');
                         }}>
                             {paramProjects.lgmanager.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                                return element && <Option key={index} value={element.value}>{`${element.value} `}</Option>
                             })}
                         </Select>
                     </>
@@ -269,7 +269,7 @@ export const NewProjectsFilter = () => {
                             apply(e, 'streamname');
                         }}>
                             {paramProjects.streamname.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                                return element && <Option key={index} value={element.value}>{`${element.value} `}</Option>
                             })}
                         </Select>
                     </>
@@ -293,7 +293,7 @@ export const NewProjectsFilter = () => {
                             apply([`${e}`], 'workplanyear');
                         }}>
                             {paramProjects.workplanyear.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                                return element && <Option key={index} value={element.value}>{`${element.value} `}</Option>
                             })}
                         </Select>
                     </>

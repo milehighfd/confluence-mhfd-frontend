@@ -227,7 +227,7 @@ export const NewProblemsFilter = () => {
                                 apply(e, 'jurisdiction');
                             }}>
                             {(paramProblems.jurisdiction || []).map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} (${element.counter})`}</Option>
+                                return element && <Option key={index} value={element.value}>{`${element.value}`}</Option>
                             })}
                         </Select>
                     </>
