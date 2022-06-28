@@ -942,7 +942,7 @@ const Map = ({
                 getSourceColor: (d:any)=> d.colorArc,
                 getTargetColor: (d:any)=> d.colorArc
             });
-            map.setPitch(80)
+            map.setPitch(70)
             map.addLayer(mapboxArcsLayer);
             map.addLayer(arcsLayer);
         }

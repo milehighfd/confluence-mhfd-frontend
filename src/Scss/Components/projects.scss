@@ -1,5 +1,4 @@
 @import "../Theme/styles.scss";
-@use 'styles';
 // CAPITAL
 .projects{
   .ant-modal-body{
@@ -387,7 +386,7 @@
     }
     .ant-collapse-content{
       border-top: none;
-      background: rgba(245, 247, 255, 0.4s);
+      background: rgba(245, 247, 255, 0.4);
     }
     .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header{
       height: 40px;
