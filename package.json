@@ -4,49 +4,95 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
+    "@babel/core": "^7.16.0",
     "@deck.gl/core": "^8.7.1",
     "@deck.gl/extensions": "^8.7.1",
     "@mapbox/mapbox-gl-draw": "^1.2.1",
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@mdi/font": "^5.8.55",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
+    "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@turf/bbox": "^6.5.0",
     "@turf/turf": "^5.1.6",
     "antd": "^4.20.3",
+    "babel-jest": "^27.4.2",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-named-asset-import": "^0.3.8",
+    "babel-preset-react-app": "^10.0.1",
+    "bfj": "^7.0.2",
+    "browserslist": "^4.18.1",
+    "camelcase": "^6.2.1",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "connected-react-router": "^6.7.0",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.2.0",
     "d3": "^5.16.0",
     "d3-simple-slider": "^1.10.3",
     "deck.gl": "^8.3.12",
+    "dotenv": "^10.0.0",
+    "dotenv-expand": "^5.1.0",
+    "eslint": "^8.3.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-webpack-plugin": "^3.1.1",
+    "file-loader": "^6.2.0",
     "file-saver": "^2.0.5",
     "formik": "^2.1.4",
-    "mapbox-gl": "^1.10.1",
+    "fs-extra": "^10.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.4.3",
+    "jest-resolve": "^27.4.2",
+    "jest-watch-typeahead": "^1.0.0",
+    "mapbox-gl": "^2.8.1",
+    "mini-css-extract-plugin": "^2.4.5",
     "moment": "^2.24.0",
     "node-sass": "^7.0.1",
+    "postcss": "^8.4.4",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-loader": "^6.2.1",
+    "postcss-normalize": "^10.0.1",
+    "postcss-preset-env": "^7.0.1",
+    "prompts": "^2.4.2",
     "react": "^16.12.0",
+    "react-app-polyfill": "^3.0.0",
     "react-clear-cache": "^1.4.12",
     "react-csv": "^2.0.3",
+    "react-dev-utils": "^12.0.1",
     "react-dom": "^16.12.0",
     "react-ga": "^3.1.2",
     "react-google-recaptcha-v3": "1.6",
     "react-infinite-scroll-component": "^5.0.5",
     "react-redux": "^7.2.0",
+    "react-refresh": "^0.11.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "resolve": "^1.20.0",
+    "resolve-url-loader": "^4.0.0",
+    "sass-loader": "^12.3.0",
+    "semver": "^7.3.5",
     "socket.io-client": "^4.0.0",
+    "source-map-loader": "^3.0.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.0.2",
+    "terser-webpack-plugin": "^5.2.5",
     "typescript": "^3.8.3",
+    "webpack": "^5.64.4",
+    "webpack-dev-server": "^4.6.0",
+    "webpack-manifest-plugin": "^4.0.2",
+    "workbox-webpack-plugin": "^6.4.1",
     "yup": "^0.28.3"
   },
   "resolutions": {
     "d3-selection": "1.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js",
     "postbuild": "node copyWebConfig.js",
     "generate-build-meta": "node node_modules/react-clear-cache/bin/cli.js"
   },
@@ -63,7 +109,6 @@
     ]
   },
   "devDependencies": {
-    "react-scripts": "^5.0.1",
     "@types/d3": "^5.7.2",
     "@types/d3-array": "^2.0.0",
     "@types/d3-axis": "^1.0.12",
@@ -71,7 +116,7 @@
     "@types/d3-selection": "^1.4.1",
     "@types/file-saver": "^2.0.2",
     "@types/jest": "^24.0.0",
-    "@types/mapbox-gl": "^1.10.0",
+    "@types/mapbox-gl": "^2.7.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.20",
     "@types/react-csv": "^1.1.1",
@@ -81,5 +126,64 @@
     "@types/react-router-dom": "^5.1.3",
     "@types/yup": "^0.26.32",
     "prettier": "^1.19.1"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "modulePaths": [],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "resetMocks": true
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }

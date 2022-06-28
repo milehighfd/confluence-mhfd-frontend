@@ -52,6 +52,7 @@ const MapAutoComplete = ({
             options={dataAutocomplete}
             placeholder={nameZoomArea ? (nameZoomArea.endsWith(', CO') ? nameZoomArea.replace(', CO', '') : nameZoomArea) : 'Mile High Flood District'}
             filterOption={(inputValue, option: any) => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
               option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
               if (dataAutocomplete.map((r: any) => r.key).includes(inputValue)) {
                 return true;
