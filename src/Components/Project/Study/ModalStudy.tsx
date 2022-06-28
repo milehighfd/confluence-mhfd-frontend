@@ -397,7 +397,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                     defaultActiveKey={keys}
                     activeKey={keys}
                     destroyInactivePanel={false}
-                    expandIconPosition="right"
+                    expandIconPosition="end"
                     onChange={(event: any) => { setKeys(event) }}
                   >
                     {

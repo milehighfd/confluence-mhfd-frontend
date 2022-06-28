@@ -242,7 +242,7 @@ export default () => {
                     <div className="cost-wr">
                       <Collapse
                         defaultActiveKey={['1']}
-                        expandIconPosition="left"
+                        expandIconPosition="start"
                       >
                         <Panel header="" key="1" extra={genExtra()}>
                           <div className="tab-body-project streams">
@@ -361,7 +361,7 @@ export default () => {
                     <div className="cost-wr">
                       <Collapse
                         defaultActiveKey={['1']}
-                        expandIconPosition="left"
+                        expandIconPosition="start"
                       >
                         <Panel header="" key="1" extra={genExtra()}>
                           <div className="tab-body-project streams">

@@ -35,12 +35,12 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   locality: any,
   borderColor: string,
 }) => {
+  console.log('project', project);
   const divRef = useRef(null);
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {
     projectid,
     projectname,
-    jurisdiction,
     projectsubtype,
     status
   } = project.projectData;
@@ -128,30 +128,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     </div>
   }
 
-  let statusLabel = null;
-  if (year <= 2021) {
-    statusLabel = status;
-  } else {
-    if (columnIdx === 0) {
-      statusLabel = 'Draft';
-    } else {
-      if (type ==='WORK_REQUEST') {
-        if (editable) {
-          statusLabel = 'Draft';
-        } else {
-          statusLabel = 'Requested';
-        }
-      } else {
-        if (editable) {
-          statusLabel = 'Requested';
-        } else {
-          statusLabel = 'Approved';
-        }
-      }
-    }
-  }
   let color = null, backgroundColor = null;
-  switch(statusLabel) {
+  switch(status) {
     case 'Requested':
       backgroundColor = 'rgba(94, 61, 255, 0.15)';
       color = '#9309EA';
@@ -228,7 +206,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       <h4>{displayName}</h4>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{labelOrigin}</label>
-      <label className="yellow" style={{color, backgroundColor}}>{statusLabel}</label>
+      <label className="yellow" style={{color, backgroundColor}}>{status}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">

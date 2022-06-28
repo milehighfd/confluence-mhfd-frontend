@@ -646,7 +646,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             defaultActiveKey={keys}
             activeKey={keys}
             destroyInactivePanel={false}
-            expandIconPosition="right"
+            expandIconPosition="end"
             onChange={(event: any)=> {setKeys(event)}}
           >
               {groups && Object.keys(groups).map((key: any,id:any) => {
@@ -714,7 +714,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             }
             <Collapse
               defaultActiveKey={["Unnamed Component"]}
-              expandIconPosition="right"
+              expandIconPosition="end"
             >
                 {visibleUnnamedComponent &&
                 <Panel header="" key="Unnamed Component" extra={genExtra05(getTotalIndComp())}>
