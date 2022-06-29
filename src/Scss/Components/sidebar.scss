@@ -101,7 +101,7 @@
   }
   .ant-menu-root.ant-menu-vertical, .ant-menu-root.ant-menu-vertical-left,
   .ant-menu-root.ant-menu-vertical-right, .ant-menu-root.ant-menu-inline {
-    display: flex;
+    display: flex !important;
     flex-wrap: wrap;
     justify-content: space-between;
   }
@@ -134,9 +134,10 @@
   .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
     // width: 25%;
     text-align: center;
+    display: flex !important;
   }
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-h , .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a{
-    display: none !important;
+    display: none;
   }
   .ant-menu-dark .ant-menu-item-selected .anticon {
       color: $green;

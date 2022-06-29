@@ -22,7 +22,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     key: '1',
     label: <Link to={'/map'} >
       <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
-      <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
+      <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" style={{display: 'inline-block !important'}} />
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px', padding: '0' }}>map view</span>
     </Link>
   }, {
@@ -43,7 +43,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     key: '5',
     label: <Link to={'/map'}>
       <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
-      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
+      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2', }} />
       <span style={{ marginLeft: collapsed ? '-20px' : '-6px' }}>project management</span>
     </Link>
   }, {
@@ -96,7 +96,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     removeItemArray('3');
     removeItemArray('4');
   }
-  return <Menu theme="dark" className="menu-mobile" defaultSelectedKeys={[indexOf]} mode="inline" items={itemMenuSidebar}>
+  return <Menu theme="dark" style={{display: 'flex !important'}} className="menu-mobile" defaultSelectedKeys={[indexOf]} mode="inline" items={itemMenuSidebar}>
   </Menu>
 }
 

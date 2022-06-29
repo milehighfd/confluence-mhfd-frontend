@@ -179,7 +179,7 @@
   .ant-select-auto-complete{
     margin-bottom: 5px;
     border-radius: 6px;
-    border-radius: 20% !important;
+    border-radius: 20%;
   }
   .ant-select-auto-complete.ant-select .ant-input {
     line-height: 1.5;
@@ -232,6 +232,13 @@
     -webkit-transition: color .3s;
     transition: color .3s;
     vertical-align: 0;
+  }
+  .style-input {
+    margin-top: 5px;
+    .ant-input-group-addon {
+      margin-top: -27px !important;
+      left: -5px;
+    }
   }
 }
 .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled),.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {

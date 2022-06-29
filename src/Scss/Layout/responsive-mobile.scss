@@ -433,7 +433,7 @@
     padding: 0px 20px 20px 20px !important;
   }
   .line-01 {
-    width: 75px !important;
+    width: 75px;
   }
   .padding-00{
     padding: 0px !important;
@@ -477,9 +477,9 @@
   }
   .profile-contact{
     position: absolute;
-    bottom: -110px;
+    bottom: -130px;
     left: 37%;
-    z-index: 100000;
+    z-index: 3;
 
     button{
       border: none !important;

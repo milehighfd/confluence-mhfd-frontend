@@ -127,7 +127,7 @@ const TabPaneView = ({
         </span>
       </div>
     </div>
-    <div style={{ width: '100%', marginBottom: '-38px'}}>
+    <div style={{ width: '100%', marginBottom: '-38px' }}>
       <InfiniteScroll
         dataLength={state.items.length}
         next={fetchMoreData}

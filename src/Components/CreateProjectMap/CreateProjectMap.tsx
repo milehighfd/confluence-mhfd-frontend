@@ -2203,13 +2203,13 @@ const CreateProjectMap = (type: any) => {
         </Dropdown>
         <AutoComplete
           dropdownMatchSelectWidth={true}
-          style={{ width: 200 }}
+          style={{ width: 200, backgroundColor: '#fafafa', borderRadius: '5px', height: '36px' }}
           options={mapSearch.map(renderOption)}
           onSelect={onSelect}
           onSearch={handleSearch}
           value={keyword}
         >
-          <Input.Search size="large" placeholder="Stream or Location" />
+          <Input.Search size="large" placeholder="Stream or Location" className="style-input"/>
         </AutoComplete>
       </div>
     </div>

@@ -1,7 +1,7 @@
 @use  '../Theme/styles';
 @import "../Theme/styles.scss";
 // CAPITAL
-.projects{
+.projects {
   .ant-modal-body{
     padding: 0px;
   }
@@ -11,7 +11,7 @@
   .ant-modal-footer{
     display: none;
   }
-  .head-project{
+  .head-project {
     padding: 10px 20px;
 
     ::placeholder {
@@ -37,7 +37,7 @@
         padding: 0.5em;
         align-items: stretch;
 
-        &::after, input,{
+        &::after, input{
           grid-area: 2 / 1;
         }
       }
