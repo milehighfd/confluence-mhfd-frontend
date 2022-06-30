@@ -93,6 +93,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [loading, setLoading] = useState(false);
   const {clear} = useAttachmentDispatch();
   const wrtRef = useRef(null);
+  const ref = useRef<any>(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const user = store.getState().profile.userInformation;
@@ -749,7 +750,7 @@ const RequestView = ({ type, isFirstRendering }: {
                       {
                         user.designation !== GOVERNMENT_STAFF ?
                         <AutoComplete
-                        onDropdownVisibleChange={setDropdownIsOpen}
+                        //onDropdownVisibleChange={setDropdownIsOpen}
                         className={'ant-select-1'}
                         options={dataAutocomplete.map(renderOption)}
                         placeholder={localityFilter}
@@ -774,8 +775,11 @@ const RequestView = ({ type, isFirstRendering }: {
                             }
                           }
                         }}
+                        open={dropdownIsOpen}
+                        onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
+                        onBlur={() => setDropdownIsOpen(false)}
                       >
-                        <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
+                        <Input ref={ref} className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '999'}}></i>}
                           suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)', marginRight: '-18px', marginLeft: '-6px' }}/>
                       </AutoComplete> : <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
