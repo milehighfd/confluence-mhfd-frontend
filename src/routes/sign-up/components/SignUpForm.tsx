@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Menu, Dropdown, MenuProps } from 'antd';
-import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, OTHER, STAFF } from "../../../constants/constants";
+import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, OTHER, STAFF, GOVERNMENT_ADMIN, ADMIN } from "../../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
@@ -72,7 +72,7 @@ const SignUpForm = () => {
         });
       });
     };
-    if (values.designation === GOVERNMENT_STAFF) {
+    if (values.designation === ADMIN || values.designation === STAFF) {
       generateItemMenu(organizationList);
     } else if (values.designation === CONSULTANT) {
       generateItemMenuConsultant(consultantList);

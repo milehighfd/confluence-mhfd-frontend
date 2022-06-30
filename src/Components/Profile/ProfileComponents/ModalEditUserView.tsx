@@ -20,11 +20,36 @@ import {
   OTHER,
   JURISDICTION
 } from '../../../constants/constants';
+import { SERVER } from "../../../Config/Server.config";
+import * as datasets from "../../../Config/datasets";
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
 export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrganization, getGroupOrganization }:
   { user: User, updateUserInformation: Function, isVisible: boolean, hideProfile: Function, groupOrganization: [], getGroupOrganization: Function }) => {
+    const [organizationList, setOrganizationList] = useState<any[]>([]);
+    const [consultantList, setConsultantList] = useState<any[]>([]);
+    useEffect(() => {
+      datasets.getData(SERVER.GET_ORGANIZATIONS)
+        .then((rows) => {
+          const organizations = rows
+            .filter((row: any) => row.type === 'JURISDICTION')
+            .map(({id, name}: { id: number, name: string }) => (name));
+          setOrganizationList(organizations);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+      datasets.getData(SERVER.GET_CONSULTANTS)
+        .then((rows) => {
+          const consultants = rows
+            .map(({_id, name}: { _id: number, name: string }) => (name));
+          setConsultantList(consultants);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    }, []);
   const initialValues = { ...user };
   const [organization, setOrganization] = useState<Array<string>>([]);
   const [title, setTitle] = useState('');
@@ -80,10 +105,10 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
         });
       });
     };
-    if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
-      generateItemMenu(JURISDICTION);
+    if (values.designation === ADMIN || values.designation === STAFF) {
+      generateItemMenu(organizationList);
     } else if (values.designation === CONSULTANT) {
-      generateItemMenu(CONSULTANT_CONTRACTOR);
+      generateItemMenu(consultantList);
     } else {
       generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
     }
