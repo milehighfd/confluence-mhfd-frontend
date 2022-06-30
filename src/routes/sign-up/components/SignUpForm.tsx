@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Menu, Dropdown, MenuProps } from 'antd';
-import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, CONSULTANT_CONTRACTOR, JURISDICTION, OTHER, STAFF } from "../../../constants/constants";
+import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, OTHER, STAFF } from "../../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
@@ -23,6 +23,31 @@ const SignUpForm = () => {
   const [targetButton, setTargetButton] = useState(STAFF_CONSTANT);
   const [organization, setOrganization] = useState(ROLES[0].options);
   const [other, setOther] = useState({ value: '', visible: false });
+  const [organizationList, setOrganizationList] = useState<any[]>([]);
+  const [consultantList, setConsultantList] = useState<any[]>([]);
+
+  useEffect(() => {
+    datasets.getData(SERVER.GET_ORGANIZATIONS)
+      .then((rows) => {
+        const organizations = rows
+          .filter((row: any) => row.type === 'JURISDICTION')
+          .map(({id, name}: { id: number, name: string }) => (name));
+        setOrganizationList(organizations);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+    datasets.getData(SERVER.GET_CONSULTANTS)
+      .then((rows) => {
+        const consultants = rows
+          .map(({_id, name}: { _id: number, name: string }) => (name));
+        setConsultantList(consultants);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }, []);
+
   const menu = () => {
     const itemMenu: MenuProps['items'] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -48,9 +73,9 @@ const SignUpForm = () => {
       });
     };
     if (values.designation === GOVERNMENT_STAFF) {
-      generateItemMenu(JURISDICTION);
+      generateItemMenu(organizationList);
     } else if (values.designation === CONSULTANT) {
-      generateItemMenuConsultant(CONSULTANT_CONTRACTOR);
+      generateItemMenuConsultant(consultantList);
       itemMenu.push({
         key: '999|other',
         label: <span>Other</span>,

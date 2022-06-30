@@ -67,7 +67,6 @@ export const SERVER = (function () {
     const V2 = 'v2';
     const BY_COMPONENTS = 'by-components';
     const DETAILED_PAGE = 'detailed-page';
-    const GROUP_ORGANIZATION = 'group-organization';
     const DELETE_USER = 'delete-user';
     const PARAM_FILTER_PROJECTS = 'params-filter-projects';
     const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
@@ -114,6 +113,8 @@ export const SERVER = (function () {
     const PROJECTS_BBOX = 'projects-bbox';
     const BY_PROJECT = 'by-project';
     const GET_AVAILABLE_COLORS = 'get-available-colors';
+    const ORGANIZATIONS = 'organizations';
+    const CONSULTANTS = 'consultants';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -156,7 +157,6 @@ export const SERVER = (function () {
         COUNT_PROJECTS_BY_CREATOR: `${URL_BASE.BASE}/${PROJECT}/${COUNT_PROJECTS_BY_CREATOR}`,
         UPDATE_USER_INFORMATION: `${URL_BASE.BASE}/${USER}/${UPDATE}`,
         GET_IMAGE_DRIVE: `${URL_BASE.BASE}/${DRIVE}/${GET_IMAGE_DRIVE}`,
-        GET_INITIAL_MAP_VIEW: `${URL_BASE.BASE}/${USER}/${GET_POSITION}`,
         GET_ALL_ATTACHMENTS: `${URL_BASE.BASE}/${ATTACHMENT}/${GET_FILES}`,
         DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`,
         TOGGLE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${TOGGLE}`,
@@ -215,6 +215,8 @@ export const SERVER = (function () {
         GET_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/color-list`,
         GET_AVAILABLE_COLORS: `${URL_BASE.BASE}/${NEW_NOTES}/${GET_AVAILABLE_COLORS}`,
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
+        GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
+        GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         DELETE_NOTE_LIST: (id: any) => {
           return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;
         },

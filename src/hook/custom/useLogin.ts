@@ -46,10 +46,10 @@ const useLogin = () => {
           replaceAppUser(res);
         }
         setTimeout(() => {
-          if (groupOrganization.length) {
+          // if (groupOrganization.length) {
             setLoading(false);
-          }
-        }, 5000);
+          // }
+        }, 3000);
       });
     }
   }, []);

@@ -482,13 +482,6 @@ const mapReducer = (state = initState, action: any) => {
                 }
             }
         }
-        case types.GET_INITIAL_MAP_VIEW: {
-            return {
-                ...state,
-                longitude: action.map.longitude,
-                latitude: action.map.latitude
-            }
-        }
         case types.SELECTED_LAYERS: {
             return {
                 ...state,
