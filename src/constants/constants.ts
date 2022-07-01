@@ -30,7 +30,7 @@ export const MAP_DROPDOWN_ITEMS = [
   }
 ];
 
-export const PROBLEMS_TRIGGER = 'problems';
+export const PROBLEMS_TRIGGER = 'problem_boundary';
 export const PROJECTS_TRIGGER = 'projects';
 export const PROJECTS_MODAL = 'Projects';
 export const PROBLEMS_MODAL = 'Problems';

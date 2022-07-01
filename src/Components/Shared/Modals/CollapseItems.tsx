@@ -176,7 +176,7 @@ export default forwardRef(({
       }
       if(type === PROBLEMS_MODAL) {
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problems);
-        for (const problem of tileStyles.problems) {
+        for (const problem of tileStyles.problem_boundary) {
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
           map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           i++;
@@ -200,7 +200,7 @@ export default forwardRef(({
           if(element.problemid) {
             i = 0;
             map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problems);
-            for (const problem of tileStyles.problems) {
+            for (const problem of tileStyles.problem_boundary) {
               map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, PROBLEMS_TRIGGER, problem);
               map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'problemid', element.problemid]);
               i++;
