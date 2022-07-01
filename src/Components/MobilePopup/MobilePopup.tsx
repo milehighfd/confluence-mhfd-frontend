@@ -2,12 +2,13 @@ import React from "react";
 import { Carousel } from 'antd';
 import { numberWithCommas } from '../../utils/utils';
 import { useMapDispatch } from "../../hook/mapHook";
+import { MENU_OPTIONS } from "../../constants/constants";
 
 export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
   const {setSelectedPopup} = useMapDispatch();
   const card = (data: any, index: number) => (
     <div onClick={() => {
-      if (data.type && data.type === 'problems' || data.type === 'project') {
+      if (data.type && data.type === MENU_OPTIONS.PROBLEMS || data.type === 'project') {
         seeDetails(data);
       }
     }} key={'mobile-popup-' + index}>
@@ -16,7 +17,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
           {data.image && <img src={data.image} alt="" />}
         </div>
         <div style={data.image? {width: '60%', padding: '10px'} : {width: '100%', padding: '10px'}}>
-          {data.title && data.type === 'problems' && <h6>{data.title}</h6>}
+          {data.title && data.type === MENU_OPTIONS.PROBLEMS && <h6>{data.title}</h6>}
           {data.projecttype && <h6>{data.projecttype} Project</h6>}
           {data.layer && data.layer != "Components" && data.layer != 'Streams' && <h4>{data.layer}</h4>}
           {data.layer && data.layer == "Components" && <h6>{data.layer}</h6>}

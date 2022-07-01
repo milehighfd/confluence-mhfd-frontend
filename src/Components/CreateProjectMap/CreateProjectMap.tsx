@@ -805,7 +805,7 @@ const CreateProjectMap = (type: any) => {
         showLayers(layer);
       }
     });
-    applyFilters('problems', filterProblems);
+    applyFilters(PROBLEMS_TRIGGER, filterProblems);
     let filterProjectsNew = filterProjects;
     if (type.type === 'SPECIAL') {
       filterProjectsNew.projecttype = "Special";
@@ -1153,7 +1153,7 @@ const CreateProjectMap = (type: any) => {
       }
       if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
         let filter = ['in', 'cartodb_id'];
-        if (key == 'problems') {
+        if (key == PROBLEMS_TRIGGER) {
           filter = ['in', 'problemid'];
         } else if (key == 'mhfd_stream_reaches') {
           filter = ['in', 'mhfd_code'];
@@ -1207,7 +1207,7 @@ const CreateProjectMap = (type: any) => {
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon') {
               showHighlighted(key, e.features[0].properties.cartodb_id);
             }
-            if (key.includes('projects') || key === 'problems') {
+            if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
               map.map.getCanvas().style.cursor = 'pointer';
               setSelectedOnMap(e.features[0].properties.cartodb_id, key);
             } else {
@@ -1265,10 +1265,10 @@ const CreateProjectMap = (type: any) => {
   }
   const showHighlightedProblem = (problemid: string) => {
     const styles = { ...tileStyles as any }
-    styles['problems'].forEach((style: LayerStylesType, index: number) => {
+    styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
 
-      if (map.getLayer('problems' + '_' + index)) {
-        map.setFilter('problems' + '_highlight_' + index, ['in', 'problemid', parseInt(problemid)])
+      if (map.getLayer(PROBLEMS_TRIGGER + '_' + index)) {
+        map.setFilter(PROBLEMS_TRIGGER + '_highlight_' + index, ['in', 'problemid', parseInt(problemid)])
 
       }
     });

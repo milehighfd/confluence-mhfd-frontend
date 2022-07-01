@@ -10,7 +10,7 @@ import { useProfileDispatch } from "../../../hook/profileHook";
 import { useSelector } from "react-redux";
 
 import store from "../../../store";
-import { COMPONENT_LAYERS } from "../../../constants/constants";
+import { COMPONENT_LAYERS, MENU_OPTIONS } from "../../../constants/constants";
 
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
@@ -27,7 +27,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
   const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
   const { favorites } = useMapState();
   const showComponents = () => {
-    const id = data.type === 'problems' ? data.problemid : data.id;
+    const id = data.type === MENU_OPTIONS.PROBLEMS ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;

@@ -4301,13 +4301,13 @@ export const tileStyles = {
         "line-color": [
             "step",
             ["zoom"],
-            "hsla(0, 86%, 56%, 0)",
+            "hsla(0, 86%, 56%, 0.3)",
             7,
-            "hsla(0, 86%, 56%, 0.58)",
+            "hsla(0, 86%, 56%, 0.68)",
             13,
             "hsl(0, 86%, 56%)",
             22,
-            "hsla(0, 86%, 56%, 0.29)"
+            "hsla(0, 86%, 56%, 0.39)"
         ],
         "line-width": [
             "interpolate",

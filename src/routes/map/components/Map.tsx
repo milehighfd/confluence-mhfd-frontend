@@ -554,7 +554,7 @@ const Map = ({
 
     useEffect(() => {
         if (map) {
-            applyFilters('problems', filterProblems);
+            applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterProblems]);
 
@@ -570,7 +570,7 @@ const Map = ({
                 applyFilters(component, filterComponents);
             }
             applyFilters('mhfd_projects', filterProjects);
-            applyFilters('problems', filterProblems);
+            applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterComponents, componentDetailIds]);
 
@@ -1094,7 +1094,7 @@ const Map = ({
                 showLayers(layer);
             }
         });
-        applyFilters('problems', filterProblems);
+        applyFilters(PROBLEMS_TRIGGER, filterProblems);
         applyFilters('mhfd_projects', filterProjects);
         setTimeout(()=>{
             topStreams()
@@ -1332,7 +1332,7 @@ const Map = ({
             if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
               allFilters.push(style.filter);
             }
-            if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != 'problems') {
+            if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
 
@@ -2699,6 +2699,7 @@ const Map = ({
                 problemid: details.problemid
             });
         }
+        console.log('check this type for problems too', details.type);
         if(details.layer === 'Components') {
           let newComponents = [{
             cartodb_id: details.cartodb_id?details.cartodb_id:'',
@@ -2749,7 +2750,7 @@ const Map = ({
                       if (hovereableLayers.includes(key)) {
                           showHighlighted(key, e.features[0].properties.cartodb_id);
                       }
-                      if (key.includes('projects') || key === 'problems') {
+                      if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                           map.getCanvas().style.cursor = 'pointer';
                           setSelectedOnMap(e.features[0].properties.cartodb_id, key);
                       } else {
