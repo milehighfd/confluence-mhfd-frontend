@@ -232,7 +232,7 @@ export default ({
       <Switch key="KIwYxEF3V7Z8" checked={groups['hydraulic']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [FLOODPLAINS,
-          FEMA_FLOOD_HAZARD, ACTIVE_LOMS
+          FEMA_FLOOD_HAZARD, ACTIVE_LOMS, EFFECTIVE_REACHES
          ], 'hydraulic')}
        }/>
     </div>
