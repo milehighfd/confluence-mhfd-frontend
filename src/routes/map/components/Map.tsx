@@ -1111,12 +1111,15 @@ const Map = ({
             if (map.getLayer('borderMASK')) {
               map.moveLayer('servicearea');
             }
+            // setTimeout(() => {
+            //   topProblems();
+            // }, 10000);
         },800);
     }
     const topHovereableLayers = () => {
       const styles = { ...tileStyles as any };
       hovereableLayers.forEach((key:any) => {
-        console.log('key to chec', key, styles[key]);
+        // console.log('key to chec', key, styles[key]);
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if (!hovereableLayers.includes(key)) {
             return;
@@ -1131,6 +1134,12 @@ const Map = ({
       const styles = { ...tileStyles as any };   
         styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        })
+    }
+    const topProblems = () => {
+      const styles = { ...tileStyles as any };   
+        styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
         })
     }
     const topComponents = () => {
