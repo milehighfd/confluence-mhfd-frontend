@@ -91,7 +91,8 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     let menuPopupItem: MenuProps['items'] = [
       {
         key: 'popup-title',
-        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)' }}>
+        style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)'},
+        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)' }}>
           LIST ACTIONS
         </label>
       },
@@ -105,7 +106,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
       },
       {
         key: 'popup-favorite',
-        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Favorite Card</span>
+        label: <span className="menu-item-text" /* style={{ cursor: 'auto', opacity: 0.5 }} */>Favorite Card</span>
       },
       {
         key: 'popup-comment',
@@ -121,7 +122,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     }
     return <Menu
       className="menu-dropdown-map"
-      style={{ backgroundColor: 'white', border: 0 }}
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
       items={menuPopupItem}
       onClick={onClickPopupCard}
     >
