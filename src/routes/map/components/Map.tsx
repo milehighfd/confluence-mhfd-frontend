@@ -1029,8 +1029,9 @@ const Map = ({
             type: "sky",
             paint: {
               "sky-type": "atmosphere",
-              "sky-atmosphere-sun": [0.0, 90.0],
-              "sky-atmosphere-sun-intensity": 15,
+              "sky-atmosphere-halo-color": "blue",
+              "sky-atmosphere-sun": [0.0, 45.0],
+              "sky-atmosphere-sun-intensity": 25,
             },
           })
       }
