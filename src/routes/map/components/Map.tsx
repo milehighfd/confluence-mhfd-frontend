@@ -854,6 +854,7 @@ const Map = ({
                 if (!map.isStyleLoaded()) {
                     setTimeout(waiting, 250);
                 } else {
+                    applySkyMapLayer();
                     applyMapLayers();
                     setSpinMapLoaded(false);
                     applyNearMapLayer();
@@ -1019,6 +1020,19 @@ const Map = ({
           },
           filter: ['in', 'type', 'line']
         })
+      }
+    }
+    const applySkyMapLayer = () => {
+      if (!map.getLayer('sky')) {
+          map.addLayer({
+            id: "sky",
+            type: "sky",
+            paint: {
+              "sky-type": "atmosphere",
+              "sky-atmosphere-sun": [0.0, 90.0],
+              "sky-atmosphere-sun-intensity": 15,
+            },
+          })
       }
     }
     const applyNearMapLayer = () => {
