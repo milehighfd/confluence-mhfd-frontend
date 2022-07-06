@@ -266,7 +266,7 @@ export default ({
   };
   const genExtra05 = () => (
     <div className="filter-coll-header" key="SXd5tUbO4bNP">
-      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] || switches[DWR_DAM_SAFETY] ? weightStyle : emptyStyle}>COMMUNITY VALUE</div>
+      <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] || switches[DWR_DAM_SAFETY] ? weightStyle : emptyStyle}>COMMUNITY VALUES</div>
       <Switch key="G4JLgeipeBlQ" checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
           changeGroup(value, [CLIMB_TO_SAFETY, DWR_DAM_SAFETY], 'humanConnection')
