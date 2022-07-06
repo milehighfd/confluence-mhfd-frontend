@@ -62,6 +62,10 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     setZoomProjectOrProblem(data.coordinates);
   }
 
+  const changeFavorite = () => {
+    addFavorite(user.email, (data.id || data.problemid), data.type);
+  }
+
   useEffect(() => {
     const bcbbox = bboxComponents.bbox;
     if (bcbbox.length && bcbbox[0] != null) {
@@ -83,6 +87,9 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
           break;
         case 'popup-zoom':
           changeCenter();
+          return;
+        case 'popup-favorite':
+          changeFavorite();
           return;
         default:
           break;
