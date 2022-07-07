@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, PROBLEM_TYPE } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -160,6 +160,7 @@ export default forwardRef(({
     if(map) {
       let i = 0;
       const styles = {...tileStyles as any};
+      console.log('TIPES', type, detailedPage);
       for (const key in layers.components) {
           map.addVectorSource(key, layers.components[key]);
           i = 0;
@@ -175,13 +176,14 @@ export default forwardRef(({
 
       }
       if(type === PROBLEMS_MODAL) {
-        map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problems);
-        for (const problem of tileStyles.problems) {
-          map.addLayer('problems-layer_' + i, MENU_OPTIONS.PROBLEMS, problem);
-          map.setFilter('problems-layer_' + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+        console.log('layers', layers);
+        map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
+        for (const problem of tileStyles.problem_boundary) {
+          map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
+          map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
           i++;
         }
-        addMapListeners(MENU_OPTIONS.PROBLEMS, 'problems-layer_');
+        addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
         detailedPage.components.forEach((element: any) => {
@@ -199,15 +201,15 @@ export default forwardRef(({
         detailedPage.problems.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
-            map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problems);
-            for (const problem of tileStyles.problems) {
-              map.addLayer('problems-layer_' + i, 'problems', problem);
-              map.setFilter('problems-layer_' + i, ['in', 'problemid', element.problemid]);
+            map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary);
+            for (const problem of tileStyles.problem_boundary) {
+              map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, PROBLEMS_TRIGGER, problem);
+              map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'problemid', element.problemid]);
               i++;
             }
           }
         });
-        addMapListeners(MENU_OPTIONS.PROBLEMS, 'problems-layer_');
+        addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         map.addVectorSource('projects-line', layers.projects.mhfd_projects);
         let idProjectLine = 0;
         let idProjectPolygon = 0;

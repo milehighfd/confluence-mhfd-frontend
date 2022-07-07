@@ -8,10 +8,10 @@ import LoadingView from '../../../Components/Loading/LoadingView';
 import {
   COMPLETE_SCREEN,
   MAP_RESIZABLE_TRANSITION,
-  PROBLEMS_TRIGGER,
   PROJECTS_MAP_STYLES,
   MEDIUM_SCREEN_LEFT
 } from "../constants/layout.constants";
+import { PROBLEMS_TRIGGER } from '../../../constants/constants';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import { useNotesState } from '../../../hook/notesHook';

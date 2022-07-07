@@ -31,7 +31,7 @@ export const MAP_DROPDOWN_ITEMS = [
   }
 ];
 
-export const PROBLEMS_TRIGGER = 'problems';
+export const PROBLEMS_TRIGGER = 'problem_boundary';
 export const PROJECTS_TRIGGER = 'projects';
 export const PROJECTS_MODAL = 'Projects';
 export const PROBLEMS_MODAL = 'Problems';
@@ -904,6 +904,7 @@ export const MENU_OPTIONS =
   PROJECT: 'Project',
   PROJECTS: 'projects',
   PROBLEMS: 'problems',
+  PROBLEMS_BOUNDARY: 'problem_boundary',
   MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS,
   COUNTIES: 'County',
   MUNICIPALITIES: 'Municipality',

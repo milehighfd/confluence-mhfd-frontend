@@ -165,6 +165,9 @@ const Map = ({
   } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
+    useEffect(()=>{ 
+      console.log('DETAILEDDETAILEDDETAILEDDETAILEDDETAILEDDETAILEDDETAILED', detailed);
+    }, [detailed]);
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
@@ -554,7 +557,7 @@ const Map = ({
 
     useEffect(() => {
         if (map) {
-            applyFilters('problems', filterProblems);
+            applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterProblems]);
 
@@ -570,7 +573,7 @@ const Map = ({
                 applyFilters(component, filterComponents);
             }
             applyFilters('mhfd_projects', filterProjects);
-            applyFilters('problems', filterProblems);
+            applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterComponents, componentDetailIds]);
 
@@ -1109,7 +1112,7 @@ const Map = ({
                 showLayers(layer);
             }
         });
-        applyFilters('problems', filterProblems);
+        applyFilters(PROBLEMS_TRIGGER, filterProblems);
         applyFilters('mhfd_projects', filterProjects);
         setTimeout(()=>{
             topStreams()
@@ -1126,11 +1129,15 @@ const Map = ({
             if (map.getLayer('borderMASK')) {
               map.moveLayer('servicearea');
             }
+            // setTimeout(() => {
+            //   topProblems();
+            // }, 10000);
         },800);
     }
     const topHovereableLayers = () => {
       const styles = { ...tileStyles as any };
       hovereableLayers.forEach((key:any) => {
+        // console.log('key to chec', key, styles[key]);
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if (!hovereableLayers.includes(key)) {
             return;
@@ -1145,6 +1152,12 @@ const Map = ({
       const styles = { ...tileStyles as any };   
         styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        })
+    }
+    const topProblems = () => {
+      const styles = { ...tileStyles as any };   
+        styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
         })
     }
     const topComponents = () => {
@@ -1347,7 +1360,7 @@ const Map = ({
             if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
               allFilters.push(style.filter);
             }
-            if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != 'problems') {
+            if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
 
@@ -2107,17 +2120,18 @@ const Map = ({
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  if (feature.source === MENU_OPTIONS.PROBLEMS) {
+                  if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
+                    console.log('feature', feature.properties);
                       const item = {
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,
-                          title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
-                          name: feature.properties.problemname ? feature.properties.problemname : '-',
-                          organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                          value: feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
-                          status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
-                          priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
-                          problemid: feature.properties.problemid,
+                          title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
+                          name: feature.properties.problem_name ? feature.properties.problem_name : '-',
+                          organization: feature.properties.local_government ? feature.properties.local_government : '-',
+                          value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
+                          status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
+                          priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
+                          problemid: feature.properties.problem_id,
                           component_count: feature.properties.component_count ?? 0,
                           popupId: 'popup',
                           image: `gallery/${feature.properties.problemtype}.jpg`,
@@ -2735,6 +2749,7 @@ const Map = ({
                 problemid: details.problemid
             });
         }
+        console.log('check this type for problems too', details.type);
         if(details.layer === 'Components') {
           let newComponents = [{
             cartodb_id: details.cartodb_id?details.cartodb_id:'',
@@ -2785,7 +2800,7 @@ const Map = ({
                       if (hovereableLayers.includes(key)) {
                           showHighlighted(key, e.features[0].properties.cartodb_id);
                       }
-                      if (key.includes('projects') || key === 'problems') {
+                      if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                           map.getCanvas().style.cursor = 'pointer';
                           setSelectedOnMap(e.features[0].properties.cartodb_id, key);
                       } else {

@@ -82,6 +82,7 @@ const TabPaneView = ({
   };
   const deleted = (id: number, type: string) => {
     deleteFavorite(user.email, id, type);
+    console.log('what is this used for??', type);
     search(user.email, type === 'problems', options);
   }
   return <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', padding: '22px 20px', marginLeft: '-20px' }} className="card-map profile-mobile" gutter={[16, 16]}>

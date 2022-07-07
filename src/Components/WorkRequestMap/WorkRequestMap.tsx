@@ -604,6 +604,7 @@ const loadData = (trigger: any, name?: string) => {
         },4500);
         
     }
+    console.log('Check this problem is for what??', details.type);
     if(details.layer === 'Components') {
       let newComponents = [{
         cartodb_id: details.cartodb_id?details.cartodb_id:'',
@@ -707,7 +708,7 @@ const loadData = (trigger: any, name?: string) => {
         showLayers(layer);
       }
     });
-    applyFilters('problems', filterProblems);
+    applyFilters(PROBLEMS_TRIGGER, filterProblems);
     let filterProjectsNew = {...filterProjects};
     let filterProjectsDraft = {...filterProjects}; 
     
@@ -1211,7 +1212,7 @@ const loadData = (trigger: any, name?: string) => {
               if (hovereableLayers.includes(key)) {
                 showHighlighted(key, e.features[0].properties.cartodb_id);
               }
-              if (key.includes('projects') || key === 'problems') {
+              if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                 map.map.getCanvas().style.cursor = 'pointer';
                 setSelectedOnMap(e.features[0].properties.cartodb_id, key);
               } else {
