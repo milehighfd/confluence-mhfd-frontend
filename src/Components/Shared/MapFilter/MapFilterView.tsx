@@ -28,7 +28,8 @@ import {
   BLOCK_CLEARANCE_ZONES_LAYERS,
   AREA_BASED_MASK,
   ACTIVE_LOMS,
-  EFFECTIVE_REACHES
+  EFFECTIVE_REACHES,
+  FLOOD_HAZARDS
 } from '../../../constants/constants';
 
 
@@ -62,6 +63,7 @@ export default ({
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,
+    [FLOOD_HAZARDS.name]: false,
     [STREAMS_FILTERS]: true,
     [PROJECTS_MAP_STYLES.name]: true,
     [COMPONENT_LAYERS.name]: false,
@@ -200,15 +202,18 @@ export default ({
   const genExtra = () => {
     return (<div className="filter-coll-header" key="V41mtzxlYvKW">
       <div key="rO72tK0LK0e1" style={(switches[PROBLEMS_TRIGGER] || switches[PROJECTS_MAP_STYLES.name] ||
-        switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name])
+        switches[MEP_PROJECTS.name] || switches[ROUTINE_MAINTENANCE.name] || switches[COMPONENT_LAYERS.name]
+          || switches[FLOOD_HAZARDS.name]
+        )
         ? emptyStyle : emptyStyle }>MHFD DATA </div>
        <Switch key="MFSv8kP07U20" checked={groups['MHFDData']} size="small" onClick={(value, event) => {
          event.stopPropagation();
          changeGroup(value, [PROBLEMS_TRIGGER,
-        PROJECTS_MAP_STYLES,
-        MEP_PROJECTS,
-        ROUTINE_MAINTENANCE,
-        COMPONENT_LAYERS], 'MHFDData'
+          FLOOD_HAZARDS,
+          PROJECTS_MAP_STYLES,
+          MEP_PROJECTS,
+          ROUTINE_MAINTENANCE,
+          COMPONENT_LAYERS], 'MHFDData'
       )} }/>
     </div>)
   };
@@ -361,6 +366,15 @@ export default ({
                 <img key="2F2q9UatPR1G" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="4DNRVR0SBlXw" checked={switches[PROBLEMS_TRIGGER]} size="small" onClick={(value) => onChange(value, PROBLEMS_TRIGGER)} />
+            </p>
+            
+            <p>
+              <img key="hygfgsbnF7gs" src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
+                  Problem Parts
+                  <Popover key="uibfUYSsd7" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
+                <img key="778POIAOSDaasse" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key="COCh15" checked={switches[FLOOD_HAZARDS.name]} size="small" onClick={(value) => onChange(value, FLOOD_HAZARDS.name)} />
             </p>
 
             <p>

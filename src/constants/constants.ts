@@ -71,6 +71,19 @@ export const MAINTENANCE_TRAILS = 'maintenance_trails';
 export const LAND_ACQUISITION = 'land_acquisition';
 export const LANDSCAPING_AREA = 'landscaping_area';
 
+export const FLOOD_HAZARD_POLYGON = 'flood_hazard_polygon_';
+export const FLOOD_HAZARD_LINE = 'flood_hazard_line_';
+export const FLOOD_HAZARD_POINT = 'flood_hazard_point_';
+
+export const FLOOD_HAZARDS = {
+  name: 'floodhazards',
+  tiles: [
+    FLOOD_HAZARD_POLYGON,
+    FLOOD_HAZARD_LINE,
+    FLOOD_HAZARD_POINT
+  ]
+}
+
 export const FLOODPLAINS = {
   name: 'floodplains',
   tiles: [
@@ -181,6 +194,7 @@ export const AREA_BASED_MASK = 'area_based_mask';
 export const SELECT_ALL_FILTERS = [
   MHFD_STREAMS_FILTERS,
   STREAMS_FILTERS,
+  FLOOD_HAZARDS,
   MHFD_BOUNDARY_FILTERS,
   NRCS_SOILS,
   WATERSHED_FILTERS,

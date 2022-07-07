@@ -52,7 +52,10 @@ import {
   BLOCK_CLEARANCE_ZONES_LAYERS,
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,
-  STREAMS_POINT
+  STREAMS_POINT,
+  FLOOD_HAZARD_POLYGON,
+  FLOOD_HAZARD_LINE,
+  FLOOD_HAZARD_POINT
 } from "./constants";
 
 export const localComponents = {
@@ -4320,7 +4323,41 @@ export const tileStyles = {
         ],
       "line-opacity": 0.76
     }
-  }], 
+  }],
+  [FLOOD_HAZARD_POLYGON]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": 'hsla(35, 100%, 50%, 1)'
+    }
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(35, 100%, 50%, 1)",
+    }
+  }],
+  [FLOOD_HAZARD_LINE]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": 'hsla(35, 100%, 50%, 1)'
+    }
+  }],
+  [FLOOD_HAZARD_POINT]: [ {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsla(35, 100%, 50%, 1)",
+      "circle-stroke-color": "hsla(35, 100%, 50%, 1)",
+      "circle-stroke-width": 1,
+      "circle-radius": 3
+    }
+  }],
   [STUDIES]: [ {
     type: 'fill',
     'source-layer': 'pluto15v1',
