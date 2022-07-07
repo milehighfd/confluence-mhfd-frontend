@@ -1606,6 +1606,9 @@
 }
 .card-map{
   padding: 8px 8px 0px 8px;
+  .infinite-scroll-component__outerdiv {
+    width: 100%;
+  }
   .card-title-s{
     height: 40px;
   }
