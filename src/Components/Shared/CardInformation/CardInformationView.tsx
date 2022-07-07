@@ -129,6 +129,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
   };
 
   const setValuesMap = (type: string, value: string) => {
+    console.log('type ', type,  'value', value);
     setHighlighted({type: type, value: value});
   }
 
