@@ -14,7 +14,7 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]}>
           <Col xs={{ span: 12 }} lg={{ span: 13 }}>
-            <h1 style={{marginTop: '10px'}}>Documentation Changelog
+            <h1 style={{marginTop: '15px'}}>Documentation Changelog
             </h1>
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
@@ -22,8 +22,8 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', fontWeight: '500'}}>
-            <p style={{color: '#11093c'}}>v1.2 - July 7, 2022</p>
+          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.2 - July 7, 2022</p>
             <ul>
               <li>Library update MapboxGL v2</li>
               <li>Replace problem dataset and references</li>
@@ -32,7 +32,7 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               <li>New Mapbox Sky API showing atmospheric view in the 'Component' 3D view</li>
               <li>Update project status in the Work Request and Work Plan</li>
             </ul>
-            <p style={{color: '#11093c'}}>v1.1 - May 6, 2022</p>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.1 - May 6, 2022</p>
             <ul>
               <li>New Map Measurement, Notes and History functions for an improved user experience</li>
               <li>Bug fixes for pop-ups</li>
