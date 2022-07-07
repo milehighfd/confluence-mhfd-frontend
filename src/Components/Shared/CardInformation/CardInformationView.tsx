@@ -26,6 +26,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
   const [visible, setVisible] = useState(false);
   const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
   const { favorites } = useMapState();
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {
     const id = data.type === 'problems' ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
@@ -90,6 +91,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
           return;
         case 'popup-favorite':
           changeFavorite();
+          setDropdownIsOpen(false);
           return;
         default:
           break;
@@ -182,7 +184,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
          }
         >
 
-          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
+          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
           </Popover>
           <div className="card-title-s">
