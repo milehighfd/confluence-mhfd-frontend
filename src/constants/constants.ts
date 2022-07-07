@@ -880,6 +880,7 @@ export const MENU_OPTIONS =
   MEP_DETENTION_BASIN: 'MEP Detention Basin',
   MEP_CHANNEL: 'MEP Channel',
   MEP_STORM_OUTFALL: 'MEP Storm Outfall',
+  PROBLEM_PART: 'Problem Part',
   SERVICE_AREA: 'Service Area',
   CATCHMENTS: 'catchments',
   BASIN: 'basin',

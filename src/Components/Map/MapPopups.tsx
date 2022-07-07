@@ -226,6 +226,14 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
             {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
             {item.length ? <p><i>Length:</i>  {item.length}</p> : ''}
+            {item.problem_part_category ? <p><i>Problem Part Category:</i>  {item.problem_part_category}</p> : ''}
+            {item.problem_part_subcategory ? <p><i>Problem Part Subcategory:</i>  {item.problem_part_subcategory}</p> : ''}
+            {item.problem_part_name ? <p><i>Problem Part Name:</i>  {item.problem_part_name}</p> : ''}
+            {item.problem_part_description ? <p><i>Description: </i>  {item.problem_part_description}</p> : ''}
+            {item.source_name ? <p><i>Source Name:</i>  {item.source_name}</p> : ''}
+            {item.source_complete_year ? <p><i>Source Completion Year:</i>  {item.source_complete_year}</p> : ''}
+            {item.stream_name ? <p><i>Stream Name:</i>  {item.stream_name}</p> : ''}
+            {item.local_government ? <p><i>Local Government:</i>  {item.local_government}</p> : ''}
 
             {item.hydgrpdcd ? <p><i>Hydrologic Group:</i> {item.hydgrpdcd}</p> : ''}
             {item.muname ? <p><i>Mapunit Name:</i> {item.muname}</p> : ''}
