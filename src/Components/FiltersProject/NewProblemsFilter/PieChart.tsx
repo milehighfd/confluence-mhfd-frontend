@@ -69,7 +69,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${width + 50} ${height}`)
+      .attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
       .append("g")
       .attr("transform", "translate(" + width / 1.9 + "," + height / 3 + ")");
     
@@ -154,7 +154,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     //   .on('click', clickFn)
 
     // texts.exit().remove()
-
+    var separationJump = 80;
     var fontSize = 8.5;
     var legendsText = svg
       .selectAll('slices')
@@ -167,7 +167,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) {  return d.data.key == 'Human Connection'? 'Community Values':d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 70) - 36;
+        let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 32;
         return `translate(${xo},${yo})`;
       })
@@ -176,7 +176,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsText
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 70) - 36;
+        let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 32;
         return `translate(${xo},${yo})`;
       })
@@ -193,7 +193,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) {  return d.data.counter + ' ' + labelValues })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 70) - 36;
+        let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 45;
         return `translate(${xo},${yo})`;
       })
@@ -202,7 +202,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsCounterText
       .text(function (d: any) { return d.data.key })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * 70) - 36;
+        let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 45;
         return `translate(${xo},${yo})`;
       })
@@ -222,7 +222,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       })
       .attr("r", 5)
       .attr("cx", (d: any, i) => {
-        return -radius + (i * 70) - 45
+        return -radius + (i * separationJump) - 50
       })
       .attr("cy", (d: any, i) => {
         return radius + 29.5

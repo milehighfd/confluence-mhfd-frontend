@@ -64,7 +64,7 @@
   }
   .ant-menu-dark.ant-menu-horizontal {
     float: right;
-    width: 15vw;
+    width: 16vw;
     margin-right: -20px !important;
   }
   .ant-menu-dark.ant-menu-horizontal>.ant-menu-item:hover {
@@ -418,5 +418,12 @@
 @media (max-width: 575.98px) {
   .header{
     display: none;
+  }
+}
+@media (min-width: 2200px) and (max-width: 2999px){
+  .header{
+    .ant-menu-dark.ant-menu-horizontal {
+      width: 10vw;
+    }
   }
 }

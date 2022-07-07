@@ -325,6 +325,23 @@ body{
     display: none;
   }
 }
+.detailed-version {
+  width: 800px !important;
+
+  /* Default close button */
+  .ant-modal-close {
+    display: none;
+  }
+  /* Body of the Modal */
+  .ant-modal-body {
+    padding: 0;
+    // height: 800px;
+  }
+  /* Moldal's Footer */
+  .ant-modal-footer {
+    display: none;
+  }
+}
 // END DETAILED MODAL
 
 // ALERTS AND MODALS

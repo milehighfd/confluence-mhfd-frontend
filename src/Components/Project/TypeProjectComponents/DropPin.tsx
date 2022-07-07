@@ -80,7 +80,12 @@ export const DropPin = ({typeProject, geom, setGeom}:
   },[]);
   return(
     <>
-    <h5>2. Drop Pin <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" /></Button> {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''} </h5>
+    <h5>
+      2. Drop Pin
+      <span className="requiered">&nbsp;*</span>
+      <Button className="btn-transparent"><img src="/Icons/icon-10.svg" alt="" height="15px" style={{marginBottom: '3px'}}/></Button>
+      {typeProject == 'Special'? <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover>:''}
+    </h5>
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} xxl={{ span: 12 }}>
         <Table dataSource={dataSource} columns={columns} bordered />

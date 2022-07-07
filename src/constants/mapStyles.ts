@@ -4298,27 +4298,27 @@ export const tileStyles = {
       "line-join": "round"
     },
     "paint": {
-        "line-color": [
-            "step",
-            ["zoom"],
-            "hsla(0, 100%, 52%, 0.65)",
-            7,
-            "hsla(0, 100%, 52%,0.72)",
-            11,
-            "hsla(0, 100%, 52%,0.85)",
-            13,
-            "hsla(0, 100%, 52%,0.95)",
-            22,
-            "hsla(0, 100%, 52%, 0.39)"
+      "line-color": [
+          "step",
+          ["zoom"],
+          "hsla(0, 100%, 52%, 0.65)",
+          7,
+          "hsla(0, 100%, 52%,0.72)",
+          11,
+          "hsla(0, 100%, 52%,0.85)",
+          13,
+          "hsla(0, 100%, 52%,0.95)",
+          22,
+          "hsla(0, 100%, 52%, 0.39)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9, 10,
+          16, 22,
         ],
-        "line-width": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            9, 10,
-            16, 22,
-          ],
-        "line-opacity": 0.76
+      "line-opacity": 0.76
     }
   }], 
   [STUDIES]: [ {

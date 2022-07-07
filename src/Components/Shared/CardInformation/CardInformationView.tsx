@@ -26,6 +26,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
   const [visible, setVisible] = useState(false);
   const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
   const { favorites } = useMapState();
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {
     const id = data.type === MENU_OPTIONS.PROBLEMS ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
@@ -62,6 +63,10 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     setZoomProjectOrProblem(data.coordinates);
   }
 
+  const changeFavorite = () => {
+    addFavorite(user.email, (data.id || data.problemid), data.type);
+  }
+
   useEffect(() => {
     const bcbbox = bboxComponents.bbox;
     if (bcbbox.length && bcbbox[0] != null) {
@@ -84,6 +89,10 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
         case 'popup-zoom':
           changeCenter();
           return;
+        case 'popup-favorite':
+          changeFavorite();
+          setDropdownIsOpen(false);
+          return;
         default:
           break;
       }
@@ -91,7 +100,8 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     let menuPopupItem: MenuProps['items'] = [
       {
         key: 'popup-title',
-        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)' }}>
+        style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)'},
+        label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)' }}>
           LIST ACTIONS
         </label>
       },
@@ -105,7 +115,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
       },
       {
         key: 'popup-favorite',
-        label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Favorite Card</span>
+        label: <span className="menu-item-text" /* style={{ cursor: 'auto', opacity: 0.5 }} */>Favorite Card</span>
       },
       {
         key: 'popup-comment',
@@ -121,7 +131,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     }
     return <Menu
       className="menu-dropdown-map"
-      style={{ backgroundColor: 'white', border: 0 }}
+      style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
       items={menuPopupItem}
       onClick={onClickPopupCard}
     >
@@ -175,7 +185,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
          }
         >
 
-          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click">
+          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
           </Popover>
           <div className="card-title-s">

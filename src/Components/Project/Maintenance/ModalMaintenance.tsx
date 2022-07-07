@@ -369,7 +369,11 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
               }
 
               <br />
-              <h5>2. Draw Activity </h5>
+              <h5>
+                2. Draw Activity
+                <span className="requiered">&nbsp;*&nbsp;</span>
+                <img src="/Icons/icon-08.svg" />
+              </h5>
               <div className={"draw " + (isDraw ? 'active' : '')} onClick={onClickDraw}>
                 <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
                 <p>Click on the icon and draw a polygon to draw the activity area</p>

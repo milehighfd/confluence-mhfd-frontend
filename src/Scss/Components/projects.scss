@@ -104,12 +104,23 @@
       font-size: 13px;
       text-transform: uppercase;
       color: $purple00;
+      .requiered {
+        color: #df3232;
+      }
 
       img{
         margin-top: -3px;
       }
       .btn-transparent{
         padding: 0px 5px;
+      }
+    }
+    .requiered-text {
+      text-align: end;
+      font-size: 12px;
+      color: #000;
+      .requiered {
+        color: #df3232;
       }
     }
     .sub-title{
@@ -617,6 +628,17 @@
       height: calc(100vh - 275px);
       h5{
         font-size: 18px;
+        .requiered {
+          color: #df3232;
+        }
+      }
+      .requiered-text {
+        text-align: end;
+        font-size: 12px;
+        color: #000;
+        .requiered {
+          color: #df3232;
+        }
       }
       .sub-title {
         font-size: 13px !important;

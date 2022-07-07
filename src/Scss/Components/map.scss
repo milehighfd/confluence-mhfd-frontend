@@ -191,7 +191,7 @@
     margin-right: 7.5px;
     height: 30px;
     color: #404040;
-    padding: 6px 36px 0px 26px;
+    padding: 6px 6px 0px 26px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -1606,6 +1606,9 @@
 }
 .card-map{
   padding: 8px 8px 0px 8px;
+  .infinite-scroll-component__outerdiv {
+    width: 100%;
+  }
   .card-title-s{
     height: 40px;
   }
@@ -1688,11 +1691,11 @@
 }
 .menu-dropdown-map {
   margin-top: -10px;
-  border-radius: 0px !important;
-  padding: 6px 0px !important;
+  border-radius: 0px;
+  padding: 6px 0px;
 }
 .ant-popover-placement-bottomLeft .ant-popover-arrow {
-  margin-top: -10px !important;
+  // margin-top: -10px !important;
   left: 12px;
 }
 .card-button-hover{

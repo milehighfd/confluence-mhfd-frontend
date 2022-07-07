@@ -23,6 +23,9 @@
     border-bottom: 4px solid $green !important;
   }
 }
+.hover-version:hover {
+  color: $green;
+}
 .anticon.anticon-loading{
   display: none;
 }

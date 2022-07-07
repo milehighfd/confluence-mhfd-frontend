@@ -16,6 +16,7 @@ export const MAP_DROPDOWN_ITEMS = [
     type: 'Light Road',
     style: 'mapbox://styles/milehighfd/ck4k0tjln58h41cl4ixb8jsez'
   }, {
+    // THIS ONE IS THE BASEMAP OFFICIAL
     type: 'Optional style',
     style: `mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw`,
   }, {
