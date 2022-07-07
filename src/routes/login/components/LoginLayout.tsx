@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, Row, Col } from 'antd';
 import CarouselAutoPlayView from '../../../Components/Shared/CarouselAutoPlay/CarouselAutoPlayView';
 import LoginForm from './LoginForm';
@@ -6,6 +6,7 @@ import VersionNumber from './VersionNumber';
 import ContinueAsGuest from './ContinueAsGuest';
 
 const LoginLayout = () => {
+  const [visible, setVisible] = useState(false);
   return (
     <Layout style={{ background: '#fff' }}>
       <Row>
@@ -15,7 +16,8 @@ const LoginLayout = () => {
             <ContinueAsGuest />
             <LoginForm />
           </div>
-          <VersionNumber />
+          <span className='hover-version' style={{ position: 'absolute', bottom: '5px', marginLeft: '10px' }} onClick={() => (setVisible(true))}>Release Notes</span>
+          {visible && <VersionNumber visible={visible} setVisible={setVisible}/> }
         </Col>
       </Row>
     </Layout>
