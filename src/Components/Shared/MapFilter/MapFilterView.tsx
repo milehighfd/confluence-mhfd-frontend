@@ -47,6 +47,7 @@ const contentPopOver = (text: string) => {
   return <div className="popoveer-00"><i>{text}</i></div>
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default ({
   selectCheckboxes,
   setVisibleDropdown,
@@ -338,9 +339,9 @@ export default ({
         selectCheckboxes(items);
         removePopup();
       }}>
-        <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQxJt0">
+        <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQvgvvxJt0">
           { 
-          <Panel header="" key="6" extra={genExtra07(locationType)}>
+          <Panel header="" key="6asdffds" extra={genExtra07(locationType)}>
             <p>
               <img key="jk9N6L5cdFnD" src="/Icons/Filters/ic_borders.png" width="18px" alt="" />
                   Borders
@@ -374,7 +375,7 @@ export default ({
                   <Popover key="uibfUYSsd7" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
                 <img key="778POIAOSDaasse" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key="COCh15" checked={switches[FLOOD_HAZARDS.name]} size="small" onClick={(value) => onChange(value, FLOOD_HAZARDS.name)} />
+              <Switch key="COCh15" checked={switches[FLOOD_HAZARDS.name]} size="small" onClick={(value) => onChange(value, FLOOD_HAZARDS)} />
             </p>
 
             <p>
