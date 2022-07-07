@@ -888,6 +888,7 @@ export const MENU_OPTIONS =
   PROJECT: 'Project',
   PROJECTS: 'projects',
   PROBLEMS: 'problems',
+  PROBLEMS_BOUNDARY: 'problem_boundary',
   MHFD_STREAMS_REACHES: MHFD_STREAMS_FILTERS,
   COUNTIES: 'County',
   MUNICIPALITIES: 'Municipality',

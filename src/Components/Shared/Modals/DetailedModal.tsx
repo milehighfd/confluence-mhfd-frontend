@@ -77,7 +77,9 @@ const DetailedModal = ({
     message.success('Copied to Clipboard!');
   }
   const detailedPage = detailed as any;
-
+  useEffect(() => {
+    console.log('detailed checked', detailed);
+  }, [detailed]);
   const downloadPdf = async () => {
     if (loading) {
       return;

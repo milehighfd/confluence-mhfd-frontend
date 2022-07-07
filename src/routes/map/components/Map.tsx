@@ -165,6 +165,9 @@ const Map = ({
   } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
+    useEffect(()=>{ 
+      console.log('DETAILEDDETAILEDDETAILEDDETAILEDDETAILEDDETAILEDDETAILED', detailed);
+    }, [detailed]);
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
@@ -2101,17 +2104,18 @@ const Map = ({
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  if (feature.source === MENU_OPTIONS.PROBLEMS) {
+                  if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
+                    console.log('feature', feature.properties);
                       const item = {
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,
-                          title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
-                          name: feature.properties.problemname ? feature.properties.problemname : '-',
-                          organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                          value: feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
-                          status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
-                          priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
-                          problemid: feature.properties.problemid,
+                          title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
+                          name: feature.properties.problem_name ? feature.properties.problem_name : '-',
+                          organization: feature.properties.local_government ? feature.properties.local_government : '-',
+                          value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
+                          status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
+                          priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
+                          problemid: feature.properties.problem_id,
                           component_count: feature.properties.component_count ?? 0,
                           popupId: 'popup',
                           image: `gallery/${feature.properties.problemtype}.jpg`,
