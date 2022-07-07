@@ -2057,6 +2057,7 @@ const Map = ({
                   return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
               });
               for (const feature of features) {
+                  console.log(feature.source);
                   if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
                       continue;
                   }
@@ -2239,6 +2240,26 @@ const Map = ({
                       });
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+                  }
+                  if (feature.source.includes('flood_hazard')) {
+                    const item = {
+                      layer: MENU_OPTIONS.PROBLEM_PART,
+                      feature: feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
+                        (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'),
+                      problem_part_category: feature.properties.problem_part_category ? feature.properties.problem_part_category : '-',
+                      problem_part_subcategory: feature.properties.problem_part_subcategory ? feature.properties.problem_part_subcategory : '-',
+                      problem_part_name: feature.properties.problem_part_name ? feature.properties.problem_part_name : '-',
+                      source_complete_year: feature.properties.source_complete_year ? feature.properties.source_complete_year : '0',
+                      stream_name: feature.properties.stream_name ? feature.properties.stream_name : '-',
+                      local_government: feature.properties.local_government ? feature.properties.local_government : '-'
+
+                    };
+                    mobile.push({
+                      layer: item.layer
+                    });
+                    menuOptions.push(MENU_OPTIONS.PROBLEM_PART);
+                    popups.push(item);
+                    ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   if (feature.source === 'watershed_service_areas') {
                       const item = {
