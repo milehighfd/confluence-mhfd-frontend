@@ -59,7 +59,7 @@ export const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
 export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, title?: any) => ReactDOMServer.renderToStaticMarkup(
   <>
     {
-      menuOptions.length === -1 ?
+      menuOptions[0] === MENU_OPTIONS.MEASURES ?
         <> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ?
           (menuOptions[0] == 'Stream' ?
             loadStreamPopup(0, popups[0]) :
