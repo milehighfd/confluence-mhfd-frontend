@@ -33,6 +33,8 @@ const LoginView = () => {
     resetProfile
   } = useAppUserDispatch();
   const { resetMap } = useMapDispatch();
+  const [emailOnBlur, setEmailOnBlur] = useState(false);
+  const [passwordOnBlur, setPasswordOnBlur] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({ message: '', color: '#28C499' });
   const { getGroupOrganization } = useProfileDispatch();
@@ -77,20 +79,22 @@ const LoginView = () => {
   if (redirect) {
     return <Redirect to="/map" />
   }
-
   return (
     <Form className="login-form" onFinish={handleSubmit}>
-      <img src="/Icons/Confluence-Color-Tagline.svg" alt="" width="248px" />
+      <h1 style={{paddingBottom: '10%'}}>Welcome to MHFD's
+      Confluence</h1>
       <div style={{ marginTop: '20px' }}>
         <div className="group">
-          <input placeholder="Email Address" type="email" name="email" onChange={handleChange}
-            style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+          {(emailOnBlur || values.email.length > 0) && <label style={{color: '#88849d'}}>Email Address</label>}
+          <input placeholder="Email Address" type="email" name="email" onChange={handleChange} onBlur={() => (setEmailOnBlur(false))} onClick={() => (setEmailOnBlur(true))}
+            style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px'} : {}} />
           <span className="highlight"></span>
           <span className="bar"></span>
         </div>
         <div className="group">
-          <input placeholder="Enter Password" type="password" name="password" onChange={handleChange}
-            style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+          {(passwordOnBlur || values.password.length > 0 )&& <label style={{color: '#88849d'}}>Enter Password</label>}
+          <input placeholder="Enter Password" type="password" name="password" onChange={handleChange} onBlur={() => (setPasswordOnBlur(false))} onClick={() => (setPasswordOnBlur(true))}
+            style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px' } : { }} />
           <span className="highlight"></span>
           <span className="bar"></span>
         </div>

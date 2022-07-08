@@ -11,7 +11,7 @@
 .login-step01 {
   transform: translate(-50%,-50%);
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
 
   .btn-purple {
@@ -49,8 +49,20 @@
   z-index: 3;
   color: white;
   bottom: 0;
-  margin: 0 0 50px 60px;
+  margin: 0 0 50px 80px;
   font-size: 25px;
+}
+.contact02 {
+  position: fixed;
+  z-index: 3;
+  color: white;
+  bottom: 0;
+  top: 70px;
+  right: 80px;
+  font-size: 25px;
+}
+.contact02:hover {
+  color: $green;
 }
 .icons-list{
   a {
@@ -324,6 +336,13 @@
 // END login-labels
 
 // carousel
+.ant-carousel {
+  padding: 20px;
+  background-color: #fff;
+}
+.ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
+  border-radius: 20px;
+}
 .ant-carousel .slick-slide {
   text-align: center;
   overflow: hidden;
@@ -366,7 +385,7 @@
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
-  height: 80vh;
+  height: 75vh;
   font-size: 1.2rem;
   font-weight: 400;
   margin-left: 58px;
@@ -380,7 +399,7 @@
   float: left;
   background-repeat: no-repeat;
   background-size: cover;
-  margin: 50px 0 0 50px;
+  margin: 70px 0 0 80px;
   position: absolute;
   z-index: 5;
   color: white;
@@ -674,7 +693,7 @@
 
 @media (min-width: 1900px) and (max-width: 2499px){
   .ant-carousel .slick-slide .textContent {
-    height: 85vh;
+    height: 80vh;
   }
   .logo-partner{
     bottom: 30px;

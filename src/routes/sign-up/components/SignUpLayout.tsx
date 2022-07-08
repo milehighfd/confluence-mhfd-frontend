@@ -7,12 +7,12 @@ const SignUpLayout = () => {
   return (
     <Layout style={{ background: '#fff' }}>
       <Row>
-        <CarouselAutoPlayView />
         <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
           <div className="login-step01" id="login-form">
             <SignUpForm />
           </div>
         </Col>
+        <CarouselAutoPlayView />
       </Row>
     </Layout>
   )

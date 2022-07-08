@@ -1,21 +1,53 @@
-import React, { useEffect } from "react";
-import { Col, Carousel, Anchor } from "antd";
+import React, { useEffect, useState } from "react";
+import { Col, Carousel, Anchor, Button } from "antd";
 import { SERVER } from "../../../Config/Server.config";
+import { ArrowRightOutlined } from '@ant-design/icons';
 import { useCarouselImagesDispatch, useCarouselImagesState } from "../../../hook/carouselHook";
+import ContinueAsGuest from "../../../routes/login/components/ContinueAsGuest";
+import * as datasets from "../../../Config/datasets";
+import { useAppUserDispatch } from "../../../hook/useAppUser";
+import { Redirect } from "react-router-dom";
 
 export default () => {
   const { getCarouselImages } = useCarouselImagesDispatch();
   const { images } = useCarouselImagesState();
+  const {
+    replaceAppUser,
+    saveUserInformation
+  } = useAppUserDispatch();
+  const [redirect, setRedirect] = useState(false);
   const { Link } = Anchor;
+  const redirectGuest = () => {
+    datasets.getData(SERVER.GUEST).then(async res => {
+      if (res?.token) {
+        localStorage.setItem('mfx-token', res.token);
+        await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+          replaceAppUser(result);
+          saveUserInformation(result)
+        });
+        setRedirect(true);
+      }
+    })
+  };
   useEffect(() => {
     getCarouselImages();
   }, []);
+  if (redirect) {
+    return <Redirect to="/map" />
+  }
   return <Col xs={{ span: 24 }} lg={{ span: 13 }}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"
         style={{ backgroundImage: 'url(/Icons/logo-white.svg)' }}>
+        <p style={{width: '200px', top: '50px'}}>Protecting People, Property,</p>
+        <p style={{width: '200px', top: '40px'}}>and our Environment.</p>
       </div>
     </a>
+    <div className="contact02">
+    <Button onClick={() => redirectGuest()} style={{background: 'transparent', borderColor: 'transparent', color: 'white', fontSize: '15px'}}>
+      <label className="text-l">Continue as Guest</label> <ArrowRightOutlined/>
+    </Button>
+    </div>
     <div className="contact01">
       <div className="icons-list">
         <a href="https://twitter.com/MHFloodDistrict" target="_blank"><img className="anticon" src="/Icons/twitter.svg" alt="" height="14px" /></a>
@@ -26,7 +58,7 @@ export default () => {
         <ul>
           <li><a href="https://mhfd.org/contact-us/" target="_blank">Contact</a></li>
           <span>|</span>
-          <li><a href="/login" >©2020 Mile High Flood District</a></li>
+          <li><a href="/login" >©2022 Mile High Flood District</a></li>
           <span>|</span>
           <li><a href="https://mhfd.org/wp-content/uploads/2019/12/CORA_Policy_Website.pdf" target="_blank">Privacy Policy</a></li>
         </ul>
