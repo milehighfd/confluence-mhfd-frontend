@@ -541,7 +541,7 @@ export default forwardRef(({
 
       <Panel header="Map" key="4" extra={genExtra('4')}>
         <div className="map map-modal">
-          <div id="map2" style={{ height: '100%', width: '100%' }} >
+          <div id="map2" style={{ height: '100%', width: '100%' }} className="mapborderradius">
             <div></div>
           </div>
         </div>

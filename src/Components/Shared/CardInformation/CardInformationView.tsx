@@ -142,7 +142,6 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
     console.log('type ', type,  'value', value);
     setHighlighted({type: type, value: value});
   }
-
   return (
     <>
       {visible && <DetailedModal
@@ -170,6 +169,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
                   <Button>See Details</Button>
                 </div>
              </div>
+
              {user.designation !== 'guest' ? <div className="like-btn">
                <Button onClick={(event) => {
                   event.stopPropagation();

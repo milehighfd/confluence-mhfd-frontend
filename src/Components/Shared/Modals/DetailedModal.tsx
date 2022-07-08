@@ -131,6 +131,9 @@ const DetailedModal = ({
     })
   }
 
+  useEffect(() => {
+    console.log('detailedPage', detailedPage);
+  }, [detailedPage]);
   return (
     <>
       <Modal
@@ -205,17 +208,17 @@ const DetailedModal = ({
             <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
                   {detailedPage.problemid ? (
-                    <div className="detailed-c"> <img width="100%" src={"gallery/" + detailedPage.problemtype + ".jpg"} /> </div>
+                    <div className="detailed-c"> <img  src={"detailed/" + detailedPage.problemtype + ".png"} /> </div>
                   ) : (
                       detailedPage.attachments.length == 0 ? (
-                        <div className="detailed-c"> <img width="100%" src={detailedPage.projecttype === 'Capital' ? 'projectImages/capital.jpg' :
+                        <div className="detailed-c"> <img  src={detailedPage.projecttype === 'Capital' ? 'detailed/capital.png' :
                             detailedPage.projecttype === 'Study' ? 'projectImages/study.jpg' :
                               detailedPage.projecttype === 'Maintenance' ?
-                                (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'projectImages/vegetation_management.jpg' :
-                                  detailedPage.projectsubtype === 'Sediment Removal' ? 'projectImages/sediment_removal.jpg' :
-                                    detailedPage.projectsubtype === 'Restoration' ? 'projectImages/restoration.jpg' :
-                                      detailedPage.projectsubtype === 'Minor Repairs' ? 'projectImages/minor_repairs.jpg' :
-                                        'projectImages/debris_management.jpg') : 'Icons/eje.png'
+                                (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'detailed/vegetation-management.png' :
+                                  detailedPage.projectsubtype === 'Sediment Removal' ? 'detailed/sediment-removal.png' :
+                                    detailedPage.projectsubtype === 'Restoration' ? 'detailed/restoration.png' :
+                                      detailedPage.projectsubtype === 'Minor Repairs' ? 'detailed/minor-repairs.png' :
+                                        'detailed/debris-management.png') : 'Icons/eje.png'
                         } /> </div>
                       ) : (
                         detailedPage.attachments.map((image: string, index: number) => {

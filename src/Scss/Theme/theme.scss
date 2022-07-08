@@ -19,6 +19,9 @@ body{
  -ms-user-select: none;
  user-select: none;
 }
+.mapborderradius {
+  border-radius: 20px !important;
+}
 .ant-timeline-item-head-green {
   color: $green !important;
   border-color: $green !important;
@@ -1013,26 +1016,26 @@ body{
 .detailed-b{
   .ant-carousel .slick-slide {
     text-align: center;
-    height: 450px;
+    // height: 450px;
     overflow: hidden;
   }
   .ant-carousel .slick-slide img{
-    width: auto;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
     display: inherit !important;
   }
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
-  .ant-carousel{
-    height: 450px;
-  }
+  // .ant-carousel{
+  //   height: 450px;
+  // }
   .chat-r{
     padding: 20px 25px;
   }
 }
 .detailed-c{
-  height: 450px;
+  // height: 450px;
   // background-image: url('../../Icons/bg-00.png');
   background-size: cover;
    img{
@@ -1304,3 +1307,4 @@ body{
 .dropdown-container-filter {
   display: flex;
 }
+

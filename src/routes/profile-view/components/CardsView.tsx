@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Card, Button } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';
@@ -55,13 +55,13 @@ const CardsView = ({
           <div>
           {data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
             data.attachments ? <img alt="example" src={data.attachments} /> : 
-                data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.jpg" /> :
-                    data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.jpg" /> :
+                data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.png" /> :
+                    data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.png" /> :
                         data.projecttype === 'Maintenance' ?
-                            (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/vegetation_management.jpg" /> :
-                                data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment_removal.jpg" /> :
-                                    data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.jpg" /> :
-                                        data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor_repairs.jpg" /> :
+                            (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/vegetation-management.png" /> :
+                                data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment-removal.png" /> :
+                                    data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.png" /> :
+                                        data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor-repairs.png" /> :
                                             <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />}
             <div>
               <div className="like-btn">
