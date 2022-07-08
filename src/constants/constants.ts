@@ -32,6 +32,47 @@ export const MAP_DROPDOWN_ITEMS = [
 ];
 
 export const PROBLEMS_TRIGGER = 'problem_boundary';
+export const PROPSPROBLEMTABLES = {
+  problems: [
+    'solutioncost',  //0
+    'solutionstatus',  //1
+    'jurisdiction',   //2
+    'mhfdmanager',   //3
+    'problemdescription',   //4
+    'problemid',    //5
+    'problemname',    //6
+    'problempriority',    //7
+    'problemtype',    //8
+    'servicearea',    //9
+    'shape_area',    //10
+    'shape_length',  //11
+    'sourcedate',    //12
+    'sourcename',    //13
+    'source',       //14
+    'streamname',   //15
+    'component_cost'   //16
+  ], 
+  problem_boundary: [
+    'estimated_cost',  //0
+    'component_status',  //1
+    'local_government',  //2
+    'mhfd_manager',  //3
+    'problem_description',  //4
+    'problem_id',  //5
+    'problem_name',  //6
+    'problem_severity',  //7
+    'problem_type',  //8
+    'service_area',  //9
+    'shape_starea',  //10
+    'shape_stlength',  //11
+    'source_complete_year',  //12
+    'source_name',  //13
+    'source_type',  //14
+    'stream_name',  //15
+    'component_cost',  //16
+    'estimated_cost'  //17
+  ]
+}
 export const PROJECTS_TRIGGER = 'projects';
 export const PROJECTS_MODAL = 'Projects';
 export const PROBLEMS_MODAL = 'Problems';

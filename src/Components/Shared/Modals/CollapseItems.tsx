@@ -165,7 +165,6 @@ export default forwardRef(({
     if(map) {
       let i = 0;
       const styles = {...tileStyles as any};
-      console.log('TIPES', type, detailedPage);
       for (const key in layers.components) {
           map.addVectorSource(key, layers.components[key]);
           i = 0;

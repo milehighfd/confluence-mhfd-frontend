@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Select, Button, Popover } from 'antd';
 import PieChart from './PieChart';
 import RheoStat from './RheoStat';
@@ -8,6 +8,7 @@ import HorizontalBarChart from './HorizontalBarChart';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { CheckBoxFilters } from '../CheckboxFilters';
 import { DropdownFilters } from '../DropdownFilters';
+import { PROPSPROBLEMTABLES } from '../../../constants/constants';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -34,6 +35,7 @@ export const NewProblemsFilter = () => {
 
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
+        console.log('values', values, 'filterproblemsopt', filterProblemOptions);
         if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field
     || 'mhfdmanager' === field) {
             let newValue = '';
@@ -45,10 +47,14 @@ export const NewProblemsFilter = () => {
         } else {
             options[field] = values;
         }
+        console.log('options filters', options);
         setFilterProblemOptions(options);
         getGalleryProblems();
         getParamFilterProblems(boundsMap, options);
     }
+    useEffect(() => {
+      console.log('param Problems', paramProblems);
+    }, [paramProblems]);
     const reset = () => {
         const options = { ...filterProblemOptions };
         options.components = '';
@@ -76,7 +82,6 @@ export const NewProblemsFilter = () => {
         });
 
     const axisLabel = 'Number of Problems';
-
     if (paramProblems.problemtype) {
         paramProblems.problemtype.sort((a: any, b: any) => {
             if (a.value === 'Human Connection') {
@@ -96,7 +101,7 @@ export const NewProblemsFilter = () => {
                     <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.servicearea &&
-                        <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'project'}
+                        <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'problem'}
                             selected={filterProblemOptions.servicearea} defaultValue={''}
                             onSelect={(e: string) => apply(e, 'servicearea')} />
                     }

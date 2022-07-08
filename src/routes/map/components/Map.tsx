@@ -23,7 +23,8 @@ import {
     EFFECTIVE_REACHES,
     MENU_OPTIONS,
     SERVICE_AREA_FILTERS,
-    STREAMS_POINT
+    STREAMS_POINT,
+    PROPSPROBLEMTABLES
 } from "../../../constants/constants";
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
@@ -1228,6 +1229,13 @@ const Map = ({
         }
     }
 
+    const searchEquivalentinProblemBoundary = (key: string) => {
+      if ( PROPSPROBLEMTABLES.problems.includes(key)) {
+        const index = PROPSPROBLEMTABLES.problems.indexOf(key);
+        return PROPSPROBLEMTABLES.problem_boundary[index];
+      }
+      return key;
+    }
     const applyFilters = (key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -1267,7 +1275,7 @@ const Map = ({
                         continue;
                     }
                     if (filterField === 'components') {
-                        allFilters.push(['in', ['get', 'problemid'], ['literal', [...filters]]]);
+                        allFilters.push(['in', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[5] : PROPSPROBLEMTABLES.problems[5])], ['literal', [...filters]]]);
                         continue;
                     }
                     if (filterField === 'problemtypeProjects') {
@@ -1280,8 +1288,8 @@ const Map = ({
                     if (filterField === 'estimatedcost') {
                         for (const range of filters) {
                             const [lower, upper] = range.split(',');
-                            const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-                            const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+                            const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +lower];
+                            const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +upper];
                             const allFilter = ['all', lowerArray, upperArray];
                             options.push(allFilter);
                         }
@@ -1316,7 +1324,7 @@ const Map = ({
                         if(filterValue[filters.length - 1] == ' ') {
                           filterValue = filters.substring(0,filters.length - 1);
                         }
-                        allFilters.push(['==', ['get', filterField], filterValue]);
+                        allFilters.push(['==', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[9] : filterField)], filterValue]);
                         continue;
                     }
                     if(filterField === 'county' ){
@@ -1333,8 +1341,8 @@ const Map = ({
                     if (typeof filters === 'object') {
                         for (const range of filters) {
                             const [lower, upper] = range.split(',');
-                            const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-                            const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+                            const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
+                            const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
                             const allFilter = ['all', lowerArray, upperArray];
                             options.push(allFilter);
                         }
@@ -1343,16 +1351,16 @@ const Map = ({
                             if (isNaN(+filter)) {
                                 if(filterField == 'projecttype') {
                                   if(JSON.stringify(style.filter).includes(filter)) {
-                                    options.push(['==', ['get', filterField], filter]);
+                                    options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
                                   }
                                 } else {
-                                  options.push(['==', ['get', filterField], filter]);
+                                  options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
                                 }
                                 
                                   
                                 
                             } else {
-                                const equalFilter: any[] = ['==', ['to-number', ['get', filterField]], +filter];
+                                const equalFilter: any[] = ['==', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +filter];
                                 options.push(equalFilter);
                             }
                         }
@@ -3154,7 +3162,7 @@ const Map = ({
                 </AutoComplete>
             </div>
             <div className="measure-button">
-              {!measuringState && <Button style={{ borderRadius: '4px' }} onMouseEnter={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
+              {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
               {measuringState && 
               <div className='measurecontainer'> 
                 <div id={'measure-block'} className="measure-block" onMouseLeave={()=> setMeasuringState(false)}>

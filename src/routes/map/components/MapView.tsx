@@ -880,7 +880,7 @@ const MapView = () => {
                   field4: 'X',
                   field5: 'Components',
                   priority: problem.problempriority,
-                  percentage: problem.solutionstatus,
+                  percentage: problem.solutionstatus ? problem.solutionstatus : 0,
                   problemid: problem.problemid,
                   type: problem.type,
                   value: problem.cartodb_id,
