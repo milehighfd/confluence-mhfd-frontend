@@ -128,7 +128,7 @@ export const NewProjectsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects.status &&
-                    <CheckBoxFilters defaultValue={''}
+                    <CheckBoxFilters defaultValue={'Active'}
                         data={paramProjects.status.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
