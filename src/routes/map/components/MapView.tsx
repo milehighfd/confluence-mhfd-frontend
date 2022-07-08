@@ -870,7 +870,6 @@ const MapView = () => {
             let cardInformation: Array<Object> = [];
             if (value === FILTER_PROBLEMS_TRIGGER) {
               cardInformation = galleryProblems.map((problem: any) => {
-                console.log('problem ', problem, problem.problemtype);
                 return {
                   cartodb_id: problem.cartodb_id,
                   image: `gallery/${problem.problemtype}.png`,
