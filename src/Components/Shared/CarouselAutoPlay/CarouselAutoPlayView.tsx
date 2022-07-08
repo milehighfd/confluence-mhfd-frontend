@@ -35,7 +35,7 @@ export default () => {
   if (redirect) {
     return <Redirect to="/map" />
   }
-  return <Col xs={{ span: 24 }} lg={{ span: 13 }}>
+  return <Col xs={{ span: 24 }} lg={{ span: 13 }} style={{background: 'white'}}>
     <a href="https://mhfd.org/" target="_blank">
       <div className="logo-white"
         style={{ backgroundImage: 'url(/Icons/logo-white.svg)' }}>
