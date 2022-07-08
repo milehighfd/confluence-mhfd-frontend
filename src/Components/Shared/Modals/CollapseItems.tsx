@@ -20,7 +20,8 @@ export default forwardRef(({
   detailedPage,
   id,
   typeid,
-  updateModal
+  updateModal,
+  problemParts
 }: {
   type: string,
   data: any,
@@ -28,6 +29,7 @@ export default forwardRef(({
   id: string,
   typeid: string,
   updateModal: Function
+  problemParts?: any
 }, ref) => {
   const {
     loaderTableCompoents
@@ -38,6 +40,9 @@ export default forwardRef(({
   let sections = ['4'];
   if (detailedPage.problems && detailedPage.problems.length > 0) {
     sections.push('1');
+  }
+  if (problemParts) {
+    sections.push('33');
   }
   if (detailedPage.consultant || detailedPage.contractor) {
     sections.push('2');
@@ -426,7 +431,25 @@ export default forwardRef(({
     const problem = detailedPage.problems.filter((prob: any) => prob.problemname === problemname);
     updateModal(problem[0].problemid);
   }
-
+  const columnsProblemPart = [
+    {
+      title: 'Problem Type',
+      dataIndex: 'problem_type',
+      sorter: true,
+    },
+    {
+      title: 'Problem Part Category',
+      dataIndex: 'problem_part_category',
+      // render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
+      sorter: true
+    },
+    {
+      title: 'Problem Part Subcategory',
+      dataIndex: 'problem_part_subcategory',
+      // render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
+      sorter: true,
+    }
+  ];
   const columnProblems = [
     {
       title: 'Name',
@@ -479,6 +502,20 @@ export default forwardRef(({
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
               <p>{detailedPage.consultant ? detailedPage.consultant : 'N/A' }</p>
+            </Col>
+          </Row>
+        </div>
+      </Panel>}
+      {type === PROBLEMS_MODAL && <Panel header={'Problem Parts'} key="33" extra={genExtra('33')}>
+        <div className="scroll-mobile">
+          <Row className="table-up-modal">
+            <Col xs={{ span: 24 }} lg={{ span: 24 }}>
+              <Table loading={loaderTableCompoents} columns={columnsProblemPart} rowKey={(record: any) => record.type} dataSource={problemParts} pagination={false}
+                onChange={(pagination, filters, sort) => {
+                  const _sort: any = sort;
+                  console.log('_sort', _sort);
+                  // getComponentsByProblemId({id, typeid, sortby: _sort.columnKey, sorttype: (_sort.order === 'descend' ? 'desc': 'asc')});
+                }} />
             </Col>
           </Row>
         </div>

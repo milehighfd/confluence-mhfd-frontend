@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col, Button, Progress, Carousel, Modal, message, Tooltip } from 'antd';
-
+import * as datasets from "../../../Config/datasets";
 import { saveAs } from 'file-saver';
 
 import { FILTER_PROBLEMS_TRIGGER } from '../../../constants/constants';
@@ -41,11 +41,21 @@ const DetailedModal = ({
   const cipjRef = useRef(null);
   const [typeDetail, setTypeDetail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [problemPart, setProblemPart] = useState<any[]>([]);
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
+      datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + data.problemid, datasets.getToken()).then(data => {
+        const t: any[] = [];
+        data.data.forEach((element: any) => {
+          element.forEach((d: any, idnex: number) => {
+            t.push(d);
+          })
+        });
+        setProblemPart(t);
+      });
     } else {
       getDetailedPageProject(data.id || data.projectid, data.type);
       getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
@@ -53,6 +63,7 @@ const DetailedModal = ({
     }
   }, []);
 
+  
   const updateModal = (problemId: any) => {
     setTypeDetail(FILTER_PROBLEMS_TRIGGER);
     getDetailedPageProblem(problemId);
@@ -221,6 +232,7 @@ const DetailedModal = ({
                   <CollapseItems ref={ciprRef} type={typeDetail} data={componentsOfProblems}
                     id={data.problemid} typeid={'problemid'}
                     detailedPage={detailedPage} updateModal={updateModal}
+                    problemParts={problemPart}
                   />
                 ) : (
                   <CollapseItems ref={cipjRef} type={typeDetail} data={componentsOfProblems}
