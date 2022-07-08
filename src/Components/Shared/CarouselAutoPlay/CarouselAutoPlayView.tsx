@@ -44,7 +44,7 @@ export default () => {
       </div>
     </a>
     <div className="contact02">
-    <Button onClick={() => redirectGuest()} style={{background: 'transparent', borderColor: 'transparent', color: 'white', fontSize: '15px'}}>
+    <Button className="text-button" onClick={() => redirectGuest()}>
       <label className="text-l">Continue as Guest</label> <ArrowRightOutlined/>
     </Button>
     </div>

@@ -60,6 +60,12 @@
   top: 70px;
   right: 80px;
   font-size: 25px;
+  .text-button {
+    background: transparent;
+    border-color: transparent;
+    color: white;
+    font-size: 15px;
+  }
 }
 .contact02:hover {
   color: $green;
@@ -727,6 +733,14 @@
     }
     .respec{
       height: 90px;
+    }
+  }
+}
+
+@media (min-width: 0px) and (max-width: 700px){
+  .contact02 {
+    .text-button{
+      color: #11093c;
     }
   }
 }
