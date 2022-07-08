@@ -280,7 +280,8 @@ const Map = ({
           "paint": {
             'line-color': '#28c499',
             'line-width': 1,
-          }
+          },
+          "z-index": 10
         });
       } else if(id == 'area_based_mask' && !map.getLayer(id+"MASK")) {
         map.addLayer({
@@ -290,7 +291,8 @@ const Map = ({
           "paint": {
               "fill-color": "black",
               'fill-opacity': 0.8
-          }
+          },
+          "z-index": 10
         });
       }
       
@@ -1126,8 +1128,9 @@ const Map = ({
             topLabels();
             topServiceArea();
             topComponents();
-            if (map.getLayer('borderMASK')) {
-              map.moveLayer('servicearea');
+            console.log( 'selectedLayers',selectedLayers);
+            if (map.getLayer('area_based_maskMASK')) {
+              map.moveLayer('area_based_maskMASK');
             }
             // setTimeout(() => {
             //   topProblems();
@@ -1172,6 +1175,7 @@ const Map = ({
       const styles = { ...tileStyles as any };
         styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+          console.log('components are: ',SERVICE_AREA_FILTERS, index);
         })
     }
     const topEffectiveReaches = () => {
@@ -2839,6 +2843,7 @@ const Map = ({
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
+          console.log('this is the layer items: ', layer);
           if(layer === 'border' || layer === 'area_based_mask') {
             removeLayerMask(layer);
           } else {
