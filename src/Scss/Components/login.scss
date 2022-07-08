@@ -2,6 +2,21 @@
 @import "../Theme/styles.scss";
 
 // LOGIN
+.carrousel-mobile {
+  display: none;
+}
+.carrousel-desktop {
+  display: block;
+}
+.grecaptcha-badge {
+  width: 70px !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  left: 4px !important;
+  }
+ .grecaptcha-badge:hover {
+ width: 256px !important;
+ }
 .login-hh{
   height: 100vh;
   overflow-y: auto;
@@ -11,7 +26,7 @@
 .login-step01 {
   transform: translate(-50%,-50%);
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
 
   .btn-purple {
@@ -25,6 +40,14 @@
 }
 .hover-version:hover {
   color: $green;
+}
+.text-logo {
+  width: 200px;
+  top: 50px;
+}
+.text-logo02 {
+  width: 200px;
+  top: 40px;
 }
 .anticon.anticon-loading{
   display: none;
@@ -378,7 +401,7 @@
  }
 }
 .ant-carousel .slick-list {
-  height: 100vh;
+  height: 96vh;
 }
 .ant-carousel .slick-dots {
   display: flex !important;
@@ -719,6 +742,16 @@
 }
 
 @media (min-width: 2500px) and (max-width: 2999px){
+  .text-logo {
+    width: 400px;
+    font-size: 16px;
+    top: 90px !important;
+  }
+  .text-logo02 {
+    width: 400px;
+    font-size: 16px;
+    top: 80px !important;
+  }
   .logo-partner{
     bottom: 50px;
     right: 50px;
@@ -738,6 +771,12 @@
 }
 
 @media (min-width: 0px) and (max-width: 700px){
+  .carrousel-mobile {
+    display: block;
+  }
+  .carrousel-desktop {
+    display: none;
+  }
   .contact02 {
     .text-button{
       color: #11093c;
