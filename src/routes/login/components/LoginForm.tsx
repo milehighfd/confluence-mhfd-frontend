@@ -81,20 +81,19 @@ const LoginView = () => {
   }
   return (
     <Form className="login-form" onFinish={handleSubmit}>
-      <h1 style={{paddingBottom: '10%'}}>Welcome to MHFD's
-      Confluence</h1>
+      <img src="/Icons/Confluence-Color-Tagline.svg" alt="" width="248px" />
       <div style={{ marginTop: '20px' }}>
         <div className="group">
           {(emailOnBlur || values.email.length > 0) && <label style={{color: '#88849d'}}>Email Address</label>}
           <input placeholder="Email Address" type="email" name="email" onChange={handleChange} onBlur={() => (setEmailOnBlur(false))} onClick={() => (setEmailOnBlur(true))}
-            style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px'} : {}} />
+            style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px'} : {paddingLeft: '10px'}} />
           <span className="highlight"></span>
           <span className="bar"></span>
         </div>
         <div className="group">
           {(passwordOnBlur || values.password.length > 0 )&& <label style={{color: '#88849d'}}>Enter Password</label>}
           <input placeholder="Enter Password" type="password" name="password" onChange={handleChange} onBlur={() => (setPasswordOnBlur(false))} onClick={() => (setPasswordOnBlur(true))}
-            style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px' } : { }} />
+            style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px' } : {paddingLeft: '10px'}} />
           <span className="highlight"></span>
           <span className="bar"></span>
         </div>
