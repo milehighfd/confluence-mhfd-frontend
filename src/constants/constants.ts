@@ -362,6 +362,15 @@ export const CITIES = [
   "Wheat Ridge"
 ]
 
+
+export const YEAR = [
+  '2022',
+  '2023',
+  '2024',
+  '2025',
+  '2026'
+]
+
 export const ORGANIZATION = [
   "Adams County",
   "Arapahoe County",

@@ -7,7 +7,6 @@ import VersionNumber from './VersionNumber';
 const LoginLayout = () => {
   const [visible, setVisible] = useState(false);
   const pageWidth  = document.documentElement.scrollWidth;
-  console.log(pageWidth);
   return (
     <Layout style={{ background: '#fff' }}>
       <Row>

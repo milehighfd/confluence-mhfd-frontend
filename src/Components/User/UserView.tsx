@@ -9,6 +9,7 @@ import * as datasets from "../../Config/datasets";
 import { OptionsFiltersUser, User } from "../../Classes/TypeList";
 import { PAGE_USER, COLUMNS_USER_ACTIVITY } from "../../constants/constants";
 import { useUsersDispatch, useUsersState } from "../../hook/usersHook";
+import UserFilterYear from "./UserFilterYear";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -204,6 +205,17 @@ const UserView = () => {
                           </Button>
                           <Table columns={COLUMNS_USER_ACTIVITY} rowKey={record => record.registerDate} dataSource={userActivity.data}
                             pagination={pagination} onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)}/>
+                    </TabPane>
+                    <TabPane tab="Board Year" key="5">
+                      <UserFilterYear />
+                      <div className="pagi-00">
+                        <Pagination current={optionUserDeleted.page} total={totalUsersDeleted} onChange={(page, pageSize) => {
+                          const auxOption = {...optionUserDeleted};
+                          auxOption.page = page;
+                          setOptionUserDeteled(auxOption);
+                          searchUserDelete(auxOption);
+                        }} />
+                      </div>
                     </TabPane>
                   </Tabs>
                 </Col>
