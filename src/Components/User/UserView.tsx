@@ -208,14 +208,6 @@ const UserView = () => {
                     </TabPane>
                     <TabPane tab="Board Year" key="5">
                       <UserFilterYear />
-                      <div className="pagi-00">
-                        <Pagination current={optionUserDeleted.page} total={totalUsersDeleted} onChange={(page, pageSize) => {
-                          const auxOption = {...optionUserDeleted};
-                          auxOption.page = page;
-                          setOptionUserDeteled(auxOption);
-                          searchUserDelete(auxOption);
-                        }} />
-                      </div>
                     </TabPane>
                   </Tabs>
                 </Col>

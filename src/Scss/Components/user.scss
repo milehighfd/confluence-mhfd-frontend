@@ -11,7 +11,7 @@
     margin: 0px 15px 20px 0px;
     .ant-input {
       width: 240px;
-      height: 36px;
+      height: 32px;
       border-radius: 5px !important;
       border: 1.3px solid rgba(37,24,99,.1);
       color: $black;
@@ -38,9 +38,11 @@
     margin-left: 10px;
   }
   .f-btn{
-    background: $black !important;
+    background: $purple !important;
     color: $white !important;
     width: 69px !important;
+    height: 32px !important;
+    border-radius: 5px;
   }
   .f-btn:hover{
     background: $black;
