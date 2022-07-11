@@ -54,6 +54,15 @@ const DetailedModal = ({
             t.push(d);
           })
         });
+        t.sort((a: any, b: any) => {
+          if (a.problem_type.localeCompare(b.problem_type) === 0) {
+            if (a.problem_part_category.localeCompare(b.problem_part_category) === 0) {
+              return a.problem_part_subcategory.localeCompare(b.problem_part_subcategory);()
+            }
+            return a.problem_part_category.localeCompare(b.problem_part_category);
+          }
+          return a.problem_type.localeCompare(b.problem_type);
+        });
         setProblemPart(t);
       });
     } else {

@@ -375,25 +375,33 @@ export default forwardRef(({
       {
         title: 'Component Type',
         dataIndex: 'type',
-        sorter: true,
+        sorter: {
+          compare: (a: any, b: any) => a.type.localeCompare(b.type)
+        },
         width: 300
       },
       {
         title: 'Cost',
         dataIndex: 'estimated_cost',
         render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
-        sorter: true
+        sorter: {
+          compare: (a: any, b: any) => a.estimated_cost - (b.estimated_cost)
+        },
       },
       {
         title: '% Complete',
         dataIndex: 'complete_cost',
         render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
-        sorter: true
+        sorter: {
+          compare: (a: any, b: any) => a.complete_cost - (b.complete_cost)
+        },
       },
       {
         title: '% of Total Cost',
         dataIndex: 'percen',
-        sorter: true,
+        sorter: {
+          compare: (a: any, b: any) => a - b.percen
+        },
         render: (percen: any) => `${Math.round(percen)}%`
       }
     ];
@@ -402,25 +410,33 @@ export default forwardRef(({
       {
         title: 'Component Type',
         dataIndex: 'type',
-        sorter: true,
+        sorter: {
+          compare: (a: any, b: any) => a.type.localeCompare(b.type)
+        },
         width: 300
       },
       {
         title: 'Cost',
         dataIndex: 'estimated_cost',
         render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
-        sorter: true
+        sorter: {
+          compare: (a: any, b: any) => a - b.estimated_cost
+        },
       },
       {
         title: '% Complete',
         dataIndex: 'original_cost',
         render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
-        sorter: true,
+        sorter: {
+          compare: (a: any, b: any) => a - b.original_cost
+        },
       },
       {
         title: '% of Total Cost',
         dataIndex: 'percen',
-        sorter: true,
+        sorter: {
+          compare: (a: any, b: any) => a- b.percen
+        },
         render: (percen: any) => `${percen}%`
       }
     ];
@@ -434,26 +450,35 @@ export default forwardRef(({
     {
       title: 'Problem Type',
       dataIndex: 'problem_type',
-      sorter: true,
+      sorter: {
+        compare: (a: any, b: any) => a.problemtype.localeCompare(b.problemtype)
+      },
     },
     {
       title: 'Problem Part Category',
       dataIndex: 'problem_part_category',
       // render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
-      sorter: true
+      sorter: {
+        compare: (a: any, b: any) => a.problem_part_category.localeCompare(b.problem_part_category)
+      },
     },
     {
       title: 'Problem Part Subcategory',
       dataIndex: 'problem_part_subcategory',
       // render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
-      sorter: true,
+      sorter: {
+        compare: (a: any, b: any) => a.problem_part_subcategory.localeCompare(b.problem_part_subcategory)
+      },
     }
   ];
   const columnProblems = [
     {
       title: 'Name',
       dataIndex: 'problemname',
-      render: (problemname: string) => <div onClick={() => {openProblem(problemname)}}>{problemname}</div>
+      render: (problemname: string) => <div onClick={() => {openProblem(problemname)}}>{problemname}</div>,
+      sorter: {
+        compare: (a: any, b: any) => a.problemname.localeCompare(b.problemname)
+      },
     },
     {
       title: 'Priority',
