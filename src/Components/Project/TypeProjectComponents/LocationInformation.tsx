@@ -80,6 +80,7 @@ export const LocationInformation = ({
   };
 
   useEffect(() => {
+    console.log('is jurisdiction', isLocalGovernment, jurisdiction);
     if (!isLocalGovernment && jurisdiction && !isEdit) {
       setSponsor([jurisdiction]);
     }

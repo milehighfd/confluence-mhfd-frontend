@@ -137,6 +137,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
+    console.log(organization, locality);
     if(juris) {
       setSponsor(organization);
     } else {
@@ -212,7 +213,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setIndependentComponents(independentComponents);
   },[independentComponents]);
   useEffect(()=>{
-    if(componentsFromMap.length > 0 ) {
+    if(componentsFromMap?.length > 0 ) {
       if(componentsFromMap.length > 0  && listComponents.length > 0){
         getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
       } else if(listComponents.length == 0 && componentsFromMap.length > 0) {

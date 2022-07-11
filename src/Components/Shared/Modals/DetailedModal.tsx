@@ -170,8 +170,8 @@ const DetailedModal = ({
               {
               detailedPage?.problemtype ? (
                 <div className="status-d">
-                <label>Solution Status <b>{detailedPage?.solutionstatus}%</b></label>
-                <Progress percent={detailedPage?.solutionstatus} size="small" status="active" />
+                <label>Solution Status <b>{detailedPage?.solutionstatus ? detailedPage?.solutionstatus : 0}%</b></label>
+                <Progress percent={detailedPage?.solutionstatus ? detailedPage?.solutionstatus : 0} size="small" status="active" />
               </div>
               ) : (
                 <div className="btn-opacity">{detailedPage?.status}</div>
