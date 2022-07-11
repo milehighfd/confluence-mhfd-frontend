@@ -17,12 +17,12 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
     if (defaultValue) {
-      itemMenu.push({ key: `all|${title}`, label: <span>Organization - All</span> });
+      itemMenu.push({ key: `all|${title}`, label: <span style={{border:'transparent'}}>Organization - All</span> });
     }
     list.forEach((element: string, index: number) => {
       itemMenu.push({
         key: `${index}|${element}`,
-        label: <span className="user-filter-items-text">{element}</span>
+        label: <span style={{border:'transparent'}} className="user-filter-items-text">{element}</span>
       });
     });
     return <Menu
@@ -57,17 +57,17 @@ export default ({ option, setOption, search, reset, title }: { option: OptionsFi
     ORGANIZATION.forEach((item: string, index: number) => {
       itemOrganization.push({
         key: `${index}|${item}`,
-        label: <span>{item}</span>
+        label: <span style={{border:'transparent'}}>{item}</span>
       });
     });
     CONSULTANT_CONTRACTOR.forEach((item: string, index: number) => {
       itemConsultant.push({
         key: `${index}|${item}`,
-        label: <span>{item}</span>
+        label: <span style={{border:'transparent'}}>{item}</span>
       });
     });
     const itemMenuOrganization: MenuProps['items'] = [
-      { key: 'all|all', label: <span>Organization - All</span> },
+      { key: 'all|all', label: <span style={{border:'transparent'}}>Organization - All</span> },
       { key: 'organization-items', type: 'group', label: 'Organization', children: itemOrganization },
       { key: 'consultant-items', type: 'group', label: 'Consultant / Contractor', children: itemConsultant },
     ];
