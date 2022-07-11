@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { Button } from 'antd';
 
-import { CHART_CONSTANTS, CHART_CONSTANTS_INV } from './Charts.constants';
-
 const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -14,25 +12,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     setSelectedData(selected ? selected.split(',') : []);
   }, [selected]);
 
-  useEffect(() => {
-    console.log('data', data);
-  }, [data]);
-  const newData = [
-    {
-      value: type == 'problemtype' ? 'Flood Hazard' : 'Maintenance',
-      counter: 45
-    },
-    {
-      value: type == 'problemtype' ? 'Stream Function' : 'Study Areas',
-      counter: 30
-    }, 
-    {
-      value: type == 'problemtype' ? 'Failure Development' : 'Capital Projects',
-      counter: 25
-    }
-  ]
   const labelValues = type === 'problemtype' ? 'Problems' : 'Projects';
-  data = newData;
   useEffect(() => {
     let total: any;
     let pieChartData: any;
@@ -89,18 +69,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       }
     }
 
-    // slices
-    //   .attr('fill', (d: any): any => { return (color(d.data.key)) })
-    //   .style("opacity", (d: any) => {
-    //     let index = selectedData.indexOf(d.data.key);
-    //     return index === -1 ? ( type == 'projecttype'? CHART_CONSTANTS.opacityOpaque: CHART_CONSTANTS_INV.opacityOpaque) : ( type == 'projecttype'? CHART_CONSTANTS.opacityFull: CHART_CONSTANTS_INV.opacityFull);
-    //   })
-    //   .on('click', clickFn)
-    //   .transition().duration(2000)
-    //   .attr('d', (d: any) => {
-    //     let index = selectedData.indexOf(d.data.key);
-    //     return index !== -1 ? arc2(d) : arc(d)
-    //   })
     slicesSelected
     .enter()
     .append('path')
@@ -121,39 +89,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr('fill', (d: any): any => { return (color(d.data.key)) })
       .style("opacity", 1)
       .on('click', clickFn)
-      // .transition().duration(2000)
       .attr('d', (d: any) => {
         return arc2(d);
       })
 
     slices.exit().remove();
-
-
-    // var texts = svg
-    //   .selectAll('slices')
-    //   .data(data_ready);
-
-    // texts
-    //   .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
-    //   .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
-    //   .attr("fill", "white")
-    //   .attr('font-weight', 'bold')
-    //   .style("text-anchor", "middle")
-    //   .style("font-size", 12)
-    //   .on('click', clickFn)
-
-    // texts
-    //   .enter()
-    //   .append('text')
-    //   .text((d: any) => { return d.value === 0 ? '' : d3.format(".0%")(d.value) })
-    //   .attr("transform", (d: any) => { return "translate(" + arc.centroid(d) + ")"; })
-    //   .attr("fill", "white")
-    //   .attr('font-weight', 'bold')
-    //   .style("text-anchor", "middle")
-    //   .style("font-size", 12)
-    //   .on('click', clickFn)
-
-    // texts.exit().remove()
     var separationJump = 80;
     var fontSize = 8.5;
     var legendsText = svg
@@ -227,47 +167,16 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .attr("cy", (d: any, i) => {
         return radius + 29.5
       });
-    // var legendsBar = svg
-    //   .selectAll('slices')
-    //   .data(data_ready)
-
-    // legendsBar.exit().remove();
-
-    // legendsBar
-    //   .style("fill", (d: any): any => {
-    //     return color(d.data.key)
-    //   })
-    //   .attr("x", (d: any, i) => {
-    //     return (i % 2 === 0 ? -radius : 33)
-    //   })
-    //   .attr("y", (d: any, i) => {
-    //     return radius + 29.5 + Math.floor(i / 2) * 20
-    //   })
-    //   .attr('width', 15)
-    //   .attr('height', 4)
-
-    // legendsBar.enter()
-    //   .append('rect')
-    //   .style("fill", (d: any): any => {
-    //     return color(d.data.key)
-    //   })
-    //   .attr("x", (d: any, i) => {
-    //     return (i % 2 === 0 ? -radius : 33)
-    //   })
-    //   .attr("y", (d: any, i) => {
-    //     return radius + 29.5 + Math.floor(i / 2) * 20
-    //   })
-    //   .attr('width', 15)
-    //   .attr('height', 4)
-
   }, [data, selectedData]);
 
   const apply = () => {
-    // if (type === 'problemtype') {
-    //   onSelect(selectedData.join(','))
-    // } else if (type === 'projecttype') {
-    //   onSelect(selectedData)
-    // }
+    console.log('type', type);
+    console.log('selectedData', selectedData);
+    if (type === 'problemtype') {
+      onSelect(selectedData.join(','))
+    } else if (type === 'projecttype') {
+      onSelect(selectedData)
+    }
     console.log('selected data with no effect', selectedData);
   }
 
