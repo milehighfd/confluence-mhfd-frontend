@@ -339,7 +339,7 @@ export default ({
         selectCheckboxes(items);
         removePopup();
       }}>
-        <Collapse defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQvgvvxJt0">
+        <Collapse defaultActiveKey={['6asdffds', '1', '2', '3', '4', '5', '6', '7', '8']} key="V4mBA5NQvgvvxJt0">
           { 
           <Panel header="" key="6asdffds" extra={genExtra07(locationType)}>
             <p>
