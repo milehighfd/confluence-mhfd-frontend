@@ -408,6 +408,11 @@ export const getDetailedPageProblem = (id: string) => {
         });
     }
 }
+export const resetDetailed = () => {
+  return (dispatch: Function) => {
+      dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE });
+  }
+}
 
 export const existDetailedPageProject = (url: string) => {
     return (dispatch: Function) => {

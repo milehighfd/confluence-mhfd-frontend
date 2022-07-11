@@ -24,6 +24,11 @@ const filterReducer = (state = initState, action: any) => {
         ...state,
         displayModal: action.spin
       }
+    case types.RESET_DETAILED:
+      return {
+        ...state,
+        detailed: {}
+      }
     default:
       return state;
   }

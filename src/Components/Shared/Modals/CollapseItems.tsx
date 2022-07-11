@@ -38,16 +38,16 @@ export default forwardRef(({
     getComponentsByProblemId
   } = useMapDispatch();
   let sections = ['4'];
-  if (detailedPage.problems && detailedPage.problems.length > 0) {
+  if (detailedPage?.problems && detailedPage?.problems.length > 0) {
     sections.push('1');
   }
   if (problemParts) {
     sections.push('33');
   }
-  if (detailedPage.consultant || detailedPage.contractor) {
+  if (detailedPage?.consultant || detailedPage?.contractor) {
     sections.push('2');
   }
-  if (detailedPage.components.length > 0) {
+  if (detailedPage?.components.length > 0) {
     sections.push('3');
   }
   const [ active, setActive ] = useState(sections);
@@ -99,6 +99,12 @@ export default forwardRef(({
     }
     
   }, []);
+  useEffect(() => {
+    if (map) {
+      console.log('how many times does this happen', detailedPage);
+      map.isStyleLoaded(addLayer);
+    }
+  }, [detailedPage]);
   const [counterPopup, setCounterPopup] = useState({componentes: 0});
 
   useEffect(() => {
@@ -168,10 +174,10 @@ export default forwardRef(({
       for (const key in layers.components) {
           map.addVectorSource(key, layers.components[key]);
           i = 0;
-          if((detailedPage.problemid && type === PROBLEMS_MODAL) ||(detailedPage.projectid && type === PROJECTS_MODAL)) {
+          if((detailedPage?.problemid && type === PROBLEMS_MODAL) ||(detailedPage?.projectid && type === PROJECTS_MODAL)) {
             for (const component of styles[key] ) {
               map.addLayer(key + i, key, component);
-              map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage.problemid : detailedPage.projectid]);
+              map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage?.problemid : detailedPage?.projectid]);
               i++;
 
             }
@@ -184,13 +190,13 @@ export default forwardRef(({
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
-          map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           i++;
         }
         addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
-        detailedPage.components.forEach((element: any) => {
+        detailedPage?.components.forEach((element: any) => {
           if(element.projectid) {
             map.addVectorSource('projects-line', layers.projects.mhfd_projects);
             for (const project of tileStyles.mhfd_projects) {
@@ -202,7 +208,7 @@ export default forwardRef(({
         });
         addMapListeners('mhfd_projects', 'projects-line_');
       } else {
-        detailedPage.problems.forEach((element: any) => {
+        detailedPage?.problems.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
             map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary);
@@ -219,14 +225,14 @@ export default forwardRef(({
         let idProjectPolygon = 0;
         for (const project of tileStyles.mhfd_projects) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-          map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage.cartodb_id]);
+          map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           idProjectLine++;
         }
         i = 0;
         addMapListeners('mhfd_projects', 'projects-line_');
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
-      map.fitBounds([detailedPage.coordinates[0][0], detailedPage.coordinates[0][2]]);
+      map.fitBounds([detailedPage?.coordinates[0][0], detailedPage?.coordinates[0][2]], {duration: 10 });
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
       applyNearMapLayer();
@@ -443,7 +449,7 @@ export default forwardRef(({
   }
 
   const openProblem = (problemname: string) => {
-    const problem = detailedPage.problems.filter((prob: any) => prob.problemname === problemname);
+    const problem = detailedPage?.problems.filter((prob: any) => prob.problemname === problemname);
     updateModal(problem[0].problemid);
   }
   const columnsProblemPart = [
@@ -504,7 +510,7 @@ export default forwardRef(({
       {type === PROJECTS_MODAL && <Panel header="PROBLEM" key="1" extra={genExtra('1')}>
         <Row className="table-up-modal">
             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-              <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage.problems} pagination={false}
+              <Table loading={false} columns={columnProblems} rowKey={(record: any) => record.problemid} dataSource={detailedPage?.problems} pagination={false}
                 onChange={(pagination, filters, sort) => {
 
                 }} />
@@ -519,13 +525,13 @@ export default forwardRef(({
               <label><i>Contractor</i></label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <p>{ detailedPage.contractor ? detailedPage.contractor : 'N/A' }</p>
+              <p>{ detailedPage?.contractor ? detailedPage?.contractor : 'N/A' }</p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 4 }}>
               <label><i>Consultant</i></label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <p>{detailedPage.consultant ? detailedPage.consultant : 'N/A' }</p>
+              <p>{detailedPage?.consultant ? detailedPage?.consultant : 'N/A' }</p>
             </Col>
           </Row>
         </div>

@@ -11,7 +11,7 @@ import {
   setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted,
   setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter,
   mapSearchQuery, setSelectedOnMap, existDetailedPageProblem,
-  existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,
+  existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,resetDetailed, 
   getComponentsByProblemId, getMapTables,
   getComponentsByProjid, replaceFilterCoordinates, resetMap,
   setFilterCoordinates, setProblemKeyword,
@@ -148,6 +148,9 @@ export const useMapDispatch = () => {
     },
     getDetailedPageProblem: (id: string) => {
       dispatch(getDetailedPageProblem(id));
+    },
+    resetDetailed: () => {
+      dispatch(resetDetailed());
     },
     getDetailedPageProject: (id: number, type: string) => {
       dispatch(getDetailedPageProject(id, type));

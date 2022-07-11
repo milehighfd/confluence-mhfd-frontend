@@ -34,7 +34,8 @@ const DetailedModal = ({
   const {
     getDetailedPageProblem,
     getDetailedPageProject,
-    getComponentsByProblemId
+    getComponentsByProblemId,
+    resetDetailed
   } = useMapDispatch();
 
   const ciprRef = useRef(null);
@@ -70,6 +71,9 @@ const DetailedModal = ({
       getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
+    return () => {
+      resetDetailed();
+    };
   }, []);
 
   
@@ -156,45 +160,45 @@ const DetailedModal = ({
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={{ span: 13 }}>
               <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.projectname} </h1>
-              <p><span>{detailedPage?.problemtype ? (detailedPage.problemtype + ' Problem') : (detailedPage.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span>{detailedPage?.problemtype ? ( detailedPage.jurisdiction + ', CO' ) : (detailedPage.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage.county + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage.servicearea + ' Service Area'} </span></p>
+              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span>{detailedPage?.problemtype ? ( detailedPage?.jurisdiction + ', CO' ) : (detailedPage?.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage?.county + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage?.servicearea + ' Service Area'} </span></p>
               <Button className="btn-transparent btn-close-mobile" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </Col>
             <Col xs={{ span: 10 }} lg={{ span: 5 }}>
               {
-              detailedPage.problemtype ? (
+              detailedPage?.problemtype ? (
                 <div className="status-d">
-                <label>Solution Status <b>{detailedPage.solutionstatus}%</b></label>
-                <Progress percent={detailedPage.solutionstatus} size="small" status="active" />
+                <label>Solution Status <b>{detailedPage?.solutionstatus}%</b></label>
+                <Progress percent={detailedPage?.solutionstatus} size="small" status="active" />
               </div>
               ) : (
-                <div className="btn-opacity">{detailedPage.status}</div>
+                <div className="btn-opacity">{detailedPage?.status}</div>
               )
               }
 
             </Col>
             <Col xs={{ span: 10 }} lg={{ span: 3 }} style={{ textAlign: 'center' }}>
               {
-                detailedPage.problemtype ? (
+                detailedPage?.problemtype ? (
                   <div className="detailed-mm">
                     <b>{ 
-                      (detailedPage.estimatedcost
+                      (detailedPage?.estimatedcost
                       ? 
-                        ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.estimatedcost)))
+                        ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage?.estimatedcost)))
                         : 
-                        (detailedPage.component_cost?( '$'+ new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.component_cost)): 'No Cost Data'))}
+                        (detailedPage?.component_cost?( '$'+ new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage?.component_cost)): 'No Cost Data'))}
                     </b>
                   </div>
                 ) : (
                   <div className="detailed-mm">
                     <b>{ 
-                      detailedPage.estimatedcost 
+                      detailedPage?.estimatedcost 
                       ? 
-                      ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage.estimatedcost))) 
+                      ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage?.estimatedcost))) 
                       : 
-                      (detailedPage.componentcost?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage.componentcost)): 'No Cost Data')}
+                      (detailedPage?.componentcost?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage?.componentcost)): 'No Cost Data')}
                     </b>
                   </div>
                 )
@@ -216,21 +220,21 @@ const DetailedModal = ({
           <Row className="detailed-b">
             <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }}>
               <Carousel autoplay>
-                  {detailedPage.problemid ? (
-                    <div className="detailed-c"> <img  src={"detailed/" + detailedPage.problemtype + ".png"} /> </div>
+                  {detailedPage?.problemid ? (
+                    <div className="detailed-c"> <img  src={"detailed/" + detailedPage?.problemtype + ".png"} /> </div>
                   ) : (
-                      detailedPage.attachments.length == 0 ? (
-                        <div className="detailed-c"> <img  src={detailedPage.projecttype === 'Capital' ? 'detailed/capital.png' :
-                            detailedPage.projecttype === 'Study' ? 'projectImages/study.jpg' :
-                              detailedPage.projecttype === 'Maintenance' ?
-                                (detailedPage.projectsubtype === 'Vegetation Mangement' ? 'detailed/vegetation-management.png' :
-                                  detailedPage.projectsubtype === 'Sediment Removal' ? 'detailed/sediment-removal.png' :
-                                    detailedPage.projectsubtype === 'Restoration' ? 'detailed/restoration.png' :
-                                      detailedPage.projectsubtype === 'Minor Repairs' ? 'detailed/minor-repairs.png' :
+                      detailedPage?.attachments.length == 0 ? (
+                        <div className="detailed-c"> <img  src={detailedPage?.projecttype === 'Capital' ? 'detailed/capital.png' :
+                            detailedPage?.projecttype === 'Study' ? 'projectImages/study.jpg' :
+                              detailedPage?.projecttype === 'Maintenance' ?
+                                (detailedPage?.projectsubtype === 'Vegetation Management' ? 'detailed/vegetation-management.png' :
+                                  detailedPage?.projectsubtype === 'Sediment Removal' ? 'detailed/sediment-removal.png' :
+                                    detailedPage?.projectsubtype === 'Restoration' ? 'detailed/restoration.png' :
+                                      detailedPage?.projectsubtype === 'Minor Repairs' ? 'detailed/minor-repairs.png' :
                                         'detailed/debris-management.png') : 'Icons/eje.png'
                         } /> </div>
                       ) : (
-                        detailedPage.attachments.map((image: string, index: number) => {
+                        detailedPage?.attachments.map((image: string, index: number) => {
                           return <div key={index} className="detailed-c">
                             <img width="100%" height="100%" src={image} alt="" />
                           </div>
@@ -240,7 +244,7 @@ const DetailedModal = ({
                     )}
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
-              {detailedPage.problemid ? (
+              {detailedPage?.problemid ? (
                   <CollapseItems ref={ciprRef} type={typeDetail} data={componentsOfProblems}
                     id={data.problemid} typeid={'problemid'}
                     detailedPage={detailedPage} updateModal={updateModal}

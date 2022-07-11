@@ -166,9 +166,6 @@ const Map = ({
   } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
-    useEffect(()=>{ 
-      console.log('DETAILEDDETAILEDDETAILEDDETAILEDDETAILEDDETAILEDDETAILED', detailed);
-    }, [detailed]);
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
