@@ -56,6 +56,17 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
     optionsProject['jurisdiction'] = '';
     setFilterProblemOptions(optionsProblem);
     setFilterProjectOptions(optionsProject);
+    const startMHFD = {
+      center: [-104.90630279999999, 39.768676],
+      zoom: 9,
+      pitch: 0,
+      bearing: 0
+      };
+    map.flyTo({
+      ...startMHFD,
+      duration: 3000, 
+      essential: true
+    })
     setNameZoomArea('Mile High Flood District');
     setBBOXComponents({ bbox: [], centroids: [] })
 }
