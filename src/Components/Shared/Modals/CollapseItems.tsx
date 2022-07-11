@@ -451,7 +451,7 @@ export default forwardRef(({
       title: 'Problem Type',
       dataIndex: 'problem_type',
       sorter: {
-        compare: (a: any, b: any) => a.problemtype.localeCompare(b.problemtype)
+        compare: (a: any, b: any) => a.problem_type.localeCompare(b.problem_type)
       },
     },
     {
