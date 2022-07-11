@@ -607,7 +607,7 @@
       font-size: 21px;
     }
     .slick-slide .textContent {
-      height: 185px;
+      height: 215px;
     }
     .slick-slide h5 {
      font-size: 14px;
@@ -624,7 +624,15 @@
     }
   }
   .contact01 {
-    position: relative;
+    position: absolute;
+    bottom: inherit;
+    height: 100%;
+    margin: 0px;
+  }
+  .contact02 {
+    top: 250px;
+    right: 30px;
+    position: absolute;
     bottom: inherit;
     height: 100%;
     margin: 0px;
@@ -792,6 +800,9 @@
   .carrousel-desktop {
     display: none;
   }
+  .ant-carousel {
+    padding: 0px;
+  }
   .contact02 {
     .text-button{
       color: #11093c;
@@ -799,5 +810,6 @@
   }
   .ant-carousel .slick-list {
     height: 100vh;
+    border-radius: 0px !important;
   }
 }
