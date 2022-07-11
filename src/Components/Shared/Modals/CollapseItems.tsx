@@ -385,7 +385,7 @@ export default forwardRef(({
         dataIndex: 'estimated_cost',
         render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
         sorter: {
-          compare: (a: any, b: any) => a.estimated_cost - (b.estimated_cost)
+          compare: (a: any, b: any) => +a.estimated_cost - (+b.estimated_cost)
         },
       },
       {
@@ -393,14 +393,14 @@ export default forwardRef(({
         dataIndex: 'complete_cost',
         render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
         sorter: {
-          compare: (a: any, b: any) => a.complete_cost - (b.complete_cost)
+          compare: (a: any, b: any) => +a.complete_cost - (+b.complete_cost)
         },
       },
       {
         title: '% of Total Cost',
         dataIndex: 'percen',
         sorter: {
-          compare: (a: any, b: any) => a - b.percen
+          compare: (a: any, b: any) => +a.percen - +b.percen
         },
         render: (percen: any) => `${Math.round(percen)}%`
       }
@@ -420,7 +420,7 @@ export default forwardRef(({
         dataIndex: 'estimated_cost',
         render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(estimated_cost),
         sorter: {
-          compare: (a: any, b: any) => a - b.estimated_cost
+          compare: (a: any, b: any) => +a.estimated_cost - +b.estimated_cost
         },
       },
       {
@@ -428,14 +428,14 @@ export default forwardRef(({
         dataIndex: 'original_cost',
         render: (original_cost: number) => `${original_cost ? (Math.round(original_cost * 10) /10) : 0}%`,
         sorter: {
-          compare: (a: any, b: any) => a - b.original_cost
+          compare: (a: any, b: any) => +a.original_cost - +b.original_cost
         },
       },
       {
         title: '% of Total Cost',
         dataIndex: 'percen',
         sorter: {
-          compare: (a: any, b: any) => a- b.percen
+          compare: (a: any, b: any) => +a.percen - +b.percen
         },
         render: (percen: any) => `${percen}%`
       }
