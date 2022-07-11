@@ -2130,7 +2130,6 @@ const Map = ({
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
-                    console.log('feature', feature.properties);
                       const item = {
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,

@@ -102,7 +102,7 @@ const DetailedModal = ({
   }
   const detailedPage = detailed as any;
   useEffect(() => {
-    console.log('detailed checked', detailed);
+    console.log('DETAILED INSIDE DETAILED MODAL', detailed);
   }, [detailed]);
   const downloadPdf = async () => {
     if (loading) {
@@ -223,7 +223,7 @@ const DetailedModal = ({
                   {detailedPage?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailedPage?.problemtype + ".png"} /> </div>
                   ) : (
-                      detailedPage?.attachments.length == 0 ? (
+                      detailedPage?.attachments?.length == 0 ? (
                         <div className="detailed-c"> <img  src={detailedPage?.projecttype === 'Capital' ? 'detailed/capital.png' :
                             detailedPage?.projecttype === 'Study' ? 'projectImages/study.jpg' :
                               detailedPage?.projecttype === 'Maintenance' ?

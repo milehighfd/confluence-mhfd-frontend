@@ -101,7 +101,6 @@ export default forwardRef(({
   }, []);
   useEffect(() => {
     if (map) {
-      console.log('how many times does this happen', detailedPage);
       map.isStyleLoaded(addLayer);
     }
   }, [detailedPage]);

@@ -31,6 +31,7 @@ import store from '../../store';
 import { Dropdown, Button } from 'antd';
 import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
+import { useDetailedState } from "../../hook/detailedHook";
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
@@ -82,7 +83,10 @@ const WorkRequestMap = (type: any) => {
   const [areaValue, setAreaValue] = useState('0');
   const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
-  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
+  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, galleryProjects, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents } = useMapState();
+  const { 
+    detailed
+  } = useDetailedState();
   const {clear} = useAttachmentDispatch();
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getMapWithSublayers, getMapLayers, getComponentsByProjid } = useMapDispatch();
   const { changeAddLocationState,  getListComponentsByComponentsAndPolygon, updateSelectedLayersWR, setComponentsFromMap, getComponentGeom, getAllComponentsByProblemId, setBoardProjects, getZoomGeomProblem, getZoomGeomComp } = useProjectDispatch();
@@ -1529,34 +1533,36 @@ const epochTransform = (dateParser: any) => {
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         
       }
-      if (feature.source === MENU_OPTIONS.PROBLEMS) {
+      if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
         const item = {
-          type: MENU_OPTIONS.PROBLEMS,
-          title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
-          name: feature.properties.problemname ? feature.properties.problemname : '-',
-          organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-          value: feature.properties.estimatedcost ? feature.properties.estimatedcost : (feature.properties.component_cost ? feature.properties.component_cost : '0'),
-          status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
-          priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
-          problemid: feature.properties.problemid,
-          component_count: feature.properties.component_count ?? 0,
-          popupId: 'popup',
-          image: `gallery/${feature.properties.problemtype}.jpg`,
+            type: MENU_OPTIONS.PROBLEMS,
+            streamname: feature.properties.streamname,
+            title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
+            name: feature.properties.problem_name ? feature.properties.problem_name : '-',
+            organization: feature.properties.local_government ? feature.properties.local_government : '-',
+            value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
+            status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
+            priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
+            problemid: feature.properties.problem_id,
+            component_count: feature.properties.component_count ?? 0,
+            popupId: 'popup',
+            image: `gallery/${feature.properties.problemtype}.jpg`,
         };
         itemValue = { ...item };
         mobile.push({
-          type: MENU_OPTIONS.PROBLEMS,
-          title: item.title,
-          value: item.value,
-          name: item.name,
-          image: item.image,
-          problemid: item.problemid
+            type: MENU_OPTIONS.PROBLEMS,
+            title: item.title,
+            value: item.value,
+            name: item.name,
+            image: item.image,
+            problemid: item.problemid,
+            streamname: item.streamname
         });
         menuOptions.push('Problem');
         popups.push(itemValue);
-        mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-      }
+        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+    }
       if (feature.source === 'mep_projects_temp_locations') {
         const item = {
           layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
@@ -2368,6 +2374,9 @@ const epochTransform = (dateParser: any) => {
   const centerToLocalityy = () => {
     groupOrganizationZoom();
   }
+  useEffect(() => {
+    console.log('DEtailed in wr', detailed);
+  }, [detailed]);
   return <>
     <div className="map">
     <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>

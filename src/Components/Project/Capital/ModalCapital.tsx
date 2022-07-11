@@ -137,7 +137,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
-    console.log(organization, locality);
+    console.log("ORGANIZATION Y LOCALITY", organization, locality);
     if(juris) {
       setSponsor(organization);
     } else {

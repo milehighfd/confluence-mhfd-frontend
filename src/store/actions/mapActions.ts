@@ -404,13 +404,14 @@ export const getDetailedPageProblem = (id: string) => {
     return (dispatch: Function) => {
         dispatch({ type: detailedTypes.REPLACE_VALUE_SPIN })
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
+          console.log('problem by id ', detailed, id);
             dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
         });
     }
 }
 export const resetDetailed = () => {
   return (dispatch: Function) => {
-      dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE });
+      dispatch({ type: detailedTypes.RESET_DETAILED });
   }
 }
 

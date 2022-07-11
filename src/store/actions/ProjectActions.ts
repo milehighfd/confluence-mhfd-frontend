@@ -444,7 +444,6 @@ export const getZoomGeomComp = (table:any, objectid: any) => {
 export const getZoomGeomProblem = (problemid: any) => {
   
   return (dispatch: Function) => {
-    console.log("IT REACH OR NOT?",problemid);
     datasets.postData(SERVER.GET_PROBLEM_GEOM,{problemid}, datasets.getToken()).then( zoomGeom => {
       dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
     })
