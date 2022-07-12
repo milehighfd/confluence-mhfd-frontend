@@ -35,7 +35,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   locality: any,
   borderColor: string,
 }) => {
-  console.log('project', project);
   const divRef = useRef(null);
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {

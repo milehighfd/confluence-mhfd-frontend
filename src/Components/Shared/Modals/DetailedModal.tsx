@@ -101,9 +101,6 @@ const DetailedModal = ({
     message.success('Copied to Clipboard!');
   }
   const detailedPage = detailed as any;
-  useEffect(() => {
-    console.log('DETAILED INSIDE DETAILED MODAL', detailed);
-  }, [detailed]);
   const downloadPdf = async () => {
     if (loading) {
       return;
@@ -234,7 +231,7 @@ const DetailedModal = ({
                                         'detailed/debris-management.png') : 'Icons/eje.png'
                         } /> </div>
                       ) : (
-                        detailedPage?.attachments.map((image: string, index: number) => {
+                        detailedPage?.attachments?.map((image: string, index: number) => {
                           return <div key={index} className="detailed-c">
                             <img width="100%" height="100%" src={image} alt="" />
                           </div>
