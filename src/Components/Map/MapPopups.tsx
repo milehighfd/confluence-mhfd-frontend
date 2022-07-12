@@ -218,11 +218,11 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
             {item.studyname && !item.layer.includes('LOMC') && !item.layer.includes('Effective') ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
-            {item.problem ? <p><i>Problem:</i>  <a href="#" id={"problemdetail"+id}>{item.problem}</a></p> : ''}
             {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
             {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
             {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
             {item.local_gov ? <p><i>Local Government:</i>  {item.local_gov}</p> : ''}
+            {item.problem ? <p><i>Problem:</i>  <a href="#" id={"problemdetail"+id}>{item.problem}</a></p> : ''}
             {item.mow_frequency ? <p><i>Frequency:</i>  {item.mow_frequency}</p> : ''}
             {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
             {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}

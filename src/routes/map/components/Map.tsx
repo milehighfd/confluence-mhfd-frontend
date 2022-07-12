@@ -2682,7 +2682,7 @@ const Map = ({
                               studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
                               streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
                               local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
-                              problemid: feature.properties.problem_id ? feature.properties.problem_id : '-',
+                              problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
                               ...volume
                             }
                           } else {

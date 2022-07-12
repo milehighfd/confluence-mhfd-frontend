@@ -48,6 +48,7 @@ export const STREAMS_FILTERS = 'streams';
 export const EFFECTIVE_REACHES = 'effective_reaches';
 export const ACTIVE_LOMS = 'active_lomcs';
 export const MHFD_STREAMS_FILTERS = 'mhfd_stream_reaches';
+export const STREAM_IMPROVEMENT_MEASURE = 'stream_improvement_measure';
 
 export const hovereableLayers = [
   PROBLEMS_TRIGGER,
@@ -75,5 +76,6 @@ export const hovereableLayers = [
   STREAMS_FILTERS,
   EFFECTIVE_REACHES,
   ACTIVE_LOMS,
-  MHFD_STREAMS_FILTERS
+  MHFD_STREAMS_FILTERS,
+  STREAM_IMPROVEMENT_MEASURE
 ];
