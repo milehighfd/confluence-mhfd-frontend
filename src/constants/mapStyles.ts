@@ -1103,7 +1103,7 @@ export const COMPONENT_LAYERS_STYLE = {
       "line-opacity": 1,
       "line-color": [
         "match",
-        ["get", "componen_3"],
+        ["get", "component_part_subcategory"],
         ["Continuous Improvement"],
         "hsl(141, 81%, 45%)",
         "hsla(141, 81%, 45%, 0)"
@@ -1123,7 +1123,7 @@ export const COMPONENT_LAYERS_STYLE = {
     "line-opacity": 1,
     "line-color": [
         "match",
-        ["get", "componen_3"],
+        ["get", "component_part_subcategory"],
         ["Continuous Improvement"],
         "hsl(141, 81%, 45%)",
         "hsla(141, 81%, 45%, 0)"
@@ -1143,7 +1143,7 @@ export const COMPONENT_LAYERS_STYLE = {
     "line-opacity": 1,
     "line-color": [
         "match",
-        ["get", "componen_3"],
+        ["get", "component_part_subcategory"],
         ["Continuous Improvement"],
         "hsl(141, 81%, 45%)",
         "hsla(141, 81%, 45%, 0)"
@@ -1164,11 +1164,11 @@ export const COMPONENT_LAYERS_STYLE = {
     "line-dasharray": [2, 2],
     "line-color": [
         "match",
-        ["get", "componen_3"],
+        ["get", "component_part_subcategory"],
         ["Bank Stabilization"],
         [
           "match",
-          ["get", "bank_locat"],
+          ["get", "bank_location"],
           ["", "All"],
           "hsl(141, 81%, 45%)",
           "hsla(141, 81%, 45%, 0)"
@@ -1191,11 +1191,11 @@ export const COMPONENT_LAYERS_STYLE = {
     "line-dasharray": [2, 2],
     "line-color": [
         "match",
-        ["get", "componen_3"],
+        ["get", "component_part_subcategory"],
         ["Bank Stabilization"],
         [
           "match",
-          ["get", "bank_locat"],
+          ["get", "bank_location"],
           ["", "All"],
           "hsl(141, 81%, 45%)",
           "hsla(141, 81%, 45%, 0)"
@@ -1218,11 +1218,11 @@ export const COMPONENT_LAYERS_STYLE = {
     "line-dasharray": [2, 2],
     "line-color": [
       "match",
-      ["get", "componen_3"],
+      ["get", "component_part_subcategory"],
       ["Bank Stabilization"],
       [
         "match",
-        ["get", "bank_locat"],
+        ["get", "bank_location"],
         ["Right"],
         "hsl(141, 81%, 45%)",
         "hsla(141, 81%, 45%, 0)"
@@ -1245,11 +1245,11 @@ export const COMPONENT_LAYERS_STYLE = {
     "line-dasharray": [2, 2],
     "line-color": [
         "match",
-        ["get", "componen_3"],
+        ["get", "component_part_subcategory"],
         ["Bank Stabilization"],
         [
           "match",
-          ["get", "bank_locat"],
+          ["get", "bank_location"],
           ["Left"],
           "hsl(141, 81%, 45%)",
           "hsla(141, 81%, 45%, 0)"
