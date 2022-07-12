@@ -111,6 +111,7 @@ export const DETENTION_FACILITIES = 'detention_facilities';
 export const MAINTENANCE_TRAILS = 'maintenance_trails';
 export const LAND_ACQUISITION = 'land_acquisition';
 export const LANDSCAPING_AREA = 'landscaping_area';
+export const STREAM_IMPROVEMENT_MEASURE = 'stream_improvement_measure';
 
 export const FLOOD_HAZARD_POLYGON = 'flood_hazard_polygon_';
 export const FLOOD_HAZARD_LINE = 'flood_hazard_line_';
@@ -132,14 +133,6 @@ export const FLOODPLAINS = {
   ]
 }
 
-export const SIM_CONT_IMPR_CENTER = 'sim_cont_impr_center';
-export const SIM_CONT_IMPR_RIGHT = 'sim_cont_impr_right';
-export const SIM_CONT_IMPR_LEFT = 'sim_cont_impr_left';
-export const SIM_BANK_STAB_ALL_RIGHT = 'sim_bank_stab_all_right';
-export const SIM_BANK_STAB_ALL_LEFT = 'sim_bank_stab_all_left';
-export const SIM_BANK_STAB_RIGHT = 'sim_bank_stab_right';
-export const SIM_BANK_STAB_LEFT = 'sim_bank_stab_left';
-
 export const COMPONENT_LAYERS = {
   name: 'components',
   tiles: [
@@ -154,14 +147,7 @@ export const COMPONENT_LAYERS = {
     SPECIAL_ITEM_POINT,
     PIPE_APPURTENANCES,
     GRADE_CONTROL_STRUCTURE,
-
-    // SIM_CONT_IMPR_CENTER,
-    // SIM_CONT_IMPR_RIGHT,
-    // SIM_CONT_IMPR_LEFT,
-    // SIM_BANK_STAB_ALL_RIGHT,
-    // SIM_BANK_STAB_ALL_LEFT,
-    // SIM_BANK_STAB_RIGHT,
-    // SIM_BANK_STAB_LEFT,
+    STREAM_IMPROVEMENT_MEASURE
   ]
 };
 

@@ -56,13 +56,7 @@ import {
   FLOOD_HAZARD_POLYGON,
   FLOOD_HAZARD_LINE,
   FLOOD_HAZARD_POINT,
-  SIM_CONT_IMPR_CENTER,
-  SIM_CONT_IMPR_RIGHT,
-  SIM_CONT_IMPR_LEFT,
-  SIM_BANK_STAB_ALL_RIGHT,
-  SIM_BANK_STAB_ALL_LEFT,
-  SIM_BANK_STAB_RIGHT,
-  SIM_BANK_STAB_LEFT
+  STREAM_IMPROVEMENT_MEASURE
 } from "./constants";
 
 export const localComponents = {
@@ -1096,173 +1090,174 @@ export const COMPONENT_LAYERS_STYLE = {
         ]
     }
   }],
-//   [SIM_CONT_IMPR_CENTER]: [{
-//     type: 'line',
-//     'source-layer': 'pluto15v1',
-//     layout: {
-//       'line-cap': 'butt',
-//       'line-join':"miter",
-//       'line-miter-limit':2
-//     },
-//     "paint": {
-//       "fill-color": [
-//         "match",
-//         ["get", "componen_3"],
-//         ["Continuous Improvement"],
-//         "hsl(183, 76%, 76%)",
-//         "hsla(183, 76%, 76%, 0)"
-//       ]
-//     },
-//     'line-width': 1,
-// }],
-// [SIM_CONT_IMPR_LEFT]: [{
-//   type: 'line',
-//   'source-layer': 'pluto15v1',
-//   layout: {
-//     'line-cap': 'butt',
-//     'line-join':"miter",
-//     'line-miter-limit':2
-//   },
-//   "paint": {
-//     "fill-color": [
-//         "match",
-//         ["get", "componen_3"],
-//         ["Continuous Improvement"],
-//         "hsl(141, 81%, 45%)",
-//         "hsla(141, 81%, 45%, 0)"
-//       ]
-//   },
-//   "line-offset": 3,
-//   'line-width': 1,
-// }],
-// [SIM_CONT_IMPR_RIGHT]: [{
-//   type: 'line',
-//   'source-layer': 'pluto15v1',
-//   layout: {
-//     'line-cap': 'butt',
-//     'line-join':"miter",
-//     'line-miter-limit':2
-//   },
-//   "paint": {
-//     "fill-color": [
-//         "match",
-//         ["get", "componen_3"],
-//         ["Continuous Improvement"],
-//         "hsl(141, 81%, 45%)",
-//         "hsla(141, 81%, 45%, 0)"
-//       ]
-//   },
-//   "line-offset": -3,
-//   'line-width': 1,
-// }],
-// [SIM_BANK_STAB_ALL_RIGHT]: [{
-//   type: 'line',
-//   'source-layer': 'pluto15v1',
-//   layout: {
-//     'line-cap': 'butt',
-//     'line-join':"miter",
-//     'line-miter-limit':2
-//   },
-//   "paint": {
-//     "fill-color": [
-//         "match",
-//         ["get", "componen_3"],
-//         ["Bank Stabilization"],
-//         [
-//           "match",
-//           ["get", "bank_locat"],
-//           ["", "All"],
-//           "hsl(141, 81%, 45%)",
-//           "hsla(141, 81%, 45%, 0)"
-//         ],
-//         "hsla(141, 81%, 45%, 0)"
-//       ]
-//   },
-//   "line-offset": -4,
-//   'line-width': 2.5,
-//   "line-dasharray": [2, 2],
-// }],
-// [SIM_BANK_STAB_ALL_LEFT]: [{
-//   type: 'line',
-//   'source-layer': 'pluto15v1',
-//   layout: {
-//     'line-cap': 'butt',
-//     'line-join':"miter",
-//     'line-miter-limit':2
-//   },
-//   "paint": {
-//     "fill-color": [
-//         "match",
-//         ["get", "componen_3"],
-//         ["Bank Stabilization"],
-//         [
-//           "match",
-//           ["get", "bank_locat"],
-//           ["", "All"],
-//           "hsl(141, 81%, 45%)",
-//           "hsla(141, 81%, 45%, 0)"
-//         ],
-//         "hsla(141, 81%, 45%, 0)"
-//       ]
-//   },
-//   "line-offset": 4,
-//   'line-width': 2.5,
-//   "line-dasharray": [2, 2],
-// }],
-// [SIM_BANK_STAB_RIGHT]: [{
-//   type: 'line',
-//   'source-layer': 'pluto15v1',
-//   layout: {
-//     'line-cap': 'butt',
-//     'line-join':"miter",
-//     'line-miter-limit':2
-//   },
-//   "paint": {
-//     "fill-color": [
-//       "match",
-//       ["get", "componen_3"],
-//       ["Bank Stabilization"],
-//       [
-//         "match",
-//         ["get", "bank_locat"],
-//         ["Right"],
-//         "hsl(141, 81%, 45%)",
-//         "hsla(141, 81%, 45%, 0)"
-//       ],
-//       "hsla(141, 81%, 45%, 0)"
-//     ]
-//   },
-//   "line-offset": -4,
-//   'line-width': 2.5,
-//   "line-dasharray": [2, 2],
-// }],
-// [SIM_BANK_STAB_LEFT]: [{
-//   type: 'line',
-//   'source-layer': 'pluto15v1',
-//   layout: {
-//     'line-cap': 'butt',
-//     'line-join':"miter",
-//     'line-miter-limit':2
-//   },
-//   "paint": {
-//     "fill-color": [
-//         "match",
-//         ["get", "componen_3"],
-//         ["Bank Stabilization"],
-//         [
-//           "match",
-//           ["get", "bank_locat"],
-//           ["Left"],
-//           "hsl(141, 81%, 45%)",
-//           "hsla(141, 81%, 45%, 0)"
-//         ],
-//         "hsla(141, 81%, 45%, 0)"
-//       ]
-//   },
-//   "line-offset": 4,
-//   'line-width': 2.5,
-//   "line-dasharray": [2, 2]
-// }]
+  [STREAM_IMPROVEMENT_MEASURE]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      'line-cap': 'butt',
+      'line-join':"miter",
+      'line-miter-limit':2
+    },
+    "paint": {
+      'line-width': 1,
+      "line-opacity": 1,
+      "line-color": [
+        "match",
+        ["get", "componen_3"],
+        ["Continuous Improvement"],
+        "hsl(141, 81%, 45%)",
+        "hsla(141, 81%, 45%, 1)"
+      ]
+    },
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  "paint": {
+    "line-offset": -3,
+    'line-width': 1,
+    "line-opacity": 1,
+    "line-color": [
+        "match",
+        ["get", "componen_3"],
+        ["Continuous Improvement"],
+        "hsl(141, 81%, 45%)",
+        "hsla(141, 81%, 45%, 1)"
+      ]
+  },
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  "paint": {
+    "line-offset": 3,
+    'line-width': 1,
+    "line-opacity": 1,
+    "line-color": [
+        "match",
+        ["get", "componen_3"],
+        ["Continuous Improvement"],
+        "hsl(141, 81%, 45%)",
+        "hsla(141, 81%, 45%, 1)"
+      ]
+  },
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  "paint": {
+    "line-offset": -4,
+    'line-width': 2.5,
+    "line-opacity": 1,
+    "line-dasharray": [2, 2],
+    "line-color": [
+        "match",
+        ["get", "componen_3"],
+        ["Bank Stabilization"],
+        [
+          "match",
+          ["get", "bank_locat"],
+          ["", "All"],
+          "hsl(141, 81%, 45%)",
+          "hsla(141, 81%, 45%, 0)"
+        ],
+        "hsla(141, 81%, 45%, 0)"
+      ]
+  },
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  "paint": {
+    "line-offset": 4,
+    'line-width': 2.5,
+    "line-opacity": 1,
+    "line-dasharray": [2, 2],
+    "line-color": [
+        "match",
+        ["get", "componen_3"],
+        ["Bank Stabilization"],
+        [
+          "match",
+          ["get", "bank_locat"],
+          ["", "All"],
+          "hsl(141, 81%, 45%)",
+          "hsla(141, 81%, 45%, 0)"
+        ],
+        "hsla(141, 81%, 45%, 0)"
+      ]
+  },
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  "paint": {
+    "line-offset": -4,
+    'line-width': 2.5,
+    "line-opacity": 1,
+    "line-dasharray": [2, 2],
+    "line-color": [
+      "match",
+      ["get", "componen_3"],
+      ["Bank Stabilization"],
+      [
+        "match",
+        ["get", "bank_locat"],
+        ["Right"],
+        "hsl(141, 81%, 45%)",
+        "hsla(141, 81%, 45%, 0)"
+      ],
+      "hsla(141, 81%, 45%, 0)"
+    ]
+  },
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  "paint": {
+    "line-offset": 4,
+    'line-width': 2.5,
+    "line-opacity": 1,
+    "line-dasharray": [2, 2],
+    "line-color": [
+        "match",
+        ["get", "componen_3"],
+        ["Bank Stabilization"],
+        [
+          "match",
+          ["get", "bank_locat"],
+          ["Left"],
+          "hsl(141, 81%, 45%)",
+          "hsla(141, 81%, 45%, 0)"
+        ],
+        "hsla(141, 81%, 45%, 0)"
+      ]
+  },
+}]
 }
 
 const MEP_PROJECTS_STYLES = {
