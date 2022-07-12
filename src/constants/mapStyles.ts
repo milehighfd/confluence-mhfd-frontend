@@ -1106,7 +1106,7 @@ export const COMPONENT_LAYERS_STYLE = {
         ["get", "componen_3"],
         ["Continuous Improvement"],
         "hsl(141, 81%, 45%)",
-        "hsla(141, 81%, 45%, 1)"
+        "hsla(141, 81%, 45%, 0)"
       ]
     },
 },{
@@ -1126,7 +1126,7 @@ export const COMPONENT_LAYERS_STYLE = {
         ["get", "componen_3"],
         ["Continuous Improvement"],
         "hsl(141, 81%, 45%)",
-        "hsla(141, 81%, 45%, 1)"
+        "hsla(141, 81%, 45%, 0)"
       ]
   },
 },{
@@ -1146,7 +1146,7 @@ export const COMPONENT_LAYERS_STYLE = {
         ["get", "componen_3"],
         ["Continuous Improvement"],
         "hsl(141, 81%, 45%)",
-        "hsla(141, 81%, 45%, 1)"
+        "hsla(141, 81%, 45%, 0)"
       ]
   },
 },{
