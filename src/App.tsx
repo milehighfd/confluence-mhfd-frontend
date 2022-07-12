@@ -46,8 +46,8 @@ const App = () => {
           appUser.designation === 'staff') && <Route path={'/work-request'} component={WorkRequest} />}
         {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserView} />}
-        {(appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentRoute} />}
+        {/* {(appUser.designation === 'admin' ||
+          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentRoute} />} */}
         {(loading && <Route path={`/`} component={LoadingView} />)}
       </Suspense>
     </Switch>

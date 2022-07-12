@@ -53,13 +53,13 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
       <img className="img-a anticon" src="/Icons/menu-green-15.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>watershed story</span>
     </Link>
-  }, {
-    key: '6',
-    label: <Link to={'/upload-attachment'}>
-      <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="22px" height="22px" />
-      <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="22px" height="22px" />
-      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>uploader</span>
-    </Link>
+  // }, {
+  //   key: '6',
+  //   label: <Link to={'/upload-attachment'}>
+  //     <img className="img-h anticon" src="/Icons/menu-white-07.svg" alt="" width="22px" height="22px" />
+  //     <img className="img-a anticon" src="/Icons/menu-green-07.svg" alt="" width="22px" height="22px" />
+  //     <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>uploader</span>
+  //   </Link>
   }, {
     key: '7',
     label: <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
