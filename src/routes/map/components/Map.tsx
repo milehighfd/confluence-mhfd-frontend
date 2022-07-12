@@ -1093,7 +1093,6 @@ const Map = ({
                         const tiles = layerFilters[layer.name] as any;
                         if (tiles) {
                             addLayersSource(subKey, tiles[subKey]);
-                            console.log('the layer reaching', tiles);
                         }
                     });
                 }
@@ -1962,7 +1961,16 @@ const Map = ({
                     }
                 }
     }
-    
+    const getTitleOfStreamImprovements = (properties: any) => {
+      let title = '';
+      if (properties.component_part_category) {
+        title = properties.component_part_category ;
+      } 
+      if ( properties.component_part_subcategory) {
+        title += (properties.component_part_category ? ' - ' : '') + properties.component_part_subcategory;
+      }
+      return title;
+    }
     useEffect(() => {
 
         if (allLayers.length < 100) {
@@ -2667,15 +2675,16 @@ const Map = ({
                           if(feature.source === STREAM_IMPROVEMENT_MEASURE ) {
                             item = {
                               layer: MENU_OPTIONS.COMPONENTS,
-                              Subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
-                              estimatedCost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
-                              studyname: feature.properties.source_name ? feature.properties.sourcename : '-',
+                              type: getTitleOfStreamImprovements(feature.properties),
+                              subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
+                              estimatedcost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
+                              studyname: feature.properties.source_name ? feature.properties.source_name : '-',
                               studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
-                              streamname: feature.properties.stream_name,
-                              local_gov: feature.properties.local_government,
-                              Problemid: feature.properties.problem_id,
+                              streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
+                              local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
+                              problemid: feature.properties.problem_id ? feature.properties.problem_id : '-',
+                              ...volume
                             }
-
                           } else {
                               item= {
                                 layer: MENU_OPTIONS.COMPONENTS,
