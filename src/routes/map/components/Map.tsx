@@ -2044,6 +2044,7 @@ const Map = ({
               let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
               coordX = e.point.x;
               coordY = e.point.y;
+              console.log('features clicked', features);
               const search = (id: number, source: string) => {
                   let index = 0;
                   for (const feature of features) {
@@ -2652,6 +2653,7 @@ const Map = ({
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
+                    console.log('compoennt', component);
                       if (feature.source === component) {
                           const problemid = feature.properties.problemid ?feature.properties.problemid:'';
                           let problemname = '';
@@ -2847,7 +2849,6 @@ const Map = ({
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
-          console.log('this is the layer items: ', layer);
           if(layer === 'border' || layer === 'area_based_mask') {
             removeLayerMask(layer);
           } else {
@@ -2858,7 +2859,6 @@ const Map = ({
         updateSelectedLayers(selectedItems);
     }
     const removeTilesHandler = (selectedLayer: LayersType) => {
-      console.log('selectedLayer', selectedLayer);
         if (typeof selectedLayer === 'object') {
             selectedLayer.tiles.forEach((subKey: string) => {
                 hideLayers(subKey);
