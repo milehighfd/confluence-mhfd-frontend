@@ -24,7 +24,8 @@ import {
     MENU_OPTIONS,
     SERVICE_AREA_FILTERS,
     STREAMS_POINT,
-    PROPSPROBLEMTABLES
+    PROPSPROBLEMTABLES,
+    STREAM_IMPROVEMENT_MEASURE
 } from "../../../constants/constants";
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
@@ -1092,6 +1093,7 @@ const Map = ({
                         const tiles = layerFilters[layer.name] as any;
                         if (tiles) {
                             addLayersSource(subKey, tiles[subKey]);
+                            console.log('the layer reaching', tiles);
                         }
                     });
                 }
@@ -1173,7 +1175,6 @@ const Map = ({
       const styles = { ...tileStyles as any };
         styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
-          console.log('components are: ',SERVICE_AREA_FILTERS, index);
         })
     }
     const topEffectiveReaches = () => {
@@ -2044,7 +2045,6 @@ const Map = ({
               let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
               coordX = e.point.x;
               coordY = e.point.y;
-              console.log('features clicked', features);
               const search = (id: number, source: string) => {
                   let index = 0;
                   for (const feature of features) {
@@ -2080,7 +2080,6 @@ const Map = ({
                   return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
               });
               for (const feature of features) {
-                  console.log(feature.source);
                   if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
                       continue;
                   }
@@ -2653,7 +2652,6 @@ const Map = ({
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
-                    console.log('compoennt', component);
                       if (feature.source === component) {
                           const problemid = feature.properties.problemid ?feature.properties.problemid:'';
                           let problemname = '';
@@ -2665,24 +2663,39 @@ const Map = ({
                           if(feature.source === 'detention_facilities'){
                               volume = {volume:feature.properties.detention_volume? feature.properties.detention_volume : '-'}
                           }
-                          let item = {
-                            layer: MENU_OPTIONS.COMPONENTS,
-                            type: feature.properties.type ? feature.properties.type : '-',
-                            subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-                            status: feature.properties.status ? feature.properties.status : '-',
-                            estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                            studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-                            studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
-                            jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                            original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                            table: feature.source ? feature.source : '-',
-                            cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
-                            problem: problemname,
-                            problemid: problemid,
-                            objectid: feature.properties.objectid?feature.properties.objectid:'-',
-                            streamname: feature.properties.drainageway,
-                            ...volume,
-                          };
+                          let item;
+                          if(feature.source === STREAM_IMPROVEMENT_MEASURE ) {
+                            item = {
+                              layer: MENU_OPTIONS.COMPONENTS,
+                              Subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
+                              estimatedCost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
+                              studyname: feature.properties.source_name ? feature.properties.sourcename : '-',
+                              studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
+                              streamname: feature.properties.stream_name,
+                              local_gov: feature.properties.local_government,
+                              Problemid: feature.properties.problem_id,
+                            }
+
+                          } else {
+                              item= {
+                                layer: MENU_OPTIONS.COMPONENTS,
+                                type: feature.properties.type ? feature.properties.type : '-',
+                                subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+                                status: feature.properties.status ? feature.properties.status : '-',
+                                estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                                studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                                studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
+                                jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                                original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                                table: feature.source ? feature.source : '-',
+                                cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
+                                problem: problemname,
+                                problemid: problemid,
+                                objectid: feature.properties.objectid?feature.properties.objectid:'-',
+                                streamname: feature.properties.drainageway,
+                                ...volume,
+                              };
+                          }                        
                           const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
                           menuOptions.push(name);
                           mobile.push({
@@ -2849,6 +2862,7 @@ const Map = ({
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
+          console.log('this is the layer items: ', layer);
           if(layer === 'border' || layer === 'area_based_mask') {
             removeLayerMask(layer);
           } else {
@@ -2859,6 +2873,7 @@ const Map = ({
         updateSelectedLayers(selectedItems);
     }
     const removeTilesHandler = (selectedLayer: LayersType) => {
+      console.log('selectedLayer', selectedLayer);
         if (typeof selectedLayer === 'object') {
             selectedLayer.tiles.forEach((subKey: string) => {
                 hideLayers(subKey);
@@ -3123,7 +3138,7 @@ const Map = ({
         </div>
 
         <div className="map">
-            <span className="zoomvaluemap"><b>Nearmap: May 27, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
+            <span className="zoomvaluemap"> <b>Zoom Level: {zoomValue}</b> </span>
             {visible && <DetailedModal
                 detailed={detailed}
                 type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
