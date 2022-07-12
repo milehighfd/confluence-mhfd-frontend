@@ -19,7 +19,7 @@ import {
   MENU_OPTIONS,
   ROUTINE_MAINTENANCE,
   STREAMS_FILTERS,
-  ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+  ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
   NEARMAP_TOKEN,
   MUNICIPALITIES_FILTERS,
   ACTIVE_LOMS,
@@ -104,7 +104,7 @@ const WorkRequestMap = (type: any) => {
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
     CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
-    PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, COMPONENT_LAYERS.tiles, STREAMS_FILTERS];
+    PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, COMPONENT_LAYERS.tiles, STREAMS_FILTERS];
   const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
   MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
   MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
@@ -2039,24 +2039,39 @@ const epochTransform = (dateParser: any) => {
           if(isAdded) {
             status = 'Remove';
           } 
-          const item = {
-            layer: MENU_OPTIONS.COMPONENTS,
-            type: feature.properties.type ? feature.properties.type : '-',
-            subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-            status: feature.properties.status ? feature.properties.status : '-',
-            estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-            studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-            studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
-            jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-            original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-            table: feature.source ? feature.source : '-',
-            cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
-            problem: 'Dataset in development',
-            added: status,
-            objectid: feature.properties.objectid?feature.properties.objectid:'-',
-            projectid : feature.properties.projectid? feature.properties.projectid: undefined ,
-            streamname: feature.properties.drainageway,
-          };
+          let item;
+          if (feature.source === STREAM_IMPROVEMENT_MEASURE) {
+            item = {
+              layer: MENU_OPTIONS.COMPONENTS,
+              type: getTitleOfStreamImprovements(feature.properties),
+              subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
+              estimatedcost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
+              studyname: feature.properties.source_name ? feature.properties.source_name : '-',
+              studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
+              streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
+              local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
+              problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
+            }
+          } else {
+            item = {
+              layer: MENU_OPTIONS.COMPONENTS,
+              type: feature.properties.type ? feature.properties.type : '-',
+              subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+              status: feature.properties.status ? feature.properties.status : '-',
+              estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+              studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+              studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
+              jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+              original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+              table: feature.source ? feature.source : '-',
+              cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
+              problem: 'Dataset in development',
+              added: status,
+              objectid: feature.properties.objectid?feature.properties.objectid:'-',
+              projectid : feature.properties.projectid? feature.properties.projectid: undefined ,
+              streamname: feature.properties.drainageway,
+            };
+          }
           const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
           menuOptions.push(name);
           mobile.push({
@@ -2113,6 +2128,16 @@ const epochTransform = (dateParser: any) => {
       }
     }
     }
+  }
+  const getTitleOfStreamImprovements = (properties: any) => {
+    let title = '';
+    if (properties.component_part_category) {
+      title = properties.component_part_category ;
+    } 
+    if ( properties.component_part_subcategory) {
+      title += (properties.component_part_category ? ' - ' : '') + properties.component_part_subcategory;
+    }
+    return title;
   }
   const loadIconsPopup = (menu: any, popups:any, index:any) =>{
     let icon
