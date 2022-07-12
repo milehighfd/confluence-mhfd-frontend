@@ -151,7 +151,7 @@ const DetailedModal = ({
     <>
       <Modal
         className="detailed-modal"
-        style={{ top: 60 }}
+        style={{ top: 30 }}
         visible={visible}
         onCancel={() => setVisible(false)}
         forceRender={false}
