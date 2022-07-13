@@ -56,7 +56,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
  return   <div>
 
             <div className="poup-map-mobile">
-              <Carousel afterChange={(current: number) => {
+              <Carousel style={{marginLeft:'10px'}} afterChange={(current: number) => {
                 setSelectedPopup(current);
               }}>
                 {items && items.length && items.map((item: any, index: number) => {
