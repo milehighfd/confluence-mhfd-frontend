@@ -147,7 +147,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     <Menu
       className="menu-login-dropdown"
       style={{ marginTop: '12px'}}
-      mode={'inline'}
       items={items}
       onClick={({ key }) => {
         switch(key) {
