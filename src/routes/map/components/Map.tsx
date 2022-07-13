@@ -1127,7 +1127,6 @@ const Map = ({
             topLabels();
             topServiceArea();
             topComponents();
-            console.log( 'selectedLayers',selectedLayers);
             if (map.getLayer('area_based_maskMASK')) {
               map.moveLayer('area_based_maskMASK');
             }

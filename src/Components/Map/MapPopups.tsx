@@ -169,7 +169,6 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
     </div>
 }
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
-  console.log('which are the components: ', id, item);
   if(item.layer == 'County') {
     item.feature = item.feature +" County";
     isComponent = false;
