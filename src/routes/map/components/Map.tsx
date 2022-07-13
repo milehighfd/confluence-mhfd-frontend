@@ -2110,14 +2110,14 @@ const Map = ({
                           streamname: feature.properties.streamname,
                           popupId: 'popup',
                           image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                              feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                              feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
-                                  feature.properties.projecttype === 'Maintenance' ?
-                                  (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                                      feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                          '/projectImages/debris_management.jpg') : '/Icons/eje.png')
+                            feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
+                              feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
+                                feature.properties.projecttype === 'Maintenance' ?
+                                  (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.png' :
+                                    feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.png' :
+                                      feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
+                                        feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.png' :
+                                          '/projectImages/debris_management.png') : '/Icons/eje.png')
                       };
                       mobile.push({
                           type: 'project',
@@ -2149,7 +2149,7 @@ const Map = ({
                           problemid: feature.properties.problem_id,
                           component_count: feature.properties.component_count ?? 0,
                           popupId: 'popup',
-                          image: `gallery/${feature.properties.problemtype}.jpg`,
+                          image: `gallery/${feature.properties.problem_type}.png`,
                       };
                       itemValue = { ...item };
                       mobile.push({
