@@ -38,7 +38,7 @@ const ContinueAsGuest = () => {
         <Col span={12}>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
-          <Button onClick={() => redirectGuest()}>
+          <Button onClick={() => redirectGuest()} onTouchEnd={() => redirectGuest()}>
             <label className="text-l">Continue as Guest</label> <ArrowRightOutlined />
           </Button>
         </Col>
