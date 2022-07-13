@@ -76,7 +76,7 @@ export const NewProblemsFilter = () => {
         .forEach((key: string) => {
             if (paramProblems[key]) {
                 paramProblems[key].sort((a: any, b: any) => {
-                    return a.value.localeCompare(b.value)
+                    return a?.value?.localeCompare(b?.value)
                 });
             }
         });
@@ -89,7 +89,7 @@ export const NewProblemsFilter = () => {
             } else if (b.value === 'Human Connection') {
                 return -1;
             } else {
-                return b.value.localeCompare(a.value);
+                return b?.value?.localeCompare(a?.value);
             }
         })
     }

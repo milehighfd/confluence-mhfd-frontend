@@ -45,7 +45,7 @@ export const CheckBoxFilters = ({
   }
 
   const showLabel = (label: string) => {
-    return labels && labels[label] ? labels[label] : label;
+    return (labels && labels[label]) ? labels[label] : (label ? label : '');
   }
   useEffect(() => {
     console.log('check ', data);
@@ -71,7 +71,7 @@ export const CheckBoxFilters = ({
         defaultValue={['Active']}
         value={selectedData}
         options={data ? data.map((element: any) => {
-          return {label: showLabel(element.value), value: element.value};
+          return {label: showLabel(element.value), value: element.value ? element.value : ''};
         }) : []}
         onChange={(e) => {
         console.log(e);
