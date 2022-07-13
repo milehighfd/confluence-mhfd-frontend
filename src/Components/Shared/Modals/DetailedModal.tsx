@@ -231,7 +231,7 @@ const DetailedModal = ({
                                         'detailed/debris-management.png') : 'Icons/eje.png'
                         } /> </div>
                       ) : (
-                        detailedPage?.attachments?.map((image: string, index: number) => {
+                        detailedPage?.attachments && detailedPage?.attachments.map((image: string, index: number) => {
                           return <div key={index} className="detailed-c">
                             <img width="100%" height="100%" src={image} alt="" />
                           </div>

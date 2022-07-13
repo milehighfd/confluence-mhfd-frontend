@@ -47,7 +47,7 @@ export default forwardRef(({
   if (detailedPage?.consultant || detailedPage?.contractor) {
     sections.push('2');
   }
-  if (detailedPage?.components.length > 0) {
+  if (detailedPage?.components && detailedPage?.components.length > 0) {
     sections.push('3');
   }
   const [ active, setActive ] = useState(sections);
