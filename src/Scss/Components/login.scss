@@ -699,7 +699,7 @@
     }
   }
   .login-form{
-    width: auto;
+    width: auto !important;
   }
   .login-step01 {
     width: 100%;
@@ -802,6 +802,7 @@
   }
   .ant-carousel {
     padding: 0px;
+    background-color: transparent;
   }
   .contact02 {
     .text-button{
