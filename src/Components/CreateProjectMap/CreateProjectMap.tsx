@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOMServer from 'react-dom/server';
+import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
@@ -1543,14 +1544,14 @@ const CreateProjectMap = (type: any) => {
             streamname: feature.properties.streamname,
             popupId: 'popup',
             image: filtered.length && filtered[0].attachments ? filtered[0].attachments : (
-              feature.properties.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                feature.properties.projecttype === 'Study' ? '/projectImages/study.jpg' :
+              feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
+                feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
                   feature.properties.projecttype === 'Maintenance' ?
-                    (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                        feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                            '/projectImages/debris_management.jpg') : '/Icons/eje.png')
+                    (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.png' :
+                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.png' :
+                        feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
+                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.png' :
+                            '/projectImages/debris_management.png') : '/Icons/eje.png')
           };
           mobile.push({
             type: 'project',
@@ -2024,7 +2025,7 @@ const CreateProjectMap = (type: any) => {
           popup.remove();
           popup = new mapboxgl.Popup({ closeButton: true, });
           popup.setLngLat(e.lngLat)
-            .setHTML(html)
+            .setDOMContent(html)
             .addTo(map.map);
           for (const index in popups) {
 
@@ -2103,39 +2104,46 @@ const CreateProjectMap = (type: any) => {
       map.map.off(eventToClick);
     }
   }, [allLayers]);
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => ReactDOMServer.renderToStaticMarkup(
-
-    <>
-      {menuOptions.length === 1 ?
-        (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem')
-          ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
-          loadMainPopup(0, popups[0], test)}
-        </>)
-        :
-        <div className="map-pop-02">
-          <div className="headmap">LAYERS</div>
-          <div className="layer-popup">
-            {
-              menuOptions.map((menu: any, index: number) => {
-                return (
-                  <div>
-                    <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined />
-                    </Button>
-                    {(menu !== 'Project' && menu !== 'Problem') ?
-                      (menu == 'Stream' ? loadStreamPopup(index, popups[index]) : loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])))
-                      :
-                      menu === 'Project' ?
-                        loadMainPopup(index, popups[index], test, true)
+  const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => {
+    const popupNode = document.createElement("div");
+    ReactDOM.render(
+      (
+      <>
+        {menuOptions.length === 1 ?
+          (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem')
+            ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
+            loadMainPopup(0, popups[0], test)}
+          </>)
+          :
+          <div className="map-pop-02">
+            <div className="headmap">LAYERS</div>
+            <div className="layer-popup">
+              {
+                menuOptions.map((menu: any, index: number) => {
+                  return (
+                    <div>
+                      <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined />
+                      </Button>
+                      {(menu !== 'Project' && menu !== 'Problem') ?
+                        (menu == 'Stream' ? loadStreamPopup(index, popups[index]) : loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])))
                         :
-                        loadMainPopup(index, popups[index], test)}
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>}
-    </>
-  );
+                        menu === 'Project' ?
+                          loadMainPopup(index, popups[index], test, true)
+                          :
+                          loadMainPopup(index, popups[index], test)}
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </div>}
+      </>
+      ),
+      popupNode
+    );
+    return popupNode;
+  };
+
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
       <div className="map-pop-02">

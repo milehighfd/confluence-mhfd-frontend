@@ -38,7 +38,7 @@ export default forwardRef(({
     getComponentsByProblemId
   } = useMapDispatch();
   let sections = ['4'];
-  if (detailedPage?.problems && detailedPage?.problems.length > 0) {
+  if (detailedPage?.problems && detailedPage?.problems?.length > 0) {
     sections.push('1');
   }
   if (problemParts) {
@@ -47,7 +47,7 @@ export default forwardRef(({
   if (detailedPage?.consultant || detailedPage?.contractor) {
     sections.push('2');
   }
-  if (detailedPage?.components && detailedPage?.components.length > 0) {
+  if (detailedPage?.components && detailedPage?.components?.length > 0) {
     sections.push('3');
   }
   const [ active, setActive ] = useState(sections);
@@ -119,7 +119,7 @@ export default forwardRef(({
   );
   const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
       <>
-          <MainPopup item={item}></MainPopup>
+          <MainPopup id={-1} item={item} test={() => {}}></MainPopup>
       </>
   );
   const updateZoom = () => {
@@ -195,7 +195,7 @@ export default forwardRef(({
         addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
-        detailedPage?.components.forEach((element: any) => {
+        detailedPage?.components?.forEach((element: any) => {
           if(element.projectid) {
             map.addVectorSource('projects-line', layers.projects.mhfd_projects);
             for (const project of tileStyles.mhfd_projects) {
@@ -207,7 +207,7 @@ export default forwardRef(({
         });
         addMapListeners('mhfd_projects', 'projects-line_');
       } else {
-        detailedPage?.problems.forEach((element: any) => {
+        detailedPage?.problems?.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
             map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary);
@@ -240,7 +240,7 @@ export default forwardRef(({
   const addMapListeners = (key: string, value: string) => {
     const styles = { ...tileStyles as any };
     if (styles[key]) {
-        styles[key].forEach((style : LayerStylesType, index : number) => {
+        styles[key]?.forEach((style : LayerStylesType, index : number) => {
           let html: any = null;
             if (!map.getLayer(value + index)) {
                 return;
@@ -561,7 +561,7 @@ export default forwardRef(({
                 }} />
             </Col>
           </Row>
-          {data.length > 0 && <div className="solution-b" style={{display:'flex'}}>
+          {data?.length > 0 && <div className="solution-b" style={{display:'flex'}}>
             <div style={{width:'284px'}}><b>Total Estimated Cost</b></div>
             <div style={{padding: '0px 12.5px'}}><b>${new Intl.NumberFormat("en-EN").format(Math.round(total))}</b></div>
           </div>}

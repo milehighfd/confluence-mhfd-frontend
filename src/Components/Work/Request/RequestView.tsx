@@ -527,6 +527,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setProjectAmounts(projectAmounts);
   }
   const openEdit = (project:any,event:any) => {
+    console.log('open edit ', project);
     setShowModalEdit(project);
   }
   const setShowModalEdit = (project: any) => {

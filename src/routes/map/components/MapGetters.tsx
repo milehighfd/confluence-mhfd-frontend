@@ -110,7 +110,7 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
 return popupNode;
 };
 
-const loadMainPopup = (id: number, item: any, test: Function, userInformation: any, sw?: boolean) => (
+const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean) => (
   <>
     <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
   </>

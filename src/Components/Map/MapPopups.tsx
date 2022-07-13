@@ -49,11 +49,15 @@ const capitalize = (s : string) => {
     if (typeof s !== 'string') return '';
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
-export const MainPopup = ({id, item, test, sw, ep } : any) => {
+export const MainPopup = ({id, item, test, sw, ep } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any}) => {
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
         }
+    }
+    console.log('testtetetetetetet', id, 'item', item, 'test', test);
+    if(!test) {
+      test = () => {};
     }
     let priorityType: string = '';
     if (item.priority) {
@@ -80,10 +84,10 @@ export const MainPopup = ({id, item, test, sw, ep } : any) => {
         </div>
         { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             { item.type != 'project' && <Button id={"buttonCreate-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Create Project</Button>}
-            <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
+            <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test(item)} className="btn-borde">See Details</Button>
         </div>} 
         { ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-            <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">Edit Project</Button>
+            <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test(item)} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>
     </div>
@@ -121,10 +125,10 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
         </div>
         { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             {  item.type != 'project' && <Button id={"buttonComponents-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Add Comp.</Button>}
-            <Button id={"buttonPopup-" + id} style={{ width: item.type == 'project'? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">See Details</Button>
+            <Button id={"buttonPopup-" + id} style={{ width: item.type == 'project'? '100%' : '50%', color: '#28C499' }} className="btn-borde">See Details</Button>
         </div>} 
         { ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-            <Button id={"buttonEdit-" + id} style={{ width: item.type == 'project'? '100%' : '50%', color: '#28C499' }} onClick={() => test()} className="btn-borde">Edit Project</Button>
+            <Button id={"buttonEdit-" + id} style={{ width: item.type == 'project'? '100%' : '50%', color: '#28C499' }} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>
     </div>

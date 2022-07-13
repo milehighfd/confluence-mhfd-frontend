@@ -1555,7 +1555,7 @@ const Map = ({
     };
 
     const test = (item: any) => {
-
+      console.log('item inside map ', item);
         setVisible(true);
         setData(item);
         if (item.problemid) {
@@ -2721,7 +2721,7 @@ const Map = ({
               }
            }
             if (popups.length) { 
-                const html = loadMenuPopupWithData(menuOptions, popups, test, userInformation);
+                const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test);
                 setMobilePopups(mobile);
                 setActiveMobilePopups(mobileIds);
                 setSelectedPopup(0);

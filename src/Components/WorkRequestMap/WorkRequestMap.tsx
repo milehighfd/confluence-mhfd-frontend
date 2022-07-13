@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOMServer from 'react-dom/server';
+import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
@@ -1249,14 +1250,7 @@ const loadData = (trigger: any, name?: string) => {
     }
   }
   const test = (item: any) => {
-    setVisible(true);
-    setData(item);
-    if (item.problemid) {
-      existDetailedPageProblem(item.problemid);
-    } else {
-      const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
-      existDetailedPageProject(url);
-    }
+    
   }
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
@@ -1301,6 +1295,7 @@ const loadData = (trigger: any, name?: string) => {
     return;
   }
   const seeDetails = (details: any, event: any) => {
+    console.log('aca??', details);
     if (details.problemid) {
       setData({
         id: '',
@@ -2101,7 +2096,7 @@ const epochTransform = (dateParser: any) => {
         //   .setHTML(html)
         //   .addTo(map.map);
         console.log('about to add popuppp', e.lngLat, JSON.stringify(e.lngLat));
-        map.addPopUp({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
+        map.addPopUpContent({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
         
         for (const index in popups) {
           let menuElement = document.getElementById('menu-' + index);
@@ -2289,8 +2284,10 @@ const epochTransform = (dateParser: any) => {
     }
   }, [allLayers]);
 
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => ReactDOMServer.renderToStaticMarkup(
-
+  const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => {
+    const popupNode = document.createElement("div");
+    ReactDOM.render(
+      (
     <>
       {menuOptions.length === 1 ? <> {
       (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
@@ -2322,7 +2319,12 @@ const epochTransform = (dateParser: any) => {
           </div>
         </div>}
     </>
+    ),
+    popupNode
   );
+  return popupNode;
+}
+
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="map-pop-02">
@@ -2340,7 +2342,7 @@ const epochTransform = (dateParser: any) => {
     </>
   );
  
-  const loadMainPopup =  useCallback((id: number, item: any, test: Function, sw?: boolean, ep?:boolean) => (
+  const loadMainPopup =  useCallback((id: number, item: any, test: (e: any) => void, sw?: boolean, ep?:boolean) => (
     <>
       <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={ep?ep:false}></MainPopup>
     </>
@@ -2399,16 +2401,13 @@ const epochTransform = (dateParser: any) => {
   const centerToLocalityy = () => {
     groupOrganizationZoom();
   }
-  useEffect(() => {
-    console.log('DEtailed in wr', detailed);
-  }, [detailed]);
   return <>
     <div className="map">
     <span className="zoomvaluemap"><b>Nearmap: May 27, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b> </span>
       <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
-        type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
+        type={data?.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
         data={data}
         visible={visible}
         setVisible={setVisible}
