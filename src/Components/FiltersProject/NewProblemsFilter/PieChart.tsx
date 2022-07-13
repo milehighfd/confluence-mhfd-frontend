@@ -11,8 +11,10 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   useEffect(() => {
     setSelectedData(selected ? selected.split(',') : []);
   }, [selected]);
-
-  const labelValues = type === 'problemtype' ? 'Problems' : 'Projects';
+  useEffect(() => {
+    console.log('data', data);
+  } ,[data]);
+  const labelValues = type === 'problemtype' ? '' : 'Projects';
   useEffect(() => {
     let total: any;
     let pieChartData: any;
@@ -95,7 +97,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
 
     slices.exit().remove();
     var separationJump = 80;
-    var fontSize = 8.5;
+    var fontSize = 10;
     var legendsText = svg
       .selectAll('slices')
       .data(data_ready)
@@ -131,7 +133,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsCounterText
       .enter()
       .append('text')
-      .text(function (d: any) {  return d.data.counter + ' ' + labelValues })
+      .text(function (d: any) {  return (type === 'problemtype' ? '(':'') + d.data.counter + (type === 'problemtype' ? ')':'') + ' ' + labelValues })
       .attr("transform", (d: any, i) => {
         let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 45;

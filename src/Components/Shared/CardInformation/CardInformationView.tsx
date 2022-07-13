@@ -28,7 +28,8 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
   const { favorites } = useMapState();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {
-    const id = data.type === MENU_OPTIONS.PROBLEMS ? data.problemid : data.id;
+    console.log('data in show components', data);
+    const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;
@@ -107,7 +108,7 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
       },
       {
         key: 'popup-show-components',
-        label: <span className="menu-item-text" style={{ display: data.totalComponents ? 'inline' : 'none' }}>Show Components</span>
+        label: <span className="menu-item-text" >Show Components</span>
       },
       {
         key: 'popup-zoom',
@@ -126,9 +127,9 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
         label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
       }
     ];
-    if (!data.totalComponents) {
-      menuPopupItem.splice(1, 1);
-    }
+    // if (!data.totalComponents) {
+    //   menuPopupItem.splice(1, 1);
+    // }
     return <Menu
       className="menu-dropdown-map"
       style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
