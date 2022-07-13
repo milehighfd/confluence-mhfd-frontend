@@ -1257,7 +1257,17 @@ export const COMPONENT_LAYERS_STYLE = {
         "hsla(141, 81%, 45%, 0)"
       ]
   },
-}]
+},{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: { },
+  "paint": {
+    'line-width': 4.5,
+    "line-opacity": 0,
+  },
+}
+
+]
 }
 
 const MEP_PROJECTS_STYLES = {
