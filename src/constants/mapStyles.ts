@@ -4483,15 +4483,15 @@ export const tileStyles = {
       "line-color": [
           "step",
           ["zoom"],
-          "hsla(0, 100%, 52%, 0.65)",
+          "hsla(0, 99%, 49%, 0.65)",
           7,
-          "hsla(0, 100%, 52%,0.72)",
+          "hsla(0, 99%, 49%,0.72)",
           11,
-          "hsla(0, 100%, 52%,0.85)",
+          "hsla(0, 99%, 49%,0.85)",
           13,
-          "hsla(0, 100%, 52%,0.95)",
+          "hsla(0, 99%, 49%,0.95)",
           22,
-          "hsla(0, 100%, 52%, 0.39)"
+          "hsla(0, 99%, 49%, 0.39)"
       ],
       "line-width": [
           "interpolate",
@@ -4500,7 +4500,7 @@ export const tileStyles = {
           9, 10,
           16, 22,
         ],
-      "line-opacity": 0.76
+      "line-opacity": 0.8
     }
   }],
   [FLOOD_HAZARD_POLYGON]: [{
