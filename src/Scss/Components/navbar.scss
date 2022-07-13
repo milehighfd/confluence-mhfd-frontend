@@ -212,6 +212,8 @@
   scroll-behavior: smooth;
   .ant-modal-content{
     background: rgba(00, 00, 00, 0.3);
+    top: 15px;
+    height: 100%;
   }
   .ant-modal-body{
     padding: 0px;
