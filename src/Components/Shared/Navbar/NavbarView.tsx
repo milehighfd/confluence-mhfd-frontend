@@ -26,7 +26,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     visible: false,
     visible1:false
   }
-  const [carrousel, setCarrousel] = useState({slick: {slickGoTo: (index: number) => {}}});
   const [state, setState] = useState(stateValue);
   const { changeTutorialStatus } = useMapDispatch();
   const { getTimesLogin } = useProfileDispatch();
@@ -43,14 +42,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     }
   }, [timesLogged]);
   useEffect(() => {
-    console.log('change state value ',stateValue);
     changeTutorialStatus(state.visible1);
   }, [state]);
   useEffect(() => {
-    console.log(sliderIndex, carrousel);
-    if (carrousel.hasOwnProperty('slick')) {
-      carrousel.slick.slickGoTo(sliderIndex);
-    }
     if (sliderIndex === 3) {
       setState({...state, visible1: false});
       setSliderIndex(0);
@@ -62,13 +56,11 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     setState(auxState);
   };
   const handleOk = (e: any) => {
-     console.log(e);
      const auxState = {...state};
      auxState.visible = false;
      setState(auxState);
    };
    const handleCancel = (e: any) => {
-     console.log(e);
      const auxState = {...state};
      auxState.visible = false;
      setState(auxState);
@@ -79,13 +71,11 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
      setState(auxState);
    };
    const handleOk1 = (e: any) => {
-      console.log(e);
       const auxState = {...state};
       auxState.visible1 = false;
       setState(auxState);
     };
-    const handleCancel1 = (e: any) => {
-      console.log(e);
+    const handleCancel1 = () => {
       const auxState = {...state};
       auxState.visible1 = false;
       setState(auxState);
@@ -234,7 +224,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
        width="750px"
     >
       <Tabs activeKey={key} tabPosition="left" onChange={(e) => {
-        console.log(e);
         setKey('' + e);
       }}>
         <div className="logo-00">
@@ -397,10 +386,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
      style={{ top: '0', height: '100vh' }}
      className="tutorial-carousel tutorial"
     >
-    <Carousel ref={(node: any) => {
-      setCarrousel(node);
-    }} slickGoTo={sliderIndex} afterChange={(coso: any) => {console.log(coso);}} >
-        <div className="tuto-01">
+        {sliderIndex === 0 && <div className="tuto-01">
           <div className="tuto-02">
             <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
             <p><i>This is the navigation bar. Hover over icons to see what they do, and click on them to go to that area of Confluence.</i></p>
@@ -422,9 +408,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             <img className="img-t-02" src="/Icons/tutorial/ic_arrow2.svg" alt="" />
             <p><i>This area allows you to access notifications, user settings, and this Guide.</i></p>
           </div>
-        </div>
+        </div>}
 
-        <div className="tuto-01">
+        {sliderIndex === 1 && <div className="tuto-01">
           <div className="tuto-07">
             <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
             <p><i>Click here to select your area of interest and show only the Problems and  Projects in that area.</i></p>
@@ -445,9 +431,9 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
             <p><i>This is a Card. Click the card to see the related Detail Page, and click the ellipses to see all available options. Hovering on a card heighlights its related feature on the map.</i></p>
           </div>
-        </div>
+        </div>}
 
-        <div className="tuto-01">
+        {sliderIndex === 2 && <div className="tuto-01">
           <div className="tuto-12">
             <img src="/Icons/tutorial/ic_arrow5.svg" alt="" />
             <p><i>Click here to see all of the layers (including legends) that are avilable for display on the Confluence map.</i></p>
@@ -469,9 +455,7 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
             <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
             <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
           </div>
-        </div>
-
-    </Carousel>
+        </div>}
     <div className="footer-next">
           <h4>How to Use the Map</h4>
           <Button onClick={() => {
