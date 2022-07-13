@@ -7,10 +7,10 @@ import LoadingView from './Components/Loading/LoadingView';
 import useLogin from './hook/custom/useLogin';
 import { useAppUserState } from './hook/useAppUser';
 import useInitializeApp from './hook/custom/useInitializeApp';
+import ConfirmPasswordLayout from './routes/confirm-password';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
-const ConfirmPasswordRoute = lazy(() => import('./routes/confirm-password'));
 const MapRoute = lazy(() => import('./routes/map'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
@@ -32,7 +32,7 @@ const App = () => {
         <Route path={`/login`} component={LoginRoute} />
         <Route path={`/sign-up`} component={SignUpRoute} />
         <Route path={`/reset-password`} component={ResetPasswordRoute} />
-        <Route path={`/confirm-password`} component={ConfirmPasswordRoute} />
+        <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-page`} component={DetailedPageView} />
         <Route exact path="/" render={() => (

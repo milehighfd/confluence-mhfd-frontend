@@ -628,6 +628,9 @@
     bottom: inherit;
     height: 100%;
     margin: 0px;
+    .icons-list{
+      display: none;
+    }
   }
   .contact02 {
     top: 250px;
@@ -636,6 +639,7 @@
     bottom: inherit;
     height: 100%;
     margin: 0px;
+    display: none;
   }
   .icons-list{
     position: absolute;
@@ -802,6 +806,7 @@
   }
   .ant-carousel {
     padding: 0px;
+    margin-left: 10px;
     background-color: transparent;
   }
   .contact02 {
