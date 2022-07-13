@@ -651,7 +651,8 @@
   }
   .social01{
     position: absolute;
-    top: 80vh;
+    // top: 80vh;
+    bottom: 230px;
     z-index: 10;
 
     span {
@@ -667,7 +668,8 @@
   }
   .mobile-login{
     position: absolute;
-    top: 72vh;
+    // top: 72vh;
+    bottom: 270px;
     z-index: 10;
     width: 88vw;
     margin: 0px 25px;
