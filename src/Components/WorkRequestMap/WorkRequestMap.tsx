@@ -1250,15 +1250,7 @@ const loadData = (trigger: any, name?: string) => {
     }
   }
   const test = (item: any) => {
-    console.log('item', item);
-    setVisible(true);
-    setData(item);
-    if (item && item.problemid) {
-      existDetailedPageProblem(item.problemid);
-    } else if (item && item.projectid) {
-      const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
-      existDetailedPageProject(url);
-    }
+    
   }
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
