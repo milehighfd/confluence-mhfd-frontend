@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOMServer from 'react-dom/server';
+import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
@@ -1249,9 +1250,10 @@ const loadData = (trigger: any, name?: string) => {
     }
   }
   const test = (item: any) => {
+    console.log('item', item);
     setVisible(true);
     setData(item);
-    if (item.problemid) {
+    if (item && item.problemid) {
       existDetailedPageProblem(item.problemid);
     } else {
       const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
@@ -2101,7 +2103,7 @@ const epochTransform = (dateParser: any) => {
         //   .setHTML(html)
         //   .addTo(map.map);
         console.log('about to add popuppp', e.lngLat, JSON.stringify(e.lngLat));
-        map.addPopUp({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
+        map.addPopUpContent({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
         
         for (const index in popups) {
           let menuElement = document.getElementById('menu-' + index);
@@ -2289,8 +2291,10 @@ const epochTransform = (dateParser: any) => {
     }
   }, [allLayers]);
 
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => ReactDOMServer.renderToStaticMarkup(
-
+  const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => {
+    const popupNode = document.createElement("div");
+    ReactDOM.render(
+      (
     <>
       {menuOptions.length === 1 ? <> {
       (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
@@ -2322,7 +2326,12 @@ const epochTransform = (dateParser: any) => {
           </div>
         </div>}
     </>
+    ),
+    popupNode
   );
+  return popupNode;
+}
+
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
         <div className="map-pop-02">

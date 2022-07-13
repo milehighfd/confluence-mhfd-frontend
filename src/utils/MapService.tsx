@@ -256,6 +256,11 @@ export class MapService {
           .setHTML(html)
           .addTo(this.map);
   }
+  addPopUpContent(coordinates: any, content: any) {
+    this.popup.setLngLat(coordinates)
+          .setDOMContent(content)
+          .addTo(this.map);
+  }
   addPopUpOffset(coordinates: any, html: any) {
     this.popupOffset.setLngLat(coordinates)
           .setHTML(html)
