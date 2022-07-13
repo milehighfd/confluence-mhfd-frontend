@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import ReactDOM from 'react-dom';
 import { Button } from 'antd';
 import { DownOutlined, RightOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
@@ -29,9 +29,10 @@ export const getBeautifulTitle = (title: any) => {
   );
 };
 
-export const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
-  <>
-      <div className="popup-comment">
+export const commentPopup = (note?:any ) => {
+  const popupNode = document.createElement("div");
+  ReactDOM.render(
+    <div className="popup-comment">
       <div className="headmap">
         <Button id="color-list" className="testheader">
           <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
@@ -51,12 +52,17 @@ export const commentPopup = (note?:any ) => ReactDOMServer.renderToStaticMarkup(
               <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
               { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
           </div>
-
       </div>
-      </div>
-  </>);
+    </div>,
+    popupNode
+  );
+  return popupNode;
+}
 
-export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, title?: any) => ReactDOMServer.renderToStaticMarkup(
+export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, title?: any) => {
+  const popupNode = document.createElement("div");
+  ReactDOM.render(
+  (
   <>
     {
       menuOptions[0] === MENU_OPTIONS.MEASURES ?
@@ -100,7 +106,10 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
           </div>
         </div>}
   </>
-);
+),popupNode);
+return popupNode;
+};
+
 const loadMainPopup = (id: number, item: any, test: Function, userInformation: any, sw?: boolean) => (
   <>
     <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>

@@ -369,7 +369,7 @@ const Map = ({
                     momentaryMarker.remove();
                   });
                   newmarker.setPopup(newpopup);
-                  newpopup.setHTML(html);
+                  newpopup.setDOMContent(html);
                   newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
                   newmarker.getElement().addEventListener('click', () => {
                     addEvents(note, [note.longitude, note.latitude]);
@@ -2007,7 +2007,7 @@ const Map = ({
                 });
                 setTimeout(()=>{
                   markerNote.setPopup(popup);
-                  popup.setHTML(html);
+                  popup.setDOMContent(html);
                   markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
                   addListonPopupNotes(e);
                 }, 200);
@@ -2730,7 +2730,7 @@ const Map = ({
                     popup.remove();
                     popup = new mapboxgl.Popup({closeButton: true,});
                     popup.setLngLat(e.lngLat)
-                        .setHTML(html)
+                        .setDOMContent(html)
                         .addTo(map);
                     for (const index in popups) {
                         document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
@@ -3005,7 +3005,7 @@ const Map = ({
                 searchPopup = new mapboxgl.Popup({closeButton: true,});
                 console.log('search popup');
                 searchPopup.setLngLat(coord)
-                    .setHTML(html)
+                    .setDOMContent(html)
                     .addTo(map);
                 for (const index in popups) {
                     document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
