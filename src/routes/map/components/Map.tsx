@@ -3173,7 +3173,7 @@ const Map = ({
                 visible={visible}
                 setVisible={setVisible}
             />}
-              {mobilePopups.length ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
+              {(mobilePopups.length && window.innerWidth < 700) ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
             <div id="map">
             </div>
             <div className="m-head">
