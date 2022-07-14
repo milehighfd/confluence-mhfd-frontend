@@ -49,6 +49,10 @@ const MobileMenu = () => {
           <div className="title-explore" onClick={() => {
             console.log('on click');
             setCollapseKey(collapseKey => '' + (1 - +collapseKey));
+          }}
+          onTouchEnd={() => {
+            console.log('on click');
+            setCollapseKey(collapseKey => '' + (1 - +collapseKey));
           }}>
             Explore Confluence
           </div>
