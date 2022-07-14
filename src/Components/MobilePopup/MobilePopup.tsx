@@ -14,7 +14,7 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
     }} key={'mobile-popup-' + index}>
       <div className="popup-mobile">
         <div style={data.image? {width: '40%'} : {width: '0%'}}>
-          {data.image && <img src={data.image} alt="" />}
+          {data.image && <img style={data.projecttype === 'Restoration' ? {objectFit: 'fill'} : {}} src={data.image} alt="" />}
         </div>
         <div style={data.image? {width: '60%', padding: '10px'} : {width: '100%', padding: '10px'}}>
           {data.title && data.type === MENU_OPTIONS.PROBLEMS && <h6>{data.title}</h6>}
