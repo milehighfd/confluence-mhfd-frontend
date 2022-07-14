@@ -1188,6 +1188,9 @@ const Map = ({
       })
     }
     const topLabels= () => {
+      map.moveLayer('measuresSaved');
+      map.moveLayer('measure-lines');
+      map.moveLayer('measuresSaved-border');
       map.moveLayer('poi-label');
       map.moveLayer('state-label');
       map.moveLayer('country-label');
