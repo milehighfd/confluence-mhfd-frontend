@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
 import { useLocation } from "react-router-dom";
 
@@ -300,8 +300,16 @@ const MapView = () => {
         <>
           <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
           {element.detail.map((filter: any) => {
-            return <p>{filter.display} <Button className="btn-transparent"
-              onClick={() => deleteTagComponents(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
+            return (
+              <p key={filter.tag}>
+                {filter.display}
+                <Button
+                  className="btn-transparent"
+                  onClick={() => deleteTagComponents(filter.tag, filter.value)}>
+                  <img src="/Icons/icon-84.svg" width="15px" alt="" />
+                </Button>
+              </p>
+            );
           })}
         </>
       );
@@ -422,11 +430,15 @@ const MapView = () => {
     return (
       <div className='tag-filters'>
         <div className='tag-body'>
-          {mappedLabelsFiltersProjects.filter((x: any) => x.detail.length > 0).map((element: any) => {
-            return (
-              showFilterLabels(element)
-            )
-          })}
+          {
+            mappedLabelsFiltersProjects
+              .filter((x: any) => x.detail.length > 0)
+              .map((element: any, index: number) => {
+                return (
+                  showFilterLabels(element, index)
+                )
+              })
+          }
         </div>
         <div className="btn-footer-02">
           {mappedLabelsFiltersProjects.filter((x: any) => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
@@ -436,20 +448,28 @@ const MapView = () => {
     );
   }
 
-  const showFilterLabels = (element: any) => {
+  const showFilterLabels = (element: any, index: number) => {
     if (element.detail[0].length === 0) {
-      return (
-        <>
-        </>)
+      return null;
     } else {
       return (
-        <>
+        <Fragment key={`${element.name}_${index}`}>
           <div className="head">{element.display} &nbsp;<img src="/Icons/icon-19.svg" width="13px" alt="" /></div>
-          {element.detail.map((filter: any) => {
-            return <p key={filter.value}>{filter.display} <Button className="btn-transparent"
-              onClick={() => deleteTagProjects(filter.tag, filter.value)}> <img src="/Icons/icon-84.svg" width="15px" alt="" /></Button></p>
-          })}
-        </>
+          {
+            element.detail.map((filter: any, filterIndex: number) => {
+              return (
+                <p key={`${filter.name}_${filterIndex}`}>
+                  {filter.display}
+                  <Button
+                    className="btn-transparent"
+                    onClick={() => deleteTagProjects(filter.tag, filter.value)}>
+                    <img src="/Icons/icon-84.svg" width="15px" alt="" />
+                  </Button>
+                </p>
+              );
+            })
+          }
+        </Fragment>
       );
     }
   }
@@ -475,7 +495,6 @@ const MapView = () => {
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        const elements = [];
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
           if (element) {
@@ -485,7 +504,6 @@ const MapView = () => {
       }
     }
     for (const key in filterComponentOptions) {
-      let c = 0;
       const tag = key === 'estimatedcost' ? filterComponents[key] : filterComponents[key].split(',');
       for (let index = 0; index < tag.length; index++) {
         const element = tag[index];
@@ -496,8 +514,6 @@ const MapView = () => {
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
-      let c = 0;
-      console.log(filterProjects[key]);
       const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         for (let index = 0; index < tag.length; index++) {
@@ -646,7 +662,6 @@ const MapView = () => {
   }
 
   const onSelect = (value: any, isSelect?:any) => {
-    console.log('Selected:', value, isSelect);
     setAutocomplete(value);
     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
       return {
@@ -922,9 +937,18 @@ const MapView = () => {
               totalElements = cardInformation.length;
             }
             return (
-              <TabPane tab={<span><Popover content={contents[index]} placement="rightBottom" style={{width: '100%'}}>{value + getCounter(index, tabActive, totalElements)} </Popover> </span>} key={'' + index}>
+              <TabPane
+                tab={
+                  <span>
+                    <Popover content={contents[index]} placement="rightBottom" style={{width: '100%'}}>
+                      {value + getCounter(index, tabActive, totalElements)}
+                    </Popover>
+                  </span>
+                }
+                key={index} //TODO: change key but making sure problem's tab works key={`TabPane_${index}`}
+              >
                 <GenericTabView
-                  key={value + index}
+                  key={`GenericTabView_${index}`}
                   type={value}
                   totalElements={totalElements}
                   cardInformation={cardInformation}
