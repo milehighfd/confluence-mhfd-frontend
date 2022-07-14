@@ -1991,6 +1991,35 @@ const Map = ({
       }
       return title;
     }
+    const getTitleOfProblemsPart = (feature: any) => {
+      let title = '';
+      if (feature.source.includes('hazard_polygon')) {
+        title = 'Flood Hazard Polygon' ;
+      } 
+      if ( feature.source.includes('hazard_line')) {
+        title = 'Flood Hazard Line' ;
+      }
+      if ( feature.source.includes('hazard_point')) {
+        title = 'Flood Hazard Point' ;
+      }
+      if ( feature.source.includes('function_line')) {
+        title = 'Stream Function Line' ;
+      }
+      if ( feature.source.includes('function_polygon')) {
+        title = 'Stream Function Polygon' ;
+      }
+      if ( feature.source.includes('function_point')) {
+        title = 'Stream Function Point' ;
+      }
+      if ( feature.source.includes('development_polygon')) {
+        title = 'Future Development Polygon' ;
+      }
+      if ( feature.source.includes('development_line')) {
+        title = 'Future Development Line' ;
+      }
+
+      return title;
+    }
     useEffect(() => {
 
         if (allLayers.length < 100) {
@@ -2289,12 +2318,10 @@ const Map = ({
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
-                  if (feature.source.includes('flood_hazard')) {
+                  if (feature.source.includes('flood_hazard')||feature.source.includes('stream_function')||feature.source.includes('future_development')) {
                     const item = {
-                      layer: feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
-                      (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'),
-                      feature: feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
-                        (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'),
+                      layer: getTitleOfProblemsPart(feature),
+                      feature: getTitleOfProblemsPart(feature),
                       problem_part_category: feature.properties.problem_part_category ? feature.properties.problem_part_category : '-',
                       problem_part_subcategory: feature.properties.problem_part_subcategory ? feature.properties.problem_part_subcategory : '-',
                       problem_part_name: feature.properties.problem_part_name ? feature.properties.problem_part_name : '-',
@@ -2303,11 +2330,11 @@ const Map = ({
                       local_government: feature.properties.local_government ? feature.properties.local_government : '-'
 
                     };
+                    console.log('what is inside item: ', feature.source);
                     mobile.push({
                       layer: item.layer
                     });
-                    menuOptions.push(feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
-                    (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'));
+                    menuOptions.push(getTitleOfProblemsPart(feature));
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
