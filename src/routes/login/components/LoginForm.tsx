@@ -37,7 +37,7 @@ const LoginView = () => {
   const [passwordOnBlur, setPasswordOnBlur] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({ message: '', color: '#28C499' });
-  const { getGroupOrganization } = useProfileDispatch();
+  const { getGroupOrganization, resetTimesLogin } = useProfileDispatch();
   useEffect(() => {
     resetAppUser();
     resetProfile();
@@ -54,6 +54,7 @@ const LoginView = () => {
     validationSchema,
     onSubmit(values: { email: string, password: string, recaptcha: string }) {
       datasets.postData(SERVER.LOGIN, values).then(async res => {
+        resetTimesLogin();
         if (res?.token) {
           setMessage({
             message: 'Successful Connection',

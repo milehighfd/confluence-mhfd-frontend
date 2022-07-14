@@ -7,7 +7,7 @@ import {
    spinValue
 } from '../store/actions/ProfileActions';
 import { User } from '../Classes/TypeList';
-import { getTimesLogin } from '../store/actions/usersActions';
+import { getTimesLogin, resetTimesLogin } from '../store/actions/usersActions';
 
 export const useProfileState = () => useSelector(
    (state: { profile: any }) => state.profile
@@ -21,6 +21,9 @@ export const useProfileDispatch = () => {
       },
       updateUserInformation: (user: User) => {
          dispatch(updateUserInformation(user));
+      },
+      resetTimesLogin: () => {
+         dispatch(resetTimesLogin());
       },
       getTimesLogin: () => {
          dispatch(getTimesLogin());

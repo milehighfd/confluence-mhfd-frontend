@@ -59,6 +59,12 @@ const users = (state = initStateUsersActivated, action : any) => {
                 timesLogged: action.times
             }
         }
+        case types.RESET_TIMES_LOGIN: {
+            return {
+                ...state,
+                timesLogged: -1
+            }
+        }
         default: 
             return state;
     }

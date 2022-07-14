@@ -2,6 +2,8 @@ import * as types from '../types/usersTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 
+export const resetTimesLogin = () => ({ type: types.RESET_TIMES_LOGIN });
+
 export const saveUserActivated = (users: any) => {
   return (dispatch: Function) => {
     dispatch({ type: types.SAVE_USER_ACTIVATED, users });

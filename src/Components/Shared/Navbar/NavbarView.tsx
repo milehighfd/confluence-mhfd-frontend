@@ -28,15 +28,16 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
   }
   const [state, setState] = useState(stateValue);
   const { changeTutorialStatus } = useMapDispatch();
-  const { getTimesLogin } = useProfileDispatch();
+  const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   useEffect(() => {
+    resetTimesLogin();
     getTimesLogin();
   }, []);
   useEffect(() => {
     let currentRef = window.location.href?window.location.href:"none";
-    if (timesLogged !== -1 && user.email) {
-      if (timesLogged <= 1 && user.email !== 'guest@mhfd.com' && currentRef.includes('/map')) {
+    if (timesLogged !== -1) {
+      if (timesLogged <= 1 && currentRef.includes('/map')) {
         setState({...state, visible1: true});
       }
     }
