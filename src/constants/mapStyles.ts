@@ -56,6 +56,11 @@ import {
   FLOOD_HAZARD_POLYGON,
   FLOOD_HAZARD_LINE,
   FLOOD_HAZARD_POINT,
+  STREAMFUNCTION_POLYGON,
+  STREAMFUNCTION_POINT,
+  STREAMFUNCTION_LINE,
+  FUTUREDEVELOPMENT_POLYGON,
+  FUTUREDEVELOPMENT_LINE,
   STREAM_IMPROVEMENT_MEASURE
 } from "./constants";
 
@@ -4535,6 +4540,51 @@ export const tileStyles = {
       "circle-stroke-color": "hsla(35, 100%, 50%, 1)",
       "circle-stroke-width": 1,
       "circle-radius": 3
+    }
+  }],
+  [STREAMFUNCTION_POLYGON]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      'line-width': 5,
+      "line-color": '#ff2'
+    }
+  }],
+  [STREAMFUNCTION_POINT]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      'line-width': 5,
+      "line-color": '#db3253'
+    }
+  }],
+  [STREAMFUNCTION_LINE]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      'line-width': 5,
+      "line-color": '#ab6331'
+    }
+  }],
+  [FUTUREDEVELOPMENT_POLYGON]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      'line-width': 5,
+      "line-color": '#73fff2'
+    }
+  }],
+  [FUTUREDEVELOPMENT_LINE]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      'line-width': 5,
+      "line-color": '#3b3e65'
     }
   }],
   [STUDIES]: [ {
