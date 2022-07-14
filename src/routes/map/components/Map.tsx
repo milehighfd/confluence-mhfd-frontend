@@ -1165,20 +1165,26 @@ const Map = ({
       const styles = { ...COMPONENT_LAYERS_STYLE as any };
       for (const component of COMPONENT_LAYERS.tiles) {
         styles[component].forEach((style: LayerStylesType, index: number) => {
-          map.moveLayer(`${component}_${index}`);
+          if (map.getLayer(`${component}_${index}`)) {
+            map.moveLayer(`${component}_${index}`);
+          }
         })
       }
     }
     const topServiceArea = () => {
       const styles = { ...tileStyles as any };
         styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
-          map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
+          if (map.getLayer(`${SERVICE_AREA_FILTERS}_${index}`)) {
+            map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);  
+          }
         })
     }
     const topEffectiveReaches = () => {
       const styles = { ...tileStyles as any };   
       styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
-        map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+        if(map.getLayer(`${EFFECTIVE_REACHES}_${index}`)) {
+          map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
+        }
       })
     }
     const topLabels= () => {
@@ -1189,13 +1195,28 @@ const Map = ({
       map.moveLayer('munis-centroids-district-view-dkc40e');
     }
     const topStreams = () => {
-      map.moveLayer('streams_0');
-      map.moveLayer('streams_1');
-      map.moveLayer('streams_2');
-      map.moveLayer('streams_3');
-      map.moveLayer('mhfd_flow_points_0');
-      map.moveLayer('mhfd_flow_points_1');
-      map.moveLayer('mhfd_flow_points_2');
+      if (map.getLayer('streams_0')) {
+        map.moveLayer('streams_0');
+      }
+      if (map.getLayer('streams_1')) {
+        map.moveLayer('streams_1');
+      }
+      if (map.getLayer('streams_2')) {
+        map.moveLayer('streams_2');
+      }
+      if (map.getLayer('streams_3')) {
+        map.moveLayer('streams_3');
+      }
+      if (map.getLayer('mhfd_flow_points_0')) {
+        map.moveLayer('mhfd_flow_points_0');
+      }
+      if (map.getLayer('mhfd_flow_points_1')) {
+        map.moveLayer('mhfd_flow_points_1');
+      }
+      if (map.getLayer('mhfd_flow_points_2')) {
+        map.moveLayer('mhfd_flow_points_2');
+      }
+      
     }
     const topStreamLabels = () => {
       map.moveLayer('streams_4');
