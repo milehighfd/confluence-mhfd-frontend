@@ -105,10 +105,10 @@ const MobileMenu = () => {
                           project.projecttype === 'Capital' ? '/projectImages/capital.png' :
                             project.projecttype === 'Study' ? '/projectImages/study.png' :
                               project.projecttype === 'Maintenance' ?
-                                (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.png' :
-                                  project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.png' :
+                                (project.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                                  project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
                                     project.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
-                                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.png' :
+                                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
                                         '/projectImages/debris_management.png') : '/Icons/eje.png'
                         ),
                         requestName: project.projectname ? project.projectname : project.requestedname,

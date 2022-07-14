@@ -1503,10 +1503,10 @@ const epochTransform = (dateParser: any) => {
             feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
                 feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
                   feature.properties.projecttype === 'Maintenance' ?
-                    (feature.properties.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.png' :
-                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.png' :
+                    (feature.properties.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
                         feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
-                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.png' :
+                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
                             '/projectImages/debris_management.png') : '/Icons/eje.jpg')
         };
 

@@ -58,7 +58,7 @@ const CardsView = ({
                 data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.png" /> :
                     data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.png" /> :
                         data.projecttype === 'Maintenance' ?
-                            (data.projectsubtype === 'Vegetation Mangement' ? <img alt="example" src="projectImages/vegetation-management.png" /> :
+                            (data.projectsubtype === 'Vegetation Management' ? <img alt="example" src="projectImages/vegetation-management.png" /> :
                                 data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment-removal.png" /> :
                                     data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.png" /> :
                                         data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor-repairs.png" /> :
