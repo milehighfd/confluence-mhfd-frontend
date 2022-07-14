@@ -134,7 +134,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsCounterText
       .enter()
       .append('text')
-      .text(function (d: any) {  return (isProb ? d.data.key.split(' ')[1] + '(':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
+      .text(function (d: any) {  return (isProb ? d.data.key.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
       .attr("transform", (d: any, i) => {
         let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 45;
