@@ -2291,7 +2291,8 @@ const Map = ({
                   }
                   if (feature.source.includes('flood_hazard')) {
                     const item = {
-                      layer: MENU_OPTIONS.PROBLEM_PART,
+                      layer: feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
+                      (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'),
                       feature: feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
                         (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'),
                       problem_part_category: feature.properties.problem_part_category ? feature.properties.problem_part_category : '-',
@@ -2305,7 +2306,8 @@ const Map = ({
                     mobile.push({
                       layer: item.layer
                     });
-                    menuOptions.push(MENU_OPTIONS.PROBLEM_PART);
+                    menuOptions.push(feature.source.includes('polygon') ? 'Flood Hazard Polygon' : 
+                    (feature.source.includes('line') ? 'Flood Hazard Line' : 'Flood Hazard Point'));
                     popups.push(item);
                     ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
