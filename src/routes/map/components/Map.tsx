@@ -2060,9 +2060,7 @@ const Map = ({
               }
               menuOptions.push(MENU_OPTIONS.MEASURES);
               popups.push(item);
-              mobile.push({
-                  layer: item.layer
-              });
+              mobile.push(item);
               mobileIds.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
               ids.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
             } else {
