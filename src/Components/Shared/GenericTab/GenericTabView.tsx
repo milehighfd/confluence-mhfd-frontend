@@ -131,24 +131,7 @@ export default ({
         setState(auxState);
     }, [totalElement])
     const tagProblems = [] as any;
-    for (const key in filterProblemOptions) {
-        const tag = {
-            key,
-            values: key === 'cost' ? filterProblemOptions[key] : filterProblemOptions[key].split(',')
-        }
-        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        }
-    }
-
     const tagProjects = [] as any;
-    for (const key in filterProjectOptions) {
-        const tag = {
-            key,
-            values: (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjectOptions[key] : filterProjectOptions[key].split(',')
-        }
-        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        }
-    }
 
     const fetchMoreData = () => {
         if (state.items.length >= totalElement - size) {

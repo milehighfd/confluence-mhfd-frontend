@@ -1436,9 +1436,6 @@ const Map = ({
               ...style
             });
           }
-            if(key === STREAMS_POINT) {
-              console.log(key + '_' + index);
-            }
             if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
                 if (!map.getLayer(key + '-background')) {
                     map.addLayer({

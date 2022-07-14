@@ -8,7 +8,6 @@ export const getUserInformation = () => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.ME, datasets.getToken()).then(user => {
       if (user?._id) {
-        console.log('my user ', user);
         dispatch({ type: types.GET_USER_INFORMATION, user });
       }
     });

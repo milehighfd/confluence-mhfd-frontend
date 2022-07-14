@@ -125,7 +125,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
     });
     setCurrentSelected(newValues);
-    console.log('parsing ids ', idstoParse);
     if (idstoParse.includes(null)) {
       idstoParse = idstoParse.filter((id:any) => id !== null);
       idstoParse.push('&hasNull=true');
@@ -135,10 +134,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   }
 
   const swapPositions = (id:any, id2:any) => {
-    console.log('ids ', id, id2);
     const index = tree.findIndex((item:any) => item.id === id);
     const index2 = tree.findIndex((item:any) => item.id === id2);
-    console.log('indexes ', index, index2);
     if (index === -1 || index2 === -1) {
       return;
     }
@@ -153,9 +150,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   }
 
   const onSelectCreateOption = (key: any) => {
-    console.log(key);
     if (key.key === 'create-folder') {
-      console.log('enter here');
       createGroup('Untitled Folder');
       resetFilters();
     } else {
@@ -174,7 +169,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
 
   const data = [
     <><div onClick={() => {setFilter('all')}}> <i className="mdi mdi-circle-medium" style={{color:'rgba(37, 24, 99, 0.5)'}}></i> All Types {filter === 'all' ? <CheckOutlined /> : <></>}</div></> ,
-    <><div onClick={() => {setFilter('red'); console.log('red');}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,
+    <><div onClick={() => {setFilter('red')}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => setFilter('orange')}><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange {filter === 'orange' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => setFilter('grey')}><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey {filter === 'grey' ? <CheckOutlined /> : <></>}</div></> ,
     <><div onClick={() => setFilter('yellow')}><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow {filter === 'yellow' ? <CheckOutlined /> : <></>}</div></> ,
@@ -246,7 +241,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     return calculateTimeAgo(originalTime);
   }
   const onDragAndDrop = (element: any, destination: any, below: any) => {
-    console.log('my tree is ', tree, 'element', element, 'destination', destination, 'below', below);
     let selectedNote = tree.find((note: any) => note.id === element);
     if (!selectedNote) {
       tree.forEach((note: any) => {
@@ -258,7 +252,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         }
       });
     }
-    console.log("XDQ selected note", selectedNote);
     const newTree = tree.filter((item: any) => {
       if (item.children) {
         item.children = item.children.filter((child: any) => {
@@ -267,21 +260,15 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
       return item.id !== element;
     });
-    console.log('after that ', selectedNote);
     const newDestination = tree.find((note: any) => note.id === destination);
     const index = newTree.indexOf(newDestination);
-    console.log('my index is ', index);
-    console.log(newTree);
     if (index !== -1) {
       const indexOfBelow = newTree[index].children.findIndex((note: any) => note.id === below);
       if (indexOfBelow !== -1) {
-        console.log(indexOfBelow, newTree[index].children.length);
         if (indexOfBelow + 1 < newTree[index].children.length) {
-          console.log('enter to this if');
           selectedNote.data['position'] = ~~((newTree[index].children[indexOfBelow].data['position'] 
           + newTree[index].children[indexOfBelow + 1].data['position']) / 2);
         } else {
-          console.log('for some reason here ' , indexOfBelow, newTree[index].children.length);
           selectedNote.data['position'] = newTree[index].children[indexOfBelow].data['position'] + 15000;
         }
         newTree[index].children.splice(indexOfBelow + 1, 0, selectedNote);
@@ -293,10 +280,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         selectedNote.data['position'] = position + 15000;
         newTree[index].children.push(selectedNote);
       }
-      console.log('calculated ', selectedNote.data);
     } else {
       const indexOfBelow = newTree.findIndex((note: any) => note.id === below);
-      console.log('my indexOf Below ', indexOfBelow, newTree.length);
       if (indexOfBelow !== -1) {
         if (indexOfBelow + 1 < newTree.length) {
           selectedNote.data['position'] = ~~((newTree[indexOfBelow].data['position'] + newTree[indexOfBelow + 1].data['position']) / 2);
@@ -313,22 +298,12 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         newTree.push(selectedNote);
       }
     }
-    console.log('edited ', selectedNote.data);
     editNote({
       ...selectedNote.data,
       group_id: destination,
     });
-    console.log("Finnaly edit note", {...selectedNote.data,
-      group_id: destination});
-    console.log('finally ', newTree);
   }
 
-  useEffect(() => {
-    console.log(notes);
-  }, []);
-  const showDrawer = () => {
-    setVisible(true);
-  };
   const onClose = () => {
     setVisible(false);
   };
