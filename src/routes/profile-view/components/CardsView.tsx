@@ -53,7 +53,7 @@ const CardsView = ({
         className="card-information"
         cover={
           <div>
-          {data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.jpg`} /> :
+          {data.problemtype ? <img alt="example" height="100%" src={`gallery/${data.problemtype}.png`} /> :
             data.attachments ? <img alt="example" src={data.attachments} /> : 
                 data.projecttype === 'Capital' ? <img alt="example" src="projectImages/capital.png" /> :
                     data.projecttype === 'Study' ? <img alt="example" src="projectImages/study.png" /> :
@@ -62,7 +62,7 @@ const CardsView = ({
                                 data.projectsubtype === 'Sediment Removal' ? <img alt="example" src="projectImages/sediment-removal.png" /> :
                                     data.projectsubtype === 'Restoration' ? <img alt="example" src="projectImages/restoration.png" /> :
                                         data.projectsubtype === 'Minor Repairs' ? <img alt="example" src="projectImages/minor-repairs.png" /> :
-                                            <img alt="example" src="projectImages/debris_management.jpg" />) : <img alt="example" src="Icons/eje.png" />}
+                                            <img alt="example" src="projectImages/debris_management.png" />) : <img alt="example" src="Icons/eje.png" />}
             <div>
               <div className="like-btn">
               <Button onClick={(event) => {

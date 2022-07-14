@@ -81,7 +81,7 @@ const MobileMenu = () => {
                     cardInformation = galleryProblems.map((problem: any) => {
                       return {
                         cartodb_id: problem.cartodb_id,
-                        image: `gallery/${problem.problemtype}.jpg`,
+                        image: `gallery/${problem.problemtype}.png`,
                         requestName: problem.problemname,
                         jurisdiction: problem.jurisdiction,
                         estimatedCost: problem.estimatedcost,
@@ -102,14 +102,14 @@ const MobileMenu = () => {
                       return {
                         cartodb_id: project.cartodb_id,
                         image: project.attachments ? project.attachments : (
-                          project.projecttype === 'Capital' ? '/projectImages/capital.jpg' :
-                            project.projecttype === 'Study' ? '/projectImages/study.jpg' :
+                          project.projecttype === 'Capital' ? '/projectImages/capital.png' :
+                            project.projecttype === 'Study' ? '/projectImages/study.png' :
                               project.projecttype === 'Maintenance' ?
-                                (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.jpg' :
-                                  project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.jpg' :
-                                    project.projectsubtype === 'Restoration' ? '/projectImages/restoration.jpg' :
-                                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.jpg' :
-                                        '/projectImages/debris_management.jpg') : '/Icons/eje.png'
+                                (project.projectsubtype === 'Vegetation Mangement' ? '/projectImages/vegetation_management.png' :
+                                  project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment_removal.png' :
+                                    project.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
+                                      project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor_repairs.png' :
+                                        '/projectImages/debris_management.png') : '/Icons/eje.png'
                         ),
                         requestName: project.projectname ? project.projectname : project.requestedname,
                         sponsor: project.sponsor,

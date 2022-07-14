@@ -1583,7 +1583,7 @@ const CreateProjectMap = (type: any) => {
             priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
             problemid: feature.properties.problemid,
             popupId: 'popup',
-            image: `gallery/${feature.properties.problemtype}.jpg`,
+            image: `gallery/${feature.properties.problemtype}.png`,
           };
           itemValue = { ...item };
           mobile.push({
