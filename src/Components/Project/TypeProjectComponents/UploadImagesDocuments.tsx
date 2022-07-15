@@ -30,12 +30,12 @@ export const UploadImagesDocuments = ({isCapital, }: {
       title: "Size",
       dataIndex: "size",
       className: "user-text",
-      width: "15%"
+      width: "10%"
     },
     {
       title: "Date",
       dataIndex: "date",
-      width: "15%",
+      width: "27%",
       className: "user-text",
     },
     {
@@ -57,7 +57,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
-      width: "10%"
+      width: "5%"
     },
   ];
   const COLUMNS_UPLOAD:any = [
