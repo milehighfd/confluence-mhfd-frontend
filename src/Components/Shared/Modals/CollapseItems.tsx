@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, PROBLEM_TYPE } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, MHFD_PROJECTS } from '../../../constants/constants';
 import { tileStyles } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -197,15 +197,15 @@ export default forwardRef(({
         let idProjectPolygon = 0;
         detailedPage?.components?.forEach((element: any) => {
           if(element.projectid) {
-            map.addVectorSource('projects-line', layers.projects.mhfd_projects);
-            for (const project of tileStyles.mhfd_projects) {
+            map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
+            for (const project of tileStyles[MHFD_PROJECTS]) {
               map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
               map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
               idProjectLine++;
             }       
           }
         });
-        addMapListeners('mhfd_projects', 'projects-line_');
+        addMapListeners(MHFD_PROJECTS, 'projects-line_');
       } else {
         detailedPage?.problems?.forEach((element: any) => {
           if(element.problemid) {
@@ -219,16 +219,16 @@ export default forwardRef(({
           }
         });
         addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
-        map.addVectorSource('projects-line', layers.projects.mhfd_projects);
+        map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
-        for (const project of tileStyles.mhfd_projects) {
+        for (const project of tileStyles[MHFD_PROJECTS]) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
           map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           idProjectLine++;
         }
         i = 0;
-        addMapListeners('mhfd_projects', 'projects-line_');
+        addMapListeners(MHFD_PROJECTS, 'projects-line_');
       }
       const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       map.fitBounds([detailedPage?.coordinates[0][0], detailedPage?.coordinates[0][2]], {duration: 10 });

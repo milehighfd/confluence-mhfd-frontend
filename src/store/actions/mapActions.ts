@@ -305,7 +305,7 @@ export const setProjectKeyword = (keyword: string) => {
         const params = '?field=' + keyword;
         if (keyword) {
             datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
-                if (tables?.mhfd_projects?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
+                if (tables[constants.MHFD_PROJECTS]?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
                     auxFilterProjects.keyword = tables;
                     auxFilterProjects.projectname = keyword;
                     dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
@@ -340,7 +340,7 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
                 "detention_facilities,land_acquisition,landscaping_area,stream_improvement_measure" // TODO save on a constant the useful components 
         }
         datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
-            if (filtersComponents?.problems || filtersComponents?.mhfd_projects || filtersComponents?.projects_polygon_) {
+            if (filtersComponents?.problems || filtersComponents[constants.MHFD_PROJECTS] || filtersComponents?.projects_polygon_) {
                 dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents });
             } else {
                 dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents: {} });

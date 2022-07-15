@@ -24,7 +24,7 @@ import {
   STREAMS_FILTERS,
   ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA,
   ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER,
-  PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS,
+  MHFD_PROJECTS, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS,
   MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA,
   LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
   CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
@@ -75,7 +75,7 @@ const CreateProjectMap = (type: any) => {
   const [localAOI, setLocalAOI] = useState(type.locality);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
   const [loading, setLoading] = useState(false);
-  const hovereableLayers = [PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
+  const hovereableLayers = [PROBLEMS_TRIGGER, MHFD_PROJECTS, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
@@ -815,7 +815,7 @@ const CreateProjectMap = (type: any) => {
     } else {
       filterProjectsNew.projecttype = "Maintenance,Capital";
     }
-    applyFilters('mhfd_projects', filterProjectsNew);
+    applyFilters(MHFD_PROJECTS, filterProjectsNew);
     setTimeout(() => {
       map.map.moveLayer('munis-centroids-shea-plusother');
     }, 500);
@@ -1524,7 +1524,7 @@ const CreateProjectMap = (type: any) => {
           continue;
         }
         let itemValue;
-        if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === PROJECTS_DRAFT) {
+        if (feature.source === 'projects_polygon_' || feature.source === MHFD_PROJECTS || feature.source === PROJECTS_DRAFT) {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
           const filtered = galleryProjects.filter((item: any) =>
             item.cartodb_id === feature.properties.cartodb_id

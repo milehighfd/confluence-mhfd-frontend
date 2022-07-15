@@ -20,7 +20,7 @@ import {
   MENU_OPTIONS,
   ROUTINE_MAINTENANCE,
   STREAMS_FILTERS,
-  ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+  ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, MHFD_PROJECTS, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA, CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
   NEARMAP_TOKEN,
   MUNICIPALITIES_FILTERS,
   ACTIVE_LOMS,
@@ -100,7 +100,7 @@ const WorkRequestMap = (type: any) => {
   const [visible, setVisible] = useState(false);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
   const [firstRendering, setFirstRendering] = useState(type.isFirstRendering);
-  const hovereableLayers = [PROBLEMS_TRIGGER, PROJECTS_LINE, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
+  const hovereableLayers = [PROBLEMS_TRIGGER, MHFD_PROJECTS, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
@@ -724,7 +724,7 @@ const loadData = (trigger: any, name?: string) => {
     } else {
       filterProjectsNew.projecttype = "";
     }
-    applyFilters('mhfd_projects', filterProjectsNew);
+    applyFilters(MHFD_PROJECTS, filterProjectsNew);
     
       filterProjectsDraft.projecttype = '';
       filterProjectsDraft.status = 'Draft';
@@ -819,9 +819,9 @@ const loadData = (trigger: any, name?: string) => {
   }
   const topProjects = () => {
     const styles = { ...tileStyles as any };   
-      styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
-        if (map.map.getLayer(`${PROJECTS_LINE}_${index}`)) {
-          map.map.moveLayer(`${PROJECTS_LINE}_${index}`);
+      styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
+        if (map.map.getLayer(`${MHFD_PROJECTS}_${index}`)) {
+          map.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
         }
       })
   }
@@ -1477,7 +1477,7 @@ const epochTransform = (dateParser: any) => {
         continue;
       }
       let itemValue: any = {};
-      if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects' || feature.source === PROJECTS_DRAFT) {
+      if (feature.source === 'projects_polygon_' || feature.source === MHFD_PROJECTS || feature.source === PROJECTS_DRAFT) {
         getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         const filtered = galleryProjects.filter((item: any) =>
           item.cartodb_id === feature.properties.cartodb_id

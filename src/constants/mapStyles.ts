@@ -34,7 +34,7 @@ import {
   ROUTINE_DEBRIS_AREA,
   ROUTINE_DEBRIS_LINEAR,
   PROJECTS_POLYGONS,
-  PROJECTS_LINE,
+  MHFD_PROJECTS,
   PROJECTS_DRAFT,
   STUDIES,
   FEMA_FLOOD_HAZARD,
@@ -2157,7 +2157,7 @@ export const PROJECTS_STYLES = {
       }
     }
 ],
-  [PROJECTS_LINE]: [
+  [MHFD_PROJECTS]: [
     {
       type: 'symbol',
       'source-layer': 'pluto15v1',

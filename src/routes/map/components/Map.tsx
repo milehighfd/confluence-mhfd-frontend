@@ -16,7 +16,7 @@ import {
     STREAMS_FILTERS,
     MUNICIPALITIES_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROJECTS_LINE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, MHFD_PROJECTS, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
     NEARMAP_TOKEN,
     BLOCK_CLEARANCE_ZONES_LAYERS,
     ACTIVE_LOMS,
@@ -564,7 +564,7 @@ const Map = ({
 
     useEffect(() => {
         if (map) {
-            applyFilters('mhfd_projects', filterProjects);
+            applyFilters(MHFD_PROJECTS, filterProjects);
         }
     }, [filterProjects, componentDetailIds]);
 
@@ -573,7 +573,7 @@ const Map = ({
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
             }
-            applyFilters('mhfd_projects', filterProjects);
+            applyFilters(MHFD_PROJECTS, filterProjects);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterComponents, componentDetailIds]);
@@ -1114,7 +1114,7 @@ const Map = ({
             }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
-        applyFilters('mhfd_projects', filterProjects);
+        applyFilters(MHFD_PROJECTS, filterProjects);
         setTimeout(()=>{
             topStreams()
             topEffectiveReaches();
@@ -1151,8 +1151,8 @@ const Map = ({
     }
     const topProjects = () => {
       const styles = { ...tileStyles as any };   
-        styles[PROJECTS_LINE].forEach((style: LayerStylesType, index: number) => {
-          map.moveLayer(`${PROJECTS_LINE}_${index}`);
+        styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${MHFD_PROJECTS}_${index}`);
         })
     }
     const topProblems = () => {
@@ -1265,7 +1265,7 @@ const Map = ({
             const allFilters: any[] = ['all'];
             for (const filterField in toFilter) {
                 let filters = toFilter[filterField];
-                if (key === 'mhfd_projects' && filterField === 'status' && !filters) {
+                if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
                 }
                 if (filterField === 'component_type') {
@@ -1392,7 +1392,7 @@ const Map = ({
             if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
               allFilters.push(style.filter);
             }
-            if (componentDetailIds && componentDetailIds[key] && key != 'mhfd_projects' && key != PROBLEMS_TRIGGER) {
+            if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
 
@@ -2139,7 +2139,7 @@ const Map = ({
                       continue;
                   }
                   let itemValue;
-                  if (feature.source === 'projects_polygon_' || feature.source === 'mhfd_projects') {
+                  if (feature.source === 'projects_polygon_' || feature.source === MHFD_PROJECTS) {
                       const filtered = galleryProjects.filter((item: any) =>
                           item.cartodb_id === feature.properties.cartodb_id
                       );

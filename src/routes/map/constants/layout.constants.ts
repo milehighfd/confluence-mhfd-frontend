@@ -1,4 +1,4 @@
-import { PROBLEMS_TRIGGER } from "../../../constants/constants";
+import { PROBLEMS_TRIGGER, MHFD_PROJECTS } from "../../../constants/constants";
 export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 15;
 export const EMPTY_SCREEN = 0;
@@ -8,12 +8,10 @@ export const MEDIUM_SCREEN_RIGHT = 9;
 
 export const MAP_RESIZABLE_TRANSITION = 0.7;
 
-export const PROJECTS_LINE = 'mhfd_projects';
-
 export const PROJECTS_MAP_STYLES = {
   name: 'projects',
   tiles: [
-    PROJECTS_LINE
+    MHFD_PROJECTS
   ]
 };
 
@@ -52,7 +50,7 @@ export const STREAM_IMPROVEMENT_MEASURE = 'stream_improvement_measure';
 
 export const hovereableLayers = [
   PROBLEMS_TRIGGER,
-  PROJECTS_LINE,
+  MHFD_PROJECTS,
   PROJECTS_POLYGONS,
   MEP_PROJECTS_TEMP_LOCATIONS,
   MEP_PROJECTS_DETENTION_BASINS,
