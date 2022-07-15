@@ -900,13 +900,6 @@ export const SORTED_PROJECTS = [{
   title: 'Cost'
 }];
 
-const actualYear = new Date().getFullYear();
-const todaysYear = '' + actualYear;
-const nextYear = '' + (actualYear + 1);
-const twoYears = '' + (actualYear + 2);
-const threeYears = '' + (actualYear + 3);
-const fourYears = '' + (actualYear + 4);
-
 export const popUps = {
   floodplains: 'Floodplains are areas that have been identified to be at risk of flooding in the 1% annual chance (or "100-year") storm event according to studies and models approved by CWCB and FEMA. This layer also includes the areas covered by the FEMA NHFL layer.',
   fema_flood_hazard_zones: 'The Federal Emergency Management Agency National Flood Hazard Layer is the official map of federally designated floodplains and floodways. It does not include floodplains desginated only at the state or local level (see Floodplains layer).',
