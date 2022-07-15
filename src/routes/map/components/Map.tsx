@@ -897,8 +897,8 @@ const Map = ({
         } else {
             const SOURCE_COLOR = [189, 56, 68];
             const TARGET_COLOR = [13, 87, 73];
-            const YELLOW_SOLID = [118, 239, 213];
-            const ORANGE_SOLID = [255, 165, 65];
+            const CIAN_SOLID = [118, 239, 213];
+            const RED_SOLID = [255, 60, 60];
             let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
                 return {
                     position: c.centroid,
@@ -914,7 +914,7 @@ const Map = ({
                     source: bboxComponents.centroids[0].centroid,
                     target: bboxComponents.centroids[i].centroid,
                     value: bboxComponents.centroids[i].arcWidth,
-                    colorArc: bboxComponents.centroids[i].component == "detention_facilities"? ORANGE_SOLID: YELLOW_SOLID
+                    colorArc: bboxComponents.centroids[i].component == "detention_facilities"? RED_SOLID: CIAN_SOLID
                 });
             }
             let mapboxArcsLayer = new MapboxLayer({
