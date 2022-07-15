@@ -14,6 +14,7 @@ import { Project, Geom } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
+import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 
 const { Option } = Select;
 const content = (<div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>);
@@ -349,12 +350,9 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
               />
               <br />
 
-              <UploadAttachment
-                files={files}
-                setFiles={setFiles}
-                setCover={setCover}
-                originModal="Acquisition"
-              />
+              <UploadImagesDocuments
+              isCapital={false}
+            />
             </div>
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>

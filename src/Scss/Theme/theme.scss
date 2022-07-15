@@ -345,6 +345,23 @@ body{
     display: none;
   }
 }
+.detailed-upload {
+  width: 760px !important;
+
+  /* Default close button */
+  .ant-modal-close {
+    display: none;
+  }
+  /* Body of the Modal */
+  .ant-modal-body {
+    padding: 0;
+    // height: 800px;
+  }
+  /* Moldal's Footer */
+  .ant-modal-footer {
+    display: none;
+  }
+}
 // END DETAILED MODAL
 
 // ALERTS AND MODALS
@@ -901,6 +918,80 @@ body{
   letter-spacing: 0.27px;
   color: #11093c;
 }
+.user-text {
+  width: 111px;
+  height: 24px;
+  font-family: Ubuntu;
+  font-size: 14px;
+  // font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: 0.27px;
+  color: #11093c;
+}
+.user-cover {
+  width: 111px;
+  height: 24px;
+  font-family: Ubuntu;
+  font-size: 14px;
+  // font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: 0.27px;
+  color: #4228C4;
+  .cover {
+    border-color: #4228C4;
+    background-color: transparent;
+    color: #4228C4;
+    border-radius: 5px;
+  }
+  .cover-active {
+    border-color: #4228C4;
+    background-color: #4228C4;
+    color: white;
+    border-radius: 5px;
+  }
+}
+.user-dowload {
+  background-color: transparent;
+  border-color: transparent;
+}
+.user-dowload:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+.user-type {
+  width: 111px;
+  height: 24px;
+  font-family: Ubuntu;
+  font-size: 14px;
+  // font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: 0.27px;
+  color: #28C499;
+  .type {
+    color: #28C499;
+    background-color: hsla(163, 66%, 46%, 0.078);
+    border-radius: 5px;
+    border-color: transparent;
+  }
+}
+.user-name-upload {
+  width: 111px;
+  height: 24px;
+  font-family: Ubuntu;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: 0.27px;
+  color: $purple;
+}
 .text-profile-projects {
   width: 91px;
   height: 24px;
@@ -914,8 +1005,162 @@ body{
   padding-right: 7px;
   padding-left: 8px;
 }
-
+.bottomn-heder {
+  color: #000000;
+  margin-left: 10px;
+  .ant-btn:focus, .ant-btn:hover {
+    color: #29c499;
+    border-color: #29c499;;
+  }
+}
+.bottomn-heder:hover {
+  color: #29c499;
+  border-color: #29c499;;
+}
+.bottomn-heder:focus {
+  color: #29c499;
+  border-color: #29c499;;
+}
 // DETAILED PROBLEM
+.upload{
+  // width: 1200px;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  background-color: $white;
+  overflow-y: auto;
+  padding-bottom: 30px;
+  .ant-carousel .slick-list {
+      height: auto;
+  }
+  .ant-carousel .slick-dots {
+    display: block !important;
+    padding-bottom: 50px !important;
+  }
+  .draw{
+    height: 278px;
+    width: 350%;
+    text-align: center;
+    border: 3px dashed $opacity04;
+    margin: 10px 0px 15px 0px;
+    padding: 18px 0px;
+    color: $opacity;
+    display: block;
+
+    p{
+      font-size: 13px;
+      margin-bottom: 0px;
+    }
+    .icon-draw{
+      margin-bottom: 2px;
+      height: 0px;
+      width: 0px;
+      background: $purple;
+      transition: width 2s;
+      padding: 9px;
+    }
+    .icon-draw-01{
+      height: 0px;
+      width: 0px;
+      background: $purple;
+      transition: width 2s;
+      padding: 13px;
+    }
+  }
+  .draw:hover, .draw:focus, .draw:active, .draw.active{
+    border: 3px dashed $green;
+    color: $green;
+  }
+  .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
+    background: $green;
+  }
+  .draw:hover > .icon-draw-01, .draw:focus > .icon-draw-01,
+  .draw:active > .icon-draw-01, .draw.active > .icon-draw-01{
+    background: $green;
+  }
+  hr{
+    border: 1px dashed $opacity04;
+  }
+}
+.detailed{
+  // width: 1200px;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  background-color: $white;
+  overflow-y: auto;
+
+  .ant-carousel .slick-list {
+      height: auto;
+  }
+  .ant-carousel .slick-dots {
+    display: block !important;
+    padding-bottom: 50px !important;
+  }
+}
+.upload02{
+  // width: 1200px;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  background-color: $white;
+  overflow-y: auto;
+  padding-bottom: 30px;
+  .ant-carousel .slick-list {
+      height: auto;
+  }
+  .ant-carousel .slick-dots {
+    display: block !important;
+    padding-bottom: 50px !important;
+  }
+  .draw{
+    height: 278px;
+    width: 300%;
+    text-align: center;
+    border: 3px dashed $opacity04;
+    margin: 10px 0px 15px 0px;
+    padding: 18px 0px;
+    color: $opacity;
+    display: block;
+
+    p{
+      font-size: 13px;
+      margin-bottom: 0px;
+    }
+    .icon-draw{
+      margin-bottom: 2px;
+      height: 0px;
+      width: 0px;
+      background: $purple;
+      transition: width 2s;
+      padding: 9px;
+    }
+    .icon-draw-01{
+      height: 0px;
+      width: 0px;
+      background: $purple;
+      transition: width 2s;
+      padding: 13px;
+    }
+  }
+  .draw:hover, .draw:focus, .draw:active, .draw.active{
+    border: 3px dashed $green;
+    color: $green;
+  }
+  .draw:hover > .icon-draw, .draw:focus > .icon-draw, .draw:active > .icon-draw, .draw.active > .icon-draw{
+    background: $green;
+  }
+  .draw:hover > .icon-draw-01, .draw:focus > .icon-draw-01,
+  .draw:active > .icon-draw-01, .draw.active > .icon-draw-01{
+    background: $green;
+  }
+  hr{
+    border: 1px dashed $opacity04;
+  }
+}
 .detailed{
   // width: 1200px;
   width: 100%;

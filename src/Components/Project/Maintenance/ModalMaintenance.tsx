@@ -12,6 +12,7 @@ import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
+import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 
 const { Option } = Select;
 const content = (<div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>);
@@ -395,12 +396,9 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 originModal="Maintenance"
               />
               <br />
-              <UploadAttachment
-                files={files}
-                setFiles={setFiles}
-                setCover={setCover}
-                originModal="Maintenance"
-              />
+              <UploadImagesDocuments
+              isCapital={false}
+            />
             </div>
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>

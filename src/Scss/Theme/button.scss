@@ -144,6 +144,12 @@
   font-size: 14px !important;
   cursor: pointer !important;
 }
+.ant-checkbox-indeterminate .ant-checkbox-inner:after{
+  background-color: $purple;
+}
+.ant-table-thead {
+  height: 40px;
+}
 .scroll-filters {
   .ant-checkbox-group{
     width: 100%;

@@ -16,6 +16,7 @@ import {
 } from "../../../constants/constants";
 import { useProfileState } from "../../../hook/profileHook";
 import { useHistory } from "react-router-dom";
+import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -459,12 +460,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               />
 
               <br />
-              <UploadAttachment
-                files={files}
-                setFiles={setFiles}
-                setCover={setCover}
-                originModal="Study"
-              />
+              <UploadImagesDocuments
+              isCapital={false}
+            />
             </div>
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>

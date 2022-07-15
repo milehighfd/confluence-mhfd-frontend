@@ -1,4 +1,6 @@
 import moment from "moment";
+import { Tag } from "antd";
+import { color } from "d3";
 
 export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 15;
@@ -814,7 +816,39 @@ export const PAGE_USER = {
   serviceArea: '',
   designation: '',
   sort: 'name'
-}
+};
+export const COLUMNS_UPLOAD= [
+  {
+    title: "Filename",
+    dataIndex: "filename",
+    sorter: true,
+    className: "user-activity",
+    width: "30%"
+  },
+  {
+    title: "Size",
+    dataIndex: "size",
+    className: "user-text",
+    width: "20%"
+  },
+  {
+    title: "Cover",
+    dataIndex: "cover",
+    width: "20%",
+    className: "user-cover",
+  },
+  {
+    title: "Type",
+    dataIndex: "type",
+    className: "user-type",
+    width: "20%"
+  },
+  {
+    title: "",
+    dataIndex: "dowload",
+    width: "10%"
+  },
+];
 export const COLUMNS_USER_ACTIVITY = [
   {
     title: "Data and Time",

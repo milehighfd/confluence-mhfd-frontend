@@ -14,6 +14,7 @@ import { useProfileState } from "../../../hook/profileHook";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
+import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 
 const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
 const selec = [1];
@@ -262,11 +263,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               originModal="Special"
             />
             <br/>
-            <UploadAttachment
-              files={files}
-              setFiles={setFiles}
-              setCover={setCover}
-              originModal="Special"
+            <UploadImagesDocuments
+              isCapital={false}
             />
           </div>
           <div className="footer-project">

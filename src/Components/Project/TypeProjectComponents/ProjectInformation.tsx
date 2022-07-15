@@ -62,7 +62,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
           <>
             <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{padding: '8px', marginTop: '6px'}}>
               <label className="sub-title">Reason for Study<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-              <div id="reason">
+            <div id="reason">
                 <Select style={{width:'100%'}} placeholder={"Select a Reason"} value={reasonForm === STUDY_REASON[0] || reasonForm === STUDY_REASON[1] || reasonForm === STUDY_REASON[2] || reasonForm === undefined? reasonForm :  STUDY_REASON[3]} onChange={setreasonForm}>
                   <Option key={STUDY_REASON[0]} value={STUDY_REASON[0]}>{STUDY_REASON[0]}</Option>
                   <Option key={STUDY_REASON[1]} value={STUDY_REASON[1]}>{STUDY_REASON[1]}</Option>

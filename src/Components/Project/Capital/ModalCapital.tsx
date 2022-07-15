@@ -12,6 +12,7 @@ import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
+import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -1087,13 +1088,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               originModal="Capital"
             />
             <br/>
-
-            <UploadAttachment
-              files={files}
-              setFiles={setFiles}
-              setCover={setCover}
+            <UploadImagesDocuments
               isCapital={true}
-              originModal="Capital"
             />
           </div>
           <div className="footer-project">
