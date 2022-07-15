@@ -173,12 +173,12 @@ export const UploadImagesDocuments = ({isCapital, }: {
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}}>
           <h5>{isCapital?'6':'4'}
           . Upload images<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px', textAlign:'end'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
@@ -255,12 +255,12 @@ export const UploadImagesDocuments = ({isCapital, }: {
       <br></br>
 
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
-          <h5>{isCapital?'7':'5'}
+        <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}} >
+          <h5 style={{marginBottom: '0px'}}>{isCapital?'7':'5'}
           . Upload documents<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px', textAlign:'end'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
             <span style={{color:'red'}}>Delete</span>
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
