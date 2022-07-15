@@ -29,6 +29,7 @@ import {
   LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
   CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
   PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+  FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
   NEARMAP_TOKEN,
   STREAMS_POINT,
   PROJECTS_DRAFT
@@ -80,6 +81,7 @@ const CreateProjectMap = (type: any) => {
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
     CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
+    FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
     PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, COMPONENT_LAYERS.tiles, MHFD_STREAMS_FILTERS, STREAMS_FILTERS];
   const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
   MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
@@ -1703,6 +1705,25 @@ const CreateProjectMap = (type: any) => {
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
+        if (feature.source.includes('flood_hazard')||feature.source.includes('stream_function')||feature.source.includes('future_development')) {
+          const item = {
+            layer: getTitleOfProblemsPart(feature),
+            feature: getTitleOfProblemsPart(feature),
+            problem_part_category: feature.properties.problem_part_category ? feature.properties.problem_part_category : '-',
+            problem_part_subcategory: feature.properties.problem_part_subcategory ? feature.properties.problem_part_subcategory : '-',
+            problem_part_name: feature.properties.problem_part_name ? feature.properties.problem_part_name : '-',
+            source_complete_year: feature.properties.source_complete_year ? feature.properties.source_complete_year : '0',
+            stream_name: feature.properties.stream_name ? feature.properties.stream_name : '-',
+            local_government: feature.properties.local_government ? feature.properties.local_government : '-'
+  
+          };
+          mobile.push({
+            layer: item.layer
+          });
+          menuOptions.push(getTitleOfProblemsPart(feature));
+          popups.push(item);
+          ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        }
         if (feature.source === 'watershed_service_areas') {
           const item = {
             layer: MENU_OPTIONS.SERVICE_AREA,
@@ -2059,6 +2080,35 @@ const CreateProjectMap = (type: any) => {
     if ( properties.component_part_subcategory) {
       title += (properties.component_part_category ? ' - ' : '') + properties.component_part_subcategory;
     }
+    return title;
+  }
+  const getTitleOfProblemsPart = (feature: any) => {
+    let title = '';
+    if (feature.source.includes('hazard_polygon')) {
+      title = 'Flood Hazard Polygon' ;
+    } 
+    if ( feature.source.includes('hazard_line')) {
+      title = 'Flood Hazard Line' ;
+    }
+    if ( feature.source.includes('hazard_point')) {
+      title = 'Flood Hazard Point' ;
+    }
+    if ( feature.source.includes('function_line')) {
+      title = 'Stream Function Line' ;
+    }
+    if ( feature.source.includes('function_polygon')) {
+      title = 'Stream Function Polygon' ;
+    }
+    if ( feature.source.includes('function_point')) {
+      title = 'Stream Function Point' ;
+    }
+    if ( feature.source.includes('development_polygon')) {
+      title = 'Future Development Polygon' ;
+    }
+    if ( feature.source.includes('development_line')) {
+      title = 'Future Development Line' ;
+    }
+
     return title;
   }
   const getComponentsFromProjProb = (item: any, event: any) => {
