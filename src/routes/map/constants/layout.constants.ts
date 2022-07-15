@@ -47,6 +47,14 @@ export const EFFECTIVE_REACHES = 'effective_reaches';
 export const ACTIVE_LOMS = 'active_lomcs';
 export const MHFD_STREAMS_FILTERS = 'mhfd_stream_reaches';
 export const STREAM_IMPROVEMENT_MEASURE = 'stream_improvement_measure';
+export const FLOOD_HAZARD_POLYGON = 'flood_hazard_polygon_';
+export const FLOOD_HAZARD_LINE = 'flood_hazard_line_';
+export const FLOOD_HAZARD_POINT = 'flood_hazard_point_';
+export const STREAM_FUNCTION_POLYGON = 'stream_function_polygon_';
+export const STREAM_FUNCTION_POINT ='stream_function_point_';
+export const STREAM_FUNCTION_LINE = 'stream_function_line_';
+export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
+export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
 
 export const hovereableLayers = [
   PROBLEMS_TRIGGER,
@@ -75,5 +83,13 @@ export const hovereableLayers = [
   EFFECTIVE_REACHES,
   ACTIVE_LOMS,
   MHFD_STREAMS_FILTERS,
-  STREAM_IMPROVEMENT_MEASURE
+  STREAM_IMPROVEMENT_MEASURE,
+  FLOOD_HAZARD_POLYGON,
+  FLOOD_HAZARD_LINE,
+  FLOOD_HAZARD_POINT,
+  STREAM_FUNCTION_POLYGON,
+  STREAM_FUNCTION_POINT,
+  STREAM_FUNCTION_LINE,
+  FUTURE_DEVELOPMENT_POLYGON,
+  FUTURE_DEVELOPMENT_LINE,
 ];

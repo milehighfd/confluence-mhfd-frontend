@@ -2330,7 +2330,6 @@ const Map = ({
                       local_government: feature.properties.local_government ? feature.properties.local_government : '-'
 
                     };
-                    console.log('what is inside item: ', feature.source);
                     mobile.push({
                       layer: item.layer
                     });

@@ -56,11 +56,11 @@ import {
   FLOOD_HAZARD_POLYGON,
   FLOOD_HAZARD_LINE,
   FLOOD_HAZARD_POINT,
-  STREAMFUNCTION_POLYGON,
-  STREAMFUNCTION_POINT,
-  STREAMFUNCTION_LINE,
-  FUTUREDEVELOPMENT_POLYGON,
-  FUTUREDEVELOPMENT_LINE,
+  STREAM_FUNCTION_POLYGON,
+  STREAM_FUNCTION_POINT,
+  STREAM_FUNCTION_LINE,
+  FUTURE_DEVELOPMENT_POLYGON,
+  FUTURE_DEVELOPMENT_LINE,
   STREAM_IMPROVEMENT_MEASURE
 } from "./constants";
 
@@ -4522,6 +4522,14 @@ export const tileStyles = {
     "paint": {
       "fill-color": "hsla(35, 100%, 50%, 1)",
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
   [FLOOD_HAZARD_LINE]: [{
     type: 'line',
@@ -4530,6 +4538,14 @@ export const tileStyles = {
     "paint": {
       "line-color": 'hsla(35, 100%, 50%, 1)'
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
   [FLOOD_HAZARD_POINT]: [ {
     type: 'circle',
@@ -4541,8 +4557,16 @@ export const tileStyles = {
       "circle-stroke-width": 1,
       "circle-radius": 3
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
-  [STREAMFUNCTION_POLYGON]: [ {
+  [STREAM_FUNCTION_POLYGON]: [ {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -4550,8 +4574,16 @@ export const tileStyles = {
       'line-width': 5,
       "line-color": '#ff2'
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
-  [STREAMFUNCTION_POINT]: [ {
+  [STREAM_FUNCTION_POINT]: [ {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -4559,8 +4591,16 @@ export const tileStyles = {
       'line-width': 5,
       "line-color": '#db3253'
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
-  [STREAMFUNCTION_LINE]: [ {
+  [STREAM_FUNCTION_LINE]: [ {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -4568,8 +4608,16 @@ export const tileStyles = {
       'line-width': 5,
       "line-color": '#ab6331'
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
-  [FUTUREDEVELOPMENT_POLYGON]: [ {
+  [FUTURE_DEVELOPMENT_POLYGON]: [ {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -4577,8 +4625,16 @@ export const tileStyles = {
       'line-width': 5,
       "line-color": '#73fff2'
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
-  [FUTUREDEVELOPMENT_LINE]: [ {
+  [FUTURE_DEVELOPMENT_LINE]: [ {
     type: 'line',
     'source-layer': 'pluto15v1',
     layout: {},
@@ -4586,6 +4642,14 @@ export const tileStyles = {
       'line-width': 5,
       "line-color": '#3b3e65'
     }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
   }],
   [STUDIES]: [ {
     type: 'fill',
