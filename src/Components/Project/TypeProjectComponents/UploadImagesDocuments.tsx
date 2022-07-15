@@ -19,12 +19,53 @@ export const UploadImagesDocuments = ({isCapital, }: {
 }) => {
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
-  const COLUMNS_UPLOAD:any = [
+  const COLUMNS_UPLOAD02:any = [
     {
       title: "Filename",
       dataIndex: "filename",
       className: "user-name-upload",
       width: "40%",
+    },
+    {
+      title: "Size",
+      dataIndex: "size",
+      className: "user-text",
+      width: "15%"
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      width: "15%",
+      className: "user-text",
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      className: "user-type",
+      render: (text:string) => (
+        <Tag className="type">
+          {text}
+        </Tag>
+      ),
+      width: "10%"
+    },
+    {
+      title: "",
+      dataIndex: "dowload",
+      render: (id:string) => (
+        <Button className="user-dowload ">
+          <img className="icon-bt" src='/Icons/icon-01.svg' />
+        </Button>
+      ),
+      width: "10%"
+    },
+  ];
+  const COLUMNS_UPLOAD:any = [
+    {
+      title: "Filename",
+      dataIndex: "filename",
+      className: "user-name-upload",
+      width: "50%",
     },
     {
       title: "Size",
@@ -52,7 +93,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
           {text}
         </Tag>
       ),
-      width: "15%"
+      width: "10%"
     },
     {
       title: "",
@@ -92,6 +133,33 @@ export const UploadImagesDocuments = ({isCapital, }: {
     },
     
   ];
+  const data02: any = [
+    {
+      key: '1',
+      filename: 'Spreadsheet2022.xlsx',
+      size: '2.5MB',
+      date: 'Dec 1, 2022',
+      type: 'XLS',
+      dowload:'213'
+    },
+    {
+      key: '2',
+      filename: 'Report2022-2023.pdf',
+      size: '2.5MB',
+      date: 'Dec 1, 2022',
+      type: 'XLS',
+      dowload:'123'
+    },
+    {
+      key: '3',
+      filename: 'Basic Plan - Dec 2022.pdf',
+      size: '2.5MB',
+      date: 'Dec 1, 2022',
+      type: 'XLS',
+      dowload:'321321'
+    },
+    
+  ];
   
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
@@ -107,13 +175,13 @@ export const UploadImagesDocuments = ({isCapital, }: {
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
           <h5>{isCapital?'6':'4'}
-          . Upload images
+          . Upload images<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px', textAlign:'end'}}>
           <span>
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
-              <img src="/Icons/ic-document.svg" style={{marginRight:'5px', marginTop:'-3px'}} />Add Image
+              <span className="ic-document"/>Add Image
             </Button>
             <Button className="bottomn-heder">
               <CloudDownloadOutlined />Dowload All 
@@ -183,18 +251,20 @@ export const UploadImagesDocuments = ({isCapital, }: {
             </Row>
           </div>
         </Modal>
-       }
+      }
+      <br></br>
 
-        <Row>
+      <Row>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
           <h5>{isCapital?'7':'5'}
-          . Upload documents
+          . Upload documents<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px', textAlign:'end'}}>
           <span>
+            <span style={{color:'red'}}>Delete</span>
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
-              <img src="/Icons/ic-document.svg" style={{marginRight:'5px', marginTop:'-3px'}} />Add Document
+              <span className="ic-document"/>Add Document
             </Button>
             <Button className="bottomn-heder">
               <CloudDownloadOutlined />Dowload All 
@@ -202,23 +272,15 @@ export const UploadImagesDocuments = ({isCapital, }: {
           </span>
         </Col>
       </Row>
-      <Row style={{padding: '8px', marginTop: '25px'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
-          <span style={{color: '#11093C'}}>Uploaded</span>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px', textAlign:'end'}}>
-          <span style={{color: '#11093C'}}>Cover Image</span>
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]} style={{padding: '8px', marginTop: '10px', marginLeft: '0px', paddingLeft: '0px'}}>
+      <Row gutter={[16, 16]} style={{padding: '8px', marginTop: '40px', marginLeft: '0px', paddingLeft: '0px'}}>
         <Table
           style={{width: '100%'}}
           rowSelection={{
             type: 'checkbox',
             ...rowSelection,
           }}
-          columns={COLUMNS_UPLOAD}
-          dataSource={data}
+          columns={COLUMNS_UPLOAD02}
+          dataSource={data02}
 
         />
       </Row>

@@ -1009,17 +1009,29 @@ body{
   color: #000000;
   margin-left: 10px;
   .ant-btn:focus, .ant-btn:hover {
-    color: #29c499;
-    border-color: #29c499;;
+    color: #29c499 ;
+    border-color: #29c499 ;
+  }
+  .ic-document {
+    margin-right: 5px;
+    content: url("../../../public/Icons/ic-document.svg");
   }
 }
-.bottomn-heder:hover {
-  color: #29c499;
-  border-color: #29c499;;
+.bottomn-heder:hover, .bottomn-heder:active {
+  color: #29c499 ;
+  border-color: #29c499 ;
+  .ic-document {
+    margin-right: 5px;
+    content: url("../../../public/Icons/ic-document-active.svg") !important;
+  }
 }
-.bottomn-heder:focus {
+.bottomn-heder:focus, .bottomn-heder::before, bottomn-heder:focus-visible {
   color: #29c499;
-  border-color: #29c499;;
+  border-color: #29c499 ;
+  .ic-document {
+    margin-right: 5px;
+    content: url("../../../public/Icons/ic-document-active.svg");
+  }
 }
 // DETAILED PROBLEM
 .upload{
