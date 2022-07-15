@@ -62,7 +62,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   //   </Link>
   }, {
     key: '7',
-    label: <a href={'https://docs.google.com/forms/d/e/1FAIpQLScpFx7KApWLATmdAEUTnEFuDWLEHDIQIjwJiqkHXH5yOl2G4Q/viewform?usp=sf_link'} target="_blank">
+    label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
       <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
       <img className="img-a anticon" src="/Icons/menu-green-12.svg" alt="" width="22px" height="22px" />
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>feedback</span>
