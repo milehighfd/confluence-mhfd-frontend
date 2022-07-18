@@ -148,6 +148,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12} >
                 <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -208,6 +209,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 className="filter-title">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
@@ -230,6 +232,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 className="filter-title">Local Government Mngr <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
@@ -276,6 +279,7 @@ export const NewProjectsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 className="filter-title">Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>

@@ -122,7 +122,7 @@ export const NewComponentsFilter = () => {
                 }
             </Col>
         </Row>
-
+        <hr className='filters-line'></hr>
         <Row className="filt-00">
         <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -135,6 +135,7 @@ export const NewComponentsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr style={{marginTop:'24px'}} className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -147,6 +148,7 @@ export const NewComponentsFilter = () => {
                 }
             </Col>
         </Row>
+        <hr style={{marginTop:'24px'}} className='filters-line'></hr>
 
         <Row className="filt-00" gutter={[24, 16]}>
             <Col span={12}>
