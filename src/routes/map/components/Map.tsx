@@ -2728,6 +2728,8 @@ const Map = ({
                               studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
                               streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
                               local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
+                              objectid: feature.properties.objectid?feature.properties.objectid:'-',
+                              table: feature.source ? feature.source : '-',
                               problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
                               ...volume
                             }
@@ -2827,7 +2829,6 @@ const Map = ({
                 problemid: details.problemid
             });
         }
-        console.log('check this type for problems too', details.type);
         if(details.layer === 'Components') {
           let newComponents = [{
             cartodb_id: details.cartodb_id?details.cartodb_id:'',
