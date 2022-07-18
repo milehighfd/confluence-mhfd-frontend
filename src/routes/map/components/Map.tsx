@@ -3200,7 +3200,7 @@ const Map = ({
                 setVisible= {setVisibleCreateProject}
                 data={"no data"}
                 showDefaultTab={showDefault}
-                locality= {"no locality"}
+                locality= {"Select a Sponsor"}
                 editable = {true}
                 problemId= {problemid}
             />

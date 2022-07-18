@@ -108,7 +108,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [isDrawState, setIsDraw] = useState(false);
   const [isDrawStateCapital, setIsDrawCapital] = useState(false);
   const {changeDrawState, changeDrawStateCapital, setEditLocation} = useProjectDispatch();
-  const [sponsor, setSponsor] = useState(organization+"");
+  const [sponsor, setSponsor] = useState("Select a Sponsor");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
   const [projectid, setProjectId ] = useState(-1);
@@ -139,11 +139,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
     console.log("ORGANIZATION Y LOCALITY", organization, locality);
-    if(juris) {
-      setSponsor(organization);
-    } else {
-      setSponsor(locality);
-    }
+    // if(juris) {
+    //   setSponsor(organization);
+    // } else {
+    //   setSponsor(locality);
+    // }
   },[organization]);
   useEffect(()=>{
     setServiceAreaCounty({});
