@@ -115,6 +115,7 @@ export const SERVER = (function () {
     const GET_AVAILABLE_COLORS = 'get-available-colors';
     const ORGANIZATIONS = 'organizations';
     const CONSULTANTS = 'consultants';
+    const CONFIGURATIONS = 'configuration';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -218,6 +219,9 @@ export const SERVER = (function () {
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
+        GET_CONFIGURATIONS: (key: string) => {
+            return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
+        },
         DELETE_NOTE_LIST: (id: any) => {
           return `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}/${id}`;
         },

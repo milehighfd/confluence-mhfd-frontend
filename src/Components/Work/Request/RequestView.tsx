@@ -27,6 +27,8 @@ import CostTableBody from "./CostTableBody";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { AlertStatus } from "./AlertStatus";
 import LoadingViewOverall from '../../Loading-overall/LoadingViewOverall';
+import ConfigurationService from '../../../services/ConfigurationService';
+
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -58,7 +60,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
-  const years = [2022, 2021, 2020, 2019, 2018];
+  const [years, setYears] = useState([2022, 2021, 2020, 2019, 2018]);
   const [locality, setLocality] = useState('');
   const [localityType, setLocalityType] = useState('');
   const [year, setYear] = useState<any>(years[0]);
@@ -235,6 +237,19 @@ const RequestView = ({ type, isFirstRendering }: {
   },[locality, tabKey,year]);
 
   useEffect(() => {
+    const initLoading = async () => {
+    let config;
+    try {
+      config = await ConfigurationService.getConfiguration('BOARD_YEAR');
+    } catch (e) {
+      console.log(e);
+    }
+    let boardYearLimit = +config.value;
+    let array = [];
+    for (var i = 0 ; i < 5 ; i++) {
+      array.push(boardYearLimit - i);
+    }
+    setYears(array);
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
     let _locality = params.get('locality');
@@ -297,7 +312,8 @@ const RequestView = ({ type, isFirstRendering }: {
           }
         )  
     })
-    
+    }
+    initLoading();
     setZoomProject(undefined);
   }, []);
 
