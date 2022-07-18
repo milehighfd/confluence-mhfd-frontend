@@ -54,7 +54,7 @@ const SignUpForm = () => {
       content.forEach((element, index: number) => {
         itemMenu.push({
           key: `${index}|${element}`,
-          label: <span>{element}</span>
+          label: <span style={{border:'transparent'}}>{element}</span>
         });
       });
     };
@@ -62,7 +62,7 @@ const SignUpForm = () => {
       content.forEach((element, index: number) => {
         itemMenu.push({
           key: `${index}|${element}`,
-          label: <span>{element}</span>,
+          label: <span style={{border:'transparent'}}>{element}</span>,
           onClick: (() => {
             const auxOther = { ...other };
             auxOther.value = '';
@@ -78,7 +78,7 @@ const SignUpForm = () => {
       generateItemMenuConsultant(consultantList);
       itemMenu.push({
         key: '999|other',
-        label: <span>Other</span>,
+        label: <span style={{border:'transparent'}}>Other</span>,
         onClick: (() => {
           const auxOther = { ...other };
           auxOther.visible = true;
