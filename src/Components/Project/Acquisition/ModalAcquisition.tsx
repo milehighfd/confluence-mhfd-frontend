@@ -331,7 +331,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                 geom={geom}
                 setGeom={setGeom}
               />
-              <br />
 
               <LocationInformation
                 setServiceArea={setServiceArea}

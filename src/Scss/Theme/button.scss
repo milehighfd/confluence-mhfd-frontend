@@ -149,6 +149,17 @@
 }
 .ant-table-thead {
   height: 45px;
+  border-radius: 7px 7px 0px 0px;
+}
+.ant-table-tbody {
+  border-radius: 0px 0px 7px 7px;
+}
+.ant-table-container, .ant-table-container table>thead>tr:first-child th:first-child {
+  border-top-left-radius: 5px;
+}
+.ant-table-container table>thead>tr:first-child th:last-child {
+  border-top-right-radius: 5px;
+  border-bottom: 1px solid #d9d9d9;
 }
 .scroll-filters {
   .ant-checkbox-group{

@@ -65,13 +65,13 @@ export const UploadImagesDocuments = ({isCapital, }: {
       title: "Filename",
       dataIndex: "filename",
       className: "user-name-upload",
-      width: "50%",
+      width: "47%",
     },
     {
       title: "Size",
       dataIndex: "size",
       className: "user-text",
-      width: "15%"
+      width: "10%"
     },
     {
       title: "Cover",
@@ -103,7 +103,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
-      width: "10%"
+      width: "5%"
     },
   ];
   const data: any = [
@@ -172,9 +172,9 @@ export const UploadImagesDocuments = ({isCapital, }: {
   };
   return (
     <>
-      <Row>
+      <Row style={{marginTop:'5px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}}>
-          <h5>{isCapital?'6':'4'}
+          <h5 >{isCapital?'6':'4'}
           . Upload images<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
@@ -254,7 +254,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       }
       <br></br>
 
-      <Row>
+      <Row style={{marginTop:'5px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}} >
           <h5 style={{marginBottom: '0px'}}>{isCapital?'7':'5'}
           . Upload documents<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>

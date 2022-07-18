@@ -370,7 +370,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
               }
 
               <br />
-              <h5>
+              <h5 style={{marginTop:'5px'}}>
                 2. Draw Activity
                 <span className="requiered">&nbsp;*&nbsp;</span>
                 <img src="/Icons/icon-08.svg" />
