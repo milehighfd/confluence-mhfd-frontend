@@ -854,9 +854,9 @@ const loadData = (trigger: any, name?: string) => {
     })
   }
   const topStreams = () => {
-    map.moveLayer('measuresSaved');
-    map.moveLayer('measure-lines');
-    map.moveLayer('measuresSaved-border');
+    map.map.moveLayer('measuresSaved');
+    map.map.moveLayer('measure-lines');
+    map.map.moveLayer('measuresSaved-border');
     map.map.moveLayer('streams_0');
     map.map.moveLayer('streams_1');
     map.map.moveLayer('streams_2');
