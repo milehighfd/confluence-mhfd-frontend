@@ -2070,6 +2070,8 @@ const epochTransform = (dateParser: any) => {
               streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
               local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
               problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
+              table: feature.source ? feature.source : '-',
+              objectid: feature.properties.objectid?feature.properties.objectid:'-'
             }
           } else {
             item = {
