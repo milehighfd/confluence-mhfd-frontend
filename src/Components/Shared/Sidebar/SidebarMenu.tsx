@@ -9,7 +9,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const location = useLocation();
   const appUser = store.getState().appUser;
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
-  const showWorkRequestPlan = (appUser.designation !== 'guest' && appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff')
+  const showWorkRequestPlan = (appUser.designation !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
   const itemMenuSidebar: MenuProps['items'] = [{
     key: '0',
