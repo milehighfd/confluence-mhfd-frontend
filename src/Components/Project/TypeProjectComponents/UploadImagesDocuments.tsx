@@ -212,7 +212,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       {modal &&
         <Modal
           className="detailed-upload"
-          style={{ top: 60, width: '100%' }}
+          style={{ top: 30, width: '100%' }}
           visible={modal}
           onCancel={() => setModal(false)}
           forceRender={false}
@@ -232,7 +232,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
               <Input placeholder="Add description"/>
               <input id="uploader" type="file" style={{ display: 'none' }} multiple accept="image/png, image/jpeg" />
               <div>
-                  <label htmlFor="uploader" className="draw" style={{paddingTop: '50px'}}>
+                  <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                     <img style={{marginRight:'5px', marginTop:'-3px'}} src="/Icons/ic-upload.svg" />
                     <h1>Select file to Upload</h1>
                       <p>or drag and drop it here</p>
@@ -287,7 +287,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       {modal02 &&
         <Modal
           className="detailed-upload"
-          style={{ top: 60, width: '100%' }}
+          style={{ top: 30, width: '100%' }}
           visible={modal02}
           onCancel={() => setModal02(false)}
           forceRender={false}
@@ -307,7 +307,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
               <Input placeholder="Add description"/>
               <input id="uploader" type="file" style={{ display: 'none' }} multiple accept="image/png, image/jpeg" />
               <div>
-                  <label htmlFor="uploader" className="draw" style={{paddingTop: '50px'}}>
+                  <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                     <img style={{marginRight:'5px', marginTop:'-3px'}} src="/Icons/ic-upload.svg" />
                     <h1>Select file to Upload</h1>
                       <p>or drag and drop it here</p>
