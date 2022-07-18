@@ -1188,14 +1188,28 @@ const Map = ({
       })
     }
     const topLabels= () => {
-      map.moveLayer('measuresSaved');
-      map.moveLayer('measure-lines');
-      map.moveLayer('measuresSaved-border');
-      map.moveLayer('poi-label');
-      map.moveLayer('state-label');
-      map.moveLayer('country-label');
-      map.moveLayer('munis-centroids-shea-plusother');
-      map.moveLayer('munis-centroids-district-view-dkc40e');
+      setTimeout(() => {
+        if (map.getLayer('measuresSaved') && 
+          map.getLayer('measure-lines') &&
+          map.getLayer('poi-label') &&
+          map.getLayer('state-label') &&
+          map.getLayer('country-label') &&
+          map.getLayer('munis-centroids-shea-plusother') &&
+          map.getLayer('munis-centroids-district-view-dkc40e')
+        ) {
+          map.moveLayer('measuresSaved');
+          map.moveLayer('measure-lines');
+          map.moveLayer('measuresSaved-border');
+          map.moveLayer('poi-label');
+          map.moveLayer('state-label');
+          map.moveLayer('country-label');
+          map.moveLayer('munis-centroids-shea-plusother');
+          map.moveLayer('munis-centroids-district-view-dkc40e');
+        } else {
+          topLabels();
+        }
+      }, 1000);
+      
     }
     const topStreams = () => {
       if (map.getLayer('streams_0')) {
