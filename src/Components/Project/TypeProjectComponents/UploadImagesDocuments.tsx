@@ -236,7 +236,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
                     <img style={{marginRight:'5px', marginTop:'-3px'}} src="/Icons/ic-upload.svg" />
                     <h1>Select file to Upload</h1>
                       <p>or drag and drop it here</p>
-                      <p style={{paddingTop: '50px'}}>Accepted File Types: .png or .jpg</p>
+                      <p style={{paddingTop: '20px'}}>Accepted File Types: .png or .jpg</p>
                   </label>
               </div>
             </Row>
@@ -311,7 +311,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
                     <img style={{marginRight:'5px', marginTop:'-3px'}} src="/Icons/ic-upload.svg" />
                     <h1>Select file to Upload</h1>
                       <p>or drag and drop it here</p>
-                      <p style={{paddingTop: '50px'}}>Accepted File Types: .docx, .xlsx, or .pdf</p>
+                      <p style={{paddingTop: '20px'}}>Accepted File Types: .docx, .xlsx, or .pdf</p>
                   </label>
               </div>
             </Row>
