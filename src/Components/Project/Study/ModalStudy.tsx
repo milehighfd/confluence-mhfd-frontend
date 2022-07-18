@@ -381,7 +381,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 setSubReason={setStudySubReason}
               />
               <br />
-              <h5>
+              <h5 style={{marginTop:'5px'}}>
                 2. SELECT STREAMS
                 <span className="requiered">&nbsp;*&nbsp;</span>
               <img src="/Icons/icon-08.svg" />

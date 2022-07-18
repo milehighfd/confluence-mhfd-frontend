@@ -629,7 +629,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               setDescription = {setDescription}
             />
             <br/>
-            <h5>
+            <h5 style={{marginTop:'15px'}}>
               2. SELECT COMPONENTS
               <span className="requiered">&nbsp;*&nbsp;</span>
               <img src="/Icons/icon-08.svg" />
@@ -750,13 +750,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               }
             </Collapse>
             <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover>
-            <h5>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
+            <h5 style={{marginTop:'10px'}}>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
 
             <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p >Click on the icon above and draw a polygon to define the project feature</p>
             </div>
-            <h5>4. FINANCIAL INFORMATION </h5>
+            <h5 style={{marginTop:'20px'}}>4. FINANCIAL INFORMATION </h5>
             <Row className="cost-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 20 }}>SUBTOTAL COST</Col>
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>

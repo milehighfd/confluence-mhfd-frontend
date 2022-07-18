@@ -65,13 +65,13 @@ export const UploadImagesDocuments = ({isCapital, }: {
       title: "Filename",
       dataIndex: "filename",
       className: "user-name-upload",
-      width: "50%",
+      width: "47%",
     },
     {
       title: "Size",
       dataIndex: "size",
       className: "user-text",
-      width: "15%"
+      width: "10%"
     },
     {
       title: "Cover",
@@ -103,7 +103,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
-      width: "10%"
+      width: "5%"
     },
   ];
   const data: any = [
@@ -172,9 +172,9 @@ export const UploadImagesDocuments = ({isCapital, }: {
   };
   return (
     <>
-      <Row>
+      <Row style={{marginTop:'5px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}}>
-          <h5>{isCapital?'6':'4'}
+          <h5 >{isCapital?'6':'4'}
           . Upload images<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
@@ -212,7 +212,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       {modal &&
         <Modal
           className="detailed-upload"
-          style={{ top: 60, width: '100%' }}
+          style={{ top: 30, width: '100%' }}
           visible={modal}
           onCancel={() => setModal(false)}
           forceRender={false}
@@ -232,7 +232,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
               <Input placeholder="Add description"/>
               <input id="uploader" type="file" style={{ display: 'none' }} multiple accept="image/png, image/jpeg" />
               <div>
-                  <label htmlFor="uploader" className="draw" style={{paddingTop: '50px'}}>
+                  <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                     <img style={{marginRight:'5px', marginTop:'-3px'}} src="/Icons/ic-upload.svg" />
                     <h1>Select file to Upload</h1>
                       <p>or drag and drop it here</p>
@@ -254,7 +254,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       }
       <br></br>
 
-      <Row>
+      <Row style={{marginTop:'5px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}} >
           <h5 style={{marginBottom: '0px'}}>{isCapital?'7':'5'}
           . Upload documents<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
@@ -287,7 +287,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       {modal02 &&
         <Modal
           className="detailed-upload"
-          style={{ top: 60, width: '100%' }}
+          style={{ top: 30, width: '100%' }}
           visible={modal02}
           onCancel={() => setModal02(false)}
           forceRender={false}
@@ -307,7 +307,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
               <Input placeholder="Add description"/>
               <input id="uploader" type="file" style={{ display: 'none' }} multiple accept="image/png, image/jpeg" />
               <div>
-                  <label htmlFor="uploader" className="draw" style={{paddingTop: '50px'}}>
+                  <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                     <img style={{marginRight:'5px', marginTop:'-3px'}} src="/Icons/ic-upload.svg" />
                     <h1>Select file to Upload</h1>
                       <p>or drag and drop it here</p>

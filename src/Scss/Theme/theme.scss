@@ -1013,6 +1013,7 @@ body{
     border-color: #29c499 ;
   }
   .ic-document {
+    transition: all .0s cubic-bezier(.645,.045,.355,1);
     margin-right: 5px;
     content: url("../../../public/Icons/ic-document.svg");
   }
@@ -1020,7 +1021,9 @@ body{
 .bottomn-heder:hover, .bottomn-heder:active {
   color: #29c499 ;
   border-color: #29c499 ;
+  transition: all .0s cubic-bezier(.645,.045,.355,1);
   .ic-document {
+    transition: all .0s cubic-bezier(.645,.045,.355,1);
     margin-right: 5px;
     content: url("../../../public/Icons/ic-document-active.svg") !important;
   }
@@ -1028,7 +1031,9 @@ body{
 .bottomn-heder:focus, .bottomn-heder::before, bottomn-heder:focus-visible {
   color: #29c499;
   border-color: #29c499 ;
+  transition: all .0s cubic-bezier(.645,.045,.355,1);
   .ic-document {
+    transition: all .0s cubic-bezier(.645,.045,.355,1);
     margin-right: 5px;
     content: url("../../../public/Icons/ic-document-active.svg");
   }
@@ -1051,7 +1056,7 @@ body{
     padding-bottom: 50px !important;
   }
   .draw{
-    height: 278px;
+    height: 258px;
     width: 350%;
     text-align: center;
     border: 3px dashed $opacity04;

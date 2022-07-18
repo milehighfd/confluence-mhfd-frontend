@@ -245,7 +245,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               geom= {geom}
               setGeom= {setGeom}
             />
-            <br/>
 
             <LocationInformation
               setServiceArea = {setServiceArea}
