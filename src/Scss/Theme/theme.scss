@@ -1008,34 +1008,36 @@ body{
 .bottomn-heder {
   color: #000000;
   margin-left: 10px;
+  transition: all .0s cubic-bezier(.645,.045,.355,1);
   .ant-btn:focus, .ant-btn:hover {
     color: #29c499 ;
+    transition: all .0s cubic-bezier(.645,.045,.355,1);
     border-color: #29c499 ;
   }
   .ic-document {
-    transition: all .0s cubic-bezier(.645,.045,.355,1);
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
     margin-right: 5px;
     content: url("../../../public/Icons/ic-document.svg");
   }
 }
-.bottomn-heder:hover, .bottomn-heder:active {
+.bottomn-heder:hover, .bottomn-heder:active, .bottomn-heder:focus-visible, .bottomn-heder:visited{
   color: #29c499 ;
   border-color: #29c499 ;
   transition: all .0s cubic-bezier(.645,.045,.355,1);
   .ic-document {
-    transition: all .0s cubic-bezier(.645,.045,.355,1);
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
     margin-right: 5px;
     content: url("../../../public/Icons/ic-document-active.svg") !important;
   }
 }
-.bottomn-heder:focus, .bottomn-heder::before, bottomn-heder:focus-visible {
+.bottomn-heder:focus, .bottomn-heder::before, .bottomn-heder:focus-visible {
   color: #29c499;
   border-color: #29c499 ;
   transition: all .0s cubic-bezier(.645,.045,.355,1);
   .ic-document {
-    transition: all .0s cubic-bezier(.645,.045,.355,1);
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
     margin-right: 5px;
-    content: url("../../../public/Icons/ic-document-active.svg");
+    content: url("../../../public/Icons/ic-document-active.svg") !important;
   }
 }
 // DETAILED PROBLEM
@@ -1134,7 +1136,7 @@ body{
     padding-bottom: 50px !important;
   }
   .draw{
-    height: 278px;
+    height: 255px;
     width: 300%;
     text-align: center;
     border: 3px dashed $opacity04;
