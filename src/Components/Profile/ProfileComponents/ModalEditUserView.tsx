@@ -35,6 +35,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
           const organizations = rows
             .filter((row: any) => row.type === 'JURISDICTION')
             .map(({id, name}: { id: number, name: string }) => (name));
+            // console.log('qwe organizations', organizations);
           setOrganizationList(organizations);
         })
         .catch((e) => {

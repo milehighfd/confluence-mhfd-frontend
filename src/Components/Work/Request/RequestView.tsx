@@ -258,6 +258,7 @@ const RequestView = ({ type, isFirstRendering }: {
       if( _locality != userResponse.organization && userResponse.designation == GOVERNMENT_STAFF) {
         _locality = userResponse.organization;
       }
+      console.log('type,ssss', type);
       getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
         .then(
           (r: any) => {
@@ -545,7 +546,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setProjectAmounts(projectAmounts);
   }
   const openEdit = (project:any,event:any) => {
-    console.log('open edit ', project);
     setShowModalEdit(project);
   }
   const setShowModalEdit = (project: any) => {

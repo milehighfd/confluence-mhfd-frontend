@@ -72,7 +72,7 @@ const SignUpForm = () => {
         });
       });
     };
-    if (values.designation === ADMIN || values.designation === STAFF) {
+    if (values.designation === ADMIN || values.designation === STAFF || values.designation === GOVERNMENT_STAFF) {
       generateItemMenu(organizationList);
     } else if (values.designation === CONSULTANT) {
       generateItemMenuConsultant(consultantList);
