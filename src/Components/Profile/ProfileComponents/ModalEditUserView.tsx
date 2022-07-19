@@ -101,7 +101,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
       content.forEach((element, index: number) => {
         itemMenu.push({
           key: `${index}|${element}`,
-          label: <span>{element}</span>
+          label: <span style={{border:'transparent'}}>{element}</span>
         });
       });
     };
@@ -128,7 +128,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
     groupOrganization.forEach((item: { aoi: string, values: Array<{ name: string }> }, index: number) => {
       itemMenuZoom.push({
         key: `${index}|${item.aoi}`,
-        label: <span>{item.aoi}</span>
+        label: <span style={{border:'transparent'}}>{item.aoi}</span>
       });
     });
     return <Menu

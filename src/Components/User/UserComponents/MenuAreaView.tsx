@@ -7,7 +7,7 @@ export default (items: Array<string>, fieldName: string, values: User, setTitle:
   items.forEach((item: string, index: number) => {
     itemMenu.push({
       key: `${index}|${item}`,
-      label: <span className="menu-item-text">{item}</span>,
+      label: <span style={{border:'transparent'}} className="menu-item-text">{item}</span>,
       onClick: (() => {
         if (fieldName === 'city') {
           values.city = item;
