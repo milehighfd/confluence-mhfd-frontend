@@ -39,7 +39,7 @@ export class Project {
     studyreason: string;
     studysubreason: string; 
     constructor() {
-        this.year = '2022';
+        this.year = '2023';
         this.projectname = "special";
         this.description = "";
         this.servicearea = "";
