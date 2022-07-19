@@ -10,7 +10,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
-import { JURISDICTION } from "../../../constants/constants";
+import { GOVERNMENT_STAFF, JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 
@@ -136,9 +136,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const history = useHistory();
   const [lengthName, setlengthName] = useState(0);
 
+  useEffect(() => {
+    if (userInformation?.designation === GOVERNMENT_STAFF) {
+      if (userInformation?.organization) {
+        setSponsor(userInformation?.organization);
+      }
+    }
+  }, [userInformation]);
   useEffect(()=>{
     let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
-    console.log("ORGANIZATION Y LOCALITY", organization, locality);
     // if(juris) {
     //   setSponsor(organization);
     // } else {

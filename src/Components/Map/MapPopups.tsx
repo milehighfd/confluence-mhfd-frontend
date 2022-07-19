@@ -55,7 +55,6 @@ export const MainPopup = ({id, item, test, sw, ep } : {id: number, item: any, te
             item[key] = '-';
         }
     }
-    console.log('testtetetetetetet', id, 'item', item, 'test', test);
     if(!test) {
       test = () => {};
     }
