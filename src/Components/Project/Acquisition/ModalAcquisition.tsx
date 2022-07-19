@@ -183,7 +183,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   }, [data]);
 
   useEffect(() => {
-    if (nameProject !== '' && geom != undefined && description != '' && serviceArea.length !== 0 && county.length !== 0 && jurisdiction.length !== 0 && sponsor !== '') {
+    if (nameProject !== '' && geom != undefined && description != '' && serviceArea.length !== 0 && county.length !== 0 && jurisdiction.length !== 0 && sponsor !== '' && sponsor !== undefined) {
       setDisable(false);
     }
     else {

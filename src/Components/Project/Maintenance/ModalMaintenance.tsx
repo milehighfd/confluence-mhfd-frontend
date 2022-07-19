@@ -223,7 +223,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [projectReturn.state.project.userPolygon]);
 
   useEffect(() => {
-    if (geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null) {
+    if (geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null && sponsor !== undefined) {
       setDisable(false);
     }
     else {

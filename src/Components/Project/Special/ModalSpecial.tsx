@@ -139,7 +139,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   },[save]);
 
   useEffect(()=>{
-    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0  && sponsor !== '' && jurisdiction.length !== 0 ){
+    if(geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== undefined  && sponsor !== '' && jurisdiction.length !== 0 ){
       setDisable(false);
     }
     else{

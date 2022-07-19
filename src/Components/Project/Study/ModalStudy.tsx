@@ -227,7 +227,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   }, [projectReturn.state.project]);
 
   useEffect(() => {
-    if (ids.length !== 0 && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && streamsIntersectedIds != null && listStreams !== 0) {
+    if (ids.length !== 0 && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && sponsor !== undefined && jurisdiction.length !== 0 && streamsIntersectedIds != null && listStreams !== 0) {
       setDisable(false);
     }
     else {
