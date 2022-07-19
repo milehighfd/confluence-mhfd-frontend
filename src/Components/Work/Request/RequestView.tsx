@@ -267,6 +267,8 @@ const RequestView = ({ type, isFirstRendering }: {
             setDataAutocomplete(localitiesData);
               if (_year) {
                 setYear(_year)
+              } else {
+                setYear(boardYearLimit);
               }
               if (_locality) {
                 setLocality(_locality)
