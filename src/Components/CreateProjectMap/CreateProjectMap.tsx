@@ -48,6 +48,7 @@ import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 let map: any;
 
 let isPopup = true;
+let isDrawingCurrently = false;
 let firstTime = true;
 let firstTimeApplyMapLayers = true;
 let componentsList: any[] = [];
@@ -319,7 +320,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [highlightedProblem]);
   useEffect(() => {
-    console.log(highlightedStream);
     if (map) {
       if (highlightedStream.streamId) {
         showHighlightedStream(highlightedStream.streamId);
@@ -458,6 +458,7 @@ const CreateProjectMap = (type: any) => {
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
   useEffect(() => {
     if (isDraw || isDrawCapital) {
+      isDrawingCurrently = true;
       currentDraw = isDraw ? 'polygon' : (isDrawCapital ? 'capitalpolygon' : 'polygon');
       if (isDrawCapital) {
         showHoverComponents();
@@ -486,6 +487,7 @@ const CreateProjectMap = (type: any) => {
       }
     } else {
       isPopup = true;
+      isDrawingCurrently = false;
       map.removeDrawController();
       setIsAlreadyDraw(false);
       currentDraw = 'none';
@@ -1207,6 +1209,9 @@ const CreateProjectMap = (type: any) => {
         availableLayers.push(key + '_' + index);
         if (style.type != 'symbol') {
           map.map.on('mousemove', key + '_' + index, (e: any) => {
+            if (isDrawingCurrently) {
+              return;
+            }
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon') {
               showHighlighted(key, e.features[0].properties.cartodb_id);
             }
@@ -1423,7 +1428,6 @@ const CreateProjectMap = (type: any) => {
     } else if (mep_eligibilitystatus == 'Final Acceptance') {
       finalDate = new Date(props.mep_date_finalacceptance);
     } else if (mep_eligibilitystatus == 'Ineligible') {
-      console.log(props.mep_date_ineligible);
       finalDate = new Date(props.mep_date_ineligible);
     }
     let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
