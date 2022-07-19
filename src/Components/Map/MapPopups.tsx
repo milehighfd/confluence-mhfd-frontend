@@ -78,7 +78,9 @@ export const MainPopup = ({id, item, test, sw, ep } : {id: number, item: any, te
           <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
-            <p style={item.type ===  MENU_OPTIONS.PROBLEMS ? problemStyle.status[priorityType] : projectStyle.status}>{item.type ===  MENU_OPTIONS.PROBLEMS ? item.priority : capitalize(item.projecctype)}</p>
+            <p style={
+                item.type ===  MENU_OPTIONS.PROBLEMS ? (problemStyle.status[priorityType] ? problemStyle.status[priorityType] : problemStyle.status['-'] ) : projectStyle.status 
+              }>{item.type ===  MENU_OPTIONS.PROBLEMS ? item.priority : capitalize(item.projecctype)}</p>
             <span style={{color: item.type !== MENU_OPTIONS.PROBLEMS ? '#11093c' : '', opacity: item.type  !==  MENU_OPTIONS.PROBLEMS ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === MENU_OPTIONS.PROBLEMS ? ((item.status == '-'?'0%':item.status) + " Solved" ) : capitalize(item.status)}</span>
           </div>
         </div>

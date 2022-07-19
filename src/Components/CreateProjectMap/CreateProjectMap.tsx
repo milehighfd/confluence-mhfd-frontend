@@ -482,8 +482,8 @@ const CreateProjectMap = (type: any) => {
             if (element) {
               element.click();
             }
-          }, 500);
-        }, 200);
+          }, 400);
+        }, 380);
       }
     } else {
       isPopup = true;
