@@ -84,7 +84,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
 
   return (
     <Modal
-      title="Apply total requested financing amount for any applicable year:"
+      title="How much funding from MHFD is being requested for the following years:"
       centered
       visible={visible}
       onOk={handleOk}
