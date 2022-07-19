@@ -49,9 +49,9 @@ const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
   return (
   <Row className="tab-head-project" onClick={()=>{setKeyOpenClose(-1)}}>
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>No Problem Group Available</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 6 }}></Col>
-    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
-  <Col xs={{ span: 24 }} lg={{ span: 3 }} xxl={{ span: 3 }} style={{whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col>
+    <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
+  <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{textAlign:'center', whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
   </Row>
   )
   }
@@ -63,9 +63,9 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
   return (
     <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
-      <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 6 }}>{problem.jurisdiction}</Col>
-      <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
-      <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>{formatter.format(totalSumCost)}</Col>
+      <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col>
+      <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
+      <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
   )
   }
@@ -1021,7 +1021,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Timeline.Item color="purple">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contingency</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}>
                     <Select placeholder="25%" dropdownClassName="menu-medium" value={overheadValues[8] + '%'} onSelect={(e:any)=>changeValue(e, 8)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
