@@ -32,7 +32,8 @@ import {
   FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
   NEARMAP_TOKEN,
   STREAMS_POINT,
-  PROJECTS_DRAFT
+  PROJECTS_DRAFT,
+  MEP_PROJECTS
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -686,7 +687,7 @@ const CreateProjectMap = (type: any) => {
     } else if (type.type === 'STUDY') {
       thisSL = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
     } else if (type.type === 'MAINTENANCE') {
-      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS]
+      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS, MEP_PROJECTS]
     }
     updateSelectedLayers(thisSL);
   }
