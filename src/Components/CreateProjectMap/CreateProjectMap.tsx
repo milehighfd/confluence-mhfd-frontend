@@ -153,10 +153,13 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS]);
+      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
       marker.remove();
     }
   }, []);
+  useEffect(() => {
+    console.log('my fucking shitty ', selectedLayers);
+  }, selectedLayers);
   useEffect(() => {
     if (map && map.map) {
       const bounds = map.getBoundingBox();
@@ -672,17 +675,18 @@ const CreateProjectMap = (type: any) => {
       if (type.type != "STUDY") {
         ppArray = [PROJECTS_MAP_STYLES];
       } else {
-        ppArray = [PROBLEMS_TRIGGER];
+        ppArray = [PROBLEMS_TRIGGER, STREAMS_FILTERS];
       }
     }
     let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
-    if (type.type == 'CAPITAL' || type.type == 'ACQUISITION') {
+    if (type.type === 'CAPITAL' || type.type === 'ACQUISITION') {
       thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS, STREAMS_FILTERS];
-    } else if (type.type == 'STUDY') {
+    } else if (type.type === 'STUDY') {
       thisSL = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
-    } else if (type.type == 'MAINTENANCE') {
+    } else if (type.type === 'MAINTENANCE') {
       thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS]
     }
+    console.log('fucking ssl ', thisSL);
     updateSelectedLayers(thisSL);
   }
   const removeProjectLayer = () => {

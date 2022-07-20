@@ -291,6 +291,7 @@ const WorkRequestMap = (type: any) => {
 
   const [compareSLWR, setCompareSLWR] = useState('');
   useEffect(() => {
+    console.log(selectedLayersWR);
     if(JSON.stringify(selectedLayersWR) != compareSLWR) {
       if (map ) {
         map.isStyleLoaded(applyMapLayers);
@@ -640,7 +641,7 @@ const loadData = (trigger: any, name?: string) => {
     },35);
 }
   const setLayersSelectedOnInit = () => {
-    updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS]);
+    updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
   }
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -854,13 +855,26 @@ const loadData = (trigger: any, name?: string) => {
     })
   }
   const topStreams = () => {
-    map.map.moveLayer('measuresSaved');
-    map.map.moveLayer('measure-lines');
-    map.map.moveLayer('measuresSaved-border');
-    map.map.moveLayer('streams_0');
-    map.map.moveLayer('streams_1');
-    map.map.moveLayer('streams_2');
-    map.map.moveLayer('streams_3');
+    setTimeout(() => {
+      if (map.map.getLayer('measuresSaved') &&
+      map.map.getLayer('measure-lines') &&
+      map.map.getLayer('measuresSaved-border') &&
+      map.map.getLayer('streams_0') &&
+      map.map.getLayer('streams_1') &&
+      map.map.getLayer('streams_2') &&
+      map.map.getLayer('streams_3')
+      ) {
+        map.map.moveLayer('measuresSaved');
+        map.map.moveLayer('measure-lines');
+        map.map.moveLayer('measuresSaved-border');
+        map.map.moveLayer('streams_0');
+        map.map.moveLayer('streams_1');
+        map.map.moveLayer('streams_2');
+        map.map.moveLayer('streams_3');
+      } else {
+        topStreams();
+      }
+    }, 1000);
   }
   const topStreamLabels = () => {
     map.map.moveLayer('streams_4');
@@ -1324,9 +1338,9 @@ const loadData = (trigger: any, name?: string) => {
   }
   useEffect(()=>{
     if(type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
-      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS,ROUTINE_MAINTENANCE]);
+      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS,ROUTINE_MAINTENANCE, STREAMS_FILTERS]);
     } else { 
-      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS]);
+      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
     }
   },[type.currentTab]);
   useEffect(()=>{

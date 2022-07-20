@@ -8,7 +8,7 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
-import { JURISDICTION, NEW_PROJECT_TYPES } from "../../../constants/constants";
+import { JURISDICTION, NEW_PROJECT_TYPES, STREAMS_FILTERS } from "../../../constants/constants";
 import {
   PROBLEMS_TRIGGER,
   XSTREAMS,
@@ -73,7 +73,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     setStreamsList([]);
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
-    updateSelectedLayers([PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS]);
+    updateSelectedLayers([PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, STREAMS_FILTERS]);
     return () => {
       setServiceArea({});
       setStreamsList([]);
