@@ -141,7 +141,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     if(showDefaultTab) {
       if(data === "no data"){
         setVisibleCapital(true);
-        setNameProject('Name your project');
+        setNameProject('Ex: Stream Name @ Location 202X');
       } else {
         getAttachmentByProject(data.projectid);
         if( data.projecttype == 'Study'){

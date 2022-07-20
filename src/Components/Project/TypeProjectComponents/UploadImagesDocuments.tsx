@@ -193,9 +193,6 @@ export const UploadImagesDocuments = ({isCapital, }: {
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
           <span style={{color: '#11093C'}}>Uploaded</span>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px', paddingTop: '5px', textAlign:'end'}}>
-          <span style={{color: '#11093C'}}>Cover Image</span>
-        </Col>
       </Row>
       <Row gutter={[16, 16]} style={{padding: '8px', marginTop: '10px', marginLeft: '0px', paddingLeft: '0px'}}>
         <Table
