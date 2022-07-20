@@ -222,7 +222,6 @@ export default ({
                 dataLength={state.items.length}
                 next={fetchMoreData}
                 hasMore={state.hasMore}
-                loader={cardInformation.length ? <h4>Loading...</h4> : ''}
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}>
