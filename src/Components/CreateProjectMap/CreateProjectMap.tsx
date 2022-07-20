@@ -1270,7 +1270,6 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer('mhfd_stream_reaches' + '_' + index) && !magicAddingVariable) {
-        console.log('fuuuuuck');
         let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...mhfd_codes]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
@@ -1282,7 +1281,6 @@ const CreateProjectMap = (type: any) => {
     styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
 
       if (map.getLayer(PROBLEMS_TRIGGER + '_' + index) && !magicAddingVariable) {
-        console.log('shit');
         map.setFilter(PROBLEMS_TRIGGER + '_highlight_' + index, ['in', 'problemid', parseInt(problemid)])
 
       }
@@ -1292,7 +1290,6 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
-        console.log('fuck', magicAddingVariable);
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
       }
     });
@@ -1302,7 +1299,6 @@ const CreateProjectMap = (type: any) => {
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
         let filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
-        console.log('fuuufck');
         map.setFilter(key + '_highlight_' + index, filter);
       }
     });
