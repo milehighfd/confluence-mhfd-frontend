@@ -25,6 +25,7 @@ const SignUpForm = () => {
   const [other, setOther] = useState({ value: '', visible: false });
   const [organizationList, setOrganizationList] = useState<any[]>([]);
   const [consultantList, setConsultantList] = useState<any[]>([]);
+  const [localities, setLocalities] = useState<any[]>([]);
 
   useEffect(() => {
     datasets.getData(SERVER.GET_ORGANIZATIONS)
@@ -44,6 +45,14 @@ const SignUpForm = () => {
         setConsultantList(consultants);
       })
       .catch((e) => {
+        console.log(e);
+      })
+    datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
+      .then((rows) => {
+        const localitiesData = rows.localities.map((l: any) => l.name);
+        localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+        setLocalities(localitiesData);
+      }).catch((e) => {
         console.log(e);
       })
   }, []);
@@ -86,7 +95,7 @@ const SignUpForm = () => {
         })
       });
     } else {
-      generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+      generateItemMenuConsultant(localities);
     }
     return <Menu
       key={'organization'}
