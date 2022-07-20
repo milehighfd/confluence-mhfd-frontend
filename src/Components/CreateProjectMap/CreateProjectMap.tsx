@@ -57,6 +57,7 @@ let currentDraw = 'polygon';
 let firstCallDraw = false;
 type LayersType = string | ObjectLayerType;
 const { Option } = AutoComplete;
+let magicAddingVariable = false;
 const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   let popup = new mapboxgl.Popup({ closeButton: true, });
@@ -108,6 +109,10 @@ const CreateProjectMap = (type: any) => {
     cartoid: ''
   });
   useEffect(() => {
+    console.log('adding location ', isAddLocation);
+    magicAddingVariable = isAddLocation;
+  }, [isAddLocation])
+  useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map3');
       if (!html) {
@@ -157,9 +162,6 @@ const CreateProjectMap = (type: any) => {
       marker.remove();
     }
   }, []);
-  useEffect(() => {
-    console.log('my fucking shitty ', selectedLayers);
-  }, selectedLayers);
   useEffect(() => {
     if (map && map.map) {
       const bounds = map.getBoundingBox();
@@ -223,7 +225,7 @@ const CreateProjectMap = (type: any) => {
   }, [zoomGeom])
   useEffect(() => {
     if (map) {
-      if (highlightedComponent.table) {
+      if (highlightedComponent.table && !magicAddingVariable) {
         showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
       } else {
         hideHighlighted();
@@ -314,7 +316,7 @@ const CreateProjectMap = (type: any) => {
   }, [boardProjectsCreate]);
   useEffect(() => {
     if (map) {
-      if (highlightedProblem.problemid) {
+      if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
         updateSelectedLayers([...selectedLayers, PROBLEMS_TRIGGER]);;
       } else {
@@ -324,7 +326,7 @@ const CreateProjectMap = (type: any) => {
   }, [highlightedProblem]);
   useEffect(() => {
     if (map) {
-      if (highlightedStream.streamId) {
+      if (highlightedStream.streamId && !magicAddingVariable) {
         showHighlightedStream(highlightedStream.streamId);
       } else {
         hideHighlighted();
@@ -335,7 +337,7 @@ const CreateProjectMap = (type: any) => {
     if (highlightedStreams.ids) {
       let codes = highlightedStreams.ids.map((hs: any) => hs.mhfd_code);
       if (map) {
-        if (codes.length > 0) {
+        if (codes.length > 0 && !magicAddingVariable) {
           showHighlightedStreams(codes);
         } else {
           hideHighlighted();
@@ -452,7 +454,7 @@ const CreateProjectMap = (type: any) => {
     }
   }, [isAddLocation]);
   const showHoverComponents = () => {
-    if (listComponents && listComponents.result && listComponents.result.length > 0) {
+    if (listComponents && listComponents.result && listComponents.result.length > 0 && !magicAddingVariable) {
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
@@ -686,7 +688,6 @@ const CreateProjectMap = (type: any) => {
     } else if (type.type === 'MAINTENANCE') {
       thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS]
     }
-    console.log('fucking ssl ', thisSL);
     updateSelectedLayers(thisSL);
   }
   const removeProjectLayer = () => {
@@ -1216,7 +1217,7 @@ const CreateProjectMap = (type: any) => {
             if (isDrawingCurrently) {
               return;
             }
-            if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon') {
+            if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon' && !magicAddingVariable) {
               showHighlighted(key, e.features[0].properties.cartodb_id);
             }
             if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
@@ -1258,7 +1259,7 @@ const CreateProjectMap = (type: any) => {
   const showHighlightedStream = (mhfd_code: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
+      if (map.getLayer('mhfd_stream_reaches' + '_' + index) && !magicAddingVariable) {
         let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [mhfd_code]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
@@ -1268,7 +1269,8 @@ const CreateProjectMap = (type: any) => {
   const showHighlightedStreams = (mhfd_codes: any) => {
     const styles = { ...tileStyles as any }
     styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer('mhfd_stream_reaches' + '_' + index)) {
+      if (map.getLayer('mhfd_stream_reaches' + '_' + index) && !magicAddingVariable) {
+        console.log('fuuuuuck');
         let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...mhfd_codes]]];
         map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
         map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
@@ -1279,7 +1281,8 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any }
     styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
 
-      if (map.getLayer(PROBLEMS_TRIGGER + '_' + index)) {
+      if (map.getLayer(PROBLEMS_TRIGGER + '_' + index) && !magicAddingVariable) {
+        console.log('shit');
         map.setFilter(PROBLEMS_TRIGGER + '_highlight_' + index, ['in', 'problemid', parseInt(problemid)])
 
       }
@@ -1288,7 +1291,8 @@ const CreateProjectMap = (type: any) => {
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+      if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
+        console.log('fuck', magicAddingVariable);
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
       }
     });
@@ -1296,8 +1300,9 @@ const CreateProjectMap = (type: any) => {
   const showHighlightedArray = (key: string, cartodb_ids: any) => {
     const styles = { ...tileStyles as any }
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+      if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
         let filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
+        console.log('fuuufck');
         map.setFilter(key + '_highlight_' + index, filter);
       }
     });
