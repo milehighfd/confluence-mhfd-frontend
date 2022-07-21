@@ -291,7 +291,7 @@ const WorkRequestMap = (type: any) => {
 
   const [compareSLWR, setCompareSLWR] = useState('');
   useEffect(() => {
-    console.log(selectedLayersWR);
+    console.log('selectedLayersWR', selectedLayersWR);
     if(JSON.stringify(selectedLayersWR) != compareSLWR) {
       if (map ) {
         map.isStyleLoaded(applyMapLayers);
@@ -641,7 +641,7 @@ const loadData = (trigger: any, name?: string) => {
     },35);
 }
   const setLayersSelectedOnInit = () => {
-    updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
+    updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
   }
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -1338,9 +1338,9 @@ const loadData = (trigger: any, name?: string) => {
   }
   useEffect(()=>{
     if(type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
-      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS,ROUTINE_MAINTENANCE, STREAMS_FILTERS]);
+      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS,ROUTINE_MAINTENANCE, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
     } else { 
-      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
+      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
     }
   },[type.currentTab]);
   useEffect(()=>{

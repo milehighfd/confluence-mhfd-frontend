@@ -1,5 +1,5 @@
 import * as types from '../types/ProjectTypes';
-import {  MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS } from '../../constants/constants';
+import {  COMPONENT_LAYERS, MHFD_BOUNDARY_FILTERS, PROBLEMS_TRIGGER, STREAMS_FILTERS, XSTREAMS } from '../../constants/constants';
 
 function shallowEqual(object1: any, object2:any ) {
   const keys1 = Object.keys(object1);
@@ -45,7 +45,7 @@ const initState = {
   componentsFromMap: [],
   independentComponents:[],
   selectedLayers: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS],
-  selectedLayersWR: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS],
+  selectedLayersWR: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER],
   highlightedComponent: {
     type:'',
     value: ''
