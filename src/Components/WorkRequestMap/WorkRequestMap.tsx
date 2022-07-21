@@ -144,7 +144,7 @@ const WorkRequestMap = (type: any) => {
 
 useEffect(() => {
   const mapResize = () => map.resize();
-  for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 1000; i = i + 25) {
+  for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 10000; i = i + 25) {
       setTimeout(() => mapResize(), i);
   }
 }, [type.leftWidth]);

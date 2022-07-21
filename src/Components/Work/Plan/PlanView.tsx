@@ -26,16 +26,16 @@ const genExtra = () => (
 const content = () => {
   const items: MenuProps['items'] = [{
     key: '0',
-    label: <span><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Edit Project</span>
+    label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}><img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5'}} /> Edit Project</span>
   }, {
     key: '1',
-    label: <span><img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} /> Edit Amount</span>
+    label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}><img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5' }} /> Edit Amount</span>
   }, {
     key: '2',
-    label: <span><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
+    label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}><img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5' }} /> Zoom to</span>
   }, {
     key: '3',
-    label: <span style={{ color: '#FF0000' }}><img src="/Icons/icon-16.svg" alt="" width="10px" /> Delete</span>
+    label: <span style={{ color: '#FF0000', borderBottom: '1px solid rgb(255 255 255)'}}><img src="/Icons/icon-16.svg" alt="" width="10px" /> Delete</span>
   }];
   return <Menu className="js-mm-00" items={items}>
   </Menu>
