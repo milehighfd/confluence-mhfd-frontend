@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, notification, Popover } from 'antd';
-import { DownOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
+import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import Navbar from "../../Shared/Navbar/NavbarContainer";
 import SidebarView from"../../Shared/Sidebar/SidebarView";
 import WsService from "./WsService";
@@ -56,6 +56,7 @@ const RequestView = ({ type, isFirstRendering }: {
   isFirstRendering: boolean
 }) => {
   const emptyStyle: React.CSSProperties = {};
+  const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
@@ -901,10 +902,16 @@ const RequestView = ({ type, isFirstRendering }: {
 
                         <div className="cost-wr">
                           <Collapse
-                            defaultActiveKey={['1']}
-                            expandIconPosition="start"
+                            // defaultActiveKey={['1']}
+                            // expandIconPosition="start"
+                            collapsible="header"
                           >
-                            <Panel header="" key="1" extra={
+                            <Panel
+                              disabled={sumByCounty.length === 0}
+                              header={!openCollaps ? <DownSquareOutlined style={{height:'16px', width:'16px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/> : <UpSquareOutlined style={{height:'16px', width:'16px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/>}
+                              key="1"
+                              style={{backgroundColor: '#F5F7FF'}}
+                              extra={
                                 <TotalHeader
                                   columns={columns}
                                   jurisdictionSelected={jurisdictionSelected}
@@ -913,7 +920,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                   csaFilterList={csaFilterList}
                                    />
                               }>
-                              <div className="tab-body-project streams">
+                              <div className="tab-body-project streams" style={{backgroundColor: '#f9faff'}}>
                                 <Timeline>
                                   {
                                     sumByCounty.map((countySum) => (

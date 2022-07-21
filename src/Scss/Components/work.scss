@@ -375,7 +375,7 @@
       margin-right: 10px;
     }
     label{
-      padding-left: 15px;
+      padding-left: 5px;
     }
   }
   .tab-body-line{
@@ -388,7 +388,7 @@
     div{
       width: 160px;
       min-width: 160px;
-      padding: 0px 8px;
+      padding: 0px 13px;
       margin-right: 10px;
     }
   }
@@ -421,6 +421,7 @@
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-extra {
     float: left;
+    align-self: center;
     width: 100%;
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header{
@@ -432,9 +433,13 @@
   }
   .ant-collapse-content > .ant-collapse-content-box {
     padding: 15px 15px;
-    height: 40px;
+    // height: 40px;
+    background-color: #f9faff;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+  .ant-collapse-header .ant-collapse-header-collapsible-only {
+    background-color: #F5F7FF;
   }
   .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
     border: 1px solid $opacity;

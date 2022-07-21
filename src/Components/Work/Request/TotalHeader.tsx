@@ -17,7 +17,7 @@ const TotalHeader = ({ columns, jurisdictionSelected, csaSelected, jurisdictionF
       })
     })
     return (
-      <div className="tab-head-project">
+      <div className="tab-head-project" style={{backgroundColor: '#F5F7FF'}}>
         <div><label>Total Cost</label></div>
         {
           totals.map((t, i) => (
