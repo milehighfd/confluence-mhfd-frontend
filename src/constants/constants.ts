@@ -989,6 +989,7 @@ export const MENU_OPTIONS =
   RESEARCH_MONITORING: 'Research/Monitoring',
   SEMSWA_SERVICE_AREA: 'SEMSWA Service Area',
   COMPONENTS: 'Components',
+  LAND_USE_LAND_COVER: 'Land Use Land Cover',
   CLIMB_TO_SAFETY_SIGNS: 'Climb to Safety Signs',
   CLIMB_TO_SAFETY: 'Climb to Safety',
   PROJECT: 'Project',
