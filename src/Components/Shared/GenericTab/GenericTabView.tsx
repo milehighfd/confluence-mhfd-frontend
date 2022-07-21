@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React, { useState, useEffect } from "react";
 import { Row, Tag } from "antd";
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -224,7 +225,8 @@ export default ({
                 hasMore={state.hasMore}
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
-                endMessage={''}>
+                endMessage={''}
+                loader={undefined}>
                 {sw ? state.items.map((i, index: number) => {
                     return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
                         getDetailedPageProblem={getDetailedPageProblem}
