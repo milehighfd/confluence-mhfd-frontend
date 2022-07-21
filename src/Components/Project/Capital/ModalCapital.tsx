@@ -645,7 +645,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
               <p>Click on the icon above and draw a polygon to select components</p>
             </div>
-            {(keys && keys.length || visibleUnnamedComponent) &&
+            {(keys && keys!==0 && keys.length && groups && Object.keys(groups)  && visibleUnnamedComponent) &&
             <div className="tab-titles">
                 <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10}}>Problem</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}></Col>

@@ -349,7 +349,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <p className="switch-option">Public Access / Ownership <span>
+                  <p className="switch-option" style={{fontSize:'14px'}}>Public Access / Ownership <span>
                     <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked={ownership} onChange={(ownership) => apllyOwnership(ownership)} />
                   </span></p>
                 </Col>

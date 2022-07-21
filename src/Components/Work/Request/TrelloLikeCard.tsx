@@ -11,6 +11,7 @@ import CardStatService from './CardService';
 import { DeleteAlert } from './DeleteAlert';
 import LoadingView from '../../Loading/LoadingView';
 import { boardType } from './RequestTypes';
+import { EllipsisOutlined } from '@ant-design/icons';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -210,7 +211,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         !(showAmountModal || showModalProject || showDeleteAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
           <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="menu-wr" width="3" height="13" viewBox="0 0 3 13" >
+            <EllipsisOutlined className="menu-wr" width="5" height="23" style={{transform:'rotate(-90deg)', height:'30px', marginRight:'-5px'}}>
             <defs>
               <clipPath id="clip-path">
                 <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
@@ -221,7 +222,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
                 <path id="Trazado_295" data-name="Trazado 295" d="M-5-18H8V5H-5Z" fill={isHovered ? '#0F232C' : 'rgba(36,24,98,0.2)'}/>
               </g>
             </g>
-          </svg>
+          </EllipsisOutlined>
           </div>
         </Popover>
       }
