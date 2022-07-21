@@ -908,7 +908,9 @@ const RequestView = ({ type, isFirstRendering }: {
                           >
                             <Panel
                               disabled={sumByCounty.length === 0}
-                              header={!openCollaps ? <DownSquareOutlined style={{height:'16px', width:'16px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/> : <UpSquareOutlined style={{height:'16px', width:'16px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/>}
+                              header={!openCollaps
+                                ? <a href="#openCost"><DownSquareOutlined style={{height:'16px', width:'16px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>
+                                : <a href="#openCost"><UpSquareOutlined style={{height:'16px', width:'16px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>}
                               key="1"
                               style={{backgroundColor: '#F5F7FF'}}
                               extra={
@@ -933,6 +935,7 @@ const RequestView = ({ type, isFirstRendering }: {
                               </div>
                             </Panel>
                           </Collapse>
+                          {openCollaps && <>
                           <div className="col-bg">
                             <div><h5>Target Cost</h5></div>
                             {
@@ -966,6 +969,9 @@ const RequestView = ({ type, isFirstRendering }: {
                               ))
                             }
                           </div>
+                          <div style={{height:'20px'}}></div>
+                          <div id="openCost"></div>
+                          </>}
                         </div>
                       </TabPane>
                     ))
