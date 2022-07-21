@@ -756,7 +756,7 @@ const RequestView = ({ type, isFirstRendering }: {
           {
             <Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap isFirstRendering={isFirstRendering} locality={{locality: locality, isOnSelected: isOnSelected}} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} />
+                <WorkRequestMap isFirstRendering={isFirstRendering} locality={{locality: locality, isOnSelected: isOnSelected}} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} leftWidth={leftWidth}/>
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>

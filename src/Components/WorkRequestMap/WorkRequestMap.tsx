@@ -26,7 +26,8 @@ import {
   MUNICIPALITIES_FILTERS,
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS, STREAMS_POINT,
-  PROJECTS_DRAFT
+  PROJECTS_DRAFT,
+  MAP_RESIZABLE_TRANSITION
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -141,6 +142,12 @@ const WorkRequestMap = (type: any) => {
     cartoid: ''
 });
 
+useEffect(() => {
+  const mapResize = () => map.resize();
+  for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 1000; i = i + 25) {
+      setTimeout(() => mapResize(), i);
+  }
+}, [type.leftWidth]);
 
   const setIsMeasuring = (value: boolean) => {
     isMeasuring = value;
