@@ -1630,9 +1630,9 @@
     border:none;
   }
   .ant-card-hoverable:hover,  .ant-card-hoverable:active, .ant-card-hoverable:focus-visible, .ant-card-hoverable:focus, .ant-card-hoverable:visited{
-    box-shadow: 0 2px 10px $green !important;
+    // box-shadow: 0 2px 10px $green !important;
     transition: 0s ease !important;
-    // border: 2px solid $green !important;
+    border: 2px solid $green !important;
   }
   .ant-card-body {
     padding: 10px;
