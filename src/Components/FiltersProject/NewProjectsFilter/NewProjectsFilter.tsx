@@ -129,7 +129,17 @@ export const NewProjectsFilter = () => {
                 {
                     paramProjects.status &&
                     <CheckBoxFilters defaultValue={'Active'}
-                        data={paramProjects.status.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                        data={paramProjects.status.sort((a: any, b: any) => {
+                            const getValue = (d: string) => {
+                                if (d === 'Approved') return 0;
+                                if (d === 'Active') return 1;
+                                if (d === 'Closed') return 2;
+                                if (d === 'Inactive') return 3;
+                                if (d === 'Cancelled')return 4;
+                                return -1;
+                            }
+                            return getValue(a.value) - getValue(b.value);
+                        })}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
                 }
