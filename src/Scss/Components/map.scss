@@ -1062,7 +1062,7 @@
     font-weight: bold;
   }
   .ant-input-affix-wrapper .ant-input:not(:first-child) {
-    padding-left: 20px !important;
+    padding-left: 0px !important;
   }
   .auto-complete-map .ant-select-auto-complete.ant-select .ant-input {
     border: none !important;;
@@ -1108,6 +1108,9 @@
   background-color: #e1f1f6 !important;
   color: $black !important;
   font-weight: 500;
+}
+.mdi-circle {
+  font-size: 16px;
 }
 
 .ant-input-clear-icon {
@@ -1182,6 +1185,9 @@
   .head-filter .ant-input-search {
     width: 307px !important;
   }
+  .mdi-circle {
+    font-size: 25px;
+  }  
 }
 
 

@@ -187,7 +187,7 @@
     div{
       width: 160px;
       min-width: 160px;
-      padding: 0px 8px;
+      padding: 0px 7px !important;
       margin-right: 10px;
       line-height: 25px;
     }
@@ -301,6 +301,9 @@
   }
 }
 .cost-wr{
+  // position: absolute;
+  // border-top: 8px solid #ffffff;
+  // bottom: 20px;
   margin-top: 15px;
   // overflow-x: auto;
   color: $red;
@@ -1343,7 +1346,7 @@
       height: 52px !important;
     }
     .ant-input-affix-wrapper .ant-input:not(:first-child) {
-      padding-left: 40px !important;
+      padding-left: 20px !important;
     }
     .ant-select-1 {
       max-width: 620px !important;
@@ -1387,7 +1390,7 @@
     .col-wr {
       min-width: 285px !important;
       width: 285px !important;
-      height: calc(100vh - 601px) !important;
+      height: calc(100vh - 360px) !important;
       // min-height: 915px;
       margin-right: 15px !important;
       padding: 50px 10px 20px 10px !important;
@@ -1472,7 +1475,7 @@
       }
     }
     .ant-collapse-content > .ant-collapse-content-box {
-      height: 68px !important;
+      // height: 68px !important;
     }
   }
   .work-footer{

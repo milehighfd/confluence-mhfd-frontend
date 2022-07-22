@@ -969,7 +969,7 @@ const RequestView = ({ type, isFirstRendering }: {
                               ))
                             }
                           </div>
-                          <div style={{height:'20px'}}></div>
+                          <div style={{height:'5px'}}></div>
                           <div id="openCost"></div>
                           </>}
                         </div>
