@@ -10,6 +10,7 @@ import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
 import { getComponentCounter } from '../../../dataFetching/map';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
+import { STREAM_IMPROVEMENT_MEASURE } from '../../../routes/map/constants/layout.constants';
 
 const { Panel } = Collapse;
 var map: any;
@@ -176,9 +177,12 @@ export default forwardRef(({
           if((detailedPage?.problemid && type === PROBLEMS_MODAL) ||(detailedPage?.projectid && type === PROJECTS_MODAL)) {
             for (const component of styles[key] ) {
               map.addLayer(key + i, key, component);
-              map.setFilter(key + i, ['in', type === PROBLEMS_MODAL ? 'problemid': 'projectid',type === PROBLEMS_MODAL ? detailedPage?.problemid : detailedPage?.projectid]);
+              let fieldComparator = type === PROBLEMS_MODAL ? 'problemid': 'projectid';
+              if (STREAM_IMPROVEMENT_MEASURE === key) { 
+                fieldComparator = type === PROBLEMS_MODAL ? 'problem_id': 'project_id';
+              }
+              map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailedPage?.problemid : detailedPage?.projectid]);
               i++;
-
             }
             addMapListeners(key, key );
           }
