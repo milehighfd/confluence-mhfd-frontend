@@ -604,6 +604,11 @@
   }
 }
 // 1920x1080 DISPLAY
+@media (min-width: 900px) and (max-width: 1899px){
+  .col-cost-geom {
+    margin-left: -15px;
+  }
+}
 @media (min-width: 1900px) and (max-width: 2499px){
   // CAPITAL
   .projects{
@@ -921,6 +926,7 @@
 
       .tab-head-project{
         font-size: 21px !important;
+        line-height: 1;
       }
       .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
         height: 70px;
