@@ -37,9 +37,32 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
           className="modal-confirm"
           width="400px"
         >
-          <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2>
+          <div>
+            <div>
+              Confirm your project
+            </div>
+            <div>
+              This project will be routed to the following boards: 
+            </div>
+            <div>
+              <div>
+                <span>
+                  Work Request
+                </span>
+              </div>
+              <div>
+                <span>
+                  Work Plan (Capital Project)
+                </span>
+              </div>
+            </div>
+            <div>
+              Send this project to the Work Request board
+            </div>
+          </div>
+          {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
           <button className="btn-borde" onClick={handleCancel}>Cancel</button>
-          <button className="btn-purple" onClick={handleOk}><span>Save</span></button>
+          <button className="btn-purple" onClick={handleOk}><span>Submit Project</span></button>
         </Modal>
       </div>
     </div>
