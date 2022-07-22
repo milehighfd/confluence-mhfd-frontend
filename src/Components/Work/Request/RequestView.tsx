@@ -864,11 +864,11 @@ const RequestView = ({ type, isFirstRendering }: {
                           {
                             columns.map((column, columnIdx) => (
                               <div className="container-drag" key={columnIdx+Math.random()}>
-                                <h3>{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
-                                <div className="col-wr droppable" style={column.hasCreateOption ? {padding: '45px 6px 20px 6px'}: {}} onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
+                                <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
+                                <div className={column.hasCreateOption ? "col-wr droppable colum-hascreate":"col-wr droppable"} onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
                                   {
                                     column.hasCreateOption &&
-                                    <Button className="btn-transparent" onClick={onClickNewProject} >
+                                    <Button className="btn-transparent button-createProject " onClick={onClickNewProject} >
                                       {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-18-gray.svg" style={{marginBottom:'2px'}} alt=""/>: <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
                                       Create Project
                                     </Button>
@@ -965,7 +965,9 @@ const RequestView = ({ type, isFirstRendering }: {
                             <div><h5>Differential</h5></div>
                             {
                               diff.map((d: any, i) => (
-                                <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} >{d ? formatter.format(Math.floor(d)) : ''}</div>
+                                <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} className="differential">
+                                  {d ? formatter.format(Math.floor(d)) : ''}
+                                </div>
                               ))
                             }
                           </div>

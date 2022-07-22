@@ -187,7 +187,7 @@
     div{
       width: 160px;
       min-width: 160px;
-      padding: 0px 7px !important;
+      padding: 0px 10px;
       margin-right: 10px;
       line-height: 25px;
     }
@@ -210,7 +210,7 @@
     border-radius: 4px;
     background-color: $light-purple;
     margin-right: 10px;
-    padding: 10px 6px 20px 6px;
+    padding: 20px 6px 20px 6px;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
@@ -330,7 +330,7 @@
     min-width: 100% !important;
   }
   .ant-input-number-input, .ant-input-number-input-wrap{
-    padding: 0px !important;
+    padding: 0px;
   }
   .ant-input-number-input-wrap{
     width: 100% !important;
@@ -956,11 +956,32 @@
 .work-body .ant-tabs-tabpane-active {
   overflow-y: auto;
 }
+.button-createProject {
+  padding-top: 18px !important;
+}
+.colum-hascreate {
+  padding: 55px 6px 20px 6px !important;
+}
+.differential {
+  padding-left: 20px !important;
+}
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
   // .hide-when-1 {
   //   display: inline-block !important;
   // }
+  .differential {
+    padding-left: 20px !important;
+  }
+  .button-createProject {
+    padding-top: 15px !important;
+  }
+  .colum-hascreate {
+    padding: 55px 6px 20px 6px !important;
+  }
+  .button-createProject {
+    padding-top: 15px;
+  }
   .work{
     .ant-timeline-item-tail {
        left: 3px !important;
@@ -1312,6 +1333,15 @@
   // .hide-when-1 {
   //   display: inline-block !important;
   // }
+  .differential {
+    padding-left: 20px !important;
+  }
+  .button-createProject {
+    padding-top: 15px !important;
+  }
+  .colum-hascreate {
+    padding: 75px 6px 20px 6px !important;
+  }
   .work{
     .ant-timeline-item-tail {
       top: 11px !important;
