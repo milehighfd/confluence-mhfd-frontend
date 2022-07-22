@@ -10,7 +10,7 @@ export default () => {
         <img src="/picture/user.png" alt="" height="35px" />
       </Col>
       <Col span={13}>
-        <h6 style={{fontWeight: 500}}>Jon Villines</h6>
+        <h6 style={{fontWeight: 500}}>Finnegan Cooke</h6>
         <p>Watershed Manager</p>
       </Col>
       <Col span={6} style={{ textAlign: 'right' }}>
@@ -22,7 +22,7 @@ export default () => {
         <img src="/picture/user01.png" alt="" height="35px" />
       </Col>
       <Col span={13}>
-        <h6 style={{fontWeight: 500}}>Jon Nelson</h6>
+        <h6 style={{fontWeight: 500}}>Noel Holland</h6>
         <p>SEMSWA</p>
       </Col>
       <Col span={6} style={{ textAlign: 'right' }}>
@@ -34,8 +34,8 @@ export default () => {
         <img src="/Icons/icon-28.svg" alt="" height="35px" />
       </Col>
       <Col span={13}>
-        <h6 style={{fontWeight: 500}}>John Leone</h6>
-        <p>Naranjo</p>
+        <h6 style={{fontWeight: 500}}>Conner Gilmore</h6>
+        <p>Project Manager</p>
       </Col>
       <Col span={6} style={{ textAlign: 'right' }}>
         <span>Applegate</span>
@@ -46,8 +46,8 @@ export default () => {
         <img src="/Icons/icon-28.svg" alt="" height="35px" />
       </Col>
       <Col span={13}>
-        <h6 style={{fontWeight: 500}}>Tyler Rosburg</h6>
-        <p>Icon</p>
+        <h6 style={{fontWeight: 500}}>Megan Leonard </h6>
+        <p>Analyst</p>
       </Col>
       <Col span={6} style={{ textAlign: 'right' }}>
         <span>Alpha</span>
@@ -58,7 +58,7 @@ export default () => {
         <img src="/Icons/icon-28.svg" alt="" height="35px" />
       </Col>
       <Col span={13}>
-        <h6 style={{fontWeight: 500}}>Jeff Battiste</h6>
+        <h6 style={{fontWeight: 500}}>Serena Keller</h6>
         <p>Project Engineer</p>
       </Col>
       <Col span={6} style={{ textAlign: 'right' }}>
@@ -84,7 +84,7 @@ export default () => {
             <img src="/picture/user.png" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Jon Villines<span>5h ago</span></h6>
+            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
             <p>How long until 30% plans are ready for review?</p>
           </Col>
         </Row>
@@ -93,7 +93,7 @@ export default () => {
             <img src="/Icons/icon-28.svg" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6  style={{fontWeight: 500}}>Tyler Rosburg<span>4h ago</span></h6>
+            <h6  style={{fontWeight: 500}}>Noel Holland<span>4h ago</span></h6>
             <p>Probably April 1</p>
           </Col>
         </Row>
@@ -102,7 +102,7 @@ export default () => {
             <img src="/picture/user.png" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Jon Villines<span>3h ago</span></h6>
+            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>3h ago</span></h6>
             <p>Thanks, we'll have those turned around in a couple of weeks.</p>
           </Col>
         </Row>
@@ -111,7 +111,7 @@ export default () => {
             <img src="/picture/user01.png" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Jane Nelson<span>2h ago</span></h6>
+            <h6 style={{fontWeight: 500}}>Megan Leonard<span>2h ago</span></h6>
             <p>It might take SEMSWA closer to three weeks.</p>
           </Col>
         </Row>
@@ -120,7 +120,7 @@ export default () => {
             <img src="/Icons/icon-28.svg" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>John Leone<span>1h ago</span></h6>
+            <h6 style={{fontWeight: 500}}>Serena Keller<span>1h ago</span></h6>
             <p>We don't have any concerns at this point.</p>
           </Col>
         </Row>
@@ -129,7 +129,7 @@ export default () => {
             <img src="/Icons/icon-28.svg" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>John Leone<span>Just now</span></h6>
+            <h6 style={{fontWeight: 500}}>Serena Keller<span>Just now</span></h6>
             <p>The boulder drop and culvert crossing look good in the renderings, we did something similar on Niver Trib.</p>
           </Col>
         </Row>
@@ -138,7 +138,7 @@ export default () => {
             <img src="/Icons/icon-28.svg" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Jon Villines<span>5h ago</span></h6>
+            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
             <p>How long until 30% plans are ready for review?</p>
           </Col>
         </Row>
@@ -147,7 +147,7 @@ export default () => {
             <img src="/Icons/icon-28.svg" alt="" height="20px" />
           </Col>
           <Col span={21}>
-            <h6 style={{fontWeight: 500}}>Jon Villines<span>5h ago</span></h6>
+            <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
             <p>How long until 30% plans are ready for review?</p>
           </Col>
         </Row>
