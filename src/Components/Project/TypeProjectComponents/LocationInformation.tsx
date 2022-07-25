@@ -4,6 +4,8 @@ import '../../../Scss/Components/projects.scss';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import { useProfileState } from '../../../hook/profileHook';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 import store from '../../../store';
 
@@ -69,7 +71,7 @@ export const LocationInformation = ({
       return elem;
     }
   }).filter((elem: any) => elem != 'South Platte River Service Area');
-
+  const [localities, setLocalities] = useState<any[]>([]);
 
 
   let isLocalGovernment = user.designation === GOVERNMENT_STAFF;
@@ -78,6 +80,17 @@ export const LocationInformation = ({
     setCounty(e);
     setSCounty(e);
   };
+
+  useEffect(() => {
+    datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
+      .then((rows) => {
+        const localitiesData = rows.localities.map((l: any) => l.name);
+        localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+        setLocalities(localitiesData);
+      }).catch((e) => {
+        console.log(e);
+      })
+  }, []);
 
   useEffect(() => {
     if (!isLocalGovernment && jurisdiction && !isEdit) {
@@ -187,7 +200,7 @@ export const LocationInformation = ({
                 isLocalGovernment ? (
                   <Option value={sponsor + ""}>{sponsor + ""}</Option>
                 ) : (
-                  JURISDICTION.map((element: string) => {
+                  localities.map((element: string) => {
                     return <Option key={element} value={element}>{element}</Option>
                   })
                 )
@@ -199,10 +212,8 @@ export const LocationInformation = ({
           <label className="sub-title">Potential Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div className="sponsor-select" id="cosponsorid">
             <Select mode="multiple" placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Sponsor"} style={{ width: '100%' }} onChange={(coSponsor: any) => setCoSponsor(coSponsor)} value={cosponsor} getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
-              {groupOrganization.map((element: any) => {
-                if (element.aoi !== sponsor) {
-                  return <Option key={element.aoi} value={element.aoi}>{element.aoi}</Option>
-                }
+              {localities.map((element: string) => {
+                return <Option key={element} value={element}>{element}</Option>
               })}
             </Select>
           </div>
