@@ -2317,6 +2317,16 @@ const epochTransform = (dateParser: any) => {
           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
       )
   }
+  if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Continuous Improvement') {
+    return (
+      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-continuous.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    );
+  }
+  if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Bank Stabilization') {
+    return (
+      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    );
+  }
   if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
       return (
           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
@@ -2325,9 +2335,11 @@ const epochTransform = (dateParser: any) => {
     if(icon !== undefined){
         return icon
     }
+  if (menu) {
     return (
-        <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
+  }
   }
   const addRemoveComponent = (item: any, event: any)=> {
     let newComponents:any = [];
