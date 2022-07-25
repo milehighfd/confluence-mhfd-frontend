@@ -1093,4 +1093,9 @@ export const ICON_POPUPS = [
   ['SEMSWA Service Area', "/Icons/ic_SEMSWA@2x.png"],
   ['Stream', "/Icons/Filters/ic_streams.png"],
   ['Stream Management Corridor', "/Icons/ic_SMC_Watershed@2x.png"],
+  ['Stream Function Polygon',"/Icons/ic-stream-function-poly.png"],
+  ['Flood Hazard Line', '/Icons/ic-flood-hzd-line.png'],
+  ['Flood Hazard Point', '/Icons/ic-flood-hzd-point.png'],
+  ['Stream Function Point', '/Icons/ic-stream-function-point.png'],
+  ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
 ]

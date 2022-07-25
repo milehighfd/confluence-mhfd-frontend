@@ -2205,7 +2205,7 @@ const epochTransform = (dateParser: any) => {
       title = 'Future Development Polygon' ;
     }
     if ( feature.source.includes('development_line')) {
-      title = 'Future Development Line' ;
+      title = 'Watershed Change Line' ;
     }
 
     return title;
