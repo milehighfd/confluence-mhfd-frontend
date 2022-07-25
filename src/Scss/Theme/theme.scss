@@ -1222,6 +1222,13 @@ body{
     color: $opacity;
     margin-bottom: 0px;
   }
+  .information{
+    color:#11093C !important;
+    font-weight:700 !important;
+  }
+  .disabled {
+    opacity: 0.5 !important;
+  }
   .btn-transparent{
     padding: 0px 12px;
     margin: 8px 0px;
@@ -1238,6 +1245,7 @@ body{
     float: right;
     background: $white !important;
   }
+  
 }
 .disabled-btn{
   opacity: 0.5;

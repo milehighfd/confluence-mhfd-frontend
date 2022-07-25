@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import { Button, Checkbox, Col, Modal, Row } from 'antd';
+import store from "../../store";
+import { ADMIN, STAFF } from "../../constants/constants";
 
 const stateValue = {
   visible: false
@@ -7,7 +9,9 @@ const stateValue = {
 export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas}:
   {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any} ) => {
   const [state, setState] = useState(stateValue);
-
+  const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [isWorkRequest,setIsWorkRequest] = useState(false);
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -56,7 +60,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p className="title">
                   Work Request
                 </p>
-                <p className="information" style={{color:'#11093C', opacity:'0.5'}}>
+                <p className={`information ${(!isWorkRequest && showCheckBox)  ? 'disabled':''}`}>
                   {jurisdictions.join(', ')}
                 </p>
               </Col>
@@ -64,15 +68,18 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p className="title">
                   Work Plan (Capital Project)
                 </p>
-                <p className="information" style={{color:'#11093C', fontWeight:'700'}}>
+                <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
                   {counties ? counties.join(', ') : serviceareas.join(', ')}
                 </p>
               </Col>
-              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                <div>
-                  <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}}></Checkbox>Send this project to the Work Request board
-                </div>
-              </Col>
+              {
+                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                    <div>
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Send this project to the Work Request board
+                    </div>
+                  </Col>
+              }
+
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
                 <button className="btn-borde" onClick={handleCancel} style={{width: '95%'}}>Cancel</button>
