@@ -802,8 +802,8 @@ const RequestView = ({ type, isFirstRendering }: {
                         <Input ref={ref} className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
                           prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '999'}}></i>}
                           suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)', marginRight: '-18px', marginLeft: '-6px' }}/>
-                      </AutoComplete> : <Input className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
-                          readOnly={true} prefix={<i className="mdi mdi-circle"></i>}/>
+                      </AutoComplete> : <Input style={{border:'none'}} className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
+                          readOnly={true} prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '999'}}></i>}/>
                       }
                       
                     </div>
