@@ -373,8 +373,8 @@ export default ({
             </p>
             
             <p>
-              <img key="hygfgsbnF7gs" src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
-                  Problem Parts
+              <img key="hygfgsbnF7gs" src="/Icons/ic-problem-parts.png" width="18px" alt="" />
+                  Problem Partss
                   <Popover key="uibfUYSsd7" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem)}>
                 <img key="778POIAOSDaasse" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
