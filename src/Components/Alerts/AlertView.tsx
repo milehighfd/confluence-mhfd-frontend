@@ -75,10 +75,10 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
-                <button className="btn-borde" onClick={handleCancel} style={{width: '85%'}}>Cancel</button>
+                <button className="btn-borde" onClick={handleCancel} style={{width: '95%'}}>Cancel</button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>
-                <button className="btn-purple"  style={{width: '85%'}} onClick={handleOk}><span>Submit Project</span></button>
+                <button className="btn-purple"  style={{width: '95%'}} onClick={handleOk}><span>Submit Project</span></button>
               </Col>
             </Row>
           </div>
