@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Modal } from 'antd';
+import { Button, Checkbox, Col, Modal, Row } from 'antd';
 
 const stateValue = {
   visible: false
@@ -37,32 +37,51 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
           className="modal-confirm"
           width="400px"
         >
-          <div>
-            <div>
-              Confirm your project
-            </div>
-            <div>
-              This project will be routed to the following boards: 
-            </div>
-            <div>
-              <div>
-                <span>
+          <div className="detailed">
+            <Row className="detailed-h" gutter={[16, 8]}>
+              <Col xs={{ span: 44 }} lg={{ span: 20 }}>
+                <h1 style={{marginTop: '15px'}}>Confirm your project
+                </h1>
+              </Col>
+              <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
+                <Button className="btn-transparent" onClick={() => setVisibleAlert(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+              </Col>
+            </Row>
+            <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
+              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>This project will be routed to the following boards:</p>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+              {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
+                <p className="title">
                   Work Request
-                </span>
-              </div>
-              <div>
-                <span>
+                </p>
+                <p className="information" style={{color:'#11093C', opacity:'0.5'}}>
+                  Arvada, Brighton
+                </p>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+                <p className="title">
                   Work Plan (Capital Project)
-                </span>
-              </div>
-            </div>
-            <div>
-              Send this project to the Work Request board
-            </div>
+                </p>
+                <p className="information" style={{color:'#11093C', fontWeight:'700'}}>
+                  Jefferson
+                </p>
+              </Col>
+              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                <div>
+                  <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}}></Checkbox>Send this project to the Work Request board
+                </div>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+                {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
+                <button className="btn-borde" onClick={handleCancel} style={{width: '85%'}}>Cancel</button>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>
+                <button className="btn-purple"  style={{width: '85%'}} onClick={handleOk}><span>Submit Project</span></button>
+              </Col>
+            </Row>
           </div>
-          {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
-          <button className="btn-borde" onClick={handleCancel}>Cancel</button>
-          <button className="btn-purple" onClick={handleOk}><span>Submit Project</span></button>
         </Modal>
       </div>
     </div>

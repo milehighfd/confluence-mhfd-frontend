@@ -392,19 +392,27 @@ body{
   }
 }
 .modal-confirm{
+  width: 420px !important;
+
+  /* Default close button */
+  .ant-modal-close {
+    display: none;
+  }
+  /* Body of the Modal */
+  .ant-modal-body {
+    padding: 0;
+    // height: 800px;
+  }
+  /* Moldal's Footer */
+  .ant-modal-footer {
+    display: none;
+  }
   h2{
     color: $purple00;
     font-size: 21px;
     text-align: center;
     margin-bottom: 20px;
     font-weight: 400;
-  }
-  .ant-modal-body{
-    text-align: center;
-    padding: 25px 30px;
-  }
-  .ant-modal-footer{
-    display: none;
   }
   .btn-danger {
     width: 130px;
@@ -444,16 +452,11 @@ body{
     border: 1px solid $opacity01;
     margin-right: 15px;
   }
-  .ant-modal-close{
-    color: $purple;
-    height: 40px;
-    width: 40px;
+  .title{
+    font-size: 10px !important;
   }
-  .ant-modal-close-x {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-    line-height: 40px;
+  .infomation {
+    font-size: 12px !important;
   }
 }
 // END ALERTS AND MODALS
