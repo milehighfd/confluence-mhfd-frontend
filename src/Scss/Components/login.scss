@@ -76,18 +76,23 @@
   font-size: 25px;
 }
 .contact02 {
-  position: fixed;
+  position: absolute;
   z-index: 3;
   color: white;
   bottom: 0;
   top: 70px;
-  right: 80px;
+  right: 230px;
   font-size: 25px;
   .text-button {
+    position: absolute;
     background: transparent;
     border-color: transparent;
     color: white;
     font-size: 15px;
+    margin-top: 3px;
+  }
+  .text-button:hover, .text-button:active {
+    margin-top: 1px;
   }
 }
 .contact02:hover {
