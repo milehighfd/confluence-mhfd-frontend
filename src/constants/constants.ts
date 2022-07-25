@@ -1098,4 +1098,6 @@ export const ICON_POPUPS = [
   ['Flood Hazard Point', '/Icons/ic-flood-hzd-point.png'],
   ['Stream Function Point', '/Icons/ic-stream-function-point.png'],
   ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
+  ['Stream Function Line', '/Icons/ic-stream-function-line.png'],
+  ['Flood Hazard Polygon', '/Icons/ic-flood-hzd-poly.png'],
 ]
