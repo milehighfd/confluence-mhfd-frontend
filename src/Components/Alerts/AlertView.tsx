@@ -4,8 +4,8 @@ import { Button, Checkbox, Col, Modal, Row } from 'antd';
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string} ) => {
+export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas}:
+  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any} ) => {
   const [state, setState] = useState(stateValue);
 
   const handleOk = (e: any) => {
@@ -57,7 +57,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
                   Work Request
                 </p>
                 <p className="information" style={{color:'#11093C', opacity:'0.5'}}>
-                  Arvada, Brighton
+                  {jurisdictions.join(', ')}
                 </p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
@@ -65,7 +65,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor}:
                   Work Plan (Capital Project)
                 </p>
                 <p className="information" style={{color:'#11093C', fontWeight:'700'}}>
-                  Jefferson
+                  {counties ? counties.join(', ') : serviceareas.join(', ')}
                 </p>
               </Col>
               <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>

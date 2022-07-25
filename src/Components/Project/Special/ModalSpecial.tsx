@@ -192,6 +192,9 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}
+      jurisdictions={jurisdiction}
+      counties={null}
+      serviceareas={serviceArea}
      />}
      <Modal
        centered

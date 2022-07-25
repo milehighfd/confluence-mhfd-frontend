@@ -329,6 +329,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}
+        jurisdictions={jurisdiction}
+        counties={null}
+        serviceareas={serviceArea}
       />}
       <Modal
         centered

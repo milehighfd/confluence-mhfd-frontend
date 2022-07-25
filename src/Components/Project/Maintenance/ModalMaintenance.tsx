@@ -289,6 +289,9 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}
+        jurisdictions={jurisdiction}
+        counties={county}
+        serviceareas={null}
       />}
       <Modal
         centered

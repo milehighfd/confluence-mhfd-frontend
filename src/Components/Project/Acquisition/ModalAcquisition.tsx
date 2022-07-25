@@ -255,6 +255,9 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}
+        jurisdictions={jurisdiction}
+        counties={null}
+        serviceareas={serviceArea}
       />}
       <Modal
         centered

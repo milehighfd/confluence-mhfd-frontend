@@ -586,6 +586,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}
+      jurisdictions={jurisdiction}
+      counties={county}
+      serviceareas={null}
      />}
      <Modal
        centered
