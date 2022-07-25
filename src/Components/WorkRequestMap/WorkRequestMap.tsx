@@ -2202,7 +2202,7 @@ const epochTransform = (dateParser: any) => {
       title = 'Stream Function Point' ;
     }
     if ( feature.source.includes('development_polygon')) {
-      title = 'Future Development Polygon' ;
+      title = 'Watershed Change Polygon' ;
     }
     if ( feature.source.includes('development_line')) {
       title = 'Watershed Change Line' ;

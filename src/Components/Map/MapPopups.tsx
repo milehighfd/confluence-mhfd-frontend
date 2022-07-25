@@ -206,6 +206,30 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
   else if (item.layer.includes('Fluvial Hazard Buffer')) {
     isComponent = false;
   }
+  else if (item.layer.includes('Watershed Change Line')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Flood Hazard Point')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Flood Hazard Polygon')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Flood Hazard Line')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Stream Function Point')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Stream Function Polygon')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Stream Function Line')) {
+    isComponent = false;
+  }
+  else if (item.layer.includes('Watershed Change Polygon')) {
+    isComponent = false;
+  }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable
         >
