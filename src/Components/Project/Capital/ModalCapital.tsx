@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip } from 'antd';
+import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Geom, Project } from "../../../Classes/Project";
@@ -13,6 +12,8 @@ import { useProfileState } from "../../../hook/profileHook";
 import { GOVERNMENT_STAFF, JURISDICTION } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
+import store from "../../../store";
+import { ADMIN, STAFF } from "../../../constants/constants";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -135,7 +136,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [cover, setCover] = useState('');
   const history = useHistory();
   const [lengthName, setlengthName] = useState(0);
-
+  const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [isWorkRequest,setIsWorkRequest] = useState(false);
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -174,6 +177,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       return list.split(',');
     }
  }
+ useEffect(() => {
+  console.log('jurisdiction', jurisdiction);
+ }, [jurisdiction]);
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);
@@ -589,6 +595,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       jurisdictions={jurisdiction}
       counties={county}
       serviceareas={null}
+      type="Capital"
      />}
      <Modal
        centered
@@ -632,7 +639,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           </div>
 
           <div className="body-project">
-
+              {
+                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                    <div style={{paddingBottom: '15px'}}>
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
+                    </div>
+                  </Col>
+              }
             <ProjectInformation
               description = {description}
               setDescription = {setDescription}

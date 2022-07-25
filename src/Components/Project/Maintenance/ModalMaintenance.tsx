@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from 'react-redux';
-import { Modal, Button, Row, Col, Popover, Select, Switch } from 'antd';
+import { Modal, Button, Row, Col, Popover, Select, Switch, Checkbox } from 'antd';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
@@ -10,9 +10,10 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
-import { JURISDICTION } from "../../../constants/constants";
+import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
+import store from "../../../store";
 
 const { Option } = Select;
 const content = (<div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>);
@@ -65,7 +66,9 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const history = useHistory();
   const textRef = useRef<any>(null);
   const [textAreaWidth, setTextAreaWidth] = useState(261);
-
+  const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [isWorkRequest,setIsWorkRequest] = useState(false);
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
@@ -292,6 +295,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         jurisdictions={jurisdiction}
         counties={county}
         serviceareas={null}
+        type="Maintenance"
       />}
       <Modal
         centered
@@ -335,7 +339,13 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
             </div>
 
             <div className="body-project">
-
+              {
+                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                    <div style={{paddingBottom: '15px'}}>
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
+                    </div>
+                  </Col>
+              }
               <ProjectInformation
                 description={description}
                 setDescription={setDescription}

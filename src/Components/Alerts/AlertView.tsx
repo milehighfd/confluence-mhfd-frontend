@@ -6,8 +6,8 @@ import { ADMIN, STAFF } from "../../constants/constants";
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any} ) => {
+export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type}:
+  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string} ) => {
   const [state, setState] = useState(stateValue);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
@@ -66,7 +66,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 <p className="title">
-                  Work Plan (Capital Project)
+                  Work Plan ({type} Project)
                 </p>
                 <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
                   {counties ? counties.join(', ') : serviceareas.join(', ')}

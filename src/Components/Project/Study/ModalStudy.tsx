@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline } from 'antd';
+import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline, Checkbox } from 'antd';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
@@ -8,7 +8,8 @@ import { LocationInformation } from "../TypeProjectComponents/LocationInformatio
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
-import { JURISDICTION, NEW_PROJECT_TYPES, STREAMS_FILTERS } from "../../../constants/constants";
+import { JURISDICTION, NEW_PROJECT_TYPES, STREAMS_FILTERS, ADMIN, STAFF } from "../../../constants/constants";
+import store from "../../../store";
 import {
   PROBLEMS_TRIGGER,
   XSTREAMS,
@@ -68,6 +69,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [studyreason, setStudyReason] = useState();
   const [studysubReason, setStudySubReason] = useState();
   const history = useHistory();
+  const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [isWorkRequest,setIsWorkRequest] = useState(false);
   useEffect(() => {
     setServiceAreaCounty({});
     setStreamsList([]);
@@ -332,6 +336,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         jurisdictions={jurisdiction}
         counties={null}
         serviceareas={serviceArea}
+        type="Study"
       />}
       <Modal
         centered
@@ -374,6 +379,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
             </div>
 
             <div className="body-project">
+              {
+                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                    <div style={{paddingBottom: '15px'}}>
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
+                    </div>
+                  </Col>
+              }
               <ProjectInformation
                 type={NEW_PROJECT_TYPES.Study}
                 description={description}

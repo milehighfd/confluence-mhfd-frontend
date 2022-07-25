@@ -145,6 +145,7 @@ export const LocationInformation = ({
           }
           if (service) { J = [...J, element]; }
         });
+        console.log('JURISDICTION SETTING', currentServiceAreaCounty, J);
         setjurisdiction(J);
       }
     }

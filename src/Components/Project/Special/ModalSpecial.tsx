@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Row, Col, Popover } from 'antd';
+import { Modal, Button, Row, Col, Popover, Checkbox } from 'antd';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
@@ -12,9 +12,10 @@ import { useProjectDispatch } from "../../../hook/projectHook";
 import { Project} from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { JURISDICTION } from "../../../constants/constants";
+import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
+import store from "../../../store";
 
 const content = (<div className="popver-info"> Any effort for which MHFD funds or staff participation is requested that doesn’t fit into one of the other Project categories.</div>);
 const selec = [1];
@@ -55,6 +56,9 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       return list.split(',');
     }
  }
+ const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [isWorkRequest,setIsWorkRequest] = useState(false);
 
  useEffect(() => {
   getTextWidth(nameProject);
@@ -195,6 +199,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       jurisdictions={jurisdiction}
       counties={null}
       serviceareas={serviceArea}
+      type="Special"
      />}
      <Modal
        centered
@@ -237,7 +242,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           </div>
 
           <div className="body-project">
-
+             {
+                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                    <div style={{paddingBottom: '15px'}}>
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
+                    </div>
+                  </Col>
+              }
             <ProjectInformation
               description= {description}
               setDescription= {setDescription}

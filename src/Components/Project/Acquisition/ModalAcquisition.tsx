@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Row, Col, Popover, Select } from 'antd';
+import { Modal, Button, Row, Col, Popover, Select, Checkbox } from 'antd';
 import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
@@ -12,9 +12,10 @@ import { getData, getToken, postData } from "../../../Config/datasets";
 import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
-import { JURISDICTION } from "../../../constants/constants";
+import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
+import store from "../../../store";
 
 const { Option } = Select;
 const content = (<div className="popver-info">The purchase of property that is shown to have high flood risk or is needed to implement master plan improvements.</div>);
@@ -66,6 +67,9 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
 
   var year = date.getFullYear();
   const [lengthName, setlengthName] = useState(0);
+  const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [isWorkRequest,setIsWorkRequest] = useState(false);
 
   useEffect(() => {
     if (save === true) {
@@ -258,6 +262,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         jurisdictions={jurisdiction}
         counties={null}
         serviceareas={serviceArea}
+        type="Acquisition"
       />}
       <Modal
         centered
@@ -301,7 +306,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
             </div>
 
             <div className="body-project">
-
+              {
+                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                    <div style={{paddingBottom: '15px'}}>
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
+                    </div>
+                  </Col>
+              }
               <ProjectInformation
                 description={description}
                 setDescription={setDescription}
