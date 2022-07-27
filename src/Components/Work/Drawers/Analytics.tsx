@@ -45,6 +45,13 @@ const Analytics = ({
       return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   const [year, setYear] = useState(+initialYear);
+  useEffect(() => {
+    setYear(initialYear);
+  }, [initialYear]);
+  useEffect(() => {
+    console.log('YEARRR', year);
+  }, [year]);
+  
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {
     years.push(+initialYear + i);
@@ -83,7 +90,7 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          <Select defaultValue={year} onChange={setYear}>
+          <Select defaultValue={year} value={year} onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{

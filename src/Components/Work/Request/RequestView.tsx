@@ -114,7 +114,10 @@ const RequestView = ({ type, isFirstRendering }: {
       setChanges(Math.random())
     }, 1000)
   }
-
+  useEffect(() => {
+    console.log('has Changed the year ', year);
+  }, [year]);
+ 
   const resetOnClose = () => {
     setStreamIntersected([]);
     setComponentIntersected([]);
