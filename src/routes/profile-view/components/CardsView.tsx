@@ -48,7 +48,7 @@ const CardsView = ({
     <Col xs={{ span: 24 }} lg={{ span: 6 }} style={{ width: '100%', display: 'inline-flex', alignSelf: 'stretch', paddingBottom: '15px' }}>
       <Card
         onClick={() => setVisible(true)}
-        hoverable
+        // hoverable
         style={{ width: '100%' }}
         className="card-information"
         cover={
