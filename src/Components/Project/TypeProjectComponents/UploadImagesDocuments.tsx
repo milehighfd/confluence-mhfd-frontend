@@ -200,12 +200,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
         <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
             {toDelete.length ?  <span onClick={() => {
-              setData((oldData: any) => {
-                // return oldData.filter((data: any) => !toDelete.)
-                console.log(oldData);
-                return oldData;
-              });
-              console.log('deleted');
+              setData((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
             }} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
