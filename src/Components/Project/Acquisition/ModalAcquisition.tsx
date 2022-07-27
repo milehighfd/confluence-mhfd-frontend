@@ -263,6 +263,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         counties={null}
         serviceareas={serviceArea}
         type="Acquisition"
+        isEdit={swSave}
       />}
       <Modal
         centered

@@ -596,6 +596,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       counties={county}
       serviceareas={null}
       type="Capital"
+      isEdit={swSave}
      />}
      <Modal
        centered

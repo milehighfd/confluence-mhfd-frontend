@@ -296,6 +296,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         counties={county}
         serviceareas={null}
         type="Maintenance"
+        isEdit={swSave}
       />}
       <Modal
         centered

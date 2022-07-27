@@ -337,6 +337,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         counties={null}
         serviceareas={serviceArea}
         type="Study"
+        isEdit={swSave}
       />}
       <Modal
         centered

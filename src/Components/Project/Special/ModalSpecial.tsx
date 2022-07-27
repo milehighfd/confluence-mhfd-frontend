@@ -200,6 +200,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       counties={null}
       serviceareas={serviceArea}
       type="Special"
+      isEdit={swSave}
      />}
      <Modal
        centered

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Button, Checkbox, Col, Modal, Row } from 'antd';
 import store from "../../store";
 import { ADMIN, STAFF } from "../../constants/constants";
@@ -6,8 +6,8 @@ import { ADMIN, STAFF } from "../../constants/constants";
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string} ) => {
+export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit}:
+  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean} ) => {
   const [state, setState] = useState(stateValue);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
@@ -28,6 +28,9 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
     setVisibleAlert(false);
     setState(auxState);
   };
+  useEffect(() => {
+    console.log('Am i editing', isEdit);
+  }, [isEdit]);
  return (
   <>
   {visibleAlert}
@@ -44,7 +47,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
           <div className="detailed">
             <Row className="detailed-h" gutter={[16, 8]}>
               <Col xs={{ span: 44 }} lg={{ span: 20 }}>
-                <h1 style={{marginTop: '15px'}}>Confirm your project
+                <h1 style={{marginTop: '15px'}}>{isEdit ? 'Save your project' : 'Confirm your project'}
                 </h1>
               </Col>
               <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
@@ -53,9 +56,9 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
             </Row>
             <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
               <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>This project will be routed to the following boards:</p>
+                <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>{ isEdit ? 'Please confirm your project edits below' : 'This project will be routed to the following boards:'}</p>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+              {!isEdit && <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
               {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
                 <p className="title">
                   Work Request
@@ -63,17 +66,17 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p className={`information ${(!isWorkRequest && showCheckBox)  ? 'disabled':''}`}>
                   {jurisdictions.join(', ')}
                 </p>
-              </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+              </Col>}
+              {!isEdit && <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 <p className="title">
                   Work Plan ({type} Project)
                 </p>
                 <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
                   {counties ? counties.join(', ') : serviceareas.join(', ')}
                 </p>
-              </Col>
+              </Col>}
               {
-                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                (showCheckBox && !isEdit) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                     <div>
                       <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Send this project to the Work Request board
                     </div>
