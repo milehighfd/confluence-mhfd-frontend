@@ -253,7 +253,10 @@
     color: $purple00;
     width: 96%;
     line-height: 18px;
-    display: -webkit-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 93%;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
