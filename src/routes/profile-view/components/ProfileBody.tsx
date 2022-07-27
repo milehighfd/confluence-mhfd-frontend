@@ -35,7 +35,7 @@ const ProfileBody = () => {
         setFilter={setFilter} />
     </Row>
     <Row>
-      <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 17 }}>
+      <Col className="profile-tabs" xs={{ span: 24 }} lg={{ span: 24 }}>
         <Spin className="loading-01" spinning={favoritesLoader > 0}>
           <Tabs defaultActiveKey="2" className="tabs-map" onTabClick={(e: string) => {
             if (e == '1') {
@@ -61,7 +61,7 @@ const ProfileBody = () => {
           </Tabs>
         </Spin>
       </Col>
-      <Collaborators />
+      {/* <Collaborators /> */}
     </Row>
   </>
   )

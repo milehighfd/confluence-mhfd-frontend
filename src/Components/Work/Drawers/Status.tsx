@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Button, Dropdown, Menu, List, Row, Col, Checkbox, Popover, MenuProps } from 'antd';
+import { Drawer, Button,  List, Row, Col, Checkbox, Popover, Select } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { SERVER } from "../../../Config/Server.config";
 import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
+import { Option } from "antd/lib/mentions";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -137,27 +138,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
     return `Submitted ${pad(d)}/${pad(m)}/${y}.`;
   }
 
-  const renderItem = () => {
-    const items: MenuProps['items'] = [{
-      key: '0',
-      label: (<>
-        <h6><i className="mdi mdi-circle" style={{ color: '#29C499' }}></i> Approved</h6>
-        <p>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff approves the Work Request.`}</p>
-      </>),
-      onClick: (() => setBoardStatus('Approved'))
-    }, {
-      key: '1',
-      label: (<>
-        <h6><i className="mdi mdi-circle" style={{ color: '#FFC664' }}></i> Under Review</h6>
-        <p>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff are developing ${type === 'WORK_PLAN' ? 'or reviewing' : ''} the Work Request.`}</p>
-      </>),
-      onClick: (() => setBoardStatus('Under Review'))
-    }];
-    if (status === 'Approved') {
-      items.pop();
-    }
-    return items;
-  };
 
   return (
     <>
@@ -187,19 +167,20 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
     >
       <h6>Status Management</h6>
       <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={type === 'WORK_PLAN' ? content00WP :content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
-
-      <Dropdown overlay={
-        <Menu className="menu-utilities" items={renderItem()}>
-        </Menu>
-      } trigger={['click']}>
-        <Button className="ant-dropdown-link">
-          {
-            boardStatus ? boardStatus : '- Select -'
-          }
-        <DownOutlined />
-        </Button>
-      </Dropdown>
-
+      <Select value={boardStatus ? boardStatus : '- Select -'} className="ant-dropdown-link" getPopupContainer={trigger => trigger.parentNode}>
+        <Option value="key-Approved">
+          <div onClick={() => setBoardStatus('Approved')}>
+            <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#29C499' }}></i> Approved</h6>
+            <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff approves the Work Request.`}</p>
+          </div>
+        </Option>
+        <Option value="key-Under-Review">
+          <div onClick={() => setBoardStatus('Under Review')}>
+            <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#FFC664' }}></i> Under Review</h6>
+            <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff are developing ${type === 'WORK_PLAN' ? 'or reviewing' : ''} the Work Request.`}</p>
+          </div>
+        </Option>
+      </Select>
           <Row>
             <Col lg={{ span: 12 }}>
               <p>{type === 'WORK_REQUEST' ? 'Project Type' : 'Work Plan'}

@@ -27,7 +27,7 @@ const ProfileView = () => {
       <Navbar/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout className="map-00 profile-00">
+        <Layout style={{overflow:'hidden'}} className="map-00 profile-00">
           <ProfileBody />
         </Layout>
       </Layout>
