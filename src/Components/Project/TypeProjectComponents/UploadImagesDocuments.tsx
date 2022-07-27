@@ -19,6 +19,34 @@ export const UploadImagesDocuments = ({isCapital, }: {
 }) => {
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
+  const [data, setData] = useState<any[]>([
+    {
+      key: '1',
+      filename: 'project_010322.jpg',
+      size: '2.5MB',
+      cover: true,
+      type: 'JPG',
+      download:'213'
+    },
+    {
+      key: '2',
+      filename: 'screenshot_iphone13.png',
+      size: '2.5MB',
+      cover: false,
+      type: 'JPG',
+      download:'123'
+    },
+    {
+      key: '3',
+      filename: 'image.png',
+      size: '2.5MB',
+      cover: false,
+      type: 'JPG',
+      download:'321321'
+    },
+    
+  ]);
+  const [toDelete, setToDelete] = useState<any[]>([]);
   const COLUMNS_UPLOAD02:any = [
     {
       title: "Filename",
@@ -51,15 +79,27 @@ export const UploadImagesDocuments = ({isCapital, }: {
     },
     {
       title: "",
-      dataIndex: "dowload",
+      dataIndex: "download",
       render: (id:string) => (
-        <Button className="user-dowload ">
+        <Button className="user-download ">
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
       width: "5%"
     },
   ];
+  const handle = (row: any) => {
+    console.log("my row " , row);
+    const copy = [...data].map((d) => {
+      if (row.key === d.key) {
+        d.cover = true;
+      } else {
+        d.cover = false;
+      }
+      return d;
+    });
+    setData([...copy]);
+  }
   const COLUMNS_UPLOAD:any = [
     {
       title: "Filename",
@@ -76,11 +116,15 @@ export const UploadImagesDocuments = ({isCapital, }: {
     {
       title: "Cover",
       dataIndex: "cover",
-      render: (text:boolean) => (
-        <Tag className={text? "cover-active": "cover"}>
+      render: (text:boolean, record: any) => (
+        <Tag className={text? "cover-active": "cover"} onClick={() => handle(record)}>
           Cover
         </Tag>
       ),
+      onCell: (record: any) => ({
+        record,
+        handle
+      }),
       width: "15%",
       className: "user-cover",
     },
@@ -96,43 +140,17 @@ export const UploadImagesDocuments = ({isCapital, }: {
       width: "10%"
     },
     {
-      title: "",
-      dataIndex: "dowload",
+      title: "Download",
+      dataIndex: "download",
       render: (id:string) => (
-        <Button className="user-dowload ">
+        <Button className="user-download ">
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
       width: "5%"
     },
   ];
-  const data: any = [
-    {
-      key: '1',
-      filename: 'project_010322.jpg',
-      size: '2.5MB',
-      cover: true,
-      type: 'JPG',
-      dowload:'213'
-    },
-    {
-      key: '2',
-      filename: 'screenshot_iphone13.png',
-      size: '2.5MB',
-      cover: false,
-      type: 'JPG',
-      dowload:'123'
-    },
-    {
-      key: '3',
-      filename: 'image.png',
-      size: '2.5MB',
-      cover: false,
-      type: 'JPG',
-      dowload:'321321'
-    },
-    
-  ];
+ 
   const data02: any = [
     {
       key: '1',
@@ -140,7 +158,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       size: '2.5MB',
       date: 'Dec 1, 2022',
       type: 'XLS',
-      dowload:'213'
+      download:'213'
     },
     {
       key: '2',
@@ -148,7 +166,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       size: '2.5MB',
       date: 'Dec 1, 2022',
       type: 'XLS',
-      dowload:'123'
+      download:'123'
     },
     {
       key: '3',
@@ -156,7 +174,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       size: '2.5MB',
       date: 'Dec 1, 2022',
       type: 'XLS',
-      dowload:'321321'
+      download:'321321'
     },
     
   ];
@@ -164,6 +182,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      setToDelete(selectedRowKeys);
     },
     getCheckboxProps: (record: DataType) => ({
       disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -180,11 +199,19 @@ export const UploadImagesDocuments = ({isCapital, }: {
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
+            {toDelete.length ?  <span onClick={() => {
+              setData((oldData: any) => {
+                // return oldData.filter((data: any) => !toDelete.)
+                console.log(oldData);
+                return oldData;
+              });
+              console.log('deleted');
+            }} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
             <Button className="bottomn-heder">
-              <CloudDownloadOutlined />Dowload All 
+              <CloudDownloadOutlined />Download All 
             </Button>
           </span>
         </Col>
@@ -264,7 +291,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
               <span className="ic-document"/>Add Document
             </Button>
             <Button className="bottomn-heder">
-              <CloudDownloadOutlined />Dowload All 
+              <CloudDownloadOutlined />Download All 
             </Button>
           </span>
         </Col>
