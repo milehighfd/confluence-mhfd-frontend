@@ -6,6 +6,7 @@ import { Attachment } from "../../Work/Request/RequestTypes";
 import { saveAs } from 'file-saver';
 import { text } from "d3";
 import { CloudDownloadOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { UploaderModal } from "./UploaderModal";
 
 interface DataType {
   key: React.Key;
@@ -189,6 +190,20 @@ export const UploadImagesDocuments = ({isCapital, }: {
       name: record.name,
     }),
   };
+  const bytesToMegaBytes = (bytes: any) =>  Math.round(bytes / (1024 ** 2) * 100) / 100;
+  const addFile = (file: any, description: any) => {
+    console.log('file', file, description);
+    setData((oldData) => {
+      return [...oldData, {
+        ...file,
+        description: description,
+        filename: file.name,
+        type: file.type.replace('image/', '').toUpperCase(),
+        size: bytesToMegaBytes(file.size) + 'MB',
+      }] 
+    })
+    setModal(false);
+  }
   return (
     <>
       <Row style={{marginTop:'5px'}}>
@@ -229,47 +244,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
         />
       </Row>
       {modal &&
-        <Modal
-          className="detailed-upload"
-          style={{ top: 60, width: '100%' }}
-          visible={modal}
-          onCancel={() => setModal(false)}
-          forceRender={false}
-          destroyOnClose>
-          <div className="upload">
-            <Row className="detailed-h" gutter={[16, 8]}>
-              <Col xs={{ span: 12 }} lg={{ span: 13 }}>
-                <h1 style={{marginTop: '15px'}}>Upload Images
-                </h1>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
-                <Button className="btn-transparent" onClick={() => setModal(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
-              </Col>
-            </Row>
-            <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
-            <label className="sub-title" style={{color:'#11093C'}}>Title </label>
-              <Input placeholder="Add description"/>
-              <input id="uploader" type="file" style={{ display: 'none' }} multiple accept="image/png, image/jpeg" />
-              <div>
-                  <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
-                    <img style={{marginRight:'5px', marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" />
-                    <h1 style={{fontSize:'19px'}}>Select file to Upload</h1>
-                      <p>or drag and drop it here</p>
-                      <p style={{paddingTop: '20px'}}>Accepted File Types: .png or .jpg</p>
-                  </label>
-              </div>
-            </Row>
-            <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
-              <p>Or upload from URL</p>
-              <div style={{width: '100%', backgroundColor: '#f5f7ff', padding: '8px'}}>
-                <span style={{color:'#11093C', opacity:'0.5'}}>Add the file URL</span>
-
-                <Button style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', marginLeft:'74%'}}>Upload</Button>
-
-              </div>
-            </Row>
-          </div>
-        </Modal>
+        <UploaderModal  modal={modal} setModal={setModal} addFile={addFile} />
       }
       <br></br>
 
