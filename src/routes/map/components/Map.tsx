@@ -27,7 +27,7 @@ import {
     PROPSPROBLEMTABLES,
     STREAM_IMPROVEMENT_MEASURE
 } from "../../../constants/constants";
-import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream } from '../../../constants/mapStyles';
+import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
 import { numberWithCommas } from '../../../utils/utils';
 import { Input, AutoComplete } from 'antd';
@@ -1050,37 +1050,7 @@ const Map = ({
                     ]
             });
             map.addLayer(
-                {
-                    'id': 'simple-tiles',
-                    'type': 'raster',
-                    'source': 'raster-tiles',
-                    'minzoom': 0,
-                    'maxzoom': 24,
-                    'paint': {
-                        'raster-fade-duration': 300,
-                        'raster-opacity':[
-                            "interpolate",
-                            ["linear"],
-                            ["zoom"],
-                            0,
-                            0,
-                            10,
-                            0,
-                            10.98,
-                            0.05,
-                            11,
-                            0.2,
-                            11.5,
-                            0.45,
-                            12,
-                            0.55,
-                            15,
-                            0.77,
-                            22,
-                            1
-                          ]
-                    }
-                },
+              NEARMAP_STYLE,
                 'aerialway'
             );
         }

@@ -5,7 +5,7 @@ import { Collapse, Table, Row, Col } from 'antd';
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
 import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, MHFD_PROJECTS } from '../../../constants/constants';
-import { tileStyles } from '../../../constants/mapStyles';
+import { tileStyles, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
 import { getComponentCounter } from '../../../dataFetching/map';
@@ -138,31 +138,7 @@ export default forwardRef(({
                 ]
         });
         map.map.addLayer(
-            {
-                'id': 'simple-tiles',
-                'type': 'raster',
-                'source': 'raster-tiles',
-                'minzoom': 2,
-                'maxzoom': 24,
-                'paint': {
-                    'raster-fade-duration': 300,
-                    'raster-opacity':[
-                        "interpolate",
-                        ["linear"],
-                        ["zoom"],
-                        0,
-                        0,
-                        13,
-                        0.55,
-                        14,
-                        0.7,
-                        15,
-                        0.9,
-                        22,
-                        1
-                      ]
-                }
-            },
+          NEARMAP_STYLE,
             'aerialway'
         );
     }

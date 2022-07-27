@@ -1274,7 +1274,33 @@ export const COMPONENT_LAYERS_STYLE = {
 
 ]
 }
-
+export const NEARMAP_STYLE = {
+  'id': 'simple-tiles',
+  'type': 'raster',
+  'source': 'raster-tiles',
+  'minzoom': 0,
+  'maxzoom': 24,
+  'paint': {
+      'raster-fade-duration': 300,
+      'raster-opacity':[
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          14,
+          0,
+          14.2,
+          0.05,
+          14.6,
+          0.55,
+          15,
+          0.8,
+          22,
+          1
+        ]
+  }
+};
 const MEP_PROJECTS_STYLES = {
   [MEP_PROJECTS_TEMP_LOCATIONS]: [{
     type: 'circle',

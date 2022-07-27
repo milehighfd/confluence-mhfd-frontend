@@ -32,7 +32,7 @@ import {
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button } from 'antd';
-import { tileStyles, COMPONENT_LAYERS_STYLE } from '../../constants/mapStyles';
+import { tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useDetailedState } from "../../hook/detailedHook";
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
@@ -660,31 +660,7 @@ const loadData = (trigger: any, name?: string) => {
                 ]
         });
         map.map.addLayer(
-            {
-                'id': 'simple-tiles',
-                'type': 'raster',
-                'source': 'raster-tiles',
-                'minzoom': 2,
-                'maxzoom': 24,
-                'paint': {
-                    'raster-fade-duration': 300,
-                    'raster-opacity':[
-                        "interpolate",
-                        ["linear"],
-                        ["zoom"],
-                        0,
-                        0,
-                        13,
-                        0,
-                        14,
-                        0.66,
-                        15,
-                        0.77,
-                        22,
-                        1
-                      ]
-                }
-            },
+          NEARMAP_STYLE,
             'aerialway'
             
         );
