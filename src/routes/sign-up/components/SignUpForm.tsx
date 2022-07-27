@@ -33,7 +33,7 @@ const SignUpForm = () => {
         const organizations = rows
           .filter((row: any) => row.type === 'JURISDICTION')
           .map(({id, name}: { id: number, name: string }) => (name));
-        setOrganizationList(organizations);
+        setOrganizationList(organizations.sort());
       })
       .catch((e) => {
         console.log(e);
@@ -42,7 +42,7 @@ const SignUpForm = () => {
       .then((rows) => {
         const consultants = rows
           .map(({_id, name}: { _id: number, name: string }) => (name));
-        setConsultantList(consultants);
+        setConsultantList(consultants.sort());
       })
       .catch((e) => {
         console.log(e);
