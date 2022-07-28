@@ -967,7 +967,11 @@ body{
 }
 .user-type {
   width: 111px;
+  max-width: 111px;
   height: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-family: Ubuntu;
   font-size: 14px;
   // font-weight: 500;
@@ -985,6 +989,7 @@ body{
 }
 .user-name-upload {
   width: 111px;
+  max-width: 111px;
   height: 24px;
   font-family: Ubuntu;
   font-size: 14px;
@@ -994,6 +999,9 @@ body{
   line-height: 1.29;
   letter-spacing: 0.27px;
   color: $purple;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .text-profile-projects {
   width: 91px;
@@ -1062,7 +1070,7 @@ body{
   }
   .draw{
     height: 194px;
-    width: 370%;
+    width: 100%;
     text-align: center;
     border: 3px dashed $opacity04;
     margin: 10px 0px 15px 0px;

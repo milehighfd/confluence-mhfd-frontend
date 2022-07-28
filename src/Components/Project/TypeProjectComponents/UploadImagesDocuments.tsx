@@ -20,7 +20,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
 }) => {
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
-  const [data, setData] = useState<any[]>([
+  const [dataImages, setDataImages] = useState<any[]>([
     {
       key: '1',
       filename: 'project_010322.jpg',
@@ -48,6 +48,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
     
   ]);
   const [toDelete, setToDelete] = useState<any[]>([]);
+  const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const COLUMNS_UPLOAD02:any = [
     {
       title: "Filename",
@@ -91,7 +92,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
   ];
   const handle = (row: any) => {
     console.log("my row " , row);
-    const copy = [...data].map((d) => {
+    const copy = [...dataImages].map((d) => {
       if (row.key === d.key) {
         d.cover = true;
       } else {
@@ -99,7 +100,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       }
       return d;
     });
-    setData([...copy]);
+    setDataImages([...copy]);
   }
   const COLUMNS_UPLOAD:any = [
     {
@@ -151,8 +152,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       width: "5%"
     },
   ];
- 
-  const data02: any = [
+  const [dataFiles, setDataFiles] = useState<any[]>([
     {
       key: '1',
       filename: 'Spreadsheet2022.xlsx',
@@ -178,7 +178,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
       download:'321321'
     },
     
-  ];
+  ]);
   
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
@@ -190,19 +190,45 @@ export const UploadImagesDocuments = ({isCapital, }: {
       name: record.name,
     }),
   };
+  const rowSelectionFiles = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      setToDeleteFiles(selectedRowKeys);
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
   const bytesToMegaBytes = (bytes: any) =>  Math.round(bytes / (1024 ** 2) * 100) / 100;
-  const addFile = (file: any, description: any) => {
+  const addFile = (file: any, description: any, type: string) => {
     console.log('file', file, description);
-    setData((oldData) => {
-      return [...oldData, {
-        ...file,
-        description: description,
-        filename: file.name,
-        type: file.type.replace('image/', '').toUpperCase(),
-        size: bytesToMegaBytes(file.size) + 'MB',
-      }] 
-    })
-    setModal(false);
+    if (type === 'images') {
+      setDataImages((oldData) => {
+        return [...oldData, {
+          ...file,
+          description: description,
+          filename: file.name,
+          type: file.type.replace('image/', '').toUpperCase(),
+          size: bytesToMegaBytes(file.size) + 'MB',
+          key: file.name + file.lastModified
+        }] 
+      })
+      setModal(false);
+    } else {
+      const lastI = file.type.indexOf('/');
+      setDataFiles((oldData) => {
+        return [...oldData, {
+          ...file,
+          description: description,
+          filename: file.name,
+          type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
+          size: bytesToMegaBytes(file.size) + 'MB',
+          key: file.name + file.lastModified
+        }] 
+      });
+      setModal02(false);
+    }
   }
   return (
     <>
@@ -215,7 +241,7 @@ export const UploadImagesDocuments = ({isCapital, }: {
         <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
             {toDelete.length ?  <span onClick={() => {
-              setData((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
+              setDataImages((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
             }} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
@@ -239,12 +265,12 @@ export const UploadImagesDocuments = ({isCapital, }: {
             ...rowSelection,
           }}
           columns={COLUMNS_UPLOAD}
-          dataSource={data}
+          dataSource={dataImages}
 
         />
       </Row>
       {modal &&
-        <UploaderModal  modal={modal} setModal={setModal} addFile={addFile} />
+        <UploaderModal  modal={modal} setModal={setModal} addFile={addFile} type="images"/>
       }
       <br></br>
 
@@ -256,7 +282,9 @@ export const UploadImagesDocuments = ({isCapital, }: {
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
-            <span style={{color:'red'}}>Delete</span>
+          {toDeleteFiles.length ?  <span onClick={() => {
+              setDataFiles((oldData: any) => oldData.filter((d: any) => !toDeleteFiles.includes(d.key)));
+            }} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
               <span className="ic-document"/>Add Document
             </Button>
@@ -271,55 +299,15 @@ export const UploadImagesDocuments = ({isCapital, }: {
           style={{width: '100%'}}
           rowSelection={{
             type: 'checkbox',
-            ...rowSelection,
+            ...rowSelectionFiles,
           }}
           columns={COLUMNS_UPLOAD02}
-          dataSource={data02}
+          dataSource={dataFiles}
 
         />
       </Row>
       {modal02 &&
-        <Modal
-          className="detailed-upload"
-          style={{ top: 60, width: '100%' }}
-          visible={modal02}
-          onCancel={() => setModal02(false)}
-          forceRender={false}
-          destroyOnClose>
-          <div className="upload02">
-            <Row className="detailed-h" gutter={[16, 8]}>
-              <Col xs={{ span: 12 }} lg={{ span: 13 }}>
-                <h1 style={{marginTop: '15px'}}>Upload Documents
-                </h1>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
-                <Button className="btn-transparent" onClick={() => setModal02(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
-              </Col>
-            </Row>
-            <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
-            <label className="sub-title" style={{color:'#11093C'}}>Title </label>
-              <Input placeholder="Add description"/>
-              <input id="uploader" type="file" style={{ display: 'none' }} multiple accept="image/png, image/jpeg" />
-              <div>
-                  <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
-                    <img style={{marginRight:'5px', marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" />
-                    <h1 style={{fontSize:'19px'}}>Select file to Upload</h1>
-                      <p>or drag and drop it here</p>
-                      <p style={{paddingTop: '20px'}}>Accepted File Types: .docx, .xlsx, or .pdf</p>
-                  </label>
-              </div>
-            </Row>
-            <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
-              <p>Or upload from URL</p>
-              <div style={{width: '100%', backgroundColor: '#f5f7ff', padding: '8px'}}>
-                <span style={{color:'#11093C', opacity:'0.5'}}>Add the file URL</span>
-
-                <Button style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', marginLeft:'74%'}}>Upload</Button>
-
-              </div>
-            </Row>
-          </div>
-        </Modal>
+        <UploaderModal  modal={modal02} setModal={setModal02} addFile={addFile} type="documents"/>
       }
     </>
   );

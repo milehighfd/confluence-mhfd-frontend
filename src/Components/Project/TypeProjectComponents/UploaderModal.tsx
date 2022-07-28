@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Button, Row, Col, Modal, Input } from 'antd';
 
 export const UploaderModal = (
-  {modal, setModal, addFile}:{ modal: any, setModal: any, addFile: any}
+  {modal, setModal, addFile, type}:{ modal: any, setModal: any, addFile: any, type: string}
 ) => {
   const [selectedFile, setSelectedFile] = useState<any>(undefined);
   const [descriptionFile, setDescriptionFile] = useState<string>('');
@@ -23,7 +23,7 @@ export const UploaderModal = (
       <div className="upload">
         <Row className="detailed-h" gutter={[16, 8]}>
           <Col xs={{ span: 12 }} lg={{ span: 13 }}>
-            <h1 style={{marginTop: '15px'}}>Upload Imagess
+            <h1 style={{marginTop: '15px'}}>{ type === 'images' ? 'Upload Images' : 'Upload Documents'}
             </h1>
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
@@ -37,15 +37,15 @@ export const UploaderModal = (
             id="uploader"
             type="file"
             style={{ display: 'none' }} 
-            multiple accept="image/png, image/jpeg"
+            multiple accept={type === 'images' ? "image/png, image/jpeg" : "application/pdf, application/msword, application/vnd.ms-excel, .xlsx, .xls, .docx"}
             onChange={handleFileUpload}
           />
-          <div>
+          <div style={{width: '100%'}}>
               <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                 <img style={{marginRight:'5px', marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" />
                 <h1 style={{fontSize:'19px'}}>Select file to Upload</h1>
                   <p>or drag and drop it here</p>
-                  <p style={{paddingTop: '20px'}}>Accepted File Types: .png or .jpg</p>
+                  <p style={{paddingTop: '20px'}}>Accepted File Types: {type === 'images' ? '.png or .jpg' : '.docx, .xlsx, or .pdf'}</p>
               </label>
           </div>
         </Row>
@@ -56,7 +56,7 @@ export const UploaderModal = (
 
             <Button
               style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', marginLeft:'74%'}}
-              onClick={() => addFile(selectedFile, descriptionFile)}
+              onClick={() => addFile(selectedFile, descriptionFile, type)}
             >
               Upload
             </Button>
