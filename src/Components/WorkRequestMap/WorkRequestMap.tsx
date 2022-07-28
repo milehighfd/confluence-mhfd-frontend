@@ -1323,7 +1323,7 @@ const loadData = (trigger: any, name?: string) => {
     if(type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
       updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS,ROUTINE_MAINTENANCE, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
     } else { 
-      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
+      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
     }
   },[type.currentTab]);
   useEffect(()=>{

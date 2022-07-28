@@ -33,7 +33,7 @@ import {
   NEARMAP_TOKEN,
   STREAMS_POINT,
   PROJECTS_DRAFT,
-  MEP_PROJECTS
+  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -682,12 +682,17 @@ const CreateProjectMap = (type: any) => {
       }
     }
     let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
-    if (type.type === 'CAPITAL' || type.type === 'ACQUISITION') {
-      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, COMPONENT_LAYERS, STREAMS_FILTERS];
-    } else if (type.type === 'STUDY') {
-      thisSL = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
-    } else if (type.type === 'MAINTENANCE') {
-      thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, ROUTINE_MAINTENANCE, STREAMS_FILTERS, MEP_PROJECTS]
+    if (type.type === 'CAPITAL') {
+      thisSL = [AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
+    }
+    if(type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
+      thisSL = [AREA_BASED_MASK, BORDER];
+    }
+    if (type.type === 'STUDY') {
+      thisSL = [AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD];
+    }
+    if (type.type === 'MAINTENANCE') {
+      thisSL = [AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
     }
     updateSelectedLayers(thisSL);
   }
@@ -800,6 +805,11 @@ const CreateProjectMap = (type: any) => {
       filterProjectsNew.projecttype = "Study";
     } else {
       filterProjectsNew.projecttype = "Maintenance,Capital";
+    }
+    if (map) {
+      for (const component of COMPONENT_LAYERS.tiles) {
+          applyFilters(component, filterComponents);
+      }
     }
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
     setTimeout(() => {
@@ -955,6 +965,11 @@ const CreateProjectMap = (type: any) => {
       const allFilters: any[] = ['all'];
       for (const filterField in toFilter) {
         const filters = toFilter[filterField];
+        if(filterField === 'status' && type.type === 'CAPITAL') {
+          if (filters === 'Proposed' || filters === 'TBD' ) {
+            allFilters.push(['==', ['get', filterField], filters]);
+          }
+        }
         if (filterField === 'keyword') {
           if (filters[key]) {
             allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
