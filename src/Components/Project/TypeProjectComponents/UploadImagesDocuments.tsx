@@ -21,58 +21,8 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
   const [dataImages, setDataImages] = useState<any[]>([
-    {
-      key: '1',
-      filename: 'project_010322.jpg',
-      size: '2.5MB',
-      cover: true,
-      type: 'JPG',
-      download:'213'
-    },
-    {
-      key: '2',
-      filename: 'screenshot_iphone13.png',
-      size: '2.5MB',
-      cover: false,
-      type: 'JPG',
-      download:'123'
-    },
-    {
-      key: '3',
-      filename: 'image.png',
-      size: '2.5MB',
-      cover: false,
-      type: 'JPG',
-      download:'321321'
-    },
-    
   ]);
   const [dataFiles, setDataFiles] = useState<any[]>([
-    {
-      key: '1',
-      filename: 'Spreadsheet2022.xlsx',
-      size: '2.5MB',
-      date: 'Dec 1, 2022',
-      type: 'XLS',
-      download:'213'
-    },
-    {
-      key: '2',
-      filename: 'Report2022-2023.pdf',
-      size: '2.5MB',
-      date: 'Dec 1, 2022',
-      type: 'XLS',
-      download:'123'
-    },
-    {
-      key: '3',
-      filename: 'Basic Plan - Dec 2022.pdf',
-      size: '2.5MB',
-      date: 'Dec 1, 2022',
-      type: 'XLS',
-      download:'321321'
-    },
-    
   ]);
   
   const [toDelete, setToDelete] = useState<any[]>([]);
