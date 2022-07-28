@@ -366,6 +366,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
 
               <UploadImagesDocuments
               isCapital={false}
+              setFiles={setFiles}
             />
             </div>
             <div className="footer-project">

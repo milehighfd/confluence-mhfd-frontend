@@ -154,6 +154,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     //   setSponsor(locality);
     // }
   },[organization]);
+  useEffect(() => {
+    console.log('filessssss', files);
+  }, [files]);
   useEffect(()=>{
     setServiceAreaCounty({});
     setServiceArea([]);
@@ -305,6 +308,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           csponsor = csponsor.substring(0, csponsor.length-1)
         }
       }
+      
       capital.servicearea = cservice;
       capital.county = ccounty;
       capital.jurisdiction= cjurisdiction;
@@ -323,6 +327,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.editProject = editprojectid;
       capital.cover = cover;
       capital.estimatedcost = getTotalCost();
+      console.log('about to set files for capital', capital);
       if(swSave){
         editProjectCapital(capital);
       }
@@ -459,7 +464,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let newComponents: any = [];
     let currentComponents = listComponents.result;
     newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
-    console.log("HEY REMOVE", newComponents);
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
   const updateOverheadCosts = () => {
@@ -1113,6 +1117,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             <br/>
             <UploadImagesDocuments
               isCapital={true}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">

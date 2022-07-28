@@ -55,13 +55,16 @@ export const saveAcquisition = (data: any) => {
 };
 
 export const saveCapital = (data: any) => {
+  console.log('data', data['files']);
   return ( dispatch: Function) => {
     const formData = new FormData();
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
+        
         data[key].forEach((o: any, i: number) => {
+          console.log("OOOOOOOOOO", o);
           formData.append(key, o.file);
         })
       } else {

@@ -32,7 +32,7 @@ export const UploaderModal = (
         </Row>
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
         <label className="sub-title" style={{color:'#11093C'}}>Title </label>
-          <Input placeholder="Add description" onChange={(e) => setDescriptionFile(e.target.value)}/>
+          <Input placeholder="Add title" onChange={(e) => setDescriptionFile(e.target.value)}/>
           <input 
             id="uploader"
             type="file"

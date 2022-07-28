@@ -15,8 +15,8 @@ interface DataType {
   address: string;
 }
 let counter = 0;
-export const UploadImagesDocuments = ({isCapital, }: {
-  isCapital?: any,
+export const UploadImagesDocuments = ({isCapital, setFiles }: {
+  isCapital?: any, setFiles: any
 }) => {
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
@@ -47,6 +47,34 @@ export const UploadImagesDocuments = ({isCapital, }: {
     },
     
   ]);
+  const [dataFiles, setDataFiles] = useState<any[]>([
+    {
+      key: '1',
+      filename: 'Spreadsheet2022.xlsx',
+      size: '2.5MB',
+      date: 'Dec 1, 2022',
+      type: 'XLS',
+      download:'213'
+    },
+    {
+      key: '2',
+      filename: 'Report2022-2023.pdf',
+      size: '2.5MB',
+      date: 'Dec 1, 2022',
+      type: 'XLS',
+      download:'123'
+    },
+    {
+      key: '3',
+      filename: 'Basic Plan - Dec 2022.pdf',
+      size: '2.5MB',
+      date: 'Dec 1, 2022',
+      type: 'XLS',
+      download:'321321'
+    },
+    
+  ]);
+  
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const COLUMNS_UPLOAD02:any = [
@@ -152,34 +180,11 @@ export const UploadImagesDocuments = ({isCapital, }: {
       width: "5%"
     },
   ];
-  const [dataFiles, setDataFiles] = useState<any[]>([
-    {
-      key: '1',
-      filename: 'Spreadsheet2022.xlsx',
-      size: '2.5MB',
-      date: 'Dec 1, 2022',
-      type: 'XLS',
-      download:'213'
-    },
-    {
-      key: '2',
-      filename: 'Report2022-2023.pdf',
-      size: '2.5MB',
-      date: 'Dec 1, 2022',
-      type: 'XLS',
-      download:'123'
-    },
-    {
-      key: '3',
-      filename: 'Basic Plan - Dec 2022.pdf',
-      size: '2.5MB',
-      date: 'Dec 1, 2022',
-      type: 'XLS',
-      download:'321321'
-    },
-    
-  ]);
-  
+ 
+  useEffect(() => {
+    console.log('Data Images', dataImages, 'Data Files', dataFiles);
+    setFiles([...dataImages, ...dataFiles]);
+  }, [dataImages, dataFiles]);
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -200,18 +205,37 @@ export const UploadImagesDocuments = ({isCapital, }: {
       name: record.name,
     }),
   };
-  const bytesToMegaBytes = (bytes: any) =>  Math.round(bytes / (1024 ** 2) * 100) / 100;
+  const formatBytes = (bytes: number, decimals = 2) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  const formatDate = (timestamp: number) => {
+    let date = new Date(timestamp);
+    var day = date.getDate();
+    let months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    // var hours = date.getHours();
+    // var minutes = date.getMinutes() > 10 ? date.getMinutes() : '0' + date.getMinutes();
+    return `${day} ${months[month]}, ${year}`;
+  }
   const addFile = (file: any, description: any, type: string) => {
-    console.log('file', file, description);
+    console.log('fle', file, description);
     if (type === 'images') {
       setDataImages((oldData) => {
         return [...oldData, {
           ...file,
           description: description,
-          filename: file.name,
+          filename: description ? description : file.name,
           type: file.type.replace('image/', '').toUpperCase(),
-          size: bytesToMegaBytes(file.size) + 'MB',
-          key: file.name + file.lastModified
+          size: formatBytes(file.size, 2),
+          key: file.name + file.lastModified,
+          file: file
         }] 
       })
       setModal(false);
@@ -221,10 +245,12 @@ export const UploadImagesDocuments = ({isCapital, }: {
         return [...oldData, {
           ...file,
           description: description,
-          filename: file.name,
+          filename: description ? description : file.name,
           type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
-          size: bytesToMegaBytes(file.size) + 'MB',
-          key: file.name + file.lastModified
+          size: formatBytes(file.size, 1),
+          key: file.name + file.lastModified,
+          date: formatDate(file.lastModified),
+          file: file
         }] 
       });
       setModal02(false);

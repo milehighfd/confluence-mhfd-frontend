@@ -279,6 +279,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             <br/>
             <UploadImagesDocuments
               isCapital={false}
+              setFiles={setFiles}
             />
           </div>
           <div className="footer-project">

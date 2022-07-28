@@ -412,6 +412,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
               <br />
               <UploadImagesDocuments
               isCapital={false}
+              setFiles={setFiles}
             />
             </div>
             <div className="footer-project">

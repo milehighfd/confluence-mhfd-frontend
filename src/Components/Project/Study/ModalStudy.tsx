@@ -478,6 +478,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               <br />
               <UploadImagesDocuments
               isCapital={false}
+              setFiles={setFiles}
             />
             </div>
             <div className="footer-project">
