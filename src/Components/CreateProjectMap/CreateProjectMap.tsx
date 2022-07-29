@@ -159,7 +159,7 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      updateSelectedLayers([PROJECTS_MAP_STYLES, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
+      updateSelectedLayers([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
       marker.remove();
     }
   }, []);
@@ -688,6 +688,7 @@ const CreateProjectMap = (type: any) => {
     if(type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
     }
+    console.log('ENTRAAAAA', type);
     if (type.type === 'STUDY') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD];
     }
@@ -765,6 +766,46 @@ const CreateProjectMap = (type: any) => {
       );
     }
   }
+  const topStreams = () => {
+    setTimeout(() => {
+      if (map.map.getLayer('measuresSaved') &&
+      map.map.getLayer('measure-lines') &&
+      map.map.getLayer('measuresSaved-border') &&
+      map.map.getLayer('streams_0') &&
+      map.map.getLayer('streams_1') &&
+      map.map.getLayer('streams_2') &&
+      map.map.getLayer('streams_3')
+      ) {
+        map.map.moveLayer('landscaping_area');
+        map.map.moveLayer('land_acquisition');
+        map.map.moveLayer('detention_facilities');
+        map.map.moveLayer('storm_drain');
+        map.map.moveLayer('channel_improvements_area');
+        map.map.moveLayer('channel_improvements_linear');
+        map.map.moveLayer('special_item_area');
+        map.map.moveLayer('special_item_linear');
+        map.map.moveLayer('special_item_point');
+        map.map.moveLayer('storm_drain');
+        map.map.moveLayer('pipe_appurtenances');
+        map.map.moveLayer('grade_control_structure');
+        map.map.moveLayer('stream_improvement_measure');
+        map.map.moveLayer('removal_line');
+        map.map.moveLayer('removal_area')
+        map.map.moveLayer('measuresSaved');
+        map.map.moveLayer('measure-lines');
+        map.map.moveLayer('streams_0');
+        map.map.moveLayer('streams_1');
+        map.map.moveLayer('streams_2');
+        map.map.moveLayer('streams_3');
+        map.map.moveLayer('measuresSaved-border');
+        map.map.moveLayer('area_based_mask');
+        map.map.moveLayer('area_based_maskMASK','streams_0');
+        map.map.moveLayer('borderMASK');
+      } else {
+        // topStreams();
+      }
+    }, 1000);
+  }
   const applyMapLayers = async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
@@ -814,6 +855,7 @@ const CreateProjectMap = (type: any) => {
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
     setTimeout(() => {
       map.map.moveLayer('munis-centroids-shea-plusother');
+      topStreams()
     }, 500);
 
   }
