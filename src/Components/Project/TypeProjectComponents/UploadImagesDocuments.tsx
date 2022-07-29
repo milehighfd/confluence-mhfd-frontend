@@ -47,7 +47,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     const images = attachments.attachments.filter(
       (_: any) => _.mimetype.includes('png') || _.mimetype.includes('jpeg') || _.mimetype.includes('jpg')
     ).map((img: any) => {
-      console.log('fole', img);
       return {
         ...img,
         type: getTypeImage(img.mimetype),
@@ -59,7 +58,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     const docs = attachments.attachments.filter(
       (_: any) => !(_.mimetype.includes('png') || _.mimetype.includes('jpeg') || _.mimetype.includes('jpg'))
     ).map((file: any) => {
-      console.log('fole', file);
       return {
         ...file,
         type: getTypeImage(file.mimetype),
@@ -219,18 +217,26 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     // var minutes = date.getMinutes() > 10 ? date.getMinutes() : '0' + date.getMinutes();
     return `${day} ${months[month]}, ${year}`;
   }
+  function renameFile(originalFile: any, newName: string) {
+    const lastI = originalFile.name.indexOf('.');
+    return new File([originalFile], newName+originalFile.name.substring(lastI, originalFile.name.length), {
+        type: originalFile.type,
+        lastModified: originalFile.lastModified,
+    });
+}
   const addFile = (file: any, description: any, type: string) => {
     console.log('fle', file, description);
+    const newFile = renameFile(file, description ? description : file.name);
     if (type === 'images') {
       setDataImages((oldData) => {
         return [...oldData, {
           ...file,
           description: description,
-          filename: description ? description : file.name,
+          filename: newFile.name,
           type: file.type.replace('image/', '').toUpperCase(),
           size: formatBytes(file.size, 2),
           key: file.name + file.lastModified,
-          file: file
+          file: newFile
         }] 
       })
       setModal(false);
@@ -240,12 +246,12 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return [...oldData, {
           ...file,
           description: description,
-          filename: description ? description : file.name,
+          filename: newFile.name,
           type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
           size: formatBytes(file.size, 1),
           key: file.name + file.lastModified,
           date: formatDate(file.lastModified),
-          file: file
+          file: newFile
         }] 
       });
       setModal02(false);
