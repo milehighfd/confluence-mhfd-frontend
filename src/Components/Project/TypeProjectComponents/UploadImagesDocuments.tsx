@@ -52,7 +52,8 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         type: getTypeImage(img.mimetype),
         size: formatBytes(img.filesize, 2),
         key: img._id,
-        file: img
+        file: img,
+        value: img.value
       };
     });
     const docs = attachments.attachments.filter(
@@ -64,7 +65,8 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         size: formatBytes(file.filesize, 1),
         key: file._id,
         date: formatDate(file.updatedAt),
-        file: file
+        file: file,
+        value: file.value
       }
     });
     setDataImages(images);
@@ -165,8 +167,14 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     {
       title: "Download",
       dataIndex: "download",
-      render: (id:string) => (
-        <Button className="user-download ">
+      render: (id:string, record: any) => (
+        <Button className="user-download " onClick={() => {
+          if (record.value) {
+            saveAs(record.value, record.filename);
+          } else {
+            saveAs(record.file, record.filename);
+          }
+        }}>
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
