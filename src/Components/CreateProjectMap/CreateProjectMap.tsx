@@ -678,7 +678,7 @@ const CreateProjectMap = (type: any) => {
       if (type.type != "STUDY") {
         ppArray = [PROJECTS_MAP_STYLES];
       } else {
-        ppArray = [PROBLEMS_TRIGGER, STREAMS_FILTERS];
+        // ppArray = [PROBLEMS_TRIGGER, STREAMS_FILTERS];
       }
     }
     let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
