@@ -30,7 +30,7 @@ export const UploaderModal = (
             <Button className="btn-transparent" onClick={() => setModal(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
           </Col>
         </Row>
-        <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
+        <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', paddingBottom:'0px'}}>
         <label className="sub-title" style={{color:'#11093C'}}>Title </label>
           <Input placeholder="Add title" onChange={(e) => setDescriptionFile(e.target.value)}/>
           <input 
@@ -50,7 +50,7 @@ export const UploaderModal = (
           </div>
         </Row>
         {
-          selectedFile && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
+          selectedFile && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '7px 20px'}}>
           <div style={{width: '100%', padding: '8px'}}>
             <span style={{
               background: '#282363',
@@ -61,10 +61,11 @@ export const UploaderModal = (
           </div>
         </Row>
         }
-        <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
+        <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '0px'}}>
           <div style={{width: '100%', padding: '8px'}}>
             <Button
-              style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', float: 'right'}}
+              className="upload-button"
+              style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', left: '44%'}}
               onClick={() => addFile(selectedFile, descriptionFile, type)}
             >
               Upload

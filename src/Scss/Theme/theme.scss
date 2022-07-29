@@ -1208,6 +1208,15 @@ body{
     padding-bottom: 50px !important;
   }
 }
+.upload-button {
+  background-color:'#11093C';
+  color: 'white';
+  border-radius: '5px';
+  left: '44%';
+  &:hover {
+    border:#d9d9d9;
+  }
+}
 .detailed-h{
   // height: 80px !important;
   min-height: 80px;
