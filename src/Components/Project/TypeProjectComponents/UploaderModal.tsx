@@ -49,13 +49,22 @@ export const UploaderModal = (
               </label>
           </div>
         </Row>
+        {
+          selectedFile && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
+          <div style={{width: '100%', padding: '8px'}}>
+            <span style={{
+              background: '#282363',
+              borderRadius: '16px',              
+              color: 'white',
+              padding: '3px 15px'
+            }}> {selectedFile.name}    </span>
+          </div>
+        </Row>
+        }
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white'}}>
-          <p>Or upload from URL</p>
-          <div style={{width: '100%', backgroundColor: '#f5f7ff', padding: '8px'}}>
-            <span style={{color:'#11093C', opacity:'0.5'}}>Add the file URL</span>
-
+          <div style={{width: '100%', padding: '8px'}}>
             <Button
-              style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', marginLeft:'74%'}}
+              style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', float: 'right'}}
               onClick={() => addFile(selectedFile, descriptionFile, type)}
             >
               Upload
