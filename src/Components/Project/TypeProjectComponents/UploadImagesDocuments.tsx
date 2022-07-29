@@ -105,8 +105,14 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     {
       title: "",
       dataIndex: "download",
-      render: (id:string) => (
-        <Button className="user-download ">
+      render: (id:string, record: any) => (
+        <Button className="user-download " onClick={() => {
+          if (record.value) {
+            saveAs(record.value, record.filename);
+          } else {
+            saveAs(record.file, record.filename);
+          }
+        }}>
           <img className="icon-bt" src='/Icons/icon-01.svg' />
         </Button>
       ),
