@@ -716,7 +716,7 @@ const MapView = () => {
     listSort.forEach((element: { name: string, title: string }, index: number) => {
       itemMenu.push({
         key: `${index}|${element.title}`,
-        label: <span className="menu-item-text" style={{ height: '10px' }}>{element.title}</span>,
+        label: <span className="menu-item-text" style={{ height: '10px', border:'transparent' }}>{element.title}</span>,
         onClick: (() => {
           if (tabActive === '0') {
             const auxOptions = { ...filterProblemOptions };

@@ -75,23 +75,23 @@ export const defaultColumns: any[] = [
     projects: [],
   },
   {
-    title: '',
+    title: '2023',
     projects: [],
   },
   {
-    title: '',
+    title: '2024',
     projects: [],
   },
   {
-    title: '',
+    title: '2025',
     projects: [],
   },
   {
-    title: '',
+    title: '2026',
     projects: [],
   },
   {
-    title: '',
+    title: '2027',
     projects: [],
   }
 ]

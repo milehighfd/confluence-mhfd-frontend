@@ -1,5 +1,8 @@
 @use  '../Theme/styles';
 @import "../Theme/styles.scss";
+.ant-notification-notice-message {
+  margin-bottom: 0px;
+}
 .work{
   overflow-y: hidden;
   .mapboxgl-map{
