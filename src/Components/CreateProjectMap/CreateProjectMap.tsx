@@ -667,6 +667,7 @@ const CreateProjectMap = (type: any) => {
           }
         }
       }, time);
+      topStreams();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
     EventService.setRef('addmarker', addMarker);
@@ -782,9 +783,9 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('channel_improvements_area');
         map.map.moveLayer('channel_improvements_linear');
-        map.map.moveLayer('special_item_area');
-        map.map.moveLayer('special_item_linear');
-        map.map.moveLayer('special_item_point');
+        // map.map.moveLayer('special_item_area');
+        // map.map.moveLayer('special_item_linear');
+        // map.map.moveLayer('special_item_point');
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('pipe_appurtenances');
         map.map.moveLayer('grade_control_structure');
@@ -799,8 +800,12 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('streams_3');
         map.map.moveLayer('measuresSaved-border');
         map.map.moveLayer('area_based_mask');
-        map.map.moveLayer('area_based_maskMASK','streams_0');
-        map.map.moveLayer('borderMASK');
+        setTimeout(() => {
+          console.log('ADIOSSSS', map.map.getStyle().layers);
+          map.map.moveLayer('area_based_maskMASK');
+          map.map.moveLayer('borderMASK');
+        }, 300);
+        
       } else {
         // topStreams();
       }
@@ -855,7 +860,7 @@ const CreateProjectMap = (type: any) => {
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
     setTimeout(() => {
       map.map.moveLayer('munis-centroids-shea-plusother');
-      topStreams()
+      
     }, 500);
 
   }
@@ -1125,6 +1130,7 @@ const CreateProjectMap = (type: any) => {
       }
     });
     updateSelectedLayers(selectedItems);
+    topStreams();
   }
   const hideLayers = (key: string) => {
 

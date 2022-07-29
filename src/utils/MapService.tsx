@@ -440,6 +440,9 @@ export class MapService {
             'fill-opacity': 0.8
         }
       });
+      setTimeout(() => {
+        this.map.moveLayer(id+'MASK');
+      }, 200);
     } else if (id == 'border' &&  !this.map.getLayer(id+"MASK")) {
       this.map.addLayer({
         "id": id+'MASK',
@@ -450,6 +453,9 @@ export class MapService {
           'line-width': 1,
         }
       });
+      setTimeout(() => {
+        this.map.moveLayer(id+'MASK');
+      }, 200);
     }
   }
   removeLayerMask(id: any) {
