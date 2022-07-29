@@ -307,13 +307,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
             </div>
 
             <div className="body-project">
-              {
+              {/* {
                 showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                     <div style={{paddingBottom: '15px'}}>
                       <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
                     </div>
                   </Col>
-              }
+              } */}
               <ProjectInformation
                 description={description}
                 setDescription={setDescription}

@@ -75,13 +75,13 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                   {counties ? counties.join(', ') : serviceareas.join(', ')}
                 </p>
               </Col>}
-              {
+              {/* {
                 (showCheckBox && !isEdit) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                     <div>
                       <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Send this project to the Work Request board
                     </div>
                   </Col>
-              }
+              } */}
 
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}

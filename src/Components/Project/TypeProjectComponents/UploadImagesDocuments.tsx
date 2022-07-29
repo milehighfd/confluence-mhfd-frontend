@@ -138,7 +138,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     },
     {
       title: "Cover",
-      dataIndex: "cover",
+      dataIndex: "isCover",
       render: (text:boolean, record: any) => (
         <Tag className={text? "cover-active": "cover"} onClick={() => handle(record)}>
           Cover
@@ -225,7 +225,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     });
 }
   const addFile = (file: any, description: any, type: string) => {
-    console.log('fle', file, description);
     const newFile = renameFile(file, description ? description : file.name);
     if (type === 'images') {
       setDataImages((oldData) => {

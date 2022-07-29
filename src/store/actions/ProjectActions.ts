@@ -5,13 +5,19 @@ import { SERVER } from "../../Config/Server.config";
 export const saveSpecial = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -31,13 +37,19 @@ export const saveSpecial = (data: any) => {
 export const saveAcquisition = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -57,9 +69,7 @@ export const saveAcquisition = (data: any) => {
 export const saveCapital = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
-    console.log('data about to save to ', data);
     let covername = '';
-    console.log('Object.keys(data)', Object.keys(data));
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
@@ -90,13 +100,19 @@ export const saveCapital = (data: any) => {
 export const saveMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -115,13 +131,19 @@ export const saveMaintenance = (data: any) => {
 export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' || key === 'ids' || key === 'streams') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -140,13 +162,19 @@ export const saveStudy = (data: any) => {
 export const editSpecial = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
