@@ -44,7 +44,7 @@ export const UploaderModal = (
               <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                 <img style={{marginRight:'5px', marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" />
                 <h1 style={{fontSize:'19px'}}>Select file to Upload</h1>
-                  <p>or drag and drop it here</p>
+                  {/* <p>or drag and drop it here</p> */}
                   <p style={{paddingTop: '20px'}}>Accepted File Types: {type === 'images' ? '.png or .jpg' : '.docx, .xlsx, or .pdf'}</p>
               </label>
           </div>

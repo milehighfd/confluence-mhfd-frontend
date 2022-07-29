@@ -63,7 +63,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p className="title">
                   Work Request
                 </p>
-                <p className={`information ${(!isWorkRequest && showCheckBox)  ? 'disabled':''}`}>
+                <p className={`information ${(!isWorkRequest && showCheckBox)  ? '':''}`}>
                   {jurisdictions.join(', ')}
                 </p>
               </Col>}
