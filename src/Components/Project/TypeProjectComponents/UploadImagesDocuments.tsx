@@ -27,6 +27,51 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
+  const { attachments } = useAttachmentState();
+  const getTypeImage = (mimetype: any) => {
+    if ( mimetype.includes('png') ) {
+      return 'png';
+    } else if( mimetype.includes('jpeg') ) {
+      return 'jpeg';
+    } else if( mimetype.includes('jpg')) {
+      return 'jpg';
+    } else if (mimetype.includes('pdf')){
+      return 'pdf'
+    } else if (mimetype.includes('doc')){
+      return 'doc';
+    } else {
+      return 'file';
+    }
+  }
+  useEffect(() => {
+    const images = attachments.attachments.filter(
+      (_: any) => _.mimetype.includes('png') || _.mimetype.includes('jpeg') || _.mimetype.includes('jpg')
+    ).map((img: any) => {
+      console.log('fole', img);
+      return {
+        ...img,
+        type: getTypeImage(img.mimetype),
+        size: formatBytes(img.filesize, 2),
+        key: img._id,
+        file: img
+      };
+    });
+    const docs = attachments.attachments.filter(
+      (_: any) => !(_.mimetype.includes('png') || _.mimetype.includes('jpeg') || _.mimetype.includes('jpg'))
+    ).map((file: any) => {
+      console.log('fole', file);
+      return {
+        ...file,
+        type: getTypeImage(file.mimetype),
+        size: formatBytes(file.filesize, 1),
+        key: file._id,
+        date: formatDate(file.updatedAt),
+        file: file
+      }
+    });
+    setDataImages(images);
+    setDataFiles(docs);
+  }, [attachments]);
   const COLUMNS_UPLOAD02:any = [
     {
       title: "Filename",

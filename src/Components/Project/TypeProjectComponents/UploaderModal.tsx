@@ -65,7 +65,6 @@ export const UploaderModal = (
           <div style={{width: '100%', padding: '8px'}}>
             <Button
               className="upload-button"
-              style={{backgroundColor:'#11093C', color: 'white', borderRadius: '5px', left: '44%'}}
               onClick={() => addFile(selectedFile, descriptionFile, type)}
             >
               Upload

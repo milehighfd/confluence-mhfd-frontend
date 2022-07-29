@@ -1209,12 +1209,15 @@ body{
   }
 }
 .upload-button {
-  background-color:'#11093C';
-  color: 'white';
-  border-radius: '5px';
-  left: '44%';
+  background-color: #11093C;
+  color: white;
+  border-radius: 5px;
+  left: 44%;
   &:hover {
-    border:#d9d9d9;
+    border-color: #f5f7ff;
+    border-width: 2px;
+    color: white;
+    background: #11093C;
   }
 }
 .detailed-h{

@@ -121,7 +121,6 @@ const CreateProjectMap = (type: any) => {
       } else {
         if (!map) {
           map = new MapService('map3');
-          setLayersSelectedOnInit();
           map.loadImages();
           let _ = 0;
           map.zoomEnd(() => {
@@ -130,7 +129,8 @@ const CreateProjectMap = (type: any) => {
           let __ = 1;
           map.dragEnd(() => {
             setDragEndCounter(__++);
-          })
+          });
+          setLayersSelectedOnInit();
         }
       }
     };
@@ -683,16 +683,16 @@ const CreateProjectMap = (type: any) => {
     }
     let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
     if (type.type === 'CAPITAL') {
-      thisSL = [AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
+      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
     }
     if(type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
-      thisSL = [AREA_BASED_MASK, BORDER];
+      thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
     }
     if (type.type === 'STUDY') {
-      thisSL = [AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD];
+      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD];
     }
     if (type.type === 'MAINTENANCE') {
-      thisSL = [AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
+      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
     }
     updateSelectedLayers(thisSL);
   }
