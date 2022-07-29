@@ -1,5 +1,8 @@
 @use  '../Theme/styles';
 @import "../Theme/styles.scss";
+.ant-notification-notice {
+  border-bottom: 5px solid #29C499;
+}
 .ant-notification-notice-message {
   margin-bottom: 0px;
 }
