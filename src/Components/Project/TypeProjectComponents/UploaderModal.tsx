@@ -15,7 +15,7 @@ export const UploaderModal = (
     <>
     <Modal
       className="detailed-upload"
-      style={{ top: 60, width: '100%' }}
+      style={{ top: 60, width: '100%'}}
       visible={modal}
       onCancel={() => setModal(false)}
       forceRender={false}
