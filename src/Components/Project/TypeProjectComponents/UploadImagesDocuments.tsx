@@ -147,11 +147,12 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     {
       title: "Cover",
       dataIndex: "isCover",
-      render: (text:boolean, record: any) => (
-        <Tag className={text? "cover-active": "cover"} onClick={() => handle(record)}>
+      render: (text:boolean, record: any) => {
+        return (
+        <Tag className={record.cover? "cover-active": "cover"} onClick={() => handle(record)}>
           Cover
         </Tag>
-      ),
+      )},
       onCell: (record: any) => ({
         record,
         handle
@@ -249,7 +250,9 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           type: file.type.replace('image/', '').toUpperCase(),
           size: formatBytes(file.size, 2),
           key: file.name + file.lastModified,
-          file: newFile
+          file: newFile,
+          isCover:[oldData.length === 0 ? 'true':'false', file],
+          cover: oldData.length === 0 ? true: false
         }] 
       })
       setModal(false);

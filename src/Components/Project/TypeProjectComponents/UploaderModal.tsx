@@ -35,6 +35,7 @@ export const UploaderModal = (
           <Input placeholder="Add title" onChange={(e) => setDescriptionFile(e.target.value)}/>
           <input 
             id="uploader"
+            key={`uploader_${type}`}
             type="file"
             style={{ display: 'none' }} 
             multiple accept={type === 'images' ? "image/png, image/jpeg" : "application/pdf, application/msword, application/vnd.ms-excel, .xlsx, .xls, .docx"}
