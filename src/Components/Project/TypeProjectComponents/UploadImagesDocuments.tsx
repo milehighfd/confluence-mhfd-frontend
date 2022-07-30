@@ -124,8 +124,10 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     const copy = [...dataImages].map((d) => {
       if (row.key === d.key) {
         d.cover = true;
+        d.isCover = true;
       } else {
         d.cover = false;
+        d.isCover = false;
       }
       return d;
     });
@@ -149,7 +151,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       dataIndex: "isCover",
       render: (text:boolean, record: any) => {
         return (
-        <Tag className={record.cover? "cover-active": "cover"} onClick={() => handle(record)}>
+        <Tag className={record.cover || record.isCover? "cover-active": "cover"} onClick={() => handle(record)}>
           Cover
         </Tag>
       )},
@@ -251,7 +253,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           size: formatBytes(file.size, 2),
           key: file.name + file.lastModified,
           file: newFile,
-          isCover:[oldData.length === 0 ? 'true':'false', file],
           cover: oldData.length === 0 ? true: false
         }] 
       })
