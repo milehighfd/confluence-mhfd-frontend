@@ -3216,7 +3216,7 @@ const Map = ({
               {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
               {measuringState && 
               <div className='measurecontainer'> 
-                <div id={'measure-block'} className="measure-block" onMouseLeave={()=> setMeasuringState(false)}>
+                <div id={'measure-block'} className="measure-block" onClick={()=> setMeasuringState(false)}>
                     <div className="headmap">
                         <h4>Measure distances and areas</h4>
                         <button className='close-measure-button' onClick={()=>setIsMeasuring(false)} ></button>
