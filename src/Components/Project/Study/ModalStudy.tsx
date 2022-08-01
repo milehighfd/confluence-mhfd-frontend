@@ -18,6 +18,7 @@ import {
 import { useProfileState } from "../../../hook/profileHook";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
+import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 const { Panel } = Collapse;
 const content = (<div className="popver-info">Master plans that set goals for the watershed and stream corridor, identify problems, and recommend improvements.</div>);
 
@@ -69,6 +70,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [studyreason, setStudyReason] = useState();
   const [studysubReason, setStudySubReason] = useState();
   const history = useHistory();
+  const { toggleAttachmentCover} = useAttachmentDispatch();
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [isWorkRequest,setIsWorkRequest] = useState(false);
@@ -211,6 +213,11 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
       }
       study.streams = newStreamsArray;
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
       if (swSave) {
         editProjectStudy(study);
       } else {

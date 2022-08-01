@@ -51,6 +51,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
+  const { toggleAttachmentCover} = useAttachmentDispatch();
   const parseStringToArray = (list:string) => {
     if( list ){
       return list.split(',');
@@ -132,6 +133,11 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.editProject = editprojectid;
       special.locality = locality? locality:'';
       special.cover = cover;
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
       if(swSave){
         editProjectSpecial(special);
       }else{

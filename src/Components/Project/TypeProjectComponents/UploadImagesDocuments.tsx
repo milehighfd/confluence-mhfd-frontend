@@ -28,7 +28,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const { attachments } = useAttachmentState();
-  const { deleteAttachment } = useAttachmentDispatch();
+  const { deleteAttachment, toggleAttachmentCover } = useAttachmentDispatch();
   const getTypeImage = (mimetype: any) => {
     if ( mimetype.includes('png') ) {
       return 'png';
@@ -45,6 +45,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     }
   }
   useEffect(() => {
+    console.log('DOES THIS REACH??', attachments);
     const images = attachments.attachments.filter(
       (_: any) => _.mimetype.includes('png') || _.mimetype.includes('jpeg') || _.mimetype.includes('jpg')
     ).map((img: any) => {
@@ -121,7 +122,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     },
   ];
   const handle = (row: any) => {
-    console.log("my row " , row);
     const copy = [...dataImages].map((d) => {
       if (row.key === d.key) {
         d.cover = true;
@@ -198,7 +198,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   }, [dataImages, dataFiles]);
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       setToDelete(selectedRowKeys);
     },
     getCheckboxProps: (record: DataType) => ({
@@ -279,7 +278,8 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     setDataImages((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
     const imagesToDelete = dataImages.filter((d:any) => toDelete.includes(d.key) && d._id);
     imagesToDelete.forEach((d:any) => {
-      deleteAttachment(0, d._id);
+      const indexDelete = attachments.attachments.findIndex((elem:any) => elem._id === d._id);
+      deleteAttachment(indexDelete, d._id);
     });
   };
   const deleteFiles = () => {

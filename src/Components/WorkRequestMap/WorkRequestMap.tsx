@@ -298,7 +298,6 @@ useEffect(() => {
 
   const [compareSLWR, setCompareSLWR] = useState('');
   useEffect(() => {
-    console.log('selectedLayersWR', selectedLayersWR);
     if(JSON.stringify(selectedLayersWR) != compareSLWR) {
       if (map ) {
         map.isStyleLoaded(applyMapLayers);

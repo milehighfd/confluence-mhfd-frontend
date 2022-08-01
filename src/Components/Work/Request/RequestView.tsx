@@ -114,9 +114,6 @@ const RequestView = ({ type, isFirstRendering }: {
       setChanges(Math.random())
     }, 1000)
   }
-  useEffect(() => {
-    console.log('has Changed the year ', year);
-  }, [year]);
  
   const resetOnClose = () => {
     setStreamIntersected([]);
@@ -262,7 +259,6 @@ const RequestView = ({ type, isFirstRendering }: {
       if( _locality != userResponse.organization && userResponse.designation == GOVERNMENT_STAFF) {
         _locality = userResponse.organization;
       }
-      console.log('type,ssss', type);
       getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
         .then(
           (r: any) => {

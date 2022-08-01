@@ -8,6 +8,7 @@ import {
   removeAttachment,
   setLoading,
   toggleAttachment,
+  toggleAttachmentCover,
   uploadFile
 } from '../store/actions/uploadAttachmentActions';
 
@@ -29,6 +30,9 @@ export const useAttachmentDispatch = () => {
     },
     toggleAttachment: (index: number, _id: string) => {
       dispatch(toggleAttachment(index, _id));
+    },
+    toggleAttachmentCover: (index:number, id: string, value: boolean) => {
+      dispatch(toggleAttachmentCover(index, id, value));
     },
     getAttachment: (projectid: any) => {
       dispatch(getAllAttachment(projectid));

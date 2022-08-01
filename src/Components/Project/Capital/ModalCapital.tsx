@@ -7,6 +7,7 @@ import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
+import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { Geom, Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { GOVERNMENT_STAFF, JURISDICTION } from "../../../constants/constants";
@@ -139,6 +140,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [isWorkRequest,setIsWorkRequest] = useState(false);
+  const { toggleAttachmentCover } = useAttachmentDispatch();
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -154,9 +156,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     //   setSponsor(locality);
     // }
   },[organization]);
-  useEffect(() => {
-    console.log('filessssss', files);
-  }, [files]);
   useEffect(()=>{
     setServiceAreaCounty({});
     setServiceArea([]);
@@ -180,9 +179,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       return list.split(',');
     }
  }
- useEffect(() => {
-  console.log('jurisdiction', jurisdiction);
- }, [jurisdiction]);
+
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);
@@ -327,7 +324,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.editProject = editprojectid;
       capital.cover = cover;
       capital.estimatedcost = getTotalCost();
-      console.log('about to set files for capital', capital);
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
       if(swSave){
         editProjectCapital(capital);
       }

@@ -13,6 +13,7 @@ import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
 import { Project, Geom } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
+import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
@@ -64,12 +65,12 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [cover, setCover] = useState('');
   var date = new Date();
   const history = useHistory();
-
   var year = date.getFullYear();
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [isWorkRequest,setIsWorkRequest] = useState(false);
+  const { toggleAttachmentCover} = useAttachmentDispatch();
 
   useEffect(() => {
     if (save === true) {
@@ -122,6 +123,11 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.editProject = editprojectid;
       acquisition.locality = locality ? locality : '';
       acquisition.cover = cover;
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
       if (swSave) {
         editProjectAcquisition(acquisition);
       } else {

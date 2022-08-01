@@ -40,6 +40,14 @@ export const toggleAttachment = (index: number, _id: string) => {
   }
 }
 
+export const toggleAttachmentCover = (index: number, _id: string, value: boolean) => {
+  return (dispatch: Function) => {
+    datasets.putData(`${SERVER.TOGGLE_ATTACHMENT_PUT}/${_id}/${value}`, {}, datasets.getToken()).then(res => {
+      dispatch({ type: types.TOGGLE, index });
+    })
+  }
+}
+
 export const deleteAttachment = (index: number, _id: string) => {
   return (dispatch: Function) => {
     datasets.deleteData(`${SERVER.DELETE_ATTACHMENT}/${_id}`, datasets.getToken()).then(res => {

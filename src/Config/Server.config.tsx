@@ -56,6 +56,7 @@ export const SERVER = (function () {
     const GET_FILES = 'get-files';
     const REMOVE = 'remove'
     const TOGGLE = 'toggle'
+    const TOGGLE_PUT = 'toggleput'
     const PROBLEM_BY_ID = 'problem-by-id';
     const PROJECT_BY_ID = 'project-by-id';
     const DETAILED_PAGE_PROJECT = 'project-by-ids';
@@ -161,6 +162,7 @@ export const SERVER = (function () {
         GET_ALL_ATTACHMENTS: `${URL_BASE.BASE}/${ATTACHMENT}/${GET_FILES}`,
         DELETE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${REMOVE}`,
         TOGGLE_ATTACHMENT: `${URL_BASE.BASE}/${ATTACHMENT}/${TOGGLE}`,
+        TOGGLE_ATTACHMENT_PUT: `${URL_BASE.BASE}/${ATTACHMENT}/${TOGGLE_PUT}`,
         PROBLEM_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROBLEM_BY_ID}`,
         PROBLEM_PARTS_BY_ID: `${URL_BASE.BASE}/${GALLERY}/problem_part`,
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,

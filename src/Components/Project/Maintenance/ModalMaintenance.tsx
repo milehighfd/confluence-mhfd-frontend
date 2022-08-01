@@ -14,6 +14,7 @@ import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
 import { useHistory } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
+import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 
 const { Option } = Select;
 const content = (<div className="popver-info"> Projects that repair or restore existing infrastructure and are eligible for MHFD participation.</div>);
@@ -69,6 +70,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [isWorkRequest,setIsWorkRequest] = useState(false);
+  const { toggleAttachmentCover } = useAttachmentDispatch();
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
@@ -207,6 +209,11 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.files = files;
       maintenance.editProject = editprojectid;
       maintenance.cover = cover;
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
       if (swSave) {
         editProjectMainetnance(maintenance);
       } else {
