@@ -33,7 +33,7 @@ import {
   NEARMAP_TOKEN,
   STREAMS_POINT,
   PROJECTS_DRAFT,ICON_POPUPS,
-  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES
+  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -1702,6 +1702,7 @@ const CreateProjectMap = (type: any) => {
         }
         return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
       });
+      console.log('features clicked', features);
       for (const feature of features) {
         if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
           continue;
@@ -2095,7 +2096,7 @@ const CreateProjectMap = (type: any) => {
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
+        if (feature.source === BLOCK_CLEARANCE_ZONES_LAYERS && feature.properties.species_name === 'Prebles meadow jumping mouse') {
           const item = {
             layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
             expirationdate: epochTransform(feature.properties.expiration_date),

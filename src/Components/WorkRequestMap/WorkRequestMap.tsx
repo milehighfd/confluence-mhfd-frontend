@@ -27,7 +27,8 @@ import {
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,ICON_POPUPS, NEW_PROJECT_TYPES, SERVICE_AREA_FILTERS, STREAMS_POINT,
   PROJECTS_DRAFT,
-  MAP_RESIZABLE_TRANSITION
+  MAP_RESIZABLE_TRANSITION,
+  BLOCK_CLEARANCE_ZONES_LAYERS
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -1901,7 +1902,7 @@ const epochTransform = (dateParser: any) => {
         mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
       }
-      if (feature.source === BCZ_PREBLE_MEADOW_JUMPING) {
+      if (feature.source === BLOCK_CLEARANCE_ZONES_LAYERS && feature.properties.species_name === 'Prebles meadow jumping mouse') {
         const item = {
           layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
           expirationdate: epochTransform(feature.properties.expiration_date),

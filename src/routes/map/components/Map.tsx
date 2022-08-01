@@ -2100,6 +2100,7 @@ const Map = ({
                     popupsClassess[i].remove();
                   }
               }
+              console.log('FEATURES CLICKED', features);
               features = features.filter((element: any, index: number) => {
                   return search(element.properties.cartodb_id, element.source) === index;
               });

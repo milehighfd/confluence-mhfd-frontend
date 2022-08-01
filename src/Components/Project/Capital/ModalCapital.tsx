@@ -605,6 +605,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       serviceareas={null}
       type="Capital"
       isEdit={swSave}
+      sendToWr={sendToWR}
+      setsendToWR={setsendToWR}
      />}
      <Modal
        centered
@@ -649,7 +651,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
           <div className="body-project">
               {
-                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                (showCheckBox && !swSave) &&  <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div style={{paddingBottom: '15px'}}>
                     <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
                   </div>

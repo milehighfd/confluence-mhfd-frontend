@@ -208,6 +208,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       serviceareas={serviceArea}
       type="Special"
       isEdit={swSave}
+      sendToWr={sendToWR}
+      setsendToWR={setsendToWR}
      />}
      <Modal
        centered
@@ -251,7 +253,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
           <div className="body-project">
              {
-                showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                (showCheckBox && !swSave) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div style={{paddingBottom: '15px'}}>
                     <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
                   </div>

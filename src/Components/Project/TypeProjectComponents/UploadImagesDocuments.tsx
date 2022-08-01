@@ -80,6 +80,11 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       dataIndex: "filename",
       className: "user-name-upload",
       width: "40%",
+      render: (text: string) => (
+        <>
+          {text.substring(0, text.indexOf('.'))}
+        </>
+      )
     },
     {
       title: "Size",
@@ -140,6 +145,11 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       dataIndex: "filename",
       className: "user-name-upload",
       width: "47%",
+      render: (text: string) => (
+        <>
+          {text.substring(0, text.indexOf('.'))}
+        </>
+      )
     },
     {
       title: "Size",

@@ -6,12 +6,12 @@ import { ADMIN, STAFF } from "../../constants/constants";
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean} ) => {
+export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit, sendToWr, setsendToWR}:
+  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean, sendToWr: boolean, setsendToWR: Function} ) => {
   const [state, setState] = useState(stateValue);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [sendToWR,setsendToWR] = useState(false);
+  
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -63,7 +63,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p className="title">
                   Work Request
                 </p>
-                <p className={`information ${(!sendToWR && showCheckBox)  ? 'disabled':''}`}>
+                <p className={`information ${(!sendToWr && showCheckBox)  ? 'disabled':''}`}>
                   {jurisdictions.join(', ')}
                 </p>
               </Col>}
@@ -78,7 +78,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
               {
                 (showCheckBox && !isEdit) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div>
-                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Send this project to the Work Request board
+                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWr} onChange={() => setsendToWR(!sendToWr)}></Checkbox>Send this project to the Work Request board
                   </div>
                 </Col>
               }
