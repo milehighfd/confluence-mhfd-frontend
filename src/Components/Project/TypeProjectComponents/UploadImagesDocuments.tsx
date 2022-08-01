@@ -28,6 +28,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const { attachments } = useAttachmentState();
+  const { deleteAttachment } = useAttachmentDispatch();
   const getTypeImage = (mimetype: any) => {
     if ( mimetype.includes('png') ) {
       return 'png';
@@ -53,7 +54,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         size: formatBytes(img.filesize, 2),
         key: img._id,
         file: img,
-        value: img.value
+        value: img.value,
       };
     });
     const docs = attachments.attachments.filter(
@@ -66,7 +67,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         key: file._id,
         date: formatDate(file.updatedAt),
         file: file,
-        value: file.value
+        value: file.value,
       }
     });
     setDataImages(images);
@@ -274,6 +275,20 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       setModal02(false);
     }
   }
+  const deleteImages = () => {
+    setDataImages((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
+    const imagesToDelete = dataImages.filter((d:any) => toDelete.includes(d.key) && d._id);
+    imagesToDelete.forEach((d:any) => {
+      deleteAttachment(0, d._id);
+    });
+  };
+  const deleteFiles = () => {
+    setDataFiles((oldData: any) => oldData.filter((d: any) => !toDeleteFiles.includes(d.key)));
+    const filesToDelete = dataFiles.filter((d:any) => toDelete.includes(d.key) && d._id);
+    filesToDelete.forEach((d:any) => {
+      deleteAttachment(0, d._id);
+    });
+  }
   return (
     <>
       <Row style={{marginTop:'5px'}}>
@@ -284,9 +299,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
-            {toDelete.length ?  <span onClick={() => {
-              setDataImages((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
-            }} style={{color:'red'}}>Delete</span> : null }
+            {toDelete.length ?  <span onClick={deleteImages} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
@@ -326,9 +339,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
-          {toDeleteFiles.length ?  <span onClick={() => {
-              setDataFiles((oldData: any) => oldData.filter((d: any) => !toDeleteFiles.includes(d.key)));
-            }} style={{color:'red'}}>Delete</span> : null }
+          {toDeleteFiles.length ?  <span onClick={deleteFiles} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
               <span className="ic-document"/>Add Document
             </Button>
