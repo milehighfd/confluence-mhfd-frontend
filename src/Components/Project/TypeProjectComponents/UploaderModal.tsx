@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { Button, Row, Col, Modal, Input } from 'antd';
 
 export const UploaderModal = (
@@ -9,6 +9,28 @@ export const UploaderModal = (
   const handleFileUpload = (event: any) => {
     if(event.target.files[0]) {
       setSelectedFile(event.target.files[0]);
+    }
+  }
+  const preventDefault = (e:any) => {
+    e.preventDefault();
+    // e.stopPropagation();
+  }
+
+  const dragOver = (event:any) => {
+    event.preventDefault();
+  }
+
+  const dragEnter = (event:any) => {
+    event.preventDefault();
+  }
+
+  const dragLeave = (event:any) => {
+    event.preventDefault();
+  }
+  const fileDrop = (event:any) => {
+    preventDefault(event);
+    if(event.dataTransfer.files[0]) {
+      setSelectedFile(event.dataTransfer.files[0]);
     }
   }
   return (
@@ -37,15 +59,20 @@ export const UploaderModal = (
             id="uploader"
             key={`uploader_${type}`}
             type="file"
+            name={`uploader_${type}`}
             style={{ display: 'none' }} 
             multiple accept={type === 'images' ? "image/png, image/jpeg" : "application/pdf, application/msword, application/vnd.ms-excel, .xlsx, .xls, .docx"}
             onChange={handleFileUpload}
+            capture
           />
-          <div style={{width: '100%'}}>
+          <div style={{width: '100%'}} onDragOver={dragOver}
+              onDragEnter={dragEnter}
+              onDragLeave={dragLeave}
+              onDrop={fileDrop}>
               <label htmlFor="uploader" className="draw" style={{paddingTop: '40px'}}>
                 <img style={{marginRight:'5px', marginTop:'-3px', height: '56px'}} src="/Icons/ic-upload.svg" />
                 <h1 style={{fontSize:'19px'}}>Select file to Upload</h1>
-                  {/* <p>or drag and drop it here</p> */}
+                  <p>or drag and drop it here</p>
                   <p style={{paddingTop: '20px'}}>Accepted File Types: {type === 'images' ? '.png or .jpg' : '.docx, .xlsx, or .pdf'}</p>
               </label>
           </div>
