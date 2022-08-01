@@ -69,8 +69,8 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [textAreaWidth, setTextAreaWidth] = useState(261);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [isWorkRequest,setIsWorkRequest] = useState(false);
   const { toggleAttachmentCover } = useAttachmentDispatch();
+  const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
@@ -209,6 +209,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.files = files;
       maintenance.editProject = editprojectid;
       maintenance.cover = cover;
+      maintenance.sendToWR = sendToWR;
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);
@@ -347,13 +348,13 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
             </div>
 
             <div className="body-project">
-              {/* {
+              {
                 showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                    <div style={{paddingBottom: '15px'}}>
-                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
-                    </div>
-                  </Col>
-              } */}
+                  <div style={{paddingBottom: '15px'}}>
+                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
+                  </div>
+                </Col>
+              }
               <ProjectInformation
                 description={description}
                 setDescription={setDescription}

@@ -69,8 +69,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [isWorkRequest,setIsWorkRequest] = useState(false);
   const { toggleAttachmentCover} = useAttachmentDispatch();
+  const [sendToWR,setsendToWR] = useState(!showCheckBox);
 
   useEffect(() => {
     if (save === true) {
@@ -123,6 +123,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.editProject = editprojectid;
       acquisition.locality = locality ? locality : '';
       acquisition.cover = cover;
+      acquisition.sendToWR = sendToWR;
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);
@@ -313,13 +314,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
             </div>
 
             <div className="body-project">
-              {/* {
+              {
                 showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                    <div style={{paddingBottom: '15px'}}>
-                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
-                    </div>
-                  </Col>
-              } */}
+                  <div style={{paddingBottom: '15px'}}>
+                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
+                  </div>
+                </Col>
+              }
               <ProjectInformation
                 description={description}
                 setDescription={setDescription}

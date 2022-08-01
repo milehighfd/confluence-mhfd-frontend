@@ -38,6 +38,7 @@ export class Project {
     estimatedcost?: any;
     studyreason: string;
     studysubreason: string; 
+    sendToWR: boolean;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -67,5 +68,6 @@ export class Project {
         this.estimatedcost = 0;
         this.studyreason = "";
         this.studysubreason = "";
+        this.sendToWR = false;
     }
 }

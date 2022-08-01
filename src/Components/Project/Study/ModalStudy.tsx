@@ -73,7 +73,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [isWorkRequest,setIsWorkRequest] = useState(false);
+  const [sendToWR,setsendToWR] = useState(!showCheckBox);
   useEffect(() => {
     setServiceAreaCounty({});
     setStreamsList([]);
@@ -208,6 +208,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       study.cover = cover;
       study.studyreason = studyreason ?? '';
       study.studysubreason = studysubReason || '';
+      study.sendToWR = sendToWR;
       let newStreamsArray: any = [];
       for (let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
@@ -387,13 +388,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
             </div>
 
             <div className="body-project">
-              {/* {
+              {
                 showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                    <div style={{paddingBottom: '15px'}}>
-                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
-                    </div>
-                  </Col>
-              } */}
+                  <div style={{paddingBottom: '15px'}}>
+                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
+                  </div>
+                </Col>
+              }
               <ProjectInformation
                 type={NEW_PROJECT_TYPES.Study}
                 description={description}

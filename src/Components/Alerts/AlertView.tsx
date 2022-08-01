@@ -11,7 +11,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
   const [state, setState] = useState(stateValue);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [isWorkRequest,setIsWorkRequest] = useState(false);
+  const [sendToWR,setsendToWR] = useState(false);
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -63,7 +63,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p className="title">
                   Work Request
                 </p>
-                <p className={`information ${(!isWorkRequest && showCheckBox)  ? '':''}`}>
+                <p className={`information ${(!sendToWR && showCheckBox)  ? 'disabled':''}`}>
                   {jurisdictions.join(', ')}
                 </p>
               </Col>}
@@ -78,7 +78,7 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
               {/* {
                 (showCheckBox && !isEdit) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                     <div>
-                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Send this project to the Work Request board
+                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Send this project to the Work Request board
                     </div>
                   </Col>
               } */}

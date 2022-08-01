@@ -59,7 +59,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
  }
  const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [isWorkRequest,setIsWorkRequest] = useState(false);
+  const [sendToWR,setsendToWR] = useState(!showCheckBox);
 
  useEffect(() => {
   getTextWidth(nameProject);
@@ -115,7 +115,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     }
   },[data]);
   useEffect(()=>{
-    if(save === true){
+    if (save === true){
       console.log("FILES", files);
       let params = new URLSearchParams(history.location.search)
       let _year = params.get('year');
@@ -133,6 +133,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.editProject = editprojectid;
       special.locality = locality? locality:'';
       special.cover = cover;
+      special.sendToWR = sendToWR;
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);
@@ -249,13 +250,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           </div>
 
           <div className="body-project">
-             {/* {
+             {
                 showCheckBox && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                    <div style={{paddingBottom: '15px'}}>
-                      <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={isWorkRequest} onChange={() => setIsWorkRequest(!isWorkRequest)}></Checkbox>Submit this project also as a Work Request
-                    </div>
-                  </Col>
-              } */}
+                  <div style={{paddingBottom: '15px'}}>
+                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
+                  </div>
+                </Col>
+              }
             <ProjectInformation
               description= {description}
               setDescription= {setDescription}
