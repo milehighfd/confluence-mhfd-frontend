@@ -697,7 +697,7 @@ const CreateProjectMap = (type: any) => {
     }
     setTimeout(() => {
       updateSelectedLayers(thisSL);
-    }, 300);
+    }, 500);
   }
   const removeProjectLayer = () => {
     let filterLayers = selectedLayers.filter((Layer: any) => {
