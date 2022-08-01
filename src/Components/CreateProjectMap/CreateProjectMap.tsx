@@ -319,7 +319,7 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
-        updateSelectedLayers([...selectedLayers, PROBLEMS_TRIGGER]);;
+        updateSelectedLayers([...selectedLayers, PROBLEMS_TRIGGER]);
       } else {
         hideHighlighted();
       }
@@ -531,7 +531,7 @@ const CreateProjectMap = (type: any) => {
       } else if (geom.coordinates.length == 0) {
         return;
       }
-      if (type.type == 'CAPITAL' || type.type == 'MAINTENANCE') {
+      if (type.type === 'CAPITAL' || type.type === 'MAINTENANCE') {
         getServiceAreaPolygonofStreams(thisStreamIntersected.geom);
         setLoading(false);
       }
@@ -656,9 +656,9 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       let time = firstTimeApplyMapLayers ? 400 : 200;
       setTimeout(() => {
-        if (JSON.stringify(selectedLayers) != compareSL) {
+        if (JSON.stringify(selectedLayers) !== compareSL) {
           if (map) {
-            if (selectedLayers.length == 0) {
+            if (selectedLayers.length === 0) {
             } else {
               map.isStyleLoaded(applyMapLayers);
               firstTimeApplyMapLayers = false;
@@ -689,14 +689,15 @@ const CreateProjectMap = (type: any) => {
     if(type.type === 'ACQUISITION' || type.type === 'SPECIAL') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
     }
-    console.log('ENTRAAAAA', type);
     if (type.type === 'STUDY') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD];
     }
     if (type.type === 'MAINTENANCE') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
     }
-    updateSelectedLayers(thisSL);
+    setTimeout(() => {
+      updateSelectedLayers(thisSL);
+    }, 300);
   }
   const removeProjectLayer = () => {
     let filterLayers = selectedLayers.filter((Layer: any) => {
@@ -791,7 +792,7 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('grade_control_structure');
         map.map.moveLayer('stream_improvement_measure');
         map.map.moveLayer('removal_line');
-        map.map.moveLayer('removal_area')
+        map.map.moveLayer('removal_area');
         map.map.moveLayer('measuresSaved');
         map.map.moveLayer('measure-lines');
         map.map.moveLayer('streams_0');
