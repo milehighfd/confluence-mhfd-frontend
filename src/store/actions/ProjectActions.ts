@@ -194,13 +194,19 @@ export const editSpecial = (data: any) => {
 export const editAcquisition = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
-        })
+        });
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -220,13 +226,19 @@ export const editAcquisition = (data: any) => {
 export const editStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom' || key === 'ids' || key === 'streams') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -246,13 +258,19 @@ export const editStudy = (data: any) => {
 export const editMaintenance = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();
+    let covername = '';
     Object.keys(data).forEach((key: string) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
+          if (o.cover) {
+            covername = o.filename;
+          }
           formData.append(key, o.file);
         })
+      } else if (key === 'cover') {
+        formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
@@ -278,7 +296,6 @@ export const editCapital = (data: any) => {
         formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
-          console.log('DATA EDIT FRORROR', o);
           if (o.cover) {
             covername = o.filename;
           }
