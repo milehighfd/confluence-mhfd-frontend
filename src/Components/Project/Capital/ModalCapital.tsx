@@ -330,8 +330,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           toggleAttachmentCover(0, file._id, file.isCover);
         }
       });
-      console.log('capital ', capital);
-      console.log('about to set files for capital', capital);
       if(swSave){
         editProjectCapital(capital);
       }

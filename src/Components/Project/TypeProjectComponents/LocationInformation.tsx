@@ -104,9 +104,9 @@ export const LocationInformation = ({
         let SA = serviceArea;
         currentServiceAreaCounty['Service Area'].map((element: any) => {
           let service = true;
-          if (element.includes('Service Area')) {
-            element = element.replace(' Service Area', '');
-          }
+          // if (element.includes('Service Area')) {
+          //   element = element.replace(' Service Area', '');
+          // }
           if (SA) {
             SA.map((data: any) => {
               if (element.includes(data)) { service = false; }
@@ -120,9 +120,9 @@ export const LocationInformation = ({
         setSCounty(currentServiceAreaCounty['County']);
         let C = county;
         currentServiceAreaCounty['County'].map((element: any) => {
-          if (element.includes('County')) {
-            element = element.replace(' County', '');
-          }
+          // if (element.includes('County')) {
+          //   element = element.replace(' County', '');
+          // }
           let service = true;
           if (C) {
             C.map((data: any) => {

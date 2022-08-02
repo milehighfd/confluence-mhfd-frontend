@@ -430,7 +430,7 @@ export class MapService {
     }
   }
   addLayerMask(id: any) {
-    if(id == 'area_based_mask' && !this.map.getLayer(id+"MASK")) {
+    if(id == 'area_based_mask' && !this.map.getLayer(id+"MASK") && this.map.getSource('mask')) {
       this.map.addLayer({
         "id": id+'MASK',
         "source": "mask",
@@ -442,8 +442,8 @@ export class MapService {
       });
       setTimeout(() => {
         this.map.moveLayer(id+'MASK');
-      }, 200);
-    } else if (id == 'border' &&  !this.map.getLayer(id+"MASK")) {
+      }, 500);
+    } else if (id == 'border' &&  !this.map.getLayer(id+"MASK") && this.map.getSource('mask')) {
       this.map.addLayer({
         "id": id+'MASK',
         "source": "mask",
@@ -455,10 +455,12 @@ export class MapService {
       });
       setTimeout(() => {
         this.map.moveLayer(id+'MASK');
-      }, 200);
+      }, 500);
     }
   }
   removeLayerMask(id: any) {
-    this.map.removeLayer(id+'MASK');
+    if (this.map.getLayer(id+'MASK')) {
+      this.map.removeLayer(id+'MASK');
+    }
   }
 }
