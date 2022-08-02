@@ -2383,15 +2383,8 @@ const CreateProjectMap = (type: any) => {
                   return (
                     <div>
                       {loadIconsPopup(menu, popups[index], index)}
-                      <Button id={'menu-' + index} key={'menu-' + index} className={"btn-transparent " + "menu-" + index}><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined />
-                      </Button>
-                      {(menu !== 'Project' && menu !== 'Problem') ?
-                        (menu == 'Stream' ? loadStreamPopup(index, popups[index]) : loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index])))
-                        :
-                        menu === 'Project' ?
-                          loadMainPopup(index, popups[index], test, true)
-                          :
-                          loadMainPopup(index, popups[index], test)}
+                    {(menu !== 'Project' && menu !== 'Problem') ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
+                      menu.includes('Project') ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                     </div>
                   )
                 })
