@@ -1702,7 +1702,6 @@ const CreateProjectMap = (type: any) => {
         }
         return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
       });
-      console.log('features clicked', features);
       for (const feature of features) {
         if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
           continue;

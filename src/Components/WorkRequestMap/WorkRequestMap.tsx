@@ -144,9 +144,11 @@ const WorkRequestMap = (type: any) => {
 });
 
 useEffect(() => {
-  const mapResize = () => map.resize();
-  for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 10000; i = i + 25) {
-      setTimeout(() => mapResize(), i);
+  if (map) {
+    const mapResize = () => map.resize();
+    for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 10000; i = i + 25) {
+        setTimeout(() => mapResize(), i);
+    }
   }
 }, [type.leftWidth]);
 
@@ -288,7 +290,9 @@ useEffect(() => {
   },[layers]);
   const [compareLayerFilter, setCompareLayerFilter] = useState('');
   useEffect(()=>{
-    if(JSON.stringify(layerFilters) != compareLayerFilter) {
+    const parsed = compareLayerFilter != '' ? JSON.parse(compareLayerFilter): '';
+    const areEqual = JSON.stringify(layerFilters) != JSON.stringify(parsed);
+    if(areEqual) {
       if(map) {
         setCompareLayerFilter(JSON.stringify(layerFilters));
         map.isStyleLoaded(applyMapLayers);
@@ -619,7 +623,6 @@ const loadData = (trigger: any, name?: string) => {
         },4500);
         
     }
-    console.log('Check this problem is for what??', details.type);
     if(details.layer === 'Components') {
       let newComponents = [{
         cartodb_id: details.cartodb_id?details.cartodb_id:'',
@@ -860,8 +863,12 @@ const loadData = (trigger: any, name?: string) => {
     }, 1000);
   }
   const topStreamLabels = () => {
-    map.map.moveLayer('streams_4');
-    map.map.moveLayer('streams_5');
+    if ( map.map.getLayer('streams_4')) {
+      map.map.moveLayer('streams_4');
+    }
+    if (map.map.getLayer('streams_5')) {
+      map.map.moveLayer('streams_5');
+    } 
   }
   const applyComponentFilter = () => {
     const styles = { ...COMPONENT_LAYERS_STYLE as any };
@@ -1202,7 +1209,9 @@ const loadData = (trigger: any, name?: string) => {
         });
       }
     });
-    addMapListeners(key);
+    if ( map ) {
+      addMapListeners(key);
+    }
   }
 
   const addMapListeners = async (key: string) => {
@@ -1297,7 +1306,6 @@ const loadData = (trigger: any, name?: string) => {
     return;
   }
   const seeDetails = (details: any, event: any) => {
-    console.log('aca??', details);
     if (details.problemid) {
       setData({
         id: '',
@@ -1364,7 +1372,6 @@ const loadData = (trigger: any, name?: string) => {
     } else if( mep_eligibilitystatus == 'Final Acceptance') {
         finalDate = new Date(props.mep_date_finalacceptance);
     } else if( mep_eligibilitystatus == 'Ineligible') {
-        console.log(props.mep_date_ineligible);
         finalDate = new Date(props.mep_date_ineligible);
     }
     let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
@@ -2118,7 +2125,6 @@ const epochTransform = (dateParser: any) => {
         // popup.setLngLat(e.lngLat)
         //   .setHTML(html)
         //   .addTo(map.map);
-        console.log('about to add popuppp', e.lngLat, JSON.stringify(e.lngLat));
         map.addPopUpContent({lng: e.lngLat.lng, lat: e.lngLat.lat}, html);
         
         for (const index in popups) {
@@ -2337,10 +2343,12 @@ const epochTransform = (dateParser: any) => {
   }
 
   useEffect(() => {
-    // EventService.reset();new 
     EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
-    map.map.on('click',eventToClick);
+    map.map.off(eventToClick);
+    setTimeout(() => {
+      map.map.on('click',eventToClick);
+    }, 300);
     return ()=> {
       if (map) {
         map.map.off(eventToClick);
@@ -2558,11 +2566,9 @@ const epochTransform = (dateParser: any) => {
                     <div className="mapstateprevnext"
                         style={ !hasPrevious() ? {backgroundColor: '#f1f1f1' } : {}}
                         onClick={() => {
-                            console.log('previous ', hasPrevious());
                             if (hasPrevious()) {
                                 const prev = getPrevious();
                                 globalMapId = prev.id;
-                                console.log('click prev ', prev);
                                 map.fitBounds([[prev.bbox[0],prev.bbox[1]],[prev.bbox[2],prev.bbox[3]]]);
                             }
                     }}>

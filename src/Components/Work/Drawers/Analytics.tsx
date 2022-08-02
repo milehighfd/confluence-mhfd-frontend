@@ -48,9 +48,6 @@ const Analytics = ({
   useEffect(() => {
     setYear(initialYear);
   }, [initialYear]);
-  useEffect(() => {
-    console.log('YEARRR', year);
-  }, [year]);
   
   const years = [];
   for (var i = 0 ; i < 5 ; i++) {
