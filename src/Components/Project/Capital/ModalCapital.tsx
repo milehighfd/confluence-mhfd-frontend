@@ -325,6 +325,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.cover = cover;
       capital.estimatedcost = getTotalCost();
       capital.sendToWR = sendToWR;
+      capital.componentcost = getSubTotalCost();
+      capital.componentcount = (componentsToSave?.length > 0 ? componentsToSave.length : 0) + (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);
