@@ -203,7 +203,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         }
         e.preventDefault();
       }}>
-      <h4>{displayName}</h4>
+      <Popover placement="top" content={<>{projectname}</>}>
+        <h4>{displayName}</h4>
+      </Popover>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <label className="purple">{labelOrigin}</label>
       <label className="yellow" style={{color, backgroundColor}}>{status}</label>
