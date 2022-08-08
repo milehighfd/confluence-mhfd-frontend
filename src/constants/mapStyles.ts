@@ -4626,28 +4626,6 @@ export const tileStyles = {
         20
       ]
     }
-  },{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {
-      "line-cap": "butt",
-      "line-join": "round",
-      "line-round-limit": 1.05
-    },
-    "paint": {
-      "line-color": "#16927c",
-      "line-opacity": 1,
-      "line-width": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        8,
-        0.5,
-        15,
-        3
-      ],
-      "line-offset": 2
-    }
   },
   {
     type: 'line',
