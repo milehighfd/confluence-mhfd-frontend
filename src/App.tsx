@@ -21,6 +21,9 @@ const UserView = lazy(() => import('./Components/User/UserView'));
 const UploadAttachmentRoute = lazy(() => import('./routes/upload-attachment'));
 
 const App = () => {
+  console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
+  
+
   const appUser = useAppUserState();
   const { loading } = useLogin();
 
