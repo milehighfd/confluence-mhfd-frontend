@@ -218,7 +218,7 @@ export const ROUTINE_MAINTENANCE = {
 
 export const PROJECTS_POLYGONS = 'projects_polygon_';
 export const MHFD_PROJECTS = 'mhfd_projects';
-export const PROJECTS_DRAFT = 'mhfd_projects_created' + (process.env.REACT_APP_NODE_ENV ? ( '_' + (process.env.REACT_APP_NODE_ENV === 'production' ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '_dev');
+export const PROJECTS_DRAFT = 'mhfd_projects_created' + (process.env.REACT_APP_NODE_ENV ? ( '_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '_dev')
 export const STUDIES = 'studies';
 
 export const PROJECTS_MAP_STYLES = {
