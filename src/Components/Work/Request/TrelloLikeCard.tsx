@@ -86,7 +86,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
         Zoom to
       </span>,
-      onClick: (() => setZoomProject(project.projectData))
+      onClick: (() => { setZoomProject(project.projectData);})
     }, {
       key: '3',
       label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>

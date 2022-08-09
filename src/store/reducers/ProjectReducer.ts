@@ -295,7 +295,7 @@ const projectReducer = (state = initState, action: any) => {
     case types.SET_ZOOM_PROJECT: {
       return {
         ...state, 
-        zoomProject: action.zoomProject
+        zoomProject: {...action.zoomProject, random: Math.random()}
       }
     }
     case types.SET_EDIT_LOCATION: {

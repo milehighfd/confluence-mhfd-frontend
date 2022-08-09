@@ -314,8 +314,9 @@ useEffect(() => {
   const {getNext, getCurrent, getPrevious, getPercentage, addHistoric, hasNext, hasPrevious} = GlobalMapHook();
 
   useEffect(()=>{
-    if(zoomProject && zoomProject.projectid) {
-      getData(`${SERVER.URL_BASE}/board/bbox/${zoomProject.projectid}`)
+    if(zoomProject && (zoomProject.projectid || zoomProject.project_id)) {
+      const projectid = zoomProject.project_id ? zoomProject.project_id : zoomProject.projectid; 
+      getData(`${SERVER.URL_BASE}/board/bbox/${projectid}`)
         .then(
           (r: any) => { 
             if(r.bbox){
