@@ -8,6 +8,7 @@ import { MainPopupCreateMap, ComponentPopupCreate, StreamPopupFull } from './../
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import { getData, getToken, postData } from "../../Config/datasets";
+import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import EventService from '../../services/EventService';
@@ -2190,58 +2191,65 @@ const CreateProjectMap = (type: any) => {
         for (const component of COMPONENT_LAYERS.tiles) {
           if (feature.source === component) {
             let isAdded = componentsList.find((i: any) => i.cartodb_id === feature.properties.cartodb_id);
+            const problemid = feature.properties.problemid ?feature.properties.problemid:'';
+            let problemname = '';
+            
+            if(problemid) {
+              datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken()).then(aw => {
+                problemname = aw[0]?.problemname;
+              });
+            }
             let status = 'Add';
             if (isAdded) {
               status = 'Remove';
             }
             let item;
-            if (feature.source === STREAM_IMPROVEMENT_MEASURE) {
-              item = {
-                layer: MENU_OPTIONS.COMPONENTS,
-                type: getTitleOfStreamImprovements(feature.properties),
-                subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
-                estimatedcost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
-                studyname: feature.properties.source_name ? feature.properties.source_name : '-',
-                studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
-                streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
-                local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
-                problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
-                table: feature.source ? feature.source : '-',
-                objectid: feature.properties.objectid ? feature.properties.objectid : ''
+              if (feature.source === STREAM_IMPROVEMENT_MEASURE) {
+                item = {
+                  layer: MENU_OPTIONS.COMPONENTS,
+                  type: getTitleOfStreamImprovements(feature.properties),
+                  subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
+                  estimatedcost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
+                  studyname: feature.properties.source_name ? feature.properties.source_name : '-',
+                  studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
+                  streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
+                  local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
+                  problem: problemname,
+                  table: feature.source ? feature.source : '-',
+                  objectid: feature.properties.objectid ? feature.properties.objectid : ''
+                }
+              } else {
+                item = {
+                  layer: MENU_OPTIONS.COMPONENTS,
+                  type: feature.properties.type ? feature.properties.type : '-',
+                  subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+                  status: feature.properties.status ? feature.properties.status : '-',
+                  estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                  studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                  studyyear: feature.properties.year_of_study ? feature.properties.year_of_study : '-',
+                  jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                  original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                  table: feature.source ? feature.source : '-',
+                  cartodb_id: feature.properties.cartodb_id ? feature.properties.cartodb_id : '-',
+                  problem: problemname,
+                  added: status,
+                  objectid: feature.properties.objectid ? feature.properties.objectid : '',
+                  projectid: feature.properties.projectid ? feature.properties.projectid : undefined,
+                  streamname: feature.properties.drainageway,
+                };
               }
-            } else {
-              item = {
-                layer: MENU_OPTIONS.COMPONENTS,
-                type: feature.properties.type ? feature.properties.type : '-',
-                subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-                status: feature.properties.status ? feature.properties.status : '-',
-                estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-                studyyear: feature.properties.year_of_study ? feature.properties.year_of_study : '-',
-                jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                table: feature.source ? feature.source : '-',
-                cartodb_id: feature.properties.cartodb_id ? feature.properties.cartodb_id : '-',
-                problem: 'Dataset in development',
-                added: status,
-                objectid: feature.properties.objectid ? feature.properties.objectid : '',
-                projectid: feature.properties.projectid ? feature.properties.projectid : undefined,
-                streamname: feature.properties.drainageway,
-              };
-
-            }
-            const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
-            menuOptions.push(name);
-            mobile.push({
-              layer: item.layer,
-              type: item.type,
-              subtype: item.subtype,
-              studyyear: item.studyyear,
-              streamname: item.streamname
-            })
-            mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-            popups.push(item);
-            ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+              const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
+              menuOptions.push(name);
+              mobile.push({
+               layer: item.layer,
+                type: item.type,
+                subtype: item.subtype,
+                studyyear: item.studyyear,
+                streamname: item.streamname
+              })
+              mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
+              popups.push(item);
+              ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           }
         }
       }

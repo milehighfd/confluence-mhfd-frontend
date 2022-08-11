@@ -2714,7 +2714,7 @@ const Map = ({
                               local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
                               objectid: feature.properties.objectid?feature.properties.objectid:'-',
                               table: feature.source ? feature.source : '-',
-                              problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
+                              problem: problemname,
                               ...volume
                             }
                           } else {

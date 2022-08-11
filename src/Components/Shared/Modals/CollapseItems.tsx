@@ -11,6 +11,8 @@ import { LayerStylesType } from '../../../Classes/MapTypes';
 import { getComponentCounter } from '../../../dataFetching/map';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { STREAM_IMPROVEMENT_MEASURE } from '../../../routes/map/constants/layout.constants';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const { Panel } = Collapse;
 var map: any;
@@ -236,7 +238,7 @@ export default forwardRef(({
                 map.removePopUp();
               }
             });
-            map.click(value + index, (e:any) => {
+            map.click(value + index, async (e:any) => {
               e.preventDefault();
               if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                 return;
@@ -270,6 +272,12 @@ export default forwardRef(({
                   html = loadMainPopup(item);
               }
               if (COMPONENT_LAYERS.tiles.includes( key)) {
+                const problemid = e.properties.problemid ?e.properties.problemid:'';
+                let problemname = '';
+                if(problemid) {
+                  let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                  problemname = aw[0]?.problemname;
+                }
                 const item = {
                     layer: MENU_OPTIONS.COMPONENTS,
                     subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
@@ -277,7 +285,7 @@ export default forwardRef(({
                     estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
                     studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
                     jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                    problem: 'Dataset in development'
+                    problem: problemname
                 };
                 html = loadComponentPopup(item);
             }

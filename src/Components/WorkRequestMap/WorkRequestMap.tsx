@@ -11,6 +11,7 @@ import DetailedModal from '../Shared/Modals/DetailedModal';
 import EventService from '../../services/EventService';
 import { getData, getToken, postDataAsyn, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
+import * as datasets from "../../Config/datasets";
 import {
   PROBLEMS_TRIGGER,
   COMPONENT_LAYERS,
@@ -1401,7 +1402,7 @@ const epochTransform = (dateParser: any) => {
   return stringDate;
   }
 }
-  const eventClick = (e: any) => {
+  const eventClick = async (e: any) => {
     if(isMeasuring) {
       measureFunction(e);
     } else {
@@ -2059,6 +2060,12 @@ const epochTransform = (dateParser: any) => {
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
           let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
+          const problemid = feature.properties.problemid ?feature.properties.problemid:'';
+          let problemname = '';
+          if(problemid) {
+            let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+            problemname = aw[0]?.problemname;
+          }
           let status = 'Add';
           if(isAdded) {
             status = 'Remove';
@@ -2074,7 +2081,7 @@ const epochTransform = (dateParser: any) => {
               studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
               streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
               local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
-              problem: feature.properties.problem_id ? feature.properties.problem_id : '-',
+              problem: problemname,
               table: feature.source ? feature.source : '-',
               objectid: feature.properties.objectid?feature.properties.objectid:'-'
             }
@@ -2091,7 +2098,7 @@ const epochTransform = (dateParser: any) => {
               original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
               table: feature.source ? feature.source : '-',
               cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
-              problem: 'Dataset in development',
+              problem: problemname,
               added: status,
               objectid: feature.properties.objectid?feature.properties.objectid:'-',
               projectid : feature.properties.projectid? feature.properties.projectid: undefined ,
