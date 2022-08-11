@@ -329,6 +329,12 @@
       color: $purple00;
       line-height: 15px;
       padding-right: 7px;
+      .tab-cost{
+        padding-left: 24px;
+      }
+      .tab-cost-independent{
+        padding-left: 47px;
+      }
     }
     .tab-body-project{
       display: flex;
@@ -609,8 +615,38 @@
     margin-left: -15px;
   }
 }
+@media (min-width: 1500px) and (max-width: 1599px){
+  .tab-cost{
+    padding-left: 24px !important;
+  }
+  .tab-cost-independent{
+    padding-left: 47px !important;
+  }
+}
+@media (min-width: 1600px) and (max-width: 1699px){
+  .tab-cost{
+    padding-left: 47px !important;
+  }
+  .tab-cost-independent{
+    padding-left: 23px !important;
+  }
+}
+@media (min-width: 1700px) and (max-width: 1899px){
+  .tab-cost{
+    padding-left: 46px !important;
+  }
+  .tab-cost-independent{
+    padding-left: 25px !important;
+  }
+}
 @media (min-width: 1900px) and (max-width: 2499px){
   // CAPITAL
+  .tab-cost{
+    padding-left: 57px !important;
+  }
+  .tab-cost-independent{
+    padding-left: 25px !important;
+  }
   .projects{
     width: 1466px !important;
 
@@ -840,6 +876,12 @@
 // 2560x1440 DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px){
 // CAPITAL
+  .tab-cost{
+    padding-left: 66px !important;
+  }
+  .tab-cost-independent{
+    padding-left: 25px !important;
+  }
   .projects{
     width: 1955px !important;
 

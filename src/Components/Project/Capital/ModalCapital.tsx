@@ -38,8 +38,8 @@ const genExtra05 = (totalIndependentComp: any) => (
   <Row className="tab-head-project">
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>Independent Component</Col>
     <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 6 }}></Col>
-    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
-    <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} >{formatter.format(totalIndependentComp)}</Col>
+    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col>
+    <Col className="tab-cost-independent" xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }} >{formatter.format(totalIndependentComp)}</Col>
   </Row>
 );
 const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
@@ -53,7 +53,7 @@ const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
     <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>No Problem Group Available</Col>
     <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col>
     <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
-  <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{textAlign:'center', whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
+  <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{ whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
   </Row>
   )
   }
@@ -67,7 +67,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col>
       <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
-      <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
+      <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
   )
   }
