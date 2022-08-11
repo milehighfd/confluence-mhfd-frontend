@@ -1677,7 +1677,7 @@ const CreateProjectMap = (type: any) => {
       return -1;
     }
     popup.remove();
-    setTimeout(() => {
+    setTimeout(async () => {
       const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
       if (popupsClassess.length) {
         for (let i = 0; i < popupsClassess.length; ++i) {
@@ -2195,9 +2195,9 @@ const CreateProjectMap = (type: any) => {
             let problemname = '';
             
             if(problemid) {
-              datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken()).then(aw => {
-                problemname = aw[0]?.problemname;
-              });
+              let aw =  await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+              problemname = aw[0]?.problemname;
+              console.log('Problem name in create', problemname);
             }
             let status = 'Add';
             if (isAdded) {

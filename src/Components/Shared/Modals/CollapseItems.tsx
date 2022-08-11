@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, MHFD_PROJECTS } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, MHFD_PROJECTS, FLOOD_HAZARDS } from '../../../constants/constants';
 import { tileStyles, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -167,13 +167,20 @@ export default forwardRef(({
 
       }
       if(type === PROBLEMS_MODAL) {
-        console.log('layers', layers);
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
           map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           i++;
         }
+        FLOOD_HAZARDS.tiles.forEach((tiles:any) => {
+          map.addVectorSource(tiles, layers.floodhazards[tiles]);
+          styles[tiles].forEach((element: any, index: number) => {
+            map.addLayer(`${tiles}-layer_${index}`, tiles, element);
+            map.setFilter(`${tiles}-layer_${index}`, ['in', 'problem_id', detailedPage?.problemid]);
+          }); 
+          // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
+        });
         addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
         let idProjectPolygon = 0;
