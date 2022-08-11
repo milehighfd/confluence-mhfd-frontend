@@ -78,6 +78,7 @@ export const SERVER = (function () {
     const GET_ZOOMAREA_FILTER = 'get-zoom-filter';
     const BBOX_COMPONENTS = 'bbox-components';
     const PROBLEMNAME = 'problemname';
+    const PROBLEMNAMECOMP = 'get-name?problem_id=';
     const FAVORITES = 'favorites';
     const ADD_FAVORITE = 'create';
     const FAVORITE_CARDS = 'favorite-list';
@@ -189,6 +190,7 @@ export const SERVER = (function () {
         GET_ZOOMAREA_FILTER: `${URL_BASE.BASE}/${ZOOMAREA}/${GET_ZOOMAREA_FILTER}`,
         BBOX_COMPONENTS: `${URL_BASE.BASE}/${MAP}/${BBOX_COMPONENTS}`,
         PROBLEMNAME: `${URL_BASE.BASE}/${MAP}/${PROBLEMNAME}`,
+        PROBLEMNNAMECOMP: `${URL_BASE.BASE}/${PROBLEMS}/${PROBLEMNAMECOMP}`,
         FAVORITES: `${URL_BASE.BASE}/${FAVORITES}`,
         ADD_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}/${ADD_FAVORITE}`,
         DELETE_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}`,

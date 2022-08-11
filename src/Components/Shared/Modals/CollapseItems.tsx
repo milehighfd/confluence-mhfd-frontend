@@ -272,12 +272,17 @@ export default forwardRef(({
                   html = loadMainPopup(item);
               }
               if (COMPONENT_LAYERS.tiles.includes( key)) {
-                const problemid = e.properties.problemid ?e.properties.problemid:'';
-                let problemname = '';
-                if(problemid) {
-                  let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-                  problemname = aw[0]?.problemname;
-                }
+                const problemid = e.properties.problemid ?e.properties.problemid:(e.properties.problem_id ? e.properties.problem_id :'');
+                          let problemname = '';
+                          if(problemid) {
+                            if (e.source === STREAM_IMPROVEMENT_MEASURE){
+                              let aw = await datasets.getData(SERVER.PROBLEMNNAMECOMP+problemid, datasets.getToken());
+                              problemname = aw.problem_name;
+                            } else {
+                              let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                              problemname = aw[0]?.problemname;
+                            }
+                          }
                 const item = {
                     layer: MENU_OPTIONS.COMPONENTS,
                     subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',

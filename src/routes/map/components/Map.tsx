@@ -2690,13 +2690,19 @@ const Map = ({
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                   }
                   for (const component of COMPONENT_LAYERS.tiles) {
-                      if (feature.source === component) {
-                          const problemid = feature.properties.problemid ?feature.properties.problemid:'';
+                      if (feature.source === component)  {
+                          const problemid = feature.properties.problemid ?feature.properties.problemid:(feature.properties.problem_id ? feature.properties.problem_id :'');
                           let problemname = '';
                           if(problemid) {
-                            let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-                            problemname = aw[0]?.problemname;
+                            if (feature.source === STREAM_IMPROVEMENT_MEASURE){
+                              let aw = await datasets.getData(SERVER.PROBLEMNNAMECOMP+problemid, datasets.getToken());
+                              problemname = aw.problem_name;
+                            } else {
+                              let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                              problemname = aw[0]?.problemname;
+                            }
                           }
+
                           let volume 
                           if(feature.source === 'detention_facilities'){
                               volume = {volume:feature.properties.detention_volume? feature.properties.detention_volume : '-'}

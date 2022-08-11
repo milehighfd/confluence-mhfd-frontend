@@ -2060,12 +2060,17 @@ const epochTransform = (dateParser: any) => {
       for (const component of COMPONENT_LAYERS.tiles) {
         if (feature.source === component) {
           let isAdded = componentsList.find( (i:any) => i.cartodb_id === feature.properties.cartodb_id); 
-          const problemid = feature.properties.problemid ?feature.properties.problemid:'';
-          let problemname = '';
-          if(problemid) {
-            let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-            problemname = aw[0]?.problemname;
-          }
+          const problemid = feature.properties.problemid ?feature.properties.problemid:(feature.properties.problem_id ? feature.properties.problem_id :'');
+                          let problemname = '';
+                          if(problemid) {
+                            if (feature.source === STREAM_IMPROVEMENT_MEASURE){
+                              let aw = await datasets.getData(SERVER.PROBLEMNNAMECOMP+problemid, datasets.getToken());
+                              problemname = aw.problem_name;
+                            } else {
+                              let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                              problemname = aw[0]?.problemname;
+                            }
+                          }
           let status = 'Add';
           if(isAdded) {
             status = 'Remove';
