@@ -371,7 +371,6 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.studyname ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
           
           {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
-          {item.problem ? <p><i>Problem:</i>  {item.problem}</p> : ''}
           {item.description ? <p><i>Description:</i>  {item.description}</p> : ''}
 
           {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
@@ -381,6 +380,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
           {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
           {item.length ? <p><i>Length:</i>  {item.length}</p> : ''}
+          {item.problem ? <p><i>Problem:</i>  {item.problem}</p> : ''}
 
           {item.hydgrpdcd ? <p><i>Hydrologic Group:</i> {item.hydgrpdcd}</p> : ''}
           {item.muname ? <p><i>Mapunit Name:</i> {item.muname}</p> : ''}

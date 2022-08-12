@@ -2191,13 +2191,12 @@ const CreateProjectMap = (type: any) => {
         for (const component of COMPONENT_LAYERS.tiles) {
           if (feature.source === component) {
             let isAdded = componentsList.find((i: any) => i.cartodb_id === feature.properties.cartodb_id);
-            const problemid = feature.properties.problemid ?feature.properties.problemid:'';
+            const problemid = feature.properties.problemid ?feature.properties.problemid:(feature.properties.problem_id ? feature.properties.problem_id :'');
             let problemname = '';
-            
             if(problemid) {
-              let aw =  await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-              problemname = aw[0]?.problemname;
-              console.log('Problem name in create', problemname);
+
+                let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                problemname = aw[0]?.problemname;
             }
             let status = 'Add';
             if (isAdded) {
