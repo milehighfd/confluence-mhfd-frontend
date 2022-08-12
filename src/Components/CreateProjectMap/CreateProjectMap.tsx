@@ -2368,7 +2368,7 @@ const CreateProjectMap = (type: any) => {
     let eventToClick = EventService.getRef('click');
     map.map.on('click', eventToClick);
     return () => {
-      map.map.off(eventToClick);
+      map.map.off('click', eventToClick);
     }
   }, [allLayers]);
   const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => {
