@@ -2358,13 +2358,13 @@ const epochTransform = (dateParser: any) => {
   useEffect(() => {
     EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
-    map.map.off(eventToClick);
+    map.map.off('click', eventToClick);
     setTimeout(() => {
       map.map.on('click',eventToClick);
     }, 300);
     return ()=> {
       if (map) {
-        map.map.off(eventToClick);
+        map.map.off('click', eventToClick);
       }
     }
   }, [allLayers]);
