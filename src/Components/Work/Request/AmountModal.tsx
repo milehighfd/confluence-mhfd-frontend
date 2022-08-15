@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Button, InputNumber } from 'antd';
 import { MaintenanceTypes } from "./RequestViewUtil";
 
@@ -36,7 +36,6 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
     setYear4(project.req5);
     setVisible(false);
   };
-
   const priceFormatter = (value: any) => {
     return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
@@ -93,9 +92,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       width="390px"
       footer={[
         <Button className="btn-transparent" onClick={handleCancel}>
-          Clear
+          {tabKey === 'Maintenance' ? 'Cancel': 'Clear'}
           </Button>,
-        <Button className="btn-purple" onClick={handleOk}>
+        <Button className="btn-purple" onClick={handleOk} disabled={ tabKey === 'Maintenance' && year0 == null ? true : false}>
           Save
           </Button>,
       ]}
@@ -107,12 +106,13 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showFirst &&
         <>
-      <p>{labels[0]}</p>
+      <p style={{display: 'flex'}}>{labels[0]} {tabKey === 'Maintenance' && showTwoNextYears && <p style={{color: 'red',     whiteSpace: 'break-spaces'}}>{' *'}</p>}</p>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
         value={year0} onChange={setYear0}
       />
+      
       <Button className="button-close" onClick={() => setYear0(null)}>
         <img src="/Icons/icon-23.svg" />
       </Button>
