@@ -527,7 +527,8 @@ const loadData = (trigger: any, name?: string) => {
       getGroupOrganization();
     }
     setTimeout(()=>{
-      let value = store.getState().profile.userInformation.zoomarea;
+      //let value = store.getState().profile.userInformation.zoomarea;
+      let value = '';
       if(type.locality.locality) {
         value = type.locality.locality;
       }
