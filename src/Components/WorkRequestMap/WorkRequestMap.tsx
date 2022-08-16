@@ -726,14 +726,17 @@ const loadData = (trigger: any, name?: string) => {
     setTimeout(()=>{
       map.isStyleLoaded(()=>{
         map.map.moveLayer('munis-centroids-shea-plusother');
-        topStreams()
+        if (map.getLayer('borderMASK')) {
+          map.map.moveLayer('borderMASK');
+        }
+        if (map.getLayer('area_based_maskMASK')) {
+          map.moveLayer('area_based_maskMASK');
+        }
+        topStreams();
         topEffectiveReaches();
         topProjects();
         topServiceArea();
         topComponents();
-        if (map.getLayer('borderMASK')) {
-          map.map.moveLayer('borderMASK');
-        }
         topStreamLabels();
       });
     },500);
