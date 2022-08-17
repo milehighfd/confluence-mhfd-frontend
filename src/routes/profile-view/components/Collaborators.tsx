@@ -53,7 +53,7 @@ const Collaborators = () => {
             <div className="chat-r pad-collab">
               <Row>
                 <Col span={3}>
-                  <img src="/Icons/icon-28.svg" alt="" height="35px"/>
+                  <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}} />
                 </Col>
                 <Col span={14}>
                   <h6>TBD</h6>

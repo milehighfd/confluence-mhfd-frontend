@@ -28,7 +28,7 @@ export default () => {
     >
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="35px" />
+          <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
         </Col>
         <Col span={13}>
           <h6>Jon Villines</h6>
@@ -40,7 +40,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="35px" />
+          <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
         </Col>
         <Col span={13}>
           <h6>Carolyn Roan</h6>
@@ -52,7 +52,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="35px" />
+          <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
         </Col>
         <Col span={13}>
           <h6>Deb Ohlinger</h6>
@@ -64,7 +64,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={4}>
-          <img src="/Icons/icon-28.svg" alt="" height="35px" />
+          <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
         </Col>
         <Col span={13}>
           <h6>Amy Gabor</h6>
@@ -89,7 +89,7 @@ export default () => {
         <div className="chat-footer">
           <Row>
             <Col span={4}>
-              <img src="/Icons/icon-28.svg" alt="" height="35px" />
+              <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
             </Col>
             <Col span={13}>
               <Input placeholder="Add a comment..." />

@@ -49,7 +49,7 @@ const UserInformationView = ({
   return <> <Col xs={{ span: 24 }} lg={{ span: 12 }} className="profile-info">
     <div style={{ position: 'relative', minWidth: '135px', width: '135px', height: '120px' }}>
         {user.photo ? <img className="profile-img" src={user.photo} alt="" /> :
-        <img className="profile-img" src="/Icons/icon-28.svg" alt="" />}
+        <img className="profile-img" src="/Icons/icon-28.svg" alt="" style={{borderRadius: '50%'}}/> }
       <div className="profile-change">
         <Upload showUploadList={false} beforeUpload={beforeUpload} onChange={({ file }: any) => {
           if (fileImage.uid !== file.uid) {

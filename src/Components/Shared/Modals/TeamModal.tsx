@@ -31,7 +31,7 @@ export default () => {
     </Row>
     <Row>
       <Col span={4}>
-        <img src="/Icons/icon-28.svg" alt="" height="35px" />
+        <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
       </Col>
       <Col span={13}>
         <h6 style={{fontWeight: 500}}>Conner Gilmore</h6>
@@ -43,7 +43,7 @@ export default () => {
     </Row>
     <Row>
       <Col span={4}>
-        <img src="/Icons/icon-28.svg" alt="" height="35px" />
+        <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
       </Col>
       <Col span={13}>
         <h6 style={{fontWeight: 500}}>Megan Leonard </h6>
@@ -55,7 +55,7 @@ export default () => {
     </Row>
     <Row>
       <Col span={4}>
-        <img src="/Icons/icon-28.svg" alt="" height="35px" />
+        <img src="/Icons/icon-28.svg" alt="" height="35px" style={{borderRadius: '50%'}}/>
       </Col>
       <Col span={13}>
         <h6 style={{fontWeight: 500}}>Serena Keller</h6>
@@ -90,7 +90,7 @@ export default () => {
         </Row>
         <Row>
           <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" />
+            <img src="/Icons/icon-28.svg" alt="" height="20px"  style={{borderRadius: '50%'}}/>
           </Col>
           <Col span={21}>
             <h6  style={{fontWeight: 500}}>Noel Holland<span>4h ago</span></h6>
@@ -117,7 +117,7 @@ export default () => {
         </Row>
         <Row>
           <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" />
+            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
           </Col>
           <Col span={21}>
             <h6 style={{fontWeight: 500}}>Serena Keller<span>1h ago</span></h6>
@@ -126,7 +126,7 @@ export default () => {
         </Row>
         <Row>
           <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" />
+            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
           </Col>
           <Col span={21}>
             <h6 style={{fontWeight: 500}}>Serena Keller<span>Just now</span></h6>
@@ -135,7 +135,7 @@ export default () => {
         </Row>
         <Row>
           <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" />
+            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
           </Col>
           <Col span={21}>
             <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
@@ -144,7 +144,7 @@ export default () => {
         </Row>
         <Row>
           <Col span={3}>
-            <img src="/Icons/icon-28.svg" alt="" height="20px" />
+            <img src="/Icons/icon-28.svg" alt="" height="20px" style={{borderRadius: '50%'}}/>
           </Col>
           <Col span={21}>
             <h6 style={{fontWeight: 500}}>Finnegan Cooke<span>5h ago</span></h6>
