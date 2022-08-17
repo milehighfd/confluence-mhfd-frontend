@@ -44,7 +44,7 @@ import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectV
 import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
-
+import { addGeojsonSource } from './MapFunctions';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -862,6 +862,7 @@ const Map = ({
                     applyMapLayers();
                     setSpinMapLoaded(false);
                     applyNearMapLayer();
+                    applyProblemClusterLayer();
                     applyMeasuresLayer();
                 }
             };
@@ -1040,6 +1041,7 @@ const Map = ({
           })
       }
     }
+    
     const applyNearMapLayer = () => {
         if (!map.getSource('raster-tiles')) {
             map.addSource('raster-tiles', {
@@ -1054,6 +1056,11 @@ const Map = ({
                 'aerialway'
             );
         }
+    }
+    const applyProblemClusterLayer = () => {
+      datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
+        addGeojsonSource(map, geoj.geom);
+      });
     }
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {

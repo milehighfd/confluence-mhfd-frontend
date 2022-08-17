@@ -4531,7 +4531,13 @@ export const tileStyles = {
           9, 10,
           16, 22,
         ],
-      "line-opacity": 0.8
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        11.2, 0,
+        11.22, 0.85,
+      ]
     }
   }],
   [FLOOD_HAZARD_POLYGON]: [ {
