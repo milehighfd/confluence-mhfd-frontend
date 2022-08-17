@@ -176,7 +176,7 @@ const Map = ({
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
     const [problemid, setProblemId ] = useState<any>(undefined);
-
+    const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
     const [notesFilter, setNotesFilter] = useState('all');
     const { colorsList } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
@@ -1060,6 +1060,7 @@ const Map = ({
     const applyProblemClusterLayer = () => {
       datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
         addGeojsonSource(map, geoj.geom);
+        setProblemClusterGeojson(geoj.geom);
       });
     }
     const applyMapLayers = async () => {
@@ -1386,7 +1387,10 @@ const Map = ({
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
-
+            console.log('all Filters', JSON.stringify(allFilters));
+            if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
+              addGeojsonSource(map, problemClusterGeojson, allFilters);
+            }
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
             }

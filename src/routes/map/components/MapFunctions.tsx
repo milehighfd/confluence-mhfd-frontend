@@ -1,9 +1,22 @@
 import * as mapboxgl from 'mapbox-gl';
 
-export const addGeojsonSource = (map: any, geojson: any) => {
-  const mag1 = ['==', ['get', 'problem_type'], 'Watershed Change'];
+export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
+  const mag1 =  ['==', ['get', 'problem_type'], 'Watershed Change'];
   const mag2 = ['==', ['get', 'problem_type'], 'Stream Function'];
-  const mag3 = ['==', ['get', 'problem_type'], 'Flood Hazard'];
+  const mag3 =  ['==', ['get', 'problem_type'], 'Flood Hazard'];
+  // ['all', ['==', ['get', 'problem_type'], 'Flood Hazard'], ['==', ['get','status'], 'Active']]
+  
+  console.log('GEOJSON', geojson, allFilters);
+  if(map!.getSource('clusterproblem')) {
+    if (map.getLayer('clusterproblem')) {
+      map.removeLayer('clusterproblem');
+    }
+    if (map.getLayer('clusterproblem_label')) {
+      map.removeLayer('clusterproblem_label');
+    }
+    map.removeSource('clusterproblem');
+  }
+  
   map!.addSource('clusterproblem', {
     type: 'geojson',
     data: geojson,
@@ -70,6 +83,7 @@ export const addGeojsonSource = (map: any, geojson: any) => {
     const features = map!.querySourceFeatures('clusterproblem');
     // for every cluster on the screen, create an HTML marker for it (if we didn't yet),
     // and add it to the map if it's not there already
+    console.log('features ', features);
     for (const feature of features) {
       const coords = (feature.geometry as any).coordinates;
       const props = feature.properties;
@@ -84,8 +98,8 @@ export const addGeojsonSource = (map: any, geojson: any) => {
         }).setLngLat(coords);
       }
       newMarkers[id] = marker;
-
-      if (!markersOnScreen[id]) marker.addTo(map!);
+      // check if any problem type is on it
+      if (!markersOnScreen[id] && (props.mag1 + props.mag2 + props.mag3 > 0)) marker.addTo(map!);
     }
     // for every marker we've added previously, remove those that are no longer visible
     for (const id in markersOnScreen) {
@@ -130,7 +144,9 @@ export const addGeojsonSource = (map: any, geojson: any) => {
     </text>
     </svg>
     </div>`;
+    if (total > 0) {
 
+    }
     const el = document.createElement('div');
     el.innerHTML = html;
     return el.firstChild;

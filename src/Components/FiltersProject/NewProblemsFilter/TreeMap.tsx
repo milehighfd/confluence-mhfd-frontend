@@ -53,13 +53,13 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }
 
   const nameFormatter: any = (value: any) => {
-    if (value.includes('County')) {
+    if (value?.includes('County')) {
       let index = value.indexOf('County');
       if (index !== -1) {
         value = value.substr(0, index - 1);
       }
     }
-    if (value.includes('Service Area')) {
+    if (value?.includes('Service Area')) {
       let index = value.indexOf('Service Area');
       if (index !== -1) {
         value = value.substr(0, index - 1);
