@@ -87,7 +87,7 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          <Select defaultValue={year} value={year} onChange={setYear}>
+          <Select style={{marginLeft:'11px'}} defaultValue={year} value={year} onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{

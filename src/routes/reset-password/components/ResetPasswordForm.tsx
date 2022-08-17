@@ -21,7 +21,28 @@ const validationSchema = Yup.object().shape({
 const ResetPasswordForm = () => {
   const [message, setMessage] = useState({ message: '', color: '#28C499' });
   const [redirect, setRedirect] = useState(false);
-  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
+  const [email, setEmail] = useState('');
+  const handleChange = (e: any) => {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+  }
+  const onSubmit = () => {
+    setMessage({
+      message: 'The request was sent to reset your email password, this may take a few minutes',
+      color: '#28C499'
+    });
+    datasets.postData(SERVER.RECOVERY_PASSWORD, {email: email }).then(res => {
+      if (!res.error) {
+        setRedirect(true);
+      } else {
+        const auxMessage = { ...message };
+        auxMessage.message = res.error;
+        auxMessage.color = 'red';
+        setMessage(auxMessage);
+      }
+    });
+  }
+  const { values, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       email: '',
       recaptcha: ''
@@ -50,7 +71,7 @@ const ResetPasswordForm = () => {
   }
 
   return (
-    <Form style={{ width: '420px' }} className="login-form" onFinish={handleSubmit}>
+    <Form style={{ width: '420px' }} className="login-form">
       <h1>
         Reset your password
       </h1>
@@ -63,14 +84,14 @@ const ResetPasswordForm = () => {
         <span className="highlight"></span>
         <span className="bar"></span>
       </div>
-      <GoogleReCaptcha onVerify={(token: string) => {
-        values.recaptcha = '' + (token !== 'null' ? token : '');
-      }} />
       <div style={{ height: '35px' }}>
         <span style={{ color: message.color }}>{message.message}</span>
       </div>
       <Form.Item>
-        <Button className="btn-purple" block htmlType="submit">
+        <GoogleReCaptcha onVerify={(token: string) => {
+          values.recaptcha = '' + (token !== 'null' ? token : '');
+        }} />
+        <Button className="btn-purple" block htmlType="submit" onClick={() => onSubmit() }>
           Send Password Reset Email
         </Button>
       </Form.Item>
