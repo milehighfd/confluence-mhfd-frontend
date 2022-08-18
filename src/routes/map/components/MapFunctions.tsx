@@ -1,7 +1,7 @@
 import * as mapboxgl from 'mapbox-gl';
 
 export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolean, allFilters?: any) => {
-  if ( !isProblemActive ) return;
+  
   let mag1 =  ['==', ['get', 'problem_type'], 'Watershed Change'];
   let mag2 = ['==', ['get', 'problem_type'], 'Stream Function'];
   let mag3 =  ['==', ['get', 'problem_type'], 'Flood Hazard'];
@@ -10,7 +10,6 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
     mag2 = [...allFilters, mag2];
     mag3 = [...allFilters, mag3];
   }
-  // console.log('allFilters', allFilters, mag1, mag2, mag3); 
 
 //   const elements = document.getElementsByClassName('svgclass');
 //   for (let i = 0; i < elements.length; i++) {
@@ -18,8 +17,14 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
 //       elements[i].remove()
 //     }
 //  }
-  removeGeojsonCluster(map);
+  if(map.getSource('clusterproblem')) {
+    removeGeojsonCluster(map);
+  }
+  if ( !isProblemActive ) return;
   setTimeout(() => {
+    // if(map.getSource('clusterproblem')) {
+    //   removeGeojsonCluster(map);
+    // }
   map!.addSource('clusterproblem', {
     type: 'geojson',
     data: geojson,
@@ -53,7 +58,7 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
         "interpolate",
         ["linear"],
         ["zoom"],
-        11.2, 0.6,
+        11.2, 0.01,
         11.22, 0,
       ],
       'circle-radius': 12
@@ -74,7 +79,8 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
       'text-size': 10
     },
     'paint': {
-      'text-color': 'black'
+      'text-color': 'black',
+      'text-opacity': 0.01
     },
     'maxzoom': 11.2
   });

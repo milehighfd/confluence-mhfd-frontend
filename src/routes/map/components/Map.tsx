@@ -1388,10 +1388,7 @@ const Map = ({
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
-            // console.log('all Filters IN APPLY', JSON.stringify(allFilters));
-            // console.log(key, problemClusterGeojson, key == PROBLEMS_TRIGGER && problemClusterGeojson);
             if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
-              console.log('FROM WHERE 3');
               addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             }
             if (map.getLayer(key + '_' + index)) {
@@ -1548,7 +1545,6 @@ const Map = ({
                 }
                 if (key === PROBLEMS_TRIGGER) {
                   isProblemActive = true;
-                  addGeojsonSource(map, problemClusterGeojson, isProblemActive);
                 }
             }
         });
@@ -1582,7 +1578,7 @@ const Map = ({
     };
 
     const test = (item: any) => {
-      console.log('item inside map ', item);
+ 
         setVisible(true);
         setData(item);
         if (item.problemid) {
@@ -1625,7 +1621,6 @@ const Map = ({
         } else if( mep_eligibilitystatus == 'Final Acceptance') {
             finalDate = new Date(props.mep_date_finalacceptance);
         } else if( mep_eligibilitystatus == 'Ineligible') {
-            console.log(props.mep_date_ineligible);
             finalDate = new Date(props.mep_date_ineligible);
         }
         let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
@@ -2930,7 +2925,6 @@ const Map = ({
     const selectCheckboxes = (selectedItems: Array<LayersType>) => {
         const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
         deleteLayers.forEach((layer: LayersType) => {
-          console.log('this is the layer items: ', layer);
           if(layer === 'border' || layer === 'area_based_mask') {
             removeLayerMask(layer);
           } else {
@@ -2941,7 +2935,6 @@ const Map = ({
         updateSelectedLayers(selectedItems);
     }
     const removeTilesHandler = (selectedLayer: LayersType) => {
-      console.log('selectedLayer', selectedLayer);
         if (typeof selectedLayer === 'object') {
             selectedLayer.tiles.forEach((subKey: string) => {
                 hideLayers(subKey);
@@ -3062,7 +3055,6 @@ const Map = ({
               if (html) {
                 searchPopup.remove();
                 searchPopup = new mapboxgl.Popup({closeButton: true,});
-                console.log('search popup');
                 searchPopup.setLngLat(coord)
                     .setDOMContent(html)
                     .addTo(map);

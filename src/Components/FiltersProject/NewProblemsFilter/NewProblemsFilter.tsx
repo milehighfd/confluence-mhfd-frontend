@@ -35,7 +35,6 @@ export const NewProblemsFilter = () => {
 
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
-        console.log('values', values, 'filterproblemsopt', filterProblemOptions);
         if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field
     || 'mhfdmanager' === field) {
             let newValue = '';
@@ -47,7 +46,6 @@ export const NewProblemsFilter = () => {
         } else {
             options[field] = values;
         }
-        console.log('options filters', options);
         setFilterProblemOptions(options);
         getGalleryProblems();
         getParamFilterProblems(boundsMap, options);
