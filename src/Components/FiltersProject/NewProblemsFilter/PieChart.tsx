@@ -11,9 +11,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   useEffect(() => {
     setSelectedData(selected ? selected.split(',') : []);
   }, [selected]);
-  useEffect(() => {
-    console.log('data', data);
-  } ,[data]);
   const isProb = type === 'problemtype';
   const labelValues = isProb ? '' : 'Projects';
   useEffect(() => {
@@ -108,7 +105,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsText
       .enter()
       .append('text')
-      .text(function (d: any) { return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data.key.split(' ')[0] : d.data.key) })
+      .text(function (d: any) { return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : d.data.key) })
       .attr("transform", (d: any, i) => {
         let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 32;
@@ -134,7 +131,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsCounterText
       .enter()
       .append('text')
-      .text(function (d: any) {  return (isProb ? d.data.key.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
+      .text(function (d: any) {  return (isProb ? d.data?.key?.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
       .attr("transform", (d: any, i) => {
         let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 45;

@@ -52,9 +52,6 @@ export const NewProblemsFilter = () => {
         getGalleryProblems();
         getParamFilterProblems(boundsMap, options);
     }
-    useEffect(() => {
-      console.log('param Problems', paramProblems);
-    }, [paramProblems]);
     const reset = () => {
         const options = { ...filterProblemOptions };
         options.components = '';

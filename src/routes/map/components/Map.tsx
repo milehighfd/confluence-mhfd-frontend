@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
@@ -1060,6 +1060,7 @@ const Map = ({
     const applyProblemClusterLayer = () => {
       datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
         addGeojsonSource(map, geoj.geom);
+        console.log('SETTING GEOJ', geoj.geom);
         setProblemClusterGeojson(geoj.geom);
       });
     }
@@ -1248,7 +1249,7 @@ const Map = ({
       }
       return key;
     }
-    const applyFilters = (key: string, toFilter: any) => {
+    const applyFilters = useCallback((key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map.getLayer(key + '_' + index)) {
@@ -1330,23 +1331,23 @@ const Map = ({
                         }
                         continue;
                     }
-                    if (filterField === 'servicearea') {
+                    // if (filterField === 'servicearea') {
                       
-                      let filterValue = filters;
-                        if(filterValue[filters.length - 1] == ' ') {
-                          filterValue = filters.substring(0,filters.length - 1);
-                        }
-                        allFilters.push(['==', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[9] : filterField)], filterValue]);
-                        continue;
-                    }
-                    if(filterField === 'county' ){
-                      let filterValue = filters.replace('County','');
-                        if(filterValue[filterValue.length - 1] == ' ') {
-                          filterValue = filterValue.substring(0,filterValue.length - 1);
-                        }
-                        allFilters.push(['==', ['get', filterField], filterValue]);
-                        continue;
-                    }
+                    //   let filterValue = filters;
+                    //     if(filterValue[filters.length - 1] == ' ') {
+                    //       filterValue = filters.substring(0,filters.length - 1);
+                    //     }
+                    //     allFilters.push(['==', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[9] : filterField)], filterValue]);
+                    //     continue;
+                    // }
+                    // if(filterField === 'county' ){
+                    //   let filterValue = filters.replace('County','');
+                    //     if(filterValue[filterValue.length - 1] == ' ') {
+                    //       filterValue = filterValue.substring(0,filterValue.length - 1);
+                    //     }
+                    //     allFilters.push(['==', ['get', filterField], filterValue]);
+                    //     continue;
+                    // }
                     if (filterField === 'completedyear') {
                         continue;
                     }
@@ -1387,7 +1388,8 @@ const Map = ({
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
-            console.log('all Filters', JSON.stringify(allFilters));
+            // console.log('all Filters IN APPLY', JSON.stringify(allFilters));
+            // console.log(key, problemClusterGeojson, key == PROBLEMS_TRIGGER && problemClusterGeojson);
             if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
               addGeojsonSource(map, problemClusterGeojson, allFilters);
             }
@@ -1395,7 +1397,7 @@ const Map = ({
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
-    };
+    }, [problemClusterGeojson]);;
 
     const showHighlighted = (key: string, cartodb_id: string) => {
         const styles = { ...tileStyles as any }

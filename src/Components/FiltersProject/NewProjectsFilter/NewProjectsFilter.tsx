@@ -84,7 +84,7 @@ export const NewProjectsFilter = () => {
         .forEach((key: string) => {
             if (paramProjects[key]) {
                 paramProjects[key].sort((a: any, b: any) => {
-                    return a.value.localeCompare(b.value)
+                    return a?.value?.localeCompare(b?.value)
                 });
             }
         });

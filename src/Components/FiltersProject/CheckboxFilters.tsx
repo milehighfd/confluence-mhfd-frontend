@@ -16,9 +16,6 @@ export const CheckBoxFilters = ({
 }: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
 
-  useEffect(() => {
-    console.log('selected data ', selectedData);
-  }, [selectedData]);
 
   useEffect(() => {
     if (selected && selected.length) {
@@ -47,9 +44,6 @@ export const CheckBoxFilters = ({
   const showLabel = (label: string) => {
     return (labels && labels[label]) ? labels[label] : (label ? label : '');
   }
-  useEffect(() => {
-    console.log('check ', data);
-  }, [data]);
   return (
     <>
       {
@@ -74,7 +68,6 @@ export const CheckBoxFilters = ({
           return {label: showLabel(element.value), value: element.value ? element.value : ''};
         }) : []}
         onChange={(e) => {
-        console.log(e);
         setSelectedData(e.map(lol => `${lol}`));
       }} />
     </>

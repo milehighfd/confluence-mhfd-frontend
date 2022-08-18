@@ -1,12 +1,22 @@
 import * as mapboxgl from 'mapbox-gl';
 
 export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
-  const mag1 =  ['==', ['get', 'problem_type'], 'Watershed Change'];
-  const mag2 = ['==', ['get', 'problem_type'], 'Stream Function'];
-  const mag3 =  ['==', ['get', 'problem_type'], 'Flood Hazard'];
-  // ['all', ['==', ['get', 'problem_type'], 'Flood Hazard'], ['==', ['get','status'], 'Active']]
-  
-  console.log('GEOJSON', geojson, allFilters);
+  let mag1 =  ['==', ['get', 'problem_type'], 'Watershed Change'];
+  let mag2 = ['==', ['get', 'problem_type'], 'Stream Function'];
+  let mag3 =  ['==', ['get', 'problem_type'], 'Flood Hazard'];
+  if (allFilters) {
+    mag1 = [...allFilters, mag1];
+    mag2 = [...allFilters, mag2];
+    mag3 = [...allFilters, mag3];
+  }
+  // console.log('allFilters', allFilters, mag1, mag2, mag3); 
+
+//   const elements = document.getElementsByClassName('svgclass');
+//   for (let i = 0; i < elements.length; i++) {
+//     if (elements[i]) {
+//       elements[i].remove()
+//     }
+//  }
   if(map!.getSource('clusterproblem')) {
     if (map.getLayer('clusterproblem')) {
       map.removeLayer('clusterproblem');
@@ -16,7 +26,7 @@ export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
     }
     map.removeSource('clusterproblem');
   }
-  
+  setTimeout(() => {
   map!.addSource('clusterproblem', {
     type: 'geojson',
     data: geojson,
@@ -83,7 +93,7 @@ export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
     const features = map!.querySourceFeatures('clusterproblem');
     // for every cluster on the screen, create an HTML marker for it (if we didn't yet),
     // and add it to the map if it's not there already
-    console.log('features ', features);
+    // console.log('FEAtures', features);
     for (const feature of features) {
       const coords = (feature.geometry as any).coordinates;
       const props = feature.properties;
@@ -126,7 +136,7 @@ export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
     const r0 = Math.round(r * 0.6);
     const w = r * 2;
 
-    let html = `<div>
+    let html = `<div class='svgclass'>
     <svg width="${w}" height="${w}" viewbox="0 0 ${w} ${w}" text-anchor="middle" style="font: ${fontSize}px sans-serif; display: block">`;
 
     for (let i = 0; i < counts.length; i++) {
@@ -169,7 +179,19 @@ export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
 
   // after the GeoJSON data is loaded, update markers on the screen on every frame
   map!.on('render', () => {
-    if (!map!.isSourceLoaded('clusterproblem')) return;
+    if(!map.getSource('clusterproblem')){
+      for (const id in markersOnScreen) {
+        markersOnScreen[id].remove();
+      }
+       return;
+    }
+    if (!map!.isSourceLoaded('clusterproblem')) {
+      for (const id in markersOnScreen) {
+        markersOnScreen[id].remove();
+      }
+      return;
+    }
     updateMarkers();
   });
+}, 200);
 }

@@ -19,9 +19,6 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
   //   console.log(selectedData);
   // }, [selectedData]);
 
-  useEffect(() => {
-    console.log('this is the data', data);
-  }, [data]);
   // useEffect(() => {
   //   if (selected && selected.length) {
   //     let temporal = selected
