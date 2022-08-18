@@ -376,6 +376,9 @@
   padding: 20px;
   background-color: #fff;
 }
+.ant-carousel .slick-dots li {
+  width: 24px;
+}
 .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
   border-radius: 20px;
 }
