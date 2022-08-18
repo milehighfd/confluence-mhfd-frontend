@@ -44,7 +44,7 @@ import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectV
 import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
-import { addGeojsonSource } from './MapFunctions';
+import { addGeojsonSource, removeGeojsonCluster } from './MapFunctions';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -97,6 +97,7 @@ let isMeasuring = false;
       }
     };
 let canAdd = false;
+let isProblemActive = true;
 
 let commentAvailable = false;
 let listOfElements = [{
@@ -1059,8 +1060,7 @@ const Map = ({
     }
     const applyProblemClusterLayer = () => {
       datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
-        addGeojsonSource(map, geoj.geom);
-        console.log('SETTING GEOJ', geoj.geom);
+        addGeojsonSource(map, geoj.geom, isProblemActive);
         setProblemClusterGeojson(geoj.geom);
       });
     }
@@ -1391,7 +1391,8 @@ const Map = ({
             // console.log('all Filters IN APPLY', JSON.stringify(allFilters));
             // console.log(key, problemClusterGeojson, key == PROBLEMS_TRIGGER && problemClusterGeojson);
             if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
-              addGeojsonSource(map, problemClusterGeojson, allFilters);
+              console.log('FROM WHERE 3');
+              addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             }
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
@@ -1545,6 +1546,10 @@ const Map = ({
                 if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
                     showSelectedComponents(filterComponents.component_type.split(','));
                 }
+                if (key === PROBLEMS_TRIGGER) {
+                  isProblemActive = true;
+                  addGeojsonSource(map, problemClusterGeojson, isProblemActive);
+                }
             }
         });
         if (key === STREAMS_FILTERS) {
@@ -1569,6 +1574,10 @@ const Map = ({
               map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
             }
           })
+        }
+        if (key === PROBLEMS_TRIGGER) {
+          isProblemActive = false;
+          removeGeojsonCluster(map);
         }
     };
 

@@ -1,6 +1,7 @@
 import * as mapboxgl from 'mapbox-gl';
 
-export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
+export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolean, allFilters?: any) => {
+  if ( !isProblemActive ) return;
   let mag1 =  ['==', ['get', 'problem_type'], 'Watershed Change'];
   let mag2 = ['==', ['get', 'problem_type'], 'Stream Function'];
   let mag3 =  ['==', ['get', 'problem_type'], 'Flood Hazard'];
@@ -17,15 +18,7 @@ export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
 //       elements[i].remove()
 //     }
 //  }
-  if(map!.getSource('clusterproblem')) {
-    if (map.getLayer('clusterproblem')) {
-      map.removeLayer('clusterproblem');
-    }
-    if (map.getLayer('clusterproblem_label')) {
-      map.removeLayer('clusterproblem_label');
-    }
-    map.removeSource('clusterproblem');
-  }
+  removeGeojsonCluster(map);
   setTimeout(() => {
   map!.addSource('clusterproblem', {
     type: 'geojson',
@@ -194,4 +187,16 @@ export const addGeojsonSource = (map: any, geojson: any, allFilters?: any) => {
     updateMarkers();
   });
 }, 200);
+}
+
+export const removeGeojsonCluster = (map: any) => {
+  if(map!.getSource('clusterproblem')) {
+    if (map.getLayer('clusterproblem')) {
+      map.removeLayer('clusterproblem');
+    }
+    if (map.getLayer('clusterproblem_label')) {
+      map.removeLayer('clusterproblem_label');
+    }
+    map.removeSource('clusterproblem');
+  }
 }
