@@ -417,6 +417,14 @@
   display: flex !important;
   padding-left: 60px !important;
   padding-bottom: 80px !important;
+  margin-bottom: 90px;
+  margin-left: 0;
+  padding-bottom: 8px!important;
+  padding-left: 58px;
+  position: absolute;
+  text-align: left;
+  text-align: initial;
+  width: 20%;
 }
 .ant-carousel .slick-slide .textContent {
   text-align: left;
@@ -774,6 +782,9 @@
   }
   .ant-carousel .slick-list {
     height: 96vh;
+  }
+  .ant-carousel .slick-dots {
+    padding-bottom: 18px!important;
   }
 }
 
