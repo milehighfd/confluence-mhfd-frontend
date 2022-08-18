@@ -3198,6 +3198,20 @@ const Map = ({
         </div>
 
         <div className="map">
+          <div className="legendProblemTypemap">
+                <div className="legendprob">
+                  <div className="iconwatershed" />
+                  Watershed Change
+                </div>
+                <div className="legendprob">
+                  <div className="iconstreamfunction" />
+                  Stream Function
+                </div>
+                <div className="legendprob">
+                  <div className="iconfloodhazard" />
+                  Flood Hazard
+                </div>
+           </div>
           <span className="zoomvaluemap"><b>Nearmap: May 27, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
             {visible && <DetailedModal
                 detailed={detailed}

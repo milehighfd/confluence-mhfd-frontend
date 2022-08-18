@@ -2035,6 +2035,50 @@ hr.filters-line {
 }
 
 
+.legendProblemTypemap {
+  z-index: 100;
+  position:absolute;
+  bottom: 54px;
+  right: 21px;
+  width: 180px;
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #e3e5e5;
+  font-size: 14px;
+  font-family: "Futura", sans-serif;
+  font-weight: 'bold';
+  align-items: center;
+  text-align: left;
+  padding-left: 16px;
+    padding-top: 13px;
+  .iconwatershed {
+    width: 22px;
+    height: 22px;
+    content: url("../../Icons/watershed.svg");
+    margin-right: 6px;
+  }
+  .iconstreamfunction {
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
+    content: url("../../Icons/streamFunction.svg");
+  }
+  .iconfloodhazard {
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
+    content: url("../../Icons/floodHazard.svg");
+  }
+  .legendprob {
+    z-index: 102;
+    display: inline-flex;
+    height: 32px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+  }
+}
+
+
 .img-measure-00{
   -webkit-mask: url('../../Icons/fi_play-circle.svg') no-repeat center;
   height: 18px;
