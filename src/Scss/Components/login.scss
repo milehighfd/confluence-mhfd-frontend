@@ -632,8 +632,10 @@
     }
     .slick-dots-bottom {
       bottom: inherit;
-      top: 220px;
+      top: 244px;
       left: -35px;
+      z-index: 1000;
+      width: 210px !important;
     }
     .btn-purple {
       height: 50px;
