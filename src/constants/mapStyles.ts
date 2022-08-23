@@ -4535,8 +4535,8 @@ export const tileStyles = {
         "interpolate",
         ["linear"],
         ["zoom"],
-        11.2, 0,
-        11.22, 0.85,
+        11.2, 0.7,
+        11.22, 0.89,
       ]
     }
   }],

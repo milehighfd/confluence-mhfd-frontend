@@ -863,7 +863,7 @@ const Map = ({
                     applyMapLayers();
                     setSpinMapLoaded(false);
                     applyNearMapLayer();
-                    applyProblemClusterLayer();
+                    // applyProblemClusterLayer();
                     applyMeasuresLayer();
                 }
             };
@@ -3198,7 +3198,7 @@ const Map = ({
         </div>
 
         <div className="map">
-          {
+          {/* {
             isProblemActive === true && zoomValue<11.22 ? <div className="legendProblemTypemap"><div className="legendprob">
             <div className="iconwatershed" />
             Watershed Change
@@ -3212,7 +3212,7 @@ const Map = ({
             Flood Hazard
           </div>
           </div> : ''
-          }
+          } */}
           
           <span className="zoomvaluemap"><b>Nearmap: May 27, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
             {visible && <DetailedModal
