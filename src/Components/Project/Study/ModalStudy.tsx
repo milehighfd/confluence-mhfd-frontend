@@ -74,6 +74,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
+  const pageWidth  = document.documentElement.scrollWidth;
+
   useEffect(() => {
     setServiceAreaCounty({});
     setStreamsList([]);
@@ -120,11 +122,11 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       const myset = new Set(keys);
       Object.keys(listStreams).map((key: any, id: any) => {
         if (!streamsList[key]) {
-          myset.add(`${id}${key}`);
+          myset.add(`${key}`);
         } else if (streamsList[key].length != listStreams[key].length) {
-          myset.add(`${id}${key}`);
+          myset.add(`${key}`);
         }
-        idKey.push(`${id}${key}`);
+        idKey.push(`${key}`);
       })
       setKeys(Array.from(myset));
       setThisStreamsList(listStreams);
@@ -356,7 +358,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width="1100px"
+        width={pageWidth >3000 ? "2000px" : "1100px"}
       >
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 10 }}>
@@ -421,10 +423,10 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
                 <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
               </Row>
-              {keys != 0 && keys.length &&
-                <div key={'' + keys.length + Math.random()}>
+              {keys !== 0 && keys.length &&
+                <div key={'code'}>
                   <Collapse
-                    key={'' + new Date()}
+                    key={'collapse'}
                     defaultActiveKey={keys}
                     activeKey={keys}
                     destroyInactivePanel={false}
@@ -435,8 +437,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                       streamsList && Object.keys(streamsList).map((key: any, id: any) => {
                         return (
 
-                          <Panel header="" key={`${id}${key}`} extra={key == 'Unnamed Streams' ? genTitleUnnamed(key, streamsList[key], setHighlightedStreams) : genTitle(key, streamsList[key], setHighlightedStream)}>
-                            <div key={`${key}~${id}`} className="tab-body-project">
+                          <Panel header="" key={`${key}`} extra={key == 'Unnamed Streams' ? genTitleUnnamed(key, streamsList[key], setHighlightedStreams) : genTitle(key, streamsList[key], setHighlightedStream)}>
+                            <div key={`${key}`} className="tab-body-project">
                               <Timeline>
                                 {
                                   streamsList[key] && streamsList[key].map((stream: any) => {

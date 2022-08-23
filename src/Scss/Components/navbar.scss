@@ -499,3 +499,10 @@
     }
   }
 }
+@media (min-width: 3000px) and (max-width: 3999px){
+  .header{
+    .ant-menu-dark.ant-menu-horizontal {
+      width: 9vw;
+    }
+  }
+}

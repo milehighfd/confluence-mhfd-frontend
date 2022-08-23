@@ -227,14 +227,21 @@
     font-size: 40px;
   }
   .contact01{
-    margin: 0px 0 100px 100px;
+    margin: 0px 0 100px 126px;
     img{
       height: 30px !important
     }
   }
+  .contact02 {
+    top: 190px;
+    right: 450px;
+    .text-button {
+      font-size: 25px;
+    }
+  }
   .ant-carousel .slick-dots {
     padding-left: 100px !important;
-    padding-bottom: 270px !important;
+    padding-bottom: 128px !important;
   }
   .ant-carousel .slick-slide h2 {
     font-size: 72px;
@@ -260,7 +267,10 @@
   .logo-white {
     width: 287px;
     height: 100px;
-    margin: 50px 0 0 100px;
+    margin: 100px 0 0 100px;
+  }
+  .ant-carousel .slick-dots li {
+    width: 90px;
   }
   .login-form {
     width: 880px !important;
@@ -453,6 +463,7 @@
   .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-submenu > .ant-menu-submenu-title .anticon,
   .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
       width: 36px ;
+      height: 30px;
   }
   .ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
   .ant-menu-dark.ant-menu-vertical-left .ant-menu-item, .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
@@ -502,6 +513,10 @@
         height: 34px;
         width: 28px;
       }
+      button .img-icon-01 {
+        height: 34px;
+        width: 28px;
+      }
       .ant-btn:hover > .img-icon {
         height: 34px;
         width: 28px;
@@ -515,7 +530,7 @@
   }
   .map-00 {
     .mapboxgl-ctrl-group {
-      width: 50px;
+      width: 50px !important;
       bottom: 50px;
     }
     .mapboxgl-ctrl-scale {
@@ -614,10 +629,13 @@
     height: 80px;
   }
   // TABS
+  .ant-modal .new-project {
+    width: 1500px !important;
+  }
   .tabs-map{
     .ant-tabs-nav .ant-tabs-tab {
       padding: 15px 0px 15px 0px !important;
-      margin: 0 20px 0 0;
+      margin: 0 70px 0 0;
       font-size: 28px;
     }
   }
@@ -661,8 +679,8 @@
        padding: 12px 15px;
     }
     .ant-input-affix-wrapper {
-      width: 350px !important;
-      height: 70px;
+      width: 582px !important;
+      height: 45px;
     }
     .ant-input-affix-wrapper .ant-input-suffix {
       right: 20px;
@@ -739,6 +757,12 @@
   .count {
     padding: 35px !important;
   }
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    right: 0;
+    height: 100vh;
+    margin-top: -58px;
+    width: 720px !important;
+  }
   // DETILED
   .detailed-h{
     padding: 20px 30px !important;
@@ -751,10 +775,10 @@
       margin-bottom: 0px !important;
     }
     .btn-opacity, .btn-opacity:hover {
-      height: 55px !important;
+      height: 76px !important;
       font-size: 28px !important;
       width: 250px !important;
-      padding: 6px 0px !important;
+      padding: 18px 0px !important;
     }
     .btn-transparent img{
       height: 30px;
@@ -779,7 +803,7 @@
   }
   .detailed-b {
     .ant-carousel {
-      height: 700px !important;
+      height: 450px !important;
     }
     .ant-carousel .slick-slide {
       height: 700px !important;

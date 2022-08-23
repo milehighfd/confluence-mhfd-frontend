@@ -71,6 +71,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
+  const pageWidth  = document.documentElement.scrollWidth;
+
 
   useEffect(() => {
     if (save === true) {
@@ -281,7 +283,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width="1100px"
+        width={pageWidth >3000 ? "2000px" : "1100px"}
       >
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 10 }}>

@@ -1790,3 +1790,35 @@
     }
   }
 }
+@media (min-width: 3000px) and (max-width: 3999px){
+  .work-table{
+    h3 {
+    font-size: 21px !important;
+    width: 400px !important;
+    }
+  }
+  .work-table .col-wr {
+    width: 400px !important;
+  }
+  .work-table .card-wr {
+    width: 100%;
+    height: 120px;
+  }
+  .work-table .col-wr {
+      min-width: 400px !important;
+      width: 285px !important;
+      height: calc(100vh - 360px) !important;
+      margin-right: 15px !important;
+      padding: 20px 10px 20px 10px;
+      margin-top: 10px !important;
+  }
+  .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list, .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
+    margin-left: 26px;
+  }
+  .work .map .mapboxgl-ctrl-group {
+    width: 50px !important;
+  }
+  .work .map .mapboxgl-ctrl-scale {
+    left: 80px;
+  }
+}

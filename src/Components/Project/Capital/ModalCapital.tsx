@@ -141,6 +141,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
+
+  const pageWidth  = document.documentElement.scrollWidth;
+
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -615,7 +618,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
-       width="1100px"
+       width={pageWidth >3000 ? "2000px" : "1100px"}
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>
