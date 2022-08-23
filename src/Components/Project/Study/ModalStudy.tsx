@@ -74,6 +74,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
+  const pageWidth  = document.documentElement.scrollWidth;
+
   useEffect(() => {
     setServiceAreaCounty({});
     setStreamsList([]);
@@ -356,7 +358,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width="1100px"
+        width={pageWidth >3000 ? "2000px" : "1100px"}
       >
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 10 }}>

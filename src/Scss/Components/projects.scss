@@ -1156,3 +1156,9 @@
 .ant-select-arrow {
   align-items: right;
 }
+
+@media (min-width: 2500px) and (max-width: 2999px){
+  .ant-modal .new-project {
+    width: 1500px !important;
+  }
+}

@@ -71,6 +71,8 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
+  const pageWidth  = document.documentElement.scrollWidth;
+
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
@@ -315,7 +317,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         onOk={handleOk}
         onCancel={handleCancel}
         className="projects"
-        width="1100px"
+        width={pageWidth >3000 ? "2000px" : "1100px"}
       >
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 10 }}>

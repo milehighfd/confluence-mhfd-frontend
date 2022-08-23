@@ -47,6 +47,8 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   const [allowed, setAllowed] = useState<string[]>([]);
   const {getAttachmentByProject} = useAttachmentDispatch();
   
+  const pageWidth  = document.documentElement.scrollWidth;
+
   const handleOk = (e: any) => {  
     let dataForBoard = {...currentData};
     dataForBoard.projecttype = typeProject;
@@ -247,7 +249,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
        onOk={handleOk}
        onCancel={handleCancel}
        className="new-project"
-       width="800px"
+       width={pageWidth > 3000 ? "1100px":"800px"}
        footer={[
          <Button key="back" className="btn-borde" onClick={handleCancel}>
            Cancel

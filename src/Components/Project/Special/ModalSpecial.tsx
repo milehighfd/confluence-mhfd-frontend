@@ -52,6 +52,8 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
   const { toggleAttachmentCover} = useAttachmentDispatch();
+  const pageWidth  = document.documentElement.scrollWidth;
+
   const parseStringToArray = (list:string) => {
     if( list ){
       return list.split(',');
@@ -218,7 +220,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
        onOk={handleOk}
        onCancel={handleCancel}
        className="projects"
-       width="1100px"
+       width={pageWidth >3000 ? "2000px" : "1100px"}
      >
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 10 }}>

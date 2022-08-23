@@ -843,3 +843,34 @@
     border-radius: 0px !important;
   }
 }
+@media (min-width: 3000px) and (max-width: 3999px){
+  .text-logo {
+    width: 400px;
+    font-size: 20px;
+    top: 117px !important;
+  }
+  .text-logo02 {
+    width: 400px;
+    font-size: 18px;
+    top: 100px !important;
+  }
+  .logo-partner{
+    bottom: 50px;
+    right: 50px;
+
+    p{
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    .vizonomy{
+      width: 180px;
+      margin-left: -16px;
+    }
+    .respec{
+      height: 90px;
+    }
+  }
+  .ant-carousel .slick-list {
+    height: 98vh;
+  }
+}
