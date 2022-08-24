@@ -1349,7 +1349,7 @@
   }
 }
 // 2560x1440 DISPLAY
-@media (min-width: 2500px) and (max-width: 2999px){
+@media (min-width: 2500px) and (max-width: 3999px){
   // .hide-when-1 {
   //   display: inline-block !important;
   // }
@@ -1801,8 +1801,8 @@
     width: 400px !important;
   }
   .work-table .card-wr {
-    width: 100%;
-    height: 120px;
+    width: 100% !important;
+    height: 160px !important;
   }
   .work-table .col-wr {
       min-width: 400px !important;
@@ -1813,12 +1813,12 @@
       margin-top: 10px !important;
   }
   .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list, .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
-    margin-left: 26px;
+    margin-left: 26px !important;
   }
   .work .map .mapboxgl-ctrl-group {
     width: 50px !important;
   }
   .work .map .mapboxgl-ctrl-scale {
-    left: 80px;
+    left: 80px !important;
   }
 }
