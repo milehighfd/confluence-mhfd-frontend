@@ -16,6 +16,10 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
       return "Service Area"
     }
   }
+  const localityName = (name: string) => {
+    return name.includes('County') || name.includes('county') || name.includes('Service Area') 
+      ? name : name + ' County';
+  }
   const content00 = (
     <div className="popver-info">
       Breakdown of project budget requests by {type === 'WORK_REQUEST' ? `${getLabel()} within each` : ''} Jurisdiction, where applicable.
@@ -25,7 +29,7 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
     <div className="tab-body-line">
       <div>
         <label>
-          {countySum.locality + ' County'}
+          {localityName(countySum.locality)}
           <Popover content={content00}>
             <img src="/Icons/icon-19.svg" alt="" height="10px" style={{ marginLeft: '4px' }} />
           </Popover>
