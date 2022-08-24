@@ -75,7 +75,7 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
         'format',
         ['get', 'problem_type']
       ],
-      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+      'text-font': ["Ubuntu", 'Ubuntu'],
       'text-size': 10
     },
     'paint': {
@@ -148,7 +148,7 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
       );
     }
     html += `<circle cx="${r}" cy="${r}" r="${r0}" fill="white" />
-    <text dominant-baseline="central" transform="translate(${r}, ${r})">
+    <text dominant-baseline="central" transform="translate(${r}, ${r})" font-family="Ubuntu", sans-serif>
     ${total.toLocaleString()}
     </text>
     </svg>
