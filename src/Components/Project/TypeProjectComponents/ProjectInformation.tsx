@@ -18,6 +18,24 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
   useEffect(() => {
     if(reason === ''){
       setreasonForm(undefined)
+    } else {
+      setreasonForm(reason);
+    }
+    if(subReason === ''){
+      setSubReasonForm(undefined)
+    } else {
+      setSubReasonForm(subReason);
+    }
+    if(reason !== STUDY_REASON[0] || reason !== STUDY_REASON[1] || reason !== STUDY_REASON[2] || reason === undefined){
+      setOtherReason(reason);
+    } else{
+      setOtherReason(undefined);
+    }
+  }, [reason, subReason]);
+  useEffect(() => {
+    console.log(reason, subReason);
+    if(reason === ''){
+      setreasonForm(undefined)
     }
     if(subReason === ''){
       setSubReasonForm(undefined)

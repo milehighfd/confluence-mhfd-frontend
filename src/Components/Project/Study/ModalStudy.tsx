@@ -116,6 +116,10 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setIsDraw(isDraw);
     }
   }, [isDraw]);
+
+  useEffect(() => {
+    console.log(' par ', studyreason, 'par 2' , studysubReason);
+  }, [studyreason, studysubReason]);
   useEffect(() => {
     if (listStreams) {
       const idKey: any = [];
@@ -153,8 +157,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
       setSponsor(data.sponsor);
-      setSponsor(data.studyreason);
-      setSponsor(data.sutdysubreason);
+      setStudyReason(data.studyreason);
+      setStudySubReason(data.studysubreason);
     }
   }, [data]);
   useEffect(() => {
