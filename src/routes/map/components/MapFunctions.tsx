@@ -75,7 +75,7 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
         'format',
         ['get', 'problem_type']
       ],
-      'text-font': ["Ubuntu", 'Ubuntu'],
+      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       'text-size': 10
     },
     'paint': {
