@@ -1098,14 +1098,14 @@ const Map = ({
             topStreams()
             topEffectiveReaches();
             topProjects();
-            if (map.getLayer('borderMASK')) {
-              map.moveLayer('borderMASK');
-            }
             topHovereableLayers();
             topStreamLabels();
             topLabels();
             topServiceArea();
             topComponents();
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('borderMASK');
+            }
             if (map.getLayer('area_based_maskMASK')) {
               map.moveLayer('area_based_maskMASK');
             }

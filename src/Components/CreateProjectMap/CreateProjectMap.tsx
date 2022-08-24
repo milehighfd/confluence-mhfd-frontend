@@ -803,7 +803,6 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('measuresSaved-border');
         map.map.moveLayer('area_based_mask');
         setTimeout(() => {
-          console.log('ADIOSSSS', map.map.getStyle().layers);
           map.map.moveLayer('area_based_maskMASK');
           map.map.moveLayer('borderMASK');
         }, 300);
