@@ -4501,7 +4501,8 @@ export const tileStyles = {
       "line-width": 2
     }
   }], 
-  [PROBLEMS_TRIGGER]: [{
+  [PROBLEMS_TRIGGER]: [
+    {
     type: 'line',
     'source-layer': 'pluto15v1',
     "layout": {
@@ -4512,17 +4513,22 @@ export const tileStyles = {
     },
     "paint": {
       "line-color": [
-          "step",
-          ["zoom"],
-          "hsla(0, 99%, 49%, 0.65)",
-          7,
-          "hsla(0, 99%, 49%,0.72)",
-          11,
-          "hsla(0, 99%, 49%,0.85)",
-          13,
-          "hsla(0, 99%, 49%,0.95)",
-          22,
-          "hsla(0, 99%, 49%, 0.39)"
+        "match",
+        ["get", "problem_type"],
+        ["Watershed Change"],
+        "hsla(335, 75%, 46%,1)",
+        "hsla(0, 0%, 0%, 0)",
+          // "step",
+          // ["zoom"],
+          // "hsla(0, 99%, 49%, 0.65)",
+          // 7,
+          // "hsla(0, 99%, 49%,0.72)",
+          // 11,
+          // "hsla(0, 99%, 49%,0.85)",
+          // 13,
+          // "hsla(0, 99%, 49%,0.95)",
+          // 22,
+          // "hsla(0, 99%, 49%, 0.39)"
       ],
       "line-width": [
           "interpolate",
@@ -4539,7 +4545,96 @@ export const tileStyles = {
         11.22, 0.89,
       ]
     }
-  }],
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "line-round-limit": 1,
+      "line-cap": "round",
+      "line-miter-limit": 0,
+      "line-join": "round"
+    },
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "problem_type"],
+        ["Stream Function"],
+        "hsla(8, 100%, 42%, 1)",
+        "hsla(0, 0%, 0%, 0)",
+          // "step",
+          // ["zoom"],
+          // "hsla(0, 99%, 49%, 0.65)",
+          // 7,
+          // "hsla(0, 99%, 49%,0.72)",
+          // 11,
+          // "hsla(0, 99%, 49%,0.85)",
+          // 13,
+          // "hsla(0, 99%, 49%,0.95)",
+          // 22,
+          // "hsla(0, 99%, 49%, 0.39)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9, 10,
+          16, 22,
+        ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10.2, 0.0,
+        11.22, 0.89,
+      ]
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "line-round-limit": 1,
+      "line-cap": "round",
+      "line-miter-limit": 0,
+      "line-join": "round"
+    },
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "problem_type"],
+        ["Flood Hazard"],
+        "hsla(351, 64%, 36%,1)",
+        "hsla(0, 0%, 0%, 0)",
+          // "step",
+          // ["zoom"],
+          // "hsla(0, 99%, 49%, 0.65)",
+          // 7,
+          // "hsla(0, 99%, 49%,0.72)",
+          // 11,
+          // "hsla(0, 99%, 49%,0.85)",
+          // 13,
+          // "hsla(0, 99%, 49%,0.95)",
+          // 22,
+          // "hsla(0, 99%, 49%, 0.39)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9, 10,
+          16, 22,
+        ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10.2, 0.0,
+        11.22, 0.89,
+      ]
+    }
+  }
+],
   [FLOOD_HAZARD_POLYGON]: [ {
     type: 'fill',
     'source-layer': 'pluto15v1',

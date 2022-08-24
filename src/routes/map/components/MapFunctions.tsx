@@ -37,7 +37,8 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
     }
   });
 
-  const colors = ['#fee0d2', '#fc9272', '#de2d26', '#00ff00'];
+  //const colors = ['#fee0d2', '#fc9272', '#de2d26', '#00ff00'];
+  const colors = ['#CF1D66', '#D61E00', '#972133', '#00ff00'];
   map!.addLayer({
     id: 'clusterproblem',
     'type': 'circle',
