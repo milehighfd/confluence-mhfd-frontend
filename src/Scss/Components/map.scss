@@ -1989,6 +1989,32 @@ hr.filters-line {
     width: 60px;
     height: 60px;
   }
+  .map .m-head .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    background-color: transparent!important;
+    border: 0;
+    color: #404040;
+    height: 90px;
+    margin-right: -30px;
+    margin-top: -97px !important;
+    padding: 3.5px;
+    padding-top: 0px !important;
+    width: 59px;
+    z-index: 100;
+  }
+  .map .m-head .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
+    float: left;
+    margin-top: -46px !important;
+  }
+  .map .m-head .ant-select-auto-complete {
+    width: 300px !important;
+    height: 60px !important;
+  }
+  .map .mapboxgl-ctrl-group {
+    width: 50px!important;
+  }
+  .projects .map .mapboxgl-ctrl-scale {
+    left: 79px;
+  }
 }
 
 .filter-title {
