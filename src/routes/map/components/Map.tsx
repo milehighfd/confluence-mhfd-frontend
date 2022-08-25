@@ -46,6 +46,7 @@ import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
+import { flytoBoundsCoor, getTitleOfStreamImprovements, getTitleOfProblemsPart } from './MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -1928,45 +1929,6 @@ const Map = ({
                       });
                     }
                 }
-    }
-    const getTitleOfStreamImprovements = (properties: any) => {
-      let title = '';
-      if (properties.component_part_category) {
-        title = properties.component_part_category ;
-      } 
-      if ( properties.component_part_subcategory) {
-        title += (properties.component_part_category ? ' - ' : '') + properties.component_part_subcategory;
-      }
-      return title;
-    }
-    const getTitleOfProblemsPart = (feature: any) => {
-      let title = '';
-      if (feature.source.includes('hazard_polygon')) {
-        title = 'Flood Hazard Polygon' ;
-      } 
-      if ( feature.source.includes('hazard_line')) {
-        title = 'Flood Hazard Line' ;
-      }
-      if ( feature.source.includes('hazard_point')) {
-        title = 'Flood Hazard Point' ;
-      }
-      if ( feature.source.includes('function_line')) {
-        title = 'Stream Function Line' ;
-      }
-      if ( feature.source.includes('function_polygon')) {
-        title = 'Stream Function Polygon' ;
-      }
-      if ( feature.source.includes('function_point')) {
-        title = 'Stream Function Point' ;
-      }
-      if ( feature.source.includes('development_polygon')) {
-        title = 'Watershed Change Polygon' ;
-      }
-      if ( feature.source.includes('development_line')) {
-        title = 'Watershed Change Line' ;
-      }
-
-      return title;
     }
     useEffect(() => {
 
