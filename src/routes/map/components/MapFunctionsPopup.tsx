@@ -112,3 +112,52 @@ export const addPopupAndListeners = (
       }
   }
 }
+export const addPopupServiceCountyMunicipality = (
+  menuOptions: any,
+  popups: any,
+  userInformation: any,
+  titleObject: any,
+  setMobilePopups: any,
+  setSelectedPopup: any,
+  mobile: any,
+  searchPopup: any,
+  map: any,
+  showPopup: any,
+  seeDetails: any,
+  createProject: any,
+  ids: any,
+  coord: any, 
+  searchMarker: any,
+  setKeyword: any, 
+  setMarkerGeocoder: any
+) => {
+  const html = loadMenuPopupWithData(menuOptions, popups, titleObject, userInformation);
+  setMobilePopups(mobile);
+  setSelectedPopup(0);
+  if (html) {
+    searchPopup.remove();
+    searchPopup = new mapboxgl.Popup({closeButton: true,});
+    searchPopup.setLngLat(coord)
+        .setDOMContent(html)
+        .addTo(map);
+    for (const index in popups) {
+        document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+        document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+        document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+        document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
+    }
+    let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
+    closebuttons.forEach((element:any) => {
+        element.addEventListener('click', () => {
+          searchMarker.remove();
+          setKeyword('');
+          setMarkerGeocoder(undefined);
+        })
+    });
+
+    searchMarker.setPopup(searchPopup);
+    searchMarker.addTo(map);
+    searchMarker.togglePopup();
+    setMarkerGeocoder(searchMarker);
+  }
+}

@@ -3,7 +3,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import { measureFunction, addPopupAndListeners } from './MapFunctionsPopup';
+import { measureFunction, addPopupAndListeners, addPopupServiceCountyMunicipality } from './MapFunctionsPopup';
 
 import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button } from 'antd';
@@ -3011,35 +3011,25 @@ const Map = ({
             }
           }
           if (popups.length) {
-              const html = loadMenuPopupWithData(menuOptions, popups, titleObject, userInformation);
-              setMobilePopups(mobile);
-              setSelectedPopup(0);
-              if (html) {
-                searchPopup.remove();
-                searchPopup = new mapboxgl.Popup({closeButton: true,});
-                searchPopup.setLngLat(coord)
-                    .setDOMContent(html)
-                    .addTo(map);
-                for (const index in popups) {
-                    document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-                    document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-                    document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-                    document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
-                }
-                let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
-                closebuttons.forEach((element:any) => {
-                    element.addEventListener('click', () => {
-                      searchMarker.remove();
-                      setKeyword('');
-                      setMarkerGeocoder(undefined);
-                    })
-                });
-
-                searchMarker.setPopup(searchPopup);
-                searchMarker.addTo(map);
-                searchMarker.togglePopup();
-                setMarkerGeocoder(searchMarker);
-              }
+            addPopupServiceCountyMunicipality(
+              menuOptions,
+              popups,
+              userInformation,
+              titleObject,
+              setMobilePopups,
+              setSelectedPopup,
+              mobile,
+              searchPopup,
+              map,
+              showPopup,
+              seeDetails,
+              createProject,
+              ids,
+              coord, 
+              searchMarker,
+              setKeyword, 
+              setMarkerGeocoder
+            );
           }
         } )
        
