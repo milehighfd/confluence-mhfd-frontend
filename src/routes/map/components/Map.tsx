@@ -3,7 +3,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import { measureFunction, addPopupAndListeners, addPopupServiceCountyMunicipality } from './MapFunctionsPopup';
+import { measureFunction, addPopupAndListeners, addPopupServiceCountyMunicipality, addPopupsOnClick } from './MapFunctionsPopup';
 
 import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button } from 'antd';
@@ -790,7 +790,6 @@ const Map = ({
     }, [zoom]);
 
     useEffect(() => {
-      console.log('qeqeqeqe',userInformation);
       flytoBoundsCoor(getCurrent, 
         userInformation,
         globalMapId,
@@ -1963,8 +1962,21 @@ const Map = ({
               mobileIds.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
               ids.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
             } else {
-
-             
+              addPopupsOnClick(
+                map,
+                bbox, 
+                allLayers,
+                coordX,
+                coordY,
+                e,
+                galleryProjects,
+                mobile,
+                menuOptions,
+                popups,
+                mobileIds,
+                ids,
+                userInformation
+              );
            }
             if (popups.length) { 
                 addPopupAndListeners(
