@@ -3,6 +3,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
+import { measureFunction } from './MapPopupFunctions';
 
 import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button } from 'antd';
@@ -1694,61 +1695,7 @@ const Map = ({
         setIsMeasuring(false);
       }
     }
-    const measureFunction = (e: any) => {
-      const features = map.queryRenderedFeatures(e.point, {
-        layers: ['measure-points']
-        });
-        if ((e.point.x === coordX || e.point.y === coordY)) {
-          return;
-        }
-        coordX = e.point.x;
-        coordY = e.point.y;
-        if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
-        setIsDrawingMeasure(true);
-        if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
-          const id = features[0].properties.id;
-          geojsonMeasures.features = geojsonMeasures.features.filter(
-            (point :any) => point.properties.id !== id
-          );
-          finishMeasure();
-        } else {
-          const point:any = {
-            'type': 'Feature',
-            'geometry': {
-            'type': 'Point',
-            'coordinates': [e.lngLat.lng, e.lngLat.lat]
-            },
-            'properties': {
-            'id': String(new Date().getTime())
-            }
-          };
-          geojsonMeasures.features.push(point);
-        }
-         
-        if (geojsonMeasures.features.length > 1) {
-          linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(
-            (point) => point.geometry.coordinates
-          );
-          geojsonMeasures.features.push(linestringMeasure);
-          const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
-          const distance = turf.length(newLS);
-          setDistanceValue((distance * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}));
-          setDistanceValueMi((distance * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}));
-          if(linestringMeasure.geometry.coordinates.length > 2) {
-            var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(newLS)));
-            const area = turf.area(polygon);
-            setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));
-          } 
-        } else if(geojsonMeasures.features.length == 1){
-          setAreaValue('0');
-          setDistanceValue('0');
-          setDistanceValueMi('0');
-        }
-         
-        if(map.getSource('geojsonMeasure')) {
-          map.getSource('geojsonMeasure').setData(geojsonMeasures);
-        }
-    }
+
     const measureCenterAndDelete = (type: any, item: any, event: any) => {
       if(type == 'center'){
         const coords = JSON.parse(item.coordinates);
@@ -2036,7 +1983,19 @@ const Map = ({
               setKeyword('');
             }
             if(isMeasuring) {
-              measureFunction(e);
+              measureFunction(
+                e,
+                map,
+                coordX,
+                coordY,
+                geojsonMeasures,
+                setIsDrawingMeasure,
+                linestringMeasure,
+                finishMeasure,
+                setDistanceValue,
+                setAreaValue,
+                setDistanceValueMi
+              );
             } else {
               if(markersNotes.length > 0 ){
                 markersNotes.forEach((marker:any) => {
@@ -2102,6 +2061,8 @@ const Map = ({
               coordX = e.point.x;
               coordY = e.point.y;
               const search = (id: number, source: string) => {
+                // Gets only the first feature of the layers
+                // one feature may be in multiple layers
                   let index = 0;
                   for (const feature of features) {
                       if (feature.properties.cartodb_id === id && source === feature.source) {
@@ -2113,6 +2074,7 @@ const Map = ({
               }
               const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
               if ( popupsClassess.length ) {
+                //erase all popups in DOM
                   for(let i = 0 ; i < popupsClassess.length ; ++i) {
                     popupsClassess[i].remove();
                   }
