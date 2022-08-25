@@ -138,6 +138,9 @@ const loadIconsPopup = (menu: any, popups: any, index: any) => {
       icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={element[1]} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     }
   })
+  if (menu.includes('roblem')) {
+    return <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_problems.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>;
+  }
   if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration || popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital" || popups.projecctype === "Fee in Lieu")) {
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_projects@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
