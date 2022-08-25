@@ -3199,7 +3199,7 @@ const Map = ({
 
         <div className="map">
           {
-            isProblemActive === true && zoomValue<11.22 ? <div className="legendProblemTypemap"><div className="legendprob">
+            isProblemActive === true ? <div className="legendProblemTypemap"><div className="legendprob">
             <div className="iconwatershed" />
             Watershed Change
           </div>
