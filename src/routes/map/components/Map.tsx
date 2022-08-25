@@ -3,7 +3,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import { measureFunction } from './MapPopupFunctions';
+import { measureFunction, addPopupAndListeners } from './MapFunctionsPopup';
 
 import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button } from 'antd';
@@ -45,7 +45,7 @@ import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectV
 import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
-import { addGeojsonSource, removeGeojsonCluster } from './MapFunctions';
+import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -2739,25 +2739,25 @@ const Map = ({
               }
            }
             if (popups.length) { 
-                const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test);
-                setMobilePopups(mobile);
-                setActiveMobilePopups(mobileIds);
-                setSelectedPopup(0);
-                if (html) {
-                    popup.remove();
-                    popup = new mapboxgl.Popup({closeButton: true,});
-                    popup.setLngLat(e.lngLat)
-                        .setDOMContent(html)
-                        .addTo(map);
-                    for (const index in popups) {
-                        document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-                        document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-                        document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-                        document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
-                        document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
-                        document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
-                    }
-                }
+                addPopupAndListeners(
+                  menuOptions,
+                  popups,
+                  userInformation,
+                  test,
+                  setMobilePopups,
+                  setActiveMobilePopups,
+                  setSelectedPopup,
+                  mobile,
+                  mobileIds,
+                  popup,
+                  map,
+                  showPopup,
+                  seeDetails,
+                  createProject,
+                  measureCenterAndDelete,
+                  e,
+                  ids
+                )
             }
             }
            

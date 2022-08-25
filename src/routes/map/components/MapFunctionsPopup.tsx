@@ -1,5 +1,6 @@
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
+import { loadMenuPopupWithData } from './MapGetters';
 
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
@@ -71,4 +72,43 @@ export const measureFunction = (
     if(map.getSource('geojsonMeasure')) {
       map.getSource('geojsonMeasure').setData(geojsonMeasures);
     }
+}
+export const addPopupAndListeners = (
+  menuOptions: any,
+  popups: any,
+  userInformation: any,
+  test: any,
+  setMobilePopups: any,
+  setActiveMobilePopups: any,
+  setSelectedPopup: any,
+  mobile: any,
+  mobileIds: any,
+  popup: any,
+  map: any,
+  showPopup: any,
+  seeDetails: any,
+  createProject: any,
+  measureCenterAndDelete: any,
+  e:any,
+  ids: any
+) => {
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test);
+  setMobilePopups(mobile);
+  setActiveMobilePopups(mobileIds);
+  setSelectedPopup(0);
+  if (html) {
+      popup.remove();
+      popup = new mapboxgl.Popup({closeButton: true,});
+      popup.setLngLat(e.lngLat)
+          .setDOMContent(html)
+          .addTo(map);
+      for (const index in popups) {
+          document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+          document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+          document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+          document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
+          document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
+          document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
+      }
+  }
 }
