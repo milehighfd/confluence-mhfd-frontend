@@ -908,8 +908,8 @@ const RequestView = ({ type, isFirstRendering }: {
                             <Panel
                               disabled={sumByCounty.length === 0}
                               header={!openCollaps
-                                ? <a href="#openCost"><DownSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>
-                                : <a href="#openCost"><UpSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>}
+                                ? <a href="#openCost" style={{padding:'10px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}><DownSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>
+                                : <a href="#openCost" onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))} ><UpSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>}
                               key="1"
                               style={{backgroundColor: '#F5F7FF'}}
                               extra={
