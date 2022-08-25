@@ -606,54 +606,6 @@ const Map = ({
       }
       return options;
     }
-    const flytoBoundsCoor = () => {
-      let historicBounds = getCurrent();
-      if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
-        globalMapId = historicBounds.id;
-        map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
-      } else if (coorBounds[0] && coorBounds[1]) {
-        map.fitBounds(coorBounds);
-        if(userInformation.isSelect != 'isSelect') {
-          setTimeout(()=>{
-           const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === userInformation.zoomarea).map((element: any) => {
-             return {
-               aoi: element.aoi,
-               filter: element.filter,
-               coordinates: element.coordinates
-             }
-           });
-           if(zoomareaSelected[0]){
-             let type = zoomareaSelected[0].filter; 
-             let zone = zoomareaSelected[0].aoi;
-             zone = zone.replace('County ', '').replace('Service Area', '');
-             setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-             const loadFiltered = (zone: any , type: any, projectOptions: any, problemOptions: any, componentOptions: any) => {
-                let optionsproj = setValueInFilters(zone, type, projectOptions, true);
-                let optionsprob = setValueInFilters(zone, type, problemOptions);
-                let optionscomp = setValueInFilters(zone, type, componentOptions);
-                setTimeout(()=>{
-                  setFilterProjectOptions(optionsproj);
-                  getGalleryProjects();
-                  getParamFilterProjects(boundsMap, optionsproj);
-                  setFilterProblemOptions(optionsprob);
-                  getGalleryProblems();
-                  getParamFilterProblems(boundsMap, optionsprob);
-                  setFilterComponentOptions(optionscomp);
-                  getParamFilterComponents(boundsMap, optionscomp);
-                },1300);
-              }
-              // map.once('idle',() => {
-              //   setTimeout(()=>{
-              //     loadFiltered(zone, type, filterProjectOptions, filterProblemOptions, filterComponentOptions); 
-              //   },1000);
-              // });
-           }
-   
-          },5000);
-
-        }
-      }
-    }
     useEffect(() => {
       getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
@@ -690,9 +642,14 @@ const Map = ({
           })
         });
 
-        mapService.map = map;
-        
-            flytoBoundsCoor();
+        mapService.map = map;  
+            flytoBoundsCoor(getCurrent, 
+              userInformation,
+              globalMapId,
+              coorBounds,
+              map,
+              groupOrganization,
+              setCoordinatesJurisdiction);
         
 
         map.addControl(new mapboxgl.ScaleControl({
@@ -833,7 +790,15 @@ const Map = ({
     }, [zoom]);
 
     useEffect(() => {
-      flytoBoundsCoor()
+      console.log('qeqeqeqe',userInformation);
+      flytoBoundsCoor(getCurrent, 
+        userInformation,
+        globalMapId,
+        coorBounds,
+        map,
+        groupOrganization,
+        setCoordinatesJurisdiction);
+
     }, [userInformation.polygon])
 
     useEffect(() => {
