@@ -174,7 +174,9 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
     </div>
 }
 export const ComponentPopup = ({ id, item, isComponent } : any) => {
-  if(item.layer == 'County') {
+  if (!item.layer) {
+    isComponent = false;
+  } else if(item.layer == 'County') {
     item.feature = item.feature +" County";
     isComponent = false;
   } else if (item.layer == 'Service Area') {
@@ -236,13 +238,13 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
         <div className="headmap">
             {item.layer}
         </div>
-        <div className={!(item.layer.includes('Effective') || item.layer.includes('LOMC')) ? "bodymap" : 'bodymap listofelements'}>
+        <div className={!(item?.layer?.includes('Effective') || item?.layer?.includes('LOMC')) ? "bodymap" : 'bodymap listofelements'}>
             {item.type ? <h4>{item.type} </h4> : ''}
             {item.feature ? <h4>{item.feature}</h4> : ''}
             {item.subtype ? <p><i>Subtype:</i>  {item.subtype}</p> : ''}
             {item.estimatedcost ? <p><i>Estimated Cost:</i>  ${numberWithCommas(item.estimatedcost)}</p> : ''}
             {item.studyyear ? <p><i>Study Year:</i>  {item.studyyear}</p> : ''}
-            {item.status && !item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
+            {item.status && !item?.layer?.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.streamname ? <p><i>Stream:</i>  {item.streamname}</p> : ''}
             {item.studyname && !item.layer.includes('LOMC') && !item.layer.includes('Effective') ? <p><i>Study Name:</i>  {item.studyname}</p> : ''}
             {item.jurisdiction ? <p><i>Jurisdiction:</i>  {item.jurisdiction}</p> : ''}
@@ -299,7 +301,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.lomc_type ? <p><i>LOMC Type:</i>  {item.lomc_type}</p> : ''}
             {item.lomc_identifier ? <p><i>LOMC Identifier:</i>  {item.lomc_identifier}</p> : ''}
             {item.status_date ? <p><i>Status Date:</i>  {item.status_date}</p> : ''}
-            {item.status && item.layer.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
+            {item.status && item?.layer?.includes('LOMC') ? <p><i>Status:</i>  {item.status}</p> : ''}
             {item.effective_date ? <p><i>Effective Date:</i>  {item.effective_date}</p> : ''}
             
             {item.uniqueid ? <p><i>Unique ID:</i>  {item.uniqueid}</p> : ''}
