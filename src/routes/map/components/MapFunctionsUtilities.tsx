@@ -75,3 +75,43 @@ export const getTitleOfProblemsPart = (feature: any) => {
 
   return title;
 }
+
+export const getDateMep = (mep_eligibilitystatus: any, props: any) => {
+  if(!mep_eligibilitystatus) return undefined;
+  let finalDate = new Date(0);
+  if( mep_eligibilitystatus == 'Design Approval') {
+      finalDate = new Date(props.mep_date_designapproval);
+  } else if( mep_eligibilitystatus == 'Construction Approval') {
+      finalDate = new Date(props.mep_date_constructionapproval);
+  } else if( mep_eligibilitystatus == 'Final Acceptance') {
+      finalDate = new Date(props.mep_date_finalacceptance);
+  } else if( mep_eligibilitystatus == 'Ineligible') {
+      finalDate = new Date(props.mep_date_ineligible);
+  }
+  let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
+  if(stringDate.includes('NaN')) {
+  return '-'
+  } else {
+  return stringDate;
+  }
+}
+
+export const parseDateZ = (dateParser: any) => {
+  let finalDate = new Date(dateParser);
+  let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
+  if(stringDate.includes('NaN')) {
+  return '-'
+  } else {
+  return stringDate;
+  }
+} 
+export const epochTransform = (dateParser: any) => {
+  let finalDate = new Date(0);
+  finalDate.setUTCMilliseconds(dateParser);
+  let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
+  if(stringDate.includes('NaN')) {
+  return '-'
+  } else {
+  return stringDate;
+  }
+}
