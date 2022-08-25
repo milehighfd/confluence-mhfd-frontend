@@ -10,7 +10,7 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
   tabKey: any
 }) => {
   const getLabel = ()=>{
-    if(tabKey == 'Capital' || tabKey == 'Maintenance') {
+    if(tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
     } else {
       return "Service Area"
@@ -18,7 +18,7 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
   }
   const localityName = (name: string) => {
     return name.includes('County') || name.includes('county') || name.includes('Service Area') 
-      ? name : name + ' County';
+      ? name : name + ` ${getLabel()}`;
   }
   const content00 = (
     <div className="popver-info">
