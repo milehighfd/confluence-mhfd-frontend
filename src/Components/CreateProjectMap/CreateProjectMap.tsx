@@ -1758,20 +1758,20 @@ const CreateProjectMap = (type: any) => {
           const item = {
             type: MENU_OPTIONS.PROBLEMS,
             streamname: feature.properties.streamname,
-            title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
+            title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
             problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
-            name: feature.properties.problemname ? feature.properties.problemname : '-',
-            organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-            value: feature.properties.estimatedcost ? feature.properties.estimatedcost : (feature.properties.componentcost ?? '0'),
+            name: feature.properties.problem_name ? feature.properties.problem_name : '-',
+            organization: feature.properties.local_government ? feature.properties.local_government : '-',
+            value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
+            status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
+            priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
+            problemid: feature.properties.problem_id,
             component_count: feature.properties.component_count ?? 0,
-            status: feature.properties.solutionstatus ? (feature.properties.solutionstatus + '%') : '-',
-            priority: feature.properties.problempriority ? feature.properties.problempriority + ' Priority' : '-',
-            problemid: feature.properties.problemid,
             popupId: 'popup',
             image: `gallery/${feature.properties.problemtype}.png`,
-          };
-          itemValue = { ...item };
-          mobile.push({
+        };
+        itemValue = { ...item };
+        mobile.push({
             type: MENU_OPTIONS.PROBLEMS,
             title: item.title,
             value: item.value,
@@ -1779,7 +1779,7 @@ const CreateProjectMap = (type: any) => {
             image: item.image,
             problemid: item.problemid,
             streamname: item.streamname
-          });
+        });
           menuOptions.push('Problem: ' + item.problem_type);
           popups.push(itemValue);
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });

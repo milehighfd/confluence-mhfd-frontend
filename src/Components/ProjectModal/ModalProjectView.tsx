@@ -63,7 +63,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
             let idsProjects = projects.map((proj:any)=> {
               return proj.projectData?.projectid;
             });
-            console.log("BOARDs SENDING WITH tHIS data", dataForBoard, 'And sending this projects', projects);
             if(projects.length>0){
               setBoardProjectsCreate({cartoids:justProjects, ids: idsProjects});
             } else {

@@ -33,7 +33,6 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
     }
   }, [reason, subReason]);
   useEffect(() => {
-    console.log(reason, subReason);
     if(reason === ''){
       setreasonForm(undefined)
     }

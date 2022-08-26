@@ -102,7 +102,6 @@ export const LocationInformation = ({
     }
   }, [jurisdiction]);
   useEffect(() => {
-    console.log('HERE IS THE VALUE ', currentServiceAreaCounty);
     if (editable) {
       if (currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
