@@ -9,6 +9,216 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
   isFiltered: boolean,
   tabKey: any
 }) => {
+  const list = [
+    {
+        "aoi": "Mile High Flood District",
+        "filter": null
+    },
+    {
+        "aoi": "Adams",
+        "filter": "County"
+    },
+    {
+        "aoi": "Arapahoe County",
+        "filter": "County"
+    },
+    {
+        "aoi": "Arvada",
+        "filter": ""
+    },
+    {
+        "aoi": "Aurora",
+        "filter": ""
+    },
+    {
+        "aoi": "Boulder",
+        "filter": ""
+    },
+    {
+        "aoi": "Boulder County",
+        "filter": "County"
+    },
+    {
+        "aoi": "Boulder Creek Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Bow Mar",
+        "filter": ""
+    },
+    {
+        "aoi": "Brighton",
+        "filter": ""
+    },
+    {
+        "aoi": "Broomfield County",
+        "filter": "County"
+    },
+    {
+        "aoi": "Castle Pines",
+        "filter": ""
+    },
+    {
+        "aoi": "Castle Rock",
+        "filter": ""
+    },
+    {
+        "aoi": "Centennial",
+        "filter": ""
+    },
+    {
+        "aoi": "Cherry Creek Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Cherry Hills Village",
+        "filter": ""
+    },
+    {
+        "aoi": "Columbine Valley",
+        "filter": ""
+    },
+    {
+        "aoi": "Commerce City",
+        "filter": ""
+    },
+    {
+        "aoi": "Denver County",
+        "filter": "County"
+    },
+    {
+        "aoi": "Douglas County",
+        "filter": "County"
+    },
+    {
+        "aoi": "Edgewater",
+        "filter": ""
+    },
+    {
+        "aoi": "Englewood",
+        "filter": ""
+    },
+    {
+        "aoi": "Erie",
+        "filter": ""
+    },
+    {
+        "aoi": "Federal Heights",
+        "filter": ""
+    },
+    {
+        "aoi": "Foxfield",
+        "filter": ""
+    },
+    {
+        "aoi": "Glendale",
+        "filter": ""
+    },
+    {
+        "aoi": "Golden",
+        "filter": ""
+    },
+    {
+        "aoi": "Greenwood Village",
+        "filter": ""
+    },
+    {
+        "aoi": "Jefferson County",
+        "filter": "County"
+    },
+    {
+        "aoi": "Lafayette",
+        "filter": ""
+    },
+    {
+        "aoi": "Lakeside",
+        "filter": ""
+    },
+    {
+        "aoi": "Lakewood",
+        "filter": ""
+    },
+    {
+        "aoi": "Littleton",
+        "filter": ""
+    },
+    {
+        "aoi": "Lochbuie",
+        "filter": ""
+    },
+    {
+        "aoi": "Lone Tree",
+        "filter": ""
+    },
+    {
+        "aoi": "Lousiville",
+        "filter": ""
+    },
+    {
+        "aoi": "Morrison",
+        "filter": ""
+    },
+    {
+        "aoi": "Mountain View",
+        "filter": ""
+    },
+    {
+        "aoi": "Northeast Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Northglenn",
+        "filter": ""
+    },
+    {
+        "aoi": "North Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Parker",
+        "filter": ""
+    },
+    {
+        "aoi": "Sand Creek Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "SEMSWA",
+        "filter": ""
+    },
+    {
+        "aoi": "Sheridan",
+        "filter": ""
+    },
+    {
+        "aoi": "South Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Southwest Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Superior",
+        "filter": ""
+    },
+    {
+        "aoi": "Thornton",
+        "filter": ""
+    },
+    {
+        "aoi": "Westminster",
+        "filter": ""
+    },
+    {
+        "aoi": "West Service Area",
+        "filter": "Service Area"
+    },
+    {
+        "aoi": "Wheat Ridge",
+        "filter": ""
+    }
+  ];
   const getLabel = ()=>{
     if(tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
@@ -16,13 +226,22 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
       return "Service Area"
     }
   }
+  const getSuffix = (name: string) => {
+    const element = list.filter((el: any) => {
+      return el.aoi.includes(name);
+    });
+    if (element.length) {
+      return element[0].filter;
+    }
+    return '';
+  }
   const localityName = (name: string) => {
     return name.includes('County') || name.includes('county') || name.includes('Service Area') 
-      ? name : name + ` ${getLabel()}`;
+      ? name : name + ` ${getSuffix(name)}`;
   }
   const content00 = (
     <div className="popver-info">
-      Breakdown of project budget requests by {type === 'WORK_REQUEST' ? `${getLabel()} within each` : ''} Jurisdiction, where applicable.
+      Breakdown of project budget requests by {type === 'WORK_REQUEST' ? `${getLabel()} within each` : ''} , where applicable.
     </div>
   );
   return (
