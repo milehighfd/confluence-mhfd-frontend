@@ -2190,6 +2190,7 @@ const Map = ({
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,
                           title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
+                          problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
                           name: feature.properties.problem_name ? feature.properties.problem_name : '-',
                           organization: feature.properties.local_government ? feature.properties.local_government : '-',
                           value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
@@ -2210,7 +2211,7 @@ const Map = ({
                           problemid: item.problemid,
                           streamname: item.streamname
                       });
-                      menuOptions.push('Problem');
+                      menuOptions.push('Problem: '+ item.problem_type);
                       popups.push(itemValue);
                       mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
                       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
