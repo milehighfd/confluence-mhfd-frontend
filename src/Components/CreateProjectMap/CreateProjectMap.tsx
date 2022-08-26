@@ -820,7 +820,9 @@ const CreateProjectMap = (type: any) => {
   }
   const applyProblemClusterLayer = () => {
     datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
-      addGeojsonSource(map, geoj.geom, isProblemActive);
+      if (!map.map.getSource('clusterproblem')) {
+        addGeojsonSource(map.map, geoj.geom, isProblemActive);
+      }
       setProblemClusterGeojson(geoj.geom);
     });
   }
@@ -891,6 +893,9 @@ const CreateProjectMap = (type: any) => {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        }
+        if (key === PROBLEMS_TRIGGER) {
+          isProblemActive = true;
         }
       }
     });
@@ -1128,7 +1133,9 @@ const CreateProjectMap = (type: any) => {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
       if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
-        addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
+        if (!map.map.getSource('clusterproblem')) {
+          addGeojsonSource(map.map, problemClusterGeojson, isProblemActive, allFilters);
+        }
       }
       if (map.getLayer(key + '_' + index)) {
         map.setFilter(key + '_' + index, allFilters);
@@ -1162,6 +1169,10 @@ const CreateProjectMap = (type: any) => {
             map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
           }
         })
+      }
+      if (key === PROBLEMS_TRIGGER) {
+        isProblemActive = false;
+        removeGeojsonCluster(map);
       }
     }
   };
@@ -2487,6 +2498,22 @@ const CreateProjectMap = (type: any) => {
   return <>
 
     <div className="map">
+    {
+            isProblemActive === true ? <div className="legendProblemTypemap">
+              <div className="legendprob">
+                <div className="iconfloodhazard" />
+                Flood Hazard
+              </div>
+              <div className="legendprob">
+                <div className="iconwatershed" />
+                Watershed Change
+              </div>
+              <div className="legendprob">
+                <div className="iconstreamfunction" />
+                Stream Function
+              </div>
+            </div> : ''
+          }
       <div id="map3" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}

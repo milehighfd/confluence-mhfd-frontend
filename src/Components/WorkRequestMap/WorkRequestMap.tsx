@@ -2554,6 +2554,22 @@ const epochTransform = (dateParser: any) => {
   }
   return <>
     <div className="map">
+    {
+            isProblemActive === true ? <div className="legendProblemTypemap">
+              <div className="legendprob">
+                <div className="iconfloodhazard" />
+                Flood Hazard
+              </div>
+              <div className="legendprob">
+                <div className="iconwatershed" />
+                Watershed Change
+              </div>
+              <div className="legendprob">
+                <div className="iconstreamfunction" />
+                Stream Function
+              </div>
+            </div> : ''
+          }
     <span className="zoomvaluemap"><b>Nearmap: May 27, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b> </span>
       <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
