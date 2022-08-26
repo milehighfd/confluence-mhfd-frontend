@@ -76,6 +76,28 @@ export const getTitleOfProblemsPart = (feature: any) => {
   return title;
 }
 
+export const getTitle = (text: string) => {
+  const textTitle = text.split('|');
+  const parsed = textTitle[1]?.split(',');
+  if (parsed.length === 1) {
+      return { title: parsed[0], subtitle: '' };
+  }
+  parsed.pop();
+  let zip = parsed.pop() || 'Colorado XXX';
+  zip = zip.trim();
+  zip = zip.split(' ')[1];
+  const city = parsed.pop()?.trim() || 'City';
+  let titleArray = parsed.pop()?.split(',') || ['Place'];
+  let title = titleArray[0];
+  if (titleArray.length === 2) {
+      title = titleArray[1];
+  }
+  return {
+      title: title,
+      subtitle: city + ' , CO ' + zip
+  }
+}
+
 export const getDateMep = (mep_eligibilitystatus: any, props: any) => {
   if(!mep_eligibilitystatus) return undefined;
   let finalDate = new Date(0);

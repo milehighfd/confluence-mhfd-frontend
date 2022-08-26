@@ -45,7 +45,7 @@ import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
-import { flytoBoundsCoor, getTitleOfStreamImprovements, getTitleOfProblemsPart } from './MapFunctionsUtilities';
+import { flytoBoundsCoor, getTitleOfStreamImprovements, getTitleOfProblemsPart, getTitle } from './MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -2162,27 +2162,7 @@ const Map = ({
         mapSearchQuery(value);
     };
 
-    const getTitle = (text: string) => {
-        const textTitle = text.split('|');
-        const parsed = textTitle[1]?.split(',');
-        if (parsed.length === 1) {
-            return { title: parsed[0], subtitle: '' };
-        }
-        parsed.pop();
-        let zip = parsed.pop() || 'Colorado XXX';
-        zip = zip.trim();
-        zip = zip.split(' ')[1];
-        const city = parsed.pop()?.trim() || 'City';
-        let titleArray = parsed.pop()?.split(',') || ['Place'];
-        let title = titleArray[0];
-        if (titleArray.length === 2) {
-            title = titleArray[1];
-        }
-        return {
-            title: title,
-            subtitle: city + ' , CO ' + zip
-        }
-    }
+
     const onSelect = (value: any) => {
         console.log('onSelect:::', value);
         const keyword = value.split('?');
