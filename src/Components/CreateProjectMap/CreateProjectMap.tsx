@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
@@ -11,6 +11,7 @@ import { getData, getToken, postData } from "../../Config/datasets";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
+import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
 import EventService from '../../services/EventService';
 import {
   PROBLEMS_TRIGGER,
@@ -49,7 +50,7 @@ import { Input, AutoComplete } from 'antd';
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 
 let map: any;
-
+let isProblemActive = true;
 let isPopup = true;
 let isDrawingCurrently = false;
 let firstTime = true;
@@ -94,6 +95,7 @@ const CreateProjectMap = (type: any) => {
   MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
   MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS
   ];
+  const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const empty: any[] = [];
@@ -662,7 +664,10 @@ const CreateProjectMap = (type: any) => {
           if (map) {
             if (selectedLayers.length === 0) {
             } else {
-              map.isStyleLoaded(applyMapLayers);
+              map.isStyleLoaded(() => {
+                applyMapLayers();
+                applyProblemClusterLayer();
+              });
               firstTimeApplyMapLayers = false;
               setCompareSL(JSON.stringify(selectedLayers));
             }
@@ -813,6 +818,14 @@ const CreateProjectMap = (type: any) => {
       }
     }, 1000);
   }
+  const applyProblemClusterLayer = () => {
+    datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
+      if (!map.map.getSource('clusterproblem')) {
+        addGeojsonSource(map.map, geoj.geom, isProblemActive);
+      }
+      setProblemClusterGeojson(geoj.geom);
+    });
+  }
   const applyMapLayers = async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
@@ -880,6 +893,9 @@ const CreateProjectMap = (type: any) => {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        }
+        if (key === PROBLEMS_TRIGGER) {
+          isProblemActive = true;
         }
       }
     });
@@ -1005,7 +1021,7 @@ const CreateProjectMap = (type: any) => {
       }
     });
   };
-  const applyFilters = (key: string, toFilter: any) => {
+  const applyFilters = useCallback((key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
@@ -1116,12 +1132,16 @@ const CreateProjectMap = (type: any) => {
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
-
+      if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
+        if (!map.map.getSource('clusterproblem')) {
+          addGeojsonSource(map.map, problemClusterGeojson, isProblemActive, allFilters);
+        }
+      }
       if (map.getLayer(key + '_' + index)) {
         map.setFilter(key + '_' + index, allFilters);
       }
     });
-  };
+  }, [problemClusterGeojson]);
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
@@ -1149,6 +1169,10 @@ const CreateProjectMap = (type: any) => {
             map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
           }
         })
+      }
+      if (key === PROBLEMS_TRIGGER) {
+        isProblemActive = false;
+        removeGeojsonCluster(map);
       }
     }
   };
@@ -1650,6 +1674,7 @@ const CreateProjectMap = (type: any) => {
             problemid: item.problemid,
             streamname: item.streamname
         });
+        console.log("MENU CREATE", item, feature.properties)
           menuOptions.push('Problem: ' + item.problem_type);
           popups.push(itemValue);
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
@@ -2247,7 +2272,7 @@ const CreateProjectMap = (type: any) => {
       (
       <>
         {menuOptions.length === 1 ?
-          (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem')
+          (<> {(menuOptions[0] !== 'Project' && !menuOptions[0].includes('Problem'))
             ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
             loadMainPopup(0, popups[0], test)}
           </>)
@@ -2260,7 +2285,7 @@ const CreateProjectMap = (type: any) => {
                   return (
                     <div>
                       {loadIconsPopup(menu, popups[index], index)}
-                    {(menu !== 'Project' && menu !== 'Problem') ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
+                    {(menu !== 'Project' && !menu.includes('Problem')) ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
                       menu.includes('Project') ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                     </div>
                   )
@@ -2344,6 +2369,22 @@ const CreateProjectMap = (type: any) => {
   return <>
 
     <div className="map">
+    {
+            isProblemActive === true ? <div className="legendProblemTypemap">
+              <div className="legendprob">
+                <div className="iconfloodhazard" />
+                Flood Hazard
+              </div>
+              <div className="legendprob">
+                <div className="iconwatershed" />
+                Watershed Change
+              </div>
+              <div className="legendprob">
+                <div className="iconstreamfunction" />
+                Stream Function
+              </div>
+            </div> : ''
+          }
       <div id="map3" style={{ height: '100%', width: '100%' }}></div>
       {visible && <DetailedModal
         detailed={detailed}

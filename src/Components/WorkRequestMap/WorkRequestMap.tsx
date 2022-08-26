@@ -1764,6 +1764,7 @@ const applyProblemClusterLayer = () => {
               type: MENU_OPTIONS.PROBLEMS,
               streamname: feature.properties.streamname,
               title: feature.properties.problem_type ? feature.properties.problem_type + ' Problem' : '-',
+              problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
               name: feature.properties.problem_name ? feature.properties.problem_name : '-',
               organization: feature.properties.local_government ? feature.properties.local_government : '-',
               value: feature.properties.estimated_cost
@@ -1788,7 +1789,7 @@ const applyProblemClusterLayer = () => {
               problemid: item.problemid,
               streamname: item.streamname,
             });
-            menuOptions.push('Problem');
+            menuOptions.push('Problem: ' + item.problem_type);
             popups.push(itemValue);
             mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
             ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
@@ -2548,6 +2549,22 @@ const applyProblemClusterLayer = () => {
   return (
     <>
       <div className="map">
+      {
+            isProblemActive === true ? <div className="legendProblemTypemap">
+              <div className="legendprob">
+                <div className="iconfloodhazard" />
+                Flood Hazard
+              </div>
+              <div className="legendprob">
+                <div className="iconwatershed" />
+                Watershed Change
+              </div>
+              <div className="legendprob">
+                <div className="iconstreamfunction" />
+                Stream Function
+              </div>
+            </div> : ''
+          }
         <span className="zoomvaluemap">
           <b>Nearmap: May 27, 2022</b>
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
