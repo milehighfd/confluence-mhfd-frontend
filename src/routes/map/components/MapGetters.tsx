@@ -66,7 +66,7 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
   <>
     {
       menuOptions[0] === MENU_OPTIONS.MEASURES ?
-        <> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ?
+        <> {(menuOptions[0] !== 'Project' && !menuOptions[0].includes('Problem')) ?
           (menuOptions[0] == 'Stream' ?
             loadStreamPopup(0, popups[0]) :
             (
@@ -87,7 +87,7 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
                 return (
                   <div>
                     {loadIconsPopup(menu, popups[index], index)}
-                    {(menu !== 'Project' && menu !== 'Problem') ?
+                    {(menu !== 'Project' && !menu.includes('Problem')) ?
                       (
                         menu == 'Stream' ?
                           loadStreamPopup(index, popups[index]) :

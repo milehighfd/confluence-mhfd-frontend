@@ -2191,6 +2191,7 @@ const Map = ({
                           streamname: feature.properties.streamname,
                           problem_type: feature.properties.problem_type,
                           title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
+                          problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
                           name: feature.properties.problem_name ? feature.properties.problem_name : '-',
                           organization: feature.properties.local_government ? feature.properties.local_government : '-',
                           value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
