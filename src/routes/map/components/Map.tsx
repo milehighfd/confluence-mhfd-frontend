@@ -15,18 +15,14 @@ import {
     PROJECTS_TRIGGER,
     COMPONENT_LAYERS,
     STREAMS_FILTERS,
-    MUNICIPALITIES_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, ROUTINE_NATURAL_AREAS, ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, MHFD_PROJECTS, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+    MAP_RESIZABLE_TRANSITION, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, MHFD_PROJECTS,
     NEARMAP_TOKEN,
-    BLOCK_CLEARANCE_ZONES_LAYERS,
-    ACTIVE_LOMS,
     EFFECTIVE_REACHES,
     MENU_OPTIONS,
     SERVICE_AREA_FILTERS,
     STREAMS_POINT,
     PROPSPROBLEMTABLES,
-    STREAM_IMPROVEMENT_MEASURE
 } from "../../../constants/constants";
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
@@ -45,15 +41,14 @@ import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
-import { flytoBoundsCoor, getTitleOfStreamImprovements, getTitleOfProblemsPart, getTitle } from './MapFunctionsUtilities';
+import { flytoBoundsCoor, getTitle } from './MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
 import MobileMenu from './MobileMenu';
 import SideMenuTools from './SideMenuTools';
-import { commentPopup, loadMenuPopupWithData } from './MapGetters';
+import { commentPopup } from './MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
-const { Option } = AutoComplete;
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -119,13 +114,8 @@ const Map = ({
     leftWidth
 }: MapProps) => {
   const {
-    getGalleryProblems, 
-    getGalleryProjects,
     updateSelectedLayers,
     setFilterCoordinates,
-    setFilterProblemOptions,
-    setFilterProjectOptions,
-    setFilterComponentOptions,
     existDetailedPageProject,
     existDetailedPageProblem,
     setSelectedOnMap,
@@ -141,7 +131,6 @@ const Map = ({
   } = useMapDispatch();
   const {
     toggleModalFilter,
-    boundsMap,
     tabCards,
     filterTabNumber,
     coordinatesJurisdiction,
@@ -580,32 +569,6 @@ const Map = ({
         }
     }, [filterComponents, componentDetailIds]);
 
-    const setValueInFilters = (value: any, type: any, filterOptions: any, withSuffix: boolean = false) => {
-      const options = { ...filterOptions };
-      options.jurisdiction = '';
-      options.county = '';
-      options.servicearea = '';
-      if (!withSuffix) {
-        if (value.includes('County')) {
-          let index = value.indexOf('County');
-          if (index !== -1) {
-            value = value.substr(0, index - 1);
-          }
-        }
-        if (value.includes('Service Area')) {
-          let index = value.indexOf('Service Area');
-          if (index !== -1) {
-            value = value.substr(0, index - 1);
-          }
-        }
-      }
-      if(type == "Service Area") {
-        options.servicearea = value;
-      } else if(type) {
-        options[type.toLowerCase()] = value;
-      }
-      return options;
-    }
     useEffect(() => {
       getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
@@ -1574,26 +1537,6 @@ const Map = ({
 
         }
         return;
-    }
-
-    const getDateMep = (mep_eligibilitystatus: any, props: any) => {
-        if(!mep_eligibilitystatus) return undefined;
-        let finalDate = new Date(0);
-        if( mep_eligibilitystatus == 'Design Approval') {
-            finalDate = new Date(props.mep_date_designapproval);
-        } else if( mep_eligibilitystatus == 'Construction Approval') {
-            finalDate = new Date(props.mep_date_constructionapproval);
-        } else if( mep_eligibilitystatus == 'Final Acceptance') {
-            finalDate = new Date(props.mep_date_finalacceptance);
-        } else if( mep_eligibilitystatus == 'Ineligible') {
-            finalDate = new Date(props.mep_date_ineligible);
-        }
-        let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() +1 : ('0' + (finalDate.getDate() + 1) )) + '/' + finalDate.getFullYear();
-        if(stringDate.includes('NaN')) {
-        return '-'
-        } else {
-        return stringDate;
-        }
     }
     const [distanceValue, setDistanceValue] = useState('0');
     const [distanceValueMi, setDistanceValueMi] = useState('0');
