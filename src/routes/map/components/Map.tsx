@@ -1395,7 +1395,7 @@ const Map = ({
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
-    }, [problemClusterGeojson]);;
+    }, [problemClusterGeojson]);
 
     const showHighlighted = (key: string, cartodb_id: string) => {
         const styles = { ...tileStyles as any }
@@ -1564,7 +1564,7 @@ const Map = ({
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             }
         });
-        if(key === STREAMS_FILTERS) {
+        if(key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
           styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(STREAMS_POINT + '_' + index)) {
               map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
