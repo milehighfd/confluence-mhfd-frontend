@@ -300,34 +300,35 @@ export const addPopupsOnClick = async (
           ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
       if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
-          const item = {
-              type: MENU_OPTIONS.PROBLEMS,
-              streamname: feature.properties.streamname,
-              title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
-              name: feature.properties.problem_name ? feature.properties.problem_name : '-',
-              organization: feature.properties.local_government ? feature.properties.local_government : '-',
-              value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
-              status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
-              priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
-              problemid: feature.properties.problem_id,
-              component_count: feature.properties.component_count ?? 0,
-              popupId: 'popup',
-              image: `gallery/${feature.properties.problem_type}.png`,
-          };
-          itemValue = { ...item };
-          mobile.push({
-              type: MENU_OPTIONS.PROBLEMS,
-              title: item.title,
-              value: item.value,
-              name: item.name,
-              image: item.image,
-              problemid: item.problemid,
-              streamname: item.streamname
-          });
-          menuOptions.push('Problem');
-          popups.push(itemValue);
-          mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-          ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        const item = {
+            type: MENU_OPTIONS.PROBLEMS,
+            streamname: feature.properties.streamname,
+            title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
+            problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
+            name: feature.properties.problem_name ? feature.properties.problem_name : '-',
+            organization: feature.properties.local_government ? feature.properties.local_government : '-',
+            value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
+            status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
+            priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
+            problemid: feature.properties.problem_id,
+            component_count: feature.properties.component_count ?? 0,
+            popupId: 'popup',
+            image: `gallery/${feature.properties.problem_type}.png`,
+        };
+        itemValue = { ...item };
+        mobile.push({
+            type: MENU_OPTIONS.PROBLEMS,
+            title: item.title,
+            value: item.value,
+            name: item.name,
+            image: item.image,
+            problemid: item.problemid,
+            streamname: item.streamname
+        });
+        menuOptions.push('Problem: ' + item.problem_type);
+        popups.push(itemValue);
+        mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
       if (feature.source === 'mep_projects_temp_locations') {
           const item = {
