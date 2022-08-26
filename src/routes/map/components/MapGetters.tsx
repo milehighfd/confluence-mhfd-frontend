@@ -131,8 +131,8 @@ const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userIn
     <MeasurePopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
   </>
 );
-const loadIconsPopup = (menu: any, popups: any, index: any) => {
-  let icon
+export const loadIconsPopup = (menu: any, popups: any, index: any) => {
+  let icon;
   ICON_POPUPS.forEach((element) => {
     if (element[0] === menu) {
       icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={element[1]} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>

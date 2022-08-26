@@ -36,6 +36,7 @@ import {
   PROJECTS_DRAFT,ICON_POPUPS,
   MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS
 } from "../../constants/constants";
+import { loadIconsPopup } from '../../routes/map/components/MapGetters';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button } from 'antd';
@@ -1512,137 +1513,137 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [counterPopup]);
-  const loadIconsPopup = (menu: any, popups:any, index:any) =>{
-    let icon
-      ICON_POPUPS.forEach((element) => {
-      if(element[0] === menu){
-          icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      }
-    })
-    if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration ||popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital")){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_projects@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')){
-    return (
-        <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-    )
-    }
-    if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')){
-    return (
-        <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-    )
-    }
-    if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupA@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'B')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupB@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'C')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupC@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'D')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_Floodway@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneX@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-      return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      )
-    }
-    if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-        return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern2.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-        return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern3.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Active')){
-      return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_active.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      )
-    }
-    if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_suspended.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Violation')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_violation.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Completed')){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_completed.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-    if(menu === "Effective Reaches" && popups.studyname !== 'unknown'){
-      return (
-          <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      )
-    }
-    if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Continuous Improvement') {
-      return (
-        <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-continuous.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      );
-    }
-    if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Bank Stabilization') {
-      return (
-        <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      );
-    }
-    if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
-        return (
-            <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-        )
-    }
-      if(icon !== undefined){
-          return icon
-      }
-    if (menu) {
-      return (
-        <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-      )
-    }
-  }
+  // const loadIconsPopup = (menu: any, popups:any, index:any) =>{
+  //   let icon
+  //     ICON_POPUPS.forEach((element) => {
+  //     if(element[0] === menu){
+  //         icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     }
+  //   })
+  //   if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration ||popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital")){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_projects@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')){
+  //   return (
+  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //   )
+  //   }
+  //   if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')){
+  //   return (
+  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //   )
+  //   }
+  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupA@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'B')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupB@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'C')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupC@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'D')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_Floodway@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneX@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
+  //     return (
+  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     )
+  //   }
+  //   if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
+  //       return (
+  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern2.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
+  //       return (
+  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern3.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Active')){
+  //     return (
+  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_active.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     )
+  //   }
+  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_suspended.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Violation')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_violation.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Completed')){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_completed.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //   if(menu === "Effective Reaches" && popups.studyname !== 'unknown'){
+  //     return (
+  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     )
+  //   }
+  //   if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Continuous Improvement') {
+  //     return (
+  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-continuous.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     );
+  //   }
+  //   if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Bank Stabilization') {
+  //     return (
+  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     );
+  //   }
+  //   if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
+  //       return (
+  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //       )
+  //   }
+  //     if(icon !== undefined){
+  //         return icon
+  //     }
+  //   if (menu) {
+  //     return (
+  //       <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+  //     )
+  //   }
+  // }
   const eventClick = (e: any) => {
     popup.remove();
     if (!isPopup) {
@@ -1753,11 +1754,12 @@ const CreateProjectMap = (type: any) => {
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
         }
-        if (feature.source === MENU_OPTIONS.PROBLEMS) {
+        if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
           const item = {
             type: MENU_OPTIONS.PROBLEMS,
             streamname: feature.properties.streamname,
             title: feature.properties.problemtype ? (feature.properties.problemtype + ' Problem') : '-',
+            problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
             name: feature.properties.problemname ? feature.properties.problemname : '-',
             organization: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
             value: feature.properties.estimatedcost ? feature.properties.estimatedcost : (feature.properties.componentcost ?? '0'),
@@ -1778,7 +1780,7 @@ const CreateProjectMap = (type: any) => {
             problemid: item.problemid,
             streamname: item.streamname
           });
-          menuOptions.push('Problem');
+          menuOptions.push('Problem: ' + item.problem_type);
           popups.push(itemValue);
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
           ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
@@ -2375,7 +2377,7 @@ const CreateProjectMap = (type: any) => {
       (
       <>
         {menuOptions.length === 1 ?
-          (<> {(menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem')
+          (<> {(menuOptions[0] !== 'Project' && !menuOptions[0].includes('Problem'))
             ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
             loadMainPopup(0, popups[0], test)}
           </>)
@@ -2388,7 +2390,7 @@ const CreateProjectMap = (type: any) => {
                   return (
                     <div>
                       {loadIconsPopup(menu, popups[index], index)}
-                    {(menu !== 'Project' && menu !== 'Problem') ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
+                    {(menu !== 'Project' && !menu.includes('Problem')) ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
                       menu.includes('Project') ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
                     </div>
                   )
