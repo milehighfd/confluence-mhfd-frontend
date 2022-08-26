@@ -2386,7 +2386,7 @@ const applyProblemClusterLayer = () => {
         }
       }
       if (popups && popups.length) {
-        const html = loadMenuPopupWithData(menuOptions, popups, user, test,true, isEditPopup);
+        const html = loadMenuPopupWithData(menuOptions, popups, user, test,isEditPopup);
         setMobilePopups(mobile);
         setActiveMobilePopups(mobileIds);
         setSelectedPopup(0);
