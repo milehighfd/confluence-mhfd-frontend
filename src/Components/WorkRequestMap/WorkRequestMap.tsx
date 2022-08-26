@@ -5,6 +5,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { RightOutlined } from '@ant-design/icons';
 import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './../Map/MapPopups';
+import { loadMenuPopupWithData } from "../../routes/map/components/MapGetters";
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
@@ -2131,7 +2132,7 @@ const epochTransform = (dateParser: any) => {
     }
   }
     if (popups && popups.length) {
-      const html = loadMenuPopupWithData(menuOptions, popups, isEditPopup);
+      const html = loadMenuPopupWithData(menuOptions, popups, user, test);
       setMobilePopups(mobile);
       setActiveMobilePopups(mobileIds);
       setSelectedPopup(0);
@@ -2372,86 +2373,6 @@ const epochTransform = (dateParser: any) => {
       }
     }
   }, [allLayers]);
-
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[], ep?: boolean) => {
-    const popupNode = document.createElement("div");
-    ReactDOM.render(
-      (
-    <>
-      {menuOptions.length === 1 ? <> {
-      (menuOptions[0] !== 'Project' && menuOptions[0] !== 'Problem') ? 
-      (( menuOptions[0] =='Stream'? loadStreamPopup(0,popups[0]) : 
-        (
-          menuOptions[0] == MENU_OPTIONS.MEASURES ? loadMeasurePopup(0, popups[0], !notComponentOptions.includes(menuOptions[0])) :
-          loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))
-        )
-      ) ) :
-      menuOptions[0] === 'Project' ? 
-      loadMainPopup(0, popups[0], test, true, ep) : 
-      loadMainPopup(0, popups[0], test)
-      }
-      </> :
-        <div className="map-pop-02">
-          <div className="headmap">LAYERS</div>
-          <div className="layer-popup">
-            {
-              menuOptions.map((menu: any, index: number) => {
-                return (
-                  <div>
-                    {loadIconsPopup(menu, popups[index], index)}
-                    {(menu !== 'Project' && menu !== 'Problem') ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
-                      menu.includes('Project') ? loadMainPopup(index, popups[index], test, true, ep) : loadMainPopup(index, popups[index], test)}
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>}
-    </>
-    ),
-    popupNode
-  );
-  return popupNode;
-}
-
-  const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
-    <>
-        <div className="map-pop-02">
-          
-          <div className="headmap">PROPOSED PROJECT <div id="closepopupmarker" style={{'float': 'right', 'paddingRight': '4px', 'height':'16px', 'cursor':'pointer' }}>&#x2716;</div></div>
-          <div className="layer-popup" style={{padding: '21px 13px 0px 10px'}}>
-            
-            <div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ color: '#28C499', width: '100%' }} id='menu-marker' className="btn-borde">Remove Marker</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </>
-  );
- 
-  const loadMainPopup =  useCallback((id: number, item: any, test: (e: any) => void, sw?: boolean, ep?:boolean) => (
-    <>
-      <MainPopup id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={ep?ep:false}></MainPopup>
-    </>
-  ), []);;
-
-  const loadStreamPopup = (index: number, item: any) => (
-    <>
-        <StreamPopupFull id={index} item={item} ></StreamPopupFull>
-    </>
-  );
-  const loadMeasurePopup = (index: number, item: any, isComponent: boolean) => (
-    <>
-        <MeasurePopup id={index} item={item} isComponent={true} ></MeasurePopup>
-    </>
-  );
-  const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
-    <>
-      <ComponentPopup id={index} item={item} isComponent={isComponent} isWR={true}></ComponentPopup>
-    </>
-  );
 
   const renderOption = (item: any) => {
     return {
