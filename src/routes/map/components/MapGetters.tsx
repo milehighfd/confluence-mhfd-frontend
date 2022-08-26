@@ -59,7 +59,7 @@ export const commentPopup = (note?:any ) => {
   return popupNode;
 }
 
-export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, title?: any) => {
+export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, ep?: any, title?: any) => {
   const popupNode = document.createElement("div");
   ReactDOM.render(
   (
@@ -76,7 +76,9 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
             )
           )
           :
-          menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, userInformation, true) : loadMainPopup(0, popups[0], test, userInformation)}
+          menuOptions[0] === 'Project' ? 
+          loadMainPopup(0, popups[0], test, userInformation, true) : 
+          loadMainPopup(0, popups[0], test, userInformation)}
         </>
         :
         <div className="map-pop-02">
@@ -98,7 +100,7 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
                           )
                       )
                       :
-                      menu === 'Project' ? loadMainPopup(index, popups[index], test, userInformation, true) : loadMainPopup(index, popups[index], test, userInformation)}
+                      menu === 'Project' ? loadMainPopup(index, popups[index], test, userInformation, true, ep) : loadMainPopup(index, popups[index], test, userInformation)}
                   </div>
                 )
               })
@@ -110,9 +112,9 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
 return popupNode;
 };
 
-const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean) => (
+const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean) => (
   <>
-    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
+    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false}></MainPopup>
   </>
 );
 
