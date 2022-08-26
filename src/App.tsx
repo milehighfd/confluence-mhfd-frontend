@@ -22,7 +22,7 @@ const UploadAttachmentRoute = lazy(() => import('./routes/upload-attachment'));
 
 const App = () => {
   console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
-  console.log('Aug 19 version');
+  console.log('Aug 26 version');
   
 
   const appUser = useAppUserState();
