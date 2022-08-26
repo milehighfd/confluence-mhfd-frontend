@@ -2189,7 +2189,6 @@ const Map = ({
                       const item = {
                           type: MENU_OPTIONS.PROBLEMS,
                           streamname: feature.properties.streamname,
-                          problem_type: feature.properties.problem_type,
                           title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
                           problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
                           name: feature.properties.problem_name ? feature.properties.problem_name : '-',
