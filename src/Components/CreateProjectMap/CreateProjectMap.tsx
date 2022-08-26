@@ -114,7 +114,6 @@ const CreateProjectMap = (type: any) => {
     cartoid: ''
   });
   useEffect(() => {
-    console.log('adding location ', isAddLocation);
     magicAddingVariable = isAddLocation;
   }, [isAddLocation])
   useEffect(() => {
@@ -518,7 +517,6 @@ const CreateProjectMap = (type: any) => {
     } else if (geom.type.includes('Point')) {
       return turf.point(geom.coordinates);
     } else {
-      console.log("CG diff", geom.type);
     }
   }
   useEffect(() => {
@@ -1674,7 +1672,6 @@ const CreateProjectMap = (type: any) => {
             problemid: item.problemid,
             streamname: item.streamname
         });
-        console.log("MENU CREATE", item, feature.properties)
           menuOptions.push('Problem: ' + item.problem_type);
           popups.push(itemValue);
           mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
