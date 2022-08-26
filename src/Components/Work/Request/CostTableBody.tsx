@@ -83,6 +83,10 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
         "filter": ""
     },
     {
+        "aoi": "Denver",
+        "filter": ""
+    },
+    {
         "aoi": "Denver County",
         "filter": "County"
     },
