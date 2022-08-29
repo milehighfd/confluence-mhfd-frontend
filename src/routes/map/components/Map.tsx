@@ -61,6 +61,7 @@ let currentElement: any = {
   opacity: 1, 
   color_id: undefined
 }
+let featuresCount = 0;
 type LayersType = string | ObjectLayerType;
 let coordX = -1;
 let coordY = -1;
@@ -1927,7 +1928,12 @@ const Map = ({
                 popups,
                 mobileIds,
                 ids,
-                userInformation
+                userInformation,
+                featuresCount,
+                () => {},
+                () => {},
+                () => {},
+                []
               );
            }
             if (popups.length) { 

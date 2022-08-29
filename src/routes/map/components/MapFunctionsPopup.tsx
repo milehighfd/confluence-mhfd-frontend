@@ -4,6 +4,7 @@ import { loadMenuPopupWithData } from './MapGetters';
 import {
   MENU_OPTIONS,
   MHFD_PROJECTS,
+  PROJECTS_DRAFT,
   MUNICIPALITIES_FILTERS,
   ROUTINE_NATURAL_AREAS,
   ROUTINE_WEED_CONTROL,
@@ -21,7 +22,8 @@ import {
   STAFF,
   EFFECTIVE_REACHES,
   COMPONENT_LAYERS,
-  STREAM_IMPROVEMENT_MEASURE
+  STREAM_IMPROVEMENT_MEASURE,
+  MAPTYPES
 } from "../../../constants/constants";
 import * as datasets from "../../../Config/datasets";
 import {
@@ -37,6 +39,7 @@ import { SERVER } from "../../../Config/Server.config";
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
 const factorm2toacre = 0.00024710538146717;
+
 
 export const measureFunction = (
   e: any,
@@ -122,9 +125,12 @@ export const addPopupAndListeners = (
   createProject: any,
   measureCenterAndDelete: any,
   e:any,
-  ids: any
+  ids: any,
+  addRemoveComponent?: any,
+  openEdit?: any,
+  isEditPopup? :any
 ) => {
-  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test);
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup);
   setMobilePopups(mobile);
   setActiveMobilePopups(mobileIds);
   setSelectedPopup(0);
@@ -141,6 +147,8 @@ export const addPopupAndListeners = (
           document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
           document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
           document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
+          document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
+          document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit.bind(popups[index], popups[index]));
       }
   }
 }
@@ -207,7 +215,13 @@ export const addPopupsOnClick = async (
   popups: any,
   mobileIds: any,
   ids: any,
-  userInformation: any
+  userInformation: any,
+  featuresCount: any,
+  getComponentsByProjid: any,
+  setCounterPopup: any,
+  getTotalAmount: any,
+  componentsList: any,
+  mapType?: any
 ) => {
   
   let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
@@ -225,13 +239,16 @@ export const addPopupsOnClick = async (
       }
       return -1;
   }
-  const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
-  if ( popupsClassess.length ) {
-    //erase all popups in DOM
-      for(let i = 0 ; i < popupsClassess.length ; ++i) {
-        popupsClassess[i].remove();
-      }
+  if (mapType !== MAPTYPES.WORKREQUEST) {
+    const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
+    if ( popupsClassess.length ) {
+      //erase all popups in DOM
+        for(let i = 0 ; i < popupsClassess.length ; ++i) {
+          popupsClassess[i].remove();
+        }
+    }
   }
+  
   features = features.filter((element: any, index: number) => {
       return search(element.properties.cartodb_id, element.source) === index;
   });
@@ -255,17 +272,48 @@ export const addPopupsOnClick = async (
           continue;
       }
       let itemValue;
-      if (feature.source === 'projects_polygon_' || feature.source === MHFD_PROJECTS) {
+      if (
+        feature.source === 'projects_polygon_' ||
+        feature.source === MHFD_PROJECTS ||
+        feature.source === PROJECTS_DRAFT
+      ) {
+        if (mapType !== MAPTYPES.WORKREQUEST) {
+          getComponentsByProjid(feature.properties.projectid, setCounterPopup);
+        }
+          
           const filtered = galleryProjects.filter((item: any) =>
               item.cartodb_id === feature.properties.cartodb_id
           );
           const item = {
               type: 'project',
-              title: MENU_OPTIONS.PROJECT,
-              name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
+              title:
+                feature.source === PROJECTS_DRAFT
+                  ? feature.properties.projecttype + ' ' + MENU_OPTIONS.PROJECT
+                  : MENU_OPTIONS.PROJECT,
+              name: feature.properties.projectname
+                ? feature.properties.projectname
+                : feature.properties.requestedname
+                ? feature.properties.requestedname
+                : '-',
               organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-              value: feature.properties.estimatedcost ? feature.properties.estimatedcost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
-              projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
+              value:
+                feature.source === PROJECTS_DRAFT
+                  ? feature.properties.projecttype.toLowerCase() === 'capital'
+                    ? feature.properties.estimatedcost
+                    : getTotalAmount(feature.properties.cartodb_id)
+                  : feature.properties.estimatedcost
+                  ? feature.properties.estimatedcost
+                  : feature.properties.component_cost
+                  ? feature.properties.component_cost
+                  : '-1',
+              projecctype:
+                feature.source === PROJECTS_DRAFT
+                  ? 'STATUS'
+                  : feature.properties.projectsubtype
+                  ? feature.properties.projectsubtype
+                  : feature.properties.projecttype
+                  ? feature.properties.projecttype
+                  : '-',
               status: feature.properties.status ? feature.properties.status : '-',
               objectid: feature.properties.objectid,
               component_count: feature.properties.component_count,
@@ -751,7 +799,9 @@ export const addPopupsOnClick = async (
       }
       if(feature.source === 'streams') {
           const item = {
+              type: 'streams-reaches',
               layer: 'Streams',
+              title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream',
               streamname: feature.properties.str_name,
               mhfd_code: feature.properties.mhfd_code,
               catch_sum: feature.properties.catch_sum,
@@ -824,7 +874,18 @@ export const addPopupsOnClick = async (
       }
       for (const component of COMPONENT_LAYERS.tiles) {
           if (feature.source === component)  {
-              const problemid = feature.properties.problemid ?feature.properties.problemid:(feature.properties.problem_id ? feature.properties.problem_id :'');
+            let isAdded = false;
+            if (mapType === MAPTYPES.WORKREQUEST) {
+               isAdded = componentsList.find((i: any) => i.cartodb_id === feature.properties.cartodb_id);
+            }
+            
+              const problemid = feature.properties.problemid 
+                  ? feature.properties.problemid
+                  :
+                    (
+                      feature.properties.problem_id ?
+                        feature.properties.problem_id :''
+                    );
               let problemname = '';
               if(problemid) {
                 if (feature.source === STREAM_IMPROVEMENT_MEASURE){
@@ -841,6 +902,10 @@ export const addPopupsOnClick = async (
                   volume = {volume:feature.properties.detention_volume? feature.properties.detention_volume : '-'}
               }
               let item;
+              let status = 'Add';
+              if (isAdded) {
+                status = 'Remove';
+              }
               if(feature.source === STREAM_IMPROVEMENT_MEASURE ) {
                 item = {
                   layer: MENU_OPTIONS.COMPONENTS,
@@ -875,6 +940,12 @@ export const addPopupsOnClick = async (
                     streamname: feature.properties.drainageway,
                     ...volume,
                   };
+                  if (mapType === MAPTYPES.WORKREQUEST) {
+                    item = {
+                      ...item,
+                      added: status
+                    };
+                  }
               }                        
               const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
               menuOptions.push(name);
@@ -891,5 +962,4 @@ export const addPopupsOnClick = async (
           }
       }
   }
-  console.log('THIS POPUSP', popups);
 }
