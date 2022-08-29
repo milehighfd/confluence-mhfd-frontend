@@ -37,7 +37,7 @@ import {
   PROJECTS_DRAFT,ICON_POPUPS,
   MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS
 } from "../../constants/constants";
-import { loadIconsPopup } from '../../routes/map/components/MapGetters';
+import { loadIconsPopup, loadMenuPopupWithData } from '../../routes/map/components/MapGetters';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button } from 'antd';
@@ -2146,7 +2146,7 @@ const CreateProjectMap = (type: any) => {
         }
       }
       if (popups.length) {
-        const html = loadMenuPopupWithData(menuOptions, popups);
+        const html = loadMenuPopupWithData(menuOptions, popups,user, test, undefined, undefined, true);
         setMobilePopups(mobile);
         setActiveMobilePopups(mobileIds);
         setSelectedPopup(0);
@@ -2263,39 +2263,6 @@ const CreateProjectMap = (type: any) => {
       map.map.off('click', eventToClick);
     }
   }, [allLayers]);
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => {
-    const popupNode = document.createElement("div");
-    ReactDOM.render(
-      (
-      <>
-        {menuOptions.length === 1 ?
-          (<> {(menuOptions[0] !== 'Project' && !menuOptions[0].includes('Problem'))
-            ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
-            loadMainPopup(0, popups[0], test)}
-          </>)
-          :
-          <div className="map-pop-02">
-            <div className="headmap">LAYERS</div>
-            <div className="layer-popup">
-              {
-                menuOptions.map((menu: any, index: number) => {
-                  return (
-                    <div>
-                      {loadIconsPopup(menu, popups[index], index)}
-                    {(menu !== 'Project' && !menu.includes('Problem')) ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
-                      menu.includes('Project') ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>}
-      </>
-      ),
-      popupNode
-    );
-    return popupNode;
-  };
 
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
@@ -2313,22 +2280,7 @@ const CreateProjectMap = (type: any) => {
       </div>
     </>
   );
-  const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
-    <>
-      <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
-    </>
-  );
-
-  const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
-    <>
-      <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false}></ComponentPopupCreate>
-    </>
-  );
-  const loadStreamPopup = (index: number, item: any) => (
-    <>
-      <StreamPopupFull id={index} item={item} ></StreamPopupFull>
-    </>
-  );
+ 
   const renderOption = (item: any) => {
     return {
       key: `${item.text}|${item.place_name}`,
