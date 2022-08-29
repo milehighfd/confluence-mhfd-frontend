@@ -1914,7 +1914,7 @@ const Map = ({
               mobileIds.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
               ids.push({layer: measure.layer.id.replace(/_\d+$/, ''), id: measure.properties.id});
             } else {
-              addPopupsOnClick(
+             await addPopupsOnClick(
                 map,
                 bbox, 
                 allLayers,

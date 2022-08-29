@@ -209,6 +209,7 @@ export const addPopupsOnClick = async (
   ids: any,
   userInformation: any
 ) => {
+  
   let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
   coordX = e.point.x;
   coordY = e.point.y;
@@ -890,4 +891,5 @@ export const addPopupsOnClick = async (
           }
       }
   }
+  console.log('THIS POPUSP', popups);
 }
