@@ -90,7 +90,7 @@ export const measureFunction = (
       const distance = turf.length(newLS);
       setDistanceValue((distance * factorKMtoFeet).toLocaleString(undefined, {maximumFractionDigits: 2}));
       setDistanceValueMi((distance * factorKMToMiles).toLocaleString(undefined, {maximumFractionDigits: 2}));
-      if(linestringMeasure.geometry.coordinates.length > 2) {
+      if(linestringMeasure.geometry.coordinates.length > 3) {
         var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(newLS)));
         const area = turf.area(polygon);
         setAreaValue((area * factorm2toacre).toLocaleString(undefined, {maximumFractionDigits: 2}));

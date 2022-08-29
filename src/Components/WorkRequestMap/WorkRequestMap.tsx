@@ -14,6 +14,13 @@ import { getData, getToken, postDataAsyn, postData } from "../../Config/datasets
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import { loadIconsPopup } from '../../routes/map/components/MapGetters';
+import {
+  measureFunction,
+  // addPopupAndListeners,
+  // addPopupServiceCountyMunicipality,
+  // addPopupsOnClick
+} from '../../routes/map/components/MapFunctionsPopup';
+
 import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
 import {
   PROBLEMS_TRIGGER,
@@ -331,57 +338,6 @@ const WorkRequestMap = (type: any) => {
       map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
       setIsDrawingMeasure(false);
       setIsMeasuring(false);
-    }
-  };
-  const measureFunction = (e: any) => {
-    const features = map.map.queryRenderedFeatures(e.point, {
-      layers: ['measure-points'],
-    });
-    if (e.point.x === coordX || e.point.y === coordY) {
-      return;
-    }
-    coordX = e.point.x;
-    coordY = e.point.y;
-    if (geojsonMeasures.features.length > 1) geojsonMeasures.features.pop();
-    setIsDrawingMeasure(true);
-    if (features.length > 0 && linestringMeasure.geometry.coordinates.length > 2) {
-      const id = features[0].properties.id;
-      geojsonMeasures.features = geojsonMeasures.features.filter((point: any) => point.properties.id !== id);
-      finishMeasure();
-    } else {
-      const point: any = {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [e.lngLat.lng, e.lngLat.lat],
-        },
-        properties: {
-          id: String(new Date().getTime()),
-        },
-      };
-      geojsonMeasures.features.push(point);
-    }
-
-    if (geojsonMeasures.features.length > 1) {
-      linestringMeasure.geometry.coordinates = geojsonMeasures.features.map(point => point.geometry.coordinates);
-      geojsonMeasures.features.push(linestringMeasure);
-      const newLS = turf.lineString(linestringMeasure.geometry.coordinates);
-      const distance = turf.length(newLS);
-      setDistanceValue((distance * factorKMtoFeet).toLocaleString(undefined, { maximumFractionDigits: 2 }));
-      setDistanceValueMi((distance * factorKMToMiles).toLocaleString(undefined, { maximumFractionDigits: 2 }));
-      if (linestringMeasure.geometry.coordinates.length > 2) {
-        var polygon = turf.lineToPolygon(JSON.parse(JSON.stringify(newLS)));
-        const area = turf.area(polygon);
-        setAreaValue((area * factorm2toacre).toLocaleString(undefined, { maximumFractionDigits: 2 }));
-      }
-    } else if (geojsonMeasures.features.length == 1) {
-      setAreaValue('0');
-      setDistanceValue('0');
-      setDistanceValueMi('0');
-    }
-
-    if (map.map.getSource('geojsonMeasure')) {
-      map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
     }
   };
   const measureCenterAndDelete = (type: any, item: any, event: any) => {
@@ -1584,7 +1540,19 @@ const applyProblemClusterLayer = () => {
   };
   const eventClick = async (e: any) => {
     if (isMeasuring) {
-      measureFunction(e);
+      measureFunction(
+        e,
+        map.map,
+        coordX,
+        coordY,
+        geojsonMeasures,
+        setIsDrawingMeasure,
+        linestringMeasure,
+        finishMeasure,
+        setDistanceValue,
+        setAreaValue,
+        setDistanceValueMi
+      );
     } else {
       if (!isPopup) {
         return;
