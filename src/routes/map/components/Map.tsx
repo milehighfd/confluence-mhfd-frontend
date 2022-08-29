@@ -49,6 +49,7 @@ import MobileMenu from './MobileMenu';
 import SideMenuTools from './SideMenuTools';
 import { commentPopup } from './MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
+import EventService from '../../../services/EventService';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -1818,11 +1819,19 @@ const Map = ({
                 }
     }
     useEffect(() => {
+      //   if (allLayers.length < 100) {
+      //     return;
+      // }
+      EventService.setRef('click', eventclick);
+      let eventToClick = EventService.getRef('click');
+      map.on('click', eventToClick);
+      return () => {
+        map.off('click', eventToClick);
+      };
+    }, [allLayers]);
 
-        if (allLayers.length < 100) {
-            return;
-        }
-        map.on('click', async (e: any) => {
+        const eventclick =  async (e: any) => {
+          console.log('click', e);
             if(markerGeocoder){
               markerGeocoder.remove();
               setMarkerGeocoder(undefined);
@@ -1944,8 +1953,7 @@ const Map = ({
             }
             }
            
-        });
-    }, [allLayers]);
+        };
     const seeDetails = (details: any, event: any) => {
 
         if (details.problemid) {
