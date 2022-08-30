@@ -48,7 +48,6 @@ import { useProfileState } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
-import LegendModal from "../../routes/map/components/LegendModal";
 
 let map: any;
 let isProblemActive = true;
@@ -65,7 +64,6 @@ const { Option } = AutoComplete;
 let magicAddingVariable = false;
 const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
-  const [visibleLegend, setVisibleLegend] = useState(false);
   let popup = new mapboxgl.Popup({ closeButton: true, });
 
   const [isExtendedView] = useState(false);
@@ -2498,13 +2496,21 @@ const CreateProjectMap = (type: any) => {
     popup.remove();
   }
   return <>
-    {visibleLegend && <LegendModal visible={visibleLegend} setVisible={setVisibleLegend}/>}
     <div className="map">
     {
             isProblemActive === true ? <div className="legendProblemTypemap">
               <h5>
                 Problem Type
-                <InfoCircleOutlined onClick={()=>(setVisibleLegend(true))} style={{marginLeft: '35px', color: '#bfbfbf'}}/>
+                <Popover
+                  content={<div className='popoveer-00'>
+                    <p style={{fontWeight:'600'}}>Problem Types</p>
+                    <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems related to existing flood or fluvial hazard to life and property.</p>
+                    <p><span style={{fontWeight:'600'}}>Stream Function </span> Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
+                    <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p>
+                  </div>}
+                >
+                  <InfoCircleOutlined style={{marginLeft: '35px', color: '#bfbfbf'}}/>
+                </Popover>
               </h5>
               <div className="legendprob">
                 <div className="iconfloodhazard" />
