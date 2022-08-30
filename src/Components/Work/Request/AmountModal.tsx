@@ -94,9 +94,21 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
         <Button className="btn-transparent" onClick={handleCancel}>
           {tabKey === 'Maintenance' ? 'Cancel': 'Clear'}
           </Button>,
-        <Button className="btn-purple" onClick={handleOk} disabled={ tabKey === 'Maintenance' && year0 == null ? true : false}>
+        <Button
+          className="btn-purple"
+          onClick={handleOk}
+          disabled={
+            tabKey === 'Maintenance' && (
+              (showFirst && year0 === null) ||
+              (showSecond && year1 === null) ||
+              (showThird && year2 === null) ||
+              (showFourth && year3 === null) ||
+              (showFifth && year4 === null)
+            )
+          }
+        >
           Save
-          </Button>,
+        </Button>,
       ]}
     >
       {
@@ -106,7 +118,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showFirst &&
         <>
-      <p style={{display: 'flex'}}>{labels[0]} {tabKey === 'Maintenance' && showTwoNextYears && <p style={{color: 'red',     whiteSpace: 'break-spaces'}}>{' *'}</p>}</p>
+      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[0]}
+      {showTwoNextYears && showFirst && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
+      </div>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -121,7 +135,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showSecond &&
         <>
-      <p>{labels[1]}</p>
+      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[1]}
+      {showTwoNextYears && showSecond && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
+      </div>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -135,7 +151,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showThird &&
         <>
-      <p>{labels[2]}</p>
+      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[2]}
+      {showTwoNextYears && showThird && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
+      </div>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -149,7 +167,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showFourth &&
         <>
-      <p>{labels[3]}</p>
+      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[3]}
+      {showTwoNextYears && showFourth && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
+      </div>
       <InputNumber  min={0}
         formatter={priceFormatter}
         parser={priceParser}
@@ -163,7 +183,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showFifth &&
         <>
-      <p>{labels[4]}</p>
+      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[4]}
+      {showTwoNextYears && showFifth && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
+      </div>
       <InputNumber min={0}
         formatter={priceFormatter}
         parser={priceParser}
