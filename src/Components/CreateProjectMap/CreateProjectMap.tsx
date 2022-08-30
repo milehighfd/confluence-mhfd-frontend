@@ -651,25 +651,29 @@ const CreateProjectMap = (type: any) => {
     }
   }, [map])
   const [compareSL, setCompareSL] = useState('');
-  useEffect(() => {
-    if (map) {
-      let time = firstTimeApplyMapLayers ? 400 : 200;
-      setTimeout(() => {
-        if (JSON.stringify(selectedLayers) !== compareSL) {
-          if (map) {
-            if (selectedLayers.length === 0) {
-            } else {
-              map.isStyleLoaded(() => {
-                applyMapLayers();
-                applyProblemClusterLayer();
-              });
-              firstTimeApplyMapLayers = false;
-              setCompareSL(JSON.stringify(selectedLayers));
-            }
+  const waiting = () => {
+    if (!map.map.isStyleLoaded()) {
+        setTimeout(waiting, 250);
+    } else {
+      if (JSON.stringify(selectedLayers) !== compareSL) {
+        if (map) {
+          if (selectedLayers.length === 0) {
+          } else {
+            map.isStyleLoaded(() => {
+              applyMapLayers();
+              applyProblemClusterLayer();
+              topStreams();
+            });
+            firstTimeApplyMapLayers = false;
+            setCompareSL(JSON.stringify(selectedLayers));
           }
         }
-      }, time);
-      topStreams();
+      }
+    }
+};
+  useEffect(() => {
+    if (map) {
+      waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
     EventService.setRef('addmarker', addMarker);

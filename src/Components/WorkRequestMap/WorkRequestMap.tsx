@@ -382,6 +382,7 @@ const WorkRequestMap = (type: any) => {
     if(JSON.stringify(selectedLayersWR) != compareSLWR) {
       if (map ) {
         map.isStyleLoaded(() => {
+          console.log('HOW MANY TIMES THIS REACH APPLY MAP LAYERS', selectedLayersWR);
           applyMapLayers();
           applyProblemClusterLayer();
         });
@@ -1612,7 +1613,6 @@ const applyProblemClusterLayer = () => {
           MAPTYPES.WORKREQUEST
         );
       }
-      console.log('Popup ups ', popups);
       if (popups && popups.length) {
         addPopupAndListeners(
           MAPTYPES.WORKREQUEST,
@@ -1640,45 +1640,6 @@ const applyProblemClusterLayer = () => {
       }
     }
   };
-  const getTitleOfStreamImprovements = (properties: any) => {
-    let title = '';
-    if (properties.component_part_category) {
-      title = properties.component_part_category;
-    }
-    if (properties.component_part_subcategory) {
-      title += (properties.component_part_category ? ' - ' : '') + properties.component_part_subcategory;
-    }
-    return title;
-  };
-  const getTitleOfProblemsPart = (feature: any) => {
-    let title = '';
-    if (feature.source.includes('hazard_polygon')) {
-      title = 'Flood Hazard Polygon';
-    }
-    if (feature.source.includes('hazard_line')) {
-      title = 'Flood Hazard Line';
-    }
-    if (feature.source.includes('hazard_point')) {
-      title = 'Flood Hazard Point';
-    }
-    if (feature.source.includes('function_line')) {
-      title = 'Stream Function Line';
-    }
-    if (feature.source.includes('function_polygon')) {
-      title = 'Stream Function Polygon';
-    }
-    if (feature.source.includes('function_point')) {
-      title = 'Stream Function Point';
-    }
-    if (feature.source.includes('development_polygon')) {
-      title = 'Watershed Change Polygon';
-    }
-    if (feature.source.includes('development_line')) {
-      title = 'Watershed Change Line';
-    }
-
-    return title;
-  }
   const addRemoveComponent = (item: any, event: any)=> {
     let newComponents:any = [];
     if(item.added === 'Add') {
