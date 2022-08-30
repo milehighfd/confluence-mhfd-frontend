@@ -3,20 +3,6 @@ import { Button, Col, Input, Layout, message, Popover, Row, Select, Space, Steps
 
 const { Step } = Steps;
 
-const steps = [
-  {
-    title: 'First',
-    content: 'First-content',
-  },
-  {
-    title: 'Second',
-    content: 'Second-content',
-  },
-  {
-    title: 'Last',
-    content: 'Last-content',
-  },
-];
 const PhaseView = () => {
   const [current, setCurrent] = useState(0);
 

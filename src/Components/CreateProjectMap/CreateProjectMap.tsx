@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
-import { RightOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, RightOutlined } from '@ant-design/icons';
 import { MainPopupCreateMap, ComponentPopupCreate, StreamPopupFull } from './../Map/MapPopups';
 import { numberWithCommas } from '../../utils/utils';
 import * as turf from '@turf/turf';
@@ -40,7 +40,7 @@ import {
 import { loadIconsPopup } from '../../routes/map/components/MapGetters';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
-import { Dropdown, Button } from 'antd';
+import { Dropdown, Button, Popover } from 'antd';
 import { tileStyles, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
@@ -2500,6 +2500,19 @@ const CreateProjectMap = (type: any) => {
     <div className="map">
     {
             isProblemActive === true ? <div className="legendProblemTypemap">
+              <h5>
+                Problem Type
+                <Popover
+                  content={<div className='popver-info'>
+                    <p style={{fontWeight:'600'}}>Problem Types</p>
+                    <p><span style={{fontWeight:'600'}}>&#8226; Flood Hazard –</span> Problems associated with flood waters that may pose safety or risk concerns related to people, property, and the environment today.</p>
+                    <p><span style={{fontWeight:'600'}}>&#8226; Stream Function –</span> Problems associated with a streams function and it’s performance related to the Five Elements (hydrology, hydraulics, geomorphology, vegetation, and community values).</p>
+                    <p><span style={{fontWeight:'600'}}>&#8226; Watershed Change -</span>  Problems associated with flood waters that may pose safety or risk concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc)</p>
+                  </div>}
+                >
+                  <InfoCircleOutlined style={{marginLeft: '35px', color: '#bfbfbf'}}/>
+                </Popover>
+              </h5>
               <div className="legendprob">
                 <div className="iconfloodhazard" />
                 Flood Hazard
