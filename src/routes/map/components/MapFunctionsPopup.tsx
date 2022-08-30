@@ -227,6 +227,7 @@ export const addPopupsOnClick = async (
   let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
   coordX = e.point.x;
   coordY = e.point.y;
+  console.log('DOES THIS FEATURES??', features);
   const search = (id: number, source: string) => {
     // Gets only the first feature of the layers
     // one feature may be in multiple layers
@@ -962,4 +963,5 @@ export const addPopupsOnClick = async (
           }
       }
   }
+  console.log('POPUPS after click', popups);
 }

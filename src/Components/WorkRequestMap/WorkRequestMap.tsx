@@ -1614,6 +1614,7 @@ const applyProblemClusterLayer = () => {
           MAPTYPES.WORKREQUEST
         );
       }
+      console.log('Popup ups ', popups);
       if (popups && popups.length) {
         addPopupAndListeners(
           menuOptions,
@@ -1703,10 +1704,7 @@ const applyProblemClusterLayer = () => {
   useEffect(() => {
     EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
-    map.map.off('click', eventToClick);
-    setTimeout(() => {
-      map.map.on('click', eventToClick);
-    }, 300);
+    map.map.on('click', eventToClick);
     return () => {
       if (map) {
         map.map.off('click', eventToClick);
