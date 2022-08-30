@@ -807,7 +807,7 @@ const Map = ({
                 if (!map.isStyleLoaded()) {
                     setTimeout(waiting, 250);
                 } else {
-                    applyMapLayers();
+                    //applyMapLayers();
                     setSpinMapLoaded(false);
                 }
             };
@@ -1402,7 +1402,7 @@ const Map = ({
                     });
                 }
             }
-            if(key != STREAMS_FILTERS && key != STREAMS_POINT) {
+            if(key ) {
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             }
             

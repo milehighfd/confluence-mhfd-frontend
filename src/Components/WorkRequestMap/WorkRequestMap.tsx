@@ -1294,7 +1294,7 @@ const applyProblemClusterLayer = () => {
           });
         }
       }
-      if (!key.includes('streams') && !key.includes(STREAMS_POINT)) {
+      if (key) {
         map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
       if (!hovereableLayers.includes(key)) {
