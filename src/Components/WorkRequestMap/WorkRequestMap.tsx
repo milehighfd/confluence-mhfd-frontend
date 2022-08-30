@@ -2561,9 +2561,9 @@ const epochTransform = (dateParser: any) => {
                 <Popover
                   content={<div className='popoveer-00'>
                     <p style={{fontWeight:'600'}}>Problem Types</p>
-                    <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems associated with flood waters that may pose safety or risk concerns related to people, property, and the environment today.</p>
-                    <p><span style={{fontWeight:'600'}}>Stream Function </span> Problems associated with a streams function and it’s performance related to the Five Elements (hydrology, hydraulics, geomorphology, vegetation, and community values).</p>
-                    <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems associated with flood waters that may pose safety or risk concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc)</p>
+                    <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems associated with flood waters that may pose safety or risk concerns related to people, property, and the environment today. Problems related to existing flood or fluvial hazard to life and property.</p>
+                    <p><span style={{fontWeight:'600'}}>Stream Function </span> Problems associated with a streams function and its performance related to the Five Elements (hydrology, hydraulics, geomorphology, vegetation, and community values). Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
+                    <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p>
                   </div>}
                 >
                   <InfoCircleOutlined style={{marginLeft: '35px', color: '#bfbfbf'}}/>
