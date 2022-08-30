@@ -53,6 +53,7 @@ import SideMenuTools from './SideMenuTools';
 import { commentPopup, loadMenuPopupWithData } from './MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import LegendModal from './LegendModal';
 const { Option } = AutoComplete;
 
 let map: any = null;
@@ -170,6 +171,7 @@ const Map = ({
     let geocoderRef = useRef<HTMLDivElement>(null);
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
+    const [visibleLegend, setVisibleLegend] = useState(false);
     const { notes } = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
@@ -3177,6 +3179,7 @@ const Map = ({
     }
     return (
         <>
+        {visibleLegend && <LegendModal visible={visibleLegend} setVisible={setVisibleLegend}/>}
         <SideBarComment
           visible={commentVisible}
           setVisible={setSideBarStatus}
@@ -3204,16 +3207,7 @@ const Map = ({
             isProblemActive === true ? <div className="legendProblemTypemap">
               <h5>
                 Problem Type
-                <Popover
-                  content={<div className='popoveer-00'>
-                    <p style={{fontWeight:'600'}}>Problem Types</p>
-                    <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems associated with flood waters that may pose safety or risk concerns related to people, property, and the environment today. Problems related to existing flood or fluvial hazard to life and property.</p>
-                    <p><span style={{fontWeight:'600'}}>Stream Function </span> Problems associated with a streams function and its performance related to the Five Elements (hydrology, hydraulics, geomorphology, vegetation, and community values). Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
-                    <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p>
-                  </div>}
-                >
-                  <InfoCircleOutlined style={{marginLeft: '35px', color: '#bfbfbf'}}/>
-                </Popover>
+                <InfoCircleOutlined onClick={()=>(setVisibleLegend(true))} style={{marginLeft: '35px', color: '#bfbfbf'}}/>
               </h5>
               <div className="legendprob">
                 <div className="iconfloodhazard" />
