@@ -4,9 +4,10 @@ import { DownOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
-import TablePortafolio from "./TablePortafolio";
-import ActionItems from "./ActionItems";
+import TablePortafolio from "./TablePortfolio";
 import PhaseView from "./PhaseView";
+import ActionItems from "./ActionItems";
+import CalendarView from "./CalendarView";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
@@ -38,7 +39,7 @@ const PortafolioBody = () => {
             <Select placeholder="List View" placement="bottomLeft" style={{marginRight:'20px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
                 <Option value="List View">List View</Option>
                 <Option value="Phase View">Phase View</Option>
-                <Option value="Calendar View<">Calendar View</Option>
+                <Option value="Calendar View">Calendar View</Option>
             </Select>
             <Button className="btn-filter-k">
               <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>&nbsp;
@@ -63,6 +64,7 @@ const PortafolioBody = () => {
                     <Col xs={{ span: 23 }} lg={{ span: 15 }}>
                       {optionSelect === 'List View' && <TablePortafolio/>}
                       {optionSelect === 'Phase View'  && <PhaseView/>}
+                      {optionSelect === 'Calendar View'  && <CalendarView/>}
                     </Col>
                     <Col xs={{ span: 11 }} lg={{ span: 5 }}>
                       <ActionItems />

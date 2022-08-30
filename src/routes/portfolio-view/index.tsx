@@ -4,7 +4,7 @@ import NavbarContainer from "../../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Components/Shared/Sidebar/SidebarView";
 import PortafolioBody from "./components/PorfolioBody";
 
-const PortafolioView = () => {
+const PortfolioView = () => {
 
 
   return <>
@@ -20,4 +20,4 @@ const PortafolioView = () => {
   </>
 };
 
-export default PortafolioView;
+export default PortfolioView;

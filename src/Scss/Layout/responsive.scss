@@ -101,8 +101,9 @@
     }
   }
   .ant-carousel .slick-dots {
-    padding-left: 100px !important;
-    padding-bottom: 11% !important;
+    padding-left: 45px !important;
+    padding-bottom: 7.5vh !important;
+    width: 20% !important;
   }
   .ant-carousel .slick-slide h2 {
     font-size: 36px;
@@ -114,11 +115,11 @@
     padding-bottom: 50px;
   }
   .ant-carousel .slick-dots li button {
-    width: 30px !important;
+    width: 20px !important;
     height: 5px !important;
   }
   .ant-carousel .slick-dots li.slick-active button {
-    width: 30px !important;
+    width: 20px !important;
   }
   .ant-carousel .slick-slide .textContent {
     height: 82vh;
@@ -241,7 +242,7 @@
   }
   .ant-carousel .slick-dots {
     padding-left: 100px !important;
-    padding-bottom: 128px !important;
+    padding-bottom: 8.5vh !important;
   }
   .ant-carousel .slick-slide h2 {
     font-size: 72px;
@@ -256,7 +257,7 @@
     height: 10px !important;
   }
   .ant-carousel .slick-dots li.slick-active button {
-    width: 50px !important;
+    width: 40px !important;
   }
   .ant-carousel .slick-slide .textContent {
     height: 84vh;

@@ -8,7 +8,7 @@ import useLogin from './hook/custom/useLogin';
 import { useAppUserState } from './hook/useAppUser';
 import useInitializeApp from './hook/custom/useInitializeApp';
 import ConfirmPasswordLayout from './routes/confirm-password';
-import PortafolioView from './routes/portfolio-view/indes';
+import PortfolioView from './routes/portfolio-view';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
@@ -52,7 +52,7 @@ const App = () => {
         {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserView} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && <Route path={'/portafolio-view'} component={PortafolioView} />}
+          appUser.designation === 'staff') && <Route path={'/portfolio-view'} component={PortfolioView} />}
         {/* {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentRoute} />} */}
         {(loading && <Route path={`/`} component={LoadingView} />)}
