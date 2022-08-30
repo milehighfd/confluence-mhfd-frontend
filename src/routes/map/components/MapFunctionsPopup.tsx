@@ -109,6 +109,7 @@ export const measureFunction = (
     }
 }
 export const addPopupAndListeners = (
+  maptype: any,
   menuOptions: any,
   popups: any,
   userInformation: any,
@@ -131,7 +132,7 @@ export const addPopupAndListeners = (
   isEditPopup? :any,
   getComponentsFromProjProb?: any
 ) => {
-  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup);
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup, undefined, maptype === MAPTYPES.CREATEPROJECTMAP);
   setMobilePopups(mobile);
   setActiveMobilePopups(mobileIds);
   setSelectedPopup(0);
@@ -945,7 +946,7 @@ export const addPopupsOnClick = async (
                     streamname: feature.properties.drainageway,
                     ...volume,
                   };
-                  if (mapType === MAPTYPES.WORKREQUEST) {
+                  if (mapType === MAPTYPES.WORKREQUEST || mapType === MAPTYPES.CREATEPROJECTMAP) {
                     item = {
                       ...item,
                       added: status

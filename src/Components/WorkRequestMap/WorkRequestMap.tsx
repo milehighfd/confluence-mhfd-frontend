@@ -1615,6 +1615,7 @@ const applyProblemClusterLayer = () => {
       console.log('Popup ups ', isEditPopup, );
       if (popups && popups.length) {
         addPopupAndListeners(
+          MAPTYPES.WORKREQUEST,
           menuOptions,
           popups,
           user,

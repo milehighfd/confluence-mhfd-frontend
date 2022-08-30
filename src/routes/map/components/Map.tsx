@@ -23,6 +23,7 @@ import {
     SERVICE_AREA_FILTERS,
     STREAMS_POINT,
     PROPSPROBLEMTABLES,
+    MAPTYPES,
 } from "../../../constants/constants";
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
@@ -1938,6 +1939,7 @@ const Map = ({
            }
             if (popups.length) { 
                 addPopupAndListeners(
+                  MAPTYPES.MAINMAP,
                   menuOptions,
                   popups,
                   userInformation,

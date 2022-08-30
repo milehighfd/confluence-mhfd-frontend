@@ -59,7 +59,15 @@ export const commentPopup = (note?:any ) => {
   return popupNode;
 }
 
-export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, ep?: any, title?: any, isCreateProjectMap?:boolean) => {
+export const loadMenuPopupWithData = (
+  menuOptions: any[],
+  popups: any[],
+  userInformation: any,
+  test: any,
+  ep?: any,
+  title?: any,
+  isCreateProjectMap?:boolean
+) => {
   const popupNode = document.createElement("div");
   ReactDOM.render(
   (
