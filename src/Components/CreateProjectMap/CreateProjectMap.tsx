@@ -358,7 +358,7 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const setBounds = (value: any) => {
-    const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi))).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,

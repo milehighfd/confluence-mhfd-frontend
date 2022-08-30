@@ -785,35 +785,48 @@ const Map = ({
     }, [leftWidth]);
 
     useEffect(() => {
-        map.on('style.load', () => {
-            const waiting = () => {
-                if (!map.isStyleLoaded()) {
-                    setTimeout(waiting, 250);
-                } else {
-                    applySkyMapLayer();
-                    applyMapLayers();
-                    setSpinMapLoaded(false);
-                    applyNearMapLayer();
-                    applyProblemClusterLayer();
-                    applyMeasuresLayer();
-                }
-            };
-            waiting();
-        });
-        if (map.isStyleLoaded()) {
+      const waiting = () => {
+        if (!map.isStyleLoaded()) {
+            setTimeout(waiting, 250);
+        } else {
+            applySkyMapLayer();
             applyMapLayers();
             setSpinMapLoaded(false);
-        } else {
-            const waiting = () => {
-                if (!map.isStyleLoaded()) {
-                    setTimeout(waiting, 250);
-                } else {
-                    //applyMapLayers();
-                    setSpinMapLoaded(false);
-                }
-            };
-            waiting();
+            applyNearMapLayer();
+            applyProblemClusterLayer();
+            applyMeasuresLayer();
         }
+    };
+    waiting();
+        // map.on('style.load', () => {
+        //     const waiting = () => {
+        //         if (!map.isStyleLoaded()) {
+        //             setTimeout(waiting, 250);
+        //         } else {
+        //             applySkyMapLayer();
+        //             applyMapLayers();
+        //             setSpinMapLoaded(false);
+        //             applyNearMapLayer();
+        //             applyProblemClusterLayer();
+        //             applyMeasuresLayer();
+        //         }
+        //     };
+        //     waiting();
+        // });
+        // if (map.isStyleLoaded()) {
+        //     applyMapLayers();
+        //     setSpinMapLoaded(false);
+        // } else {
+        //     const waiting = () => {
+        //         if (!map.isStyleLoaded()) {
+        //             setTimeout(waiting, 250);
+        //         } else {
+        //             //applyMapLayers();
+        //             setSpinMapLoaded(false);
+        //         }
+        //     };
+        //     waiting();
+        // }
     }, [selectedLayers]);
 
     useEffect(() => {
@@ -1403,7 +1416,7 @@ const Map = ({
                     });
                 }
             }
-            if(key ) {
+            if(key) {
                 map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
             }
             

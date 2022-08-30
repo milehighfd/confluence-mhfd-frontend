@@ -570,7 +570,7 @@ const WorkRequestMap = (type: any) => {
   const setBounds = (value: any) => {
     if (!value) return;
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => x.aoi.includes(value))
+      .filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi)))
       .map((element: any) => {
         return {
           aoi: element.aoi,
@@ -1612,7 +1612,7 @@ const applyProblemClusterLayer = () => {
           MAPTYPES.WORKREQUEST
         );
       }
-      console.log('Popup ups ', isEditPopup, );
+      console.log('Popup ups ', popups);
       if (popups && popups.length) {
         addPopupAndListeners(
           MAPTYPES.WORKREQUEST,
