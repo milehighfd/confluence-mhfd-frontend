@@ -128,7 +128,8 @@ export const addPopupAndListeners = (
   ids: any,
   addRemoveComponent?: any,
   openEdit?: any,
-  isEditPopup? :any
+  isEditPopup? :any,
+  getComponentsFromProjProb?: any
 ) => {
   const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup);
   setMobilePopups(mobile);
@@ -149,6 +150,7 @@ export const addPopupAndListeners = (
           document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
           document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
           document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit.bind(popups[index], popups[index]));
+          document.getElementById('buttonComponents-' + index)?.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
       }
   }
 }
@@ -201,7 +203,6 @@ export const addPopupServiceCountyMunicipality = (
     setMarkerGeocoder(searchMarker);
   }
 }
-
 export const addPopupsOnClick = async (
   map: any,
   bbox: any, 
@@ -216,7 +217,7 @@ export const addPopupsOnClick = async (
   mobileIds: any,
   ids: any,
   userInformation: any,
-  featuresCount: any,
+  isEditPopup: boolean,
   getComponentsByProjid: any,
   setCounterPopup: any,
   getTotalAmount: any,
@@ -227,7 +228,6 @@ export const addPopupsOnClick = async (
   let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
   coordX = e.point.x;
   coordY = e.point.y;
-  console.log('DOES THIS FEATURES??', features);
   const search = (id: number, source: string) => {
     // Gets only the first feature of the layers
     // one feature may be in multiple layers
@@ -278,6 +278,9 @@ export const addPopupsOnClick = async (
         feature.source === MHFD_PROJECTS ||
         feature.source === PROJECTS_DRAFT
       ) {
+        if(feature.source === PROJECTS_DRAFT) {
+          isEditPopup =true;
+        }
         if (mapType !== MAPTYPES.WORKREQUEST) {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         }
@@ -321,6 +324,7 @@ export const addPopupsOnClick = async (
               valueid: feature.properties.cartodb_id,
               id: feature.properties.projectid,
               streamname: feature.properties.streamname,
+              isEditPopup: feature.source === PROJECTS_DRAFT,
               popupId: 'popup',
               image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
                 feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
@@ -963,5 +967,5 @@ export const addPopupsOnClick = async (
           }
       }
   }
-  console.log('POPUPS after click', popups);
+  console.log('POPUPS after click', isEditPopup);
 }

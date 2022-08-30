@@ -107,7 +107,7 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
                       :(isCreateProjectMap === true ?
                         loadMainPopupCreateMap(index, popups[index], test,undefined ,userInformation) :
                       (menu === 'Project' ? 
-                      loadMainPopup(index, popups[index], test, userInformation, true, ep) : 
+                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup) : 
                       loadMainPopup(index, popups[index], test, userInformation)))
                       }
                   </div>

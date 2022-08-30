@@ -1929,7 +1929,7 @@ const Map = ({
                 mobileIds,
                 ids,
                 userInformation,
-                featuresCount,
+                false,
                 () => {},
                 () => {},
                 () => {},

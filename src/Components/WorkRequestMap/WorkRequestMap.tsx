@@ -16,8 +16,6 @@ import { loadIconsPopup } from '../../routes/map/components/MapGetters';
 import {
   addPopupAndListeners,
   measureFunction,
-  // addPopupAndListeners,
-  // addPopupServiceCountyMunicipality,
   addPopupsOnClick
 } from '../../routes/map/components/MapFunctionsPopup';
 
@@ -1562,6 +1560,7 @@ const applyProblemClusterLayer = () => {
       hideHighlighted();
       const popups: any = [];
       const mobile: any = [];
+      let isEditPopup = false;
       const menuOptions: any = [];
       const ids: any = [];
       const mobileIds: any = [];
@@ -1572,7 +1571,6 @@ const applyProblemClusterLayer = () => {
       const measureFeature = map.map.queryRenderedFeatures(bbox, {
         layers: ['measuresSaved', 'measuresSaved-border', 'measuresSaved-border-invisible'],
       });
-      let isEditPopup = false;
       if (measureFeature.length) {
         let measure = measureFeature[0];
         const item = {
@@ -1606,7 +1604,7 @@ const applyProblemClusterLayer = () => {
           mobileIds,
           ids,
           user,
-          featuresCount,
+          isEditPopup,
           getComponentsByProjid,
           setCounterPopup,
           getTotalAmount,
@@ -1614,7 +1612,7 @@ const applyProblemClusterLayer = () => {
           MAPTYPES.WORKREQUEST
         );
       }
-      console.log('Popup ups ', popups);
+      console.log('Popup ups ', isEditPopup, );
       if (popups && popups.length) {
         addPopupAndListeners(
           menuOptions,
