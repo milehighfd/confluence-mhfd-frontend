@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Collapse, Dropdown, Button, Input, Switch, Radio, Form, Menu, MenuProps } from 'antd';
 import { useFormik } from 'formik';
 
-import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, DROPDOWN_ORGANIZATION, GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from "../../../constants/constants";
+import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, DROPDOWN_ORGANIZATION, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, OTHER, ADMIN, STAFF, CONSULTANT } from "../../../constants/constants";
 import { VALIDATION_USER } from "../../../constants/validation";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
@@ -21,7 +21,58 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
   const visible = {
     visible: false
   };
+  const [organizationList, setOrganizationList] = useState<any[]>([]);
+    const [consultantList, setConsultantList] = useState<any[]>([]);
+    useEffect(() => {
+      datasets.getData(SERVER.GET_ORGANIZATIONS)
+        .then((rows) => {
+          const organizations = rows
+            .filter((row: any) => row.type === 'JURISDICTION')
+            .map(({id, name}: { id: number, name: string }) => (name));
+            // console.log('qwe organizations', organizations);
+          setOrganizationList(organizations);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+      datasets.getData(SERVER.GET_CONSULTANTS)
+        .then((rows) => {
+          const consultants = rows
+            .map(({_id, name}: { _id: number, name: string }) => (name));
+          setConsultantList(consultants);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    }, []);
 
+  const menu2 = () => {
+    const itemMenu: MenuProps['items'] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        itemMenu.push({
+          key: `${index}|${element}`,
+          label: <span style={{border:'transparent'}}>{element}</span>
+        });
+      });
+    };
+    if (values.designation === ADMIN || values.designation === STAFF) {
+      generateItemMenu(organizationList);
+    } else if (values.designation === CONSULTANT) {
+      generateItemMenu(consultantList);
+    } else {
+      generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+    }
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event) => {
+        values.organization = event.key.split('|')[1];
+        setTitle(values.organization);
+      }}>
+    </Menu>
+  };
   const menu = () => {
     let itemMenu: MenuProps['items']
     let regional: any = [];
@@ -238,6 +289,19 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                 <Col className="gutter-row" span={12}>
                   <p>PHONE NUMBER</p>
                   <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
+                </Col>
+                <Col className="gutter-row" span={12}>
+                  <p>ORGANIZATION</p>
+                  {
+                    values.designation !== OTHER ? <div id="sign-up-organization">
+                      <Dropdown overlay={menu2} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                        <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
+                          {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
+                          <img src="/Icons/icon-12.svg" alt="" />
+                        </Button>
+                      </Dropdown>
+                    </div> :
+                  <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
                 </Col>
               </Row>
             </div>
