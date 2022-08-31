@@ -271,43 +271,43 @@ const CreateProjectMap = (type: any) => {
     }
   }
 
-  useEffect(() => {
-    let time = firstTime ? 2600 : 1300;
-    if (idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
-      setTimeout(() => {
-        let filterProjectsDraft = { ...filterProjects };
-        filterProjectsDraft.projecttype = '';
-        filterProjectsDraft.status = 'Draft';
-        wait(() => {
-          setTimeout(() => {
-            map.isStyleLoaded(() => {
-              removeLayers(PROJECTS_DRAFT);
-              removeLayersSource(PROJECTS_DRAFT);
-              let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-              postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-                addLayersSource(PROJECTS_DRAFT, tiles);
-                showLayers(PROJECTS_DRAFT);
-                map.isStyleLoaded(() => {
-                  setTimeout(() => {
-                    applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
-                  }, 700);
-                });
-                firstTime = false;
-              });
+  // useEffect(() => {
+  //   let time = firstTime ? 2600 : 1300;
+  //   if (idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
+  //     setTimeout(() => {
+  //       let filterProjectsDraft = { ...filterProjects };
+  //       filterProjectsDraft.projecttype = '';
+  //       filterProjectsDraft.status = 'Draft';
+  //       wait(() => {
+  //         setTimeout(() => {
+  //           map.isStyleLoaded(() => {
+  //             removeLayers(PROJECTS_DRAFT);
+  //             removeLayersSource(PROJECTS_DRAFT);
+  //             let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+  //             postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+  //               addLayersSource(PROJECTS_DRAFT, tiles);
+  //               showLayers(PROJECTS_DRAFT);
+  //               map.isStyleLoaded(() => {
+  //                 setTimeout(() => {
+  //                   applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
+  //                 }, 700);
+  //               });
+  //               firstTime = false;
+  //             });
 
-            });
-          }, time);
+  //           });
+  //         }, time);
 
-        });
-      }, 1200);
-    } else {
-      if (map.map) {
-        removeLayers(PROJECTS_DRAFT);
-        removeLayersSource(PROJECTS_DRAFT);
-      }
+  //       });
+  //     }, 1200);
+  //   } else {
+  //     if (map.map) {
+  //       removeLayers(PROJECTS_DRAFT);
+  //       removeLayersSource(PROJECTS_DRAFT);
+  //     }
 
-    }
-  }, [idsBoardProjects]);
+  //   }
+  // }, [idsBoardProjects]);
   useEffect(() => {
     let mask;
     setTimeout(() => {
@@ -693,7 +693,6 @@ const CreateProjectMap = (type: any) => {
 };
   useEffect(() => {
     if (map) {
-      console.log('USE EFFECT SELECTED LAYERS', selectedLayersCP);
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
@@ -867,7 +866,6 @@ const CreateProjectMap = (type: any) => {
     await deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
-    console.log('This are selected layers in create proejctmap', selectedLayersCP);
     await selectedLayersCP.forEach((layer: LayersType) => {
       if (layer === 'area_based_mask' || layer === 'border') {
         map.addLayerMask(layer);
@@ -906,17 +904,17 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        if (key === PROJECTS_DRAFT) {
-          let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
-          if (idsBoardProjects && idsBoardProjects.length > 0) {
-            let boardids = idsBoardProjects;
-            allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
-          }
-          map.map.setFilter(key + '_' + index, allFilters);
+        // if (key === PROJECTS_DRAFT) {
+        //   let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
+        //   if (idsBoardProjects && idsBoardProjects.length > 0) {
+        //     let boardids = idsBoardProjects;
+        //     allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
+        //   }
+        //   map.map.setFilter(key + '_' + index, allFilters);
+        //   map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        // } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        } else {
-          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        }
+        // }
         if (key === PROBLEMS_TRIGGER) {
           isProblemActive = true;
         }
@@ -1033,11 +1031,11 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      if (idsBoardProjects && idsBoardProjects.length > 0 && key === PROJECTS_DRAFT && idsBoardProjects[0] != '-8888') {
-        let boardids = [...idsBoardProjects];
-        boardids = boardids.filter((x: any) => x != type.projectid);
-        allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
-      }
+      // if (idsBoardProjects && idsBoardProjects.length > 0 && key === PROJECTS_DRAFT && idsBoardProjects[0] != '-8888') {
+      //   let boardids = [...idsBoardProjects];
+      //   boardids = boardids.filter((x: any) => x != type.projectid);
+      //   allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
+      // }
       if (map.getLayer(key + '_' + index)) {
 
         map.setFilter(key + '_' + index, allFilters);
