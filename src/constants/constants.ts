@@ -1101,3 +1101,10 @@ export const ICON_POPUPS = [
   ['Stream Function Line', '/Icons/ic-stream-function-line.png'],
   ['Flood Hazard Polygon', '/Icons/ic-flood-hzd-poly.png'],
 ]
+
+export const MAPTYPES = {
+  WORKREQUEST: 'WORKREQUEST',
+  WORKPLAN: 'WORKPLAN',
+  MAINMAP: 'MAINMAP',
+  CREATEPROJECTMAP: 'CREATEPROJECTMAP'
+} 

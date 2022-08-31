@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button } from 'antd';
 import { DownOutlined, RightOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
-import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull } from '../../../Components/Map/MapPopups';
+import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull, MainPopupCreateMap, ComponentPopupCreate } from '../../../Components/Map/MapPopups';
 import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from '../../../constants/constants';
 
 const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
@@ -59,7 +59,15 @@ export const commentPopup = (note?:any ) => {
   return popupNode;
 }
 
-export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInformation: any, test: any, title?: any) => {
+export const loadMenuPopupWithData = (
+  menuOptions: any[],
+  popups: any[],
+  userInformation: any,
+  test: any,
+  ep?: any,
+  title?: any,
+  isCreateProjectMap?:boolean
+) => {
   const popupNode = document.createElement("div");
   ReactDOM.render(
   (
@@ -75,8 +83,12 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
                 : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation)
             )
           )
-          :
-          menuOptions[0] === 'Project' ? loadMainPopup(0, popups[0], test, userInformation, true) : loadMainPopup(0, popups[0], test, userInformation)}
+          :(isCreateProjectMap === true ?
+          loadMainPopupCreateMap(0, popups[0], test,undefined ,userInformation) :
+          (menuOptions[0] === 'Project' ? 
+          loadMainPopup(0, popups[0], test, userInformation, true) : 
+          loadMainPopup(0, popups[0], test, userInformation)))
+          }
         </>
         :
         <div className="map-pop-02">
@@ -94,11 +106,18 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
                           (
                             menu == MENU_OPTIONS.MEASURES ?
                               loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation) :
+                              (isCreateProjectMap === true ?
+                              loadComponentPopupCreate(index, popups[index],!notComponentOptions.includes(menuOptions[index]))  :
                               loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation)
+                              )
                           )
                       )
-                      :
-                      menu === 'Project' ? loadMainPopup(index, popups[index], test, userInformation, true) : loadMainPopup(index, popups[index], test, userInformation)}
+                      :(isCreateProjectMap === true ?
+                        loadMainPopupCreateMap(index, popups[index], test,undefined ,userInformation) :
+                      (menu === 'Project' ? 
+                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup) : 
+                      loadMainPopup(index, popups[index], test, userInformation)))
+                      }
                   </div>
                 )
               })
@@ -110,12 +129,21 @@ export const loadMenuPopupWithData = (menuOptions: any[], popups: any[], userInf
 return popupNode;
 };
 
-const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean) => (
+const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean) => (
   <>
-    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)}></MainPopup>
+    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false}></MainPopup>
   </>
 );
-
+const loadMainPopupCreateMap = (id: number, item: any, test: Function, sw?: boolean, user?: any) => (
+  <>
+    <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
+  </>
+);
+const loadComponentPopupCreate = (index: number, item: any, isComponent: boolean) => (
+  <>
+    <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false}></ComponentPopupCreate>
+  </>
+);
 const loadStreamPopup = (index: number, item: any) => (
   <>
     <StreamPopupFull id={index} item={item} ></StreamPopupFull>
@@ -132,7 +160,7 @@ const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userIn
   </>
 );
 export const loadIconsPopup = (menu: any, popups: any, index: any) => {
-  let icon;
+  let icon
   ICON_POPUPS.forEach((element) => {
     if (element[0] === menu) {
       icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={element[1]} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>

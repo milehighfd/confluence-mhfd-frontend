@@ -11,7 +11,11 @@ import { getData, getToken, postData } from "../../Config/datasets";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
-import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctions';
+import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
+import {
+  addPopupAndListeners, 
+  addPopupsOnClick
+} from "../../routes/map/components/MapFunctionsPopup";
 import EventService from '../../services/EventService';
 import {
   PROBLEMS_TRIGGER,
@@ -35,7 +39,7 @@ import {
   NEARMAP_TOKEN,
   STREAMS_POINT,
   PROJECTS_DRAFT,ICON_POPUPS,
-  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS
+  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS, MAPTYPES
 } from "../../constants/constants";
 import { loadIconsPopup } from '../../routes/map/components/MapGetters';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
@@ -52,6 +56,8 @@ import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 let map: any;
 let isProblemActive = true;
 let isPopup = true;
+let coordX = -1;
+let coordY = -1;
 let isDrawingCurrently = false;
 let firstTime = true;
 let firstTimeApplyMapLayers = true;
@@ -89,12 +95,6 @@ const CreateProjectMap = (type: any) => {
     CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
     FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
     PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, COMPONENT_LAYERS.tiles, MHFD_STREAMS_FILTERS, STREAMS_FILTERS];
-  const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
-  MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
-  MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
-  MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
-  MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS
-  ];
   const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
@@ -114,7 +114,6 @@ const CreateProjectMap = (type: any) => {
     cartoid: ''
   });
   useEffect(() => {
-    console.log('adding location ', isAddLocation);
     magicAddingVariable = isAddLocation;
   }, [isAddLocation])
   useEffect(() => {
@@ -360,7 +359,7 @@ const CreateProjectMap = (type: any) => {
     }
   }
   const setBounds = (value: any) => {
-    const zoomareaSelected = groupOrganization.filter((x: any) => value.includes(x.aoi)).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi))).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,
@@ -518,7 +517,6 @@ const CreateProjectMap = (type: any) => {
     } else if (geom.type.includes('Point')) {
       return turf.point(geom.coordinates);
     } else {
-      console.log("CG diff", geom.type);
     }
   }
   useEffect(() => {
@@ -648,33 +646,35 @@ const CreateProjectMap = (type: any) => {
     if (map) {
       map.create();
       setLayerFilters(layers);
-      map.map.on('style.load', () => {
-        let eventToClick = EventService.getRef('click');
-        map.map.on('click', eventToClick);
+      map.isStyleLoaded(() => {
         applyNearMapLayer();
       });
     }
   }, [map])
   const [compareSL, setCompareSL] = useState('');
-  useEffect(() => {
-    if (map) {
-      let time = firstTimeApplyMapLayers ? 400 : 200;
-      setTimeout(() => {
-        if (JSON.stringify(selectedLayers) !== compareSL) {
-          if (map) {
-            if (selectedLayers.length === 0) {
-            } else {
-              map.isStyleLoaded(() => {
-                applyMapLayers();
-                applyProblemClusterLayer();
-              });
-              firstTimeApplyMapLayers = false;
-              setCompareSL(JSON.stringify(selectedLayers));
-            }
+  const waiting = () => {
+    if (!map.map.isStyleLoaded()) {
+        setTimeout(waiting, 250);
+    } else {
+      if (JSON.stringify(selectedLayers) !== compareSL) {
+        if (map) {
+          if (selectedLayers.length === 0) {
+          } else {
+            map.isStyleLoaded(() => {
+              applyMapLayers();
+              applyProblemClusterLayer();
+              topStreams();
+            });
+            firstTimeApplyMapLayers = false;
+            setCompareSL(JSON.stringify(selectedLayers));
           }
         }
-      }, time);
-      topStreams();
+      }
+    }
+};
+  useEffect(() => {
+    if (map) {
+      waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
     EventService.setRef('addmarker', addMarker);
@@ -1537,138 +1537,8 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [counterPopup]);
-  // const loadIconsPopup = (menu: any, popups:any, index:any) =>{
-  //   let icon
-  //     ICON_POPUPS.forEach((element) => {
-  //     if(element[0] === menu){
-  //         icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src={element[1]} alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     }
-  //   })
-  //   if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration ||popups.projecctype === NEW_PROJECT_TYPES.Maintenance || popups.projecctype === "Capital")){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_projects@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')){
-  //   return (
-  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_MasterPlan@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //   )
-  //   }
-  //   if(menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')){
-  //   return (
-  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_Project_FHAD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //   )
-  //   }
-  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupA@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'B')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupB@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'C')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupC@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'D')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_NRCS_GroupD@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_Floodway@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneX@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-  //     return (
-  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     )
-  //   }
-  //   if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')){
-  //       return (
-  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern2.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic_SMC_Watershed@2x.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')){
-  //       return (
-  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/ic-pattern3.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Active')){
-  //     return (
-  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_active.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     )
-  //   }
-  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_suspended.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Violation')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_violation.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Completed')){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/lomcs_completed.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //   if(menu === "Effective Reaches" && popups.studyname !== 'unknown'){
-  //     return (
-  //         <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-studyunkown.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     )
-  //   }
-  //   if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Continuous Improvement') {
-  //     return (
-  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-continuous.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     );
-  //   }
-  //   if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Bank Stabilization') {
-  //     return (
-  //       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     );
-  //   }
-  //   if(menu === "Effective Reaches" && popups.studyname === 'unknown'){
-  //       return (
-  //           <Button id={'menu-' + index} className="btn-transparent"><img style={{width: '18px', borderRadius: '2px'}} src="/Icons/icon-effective-reaches-study.png" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //       )
-  //   }
-  //     if(icon !== undefined){
-  //         return icon
-  //     }
-  //   if (menu) {
-  //     return (
-  //       <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt=""/><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-  //     )
-  //   }
-  // }
-  const eventClick = (e: any) => {
+
+  const eventClick = async (e: any) => {
     popup.remove();
     if (!isPopup) {
       return;
@@ -1689,629 +1559,54 @@ const CreateProjectMap = (type: any) => {
     if (map.map.getLayer('streams-intersects')) {
       layersToClick = [...layersToClick, 'streams-intersects'];
     }
-    let features = map.map.queryRenderedFeatures(bbox, { layers: layersToClick });
-    const search = (id: number, source: string) => {
-      let index = 0;
-      for (const feature of features) {
-        if (feature.properties.cartodb_id === id && source === feature.source) {
-          return index;
-        }
-        index++;
-      }
-      return -1;
-    }
-    popup.remove();
-    setTimeout(async () => {
-      const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
-      if (popupsClassess.length) {
-        for (let i = 0; i < popupsClassess.length; ++i) {
-          popupsClassess[i].remove();
-        }
-      }
-      popup.remove();
-      features = features.filter((element: any, index: number) => {
-        return search(element.properties.cartodb_id, element.source) === index;
-      });
-      features.sort((a: any, b: any) => {
-        if (a.source.includes('project')) {
-          return -1;
-        }
-        if (b.source.includes('project')) {
-          return 1;
-        }
-        if (a.source.includes('problem')) {
-          return -1;
-        }
-        if (b.source.includes('problem')) {
-          return 1;
-        }
-        return a.source.split('_').join(' ').localeCompare(b.source.split('_').join(' '));
-      });
-      for (const feature of features) {
-        if (feature.layer.id.includes('_line') && feature.layer.type === 'symbol') {
-          continue;
-        }
-        let itemValue;
-        if (feature.source === 'projects_polygon_' || feature.source === MHFD_PROJECTS || feature.source === PROJECTS_DRAFT) {
-          getComponentsByProjid(feature.properties.projectid, setCounterPopup);
-          const filtered = galleryProjects.filter((item: any) =>
-            item.cartodb_id === feature.properties.cartodb_id
-          );
-          const item = {
-            type: 'project',
-            title: MENU_OPTIONS.PROJECT,
-            name: feature.properties.projectname ? feature.properties.projectname : feature.properties.requestedname ? feature.properties.requestedname : '-',
-            organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-            value: feature.properties.finalcost ? feature.properties.finalcost : feature.properties.estimatedcost ? feature.properties.estimatedcost : '-1',
-            projecctype: feature.properties.projectsubtype ? feature.properties.projectsubtype : feature.properties.projecttype ? feature.properties.projecttype : '-',
-            status: feature.properties.status ? feature.properties.status : '-',
-            objectid: feature.properties.objectid,
-            valueid: feature.properties.cartodb_id,
-            component_count: feature.properties.component_count ?? 0,
-            id: feature.properties.projectid,
-            streamname: feature.properties.streamname,
-            popupId: 'popup',
-            image: filtered.length && filtered[0].attachments ? filtered[0].attachments : (
-              feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
-                feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
-                  feature.properties.projecttype === 'Maintenance' ?
-                    (feature.properties.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                      feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                        feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
-                          feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
-                            '/projectImages/debris_management.png') : '/Icons/eje.png')
-          };
-          mobile.push({
-            type: 'project',
-            name: item.name,
-            value: item.value,
-            projecttype: item.projecctype,
-            image: item.image,
-            id: item.id,
-            objectid: item.objectid,
-            valueid: item.valueid,
-            streamname: item.streamname
-          });
-          itemValue = { ...item };
-          menuOptions.push(MENU_OPTIONS.PROJECT);
-          popups.push(itemValue);
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
-          const item = {
-            type: MENU_OPTIONS.PROBLEMS,
-            streamname: feature.properties.streamname,
-            title: feature.properties.problem_type ? (feature.properties.problem_type + ' Problem') : '-',
-            problem_type: feature.properties.problem_type ? feature.properties.problem_type: '-',
-            name: feature.properties.problem_name ? feature.properties.problem_name : '-',
-            organization: feature.properties.local_government ? feature.properties.local_government : '-',
-            value: feature.properties.estimated_cost ? feature.properties.estimated_cost : feature.properties.component_cost ? feature.properties.component_cost : '-1',
-            status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
-            priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
-            problemid: feature.properties.problem_id,
-            component_count: feature.properties.component_count ?? 0,
-            popupId: 'popup',
-            image: `gallery/${feature.properties.problemtype}.png`,
-        };
-        itemValue = { ...item };
-        mobile.push({
-            type: MENU_OPTIONS.PROBLEMS,
-            title: item.title,
-            value: item.value,
-            name: item.name,
-            image: item.image,
-            problemid: item.problemid,
-            streamname: item.streamname
-        });
-          menuOptions.push('Problem: ' + item.problem_type);
-          popups.push(itemValue);
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'mep_projects_temp_locations') {
-          const item = {
-            layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
-            feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-            projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-            mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-            mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-            notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-            servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-          }
-          menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            proj_name: item.feature,
-            mep_status: item.mepstatus
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'mep_projects_temp_locations') {
-          const item = {
-            layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
-            feature: feature.properties.proj_name ? feature.properties.proj_name : '-',
-            projectno: feature.properties.proj_no ? feature.properties.proj_no : '-',
-            mepstatus: feature.properties.mep_status ? feature.properties.mep_status : '-',
-            mepstatusdate: feature.properties.status_date ? feature.properties.status_date : '-',
-            notes: feature.properties.mhfd_notes ? feature.properties.mhfd_notes : '-',
-            servicearea: feature.properties.servicearea ? feature.properties.servicearea : '-'
-          }
-          menuOptions.push(MENU_OPTIONS.MEP_TEMPORARY_LOCATION);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            proj_name: item.feature,
-            mep_status: item.mepstatus
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'mep_detentionbasins') {
-          const item = {
-            layer: MENU_OPTIONS.MEP_DETENTION_BASIN,
-            feature: feature.properties.projectname ? feature.properties.projectname : '-',
-            projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
-            mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
-            pondname: feature.properties.pondname ? feature.properties.pondname : '-',
-            mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
-            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
-          }
-          menuOptions.push(MENU_OPTIONS.MEP_DETENTION_BASIN);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            proj_name: item.feature,
-            mep_status: item.mep_eligibilitystatus
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'mep_channels') {
-          const item = {
-            layer: MENU_OPTIONS.MEP_CHANNEL,
-            feature: feature.properties.projectname ? feature.properties.projectname : '-',
-            projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
-            mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
-            pondname: feature.properties.pondname ? feature.properties.pondname : '-',
-            mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
-            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
-          }
-          menuOptions.push(MENU_OPTIONS.MEP_CHANNEL);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            proj_name: item.feature,
-            mep_status: item.mep_eligibilitystatus
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'fema_flood_hazard_zones') {
-          const item = {
-              layer: MENU_OPTIONS.FEMA_FLOOD_HAZARD,
-              dfirm_id: feature.properties.dfirm_id ? feature.properties.dfirm_id : '-',
-              fld_zone: feature.properties.fld_zone ? feature.properties.fld_zone : '-',
-              zone_subty: feature.properties.zone_subty ? feature.properties.zone_subty : '-',
-              sfha_tf: feature.properties.sfha_tf ? feature.properties.sfha_tf : '-',
-            }
-            menuOptions.push(MENU_OPTIONS.FEMA_FLOOD_HAZARD);
-            popups.push(item);
-            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-        }
-        if (feature.source === 'floodplains_non_fema') {
-          const item = {
-              layer: MENU_OPTIONS.FLOODPLAINS_NON_FEMA,
-              study_name: feature.properties.study_name ? feature.properties.study_name : '-',
-              floodplain_source: feature.properties.floodplain_source ? feature.properties.floodplain_source : '-',
-              floodplain_type: feature.properties.floodplain_type ? feature.properties.floodplain_type : '-',
-              county: feature.properties.county ? feature.properties.county : '-',
-              service_area: feature.properties.service_area ? feature.properties.service_area : '-',
-              notes_floodplains: feature.properties.notes ? feature.properties.notes : '-',
-            }
-            menuOptions.push(MENU_OPTIONS.FLOODPLAINS_NON_FEMA);
-            popups.push(item);
-            ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-        }
-        if (feature.source === 'mep_outfalls') {
-          const item = {
-            layer: MENU_OPTIONS.MEP_STORM_OUTFALL,
-            feature: feature.properties.projectname ? feature.properties.projectname : '-',
-            projectno: feature.properties.projectno ? feature.properties.projectno : '-',
-            mep_eligibilitystatus: feature.properties.mep_eligibilitystatus ? feature.properties.mep_eligibilitystatus : '-',
-            mep_summarynotes: feature.properties.mep_summarynotes ? feature.properties.mep_summarynotes : '-',
-            pondname: feature.properties.pondname ? feature.properties.pondname : '-',
-            mhfd_servicearea: feature.properties.mhfd_servicearea ? feature.properties.mhfd_servicearea : '-',
-            mepstatusdate: getDateMep(feature.properties.mep_eligibilitystatus, feature.properties)
-          }
-          menuOptions.push(MENU_OPTIONS.MEP_STORM_OUTFALL);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            proj_name: item.feature,
-            mep_status: item.mep_eligibilitystatus
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source.includes('flood_hazard')||feature.source.includes('stream_function')||feature.source.includes('future_development')) {
-          const item = {
-            layer: getTitleOfProblemsPart(feature),
-            feature: getTitleOfProblemsPart(feature),
-            problem_part_category: feature.properties.problem_part_category ? feature.properties.problem_part_category : '-',
-            problem_part_subcategory: feature.properties.problem_part_subcategory ? feature.properties.problem_part_subcategory : '-',
-            problem_part_name: feature.properties.problem_part_name ? feature.properties.problem_part_name : '-',
-            source_complete_year: feature.properties.source_complete_year ? feature.properties.source_complete_year : '0',
-            stream_name: feature.properties.stream_name ? feature.properties.stream_name : '-',
-            local_government: feature.properties.local_government ? feature.properties.local_government : '-'
-  
-          };
-          mobile.push({
-            layer: item.layer
-          });
-          menuOptions.push(getTitleOfProblemsPart(feature));
-          popups.push(item);
-          ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
-        }
-        if (feature.source === 'watershed_service_areas') {
-          const item = {
-            layer: MENU_OPTIONS.SERVICE_AREA,
-            feature: feature.properties.servicearea ? feature.properties.servicearea : '-',
-            watershedmanager: feature.properties.watershedmanager ? feature.properties.watershedmanager : '-',
-            constructionmanagers: feature.properties.constructionmanagers ? feature.properties.constructionmanagers : '-',
-            email: feature.properties.email ? feature.properties.email : '-'
-          }
-          mobile.push({
-            layer: item.layer,
-            watershedmanager: item.watershedmanager,
-            constructionmanagers: item.constructionmanagers,
-            email: item.email
-          })
-          menuOptions.push(MENU_OPTIONS.SERVICE_AREA);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'catchments' || feature.source === 'basin') {
-          const item = {
-            layer: MENU_OPTIONS.WATERSHED,
-            feature: feature.properties.str_name ? feature.properties.str_name : 'No name'
-          }
-          menuOptions.push(MENU_OPTIONS.WATERSHED);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === ROUTINE_NATURAL_AREAS) {
-          const item = {
-            layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA,
-            feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-            contract: feature.properties.contract ? feature.properties.contract : '-',
-            contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-            local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-            acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
-            project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
-            frequency: 'NA'
-          }
-          menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA);
-          popups.push(item);
-          mobile.push({
-            layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-            project_subtype: item.project_subtype,
-            frequency: item.frequency
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === ROUTINE_WEED_CONTROL) {
-          const item = {
-            layer: MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
-            feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-            contract: feature.properties.contract ? feature.properties.contract : '-',
-            contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-            local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-            mow_frequency: feature.properties.mow_frequency ? feature.properties.mow_frequency : '-',
-            acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
-            project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-',
-          }
-          menuOptions.push(MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL);
-          popups.push(item);
-          mobile.push({
-            layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-            project_subtype: item.project_subtype,
-            frequency: item.mow_frequency
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === ROUTINE_DEBRIS_AREA) {
-          const item = {
-            layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA,
-            feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-            contract: feature.properties.contract ? feature.properties.contract : '-',
-            contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-            local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-            debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
-            acreage: feature.properties.acreage ? numberWithCommas(Math.round(feature.properties.acreage * 100) / 100) : '-',
-            project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
-          }
-          menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA);
-          popups.push(item);
-          mobile.push({
-            layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-            project_subtype: item.project_subtype,
-            frequency: item.debris_frequency
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === ROUTINE_DEBRIS_LINEAR) {
-          const item = {
-            layer: MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR,
-            feature: feature.properties.work_item_name ? feature.properties.work_item_name : '-',
-            contract: feature.properties.contract ? feature.properties.contract : '-',
-            contractor: feature.properties.contractor ? feature.properties.contractor : '-',
-            local_gov: feature.properties.local_gov ? feature.properties.local_gov : '-',
-            debris_frequency: feature.properties.debris_frequency ? feature.properties.debris_frequency : '-',
-            length: feature.properties.length ? Math.round(feature.properties.length) : '-',
-            project_subtype: feature.properties.project_subtype ? feature.properties.project_subtype : '-'
-          }
-          menuOptions.push(MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR);
-          popups.push(item);
-          mobile.push({
-            layer: MENU_OPTIONS.ROUTINE_MAINTENANCE,
-            project_subtype: item.project_subtype,
-            frequency: item.debris_frequency
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === NRCS_SOILS) {
-          const item = {
-            layer: MENU_OPTIONS.NCRS_SOILS,
-            hydgrpdcd: feature.properties.hydgrpdcd,
-            muname: feature.properties.muname,
-            aws0150wta: feature.properties.aws0150wta,
-            drclassdcd: feature.properties.drclassdcd,
-            nrcsweb: 'NA'
-          }
-          menuOptions.push(MENU_OPTIONS.NCRS_SOILS);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            hydgrpdcd: item.hydgrpdcd,
-            muname: item.muname
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === DWR_DAM_SAFETY) {
-          const item = {
-            layer: MENU_OPTIONS.DWR_DAM_SAFETY,
-            dam_name: feature.properties.dam_name,
-            hazard_class: feature.properties.hazard_class,
-            year_completed: feature.properties.year_completed,
-            dam_height: feature.properties.dam_height,
-            more_information: feature.properties.more_information
-          }
-          mobile.push({
-            layer: item.layer,
-            dam_name: item.dam_name,
-            hazard_class: item.hazard_class
-          })
-          menuOptions.push(MENU_OPTIONS.DWR_DAM_SAFETY);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === STREAM_MANAGEMENT_CORRIDORS) {
-          const item = {
-            layer: MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
-            scale: 'District',
-            date_created: '01/07/2019'
-          }
-          menuOptions.push(MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS);
-          popups.push(item);
-          mobile.push({
-            layer: item.layer,
-            scale: item.scale,
-            date_created: item.date_created
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === BLOCK_CLEARANCE_ZONES_LAYERS && feature.properties.species_name === 'Prebles meadow jumping mouse') {
-          const item = {
-            layer: MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
-            expirationdate: epochTransform(feature.properties.expiration_date),
-            bcz_specname: feature.properties.species_name,
-            bcz_expdate: feature.properties.bcz_expdate,
-            website: 'https://www.fws.gov/mountain-prairie/es/preblesMeadowJumpingMouse.php',
-            letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0030_PMJM_Denver_Block_Clearance_extension_accessible_signed.pdf',
-            map: `https://www.fws.gov/mountain-prairie/es/species/mammals/preble/9-2016_USFWS_Preble's_map_Denver_Metro_Area.pdf`
-          }
-          menuOptions.push(MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE);
-          popups.push(item);
-          mobile.push({
-            layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
-            bcz_specname: item.bcz_specname,
-            bcz_expdate: item.bcz_expdate
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === BCZ_UTE_LADIES_TRESSES_ORCHID) {
-          const item = {
-            layer: MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
-            bcz_specname: feature.properties.species_name,
-            bcz_expdate: feature.properties.bcz_expdate,
-            expirationdate: parseDateZ(feature.properties.expiration_date),
-            website: 'https://www.fws.gov/mountain-prairie/es/uteLadiestress.php',
-            letter: 'https://www.fws.gov/mountain-prairie/es/Library/2020-TA-0031_ULTO_Denver_Block_Clearance_extension_accessible_signed.pdf',
-            map: 'https://www.fws.gov/mountain-prairie/es/species/plants/uteladiestress/BlockClearanceMap2008.pdf'
-          }
-          mobile.push({
-            layer: MENU_OPTIONS.BLOCK_CLEARANCE_ZONE,
-            bcz_specname: item.bcz_specname,
-            bcz_expdate: item.bcz_expdate
-          });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          menuOptions.push(MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === RESEARCH_MONITORING) {
-          const item = {
-            layer: MENU_OPTIONS.RESEARCH_MONITORING,
-            sitename: feature.properties.sitename,
-            sitetype: feature.properties.sitetype,
-            bmptype: feature.properties.bmptype,
-          }
-          mobile.push({
-            layer: item.layer,
-            sitename: item.sitename,
-            sitetype: item.sitetype
-          })
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          menuOptions.push(MENU_OPTIONS.RESEARCH_MONITORING);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === CLIMB_TO_SAFETY) {
-          const item = {
-            layer: MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
-          }
-          mobile.push(item);
-          menuOptions.push(MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === SEMSWA_SERVICE_AREA) {
-          const item = {
-            layer: MENU_OPTIONS.SEMSWA_SERVICE_AREA,
-          }
-          menuOptions.push(MENU_OPTIONS.SEMSWA_SERVICE_AREA);
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        if (feature.source === 'streams') {
+    await addPopupsOnClick(
+      map.map,
+      bbox, 
+      layersToClick,
+      coordX,
+      coordY,
+      e,
+      galleryProjects,
+      mobile,
+      menuOptions,
+      popups,
+      mobileIds,
+      ids,
+      user,
+      false,
+      getComponentsByProjid,
+      setCounterPopup,
+      () => {},
+      componentsList,
+      MAPTYPES.CREATEPROJECTMAP
+    );
 
-          const item = {
-            type: 'streams-reaches',
-            layer: 'Streams',
-            title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream',
-            streamname: feature.properties.str_name,
-            mhfd_code: feature.properties.mhfd_code,
-            catch_sum: feature.properties.catch_sum,
-            str_ft: feature.properties.str_ft,
-            slope: feature.properties.slope
-          };
-          menuOptions.push('Stream');
-          mobile.push({ ...item });
-          mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          popups.push(item);
-          ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-        }
-        for (const component of COMPONENT_LAYERS.tiles) {
-          if (feature.source === component) {
-            let isAdded = componentsList.find((i: any) => i.cartodb_id === feature.properties.cartodb_id);
-            const problemid = feature.properties.problemid ?feature.properties.problemid:(feature.properties.problem_id ? feature.properties.problem_id :'');
-            let problemname = '';
-            if(problemid) {
-
-                let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-                problemname = aw[0]?.problemname;
-            }
-            let status = 'Add';
-            if (isAdded) {
-              status = 'Remove';
-            }
-            let item;
-              if (feature.source === STREAM_IMPROVEMENT_MEASURE) {
-                item = {
-                  layer: MENU_OPTIONS.COMPONENTS,
-                  type: getTitleOfStreamImprovements(feature.properties),
-                  subtype: feature.properties.complexity_subtype ? feature.properties.complexity_subtype : '-',
-                  estimatedcost: feature.properties.estimated_cost_base ? feature.properties.estimated_cost_base : '-',
-                  studyname: feature.properties.source_name ? feature.properties.source_name : '-',
-                  studyyear: feature.properties.source_complete_year ? feature.properties.source_complete_year: '-',
-                  streamname: feature.properties.stream_name ? feature.properties.stream_name : '-',
-                  local_gov: feature.properties.local_government ? feature.properties.local_government: '-',
-                  problem: problemname,
-                  table: feature.source ? feature.source : '-',
-                  objectid: feature.properties.objectid ? feature.properties.objectid : ''
-                }
-              } else {
-                item = {
-                  layer: MENU_OPTIONS.COMPONENTS,
-                  type: feature.properties.type ? feature.properties.type : '-',
-                  subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-                  status: feature.properties.status ? feature.properties.status : '-',
-                  estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                  studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-                  studyyear: feature.properties.year_of_study ? feature.properties.year_of_study : '-',
-                  jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                  original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                  table: feature.source ? feature.source : '-',
-                  cartodb_id: feature.properties.cartodb_id ? feature.properties.cartodb_id : '-',
-                  problem: problemname,
-                  added: status,
-                  objectid: feature.properties.objectid ? feature.properties.objectid : '',
-                  projectid: feature.properties.projectid ? feature.properties.projectid : undefined,
-                  streamname: feature.properties.drainageway,
-                };
-              }
-              const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
-              menuOptions.push(name);
-              mobile.push({
-               layer: item.layer,
-                type: item.type,
-                subtype: item.subtype,
-                studyyear: item.studyyear,
-                streamname: item.streamname
-              })
-              mobileIds.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-              popups.push(item);
-              ids.push({ layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id });
-          }
-        }
-      }
       if (popups.length) {
-        const html = loadMenuPopupWithData(menuOptions, popups);
-        setMobilePopups(mobile);
-        setActiveMobilePopups(mobileIds);
-        setSelectedPopup(0);
-        if (html) {
-
-          popup.remove();
-          popup = new mapboxgl.Popup({ closeButton: true, });
-          popup.setLngLat(e.lngLat)
-            .setDOMContent(html)
-            .addTo(map.map);
-          for (const index in popups) {
-
-            let arrayElements = document.getElementsByClassName('menu-' + index);
-            let menuElement = document.getElementById('menu-' + index);
-            if (menuElement != null) {
-              menuElement.addEventListener('click', (showPopup.bind(index, index, popups.length, ids[index])));
-            }
-            let buttonElement = document.getElementById('buttonPopup-' + index);
-            if (buttonElement != null) {
-              buttonElement.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-            }
-            let componentElement = document.getElementById('component-' + index);
-            if (componentElement) {
-              componentElement.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
-            }
-            let getcomponentElement = document.getElementById('buttonComponents-' + index);
-            if (getcomponentElement) {
-              getcomponentElement.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
-            }
-          }
-        }
+        addPopupAndListeners(
+          MAPTYPES.CREATEPROJECTMAP,
+          menuOptions,
+          popups,
+          user,
+          test,
+          setMobilePopups,
+          setActiveMobilePopups,
+          setSelectedPopup,
+          mobile,
+          mobileIds,
+          popup,
+          map.map,
+          showPopup,
+          seeDetails,
+          () => {},
+          () => {},
+          e,
+          ids,
+          addRemoveComponent,
+          () => {},
+          false,
+          getComponentsFromProjProb
+        )
       }
-    }, 300);
   }
   const getTitleOfStreamImprovements = (properties: any) => {
     let title = '';
@@ -2385,49 +1680,18 @@ const CreateProjectMap = (type: any) => {
     removePopup();
   }
   useEffect(() => {
-    if (allLayers.length < 100) {
-      return;
-    }
+    // if (allLayers.length < 100) {
+    //   return;
+    // }
     EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
     map.map.on('click', eventToClick);
     return () => {
-      map.map.off('click', eventToClick);
+      if (map) {
+        map.map.off('click', eventToClick);
+      }
     }
   }, [allLayers]);
-  const loadMenuPopupWithData = (menuOptions: any[], popups: any[]) => {
-    const popupNode = document.createElement("div");
-    ReactDOM.render(
-      (
-      <>
-        {menuOptions.length === 1 ?
-          (<> {(menuOptions[0] !== 'Project' && !menuOptions[0].includes('Problem'))
-            ? (menuOptions[0] == 'Stream' ? loadStreamPopup(0, popups[0]) : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]))) :
-            loadMainPopup(0, popups[0], test)}
-          </>)
-          :
-          <div className="map-pop-02">
-            <div className="headmap">LAYERS</div>
-            <div className="layer-popup">
-              {
-                menuOptions.map((menu: any, index: number) => {
-                  return (
-                    <div>
-                      {loadIconsPopup(menu, popups[index], index)}
-                    {(menu !== 'Project' && !menu.includes('Problem')) ? ( menu == 'Stream' ?  loadStreamPopup(index, popups[index]) :loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]))) :
-                      menu.includes('Project') ? loadMainPopup(index, popups[index], test, true) : loadMainPopup(index, popups[index], test)}
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>}
-      </>
-      ),
-      popupNode
-    );
-    return popupNode;
-  };
 
   const loadPopupMarker = () => ReactDOMServer.renderToStaticMarkup(
     <>
@@ -2445,22 +1709,7 @@ const CreateProjectMap = (type: any) => {
       </div>
     </>
   );
-  const loadMainPopup = (id: number, item: any, test: Function, sw?: boolean) => (
-    <>
-      <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
-    </>
-  );
-
-  const loadComponentPopup = (index: number, item: any, isComponent: boolean) => (
-    <>
-      <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false}></ComponentPopupCreate>
-    </>
-  );
-  const loadStreamPopup = (index: number, item: any) => (
-    <>
-      <StreamPopupFull id={index} item={item} ></StreamPopupFull>
-    </>
-  );
+ 
   const renderOption = (item: any) => {
     return {
       key: `${item.text}|${item.place_name}`,
@@ -2499,19 +1748,6 @@ const CreateProjectMap = (type: any) => {
     <div className="map">
     {
             isProblemActive === true ? <div className="legendProblemTypemap">
-              <h5>
-                Problem Type
-                <Popover
-                  content={<div className='popoveer-00'>
-                    <p style={{fontWeight:'600'}}>Problem Types</p>
-                    <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems related to existing flood or fluvial hazard to life and property.</p>
-                    <p><span style={{fontWeight:'600'}}>Stream Function </span> Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
-                    <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p>
-                  </div>}
-                >
-                  <InfoCircleOutlined style={{marginLeft: '35px', color: '#bfbfbf'}}/>
-                </Popover>
-              </h5>
               <div className="legendprob">
                 <div className="iconfloodhazard" />
                 Flood Hazard
