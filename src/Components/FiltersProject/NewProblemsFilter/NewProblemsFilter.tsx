@@ -13,7 +13,10 @@ const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
 const content02 = (<div className="popoveer-00"><b>Status</b> is the percentage (by cost) of elements required to solve a problem that have been completed.</div>);
-const content03 = (<div className="popoveer-00"><b>Problem Type</b> is which of the "Five Elements" of stream management the problem belongs to.</div>);
+const content03 = (<div className="popoveer-00"> <p style={{fontWeight:'600'}}>Problem Types</p>
+<p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems related to existing flood or fluvial hazard to life and property.</p>
+<p><span style={{fontWeight:'600'}}>Stream Function </span> Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
+<p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p></div>);
 const content04 = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the problem is located.</div>);
 const content05 = (<div className="popoveer-00"><b>County</b> is the county where the problem is located.</div>);
 const content06 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the problem is located.</div>);
