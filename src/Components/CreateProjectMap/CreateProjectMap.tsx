@@ -707,8 +707,10 @@ const CreateProjectMap = (type: any) => {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
     }
     setTimeout(() => {
-      updateSelectedLayers(thisSL);
-    }, 500);
+      map.isStyleLoaded(() => {
+        updateSelectedLayers(thisSL);
+      });
+    }, 1000);
   }
   const removeProjectLayer = () => {
     let filterLayers = selectedLayers.filter((Layer: any) => {
