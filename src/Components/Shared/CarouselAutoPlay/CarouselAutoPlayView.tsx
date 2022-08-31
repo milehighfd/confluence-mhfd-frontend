@@ -71,8 +71,9 @@ export default () => {
     </div>
     <Carousel autoplay autoplaySpeed={6000}>
       {images.map((image: string, index: number) => {
+        if (!image) return null;
         return <div key={index}>
-          <img src={SERVER.BASE_URL_IMAGES + image} className={"img-banner"} alt="" />
+          <img src={SERVER.BASE_URL_IMAGES + encodeURI(image)} className={"img-banner"} alt="" />
           <div className="textContent">
             <h2>What can I do with Confluence?</h2>
             <h5>Explore your Streams, Check Project Info, View and Analyze Data</h5>
