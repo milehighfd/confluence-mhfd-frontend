@@ -162,6 +162,7 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
+      console.log('OR THIS IS CALLING');
       updateSelectedLayers([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
       marker.remove();
     }
@@ -320,8 +321,10 @@ const CreateProjectMap = (type: any) => {
   }, [boardProjectsCreate]);
   useEffect(() => {
     if (map) {
+      console.log('HIGHLIGHTED PROBLEM', highlightedProblem);
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
+        
         updateSelectedLayers([...selectedLayers, PROBLEMS_TRIGGER]);
       } else {
         hideHighlighted();
@@ -674,6 +677,7 @@ const CreateProjectMap = (type: any) => {
 };
   useEffect(() => {
     if (map) {
+      console.log('THIS ARE THE LAYERS UPDATE', selectedLayers);
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
@@ -845,6 +849,7 @@ const CreateProjectMap = (type: any) => {
     await deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
+    console.log('This are selected layers in create proejctmap', selectedLayers);
     await selectedLayers.forEach((layer: LayersType) => {
       if (layer === 'area_based_mask' || layer === 'border') {
         map.addLayerMask(layer);

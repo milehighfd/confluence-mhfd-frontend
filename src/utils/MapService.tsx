@@ -429,34 +429,44 @@ export class MapService {
       },300);
     }
   }
-  addLayerMask(id: any) {
-    if(id == 'area_based_mask' && !this.map.getLayer(id+"MASK") && this.map.getSource('mask')) {
-      this.map.addLayer({
-        "id": id+'MASK',
-        "source": "mask",
-        "type": "fill",
-        "paint": {
-            "fill-color": "black",
-            'fill-opacity': 0.8
-        }
-      });
+  waiting(id: any) {
+    if (!this.map.getSource('mask')) {
       setTimeout(() => {
-        this.map.moveLayer(id+'MASK');
-      }, 500);
-    } else if (id == 'border' &&  !this.map.getLayer(id+"MASK") && this.map.getSource('mask')) {
-      this.map.addLayer({
-        "id": id+'MASK',
-        "source": "mask",
-        "type": "line",
-        "paint": {
-          'line-color': '#28c499',
-          'line-width': 1,
-        }
-      });
-      setTimeout(() => {
-        this.map.moveLayer(id+'MASK');
-      }, 500);
+        this.waiting(id)
+      }, 250);
+    } else {
+      if(id == 'area_based_mask' && !this.map.getLayer(id+"MASK") && this.map.getSource('mask')) {
+        this.map.addLayer({
+          "id": id+'MASK',
+          "source": "mask",
+          "type": "fill",
+          "paint": {
+              "fill-color": "black",
+              'fill-opacity': 0.8
+          }
+        });
+        setTimeout(() => {
+          this.map.moveLayer(id+'MASK');
+        }, 500);
+      } else if (id == 'border' &&  !this.map.getLayer(id+"MASK") && this.map.getSource('mask')) {
+        this.map.addLayer({
+          "id": id+'MASK',
+          "source": "mask",
+          "type": "line",
+          "paint": {
+            'line-color': '#28c499',
+            'line-width': 1,
+          }
+        });
+        setTimeout(() => {
+          this.map.moveLayer(id+'MASK');
+        }, 500);
+      }
     }
+  };
+  addLayerMask(id: any) {
+    console.log('HERE MASK', this.map.getLayer(id+"MASK"), this.map.getSource('mask'));
+    this.waiting(id);
   }
   removeLayerMask(id: any) {
     if (this.map.getLayer(id+'MASK')) {

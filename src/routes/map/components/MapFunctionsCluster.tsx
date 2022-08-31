@@ -36,7 +36,6 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
       'mag3': ['+', ['case', mag3, 1, 0]]
     }
   });
-  console.log('MAG ', mag1, mag2, mag3);
   //const colors = ['#fee0d2', '#fc9272', '#de2d26', '#00ff00'];
   const colors = ['#FF0806', '#BE0807', '#8D0000', '#00ff00'];
   map!.addLayer({

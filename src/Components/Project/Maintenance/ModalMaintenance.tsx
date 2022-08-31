@@ -89,7 +89,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       } else {
         if (textRef.current) {
           const newWidth = textRef.current.clientWidth;
-          console.log("newWidth", newWidth);
           setTextAreaWidth(newWidth);
         }
       }
