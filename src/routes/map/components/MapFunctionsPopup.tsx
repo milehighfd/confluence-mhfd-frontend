@@ -137,8 +137,6 @@ export const addPopupAndListeners = (
   setActiveMobilePopups(mobileIds);
   setSelectedPopup(0);
   if (html) {
-      popup.remove();
-      popup = new mapboxgl.Popup({closeButton: true,});
       popup.setLngLat(e.lngLat)
           .setDOMContent(html)
           .addTo(map);

@@ -1958,6 +1958,8 @@ const Map = ({
               );
            }
             if (popups.length) { 
+              popup.remove();
+              popup = new mapboxgl.Popup({closeButton: true,});
                 addPopupAndListeners(
                   MAPTYPES.MAINMAP,
                   menuOptions,

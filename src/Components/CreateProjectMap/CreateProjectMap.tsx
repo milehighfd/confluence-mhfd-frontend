@@ -1603,6 +1603,8 @@ const CreateProjectMap = (type: any) => {
     );
 
       if (popups.length) {
+        popup.remove();
+        popup = new mapboxgl.Popup({closeButton: true});
         addPopupAndListeners(
           MAPTYPES.CREATEPROJECTMAP,
           menuOptions,
