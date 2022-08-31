@@ -29,6 +29,7 @@ import {
   updateSelectedLayers,
   setHighlightedComponent,
   updateSelectedLayersWR,
+  updateSelectedLayersCP,
   setBoardProjects,
   setBoardProjectsCreate,
   setZoomProject,
@@ -148,6 +149,9 @@ export const useProjectDispatch = () => {
     },
     updateSelectedLayersWR: (selectedLayerWR: any) => {
       dispatch(updateSelectedLayersWR(selectedLayerWR))
+    },
+    updateSelectedLayersCP: (selectedLayerWR: any) => {
+      dispatch(updateSelectedLayersCP(selectedLayerWR))
     },
     setHighlightedComponent: (highlightedComponent: any) => {
       dispatch(setHighlightedComponent(highlightedComponent));

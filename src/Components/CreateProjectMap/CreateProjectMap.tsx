@@ -79,8 +79,8 @@ const CreateProjectMap = (type: any) => {
 
   const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getComponentsByProjid, getBBOXComponents } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint,
-    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayers, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
-  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayers, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
+    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayersCP, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
+  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayersCP, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
   const { groupOrganization } = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -163,7 +163,7 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      updateSelectedLayers([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROBLEMS_TRIGGER]);
+      updateSelectedLayersCP([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROBLEMS_TRIGGER]);
       marker.remove();
     }
   }, []);
@@ -325,7 +325,7 @@ const CreateProjectMap = (type: any) => {
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
         
-        updateSelectedLayers([...selectedLayers, PROBLEMS_TRIGGER]);
+        updateSelectedLayersCP([...selectedLayersCP, PROBLEMS_TRIGGER]);
       } else {
         hideHighlighted();
       }
@@ -659,9 +659,9 @@ const CreateProjectMap = (type: any) => {
     if (!map.map.isStyleLoaded()) {
         setTimeout(waiting, 250);
     } else {
-      if (JSON.stringify(selectedLayers) !== compareSL) {
+      if (JSON.stringify(selectedLayersCP) !== compareSL) {
         if (map) {
-          if (selectedLayers.length === 0) {
+          if (selectedLayersCP.length === 0) {
           } else {
             map.isStyleLoaded(() => {
               applyMapLayers();
@@ -669,7 +669,7 @@ const CreateProjectMap = (type: any) => {
               topStreams();
             });
             firstTimeApplyMapLayers = false;
-            setCompareSL(JSON.stringify(selectedLayers));
+            setCompareSL(JSON.stringify(selectedLayersCP));
           }
         }
       }
@@ -677,12 +677,12 @@ const CreateProjectMap = (type: any) => {
 };
   useEffect(() => {
     if (map) {
-      console.log('USE EFFECT SELECTED LAYERS', selectedLayers);
+      console.log('USE EFFECT SELECTED LAYERS', selectedLayersCP);
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
     EventService.setRef('addmarker', addMarker);
-  }, [selectedLayers]);
+  }, [selectedLayersCP]);
 
   const setLayersSelectedOnInit = () => {
     let ppArray: any = [];
@@ -708,23 +708,23 @@ const CreateProjectMap = (type: any) => {
     }
     // setTimeout(() => {
       map.isStyleLoaded(() => {
-        updateSelectedLayers(thisSL);
+        updateSelectedLayersCP(thisSL);
       });
     // }, 1000);
   }
   const removeProjectLayer = () => {
-    let filterLayers = selectedLayers.filter((Layer: any) => {
+    let filterLayers = selectedLayersCP.filter((Layer: any) => {
       if (Layer.name) {
         return !(Layer.name == 'projects')
       } else {
         return true;
       }
     });
-    const deleteLayers = selectedLayers.filter((layer: any) => !filterLayers.includes(layer as string));
+    const deleteLayers = selectedLayersCP.filter((layer: any) => !filterLayers.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
-    updateSelectedLayers(filterLayers);
+    updateSelectedLayersCP(filterLayers);
   }
   const onCreateDraw = (event: any) => {
     if (firstCallDraw) {
@@ -847,12 +847,12 @@ const CreateProjectMap = (type: any) => {
         addLayersSource(layer, layerFilters[layer]);
       }
     });
-    const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayers.includes(layer as string));
+    const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersCP.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
-    console.log('This are selected layers in create proejctmap', selectedLayers);
-    await selectedLayers.forEach((layer: LayersType) => {
+    console.log('This are selected layers in create proejctmap', selectedLayersCP);
+    await selectedLayersCP.forEach((layer: LayersType) => {
       if (layer === 'area_based_mask' || layer === 'border') {
         map.addLayerMask(layer);
         return;
@@ -885,7 +885,7 @@ const CreateProjectMap = (type: any) => {
       
     }, 500);
 
-  }, [selectedLayers]);
+  }, [selectedLayersCP]);
   const showLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -1150,7 +1150,7 @@ const CreateProjectMap = (type: any) => {
     });
   }, [problemClusterGeojson]);
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
-    const deleteLayers = selectedLayers.filter((layer: any) => !selectedItems.includes(layer as string));
+    const deleteLayers = selectedLayersCP.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
       if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
@@ -1158,7 +1158,7 @@ const CreateProjectMap = (type: any) => {
         removeTilesHandler(layer);
       }
     });
-    updateSelectedLayers(selectedItems);
+    updateSelectedLayersCP(selectedItems);
     topStreams();
   }
   const hideLayers = (key: string) => {
@@ -1796,7 +1796,7 @@ const CreateProjectMap = (type: any) => {
             setVisibleDropdown(flag);
 
           }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, removePopup, isWR: true })}
+          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersCP, removePopup, isWR: true })}
           trigger={['click']}>
           <Button>
             <span className="btn-02"></span>
