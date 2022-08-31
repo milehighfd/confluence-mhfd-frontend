@@ -9,7 +9,7 @@ const ConfirmPasswordLayout = () => {
       <Row>
         <CarouselAutoPlayView />
         <Col span={11} className="login-hh">
-          <div className="login-step01">
+          <div className="login-step01" id="login-form">
             <ConfirmPasswordForm />
           </div>
         </Col>
