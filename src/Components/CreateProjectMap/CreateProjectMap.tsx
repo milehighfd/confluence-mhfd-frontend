@@ -163,8 +163,7 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      console.log('OR THIS IS CALLING');
-      updateSelectedLayers([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
+      updateSelectedLayers([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROBLEMS_TRIGGER]);
       marker.remove();
     }
   }, []);
