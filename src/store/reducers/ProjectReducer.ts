@@ -44,7 +44,7 @@ const initState = {
   listStreams: [],
   componentsFromMap: [],
   independentComponents:[],
-  selectedLayers: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS],
+  selectedLayers: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS],
   selectedLayersWR: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER],
   highlightedComponent: {
     type:'',

@@ -25,65 +25,72 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
     // if(map.getSource('clusterproblem')) {
     //   removeGeojsonCluster(map);
     // }
-  map!.addSource('clusterproblem', {
-    type: 'geojson',
-    data: geojson,
-    cluster: true,
-    clusterRadius: 80,
-    clusterProperties: {
-      'mag1': ['+', ['case', mag1, 1, 0]],
-      'mag2': ['+', ['case', mag2, 1, 0]],
-      'mag3': ['+', ['case', mag3, 1, 0]]
+    if(!map.getSource('clusterproblem')) {
+      map!.addSource('clusterproblem', {
+        type: 'geojson',
+        data: geojson,
+        cluster: true,
+        clusterRadius: 80,
+        clusterProperties: {
+          'mag1': ['+', ['case', mag1, 1, 0]],
+          'mag2': ['+', ['case', mag2, 1, 0]],
+          'mag3': ['+', ['case', mag3, 1, 0]]
+        }
+      });
     }
-  });
   //const colors = ['#fee0d2', '#fc9272', '#de2d26', '#00ff00'];
   const colors = ['#FF0806', '#BE0807', '#8D0000', '#00ff00'];
-  map!.addLayer({
-    id: 'clusterproblem',
-    'type': 'circle',
-    'source': 'clusterproblem',
-    'filter': ['!=', 'cluster', true],
-    'paint': {
-      'circle-color': [
-        'case',
-        mag1,
-        colors[0],
-        mag2,
-        colors[1],
-        mag3,
-        colors[2],
-        colors[3]
-      ],
-      'circle-opacity': [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        11.2, 0.01,
-        11.22, 0,
-      ],
-      'circle-radius': 12
-    },
-    'maxzoom': 11.2
-  });
-  map!.addLayer({
-    'id': 'clusterproblem_label',
-    'type': 'symbol',
-    'source': 'clusterproblem',
-    'filter': ['!=', 'cluster', true],
-    'layout': {
-      'text-field': [
-        'format',
-        ['get', 'problem_type']
-      ],
-      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      'text-size': 10
-    },
-    'paint': {
-      'text-color': 'black',
-      'text-opacity': 0.01
-    },
-    'maxzoom': 11.2
-  });
+  if (!map.getLayer('clusterproblem')) {
+    map!.addLayer({
+      id: 'clusterproblem',
+      'type': 'circle',
+      'source': 'clusterproblem',
+      'filter': ['!=', 'cluster', true],
+      'paint': {
+        'circle-color': [
+          'case',
+          mag1,
+          colors[0],
+          mag2,
+          colors[1],
+          mag3,
+          colors[2],
+          colors[3]
+        ],
+        'circle-opacity': [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          11.2, 0.01,
+          11.22, 0,
+        ],
+        'circle-radius': 12
+      },
+      'maxzoom': 11.2
+    });
+  }
+  if (!map.getLayer('clusterproblem_label')) {
+    map!.addLayer({
+      'id': 'clusterproblem_label',
+      'type': 'symbol',
+      'source': 'clusterproblem',
+      'filter': ['!=', 'cluster', true],
+      'layout': {
+        'text-field': [
+          'format',
+          ['get', 'problem_type']
+        ],
+        'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+        'text-size': 10
+      },
+      'paint': {
+        'text-color': 'black',
+        'text-opacity': 0.01
+      },
+      'maxzoom': 11.2
+    });
+  }
+  
   const markers: any = {};
   let markersOnScreen: any = {};
 

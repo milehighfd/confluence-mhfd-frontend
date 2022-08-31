@@ -81,7 +81,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     setStreamsList([]);
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
-    updateSelectedLayers([PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, STREAMS_FILTERS]);
     return () => {
       setServiceArea({});
       setStreamsList([]);

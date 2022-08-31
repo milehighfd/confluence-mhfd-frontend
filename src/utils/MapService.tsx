@@ -465,7 +465,6 @@ export class MapService {
     }
   };
   addLayerMask(id: any) {
-    console.log('HERE MASK', this.map.getLayer(id+"MASK"), this.map.getSource('mask'));
     this.waiting(id);
   }
   removeLayerMask(id: any) {

@@ -39,6 +39,7 @@ import {
   NEARMAP_TOKEN,
   STREAMS_POINT,
   PROJECTS_DRAFT,ICON_POPUPS,
+  XSTREAMS,
   MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS, MAPTYPES
 } from "../../constants/constants";
 import { loadIconsPopup } from '../../routes/map/components/MapGetters';
@@ -677,7 +678,7 @@ const CreateProjectMap = (type: any) => {
 };
   useEffect(() => {
     if (map) {
-      console.log('THIS ARE THE LAYERS UPDATE', selectedLayers);
+      console.log('USE EFFECT SELECTED LAYERS', selectedLayers);
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);
@@ -701,16 +702,16 @@ const CreateProjectMap = (type: any) => {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER];
     }
     if (type.type === 'STUDY') {
-      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD];
+      thisSL = [...thisSL, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, PROBLEMS_TRIGGER, MHFD_BOUNDARY_FILTERS, XSTREAMS, STREAMS_FILTERS];
     }
     if (type.type === 'MAINTENANCE') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
     }
-    setTimeout(() => {
+    // setTimeout(() => {
       map.isStyleLoaded(() => {
         updateSelectedLayers(thisSL);
       });
-    }, 1000);
+    // }, 1000);
   }
   const removeProjectLayer = () => {
     let filterLayers = selectedLayers.filter((Layer: any) => {
@@ -832,7 +833,7 @@ const CreateProjectMap = (type: any) => {
       setProblemClusterGeojson(geoj.geom);
     });
   }
-  const applyMapLayers = async () => {
+  const applyMapLayers = useCallback( async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         if (layer.tiles) {
@@ -885,7 +886,7 @@ const CreateProjectMap = (type: any) => {
       
     }, 500);
 
-  }
+  }, [selectedLayers]);
   const showLayers = (key: string) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
