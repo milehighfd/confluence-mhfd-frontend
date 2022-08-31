@@ -51,6 +51,8 @@ const useLogin = () => {
           // }
         }, 3000);
       });
+    } else {
+      setLoading(false);
     }
   }, []);
 
