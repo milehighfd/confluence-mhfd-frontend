@@ -15,23 +15,23 @@ export const flytoBoundsCoor = (
     map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
   } else if (coorBounds[0] && coorBounds[1]) {
     map.fitBounds(coorBounds);
-    if(userInformation.isSelect != 'isSelect') {
-      setTimeout(()=>{
-       const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === userInformation.zoomarea).map((element: any) => {
-         return {
-           aoi: element.aoi,
-           filter: element.filter,
-           coordinates: element.coordinates
-         }
-       });
-       if(zoomareaSelected[0]){
-         let type = zoomareaSelected[0].filter; 
-         let zone = zoomareaSelected[0].aoi;
-         zone = zone.replace('County ', '').replace('Service Area', '');
-         setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+  }
+  if(userInformation.isSelect != 'isSelect') {
+    setTimeout(()=>{
+     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === userInformation.zoomarea).map((element: any) => {
+       return {
+         aoi: element.aoi,
+         filter: element.filter,
+         coordinates: element.coordinates
        }
-      },5000);
-    }
+     });
+     if(zoomareaSelected[0]){
+       let type = zoomareaSelected[0].filter; 
+       let zone = zoomareaSelected[0].aoi;
+       zone = zone.replace('County ', '').replace('Service Area', '');
+       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+     }
+    },5000);
   }
 }
 

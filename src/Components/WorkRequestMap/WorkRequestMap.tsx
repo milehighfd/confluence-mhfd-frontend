@@ -160,10 +160,7 @@ const WorkRequestMap = (type: any) => {
   const {
     mapSearchQuery,
     setSelectedPopup,
-    getComponentCounter,
     setSelectedOnMap,
-    existDetailedPageProblem,
-    existDetailedPageProject,
     getMapWithSublayers,
     getMapLayers,
     getComponentsByProjid,

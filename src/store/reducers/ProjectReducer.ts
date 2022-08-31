@@ -44,8 +44,9 @@ const initState = {
   listStreams: [],
   componentsFromMap: [],
   independentComponents:[],
-  selectedLayers: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS],
+  selectedLayers: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS],
   selectedLayersWR: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER],
+  selectedLayersCP: [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, XSTREAMS],
   highlightedComponent: {
     type:'',
     value: ''
@@ -236,6 +237,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
           ...state,
           selectedLayersWR: action.selectedLayerWR
+      }
+    }
+    case types.SELECTED_LAYERSCP: {
+      return {
+          ...state,
+          selectedLayersCP: action.selectedLayerCP
       }
     }
     case types.SET_ZOOM_GEOM: {

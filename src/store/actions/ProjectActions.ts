@@ -593,6 +593,11 @@ export const updateSelectedLayersWR = (selectedLayerWR: any) => {
       dispatch({ type: types.SELECTED_LAYERSWR, selectedLayerWR });
   }
 }
+export const updateSelectedLayersCP = (selectedLayerCP: any) => {
+  return (dispatch : Function) => {
+      dispatch({ type: types.SELECTED_LAYERSCP, selectedLayerCP });
+  }
+}
 export const setHighlightedComponent = (highlightedComponent: any) => {
   return (dispatch: Function) => {
     dispatch({ type: types.SET_HIGHLIGHTED, highlightedComponent});
