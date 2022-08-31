@@ -39,7 +39,7 @@ const genTitleUnnamed = (streamName: any, streamData: any, setHighlightedStreams
 
 export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable }:
   { visibleStudy: boolean, setVisibleStudy: Function, nameProject: string, setNameProject: Function, typeProject: string, setVisible: Function, locality?: any, data: any, editable: boolean }) => {
-  const { saveProjectStudy, setStreamsList, setStreamIntersected, updateSelectedLayers, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream, setHighlightedStreams } = useProjectDispatch();
+  const { saveProjectStudy, setStreamsList, setStreamIntersected, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream, setHighlightedStreams } = useProjectDispatch();
   const { streamsIntersectedIds, isDraw } = useProjectState();
   const { organization } = useProfileState();
   const { listStreams } = useProjectState();

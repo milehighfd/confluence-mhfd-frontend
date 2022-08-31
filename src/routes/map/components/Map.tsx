@@ -533,8 +533,12 @@ const Map = ({
               });
               map.moveLayer('border')
               setTimeout(()=>{
-                map.removeLayer('mask');
-                map.removeLayer('border');
+                if (map.getLayer('mask')) {
+                  map.removeLayer('mask');
+                }
+                if (map.getLayer('border')) {
+                  map.removeLayer('border');
+                }
               },4000);
       } else {
           if (opacityLayer) {
@@ -558,6 +562,7 @@ const Map = ({
 
     useEffect(() => {
         if (map) {
+          console.log('zxcv filterProjects', filterProjects);
             applyFilters(MHFD_PROJECTS, filterProjects);
         }
     }, [filterProjects, componentDetailIds]);

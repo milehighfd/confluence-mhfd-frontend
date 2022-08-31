@@ -75,9 +75,25 @@ const CreateProjectMap = (type: any) => {
 
   const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
-  const { layers, mapSearch, filterProjects, filterProblems, componentDetailIds, filterComponents, currentPopup, galleryProjects, detailed, loaderDetailedPage, componentsByProblemId, componentCounter, loaderTableCompoents, bboxComponents } = useMapState();
+  const {
+    layers,
+    mapSearch,
+    filterProjects,
+    filterProblems,
+    componentDetailIds,
+    filterComponents,
+    galleryProjects,
+    detailed
+  } = useMapState();
 
-  const { mapSearchQuery, setSelectedPopup, getComponentCounter, setSelectedOnMap, existDetailedPageProblem, existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject, getComponentsByProblemId, getComponentsByProjid, getBBOXComponents } = useMapDispatch();
+  const {
+    mapSearchQuery,
+    setSelectedPopup,
+    setSelectedOnMap,
+    existDetailedPageProblem,
+    existDetailedPageProject,
+    getComponentsByProjid,
+  } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getListComponentsIntersected, getServiceAreaPoint,
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, getStreamsByComponentsList, setStreamsIds, setStreamIntersected, updateSelectedLayersCP, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, getAllComponentsByProblemId } = useProjectDispatch();
   const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayersCP, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
@@ -866,7 +882,7 @@ const CreateProjectMap = (type: any) => {
       }
     });
     applyFilters(PROBLEMS_TRIGGER, filterProblems);
-    let filterProjectsNew = filterProjects;
+    let filterProjectsNew = {...filterProjects};
     if (type.type === 'SPECIAL') {
       filterProjectsNew.projecttype = "Special";
     } else if (type.type === 'STUDY') {
