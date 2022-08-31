@@ -265,30 +265,31 @@ const Map = ({
     },[userInformation.polygon]);
  
     const addLayerMask = (id: any) => {
-      if (id == 'border' &&  !map.getLayer(id+"MASK")) {
-        map.addLayer({
-          "id": id+'MASK',
-          "source": "mask",
-          "type": "line",
-          "paint": {
-            'line-color': '#28c499',
-            'line-width': 1,
-          },
-          "z-index": 10
-        });
-      } else if(id == 'area_based_mask' && !map.getLayer(id+"MASK")) {
-        map.addLayer({
-          "id": id+'MASK',
-          "source": "mask",
-          "type": "fill",
-          "paint": {
-              "fill-color": "black",
-              'fill-opacity': 0.8
-          },
-          "z-index": 10
-        });
+      if (map.getSource('mask')) {
+        if (id == 'border' &&  !map.getLayer(id+"MASK")) {
+          map.addLayer({
+            "id": id+'MASK',
+            "source": "mask",
+            "type": "line",
+            "paint": {
+              'line-color': '#28c499',
+              'line-width': 1,
+            },
+            "z-index": 10
+          });
+        } else if(id == 'area_based_mask' && !map.getLayer(id+"MASK")) {
+          map.addLayer({
+            "id": id+'MASK',
+            "source": "mask",
+            "type": "fill",
+            "paint": {
+                "fill-color": "black",
+                'fill-opacity': 0.8
+            },
+            "z-index": 10
+          });
+        }
       }
-      
     }
     const removeLayerMask= (id: any)  => {
       map.removeLayer(id+'MASK');
@@ -562,7 +563,6 @@ const Map = ({
 
     useEffect(() => {
         if (map) {
-          console.log('zxcv filterProjects', filterProjects);
             applyFilters(MHFD_PROJECTS, filterProjects);
         }
     }, [filterProjects, componentDetailIds]);
@@ -614,13 +614,15 @@ const Map = ({
         });
 
         mapService.map = map;  
-            flytoBoundsCoor(getCurrent, 
-              userInformation,
-              globalMapId,
-              coorBounds,
-              map,
-              groupOrganization,
-              setCoordinatesJurisdiction);
+        flytoBoundsCoor(
+          getCurrent, 
+          userInformation,
+          globalMapId,
+          coorBounds,
+          map,
+          groupOrganization,
+          setCoordinatesJurisdiction
+        );
         
 
         map.addControl(new mapboxgl.ScaleControl({
@@ -769,7 +771,7 @@ const Map = ({
         groupOrganization,
         setCoordinatesJurisdiction);
 
-    }, [userInformation.polygon])
+    }, [userInformation.polygon, groupOrganization])
 
     useEffect(() => {
         if (currentPopup !== -1 && activeMobilePopups.length > currentPopup) {
