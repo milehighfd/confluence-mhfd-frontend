@@ -182,7 +182,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       return list.split(',');
     }
  }
-
   useEffect(()=>{
     if(data!== 'no data' ) {
       setSwSave(true);

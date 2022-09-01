@@ -2138,7 +2138,6 @@ const Map = ({
         mapSearchQuery(value);
     };
 
-
     const onSelect = (value: any) => {
         console.log('onSelect:::', value);
         const keyword = value.split('?');
@@ -2338,7 +2337,7 @@ const Map = ({
                 setVisible= {setVisibleCreateProject}
                 data={"no data"}
                 showDefaultTab={showDefault}
-                locality= {"Select a Sponsor"}
+                locality= {autocomplete}
                 editable = {true}
                 problemId= {problemid}
             />
