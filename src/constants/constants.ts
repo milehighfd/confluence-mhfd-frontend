@@ -276,7 +276,9 @@ export const SELECT_ALL_FILTERS = [
   PROBLEMS_TRIGGER,
   BLOCK_CLEARANCE_ZONES_LAYERS,
   MHFD_STREAMS_FILTERS,
-  STREAMS_POINT
+  STREAMS_POINT,
+  BORDER,
+  AREA_BASED_MASK
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];

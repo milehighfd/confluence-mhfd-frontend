@@ -749,9 +749,12 @@ const applyProblemClusterLayer = () => {
     });
     
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
-    // console.log('THIS ARE THE LAYERS ', JSON.stringify(deleteLayers), "this are the selectedLayersWR", JSON.stringify(selectedLayersWR));
     await deleteLayers.forEach((layer: LayersType) => {
-      removeTilesHandler(layer);
+      if (layer === 'border' || layer === 'area_based_mask') {
+        map.removeLayerMask(layer);
+      } else {
+        removeTilesHandler(layer);
+      }
     });
     await selectedLayersWR.forEach((layer: LayersType) => {
       if (layer === 'area_based_mask' || layer === 'border') {
