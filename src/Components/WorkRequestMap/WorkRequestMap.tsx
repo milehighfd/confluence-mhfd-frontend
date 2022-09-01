@@ -270,7 +270,7 @@ const WorkRequestMap = (type: any) => {
     type: '',
     cartoid: '',
   });
-
+  const [areTilesLoaded, setAreTilesLoaded] = useState(false);
   useEffect(() => {
     if (map) {
       const mapResize = () => map.resize();
@@ -354,39 +354,18 @@ const WorkRequestMap = (type: any) => {
     }
   };
   useEffect(() => {
-    if (layers) {
+    if (layers && areTilesLoaded) {
       setLayerFilters(layers);
     }
-  }, [layers]);
-  const [compareLayerFilter, setCompareLayerFilter] = useState('');
+  }, [layers, areTilesLoaded]);
   useEffect(() => {
-    const parsed = compareLayerFilter != '' ? JSON.parse(compareLayerFilter) : '';
-    const areEqual = JSON.stringify(layerFilters) != JSON.stringify(parsed);
-    if (areEqual) {
       if (map) {
-        setCompareLayerFilter(JSON.stringify(layerFilters));
           map.isStyleLoaded(() => {
-            // console.log('applymaplayers 1');
             applyMapLayers();
             applyProblemClusterLayer();
           });
       }
-    }
-  }, [layerFilters]);
-
-  const [compareSLWR, setCompareSLWR] = useState('');
-  useEffect(() => {
-    if(JSON.stringify(selectedLayersWR) != compareSLWR && selectedLayersWR.length > 0) {
-      if (map ) {
-        map.isStyleLoaded(() => {
-          // console.log('applymaplayers 2');
-          applyMapLayers();
-          applyProblemClusterLayer();
-        });
-        setCompareSLWR(JSON.stringify(selectedLayersWR));
-      }
-    }
-  }, [selectedLayersWR]);
+  }, [layerFilters, selectedLayersWR]);
 
   const { getNext, getCurrent, getPrevious, getPercentage, addHistoric, hasNext, hasPrevious } = GlobalMapHook();
 
@@ -447,7 +426,7 @@ const WorkRequestMap = (type: any) => {
       } else {
         if (!map) {
           map = new MapService(mapid);
-          setLayersSelectedOnInit();
+          // setLayersSelectedOnInit();
           map.loadImages();
           let _ = 0;
           map.zoomEnd(() => {
@@ -475,6 +454,7 @@ const WorkRequestMap = (type: any) => {
       }
     });
     Promise.all(promises).then(() => {
+      setAreTilesLoaded(true);
     });
     return () => {
       setBoardProjects(['-8888']);
@@ -746,7 +726,7 @@ const WorkRequestMap = (type: any) => {
 }
 const applyProblemClusterLayer = () => {
   datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
-    if (!map.map.getSource('clusterproblem')) {
+    if ( map && !map.map.getSource('clusterproblem')) {
       addGeojsonSource(map.map, geoj.geom, isProblemActive);
     }
     setProblemClusterGeojson(geoj.geom);
@@ -767,7 +747,9 @@ const applyProblemClusterLayer = () => {
         addLayersSource(layer, layerFilters[layer]);
       }
     });
+    
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
+    // console.log('THIS ARE THE LAYERS ', JSON.stringify(deleteLayers), "this are the selectedLayersWR", JSON.stringify(selectedLayersWR));
     await deleteLayers.forEach((layer: LayersType) => {
       removeTilesHandler(layer);
     });
