@@ -28,6 +28,7 @@ import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { AlertStatus } from "./AlertStatus";
 import LoadingViewOverall from '../../Loading-overall/LoadingViewOverall';
 import ConfigurationService from '../../../services/ConfigurationService';
+import { useProfileDispatch } from '../../../hook/profileHook';
 
 
 const { Option } = Select;
@@ -100,6 +101,8 @@ const RequestView = ({ type, isFirstRendering }: {
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const user = store.getState().profile.userInformation;
+  const { saveBoardProjecttype } = useProfileDispatch();
+  const users = store.getState().users;
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -191,7 +194,6 @@ const RequestView = ({ type, isFirstRendering }: {
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
-    console.log('my value is ', value);
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setLocality(value);
@@ -224,7 +226,6 @@ const RequestView = ({ type, isFirstRendering }: {
           setTabKey(displayedTabKey[0]);
         }
       } else {
-        console.log('entro aca' );
         if (!tabKeys.includes(tabKey)) {
           setTabKey(tabKeys[0]);
         }
@@ -244,6 +245,11 @@ const RequestView = ({ type, isFirstRendering }: {
   },[locality, tabKey,year]);
 
   useEffect(() => {
+    saveBoardProjecttype(tabKey);
+  }, [tabKey]);
+
+  useEffect(() => {
+    console.log(' is loading ');
     const initLoading = async () => {
     let config;
     try {
@@ -260,7 +266,7 @@ const RequestView = ({ type, isFirstRendering }: {
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
     let _locality = params.get('locality');
-    let _tabKey = params.get('tabKey');
+    let _tabKey = params.get('tabKey') || users.projecttype;
     getData(SERVER.ME, getToken()).then( userResponse => {
       if( _locality != userResponse.organization && userResponse.designation == GOVERNMENT_STAFF) {
         _locality = userResponse.organization;
@@ -296,7 +302,26 @@ const RequestView = ({ type, isFirstRendering }: {
                 setLocalityType(l.type);
               }
               if (_tabKey) {
-                setTabKey(_tabKey)
+                let displayedTabKey: string[] = [];
+                if (type === "WORK_REQUEST") {
+                  displayedTabKey = tabKeys;
+                } else {
+                  if (l) {
+                    if (l.type === 'COUNTY') {
+                      displayedTabKey = ['Capital', 'Maintenance']
+                    } else if (l.type === 'SERVICE_AREA') {
+                      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                    }
+                    if (l.name === 'MHFD District Work Plan') {
+                      displayedTabKey = tabKeys;
+                    }
+                  }
+                }
+                if (displayedTabKey.includes(_tabKey)) {
+                  setTabKey(_tabKey)
+                } else {
+                  setTabKey(displayedTabKey[0]);
+                }
               } else {
                 if (type === "WORK_REQUEST") {
                   setTabKey(tabKeys[0])

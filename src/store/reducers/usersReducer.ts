@@ -18,7 +18,8 @@ const initStateUsersActivated = {
         totalPages: 1,
         currentPage: 1
     },
-    timesLogged: -1
+    timesLogged: -1,
+    projecttype: '-'
 }
 
 const users = (state = initStateUsersActivated, action : any) => {
@@ -63,6 +64,12 @@ const users = (state = initStateUsersActivated, action : any) => {
             return {
                 ...state,
                 timesLogged: -1
+            }
+        }
+        case types.CHANGE_BOARD_PROJECT_TYPE: {
+            return {
+                ...state,
+                projecttype: action.projecttype
             }
         }
         default: 

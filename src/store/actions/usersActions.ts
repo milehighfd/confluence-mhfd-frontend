@@ -57,3 +57,9 @@ export const getTimesLogin = () => {
     });
   }
 }
+
+export const saveBoardProjecttype = (projecttype: string) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.CHANGE_BOARD_PROJECT_TYPE, projecttype: projecttype });
+  }
+}
