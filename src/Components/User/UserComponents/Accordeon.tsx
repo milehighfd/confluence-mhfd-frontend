@@ -307,7 +307,7 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                         overlay={menu2} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                         <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
                           {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
-                          {values.status !== 'pending' ? <img src="/Icons/icon-12.svg" alt="" /> : ''}
+                          {values.status === 'pending' || values.designation === OTHER || values.designation === ADMIN || values.designation === STAFF ? '' : <img src="/Icons/icon-12.svg" alt="" />}
                         </Button>
                       </Dropdown>
                     </div>
