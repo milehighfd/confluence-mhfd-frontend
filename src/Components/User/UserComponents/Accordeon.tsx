@@ -22,29 +22,36 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
     visible: false
   };
   const [organizationList, setOrganizationList] = useState<any[]>([]);
-    const [consultantList, setConsultantList] = useState<any[]>([]);
-    useEffect(() => {
-      datasets.getData(SERVER.GET_ORGANIZATIONS)
-        .then((rows) => {
-          const organizations = rows
-            .filter((row: any) => row.type === 'JURISDICTION')
-            .map(({id, name}: { id: number, name: string }) => (name));
-            // console.log('qwe organizations', organizations);
-          setOrganizationList(organizations);
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-      datasets.getData(SERVER.GET_CONSULTANTS)
-        .then((rows) => {
-          const consultants = rows
-            .map(({_id, name}: { _id: number, name: string }) => (name));
-          setConsultantList(consultants);
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-    }, []);
+  const [consultantList, setConsultantList] = useState<any[]>([]);
+  useEffect(() => {
+    datasets.getData(SERVER.GET_ORGANIZATIONS)
+      .then((rows) => {
+        const organizations = rows
+          .filter((row: any) => row.type === 'JURISDICTION')
+          .map(({id, name}: { id: number, name: string }) => (name))
+          .sort((a: string, b: string) => {
+            return a.localeCompare(b);
+          });
+          // console.log('qwe organizations', organizations);
+        setOrganizationList(organizations);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+    datasets.getData(SERVER.GET_CONSULTANTS)
+      .then((rows) => {
+        const consultants = rows
+          .map(({_id, name}: { _id: number, name: string }) => (name))
+          .filter((value: string, index: number, self: any) => {
+            return self.indexOf(value) === index;
+          }
+          ).sort();
+        setConsultantList(consultants);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }, []);
 
   const menu2 = () => {
     const itemMenu: MenuProps['items'] = [];
@@ -57,11 +64,13 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       });
     };
     if (values.designation === ADMIN || values.designation === STAFF) {
-      generateItemMenu(organizationList);
+      generateItemMenu(['Mile High Flood Control District Boundary']);
     } else if (values.designation === CONSULTANT) {
       generateItemMenu(consultantList);
+    } else if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
+      generateItemMenu(organizationList);
     } else {
-      generateItemMenu(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY_PUBLIC);
+      generateItemMenu(['-']);
     }
     return <Menu
       key={'organization'}
@@ -293,15 +302,16 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
                 <Col className="gutter-row" span={12}>
                   <p>ORGANIZATION</p>
                   {
-                    values.designation !== OTHER ? <div id="sign-up-organization">
-                      <Dropdown overlay={menu2} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+                    <div id="sign-up-organization">
+                      <Dropdown disabled={values.designation === OTHER || values.designation === ADMIN || values.designation === STAFF}
+                        overlay={menu2} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                         <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
                           {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
                           {values.status !== 'pending' ? <img src="/Icons/icon-12.svg" alt="" /> : ''}
                         </Button>
                       </Dropdown>
-                    </div> :
-                  <Input placeholder="Organization" value={values.organization} name="organization" onChange={handleChange} />}
+                    </div>
+                  }
                 </Col>
               </Row>
             </div>

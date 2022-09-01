@@ -41,7 +41,10 @@ const SignUpForm = () => {
     datasets.getData(SERVER.GET_CONSULTANTS)
       .then((rows) => {
         const consultants = rows
-          .map(({_id, name}: { _id: number, name: string }) => (name));
+          .map(({_id, name}: { _id: number, name: string }) => (name)).filter((value: string, index: number, self: any) => {
+            return self.indexOf(value) === index;
+          }
+          );
         setConsultantList(consultants.sort());
       })
       .catch((e) => {
