@@ -359,7 +359,7 @@ const WorkRequestMap = (type: any) => {
     }
   }, [layers, areTilesLoaded]);
   useEffect(() => {
-      if (map) {
+      if (map && selectedLayersWR.length > 0) {
           map.isStyleLoaded(() => {
             applyMapLayers();
             applyProblemClusterLayer();
@@ -749,6 +749,7 @@ const applyProblemClusterLayer = () => {
     });
     
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
+    console.log('DELETE LAYERS', JSON.stringify(deleteLayers), JSON.stringify(selectedLayersWR));
     await deleteLayers.forEach((layer: LayersType) => {
       if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
