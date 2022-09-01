@@ -55,7 +55,7 @@ import { Input, AutoComplete } from 'antd';
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 
 let map: any;
-let isProblemActive = true;
+let isProblemActive = false;
 let isPopup = true;
 let coordX = -1;
 let coordY = -1;
@@ -179,7 +179,7 @@ const CreateProjectMap = (type: any) => {
       setStreamsIds([]);
       setComponentIntersected([]);
       setComponentGeom(undefined);
-      updateSelectedLayersCP([PROJECTS_MAP_STYLES, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROBLEMS_TRIGGER]);
+      updateSelectedLayersCP([]);
       marker.remove();
     }
   }, []);
@@ -337,7 +337,6 @@ const CreateProjectMap = (type: any) => {
   }, [boardProjectsCreate]);
   useEffect(() => {
     if (map) {
-      console.log('HIGHLIGHTED PROBLEM', highlightedProblem);
       if (highlightedProblem.problemid && !magicAddingVariable) {
         showHighlightedProblem(highlightedProblem.problemid);
         
@@ -692,7 +691,7 @@ const CreateProjectMap = (type: any) => {
     }
 };
   useEffect(() => {
-    if (map) {
+    if (map && selectedLayersCP.length > 0) {
       waiting();
     }
     EventService.setRef('oncreatedraw', onCreateDraw);

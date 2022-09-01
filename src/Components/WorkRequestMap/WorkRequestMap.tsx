@@ -100,7 +100,7 @@ import { GlobalMapHook } from '../../utils/globalMapHook';
 
 let mapid = 'map4';
 let map: any;
-let isProblemActive = true;
+let isProblemActive = false;
 let coordX = -1;
 let coordY = -1;
 let featuresCount = 0;
