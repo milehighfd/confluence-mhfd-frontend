@@ -42,7 +42,7 @@ import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
-import { flytoBoundsCoor, getTitle } from './MapFunctionsUtilities';
+import { flytoBoundsCoor, getTitle, polyMask} from './MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -217,12 +217,7 @@ const Map = ({
         cartoid: ''
     });
     const [ showDefault, setShowDefault ] = useState(false);
-    const polyMask = (mask: any, bounds: any) => {
-        if (mask !== undefined && bounds.length > 0) {
-            var bboxPoly = turf.bboxPolygon(bounds);
-            return turf.difference(bboxPoly, mask);
-        }
-    }
+
     useEffect(()=>{
       const user = userInformation;
       if (user?.polygon[0]) {

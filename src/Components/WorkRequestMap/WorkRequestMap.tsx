@@ -97,6 +97,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { useAttachmentDispatch } from '../../hook/attachmentHook';
 import { GlobalMapHook } from '../../utils/globalMapHook';
+import { polyMask } from '../../routes/map/components/MapFunctionsUtilities';
 
 let mapid = 'map4';
 let map: any;
@@ -556,12 +557,7 @@ const WorkRequestMap = (type: any) => {
   }, [boardProjects]);
 
   const [opacityLayer, setOpacityLayer] = useState(false);
-  const polyMask = (mask: any, bounds: any) => {
-    if (mask !== undefined && bounds.length > 0) {
-      var bboxPoly = turf.bboxPolygon(bounds);
-      return turf.difference(bboxPoly, mask);
-    }
-  };
+
 
   const setBounds = (value: any) => {
     if (!value) return;

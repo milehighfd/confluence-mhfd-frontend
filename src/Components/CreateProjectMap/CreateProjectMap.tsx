@@ -53,6 +53,7 @@ import { useProfileState } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
+import { polyMask } from "../../routes/map/components/MapFunctionsUtilities";
 
 let map: any;
 let isProblemActive = false;
@@ -370,12 +371,7 @@ const CreateProjectMap = (type: any) => {
     }
 
   }, [highlightedStreams]);
-  const polyMask = (mask: any, bounds: any) => {
-    if (mask !== undefined && bounds.length > 0) {
-      var bboxPoly = turf.bboxPolygon(bounds);
-      return turf.difference(bboxPoly, mask);
-    }
-  }
+  
   const setBounds = (value: any) => {
     const zoomareaSelected = groupOrganization.filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi))).map((element: any) => {
       return {

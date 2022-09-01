@@ -1,4 +1,5 @@
 import * as mapboxgl from 'mapbox-gl';
+import * as turf from '@turf/turf';
 
 export const flytoBoundsCoor = (
   getCurrent : any, 
@@ -135,5 +136,12 @@ export const epochTransform = (dateParser: any) => {
   return '-'
   } else {
   return stringDate;
+  }
+}
+
+export const polyMask = (mask: any, bounds: any) => {
+  if (mask !== undefined && bounds.length > 0) {
+      var bboxPoly = turf.bboxPolygon(bounds);
+      return turf.difference(bboxPoly, mask);
   }
 }
