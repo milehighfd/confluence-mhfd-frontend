@@ -6,7 +6,7 @@ import { PlusOutlined } from '@ant-design/icons';
 export default () => {
   const [selected, setSelected] = useState(true);
   return (
-    <div className="chat-r">
+    <div className="chat-r" style={{opacity:'0.7'}}>
       <Row style={{paddingBottom: '15px'}}>
         <Col span={5}>
           <div

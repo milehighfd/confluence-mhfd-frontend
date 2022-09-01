@@ -254,7 +254,7 @@ const DetailedModal = ({
                   />
               )}
             </Col>
-            <Col span={7} className="mobile-display">
+            <Col span={7} className="mobile-display" style={{opacity:'0.7'}}>
               <TeamCollaborator />
             </Col>
           </Row>

@@ -229,7 +229,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
                 <Dropdown disabled={true} overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
                     {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
-                    <img src="/Icons/icon-12.svg" alt="" />
+                    {/* <img src="/Icons/icon-12.svg" alt="" /> */}
                   </Button>
                 </Dropdown>
               </div> :

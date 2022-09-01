@@ -191,6 +191,7 @@ const RequestView = ({ type, isFirstRendering }: {
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
+    console.log('my value is ', value);
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setLocality(value);
@@ -219,9 +220,14 @@ const RequestView = ({ type, isFirstRendering }: {
         if (l.name === 'MHFD District Work Plan') {
           displayedTabKey = tabKeys;
         }
-        setTabKey(displayedTabKey[0]);
+        if (!displayedTabKey.includes(tabKey)) {
+          setTabKey(displayedTabKey[0]);
+        }
       } else {
-        setTabKey(tabKeys[0]);
+        console.log('entro aca' );
+        if (!tabKeys.includes(tabKey)) {
+          setTabKey(tabKeys[0]);
+        }
       }
     }
   };
