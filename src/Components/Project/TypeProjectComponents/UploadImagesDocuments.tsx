@@ -45,7 +45,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     }
   }
   useEffect(() => {
-    console.log('DOES THIS REACH??', attachments);
     const images = attachments.attachments.filter(
       (_: any) => _.mimetype.includes('png') || _.mimetype.includes('jpeg') || _.mimetype.includes('jpg')
     ).map((img: any) => {
@@ -203,7 +202,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   ];
  
   useEffect(() => {
-    console.log('Data Images', dataImages, 'Data Files', dataFiles);
     setFiles([...dataImages, ...dataFiles]);
   }, [dataImages, dataFiles]);
   const rowSelection = {
@@ -217,7 +215,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   };
   const rowSelectionFiles = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       setToDeleteFiles(selectedRowKeys);
     },
     getCheckboxProps: (record: DataType) => ({

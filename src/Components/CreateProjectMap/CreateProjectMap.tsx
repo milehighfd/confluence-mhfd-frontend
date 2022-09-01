@@ -421,7 +421,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     setTimeout(() => {
       let value = localAOI;
-      if (type.locality) {
+      if (type.locality && type.locality !== 'Select a Sponsor') {
         value = type.locality;
       }
       if (groupOrganization.length > 0) {
@@ -732,7 +732,11 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = selectedLayersCP.filter((layer: any) => !filterLayers.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
-      removeTilesHandler(layer);
+      if (layer === 'border' || layer === 'area_based_mask') {
+        map.removeLayerMask(layer);
+      } else {
+        removeTilesHandler(layer);
+      }
     });
     updateSelectedLayersCP(filterLayers);
   }
@@ -859,7 +863,11 @@ const CreateProjectMap = (type: any) => {
     });
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersCP.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
-      removeTilesHandler(layer);
+      if (layer === 'border' || layer === 'area_based_mask') {
+        map.removeLayerMask(layer);
+      } else {
+        removeTilesHandler(layer);
+      }
     });
     await selectedLayersCP.forEach((layer: LayersType) => {
       if (layer === 'area_based_mask' || layer === 'border') {
