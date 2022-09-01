@@ -97,7 +97,6 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { Input, AutoComplete } from 'antd';
 import { useAttachmentDispatch } from '../../hook/attachmentHook';
 import { GlobalMapHook } from '../../utils/globalMapHook';
-import { polyMask } from '../../routes/map/components/MapFunctionsUtilities';
 
 let mapid = 'map4';
 let map: any;
@@ -367,6 +366,7 @@ const WorkRequestMap = (type: any) => {
       if (map) {
         setCompareLayerFilter(JSON.stringify(layerFilters));
           map.isStyleLoaded(() => {
+            // console.log('applymaplayers 1');
             applyMapLayers();
             applyProblemClusterLayer();
           });
@@ -376,9 +376,10 @@ const WorkRequestMap = (type: any) => {
 
   const [compareSLWR, setCompareSLWR] = useState('');
   useEffect(() => {
-    if(JSON.stringify(selectedLayersWR) != compareSLWR) {
+    if(JSON.stringify(selectedLayersWR) != compareSLWR && selectedLayersWR.length > 0) {
       if (map ) {
         map.isStyleLoaded(() => {
+          // console.log('applymaplayers 2');
           applyMapLayers();
           applyProblemClusterLayer();
         });
@@ -404,7 +405,6 @@ const WorkRequestMap = (type: any) => {
           }
         },
         (e: any) => {
-          console.log('Error getting bbox projectid', e);
         },
       );
     }
@@ -475,10 +475,10 @@ const WorkRequestMap = (type: any) => {
       }
     });
     Promise.all(promises).then(() => {
-      console.log('loaded');
     });
     return () => {
       setBoardProjects(['-8888']);
+      updateSelectedLayersWR([]);
       map = undefined;
     };
   }, []);
@@ -557,7 +557,12 @@ const WorkRequestMap = (type: any) => {
   }, [boardProjects]);
 
   const [opacityLayer, setOpacityLayer] = useState(false);
-
+  const polyMask = (mask: any, bounds: any) => {
+    if (mask !== undefined && bounds.length > 0) {
+      var bboxPoly = turf.bboxPolygon(bounds);
+      return turf.difference(bboxPoly, mask);
+    }
+  };
 
   const setBounds = (value: any) => {
     if (!value) return;
@@ -727,7 +732,7 @@ const WorkRequestMap = (type: any) => {
     }, 35);
   };
   const setLayersSelectedOnInit = () => {
-    updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
+    // updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
   };
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -747,7 +752,7 @@ const applyProblemClusterLayer = () => {
     setProblemClusterGeojson(geoj.geom);
   });
 }
-  const applyMapLayers = async () => {
+  const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
         if (layer.tiles) {
@@ -816,7 +821,8 @@ const applyProblemClusterLayer = () => {
       });
     }, 500);
     applyMeasuresLayer();
-  };
+  }, [selectedLayersWR]);
+  
   const applyMeasuresLayer = () => {
     if (!map.map.getSource('geojsonMeasure')) {
       map.map.addSource('geojsonMeasure', {
@@ -1191,7 +1197,6 @@ const applyProblemClusterLayer = () => {
   };
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersWR.filter((layer: any) => !selectedItems.includes(layer as string));
-
     deleteLayers.forEach((layer: LayersType) => {
       if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
@@ -1238,12 +1243,12 @@ const applyProblemClusterLayer = () => {
     }
   };
   const updateLayerSource = (key: string, tiles: Array<string>) => {
-    /* console.log('maaaaa',map.getSource(key), tiles, tiles.hasOwnProperty('error'), key); */
+  
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.addVectorSource(key, tiles);
       addTilesLayers(key);
     } else if (map.getSource(key)) {
-      /* console.log('map', map.getSource(key)); */
+    
       map.getSource(key).setTiles(tiles);
       addTilesLayers(key);
     }
@@ -1440,16 +1445,20 @@ const applyProblemClusterLayer = () => {
     }
   };
   useEffect(() => {
-    if (type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
-      updateSelectedLayersWR([
-        MHFD_BOUNDARY_FILTERS,
-        ROUTINE_MAINTENANCE,
-        STREAMS_FILTERS,
-        COMPONENT_LAYERS,
-        PROBLEMS_TRIGGER,
-      ]);
-    } else {
-      updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS]);
+    if (type.currentTab) {
+      if (type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
+        const selectedLayersMaintenance = [
+          MHFD_BOUNDARY_FILTERS,
+          ROUTINE_MAINTENANCE,
+          STREAMS_FILTERS,
+          COMPONENT_LAYERS,
+          PROBLEMS_TRIGGER,
+        ];
+        updateSelectedLayersWR(selectedLayersMaintenance);
+      } else {
+        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
+        updateSelectedLayersWR(selectedLayersOthers);
+      }
     }
   }, [type.currentTab]);
   useEffect(() => {
@@ -1689,10 +1698,8 @@ const applyProblemClusterLayer = () => {
   };
 
   const onSelect = (value: any) => {
-    console.log('onSelect:::', value);
     const keyword = value.split('?');
     const coord = keyword[0].split(',');
-    console.log('my coord is ', coord);
     map.map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);
@@ -1894,7 +1901,6 @@ const applyProblemClusterLayer = () => {
                   if (hasNext()) {
                     const nxt = getNext();
                     globalMapId = nxt.id;
-                    console.log('click next, ', nxt);
                     map.fitBounds([
                       [nxt.bbox[0], nxt.bbox[1]],
                       [nxt.bbox[2], nxt.bbox[3]],
