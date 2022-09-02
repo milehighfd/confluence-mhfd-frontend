@@ -193,7 +193,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.projectname);
       setProjectId(data.projectid);
       setEditsetprojectid(data.projectid);
-      setAdditionalCost(parseInt(data.additionalcost));
+      setAdditionalCost(parseInt(data.additionalcost || '0'));
       let newOV = (data.overheadcost || '').split(',').map((x:any)=>{
         return parseInt(x);
       })
@@ -319,6 +319,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.files = files ;
       capital.overheadcost = overheadValues;
       capital.overheadcostdescription = overheadDescription;
+      console.log('my additional cost is ', additionalCost);
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
       capital.components = componentsToSave? JSON.stringify(componentsToSave, null, 2 ): [];
