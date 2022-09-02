@@ -775,9 +775,9 @@ const Map = ({
             hideHighlighted();
         }
     }, [currentPopup, activeMobilePopups]);
-    useEffect(() => {
-        map.setStyle(dropdownItems.items[dropdownItems.default].style);
-    }, [dropdownItems.items[dropdownItems.default].style]);
+    // useEffect(() => {
+    //     map.setStyle(dropdownItems.items[dropdownItems.default].style);
+    // }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
         const mapResize = () => map.resize();

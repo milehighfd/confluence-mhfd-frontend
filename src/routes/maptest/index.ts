@@ -1,3 +1,3 @@
-import LoginProvider from './LoginProvider';
+import MapTest from './MapTest';
 
-export default LoginProvider;
+export default MapTest;

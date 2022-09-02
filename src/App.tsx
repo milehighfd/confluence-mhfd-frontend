@@ -20,7 +20,7 @@ const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
 const UserView = lazy(() => import('./Components/User/UserView'));
 const UploadAttachmentRoute = lazy(() => import('./routes/upload-attachment'));
-// const maptest = lazy(() => import('./routes/maptest'));
+const maptest = lazy(() => import('./routes/maptest'));
 
 const App = () => {
   console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
@@ -41,6 +41,7 @@ const App = () => {
         <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-page`} component={DetailedPageView} />
+        <Route path={`/maptest`} component={maptest} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
