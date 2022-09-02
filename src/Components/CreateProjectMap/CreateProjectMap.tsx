@@ -420,7 +420,7 @@ const CreateProjectMap = (type: any) => {
   }, [type.projectid]);
   useEffect(() => {
     setTimeout(() => {
-      let value = localAOI;
+      let value = user.zoomarea ? user.zoomarea : localAOI;
       if (type.locality && type.locality !== 'Select a Sponsor') {
         value = type.locality;
       }
