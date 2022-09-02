@@ -544,6 +544,7 @@ const WorkRequestMap = (type: any) => {
 
   const setBounds = (value: any) => {
     if (!value) return;
+    console.log('VALUE', value, groupOrganization);
     const zoomareaSelected = groupOrganization
       .filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi)))
       .map((element: any) => {
@@ -880,6 +881,11 @@ const applyProblemClusterLayer = () => {
     styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(`${MHFD_PROJECTS}_${index}`)) {
         map.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
+      }
+    });
+    styles[PROJECTS_DRAFT].forEach((style: LayerStylesType, index: number) => {
+      if (map.map.getLayer(`${PROJECTS_DRAFT}_${index}`)) {
+        map.map.moveLayer(`${PROJECTS_DRAFT}_${index}`);
       }
     });
   };
