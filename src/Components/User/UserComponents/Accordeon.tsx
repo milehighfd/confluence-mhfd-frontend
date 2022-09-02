@@ -321,6 +321,14 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
               <Row gutter={[16, 16]}>
                 <Radio.Group name="designation" value={designation} onChange={(event) => {
                   values.designation = event.target.value;
+                  if (values.designation === ADMIN || values.designation === STAFF) {
+                    values.organization = 'Mile High Flood Control District Boundary';
+                  } else if (values.designation === OTHER) {
+                    values.organization = '-';
+                  } else {
+                    values.organization = 'Please select one';
+                  }
+                  setTitle(values.organization);
                   setDesignation(event.target.value);
                 }} style={{display: 'inline-flex', width: '100%', alignSelf: 'stretch'}}>
                   {RADIO_ITEMS.map((item: { value: string, name: string }, index: number) => {
