@@ -293,6 +293,7 @@ const Map = ({
         mapService.autocomplete = autocomplete;
     }, [autocomplete]);
 
+    
     useEffect(() => {
         commentAvailable = commentVisible;
         setOpen(commentVisible);
@@ -1848,7 +1849,6 @@ const Map = ({
     }, [allLayers]);
 
         const eventclick =  async (e: any) => {
-          console.log('click', e);
             if(markerGeocoder){
               markerGeocoder.remove();
               setMarkerGeocoder(undefined);
@@ -2132,7 +2132,6 @@ const Map = ({
       };
     };
     const [keyword, setKeyword] = useState('');
-
     const handleSearch = (value: string) => {
         setKeyword(value)
         mapSearchQuery(value);
