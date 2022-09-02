@@ -20,6 +20,7 @@ const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
 const UserView = lazy(() => import('./Components/User/UserView'));
 const UploadAttachmentRoute = lazy(() => import('./routes/upload-attachment'));
+// const maptest = lazy(() => import('./routes/maptest'));
 
 const App = () => {
   console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
