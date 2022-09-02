@@ -476,11 +476,9 @@ const WorkRequestMap = (type: any) => {
   }, [highlightedComponent]);
 
   useEffect(() => {
-    setAllLayers(empty);
     let filterProjectsDraft = { ...filterProjects };
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
-    //removeLayers(PROJECTS_DRAFT);
     if (idsBoardProjects.length) {
       wait(() => {
         map.isRendered(() => {
@@ -749,7 +747,6 @@ const applyProblemClusterLayer = () => {
     });
     
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
-    console.log('DELETE LAYERS', JSON.stringify(deleteLayers), JSON.stringify(selectedLayersWR));
     await deleteLayers.forEach((layer: LayersType) => {
       if (layer === 'border' || layer === 'area_based_mask') {
         map.removeLayerMask(layer);
@@ -1324,7 +1321,7 @@ const applyProblemClusterLayer = () => {
     }
   };
 
-  const addMapListeners = async (key: string) => {
+  const addMapListeners = useCallback(async (key: string) => {
     const styles = { ...(tileStyles as any) };
     const availableLayers: any[] = [];
     if (styles[key]) {
@@ -1354,7 +1351,9 @@ const applyProblemClusterLayer = () => {
           });
         }
       });
-      setAllLayers(allLayers => [...allLayers, ...availableLayers]);
+      setAllLayers((oldLayers:any) => {
+        return [...oldLayers, ...availableLayers]
+      });
 
       map.map.on('mouseenter', key, () => {
         map.map.getCanvas().style.cursor = 'pointer';
@@ -1366,7 +1365,7 @@ const applyProblemClusterLayer = () => {
         map.map.getCanvas().style.cursor = !isMeasuring ? 'default' : 'crosshair';
       });
     }
-  };
+  }, [allLayers]);
   const test = (item: any) => {};
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...(tileStyles as any) };

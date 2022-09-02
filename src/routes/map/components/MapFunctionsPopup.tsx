@@ -966,5 +966,4 @@ export const addPopupsOnClick = async (
           }
       }
   }
-  console.log('POPUPS after click', popups);
 }
