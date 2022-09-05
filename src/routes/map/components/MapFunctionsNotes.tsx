@@ -188,3 +188,23 @@ export  const addListonPopupNotes = (
                 }
             }
 }
+
+export const openMarkerOfNoteWithoutAdd = (
+  note:any,
+  markersNotes: any,
+  eventsOnClickNotes: Function
+) => {
+      
+  markersNotes.forEach((marker:any) => {
+    let popupC = marker.marker.getPopup();
+    popupC.remove();
+  });
+  const noteid = note.id?note.id:note._id; 
+  const filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == noteid  );
+  if(filterMarker.length > 0) {
+    filterMarker[0].marker.togglePopup();
+    setTimeout(()=>{
+      eventsOnClickNotes(filterMarker[0].note);
+    },300);
+  }
+}

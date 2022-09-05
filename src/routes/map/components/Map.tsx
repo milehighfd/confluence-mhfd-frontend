@@ -55,7 +55,8 @@ import {
   createNoteWithElem,
   editNoteWithElem,
   clickoutsideList,
-  addListonPopupNotes
+  addListonPopupNotes,
+  openMarkerOfNoteWithoutAdd
 } from './MapFunctionsNotes';
 
 let map: any = null;
@@ -2131,26 +2132,16 @@ const Map = ({
         },600);
       }
     }
-    const openMarkerOfNoteWithoutAdd = (note:any) => {
-      
-      markersNotes.forEach((marker:any) => {
-        let popupC = marker.marker.getPopup();
-        popupC.remove();
-      });
-      const noteid = note.id?note.id:note._id; 
-      const filterMarker: any = markersNotes.filter((marker:any) => marker.note._id == noteid  );
-      if(filterMarker.length > 0) {
-        filterMarker[0].marker.togglePopup();
-        setTimeout(()=>{
-          eventsOnClickNotes(filterMarker[0].note);
-        },300);
-      }
-    }
+
     const openEditNote = (note: any) => {
       flyTo(note.longitude, note.latitude, 16.5);
       eventsOnClickNotes(note);
       popup.remove();
-      openMarkerOfNoteWithoutAdd(note);
+      openMarkerOfNoteWithoutAdd(
+        note,
+        markersNotes,
+        eventsOnClickNotes
+      );
     }
 
     const setSideBarStatus = (status: boolean) => {
