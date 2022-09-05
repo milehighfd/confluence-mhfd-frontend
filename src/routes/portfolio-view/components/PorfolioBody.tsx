@@ -8,6 +8,7 @@ import TablePortafolio from "./TablePortfolio";
 import PhaseView from "./PhaseView";
 import ActionItems from "./ActionItems";
 import CalendarView from "./CalendarView";
+import Filters from "./Filters";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
@@ -20,6 +21,8 @@ const popovers: any = [
 ]
 const PortafolioBody = () => {
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
+  const [openAction, setOpenAction] = useState(true);
+  const [openFilters, setOpenFilters] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List View')
   return <>
@@ -36,12 +39,29 @@ const PortafolioBody = () => {
             </h2>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{textAlign:'right', paddingRight:'3%'}}>
+            {optionSelect === 'Calendar View' &&
+              <>
+                <span style={{display:'inline-flex'}}>
+                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
+                  <span style={{marginLeft:'6px', marginRight:'10px'}}>Completed</span>
+                </span>
+                <span style={{display:'inline-flex'}}>
+                  <div className="circulo" style={{backgroundColor:'#29C499'}}/>
+                  <span style={{marginLeft:'6px', marginRight:'10px'}}>Active</span>
+                </span>
+                <span style={{display:'inline-flex'}}>
+                  <div className="circulo" style={{backgroundColor:'#F4BE01'}}/>
+                  <span style={{marginLeft:'6px', marginRight:'10px'}}>Not Started</span>
+                </span>
+              </>
+            }
+            
             <Select placeholder="List View" placement="bottomLeft" style={{marginRight:'20px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
                 <Option value="List View">List View</Option>
                 <Option value="Phase View">Phase View</Option>
                 <Option value="Calendar View">Calendar View</Option>
             </Select>
-            <Button className="btn-filter-k">
+            <Button className="btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
               <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>&nbsp;
               Filters - 22
             </Button>
@@ -50,24 +70,26 @@ const PortafolioBody = () => {
         </Row>
       </div>
       <div className="work-body portafolio">
+        
         <Tabs defaultActiveKey={displayedTabKey[1]}
           activeKey={tabKey}
             onChange={(key) => setTabKey(key)} className="tabs-map">
             {
               displayedTabKey.map((tk: string) => (
-                <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
-                  <div className="protafolio-body" >
+                <TabPane style={{marginBottom:'0px'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+                  <div className="protafolio-body">
+                    {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                   <Row>
                     <Col xs={{ span: 10 }} lg={{ span: 4 }}>
                       <Search />
                     </Col>
-                    <Col xs={{ span: 23 }} lg={{ span: 15 }}>
+                    <Col xs={openAction ? { span: 23 }:{span:33}} lg={openAction ?{ span: 15 }:{span:19}}>
                       {optionSelect === 'List View' && <TablePortafolio/>}
                       {optionSelect === 'Phase View'  && <PhaseView/>}
                       {optionSelect === 'Calendar View'  && <CalendarView/>}
                     </Col>
-                    <Col xs={{ span: 11 }} lg={{ span: 5 }}>
-                      <ActionItems />
+                    <Col xs={openAction ? { span: 11 } : {span:1}} lg={openAction ?  { span: 5 }: {span:1}}>
+                      <ActionItems setOpenAction={setOpenAction} openAction={openAction}/>
                     </Col>
                   </Row>
                   </div>

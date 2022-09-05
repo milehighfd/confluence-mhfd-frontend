@@ -13,8 +13,12 @@ const CalendarView = () => {
   const prev = () => {
     setCurrent(current - 1);
   };
-  return <div className="phaseview-body">
-    <h1>Showing 12 Projects</h1>
+  return <div className="calendar-body">
+    <h1 style={{marginLeft:'20px'}}>Showing 12 Projects</h1>
+    <div style={{overflowY:'scroll'}}>
+      <img src="/picture/Maps.png" alt="" width="100%" />
+    </div>
+    
   </div>
 };
 
