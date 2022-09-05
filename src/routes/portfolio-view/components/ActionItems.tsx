@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Input, Layout, Popover, Row, Select, Tabs, Timeline } from 'antd';
-import { DownOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
+import { DownOutlined, InfoCircleOutlined, MenuOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 
@@ -9,14 +9,14 @@ const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'
 const onChange = (key: string) => {
   console.log(key);
 };
-const ActionItems = () => {
+const ActionItems = ({setOpenAction, openAction}:{setOpenAction:any, openAction:boolean}) => {
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   let displayedTabKey = tabKeys;
   return <>
     <div className="action-items">
-      <h3>ACTION ITEMS</h3>
+      <h3 style={openAction ? {width:'100%'}: {width:'1500%'}}><MenuOutlined onClick={()=>{setOpenAction(!openAction)}} style={{marginRight:'10px'}} />ACTION ITEMS</h3>
       <Tabs defaultActiveKey="1" onChange={onChange}>
-        <TabPane tab="Schedule View " key="1">
+        <TabPane tab="Schedule View " key="1" style={openAction ? {width:'100%'}: {width:'1500%'}}>
           <h1>May</h1>
           <Timeline>
             <Timeline.Item>
