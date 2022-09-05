@@ -31,13 +31,63 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
     hasPrevious
   } = GlobalMapHook();
   const { saveUserInformation } = useProfileDispatch();
-  const { userInformation } = useProfileState();
+  const { userInformation, groupOrganization } = useProfileState();
   const {
     opacityLayer,
     filterProblemOptions,
     filterProjectOptions,
   } = useMapState();
   const [displayPrevNext, setDisplayPrevNext] = useState(false);
+  const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
+    const user = userInformation;
+    user.polygon = coordinates;
+    user.isSelect = isSelect;
+    saveUserInformation(user);
+    setNameZoomArea(name);
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter,
+        coordinates: element.coordinates
+      }
+    });
+    if (zoomareaSelected.length > 0) {
+      switch (zoomareaSelected[0].filter) {
+        case 'County':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        case 'Jurisdiction':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        case 'Service Area':
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+          break;
+        default:
+          setOpacityLayer(true);
+          setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+      }
+    }
+  }
+  const onSelect = (value: any, isSelect?:any) => {
+    setAutocomplete(value);
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+      return {
+        aoi: element.aoi,
+        filter: element.filter,
+        coordinates: element.coordinates
+      }
+    });
+    if(zoomareaSelected[0]){
+      let zone = zoomareaSelected[0].aoi;
+      zone = zone.replace('County ', '').replace('Service Area', '');
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect === 'noselect'? undefined:"isSelect");
+    }
+    setBBOXComponents({ bbox: [], centroids: [] })
+  };
   const showMHFD = () => {
     setAutocomplete('');
     saveUserInformation({...userInformation, polygon: coordinatesMHFD});
@@ -68,6 +118,7 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
       essential: true
     })
     setNameZoomArea('Mile High Flood District');
+    onSelect('Mile High Flood District');
     setBBOXComponents({ bbox: [], centroids: [] })
 }
 
