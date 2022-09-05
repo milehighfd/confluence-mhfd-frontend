@@ -51,6 +51,12 @@ import SideMenuTools from './SideMenuTools';
 import { commentPopup } from './MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
 import EventService from '../../../services/EventService';
+import {
+  createNoteWithElem,
+  editNoteWithElem,
+  clickoutsideList,
+  addListonPopupNotes
+} from './MapFunctionsNotes';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -95,7 +101,7 @@ let isMeasuring = false;
       'coordinates': new Array()
       }
     };
-let canAdd = false;
+let canAdd = {value: false};
 let isProblemActive = true;
 
 let commentAvailable = false;
@@ -385,7 +391,7 @@ const Map = ({
                 if (ul.style.display === 'none') {
                     ul.style.display = 'block';
                     rotateIcon('up');
-                    clickoutsideList();
+                    clickoutsideList(listOfElements, rotateIcon);
                 } else {
                     ul.style.display = 'none';
                     rotateIcon('down');
@@ -420,7 +426,7 @@ const Map = ({
                             latitude: noteClicked.latitude,
                             longitude: noteClicked.longitude
                         };
-                        createNoteWithElem(note);
+                        createNoteWithElem(note, createNote);
                         popup.remove();
                         marker.remove();
                         markerNote.remove();
@@ -452,7 +458,7 @@ const Map = ({
                         longitude: noteClicked.longitude
                     };
                     
-                    editNoteWithElem(note);
+                    editNoteWithElem(note, editNote);
 
                   }
               });
@@ -510,7 +516,8 @@ const Map = ({
               "data": poly
           });
         }
-        map.addLayer({
+        if (!map.getLayer('mask')) {
+          map.addLayer({
             "id": "mask",
             "source": "mask",
             "type": "fill",
@@ -518,16 +525,19 @@ const Map = ({
                 "fill-color": "black",
                 'fill-opacity': 0.8
             }
-        });
-        map.addLayer({
-          "id": 'border',
-          "source": "mask",
-          "type": "line",
-          "paint": {
-            'line-color': '#28c499',
-            'line-width': 1,
-          }
-        });
+          });
+        }
+        if (!map.getLayer('border')) {
+          map.addLayer({
+            "id": 'border',
+            "source": "mask",
+            "type": "line",
+            "paint": {
+              'line-color': '#28c499',
+              'line-width': 1,
+            }
+          });
+        }
         map.moveLayer('border')
         setTimeout(()=>{
           if (map.getLayer('mask')) {
@@ -1384,7 +1394,7 @@ const Map = ({
           marker.marker._popup.remove();
         });
       }
-      canAdd = true;
+      canAdd.value = true;
     }
     const addTilesLayers = (key: string) => {
         const styles = { ...tileStyles as any };
@@ -1664,178 +1674,9 @@ const Map = ({
         clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
         clickingColorElement(listOfElements, currentElement);
     }
-    const createNoteWithElem = (note: any) => {
 
-      const contentTitle:any = document.getElementById('color-text');
-      if(contentTitle != null) {
-        const comment_id = contentTitle.getAttribute('current_id');
-        if(comment_id) {
-          note.color_id = comment_id;
-        }
-      }
-      createNote(note);
-    }
-    const editNoteWithElem = (note: any) => {
 
-      const contentTitle:any = document.getElementById('color-text');
-      if(contentTitle != null) {
-        const comment_id = contentTitle.getAttribute('current_id');
-        if(comment_id) {
-          note.color_id = comment_id;
-        }
-      }
-      editNote(note);
-    }
-    const clickoutsideList = () => {
-      const ignoreElementClick = document.getElementById('id-list-popup');
-      const div = document.getElementById('color-list');
-      if(ignoreElementClick != null && div != null){ 
-        document.addEventListener('click', (event: any) => {
-          const isClickInsideElement = ignoreElementClick.contains(event.target);
-          const isClickingInsideParentElem = div.contains(event.target);  
-          if (!isClickInsideElement) {
-              if (!isClickingInsideParentElem && ignoreElementClick.style.display != 'none') {
-                ignoreElementClick.style.display = 'none';
-                rotateIcon('down');
-              }
-              
-          }
-        });
-      }
-      listOfElements.forEach((el:any, index_:any) => { 
-        let divoptionstohide = document.getElementById(`divoptions${index_}`);
-        if(divoptionstohide != null){
-          divoptionstohide.style.display = 'none';
-        }
-        let divcolorstohide = document.getElementById(`divcolor${index_}`);
-        if(divcolorstohide != null){
-          divcolorstohide.style.display = 'none';
-        }
-        
-        const inputElem: any = document.getElementById(`input${index_}`);
-        if(inputElem != null){
-          inputElem.readOnly = true;
-        }  
-        
-        const saveOpt: any = document.getElementById(`saveopt${index_}`);
-        if(saveOpt != null){
-          saveOpt.style.display = 'none';
-        }
-        const editButton = document.getElementById(`editopt${index_}`);
-        if(editButton != null){
-          editButton.style.removeProperty('display');
-        }
-        const liElem: any = document.getElementById(`color${index_}`);
-        if(liElem != null) {
-          liElem.classList.remove('editinglist');
-        }
-      });
-    }
-    const addListonPopupNotes = (e: any) => {
-      const div = document.getElementById('color-list');
-                if (div != null) {
-                  const checker = Array.from(document.getElementsByClassName('list-popup-comment'));
-                  checker.forEach((check:any) => {
-                    check.remove();
-                  });
-                    const ul = document.createElement('div');
-                    ul.style.display = 'none';
-                    ul.classList.add("list-popup-comment");
-                    ul.classList.add("legend");
-                    ul.setAttribute('id','id-list-popup');
-                    div.addEventListener('click', () => {
-                        if (ul.style.display === 'none') {
-                            ul.style.display = 'block';
-                            rotateIcon('up');
-                            clickoutsideList();
-                        } else {
-                            ul.style.display = 'none';
-                            rotateIcon('down');
-                        }
-                    });
-                    addListToPopupNotes(ul, div)
-                    // div.appendChild(ul);
-                    const colorable = document.getElementById('colorable');
-                    const red = document.getElementById('red');
-                  if (red != null) {
-                      red.addEventListener('click', () => {
-                          if (colorable != null) {
-                              colorable.style.color = colors.RED;
-                          }
-                      });
-                  }
-                  const orange = document.getElementById('orange');
-                  if (orange != null) {
-                      orange.addEventListener('click', () => {
-                          if (colorable != null) {
-                              colorable.style.color = colors.ORANGE;
-                          }
-                      });
-                  }
-                  const grey = document.getElementById('grey');
-                  if (grey != null) {
-                      grey.addEventListener('click', () => {
-                          if (colorable != null) {
-                              colorable.style.color = colors.GREY;
-                          }
-                      });
-                  }
-                  const yellow = document.getElementById('yellow');
-                  if (yellow != null) {
-                      yellow.addEventListener('click', () => {
-                          if (colorable != null) {
-                              colorable.style.color = colors.YELLOW;
-                          }
-                      });
-                  }
-                  const save = document.getElementById('save-comment');
-                  if (save != null) {
-                      save.addEventListener('click', () => {
-                        setSwSave(false);
-                          const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                          if (textarea != null) {
-                              let color = '';
-                              if (colorable != null) {
-                                  if (colorable.style.color === colorsCodes.RED) {
-                                      color = 'red';
-                                  } else if (colorable.style.color === colorsCodes.ORANGE) {
-                                      color = 'orange';
-                                  } else if (colorable.style.color === colorsCodes.GREY) {
-                                      color = 'grey';
-                                  } else {
-                                      color = 'yellow';
-                                  }
-                              }
-                              let note: any = {
-                                  color: color,
-                                  content: textarea.value,
-                                  latitude: e.lngLat.lat,
-                                  longitude: e.lngLat.lng
-                              };
-                              createNoteWithElem(note);
-                              popup.remove();
-                              canAdd = false;
-                              marker.remove();
-                              markerNote.remove();
-                          }
-                        });
-                    }
-                    const edit = document.getElementById('edit-comment');
-                      if (edit != null) {
-                          edit.addEventListener('click', () => {
-                            setSwSave(false);
-                          });
-                      }
-                    const del = document.getElementById('delete-comment');
-                    if (del != null) {
-                      del.addEventListener('click', () => {
-                        setSwSave(false);
-                        markerNote.remove();
-                        canAdd = false;
-                      });
-                    }
-                }
-    }
+   
     useEffect(() => {
       //   if (allLayers.length < 100) {
       //     return;
@@ -1877,7 +1718,7 @@ const Map = ({
                   marker.marker._popup.remove();
                 });
               }
-              if (commentAvailable && canAdd) {
+              if (commentAvailable && canAdd.value) {
                 const html = commentPopup();
                 popup.remove();
                 popup = new mapboxgl.Popup({
@@ -1893,7 +1734,20 @@ const Map = ({
                   markerNote.setPopup(popup);
                   popup.setDOMContent(html);
                   markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
-                  addListonPopupNotes(e);
+                  addListonPopupNotes(
+                    e,
+                    listOfElements,
+                    colors,
+                    colorsCodes,
+                    createNote,
+                    rotateIcon, 
+                    addListToPopupNotes,
+                    popup,
+                    canAdd, // watch out is value not reference  
+                    setSwSave,
+                    marker,
+                    markerNote
+                  );
                 }, 200);
                 
                 return;
@@ -2093,7 +1947,7 @@ const Map = ({
             });
             map.on('mousemove', () => {
               map.getCanvas().style.cursor = 
-                  (!(canAdd && commentAvailable) && !isMeasuring)
+                  (!(canAdd.value && commentAvailable) && !isMeasuring)
                   ? 'default'
                   : 'crosshair';
             });
@@ -2257,7 +2111,7 @@ const Map = ({
               const isList = document.getElementById('id-list-popup');
               if(isList != null) {
                 isList.style.display = 'block';
-                clickoutsideList();
+                clickoutsideList(listOfElements, rotateIcon);
                 if(changeContentTitleData) {
                   setTimeout(()=>{
                     changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
