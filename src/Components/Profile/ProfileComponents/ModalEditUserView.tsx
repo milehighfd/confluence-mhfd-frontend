@@ -228,7 +228,7 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
               {values.designation !== OTHER ? <div id="sign-up-organization">
                 <Dropdown disabled={true} overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
                   <Button style={{ paddingLeft: '10px' }} className="btn-borde" >
-                    {values.organization ? values.organization : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
+                    {values.organization ? (values.organization.includes('Mile High Flood Control') ? 'Mile High Flood District': values.organization) : ((values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) ? 'Local government' : 'Organization')}
                     {/* <img src="/Icons/icon-12.svg" alt="" /> */}
                   </Button>
                 </Dropdown>
