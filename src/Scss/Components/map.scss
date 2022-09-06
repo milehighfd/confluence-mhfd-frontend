@@ -1168,6 +1168,16 @@
     width: 200px !important;
   }
 }
+@media (min-width: 1443px) and (max-width: 1610px){ 
+  .head-filter .ant-input-search .ant-input{
+    width: 225px !important;
+  }
+}
+@media (min-width: 1611px) and (max-width: 1700px){ 
+  .head-filter .ant-input-search .ant-input{
+    width: 250px !important;
+  }
+}
 // 1080x900
 @media (min-width: 1000px) and (max-width: 1085px){ 
   .head-filter .ant-input-search .ant-input{
