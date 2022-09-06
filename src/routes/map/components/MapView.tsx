@@ -817,7 +817,7 @@ const MapView = () => {
       />
       <div className="head-filter mobile-display">
         <Row justify="space-around" align="middle">
-          <Col span={11}>
+          <Col span={11} style={{textAlign:'initial'}}>
             <Search
               allowClear
               placeholder="Search"
@@ -841,28 +841,30 @@ const MapView = () => {
             />
           </Col>
           <Col style={{ textAlign: 'right' }} span={13} id="sort-map">
-            <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
-            <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
-              <Button onClick={handleToggle} style={{ marginLeft:'13px', paddingRight:'0px', borderRadius: '4px', backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
-                <img style={{ background: backgroundStyle }} className="img-filter" alt="" />
-                <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> {filterLabel} ({filterCounter})</span>
-              </Button>
-            </Popover>
-            <div className="sort-content">
-              <span className="button" style={{ transitionTimingFunction: 'ease-in' }} onClick={sortClick}>
-                {filterProjectOptions.order === 'asc' ? <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-83.svg') no-repeat center" }} /> : <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-86.svg') no-repeat center" }} />}
-
-              </span>
-              <Dropdown trigger={['hover']}
-                overlay={tabActive === '0' ?
-                  menuSort(SORTED_PROBLEMS) :
-                  menuSort(SORTED_PROJECTS)}
-                getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
-                <Button onClick={sortClick} style={{ marginLeft:'8px', borderRadius: '4px',  backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
-                  <img  className="img-sortBy" alt="" />
-                  <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
+            <div className="sort-map-desktop">
+              <Button className="btn-red" onClick={onResetClick}><u>Reset</u></Button>
+              <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
+                <Button onClick={handleToggle} style={{ marginLeft:'13px', paddingRight:'0px', borderRadius: '4px', backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
+                  <img style={{ background: backgroundStyle }} className="img-filter" alt="" />
+                  <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> {filterLabel} ({filterCounter})</span>
                 </Button>
-              </Dropdown>
+              </Popover>
+              <div className="sort-content">
+                <span className="button" style={{ transitionTimingFunction: 'ease-in' }} onClick={sortClick}>
+                  {filterProjectOptions.order === 'asc' ? <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-83.svg') no-repeat center" }} /> : <img className="img-filter00" alt="" style={{ WebkitMask: "url('/Icons/icon-86.svg') no-repeat center" }} />}
+
+                </span>
+                <Dropdown trigger={['hover']}
+                  overlay={tabActive === '0' ?
+                    menuSort(SORTED_PROBLEMS) :
+                    menuSort(SORTED_PROJECTS)}
+                  getPopupContainer={() => document.getElementById("sort-map") as HTMLElement}>
+                  <Button onClick={sortClick} style={{ marginLeft:'8px', borderRadius: '4px',  backgroundColor:'transparent', borderColor:'transparent'}} className="btn-filter">
+                    <img  className="img-sortBy" alt="" />
+                    <span style={{ color: textStyle, marginLeft:'-3px', fontFamily:'Ubuntu'}}> Sort By</span>
+                  </Button>
+                </Dropdown>
+              </div>
             </div>
           </Col>
         </Row>
