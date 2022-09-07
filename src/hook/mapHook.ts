@@ -40,6 +40,15 @@ export const useMapDispatch = () => {
       dispatch(getProjectCounter(bounds, projectsOpts));
       dispatch(getComponentsCounter(bounds, componentOpts));
     },
+    getComponentsCounter: (bounds: string, data?: any) => {
+      dispatch(getComponentsCounter(bounds, data));
+    },
+    getProjectCounter: (bounds: string, data?: any) => {
+      dispatch(getProjectCounter(bounds, data));
+    },
+    getProblemCounter: (bounds: string, data?: any) => {
+      dispatch(getProblemCounter(bounds, data));
+    },
     getParamFilterProblems: (bounds: string, data?: any) => {
       dispatch(getParamFilterProblems(bounds, data));
     },

@@ -1,11 +1,8 @@
 import React from "react";
 import { Button, Row, Col, Popover, Select } from 'antd';
 import PieChart from "../NewProblemsFilter/PieChart";
-import RheoStat from "../NewProblemsFilter/RheoStat";
-import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
 import TreeMap from "../NewProblemsFilter/TreeMap";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 import { CheckBoxFilters } from '../CheckboxFilters';
 import { DropdownFilters } from "../DropdownFilters";
 import { DropdownFiltersYears } from "../DropdownFiltersYears";
@@ -37,7 +34,8 @@ export const NewProjectsFilter = () => {
     const {
         getParamFilterProjects,
         setFilterProjectOptions,
-        getGalleryProjects
+        getGalleryProjects,
+        getProjectCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
     const apply = (values: any, field: string) => {
@@ -69,9 +67,10 @@ export const NewProjectsFilter = () => {
         getGalleryProjects();
         options.servicearea = options.servicearea.trim();
         options.county = options.county.replace("County","").trim();
-        getParamFilterProjects(boundsMap, options)
+        getParamFilterProjects(boundsMap, options);
+        getProjectCounter(boundsMap, options);
     }
-    
+
     ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {
         if (paramProjects[key]) {
             paramProjects.completedyear.sort((a: any, b: any) => {

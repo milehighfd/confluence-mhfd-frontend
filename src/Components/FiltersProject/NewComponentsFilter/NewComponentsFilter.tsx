@@ -1,17 +1,12 @@
 import React from "react";
-import { Row, Col, Popover, Select, Button } from 'antd';
+import { Row, Col, Popover } from 'antd';
 
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import HorizontalBarChart from "../NewProblemsFilter/HorizontalBarChart";
-import RheoStat from "../NewProblemsFilter/RheoStat";
 import TreeMap from "../NewProblemsFilter/TreeMap";
-import RheoStatYear from "../NewProblemsFilter/RheoStatYear";
 import { CheckBoxFilters } from '../CheckboxFilters';
 import { DropdownFilters } from "../DropdownFilters";
-import { DropdownFiltersYears } from "../DropdownFiltersYears";
 import { DropdownFiltersYearsMax } from "../DropdownFilterMax";
 
-const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the component is located.</div>);
 const content1 = (<div className="popoveer-00"><b>County</b> is the county where the component is located.</div>);
 const content2 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the component is located.</div>);
@@ -27,7 +22,8 @@ export const NewComponentsFilter = () => {
         getGalleryProblems, 
         getGalleryProjects,
         setFilterComponentOptions,
-        getParamFilterComponents
+        getParamFilterComponents,
+        getComponentsCounter,
     } = useMapDispatch();
     const {
         boundsMap,
@@ -55,6 +51,7 @@ export const NewComponentsFilter = () => {
         getGalleryProjects();
         getGalleryProblems();
         getParamFilterComponents(boundsMap, options);
+        getComponentsCounter(boundsMap, options);
     }
 
     const filterFunction = (r: any) => {
