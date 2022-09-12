@@ -63,10 +63,15 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
 
   useEffect(() => {
     if (type === 'WORK_REQUEST') {
+      console.log('substatus', substatus);
       let list = substatus ? substatus.split(',') : [];
       let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special']
       setBoardsData(ls.map((l) => {
-        return {locality: l, status: list.includes(l) ? 'Approved' : 'Under Review'}
+        return {
+          locality: l,
+          status: list.includes(l) ? 'Approved' : 'Under Review',
+          checked: list.includes(l) ? 'Approved' : 'Under Review'
+        }
       }))
       setBoardsLength(ls.length);
     } else {
@@ -109,6 +114,7 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
   }, [])
 
   const onCheck = (val: string) => {
+    console.log('boardSubstatus');
     let ls = boardSubstatus ? boardSubstatus.split(',') : [];
     let index = ls.indexOf(val);
     if (index === -1) {
@@ -126,18 +132,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       })
     )
   }
-
-  const format = (_date: string) => {
-    let date = new Date(_date);
-    let y = date.getFullYear();
-    let m = date.getMonth()+1;
-    let d = date.getDate();
-    let pad = (v: number) => {
-      return v < 10 ? `0${v}`: v;
-    }
-    return `Submitted ${pad(d)}/${pad(m)}/${y}.`;
-  }
-
 
   return (
     <>
@@ -175,7 +169,13 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
           </div>
         </Option>
         <Option value="key-Under-Review">
-          <div onClick={() => setBoardStatus('Under Review')}>
+          <div onClick={() => {
+            if (status === 'Approved') {
+              alert(`You can't set board to 'Under Review'`)
+              return;
+            }
+            setBoardStatus('Under Review');
+          }}>
             <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#FFC664' }}></i> Under Review</h6>
             <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff are developing ${type === 'WORK_PLAN' ? 'or reviewing' : ''} the Work Request.`}</p>
           </div>
