@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOMServer from 'react-dom/server';
-import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
-import { InfoCircleOutlined, RightOutlined } from '@ant-design/icons';
-import { MainPopupCreateMap, ComponentPopupCreate, StreamPopupFull } from './../Map/MapPopups';
-import { numberWithCommas } from '../../utils/utils';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import * as turf from '@turf/turf';
-import { getData, getToken, postData } from "../../Config/datasets";
+import { getData, getToken } from "../../Config/datasets";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import DetailedModal from '../Shared/Modals/DetailedModal';
@@ -19,13 +16,10 @@ import {
 import EventService from '../../services/EventService';
 import {
   PROBLEMS_TRIGGER,
-  PROJECTS_MAP_STYLES,
   COMPONENT_LAYERS,
   ROUTINE_MAINTENANCE,
   MHFD_BOUNDARY_FILTERS,
   SELECT_ALL_FILTERS,
-  MENU_OPTIONS,
-  PROJECTS_DRAFT_MAP_STYLES,
   ROUTINE_NATURAL_AREAS,
   STREAMS_FILTERS,
   ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA,
@@ -34,24 +28,22 @@ import {
   MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, LANDSCAPING_AREA,
   LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
   CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MHFD_STREAMS_FILTERS,
-  PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, NRCS_SOILS, DWR_DAM_SAFETY, STREAM_MANAGEMENT_CORRIDORS, BCZ_PREBLE_MEADOW_JUMPING, BCZ_UTE_LADIES_TRESSES_ORCHID, RESEARCH_MONITORING, CLIMB_TO_SAFETY, SEMSWA_SERVICE_AREA, ADMIN, STAFF,
+  PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE,
   FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
   NEARMAP_TOKEN,
   STREAMS_POINT,
-  PROJECTS_DRAFT,ICON_POPUPS,
+  PROJECTS_DRAFT,
   XSTREAMS,
-  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, NEW_PROJECT_TYPES, BLOCK_CLEARANCE_ZONES_LAYERS, MAPTYPES
+  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, MAPTYPES
 } from "../../constants/constants";
-import { loadIconsPopup } from '../../routes/map/components/MapGetters';
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
-import { Dropdown, Button, Popover } from 'antd';
+import { Dropdown, Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
 import { tileStyles, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState } from '../../hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import { Input, AutoComplete } from 'antd';
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 import { polyMask } from "../../routes/map/components/MapFunctionsUtilities";
 
@@ -61,20 +53,15 @@ let isPopup = true;
 let coordX = -1;
 let coordY = -1;
 let isDrawingCurrently = false;
-let firstTime = true;
-let firstTimeApplyMapLayers = true;
 let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let currentDraw = 'polygon';
 let firstCallDraw = false;
 type LayersType = string | ObjectLayerType;
-const { Option } = AutoComplete;
 let magicAddingVariable = false;
 const CreateProjectMap = (type: any) => {
   let html = document.getElementById('map3');
   let popup = new mapboxgl.Popup({ closeButton: true, });
-
-  const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
   const {
     layers,
@@ -106,6 +93,7 @@ const CreateProjectMap = (type: any) => {
   const [localAOI, setLocalAOI] = useState(type.locality);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showIntersectionError, setShowIntersectionError] = useState(false);
   const hovereableLayers = [PROBLEMS_TRIGGER, MHFD_PROJECTS, PROJECTS_POLYGONS, MEP_PROJECTS_TEMP_LOCATIONS,
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
@@ -254,61 +242,6 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [highlightedComponent]);
-  const removeLayers = (key: string) => {
-
-    const styles = { ...tileStyles as any };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
-
-      if (map.map.getLayer(key + '_' + index)) {
-        map.map.removeLayer(key + '_' + index);
-
-      }
-    });
-  }
-  const removeLayersSource = (key: string) => {
-    if (map.getSource(key)) {
-
-      map.map.removeSource(key);
-    }
-  }
-
-  // useEffect(() => {
-  //   let time = firstTime ? 2600 : 1300;
-  //   if (idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
-  //     setTimeout(() => {
-  //       let filterProjectsDraft = { ...filterProjects };
-  //       filterProjectsDraft.projecttype = '';
-  //       filterProjectsDraft.status = 'Draft';
-  //       wait(() => {
-  //         setTimeout(() => {
-  //           map.isStyleLoaded(() => {
-  //             removeLayers(PROJECTS_DRAFT);
-  //             removeLayersSource(PROJECTS_DRAFT);
-  //             let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-  //             postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
-  //               addLayersSource(PROJECTS_DRAFT, tiles);
-  //               showLayers(PROJECTS_DRAFT);
-  //               map.isStyleLoaded(() => {
-  //                 setTimeout(() => {
-  //                   applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
-  //                 }, 700);
-  //               });
-  //               firstTime = false;
-  //             });
-
-  //           });
-  //         }, time);
-
-  //       });
-  //     }, 1200);
-  //   } else {
-  //     if (map.map) {
-  //       removeLayers(PROJECTS_DRAFT);
-  //       removeLayersSource(PROJECTS_DRAFT);
-  //     }
-
-  //   }
-  // }, [idsBoardProjects]);
   useEffect(() => {
     let mask;
     setTimeout(() => {
@@ -545,7 +478,7 @@ const CreateProjectMap = (type: any) => {
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
       } else if (geom.coordinates.length == 0) {
-        alert(`Please draw your project geometry over the nearest blue stream line in order to proceed. You may describe the actual location of your project in the 'Project Information' section if a blue stream line does not exist in your project area.`);
+        setShowIntersectionError(true);
         setLoading(false);
         return;
       }
@@ -681,7 +614,6 @@ const CreateProjectMap = (type: any) => {
               applyProblemClusterLayer();
               topStreams();
             });
-            firstTimeApplyMapLayers = false;
             setCompareSL(JSON.stringify(selectedLayersCP));
           }
         }
@@ -698,13 +630,6 @@ const CreateProjectMap = (type: any) => {
 
   const setLayersSelectedOnInit = () => {
     let ppArray: any = [];
-    // if (!type.isEdit) {
-    //   if (type.type != "STUDY") {
-    //     // ppArray = [PROJECTS_MAP_STYLES];
-    //   } else {
-    //     // ppArray = [PROBLEMS_TRIGGER, STREAMS_FILTERS];
-    //   }
-    // }
     let thisSL = [...ppArray, MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
     if (type.type === 'CAPITAL') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, COMPONENT_LAYERS];
@@ -718,11 +643,9 @@ const CreateProjectMap = (type: any) => {
     if (type.type === 'MAINTENANCE') {
       thisSL = [...thisSL, AREA_BASED_MASK, BORDER, PROBLEMS_TRIGGER, ROUTINE_MAINTENANCE, MEP_PROJECTS]
     }
-    // setTimeout(() => {
       map.isStyleLoaded(() => {
         updateSelectedLayersCP(thisSL);
       });
-    // }, 1000);
   }
   const removeProjectLayer = () => {
     let filterLayers = selectedLayersCP.filter((Layer: any) => {
@@ -813,9 +736,6 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('channel_improvements_area');
         map.map.moveLayer('channel_improvements_linear');
-        // map.map.moveLayer('special_item_area');
-        // map.map.moveLayer('special_item_linear');
-        // map.map.moveLayer('special_item_point');
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('pipe_appurtenances');
         map.map.moveLayer('grade_control_structure');
@@ -833,10 +753,7 @@ const CreateProjectMap = (type: any) => {
         setTimeout(() => {
           map.map.moveLayer('area_based_maskMASK');
           map.map.moveLayer('borderMASK');
-        }, 300);
-        
-      } else {
-        // topStreams();
+        }, 300); 
       }
     }, 1000);
   }
@@ -909,17 +826,7 @@ const CreateProjectMap = (type: any) => {
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        // if (key === PROJECTS_DRAFT) {
-        //   let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
-        //   if (idsBoardProjects && idsBoardProjects.length > 0) {
-        //     let boardids = idsBoardProjects;
-        //     allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
-        //   }
-        //   map.map.setFilter(key + '_' + index, allFilters);
-        //   map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        // } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        // }
         if (key === PROBLEMS_TRIGGER) {
           isProblemActive = true;
         }
@@ -1036,11 +943,6 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
-      // if (idsBoardProjects && idsBoardProjects.length > 0 && key === PROJECTS_DRAFT && idsBoardProjects[0] != '-8888') {
-      //   let boardids = [...idsBoardProjects];
-      //   boardids = boardids.filter((x: any) => x != type.projectid);
-      //   allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
-      // }
       if (map.getLayer(key + '_' + index)) {
 
         map.setFilter(key + '_' + index, allFilters);
@@ -1515,44 +1417,6 @@ const CreateProjectMap = (type: any) => {
   const eventMove = (e: any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
   }
-  const getDateMep = (mep_eligibilitystatus: any, props: any) => {
-    if (!mep_eligibilitystatus) return undefined;
-    let finalDate = new Date(0);
-    if (mep_eligibilitystatus == 'Design Approval') {
-      finalDate = new Date(props.mep_date_designapproval);
-    } else if (mep_eligibilitystatus == 'Construction Approval') {
-      finalDate = new Date(props.mep_date_constructionapproval);
-    } else if (mep_eligibilitystatus == 'Final Acceptance') {
-      finalDate = new Date(props.mep_date_finalacceptance);
-    } else if (mep_eligibilitystatus == 'Ineligible') {
-      finalDate = new Date(props.mep_date_ineligible);
-    }
-    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
-    if (stringDate.includes('NaN')) {
-      return '-'
-    } else {
-      return stringDate;
-    }
-  }
-  const parseDateZ = (dateParser: any) => {
-    let finalDate = new Date(dateParser);
-    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
-    if (stringDate.includes('NaN')) {
-      return '-'
-    } else {
-      return stringDate;
-    }
-  }
-  const epochTransform = (dateParser: any) => {
-    let finalDate = new Date(0);
-    finalDate.setUTCMilliseconds(dateParser);
-    let stringDate = ((finalDate.getMonth() > 8) ? (finalDate.getMonth() + 1) : ('0' + (finalDate.getMonth() + 1))) + '/' + ((finalDate.getDate() > 9) ? finalDate.getDate() + 1 : ('0' + (finalDate.getDate() + 1))) + '/' + finalDate.getFullYear();
-    if (stringDate.includes('NaN')) {
-      return '-'
-    } else {
-      return stringDate;
-    }
-  }
   useEffect(() => {
     let buttonElement = document.getElementById('popup');
     if (buttonElement != null) {
@@ -1636,45 +1500,6 @@ const CreateProjectMap = (type: any) => {
         )
       }
   }
-  const getTitleOfStreamImprovements = (properties: any) => {
-    let title = '';
-    if (properties.component_part_category) {
-      title = properties.component_part_category ;
-    } 
-    if ( properties.component_part_subcategory) {
-      title += (properties.component_part_category ? ' - ' : '') + properties.component_part_subcategory;
-    }
-    return title;
-  }
-  const getTitleOfProblemsPart = (feature: any) => {
-    let title = '';
-    if (feature.source.includes('hazard_polygon')) {
-      title = 'Flood Hazard Polygon' ;
-    } 
-    if ( feature.source.includes('hazard_line')) {
-      title = 'Flood Hazard Line' ;
-    }
-    if ( feature.source.includes('hazard_point')) {
-      title = 'Flood Hazard Point' ;
-    }
-    if ( feature.source.includes('function_line')) {
-      title = 'Stream Function Line' ;
-    }
-    if ( feature.source.includes('function_polygon')) {
-      title = 'Stream Function Polygon' ;
-    }
-    if ( feature.source.includes('function_point')) {
-      title = 'Stream Function Point' ;
-    }
-    if ( feature.source.includes('development_polygon')) {
-      title = 'Watershed Change Polygon' ;
-    }
-    if ( feature.source.includes('development_line')) {
-      title = 'Watershed Change Line' ;
-    }
-
-    return title;
-  }
   const getComponentsFromProjProb = (item: any, event: any) => {
     let id = item.type == 'project' ? item.id : item.problemid;
     getData(SERVER.GET_COMPONENTS_BY_PROBLEMID + '?problemid=' + id, getToken()).then(componentsFromMap => {
@@ -1708,9 +1533,6 @@ const CreateProjectMap = (type: any) => {
     removePopup();
   }
   useEffect(() => {
-    // if (allLayers.length < 100) {
-    //   return;
-    // }
     EventService.setRef('click', eventClick);
     let eventToClick = EventService.getRef('click');
     map.map.on('click', eventToClick);
@@ -1773,6 +1595,60 @@ const CreateProjectMap = (type: any) => {
     popup.remove();
   }
   return <>
+    {
+      showIntersectionError &&
+      <Modal
+        centered
+        visible={showIntersectionError}
+        onCancel={() => setShowIntersectionError(false)}
+        className="modal-confirm"
+        width="400px"
+      >
+        <div className="detailed">
+          <Row className="detailed-h" gutter={[16, 8]}>
+            <Col xs={{ span: 44 }} lg={{ span: 20 }}>
+              <h1 style={{marginTop: '15px'}}>
+                Geometry Error
+              </h1>
+            </Col>
+            <Col
+              xs={{ span: 4 }}
+              lg={{ span: 4 }}
+              style={{textAlign: 'end'}}
+            >
+              <Button
+                className="btn-transparent"
+                onClick={() => setShowIntersectionError(false)}
+              >
+                <img src="/Icons/icon-62.svg" alt="" height="15px" />
+              </Button>
+            </Col>
+          </Row>
+          <Row
+            className="detailed-h"
+            gutter={[16, 8]}
+            style={{backgroundColor: 'white'}}
+          >
+            <Col
+              xs={{ span: 48 }}
+              lg={{ span: 24 }}
+              style={{color: '#11093c'}}
+            >
+              Please draw your project geometry over the nearest blue stream line in order to proceed. You may describe the actual location of your project in the 'Project Information' section if a blue stream line does not exist in your project area.
+            </Col>
+            <Col
+              xs={{ span: 24 }}
+              lg={{ span: 12, offset: 12 }}
+              style={{color: '#11093c', textAlign:'end'}}
+            >
+              <button className="btn-purple" style={{width: '95%'}} onClick={() => setShowIntersectionError(false)}>
+                Review your geometry
+              </button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
+    }
     <div className="map">
     {
             isProblemActive === true ? <div className="legendProblemTypemap">
