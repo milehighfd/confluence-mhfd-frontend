@@ -219,7 +219,6 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
                 }
             });
         } else {
-          console.log('aux filters', auxFilter);
             dispatch({ type: types.SET_FILTER_PROBLEMS, filters: auxFilter })
         }
     }

@@ -1110,3 +1110,18 @@ export const MAPTYPES = {
   MAINMAP: 'MAINMAP',
   CREATEPROJECTMAP: 'CREATEPROJECTMAP'
 } 
+
+export const initFilterProblems = {
+  problemname: '',
+  solutioncost: [],
+  problempriority: '',
+  solutionstatus: [],
+  county: '',
+  jurisdiction: '',
+  mhfdmanager: '',
+  problemtype: '',
+  source: '',
+  components: '',
+  servicearea: '',
+  keyword: {}
+}

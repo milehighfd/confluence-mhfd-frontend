@@ -24,6 +24,7 @@ import {
     STREAMS_POINT,
     PROPSPROBLEMTABLES,
     MAPTYPES,
+    initFilterProblems
 } from "../../../constants/constants";
 import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
@@ -805,9 +806,11 @@ const Map = ({
         } else {
             applySkyMapLayer();
             applyMapLayers();
+            if (JSON.stringify(initFilterProblems) == JSON.stringify(filterProblems)) {
+              applyProblemClusterLayer();
+            }
             setSpinMapLoaded(false);
             applyNearMapLayer();
-            applyProblemClusterLayer();
             applyMeasuresLayer();
         }
     };
