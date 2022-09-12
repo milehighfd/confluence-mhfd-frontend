@@ -545,6 +545,8 @@ const CreateProjectMap = (type: any) => {
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
       } else if (geom.coordinates.length == 0) {
+        alert(`Please draw your project geometry over the nearest blue stream line in order to proceed. You may describe the actual location of your project in the 'Project Information' section if a blue stream line does not exist in your project area.`);
+        setLoading(false);
         return;
       }
       if (type.type === 'CAPITAL' || type.type === 'MAINTENANCE') {
