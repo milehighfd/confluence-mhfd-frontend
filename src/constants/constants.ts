@@ -124,6 +124,24 @@ export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
 
+export const USE_LAND_COVER = {
+  name: 'user_land_cover',
+  source: 'mapbox',
+  tiles: [
+    { 
+      sourceName: 'milehighfd.create',
+      tileName: 'Adams1_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams2',
+      tileName: 'Adams2_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams3',
+      tileName: 'Adams3_LULC'
+    }
+  ]
+};
 
 export const FLOOD_HAZARDS = {
   name: 'floodhazards',
