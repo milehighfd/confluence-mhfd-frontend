@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Modal, Row } from 'antd';
 import { boardType } from "./RequestTypes";
 
-export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visibleAlert, setVisibleAlert, setSave, boardStatus, currentStatus, pending  }: {
+export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visibleAlert, setVisibleAlert, setSave, currentStatus, pending  }: {
   locality: string,
   boardsLength: number,
   boardSubstatus: string,
@@ -10,7 +10,6 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
   visibleAlert: boolean,
   setVisibleAlert: Function,
   setSave: Function,
-  boardStatus: string,
   currentStatus: string,
   pending: boolean
 }) => {
@@ -28,6 +27,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
   let isPending = null;
   if (hasChecks) {
     let ls = boardSubstatus ? boardSubstatus.split(',') : [];
+    ls = ls.map(l => l?.toLowerCase()).filter(r => r !== 'INTEG.SYNC'.toLowerCase());
     isPending = ls.length !== boardsLength;
   } else {
     isPending = pending;
@@ -35,7 +35,6 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
 
   
   let currentApproved = currentStatus === 'Approved';
-  let approved = boardStatus === 'Approved';
   let hasChecksAlertText = `${type === 'WORK_REQUEST' ? 'Unavailable': 'District Work Plan submission is unavailable'} until all ${type === 'WORK_REQUEST' ? 'project types' : 'Work Plans'} are selected for approval.`;
   let notChecksAlertText = `Work Plan submission is unavailable until all underlying Work Requests are submitted.`;
 
