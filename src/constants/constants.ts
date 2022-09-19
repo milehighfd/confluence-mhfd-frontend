@@ -154,6 +154,32 @@ export const USE_LAND_COVER = {
   ]
 };
 
+export const USE_LAND_COVER_MAP = {
+  'milehighfd.create': 'Adams1_LULC',
+  'milehighfd.adams2': 'Adams2_LULC',
+  'milehighfd.adams3': 'Adams3_LULC',
+  'milehighfd.adams4': 'Adams4_LULC',
+  'milehighfd.adams5': 'Adams5_LULC',
+  'milehighfd.adams6': 'Adams6_LULC',
+  'milehighfd.adams7': 'Adams7_LULC',
+  'milehighfd.adams8': 'Adams8_LULC',
+  'milehighfd.adams9': 'Adams9_LULC',
+  'milehighfd.adams10': 'Adams10_LULC',
+  'milehighfd.Adams11': 'Adams11_LULC',
+  'milehighfd.Adams12': 'Adams12_LULC',
+  'milehighfd.Arapahoe1': 'Araphoe1_LULC',
+  'milehighfd.Arapahoe2': 'Araphoe2_LULC',
+  'milehighfd.Arapahoe3': 'Araphoe3_LULC',
+  'milehighfd.Arapahoe4': 'Araphoe4_LULC',
+  'milehighfd.Arapahoe5': 'Araphoe5_LULC',
+  'milehighfd.Arapahoe6': 'Araphoe6_LULC',
+  'milehighfd.Arapahoe7': 'Araphoe7_LULC',
+  'milehighfd.Arapahoe8': 'Araphoe8_LULC',
+  'milehighfd.Arapahoe9': 'Araphoe9_LULC',
+  'milehighfd.Arapahoe10': 'Araphoe10_LULC',
+  'milehighfd.Arapahoe11': 'Araphoe11_LULC',
+};
+
 export const FLOOD_HAZARDS = {
   name: 'floodhazards',
   tiles: [
