@@ -172,6 +172,54 @@ export const USE_LAND_COVER = {
       sourceName: 'milehighfd.Adams11',
       tileName: 'Adams11_LULC'
     },
+    {
+      sourceName: 'milehighfd.Adams12',
+      tileName: 'Adams12_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe1',
+      tileName: 'Araphoe1_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe2',
+      tileName: 'Araphoe2_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe3',
+      tileName: 'Araphoe3_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe4',
+      tileName: 'Araphoe4_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe5',
+      tileName: 'Araphoe5_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe6',
+      tileName: 'Araphoe6_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe7',
+      tileName: 'Araphoe7_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe8',
+      tileName: 'Araphoe8_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe9',
+      tileName: 'Araphoe9_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe10',
+      tileName: 'Araphoe10_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Arapahoe11',
+      tileName: 'Araphoe11_LULC'
+    },
   ]
 };
 
@@ -301,7 +349,6 @@ export const SEMSWA_SERVICE_AREA =
 export const BORDER = 'border';
 export const AREA_BASED_MASK = 'area_based_mask';
 export const SELECT_ALL_FILTERS = [
-  USE_LAND_COVER,
   MHFD_STREAMS_FILTERS,
   STREAMS_FILTERS,
   FLOOD_HAZARDS,
