@@ -139,7 +139,39 @@ export const USE_LAND_COVER = {
     {
       sourceName: 'milehighfd.adams3',
       tileName: 'Adams3_LULC'
-    }
+    },
+    {
+      sourceName: 'milehighfd.adams4',
+      tileName: 'Adams4_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams5',
+      tileName: 'Adams5_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams6',
+      tileName: 'Adams6_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams7',
+      tileName: 'Adams7_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams8',
+      tileName: 'Adams8_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams9',
+      tileName: 'Adams9_LULC'
+    },
+    {
+      sourceName: 'milehighfd.adams10',
+      tileName: 'Adams10_LULC'
+    },
+    {
+      sourceName: 'milehighfd.Adams11',
+      tileName: 'Adams11_LULC'
+    },
   ]
 };
 
