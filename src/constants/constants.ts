@@ -269,6 +269,7 @@ export const SEMSWA_SERVICE_AREA =
 export const BORDER = 'border';
 export const AREA_BASED_MASK = 'area_based_mask';
 export const SELECT_ALL_FILTERS = [
+  USE_LAND_COVER,
   MHFD_STREAMS_FILTERS,
   STREAMS_FILTERS,
   FLOOD_HAZARDS,
