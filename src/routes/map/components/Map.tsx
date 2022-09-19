@@ -2221,7 +2221,7 @@ const Map = ({
             </div> : ''
           }
           
-          <span className="zoomvaluemap"><b>Nearmap: May 27, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
+          <span className="zoomvaluemap"><b>Nearmap: September 4, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
             {visible && <DetailedModal
                 detailed={detailed}
                 type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}

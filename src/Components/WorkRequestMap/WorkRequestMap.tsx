@@ -1738,7 +1738,7 @@ const applyProblemClusterLayer = () => {
             </div> : ''
           }
         <span className="zoomvaluemap">
-          <b>Nearmap: May 27, 2022</b>
+          <b>Nearmap: September 4, 2022</b>
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
         </span>
         <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
