@@ -124,9 +124,10 @@ export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
 
+export const USE_LAND_COVER_LABEL = 'use_land_cover';
+
 export const USE_LAND_COVER = {
-  name: 'user_land_cover',
-  source: 'mapbox',
+  name: USE_LAND_COVER_LABEL,
   tiles: [
     'milehighfd.create',
     'milehighfd.adams2',
@@ -154,7 +155,7 @@ export const USE_LAND_COVER = {
   ]
 };
 
-export const USE_LAND_COVER_MAP = {
+export const USE_LAND_COVER_MAP: any = {
   'milehighfd.create': 'Adams1_LULC',
   'milehighfd.adams2': 'Adams2_LULC',
   'milehighfd.adams3': 'Adams3_LULC',
@@ -167,17 +168,17 @@ export const USE_LAND_COVER_MAP = {
   'milehighfd.adams10': 'Adams10_LULC',
   'milehighfd.Adams11': 'Adams11_LULC',
   'milehighfd.Adams12': 'Adams12_LULC',
-  'milehighfd.Arapahoe1': 'Araphoe1_LULC',
-  'milehighfd.Arapahoe2': 'Araphoe2_LULC',
-  'milehighfd.Arapahoe3': 'Araphoe3_LULC',
-  'milehighfd.Arapahoe4': 'Araphoe4_LULC',
-  'milehighfd.Arapahoe5': 'Araphoe5_LULC',
-  'milehighfd.Arapahoe6': 'Araphoe6_LULC',
-  'milehighfd.Arapahoe7': 'Araphoe7_LULC',
-  'milehighfd.Arapahoe8': 'Araphoe8_LULC',
-  'milehighfd.Arapahoe9': 'Araphoe9_LULC',
-  'milehighfd.Arapahoe10': 'Araphoe10_LULC',
-  'milehighfd.Arapahoe11': 'Araphoe11_LULC',
+  'milehighfd.Arapahoe1': 'Arapahoe1_LULC',
+  'milehighfd.Arapahoe2': 'Arapahoe2_LULC',
+  'milehighfd.Arapahoe3': 'Arapahoe3_LULC',
+  'milehighfd.Arapahoe4': 'Arapahoe4_LULC',
+  'milehighfd.Arapahoe5': 'Arapahoe5_LULC',
+  'milehighfd.Arapahoe6': 'Arapahoe6_LULC',
+  'milehighfd.Arapahoe7': 'Arapahoe7_LULC',
+  'milehighfd.Arapahoe8': 'Arapahoe8_LULC',
+  'milehighfd.Arapahoe9': 'Arapahoe9_LULC',
+  'milehighfd.Arapahoe10': 'Arapahoe10_LULC',
+  'milehighfd.Arapahoe11': 'Arapahoe11_LULC',
 };
 
 export const FLOOD_HAZARDS = {
@@ -333,7 +334,8 @@ export const SELECT_ALL_FILTERS = [
   MHFD_STREAMS_FILTERS,
   STREAMS_POINT,
   BORDER,
-  AREA_BASED_MASK
+  AREA_BASED_MASK,
+  USE_LAND_COVER
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
