@@ -128,98 +128,29 @@ export const USE_LAND_COVER = {
   name: 'user_land_cover',
   source: 'mapbox',
   tiles: [
-    { 
-      sourceName: 'milehighfd.create',
-      tileName: 'Adams1_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams2',
-      tileName: 'Adams2_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams3',
-      tileName: 'Adams3_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams4',
-      tileName: 'Adams4_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams5',
-      tileName: 'Adams5_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams6',
-      tileName: 'Adams6_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams7',
-      tileName: 'Adams7_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams8',
-      tileName: 'Adams8_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams9',
-      tileName: 'Adams9_LULC'
-    },
-    {
-      sourceName: 'milehighfd.adams10',
-      tileName: 'Adams10_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Adams11',
-      tileName: 'Adams11_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Adams12',
-      tileName: 'Adams12_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe1',
-      tileName: 'Araphoe1_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe2',
-      tileName: 'Araphoe2_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe3',
-      tileName: 'Araphoe3_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe4',
-      tileName: 'Araphoe4_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe5',
-      tileName: 'Araphoe5_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe6',
-      tileName: 'Araphoe6_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe7',
-      tileName: 'Araphoe7_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe8',
-      tileName: 'Araphoe8_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe9',
-      tileName: 'Araphoe9_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe10',
-      tileName: 'Araphoe10_LULC'
-    },
-    {
-      sourceName: 'milehighfd.Arapahoe11',
-      tileName: 'Araphoe11_LULC'
-    },
+    'milehighfd.create',
+    'milehighfd.adams2',
+    'milehighfd.adams3',
+    'milehighfd.adams4',
+    'milehighfd.adams5',
+    'milehighfd.adams6',
+    'milehighfd.adams7',
+    'milehighfd.adams8',
+    'milehighfd.adams9',
+    'milehighfd.adams10',
+    'milehighfd.Adams11',
+    'milehighfd.Adams12',
+    'milehighfd.Arapahoe1',
+    'milehighfd.Arapahoe2',
+    'milehighfd.Arapahoe3',
+    'milehighfd.Arapahoe4',
+    'milehighfd.Arapahoe5',
+    'milehighfd.Arapahoe6',
+    'milehighfd.Arapahoe7',
+    'milehighfd.Arapahoe8',
+    'milehighfd.Arapahoe9',
+    'milehighfd.Arapahoe10',
+    'milehighfd.Arapahoe11',
   ]
 };
 
