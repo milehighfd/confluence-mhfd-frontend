@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Button,  List, Row, Col, Checkbox, Popover, Select } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { SERVER } from "../../../Config/Server.config";
 import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
@@ -144,7 +143,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
       setVisibleAlert ={setVisibleAlert}
       setSave = {save}
       currentStatus={status}
-      boardStatus={boardStatus}
       pending = {pending}
      />
     }
