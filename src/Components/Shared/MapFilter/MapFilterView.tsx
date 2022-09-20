@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Button, Collapse, Popover, Switch } from 'antd';
+import { Checkbox, Button, Collapse, Popover, Switch, Modal, Row, Col } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import {
   WATERSHED_FILTERS,
@@ -66,6 +66,7 @@ export default ({
   removePopup: Function,
   isWR?: boolean
 }) => {
+  const [showModal, setShowmodal] = useState(false);
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,
@@ -315,6 +316,9 @@ export default ({
   );
   const onChange = (value: boolean, item: any) => {
     if (item.hasOwnProperty('name')) {
+      if (item.name === USE_LAND_COVER_LABEL) {
+        setShowmodal(value);
+      }
       setSwitches({...switches, [item['name']]: value});
     } else {
       setSwitches({...switches, [item]: value});
@@ -332,7 +336,62 @@ export default ({
     removePopup();
   }
 
-  return <div className="ant-dropdown-menu map-filter-s" key="k40pHuxNf5JE">
+  return <>
+  {
+      showModal &&
+      <Modal
+        centered
+        visible={showModal}
+        onCancel={() => setShowmodal(false)}
+        className="modal-confirm"
+        width="400px"
+      >
+        <div className="detailed">
+          <Row className="detailed-h" gutter={[16, 8]}>
+            <Col xs={{ span: 44 }} lg={{ span: 20 }}>
+              <h1 style={{marginTop: '15px'}}>
+              Land Use Land Cover Alert
+              </h1>
+            </Col>
+            <Col
+              xs={{ span: 4 }}
+              lg={{ span: 4 }}
+              style={{textAlign: 'end'}}
+            >
+              <Button
+                className="btn-transparent"
+                onClick={() => setShowmodal(false)}
+              >
+                <img src="/Icons/icon-62.svg" alt="" height="15px" />
+              </Button>
+            </Col>
+          </Row>
+          <Row
+            className="detailed-h"
+            gutter={[16, 8]}
+            style={{backgroundColor: 'white'}}
+          >
+            <Col
+              xs={{ span: 48 }}
+              lg={{ span: 24 }}
+              style={{color: '#11093c'}}
+            >
+              Zoom closer (to at least level 16) to view the District’s land use and land cover (LULC) dataset.
+            </Col>
+            <Col
+              xs={{ span: 24 }}
+              lg={{ span: 12, offset: 12 }}
+              style={{color: '#11093c', textAlign:'end'}}
+            >
+              <button className="btn-purple" style={{width: '95%'}} onClick={() => setShowmodal(false)}>
+                Close
+              </button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
+    }
+  <div className="ant-dropdown-menu map-filter-s" key="k40pHuxNf5JE">
     <div className="filter-map" key="ItyS3QrBgOCh">
       <div className="title-filter-map" key="WKCDa6eIAd7R">
         <h6>Layers</h6>
@@ -604,4 +663,5 @@ export default ({
 
     </div>
   </div>
+  </>
 }
