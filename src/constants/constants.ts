@@ -424,7 +424,8 @@ export const SELECT_ALL_FILTERS = [
   MHFD_STREAMS_FILTERS,
   STREAMS_POINT,
   BORDER,
-  AREA_BASED_MASK
+  AREA_BASED_MASK,
+  USE_LAND_COVER
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];

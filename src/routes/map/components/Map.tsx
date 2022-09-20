@@ -1106,11 +1106,11 @@ const Map = ({
             return;
           }
             if (typeof layer === 'object') {
-                layer.tiles.forEach((subKey: string) => {
-                    showLayers(subKey);
-                });
+              layer.tiles.forEach((subKey: string) => {
+                  showLayers(subKey);
+              });
             } else {
-                showLayers(layer);
+              showLayers(layer);
             }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
@@ -1453,11 +1453,11 @@ const Map = ({
     const hideHighlighted = () => {
         const styles = { ...tileStyles as any };
         for (const key in styles) {
-            styles[key].forEach((style: LayerStylesType, index: number) => {
-                if (map.getLayer(key + '_highlight_' + index)) {
-                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
-                }
-            });
+          styles[key].forEach((style: LayerStylesType, index: number) => {
+            if (map.getLayer(key + '_highlight_' + index)) {
+                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+            }
+          });
         }
     };
 
@@ -1549,7 +1549,7 @@ const Map = ({
         const tileName: string = USE_LAND_COVER_MAP[key];
         const style = USE_LAND_TILES_STYLE;
         map.addLayer({
-          id: key,
+          id: key + '_0',
           'source': key,
           'source-layer': tileName,
           ...style

@@ -29,7 +29,9 @@ import {
   AREA_BASED_MASK,
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,
-  FLOOD_HAZARDS
+  FLOOD_HAZARDS,
+  USE_LAND_COVER_LABEL,
+  USE_LAND_COVER
 } from '../../../constants/constants';
 
 
@@ -83,6 +85,7 @@ export default ({
     [MUNICIPALITIES.name]: false,
     [NRCS_SOILS]: false,
     [DWR_DAM_SAFETY]: false,
+    [USE_LAND_COVER_LABEL]: false,
     [STREAM_MANAGEMENT_CORRIDORS]: false,
     [BLOCK_CLEARANCE_ZONES_LAYERS]: false,
     [BCZ_PREBLE_MEADOW_JUMPING]: false,
@@ -529,7 +532,7 @@ export default ({
                   <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
                 <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
-              <Switch key="1fMvx97oGwQr" size="small" checked={switches[DWR_DAM_SAFETY]} onClick={(value) => onChange(value, DWR_DAM_SAFETY)} />
+              <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />
             </p>
             <p>
               <img key="DvH4OKqWywyM" src="/Icons/Filters/ic_climb.png" width="18px" alt="" />

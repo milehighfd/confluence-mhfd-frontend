@@ -62,7 +62,8 @@ import {
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
   STREAM_IMPROVEMENT_MEASURE,
-  USE_LAND_COVER_LABEL
+  USE_LAND_COVER_LABEL,
+  USE_LAND_COVER
 } from "./constants";
 
 export const localComponents = {
@@ -2170,6 +2171,13 @@ export const USE_LAND_TILES_STYLE = {
       ]
   }
 }
+
+const LAND_OBJECT: any = {};
+USE_LAND_COVER.tiles.forEach((tile: string) => {
+  LAND_OBJECT[tile] = [USE_LAND_TILES_STYLE];
+});
+console.log('my land object ', LAND_OBJECT);
+
 export const PROJECTS_STYLES = {
   [PROJECTS_POLYGONS]: [  
     {
@@ -5927,7 +5935,8 @@ export const tileStyles = {
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
-  ...PROJECTS_STYLES
+  ...PROJECTS_STYLES,
+  ...LAND_OBJECT
 }
 
 export const USER_POLYGON_FILL_STYLES = {
