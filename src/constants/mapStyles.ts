@@ -2813,6 +2813,7 @@ export const PROJECTS_STYLES = {
 }
 
 export const tileStyles = {
+  ...LAND_OBJECT,
   [FLOODPLAINS_FEMA_FILTERS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
@@ -5936,7 +5937,6 @@ export const tileStyles = {
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
   ...PROJECTS_STYLES,
-  ...LAND_OBJECT
 }
 
 export const USER_POLYGON_FILL_STYLES = {
