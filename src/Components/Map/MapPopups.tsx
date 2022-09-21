@@ -232,6 +232,9 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
   else if (item.layer.includes('Watershed Change Polygon')) {
     isComponent = false;
   }
+  else if (item.layer.includes('LAND USE LAND COVER')) {
+    isComponent = false;
+  }
     return <div id={'popup-' + id} className="map-pop-01">
         <Card hoverable
         >
@@ -289,6 +292,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.bmptype ? <p><i> BMP Type:</i> {item.bmptype}</p> : ''}
 
             {item.str_name ? <p><i>Stream Name:</i> {item.str_name}</p> : ''}
+            {item.typeLand ? <p><i>Type: </i> {item.typeLand}</p> : ''}
             
             {item.pondname? <p><i>Pond Name:</i>  {item.pondname}</p> : ''}
             {item.projectno ? <p><i>Project Number:</i>  {item.projectno}</p> : ''}

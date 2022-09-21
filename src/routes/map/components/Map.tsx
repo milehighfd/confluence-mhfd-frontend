@@ -1572,9 +1572,9 @@ const Map = ({
             });
           }
           addLayerProperties(key, index, style);
-        });
-        addMapListeners(key);  
+        }); 
       }
+      addMapListeners(key); 
     }
 
     const showLayers = (key: string) => {

@@ -1100,7 +1100,16 @@ export const popUps = {
   species: 'These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
   research_monitoring: 'Stormwater Quality Research/Monitoring. Research/Monitoring indicates the location of water quality monitoring sites and research projects with MHFD involvement.',
   climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
-  dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
+  dam_safety: `DRCOG´s Regional Land Uses Land Cover dataset incorporates 2020 imagery, 2020 planimetric data, and 2020 lidar to create a 3 foot resolution product. The dataset includes 9 classes:
+  \n 1. Structures
+  2. Impervious surfaces
+  3. Water
+  4. Grassland/prairie
+  5. Shrubland/scrubland
+  6. Tree canopy
+  7. Irrigated lands/turf
+  8. Barren/rock
+  9. Cropland`,
   stream_mang_corridors: 'Stream Management Corridors are estimated zones that should be preserved to reduce the risk of fluvial hazards in addition to traditional mapped floodplains.',
   nrcs_soils: 'This layer displays the USDA Natural Resources Conservation Service (NRCS) Soil Survey within MHFD. Map units delineate the extent of different soils. Data for each map unit contains descriptions of the soil’s components, productivity, unique properties, and suitability interpretations.',
   bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
@@ -1249,6 +1258,15 @@ export const ICON_POPUPS = [
   ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
   ['Stream Function Line', '/Icons/ic-stream-function-line.png'],
   ['Flood Hazard Polygon', '/Icons/ic-flood-hzd-poly.png'],
+  ['Impervious Surfaces', '/Icons/ic_luluc_impervious_surfaces.png'],
+  ['Water', '/Icons/ic_luluc_water.png'],
+  ['Tree Canopy', '/Icons/ic_luluc_tree_canopy.png'],
+  ['Structures', '/Icons/ic_luluc_structures.png'],
+  ['Shrubland/Scrubland', '/Icons/ic_luluc_shrubland.png'],
+  ['Irrigated Land/Turf', '/Icons/ic_luluc_irrigated_land.png'],
+  ['Grassland', '/Icons/ic_luluc_grasslands.png'],
+  ['Cropland', '/Icons/ic_luluc_cropland.png'],
+  ['Barren/Rock', '/Icons/ic_luluc_barren_rock.png']
 ]
 
 export const MAPTYPES = {
