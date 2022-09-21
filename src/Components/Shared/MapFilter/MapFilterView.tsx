@@ -588,7 +588,7 @@ export default ({
           <p>
               <img key="9YinsTRVwIpC" src="/Icons/ic_lulc.png" width="18px" alt="" />
               Land Use Land Cover
-                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
+                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.land_use)}>
                 <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />

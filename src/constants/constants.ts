@@ -1100,8 +1100,9 @@ export const popUps = {
   species: 'These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
   research_monitoring: 'Stormwater Quality Research/Monitoring. Research/Monitoring indicates the location of water quality monitoring sites and research projects with MHFD involvement.',
   climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
-  dam_safety: `DRCOG´s Regional Land Use Land Cover dataset incorporates 2020 imagery, 2020 planimetric data, and 2020 lidar to create a 3 foot resolution product. The dataset includes 9 classes:
-  \n 1. Structures
+  dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
+  land_use: `DRCOG´s Regional Land Use Land Cover dataset incorporates 2020 imagery, 2020 planimetric data, and 2020 lidar to create a 3 foot resolution product. The dataset includes 9 classes:
+  1. Structures
   2. Impervious surfaces
   3. Water
   4. Grassland/prairie

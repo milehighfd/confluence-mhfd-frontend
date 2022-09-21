@@ -44,7 +44,6 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     label: <Link to={'/map'}>
       <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
       <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2', }} />
-      <span style={{ marginLeft: collapsed ? '-20px' : '-6px' }}>project management</span>
     </Link>
   }, {
     key: '2',
