@@ -124,6 +124,152 @@ export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
 
+export const USE_LAND_COVER_LABEL = 'use_land_cover';
+
+export const USE_LAND_COVER = {
+  name: USE_LAND_COVER_LABEL,
+  source: 'mapbox',
+  tiles: [
+    'milehighfd.create',
+    'milehighfd.adams2',
+    'milehighfd.adams3',
+    'milehighfd.adams4',
+    'milehighfd.adams5',
+    'milehighfd.adams6',
+    'milehighfd.adams7',
+    'milehighfd.adams8',
+    'milehighfd.adams9',
+    'milehighfd.adams10',
+    'milehighfd.Adams11',
+    'milehighfd.Adams12',
+    'milehighfd.Arapahoe1',
+    'milehighfd.Arapahoe2',
+    'milehighfd.Arapahoe3',
+    'milehighfd.Arapahoe4',
+    'milehighfd.Arapahoe5',
+    'milehighfd.Arapahoe6',
+    'milehighfd.Arapahoe7',
+    'milehighfd.Arapahoe8',
+    'milehighfd.Arapahoe9',
+    'milehighfd.Arapahoe10',
+    'milehighfd.Arapahoe11',
+    'milehighfd.Boulder1',
+    'milehighfd.Boulder2',
+    'milehighfd.Boulder3',
+    'milehighfd.Boulder4',
+    'milehighfd.Boulder5',
+    'milehighfd.Boulder6',
+    'milehighfd.Boulder7',
+    'milehighfd.Broomfield1',
+    'milehighfd.Broomfield2',
+    'milehighfd.Denver1',
+    'milehighfd.Denver2',
+    'milehighfd.Denver3',
+    'milehighfd.Denver4',
+    'milehighfd.Denver5',
+    'milehighfd.Denver6',
+    'milehighfd.Denver7',
+    'milehighfd.Denver8',
+    'milehighfd.Denver9',
+    'milehighfd.Denver10',
+    'milehighfd.Denver11',
+    'milehighfd.Douglas1',
+    'milehighfd.Douglas2',
+    'milehighfd.Douglas3',
+    'milehighfd.Douglas4',
+    'milehighfd.Douglas5',
+    'milehighfd.Douglas6',
+    'milehighfd.Douglas7',
+    'milehighfd.Douglas8',
+    'milehighfd.Jefferson1',
+    'milehighfd.Jefferson2',
+    'milehighfd.Jefferson3',
+    'milehighfd.Jefferson4',
+    'milehighfd.Jefferson5',
+    'milehighfd.Jefferson6',
+    'milehighfd.Jefferson7',
+    'milehighfd.Jefferson8',
+    'milehighfd.Jefferson9',
+    'milehighfd.Jefferson10',
+    'milehighfd.Jefferson11',
+    'milehighfd.Jefferson12',
+    'milehighfd.Jefferson13',
+    'milehighfd.Jefferson14',
+    'milehighfd.Jefferson15',
+    'milehighfd.Jefferson16'
+
+  ]
+};
+
+export const USE_LAND_COVER_MAP: any = {
+  'milehighfd.create': 'Adams1_LULC',
+  'milehighfd.adams2': 'Adams2_LULC',
+  'milehighfd.adams3': 'Adams3_LULC',
+  'milehighfd.adams4': 'Adams4_LULC',
+  'milehighfd.adams5': 'Adams5_LULC',
+  'milehighfd.adams6': 'Adams6_LULC',
+  'milehighfd.adams7': 'Adams7_LULC',
+  'milehighfd.adams8': 'Adams8_LULC',
+  'milehighfd.adams9': 'Adams9_LULC',
+  'milehighfd.adams10': 'Adams10_LULC',
+  'milehighfd.Adams11': 'Adams11_LULC',
+  'milehighfd.Adams12': 'Adams12_LULC',
+  'milehighfd.Arapahoe1': 'Arapahoe1_LULC',
+  'milehighfd.Arapahoe2': 'Arapahoe2_LULC',
+  'milehighfd.Arapahoe3': 'Arapahoe3_LULC',
+  'milehighfd.Arapahoe4': 'Arapahoe4_LULC',
+  'milehighfd.Arapahoe5': 'Arapahoe5_LULC',
+  'milehighfd.Arapahoe6': 'Arapahoe6_LULC',
+  'milehighfd.Arapahoe7': 'Arapahoe7_LULC',
+  'milehighfd.Arapahoe8': 'Arapahoe8_LULC',
+  'milehighfd.Arapahoe9': 'Arapahoe9_LULC',
+  'milehighfd.Arapahoe10': 'Arapahoe10_LULC',
+  'milehighfd.Arapahoe11': 'Arapahoe11_LULC',
+  'milehighfd.Boulder1': 'Boulder1_LULC',
+  'milehighfd.Boulder2': 'Boulder2_LULC',
+  'milehighfd.Boulder3': 'Boulder3_LULC',
+  'milehighfd.Boulder4': 'Boulder4_LULC',
+  'milehighfd.Boulder5': 'Boulder5_LULC',
+  'milehighfd.Boulder6': 'Boulder6_LULC',
+  'milehighfd.Boulder7': 'Boulder7_LULC',
+  'milehighfd.Broomfield1': 'Broomfield1_LULC',
+  'milehighfd.Broomfield2': 'Broomfield2_LULC',
+  'milehighfd.Denver1': 'Denver1_LULC',
+  'milehighfd.Denver2': 'Denver2_LULC',
+  'milehighfd.Denver3': 'Denver3_LULC',
+  'milehighfd.Denver4': 'Denver4_LULC',
+  'milehighfd.Denver5': 'Denver5_LULC',
+  'milehighfd.Denver6': 'Denver6_LULC',
+  'milehighfd.Denver7': 'Denver7_LULC',
+  'milehighfd.Denver8': 'Denver8_LULC',
+  'milehighfd.Denver9': 'Denver9_LULC',
+  'milehighfd.Denver10': 'Denver10_LULC',
+  'milehighfd.Denver11': 'Denver11_LULC',
+  'milehighfd.Douglas1': 'Douglas1_LULC',
+  'milehighfd.Douglas2': 'Douglas2_LULC',
+  'milehighfd.Douglas3': 'Douglas3_LULC',
+  'milehighfd.Douglas4': 'Douglas4_LULC',
+  'milehighfd.Douglas5': 'Douglas5_LULC',
+  'milehighfd.Douglas6': 'Douglas6_LULC',
+  'milehighfd.Douglas7': 'Douglas7_LULC',
+  'milehighfd.Douglas8': 'Douglas8_LULC',
+  'milehighfd.Jefferson1': 'Jefferson1_LULC',
+  'milehighfd.Jefferson2': 'Jefferson2_LULC',
+  'milehighfd.Jefferson3': 'Jefferson3_LULC',
+  'milehighfd.Jefferson4': 'Jefferson4_LULC',
+  'milehighfd.Jefferson5': 'Jefferson5_LULC',
+  'milehighfd.Jefferson6': 'Jefferson6_LULC',
+  'milehighfd.Jefferson7': 'Jefferson7_LULC',
+  'milehighfd.Jefferson8': 'Jefferson8_LULC',
+  'milehighfd.Jefferson9': 'Jefferson9_LULC',
+  'milehighfd.Jefferson10': 'Jefferson10_LULC',
+  'milehighfd.Jefferson11': 'Jefferson11_LULC',
+  'milehighfd.Jefferson12': 'Jefferson12_LULC',
+  'milehighfd.Jefferson13': 'Jefferson13_LULC',
+  'milehighfd.Jefferson14': 'Jefferson14_LULC',
+  'milehighfd.Jefferson15': 'Jefferson15_LULC',
+  'milehighfd.Jefferson16': 'Jefferson16_LULC'
+};
 
 export const FLOOD_HAZARDS = {
   name: 'floodhazards',
@@ -278,7 +424,8 @@ export const SELECT_ALL_FILTERS = [
   MHFD_STREAMS_FILTERS,
   STREAMS_POINT,
   BORDER,
-  AREA_BASED_MASK
+  AREA_BASED_MASK,
+  USE_LAND_COVER
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
@@ -953,7 +1100,16 @@ export const popUps = {
   species: 'These layers show known areas of habitat for federally- and state-protected threatened and endangered species as well as block clearance zones for certain species.',
   research_monitoring: 'Stormwater Quality Research/Monitoring. Research/Monitoring indicates the location of water quality monitoring sites and research projects with MHFD involvement.',
   climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
-  dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
+  dam_safety: `DRCOG´s Regional Land Use Land Cover dataset incorporates 2020 imagery, 2020 planimetric data, and 2020 lidar to create a 3 foot resolution product. The dataset includes 9 classes:
+  \n 1. Structures
+  2. Impervious surfaces
+  3. Water
+  4. Grassland/prairie
+  5. Shrubland/scrubland
+  6. Tree canopy
+  7. Irrigated lands/turf
+  8. Barren/rock
+  9. Cropland`,
   stream_mang_corridors: 'Stream Management Corridors are estimated zones that should be preserved to reduce the risk of fluvial hazards in addition to traditional mapped floodplains.',
   nrcs_soils: 'This layer displays the USDA Natural Resources Conservation Service (NRCS) Soil Survey within MHFD. Map units delineate the extent of different soils. Data for each map unit contains descriptions of the soil’s components, productivity, unique properties, and suitability interpretations.',
   bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
@@ -1102,6 +1258,15 @@ export const ICON_POPUPS = [
   ['Watershed Change Line', '/Icons/ic-watershed-change-line.png'],
   ['Stream Function Line', '/Icons/ic-stream-function-line.png'],
   ['Flood Hazard Polygon', '/Icons/ic-flood-hzd-poly.png'],
+  ['Impervious Surfaces', '/Icons/ic_luluc_impervious_surfaces.png'],
+  ['Water', '/Icons/ic_luluc_water.png'],
+  ['Tree Canopy', '/Icons/ic_luluc_tree_canopy.png'],
+  ['Structures', '/Icons/ic_luluc_structures.png'],
+  ['Shrubland/Scrubland', '/Icons/ic_luluc_shrubland.png'],
+  ['Irrigated Land/Turf', '/Icons/ic_luluc_irrigated_land.png'],
+  ['Grassland', '/Icons/ic_luluc_grasslands.png'],
+  ['Cropland', '/Icons/ic_luluc_cropland.png'],
+  ['Barren/Rock', '/Icons/ic_luluc_barren_rock.png']
 ]
 
 export const MAPTYPES = {

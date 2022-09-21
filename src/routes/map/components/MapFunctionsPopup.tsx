@@ -31,7 +31,8 @@ import {
   getTitleOfProblemsPart,
   epochTransform,
   parseDateZ,
-  getTitleOfStreamImprovements
+  getTitleOfStreamImprovements,
+  getTitleOfLandUse
 } from './MapFunctionsUtilities';
 import { numberWithCommas } from '../../../utils/utils';
 import { SERVER } from "../../../Config/Server.config";
@@ -551,6 +552,19 @@ export const addPopupsOnClick = async (
       menuOptions.push(MENU_OPTIONS.MUNICIPALITIES);
       popups.push(item);
       ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+    }
+    if (feature.source.includes('milehighfd')) {  
+      const item = {
+          layer: 'LAND USE LAND COVER',
+          typeLand: feature.properties.gridcode ? getTitleOfLandUse(feature) : '-',
+      }
+      mobile.push({
+          layer: item.layer,
+          typeLand: item.typeLand,
+      })
+      menuOptions.push(getTitleOfLandUse(feature));
+      popups.push(item);
+      ids.push({layer: feature.layer.id.replace(/_\d+$/, '')});
     }
     
       if (feature.source.includes('catchments') || feature.source.includes('basin')) {

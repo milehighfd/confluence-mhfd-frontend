@@ -24,9 +24,12 @@ import {
     STREAMS_POINT,
     PROPSPROBLEMTABLES,
     MAPTYPES,
-    initFilterProblems
+    initFilterProblems,
+    USE_LAND_COVER,
+    USE_LAND_COVER_LABEL,
+    USE_LAND_COVER_MAP
 } from "../../../constants/constants";
-import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE } from '../../../constants/mapStyles';
+import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE, USE_LAND_TILES_STYLE } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
 import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
@@ -811,6 +814,7 @@ const Map = ({
             }
             setSpinMapLoaded(false);
             applyNearMapLayer();
+            applyTileSetLayer();
             applyMeasuresLayer();
         }
     };
@@ -1019,6 +1023,58 @@ const Map = ({
             );
         }
     }
+
+    const applyTileSetLayer = () => {
+      const sourceNameTile = 'milehighfd.create';
+      const tileName = 'Adams1_LULC';
+      if (!map.getSource(sourceNameTile)) {
+        console.log('About to add');
+        map.addSource(sourceNameTile, {
+          "url": `mapbox://${sourceNameTile}`,
+          "type": "vector"
+        });
+        map.addLayer({
+          'id': 'douglas',
+          'type': 'fill',
+          'source': sourceNameTile,
+          'source-layer': tileName,
+          // 'type': 'line',
+          // 'source-layer': 'pluto15v1',
+          layout: {
+            visibility: "visible"
+          },
+          paint: {
+            'fill-color': [
+              "match",
+              ["get", "gridcode"],
+              [1],
+              "#ffffff",
+              [2],
+              "#b2b2b2",
+              [3],
+              "#73b2ff",
+              [4],
+              "#cdf57a",
+              [5],
+              "#728944",
+              [6],
+              "#abcd66",
+              [7],
+              "#734c00",
+              [8],
+              "#cdaa66",
+              [9],
+              "#ffaa00",
+              "hsla(0, 0%, 0%, 0)"
+            ]
+          }
+        });
+        setTimeout(() => {
+          console.log(map.getStyle().layers);
+        }, 3500);
+      }
+    }
+
     const applyProblemClusterLayer = () => {
       datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
         addGeojsonSource(map, geoj.geom, isProblemActive);
@@ -1028,14 +1084,18 @@ const Map = ({
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
-                if (layer.tiles) {
-                    layer.tiles.forEach((subKey: string) => {
-                        const tiles = layerFilters[layer.name] as any;
-                        if (tiles) {
-                            addLayersSource(subKey, tiles[subKey]);
-                        }
-                    });
-                }
+              if (layer.name === USE_LAND_COVER_LABEL) {
+                layer.tiles.forEach((tile: string) => {
+                  addTileSource(tile);
+                });
+              } else if (layer.tiles) {
+                  layer.tiles.forEach((subKey: string) => {
+                      const tiles = layerFilters[layer.name] as any;
+                      if (tiles) {
+                          addLayersSource(subKey, tiles[subKey]);
+                      }
+                  });
+              }
             } else {
                 addLayersSource(layer, layerFilters[layer]);
             }
@@ -1046,11 +1106,11 @@ const Map = ({
             return;
           }
             if (typeof layer === 'object') {
-                layer.tiles.forEach((subKey: string) => {
-                    showLayers(subKey);
-                });
+              layer.tiles.forEach((subKey: string) => {
+                  showLayers(subKey);
+              });
             } else {
-                showLayers(layer);
+              showLayers(layer);
             }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
@@ -1179,6 +1239,15 @@ const Map = ({
       map.moveLayer('streams_4');
       map.moveLayer('streams_5');
     }
+    const addTileSource = (sourceName: string) => {
+      if (!map.getSource(sourceName)) {
+        map.addSource(sourceName, {
+          "url": `mapbox://${sourceName}`,
+          "type": "vector"
+        });
+        addTilesLayers(sourceName);
+      }
+    };
     const addLayersSource = (key: string, tiles: Array<string>) => {
         if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
             map.addSource(key, {
@@ -1384,11 +1453,11 @@ const Map = ({
     const hideHighlighted = () => {
         const styles = { ...tileStyles as any };
         for (const key in styles) {
-            styles[key].forEach((style: LayerStylesType, index: number) => {
-                if (map.getLayer(key + '_highlight_' + index)) {
-                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
-                }
-            });
+          styles[key].forEach((style: LayerStylesType, index: number) => {
+            if (map.getLayer(key + '_highlight_' + index)) {
+                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+            }
+          });
         }
     };
 
@@ -1400,9 +1469,95 @@ const Map = ({
       }
       canAdd.value = true;
     }
+    const addLayerProperties = (key: string, index: number, style: any) => {
+      if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
+        if (!map.getLayer(key + '-background')) {
+            map.addLayer({
+                id: key + '-background',
+                type: 'fill',
+                source: key,
+                'source-layer': 'pluto15v1',
+                layout: {
+                    visibility: 'visible'
+                },
+                paint: {
+                    'fill-color': '#ffffff',
+                    'fill-opacity': 0
+                }
+            });
+        }
+    }
+    if(key) {
+        map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+    }
+    
+    if (!hovereableLayers.includes(key)) {
+        return;
+    }
+    
+    if(style.type === 'line' && key == STREAMS_FILTERS) {
+      map.addLayer({
+        id: key + '_highlight_' + index,
+        source: key,
+        type: 'line',
+        'source-layer': 'pluto15v1',
+        layout: {
+            visibility: 'visible'
+        },
+        paint: {
+            'line-color': '#fff',
+            'line-width': style.source_name ? widthLayersStream[0]:widthLayersStream[1],
+            // 'line-opacity': style.paint['line-opacity'],
+        },
+        filter: ['in', 'cartodb_id']
+      });
+    } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
+        map.addLayer({
+            id: key + '_highlight_' + index,
+            source: key,
+            type: 'line',
+            'source-layer': 'pluto15v1',
+            layout: {
+                visibility: 'visible'
+            },
+            paint: {
+                'line-color': '#fff',
+                'line-width': 7,
+            },
+            filter: ['in', 'cartodb_id']
+        });
+    } else if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+        map.addLayer({
+            id: key + '_highlight_' + index,
+            type: 'circle',
+            'source-layer': 'pluto15v1',
+            source: key,
+            layout: {
+                visibility: 'visible'
+            },
+            paint: {
+                'circle-color': '#FFF',
+                'circle-radius': 7,
+                'circle-opacity': 1
+            },
+            filter: ['in', 'cartodb_id']
+          });
+    }
+    }
     const addTilesLayers = (key: string) => {
+      if (key.includes('milehighfd')) {
+        const tileName: string = USE_LAND_COVER_MAP[key];
+        const style = USE_LAND_TILES_STYLE;
+        map.addLayer({
+          id: key + '_0',
+          'source': key,
+          'source-layer': tileName,
+          ...style
+        })
+      } else {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
+          if(style)
           if(style.source_name){
             map.addLayer({
               id: key + '_' + index,
@@ -1416,83 +1571,10 @@ const Map = ({
               ...style
             });
           }
-            if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
-                if (!map.getLayer(key + '-background')) {
-                    map.addLayer({
-                        id: key + '-background',
-                        type: 'fill',
-                        source: key,
-                        'source-layer': 'pluto15v1',
-                        layout: {
-                            visibility: 'visible'
-                        },
-                        paint: {
-                            'fill-color': '#ffffff',
-                            'fill-opacity': 0
-                        }
-                    });
-                }
-            }
-            if(key) {
-                map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-            }
-            
-            if (!hovereableLayers.includes(key)) {
-                return;
-            }
-            
-            if(style.type === 'line' && key == STREAMS_FILTERS) {
-              map.addLayer({
-                id: key + '_highlight_' + index,
-                source: key,
-                type: 'line',
-                'source-layer': 'pluto15v1',
-                layout: {
-                    visibility: 'visible'
-                },
-                paint: {
-                    'line-color': '#fff',
-                    'line-width': style.source_name ? widthLayersStream[0]:widthLayersStream[1],
-                    // 'line-opacity': style.paint['line-opacity'],
-                },
-                filter: ['in', 'cartodb_id']
-              });
-            } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-                map.addLayer({
-                    id: key + '_highlight_' + index,
-                    source: key,
-                    type: 'line',
-                    'source-layer': 'pluto15v1',
-                    layout: {
-                        visibility: 'visible'
-                    },
-                    paint: {
-                        'line-color': '#fff',
-                        'line-width': 7,
-                    },
-                    filter: ['in', 'cartodb_id']
-                });
-            } else if( (style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
-                map.addLayer({
-                    id: key + '_highlight_' + index,
-                    type: 'circle',
-                    'source-layer': 'pluto15v1',
-                    source: key,
-                    layout: {
-                        visibility: 'visible'
-                    },
-                    paint: {
-                        'circle-color': '#FFF',
-                        'circle-radius': 7,
-                        'circle-opacity': 1
-                    },
-                    filter: ['in', 'cartodb_id']
-                  });
-            }
-
-        });
-        addMapListeners(key);
-        
+          addLayerProperties(key, index, style);
+        }); 
+      }
+      addMapListeners(key); 
     }
 
     const showLayers = (key: string) => {

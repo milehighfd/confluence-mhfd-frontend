@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Button, Collapse, Popover, Switch } from 'antd';
+import { Checkbox, Button, Collapse, Popover, Switch, Modal, Row, Col } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import {
   WATERSHED_FILTERS,
@@ -29,7 +29,9 @@ import {
   AREA_BASED_MASK,
   ACTIVE_LOMS,
   EFFECTIVE_REACHES,
-  FLOOD_HAZARDS
+  FLOOD_HAZARDS,
+  USE_LAND_COVER_LABEL,
+  USE_LAND_COVER
 } from '../../../constants/constants';
 
 
@@ -64,6 +66,7 @@ export default ({
   removePopup: Function,
   isWR?: boolean
 }) => {
+  const [showModal, setShowmodal] = useState(false);
   const [switches, setSwitches] = useState({
     [GUIDELINES]: true,
     [PROBLEMS_TRIGGER]: true,
@@ -83,6 +86,7 @@ export default ({
     [MUNICIPALITIES.name]: false,
     [NRCS_SOILS]: false,
     [DWR_DAM_SAFETY]: false,
+    [USE_LAND_COVER_LABEL]: false,
     [STREAM_MANAGEMENT_CORRIDORS]: false,
     [BLOCK_CLEARANCE_ZONES_LAYERS]: false,
     [BCZ_PREBLE_MEADOW_JUMPING]: false,
@@ -312,6 +316,9 @@ export default ({
   );
   const onChange = (value: boolean, item: any) => {
     if (item.hasOwnProperty('name')) {
+      if (item.name === USE_LAND_COVER_LABEL) {
+        setShowmodal(value);
+      }
       setSwitches({...switches, [item['name']]: value});
     } else {
       setSwitches({...switches, [item]: value});
@@ -329,7 +336,62 @@ export default ({
     removePopup();
   }
 
-  return <div className="ant-dropdown-menu map-filter-s" key="k40pHuxNf5JE">
+  return <>
+  {
+      showModal &&
+      <Modal
+        centered
+        visible={showModal}
+        onCancel={() => setShowmodal(false)}
+        className="modal-confirm"
+        width="400px"
+      >
+        <div className="detailed">
+          <Row className="detailed-h" gutter={[16, 8]}>
+            <Col xs={{ span: 44 }} lg={{ span: 20 }}>
+              <h1 style={{marginTop: '15px'}}>
+              Land Use Land Cover Alert
+              </h1>
+            </Col>
+            <Col
+              xs={{ span: 4 }}
+              lg={{ span: 4 }}
+              style={{textAlign: 'end'}}
+            >
+              <Button
+                className="btn-transparent"
+                onClick={() => setShowmodal(false)}
+              >
+                <img src="/Icons/icon-62.svg" alt="" height="15px" />
+              </Button>
+            </Col>
+          </Row>
+          <Row
+            className="detailed-h"
+            gutter={[16, 8]}
+            style={{backgroundColor: 'white'}}
+          >
+            <Col
+              xs={{ span: 48 }}
+              lg={{ span: 24 }}
+              style={{color: '#11093c'}}
+            >
+              Zoom closer (to at least level 16) to view the District’s land use and land cover (LULC) dataset.
+            </Col>
+            <Col
+              xs={{ span: 24 }}
+              lg={{ span: 12, offset: 12 }}
+              style={{color: '#11093c', textAlign:'end'}}
+            >
+              <button className="btn-purple" style={{width: '95%'}} onClick={() => setShowmodal(false)}>
+                Close
+              </button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
+    }
+  <div className="ant-dropdown-menu map-filter-s" key="k40pHuxNf5JE">
     <div className="filter-map" key="ItyS3QrBgOCh">
       <div className="title-filter-map" key="WKCDa6eIAd7R">
         <h6>Layers</h6>
@@ -523,6 +585,14 @@ export default ({
           </Panel>
 
           <Panel header="" key="6" extra={genExtra05()}>
+          <p>
+              <img key="9YinsTRVwIpC" src="/Icons/ic_lulc.png" width="18px" alt="" />
+              Land Use Land Cover
+                  <Popover key="t7qedHPH0Pbx" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.dam_safety)}>
+                <img key="04awLSrS1YFr" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
+              </Popover>
+              <Switch key="1fMvx97oGwQr" size="small" checked={switches[USE_LAND_COVER_LABEL]} onClick={(value) => onChange(value, USE_LAND_COVER)} />
+            </p>
             <p>
               <img key="DvH4OKqWywyM" src="/Icons/Filters/ic_climb.png" width="18px" alt="" />
                   Climb to Safety Signs
@@ -593,4 +663,5 @@ export default ({
 
     </div>
   </div>
+  </>
 }

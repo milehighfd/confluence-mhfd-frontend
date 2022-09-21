@@ -53,12 +53,16 @@ const MapLayout = () => {
   const loadData = (trigger: any, name?: string) => {
     return new Promise((resolve) => {
       const requestData = { table: trigger };
-      datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken())
-        .then(tiles => {
-          resolve(true);
-          if (name) getMapWithSublayers(trigger, tiles, name);
-          else getMapLayers(trigger, tiles);
+      if (!trigger.includes('milehighfd')) {
+        datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken())
+          .then(tiles => {
+            resolve(true);
+            if (name) getMapWithSublayers(trigger, tiles, name);
+            else getMapLayers(trigger, tiles);
         });
+      } else {
+        resolve(true);
+      }
     });
   }
 

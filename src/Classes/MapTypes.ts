@@ -127,7 +127,8 @@ export type MapLayersType = {
 
 export type ObjectLayerType = {
     name: string,
-    tiles: Array<string>
+    tiles: Array<string>,
+    source?: string
 }
 
 export type LayerStylesType = {

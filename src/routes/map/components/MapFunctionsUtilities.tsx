@@ -76,6 +76,38 @@ export const getTitleOfProblemsPart = (feature: any) => {
 
   return title;
 }
+export const getTitleOfLandUse = (feature: any) => {
+  let title = '';
+  if (feature.properties.gridcode === 1) {
+    title = 'Structures' ;
+  } 
+  if (feature.properties.gridcode === 2) {
+    title = 'Impervious Surfaces' ;
+  } 
+  if (feature.properties.gridcode === 3) {
+    title = 'Water' ;
+  } 
+  if (feature.properties.gridcode === 4) {
+    title = 'Grassland' ;
+  } 
+  if (feature.properties.gridcode === 5) {
+    title = 'Tree Canopy' ;
+  } 
+  if (feature.properties.gridcode === 6) {
+    title = 'Irrigated Land/Turf' ;
+  } 
+  if (feature.properties.gridcode === 7) {
+    title = 'Barren/Rock' ;
+  } 
+  if (feature.properties.gridcode === 8) {
+    title = 'Cropland' ;
+  } 
+  if (feature.properties.gridcode === 9) {
+    title = 'Shrubland/Scrubland' ;
+  } 
+  
+  return title;
+}
 
 export const getTitle = (text: string) => {
   const textTitle = text.split('|');

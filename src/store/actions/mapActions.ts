@@ -11,8 +11,7 @@ export const getMapTables = (trigger: string, name?: string) => {
     return (dispatch: Function, getState: Function) => {
         const state = getState();
         const layers = { ...state.map.layers };
-
-        if (!layers[trigger]) {
+        if (!layers[trigger] && !trigger.includes('milehighfd')) {
             const requestData = { table: trigger };
             datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken()).then(tiles => {
                 if (name) dispatch({ type: types.GET_MAP_WITH_SUBLAYERS, data: { trigger, tiles, name } });
