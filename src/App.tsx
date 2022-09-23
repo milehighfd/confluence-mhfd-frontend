@@ -42,6 +42,7 @@ const App = () => {
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-page`} component={DetailedPageView} />
         <Route path={`/maptest`} component={maptest} />
+        
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
