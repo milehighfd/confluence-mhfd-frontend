@@ -49,6 +49,7 @@ const App = () => {
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
         <Route path={`/list-view`} component={ListView} />
         <Route path={`/portfolio-list-view`} component={PortfolioView} />
+        <Route path={`/detail-page`} component={PortfolioView} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
