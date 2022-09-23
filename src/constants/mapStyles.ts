@@ -2142,41 +2142,41 @@ const ROUTINE_MAINTENANCE_STYLES = {
     }
   }]
 }
-export const USE_LAND_TILES_STYLE = {
-  "type": "fill",
-  "layout": {},
-  "paint": {
-      "fill-color": [
-          "match",
-          ["get", "gridcode"],
-          [1],
-          "#ffffff",
-          [2],
-          "#b2b2b2",
-          [3],
-          "#73b2ff",
-          [4],
-          "#cdf57a",
-          [5],
-          "#728944",
-          [6],
-          "#abcd66",
-          [7],
-          "#734c00",
-          [8],
-          "#cdaa66",
-          [9],
-          "#ffaa00",
-          "hsla(0, 0%, 0%, 0)"
-      ]
-  }
-}
+// export const USE_LAND_TILES_STYLE = {
+//   "type": "fill",
+//   "layout": {},
+//   "paint": {
+//       "fill-color": [
+//           "match",
+//           ["get", "gridcode"],
+//           [1],
+//           "#ffffff",
+//           [2],
+//           "#b2b2b2",
+//           [3],
+//           "#73b2ff",
+//           [4],
+//           "#cdf57a",
+//           [5],
+//           "#728944",
+//           [6],
+//           "#abcd66",
+//           [7],
+//           "#734c00",
+//           [8],
+//           "#cdaa66",
+//           [9],
+//           "#ffaa00",
+//           "hsla(0, 0%, 0%, 0)"
+//       ]
+//   }
+// }
 
-const LAND_OBJECT: any = {};
-USE_LAND_COVER.tiles.forEach((tile: string) => {
-  LAND_OBJECT[tile] = [USE_LAND_TILES_STYLE];
-});
-console.log('my land object ', LAND_OBJECT);
+// const LAND_OBJECT: any = {};
+// USE_LAND_COVER.tiles.forEach((tile: string) => {
+//   LAND_OBJECT[tile] = [USE_LAND_TILES_STYLE];
+// });
+// console.log('my land object ', LAND_OBJECT);
 
 export const PROJECTS_STYLES = {
   [PROJECTS_POLYGONS]: [  
@@ -2813,7 +2813,7 @@ export const PROJECTS_STYLES = {
 }
 
 export const tileStyles = {
-  ...LAND_OBJECT,
+  // ...LAND_OBJECT,
   [FLOODPLAINS_FEMA_FILTERS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',

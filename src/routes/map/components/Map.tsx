@@ -29,7 +29,12 @@ import {
     USE_LAND_COVER_LABEL,
     USE_LAND_COVER_MAP
 } from "../../../constants/constants";
-import { COMPONENT_LAYERS_STYLE, tileStyles, widthLayersStream, NEARMAP_STYLE, USE_LAND_TILES_STYLE } from '../../../constants/mapStyles';
+import { 
+  COMPONENT_LAYERS_STYLE,
+  tileStyles, widthLayersStream,
+  NEARMAP_STYLE,
+  // USE_LAND_TILES_STYLE
+} from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
 import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
@@ -1028,7 +1033,7 @@ const Map = ({
       const sourceNameTile = 'milehighfd.create';
       const tileName = 'Adams1_LULC';
       if (!map.getSource(sourceNameTile)) {
-        console.log('About to add');
+        // console.log('About to add');
         map.addSource(sourceNameTile, {
           "url": `mapbox://${sourceNameTile}`,
           "type": "vector"
@@ -1070,7 +1075,7 @@ const Map = ({
           }
         });
         setTimeout(() => {
-          console.log(map.getStyle().layers);
+          //console.log(map.getStyle().layers);
         }, 3500);
       }
     }
@@ -1084,11 +1089,12 @@ const Map = ({
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
-              if (layer.name === USE_LAND_COVER_LABEL) {
-                layer.tiles.forEach((tile: string) => {
-                  addTileSource(tile);
-                });
-              } else if (layer.tiles) {
+              // if (layer.name === USE_LAND_COVER_LABEL) {
+              //   layer.tiles.forEach((tile: string) => {
+              //     addTileSource(tile);
+              //   });
+              // } 
+              if (layer.tiles) {
                   layer.tiles.forEach((subKey: string) => {
                       const tiles = layerFilters[layer.name] as any;
                       if (tiles) {
@@ -1547,12 +1553,12 @@ const Map = ({
     const addTilesLayers = (key: string) => {
       if (key.includes('milehighfd')) {
         const tileName: string = USE_LAND_COVER_MAP[key];
-        const style = USE_LAND_TILES_STYLE;
+        //const style = USE_LAND_TILES_STYLE;
         map.addLayer({
           id: key + '_0',
           'source': key,
           'source-layer': tileName,
-          ...style
+          //...style
         })
       } else {
         const styles = { ...tileStyles as any };
