@@ -55,8 +55,7 @@ const PortafolioBody = () => {
                 </span>
               </>
             }
-            
-            <Select placeholder="List View" placement="bottomLeft" style={{marginRight:'20px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
+            <Select className="" placeholder="List View" placement="bottomLeft" style={{marginRight:'20px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
                 <Option value="List View">List View</Option>
                 <Option value="Phase View">Phase View</Option>
                 <Option value="Calendar View">Calendar View</Option>
