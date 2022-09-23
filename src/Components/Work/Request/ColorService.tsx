@@ -8,11 +8,15 @@ class ColorService {
         let color = '#9faeb1'
         let a = arr.filter(p => p.origin === project.origin);
         let index = -1;
-        a.forEach((p: any, i: number) => {
-            if (p.project_id === project.project_id) {
-                index = i;
-            }
-        })
+        if (type === 'WORK_REQUEST') {
+            a.forEach((p: any, i: number) => {
+                if (p.project_id === project.project_id) {
+                    index = i;
+                }
+            })
+        } else {
+            index = project[`originPosition${columnIdx}`];
+        }
         switch(index) {
             case 0:
                 return '#28C499';
