@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 
-export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, setJS, setCS, l, selJS, selCS }: {
+export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, priorityFilterList,
+  setJS, setCS, setPS, l, selJS, selCS, selPS
+}: {
   visible: boolean,
   setVisible: Function,
   jurisdictionFilterList: string[],
   csaFilterList: string[],
+  priorityFilterList: string[],
   setJS: Function,
   setCS: Function,
+  setPS: Function,
   l: any,
   selJS: string[],
-  selCS: string[]
+  selCS: string[],
+  selPS: string[]
 }) => {
   const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
   const [csaSelected, setCsaSelected] = useState<any[]>([]);
+  const [prioritySelected, setPrioritySelected] = useState<any[]>([]);
 
   useEffect(() => {
     setJurisdictionSelected(jurisdictionFilterList.map(r => true));
     setCsaSelected(csaFilterList.map(r => true));
-  }, [jurisdictionFilterList, csaFilterList])
+    setPrioritySelected(priorityFilterList.map(r => true));
+  }, [jurisdictionFilterList, csaFilterList, priorityFilterList]);
 
   useEffect(() => {
     setJurisdictionSelected(
@@ -31,7 +38,12 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
         return selCS.includes(j)
       })
     );
-  }, [selJS, selCS])
+    setPrioritySelected(
+      priorityFilterList.map((j) => {
+        return selPS.includes(j);
+      })
+    );
+  }, [selJS, selCS, selPS])
 
   const applyFilters = () => {
     let js = jurisdictionFilterList.filter((_, index) => {
@@ -42,10 +54,15 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
       return csaSelected[index];
     })
     setCS(cs)
+    let ps = priorityFilterList.filter((_, index) => {
+      return prioritySelected[index];
+    });
+    setPS(ps);
   }
   const reset = () => {
     setJurisdictionSelected(jurisdictionSelected.map( elem => false));
     setCsaSelected(csaSelected.map(elem => false));
+    setPrioritySelected(prioritySelected.map(elem => false));
   }
   let label;
   if (l === 'COUNTY') {
@@ -114,6 +131,32 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, se
           }
         </div>
       </div>
+
+      <div className="filter-plan">
+        <div className="head-f-p">{label}</div>
+        <div className="body-f-p">
+          {
+            priorityFilterList.map((cn: string, index: number) => (
+              <p key={`filter-ps${index}`}>
+                {cn}
+                <span>
+                <Checkbox checked={prioritySelected[index]} onChange={e => {
+                  let v = e.target.checked;
+                  setPrioritySelected(prioritySelected.map((w, i) => {
+                    if (i === index) {
+                      return v;
+                    }
+                    return w;
+                  }))
+                }} />
+                </span>
+              </p>
+            ))
+          }
+        </div>
+      </div>
+
+     
       <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
         <div> 
           <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={reset}>Reset</h4>

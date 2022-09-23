@@ -19,7 +19,7 @@ import Status from "../Drawers/Status";
 import ColorService from './ColorService';
 import ProjectEditService from './ProjectEditService';
 import store from '../../../store';
-import { compareArrays, compareColumns, csvFileName, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getCsv, getTotalsByProperty, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
+import { compareArrays, compareColumns, csvFileName, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getCsv, getTotalsByProperty, hasPriority, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
 import { boardType } from "./RequestTypes";
 import Filter from "../Drawers/Filter";
 import TotalHeader from "./TotalHeader";
@@ -89,8 +89,10 @@ const RequestView = ({ type, isFirstRendering }: {
   const [localityFilter, setLocalityFilter] = useState('');
   const [jurisdictionFilterList, setJurisdictionFilterList] = useState([]);
   const [csaFilterList, setCsaFilterList] = useState([]);
+  const [priorityFilterList, setPriorityFilterList] = useState(['1', '2', '3', 'Over 3']);
   const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
+  const [prioritySelected, setPrioritySelected] = useState<string[]>(['1', '2', '3', 'Over 3']);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertStatus, setAlertStatus] = useState<any>({});
@@ -754,10 +756,13 @@ const RequestView = ({ type, isFirstRendering }: {
         setVisible={setShowFilters}
         jurisdictionFilterList={jurisdictionFilterList}
         csaFilterList={csaFilterList}
+        priorityFilterList={priorityFilterList}
+        selPS={prioritySelected}
         selJS={jurisdictionSelected}
         selCS={csaSelected}
         setJS={setJurisdictionSelected}
         setCS={setCsaSelected}
+        setPS={setPrioritySelected}
         l={localityType}
         />
     }
@@ -906,6 +911,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                   {
                                     column.projects
                                     .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, jurisdictionFilterList, csaFilterList, p))
+                                    .filter((p: any) => hasPriority(p, prioritySelected))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
                                         year={year}

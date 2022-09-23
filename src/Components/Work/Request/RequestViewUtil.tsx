@@ -44,6 +44,22 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
   return areEqual;
 }
 
+const checkPriority = (value: number | null, option: string) => {
+  if (value == null) return false;
+  if (option.includes('Over')) {
+    return value >= 3;
+  }
+  return value === +option;
+}
+export const hasPriority = (value: any, options: string[]) => {
+  const originPositions = ['originPosition0', 'originPosition1', 'originPosition2', 'originPosition3', 'originPosition4', 'originPosition5'];
+  for (const position of originPositions) {
+    if (options.some((option: string) => checkPriority(value[position], option))) {
+      return true;
+    }
+  }
+  return false;
+}
 export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[], csaSelected: string[], jurisdictionFilterList: string[], csaFilterList: string[], p: any) => {
   if (jurisdictionSelected.length === jurisdictionFilterList.length && csaSelected.length === csaFilterList.length) { // if all filters are the same show every project
     return true;
