@@ -47,6 +47,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   } = project.projectData;
   const [goingToBeDeleted, setGoingToBeDeleted] = useState(false);
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
+  const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -130,7 +131,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
 
   useEffect(() => {
     setAmount(project[`req${columnIdx}`])
-  }, [project, columnIdx])
+  }, [project, columnIdx]);
+
+  useEffect(() => {
+    setPriority(project[`originPosition${columnIdx}`]);
+  }, [project, columnIdx]);
 
   useEffect(()=>{
     if(showModalProject) {
@@ -234,6 +239,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       <Popover placement="top" content={<>{project.origin}</>}>
         <label className="purple">{labelOrigin}</label>
       </Popover>
+      <label className="purple">{`(${priority})`}</label>
+      
       <label className="yellow" style={{color, backgroundColor}}>{status}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
