@@ -1089,7 +1089,7 @@ const Map = ({
     const applyMapLayers = async () => {
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
-              if (layer.name === USE_LAND_COVER_LABEL) {
+              if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
                 layer.tiles.forEach((tile: string) => {
                   addTileSource(tile);
                 });
@@ -1551,7 +1551,7 @@ const Map = ({
     }
     }
     const addTilesLayers = (key: string) => {
-      if (key.includes('milehighfd')) {
+      if (key.includes('milehighfd') && process.env.REACT_APP_NODE_ENV !== 'prod') {
         const tileName: string = USE_LAND_COVER_MAP[key];
         const style = USE_LAND_TILES_STYLE;
         map.addLayer({
