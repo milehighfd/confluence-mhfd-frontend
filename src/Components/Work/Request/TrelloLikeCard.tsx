@@ -12,6 +12,7 @@ import { DeleteAlert } from './DeleteAlert';
 import LoadingView from '../../Loading/LoadingView';
 import { boardType } from './RequestTypes';
 import { EllipsisOutlined } from '@ant-design/icons';
+import { CopyProjectAlert } from './CopyProjectAlert';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -50,6 +51,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
 
   const deleteProject = () => {
     delProject(projectid)
@@ -64,6 +66,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   }
+
+  const copyProjectToCurrent = () => {
+    console.log('copyProjectToCurrent');
+  };
 
   const content = () => {
     const items: MenuProps['items'] = [{
@@ -98,6 +104,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     if (!editable) {
       items.pop();
       items.splice(1, 1);
+    }
+    if (type === 'WORK_PLAN' && year != 2023) {
+      items.push({
+        key: '4',
+        label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+          <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
+          Copy to Current Year
+        </span>,
+        onClick: (() => setShowCopyToCurrentYearAlert(true))
+      });
     }
     return <Menu className="js-mm-00" items={items}>
     </Menu>
@@ -170,6 +186,14 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         name={projectname}
         />
     }
+    {
+      showCopyToCurrentYearAlert &&
+      <CopyProjectAlert
+        visibleAlert={showCopyToCurrentYearAlert}
+        setVisibleAlert={setShowCopyToCurrentYearAlert}
+        action={copyProjectToCurrent}
+        />
+    }
     {showModalProject &&
     <ModalProjectView
         visible= {showModalProject}
@@ -212,7 +236,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       </Popover>
       <label className="yellow" style={{color, backgroundColor}}>{status}</label>
       {
-        !(showAmountModal || showModalProject || showDeleteAlert) &&
+        !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
         <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
           <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
             <EllipsisOutlined className="menu-wr" style={{transform:'rotate(-90deg)', height:'30px', marginRight:'-5px'}}>
