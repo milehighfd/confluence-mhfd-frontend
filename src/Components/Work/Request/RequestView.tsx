@@ -560,7 +560,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setDiff(diffTmp);
 
-  }, [reqManager]);
+  }, [reqManager, sumTotal]);
 
   const splitColumns = (cols: any) => {
     let mySet:any = new Set();

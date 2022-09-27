@@ -45,7 +45,6 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
 }
 
 const checkPriority = (value: number | null, option: string) => {
-  console.log('value is ', value, option);
   if (value == null) return true;
   if (option.includes('Over')) {
     return value >= 3;
@@ -53,7 +52,6 @@ const checkPriority = (value: number | null, option: string) => {
   return value === +option - 1;
 }
 export const hasPriority = (value: any, options: string[], columnIdx: number) => {
-  console.log(columnIdx, value, options);
   return options.some((option: string) => checkPriority(value[`originPosition${columnIdx}`], option));
 }
 
