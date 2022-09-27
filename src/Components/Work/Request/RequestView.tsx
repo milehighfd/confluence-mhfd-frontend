@@ -944,9 +944,13 @@ const RequestView = ({ type, isFirstRendering }: {
                           >
                             <Panel
                               disabled={sumByCounty.length === 0}
-                              header={!openCollaps
+                              header={
+                                tabKey !== 'Maintenance' ?
+                                (!openCollaps
                                 ? <a href="#openCost" style={{padding:'10px 0px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}><DownSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>
-                                : <a href="#openCost" style={{padding:'10px 0px'}}  onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))} ><UpSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>}
+                                : <a href="#openCost" style={{padding:'10px 0px'}}  onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))} ><UpSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>)
+                                : null
+                              }
                               key="1"
                               style={{backgroundColor: '#F5F7FF'}}
                               extra={
@@ -961,7 +965,7 @@ const RequestView = ({ type, isFirstRendering }: {
                               <div className="tab-body-project streams" style={{backgroundColor: '#f9faff'}}>
                                 <Timeline>
                                   {
-                                    sumByCounty.map((countySum) => (
+                                    tabKey !== 'Maintenance' && sumByCounty.map((countySum) => (
                                       <Timeline.Item color="purple" key={Math.random()}>
                                         <CostTableBody type={type} countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey}/>
                                       </Timeline.Item>
@@ -971,7 +975,7 @@ const RequestView = ({ type, isFirstRendering }: {
                               </div>
                             </Panel>
                           </Collapse>
-                          {openCollaps && <>
+                          {openCollaps && tabKey !== 'Maintenance' && <>
                           <div className="col-bg">
                             <div><h5>Target Cost</h5></div>
                             {
