@@ -125,7 +125,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       items.splice(1, 1);
     }
     if (type === 'WORK_PLAN' && year != 2023) {
-      items.push({
+      items.splice(2, 0, {
         key: '4',
         label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
