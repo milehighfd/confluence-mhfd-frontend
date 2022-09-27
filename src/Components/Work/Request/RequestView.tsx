@@ -1002,7 +1002,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             }
                           </div>
                           <div className="col-bg">
-                            <div><h5>Differential</h5></div>
+                            <div><h5>Contingency</h5></div>
                             {
                               diff.map((d: any, i) => (
                                 <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} className="differential">

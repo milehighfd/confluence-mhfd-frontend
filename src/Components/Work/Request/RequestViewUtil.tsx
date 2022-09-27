@@ -403,7 +403,7 @@ export const getCsv = (
       }
     }
     csvData.push(targetCost);
-    const differental: any = ['Differential'];
+    const differental: any = ['Contingency'];
     for (const value of diff) {
       differental.push(formatter.format(value));
     }
