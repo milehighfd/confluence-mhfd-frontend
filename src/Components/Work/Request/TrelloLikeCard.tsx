@@ -255,10 +255,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       </Popover>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <Popover placement="top" content={<>{project.origin}</>}>
-        <label className="purple">{labelOrigin}</label>
+        <label className="purple">{`${labelOrigin} (${priority + 1})`}</label>
       </Popover>
-      <label className="purple">{`(${priority})`}</label>
-      
       <label className="yellow" style={{color, backgroundColor}}>{status}</label>
       {
         !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
