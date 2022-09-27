@@ -255,7 +255,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       </Popover>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
       <Popover placement="top" content={<>{project.origin}</>}>
-        <label className="purple">{`${labelOrigin} (${priority + 1})`}</label>
+        <label className="purple">{
+          type === 'WORK_PLAN' ? `${labelOrigin} (${priority + 1})` : `${labelOrigin}`
+        }</label>
       </Popover>
       <label className="yellow" style={{color, backgroundColor}}>{status}</label>
       {
