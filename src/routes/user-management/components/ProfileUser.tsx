@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Input, Layout, Popover, Radio, Row, Select, Table, Tabs } from 'antd';
 
+const { Option } = Select;
 const ProfileUser = ({record}:{record:any}) => {
   
   return <>
@@ -41,7 +42,7 @@ const ProfileUser = ({record}:{record:any}) => {
       <Row>
         <Col xs={{ span: 24}} lg={{ span: 10 }} style={{paddingRight:'20px', display:'flex'}}>
           <Col xs={{ span: 24}} lg={{ span: 12 }} style={{paddingRight:'20px'}}>
-            <Radio style={{marginBottom: '10px'}}>MHFD Senior Manager</Radio><br />
+            <Radio style={{marginBottom: '10px'}} >MHFD Senior Manager</Radio><br />
             <Radio style={{marginBottom: '10px'}}>MHFD Staff</Radio><br />
             <Radio style={{marginBottom: '10px'}}>Local Government</Radio>
           </Col>
@@ -63,13 +64,19 @@ const ProfileUser = ({record}:{record:any}) => {
       <Row>
         <Col xs={{ span: 24}} lg={{ span: 10 }} style={{paddingRight:'20px'}}>
           <h1>AREAS</h1>
-          <Input placeholder="None" style={{marginBottom: '15px'}}/>
+          <Select defaultValue="None" style={{ width: '100%', marginBottom:'10px' }}>
+            <Option value="None">None</Option>
+          </Select>
           <h1>SERVICE AREA</h1>
-          <Input placeholder="Cherry Creek Service Area" style={{marginBottom: '15px'}} />
+          <Select defaultValue="Cherry Creek Service Area" style={{ width: '100%', marginBottom:'10px' }}>
+            <Option value="Cherry Creek Service Area">Cherry Creek Service Area</Option>
+          </Select>
         </Col>
         <Col xs={{ span: 24}} lg={{ span: 10 }} style={{paddingLeft:'20px'}}>
           <h1>COUNTY</h1>
-          <Input placeholder="Doughlas" style={{marginBottom: '15px'}}/>
+          <Select defaultValue="Doughlas" style={{ width: '100%', marginBottom:'10px' }}>
+            <Option value="Doughlas">Doughlas</Option>
+          </Select>
         </Col>
       </Row>
       <br />
@@ -77,7 +84,9 @@ const ProfileUser = ({record}:{record:any}) => {
       <h3>DEFAULT MAP ZOOM AREA</h3>
       <Row>
         <Col xs={{ span: 24}} lg={{ span: 10 }} style={{paddingRight:'20px'}}>
-          <Input placeholder="Mile Highg Flood District" style={{marginBottom: '15px'}}/>
+          <Select defaultValue="Mile Highg Flood District" style={{ width: '100%', marginBottom:'10px' }}>
+            <Option value="Mile Highg Flood District">Mile Highg Flood District</Option>
+          </Select>
           <h1 style={{fontStyle:'italic'}}>Date Registered: JUNE 1, 2020 AT 8:34 AM</h1>
         </Col>
       </Row>

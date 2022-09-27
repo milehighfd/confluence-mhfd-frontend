@@ -218,9 +218,9 @@
     }
   }
   .search{
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
-    height: 75vh;
+    height: calc(100vh - 201px);
     border: 1px solid #E3E5E5;
     border-radius: 5px;
     padding: 15px;
@@ -253,13 +253,27 @@
       }
     }
   }
+  .search::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .search::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .search::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
   .action-items{
     border: 1px solid #E3E5E5;
     border-radius: 5px;
     padding: 15px;
     overflow-y: hidden;
-    overflow-x: hidden;
-    height: 73vh;
+    overflow-x: hidden ;
+    height: calc(100vh - 201px);
     h3{
       color: rgb(17 9 60);
     }
@@ -281,8 +295,8 @@
     }
   }
   .table-body{
-    overflow-y: scroll;
-    height: 75vh;
+    overflow-y: auto;
+    height: calc(100vh - 201px);
     .table-portafolio{
       overflow: hidden;
       margin-bottom: 20px;
@@ -326,6 +340,20 @@
       }
     }
   }
+  .table-body::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .table-body::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .table-body::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
   .calendar-body{
     h1{
       // top: calc(50% - 15px/2 - 306.5px);
@@ -339,12 +367,14 @@
     }
   }
   .phaseview-body{
-    overflow-x: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
+    height: calc(100vh - 205px);
     .phaseview-content{
       width: 145%;
       .container-timeline{
-        overflow-y: scroll;
-        height: 64vh;
+        overflow-y: auto;
+        height: 100%;
       }
       .phaseview-title{
         display: flex;
@@ -438,6 +468,21 @@
       }
     }
   }
+  .phaseview-body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  .phaseview-body::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .phaseview-body::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
 }
 .profile-myprofile{
   background: #FFFFFF;
@@ -460,6 +505,21 @@
     opacity: 0.6;
   }
 }
+.profile-myprofile::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.profile-myprofile::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.profile-myprofile::-webkit-scrollbar-thumb {
+  background: $purple00;
+  border-radius: 10px;
+}
+
 .ant-timeline-item {
   padding-bottom: 0px;
 }
@@ -572,6 +632,20 @@
     .ant-table-content{
       height: calc(100vh - 315px);
       overflow-y: auto;
+    }
+    .ant-table-content::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    .ant-table-content::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    .ant-table-content::-webkit-scrollbar-thumb {
+      background: $purple00;
+      border-radius: 10px;
     }
     tr.ant-table-expanded-row:hover>td, tr.ant-table-expanded-row>td {
       background: #f8f8fa;

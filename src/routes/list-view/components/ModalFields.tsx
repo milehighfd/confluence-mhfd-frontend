@@ -28,7 +28,7 @@ const ModalFields = ({visible, setVisible}: {visible: boolean, setVisible: React
             <div>
               <h1 style={{fontSize:'16px'}}>Project Name<InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></h1>
             </div>
-            <Row style={{height: '326px', overflowY: 'auto', marginBottom:'50px'}}>
+            <Row className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 22}}>
                 <p style={{marginBottom:'15px'}}>Status </p>
                 <p style={{marginBottom:'15px'}}>Estimated Cost <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>

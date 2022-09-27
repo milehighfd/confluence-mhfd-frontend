@@ -25,7 +25,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
-            <Row style={{height: '357px', overflowY: 'auto', marginBottom:'50px'}}>
+            <Row style={{height: '357px', overflowY: 'auto', marginBottom:'50px'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
                 <p style={{marginBottom:'25px'}}>Draft </p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR) </p>

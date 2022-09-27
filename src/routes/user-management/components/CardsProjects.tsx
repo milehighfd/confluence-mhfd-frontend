@@ -117,7 +117,7 @@ const CardsProjects = ({status}:{status:string}) => {
             <Avatar src="/picture/Avatar1.svg" />
             <Avatar src="/picture/Avatar1.svg" />
           </Avatar.Group>
-          <Dropdown overlay={menu} placement="bottomRight">
+          <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
             <MoreOutlined style={{fontSize:'18px'}}/>
           </Dropdown>
         </div>

@@ -1278,7 +1278,25 @@ body{
     float: right;
     background: $white !important;
   }
+  .row-modal-list-view{
+    height: 326px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+  }
+  .row-modal-list-view::-webkit-scrollbar {
+    width: 5px;
+  }
   
+  /* Track */
+  .row-modal-list-view::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .row-modal-list-view::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
 }
 .disabled-btn{
   opacity: 0.5;
