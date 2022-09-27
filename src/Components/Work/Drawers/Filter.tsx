@@ -83,6 +83,31 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, pr
       className="work-utilities"
       mask={false}
     >
+
+<div className="filter-plan">
+        <div className="head-f-p">WORK REQUEST PRIORITY</div>
+        <div className="body-f-p">
+          {
+            priorityFilterList.map((cn: string, index: number) => (
+              <p key={`filter-ps${index}`}>
+                {cn}
+                <span>
+                <Checkbox checked={prioritySelected[index]} onChange={e => {
+                  let v = e.target.checked;
+                  setPrioritySelected(prioritySelected.map((w, i) => {
+                    if (i === index) {
+                      return v;
+                    }
+                    return w;
+                  }))
+                }} />
+                </span>
+              </p>
+            ))
+          }
+        </div>
+      </div>
+
       <div className="filter-plan">
         <div className="head-f-p">JURISDICTION</div>
         <div className="body-f-p">
@@ -131,31 +156,6 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, pr
           }
         </div>
       </div>
-
-      <div className="filter-plan">
-        <div className="head-f-p">{label}</div>
-        <div className="body-f-p">
-          {
-            priorityFilterList.map((cn: string, index: number) => (
-              <p key={`filter-ps${index}`}>
-                {cn}
-                <span>
-                <Checkbox checked={prioritySelected[index]} onChange={e => {
-                  let v = e.target.checked;
-                  setPrioritySelected(prioritySelected.map((w, i) => {
-                    if (i === index) {
-                      return v;
-                    }
-                    return w;
-                  }))
-                }} />
-                </span>
-              </p>
-            ))
-          }
-        </div>
-      </div>
-
      
       <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
         <div> 
