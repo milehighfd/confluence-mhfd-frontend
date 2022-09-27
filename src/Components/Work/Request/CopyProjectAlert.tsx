@@ -26,7 +26,7 @@ export const CopyProjectAlert = ({ visibleAlert, setVisibleAlert, action }: {
     >
       <Row className="detailed-h" gutter={[16, 8]}>
           <Col xs={{ span: 12 }} lg={{ span: 13 }}>
-            <h1 style={{marginTop: '15px'}}>Confirm Deletion
+            <h1 style={{marginTop: '15px'}}>Confirm Copy
             </h1>
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
@@ -35,7 +35,8 @@ export const CopyProjectAlert = ({ visibleAlert, setVisibleAlert, action }: {
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>Please confirm that the project will be copied to current's year board.</p>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>Please confirm that the project will be copied to the current year’s board.
+</p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
