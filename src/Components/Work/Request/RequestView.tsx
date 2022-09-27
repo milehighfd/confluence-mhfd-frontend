@@ -911,7 +911,7 @@ const RequestView = ({ type, isFirstRendering }: {
                                   {
                                     column.projects
                                     .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, jurisdictionFilterList, csaFilterList, p))
-                                    .filter((p: any) => hasPriority(p, prioritySelected))
+                                    .filter((p: any) => hasPriority(p, prioritySelected, columnIdx))
                                     .map((p: any, i: number, arr: any[]) => (
                                       <TrelloLikeCard key={i}
                                         year={year}
