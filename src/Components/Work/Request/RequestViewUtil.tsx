@@ -48,7 +48,7 @@ const checkPriority = (value: number | null, option: string) => {
   console.log('value is ', value, option);
   if (value == null) return true;
   if (option.includes('Over')) {
-    return value >= 2;
+    return value >= 3;
   }
   return value === +option - 1;
 }
