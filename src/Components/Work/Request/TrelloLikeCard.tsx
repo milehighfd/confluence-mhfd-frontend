@@ -4,7 +4,7 @@ import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
 import { useProjectDispatch } from '../../../hook/projectHook';
 import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
-import { deleteData, getToken } from '../../../Config/datasets';
+import { deleteData, getToken, postData } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
 
 import CardStatService from './CardService';
@@ -69,7 +69,25 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }
 
   const copyProjectToCurrent = () => {
-    console.log('copyProjectToCurrent');
+    setLoading(true);
+    postData(
+      `${SERVER.URL_BASE}/create/copy`,
+      {
+        id: project.id,
+        projectid,
+        locality,
+        projecttype: tabKey
+      },
+      getToken()
+    )
+      .then((r) => {
+        console.log('r', r)
+        setLoading(false)
+      })
+      .catch((e) => {
+        console.log('e', e)
+        setLoading(false)
+      })
   };
 
   const content = () => {
