@@ -22,7 +22,22 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}}>
+          <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.3 - September 29, 2022</p>
+            <ul>
+              <li>Updated teams/chats placeholder in the project detail page</li>
+              <li>Added problem parts, land use land cover, and stream improvement measure layers</li>
+              <li>Added problem-based clustering</li>
+              <li>New work request and work plan routing mechanism and design</li>
+              <li>Improved uploader in the 'Create Project' module</li>
+              <li>New problem parts section in the project detail page</li>
+              <li>Updated design for map filters</li>
+              <li>New card and detail page images by project type</li>
+              <li>Improved design for work plan maintenance boards</li>
+              <li>New 3D map sky view</li>
+              <li>New login interface</li>
+              <li>New feedback form in the sidebar</li>
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.2 - July 7, 2022</p>
             <ul>
               <li>Library update MapboxGL v2</li>
