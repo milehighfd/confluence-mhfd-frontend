@@ -119,7 +119,7 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          <Select style={{marginLeft:'11px'}} defaultValue={year} value={year} onChange={setYear}>
+          {tabKey !== 'Maintenance' &&<Select style={{marginLeft:'11px'}} defaultValue={year} value={year} onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{
@@ -127,7 +127,7 @@ const Analytics = ({
                 }</Option>
               ))
             }
-          </Select>
+          </Select>}
         </h5>
       }
       placement="right"
@@ -153,7 +153,17 @@ const Analytics = ({
           }}>{priceFormatter(tcb - totalSum)}</label>  
         </div>
       }
-      <h6 style={{marginTop:'25px'}}>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      <div className="line-01" style={{ marginLeft: '0px' }}></div>
+      {tabKey === 'Maintenance' &&
+        <Select style={{ marginLeft: '-9px' }} defaultValue={year} value={year} onChange={setYear}>
+            {
+              years.map((y, i) => (
+                <Option key={i} value={y}>{ MaintenanceTypes[i]}</Option>
+              ))
+            }
+          </Select>
+      }
+      <h6 style={{marginTop:'10px'}}>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" >
         {maxiQ > 0 &&
         <HorizontalBarChartAnalytics
