@@ -149,11 +149,11 @@ const Analytics = ({
           />
           <h6>Contingency</h6>
           <label style={{
-            color: tcb - totalSum < 0 ? 'red': 'black'
+            color: tcb - totalSum < 0 ? 'red': 'black', fontSize:'16px'
           }}>{priceFormatter(tcb - totalSum)}</label>  
         </div>
       }
-      <h6>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
+      <h6 style={{marginTop:'25px'}}>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" >
         {maxiQ > 0 &&
         <HorizontalBarChartAnalytics
