@@ -732,6 +732,7 @@ const RequestView = ({ type, isFirstRendering }: {
         setVisible={setShowAnalytics}
         tabKey={tabKey}
         data={sumByCounty}
+        totals={sumTotal}
         initialYear={year}
       />
     }

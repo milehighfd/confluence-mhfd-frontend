@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Select, Popover } from 'antd';
+import { Drawer, Select, Popover, InputNumber } from 'antd';
 import HorizontalBarChartAnalytics from "../../FiltersProject/NewProblemsFilter/HorizontalBarChartAnalytics";
-import { formatter, MaintenanceTypes } from "../Request/RequestViewUtil";
+import { formatter, MaintenanceTypes, priceFormatter, priceParser } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 import { boardType } from "../Request/RequestTypes";
+import Input from 'antd/lib/input/Input';
 
 const { Option } = Select;
 
 const Analytics = ({
-  type, visible, setVisible, data, tabKey, initialYear
+  type, visible, setVisible, data, tabKey, initialYear, totals
 }: {
   type: boardType,
   visible: boolean,
   setVisible: Function,
   data: any,
   tabKey: string,
-  initialYear: number
+  initialYear: number,
+  totals: any
 }) => {
+  console.log(totals);
+  const [totalSum, setTotalSum] = useState(0);
   const getLabel = ()=>{
     if(tabKey == 'Capital' || tabKey == 'Maintenance') {
       return "County"
@@ -34,6 +38,7 @@ const Analytics = ({
       This graphic indicates the dollar amount of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
     </div>
   );
+  const [tcb, setTcb] = useState(0);
   const [width, setWidth]   = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
   const updateDimensions = () => {
@@ -45,6 +50,13 @@ const Analytics = ({
       return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   const [year, setYear] = useState(+initialYear);
+  useEffect(() => {
+    let sum = 0;
+    for (let i = 1; i <= 5; i++) {
+      sum += totals[`req${i}`];
+    }
+    setTotalSum(sum);
+  }, [totals]);
   useEffect(() => {
     setYear(initialYear);
   }, [initialYear]);
@@ -105,6 +117,21 @@ const Analytics = ({
       className="work-utilities"
       mask={false}
     >
+      { type === 'WORK_PLAN' && tabKey === 'Maintenance' &&
+        <div>
+          <h6>Total County Budget</h6>
+          <InputNumber className="rheostat-input" size='large' min={0}
+            formatter={priceFormatter}
+            parser={priceParser}
+            value={tcb} onChange={(e: any) => {
+              console.log(e);
+              setTcb(e);
+            }} 
+          />
+          <h6>Contingency</h6>
+          <label>{priceFormatter(totalSum - tcb)}</label>  
+        </div>
+      }
       <h6>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" >
         {maxiQ > 0 &&
