@@ -80,6 +80,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [boardComment, setBoardComment] = useState(null);
   const [showModalProject, setShowModalProject] = useState(false);
   const [showCreateProject, setShowCreateProject] = useState(false);
+  const [totalCountyBudget, setTotalCountyBudget] = useState(0);
   const history = useHistory();
   const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
@@ -372,6 +373,8 @@ const RequestView = ({ type, isFirstRendering }: {
           let { board, projects } = r;
           ProjectEditService.setProjects(projects);
           if (board) {
+            // here
+            setTotalCountyBudget(board.total_county_budget || 0);
             setBoardStatus(board.status);
             setBoardSubstatus(board.substatus);
             setBoardComment(board.comment);
@@ -734,6 +737,8 @@ const RequestView = ({ type, isFirstRendering }: {
         data={sumByCounty}
         totals={sumTotal}
         initialYear={year}
+        totalCountyBudget={totalCountyBudget}
+        boardId={namespaceId}
       />
     }
     {

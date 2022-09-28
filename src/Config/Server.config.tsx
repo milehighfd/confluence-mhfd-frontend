@@ -224,6 +224,7 @@ export const SERVER = (function () {
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
+        UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/board/update-budget/${id}`,
         GET_CONFIGURATIONS: (key: string) => {
             return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
         },

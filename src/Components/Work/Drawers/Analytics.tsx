@@ -5,11 +5,13 @@ import { formatter, MaintenanceTypes, priceFormatter, priceParser } from "../Req
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 import { boardType } from "../Request/RequestTypes";
 import Input from 'antd/lib/input/Input';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from '../../../Config/Server.config';
 
 const { Option } = Select;
 
 const Analytics = ({
-  type, visible, setVisible, data, tabKey, initialYear, totals
+  type, visible, setVisible, data, tabKey, initialYear, totals, totalCountyBudget, boardId
 }: {
   type: boardType,
   visible: boolean,
@@ -17,9 +19,10 @@ const Analytics = ({
   data: any,
   tabKey: string,
   initialYear: number,
-  totals: any
+  totals: any,
+  totalCountyBudget: number,
+  boardId: any
 }) => {
-  console.log(totals);
   const [totalSum, setTotalSum] = useState(0);
   const getLabel = ()=>{
     if(tabKey == 'Capital' || tabKey == 'Maintenance') {
@@ -38,7 +41,7 @@ const Analytics = ({
       This graphic indicates the dollar amount of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
     </div>
   );
-  const [tcb, setTcb] = useState(0);
+  const [tcb, setTcb] = useState(totalCountyBudget);
   const [width, setWidth]   = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
   const updateDimensions = () => {
@@ -50,6 +53,18 @@ const Analytics = ({
       return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   const [year, setYear] = useState(+initialYear);
+
+  useEffect(() => {
+    datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
+      budget: tcb
+    }).then((data) => {
+      console.log(data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  }, [tcb]);
+
   useEffect(() => {
     let sum = 0;
     for (let i = 1; i <= 5; i++) {
