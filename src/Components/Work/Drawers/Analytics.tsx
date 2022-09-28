@@ -148,7 +148,9 @@ const Analytics = ({
             }} 
           />
           <h6>Contingency</h6>
-          <label>{priceFormatter(tcb - totalSum)}</label>  
+          <label style={{
+            color: tcb - totalSum < 0 ? 'red': 'black'
+          }}>{priceFormatter(tcb - totalSum)}</label>  
         </div>
       }
       <h6>Requests by {groupingType} <Popover content={contentCounty} placement="top" > <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
