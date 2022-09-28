@@ -12,6 +12,7 @@ import PortfolioView from './routes/portfolio-view';
 import UserManagement from './routes/user-management';
 import MyProfile from './routes/my-profile';
 import ListView from './routes/list-view';
+import DetailPage from './routes/detail-page';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
@@ -49,7 +50,7 @@ const App = () => {
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
         <Route path={`/list-view`} component={ListView} />
         <Route path={`/portfolio-list-view`} component={PortfolioView} />
-        <Route path={`/detail-page`} component={PortfolioView} />
+        <Route path={`/detail-page`} component={DetailPage} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
