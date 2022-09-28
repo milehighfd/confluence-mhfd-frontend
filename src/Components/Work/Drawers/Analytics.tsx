@@ -55,6 +55,10 @@ const Analytics = ({
   const [year, setYear] = useState(+initialYear);
 
   useEffect(() => {
+    setTcb(totalCountyBudget);
+  }, [totalCountyBudget]);
+
+  useEffect(() => {
     datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
       budget: tcb
     }).then((data) => {
@@ -72,6 +76,7 @@ const Analytics = ({
     }
     setTotalSum(sum);
   }, [totals]);
+
   useEffect(() => {
     setYear(initialYear);
   }, [initialYear]);
@@ -139,7 +144,6 @@ const Analytics = ({
             formatter={priceFormatter}
             parser={priceParser}
             value={tcb} onChange={(e: any) => {
-              console.log(e);
               setTcb(e);
             }} 
           />
