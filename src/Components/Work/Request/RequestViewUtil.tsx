@@ -177,6 +177,9 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
 }
 
 export const priceFormatter = (value: any) => {
+  if (value < 0) {
+    return `-$${Math.floor(value * -1)}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   return `$${Math.floor(value)}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
