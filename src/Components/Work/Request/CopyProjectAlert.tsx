@@ -43,7 +43,7 @@ export const CopyProjectAlert = ({ visibleAlert, setVisibleAlert, action }: {
                 <button className="btn-borde" onClick={handleCancel} style={{width: '95%'}}>Cancel</button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>
-                <button className="btn-purple"  style={{width: '95%'}} onClick={handleOk}><span>Copy</span></button>
+                <button className="btn-purple"  style={{width: '95%'}} onClick={handleOk}><span>Confirm</span></button>
               </Col>
           <Col>
     </Col>
