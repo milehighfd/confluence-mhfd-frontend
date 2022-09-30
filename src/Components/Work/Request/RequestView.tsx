@@ -374,6 +374,7 @@ const RequestView = ({ type, isFirstRendering }: {
           ProjectEditService.setProjects(projects);
           if (board) {
             // here
+            console.log('needs update ', board.total_county_budget);
             setTotalCountyBudget(board.total_county_budget || 0);
             setBoardStatus(board.status);
             setBoardSubstatus(board.substatus);

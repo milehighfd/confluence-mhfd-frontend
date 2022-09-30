@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Select, Popover, InputNumber } from 'antd';
+import { Drawer, Select, Popover, InputNumber, Button } from 'antd';
 import HorizontalBarChartAnalytics from "../../FiltersProject/NewProblemsFilter/HorizontalBarChartAnalytics";
 import { formatter, MaintenanceTypes, priceFormatter, priceParser } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
@@ -55,10 +55,11 @@ const Analytics = ({
   const [year, setYear] = useState(+initialYear);
 
   useEffect(() => {
+    console.log('my ', totalCountyBudget);
     setTcb(totalCountyBudget);
   }, [totalCountyBudget]);
 
-  useEffect(() => {
+  const clickUpdate = () => {
     datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
       budget: tcb
     }).then((data) => {
@@ -67,7 +68,7 @@ const Analytics = ({
     .catch((e) => {
       console.log(e);
     });
-  }, [tcb]);
+  };
 
   useEffect(() => {
     let sum = 0;
@@ -151,6 +152,12 @@ const Analytics = ({
           <label style={{
             color: tcb - totalSum < 0 ? 'red': 'black', fontSize:'16px'
           }}>{priceFormatter(tcb - totalSum)}</label>  
+          <br></br>
+          <Button
+            onClick={clickUpdate}
+          >
+            Save Total County Budget
+          </Button>
         </div>
       }
       <div className="line-01" style={{ marginLeft: '0px' }}></div>
