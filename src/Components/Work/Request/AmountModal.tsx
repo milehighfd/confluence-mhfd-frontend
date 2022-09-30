@@ -198,6 +198,15 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       }
       {
         showTwoNextYears && <>
+          {!showFirst && <><p>{nextYear1Label - 1}</p>
+          <InputNumber min={0}
+            formatter={priceFormatter}
+            parser={priceParser}
+            value={year0} onChange={setYear0}
+          />
+          <Button className="button-close" onClick={() => setYear0(null)}>
+            <img src="/Icons/icon-23.svg" />
+          </Button></>}
           <p>{nextYear1Label}</p>
           <InputNumber min={0}
             formatter={priceFormatter}
