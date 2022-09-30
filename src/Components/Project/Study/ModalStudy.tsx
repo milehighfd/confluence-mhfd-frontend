@@ -10,13 +10,8 @@ import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
 import { JURISDICTION, NEW_PROJECT_TYPES, STREAMS_FILTERS, ADMIN, STAFF } from "../../../constants/constants";
 import store from "../../../store";
-import {
-  PROBLEMS_TRIGGER,
-  XSTREAMS,
-  MHFD_BOUNDARY_FILTERS,
-} from "../../../constants/constants";
 import { useProfileState } from "../../../hook/profileHook";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 const { Panel } = Collapse;
@@ -70,6 +65,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [studyreason, setStudyReason] = useState();
   const [studysubReason, setStudySubReason] = useState();
   const history = useHistory();
+  const location = useLocation();
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
@@ -163,10 +159,14 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   useEffect(() => {
     if (save === true) {
       let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
-      let params = new URLSearchParams(history.location.search)
-      let _year = params.get('year');
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      const isWorkPlan = location.pathname.includes('work-plan');
       var study = new Project();
-      study.year = _year ? _year : study.year;
+      study.locality = _locality;
+      study.isWorkPlan = isWorkPlan;
+      study.year = _year ?? study.year;
       study.projectname = nameProject;
       study.description = description;
       let cservice = "";

@@ -41,6 +41,7 @@ export class Project {
     sendToWR: boolean;
     componentcost?: any;
     componentcount?: any;
+    isWorkPlan: boolean;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -71,5 +72,6 @@ export class Project {
         this.studyreason = "";
         this.studysubreason = "";
         this.sendToWR = false;
+        this.isWorkPlan = false;
     }
 }

@@ -4,17 +4,16 @@ import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { getData, getToken, postData } from "../../../Config/datasets";
-import { useProjectDispatch, useProjectState } from "../../../hook/projectHook";
-import { Project, Geom } from "../../../Classes/Project";
+import { getData, getToken } from "../../../Config/datasets";
+import { useProjectDispatch } from "../../../hook/projectHook";
+import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
 
@@ -65,6 +64,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [cover, setCover] = useState('');
   var date = new Date();
   const history = useHistory();
+  const location = useLocation();
   var year = date.getFullYear();
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
@@ -76,10 +76,14 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
 
   useEffect(() => {
     if (save === true) {
-      let params = new URLSearchParams(history.location.search)
-      let _year = params.get('year');
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      const isWorkPlan = location.pathname.includes('work-plan');
       var acquisition = new Project();
-      acquisition.year = _year ? _year : acquisition.year;
+      acquisition.locality = _locality;
+      acquisition.isWorkPlan = isWorkPlan;
+      acquisition.year = _year ?? acquisition.year;
       let cservice = "";
       serviceArea.map((element: any) => {
         cservice = cservice + element + ",";

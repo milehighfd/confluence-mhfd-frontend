@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
 import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
@@ -8,10 +7,10 @@ import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation"
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { Geom, Project } from "../../../Classes/Project";
+import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { GOVERNMENT_STAFF, JURISDICTION } from "../../../constants/constants";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
 import { ADMIN, STAFF } from "../../../constants/constants";
@@ -136,14 +135,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [cover, setCover] = useState('');
   const history = useHistory();
+  const location = useLocation();
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
-
   const pageWidth  = document.documentElement.scrollWidth;
-
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -272,10 +270,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
 
     if (save === true){
-      let params = new URLSearchParams(history.location.search)
-      let _year = params.get('year');
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      const isWorkPlan = location.pathname.includes('work-plan');
       var capital = new Project();
-      capital.year = _year ? _year : capital.year;
+      capital.locality = _locality;
+      capital.isWorkPlan = isWorkPlan;
+      capital.year = _year ?? capital.year;
       let cservice = "";
       serviceArea.map((element:any) => {
         cservice= cservice + element + ",";

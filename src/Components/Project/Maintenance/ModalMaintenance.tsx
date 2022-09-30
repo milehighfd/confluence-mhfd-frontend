@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Modal, Button, Row, Col, Popover, Select, Switch, Checkbox } from 'antd';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
@@ -11,7 +10,7 @@ import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
@@ -65,6 +64,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
+  const location = useLocation();
   const textRef = useRef<any>(null);
   const [textAreaWidth, setTextAreaWidth] = useState(261);
   const appUser = store.getState().appUser;
@@ -161,10 +161,14 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [data]);
   useEffect(() => {
     if (save === true) {
-      let params = new URLSearchParams(history.location.search)
-      let _year = params.get('year');
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      const isWorkPlan = location.pathname.includes('work-plan');
       var maintenance = new Project();
-      maintenance.year = _year ? _year : maintenance.year;
+      maintenance.locality = _locality;
+      maintenance.isWorkPlan = isWorkPlan;
+      maintenance.year = _year ?? maintenance.year;
       let cservice = "";
       serviceArea.map((element: any) => {
         cservice = cservice + element + ",";

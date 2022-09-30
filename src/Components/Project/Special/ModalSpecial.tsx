@@ -4,7 +4,6 @@ import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { SERVER } from "../../../Config/Server.config";
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { DropPin } from "../TypeProjectComponents/DropPin";
 import { getData, getToken } from "../../../Config/datasets";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
@@ -44,13 +43,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [geom, setGeom] = useState();
   const [files, setFiles] = useState<any[]>([]);
   const [cover, setCover] = useState('');
-  const [name, setName ] = useState(false);
-  const [disableName, setDisableName ] = useState(true);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
+
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
 
@@ -118,11 +116,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   },[data]);
   useEffect(()=>{
     if (save === true){
-      console.log("FILES", files);
-      let params = new URLSearchParams(history.location.search)
-      let _year = params.get('year');
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      const isWorkPlan = location.pathname.includes('work-plan');
       var special = new Project();
-      special.year = _year ? _year : special.year;
+      special.locality = _locality;
+      special.isWorkPlan = isWorkPlan;
+      special.year = _year ?? special.year;
       special.servicearea = serviceArea+ "";
       special.county = county+"";
       special.jurisdiction= jurisdiction+"";
@@ -178,16 +179,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setSponsor(locality);
     }
   },[organization]);
-  const apllyName = ()=>{
-    if(name === true){
-      setDisableName(true);
-      setName(false);
-    }
-    else{
-      setDisableName(false);
-      setName(true);
-    }
-  };
   const handleOk = (e: any) => {
      setVisibleAlert( true);
   };
