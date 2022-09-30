@@ -153,11 +153,16 @@ const Analytics = ({
             color: tcb - totalSum < 0 ? 'red': 'black', fontSize:'16px'
           }}>{priceFormatter(tcb - totalSum)}</label>  
           <br></br>
-          <Button
-            onClick={clickUpdate}
-          >
-            Save Total County Budget
-          </Button>
+          <div style={{textAlign:'end'}}>
+            <Button
+              className="btn-purple"
+              style={{marginTop:'10px', marginBottom:'10px'}}
+              onClick={clickUpdate}
+            >
+              Save Total County Budget
+            </Button>
+          </div>
+          
         </div>
       }
       <div className="line-01" style={{ marginLeft: '0px' }}></div>
