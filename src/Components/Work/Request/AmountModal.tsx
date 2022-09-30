@@ -198,7 +198,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       }
       {
         showTwoNextYears && <>
-          {!showFirst && <><p>{nextYear1Label - 1}</p>
+          {!showFirst && !showSecond && !showThird && !showFourth && !showFifth && <><p>{nextYear1Label - 1}</p>
           <InputNumber min={0}
             formatter={priceFormatter}
             parser={priceParser}
