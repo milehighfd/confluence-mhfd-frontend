@@ -12,7 +12,7 @@ import { Project} from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
 
@@ -48,6 +48,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
+  const location = useLocation();
 
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
