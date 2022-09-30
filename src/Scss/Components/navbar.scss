@@ -3,7 +3,7 @@
 // NAVBAR
 .card-dropdown{
   width: 220px;
-    height: 290px;
+    max-height: 290px;
     overflow-y: scroll;
     background: #FFFFFF;
     border: 1px solid #E3E5E5;
@@ -153,6 +153,18 @@
   background: white !important;
   color: $green;
   font-weight: bold;
+}
+.menu-density{
+  .ant-dropdown-menu-item-active {
+    background: #e4e8fe !important;
+    color: #1e1748 !important;
+    font-weight: 500 !important;
+  }
+  .ant-dropdown-menu-item-active {
+    background: #e4e8fe !important;
+    color: #1e1748 !important;
+    font-weight: 500 !important;
+  }
 }
 .tutorial{
   .btn-question{

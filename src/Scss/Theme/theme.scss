@@ -328,6 +328,59 @@ body{
     display: none;
   }
 }
+.action-modal {
+  width: 760 !important;
+
+  /* Default close button */
+  .ant-modal-close {
+    display: none;
+  }
+  /* Body of the Modal */
+  .ant-modal-body {
+    padding: 0;
+    // height: 800px;
+  }
+  /* Moldal's Footer */
+  .ant-modal-footer {
+    display: none;
+  }
+  .action-body{
+    padding: 25px;
+    p {
+      color: $purple00;
+    }
+    .text-action{
+      background: #f8f8fa;
+      border: none;
+      margin-left: 20px;
+      width: 95.5%;
+    }
+    .ant-badge-count, .ant-badge-dot, .ant-badge .ant-scroll-number-custom-component {
+      top: 21px;
+    }
+    .ant-badge-dot {
+      background: #28C499;
+    }
+    .badge-inactive{
+      .ant-badge-dot {
+        background: #FDB32B;
+      }
+    }
+    .content-progress{
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      background: #f8f8fa;
+      padding: 3px 10px;
+      border: 1px solid #11093c;
+      border-radius: 3px;
+      align-items: center;
+      color: #11093C;
+    }
+  }
+}
 .detailed-version {
   width: 800px !important;
 
@@ -1406,6 +1459,90 @@ body{
     background-color: rgb(0 0 0 / 0%);
   }
 }
+.timeline-detail{
+  .ant-timeline.ant-timeline-label .ant-timeline-item-label {
+    width: calc(14% - 12px);
+    color: #11093c;
+  }
+  .ant-timeline.ant-timeline-alternate .ant-timeline-item-head, .ant-timeline.ant-timeline-alternate .ant-timeline-item-head-custom, .ant-timeline.ant-timeline-alternate .ant-timeline-item-tail, .ant-timeline.ant-timeline-label .ant-timeline-item-head, .ant-timeline.ant-timeline-label .ant-timeline-item-head-custom, .ant-timeline.ant-timeline-label .ant-timeline-item-tail, .ant-timeline.ant-timeline-right .ant-timeline-item-head, .ant-timeline.ant-timeline-right .ant-timeline-item-head-custom, .ant-timeline.ant-timeline-right .ant-timeline-item-tail {
+    left: 16%;
+  }
+  .ant-timeline.ant-timeline-alternate .ant-timeline-item-left .ant-timeline-item-content, .ant-timeline.ant-timeline-label .ant-timeline-item-left .ant-timeline-item-content, .ant-timeline.ant-timeline-right .ant-timeline-item-left .ant-timeline-item-content {
+    left: calc(17% - 4px);
+    width: calc(86% - 14px);
+  }
+  .ant-timeline-item-head-blue {
+    color: #e6e9ea;
+    border-color: #d9dcdd;
+  }
+  .ant-timeline-item-head {
+    background-color: #d9dcdd;
+  }
+  .notes{
+    border: 1px solid #dddbe3;
+    border-radius: 5px;
+    padding: 10px;
+    p{
+      // font-size: 12px;
+    }
+  }
+  .menu-density{
+    .ant-dropdown-menu-item-active {
+      background: #e4e8fe !important;
+      color: #1e1748;
+      font-weight: 500;
+    }
+    .ant-dropdown-menu-item-active {
+      background: #e4e8fe !important;
+      color: #1e1748;
+      font-weight: 500;
+    }
+  }
+  .action-item{
+    background: #f8f8fa;
+    padding: 10px;
+    border-radius: 5px;
+    .action-text{
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      
+    }
+    .anticon.anticon-paper-clip {
+      display: inline;
+    }
+    .circulo {
+      width: 8px;
+      height: 7px;
+      border-radius: 50%;
+      background: #40cba4;
+      margin-top: 3px;
+      margin-right: 6px;
+    }
+    .title{
+      font-weight: 700;
+      display: flex;
+      margin-bottom: 10px;
+      color: #11093C;
+    }
+    .in-progress{
+      background: #eafaf5;
+      padding: 5px 8px;
+      border-radius: 3px;
+      color: #28c499;
+      margin-left: 5px;
+    }
+  }
+}
+.span-wp{
+  background: #eafaf5;
+  padding: 5px 12px;
+  border-radius: 3px;
+  color: #28c499;
+  margin-right: 5px;
+}
 .phaseview-timeline{
   margin-top: -7px;
   .ant-steps {
@@ -1418,7 +1555,21 @@ body{
   }
   .border-active {
     font-size: 15px;
-    background-color: #beaef3;
+    background: #c0b9da;
+    padding: 2px;
+    border-radius: 50%;
+    padding-bottom: 3px;
+  }
+  .border-active-active {
+    font-size: 15px;
+    background: #917cd9;
+    padding: 2px;
+    border-radius: 50%;
+    padding-bottom: 3px;
+  }
+  .border-inactive {
+    font-size: 15px;
+    background: transparent;
     padding: 2px;
     border-radius: 50%;
     padding-bottom: 3px;
@@ -1428,10 +1579,25 @@ body{
     color: white;
     padding: 2px 7px;
     border-radius: 100%;
-    background: #beaef3;
+    background: #c0b9da;
+  }
+  .active-active{
+    font-size: 12px;
+    color: white;
+    padding: 2px 7px;
+    border-radius: 100%;
+    background: #917cd9;
+  }
+  .inactive{
+    font-size: 12px;
+    color: #d1cfde;
+    padding: 2px 7px;
+    border-radius: 100%;
+    background: #fbfbfb;
+    border: 1px solid #d3d1e0;
   }
   .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
-    background-color: #bfaff4;
+    background: #c0b9da;
     top: 19px;
   }
 }
