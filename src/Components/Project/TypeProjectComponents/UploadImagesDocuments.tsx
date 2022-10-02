@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import type { ColumnsType } from 'antd/es/table';
-import { Button, Row, Col, Popover, Checkbox, Table, Tag, Modal, Input } from 'antd';
+import React, { useState, useEffect } from "react";
+import { Button, Row, Col, Table, Tag } from 'antd';
 import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
-import { Attachment } from "../../Work/Request/RequestTypes";
 import { saveAs } from 'file-saver';
-import { text } from "d3";
-import { CloudDownloadOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { CloudDownloadOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 
 interface DataType {
@@ -14,7 +11,6 @@ interface DataType {
   age: number;
   address: string;
 }
-let counter = 0;
 export const UploadImagesDocuments = ({isCapital, setFiles }: {
   isCapital?: any, setFiles: any
 }) => {
@@ -28,7 +24,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
   const { attachments } = useAttachmentState();
-  const { deleteAttachment, toggleAttachmentCover } = useAttachmentDispatch();
+  const { deleteAttachment } = useAttachmentDispatch();
   const getTypeImage = (mimetype: any) => {
     if ( mimetype.includes('png') ) {
       return 'png';

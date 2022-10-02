@@ -3,7 +3,6 @@ import { Row, Col, Popover, Select } from 'antd';
 import '../../../Scss/Components/projects.scss';
 import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
-import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 
@@ -55,12 +54,11 @@ export const LocationInformation = ({
   const content03 = (<div className="popver-info">This is the primary local government sponsor that is requesting the project. By default, this attribute matches that of the Work Request. If changed, this project will be sent to the corresponding Work Request.</div>);
   const content04 = (<div className="popver-info">This is a list of all potential local government co-sponsors which might contribute funding or otherwise participate in the {getLabel()}.</div>);
 
-  const { currentServiceAreaCounty, jurisdiction } = useProjectState();
+  const { currentServiceAreaCounty } = useProjectState();
   const { setServiceAreaCounty } = useProjectDispatch();
-  const { groupOrganization } = useProfileState();
-  const [sArea, setSArea] = useState(undefined);
-  const [sCounty, setSCounty] = useState(undefined);
-  const [disable, setdisable] = useState(!editable);
+  const [, setSArea] = useState(undefined);
+  const [, setSCounty] = useState(undefined);
+  const [disable] = useState(!editable);
   const user = store.getState().profile.userInformation;
 
 
@@ -97,20 +95,12 @@ export const LocationInformation = ({
   }, []);
 
   useEffect(() => {
-    if (!isLocalGovernment && jurisdiction && !isEdit) {
-      // setSponsor([jurisdiction]);
-    }
-  }, [jurisdiction]);
-  useEffect(() => {
     if (editable) {
       if (currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
         let SA = serviceArea;
         currentServiceAreaCounty['Service Area'].map((element: any) => {
           let service = true;
-          // if (element.includes('Service Area')) {
-          //   element = element.replace(' Service Area', '');
-          // }
           if (SA) {
             SA.map((data: any) => {
               if (element.includes(data)) { service = false; }
@@ -124,9 +114,6 @@ export const LocationInformation = ({
         setSCounty(currentServiceAreaCounty['County']);
         let C = county;
         currentServiceAreaCounty['County'].map((element: any) => {
-          // if (element.includes('County')) {
-          //   element = element.replace(' County', '');
-          // }
           let service = true;
           if (C) {
             C.map((data: any) => {

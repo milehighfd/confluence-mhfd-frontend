@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Tabs, Popover, Spin } from 'antd';
-import Collaborators from "./Collaborators";
 import TabPaneView from "./TabPaneView";
 import UserInformationView from "./UserInformationView";
 
@@ -61,7 +60,6 @@ const ProfileBody = () => {
           </Tabs>
         </Spin>
       </Col>
-      {/* <Collaborators /> */}
     </Row>
   </>
   )

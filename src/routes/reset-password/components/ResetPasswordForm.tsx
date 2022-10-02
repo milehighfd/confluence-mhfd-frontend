@@ -42,7 +42,7 @@ const ResetPasswordForm = () => {
       }
     });
   }
-  const { values, handleSubmit, errors, touched } = useFormik({
+  const { values, errors, touched } = useFormik({
     initialValues: {
       email: '',
       recaptcha: ''

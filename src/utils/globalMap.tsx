@@ -57,7 +57,6 @@ export const addHistoric = (location: any) => {
     location.id = generateId();
   }
   console.log(location);
-  const currentId = cc;
   lastId = cc++;
   setTimeout(() => {
     const findLocation = lastMaps.find((l: any) => l.id === location.id);

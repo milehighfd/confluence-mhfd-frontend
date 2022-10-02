@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 import { Button } from 'antd';
-import { CHART_CONSTANTS, CHART_CONSTANTS_INV } from './Charts.constants';
+import { CHART_CONSTANTS } from './Charts.constants';
 
 const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => {
   const svgRef = useRef<SVGSVGElement>(null);

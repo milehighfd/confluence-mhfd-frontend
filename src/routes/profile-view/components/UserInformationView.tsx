@@ -30,10 +30,6 @@ const UserInformationView = ({
   const content = (<div className="popoveer-00">Number of Projects among your Favorites of each Project Type.</div>);
 
   const [ fileImage, setFileImage ] = useState({ uid: ''});
-  let total = 0;
-  (countProjects || []).forEach((element: any) => {
-    total += element.count
-  });
   const beforeUpload = (file: any) => {
     const isLt2M = file.size / 1024 / 1024 < 5;
     if (!isLt2M) {

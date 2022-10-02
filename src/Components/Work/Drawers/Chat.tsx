@@ -7,9 +7,6 @@ export default () => {
    const showDrawer = () => {
      setVisible(true);
    };
-   const onClose = () => {
-     setVisible(false);
-   };
   return (
     <>
     <Button onClick={showDrawer} >

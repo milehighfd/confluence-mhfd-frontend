@@ -61,7 +61,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
-  const [cover, setCover] = useState('');
   var date = new Date();
   const history = useHistory();
   const location = useLocation();
@@ -128,7 +127,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.files = files;
       acquisition.editProject = editprojectid;
       acquisition.locality = locality ? locality : '';
-      acquisition.cover = cover;
+      acquisition.cover = '';
       acquisition.sendToWR = sendToWR;
       files.forEach((file:any) => {
         if(file._id) {

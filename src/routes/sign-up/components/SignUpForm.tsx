@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Menu, Dropdown, MenuProps } from 'antd';
-import { ROLES, GOVERNMENT_STAFF, DROPDOWN_ORGANIZATION, CONSULTANT, OTHER, STAFF, GOVERNMENT_ADMIN, ADMIN } from "../../../constants/constants";
+import { ROLES, GOVERNMENT_STAFF, CONSULTANT, OTHER, STAFF, ADMIN } from "../../../constants/constants";
 import { Redirect, Link } from "react-router-dom";
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
@@ -21,7 +21,6 @@ const SignUpForm = () => {
   const [title, setTitle] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [targetButton, setTargetButton] = useState(STAFF_CONSTANT);
-  const [organization, setOrganization] = useState(ROLES[0].options);
   const [other, setOther] = useState({ value: '', visible: false });
   const [organizationList, setOrganizationList] = useState<any[]>([]);
   const [consultantList, setConsultantList] = useState<any[]>([]);
@@ -167,7 +166,6 @@ const SignUpForm = () => {
               values.organization = role.value === STAFF ? MILE_HIGH_FLOOD_DISTRICT : '';
               const auxTitle = role.value;
               setTargetButton(role.value);
-              setOrganization(role.options);
               setTitle(auxTitle);
               const auxOther = { ...other };
               auxOther.value = '';

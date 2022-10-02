@@ -40,7 +40,6 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
     }
 }
 export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => {
-  const colorElem = document.getElementById(`color${_index}`);
   const colorable = document.getElementById('colorable');
   if(colorable != null) {
     colorable.style.color = _el.color

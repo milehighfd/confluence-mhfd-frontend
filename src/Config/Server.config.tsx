@@ -52,7 +52,6 @@ export const SERVER = (function () {
     const UPDATE = 'update';
     const DRIVE = 'drive';
     const GET_IMAGE_DRIVE = 'get-images-drive';
-    const GET_POSITION = 'get-position';
     const GET_FILES = 'get-files';
     const REMOVE = 'remove'
     const TOGGLE = 'toggle'

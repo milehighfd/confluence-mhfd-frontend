@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Input, Button } from 'antd';
+import { Row, Col } from 'antd';
 import { DownOutlined, SearchOutlined, SendOutlined, UpOutlined } from '@ant-design/icons';
 
 export default () => {

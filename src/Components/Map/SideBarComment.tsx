@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Button, Menu, List, Dropdown } from 'antd';
-import { CheckOutlined } from '@ant-design/icons';
+import { Drawer, Button, Menu, Dropdown } from 'antd';
 import { useNoteDispatch, useNotesState } from "../../hook/notesHook";
 import { useColorListDispatch, useColorListState } from "../../hook/colorListHook";
-import { useProfileState } from "../../hook/profileHook";
 import { Tree } from '../Tree/Tree';
 import { divListOfelements } from './../Map/commetsFunctions';
 
-const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, swSave, setSwSave}:
-  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, swSave:boolean, setSwSave:Function }) => {
+const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, setSwSave}:
+  {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, setSwSave:Function }) => {
   const DEFAULT_COLOR = '#FFE121';
   const { notes, groups, availableColors } = useNotesState();
   const { colorsList } = useColorListState();
-  const {  deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup } = useNoteDispatch();
+  const { deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup } = useNoteDispatch();
   const { setIdsFilter } = useColorListDispatch();
-  const [filter, setFilter] = useState('all');
-  const { userInformation } = useProfileState();
   const [tree, setTree] = useState([] as any);
   const [currentSelected, setCurrentSelected] = useState([] as any);
 
@@ -100,8 +96,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   }, [notes, groups]);
 
   useEffect(()=>{
-    changeFilter(filter);
-  },[filter]);
+    changeFilter('all');
+  },[changeFilter]);
   const resetFilters = () => {
     const newValues = currentSelected.map((elem:any) => {
       elem.selected = false;
@@ -167,79 +163,12 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     <Menu onClick={onSelectCreateOption} items={items} />
   );
 
-  const data = [
-    <><div onClick={() => {setFilter('all')}}> <i className="mdi mdi-circle-medium" style={{color:'rgba(37, 24, 99, 0.5)'}}></i> All Types {filter === 'all' ? <CheckOutlined /> : <></>}</div></> ,
-    <><div onClick={() => {setFilter('red')}}><i className="mdi mdi-circle-medium" style={{color:'#FF0000'}}></i> Red {filter === 'red' ? <CheckOutlined /> : <></>}</div></> ,
-    <><div onClick={() => setFilter('orange')}><i className="mdi mdi-circle-medium" style={{color:'#FA6400'}}></i> Orange {filter === 'orange' ? <CheckOutlined /> : <></>}</div></> ,
-    <><div onClick={() => setFilter('grey')}><i className="mdi mdi-circle-medium" style={{color:'rgba(00, 00, 00, 0.3)'}}></i> Grey {filter === 'grey' ? <CheckOutlined /> : <></>}</div></> ,
-    <><div onClick={() => setFilter('yellow')}><i className="mdi mdi-circle-medium" style={{color:'#ffbf00'}}></i> Yellow {filter === 'yellow' ? <CheckOutlined /> : <></>}</div></> ,
-  ];
-
-  const content = (
-    <List
-      size="small"
-      bordered
-      dataSource={data}
-      renderItem={item => <List.Item>{item}</List.Item>}
-    />
-  );
-  const backgroundColor = '#D1D1D1';
-  const colors = {
-    RED: '#FF0000',
-    ORANGE: '#FA6400',
-    GREY: 'rgb(00, 00, 00, 0.2)',
-    YELLOW: '#ffbf00'
-  };  
-  const getColor = (color: any) => {
-    switch(color) {
-      case 'yellow':
-        return colors.YELLOW;
-      case 'grey':
-        return colors.GREY;
-      case 'orange':
-        return colors.ORANGE;
-      case 'red':
-        return colors.RED;
-      default:
-        return colors.YELLOW;
-    }
-  };
   const mapFunctions = {
     openEditNote: openEditNote,
     flyTo: flyTo,
     deleteNote: deleteNote,
   };
-  const calculateTimeAgo = (time: Date): string => {
-    const currentTime = new Date();
-    const ms = currentTime.getTime() - time.getTime();
-    const seconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(months / 12);
 
-    if (ms === 0) {
-        return 'Just now';
-    } if (seconds < 60) {
-        return 'a few seconds ago';
-    } if (minutes < 60) {
-        return minutes + ' minutes ago';
-    } if (hours < 24) {
-        return hours + ' hours ago';
-    } if (days < 30) {
-        return days + ' days ago';
-    } if (months < 12) {
-        return months + ' months ago';
-    } else {
-        return years + ' years ago';
-    }
-  }
-  const timeAgo = (time: string): string => {
-    const parsedTime = time.split(/T|-|:|Z|\./);
-    const originalTime = new Date(Date.UTC(+parsedTime[0], +parsedTime[1] - 1, +parsedTime[2], +parsedTime[3], +parsedTime[4], +parsedTime[5], +parsedTime[6]));
-    return calculateTimeAgo(originalTime);
-  }
   const onDragAndDrop = (element: any, destination: any, below: any) => {
     let selectedNote = tree.find((note: any) => note.id === element);
     if (!selectedNote) {

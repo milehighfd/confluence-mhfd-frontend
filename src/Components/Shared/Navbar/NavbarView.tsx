@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, Carousel, MenuProps } from 'antd';
+import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, MenuProps } from 'antd';
 import { Redirect, useLocation } from 'react-router-dom';
 import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {DoubleRightOutlined} from '@ant-design/icons';

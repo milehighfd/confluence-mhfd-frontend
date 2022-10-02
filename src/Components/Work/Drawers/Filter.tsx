@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 
-export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, priorityFilterList,
+export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
   setJS, setCS, setPS, l, selJS, selCS, selPS
 }: {
   visible: boolean,
   setVisible: Function,
   jurisdictionFilterList: string[],
   csaFilterList: string[],
-  priorityFilterList: string[],
   setJS: Function,
   setCS: Function,
   setPS: Function,
@@ -17,6 +16,7 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList, pr
   selCS: string[],
   selPS: string[]
 }) => {
+  const priorityFilterList = ['1', '2', '3', 'Over 3'];
   const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
   const [csaSelected, setCsaSelected] = useState<any[]>([]);
   const [prioritySelected, setPrioritySelected] = useState<any[]>([]);

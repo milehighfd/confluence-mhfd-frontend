@@ -25,7 +25,6 @@ import {
     PROPSPROBLEMTABLES,
     MAPTYPES,
     initFilterProblems,
-    USE_LAND_COVER,
     USE_LAND_COVER_LABEL,
     USE_LAND_COVER_MAP
 } from "../../../constants/constants";
@@ -78,7 +77,6 @@ let currentElement: any = {
   opacity: 1, 
   color_id: undefined
 }
-let featuresCount = 0;
 type LayersType = string | ObjectLayerType;
 let coordX = -1;
 let coordY = -1;
@@ -213,7 +211,7 @@ const Map = ({
     const [allLayers, setAllLayers] = useState<any[]>([]);
     const [mapService] = useState<MapService>(new MapService());
     const [commentVisible, setCommentVisible] = useState(false);
-    const [swSave, setSwSave] = useState(false);
+    const [, setSwSave] = useState(false);
     const coorBounds: any[][] = [];
     const [data, setData] = useState({
         problemid: '',
@@ -334,7 +332,7 @@ const Map = ({
             }
         }
     }, [highlighted]);
-    const [counterPopup, setCounterPopup] = useState({ componentes: 0 });
+    const [counterPopup] = useState({ componentes: 0 });
 
     useEffect(() => {
         const div = document.getElementById('popup');
@@ -1136,9 +1134,6 @@ const Map = ({
             if (map.getLayer('area_based_maskMASK')) {
               map.moveLayer('area_based_maskMASK');
             }
-            // setTimeout(() => {
-            //   topProblems();
-            // }, 10000);
         },800);
     }
     const topHovereableLayers = () => {
@@ -1159,12 +1154,6 @@ const Map = ({
       const styles = { ...tileStyles as any };   
         styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${MHFD_PROJECTS}_${index}`);
-        })
-    }
-    const topProblems = () => {
-      const styles = { ...tileStyles as any };   
-        styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
-          map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
         })
     }
     const topComponents = () => {
@@ -2264,7 +2253,6 @@ const Map = ({
           openEditNote={openEditNote}
           addToMap={addToMap}
           changeFilter={setNotesFilter}
-          swSave={swSave}
           setSwSave={setSwSave} />
         <div>
             {visibleCreateProject && <ModalProjectView

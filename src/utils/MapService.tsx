@@ -1,7 +1,6 @@
 import { Map, Popup } from 'mapbox-gl';
 import { MAPBOX_TOKEN } from '../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
-import { SERVER } from '../Config/Server.config';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 

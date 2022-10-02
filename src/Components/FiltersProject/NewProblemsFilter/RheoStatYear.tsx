@@ -281,7 +281,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
         index++;
       }
     })
-    let [lf, rg] = RheoStatService.getRef(type).value();
+    let [, rg] = RheoStatService.getRef(type).value();
     if (index > rg) {
       index = rg;
     }
@@ -296,7 +296,7 @@ const RheoStatYear = ({ data, type, selected, onSelect, defaultValue, axisLabel 
         index++;
       }
     })
-    let [lf, rg] = RheoStatService.getRef(type).value();
+    let [lf] = RheoStatService.getRef(type).value();
     if (index < lf) {
       index = lf;
     }

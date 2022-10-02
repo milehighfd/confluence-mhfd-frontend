@@ -18,7 +18,6 @@ import {
   CONSULTANT,
   DROPDOWN_ORGANIZATION,
   OTHER,
-  JURISDICTION
 } from '../../../constants/constants';
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";

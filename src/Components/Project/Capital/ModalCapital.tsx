@@ -9,7 +9,7 @@ import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
 import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
-import { GOVERNMENT_STAFF, JURISDICTION } from "../../../constants/constants";
+import { GOVERNMENT_STAFF } from "../../../constants/constants";
 import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
@@ -55,7 +55,7 @@ const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
   <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{ whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
   </Row>
   )
-  }
+}
 const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setValueZoomProb: Function, setKeyOpenClose: Function) => {
   let totalSumCost = 0;
   for( let component of problem.components){
@@ -69,38 +69,13 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
       <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
   )
-  }
- const unnamedComponent = (Component: any) => {
-    const apllyType = (e: any) =>{
-      Component.type = e;
-    };
-    const apllyStatus = (e: any) =>{
-      Component.status = e;
-    };
-    const apllyOriginal_Cost = (e: any) =>{
-      Component.status = e;
-    };
-  return (
-    <div className="tab-body-project">
-      <Timeline>
-        <Timeline.Item color="green">
-          <Row style={{marginLeft:'-18px'}}>
-            <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onChange={(e) => apllyType(e)} ><label><Input placeholder="Unnamed Component"  /></label></Col>
-            <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onChange={(e) => apllyStatus(e)}><Input placeholder="Proposexxd"  style={{ color: 'rgba(17, 9, 60, 0.5) !important'}}/></Col>
-            <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onChange={(e) => apllyOriginal_Cost(e)}><Input placeholder="$200,000" /></Col>
-            <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent"><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
-          </Row>
-        </Timeline.Item>
-      </Timeline>
-    </div>
-  )
 }
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
  
   const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
-  const {userInformation,organization} = useProfileState();
+  const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -118,12 +93,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [files, setFiles] = useState<any[]>([]);
   const [groups,setGroups] = useState<any>({});
   const [componentsToSave, setComponentsToSave] = useState([]);
-  const [problems, setProblems] = useState({});
   const [geom, setGeom] = useState();
-  const [name, setName ] = useState(false);
-  const [disableName, setDisableName ] = useState(true);
-  const [ visibleUnnamedComponent, setVisibleUnnamedComponent ] = useState(false)
-  const [ thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
+  const [visibleUnnamedComponent, setVisibleUnnamedComponent] = useState(false)
+  const [thisIndependentComponents, setIndependentComponents] = useState<any[]>([]);
   const [overheadValues, setOverheadValues] = useState<any>([0,5,0,0,5,15,5,10,25]);
   const [overheadCosts, setOverheadCosts] = useState<any>([0,0,0,0,0,0,0,0,0]);
   const [keys, setKeys] = useState<any>(['-false']);
@@ -133,7 +105,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
-  const [cover, setCover] = useState('');
   const history = useHistory();
   const location = useLocation();
   const [lengthName, setlengthName] = useState(0);
@@ -149,14 +120,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }
     }
   }, [userInformation]);
-  useEffect(()=>{
-    let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
-    // if(juris) {
-    //   setSponsor(organization);
-    // } else {
-    //   setSponsor(locality);
-    // }
-  },[organization]);
   useEffect(()=>{
     setServiceAreaCounty({});
     setServiceArea([]);
@@ -259,11 +222,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     } else {
       setGroups({});
     }
-    if(listComponents && listComponents.problems && listComponents.result.length > 0){
-      setProblems(listComponents.problems);
-    } else {
-      setProblems({});
-    }
     updateOverheadCosts();
   },[listComponents]);
 
@@ -327,7 +285,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.components = componentsToSave? JSON.stringify(componentsToSave, null, 2 ): [];
       capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
       capital.editProject = editprojectid;
-      capital.cover = cover;
+      capital.cover = '';
       capital.estimatedcost = getTotalCost();
       capital.sendToWR = sendToWR;
       capital.componentcost = getSubTotalCost();
@@ -364,16 +322,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const onChangeOverheadDescription = (e: any) =>{
     setOverheadDescription(e.target.value);
   };
-  const getTotal = () => {
-
-    let totalSumCost = 0;
-    if(listComponents && listComponents.result) {
-      for( let component in listComponents.result){
-        totalSumCost += listComponents.result[component].original_cost;
-      }
-    }
-    return totalSumCost;
-  }
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
@@ -389,22 +337,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[nameProject]);
   const onChange = (e: any) =>{
     setNameProject(e.target.value);
-  };
-  const apllyName = ()=>{
-    if(name === true){
-      setDisableName(true);
-      setName(false);
-    }
-    else{
-      setDisableName(false);
-      setName(true);
-    }
-  };
-
-  const showModal = () => {
-    const auxState = {...state};
-    auxState.visibleCapital = true;
-    setState(auxState);
   };
 
   const handleOk = (e: any) => {

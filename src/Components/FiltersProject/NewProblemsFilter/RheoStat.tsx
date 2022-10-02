@@ -267,7 +267,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
         index++;
       }
     })
-    let [lf, rg] = RheoStatService.getRef(type).value();
+    let [, rg] = RheoStatService.getRef(type).value();
     if (index > rg) {
       index = rg;
     }
@@ -282,7 +282,7 @@ const RheoStat = ({ data, type, selected, onSelect, defaultValue, axisLabel }: a
         index++;
       }
     })
-    let [lf, rg] = RheoStatService.getRef(type).value();
+    let [lf] = RheoStatService.getRef(type).value();
     if (index < lf) {
       index = lf;
     }

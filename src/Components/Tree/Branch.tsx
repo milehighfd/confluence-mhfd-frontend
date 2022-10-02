@@ -20,12 +20,11 @@ const NewBranches = ({children, level, onDragAndDrop, setTree, mapFunctions, swa
     }
     </>
   );
-}
+};
+
 export const Branch = ({ item, level, onDragAndDrop, swapPositions, setTree, mapFunctions }: any) => {
   const hasChildren = item.children?.length;
-  const [open, setOpen] = useState(true);
   const [editMode, setEditMode] = useState(false);
-  
 
   const onClick = () => {
     if (item.hasOwnProperty('children')) {
@@ -58,7 +57,7 @@ export const Branch = ({ item, level, onDragAndDrop, swapPositions, setTree, map
         mapFunctions={mapFunctions}
         swapPositions={swapPositions}
       >
-      {(open && hasChildren) ? <NewBranches
+      {hasChildren ? <NewBranches
         children={item.children}
         level={level + 1}
         onDragAndDrop={onDragAndDrop} 
@@ -69,4 +68,4 @@ export const Branch = ({ item, level, onDragAndDrop, swapPositions, setTree, map
       </Node>
     </>
   );
-}
+};

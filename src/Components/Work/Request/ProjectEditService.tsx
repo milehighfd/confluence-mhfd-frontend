@@ -1,21 +1,18 @@
-import { boardType } from "./RequestTypes";
-
 class ProjectEditService {
-    projects: any[];
+  projects: any[];
 
-    constructor() {
-        this.projects = [];
-    }
-
-    setProjects(p: any[]) {
-        this.projects = [...p];
-    }
-
-    getProjects() {
-        return this.projects;
-    }
-  
+  constructor() {
+    this.projects = [];
   }
-  
-  export default new ProjectEditService();
-  
+
+  setProjects(p: any[]) {
+    this.projects = [...p];
+  }
+
+  getProjects() {
+    return this.projects;
+  }
+
+}
+
+export default new ProjectEditService();

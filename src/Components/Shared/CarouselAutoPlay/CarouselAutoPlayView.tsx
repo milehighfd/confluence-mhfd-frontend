@@ -3,7 +3,6 @@ import { Col, Carousel, Anchor, Button } from "antd";
 import { SERVER } from "../../../Config/Server.config";
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useCarouselImagesDispatch, useCarouselImagesState } from "../../../hook/carouselHook";
-import ContinueAsGuest from "../../../routes/login/components/ContinueAsGuest";
 import * as datasets from "../../../Config/datasets";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { Redirect } from "react-router-dom";

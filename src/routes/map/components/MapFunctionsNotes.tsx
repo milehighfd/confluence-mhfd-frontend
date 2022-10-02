@@ -1,5 +1,3 @@
-import * as mapboxgl from 'mapbox-gl';
-
 export const createNoteWithElem = (note: any, createNote: Function) => {
 
   const contentTitle:any = document.getElementById('color-text');

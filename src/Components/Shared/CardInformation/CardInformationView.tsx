@@ -5,7 +5,6 @@ import DetailedModal from "../Modals/DetailedModal";
 import { numberWithCommas } from '../../../utils/utils';
 import { Detailed } from "../../../store/types/detailedTypes";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import { useProfileDispatch } from "../../../hook/profileHook";
 
 import { useSelector } from "react-redux";
 

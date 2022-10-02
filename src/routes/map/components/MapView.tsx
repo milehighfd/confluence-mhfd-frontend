@@ -74,7 +74,6 @@ const MapView = () => {
   const { zoomarea } = userInformation;
   const {
     tabCards,
-    nameZoomArea,
     labelsFiltersProjects,
     labelsFiltersProblems,
     labelsFiltersComponents,
@@ -671,10 +670,8 @@ const MapView = () => {
       }
     });
     if(zoomareaSelected[0]){
-      let zone = zoomareaSelected[0].aoi;
-      zone = zone.replace('County ', '').replace('Service Area', '');
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect'? undefined:"isSelect");
+      changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect' ? undefined : "isSelect");
     }
     setBBOXComponents({ bbox: [], centroids: [] })
   };

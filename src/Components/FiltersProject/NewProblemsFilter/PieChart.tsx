@@ -28,10 +28,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     const width = 200;
     const height = 180;
     const radius = 50;
-
-    var arc = d3.arc()
-      .innerRadius(radius * 0.57)
-      .outerRadius(radius);
     
     var arc2 = d3.arc()
       .innerRadius(radius * 0.72)

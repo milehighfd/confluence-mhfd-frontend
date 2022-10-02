@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
-import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline, Checkbox } from 'antd';
+import { Modal, Button, Row, Col, Popover, Collapse, Timeline, Checkbox } from 'antd';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
-import { UploadAttachment } from "../TypeProjectComponents/UploadAttachment";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { Project } from "../../../Classes/Project";
-import { JURISDICTION, NEW_PROJECT_TYPES, STREAMS_FILTERS, ADMIN, STAFF } from "../../../constants/constants";
+import { JURISDICTION, NEW_PROJECT_TYPES, ADMIN, STAFF } from "../../../constants/constants";
 import store from "../../../store";
 import { useProfileState } from "../../../hook/profileHook";
 import { useHistory, useLocation } from "react-router-dom";
@@ -46,7 +45,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [isDrawState, setIsDraw] = useState(false);
   const { changeDrawState } = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
-  const [cover, setCover] = useState('');
   const [streamsList, setThisStreamsList] = useState<any>([]);
   const [sponsor, setSponsor] = useState(organization + "");
   const [cosponsor, setCosponsor] = useState<any>([]);
@@ -54,8 +52,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [projectid, setProjectId] = useState(-1);
   const [save, setSave] = useState(false);
   const [ids, setIds] = useState([]);
-  const [name, setName] = useState(false);
-  const [disableName, setDisableName] = useState(true);
   const [geom, setGeom] = useState<any>('');
   const [keys, setKeys] = useState<any>(['-false']);
   const [swSave, setSwSave] = useState(false);
@@ -210,7 +206,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       study.geom = mhfd_codes;
       study.locality = locality ? locality : '';
       study.editProject = editprojectid;
-      study.cover = cover;
+      study.cover = '';
       study.studyreason = studyreason ?? '';
       study.studysubreason = studysubReason || '';
       study.sendToWR = sendToWR;
@@ -251,12 +247,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setDisable(true);
     }
   }, [ids, description, county, serviceArea, sponsor, jurisdiction, streamsIntersectedIds, listStreams]);
-
-  const showModal = () => {
-    const auxState = { ...state };
-    auxState.visibleStudy = true;
-    setState(auxState);
-  };
 
   const onChange = (e: any) => {
     setNameProject(e.target.value);

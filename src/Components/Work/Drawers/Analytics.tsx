@@ -4,7 +4,6 @@ import HorizontalBarChartAnalytics from "../../FiltersProject/NewProblemsFilter/
 import { formatter, MaintenanceTypes, priceFormatter, priceParser } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
 import { boardType } from "../Request/RequestTypes";
-import Input from 'antd/lib/input/Input';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
 
@@ -42,16 +41,6 @@ const Analytics = ({
     </div>
   );
   const [tcb, setTcb] = useState(totalCountyBudget);
-  const [width, setWidth]   = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-  const updateDimensions = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-  }
-  useEffect(() => {
-      window.addEventListener("resize", updateDimensions);
-      return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
   const [year, setYear] = useState(+initialYear);
 
   useEffect(() => {

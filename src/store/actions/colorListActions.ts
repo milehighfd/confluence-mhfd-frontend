@@ -1,8 +1,6 @@
 import * as types from '../types/colorListTypes';
 import { SERVER } from "../../Config/Server.config";
 import { getData, postData, deleteData, getToken, putData } from "../../Config/datasets";
-import { dispatch } from 'd3';
-
 
 export const getColorsList = () => {
   return (dispatch: Function) => {

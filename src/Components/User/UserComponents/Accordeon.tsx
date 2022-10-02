@@ -148,7 +148,6 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
   };
 
   const [modal, setModal] = useState(visible);
-  const [modalDelete, setModalDelete] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(user.activated);
   const [designation, setDesignation] = useState<string>(user.designation);
   const [, setTitle] = useState<string>('');
@@ -233,7 +232,6 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
     });
   }
   const message = 'Are you sure you want to update the user ' + values.firstName + ' ' + values.lastName + '?';
-  const messageDelete = 'Are you sure you want to delete the user' + values.firstName + ' ' + values.lastName + '?';
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
     setTitle(user._id);

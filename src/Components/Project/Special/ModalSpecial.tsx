@@ -42,7 +42,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
   const [files, setFiles] = useState<any[]>([]);
-  const [cover, setCover] = useState('');
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
@@ -136,7 +135,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.files = files;
       special.editProject = editprojectid;
       special.locality = locality? locality:'';
-      special.cover = cover;
+      special.cover = '';
       special.sendToWR = sendToWR;
       files.forEach((file:any) => {
         if(file._id) {

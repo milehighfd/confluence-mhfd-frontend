@@ -9,7 +9,7 @@ import { useMapDispatch } from "../../hook/mapHook";
 const DetailedPageView = () => {
   const { existDetailedPageProject, existDetailedPageProblem } = useMapDispatch();
   const { displayModal, detailed } = useDetailedState();
-    const [visible, setVisibleModal] = useState(useLocation().search ? true: false);
+    const visible = useLocation().search ? true : false;
     const location = useLocation().search;
     const setVisible = () => {
         console.log('disabled');

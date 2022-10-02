@@ -4,7 +4,7 @@ import { Collapse, Table, Row, Col } from 'antd';
 
 import { MapService } from '../../../utils/MapService';
 import store from '../../../store';
-import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, MHFD_PROJECTS, FLOOD_HAZARDS } from '../../../constants/constants';
+import { PROBLEMS_MODAL, PROJECTS_MODAL, COMPONENT_LAYERS, MENU_OPTIONS, MEP_PROJECTS_TEMP_LOCATIONS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, SERVICE_AREA_FILTERS, NEARMAP_TOKEN, PROBLEMS_TRIGGER, MHFD_PROJECTS, FLOOD_HAZARDS } from '../../../constants/constants';
 import { tileStyles, NEARMAP_STYLE } from '../../../constants/mapStyles';
 import { ComponentPopup, MainPopup } from '../../Map/MapPopups';
 import { LayerStylesType } from '../../../Classes/MapTypes';
@@ -54,7 +54,7 @@ export default forwardRef(({
     sections.push('3');
   }
   const [ active, setActive ] = useState(sections);
-  const [ zoomValue, setZoomValue] = useState(0);
+  const [, setZoomValue] = useState(0);
   let html = document.getElementById('map2');
   const layers = store.getState().map.layers;
   const getCanvasBase64 = () => {
@@ -183,7 +183,6 @@ export default forwardRef(({
         });
         addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
-        let idProjectPolygon = 0;
         detailedPage?.components?.forEach((element: any) => {
           if(element.projectid) {
             map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
@@ -210,7 +209,6 @@ export default forwardRef(({
         addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
         let idProjectLine = 0;
-        let idProjectPolygon = 0;
         for (const project of tileStyles[MHFD_PROJECTS]) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
           if (detailedPage?.cartodb_id) {
@@ -222,7 +220,6 @@ export default forwardRef(({
         i = 0;
         addMapListeners(MHFD_PROJECTS, 'projects-line_');
       }
-      const reducer = (accumulator: any, currentValue: any) => [accumulator[0] + currentValue[0], accumulator[1] + currentValue[1]];
       if (detailedPage?.coordinates) {
         map.fitBounds([
           detailedPage?.coordinates[0][0],

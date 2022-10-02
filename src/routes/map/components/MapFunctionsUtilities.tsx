@@ -1,4 +1,3 @@
-import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 
 export const flytoBoundsCoor = (
@@ -27,9 +26,6 @@ export const flytoBoundsCoor = (
        }
      });
      if(zoomareaSelected[0]){
-       let type = zoomareaSelected[0].filter; 
-       let zone = zoomareaSelected[0].aoi;
-       zone = zone.replace('County ', '').replace('Service Area', '');
        setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
      }
     },5000);

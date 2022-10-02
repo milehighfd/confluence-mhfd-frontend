@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import ReactDOMServer from 'react-dom/server';
-import ReactDOM from 'react-dom';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
-import { InfoCircleOutlined, RightOutlined } from '@ant-design/icons';
-import { MainPopup, ComponentPopup, StreamPopupFull, MeasurePopup } from './../Map/MapPopups';
-import { numberWithCommas } from '../../utils/utils';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import * as turf from '@turf/turf';
 import DetailedModal from '../Shared/Modals/DetailedModal';
 import EventService from '../../services/EventService';
 import { getData, getToken, postDataAsyn, postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
-import { loadIconsPopup } from '../../routes/map/components/MapGetters';
 import {
   addPopupAndListeners,
   measureFunction,
@@ -53,16 +48,6 @@ import {
   PIPE_APPURTENANCES,
   GRADE_CONTROL_STRUCTURE,
   STREAM_IMPROVEMENT_MEASURE,
-  NRCS_SOILS,
-  DWR_DAM_SAFETY,
-  STREAM_MANAGEMENT_CORRIDORS,
-  BCZ_PREBLE_MEADOW_JUMPING,
-  BCZ_UTE_LADIES_TRESSES_ORCHID,
-  RESEARCH_MONITORING,
-  CLIMB_TO_SAFETY,
-  SEMSWA_SERVICE_AREA,
-  ADMIN,
-  STAFF,
   FLOOD_HAZARD_POLYGON,
   FLOOD_HAZARD_LINE,
   FLOOD_HAZARD_POINT,
@@ -72,16 +57,11 @@ import {
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
   NEARMAP_TOKEN,
-  MUNICIPALITIES_FILTERS,
-  ACTIVE_LOMS,
   EFFECTIVE_REACHES,
-  ICON_POPUPS,
-  NEW_PROJECT_TYPES,
   SERVICE_AREA_FILTERS,
   STREAMS_POINT,
   PROJECTS_DRAFT,
   MAP_RESIZABLE_TRANSITION,
-  BLOCK_CLEARANCE_ZONES_LAYERS,
   PROPSPROBLEMTABLES,
   MAPTYPES
 } from "../../constants/constants";
@@ -103,16 +83,13 @@ let map: any;
 let isProblemActive = false;
 let coordX = -1;
 let coordY = -1;
-let featuresCount = 0;
 let isPopup = true;
 let componentsList: any[] = [];
-let marker = new mapboxgl.Marker({ color: '#ffbf00', scale: 0.7 });
 let popup = new mapboxgl.Popup({ closeButton: true });
 let globalMapId: any = null;
 let mapMoved = true;
 let amounts: any = [];
 type LayersType = string | ObjectLayerType;
-const { Option } = AutoComplete;
 let isMeasuring = false;
 const geojsonMeasures = {
   type: 'FeatureCollection',
@@ -140,7 +117,6 @@ const WorkRequestMap = (type: any) => {
   const [distanceValue, setDistanceValue] = useState('0');
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
-  const [isExtendedView] = useState(false);
   const user = store.getState().profile.userInformation;
   const {
     layers,
@@ -150,10 +126,6 @@ const WorkRequestMap = (type: any) => {
     componentDetailIds,
     filterComponents,
     galleryProjects,
-    loaderDetailedPage,
-    componentsByProblemId,
-    componentCounter,
-    loaderTableCompoents,
   } = useMapState();
   const { detailed } = useDetailedState();
   const { clear } = useAttachmentDispatch();
@@ -220,33 +192,10 @@ const WorkRequestMap = (type: any) => {
     COMPONENT_LAYERS.tiles,
     STREAMS_FILTERS,
   ];
-  const notComponentOptions: any[] = [
-    MENU_OPTIONS.NCRS_SOILS,
-    MENU_OPTIONS.DWR_DAM_SAFETY,
-    MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
-    MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE,
-    MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID,
-    MENU_OPTIONS.RESEARCH_MONITORING,
-    MENU_OPTIONS.CLIMB_TO_SAFETY,
-    MENU_OPTIONS.SEMSWA_SERVICE_AREA,
-    MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR,
-    MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA,
-    MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
-    MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA,
-    MENU_OPTIONS.WATERSHED,
-    MENU_OPTIONS.SERVICE_AREA,
-    MENU_OPTIONS.MEP_STORM_OUTFALL,
-    MENU_OPTIONS.MEP_CHANNEL,
-    MENU_OPTIONS.MEP_DETENTION_BASIN,
-    MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
-    MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
-    MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS,
-    MENU_OPTIONS.MEASURES,
-  ];
   const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
   const [zoomValue, setZoomValue] = useState(0);
-  const [mobilePopups, setMobilePopups] = useState<any>([]);
-  const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
+  const [, setMobilePopups] = useState<any>([]);
+  const [, setActiveMobilePopups] = useState<any>([]);
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
@@ -255,14 +204,6 @@ const WorkRequestMap = (type: any) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [displayPrevNext, setDisplayPrevNext] = useState(false);
   const [data, setData] = useState({
-    problemid: '',
-    id: '',
-    objectid: '',
-    value: '',
-    type: '',
-    cartoid: '',
-  });
-  const [dataProblem, setDataProblem] = useState({
     problemid: '',
     id: '',
     objectid: '',
@@ -534,7 +475,6 @@ const WorkRequestMap = (type: any) => {
     }
   }, [boardProjects]);
 
-  const [opacityLayer, setOpacityLayer] = useState(false);
   const polyMask = (mask: any, bounds: any) => {
     if (mask !== undefined && bounds.length > 0) {
       var bboxPoly = turf.bboxPolygon(bounds);
@@ -668,14 +608,6 @@ const WorkRequestMap = (type: any) => {
     clear();
     popup.remove();
     if (details.problemid) {
-      setDataProblem({
-        id: '',
-        objectid: '',
-        cartoid: '',
-        type: '',
-        value: '',
-        problemid: details.problemid,
-      });
       setTimeout(() => {
         getZoomGeomProblem(details.problemid);
       }, 4500);
@@ -708,9 +640,6 @@ const WorkRequestMap = (type: any) => {
     setTimeout(() => {
       type.openModal(true);
     }, 35);
-  };
-  const setLayersSelectedOnInit = () => {
-    // updateSelectedLayersWR([MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, COMPONENT_LAYERS, PROBLEMS_TRIGGER]);
   };
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -789,7 +718,6 @@ const applyProblemClusterLayer = () => {
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
-        //topStreams();
         topEffectiveReaches();
         topProjects();
         topServiceArea();
@@ -914,29 +842,6 @@ const applyProblemClusterLayer = () => {
       }
     });
   };
-  const topStreams = () => {
-    setTimeout(() => {
-      if (
-        map.map.getLayer('measuresSaved') &&
-        map.map.getLayer('measure-lines') &&
-        map.map.getLayer('measuresSaved-border') &&
-        map.map.getLayer('streams_0') &&
-        map.map.getLayer('streams_1') &&
-        map.map.getLayer('streams_2') &&
-        map.map.getLayer('streams_3')
-      ) {
-        map.map.moveLayer('measuresSaved');
-        map.map.moveLayer('measure-lines');
-        map.map.moveLayer('measuresSaved-border');
-        map.map.moveLayer('streams_0');
-        map.map.moveLayer('streams_1');
-        map.map.moveLayer('streams_2');
-        map.map.moveLayer('streams_3');
-      } else {
-        topStreams();
-      }
-    }, 1000);
-  };
   const topStreamLabels = () => {
     if (map.map.getLayer('streams_4')) {
       map.map.moveLayer('streams_4');
@@ -986,14 +891,6 @@ const applyProblemClusterLayer = () => {
         }
       });
     }
-  };
-  const removeLayers = (key: string) => {
-    const styles = { ...(tileStyles as any) };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (map.map.getLayer(key + '_' + index)) {
-        map.map.removeLayer(key + '_' + index);
-      }
-    });
   };
   const showSelectedComponents = (components: string[]): void => {
     if (!components.length || components[0] === '') {
@@ -1247,12 +1144,6 @@ const applyProblemClusterLayer = () => {
       addTilesLayers(key);
     }
   };
-  const removeLayersSource = (key: string) => {
-    if (map.getSource(key)) {
-      map.map.removeSource(key);
-    }
-  };
-
   const addTilesLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -1478,60 +1369,6 @@ const applyProblemClusterLayer = () => {
       }
     }
   }, [counterPopup]);
-
-  const getDateMep = (mep_eligibilitystatus: any, props: any) => {
-    if (!mep_eligibilitystatus) return undefined;
-    let finalDate = new Date(0);
-    if (mep_eligibilitystatus == 'Design Approval') {
-      finalDate = new Date(props.mep_date_designapproval);
-    } else if (mep_eligibilitystatus == 'Construction Approval') {
-      finalDate = new Date(props.mep_date_constructionapproval);
-    } else if (mep_eligibilitystatus == 'Final Acceptance') {
-      finalDate = new Date(props.mep_date_finalacceptance);
-    } else if (mep_eligibilitystatus == 'Ineligible') {
-      finalDate = new Date(props.mep_date_ineligible);
-    }
-    let stringDate =
-      (finalDate.getMonth() > 8 ? finalDate.getMonth() + 1 : '0' + (finalDate.getMonth() + 1)) +
-      '/' +
-      (finalDate.getDate() > 9 ? finalDate.getDate() + 1 : '0' + (finalDate.getDate() + 1)) +
-      '/' +
-      finalDate.getFullYear();
-    if (stringDate.includes('NaN')) {
-      return '-';
-    } else {
-      return stringDate;
-    }
-  };
-  const parseDateZ = (dateParser: any) => {
-    let finalDate = new Date(dateParser);
-    let stringDate =
-      (finalDate.getMonth() > 8 ? finalDate.getMonth() + 1 : '0' + (finalDate.getMonth() + 1)) +
-      '/' +
-      (finalDate.getDate() > 9 ? finalDate.getDate() + 1 : '0' + (finalDate.getDate() + 1)) +
-      '/' +
-      finalDate.getFullYear();
-    if (stringDate.includes('NaN')) {
-      return '-';
-    } else {
-      return stringDate;
-    }
-  };
-  const epochTransform = (dateParser: any) => {
-    let finalDate = new Date(0);
-    finalDate.setUTCMilliseconds(dateParser);
-    let stringDate =
-      (finalDate.getMonth() > 8 ? finalDate.getMonth() + 1 : '0' + (finalDate.getMonth() + 1)) +
-      '/' +
-      (finalDate.getDate() > 9 ? finalDate.getDate() + 1 : '0' + (finalDate.getDate() + 1)) +
-      '/' +
-      finalDate.getFullYear();
-    if (stringDate.includes('NaN')) {
-      return '-';
-    } else {
-      return stringDate;
-    }
-  };
   const eventClick = async (e: any) => {
     if (isMeasuring) {
       measureFunction(

@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
-import { MAPBOX_TOKEN, MAP_DROPDOWN_ITEMS } from '../../constants/constants';
-import { useProfileState } from '../../hook/profileHook';
+import { MAPBOX_TOKEN } from '../../constants/constants';
 import * as mapboxgl from 'mapbox-gl';
 
 let map: any = null;
 const MapTest = () => {
-  const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
-  const { userInformation } = useProfileState();
   useEffect(() => {
     (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
     map = new mapboxgl.Map({
       container: 'map',
-      // style: dropdownItems.items[dropdownItems.default].style,
-      // style: 'mapbox://styles/mapbox/streets-v11',
       style: 'mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw',
       center: [	-104.988853, 39.739433],
       zoom: 4.2,

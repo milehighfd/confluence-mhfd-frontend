@@ -96,7 +96,8 @@
     "test": "node scripts/test.js",
     "prebuild": "npm run generate-build-meta",
     "postbuild": "node copyWebConfig.js",
-    "generate-build-meta": "node node_modules/react-clear-cache/bin/cli.js"
+    "generate-build-meta": "node node_modules/react-clear-cache/bin/cli.js",
+    "lint": "eslint --cache src"
   },
   "browserslist": {
     "production": [

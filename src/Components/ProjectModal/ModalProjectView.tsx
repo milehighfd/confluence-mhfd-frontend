@@ -55,7 +55,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     postData(`${SERVER.URL_BASE}/board/`, dataForBoard)
       .then(
         (r: any) => {
-          let { board, projects } = r; 
+          let { projects } = r; 
           if (projects) { 
             let justProjects = projects.map((proj:any)=> {
               return proj.projectData?.cartodb_id;

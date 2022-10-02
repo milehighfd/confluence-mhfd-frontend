@@ -9,7 +9,6 @@ import { SERVER } from '../../../Config/Server.config';
 
 import CardStatService from './CardService';
 import { DeleteAlert } from './DeleteAlert';
-import LoadingView from '../../Loading/LoadingView';
 import { boardType } from './RequestTypes';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
@@ -45,7 +44,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     projectsubtype,
     status
   } = project.projectData;
-  const [goingToBeDeleted, setGoingToBeDeleted] = useState(false);
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])
   const [showAmountModal, setShowAmountModal] = useState(false);
@@ -160,12 +158,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       updateSelectedLayers([]);
     }
   },[showModalProject]);
-
-  if (goingToBeDeleted) {
-    return <div className="card-wr">
-      <LoadingView />
-    </div>
-  }
 
   let color = null, backgroundColor = null;
   switch(status) {

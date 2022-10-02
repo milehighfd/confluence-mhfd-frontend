@@ -22,7 +22,7 @@ const ConfirmPasswordForm = () => {
   const message = PASWORD_CONFIRM_IS_REQUIRED;
   const history = useHistory();
   let params = new URLSearchParams(history.location.search);
-  const { values, handleSubmit, handleChange, errors, touched } = useFormik({
+  const { handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       id: params.get('id') || '',
       password: '',

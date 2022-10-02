@@ -48,16 +48,12 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
-  const [visibleEligibility, setVisibleEligibility] = useState(true);
   const [isDraw, setIsDraw] = useState(false);
   const { changeDrawState } = useProjectDispatch();
   const [save, setSave] = useState(false);
   const [ownership, setOwnership] = useState(true);
   const [files, setFiles] = useState<any[]>([]);
-  const [cover, setCover] = useState('');
   const [geom, setGeom] = useState();
-  const [name, setName] = useState(false);
-  const [disableName, setDisableName] = useState(true);
   const [projectid, setProjectId] = useState(-1);
   const [swSave, setSwSave] = useState(false);
   const [editprojectid, setEditsetprojectid] = useState("");
@@ -66,7 +62,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const history = useHistory();
   const location = useLocation();
   const textRef = useRef<any>(null);
-  const [textAreaWidth, setTextAreaWidth] = useState(261);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const { toggleAttachmentCover } = useAttachmentDispatch();
@@ -81,20 +76,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   useEffect(() => {
     getTextWidth(nameProject);
   }, [nameProject]);
-  useEffect(() => {
-    const waiting = () => {
 
-      if (!textRef) {
-        setTimeout(waiting, 50);
-      } else {
-        if (textRef.current) {
-          const newWidth = textRef.current.clientWidth;
-          setTextAreaWidth(newWidth);
-        }
-      }
-    };
-
-  }, []);
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -213,7 +195,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.ownership = "" + ownership;
       maintenance.files = files;
       maintenance.editProject = editprojectid;
-      maintenance.cover = cover;
+      maintenance.cover = '';
       maintenance.sendToWR = sendToWR;
       files.forEach((file:any) => {
         if(file._id) {
@@ -266,16 +248,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const onChange = (e: any) => {
     setNameProject(e.target.value);
   };
-  const apllyName = () => {
-    if (name === true) {
-      setDisableName(true);
-      setName(false);
-    }
-    else {
-      setDisableName(false);
-      setName(true);
-    }
-  };
+
   const apllyOwnership = (e: any) => {
     setOwnership(e);
   };
@@ -383,20 +356,18 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                   </span></p>
                 </Col>
               </Row>
-              {visibleEligibility &&
-                <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
-                  <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                    <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                    <div id="elegid">
-                      <Select placeholder={eligibility != '' ? eligibility + "" : "Select a Eligibility"} style={{ width: '100%' }} onChange={(eligibilit) => apllyEligibility(eligibilit)} getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
-                        {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) => {
-                          return <Option key={element} value={element}>{element}</Option>
-                        })}
-                      </Select>
-                    </div>
-                  </Col>
-                </Row>
-              }
+              <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+                  <div id="elegid">
+                    <Select placeholder={eligibility != '' ? eligibility + "" : "Select a Eligibility"} style={{ width: '100%' }} onChange={(eligibilit) => apllyEligibility(eligibilit)} getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
+                      {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) => {
+                        return <Option key={element} value={element}>{element}</Option>
+                      })}
+                    </Select>
+                  </div>
+                </Col>
+              </Row>
 
               <br />
               <h5 style={{marginTop:'5px'}}>

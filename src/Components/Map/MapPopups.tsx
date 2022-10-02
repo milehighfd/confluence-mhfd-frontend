@@ -1,9 +1,5 @@
 import React from 'react';
 import { Card, Button } from 'antd';
-import { getData, getToken, postData } from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
-import { getComponentCounter } from '../../store/actions/mapActions';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 import { MENU_OPTIONS } from '../../constants/constants';
 const problemStyle: any = {
     status: {

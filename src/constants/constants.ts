@@ -1,6 +1,4 @@
 import moment from "moment";
-import { Tag } from "antd";
-import { color } from "d3";
 
 export const COMPLETE_SCREEN = 24;
 export const MEDIUM_SCREEN = 15;

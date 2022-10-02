@@ -1,17 +1,13 @@
-import { Button, Dropdown, Menu, Select, Row, Col } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Button, Select, Col } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const transformSelectedData = (sData: any) => {
   return sData.map((r: any) => `${r}`);
 };
 
-const solutionstatus = 'solutionstatus';
-const status = 'status';
-const component_type = 'component_type';
 const { Option } = Select;
 
-export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, labels, showControls = true }: any) => {
+export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showControls = true }: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
@@ -28,28 +24,6 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
     }
     return `$${amount.toFixed(0)}${million ? 'M' : ''}`;
   }
-  // useEffect(() => {
-  //   console.log(selectedData);
-  // }, [selectedData]);
-
-  // useEffect(() => {
-  //   console.log('this is the data', data);
-  // }, [data]);
-  // useEffect(() => {
-  //   if (selected && selected.length) {
-  //     let temporal = selected
-  //       .split(',')
-  //       .filter((r: any) => r !== '')
-  //       .map((r: any) => {
-  //         if (type === solutionstatus) {
-  //           return +r;
-  //         } else {
-  //           return r;
-  //         }
-  //       });
-  //     setSelectedData(temporal);
-  //   }
-  // }, [selected]);
 
   const apply = () => {
     onSelect(transformSelectedData(selectedData));
@@ -60,10 +34,6 @@ export const DropdownFilters = ({ data, type, selected, onSelect, defaultValue, 
     setSelectedData([]);
     setMinIndex(-1);
     setMaxIndex(-1);
-  };
-
-  const showLabel = (label: string) => {
-    return labels && labels[label] ? labels[label] : label;
   };
 
   useEffect(() => {

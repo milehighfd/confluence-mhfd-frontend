@@ -1,13 +1,7 @@
 import { Button, Checkbox } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-const transformSelectedData = (sData: any) => {
-  return sData.map((r: any) => `${r}`)
-}
-
 const solutionstatus = 'solutionstatus';
-const status = 'status';
-const component_type = 'component_type';
 
 export const CheckBoxFilters = ({
   data, type, selected, onSelect, defaultValue,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Card, Button } from 'antd';
 
 import { ComponentType } from '../../../Classes/MapTypes';

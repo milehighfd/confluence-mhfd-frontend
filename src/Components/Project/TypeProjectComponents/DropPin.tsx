@@ -19,8 +19,6 @@ const columns = [
 
 export const DropPin = ({typeProject, geom, setGeom}:
   {typeProject: string, geom: any, setGeom: Function}) => {
-  const onChange = (e: any)=>{
-  }
   const content05 = (<div className="popver-info">If the Special Project does not have a physical location (i.e. research study, criteria update, etc.), please drop a pin on the Local Government's City Hall or MHFD Office.</div>);
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');

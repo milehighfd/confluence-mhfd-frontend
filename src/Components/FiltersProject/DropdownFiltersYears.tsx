@@ -1,39 +1,12 @@
-import { Button, Dropdown, Menu, Select, Col } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Button, Select, Col } from 'antd';
 import React, { useEffect, useState } from 'react';
 
-const transformSelectedData = (sData: any) => {
-  return sData.map((r: any) => `${r}`);
-};
-
-const solutionstatus = 'solutionstatus';
-const status = 'status';
-const component_type = 'component_type';
 const { Option } = Select;
 
 export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultValue, labels, showControls = true }: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
-  // useEffect(() => {
-  //   console.log(selectedData);
-  // }, [selectedData]);
-
-  // useEffect(() => {
-  //   if (selected && selected.length) {
-  //     let temporal = selected
-  //       .split(',')
-  //       .filter((r: any) => r !== '')
-  //       .map((r: any) => {
-  //         if (type === solutionstatus) {
-  //           return +r;
-  //         } else {
-  //           return r;
-  //         }
-  //       });
-  //     setSelectedData(temporal);
-  //   }
-  // }, [selected]);
 
   const apply = () => {
     if (type === 'yearofstudy') {
@@ -48,10 +21,6 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
     setSelectedData([]);
     setMinIndex(-1);
     setMaxIndex(-1);
-  };
-
-  const showLabel = (label: string) => {
-    return labels && labels[label] ? labels[label] : label;
   };
 
   useEffect(() => {
