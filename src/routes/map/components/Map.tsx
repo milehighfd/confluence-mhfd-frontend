@@ -93,20 +93,24 @@ const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let markerNotes_global: any = [];
 let isMeasuring = false;
+type GeoJSONMeasures = {
+  type: string;
+  features: any[]
+}
     const geojsonMeasures = {
       'type': 'FeatureCollection',
-      'features': new Array()
+      'features': []
       };
-    const geojsonMeasuresSaved = {
+    const geojsonMeasuresSaved: GeoJSONMeasures = {
       'type': 'FeatureCollection',
-      'features': new Array()
+      'features': []
     };
 
     const linestringMeasure = {
       'type': 'Feature',
       'geometry': {
       'type': 'LineString',
-      'coordinates': new Array()
+      'coordinates': []
       }
     };
 let canAdd = {value: false};
@@ -1686,8 +1690,8 @@ const Map = ({
           map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
         }
         
-        geojsonMeasures.features = new Array();
-        linestringMeasure.geometry.coordinates =  new Array();
+        geojsonMeasures.features = [];
+        linestringMeasure.geometry.coordinates =  [];
         map.getSource('geojsonMeasure').setData(geojsonMeasures);
         setIsDrawingMeasure(false);
         setIsMeasuring(false);
@@ -2235,8 +2239,8 @@ const Map = ({
       isMeasuring = value;
       setMeasuringState2(value);
       setMeasuringState(false);
-      geojsonMeasures.features = new Array();
-      linestringMeasure.geometry.coordinates =  new Array();
+      geojsonMeasures.features = [];
+      linestringMeasure.geometry.coordinates =  [];
       setDistanceValue('0');
       setDistanceValueMi('0');
       setAreaValue('0');

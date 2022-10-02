@@ -93,17 +93,21 @@ type LayersType = string | ObjectLayerType;
 let isMeasuring = false;
 const geojsonMeasures = {
   type: 'FeatureCollection',
-  features: new Array(),
+  features: [],
 };
-const geojsonMeasuresSaved = {
+type GeoJSONMeasures = {
+  type: string;
+  features: any[]
+}
+const geojsonMeasuresSaved: GeoJSONMeasures = {
   type: 'FeatureCollection',
-  features: new Array(),
+  features: [],
 };
 const linestringMeasure = {
   type: 'Feature',
   geometry: {
     type: 'LineString',
-    coordinates: new Array(),
+    coordinates: [],
   },
 };
 const factorKMToMiles = 0.621371;
@@ -225,8 +229,8 @@ const WorkRequestMap = (type: any) => {
     isMeasuring = value;
     setMeasuringState2(value);
     setMeasuringState(false);
-    geojsonMeasures.features = new Array();
-    linestringMeasure.geometry.coordinates = new Array();
+    geojsonMeasures.features = [];
+    linestringMeasure.geometry.coordinates = [];
     setDistanceValue('0');
     setDistanceValueMi('0');
     setAreaValue('0');
@@ -269,8 +273,8 @@ const WorkRequestMap = (type: any) => {
         map.map.getSource('geojsonMeasuresSaved').setData(geojsonMeasuresSaved);
       }
 
-      geojsonMeasures.features = new Array();
-      linestringMeasure.geometry.coordinates = new Array();
+      geojsonMeasures.features = [];
+      linestringMeasure.geometry.coordinates = [];
       map.map.getSource('geojsonMeasure').setData(geojsonMeasures);
       setIsDrawingMeasure(false);
       setIsMeasuring(false);
