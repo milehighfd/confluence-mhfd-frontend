@@ -52,8 +52,7 @@ const contentPopOverWithLink = (text: string, link: string) => {
   return <div className="popoveer-00"><i>{text}</i> <a href={link} target='_blank'>Info Sheet</a></div>
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default ({
+const MapFilterView = ({
   selectCheckboxes,
   setVisibleDropdown,
   selectedLayers,
@@ -666,4 +665,6 @@ export default ({
     </div>
   </div>
   </>
-}
+};
+
+export default MapFilterView;
