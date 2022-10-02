@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal} from 'antd';
 
-export default ({ save, visible, setVisible, message }: { save: Function, visible: { visible: boolean }, setVisible: Function, message: string }) => {
+const Alert = ({ save, visible, setVisible, message }: { save: Function, visible: { visible: boolean }, setVisible: Function, message: string }) => {
   const handleCancel = () => {
     const auxState = {...visible};
     auxState.visible = false;
@@ -23,3 +23,5 @@ export default ({ save, visible, setVisible, message }: { save: Function, visibl
     }}>Update</Button>
   </Modal>
 };
+
+export default Alert;

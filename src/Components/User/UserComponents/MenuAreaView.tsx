@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, MenuProps } from 'antd';
 import { User } from '../../../Classes/TypeList';
 
-export default (items: Array<string>, fieldName: string, values: User, setTitle: Function) => {
+const MenuAreaView = (items: Array<string>, fieldName: string, values: User, setTitle: Function) => {
   const itemMenu: MenuProps['items'] = [];
   items.forEach((item: string, index: number) => {
     itemMenu.push({
@@ -24,3 +24,5 @@ export default (items: Array<string>, fieldName: string, values: User, setTitle:
   return <Menu className="js-mm-00 sign-menu" items={itemMenu}>
   </Menu>
 };
+
+export default MenuAreaView;

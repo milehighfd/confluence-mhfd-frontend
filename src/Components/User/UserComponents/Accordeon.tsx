@@ -13,7 +13,7 @@ import Alert from '../../Shared/Alert';
 import moment from 'moment';
 import { useProfileState } from '../../../hook/profileHook';
 
-export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
+const Accordeon = ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
   const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
@@ -412,4 +412,6 @@ export default ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: {
       <Alert save={result} visible={modal} setVisible={setModal} message={message} />
     </>
   )
-}
+};
+
+export default Accordeon;

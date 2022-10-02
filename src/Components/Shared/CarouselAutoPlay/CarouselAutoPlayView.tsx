@@ -7,7 +7,7 @@ import * as datasets from "../../../Config/datasets";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { Redirect } from "react-router-dom";
 
-export default () => {
+const CarouselAutoPlayView = () => {
   const { getCarouselImages } = useCarouselImagesDispatch();
   const { images } = useCarouselImagesState();
   const {
@@ -81,4 +81,6 @@ export default () => {
       })}
     </Carousel>
   </Col>
-}
+};
+
+export default CarouselAutoPlayView;

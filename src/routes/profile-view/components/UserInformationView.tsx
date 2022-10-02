@@ -1,4 +1,4 @@
-  import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Button, Upload, message, Popover } from 'antd';
 import { PROJECT_TYPES_AND_NAME } from '../constants/constants';
 import ModalEditUserView from '../../../Components/Profile/ProfileComponents/ModalEditUserView';
@@ -18,7 +18,6 @@ const UserInformationView = ({
   } = useProfileDispatch();
   const {
     userInformation: user,
-    countProjects,
     groupOrganization
   } = useProfileState();
   const {

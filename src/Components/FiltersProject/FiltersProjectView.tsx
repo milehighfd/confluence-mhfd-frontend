@@ -16,7 +16,7 @@ contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent 
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
 contents.push((<div className="popoveer-00"><b>Components:</b> Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
 
-export default ({
+const FiltersProjectView = ({
     tabActive,
     tabPosition,
     setTabPosition,
@@ -119,4 +119,6 @@ export default ({
             })}
         </Tabs>}
     </>
-}
+};
+
+export default FiltersProjectView;

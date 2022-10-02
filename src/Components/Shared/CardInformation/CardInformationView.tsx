@@ -18,7 +18,7 @@ const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
 
-export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomProjectOrProblem }:
+const CardInformationView = ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomProjectOrProblem }:
                 { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
                 setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
                 getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
@@ -235,4 +235,6 @@ export default ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomPr
       </Col>
     </>
   );
-}
+};
+
+export default CardInformationView;

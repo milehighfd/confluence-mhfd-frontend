@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { Detailed } from '../../../store/types/detailedTypes';
 
-export default ({ detailedPage }: { detailedPage: Detailed }) => {
+const DetailedInfo = ({ detailedPage }: { detailedPage: Detailed }) => {
   const detailed = detailedPage as any;
   return <div className="detailed-info">
     {detailed?.problemid && <>
@@ -158,4 +158,6 @@ export default ({ detailedPage }: { detailedPage: Detailed }) => {
       </Row> }
     </>}
   </div>
-}
+};
+
+export default DetailedInfo;

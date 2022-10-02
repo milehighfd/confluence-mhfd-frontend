@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Drawer, Row, Col, Input, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
-export default () => {
+const Chat = () => {
   const [visible, setVisible] = useState(false);
    const showDrawer = () => {
      setVisible(true);
@@ -100,4 +100,6 @@ export default () => {
     </Drawer>
   </>
   )
-}
+};
+
+export default Chat;

@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.min.css';
 
-export default () => {
+const LoadingView = () => {
   return <div className="loading">
     <div className="loader">
       <svg>
@@ -15,4 +15,6 @@ export default () => {
       </svg>
     </div>
   </div>
-}
+};
+
+export default LoadingView;

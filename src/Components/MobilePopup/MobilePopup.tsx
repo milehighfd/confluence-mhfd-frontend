@@ -4,7 +4,7 @@ import { numberWithCommas } from '../../utils/utils';
 import { useMapDispatch } from "../../hook/mapHook";
 import { MENU_OPTIONS } from "../../constants/constants";
 
-export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
+const MobilePopup = ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
   const {setSelectedPopup} = useMapDispatch();
   const card = (data: any, index: number) => (
     <div
@@ -93,3 +93,5 @@ export default ({items,  seeDetails}: {items: any, seeDetails: Function}) => {
          </div>
 
 };
+
+export default MobilePopup;

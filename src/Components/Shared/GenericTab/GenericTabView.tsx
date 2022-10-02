@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import React, { useState, useEffect } from "react";
 import { Row, Tag } from "antd";
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -10,7 +9,7 @@ import store from "../../../store";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 
-export default ({
+const GenericTabView = ({
     totalElements,
     type,
     cardInformation,
@@ -249,4 +248,6 @@ export default ({
     </div>
 
     </>
-}
+};
+
+export default GenericTabView;

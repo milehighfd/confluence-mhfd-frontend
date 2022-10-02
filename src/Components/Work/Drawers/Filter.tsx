@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 
-export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
+const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
   setJS, setCS, setPS, l, selJS, selCS, selPS
 }: {
   visible: boolean,
@@ -167,4 +167,6 @@ export default ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
       </div>
     </Drawer>
   )
-}
+};
+
+export default Filter;

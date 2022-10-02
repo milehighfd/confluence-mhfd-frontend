@@ -4,7 +4,7 @@ import { getToken } from '../../Config/datasets'
 import { Redirect } from "react-router-dom";
 import store from "../../store";
 
-export default () => {
+const Unauthorized = () => {
     const [redirect, setRedirect] = useState<boolean>(false);
     const [second, ] = useState<number>(10);
     const user = store.getState().appUser;
@@ -31,4 +31,6 @@ export default () => {
       />
       <div className="error-404">The page will be redirected in {second} seconds</div>
     </>
-}
+};
+
+export default Unauthorized;

@@ -24,7 +24,7 @@ import * as datasets from "../../../Config/datasets";
 
 const content = (<div className="popoveer-00">Defines the Area-Of-Interest for the map and the respective projects and problems shown in the Map Gallery and My Confluence screens.</div>);
 
-export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrganization, getGroupOrganization }:
+const ModalEditUserView = ({ user, updateUserInformation, isVisible, hideProfile, groupOrganization, getGroupOrganization }:
   { user: User, updateUserInformation: Function, isVisible: boolean, hideProfile: Function, groupOrganization: [], getGroupOrganization: Function }) => {
     const [organizationList, setOrganizationList] = useState<any[]>([]);
     const [consultantList, setConsultantList] = useState<any[]>([]);
@@ -311,4 +311,6 @@ export default ({ user, updateUserInformation, isVisible, hideProfile, groupOrga
       </Form>
     </Modal>
   </div>
-}
+};
+
+export default ModalEditUserView;

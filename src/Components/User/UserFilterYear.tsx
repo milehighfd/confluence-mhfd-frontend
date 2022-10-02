@@ -3,7 +3,7 @@ import { Dropdown, Button, Menu } from 'antd';
 import { YEAR } from "../../constants/constants";
 import ConfigurationService from '../../services/ConfigurationService';
 
-export default () => {
+const UserFilterYear = () => {
   const [year, setYear] = useState('2022');
   const MenuOrganization = () => {
     const itemYear: any = [];
@@ -54,4 +54,6 @@ export default () => {
       </div>
     </div>
   )
-}
+};
+
+export default UserFilterYear;

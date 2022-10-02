@@ -11,7 +11,7 @@ const content01 = (<div className="popver-info">This is an internal QA/QC worksp
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
 const content00WP = (<div className="popver-info">This field indicates the status of the Work Plan shown. Changing the status to Approved will finalize the Work Plan for approval by the MHFD Board.</div>);
 const content01WP = (<div className="popver-info">This section indicates all of the applicable jurisdictions within this Work Plan, and whether they have submitted their finalized Work Requests (green dot) or not (yellow dot). All jurisdictions must be green before the Work Plan can be approved.</div>);
-export default ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert }: {
+const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert }: {
   locality: string,
   boardId: any,
   visible: boolean,
@@ -239,4 +239,6 @@ export default ({ locality, boardId, visible, setVisible, status, comment, type,
     </Drawer>
     </>
   )
-}
+};
+
+export default Status;

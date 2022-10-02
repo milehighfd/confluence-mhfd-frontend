@@ -14,10 +14,9 @@ import '../../../Scss/Components/navbar.scss';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
-const content = (<div className="popoveer-00">Notifications (Coming Soon)</div>
-);
+const content = (<div className="popoveer-00">Notifications (Coming Soon)</div>);
 
-export default ({user, updateUserInformation, groupOrganization, getGroupOrganization}:
+const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrganization}:
   {user: User, updateUserInformation : Function, groupOrganization: [], getGroupOrganization: Function}) => {
   const [ key, setKey] = useState('1');
   const [ openProfile, setOpenProfile] = useState(false);
@@ -466,5 +465,6 @@ export default ({user, updateUserInformation, groupOrganization, getGroupOrganiz
     </Modal>
   </Header>
 
-}
+};
 
+export default NavbarView;
