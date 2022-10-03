@@ -566,15 +566,15 @@ const CreateProjectMap = (type: any) => {
 
         map.removeLayer('streams-intersects');
         if (!map.getLayer('streams-intersects')) {
-          let timer = map.getSource('mhfd_stream_reaches') ? 50 : 2300;
-          if (!map.getSource('mhfd_stream_reaches')) {
-            addLayersSource('mhfd_stream_reaches', layerFilters['mhfd_stream_reaches']);
+          let timer = map.getSource(MHFD_STREAMS_FILTERS) ? 50 : 2300;
+          if (!map.getSource(MHFD_STREAMS_FILTERS)) {
+            addLayersSource(MHFD_STREAMS_FILTERS, layerFilters[MHFD_STREAMS_FILTERS]);
           }
           setTimeout(() => {
             map.map.addLayer({
               'id': 'streams-intersects',
               'type': 'line',
-              'source': 'mhfd_stream_reaches',
+              'source': MHFD_STREAMS_FILTERS,
               'source-layer': 'pluto15v1',
               "layout": { "line-cap": "round", "line-join": "round" },
               "paint": {
@@ -1050,7 +1050,7 @@ const CreateProjectMap = (type: any) => {
         let filter = ['in', 'cartodb_id'];
         if (key == PROBLEMS_TRIGGER) {
           filter = ['in', 'problemid'];
-        } else if (key == 'mhfd_stream_reaches') {
+        } else if (key == MHFD_STREAMS_FILTERS) {
           filter = ['in', 'mhfd_code'];
         }
         map.map.addLayer({
@@ -1143,21 +1143,21 @@ const CreateProjectMap = (type: any) => {
   }
   const showHighlightedStream = (mhfd_code: any) => {
     const styles = { ...tileStyles as any }
-    styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer('mhfd_stream_reaches' + '_' + index) && !magicAddingVariable) {
+    styles[MHFD_STREAMS_FILTERS].forEach((style: LayerStylesType, index: number) => {
+      if (map.getLayer(MHFD_STREAMS_FILTERS + '_' + index) && !magicAddingVariable) {
         let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [mhfd_code]]];
-        map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
-        map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
+        map.map.moveLayer(MHFD_STREAMS_FILTERS + '_highlight_' + index);
+        map.setFilter(MHFD_STREAMS_FILTERS + '_highlight_' + index, filter);
       }
     });
   }
   const showHighlightedStreams = (mhfd_codes: any) => {
     const styles = { ...tileStyles as any }
-    styles['mhfd_stream_reaches'].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer('mhfd_stream_reaches' + '_' + index) && !magicAddingVariable) {
+    styles[MHFD_STREAMS_FILTERS].forEach((style: LayerStylesType, index: number) => {
+      if (map.getLayer(MHFD_STREAMS_FILTERS + '_' + index) && !magicAddingVariable) {
         let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...mhfd_codes]]];
-        map.map.moveLayer('mhfd_stream_reaches' + '_highlight_' + index);
-        map.setFilter('mhfd_stream_reaches' + '_highlight_' + index, filter);
+        map.map.moveLayer(MHFD_STREAMS_FILTERS + '_highlight_' + index);
+        map.setFilter(MHFD_STREAMS_FILTERS + '_highlight_' + index, filter);
       }
     });
   }
