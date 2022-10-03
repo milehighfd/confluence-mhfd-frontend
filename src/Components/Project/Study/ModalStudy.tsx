@@ -116,7 +116,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     if (listStreams) {
       const idKey: any = [];
       const myset = new Set(keys);
-      Object.keys(listStreams).map((key: any, id: any) => {
+      Object.keys(listStreams).forEach((key: any, id: any) => {
         if (!streamsList[key]) {
           myset.add(`${key}`);
         } else if (streamsList[key].length != listStreams[key].length) {
@@ -166,30 +166,30 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       study.projectname = nameProject;
       study.description = description;
       let cservice = "";
-      serviceArea.map((element: any) => {
+      serviceArea.forEach((element: any) => {
         cservice = cservice + element + ",";
-      })
+      });
       if (cservice.length != 0) {
-        cservice = cservice.substring(0, cservice.length - 1)
+        cservice = cservice.substring(0, cservice.length - 1);
       }
       let ccounty = "";
-      county.map((element: any) => {
+      county.forEach((element: any) => {
         ccounty = ccounty + element + ",";
-      })
+      });
       if (ccounty.length != 0) {
-        ccounty = ccounty.substring(0, ccounty.length - 1)
+        ccounty = ccounty.substring(0, ccounty.length - 1);
       }
       let cjurisdiction = "";
-      jurisdiction.map((element: any) => {
+      jurisdiction.forEach((element: any) => {
         cjurisdiction = cjurisdiction + element + ",";
-      })
+      });
       if (cjurisdiction.length != 0) {
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1)
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
       }
 
       let csponsor = "";
       if (cosponsor) {
-        cosponsor.map((element: any) => {
+        cosponsor.forEach((element: any) => {
           csponsor = csponsor + element + ",";
         });
         if (cosponsor.length != 0) {

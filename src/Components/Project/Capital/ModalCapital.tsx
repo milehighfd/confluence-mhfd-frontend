@@ -207,7 +207,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const myset = new Set(keys);
-      Object.keys(listComponents.groups).map((key:any, id:any) => {
+      Object.keys(listComponents.groups).forEach((key:any, id:any) => {
         if(!groups[key]){
           myset.add(key+'-collapse1');
         } else if( listComponents.groups[key].components.length != groups[key].components.length){
@@ -237,21 +237,21 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.isWorkPlan = isWorkPlan;
       capital.year = _year ?? capital.year;
       let cservice = "";
-      serviceArea.map((element:any) => {
+      serviceArea.forEach((element:any) => {
         cservice= cservice + element + ",";
       })
       if(cservice.length != 0 ){
         cservice = cservice.substring(0, cservice.length-1)
       }
       let ccounty = "";
-      county.map((element:any) => {
+      county.forEach((element:any) => {
         ccounty= ccounty + element + ",";
       })
       if(ccounty.length != 0 ){
         ccounty = ccounty.substring(0, ccounty.length-1)
       }
       let cjurisdiction = "";
-      jurisdiction.map((element:any) => {
+      jurisdiction.forEach((element:any) => {
         cjurisdiction= cjurisdiction + element + ",";
       })
       if(cjurisdiction.length != 0 ){
@@ -260,7 +260,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
       let csponsor = "";
       if(cosponsor){
-        cosponsor.map((element:any) => {
+        cosponsor.forEach((element:any) => {
           csponsor= csponsor + element + ",";
         }); 
         if(cosponsor.length != 0 ){
@@ -626,7 +626,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             expandIconPosition="end"
             onChange={(event: any)=> {setKeys(event)}}
           >
-              {groups && Object.keys(groups).map((key: any,id:any) => {
+              {groups && Object.keys(groups).map((key: any) => {
                 if(key.toString() == '-1') {
                   if(groups[key].components.length > 0){
                     return (
@@ -658,6 +658,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                         </div>
                       </Panel>)
                   }
+                  return null;
                 } else {
                   return (
                     <Panel header="" key={key + '-collapse1'} extra={genTitleProblem(groups[key], key, setValuesProblem, setValueZoomProb, setKeyOpenClose)}>

@@ -99,10 +99,10 @@ export const LocationInformation = ({
       if (currentServiceAreaCounty && currentServiceAreaCounty['Service Area']) {
         setSArea(currentServiceAreaCounty['Service Area']);
         let SA = serviceArea;
-        currentServiceAreaCounty['Service Area'].map((element: any) => {
+        currentServiceAreaCounty['Service Area'].forEach((element: any) => {
           let service = true;
           if (SA) {
-            SA.map((data: any) => {
+            SA.forEach((data: any) => {
               if (element.includes(data)) { service = false; }
             });
           }
@@ -113,10 +113,10 @@ export const LocationInformation = ({
       if (currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
         let C = county;
-        currentServiceAreaCounty['County'].map((element: any) => {
+        currentServiceAreaCounty['County'].forEach((element: any) => {
           let service = true;
           if (C) {
-            C.map((data: any) => {
+            C.forEach((data: any) => {
               if (element.includes(data)) { service = false; }
             });
           }
@@ -126,11 +126,11 @@ export const LocationInformation = ({
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
         let J = jUrisdiction;
-        currentServiceAreaCounty['jurisdiction'].map((element: any) => {
+        currentServiceAreaCounty['jurisdiction'].forEach((element: any) => {
 
           let service = true;
           if (J) {
-            J.map((data: any) => {
+            J.forEach((data: any) => {
               if (data === element) { service = false; }
             });
           }
@@ -149,13 +149,9 @@ export const LocationInformation = ({
           <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div className="sponsor-select" id="serviceid">
             <Select mode="multiple" placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a Service Area"} style={{ width: '100%' }} onChange={(serviceArea: any) => setServiceArea(serviceArea)} value={serviceArea} disabled={disable} getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
-              {officialS_A.map((element) => {
-                if (element != 'None') {
-                  if (element != 'Boulder Service Area') {
-                    return <Option key={element} value={element}>{element}</Option>
-                  }
-                }
-              })}
+              {officialS_A.map((element) => 
+                element != 'None' && element != 'Boulder Service Area' && <Option key={element} value={element}>{element}</Option>
+              )}
             </Select>
           </div>
         </Col>

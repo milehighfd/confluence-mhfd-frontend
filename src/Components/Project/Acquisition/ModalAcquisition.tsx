@@ -83,34 +83,34 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.isWorkPlan = isWorkPlan;
       acquisition.year = _year ?? acquisition.year;
       let cservice = "";
-      serviceArea.map((element: any) => {
+      serviceArea.forEach((element: any) => {
         cservice = cservice + element + ",";
-      })
+      });
       if (cservice.length != 0) {
-        cservice = cservice.substring(0, cservice.length - 1)
+        cservice = cservice.substring(0, cservice.length - 1);
       }
       let ccounty = "";
-      county.map((element: any) => {
+      county.forEach((element: any) => {
         ccounty = ccounty + element + ",";
-      })
+      });
       if (ccounty.length != 0) {
-        ccounty = ccounty.substring(0, ccounty.length - 1)
+        ccounty = ccounty.substring(0, ccounty.length - 1);
       }
       let cjurisdiction = "";
-      jurisdiction.map((element: any) => {
+      jurisdiction.forEach((element: any) => {
         cjurisdiction = cjurisdiction + element + ",";
       })
       if (cjurisdiction.length != 0) {
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1)
+        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
       }
 
       let csponsor = "";
       if (cosponsor) {
-        cosponsor.map((element: any) => {
+        cosponsor.forEach((element: any) => {
           csponsor = csponsor + element + ",";
         });
         if (cosponsor.length != 0) {
-          csponsor = csponsor.substring(0, csponsor.length - 1)
+          csponsor = csponsor.substring(0, csponsor.length - 1);
         }
       }
       acquisition.servicearea = cservice;
