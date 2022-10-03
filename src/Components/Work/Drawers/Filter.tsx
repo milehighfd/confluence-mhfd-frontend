@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Drawer, Button, Checkbox } from 'antd';
 
 const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
@@ -16,7 +16,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
   selCS: string[],
   selPS: string[]
 }) => {
-  const priorityFilterList = ['1', '2', '3', 'Over 3'];
+  const priorityFilterList = useMemo(() => ['1', '2', '3', 'Over 3', 'Work Plan'], []);
   const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
   const [csaSelected, setCsaSelected] = useState<any[]>([]);
   const [prioritySelected, setPrioritySelected] = useState<any[]>([]);
