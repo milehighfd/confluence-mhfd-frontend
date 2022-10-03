@@ -199,7 +199,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       {
         showTwoNextYears && <>
           {!showFirst && !showSecond && !showThird && !showFourth && !showFifth && <><p>{nextYear1Label - 1}</p>
-          <InputNumber min={0}
+          <InputNumber
+            min={0}
+            style={{fontSize: 16}}
             formatter={priceFormatter}
             parser={priceParser}
             value={year0} onChange={setYear0}
@@ -208,7 +210,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
             <img src="/Icons/icon-23.svg" />
           </Button></>}
           <p>{nextYear1Label}</p>
-          <InputNumber min={0}
+          <InputNumber
+            min={0}
+            style={{fontSize: 16}}
             formatter={priceFormatter}
             parser={priceParser}
             value={nextYear1} onChange={setNextYear1}
@@ -217,7 +221,9 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
             <img src="/Icons/icon-23.svg" />
           </Button>
           <p>{nextYear2Label}</p>
-          <InputNumber min={0}
+          <InputNumber
+            min={0}
+            style={{fontSize: 16}}
             formatter={priceFormatter}
             parser={priceParser}
             value={nextYear2} onChange={setNextYear2}
