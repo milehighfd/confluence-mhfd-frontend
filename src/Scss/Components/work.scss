@@ -235,13 +235,18 @@
     }
   }
   .card-wr{
-    width: 148px;
+    width: 100% !important;
     height: 80px;
     box-shadow: 0 3px 5px 0 rgba(6, 36, 45, 0.06);
     background-color: $white;
     position: relative;
     padding: 5px 5px;
     margin-bottom: 5px;
+    border-right: 7px solid white !important;
+    margin-right: 0px;
+    padding-right: 0px;
+    border-radius: 4px !important;
+    transition: none;
   }
   h3{
     font-size: 12px;
