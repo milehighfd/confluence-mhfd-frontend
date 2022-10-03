@@ -67,6 +67,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
+  const isWorkPlan = location.pathname.includes('work-plan');
 
   useEffect(() => {
     setServiceAreaCounty({});
@@ -158,7 +159,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
-      const isWorkPlan = location.pathname.includes('work-plan');
       var study = new Project();
       study.locality = _locality;
       study.isWorkPlan = isWorkPlan;
@@ -332,6 +332,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   return (
     <>
       {visibleAlert && <AlertView
+        isWorkPlan={isWorkPlan}
         sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}

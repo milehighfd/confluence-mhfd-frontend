@@ -48,6 +48,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [lengthName, setlengthName] = useState(0);
   const history = useHistory();
   const location = useLocation();
+  const isWorkPlan = location.pathname.includes('work-plan');
 
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
@@ -119,7 +120,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
-      const isWorkPlan = location.pathname.includes('work-plan');
       var special = new Project();
       special.locality = _locality;
       special.isWorkPlan = isWorkPlan;
@@ -192,6 +192,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   return (
     <>
     {visibleAlert && <AlertView
+      isWorkPlan={isWorkPlan}
       sponsor={sponsor}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}

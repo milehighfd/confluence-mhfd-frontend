@@ -71,14 +71,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
-
+  const isWorkPlan = location.pathname.includes('work-plan');
 
   useEffect(() => {
     if (save === true) {
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
-      const isWorkPlan = location.pathname.includes('work-plan');
       var acquisition = new Project();
       acquisition.locality = _locality;
       acquisition.isWorkPlan = isWorkPlan;
@@ -267,6 +266,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   return (
     <>
       {visibleAlert && <AlertView
+        isWorkPlan={isWorkPlan}
         sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}

@@ -6,8 +6,8 @@ import { ADMIN, STAFF } from "../../constants/constants";
 const stateValue = {
   visible: false
 }
-export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit, sendToWr, setsendToWR}:
-  {visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean, sendToWr: boolean, setsendToWR: Function} ) => {
+export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit, sendToWr, setsendToWR}:
+  {isWorkPlan: boolean, visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean, sendToWr: boolean, setsendToWR: Function} ) => {
   const [state, setState] = useState(stateValue);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
@@ -59,7 +59,6 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
                 <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>{ isEdit ? 'Please confirm your project edits below.' : 'This project will be routed to the following boards:'}</p>
               </Col>
               {!isEdit && <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
-              {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
                 <p className="title">
                   Work Request
                 </p>
@@ -78,13 +77,17 @@ export const AlertView = ({visibleAlert, setVisibleAlert, setSave, sponsor, juri
               {
                 (showCheckBox && !isEdit) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div>
-                    <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWr} onChange={() => setsendToWR(!sendToWr)}></Checkbox>Send this project to the Work Request board
+                    <Checkbox
+                      style={{paddingRight:'10px', paddingTop:'10px'}}
+                      checked={sendToWr}
+                      onChange={() => setsendToWR(!sendToWr)}
+                      disabled={isWorkPlan}
+                    />
+                    Send this project to the Work Request board
                   </div>
                 </Col>
               }
-
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
-                {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}
                 <button className="btn-borde" onClick={handleCancel} style={{width: '95%'}}>Cancel</button>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>

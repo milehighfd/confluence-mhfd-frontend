@@ -113,6 +113,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const { toggleAttachmentCover } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
+  const isWorkPlan = location.pathname.includes('work-plan');
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -231,7 +232,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
-      const isWorkPlan = location.pathname.includes('work-plan');
       var capital = new Project();
       capital.locality = _locality;
       capital.isWorkPlan = isWorkPlan;
@@ -533,6 +533,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   return (
     <>
     {visibleAlert && <AlertView
+      isWorkPlan={isWorkPlan}
       sponsor={sponsor}
       visibleAlert = {visibleAlert}
       setVisibleAlert ={setVisibleAlert}

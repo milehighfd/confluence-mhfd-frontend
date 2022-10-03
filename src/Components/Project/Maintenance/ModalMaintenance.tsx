@@ -67,6 +67,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const { toggleAttachmentCover } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
+  const isWorkPlan = location.pathname.includes('work-plan');
 
   const parseStringToArray = (list: string) => {
     if (list) {
@@ -146,7 +147,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
-      const isWorkPlan = location.pathname.includes('work-plan');
       var maintenance = new Project();
       maintenance.locality = _locality;
       maintenance.isWorkPlan = isWorkPlan;
@@ -274,6 +274,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   return (
     <>
       {visibleAlert && <AlertView
+        isWorkPlan={isWorkPlan}
         sponsor={sponsor}
         visibleAlert={visibleAlert}
         setVisibleAlert={setVisibleAlert}
