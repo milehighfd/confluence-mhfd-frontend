@@ -46,6 +46,9 @@ export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
 
 const checkPriority = (value: number | null, option: string) => {
   if (value == null) return true;
+  if (option.includes('Work Plan')) {
+    return value < 0;
+  }
   if (option.includes('Over')) {
     return value >= 3;
   }
