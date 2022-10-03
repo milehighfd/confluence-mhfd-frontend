@@ -209,7 +209,11 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
           <Button className="button-close" onClick={() => setYear0(null)}>
             <img src="/Icons/icon-23.svg" />
           </Button></>}
-          <p>{nextYear1Label}</p>
+          <p
+            style={{fontSize: 16}}
+          >
+            {nextYear1Label}
+          </p>
           <InputNumber
             min={0}
             style={{fontSize: 16}}
@@ -220,7 +224,11 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
           <Button className="button-close" onClick={() => setNextYear1(null)}>
             <img src="/Icons/icon-23.svg" />
           </Button>
-          <p>{nextYear2Label}</p>
+          <p
+            style={{fontSize: 16}}
+          >
+            {nextYear1Label}
+          </p>
           <InputNumber
             min={0}
             style={{fontSize: 16}}
