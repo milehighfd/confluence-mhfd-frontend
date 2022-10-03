@@ -227,7 +227,7 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
           <p
             style={{fontSize: 16}}
           >
-            {nextYear1Label}
+            {nextYear2Label}
           </p>
           <InputNumber
             min={0}
