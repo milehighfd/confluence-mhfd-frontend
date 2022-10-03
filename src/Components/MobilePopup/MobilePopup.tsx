@@ -9,13 +9,13 @@ const MobilePopup = ({items,  seeDetails}: {items: any, seeDetails: Function}) =
   const card = (data: any, index: number) => (
     <div
       onClick={() => {
-        if (data.type && data.type === MENU_OPTIONS.PROBLEMS || data.type === 'project') {
+        if (data.type && (data.type === MENU_OPTIONS.PROBLEMS || data.type === 'project')) {
           seeDetails(data);
         }
       }}
       key={'mobile-popup-' + index}
       onTouchEnd={() => {
-        if (data.type && data.type === MENU_OPTIONS.PROBLEMS || data.type === 'project') {
+        if (data.type && (data.type === MENU_OPTIONS.PROBLEMS || data.type === 'project')) {
           seeDetails(data);
         }
       }}
