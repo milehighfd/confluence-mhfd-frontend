@@ -528,7 +528,7 @@ const RequestView = ({ type, isFirstRendering }: {
     let [a] = getTotalsByProperty(columns, 'servicearea');
     let [c] = getTotalsByProperty(columns, 'jurisdiction');
     let uniqueServiceArea = a.map((p: any) => p.locality);
-    let uniqueJurisdictions = c.map((p: any) => p.locality);
+    let uniqueJurisdictions = c.map((p: any) => p.locality).filter((p: any) => p.length > 0);
     let uniqueCounties = rows.map((p: any) => p.locality);
     setJurisdictionFilterList(uniqueJurisdictions);
     setJurisdictionSelected(uniqueJurisdictions);
