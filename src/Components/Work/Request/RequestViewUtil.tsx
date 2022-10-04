@@ -1,8 +1,10 @@
-import { boardProject, columnProject } from "./RequestTypes";
-import CardStatService from './CardService';
-import { NEW_PROJECT_TYPES } from "../../../constants/constants";
+import { boardProject, boardType, columnProject } from 'Components/Work/Request/RequestTypes';
+import CardStatService from 'Components/Work/Request/CardService';
+import { NEW_PROJECT_TYPES } from 'constants/constants';
+
 let fields = ['project_id', 'req1', 'req2', 'req3', 'req4', 'req5', 'positon0', 'positon1', 'positon2', 'positon3', 'positon4', 'positon5'];
 let fields2 = ['description', 'projectname', 'jurisdiction','county','servicearea','sponsor','cosponsor','components', 'estimatedcost','the_geom','streams','overheadcostdescription','additionalcostdescription'];
+
 export const compareColumns = (_colsLhs: any, _colsRhs: any) => {
   let colsLhs: columnProject[] = _colsLhs;
   let colsRhs: columnProject[] = _colsRhs;
@@ -304,7 +306,7 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
   }
 }
 
-export const csvFileName = (year: any, locality: string, type: string) => {
+export const getCsvFileName = (year: any, locality: string, type: string) => {
   let date =  new Date();
   let y = date.getFullYear() % 100;
   let m = date.getMonth()+1;
@@ -319,6 +321,8 @@ export const csvFileName = (year: any, locality: string, type: string) => {
 }
 
 export const getCsv = (
+  type: boardType,
+  localities: any[],
   columns: any[],
   locality: string,
   year: any,
@@ -326,9 +330,19 @@ export const getCsv = (
   sumTotal: any,
   sumByCounty: any,
   reqManager: any,
-  diff: any,
-  localityLabel: string
+  diff: any
 ) => {
+  let localityLabel = '';
+    if (type === "WORK_REQUEST") {
+      localityLabel = 'Jurisdiction';
+    } else {
+      let _locality = localities.find((loc: any) => {
+        return loc.name === locality;
+      });
+      if (_locality) {
+        localityLabel = _locality.type === 'COUNTY' ? 'County' : 'Service Area';
+      }
+    }
   const date = new Date();
     const csvData = [['Exported on ' + date], [`${localityLabel}:`, locality ], ['Year:', year], ['Project Type:' , tabKey], []];
     const row: any = [], row2: any = [], dataByYear: any = {}, years: any = [];

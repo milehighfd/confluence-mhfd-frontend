@@ -1,5 +1,5 @@
-import * as datasets from "../Config/datasets";
-import { SERVER } from "../Config/Server.config";
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
 
 export const getComponentCounter = (id: number, type: string, setCountComponents: Function) => {
   datasets.postData(

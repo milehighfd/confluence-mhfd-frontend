@@ -1,35 +1,35 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, notification, Popover } from 'antd';
 import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
-import Navbar from "../../Shared/Navbar/NavbarContainer";
-import SidebarView from"../../Shared/Sidebar/SidebarView";
-import WsService from "./WsService";
-import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from "../../../constants/constants";
-import WorkRequestMap from './../../WorkRequestMap/WorkRequestMap';
-import '../../../index.scss';
-import { getData, getToken, postData } from "../../../Config/datasets";
-import { SERVER } from "../../../Config/Server.config";
-import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
-import TrelloLikeCard from "./TrelloLikeCard";
-import { useProjectDispatch } from '../../../hook/projectHook';
-import Analytics from "../Drawers/Analytics";
-import { useHistory } from "react-router";
-import { CSVLink } from 'react-csv';
-import Status from "../Drawers/Status";
-import ColorService from './ColorService';
-import ProjectEditService from './ProjectEditService';
-import store from '../../../store';
-import { compareArrays, compareColumns, csvFileName, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getCsv, getTotalsByProperty, hasPriority, onDropFn, priceFormatter, priceParser } from "./RequestViewUtil";
-import { boardType } from "./RequestTypes";
-import Filter from "../Drawers/Filter";
-import TotalHeader from "./TotalHeader";
-import CostTableBody from "./CostTableBody";
-import { useAttachmentDispatch } from "../../../hook/attachmentHook";
-import { AlertStatus } from "./AlertStatus";
-import LoadingViewOverall from '../../Loading-overall/LoadingViewOverall';
-import ConfigurationService from '../../../services/ConfigurationService';
-import { useProfileDispatch } from '../../../hook/profileHook';
+import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
+import React, { useState, useEffect, useRef } from 'react';
+import { useHistory } from 'react-router';
+import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
+import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest';
+import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
+import { useProjectDispatch } from 'hook/projectHook';
+import ConfigurationService from 'services/ConfigurationService';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
+import Navbar from 'Components/Shared/Navbar/NavbarContainer';
+import SidebarView from'Components/Shared/Sidebar/SidebarView';
+import Filter from 'Components/Work/Drawers/Filter';
+import Analytics from 'Components/Work/Drawers/Analytics';
+import Status from 'Components/Work/Drawers/Status';
+import { AlertStatus } from 'Components/Work/Request/AlertStatus';
+import ColorService from 'Components/Work/Request/ColorService';
+import CostTableBody from 'Components/Work/Request/CostTableBody';
+import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
+import ProjectEditService from 'Components/Work/Request/ProjectEditService';
+import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
+import { compareArrays, compareColumns, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getTotalsByProperty, hasPriority, onDropFn, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
+import TotalHeader from 'Components/Work/Request/TotalHeader';
+import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
+import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
+import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
+import WsService from 'Components/Work/Request/WsService';
 
+import '../../../index.scss';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -38,12 +38,6 @@ const { Panel } = Collapse;
 
 let currentProject: any = {};
 
-const openNotification = () => {
-  notification.open({
-    message: `Share URL Copied to clipboard`,
-    duration: 5
-  });
-};
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
@@ -90,7 +84,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [localityFilter, setLocalityFilter] = useState('');
   const [jurisdictionFilterList, setJurisdictionFilterList] = useState([]);
   const [csaFilterList, setCsaFilterList] = useState([]);
-  const [priorityFilterList, setPriorityFilterList] = useState(['1', '2', '3', 'Over 3', 'Work Plan']);
   const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
   const [prioritySelected, setPrioritySelected] = useState<string[]>(['1', '2', '3', 'Over 3', 'Work Plan']);
@@ -103,9 +96,11 @@ const RequestView = ({ type, isFirstRendering }: {
   const ref = useRef<any>(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
-  const user = store.getState().profile.userInformation;
+  const { userInformation } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
-  const users = store.getState().users;
+  const users = useMyUser();
+  const fakeLoading = useFakeLoadingHook(tabKey);
+
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -176,25 +171,6 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }
 
-  const generateCSV = () => {
-    let localityLabel = '';
-    if (type === "WORK_REQUEST") {
-      localityLabel = 'Jurisdiction';
-    } else {
-      let l = localities.find((p: any) => {
-        return p.name === locality;
-      })
-      if (l) {
-        if (l.type === 'COUNTY') {
-          localityLabel = 'County';
-        } else {
-          localityLabel = 'Service Area';
-        }
-      }
-    }
-    return getCsv(columns, locality, year, tabKey, sumTotal, sumByCounty, reqManager, diff, localityLabel);
-  }
-
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
     setShowAnalytics(false);
@@ -252,7 +228,6 @@ const RequestView = ({ type, isFirstRendering }: {
   }, [tabKey]);
 
   useEffect(() => {
-    console.log(' is loading ');
     const initLoading = async () => {
     let config;
     try {
@@ -270,11 +245,10 @@ const RequestView = ({ type, isFirstRendering }: {
     let _year = params.get('year');
     let _locality = params.get('locality');
     let _tabKey = params.get('tabKey') || users.projecttype;
-    getData(SERVER.ME, getToken()).then( userResponse => {
-      if( _locality != userResponse.organization && userResponse.designation == GOVERNMENT_STAFF) {
-        _locality = userResponse.organization;
-      }
-      getData(`${SERVER.URL_BASE}/locality/${type}`, getToken())
+    if( _locality != userInformation.organization && userInformation.designation == GOVERNMENT_STAFF) {
+      _locality = userInformation.organization;
+    }
+    getLocalitiesByBoardType(type)
         .then(
           (r: any) => {
             setLocalities(r.localities);
@@ -347,8 +321,7 @@ const RequestView = ({ type, isFirstRendering }: {
           (e) => {
             console.log('e', e);
           }
-        )  
-    })
+        )
     }
     initLoading();
     setZoomProject(undefined);
@@ -358,7 +331,7 @@ const RequestView = ({ type, isFirstRendering }: {
     if (!locality) {
       return;
     }
-    let data = {
+    let data: BoardDataRequest = {
       type,
       year: `${year}`,
       locality,
@@ -366,15 +339,13 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setCurrentDataForBoard(data);
     setColumns(defaultColumns);
-    postData(`${SERVER.URL_BASE}/board/`, data)
+    getBoardData(data)
       .then(
         (r: any) => {
           if (!r) return;
           let { board, projects } = r;
           ProjectEditService.setProjects(projects);
           if (board) {
-            // here
-            console.log('needs update ', board.total_county_budget);
             setTotalCountyBudget(board.total_county_budget || 0);
             setBoardStatus(board.status);
             setBoardSubstatus(board.substatus);
@@ -420,13 +391,7 @@ const RequestView = ({ type, isFirstRendering }: {
       })
 
   }, [year, locality, tabKey]);
-  const [loadingTransp, setLoadingT] = useState(false);
-  useEffect(()=>{
-    setLoadingT(true);
-    setTimeout(()=>{
-      setLoadingT(false);
-    },5000);
-  },[tabKey]);
+
   useEffect(() => {
     if (!namespaceId) {
       return;
@@ -450,13 +415,12 @@ const RequestView = ({ type, isFirstRendering }: {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      let data = {
-        type,
-        year: `${year}`,
-        locality,
-        projecttype: tabKey
-      }
-      postData(`${SERVER.URL_BASE}/board/`, data)
+    getBoardData({
+      type,
+      year: `${year}`,
+      locality,
+      projecttype: tabKey
+    })
         .then(
           (r: any) => {
             if (!r) return;
@@ -512,7 +476,6 @@ const RequestView = ({ type, isFirstRendering }: {
                   }
                 }
               }
-
             }
           },
           (e) => {
@@ -793,7 +756,7 @@ const RequestView = ({ type, isFirstRendering }: {
           <AlertStatus type={alertStatus.type} message={alertStatus.message} />
         }
         <Layout className="work">
-          { (loadingTransp || loading ) &&<LoadingViewOverall></LoadingViewOverall>}
+          { (fakeLoading || loading) && <LoadingViewOverall /> }
           {
             <Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
@@ -809,9 +772,8 @@ const RequestView = ({ type, isFirstRendering }: {
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                     <div className="auto-complete-map">
                       {
-                        user.designation !== GOVERNMENT_STAFF ?
+                        userInformation.designation !== GOVERNMENT_STAFF ?
                         <AutoComplete
-                        //onDropdownVisibleChange={setDropdownIsOpen}
                         className={'ant-select-1'}
                         options={dataAutocomplete.map(renderOption)}
                         placeholder={localityFilter}
@@ -872,19 +834,19 @@ const RequestView = ({ type, isFirstRendering }: {
                     </ButtonGroup>
 
                     <ButtonGroup className={leftWidth === (MEDIUM_SCREEN_RIGHT - 1) ? '' : 'hide-when-1' }>
-                    <Button className="btn-opacity">
-                      <CSVLink filename={csvFileName(year, locality, type)} data={generateCSV()} className="btn-opacity" style={{padding:'0px'}}>
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
-                      </CSVLink>
-                    </Button>
-                    <Button className="btn-opacity" onClick={
-                      () => {
-                        navigator.clipboard.writeText(window.location.href);
-                        openNotification();
-                      }
-                    }>
-                      <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
-                    </Button>
+                    <DownloadCSV
+                      type={type}
+                      localities={localities}
+                      columns={columns}
+                      locality={locality}
+                      year={year}
+                      tabKey={tabKey}
+                      sumTotal={sumTotal}
+                      sumByCounty={sumByCounty}
+                      reqManager={reqManager}
+                      diff={diff}
+                    />
+                    <ShareURL />
                     </ButtonGroup>
                   </Col>
                 </Row>
@@ -944,8 +906,6 @@ const RequestView = ({ type, isFirstRendering }: {
 
                         <div className="cost-wr">
                           <Collapse
-                            // defaultActiveKey={['1']}
-                            // expandIconPosition="start"
                             collapsible="header"
                           >
                             <Panel

@@ -5,8 +5,6 @@ class MapService {
 
   isAutocompleteUsed = false;
 
-  constructor() { }
-
   hideAndRemoveLayer() {
     if (this.map.getLayer('mask')) {
       this.map.setLayoutProperty('mask', 'visibility', 'visible');
@@ -31,7 +29,6 @@ class MapService {
       waiting();
     } else {
       if (this.map.loaded()) {
-        console.log('hide opacity');
         this.hideAndRemoveLayer();
       }
     }

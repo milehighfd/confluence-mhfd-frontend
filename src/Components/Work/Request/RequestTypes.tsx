@@ -26,3 +26,10 @@ export interface Attachment {
   updatedAt: string;
   isCover: boolean;
 }
+
+export interface BoardDataRequest {
+  type: boardType,
+  year: number | string,
+  locality: string,
+  projecttype: string
+}
