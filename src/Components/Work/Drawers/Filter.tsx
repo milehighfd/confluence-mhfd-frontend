@@ -63,6 +63,9 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
     setJurisdictionSelected(jurisdictionSelected.map( elem => true));
     setCsaSelected(csaSelected.map(elem => true));
     setPrioritySelected(prioritySelected.map(elem => true));
+    setJS(jurisdictionFilterList);
+    setCS(csaFilterList);
+    setPS(priorityFilterList);
   }
   let label;
   if (l === 'COUNTY') {
