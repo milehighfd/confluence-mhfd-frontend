@@ -178,6 +178,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setLocality(value);
     setIsOnSelected(true);
     setLocalityFilter(value);
+    setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
     let l = localities.find((p: any) => {
       return p.name === value;
     })
@@ -815,7 +816,10 @@ const RequestView = ({ type, isFirstRendering }: {
                     <Select
                       defaultValue={year}
                       value={`Year ${year}`}
-                      onChange={setYear}
+                      onChange={(y: any) => {
+                        setYear(y);
+                        setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
+                      }}
                       className={'ant-select-2'} >
                       {
                         years.map((y, i) => (
@@ -859,7 +863,10 @@ const RequestView = ({ type, isFirstRendering }: {
                 }
                 <Tabs defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
-                 onChange={(key) => setTabKey(key)} className="tabs-map">
+                 onChange={(key) => {
+                  setTabKey(key);
+                  setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
+                 }} className="tabs-map">
                   {
                     displayedTabKey.map((tk: string) => (
                       <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
