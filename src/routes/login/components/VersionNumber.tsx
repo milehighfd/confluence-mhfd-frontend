@@ -23,7 +23,14 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}}>
-          <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.3 - September 29, 2022</p>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.4 - October 3, 2022</p>
+            <ul>
+              <li>New priority label for Work Request/Plan cards</li>
+              <li>New priority filter and reset inside Work Plans</li>
+              <li>Copy projects from previous board years to the current Work Request/Plan</li>
+              <li>Update Work Plan Maintenance budget layout inside Analytics</li>
+            </ul>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.3 - September 29, 2022</p>
             <ul>
               <li>Updated teams/chats placeholder in the project detail page</li>
               <li>Added problem parts, land use land cover, and stream improvement measure layers</li>
