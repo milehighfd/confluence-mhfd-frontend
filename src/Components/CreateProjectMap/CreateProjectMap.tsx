@@ -602,7 +602,7 @@ const CreateProjectMap = (type: any) => {
   }, [map])
   const [compareSL, setCompareSL] = useState('');
   const waiting = () => {
-    if (!map.map.isStyleLoaded()) {
+    if (map && !map.map.isStyleLoaded()) {
         setTimeout(waiting, 250);
     } else {
       if (JSON.stringify(selectedLayersCP) !== compareSL) {
