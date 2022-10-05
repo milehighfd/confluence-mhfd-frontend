@@ -242,7 +242,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         }
         e.preventDefault();
       }}>
-      <Popover placement="top" content={<>{projectname}</>}>
+      <Popover placement="top" content={<>
+        <b>{projectname}</b>
+        <br />
+        <b>Project: </b> {projectid}
+        <br />
+        <b>Board: </b> {namespaceId}
+        </>}>
         <h4>{displayName}</h4>
       </Popover>
       <h6>{amount ? formatter.format(amount) : ''}</h6>
