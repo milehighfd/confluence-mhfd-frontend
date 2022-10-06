@@ -26,7 +26,8 @@ import {
     MAPTYPES,
     initFilterProblems,
     USE_LAND_COVER_LABEL,
-    USE_LAND_COVER_MAP
+    USE_LAND_COVER_MAP,
+    FEMA_FLOOD_HAZARD
 } from "../../../constants/constants";
 import { 
   COMPONENT_LAYERS_STYLE,
@@ -611,6 +612,7 @@ const Map = ({
           'custom-sprite/30x30px.png',
           'custom-sprite/dollar.png',
           'custom-sprite/fema-floodway.png',
+          'custom-sprite/Levee.png',
           'custom-sprite/Frame13a.png',
           'custom-sprite/Frame17m2t.png',
           'custom-sprite/Frame21C.png',
@@ -821,7 +823,7 @@ const Map = ({
             }
             setSpinMapLoaded(false);
             applyNearMapLayer();
-            applyTileSetLayer();
+            //applyTileSetLayer();
             applyMeasuresLayer();
         }
     };
@@ -1089,6 +1091,7 @@ const Map = ({
       });
     }
     const applyMapLayers = async () => {
+      applyTileSetLayer();
         await SELECT_ALL_FILTERS.forEach((layer) => {
             if (typeof layer === 'object') {
               if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
@@ -1132,6 +1135,7 @@ const Map = ({
             topLabels();
             topServiceArea();
             topComponents();
+            topFemaFH();
             if (map.getLayer('borderMASK')) {
               map.moveLayer('borderMASK');
             }
@@ -1153,6 +1157,12 @@ const Map = ({
           }
         })
       })
+    }
+    const topFemaFH = () => {
+      const styles = { ...tileStyles as any };   
+        styles[FEMA_FLOOD_HAZARD].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${FEMA_FLOOD_HAZARD}_${index}`);
+        })
     }
     const topProjects = () => {
       const styles = { ...tileStyles as any };   

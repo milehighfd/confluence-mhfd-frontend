@@ -293,6 +293,15 @@ export class MapService {
             this.map.addImage('fema-floodway', image);
         }
     });
+    this.map.loadImage('custom-sprite/Levee.png', (error: any, image: any) => {
+      if (error) {
+          console.log('error on load Levee', error);
+          return;
+      }
+      if (!this.map.hasImage('Levee')) {
+          this.map.addImage('Levee', image);
+      }
+  });
     this.map.loadImage('custom-sprite/Frame13a.png', (error: any, image: any) => {
         if (error) {
             console.log('error on load Frame13a', error);
