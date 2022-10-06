@@ -3234,7 +3234,86 @@ export const tileStyles = {
       ],
       "fill-antialias": false
     }
-  }], 
+  }, {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      'fill-translate': [0, 0],
+      "fill-opacity": 0.5,
+      "fill-pattern":[
+        "match",
+        ["get", "zone_subty"],
+        [
+          "AREA WITH REDUCED FLOOD RISK DUE TO LEVEE"
+        ],
+        "Levee",
+        ""
+      ],
+      "fill-antialias": true
+    }
+  }
+  
+  ,{
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "concat",
+          [
+            "to-string",
+            ["get", "fld_zone"]
+          ],
+          ["get", "zone_subty"]
+      ],
+      "text-font":[
+        "Open Sans Bold",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-letter-spacing":0,
+      "text-transform": "none",
+    },
+    "paint": {
+      "text-color":"hsl(189, 78%, 12%)",
+      "text-opacity": ["step", ["zoom"], 0, 11, 1],
+      "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
+      "text-halo-width":1,
+      "text-halo-blur":0
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ],
+        ""
+      ],
+      "text-font":[
+        "Open Sans Bold",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-letter-spacing":0,
+      "text-transform": "none",
+    },
+    "paint": {
+      "text-color":"hsl(189, 78%, 12%)",
+      "text-opacity": ["step", ["zoom"], 0, 11, 1],
+      "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
+      "text-halo-width":1,
+      "text-halo-blur":0
+    }
+  }
+
+  ], 
   [WATERSHED_FILTERS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
