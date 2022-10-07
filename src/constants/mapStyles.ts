@@ -3079,162 +3079,199 @@ export const tileStyles = {
   }
 }
 ],
-  [FEMA_FLOOD_HAZARD]: [ {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "fill-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["AE", "A", "AO", "AH"],
-              "#17285e",
-              "hsla(0, 0%, 100%, 0)"
-          ],
-          13,
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["AE", "A", "AO", "AH"],
-              "#17285e",
-              "hsla(0, 0%, 100%, 0)"
-          ],
-          22,
-          [
-              "match",
-              ["get", "fld_zone"],
-              ["AE", "A", "AO", "AH"],
-              "#17285e",
-              "hsla(0, 0%, 100%, 0)"
-          ]
-      ],
-      "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          13,
-          0.76,
-          15,
-          0,
-          22,
-          0
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "line-color": [
-          "match",
-          ["get", "fld_zone"],
-          ["A", "AE", "AO", "AH"],
-          "#17285e",
-          "hsla(0, 94%, 25%, 0)"
-      ],
-      "line-width": 3,
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          14,
-          1,
-          22,
-          1
-      ]
-    }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "line-color": [
-          "match",
-          ["get", "zone_subty"],
-          ["FLOODWAY"],
-          "#17285e",
-          "hsla(0, 0%, 100%, 0)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0.5,
-          14,
-          0.5,
-          22,
-          3
-      ],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          11,
-          1,
-          22,
-          1
-      ],
-      "line-dasharray": [2, 2]
-    }
-  },
+  [FEMA_FLOOD_HAZARD]: [ 
+  //   {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-color": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         [
+  //             "match",
+  //             ["get", "fld_zone"],
+  //             ["AE", "A", "AO", "AH"],
+  //             "#17285e",
+  //             "hsla(0, 0%, 100%, 0)"
+  //         ],
+  //         13,
+  //         [
+  //             "match",
+  //             ["get", "fld_zone"],
+  //             ["AE", "A", "AO", "AH"],
+  //             "#17285e",
+  //             "hsla(0, 0%, 100%, 0)"
+  //         ],
+  //         22,
+  //         [
+  //             "match",
+  //             ["get", "fld_zone"],
+  //             ["AE", "A", "AO", "AH"],
+  //             "#17285e",
+  //             "hsla(0, 0%, 100%, 0)"
+  //         ]
+  //     ],
+  //     "fill-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         1,
+  //         13,
+  //         0.76,
+  //         15,
+  //         0,
+  //         22,
+  //         0
+  //     ]
+  //   }
+  // }, {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "line-color": [
+  //         "match",
+  //         ["get", "fld_zone"],
+  //         ["A", "AE", "AO", "AH"],
+  //         "#17285e",
+  //         "hsla(0, 94%, 25%, 0)"
+  //     ],
+  //     "line-width": 3,
+  //     "line-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         1,
+  //         14,
+  //         1,
+  //         22,
+  //         1
+  //     ]
+  //   }
+  // }, {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "line-color": [
+  //         "match",
+  //         ["get", "zone_subty"],
+  //         ["FLOODWAY"],
+  //         "#17285e",
+  //         "hsla(0, 0%, 100%, 0)"
+  //     ],
+  //     "line-width": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         0.5,
+  //         14,
+  //         0.5,
+  //         22,
+  //         3
+  //     ],
+  //     "line-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         1,
+  //         11,
+  //         1,
+  //         22,
+  //         1
+  //     ],
+  //     "line-dasharray": [2, 2]
+  //   }
+  // },
+  // {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-opacity": 0.57,
+  //     "fill-color": [
+  //         "match",
+  //         ["get", "fld_zone"],
+  //         ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
+  //         "hsl(192, 79%, 57%)",
+  //         "hsla(0, 0%, 0%, 0)"
+  //     ],
+  //     "fill-outline-color": "hsla(0, 0%, 0%, 0.48)"
+  //   }
+  // }, {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-opacity": 0.5,
+  //     "fill-color": [
+  //         "match",
+  //         ["get", "zone_subty"],
+  //         ["0.2 PCT ANNUAL CHANCE FLOOD HAZARD"],
+  //         "hsl(40, 90%, 56%)",
+  //         "hsla(0, 0%, 0%, 0)"
+  //     ]
+  //   }
+  // }, {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-opacity": 0.53,
+  //     "fill-color": [
+  //         "match",
+  //         ["get", "fld_zone"],
+  //         ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
+  //         "hsl(176, 79%, 57%)",
+  //         "hsla(0, 0%, 0%, 0)"
+  //     ],
+  //     "fill-pattern": [
+  //         "match",
+  //         ["get", "zone_subty"],
+  //         ["FLOODWAY"],
+  //         "fema-floodway",
+  //         ""
+  //     ],
+  //     "fill-antialias": false
+  //   }
+  // }, {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     'fill-translate': [0, 0],
+  //     "fill-opacity": 0.5,
+  //     "fill-pattern":[
+  //       "match",
+  //       ["get", "zone_subty"],
+  //       [
+  //         "AREA WITH REDUCED FLOOD RISK DUE TO LEVEE"
+  //       ],
+  //       "Levee",
+  //       ""
+  //     ],
+  //     "fill-antialias": true
+  //   }
+  // }
   {
     type: 'fill',
     'source-layer': 'pluto15v1',
     "paint": {
-      "fill-opacity": 0.57,
       "fill-color": [
-          "match",
-          ["get", "fld_zone"],
-          ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
-          "hsl(192, 79%, 57%)",
-          "hsla(0, 0%, 0%, 0)"
+        "match",
+        ["get", "zone_subty"],
+        [
+          "0.2 PCT ANNUAL CHANCE FLOOD HAZARD"
+        ],
+        "#f4b02a",
+        "hsla(0, 0%, 0%, 0)"
       ],
-      "fill-outline-color": "hsla(0, 0%, 0%, 0.48)"
-    }
-  }, {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    "paint": {
       "fill-opacity": 0.5,
-      "fill-color": [
-          "match",
-          ["get", "zone_subty"],
-          ["0.2 PCT ANNUAL CHANCE FLOOD HAZARD"],
-          "hsl(40, 90%, 56%)",
-          "hsla(0, 0%, 0%, 0)"
-      ]
+      'fill-antialias': true,
+      'fill-outline-color': "#000000",
     }
-  }, {
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "fill-opacity": 0.53,
-      "fill-color": [
-          "match",
-          ["get", "fld_zone"],
-          ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
-          "hsl(176, 79%, 57%)",
-          "hsla(0, 0%, 0%, 0)"
-      ],
-      "fill-pattern": [
-          "match",
-          ["get", "zone_subty"],
-          ["FLOODWAY"],
-          "fema-floodway",
-          ""
-      ],
-      "fill-antialias": false
-    }
-  }, {
+},
+{
     type: 'fill',
     'source-layer': 'pluto15v1',
     "paint": {
@@ -3251,9 +3288,111 @@ export const tileStyles = {
       ],
       "fill-antialias": true
     }
+  },
+  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "fill-color": [
+        "match",
+        ["get", "fld_zone"],
+        ["AE", "A", "AO", "AH"],
+        "hsl(186, 100%, 50%)",
+        "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-opacity": 0.5,
+      'fill-antialias': true,
+      'fill-outline-color': "#000000",
+    }
+},  
+{
+  type: 'fill',
+  'source-layer': 'pluto15v1',
+  "paint": {
+    "fill-pattern": [
+      "match",
+      ["get", "zone_subty"],
+      ["FLOODWAY"],
+      "fema-floodway",
+      ""
+    ],
+    "fill-opacity": 0.53,
+    'fill-antialias': false,
   }
-  
-  ,{
+},
+{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  "paint": {
+    "line-color": [
+      "match",
+      ["get", "zone_subty"],
+      ["FLOODWAY"],
+      "#17285e",
+      "hsla(0, 0%, 100%, 0)"
+    ],
+    "line-opacity": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      0,
+      1,
+      11,
+      1,
+      22,
+      1
+    ],
+    'line-width': [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      0,
+      0.3,
+      14,
+      0.3,
+      22,
+      3
+    ],
+    'line-dasharray': [2, 2]
+  },
+  'layout':{
+    'line-cap': 'butt',
+    'line-join': "miter",
+    'line-miter-limit': 2,
+  }
+},
+ {
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  "paint": {
+    "line-color": [
+      "match",
+      ["get", "fld_zone"],
+      ["A", "AE", "AO", "AH"],
+      "#17285e",
+      "hsla(0, 94%, 25%, 0)"
+    ],
+    "line-opacity": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      0,
+      0,
+      14,
+      0,
+      22,
+      1
+    ],
+    'line-width':0.3,
+  },
+  'layout':{
+    'line-cap': 'butt',
+    'line-join': "miter",
+    'line-miter-limit': 2,
+  }
+},
+
+  {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
@@ -3276,7 +3415,7 @@ export const tileStyles = {
     },
     "paint": {
       "text-color":"hsl(189, 78%, 12%)",
-      "text-opacity": ["step", ["zoom"], 0, 11, 1],
+      "text-opacity": ["step", ["zoom"], 0, 12, 1],
       "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
       "text-halo-width":0.5,
       "text-halo-blur":0
@@ -3308,7 +3447,7 @@ export const tileStyles = {
       "text-color":"hsl(189, 78%, 12%)",
       "text-opacity": ["step", ["zoom"], 0, 11, 1],
       "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
-      "text-halo-width":1,
+      "text-halo-width":0.5,
       "text-halo-blur":0
     }
   }
