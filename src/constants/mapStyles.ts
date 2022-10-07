@@ -3269,7 +3269,7 @@ export const tileStyles = {
         "Open Sans Bold",
         "Arial Unicode MS Regular"
       ],
-      "text-size":16,
+      "text-size":14,
       "text-line-height":1.2,
       "text-letter-spacing":0,
       "text-transform": "none",
@@ -3278,7 +3278,7 @@ export const tileStyles = {
       "text-color":"hsl(189, 78%, 12%)",
       "text-opacity": ["step", ["zoom"], 0, 11, 1],
       "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
-      "text-halo-width":1,
+      "text-halo-width":0.5,
       "text-halo-blur":0
     }
   }, {
@@ -3299,7 +3299,7 @@ export const tileStyles = {
         "Open Sans Bold",
         "Arial Unicode MS Regular"
       ],
-      "text-size":16,
+      "text-size":14,
       "text-line-height":1.2,
       "text-letter-spacing":0,
       "text-transform": "none",

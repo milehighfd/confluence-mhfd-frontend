@@ -1091,13 +1091,17 @@ const Map = ({
       });
     }
     const applyMapLayers = async () => {
-      applyTileSetLayer();
-        await SELECT_ALL_FILTERS.forEach((layer) => {
+        await SELECT_ALL_FILTERS.forEach(async (layer) => {
             if (typeof layer === 'object') {
               if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
-                layer.tiles.forEach((tile: string) => {
-                  addTileSource(tile);
-                });
+                await selectedLayers.forEach((layer: LayersType) => {
+                  if (typeof layer === 'object' && layer.name === USE_LAND_COVER_LABEL) {
+                    applyTileSetLayer();
+                    layer.tiles.forEach((tile: string) => {
+                      addTileSource(tile);
+                    });
+                  }
+                })
               } 
               else if (layer.tiles) {
                   layer.tiles.forEach((subKey: string) => {
