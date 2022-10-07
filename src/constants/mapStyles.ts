@@ -3338,8 +3338,8 @@ export const tileStyles = {
         "hsla(0, 0%, 0%, 0)"
       ],
       "fill-opacity": 0.5,
-      'fill-antialias': true,
-      'fill-outline-color': "#000000",
+      'fill-antialias': false,
+      // 'fill-outline-color': "#000000",
     }
 },
 {
@@ -3373,7 +3373,7 @@ export const tileStyles = {
       ],
       "fill-opacity": 0.5,
       'fill-antialias': true,
-      'fill-outline-color': "#000000",
+      //'fill-outline-color': "#000000",
     }
 },  
 {
