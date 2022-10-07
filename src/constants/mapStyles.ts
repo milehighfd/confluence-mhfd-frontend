@@ -3253,6 +3253,77 @@ export const tileStyles = {
   //     "fill-antialias": true
   //   }
   // }
+   {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "fld_zone"],
+        ["A", "AE", "AO", "AH"],
+        "#17285e",
+        "hsla(0, 94%, 25%, 0)"
+      ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        14,
+        1,
+        22,
+        1
+      ],
+      'line-width':2,
+    },
+    'layout':{
+      'line-cap': 'butt',
+      'line-join': "miter",
+      'line-miter-limit': 2,
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        "#17285e",
+        "hsla(0, 0%, 100%, 0)"
+      ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        11,
+        1,
+        22,
+        1
+      ],
+      'line-width': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.5,
+        14,
+        0.5,
+        22,
+        3
+      ],
+      'line-dasharray': [2, 2]
+    },
+    'layout':{
+      'line-cap': 'butt',
+      'line-join': "miter",
+      'line-miter-limit': 2,
+    }
+  },
   {
     type: 'fill',
     'source-layer': 'pluto15v1',
@@ -3320,82 +3391,31 @@ export const tileStyles = {
     'fill-antialias': false,
   }
 },
-{
-  type: 'line',
-  'source-layer': 'pluto15v1',
-  "paint": {
-    "line-color": [
-      "match",
-      ["get", "zone_subty"],
-      ["FLOODWAY"],
-      "#17285e",
-      "hsla(0, 0%, 100%, 0)"
-    ],
-    "line-opacity": [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      0,
-      1,
-      11,
-      1,
-      22,
-      1
-    ],
-    'line-width': [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      0,
-      0.3,
-      14,
-      0.3,
-      22,
-      3
-    ],
-    'line-dasharray': [2, 2]
-  },
-  'layout':{
-    'line-cap': 'butt',
-    'line-join': "miter",
-    'line-miter-limit': 2,
-  }
-},
- {
-  type: 'line',
-  'source-layer': 'pluto15v1',
-  "paint": {
-    "line-color": [
-      "match",
-      ["get", "fld_zone"],
-      ["A", "AE", "AO", "AH"],
-      "#17285e",
-      "hsla(0, 94%, 25%, 0)"
-    ],
-    "line-opacity": [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      0,
-      0,
-      14,
-      0,
-      22,
-      1
-    ],
-    'line-width':0.3,
-  },
-  'layout':{
-    'line-cap': 'butt',
-    'line-join': "miter",
-    'line-miter-limit': 2,
-  }
-},
-
   {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
+      'symbol-placement': 'line',
+      'symbol-spacing': 250,
+      'text-max-angle': 45,
+      'symbol-avoid-edges': false,
+      'text-rotation-alignment': "viewport",
+      'text-padding': 2,
+      'icon-padding': 2,
+      'icon-size': 1,
+      'icon-image': [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ]
+      ],
       "text-field": [
           "concat",
           [
@@ -3408,22 +3428,44 @@ export const tileStyles = {
         "Open Sans Bold",
         "Arial Unicode MS Regular"
       ],
-      "text-size":14,
+      "text-size":16,
       "text-line-height":1.2,
       "text-letter-spacing":0,
       "text-transform": "none",
     },
     "paint": {
       "text-color":"hsl(189, 78%, 12%)",
-      "text-opacity": ["step", ["zoom"], 0, 12, 1],
+      "text-opacity": 1,
       "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
-      "text-halo-width":0.5,
-      "text-halo-blur":0
+      "text-halo-width":1,
+      "text-halo-blur":0,
+      'icon-opacity': 1
     }
   }, {
     type: 'symbol',
     'source-layer': 'pluto15v1',
     "layout": {
+      'symbol-placement': 'line',
+      'symbol-spacing': 250,
+      'text-max-angle': 45,
+      'symbol-avoid-edges': false,
+      'text-rotation-alignment': "viewport",
+      'text-padding': 2,
+      'icon-padding': 2,
+      'icon-size': 1,
+      'icon-image': [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ]
+      ],
       "text-field": [
         "match",
         ["get", "zone_subty"],
@@ -3438,17 +3480,18 @@ export const tileStyles = {
         "Open Sans Bold",
         "Arial Unicode MS Regular"
       ],
-      "text-size":14,
+      "text-size":16,
       "text-line-height":1.2,
       "text-letter-spacing":0,
       "text-transform": "none",
     },
     "paint": {
       "text-color":"hsl(189, 78%, 12%)",
-      "text-opacity": ["step", ["zoom"], 0, 11, 1],
+      "text-opacity": 1,
       "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
-      "text-halo-width":0.5,
-      "text-halo-blur":0
+      "text-halo-width":1,
+      "text-halo-blur":0,
+      'icon-opacity': 1,
     }
   }
 
