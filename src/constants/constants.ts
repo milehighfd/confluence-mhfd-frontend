@@ -1099,16 +1099,7 @@ export const popUps = {
   research_monitoring: 'Stormwater Quality Research/Monitoring. Research/Monitoring indicates the location of water quality monitoring sites and research projects with MHFD involvement.',
   climb_to_safety: 'This layer shows the location of "Climb to Safety" flood warning signage installations throughout the District.',
   dam_safety: 'This Dam Safety layer was created with data accessed from data.colorado.gov (sourced from DWR) showing the hazard classifications of jurisdictional dams.',
-  land_use: `DRCOG´s Regional Land Use Land Cover dataset incorporates 2020 imagery, 2020 planimetric data, and 2020 lidar to create a 3 foot resolution product. The dataset includes 9 classes:
-  1. Structures
-  2. Impervious surfaces
-  3. Water
-  4. Grassland/prairie
-  5. Shrubland/scrubland
-  6. Tree canopy
-  7. Irrigated lands/turf
-  8. Barren/rock
-  9. Cropland`,
+  land_use: `DRCOG´s Regional Land Use Land Cover dataset incorporates 2020 imagery, 2020 planimetric data, and 2020 lidar to create a 3 foot resolution product. The dataset includes 9 classes:  Structures, Impervious surfaces, Water, Grassland/prairie, Shrubland/scrubland, Tree canopy, Irrigated lands/turf, Barren/rock, Cropland.`,
   stream_mang_corridors: 'Stream Management Corridors are estimated zones that should be preserved to reduce the risk of fluvial hazards in addition to traditional mapped floodplains.',
   nrcs_soils: 'This layer displays the USDA Natural Resources Conservation Service (NRCS) Soil Survey within MHFD. Map units delineate the extent of different soils. Data for each map unit contains descriptions of the soil’s components, productivity, unique properties, and suitability interpretations.',
   bcz_prebels_meadow: 'Block Clearance Zone -  Preble’s Meadow Jumping Mouse. These layers show areas that have been block cleared where there is sufficient information to indicate endangered/threatened species are absent from large acreages. In designating a block clearance zone, the requirement that individuals and agencies coordinate with the U.S Fish and Wildlife Service before impacting potential riparian habitats inside the zone is eliminated. ',
