@@ -186,9 +186,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
   let labelOrigin = project.origin;
-  console.log(labelOrigin, 'Dotty......');
-  if (labelOrigin.length > 12) {
-    labelOrigin = labelOrigin.substr(0, 12) + '...';
+  if (labelOrigin.length > 11) {
+    labelOrigin = labelOrigin.substr(0, 11) + '...';
   }
 
   return (
