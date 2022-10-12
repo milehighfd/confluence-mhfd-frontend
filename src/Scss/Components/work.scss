@@ -262,7 +262,7 @@
   h4{
     font-size: 14px;
     color: $purple00;
-    width: 96%;
+    width: 90%;
     line-height: 18px;
     white-space: nowrap;
     overflow: hidden;
@@ -627,7 +627,7 @@
     margin-bottom: 0px;
   }
   .ant-drawer-header {
-    padding: 15px 15px 0;
+    padding: 15px 15px 15px;
     border-bottom: none;
 
     .btn-transparent{
@@ -654,6 +654,7 @@
   }
   .ant-drawer-body {
     padding: 15px;
+    padding-top: 0px;
   }
   h6{
     font-size: 14px;
@@ -1207,7 +1208,7 @@
       font-size: 21px;
     }
     .ant-drawer-header {
-      padding: 25px 25px 0;
+      padding: 25px 25px 25px;
 
       .btn-transparent{
         span{
@@ -1227,6 +1228,7 @@
     }
     .ant-drawer-body {
       padding: 25px;
+      padding-top: 0px;
     }
     h6{
       font-size: 18px;
@@ -1612,7 +1614,7 @@
       font-size: 28px !important;
     }
     .ant-drawer-header {
-      padding: 25px 25px 0 !important;
+      padding: 25px 25px 25px !important;
 
       .btn-transparent{
         span{
@@ -1631,6 +1633,7 @@
     }
     .ant-drawer-body {
       padding: 25px !important;
+      padding-top: 0px !important;
     }
     h6{
       font-size: 24px !important;

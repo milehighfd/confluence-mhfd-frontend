@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Drawer, Select, Popover, InputNumber, Button } from 'antd';
+import { Drawer, Select, Popover, InputNumber, Button, Col, Row } from 'antd';
 import HorizontalBarChartAnalytics from "../../FiltersProject/NewProblemsFilter/HorizontalBarChartAnalytics";
 import { formatter, MaintenanceTypes, priceFormatter, priceParser } from "../Request/RequestViewUtil";
 import { CHART_CONSTANTS } from "../../FiltersProject/NewProblemsFilter/Charts.constants";
@@ -167,11 +167,18 @@ const Analytics = ({
               setTcb(e);
             }} 
           />
-          <h6>Contingency</h6>
-          <label style={{
-            color: tcb - totalSum < 0 ? 'red': 'black', fontSize:'16px'
-          }}>{priceFormatter(tcb - totalSum)}</label>  
-          <br></br>
+          <Row style={{marginTop:'10px'}}>
+            <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+              <h6 style={{marginBottom:'0px'}}>Requests</h6>
+              <label style={{fontSize:'16px'}}>{priceFormatter(totalSum)}</label>
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+              <h6 style={{marginBottom:'0px'}}>Contingency</h6>
+              <label style={{
+                color: tcb - totalSum < 0 ? 'red': 'black', fontSize:'16px'
+              }}>{priceFormatter(tcb - totalSum)}</label>  
+            </Col>
+          </Row>
           <div style={{textAlign:'end'}}>
             <Button
               className="btn-purple"
@@ -181,7 +188,6 @@ const Analytics = ({
               Save Total County Budget
             </Button>
           </div>
-          
         </div>
       }
       <div className="line-01" style={{ marginLeft: '0px' }}></div>
