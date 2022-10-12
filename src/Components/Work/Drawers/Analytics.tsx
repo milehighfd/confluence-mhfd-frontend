@@ -137,6 +137,8 @@ const Analytics = ({
               setTcb(e);
             }} 
           />
+          <h6>Requests</h6>
+          <label>{priceFormatter(totalSum)}</label>
           <h6>Contingency</h6>
           <label style={{
             color: tcb - totalSum < 0 ? 'red': 'black', fontSize:'16px'
