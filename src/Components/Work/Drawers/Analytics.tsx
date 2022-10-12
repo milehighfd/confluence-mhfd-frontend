@@ -41,7 +41,7 @@ const Analytics = ({
     </div>
   );
   const [tcb, setTcb] = useState(totalCountyBudget);
-  const [year, setYear] = useState(+initialYear);
+  const [year, setYear] = useState( tabKey === 'Maintenance' ? 2000 : +initialYear);
 
   useEffect(() => {
     setTcb(totalCountyBudget);
@@ -67,8 +67,8 @@ const Analytics = ({
   }, [totals]);
 
   useEffect(() => {
-    setYear(initialYear);
-  }, [initialYear]);
+    setYear(tabKey === 'Maintenance' ? 2000 : +initialYear);
+  }, [initialYear, tabKey]);
   
   const years: any[] = [];
   for (var i = 0 ; i < 5 ; i++) {
@@ -134,6 +134,7 @@ const Analytics = ({
       }
     })
   }
+  
   return (
     <Drawer
       title={
