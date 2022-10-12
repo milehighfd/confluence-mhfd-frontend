@@ -115,7 +115,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             saveAs(record.file, record.filename);
           }
         }}>
-          <img className="icon-bt" src='/Icons/icon-01.svg' />
+          <img className="icon-bt" src='/Icons/icon-01.svg' style={{transform:'rotate(-180deg)'}}/>
         </Button>
       ),
       width: "5%"
@@ -190,7 +190,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             saveAs(record.file, record.filename);
           }
         }}>
-          <img className="icon-bt" src='/Icons/icon-01.svg' />
+          <img className="icon-bt" src='/Icons/icon-01.svg'  style={{transform:'rotate(-180deg)'}}/>
         </Button>
       ),
       width: "5%"
