@@ -44,7 +44,6 @@ const Analytics = ({
   const [year, setYear] = useState(+initialYear);
 
   useEffect(() => {
-    console.log('my ', totalCountyBudget);
     setTcb(totalCountyBudget);
   }, [totalCountyBudget]);
 
@@ -71,30 +70,16 @@ const Analytics = ({
     setYear(initialYear);
   }, [initialYear]);
   
-  const years = [];
+  const years: any[] = [];
   for (var i = 0 ; i < 5 ; i++) {
     years.push(+initialYear + i);
   }
 
   let maxiQ = 0;
-  let quantityData = data.map((d: any) => {
-    maxiQ = Math.max(maxiQ, d[`cnt${year - initialYear + 1}`]);
-    return {
-      value: d.locality,
-      counter: d[`cnt${year - initialYear + 1}`],
-      selected: true
-    }
-  })
+  let quantityData;
 
   let maxiA = 0;
-  let amountData = data.map((d: any) => {
-    maxiA = Math.max(maxiA, d[`req${year - initialYear + 1}`]);
-    return {
-      value: d.locality,
-      counter: d[`req${year - initialYear + 1}`],
-      selected: true
-    }
-  })
+  let amountData;
   let countiesNames = data.map((d: any) => d.locality).join(',');
   let barsColor = '#261964';
   let groupingType = null;  
@@ -103,13 +88,58 @@ const Analytics = ({
   } else {
     groupingType = 'Jurisdiction';
   }
-
+ // 2000 is default value for all subtypes in maintenance
+  if(year === 2000){
+    quantityData = data.map((d: any) => {
+      let totalCounter = 0;
+      for(let i = 0; i < years.length; ++i) {
+        const currYear = +years[i];
+        totalCounter += d[`cnt${currYear - initialYear + 1}`];
+        maxiQ = Math.max(maxiQ, +d[`cnt${currYear - initialYear + 1}`]);
+      }
+      return {
+        value: d.locality,
+        counter: totalCounter,
+        selected: true
+      }
+    });
+    amountData = data.map((d: any) => {
+      let totalCounter = 0;
+      for(let i = 0; i < years.length; ++i) {
+        const currYear = +years[i];
+        totalCounter += d[`req${currYear - initialYear + 1}`];
+        maxiA = Math.max(maxiA, +d[`req${currYear - initialYear + 1}`]);
+      }
+      return {
+        value: d.locality,
+        counter: totalCounter,
+        selected: true
+      }
+    });
+  } else {
+    quantityData = data.map((d: any) => {
+      maxiQ = Math.max(maxiQ, d[`cnt${year - initialYear + 1}`]);
+      return {
+        value: d.locality,
+        counter: d[`cnt${year - initialYear + 1}`],
+        selected: true
+      }
+    });
+    amountData = data.map((d: any) => {
+      maxiA = Math.max(maxiA, d[`req${year - initialYear + 1}`]);
+      return {
+        value: d.locality,
+        counter: d[`req${year - initialYear + 1}`],
+        selected: true
+      }
+    })
+  }
   return (
     <Drawer
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          {tabKey !== 'Maintenance' &&<Select style={{marginLeft:'11px'}} defaultValue={year} value={year} onChange={setYear}>
+          {tabKey !== 'Maintenance' && <Select style={{marginLeft:'11px'}} defaultValue={year} value={year} onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{
@@ -158,8 +188,11 @@ const Analytics = ({
       {tabKey === 'Maintenance' &&
         <Select style={{ marginLeft: '-9px' }} defaultValue={year} value={year} onChange={setYear}>
             {
+              <Option key={2000} value={2000}> All Subtypes</Option>
+            }
+            {
               years.map((y, i) => (
-                <Option key={i} value={y}>{ MaintenanceTypes[i]}</Option>
+                <Option key={i} value={y}>{ MaintenanceTypes[i] }</Option>
               ))
             }
           </Select>
