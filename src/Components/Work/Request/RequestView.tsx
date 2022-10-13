@@ -30,6 +30,7 @@ import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
 
 import '../../../index.scss';
+import ColumsTrelloCard from './ColumsTrelloCard';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -37,6 +38,7 @@ const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
 let currentProject: any = {};
+let columDragAction = [false, 0, 0];
 
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 const popovers: any = [
@@ -131,9 +133,6 @@ const RequestView = ({ type, isFirstRendering }: {
       resetOnClose();
     }
   },[showCreateProject]);
-  const onDragOver = (e: any) => {
-    e.preventDefault();
-  }
 
   const deleteProject = (pid: string) => {
     let array: any[] = [];
@@ -162,14 +161,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setColumns(newcols);
   }
 
-  const onDrop = (e: any, columnIdx: number) => {
-    let txt = e.dataTransfer.getData("text");
-    let cols = onDropFn(txt, columns, columnIdx, tabKey);
-    if (cols) {
-      WsService.sendUpdate(cols);
-      setColumns(cols);
-    }
-  }
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
@@ -212,13 +203,6 @@ const RequestView = ({ type, isFirstRendering }: {
       }
     }
   };
-  const onClickNewProject = () => {
-    if (locality === 'MHFD District Work Plan') return;
-    clear();
-    setVisibleCreateProject(true);
-    setStreamsIds([]);
-    setComponentsFromMap([]);
-  }
   const [changes, setChanges] = useState(0);
   useEffect(()=>{
     setChanges(Math.random());
@@ -883,44 +867,27 @@ const RequestView = ({ type, isFirstRendering }: {
                     displayedTabKey.map((tk: string) => (
                       <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
                         <div className="work-table" ref={wrtRef}>
-                          {
-                            columns.map((column, columnIdx) => (
-                              <div className="container-drag" key={columnIdx+Math.random()}>
-                                <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
-                                <div className={column.hasCreateOption ? "col-wr droppable colum-hascreate":"col-wr droppable"} onDragOver={onDragOver} onDrop={(e: any) => onDrop(e, columnIdx)}>
-                                  {
-                                    column.hasCreateOption &&
-                                    <Button className="btn-transparent button-createProject " onClick={onClickNewProject} >
-                                      {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-18-gray.svg" style={{marginBottom:'2px'}} alt=""/>: <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
-                                      Create Project
-                                    </Button>
-                                  }
-                                  {
-                                    column.projects
-                                    .filter((p: any) => filterByJurisdictionAndCsaSelected(jurisdictionSelected, csaSelected, jurisdictionFilterList, csaFilterList, p))
-                                    .filter((p: any) => hasPriority(p, prioritySelected, columnIdx))
-                                    .map((p: any, i: number, arr: any[]) => (
-                                      <TrelloLikeCard key={i}
-                                        year={year}
-                                        type={type}
-                                        setLoading={setLoading}
-                                        delProject={deleteProject}
-                                        namespaceId={namespaceId}
-                                        project={p}
-                                        columnIdx={columnIdx}
-                                        rowIdx={i}
-                                        saveData={saveData}
-                                        tabKey={tabKey}
-                                        editable={boardStatus !== 'Approved'}
-                                        filtered={!notIsFiltered}
-                                        locality={locality}
-                                        borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')} />
-                                    ))
-                                  }
-                                </div>
-                              </div>
-                            ))
-                          }
+                          <ColumsTrelloCard
+                            columns={columns}
+                            setColumns={setColumns}
+                            tabKey={tabKey}
+                            locality={locality}
+                            setVisibleCreateProject={setVisibleCreateProject}
+                            jurisdictionSelected={jurisdictionSelected}
+                            csaSelected={csaSelected}
+                            jurisdictionFilterList={jurisdictionFilterList}
+                            csaFilterList={csaFilterList}
+                            prioritySelected={prioritySelected}
+                            year={year}
+                            type={type}
+                            setLoading={setLoading}
+                            deleteProject={deleteProject}
+                            namespaceId={namespaceId}
+                            saveData={saveData}
+                            boardStatus={boardStatus}
+                            notIsFiltered={notIsFiltered}
+                            ColorService={ColorService}
+                          />
                         </div>
 
                         <div className="cost-wr">

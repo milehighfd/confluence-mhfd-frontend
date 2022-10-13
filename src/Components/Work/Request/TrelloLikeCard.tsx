@@ -20,7 +20,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor }: {
+const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor, divRef }: {
   year: number,
   type: boardType,
   namespaceId: string,
@@ -35,8 +35,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   filtered: boolean,
   locality: any,
   borderColor: string,
+  divRef:any,
 }) => {
-  const divRef = useRef(null);
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {
     projectid,
@@ -229,7 +229,10 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       tabKey={tabKey}
       projectsubtype={projectsubtype}
       />
-    <div ref={divRef} className="card-wr" style={{ borderLeft: `3px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered} onDragStart={e => onDragStart(e, projectid)}
+    <div ref={divRef} className="card-wr" style={{ borderLeft: `3px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
+      onDragStart={e => {
+        onDragStart(e, projectid);
+      }}
       onDrop={(e: any) => {
         let dr: any = divRef.current;
         let bounds = dr.getBoundingClientRect();
