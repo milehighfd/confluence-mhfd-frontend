@@ -361,7 +361,6 @@ export const getCsv = (
     const csvData = [['Exported on ' + date], [`${localityLabel}:`, locality ], ['Year:', year], ['Project Type:' , tabKey], []];
     const row: any = [], row2: any = [], dataByYear: any = {}, years: any = [];
     let maxSize = 0;
-    console.log('tabKey', tabKey)
     for (let i = 1; i < columns.length; i++) {
       row.push(columns[i]['title']);
       years.push(columns[i]['title']);
