@@ -245,47 +245,53 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         }
         e.preventDefault();
       }}>
-      <Popover placement="top" content={<>
-        <b>{projectname}</b>
-        <br />
-        <b>Project: </b> {projectid}
-        <br />
-        <b>Board: </b> {namespaceId}
-        </>}>
-        <h4>{displayName}</h4>
-      </Popover>
-      <h6>{amount ? formatter.format(amount) : ''}</h6>
-      {
-        type === 'WORK_PLAN' &&
-        <label className="purple-priority">
-          {
-            priority === -1 ? 'Work Plan' :`No. ${priority + 1}`
-          }
-        </label>
-      }
-      <Popover placement="top" content={<>{project.origin}</>}>
-        <label className="purple">{labelOrigin}</label>
-      </Popover>
-      <label className="yellow" style={{color, backgroundColor}}>{status}</label>
-      {
-        !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
-        <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click">
-          <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <EllipsisOutlined className="menu-wr" style={{transform:'rotate(-90deg)', height:'30px', marginRight:'-5px'}}>
-            <defs>
-              <clipPath id="clip-path">
-                <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
-              </clipPath>
-            </defs>
-            <g id="Grupo_290" data-name="Grupo 290" transform="translate(0 13)">
-              <g id="Grupo_289" data-name="Grupo 289" clipPath="url(#clip-path)">
-                <path id="Trazado_295" data-name="Trazado 295" d="M-5-18H8V5H-5Z" fill={isHovered ? '#0F232C' : 'rgba(36,24,98,0.2)'}/>
-              </g>
-            </g>
-          </EllipsisOutlined>
+        <div style={{marginRight:'-10px', width:'100%'}}>
+          <Popover placement="top" content={<>
+            <b>{projectname}</b>
+            <br />
+            <b>Project: </b> {projectid}
+            <br />
+            <b>Board: </b> {namespaceId}
+            </>}>
+            <h4>{displayName}</h4>
+          </Popover>
+          <div style={{marginRight:'-10px'}}>
+            <h6 style={{marginRight:'-10px'}}>{amount ? formatter.format(amount) : ''}</h6>
+            {
+              type === 'WORK_PLAN' &&
+              <label className="purple-priority"style={{marginRight:'-10px'}}>
+                {
+                  priority === -1 ? 'Work Plan' :`No. ${priority + 1}`
+                }
+              </label>
+            }
+            <Popover placement="top" content={<>{project.origin}</>} style={{marginRight:'-10px'}}>
+              <label className="purple" >{labelOrigin}</label>
+            </Popover>
+            <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
+            {
+              !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
+              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px'}}>
+                <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+                  <EllipsisOutlined className="menu-wr" style={{transform:'rotate(-90deg)', height:'30px', marginRight:'-5px'}}>
+                  <defs>
+                    <clipPath id="clip-path">
+                      <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
+                    </clipPath>
+                  </defs>
+                  <g id="Grupo_290" data-name="Grupo 290" transform="translate(0 13)">
+                    <g id="Grupo_289" data-name="Grupo 289" clipPath="url(#clip-path)">
+                      <path id="Trazado_295" data-name="Trazado 295" d="M-5-18H8V5H-5Z" fill={isHovered ? '#0F232C' : 'rgba(36,24,98,0.2)'}/>
+                    </g>
+                  </g>
+                </EllipsisOutlined>
+                </div>
+              </Popover>
+            }
           </div>
-        </Popover>
-      }
+          
+        </div>
+      
     </div>
     </>
   )

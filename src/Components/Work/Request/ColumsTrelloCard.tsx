@@ -47,9 +47,10 @@ const ColumsTrelloCard = (
   saveData:any,
   boardStatus:any,
   notIsFiltered:any,
-  ColorService:any
+  ColorService:any,
 }) => {
   const [dragAction, setDragAction] = useState([false, 0, 0]);
+  const [dragStart, setDragstart] = useState([0, 0]);
   const {clear} = useAttachmentDispatch();
   const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [sizeCard, setSizeCard] = useState([0,0])
@@ -88,6 +89,11 @@ const ColumsTrelloCard = (
             if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
               setDragAction([true, (e.clientX/bounds.width)-4,  (e.clientY/bounds.height)-3]);
             }
+            if(!dragAction[0]){
+              if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
+                setDragstart([(e.clientX/bounds.width)-4,  (e.clientY/bounds.height)-2]);
+              }
+            }
           }}
         >
           {
@@ -105,48 +111,65 @@ const ColumsTrelloCard = (
               const valuePosition: number = Number(columDragAction[2]);
               const valuePositionx: number = Number(columDragAction[1]);
               if(i === Math.trunc(valuePosition) && columDragAction[0] && columnIdx === Math.trunc(valuePositionx) && columns[1].title !== "Debris Management" ){
-                return(
-                  <>
-                  <div style={{backgroundColor:'#d6d8e0', opacity:'0.5', width:'100%', height:`${sizeCard[0]}px`, marginBottom:'10px', borderRadius:'5px'}}><br></br></div>
-                  <TrelloLikeCard key={i}
-                    year={year}
-                    type={type}
-                    setLoading={setLoading}
-                    delProject={deleteProject}
-                    namespaceId={namespaceId}
-                    project={p}
-                    columnIdx={columnIdx}
-                    rowIdx={i}
-                    saveData={saveData}
-                    tabKey={tabKey}
-                    editable={boardStatus !== 'Approved'}
-                    filtered={!notIsFiltered}
-                    locality={locality}
-                    borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')}
-                    divRef={divRef}
-                  /></>
-                )
+                if(i===Math.trunc(Number(dragStart[1])) && columnIdx === Math.trunc(Number(dragStart[0])) && dragAction[0]){
+                  return(
+                    <>
+                    <div style={{backgroundColor:'#d6d8e0', opacity:'0.5', width:'100%', height:`${sizeCard[0]}px`, marginBottom:'10px', borderRadius:'5px'}}><br></br></div>
+                    </>
+                  )
+                } else {
+                  return(
+                    <>
+                    <div style={{backgroundColor:'#d6d8e0', opacity:'0.5', width:'100%', height:`${sizeCard[0]}px`, marginBottom:'10px', borderRadius:'5px'}}><br></br></div>
+                    <TrelloLikeCard key={i}
+                      year={year}
+                      type={type}
+                      setLoading={setLoading}
+                      delProject={deleteProject}
+                      namespaceId={namespaceId}
+                      project={p}
+                      columnIdx={columnIdx}
+                      rowIdx={i}
+                      saveData={saveData}
+                      tabKey={tabKey}
+                      editable={boardStatus !== 'Approved'}
+                      filtered={!notIsFiltered}
+                      locality={locality}
+                      borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')}
+                      divRef={divRef}
+                    /></>
+                  )
+                }
               }
               else {
-                return(
-                  <TrelloLikeCard key={i}
-                    year={year}
-                    type={type}
-                    setLoading={setLoading}
-                    delProject={deleteProject}
-                    namespaceId={namespaceId}
-                    project={p}
-                    columnIdx={columnIdx}
-                    rowIdx={i}
-                    saveData={saveData}
-                    tabKey={tabKey}
-                    editable={boardStatus !== 'Approved'}
-                    filtered={!notIsFiltered}
-                    locality={locality}
-                    borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')}
-                    divRef={divRef}
-                  />
-                )
+                if(i===Math.trunc(Number(dragStart[1])) && columnIdx === Math.trunc(Number(dragStart[0])) && dragAction[0]){
+                  // return(
+                  //   <>
+                  //   <div style={{backgroundColor:'#d6d8e0', opacity:'0.5', width:'100%', height:`${sizeCard[0]}px`, marginBottom:'10px', borderRadius:'5px'}}><br></br></div>
+                  //   </>
+                  // )
+                } else {
+                  return(
+                    <>
+                    <TrelloLikeCard key={i}
+                      year={year}
+                      type={type}
+                      setLoading={setLoading}
+                      delProject={deleteProject}
+                      namespaceId={namespaceId}
+                      project={p}
+                      columnIdx={columnIdx}
+                      rowIdx={i}
+                      saveData={saveData}
+                      tabKey={tabKey}
+                      editable={boardStatus !== 'Approved'}
+                      filtered={!notIsFiltered}
+                      locality={locality}
+                      borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')}
+                      divRef={divRef}
+                    /></>
+                  )
+                }
               }
               })
           }
