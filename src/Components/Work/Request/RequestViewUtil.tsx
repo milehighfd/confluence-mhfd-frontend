@@ -361,6 +361,7 @@ export const getCsv = (
     const csvData = [['Exported on ' + date], [`${localityLabel}:`, locality ], ['Year:', year], ['Project Type:' , tabKey], []];
     const row: any = [], row2: any = [], dataByYear: any = {}, years: any = [];
     let maxSize = 0;
+    console.log('tabKey', tabKey)
     for (let i = 1; i < columns.length; i++) {
       row.push(columns[i]['title']);
       years.push(columns[i]['title']);
@@ -421,27 +422,30 @@ export const getCsv = (
     }
     csvData.push(totalCost);
     let county: any;
-    for (county of sumByCounty) {
-      const auxArray = [localityName(county.locality)];
-      for (let i = 0; i < years.length; i++) {
-        auxArray.push(formatter.format(county['req' + (i + 1)]));
+    
+    if ( tabKey!=='Maintenance'){
+      for (county of sumByCounty) {
+        const auxArray = [localityName(county.locality)];
+        for (let i = 0; i < years.length; i++) {
+          auxArray.push(formatter.format(county['req' + (i + 1)]));
+        }
+        csvData.push(auxArray);
       }
-      csvData.push(auxArray);
-    }
-    const targetCost: any = ['Target Cost'];
-    for (const target of reqManager) {
-      if (target == null) {
-        targetCost.push(formatter.format(0));
-      } else {
-        targetCost.push(formatter.format(target));
+      const targetCost: any = ['Target Cost'];
+      for (const target of reqManager) {
+        if (target == null) {
+          targetCost.push(formatter.format(0));
+        } else {
+          targetCost.push(formatter.format(target));
+        }
       }
+      csvData.push(targetCost);
+      const differental: any = ['Contingency'];
+      for (const value of diff) {
+        differental.push(formatter.format(value));
+      }
+      csvData.push(differental);
     }
-    csvData.push(targetCost);
-    const differental: any = ['Contingency'];
-    for (const value of diff) {
-      differental.push(formatter.format(value));
-    }
-    csvData.push(differental);
     return csvData;
 }
 
