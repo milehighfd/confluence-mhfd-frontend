@@ -1,6 +1,6 @@
 import { boardProject, boardType, columnProject } from 'Components/Work/Request/RequestTypes';
 import CardStatService from 'Components/Work/Request/CardService';
-import { NEW_PROJECT_TYPES } from 'constants/constants';
+import { NEW_PROJECT_TYPES, list } from 'constants/constants';
 
 let fields = ['project_id', 'req1', 'req2', 'req3', 'req4', 'req5', 'positon0', 'positon1', 'positon2', 'positon3', 'positon4', 'positon5'];
 let fields2 = ['description', 'projectname', 'jurisdiction','county','servicearea','sponsor','cosponsor','components', 'estimatedcost','the_geom','streams','overheadcostdescription','additionalcostdescription'];
@@ -320,6 +320,20 @@ export const getCsvFileName = (year: any, locality: string, type: string) => {
   return `${year}_${localityLabel}_${typeLabel}_${dateLabel}.csv`;
 }
 
+const getSuffix = (name: string) => {
+  const element = list.filter((el: any) => {
+    return el.aoi.includes(name);
+  });
+  if (element.length) {
+    return element[0].filter;
+  }
+  return '';
+}
+const localityName = (name: string) => {
+  return name.includes('County') || name.includes('county') || name.includes('Service Area') 
+    ? name : name + ` ${getSuffix(name)}`;
+}
+
 export const getCsv = (
   type: boardType,
   localities: any[],
@@ -343,7 +357,7 @@ export const getCsv = (
         localityLabel = _locality.type === 'COUNTY' ? 'County' : 'Service Area';
       }
     }
-  const date = new Date();
+    const date = new Date();
     const csvData = [['Exported on ' + date], [`${localityLabel}:`, locality ], ['Year:', year], ['Project Type:' , tabKey], []];
     const row: any = [], row2: any = [], dataByYear: any = {}, years: any = [];
     let maxSize = 0;
@@ -408,7 +422,7 @@ export const getCsv = (
     csvData.push(totalCost);
     let county: any;
     for (county of sumByCounty) {
-      const auxArray = [county.county];
+      const auxArray = [localityName(county.locality)];
       for (let i = 0; i < years.length; i++) {
         auxArray.push(formatter.format(county['req' + (i + 1)]));
       }
