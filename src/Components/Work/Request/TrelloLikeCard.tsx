@@ -10,7 +10,7 @@ import { SERVER } from '../../../Config/Server.config';
 import CardStatService from './CardService';
 import { DeleteAlert } from './DeleteAlert';
 import { boardType } from './RequestTypes';
-import { EllipsisOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 
 const formatter = new Intl.NumberFormat('en-US', {
@@ -273,7 +273,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
               !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
               <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px'}}>
                 <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                  <EllipsisOutlined className="menu-wr" style={{transform:'rotate(-90deg)', height:'30px', marginRight:'-5px'}}>
+                  <MoreOutlined className="menu-wr" style={{fontSize:'15px', marginTop:'3px', width:'3px'}}>
                   <defs>
                     <clipPath id="clip-path">
                       <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
@@ -284,7 +284,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
                       <path id="Trazado_295" data-name="Trazado 295" d="M-5-18H8V5H-5Z" fill={isHovered ? '#0F232C' : 'rgba(36,24,98,0.2)'}/>
                     </g>
                   </g>
-                </EllipsisOutlined>
+                </MoreOutlined>
                 </div>
               </Popover>
             }
