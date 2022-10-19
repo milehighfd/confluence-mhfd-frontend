@@ -57,7 +57,7 @@ const ColumsTrelloCard = (
   const divRef = useRef(null);
   const onDrop = (e: any, columnIdx: number) => {
     let txt = e.dataTransfer.getData("text");
-    let cols = onDropFn(txt, columns, columnIdx, tabKey);
+    let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction);
     if (cols) {
       WsService.sendUpdate(cols);
       setColumns(cols);
@@ -87,11 +87,11 @@ const ColumsTrelloCard = (
             let bounds = dr.getBoundingClientRect();
             setSizeCard([bounds.height, bounds.width])
             if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-              setDragAction([true, (e.clientX/bounds.width)-4,  (e.clientY/bounds.height)-3]);
+              setDragAction([true, columnIdx,  (e.clientY/bounds.height)-3]);
             }
             if(!dragAction[0]){
               if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-                setDragstart([(e.clientX/bounds.width)-4,  (e.clientY/bounds.height)-2]);
+                setDragstart([columnIdx,  (e.clientY/bounds.height)-2]);
               }
             }
           }}

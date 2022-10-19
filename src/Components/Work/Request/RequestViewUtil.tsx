@@ -199,7 +199,7 @@ export const priceParser = (value: any) => {
   return value
 }
 
-export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey: string) => {
+export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey: string, dragAction:(number | boolean)[]) => {
   let parsedObject = JSON.parse(txt);
   let { id, fromColumnIdx } = parsedObject;
 
@@ -216,7 +216,7 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
       destinyColumnHasProject = true;
     }
   })
-  let newCardPos = CardStatService.getPosition();
+  let newCardPos =  columns[Math.trunc(Number(dragAction[1]))].projects.length <= Math.trunc(Number(dragAction[2])) ? -1 : Math.trunc(Number(dragAction[2]));
   if (fromColumnIdx === columnIdx) {
     let beforePos = -1;
     columns[columnIdx].projects.forEach((p: any, posBef: number) => {
@@ -269,7 +269,6 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
       [`req${fromColumnIdx}`]: null,
       [`position${fromColumnIdx}`]: null,
     }
-
     let temporalColumns: any = columns.map((c, colIdx: number) => {
       return {
         ...c,
