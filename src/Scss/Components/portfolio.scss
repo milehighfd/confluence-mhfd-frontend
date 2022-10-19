@@ -29,6 +29,14 @@
       color: $green;
     }
   }
+  .menu-drop{
+    min-width: 200px !important;
+  }
+  .select-area{
+    a{
+      color: #11093C;
+    }
+  }
   .ant-btn-group{
     margin-left: 5px !important;
   }
@@ -121,12 +129,36 @@
     color: #170f41 !important;
     font-weight: 500 !important;
   }
+  .btn-view{
+    border: 1px solid transparent;
+    font-size: 16px;
+    margin: 0px 5px;
+    border-radius: 8px;
+    box-shadow: none;
+    color: #11093C;
+    opacity: 0.6;
+    font-weight: 400;
+  }
+  .btn-view:hover  .btn-view:focus .btn-view:active{
+    color: #11093c;
+    background: rgba(17, 9, 60, 0.03);
+    opacity: 1;
+    font-weight: 500;
+  }
+  .btn-view-active{
+    color: #11093c;
+    background: rgba(17, 9, 60, 0.03);
+    opacity: 1;
+    font-weight: 500;
+  }
   .btn-filter-k{
-
+    border: 1px solid transparent;
+    color: #11093c;
+    background: #fff;
+    opacity: 0.6;
   }
   .btn-filter-k:hover  .btn-filter-k:focus .btn-filter-k:active{
     color: #11093c;
-    border-color: #11093c;
     background: #fff;
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Input, Layout, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined } from "@ant-design/icons";
+import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
+import { CheckCircleOutlined, DownOutlined, HeartOutlined, ToTopOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
@@ -11,7 +11,7 @@ import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 
 const { TabPane } = Tabs;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
+const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -20,25 +20,150 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const PortafolioBody = () => {
-  const [tabKey, setTabKey] = useState<any>('Capital(67)');
+  const [tabKey, setTabKey] = useState<any>('All');
   const [openAction, setOpenAction] = useState(true);
   const [openFilters, setOpenFilters] = useState(false);
   let displayedTabKey = tabKeys;
-  const [optionSelect, setOptionSelect] = useState('List View')
+  const [optionSelect, setOptionSelect] = useState('List');
+  const menu = (
+    <Menu
+      className="menu-drop"
+      items={[
+        {
+          key: '1',
+          label: 'MHFD Staff Lead',
+          children: [
+            {
+              key: '1-1',
+              label: 'Jon Villines',
+            },
+            {
+              key: '1-2',
+              label: 'David Skoudas',
+            },
+            {
+              key: '1-3',
+              label: 'Mary Powell',
+            },
+          ],
+        },
+        {
+          key: '2',
+          label: 'Service Area',
+          children: [
+            {
+              key: '2-1',
+              label: 'Jon Villines',
+            },
+            {
+              key: '2-2',
+              label: 'David Skoudas',
+            },
+            {
+              key: '2-3',
+              label: 'Mary Powell',
+            },
+          ],
+        },
+        {
+          key: '3',
+          label: 'County',
+          children: [
+            {
+              key: '3-1',
+              label: 'Jon Villines',
+            },
+            {
+              key: '3-2',
+              label: 'David Skoudas',
+            },
+            {
+              key: '3-3',
+              label: 'Mary Powell',
+            },
+          ],
+        },
+        {
+          key: '4',
+          label: 'Jurisdiction',
+          children: [
+            {
+              key: '4-1',
+              label: 'Jon Villines',
+            },
+            {
+              key: '4-2',
+              label: 'David Skoudas',
+            },
+            {
+              key: '4-3',
+              label: 'Mary Powell',
+            },
+          ],
+        },
+        {
+          key: '5',
+          label: 'Consultant',
+          children: [
+            {
+              key: '5-1',
+              label: 'Jon Villines',
+            },
+            {
+              key: '5-2',
+              label: 'David Skoudas',
+            },
+            {
+              key: '5-3',
+              label: 'Mary Powell',
+            },
+          ],
+        },
+        {
+          key: '6',
+          label: 'Contractor ',
+          children: [
+            {
+              key: '2-1',
+              label: '3rd menu item',
+            },
+            {
+              key: '2-2',
+              label: '4th menu item',
+            },
+          ],
+        },
+      ]}
+    />
+  );
   return <>
     <div>
       <div className="portafolio-head">
         <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 8 }}>
             <h2>
-              <Input
-                style={{ width: 250 }}
-                placeholder="South Watershed"
-                suffix={<DownOutlined />}
-              />
+              <Dropdown overlay={menu} trigger={['click']}>
+                <div className="select-area">
+                  <a onClick={e => e.preventDefault()}>
+                    South Watershed <DownOutlined style={{fontSize:'14px'}}/>
+                  </a>
+                </div>
+              </Dropdown>
             </h2>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{textAlign:'right', paddingRight:'3%'}}>
+          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'center'}}>
+            <Button className={optionSelect=== 'List' ? "btn-view btn-view-active": "btn-view"} onClick={()=>{setOptionSelect('List')}}>
+              List
+            </Button>
+            <Button className={optionSelect=== 'Phase' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{setOptionSelect('Phase')}}>
+              Phase
+            </Button>
+            <Button className={optionSelect=== 'Schedule' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{setOptionSelect('Schedule')}}>
+              Schedule
+            </Button>
+
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right', paddingRight:'3%'}}>
             {optionSelect === 'Calendar View' &&
               <>
                 <span style={{display:'inline-flex'}}>
@@ -55,16 +180,19 @@ const PortafolioBody = () => {
                 </span>
               </>
             }
-            <Select className="" placeholder="List View" placement="bottomLeft" style={{marginRight:'20px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
-                <Option value="List View">List View</Option>
-                <Option value="Phase View">Phase View</Option>
-                <Option value="Calendar View">Calendar View</Option>
-            </Select>
-            <Button className="btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
-              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>&nbsp;
-              Filters - 22
+            <Button className="btn-filter-k">
+              <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> All Projects
             </Button>
-
+            <span style={{color:'#DBDBE1'}}>|</span>
+            <Button className="btn-filter-k">
+              <HeartOutlined style={{color: '#cdcbd6', fontSize: '16px'}}  /> Favorites
+            </Button>
+            <span style={{color:'#DBDBE1'}}>|</span>
+            <Button className="btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
+              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#bfbcc9' }} src=""/>&nbsp;Filter
+            </Button>
+            <span style={{color:'#DBDBE1'}}>|</span>
+            <ToTopOutlined style={{fontSize: '16px', marginLeft:'10px', color: '#706b8a'}}/>
           </Col>
         </Row>
       </div>
@@ -79,16 +207,13 @@ const PortafolioBody = () => {
                   <div className="protafolio-body">
                     {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                   <Row>
-                    <Col xs={{ span: 10 }} lg={{ span: 4 }}>
+                    <Col xs={{ span: 10 }} lg={{ span: 5 }}>
                       <Search />
                     </Col>
-                    <Col xs={openAction ? { span: 23 }:{span:33}} lg={openAction ?{ span: 15 }:{span:19}}>
-                      {optionSelect === 'List View' && <TablePortafolio/>}
-                      {optionSelect === 'Phase View'  && <PhaseView/>}
-                      {optionSelect === 'Calendar View'  && <CalendarView/>}
-                    </Col>
-                    <Col xs={openAction ? { span: 11 } : {span:1}} lg={openAction ?  { span: 5 }: {span:1}}>
-                      <ActionItems setOpenAction={setOpenAction} openAction={openAction}/>
+                    <Col xs={{span:34}} lg={{span:19}}>
+                      {optionSelect === 'List' && <TablePortafolio/>}
+                      {optionSelect === 'Phase'  && <PhaseView/>}
+                      {optionSelect === 'Schedule'  && <CalendarView/>}
                     </Col>
                   </Row>
                   </div>
