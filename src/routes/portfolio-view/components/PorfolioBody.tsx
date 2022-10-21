@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CheckCircleOutlined, DownOutlined, HeartOutlined, ToTopOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
@@ -11,7 +11,7 @@ import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 
 const { TabPane } = Tabs;
-const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
+const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special', 'DIP'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -35,15 +35,15 @@ const PortafolioBody = () => {
           children: [
             {
               key: '1-1',
-              label: 'Jon Villines',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
             },
             {
               key: '1-2',
-              label: 'David Skoudas',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
             },
             {
               key: '1-3',
-              label: 'Mary Powell',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
             },
           ],
         },
@@ -53,15 +53,15 @@ const PortafolioBody = () => {
           children: [
             {
               key: '2-1',
-              label: 'Jon Villines',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
             },
             {
               key: '2-2',
-              label: 'David Skoudas',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
             },
             {
               key: '2-3',
-              label: 'Mary Powell',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
             },
           ],
         },
@@ -71,15 +71,15 @@ const PortafolioBody = () => {
           children: [
             {
               key: '3-1',
-              label: 'Jon Villines',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
             },
             {
               key: '3-2',
-              label: 'David Skoudas',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
             },
             {
               key: '3-3',
-              label: 'Mary Powell',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
             },
           ],
         },
@@ -89,15 +89,15 @@ const PortafolioBody = () => {
           children: [
             {
               key: '4-1',
-              label: 'Jon Villines',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
             },
             {
               key: '4-2',
-              label: 'David Skoudas',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
             },
             {
               key: '4-3',
-              label: 'Mary Powell',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
             },
           ],
         },
@@ -107,15 +107,15 @@ const PortafolioBody = () => {
           children: [
             {
               key: '5-1',
-              label: 'Jon Villines',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
             },
             {
               key: '5-2',
-              label: 'David Skoudas',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
             },
             {
               key: '5-3',
-              label: 'Mary Powell',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
             },
           ],
         },
@@ -124,12 +124,16 @@ const PortafolioBody = () => {
           label: 'Contractor ',
           children: [
             {
-              key: '2-1',
-              label: '3rd menu item',
+              key: '6-1',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
             },
             {
-              key: '2-2',
-              label: '4th menu item',
+              key: '6-2',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
+            },
+            {
+              key: '6-3',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
             },
           ],
         },
@@ -141,11 +145,11 @@ const PortafolioBody = () => {
       <div className="portafolio-head">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-            <h2>
-              <Dropdown overlay={menu} trigger={['click']}>
+            <h2 style={{width:'205px'}}>
+              <Dropdown overlay={menu} trigger={['click']} >
                 <div className="select-area">
-                  <a onClick={e => e.preventDefault()}>
-                    South Watershed <DownOutlined style={{fontSize:'14px'}}/>
+                  <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
+                    South Watershed &nbsp;<DownOutlined style={{fontSize:'14px'}}/>
                   </a>
                 </div>
               </Dropdown>
@@ -163,23 +167,7 @@ const PortafolioBody = () => {
             </Button>
 
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right', paddingRight:'3%'}}>
-            {optionSelect === 'Calendar View' &&
-              <>
-                <span style={{display:'inline-flex'}}>
-                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'6px', marginRight:'10px'}}>Completed</span>
-                </span>
-                <span style={{display:'inline-flex'}}>
-                  <div className="circulo" style={{backgroundColor:'#29C499'}}/>
-                  <span style={{marginLeft:'6px', marginRight:'10px'}}>Active</span>
-                </span>
-                <span style={{display:'inline-flex'}}>
-                  <div className="circulo" style={{backgroundColor:'#F4BE01'}}/>
-                  <span style={{marginLeft:'6px', marginRight:'10px'}}>Not Started</span>
-                </span>
-              </>
-            }
+          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
             <Button className="btn-filter-k">
               <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> All Projects
             </Button>
@@ -197,7 +185,32 @@ const PortafolioBody = () => {
         </Row>
       </div>
       <div className="work-body portafolio">
-        
+        <div style={{position: 'absolute',right: '5px'}}>
+          {optionSelect === 'List' &&
+            <Button className="btn-btn-transparent" style={{border:'1px solid transparent', color:'#29C499'}}>
+              <SettingFilled />
+              Customize table
+            </Button>
+          }
+          {optionSelect === 'Phase'  && <div>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Completed</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Active</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Delayed</span>
+                </span>
+              </div>}
+        </div>
         <Tabs defaultActiveKey={displayedTabKey[1]}
           activeKey={tabKey}
             onChange={(key) => setTabKey(key)} className="tabs-map">

@@ -166,6 +166,20 @@
     font-weight: 500 !important;
   }
 }
+.menu-drop-sub{
+  background-color: #FFFFFF !important;
+  color: #11093C !important;
+  opacity: 0.6 !important;
+  font-weight: 500 !important;
+  margin: -5px -10px;
+  padding: 5px 10px;
+}
+.menu-drop-sub:hover{
+  background-color: #f7f7f9 !important;
+  color: #11093C !important;
+  opacity: 1 !important;
+  font-weight: 500 !important;
+}
 .tutorial{
   .btn-question{
     -webkit-mask: url('../../Icons/icon-27.svg') no-repeat center;
