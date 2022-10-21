@@ -6,7 +6,7 @@ import { PlusOutlined } from '@ant-design/icons';
 const TeamCollaborator = () => {
   const [selected, setSelected] = useState(true);
   return (
-    <div className="chat-r" style={{opacity:'0.7'}}>
+    <div className="chat-r">
       <Row style={{paddingBottom: '15px'}}>
         <Col span={5}>
           <div
