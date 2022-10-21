@@ -62,9 +62,9 @@ const ModalFields = ({visible, setVisible}: {visible: boolean, setVisible: React
                 <Checkbox  style={{marginBottom:'15px'}}></Checkbox><br/>
               </Col>
             </Row>
-            <div style={{textAlign:'end'}} className="button-footer-modal-field">
-              <Button style={{width:'50%'}} className="btn-transparent">Clear</Button>
-              <Button style={{width:'50%'}} className='btn-purple'>Save</Button>
+            <div style={{textAlign:'end', paddingTop:'8px', paddingRight:'10px'}} >
+              <Button style={{width:'50%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent">Clear</Button>
+              <Button style={{width:'50%', height:'40px',fontSize:'17.5px'}} className='btn-purple'>Save</Button>
             </div>
           </Col>
         </Row>

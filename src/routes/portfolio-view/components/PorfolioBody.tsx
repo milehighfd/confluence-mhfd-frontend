@@ -9,6 +9,7 @@ import PhaseView from "./PhaseView";
 import ActionItems from "./ActionItems";
 import CalendarView from "./CalendarView";
 import Filters from "./Filters";
+import ModalFields from "routes/list-view/components/ModalFields";
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special', 'DIP'];
@@ -23,6 +24,7 @@ const PortafolioBody = () => {
   const [tabKey, setTabKey] = useState<any>('All');
   const [openAction, setOpenAction] = useState(true);
   const [openFilters, setOpenFilters] = useState(false);
+  const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List');
   const menu = (
@@ -141,6 +143,7 @@ const PortafolioBody = () => {
     />
   );
   return <>
+    {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <div>
       <div className="portafolio-head">
         <Row>
@@ -185,9 +188,9 @@ const PortafolioBody = () => {
         </Row>
       </div>
       <div className="work-body portafolio">
-        <div style={{position: 'absolute',right: '5px'}}>
+        <div style={{position: 'absolute',right: '5px', zIndex:'3'}}>
           {optionSelect === 'List' &&
-            <Button className="btn-btn-transparent" style={{border:'1px solid transparent', color:'#29C499'}}>
+            <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{console.log('Entraaaaaaaaaaaaaaaaaa'); setOpenModalTable(true)}}>
               <SettingFilled />
               Customize table
             </Button>

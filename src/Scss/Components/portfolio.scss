@@ -380,8 +380,10 @@
     }
   }
   .table-body{
-    overflow-y: auto;
-    height: calc(100vh - 166px);
+    .table-body-body{
+      overflow-y: auto;
+      height: calc(100vh - 166px);
+    }
     .table-portafolio{
       overflow: hidden;
       margin-bottom: 13.5px;
@@ -466,6 +468,36 @@
     border-radius: 10px;
   }
   .calendar-body{
+    .piney-text{
+      position: absolute;
+      background: white;
+      z-index: 3;
+      right: 0px;
+      width: 277px;
+      height: 100%;
+      padding: 15px 10px;
+      margin-top: -15px;
+      
+      box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+      .header-piney{
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        color:#11093C !important;
+      }
+      .tag-blue{
+        background-color: #047cd7;
+        color: white;
+        margin-right: 10px;
+        border-radius: 10px;
+        padding: 3px 10px;
+      }
+      p{
+        color: #11093C !important;
+      }
+    }
     h1{
       // top: calc(50% - 15px/2 - 306.5px);
       font-family: 'Ubuntu';
@@ -479,13 +511,13 @@
   }
   .phaseview-body{
     overflow-x: auto;
-    overflow-y: auto;
-    height: calc(100vh - 165px);
     .phaseview-content{
       width: 100%;
       .container-timeline{
         overflow-y: auto;
         height: 100%;
+        overflow-y: auto;
+        height: calc(100vh - 165px);
       }
       .phaseview-title{
         display: flex;

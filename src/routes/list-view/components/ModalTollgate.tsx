@@ -25,7 +25,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
-            <Row style={{height: '357px', overflowY: 'auto', marginBottom:'50px'}} className="row-modal-list-view">
+            <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
                 <p style={{marginBottom:'25px'}}>Draft </p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR) </p>
@@ -83,9 +83,9 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                 </p>
               </Col>
             </Row>
-            <div style={{textAlign:'end'}} className="button-footer-modal-tollgate">
-              <Button style={{width:'40%'}} className="btn-transparent">Clear</Button>
-              <Button style={{width:'40%'}} className='btn-purple'>Save</Button>
+            <div style={{textAlign:'end', marginTop:'10px'}} >
+              <Button style={{width:'40%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent">Clear</Button>
+              <Button style={{width:'40%', height:'40px',fontSize:'17.5px'}} className='btn-purple'>Save</Button>
             </div>
           </Col>
         </Row>
