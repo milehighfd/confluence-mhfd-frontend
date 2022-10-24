@@ -28,6 +28,54 @@ const CalendarView = () => {
       <span className="tag-blue">Funding Phase</span><span className="tag-blue">Capital</span>
       <p style={{marginTop:'20px', marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
       <p>The same screen can be built in a lot of different ways, but only a few of them will get your message accross correctly and result in an easy-to-use software or...<span style={{fontWeight:'700'}}>more</span></p>
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>MHFD Lead</p>
+        </Col>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>Jon Villines</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>MHFD Lead</p>
+        </Col>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>Jon Villines</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>MHFD Lead</p>
+        </Col>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>Jon Villines</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>MHFD Lead</p>
+        </Col>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>Jon Villines</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>MHFD Lead</p>
+        </Col>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>Jon Villines</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>MHFD Lead</p>
+        </Col>
+        <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+          <p>Jon Villines</p>
+        </Col>
+      </Row>
     </div>}
     <Row style={{margin:'15px 10px'}}>
       <Col xs={{ span: 10 }} lg={{ span: 12 }}>

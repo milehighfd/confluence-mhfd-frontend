@@ -45,15 +45,15 @@ const App = () => {
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-page`} component={DetailedPageView} />
         <Route path={`/maptest`} component={maptest} />
-        <Route path={`/user-settings`} component={UserManagement} />
-        <Route path={`/my-profile-edit-search`} component={MyProfile} />
-        <Route path={`/list-view`} component={ListView} />
-        <Route path={`/portfolio-list-view`} component={PortfolioView} />
-        <Route path={`/detail-page`} component={DetailPage} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
         <Route path={`/map`} component={MapRoute} />
+        <Route path={`/user-settings`} component={UserManagement} />
+        <Route path={`/my-profile-edit-search`} component={MyProfile} />
+        <Route path={`/list-view`} component={ListView} />
+        <Route path={`/detail-page`} component={DetailPage} />
+        {(appUser.status === 'approved') && <Route path={`/portfolio-list-view`} component={PortfolioView} />}
         {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
