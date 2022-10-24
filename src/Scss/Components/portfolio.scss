@@ -475,7 +475,7 @@
       right: 0px;
       width: 277px;
       height: 100%;
-      padding: 15px 10px;
+      padding: 15px 15px;
       margin-top: -15px;
       
       box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
@@ -534,6 +534,26 @@
           line-height: 14px;
           margin-bottom: 0px;
           letter-spacing: -1px;
+          width: 80px;
+          height: 28px;
+
+          font-family: 'Ubuntu';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 14px;
+          text-align: center;
+
+          color: #11093C;
+
+          mix-blend-mode: normal;
+          opacity: 0.6;
+
+          /* Inside auto layout */
+
+          flex: none;
+          order: 1;
+          flex-grow: 0;
         }
       }
       .header-timeline{

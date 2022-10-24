@@ -177,6 +177,12 @@ body{
   }
 }
 .menu-drop{
+  min-width: 160px !important;
+  width: 160px !important;
+  border-radius: 5px;
+  .ant-dropdown-menu {
+    min-width: 150px !important;
+  }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     background-color: #ffffff !important;
     color: #11093C;
