@@ -176,7 +176,7 @@ const TablePortafolio = () => {
   return <div className="table-body">
     <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table"/>
     <div className="table-body-body">
-      <Table columns={columns} dataSource={dataTable} className="table-portafolio" style={{marginTop:'13px'}}/>
+      <Table columns={columns} dataSource={dataTable} className="table-portafolio" style={{marginTop:'10px'}}/>
       <Table columns={columns} dataSource={dataTable01} className="table-portafolio" />
       <Table columns={columns} dataSource={dataTable02} className="table-portafolio" />
     </div>

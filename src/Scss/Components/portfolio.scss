@@ -293,12 +293,12 @@
       }
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 8.5px 10px;
+      padding: 0px 10px;
       padding-left: 10px;
       color: #11093c !important;
       background: #f7f7f9;
       line-height: 30px;
-      height: auto;
+      height: 32px;
       box-shadow: none !important;
       font-size: 16px;
     }
@@ -387,6 +387,10 @@
     .table-portafolio{
       overflow: hidden;
       margin-bottom: 13.5px;
+      .ant-table-thead {
+        height: 32px;
+        border-radius: 7px 7px 0px 0px;
+      }
       .span-not-started{
         background: #f3f4f5;
         padding: 4px 12px;
@@ -441,6 +445,14 @@
     }
     .header-table{
       margin-bottom: 0px;
+      .ant-table-thead {
+        height: 47px !important;
+        border-radius: 7px 7px 0px 0px;
+      }
+      .ant-table-thead > tr > th {
+        background: #ffffff;
+        padding-top: 17px !important;
+      }
       .ant-table-tbody {
         // display: none;
       }
@@ -577,8 +589,10 @@
         flex-direction: row;
         justify-content: space-between;
         text-align: center;
-        padding: 19px 0px;
-        background: #f8f8fa;
+        height: 58px;
+        padding-top: 17px;
+        /* padding: 19px 0px; */
+        background: #ffffff;
         border-bottom: 1px solid #d4d2d9;
         p{
           width: 6.6666666667%;
@@ -611,10 +625,12 @@
       }
       .header-timeline{
         background: #f8f8fa;
-        padding: 23.5px;
+        /* padding: 23.5px; */
+        height: 32px;
       }
       .phaseview-timeline{
         padding: 11px 20px;
+        padding-bottom: 20px;
         .ant-steps {
           padding: 0px 0px;
         }

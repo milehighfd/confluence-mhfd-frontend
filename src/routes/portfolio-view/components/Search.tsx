@@ -48,7 +48,7 @@ const Search = () => {
           </div>
         </Panel>
       </Collapse>
-      <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}>
+      <Collapse defaultActiveKey={['1']}  style={{marginBottom:'19px'}}>
         <Panel header="Commerce City" key="1">
         <div className="text-search">
           <p>North Outfall - Phase IV</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
