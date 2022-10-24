@@ -23,6 +23,11 @@ export const getNotes = (color_id?:any) => {
   };
 };
 
+export const setIsnewNote = (isnewnote: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_IS_NEW_NOTE, payload: isnewnote});
+  }
+}
 export const createNote = (note: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.CREATE_NOTE, note, datasets.getToken()).then(note => {

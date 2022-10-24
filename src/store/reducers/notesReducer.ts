@@ -4,15 +4,22 @@ const initState = {
   notes: [],
   groups: [],
   open: false,
-  availableColors: []
+  availableColors: [],
+  isnewnote: false
 };
 
 const notesReducer = (state = initState, action : any) => {
   switch(action.type) {
+    case types.SET_IS_NEW_NOTE:
+      return {
+        ...state,
+        isnewnote: action.payload
+      }
     case types.CREATE_NOTE: 
       return {
         ...state,
-        notes: [...state.notes, action.note]
+        notes: [...state.notes, action.note],
+        isnewnote: true
       }
     case types.CREATE_GROUP:
       return {

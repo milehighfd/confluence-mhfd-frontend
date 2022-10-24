@@ -8,3 +8,4 @@ export const EDIT_GROUP = 'EDIT_GROUP';
 export const DELETE_GROUP = 'DELETE_GROUP';
 export const GET_AVAILABLE_COLORS = 'GET_AVAILABLE_COLORS';
 export const GET_GROUPS = 'GET_GROUPS';
+export const SET_IS_NEW_NOTE = 'SET_IS_NEW_NOTE';

@@ -816,6 +816,7 @@ const MapView = () => {
         <Row justify="space-around" align="middle">
           <Col span={11} style={{textAlign:'initial'}}>
             <Search
+              id="search-input"
               allowClear
               placeholder="Search"
               value={tabActive === '0' ? keywordProblem : keywordProject}
@@ -828,10 +829,18 @@ const MapView = () => {
               }}
               onSearch={(e) => {
                 if (tabActive === '0') {
-                  setProblemKeyword(keywordProblem);
+                  if (e === '') {
+                    setProblemKeyword(e);
+                  } else {
+                    setProblemKeyword(keywordProblem);
+                  }
                   getGalleryProblems();
                 } else {
-                  setProjectKeyword(keywordProject);
+                  if (e === '') {
+                    setProjectKeyword(e); 
+                  } else {
+                    setProjectKeyword(keywordProject);
+                  }
                   getGalleryProjects();
                 }
               }}

@@ -8,9 +8,9 @@ import { divListOfelements } from './../Map/commetsFunctions';
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, setSwSave:Function }) => {
   const DEFAULT_COLOR = '#FFE121';
-  const { notes, groups, availableColors } = useNotesState();
+  const { notes, groups, availableColors, isnewnote } = useNotesState();
   const { colorsList } = useColorListState();
-  const { deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup } = useNoteDispatch();
+  const { deleteNote, getGroups, getNotes, createGroup, editNote, getAvailableColors, editGroup, setIsnewNote } = useNoteDispatch();
   const { setIdsFilter } = useColorListDispatch();
   const [tree, setTree] = useState([] as any);
   const [currentSelected, setCurrentSelected] = useState([] as any);
@@ -23,7 +23,14 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     setCounterFilters(counterArray);
   }
   useEffect(() => {
+    if(isnewnote) {
+      resetFilters();
+      setIsnewNote(false);
+    }
+  }, [isnewnote]);
+  useEffect(() => {
     getGroups();
+    console.log('console.log();');
     getNotes();
     getAvailableColors();
   }, []);

@@ -112,7 +112,7 @@
         margin-top: -3px;
       }
       .btn-transparent{
-        padding: 0px 5px;
+        padding: 0px 3px;
       }
     }
     .requiered-text {
@@ -708,6 +708,9 @@
           color: #df3232;
         }
       }
+      .required-text{
+        font-size: 14px;
+      }
       .sub-title {
         font-size: 13px !important;
       }
@@ -945,6 +948,9 @@
         img{
           height: 24px;
         }
+      }
+      .required-text{
+        font-size: 14px;
       }
       .sub-title {
         font-size: 18px !important;
