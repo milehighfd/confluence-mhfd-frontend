@@ -1,29 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { Col, Card, Popover, Menu, Button, MenuProps } from "antd";
-import DetailedModal from "../Modals/DetailedModal";
-
-import { numberWithCommas } from '../../../utils/utils';
-import { Detailed } from "../../../store/types/detailedTypes";
-import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-
-import { useSelector } from "react-redux";
-
-import store from "../../../store";
-import { COMPONENT_LAYERS, MENU_OPTIONS } from "../../../constants/constants";
-
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Col, Card, Popover, Menu, Button, MenuProps } from 'antd';
+import DetailedModal from 'Components/Shared/Modals/DetailedModal';
+import { numberWithCommas } from 'utils/utils';
+import { Detailed } from 'store/types/detailedTypes';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import store from 'store';
+import { COMPONENT_LAYERS, MENU_OPTIONS } from 'constants/constants';
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
 
-
-const CardInformationView = ({ data, type, detailed, setHighlighted, selectedOnMap, setZoomProjectOrProblem }:
-                { data: any, type: string, getDetailedPageProblem: Function, getDetailedPageProject: Function, detailed: Detailed, loaderDetailedPage: boolean,
-                setHighlighted: Function, getComponentsByProblemId: Function, componentsOfProblems: any, loaderTableCompoents: boolean, selectedOnMap: any, componentCounter: number,
-                getComponentCounter: Function, setZoomProjectOrProblem: Function }) => {
+const CardInformationView = ({
+  data,
+  type,
+  detailed,
+  selectedOnMap,
+  setZoomProjectOrProblem
+}: {
+  data: any,
+  type: string,
+  detailed: Detailed,
+  selectedOnMap: any,
+  setZoomProjectOrProblem: Function
+}) => {
   const [visible, setVisible] = useState(false);
-  const { getBBOXComponents, updateSelectedLayers, addFavorite, deleteFavorite, favoriteList } = useMapDispatch();
+  const {
+    getBBOXComponents,
+    updateSelectedLayers,
+    addFavorite,
+    deleteFavorite,
+    favoriteList,
+    setHighlighted
+  } = useMapDispatch();
   const { favorites } = useMapState();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {

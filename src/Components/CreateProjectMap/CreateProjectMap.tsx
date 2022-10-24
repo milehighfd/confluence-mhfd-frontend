@@ -1137,7 +1137,7 @@ const CreateProjectMap = (type: any) => {
     if (item.problemid) {
       existDetailedPageProblem(item.problemid);
     } else {
-      const url = 'projectid' + (item.projectid || item.id) + '&type=' + item.type;
+      const url = 'projectid' + (item.projectid || item.id);
       existDetailedPageProject(url);
     }
   }

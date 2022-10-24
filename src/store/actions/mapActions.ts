@@ -364,14 +364,36 @@ export const getGalleryProblems = () => {
 }
 
 export const getGalleryProjects = () => {
-    const coordinates = store.getState().map.filterCoordinates;
-    const filterOptions = store.getState().map.filterProjectOptions;
-    const filterComponent = store.getState().map.filterComponentOptions;
-    return (dispatch: Function) => {
-        dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: true });
-        datasets.postData(SERVER.GALLERY_PROJECTS, optionsProjects(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProjects => {
+    return (dispatch: Function, getState: Function) => {
+        const {
+            map: {
+                filterCoordinates: coordinates,
+                filterProjectOptions: filterOptions,
+                filterComponentOptions: filterComponent,
+            }
+        } = getState();
+        dispatch({
+            type: types.SET_SPIN_CARD_PROJECTS,
+            spin: true
+        });
+        datasets.postData(
+            SERVER.GALLERY_PROJECTS,
+            optionsProjects(filterOptions, filterComponent, coordinates),
+            datasets.getToken()
+        ).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
                 dispatch({ type: types.GALLERY_PROJECTS, galleryProjects });
+            }
+            dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
+        });
+
+        datasets.postData(
+            SERVER.GALLERY_PROJECTS_V2,
+            optionsProjects(filterOptions, filterComponent, coordinates),
+            datasets.getToken()
+        ).then(galleryProjects => {
+            if (galleryProjects?.length >= 0) {
+                dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
             }
             dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
@@ -390,10 +412,10 @@ export const setSelectedPopup = (currentPopup: number) => {
     }
 }
 
-export const getDetailedPageProject = (id: number, type: string) => {
+export const getDetailedPageProject = (id: number) => {
     return (dispatch: Function) => {
         dispatch({ type: detailedTypes.REPLACE_VALUE_SPIN })
-        datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?projectid=' + id + '&type=' + type, datasets.getToken()).then(detailed => {
+        datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?projectid=' + id, datasets.getToken()).then(detailed => {
             dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
         });
     }

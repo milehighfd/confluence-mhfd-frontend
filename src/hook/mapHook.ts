@@ -161,8 +161,8 @@ export const useMapDispatch = () => {
     resetDetailed: () => {
       dispatch(resetDetailed());
     },
-    getDetailedPageProject: (id: number, type: string) => {
-      dispatch(getDetailedPageProject(id, type));
+    getDetailedPageProject: (id: number) => {
+      dispatch(getDetailedPageProject(id));
     },
     getComponentsByProblemId: (data: any) => {
       dispatch(getComponentsByProblemId(data));

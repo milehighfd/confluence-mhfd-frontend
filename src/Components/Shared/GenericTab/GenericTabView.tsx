@@ -17,28 +17,19 @@ const GenericTabView = ({
     const {
       getGalleryProblems, 
       getGalleryProjects,
-      getDetailedPageProblem,
-      getDetailedPageProject,
       setFilterProblemOptions,
       setFilterProjectOptions, 
-      setHighlighted,
       setFilterComponentOptions,
-      getComponentsByProblemId,
-      getComponentCounter,
-      setZoomProjectOrProblem
+      setZoomProjectOrProblem,
     } = useMapDispatch();
     const {
       detailed,
-      spin: loaderDetailedPage,
     } = useDetailedState();
     const {
         filterProblemOptions,
         filterProjectOptions,
         filterComponentOptions,
         selectedOnMap,
-        componentCounter,
-        componentsByProblemId: componentsOfProblems,
-        loaderTableCompoent: loaderTableCompoents,
       } = useMapState();
     let totalElement = cardInformation.length;
     const size = 6;
@@ -227,19 +218,12 @@ const GenericTabView = ({
                 endMessage={''}
                 loader={undefined}>
                 {sw ? state.items.map((i, index: number) => {
-                    return cardInformation[index] && <CardInformationView key={index} data={cardInformation[index]}
-                        getDetailedPageProblem={getDetailedPageProblem}
-                        getDetailedPageProject={getDetailedPageProject}
+                    return cardInformation[index] && <CardInformationView
+                        key={index}
+                        data={cardInformation[index]}
                         detailed={detailed} 
                         type={type}
-                        loaderDetailedPage={loaderDetailedPage}
-                        setHighlighted={setHighlighted}
-                        getComponentsByProblemId={getComponentsByProblemId}
-                        componentsOfProblems={componentsOfProblems}
-                        loaderTableCompoents={loaderTableCompoents}
                         selectedOnMap={selectedOnMap}
-                        componentCounter={componentCounter}
-                        getComponentCounter={getComponentCounter}
                         setZoomProjectOrProblem={setZoomProjectOrProblem}
                     />
                 }) : ''}

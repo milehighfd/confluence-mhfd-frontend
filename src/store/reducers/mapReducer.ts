@@ -96,6 +96,7 @@ const initState = {
     ],
     galleryProblems: [],
     galleryProjects: [],
+    galleryProjectsV2: [],
     filterProblemOptions: {
         keyword: '',
         column: 'problemname',
@@ -509,6 +510,12 @@ const mapReducer = (state = initState, action: any) => {
             return {
                 ...state,
                 galleryProjects: action.galleryProjects
+            }
+        }
+        case types.GALLERY_PROJECTS_V2: {
+            return {
+                ...state,
+                galleryProjectsV2: action.galleryProjects
             }
         }
         case types.SET_FILTER_PROBLEM_OPTIONS: {

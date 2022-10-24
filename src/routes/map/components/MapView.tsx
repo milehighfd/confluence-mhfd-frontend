@@ -41,6 +41,7 @@ const MapView = () => {
   const {
     galleryProblems,
     galleryProjects,
+    galleryProjectsV2,
     filterProblemOptions,
     filterProjectOptions,
     filterComponentOptions,
@@ -579,7 +580,7 @@ const MapView = () => {
       if(params.length === 2) {
         const type = params[0].replace('?type=', '');
         const projectid = params[1].replace('projectid=', '');
-        const url = 'type=' + type + '&projectid=' + projectid;
+        const url = 'projectid=' + projectid;
         existDetailedPageProject(url);
         const auxData = {...data};
         auxData.type = type;
@@ -809,9 +810,12 @@ const MapView = () => {
         visible={visible}
         setVisible={setVisible}
       />}
-      <MapAutoComplete
-        onAutoCompleteSelected={onSelect}
-      />
+      {
+        groupOrganization &&
+        <MapAutoComplete
+          onAutoCompleteSelected={onSelect}
+        />
+      }
       <div className="head-filter mobile-display">
         <Row justify="space-around" align="middle">
           <Col span={11} style={{textAlign:'initial'}}>
@@ -913,14 +917,14 @@ const MapView = () => {
               });
               totalElements = cardInformation.length;
             } else {
-              cardInformation = galleryProjects.map((project: any) => {
-                return {
+              cardInformation = galleryProjectsV2.map((project: any) => {
+                const x = {
                   cartodb_id: project.cartodb_id,
-                  image: project.attachments ? project.attachments : (
-                    project.projecttype === 'Capital' ? '/projectImages/capital.png' :
-                      project.projecttype === 'Study' ? '/projectImages/study.png' :
-                        project.projecttype === 'Special' ? '/projectImages/special.png' :
-                        project.projecttype === 'Maintenance' ?
+                  image: (
+                    project.projectType === 'Capital' ? '/projectImages/capital.png' :
+                      project.projectType === 'Study' ? '/projectImages/study.png' :
+                        project.projectType === 'Special' ? '/projectImages/special.png' :
+                        project.projectType === 'Maintenance' ?
                           (project.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
                             project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
                               project.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
@@ -928,19 +932,21 @@ const MapView = () => {
                                   project.projectsubtype === 'Debris Management' ?'/projectImages/debris-management.png': '/Icons/eje.png'
                                   ) : '/Icons/eje.png'
                   ),
-                  requestName: project.projectname ? project.projectname : project.requestedname,
+                  requestName: project.projectName,
                   sponsor: project.sponsor,
                   estimatedCost: project.estimatedcost ?  project.estimatedcost: project.finalcost,
                   componentCost: project.component_cost ? project.component_cost: 0,
                   status: project.status,
-                  projecttype: project.projecttype,
+                  projecttype: project.projectType,
                   objectid: project.objectid,
                   type: project.type,
                   value: project.cartodb_id,
-                  id: project.projectid,
+                  id: project.projectId,
                   totalComponents: project.totalComponents,
-                  coordinates: project.coordinates[0]
+                  // coordinates: project.coordinates[0]
                 }
+                console.log(x);
+                return x;
               });
               totalElements = cardInformation.length;
             }

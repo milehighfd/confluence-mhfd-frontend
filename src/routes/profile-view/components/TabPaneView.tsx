@@ -65,6 +65,7 @@ const TabPaneView = ({
     </Menu>
   }
   const fetchMoreData = () => {
+    console.log('fetchMoreData');
     if (state.items.length >= totalElement - size) {
       const auxState = { ...state };
       if (state.items.length !== data.length) {

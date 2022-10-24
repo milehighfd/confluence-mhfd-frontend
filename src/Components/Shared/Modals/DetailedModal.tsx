@@ -67,7 +67,7 @@ const DetailedModal = ({
         setProblemPart(t);
       });
     } else {
-      getDetailedPageProject(data.id || data.projectid, data.type);
+      getDetailedPageProject(data.id || data.projectid);
       getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }

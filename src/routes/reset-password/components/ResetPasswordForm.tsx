@@ -36,7 +36,7 @@ const ResetPasswordForm = () => {
         setRedirect(true);
       } else {
         const auxMessage = { ...message };
-        auxMessage.message = res.error;
+        auxMessage.message = res?.error || 'An error has occurred.';
         auxMessage.color = 'red';
         setMessage(auxMessage);
       }
@@ -58,7 +58,7 @@ const ResetPasswordForm = () => {
           setRedirect(true);
         } else {
           const auxMessage = { ...message };
-          auxMessage.message = res.error;
+          auxMessage.message = res?.error || 'An error has occurred.';
           auxMessage.color = 'red';
           setMessage(auxMessage);
         }

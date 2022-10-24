@@ -25,6 +25,7 @@ export const SERVER = (function () {
     const CREATE_PROJECT_STUDY_FHAD = 'createStudyFHAD';
     const GALLERY_PROBLEMS = 'gallery?isproblem=true';
     const GALLERY_PROJECTS = 'gallery?';
+    const GALLERY_PROJECTS_V2 = 'projects';
     const GALLERY = 'gallery';
     const ZOOMAREA = 'zoomarea'
     const COMPONENT_COUNTER = 'component-counter';
@@ -142,6 +143,7 @@ export const SERVER = (function () {
         CREATE_PROJECT_STUDY_MASTER: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_MASTER}`,
         CREATE_PROJECT_STUDY_FHAD: `${URL_BASE.BASE}/${PROJECT}/${CREATE_PROJECT_STUDY_FHAD}`,
         GALLERY_PROJECTS: `${URL_BASE.BASE}/${GALLERY_PROJECTS}`,
+        GALLERY_PROJECTS_V2: `${URL_BASE.BASE}/${GALLERY_PROJECTS_V2}`,
         GALLERY_PROBLEMS: `${URL_BASE.BASE}/${GALLERY_PROBLEMS}`,
         MAP_TABLES: `${URL_BASE.BASE}/${MAP}`,
         MAP_PROBLEM_TABLES: `${URL_BASE.BASE}/${MAP}/probs`,
