@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Collapse, Input, Layout, Popover, Row, Select, Tabs } from 'antd';
+import { Button, Col, Collapse, Dropdown, Input, Layout, Menu, Popover, Row, Select, Tabs } from 'antd';
 import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
@@ -17,17 +17,74 @@ const popovers: any = [
 const Search = () => {
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   let displayedTabKey = tabKeys;
+  const content = (
+    <div>
+      <p>Content</p>
+      <p>Content</p>
+    </div>
+  );
+  const menu = (
+    <Menu
+      className="menu-drop"
+      items={[
+        {
+          key: '1',
+          label: <p style={{fontWeight:'700', color:'#11093C', opacity:'0.5', fontSize:'12px'}}>Group By</p>,
+          type: 'group',
+          children: [
+            {
+              key: '1-1',
+              label: <div className="menu-drop-sub">Status</div>,
+            },
+            {
+              key: '1-2',
+              label: <div className="menu-drop-sub">Jurisdiction</div>,
+            },
+            {
+              key: '1-3',
+              label: <div className="menu-drop-sub">County</div>,
+            },
+            {
+              key: '1-4',
+              label: <div className="menu-drop-sub">Service Area</div>,
+            },
+            {
+              key: '1-5',
+              label: <div className="menu-drop-sub">MHFD Staff Lead</div>,
+            },
+            {
+              key: '1-6',
+              label: <div className="menu-drop-sub">Consultant</div>,
+            },
+            {
+              key: '1-7',
+              label: <div className="menu-drop-sub">Contractor</div>,
+            },
+          ],
+        },
+      ]}
+    />
+  );
   return <>
     <div className="search">
       <div className="search-head">
         <Input placeholder="Search by project name " prefix={<SearchOutlined />} style={{width:'85%'}}/>
-        <span className="ic-dots"/>
+        <Dropdown overlay={menu} trigger={['click']} >
+          <div className="select-area">
+            <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
+              <span className="ic-dots"/>
+            </a>
+          </div>
+        </Dropdown>
       </div>
       <Collapse defaultActiveKey={['1']} style={{marginBottom:'25px'}}>
         <Panel header="Centennial" key="1">
-          <div className="text-search">
-            <p>Niver Creek Upstream of Zuni...</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
+            <div className="text-search">
+            <Popover content={content} title="Title" className="popover-porfolio">
+              <p>Niver Creek Upstream of Zuni...</p>
+            </Popover>
+            <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
           <div className="text-search">
             <p>North Outfall - Phase III</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
           </div>
