@@ -119,14 +119,22 @@ export const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-export const getAllowedBasedOnLocality = (locality: string) => {
+export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study]; 
   if (locality.startsWith('Unincorporated') && locality.endsWith('County')) {
     return all;
   } else if (locality.endsWith('County')) {
-    return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance]
+      if (year && year < 2022) {
+        return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance];
+      } else {
+        return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
+      }
   } else if (locality.endsWith('Service Area')) {
-    return [NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study];
+    if (year && year < 2022) {
+      return [NEW_PROJECT_TYPES.Study, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
+    } else {
+      return [NEW_PROJECT_TYPES.Study];
+    }
   } else {
     return all;
   }

@@ -684,6 +684,7 @@ const RequestView = ({ type, isFirstRendering }: {
           locality={locality}
           editable={true}
           currentData={currentDataForBoard}
+          year={year}
       />
     }{  showCreateProject &&
       <ModalProjectView
@@ -695,6 +696,7 @@ const RequestView = ({ type, isFirstRendering }: {
           editable={true}
           problemId= {problemid}
           currentData={currentDataForBoard}
+          year={year}
       />
     }
     {
@@ -750,6 +752,7 @@ const RequestView = ({ type, isFirstRendering }: {
           locality={locality}
           editable = {true}
           currentData={currentDataForBoard}
+          year={year}
         />
       }
     <Layout>

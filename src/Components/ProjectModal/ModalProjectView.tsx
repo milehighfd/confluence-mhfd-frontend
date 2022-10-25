@@ -20,7 +20,7 @@ const content03 = (<div className="popver-info">Upkeep of aging or failing drop 
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
 
-export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable, problemId, currentData }: {
+export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable, problemId, currentData, year }: {
   visible: boolean,
   setVisible: Function,
   data: any,
@@ -30,7 +30,8 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   locality?: any,
   editable:boolean,
   problemId?: any,
-  currentData?: any
+  currentData?: any,
+  year?: number
 }) => {
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setBoardProjectsCreate} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
@@ -173,7 +174,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   },[showDefaultTab]);
 
   useEffect(() => {
-    setAllowed(getAllowedBasedOnLocality(locality));
+    setAllowed(getAllowedBasedOnLocality(locality, year));
   }, [locality]);
 
   useEffect(() => {
@@ -321,10 +322,24 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         </Button>
         </Col>
         }
+        {
+          allowed.includes(NEW_PROJECT_TYPES.Special) &&
+          <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
+          <Button className={typeProject===NEW_PROJECT_TYPES.Special?"button-project button-project-active" : "button-project" }>
+            <div className="project-img">
+              <img src="/Icons/project/special.svg" alt="" height="30px" />
+            </div>
+            <div className="project-info">
+              <h5>Special</h5>
+              <p>Any other effort for which MHFD funds or staff time is requested.</p>
+            </div>
+          </Button>
+        </Col>
+        }
       </Row>
       <Row gutter={[16, 16]}>
         {
-          allowed.includes(NEW_PROJECT_TYPES.Special) &&
+          allowed.includes(NEW_PROJECT_TYPES.Special) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special?"button-project button-project-active" : "button-project" }>
             <div className="project-img">
