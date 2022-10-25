@@ -309,7 +309,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         </Col>
         }
         {
-          allowed.includes(NEW_PROJECT_TYPES.Acquisition) && !allowed.includes(NEW_PROJECT_TYPES.Study) &&
+          allowed.includes(NEW_PROJECT_TYPES.Acquisition) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Acquisition) } style={{padding: '8px'}}>
         <Button className={typeProject===NEW_PROJECT_TYPES.Acquisition?"button-project button-project-active" : "button-project" }>
           <div className="project-img">
@@ -323,7 +323,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         </Col>
         }
         {
-          allowed.includes(NEW_PROJECT_TYPES.Special) &&
+          allowed.includes(NEW_PROJECT_TYPES.Special) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
           <Button className={typeProject===NEW_PROJECT_TYPES.Special?"button-project button-project-active" : "button-project" }>
             <div className="project-img">
