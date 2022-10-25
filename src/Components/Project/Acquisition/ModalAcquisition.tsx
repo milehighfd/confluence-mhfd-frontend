@@ -65,6 +65,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const history = useHistory();
   const location = useLocation();
   var year = date.getFullYear();
+  const [currentYear, setCurrentYear] = useState(2023);
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
@@ -72,6 +73,14 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
+  
+  useEffect(() => {
+    const params = new URLSearchParams(history.location.search);
+    if (params.get('year')) {
+      const t = params.get('year') ?? '2023';
+      setCurrentYear(+t);
+    }
+  }, [history]);
 
   useEffect(() => {
     if (save === true) {
@@ -272,7 +281,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         setVisibleAlert={setVisibleAlert}
         setSave={setSave}
         jurisdictions={jurisdiction}
-        counties={null}
+        counties={currentYear === 2023 ? [county] : null}
         serviceareas={serviceArea}
         type="Acquisition"
         isEdit={swSave}
