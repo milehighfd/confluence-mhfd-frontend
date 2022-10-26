@@ -64,7 +64,7 @@ const ColumsTrelloCard = (
     }
   }
   const onClickNewProject = () => {
-    if (locality === 'MHFD District Work Plan') return;
+    // if (locality === 'MHFD District Work Plan') return;
     clear();
     setVisibleCreateProject(true);
     setStreamsIds([]);
@@ -99,7 +99,7 @@ const ColumsTrelloCard = (
           {
             column.hasCreateOption &&
             <Button className="btn-transparent button-createProject " onClick={onClickNewProject} >
-              {locality === 'MHFD District Work Plan' ? <img src="/Icons/icon-18-gray.svg" style={{marginBottom:'2px'}} alt=""/>: <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
+              { <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
               Create Project
             </Button>
           }
