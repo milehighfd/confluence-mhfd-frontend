@@ -326,6 +326,10 @@
       overflow-y: auto;
       height: calc(100vh - 210px);
     }
+    .search-body::-webkit-scrollbar {
+      background: transparent;
+      width: 1.5px;
+    }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 0px 10px;
       padding-left: 10px;
