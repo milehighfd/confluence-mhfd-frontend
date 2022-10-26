@@ -138,7 +138,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       }, 2200);
 
     } else {
-      setStreamIntersected([]);
+      setStreamIntersected({ geom: null });
       setEditLocation(undefined);
     }
   }, [data]);
@@ -188,7 +188,9 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.cosponsor = csponsor;
       maintenance.projectname = nameProject;
       maintenance.description = description;
-      maintenance.geom = streamIntersected.geom;
+      if (streamIntersected.geom) {
+        maintenance.geom = streamIntersected.geom;
+      }
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
       maintenance.maintenanceeligibility = eligibility;
@@ -221,7 +223,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [projectReturn.state.project.userPolygon]);
 
   useEffect(() => {
-    if (geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null && sponsor !== undefined) {
+    if (description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && sponsor !== undefined) {
       setDisable(false);
     }
     else {
@@ -373,8 +375,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
               <br />
               <h5 style={{marginTop:'5px'}}>
                 2. Draw Activity
-                <span className="requiered">&nbsp;*&nbsp;</span>
-                <img src="/Icons/icon-08.svg" />
               </h5>
               <div className={"draw " + (isDraw ? 'active' : '')} onClick={onClickDraw}>
                 <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
