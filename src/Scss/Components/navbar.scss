@@ -206,6 +206,7 @@
 .ant-dropdown-menu-submenu-popup .ant-dropdown-menu   {
   margin-top: -8px;
   border-radius: 5px;
+  margin-left: 7px;
 }
 // .ant-dropdown-menu-submenu .ant-dropdown-menu-submenu-popup   {
 //   margin-top: -16px;
@@ -227,15 +228,19 @@
   color: #11093C !important;
   opacity: 0.6 !important;
   font-weight: 400 !important;
-  margin: -5px -10px;
+  margin: -5px -7px;
   padding: 5px 10px;
   font-size: 14px;
+  border-radius: 5px;
 }
 .menu-drop-sub:hover{
   background-color: #f7f7f9 !important;
   color: #11093C !important;
   opacity: 1 !important;
   font-weight: 400 !important;
+}
+.menu-sub-drop {
+  opacity: 1 !important;
 }
 .tutorial{
   .btn-question{

@@ -185,8 +185,8 @@ body{
   }
 }
 .menu-drop{
-  min-width: 160px !important;
-  width: 160px !important;
+  min-width: 130px !important;
+  width: 150px !important;
   border-radius: 5px;
   .ant-dropdown-menu {
     min-width: 150px !important;
@@ -195,6 +195,9 @@ body{
     background-color: #ffffff !important;
     color: #11093C;
     opacity: 0.6;
+    margin: 0px 5px;
+    padding-left: 7px;
+    border-radius: 5px;
   }
   .ant-dropdown-menu-item.ant-dropdown-menu-item-active, .ant-dropdown-menu-item.ant-dropdown-menu-submenu-title-active, .ant-dropdown-menu-item:hover, .ant-dropdown-menu-submenu-title.ant-dropdown-menu-item-active, .ant-dropdown-menu-submenu-title.ant-dropdown-menu-submenu-title-active, .ant-dropdown-menu-submenu-title:hover {
     background-color: #f7f7f9 !important;

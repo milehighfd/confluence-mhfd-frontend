@@ -36,36 +36,36 @@ const Search = (
       items={[
         {
           key: '1',
-          label: <p style={{fontWeight:'700', color:'#11093C', opacity:'0.5', fontSize:'12px'}}>Group By</p>,
+          label: <p style={{fontWeight:'700', color:'#11093C', opacity:'0.5', fontSize:'12px', marginBottom:'2px', marginLeft:'3px'}}>Group By</p>,
           type: 'group',
           children: [
             {
               key: '1-1',
-              label: <div className="menu-drop-sub">Status</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">Status</div>,
             },
             {
               key: '1-2',
-              label: <div className="menu-drop-sub">Jurisdiction</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">Jurisdiction</div>,
             },
             {
               key: '1-3',
-              label: <div className="menu-drop-sub">County</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">County</div>,
             },
             {
               key: '1-4',
-              label: <div className="menu-drop-sub">Service Area</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">Service Area</div>,
             },
             {
               key: '1-5',
-              label: <div className="menu-drop-sub">MHFD Staff Lead</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">MHFD Staff Lead</div>,
             },
             {
               key: '1-6',
-              label: <div className="menu-drop-sub">Consultant</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">Consultant</div>,
             },
             {
               key: '1-7',
-              label: <div className="menu-drop-sub">Contractor</div>,
+              label: <div className="menu-drop-sub menu-sub-drop">Contractor</div>,
             },
           ],
         },
