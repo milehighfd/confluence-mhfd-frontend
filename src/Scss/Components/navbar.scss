@@ -69,6 +69,22 @@
   padding: 0 20px !important;
   line-height: 58px !important;
   background: $dark !important;
+  .ant-badge-count {
+    z-index: auto;
+    min-width: 6px;
+    height: 9px;
+    padding: 1px 3px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 7px;
+    line-height: 6px;
+    white-space: nowrap;
+    text-align: center;
+    background: #ff0000;
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px #06242d;
+    margin-top: 10px;
+  }
 }
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub{
   background: $dark !important;
@@ -166,19 +182,60 @@
     font-weight: 500 !important;
   }
 }
+.drop-menu-header{
+  .ant-dropdown-menu-submenu-popup {
+    margin-top: -16px;
+  }
+  .ant-dropdown-menu {
+    border-radius: 5px !important;
+  }
+}
+// .menu-drop-sub-sub{
+//   .ant-dropdown-menu-submenu-popup {
+//     margin-top: -16px;
+//   }
+// }
+// .ant-dropdown-menu-submenu-popup {
+//   margin-top: -8px;
+//   background-color: red;
+// }
+// .ant-dropdown-menu-submenu .ant-dropdown-menu-submenu-popup .ant-dropdown-menu .ant-dropdown-menu-light .ant-dropdown-menu-submenu-placement-rightTop  {
+//   margin-top: -16px;
+//   background-color: red;
+// }
+.ant-dropdown-menu-submenu-popup .ant-dropdown-menu   {
+  margin-top: -8px;
+  border-radius: 5px;
+}
+// .ant-dropdown-menu-submenu .ant-dropdown-menu-submenu-popup   {
+//   margin-top: -16px;
+//   background-color: red;
+// }
+// .ant-dropdown-menu-submenu .ant-dropdown-menu-submenu-popup .ant-dropdown-menu   {
+//   margin-top: -16px;
+//   background-color: red;
+// }
+// .ant-dropdown-menu-submenu .ant-dropdown-menu-submenu-popup .ant-dropdown-menu .ant-dropdown-menu-light  {
+//   margin-top: -16px;
+//   background-color: red;
+// }
+// .menu-drop{
+//   margin-top: -8px;
+// }
 .menu-drop-sub{
   background-color: #FFFFFF !important;
   color: #11093C !important;
   opacity: 0.6 !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   margin: -5px -10px;
   padding: 5px 10px;
+  font-size: 14px;
 }
 .menu-drop-sub:hover{
   background-color: #f7f7f9 !important;
   color: #11093C !important;
   opacity: 1 !important;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
 }
 .tutorial{
   .btn-question{
@@ -279,14 +336,14 @@
 }
 .notification-icon{
   -webkit-mask: url('../../Icons/icon-26.svg') no-repeat center;
-  height: 22px;
+  height: 24px;
   background: $white;
   padding: 5px 7px;
 }
 .notification-icon:hover{
   opacity: 1;
   -webkit-mask: url('../../Icons/icon-26.svg') no-repeat center;
-  height: 22px;
+  height: 24px;
   background: $green !important;
 }
 .tutorial-carousel{

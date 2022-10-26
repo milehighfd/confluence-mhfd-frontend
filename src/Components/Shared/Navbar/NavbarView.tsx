@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, MenuProps } from 'antd';
+import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, MenuProps, Badge, Avatar } from 'antd';
 import { Redirect, useLocation } from 'react-router-dom';
-import { CaretDownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
 import {DoubleRightOutlined} from '@ant-design/icons';
 import * as datasets from '../../../Config/datasets';
 import { ROUTERS, ROUTER_TITLE } from '../../../constants/constants';
@@ -15,12 +15,21 @@ import '../../../Scss/Components/navbar.scss';
 const { TabPane } = Tabs;
 const { Header } = Layout;
 const content = (<div className="popoveer-00">Notifications (Coming Soon)</div>);
+const popovers: any = [
+  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
+  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
+  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
+  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+]
 
 const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrganization}:
   {user: User, updateUserInformation : Function, groupOrganization: [], getGroupOrganization: Function}) => {
   const [ key, setKey] = useState('1');
+  const [tabKey, setTabKey] = useState<any>('Unread');
   const [ openProfile, setOpenProfile] = useState(false);
   const [ sliderIndex, setSliderIndex] = useState(0);
+  const tabKeys = ['Unread', 'All'];
   const stateValue = {
     visible: false,
     visible1:false
@@ -29,6 +38,60 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
   const { changeTutorialStatus } = useMapDispatch();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
+  let displayedTabKey = tabKeys;
+  const contentNotification = (
+    <div className="popoveer-00" style={{maxWidth:'1000px', width:'369px'}}>
+      <div className="notification-header">
+        <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2> <a>Mark all as read</a>
+      </div>
+      <Tabs defaultActiveKey={displayedTabKey[1]}
+        activeKey={tabKey}
+        onChange={(key) => setTabKey(key)} className="tabs-map">
+        {
+          displayedTabKey.map((tk: string) => (
+            <TabPane style={{marginBottom:'0px'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+              <div className="notification-body">
+                <img src={"/picture/user03.png"} alt="" height="35px" />
+                <div className="text-notification">
+                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
+                  <p className="date">Work Request is due on 10/28/22</p>
+                </div>
+              </div>
+              <div className="notification-body">
+                <img src={"/picture/user03.png"} alt="" height="35px" />
+                <div className="text-notification">
+                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
+                  <p className="date">Work Request is due on 10/28/22</p>
+                </div>
+              </div>
+              <div className="notification-body">
+                <img src={"/picture/user03.png"} alt="" height="35px" />
+                <div className="text-notification">
+                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
+                  <p className="date">Work Request is due on 10/28/22</p>
+                </div>
+              </div>
+              <div className="notification-body">
+                <img src={"/picture/user03.png"} alt="" height="35px" />
+                <div className="text-notification">
+                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
+                  <p className="date">Work Request is due on 10/28/22</p>
+                </div>
+              </div>
+              <div className="notification-body">
+                <img src={"/picture/user03.png"} alt="" height="35px" />
+                <div className="text-notification">
+                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
+                  <p className="date">Work Request is due on 10/28/22</p>
+                </div>
+              </div>
+            </TabPane>
+          ))
+        }
+      </Tabs>
+    </div>
+  );
+  let locationPage = useLocation();
   useEffect(() => {
     resetTimesLogin();
     getTimesLogin();
@@ -163,8 +226,14 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
       key: 'my-notification',
       label: (
         <>
-          <Popover content={content}>
-            <button className="notification-icon"></button>
+          <Popover content={locationPage.pathname === '/portfolio-list-view' ? contentNotification : content}>
+            {locationPage.pathname === '/portfolio-list-view' ?
+            (<span className="avatar-item">
+              <Badge count={22}>
+                <button className="notification-icon"></button>
+              </Badge>
+            </span>):
+            (<button className="notification-icon"></button>)}
           </Popover>
           <label className="ll-0" style={{marginTop: '-1px' }}></label>
         </>

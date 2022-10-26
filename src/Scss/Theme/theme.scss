@@ -11,6 +11,14 @@ html, body{
 .ant-layout{
   background: #f5f7ff !important;
 }
+.drop-menu-header{
+  .ant-dropdown-menu-submenu-popup {
+    margin-top: -16px;
+  }
+  .ant-dropdown-menu {
+    border-radius: 5px !important;
+  }
+}
 body{
  font-family: $ubunto !important;
  overflow-y: hidden;

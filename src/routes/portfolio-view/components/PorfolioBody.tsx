@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
 import { CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
@@ -27,6 +27,10 @@ const PortafolioBody = () => {
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List');
+  const [openTable, setOpenTable] = useState([true, true, true]);
+  const [hoverTable, setHoverTable] = useState([0, 0, 0])
+  const tableRef = useRef<null | HTMLDivElement>(null); 
+  const searchRef = useRef<null | HTMLDivElement>(null); 
   const menu = (
     <Menu
       className="menu-drop"
@@ -34,6 +38,7 @@ const PortafolioBody = () => {
         {
           key: '1',
           label: 'MHFD Staff Lead',
+          className:'menu-drop-sub-sub',
           children: [
             {
               key: '1-1',
@@ -149,7 +154,7 @@ const PortafolioBody = () => {
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
             <h2 style={{width:'205px'}}>
-              <Dropdown overlay={menu} trigger={['click']} >
+              <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header">
                 <div className="select-area">
                   <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
                     South Watershed &nbsp;<DownOutlined style={{fontSize:'14px'}}/>
@@ -172,7 +177,7 @@ const PortafolioBody = () => {
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
             <Button className="btn-filter-k">
-              <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> All Projects
+              <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> My Projects
             </Button>
             <span style={{color:'#DBDBE1'}}>|</span>
             <Button className="btn-filter-k">
@@ -190,7 +195,7 @@ const PortafolioBody = () => {
       <div className="work-body portafolio">
         <div style={{position: 'absolute',right: '5px', zIndex:'3'}}>
           {optionSelect === 'List' &&
-            <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{console.log('Entraaaaaaaaaaaaaaaaaa'); setOpenModalTable(true)}}>
+            <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{setOpenModalTable(true)}}>
               <SettingFilled />
               Customize table
             </Button>
@@ -224,11 +229,11 @@ const PortafolioBody = () => {
                     {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                   <Row>
                     <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                      <Search />
+                      <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable}/>
                     </Col>
                     <Col xs={{span:34}} lg={{span:19}}>
-                      {optionSelect === 'List' && <TablePortafolio/>}
-                      {optionSelect === 'Phase'  && <PhaseView/>}
+                      {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} setHoverTable={setHoverTable}/>}
+                      {optionSelect === 'Phase'  && <PhaseView openTable={openTable}/>}
                       {optionSelect === 'Schedule'  && <CalendarView/>}
                     </Col>
                   </Row>

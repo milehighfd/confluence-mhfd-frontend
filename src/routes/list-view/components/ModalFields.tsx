@@ -1,5 +1,5 @@
 import { ArrowDownOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, Row } from 'antd';
+import { Button, Checkbox, Col, Popover, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React from 'react';
 import { NewProjectsFilter } from '../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter';
@@ -30,20 +30,28 @@ const ModalFields = ({visible, setVisible}: {visible: boolean, setVisible: React
             </div>
             <Row className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 22}}>
-                <p style={{marginBottom:'15px'}}>Status </p>
+                <p style={{marginBottom:'15px'}}>Status <Popover
+                  content={
+                    <div className='popoveer-00'>
+                      <p> Problems related to existing flood or fluvial hazard to life and property.</p>
+                    </div>
+                  }
+                >
+                  <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></Popover>
+                </p>
                 <p style={{marginBottom:'15px'}}>Estimated Cost <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
-                <p style={{marginBottom:'15px'}}>Number of Components  </p>
+                <p style={{marginBottom:'15px'}}>Number of Components  <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
                 <p style={{marginBottom:'15px'}}>MHFD Dollars Allocated <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
-                <p style={{marginBottom:'15px'}}>Year Initiated </p>
-                <p style={{marginBottom:'15px'}}>Year Completed </p>
-                <p style={{marginBottom:'15px'}}>Service Area </p>
-                <p style={{marginBottom:'15px'}}>County </p>
-                <p style={{marginBottom:'15px'}}>Consultant </p>
-                <p style={{marginBottom:'15px'}}>Contractor </p>
-                <p style={{marginBottom:'15px'}}>Jurisdiction </p>
-                <p style={{marginBottom:'15px'}}>Local Government Manager </p>
-                <p style={{marginBottom:'15px'}}>Stream Name </p>
-                <p style={{marginBottom:'15px'}}>Work Plan Year </p>
+                <p style={{marginBottom:'15px'}}>Year Initiated <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Year Completed <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Service Area <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>County <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Consultant <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Contractor <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Jurisdiction <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Local Government Manager <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Stream Name <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
+                <p style={{marginBottom:'15px'}}>Work Plan Year <InfoCircleOutlined style={{marginLeft:'10px', fontSize:'14px', color:'#b3aec9'}}/></p>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 2}}>
                 <Checkbox  style={{marginBottom:'15px'}}></Checkbox><br/>

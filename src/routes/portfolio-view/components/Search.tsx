@@ -14,13 +14,20 @@ const popovers: any = [
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
-const Search = () => {
+const Search = (
+  {searchRef, tableRef, setOpenTable, openTable, hoverTable}
+  :{
+    searchRef: React.MutableRefObject<HTMLDivElement | null>,
+    tableRef: React.MutableRefObject<HTMLDivElement | null>,
+    setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
+    openTable: boolean[],
+    hoverTable:number[],
+  }) => {
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   let displayedTabKey = tabKeys;
   const content = (
-    <div>
-      <p>Content</p>
-      <p>Content</p>
+    <div style={{width:'137px'}}>
+      <p style={{marginBottom:'0px'}}>This is a sample blurb describing the project. Alternatively we can open the detail page.</p>
     </div>
   );
   const menu = (
@@ -68,7 +75,7 @@ const Search = () => {
   return <>
     <div className="search">
       <div className="search-head">
-        <Input placeholder="Search by project name " prefix={<SearchOutlined />} style={{width:'85%'}}/>
+        <Input placeholder="Search" prefix={<SearchOutlined />} style={{width:'85%'}}/>
         <Dropdown overlay={menu} trigger={['click']} >
           <div className="select-area">
             <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
@@ -77,57 +84,102 @@ const Search = () => {
           </div>
         </Dropdown>
       </div>
-      <Collapse defaultActiveKey={['1']} style={{marginBottom:'25px'}}>
-        <Panel header="Centennial" key="1">
-            <div className="text-search">
-            <Popover content={content} title="Title" className="popover-porfolio">
-              <p>Niver Creek Upstream of Zuni...</p>
-            </Popover>
-            <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+      <div
+        className="search-body"
+        ref={searchRef}
+        onScroll={(e:any) => {
+          let dr: any = searchRef.current;
+          if(tableRef.current){
+            tableRef.current.scrollTo(0, dr.scrollTop);
+          }
+        }}
+      >
+        <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]])}}>
+          <Panel header="Centennial" key="1">
+            <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Niver Creek Upstream of Zuni...</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
             </div>
-          <div className="text-search">
-            <p>North Outfall - Phase III</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
-          <div className="text-search">
-            <p>Niver Detention Dam - EAP...</p> <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
-          </div>
-          <div className="text-search">
-            <p>Barr Creek - E470 to Quebec</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
-          <div className="text-search">
-            <p>Niver Creek Trib M - Thornton</p> <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
-          </div>
-          <div className="text-search">
-            <p>Big Dry Creek (ARAPCO)</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
-          <div className="text-search">
-            <p>West Tollgate Creek</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
-        </Panel>
-      </Collapse>
-      <Collapse defaultActiveKey={['1']}  style={{marginBottom:'19px'}}>
-        <Panel header="Commerce City" key="1">
-        <div className="text-search">
-          <p>North Outfall - Phase IV</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-        </div>
-        <div className="text-search">
-          <p>Snyder Creek - E470 to Quebec</p> <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
-        </div>
-        </Panel>
-      </Collapse>
-      <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}>
-        <Panel header="Denver" key="1">
-          <div className="text-search">
-            <p>Piney Creek Channel Restore</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
-          <div className="text-search">
-            <p>No Name Creek Regional </p> <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
-          </div>
-          <div className="text-search">
-            <p>East Tollgate Creek</p> <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
-          </div>
-        </Panel>
-      </Collapse>
+            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>North Outfall - Phase III</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Niver Detention Dam - EAP...</p>
+              </Popover>
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+            </div>
+            <div className="text-search" style={hoverTable[2] === 3 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Barr Creek - E470 to Quebec</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+            <div className="text-search" style={hoverTable[2] === 4 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Niver Creek Trib M - Thornton</p>
+              </Popover>
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+            </div>
+            <div className="text-search"  style={hoverTable[2] === 5 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Big Dry Creek (ARAPCO)</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+            <div className="text-search" style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>West Tollgate Creek</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+          </Panel>
+        </Collapse>
+        <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]])}}>
+          <Panel header="Commerce City" key="1"                                                                                                    >
+            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>North Outfall - Phase IV</p>
+              </Popover>
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+            </div>
+            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Snyder Creek - E470 to Quebec</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+          </Panel>
+        </Collapse>
+        <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}  onChange={(e)=>{setOpenTable([openTable[0], openTable[1],e.length > 0 ])}}>
+          <Panel header="Denver" key="1">
+            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>Piney Creek Channel Restore</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+            <div className="text-search"  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>No Name Creek Regional </p>
+              </Popover>
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+            </div>
+            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
+              <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
+                <p>East Tollgate Creek</p>
+              </Popover>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+            </div>
+          </Panel>
+        </Collapse>
+      </div>
+      
     </div>
   </>
 };

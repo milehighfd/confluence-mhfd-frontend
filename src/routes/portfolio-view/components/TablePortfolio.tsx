@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Input, Layout, Popover, Row, Select, Space, Table, Tabs, Tag } from 'antd';
 import { ColumnsType } from "antd/lib/table";
 import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
-const TablePortafolio = () => {
+const TablePortafolio = (
+  {divRef, searchRef, openTable, setHoverTable}
+  :{
+    divRef:React.MutableRefObject<HTMLDivElement | null>,
+    searchRef:React.MutableRefObject<HTMLDivElement | null>,
+    openTable: boolean[],
+    setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
+  }) => {
   interface DataType {
     key: string;
     phase: string;
@@ -174,11 +181,60 @@ const TablePortafolio = () => {
     },
   ];
   return <div className="table-body">
-    <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table"/>
-    <div className="table-body-body">
-      <Table columns={columns} dataSource={dataTable} className="table-portafolio" style={{marginTop:'10px'}}/>
-      <Table columns={columns} dataSource={dataTable01} className="table-portafolio" />
-      <Table columns={columns} dataSource={dataTable02} className="table-portafolio" />
+    <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'10px'}}/>
+    <div
+      className="table-body-body"
+      ref={divRef}
+      onScroll={(e:any) => {
+        let dr: any = divRef.current;
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, dr.scrollTop);
+        }
+      }}
+    >
+      <Table
+        columns={columns}
+        dataSource={dataTable}
+        className={openTable[0] ? "table-portafolio": "table-portafolio table-close"}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {}, // click row
+            onDoubleClick: event => {}, // double click row
+            onContextMenu: event => {}, // right button click row
+            onMouseEnter: event => {setHoverTable([1,0,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseLeave: event => {}, // mouse leave row
+          };
+        }}
+      />
+      <Table
+        columns={columns}
+        dataSource={dataTable01}
+        className={openTable[1] ? "table-portafolio": "table-portafolio table-close"}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {}, // click row
+            onDoubleClick: event => {}, // double click row
+            onContextMenu: event => {}, // right button click row
+            onMouseEnter: event => {setHoverTable([1,1,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseLeave: event => {}, // mouse leave row
+          };
+        }}
+      />
+      <Table
+        columns={columns}
+        dataSource={dataTable02}
+        className={openTable[2] ? "table-portafolio": "table-portafolio table-close"}
+        style={{marginBottom:'25px'}}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => {}, // click row
+            onDoubleClick: event => {}, // double click row
+            onContextMenu: event => {}, // right button click row
+            onMouseEnter: event => {setHoverTable([1,2,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseLeave: event => {}, // mouse leave row
+          };
+        }}
+      />
     </div>
     
   </div>

@@ -689,6 +689,22 @@
   .popoveer-00{
     color: $white;
     max-width: 260px;
+    .notification-header{
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      .text-notification{
+        margin-left: 5px;
+        p{
+          margin-bottom: 0px;
+        }
+        .date{
+          font-size: 12px;
+        }
+      }
+    }
   }
  .ant-popover-arrow{
     border-bottom-color: $black !important;
@@ -1918,6 +1934,49 @@ hr.filters-line {
 .popoveer-00{
   font-size: 12px;
   max-width: 200px;
+  .notification-header{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    h2{
+      color:#11093C;
+    }
+    a{
+      font-family: 'Ubuntu';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      /* identical to box height */
+
+      text-decoration-line: underline;
+
+      color: #11093C;
+      margin-top: 7px;
+    }
+  }
+  .notification-body{
+    display: flex;
+    margin-bottom: 10px;
+    .text-notification{
+      margin-left: 5px;
+      p{
+        margin-bottom: 2px;
+        font-size: 13px;
+        color: #11093C;
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+      }
+      .date{
+        font-size: 12px;
+        opacity: 0.6;
+      }
+    }
+  }
 }
 .check-scroll{
   height: 120px;

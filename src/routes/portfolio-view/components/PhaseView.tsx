@@ -3,7 +3,7 @@ import { Button, Col, Input, Layout, message, Popover, Row, Select, Space, Steps
 
 const { Step } = Steps;
 
-const PhaseView = () => {
+const PhaseView = ({openTable}:{openTable:boolean[]}) => {
   const [current, setCurrent] = useState(0);
 
   const next = () => {
@@ -34,8 +34,8 @@ const PhaseView = () => {
       </div>
       <div className="container-timeline">
       <div className="header-timeline"></div>
-      <div className="phaseview-timeline">
-        <Steps>
+      <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
+        {openTable[0] && <><Steps>
           <Step status="finish" icon={<span className="border-active"><span className="active">3</span></span>}/>
           <Step status="finish" icon={<span className="border-active"><span className="active">9</span></span>}/>
           <Step status="finish" icon={<span className="border-active"><span className="active">2</span></span>}/>
@@ -153,11 +153,11 @@ const PhaseView = () => {
           <Step status="wait" icon={<span className="border-wait"><span className="wait">11</span></span>}/>
           <Step status="wait" icon={<span className="border-wait"><span className="wait">2</span></span>}/>
           <Step status="wait" icon={<span className="border-wait"><span className="wait">7</span></span>}/>
-        </Steps>
+        </Steps></>}
       </div>
       <div className="header-timeline"></div>
-        <div className="phaseview-timeline">
-          <Steps>
+        <div className="phaseview-timeline"  style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
+          {openTable[1] && <><Steps>
             <Step status="finish" icon={<span className="border-active"><span className="active">3</span></span>}/>
             <Step status="finish" icon={<span className="border-active"><span className="active">9</span></span>}/>
             <Step status="finish" icon={<span className="border-active"><span className="active">2</span></span>}/>
@@ -190,11 +190,11 @@ const PhaseView = () => {
             <Step status="wait" icon={<span className="border-wait"><span className="wait">11</span></span>}/>
             <Step status="wait" icon={<span className="border-wait"><span className="wait">2</span></span>}/>
             <Step status="wait" icon={<span className="border-wait"><span className="wait">7</span></span>}/>
-          </Steps>
+            </Steps></>}
         </div>
         <div className="header-timeline"></div>
-        <div className="phaseview-timeline">
-          <Steps>
+        <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
+          {openTable[2] && <><Steps>
             <Step status="finish" icon={<span className="border-active"><span className="active">3</span></span>}/>
             <Step status="finish" icon={<span className="border-active"><span className="active">9</span></span>}/>
             <Step status="finish" icon={<span className="border-active"><span className="active">2</span></span>}/>
@@ -244,7 +244,7 @@ const PhaseView = () => {
             <Step status="wait" icon={<span className="border-wait"><span className="wait">11</span></span>}/>
             <Step status="wait" icon={<span className="border-wait"><span className="wait">2</span></span>}/>
             <Step status="wait" icon={<span className="border-wait"><span className="wait">7</span></span>}/>
-          </Steps>
+            </Steps></>}
         </div>
       </div>
     </div>
