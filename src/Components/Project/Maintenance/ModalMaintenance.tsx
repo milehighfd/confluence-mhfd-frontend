@@ -181,9 +181,9 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
           csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
-      maintenance.servicearea = cservice;
-      maintenance.county = ccounty;
-      maintenance.jurisdiction = cjurisdiction;
+      maintenance.servicearea = cservice || '';
+      maintenance.county = ccounty || '';
+      maintenance.jurisdiction = cjurisdiction || '';
       maintenance.sponsor = sponsor;
       maintenance.cosponsor = csponsor;
       maintenance.projectname = nameProject;
@@ -223,7 +223,8 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [projectReturn.state.project.userPolygon]);
 
   useEffect(() => {
-    if (description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && sponsor !== undefined) {
+    const possible = isWorkPlan ? county.length : county.length && serviceArea.length && jurisdiction.length;
+    if (description != '' && possible && sponsor !== '' && nameProject !== '' && sponsor !== undefined) {
       setDisable(false);
     }
     else {
@@ -395,6 +396,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 editable={editable}
                 isEdit={swSave}
                 originModal="Maintenance"
+                isWorkPlan={isWorkPlan}
               />
               <br />
               <UploadImagesDocuments

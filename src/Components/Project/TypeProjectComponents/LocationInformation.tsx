@@ -10,7 +10,8 @@ import store from '../../../store';
 
 const { Option } = Select;
 export const LocationInformation = ({
-  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor, sponsor, isEdit, isCapital, originModal
+  setServiceArea, setCounty, setjurisdiction, serviceArea, county, editable, jUrisdiction, setCoSponsor, setSponsor, cosponsor, sponsor, isEdit, isCapital, originModal,
+  isWorkPlan
 }: {
   setServiceArea: Function,
   setCounty: Function,
@@ -25,9 +26,11 @@ export const LocationInformation = ({
   sponsor: any,
   isEdit: boolean,
   isCapital?: boolean,
-  originModal?: string
+  originModal?: string,
+  isWorkPlan?: boolean
 
 }) => {
+  const isMaintenance = originModal === 'Maintenance';
   const getLabel = () => {
     if (originModal == 'Study') {
       return 'Study'
@@ -147,6 +150,9 @@ export const LocationInformation = ({
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          {isMaintenance && !isWorkPlan && <>
+            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            </>}
           <div className="sponsor-select" id="serviceid">
             <Select mode="multiple" placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a Service Area"} style={{ width: '100%' }} onChange={(serviceArea: any) => setServiceArea(serviceArea)} value={serviceArea} disabled={disable} getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
               {officialS_A.map((element) => 
@@ -157,6 +163,11 @@ export const LocationInformation = ({
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">County <Popover content={contentCounty}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          {
+            isMaintenance && <>
+              <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            </>
+          }
           <div className="sponsor-select" id="countyid">
             <Select mode="multiple" placeholder={county?.length !== 0 ? county : "Select a County"} style={{ width: '100%' }} value={county} onChange={(county: any) => apllyCounty(county)} disabled={disable} getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
               {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) => {
@@ -169,6 +180,9 @@ export const LocationInformation = ({
       <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Jurisdiction <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          {isMaintenance && !isWorkPlan && <>
+              <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            </>}
           <div className="sponsor-select" id="jurisdictionid">
             <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Jurisdiction"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
               {JURISDICTION.map((element: string) => {

@@ -12,7 +12,7 @@ export class Project {
     description: string;
 	  servicearea: string;
     county: string;
-    geom: any ;
+    geom?: any ;
     acquisitionprogress: string;
     acquisitionanticipateddate: string;
     overheadcost: any[];
