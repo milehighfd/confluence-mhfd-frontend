@@ -133,7 +133,7 @@ const CalendarView = () => {
           </span>
         </div>
       </Col>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'280px'} : {textAlign:'end', paddingRight:'15px'}}>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}}>
         <div>
           <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
             <CalendarOutlined /> Edit Dates
