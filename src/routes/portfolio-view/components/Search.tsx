@@ -95,7 +95,7 @@ const Search = (
         }}
       >
         <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]])}}>
-          <Panel header="Centennial" key="1">
+          <Panel header="Centennial" key="1" id='testing1'>
             <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Niver Creek Upstream of Zuni...</p>
@@ -141,7 +141,7 @@ const Search = (
           </Panel>
         </Collapse>
         <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]])}}>
-          <Panel header="Commerce City" key="1"                                                                                                    >
+          <Panel header="Commerce City" key="1" id='testing2'>
             <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>North Outfall - Phase IV</p>
@@ -157,7 +157,7 @@ const Search = (
           </Panel>
         </Collapse>
         <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}  onChange={(e)=>{setOpenTable([openTable[0], openTable[1],e.length > 0 ])}}>
-          <Panel header="Denver" key="1">
+          <Panel header="Denver" key="1" id='testing3'>
             <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Piney Creek Channel Restore</p>
