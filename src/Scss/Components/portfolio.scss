@@ -13,6 +13,122 @@
     height: calc(100vh - 160px) !important;
   }
 }
+
+.topHeader line{
+  fill: aquamarine;
+  stroke: gray;
+  opacity: .5;
+}
+
+.topHeader path{
+  stroke: red;
+  visibility: hidden;
+}
+
+.topHeader text{
+  fill: #11093C;
+  width: 58px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+}
+
+.topHeaderYear text{
+  fill: #11093C;
+  position: absolute;
+  height: 15px;
+  left: 23.15%;
+  right: 73.15%;
+  top: calc(50% - 15px/2 - 327.5px);
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: center; 
+}
+.topHeaderYear path{
+  stroke: red;
+  visibility: hidden;
+}
+.topHeaderYear line{
+  stroke: red;
+  opacity: .5;
+  visibility: hidden;
+}
+
+.labels text{
+  width: 77px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #FFFFFF;
+  mix-blend-mode: normal;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.dragginglines path{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: visible;
+}
+.dragginglines line{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: hidden;
+}
+
+.dragginglinesonclick line{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: visible;
+}
+
+.backgroundRecthidden {
+  opacity: 1;
+  stroke: #005e23;
+  fill: #005e23;
+  visibility: hidden;
+}
+.backgroundRectvisible {
+  fill: rgba(37, 24, 99, 0.1);
+  visibility: visible;
+}
+
+.stackedbar {
+  fill-opacity: 1;
+  visibility: visible;
+  stroke-opacity: 1;
+  stroke: gray;
+}
+.stackedbarClicked {
+  fill-opacity: 0.7;
+  visibility: visible;
+  stroke-opacity: 1;
+  stroke: gray;
+}
+
+.stackedbarCenter {
+   visibility: visible;
+}
+
 .span-dots-heder{
   display: inline-flex;
   font-family: Ubuntu;
