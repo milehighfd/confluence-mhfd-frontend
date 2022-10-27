@@ -289,6 +289,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         isEdit={swSave}
         sendToWr={sendToWR}
         setsendToWR={setsendToWR}
+        locality={[locality.replace(' Work Plan', '')]}
       />}
       <Modal
         centered
