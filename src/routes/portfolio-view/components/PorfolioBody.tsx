@@ -31,6 +31,7 @@ const PortafolioBody = () => {
   const [hoverTable, setHoverTable] = useState([0, 0, 0])
   const tableRef = useRef<null | HTMLDivElement>(null); 
   const searchRef = useRef<null | HTMLDivElement>(null); 
+  const phaseRef = useRef<null | HTMLDivElement>(null); 
   const menu = (
     <Menu
       className="menu-drop"
@@ -229,11 +230,11 @@ const PortafolioBody = () => {
                     {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                   <Row>
                     <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                      <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable}/>
+                      <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef}/>
                     </Col>
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} setHoverTable={setHoverTable}/>}
-                      {optionSelect === 'Phase'  && <PhaseView openTable={openTable}/>}
+                      {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef}/>}
                       {optionSelect === 'Schedule'  && <CalendarView/>}
                     </Col>
                   </Row>

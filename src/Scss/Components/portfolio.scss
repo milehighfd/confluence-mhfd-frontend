@@ -11,6 +11,7 @@
   }
   .ant-tabs-tabpane-active {
     height: calc(100vh - 160px) !important;
+    overflow-x: hidden;
   }
 }
 
@@ -380,6 +381,9 @@
   .ant-popover-arrow-content {
     --antd-arrow-background-color: #06242d;
   }
+  .ant-popover-arrow-content:before {
+    background: #06242d;
+  }
   .ant-popover-title {
     display: none;
   }
@@ -424,8 +428,9 @@
     overflow-y: hidden;
     overflow-x: hidden;
     height: calc(100vh - 165px);
-    border: 1px solid #E3E5E5;
-    border-radius: 5px;
+    border-right: 1px solid #E3E5E5;
+    border-top: 1px solid transparent;
+    // border-radius: 5px;
     padding: 15px 0px;
     .search-head{
       padding: 0px 10px;
@@ -440,7 +445,7 @@
     }
     .search-body{
       overflow-y: auto;
-      height: calc(100vh - 210px);
+      height: calc(100vh - 205px);
     }
     .search-body::-webkit-scrollbar {
       background: transparent;
@@ -460,6 +465,7 @@
     .ant-collapse-content > .ant-collapse-content-box {
       padding: 0px 10px !important;
       background-color: #FFFFFF !important;
+      padding-right: 0px !important ;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
       display: revert !important;
@@ -538,6 +544,24 @@
     .table-body-body{
       overflow-y: auto;
       height: calc(100vh - 205px);
+    }
+    .table-body-body::-webkit-scrollbar-thumb {
+      background: transparent; 
+      border-radius: 10px;
+    }
+    .table-body-body::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    .table-body-body::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    .table-body-body::-webkit-scrollbar-thumb {
+      background: $purple00;
+      border-radius: 10px;
     }
     .table-close{
       .ant-table-tbody {
@@ -739,14 +763,17 @@
     }
   }
   .phaseview-body{
-    overflow-x: auto;
+    width: 120%;
+    overflow-x: scroll;
+    // height: calc(100vh - 181px);
     .phaseview-content{
       width: 100%;
+      overflow-x: scroll;
       .container-timeline{
-        overflow-y: auto;
+        overflow-x: hidden;
         height: 100%;
         overflow-y: auto;
-        height: calc(100vh - 165px);
+        height: calc(100vh - 205px);
         width: 110%;
       }
       .phaseview-title{
@@ -760,6 +787,7 @@
         /* padding: 19px 0px; */
         background: #ffffff;
         border-bottom: 1px solid #d4d2d9;
+        width: 100%;
         p{
           width: 6.6666666667%;
           padding: 0px 0px;

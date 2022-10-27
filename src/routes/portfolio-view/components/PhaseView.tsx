@@ -5,7 +5,13 @@ import { Button, Col, Input, Layout, message, Popover, Row, Select, Space, Steps
 
 const { Step } = Steps;
 
-const PhaseView = ({openTable}:{openTable:boolean[]}) => {
+const PhaseView = (
+  {openTable, phaseRef, searchRef}
+  :{
+    openTable:boolean[],
+    phaseRef:React.MutableRefObject<HTMLDivElement | null>,
+    searchRef:React.MutableRefObject<HTMLDivElement | null>,
+  }) => {
   const [current, setCurrent] = useState(0);
 
   const next = () => {
@@ -158,32 +164,41 @@ const PhaseView = ({openTable}:{openTable:boolean[]}) => {
       <div className="phaseview-title">
         <p>Draft</p>
         <p>Work Request (WR)</p>
-        <p>Work Plan (WP)</p>
+        <p>Work Plan<br/>(WP)</p>
         <p>Startup</p>
         <p>Funding</p>
         <p>Consultant Procurement</p>
         <p>Conceptual Design</p>
         <p>Preliminary Design</p>
-        <p>Final Design</p>
+        <p>Final<br/>Design</p>
         <p>Construction Contracting</p>
         <p>Construction</p>
-        <p>Documenta tion</p>
+        <p>Documentation</p>
         <p>Establishment</p>
         <p>Closeout</p>
         <p>Closed</p>
       </div>
-      <div className="container-timeline">
-      <div className="header-timeline"></div>
-      <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
-         <div id="dotchart_1" hidden={!openTable[0]}></div>
-      </div>
-      <div className="header-timeline"></div>
-        <div className="phaseview-timeline"  style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
-            <div id="dotchart_2" hidden={!openTable[1]}></div>
-        </div>
+      <div
+        className="container-timeline"
+        ref={phaseRef}
+        onScroll={(e:any) => {
+          let dr: any =  phaseRef.current;
+          if(searchRef.current){
+            searchRef.current.scrollTo(0, dr.scrollTop);
+          }
+        }}
+      >
         <div className="header-timeline"></div>
         <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
-            <div id="dotchart_3" hidden={!openTable[2]}></div>
+          <div id="dotchart_1" hidden={!openTable[0]}></div>
+        </div>
+        <div className="header-timeline"></div>
+        <div className="phaseview-timeline"  style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
+          <div id="dotchart_2" hidden={!openTable[1]}></div>
+        </div>
+        <div className="header-timeline"></div>
+        <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px', marginBottom:'15px'}:{marginBottom:'15px'}}>
+          <div id="dotchart_3" hidden={!openTable[2]}></div>
         </div>
       </div>
     </div>
