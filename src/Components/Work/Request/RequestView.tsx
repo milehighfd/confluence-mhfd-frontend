@@ -1,6 +1,6 @@
 import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useHistory } from 'react-router';
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
 import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest';
@@ -397,7 +397,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }, [namespaceId])
 
-  const getBoardD = () => {
+  const getBoardD = useMemo(() => () => {
     getBoardData({
       type,
       year: `${year}`,
@@ -462,13 +462,13 @@ const RequestView = ({ type, isFirstRendering }: {
         }
         setTimeout(() => {
           setBoardFlag(boardFlag + 1);
-        }, 7000);
+        }, 5700);
       },
       (e) => {
         console.log('e', e);
       }
     )
-  };
+  }, []);
   useEffect(() => {
     getBoardD();
     // return () => {getBoardFlag = false};
@@ -677,6 +677,9 @@ const RequestView = ({ type, isFirstRendering }: {
       label: item
     };
   };
+  useEffect(() => {
+    console.log('shows', showModalProject, 'create', showCreateProject, 'showbar', visibleCreateProject);
+  }, [showModalProject, showCreateProject, visibleCreateProject]);
   return <>
     {  showModalProject &&
       <ModalProjectView

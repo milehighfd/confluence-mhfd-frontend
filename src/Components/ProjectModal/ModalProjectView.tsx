@@ -113,6 +113,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   };
   const handleCancel = (e: any) => {
     setVisibleModal(false);
+    console.log('could it be this');
     setVisible(false);
   };
   const chooseSubtypes = (e: any) => {
@@ -182,6 +183,9 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       setBoardProjectsCreate([]);
     }
   },[]);
+  useEffect(() => {
+    console.log('capital', visibleCapital);
+  }, [visibleCapital]);
   return (
     <>
      {visibleCapital && <ModalCapital

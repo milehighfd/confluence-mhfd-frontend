@@ -302,6 +302,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         saveProjectCapital(capital);
       }
       setVisibleCapital(false);
+      console.log('or this could it be');
       setVisible(false);
     }
   },[save]);
@@ -348,6 +349,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     const auxState = {...state};
     setVisibleCapital (false);
     setState(auxState);
+    console.log('or this one');
     setVisible(false);
   };
 
