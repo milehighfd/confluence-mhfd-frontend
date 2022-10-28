@@ -89,10 +89,12 @@ const ColumsTrelloCard = (
             if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
               setDragAction([true, columnIdx,  (e.clientY/bounds.height)-3]);
             }
-            if(!dragAction[0]){
-              if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-                setDragstart([columnIdx,  (e.clientY/bounds.height)-2]);
-              }
+          }}
+          onDrag={(e) => {
+            let dr: any = divRef.current;
+            let bounds = dr.getBoundingClientRect();
+            if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
+              setDragstart([columnIdx,  (e.clientY/bounds.height)-2]);
             }
           }}
         >
