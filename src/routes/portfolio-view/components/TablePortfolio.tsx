@@ -186,7 +186,7 @@ const TablePortafolio = (
     <div
       className="table-body-body"
       ref={divRef}
-      onScroll={(e:any) => {
+      onScrollCapture={(e:any) => {
         let dr: any = divRef.current;
         if(searchRef.current){
           searchRef.current.scrollTo(0, dr.scrollTop);

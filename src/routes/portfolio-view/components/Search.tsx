@@ -89,7 +89,7 @@ const Search = (
       <div
         className="search-body"
         ref={searchRef}
-        onScroll={(e:any) => {
+        onScrollCapture={(e:any) => {
           let dr: any = searchRef.current;
           if(tableRef.current){
             tableRef.current.scrollTo(0, dr.scrollTop);

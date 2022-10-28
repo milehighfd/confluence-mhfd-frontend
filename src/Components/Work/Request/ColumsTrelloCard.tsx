@@ -55,6 +55,7 @@ const ColumsTrelloCard = (
   const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [sizeCard, setSizeCard] = useState([0,0])
   const divRef = useRef(null);
+  var windowWidth = window.innerWidth ;
   const onDrop = (e: any, columnIdx: number) => {
     let txt = e.dataTransfer.getData("text");
     let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction);
@@ -86,21 +87,48 @@ const ColumsTrelloCard = (
             let dr: any = divRef.current;
             let bounds = dr.getBoundingClientRect();
             setSizeCard([bounds.height, bounds.width])
-            if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-              setDragAction([true, columnIdx,  (e.clientY/bounds.height)-3]);
+            let size= 100;
+            if(windowWidth >= 1900 ){
+              size=50;
             }
+            if(windowWidth >= 2500 ){
+              size=80;
+            }
+            if(columnIdx !==0 ){
+              if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
+                setDragAction([true, columnIdx,  (e.clientY/bounds.height)-3]);
+              }
+            }else{
+              if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
+                setDragAction([true, columnIdx,  ((e.clientY-size)/bounds.height)-3]);
+              }
+            }
+            
           }}
           onDrag={(e) => {
             let dr: any = divRef.current;
             let bounds = dr.getBoundingClientRect();
-            if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-              setDragstart([columnIdx,  (e.clientY/bounds.height)-2]);
+            let size= 100;
+            if(windowWidth >= 1900 ){
+              size=50;
+            }
+            if(windowWidth >= 2500 ){
+              size=80;
+            }
+            if(columnIdx !== 0){
+              if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
+                setDragstart([columnIdx,  (e.clientY/bounds.height)-2]);
+              }
+            }else{
+              if(columnIdx >= 0 && ((e.clientY - size)/bounds.height)-2 >= 0){
+                setDragstart([columnIdx,  ((e.clientY - size)/bounds.height)-2]);
+              }
             }
           }}
         >
           {
             column.hasCreateOption &&
-            <Button className="btn-transparent button-createProject " onClick={onClickNewProject} >
+            <Button className="btn-transparent button-createProject " onClick={onClickNewProject}>
               { <img src="/Icons/icon-18.svg" style={{marginBottom:'2px'}} alt=""/>}
               Create Project
             </Button>
