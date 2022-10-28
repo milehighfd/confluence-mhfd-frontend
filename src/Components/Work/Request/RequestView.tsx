@@ -651,6 +651,15 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
+    if (localityType === 'COUNTY') {
+      displayedTabKey = ['Capital', 'Maintenance']
+    } else if (localityType === 'SERVICE_AREA') {
+      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+    }
+    if (locality === 'MHFD District Work Plan') {
+      displayedTabKey = tabKeys;
+    }
+      /*
     if (year < 2022) {
       if (localityType === 'COUNTY') {
         displayedTabKey = ['Capital', 'Maintenance']
@@ -666,7 +675,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     if (locality === 'MHFD District Work Plan') {
       displayedTabKey = tabKeys;
-    }
+    }*/
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
