@@ -67,7 +67,7 @@ const CalendarView = () => {
         { objectId: 98000, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
         { objectId: 98000, categoryNo: 5, from: moment('2022/08/11 08:30:00'), to: moment('2022/08/29 10:00:00'), status: 'active', name: 'Closed' },
         { objectId: 98000, categoryNo: 1, from: moment('2022/07/22 07:30:00'), to: moment('2022/08/10 08:30:00'), status: 'notStarted', name: 'Construction' },
-        { objectId: 98000, categoryNo: 4, from: moment('2022/06/11 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft' }
+        { objectId: 98000, categoryNo: 4, from: moment('2022/06/14 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft' }
       ]
     },
     {
@@ -149,14 +149,14 @@ const CalendarView = () => {
         { objectId: 98090, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
         { objectId: 98090, categoryNo: 5, from: moment('2022/08/11 08:30:00'), to: moment('2022/08/29 10:00:00'), status: 'active', name: 'Closed' },
         { objectId: 98090, categoryNo: 1, from: moment('2022/07/22 07:30:00'), to: moment('2022/08/10 08:30:00'), status: 'notStarted', name: 'Construction' },
-        { objectId: 98090, categoryNo: 4, from: moment('2022/06/11 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft' }
+        { objectId: 98090, categoryNo: 4, from: moment('2022/06/12 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft 1' }
       ]
     },
     {
       id: 'N',
       date: moment('2022/08/15'),
       schedule: [
-        { objectId: 181190, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Work Request' },
+        { objectId: 181190, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Work-Request' },
         { objectId: 181190, categoryNo: 5, from: moment('2022/08/27 08:30:00'), to: moment('2022/10/02 10:00:00'), status: 'active', name: 'Start-Up ' },
         { objectId: 181190, categoryNo: 1, from: moment('2022/07/21 07:30:00'), to: moment('2022/08/12 08:30:00'), status: 'delayed', name: 'Work Request' },
         { objectId: 181190, categoryNo: 4, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/26 10:00:00'), status: 'active', name: 'Work-Plan' }
@@ -580,6 +580,7 @@ const CalendarView = () => {
 
     }
     scheduleRectsCenter.on("click", function() {
+      setOpenPiney(true);
       d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar' )
       d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines' )
 
@@ -594,6 +595,7 @@ const CalendarView = () => {
     d3.event.stopPropagation();
   });
     scheduleRects.on("click", function() {
+      setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar' )
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines' )
 
@@ -606,6 +608,7 @@ const CalendarView = () => {
       d3.event.stopPropagation();
     });
     svg.on("click", function() {
+      setOpenPiney(false);
       d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines' )
       d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden' )
       if(d3.event.target.id.includes('center')){
