@@ -153,16 +153,20 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.isWorkPlan = isWorkPlan;
       maintenance.year = _year ?? maintenance.year;
       let cservice = "";
-      serviceArea.forEach((element: any) => {
-        cservice = cservice + element + ",";
-      });
+      if (serviceArea && serviceArea.length) {
+        serviceArea.forEach((element: any) => {
+          cservice = cservice + element + ",";
+        });
+      }
       if (cservice.length != 0) {
         cservice = cservice.substring(0, cservice.length - 1);
       }
       let ccounty = "";
-      county.forEach((element: any) => {
-        ccounty = ccounty + element + ",";
-      })
+      if (county && county.length) {
+        county.forEach((element: any) => {
+          ccounty = ccounty + element + ",";
+        })
+      }
       if (ccounty.length != 0) {
         ccounty = ccounty.substring(0, ccounty.length - 1);
       }
