@@ -193,7 +193,7 @@ const Analytics = ({
       }
       <div className="line-01" style={{ marginLeft: '0px' }}></div>
       {tabKey === 'Maintenance' &&
-        <Select style={{ marginLeft: '-9px' }} defaultValue={year} value={year} onChange={setYear}>
+        <Select style={{ marginLeft: '-9px', minWidth:'190px' }} defaultValue={year} value={year} onChange={setYear}>
             {
               <Option key={2000} value={2000}> All Subtypes</Option>
             }

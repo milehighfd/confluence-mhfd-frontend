@@ -89,7 +89,7 @@ const ColumsTrelloCard = (
             setSizeCard([bounds.height, bounds.width])
             let size= 100;
             if(windowWidth >= 1900 ){
-              size=50;
+              size=75;
             }
             if(windowWidth >= 2500 ){
               size=80;
@@ -110,7 +110,7 @@ const ColumsTrelloCard = (
             let bounds = dr.getBoundingClientRect();
             let size= 100;
             if(windowWidth >= 1900 ){
-              size=50;
+              size=75;
             }
             if(windowWidth >= 2500 ){
               size=80;
