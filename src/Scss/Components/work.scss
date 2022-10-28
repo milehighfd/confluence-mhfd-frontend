@@ -308,6 +308,7 @@
     margin-right: 3px;
     height: 18px;
     width: 4px;
+    font-size: 15px;
   }
   .purple{
     background: $light-purple;
@@ -1123,6 +1124,9 @@
     .purple, .purple-priority, .yellow{
       font-size: 13px;
     }
+    .menu-wr {
+      font-size: 18px;
+    }
   }
   .cost-wr{
     font-size: 16px;
@@ -1511,9 +1515,10 @@
       right: 10px !important;
     }
     .menu-wr {
-      top: 12px !important;
-      right: 20px !important ;
-      height: 50px !important;
+      // top: 12px !important;
+      // right: 20px !important ;
+      // height: 50px !important;
+      width: 15px !important;
       font-size: 25px;
     }
   }

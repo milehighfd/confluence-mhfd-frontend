@@ -6,12 +6,24 @@ import { ADMIN, STAFF } from "../../constants/constants";
 const stateValue = {
   visible: false
 }
-export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit, sendToWr, setsendToWR}:
-  {isWorkPlan: boolean, visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean, sendToWr: boolean, setsendToWR: Function} ) => {
+export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, sponsor, jurisdictions, counties, serviceareas, type, isEdit, sendToWr, setsendToWR, locality}:
+  {isWorkPlan: boolean, visibleAlert : boolean, setVisibleAlert: Function, setSave: Function, sponsor: string, jurisdictions: any, counties: any, serviceareas: any, type: string, isEdit: boolean, sendToWr: boolean, setsendToWR: Function,
+  locality: any} ) => {
   const [state, setState] = useState(stateValue);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  
+  const [workPlanString, setWorkPlanString] = useState('');
+
+
+  useEffect(() => {
+    if (isWorkPlan) {
+      setWorkPlanString(locality.join(','));
+    } else {
+      const newString = counties ? counties.join(', ') : serviceareas.join(', ');
+      setWorkPlanString(newString);
+    }
+  }, [isWorkPlan, counties, serviceareas, locality]);
+
   const handleOk = (e: any) => {
     console.log(e);
     const auxState = {...state};
@@ -71,11 +83,11 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
                   Work Plan ({type} Project)
                 </p>
                 <p className={`information ${!showCheckBox ? 'disabled': ''}`}>
-                  {counties ? counties.join(', ') : serviceareas.join(', ')}
+                  {workPlanString}
                 </p>
               </Col>}
               {
-                (showCheckBox && !isEdit) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                (showCheckBox && !isEdit && !locality.includes('MHFD District')) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div>
                     <Checkbox
                       style={{paddingRight:'10px', paddingTop:'10px'}}

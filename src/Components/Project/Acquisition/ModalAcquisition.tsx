@@ -287,6 +287,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         isEdit={swSave}
         sendToWr={sendToWR}
         setsendToWR={setsendToWR}
+        locality={[locality.replace(' Work Plan', '')]}
       />}
       <Modal
         centered

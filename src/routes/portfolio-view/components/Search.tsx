@@ -15,13 +15,15 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const Search = (
-  {searchRef, tableRef, setOpenTable, openTable, hoverTable}
+  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef}
   :{
     searchRef: React.MutableRefObject<HTMLDivElement | null>,
     tableRef: React.MutableRefObject<HTMLDivElement | null>,
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: boolean[],
     hoverTable:number[],
+    setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
+    phaseRef:React.MutableRefObject<HTMLDivElement | null>,
   }) => {
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   let displayedTabKey = tabKeys;
@@ -92,6 +94,12 @@ const Search = (
           if(tableRef.current){
             tableRef.current.scrollTo(0, dr.scrollTop);
           }
+          if(phaseRef.current){
+            phaseRef.current.scrollTo(0, dr.scrollTop)
+          }
+        }}
+        onMouseEnter={()=>{
+          setHoverTable([0,1,0]);
         }}
       >
         <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]])}}>
@@ -100,43 +108,43 @@ const Search = (
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Niver Creek Upstream of Zuni...</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>North Outfall - Phase III</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Niver Detention Dam - EAP...</p>
               </Popover>
-              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
             <div className="text-search" style={hoverTable[2] === 3 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Barr Creek - E470 to Quebec</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" style={hoverTable[2] === 4 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Niver Creek Trib M - Thornton</p>
               </Popover>
-              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
             <div className="text-search"  style={hoverTable[2] === 5 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Big Dry Creek (ARAPCO)</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>West Tollgate Creek</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10.5px'}}/>
             </div>
           </Panel>
         </Collapse>
@@ -146,13 +154,13 @@ const Search = (
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>North Outfall - Phase IV</p>
               </Popover>
-              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa', marginRight:'11px'}:{marginRight:'11px'}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Snyder Creek - E470 to Quebec</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
           </Panel>
         </Collapse>
@@ -162,19 +170,19 @@ const Search = (
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>Piney Creek Channel Restore</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search"  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>No Name Creek Regional </p>
               </Popover>
-              <HeartFilled style={{marginLeft:'7px', color:'#F5575C'}} />
+              <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
             <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p>East Tollgate Creek</p>
               </Popover>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A'}}/>
+              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
           </Panel>
         </Collapse>

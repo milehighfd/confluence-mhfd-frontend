@@ -107,6 +107,7 @@ const TablePortafolio = (
         <Button className="btn-transparent transparent-btn" style={{color:'transparent'}}>view</Button>
       ),
       width: "8%",
+      ellipsis: true,
     },
   ];
   const columns: ColumnsType<DataType> = [
@@ -201,7 +202,16 @@ const TablePortafolio = (
             onClick: event => {}, // click row
             onDoubleClick: event => {}, // double click row
             onContextMenu: event => {}, // right button click row
-            onMouseEnter: event => {setHoverTable([1,0,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseEnter: event => {setHoverTable([1,0,rowIndex? rowIndex:0]); console.log('Dotty', record, rowIndex)}, // mouse enter row
+            onMouseLeave: event => {}, // mouse leave row
+          };
+        }}
+        onHeaderRow={(record, rowIndex) => {
+          return {
+            onClick: event => {}, // click row
+            onDoubleClick: event => {}, // double click row
+            onContextMenu: event => {}, // right button click row
+            onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
             onMouseLeave: event => {}, // mouse leave row
           };
         }}
@@ -219,18 +229,36 @@ const TablePortafolio = (
             onMouseLeave: event => {}, // mouse leave row
           };
         }}
+        onHeaderRow={(record, rowIndex) => {
+          return {
+            onClick: event => {}, // click row
+            onDoubleClick: event => {}, // double click row
+            onContextMenu: event => {}, // right button click row
+            onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseLeave: event => {}, // mouse leave row
+          };
+        }}
       />
       <Table
         columns={columns}
         dataSource={dataTable02}
         className={openTable[2] ? "table-portafolio": "table-portafolio table-close"}
-        style={{marginBottom:'25px'}}
+        style={{marginBottom:'24px'}}
         onRow={(record, rowIndex) => {
           return {
             onClick: event => {}, // click row
             onDoubleClick: event => {}, // double click row
             onContextMenu: event => {}, // right button click row
             onMouseEnter: event => {setHoverTable([1,2,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseLeave: event => {}, // mouse leave row
+          };
+        }}
+        onHeaderRow={(record, rowIndex) => {
+          return {
+            onClick: event => {}, // click row
+            onDoubleClick: event => {}, // double click row
+            onContextMenu: event => {}, // right button click row
+            onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
             onMouseLeave: event => {}, // mouse leave row
           };
         }}

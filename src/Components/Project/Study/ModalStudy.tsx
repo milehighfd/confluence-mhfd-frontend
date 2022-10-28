@@ -344,6 +344,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         isEdit={swSave}
         sendToWr={sendToWR}
         setsendToWR={setsendToWR}
+        locality={[locality.replace(' Work Plan', '')]}
       />}
       <Modal
         centered
