@@ -69,6 +69,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
 
+  
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
@@ -320,7 +321,12 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                       height: lengthName > 217 ? 'unset' : '34px'
                     }} />
                   </label>
-                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
+                  {/** mark */}
+                  <p>
+                    {serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''}
+                    {(serviceArea && serviceArea.length > 0 && county && county.length > 0) ? '·' : ''}
+                    {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''}
+                  </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{ textAlign: 'right' }}>
                   <label className="tag-name">Maintenance</label>
