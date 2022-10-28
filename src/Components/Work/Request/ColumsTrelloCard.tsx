@@ -88,15 +88,18 @@ const ColumsTrelloCard = (
             let bounds = dr.getBoundingClientRect();
             setSizeCard([bounds.height, bounds.width])
             let size= 100;
+            let sizeCard= 70;
             if(windowWidth >= 1900 ){
               size=75;
+              sizeCard=0;
             }
             if(windowWidth >= 2500 ){
               size=80;
+              sizeCard=0;
             }
             if(columnIdx !==0 ){
-              if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-                setDragAction([true, columnIdx,  (e.clientY/bounds.height)-3]);
+              if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
+                setDragAction([true, columnIdx,  ((e.clientY-sizeCard)/bounds.height)-3]);
               }
             }else{
               if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
@@ -109,15 +112,18 @@ const ColumsTrelloCard = (
             let dr: any = divRef.current;
             let bounds = dr.getBoundingClientRect();
             let size= 100;
+            let sizeCard= 70;
             if(windowWidth >= 1900 ){
               size=75;
+              sizeCard=0;
             }
             if(windowWidth >= 2500 ){
               size=80;
+              sizeCard=0;
             }
             if(columnIdx !== 0){
-              if((e.clientX/bounds.width)-3 >= 0 && (e.clientY/bounds.height)-2 >= 0){
-                setDragstart([columnIdx,  (e.clientY/bounds.height)-2]);
+              if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
+                setDragstart([columnIdx,  ((e.clientY-sizeCard)/bounds.height)-2]);
               }
             }else{
               if(columnIdx >= 0 && ((e.clientY - size)/bounds.height)-2 >= 0){
