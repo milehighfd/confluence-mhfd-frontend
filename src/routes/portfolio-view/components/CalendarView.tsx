@@ -12,7 +12,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
-
+  const [zoomState, setZoomState] = useState<any>();
   const next = () => {
     setCurrent(current + 1);
   };
@@ -65,7 +65,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
         { objectId: 98000, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
         { objectId: 98000, categoryNo: 5, from: moment('2022/08/11 08:30:00'), to: moment('2022/08/29 10:00:00'), status: 'active', name: 'Closed' },
         { objectId: 98000, categoryNo: 1, from: moment('2022/07/22 07:30:00'), to: moment('2022/08/10 08:30:00'), status: 'notStarted', name: 'Construction' },
-        { objectId: 98000, categoryNo: 4, from: moment('2022/06/14 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft' }
+        { objectId: 98000, categoryNo: 4, from: moment('2022/06/24 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft' }
       ]
     },
     {
@@ -147,7 +147,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
         { objectId: 98090, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
         { objectId: 98090, categoryNo: 5, from: moment('2022/08/11 08:30:00'), to: moment('2022/08/29 10:00:00'), status: 'active', name: 'Closed' },
         { objectId: 98090, categoryNo: 1, from: moment('2022/07/22 07:30:00'), to: moment('2022/08/10 08:30:00'), status: 'notStarted', name: 'Construction' },
-        { objectId: 98090, categoryNo: 4, from: moment('2022/06/12 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft 1' }
+        { objectId: 98090, categoryNo: 4, from: moment('2022/06/20 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft 1' }
       ]
     },
     {
@@ -169,10 +169,11 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
   });
   let zoom: any;
   let svg: any;
+  let widthofDiv: any= document.getElementById('widthDivforChart')?.offsetWidth;
   
     const timelineChart = (datasets: any) => {
     let barHeight = 29;
-    let width = 900, height = (barHeight + 10.5) * (rawData.length + 1);
+    let width = widthofDiv -3, height = (barHeight + 10.5) * (rawData.length + 1);
     svg = d3.select('#timeline-chart')
     .append('svg')
     .attr('width', width)
@@ -636,7 +637,8 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
       .on('zoom', zoomed);
     svg.call(zoom);
     svg.transition().call(zoom.scaleBy, currentZScale)
-
+    console.log(zoom);
+    //setZoomState(zoom)
     }
 
   useEffect(() => {
@@ -650,26 +652,37 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
     if(svgState){
       console.log('loaded');
     console.log(document.getElementById('timeline-chart'))
+    const removeAllChildNodes = (parent: any) => {
+      while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+      }
+    }
     const removechart: any =document.getElementById('timeline-chart');
-    removechart.innerHTML ='';
+    removeAllChildNodes(removechart);
     if (!openTable[0]){
+      // datas = datas .filter(function(el){
+      //   if (el.id !== 'Centennial0'){
+      //     return !el.id.includes('Centennial');
+      //   }
+      // });
       datas.forEach((item) => {
         console.log('item' ,item)
         if(item.id.includes('Centennial')){
           item.schedule = [];
         }
       });
-
-      console.log('data' ,datas)
-      timelineChart(datas);
     }
     if (!openTable[1]){
+      // datas = datas .filter(function(el){
+      //   if (el.id !== 'Commerce0'){
+      //     return !el.id.includes('Commerce');
+      //   }
+      // });
       datas.forEach((item) => {
         if(item.id.includes('Commerce')){
           item.schedule = [];
         }
       });
-      timelineChart(datas);
     }
     if (!openTable[2]){
       datas.forEach((item) => {
@@ -677,13 +690,15 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
           item.schedule = [];
         }
       });
-      timelineChart(datas);
     }
+    console.log('data' ,datas)
+    timelineChart(datas);
     }
   }, [openTable]);
   const moveZoom = (type: any,) => {
+    console.log('inside zoom',svgState)
     const adder = type === 'in' ? 1.4 : 0.7;
-    svg.transition().call(zoom.scaleBy, adder);
+    svgState.transition().call(zoom.scaleBy, adder);
   }
   return <div className="calendar-body" id='widthDivforChart'>
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
