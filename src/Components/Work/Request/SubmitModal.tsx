@@ -23,14 +23,12 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
     setVisibleAlert(false); 
   };
 
-  let hasChecks = type === 'WORK_REQUEST' || locality === 'MHFD District Work Plan';
+  let hasChecks = locality === 'MHFD District Work Plan';
   let isPending = null;
   if (hasChecks) {
     let ls = boardSubstatus ? boardSubstatus.split(',') : [];
     ls = ls.map(l => l?.toLowerCase()).filter(r => r !== 'INTEG.SYNC'.toLowerCase());
     isPending = ls.length !== boardsLength;
-  } else {
-    isPending = pending;
   }
 
   
