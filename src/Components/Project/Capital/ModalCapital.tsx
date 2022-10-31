@@ -326,12 +326,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    
     if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && sponsor !== undefined  && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0){
         setDisable(false);
     }
     else{setDisable(true);}
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected]);
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction]);
 
   useEffect(() => {
     getTextWidth(nameProject);
@@ -578,7 +577,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     height: lengthName > 259 ? 'unset' :'34px'
                   }} />
                 </label>
-                <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
+                <p>{serviceArea?(serviceArea?.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea?.length > 0 && county?.length > 0)?'·':''} {county?(county?.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
