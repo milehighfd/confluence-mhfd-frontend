@@ -7,10 +7,11 @@ import ModalTollgate from "routes/list-view/components/ModalTollgate";
 
 
 const { Step } = Steps;
-const CalendarView = () => {
+const CalendarView = ({openTable}:{openTable:boolean[]}) => {
   const [current, setCurrent] = useState(0);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openPiney, setOpenPiney] = useState(false);
+  const [svgState, setSvgState] = useState<any>();
 
   const next = () => {
     setCurrent(current + 1);
@@ -19,10 +20,7 @@ const CalendarView = () => {
   const prev = () => {
     setCurrent(current - 1);
   };
-  let currentZScale = 4;
-  let zoom: any;
-  let svg: any;
-  let dragablesLines = 'dragginglines';
+  
   const colorScale: any = {
     completed: '#5E5FE2',
     active: '#047CD7',
@@ -31,7 +29,7 @@ const CalendarView = () => {
   };
   let rawData = [
     {
-      id: 'A',
+      id: 'Centennial1',
       date: moment('2022/08/11'),
       schedule: [
         { objectId: 100059, categoryNo: 0, from: moment('2022/07/02 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'completed', name: 'Work Request' },
@@ -41,7 +39,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'B',
+      id: 'Centennial2',
       date: moment('2022/08/15'),
       schedule: [
         { objectId: 8905, categoryNo: 0, from: moment('2022/07/02 00:00:00'), to: moment('2022/07/24 07:00:00'), status: 'active', name: 'Draft' },
@@ -51,7 +49,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'C',
+      id: 'Centennial3',
       date: moment('2022/08/19'),
       schedule: [
         { objectId: 31599, categoryNo: 0, from: moment('2022/08/11 00:00:00'), to: moment('2022/08/21 07:00:00'), status: 'delayed', name: 'Draft' },
@@ -61,7 +59,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'D',
+      id: 'Centennial4',
       date: moment('2022/08/11'),
       schedule: [
         { objectId: 98000, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
@@ -71,7 +69,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'E',
+      id: 'Centennial5',
       date: moment('2022/08/15'),
       schedule: [
         { objectId: 189990, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Work Request' },
@@ -81,7 +79,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'F',
+      id: 'Centennial6',
       date: moment('2022/08/19'),
       schedule: [
         { objectId: 6800, categoryNo: 0, from: moment('2022/07/27 00:00:00'), to: moment('2022/08/12 07:00:00'), status: 'active', name: 'Draft ' },
@@ -91,7 +89,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'G',
+      id: 'Centennial7',
       date: moment('2022/08/19'),
       schedule: [
         { objectId: 6810, categoryNo: 0, from: moment('2022/07/27 00:00:00'), to: moment('2022/08/12 07:00:00'), status: 'active', name: 'Draft ' },
@@ -101,13 +99,13 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'H',
+      id: 'Commerce0',
       date: moment('2022/08/11'),
       schedule: [
       ]
     },
     {
-      id: 'I',
+      id: 'Commerce1',
       date: moment('2022/08/15'),
       schedule: [
         { objectId: 8915, categoryNo: 0, from: moment('2022/07/02 00:00:00'), to: moment('2022/07/24 07:00:00'), status: 'active', name: 'Draft' },
@@ -117,7 +115,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'J',
+      id: 'Commerce2',
       date: moment('2022/08/19'),
       schedule: [
         { objectId: 31299, categoryNo: 0, from: moment('2022/08/11 00:00:00'), to: moment('2022/08/21 07:00:00'), status: 'delayed', name: 'Draft' },
@@ -127,13 +125,13 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'K',
+      id: 'Denver0',
       date: moment('2022/08/11'),
       schedule: [
       ]
     },
     {
-      id: 'L',
+      id: 'Denver1',
       date: moment('2022/08/19'),
       schedule: [
         { objectId: 31589, categoryNo: 0, from: moment('2022/08/11 00:00:00'), to: moment('2022/08/21 07:00:00'), status: 'delayed', name: 'Draft' },
@@ -143,7 +141,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'M',
+      id: 'Denver2',
       date: moment('2022/08/11'),
       schedule: [
         { objectId: 98090, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
@@ -153,7 +151,7 @@ const CalendarView = () => {
       ]
     },
     {
-      id: 'N',
+      id: 'Denver3',
       date: moment('2022/08/15'),
       schedule: [
         { objectId: 181190, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Work-Request' },
@@ -162,37 +160,45 @@ const CalendarView = () => {
         { objectId: 181190, categoryNo: 4, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/26 10:00:00'), status: 'active', name: 'Work-Plan' }
       ]
     },
-  ];
-  let datasets = rawData.map((el) => {
-    return {...el, schedule: el.schedule.map((sch) => {
+  ];    
+
+  let datas = rawData.map((el:any) => {
+    return {...el, schedule: el.schedule.map((sch:any) => {
       return {...sch, id: el.id}
     }).sort(function(a: any,b: any) { return a.from - b.from}) };
   });
-  let barHeight = 29;
-  let width = 900, height = (barHeight + 10.5) * (rawData.length + 1)
-    let padding = { top: 35, right: 10, bottom: 10, left: 75 }
-    let offsetBar = 20;
-    const dragableLineLength = 3;
-    const dragableLineHalf = (dragableLineLength / 2);
-    let today = new Date();
-    
+  let zoom: any;
+  let svg: any;
+  
+    const timelineChart = (datasets: any) => {
+    let barHeight = 29;
+    let width = 900, height = (barHeight + 10.5) * (rawData.length + 1);
+    svg = d3.select('#timeline-chart')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height)
 
-  useEffect(() => {
-    let leftLine: any;
+      let currentZScale = 4;
+      
+      let dragablesLines = 'dragginglines';      
+      
+        let padding = { top: 35, right: 10, bottom: 10, left: 75 }
+        let offsetBar = 20;
+        const dragableLineLength = 3;
+        const dragableLineHalf = (dragableLineLength / 2);
+        let today = new Date();
+
+        let leftLine: any;
     let rightLine: any;
-    let fromData = datasets.map((ds) => ds.schedule).flat().sort(function(a: any, b: any) { return a.from - b.from});
-    let toData = datasets.map((ds) => ds.schedule).flat().sort(function(a: any, b: any) { return a.to - b.to});
+    let fromData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.from - b.from});
+    let toData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.to - b.to});
     let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
     let timelineEndTime = moment(toData[toData.length - 1].to).add(6, 'months').startOf('month');
     let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
     let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
     let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
     width = widhtDiv;
-    svg = d3.select('#timeline-chart')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-
+    
     let backgroundRects = svg.append("g")
     .append("rect")
     .attr("y", (d: any) => 150)
@@ -210,7 +216,7 @@ const CalendarView = () => {
       .range([padding.left, width - padding.right]);
 
     let yScale = d3.scaleBand()
-      .domain(datasets.map(d => d.id))
+      .domain(datasets.map((d:any) => d.id))
       .range([padding.top +5, height - padding.bottom]);
 
     let chartHeight = height - padding.top - padding.bottom
@@ -427,8 +433,8 @@ const CalendarView = () => {
       })
       .on('end', dragEndRect);
     let moveOtherRects = function(moveX: any, dataId: any, groupId: any) {
-      let currentDataset = datasets.filter((d) => d.id === groupId)[0];
-      currentDataset.schedule.forEach(sch => {
+      let currentDataset = datasets.filter((d:any) => d.id === groupId)[0];
+      currentDataset.schedule.forEach((sch:any) => {
         if ( sch.categoryNo !== dataId ) {
           let fromTime = moment(zoomedXScale.invert(zoomedXScale(sch['from']) + moveX));
           let between = sch['to'].diff(sch['from'], 'days');
@@ -440,8 +446,8 @@ const CalendarView = () => {
     }
     
     let moveOtherRectsByDirection = function(moveX: any, dataId: any, direction: any, groupId: any) {
-      let currentDataset = datasets.filter((d) => d.id === groupId)[0];
-      let indexOfCurrent = currentDataset.schedule.findIndex((sch) => sch.categoryNo === dataId);
+      let currentDataset = datasets.filter((d:any) => d.id === groupId)[0];
+      let indexOfCurrent = currentDataset.schedule.findIndex((sch:any) => sch.categoryNo === dataId);
       let init = 0;
       let end = indexOfCurrent;
       if(!direction) {
@@ -630,8 +636,52 @@ const CalendarView = () => {
       .on('zoom', zoomed);
     svg.call(zoom);
     svg.transition().call(zoom.scaleBy, currentZScale)
+
+    }
+
+  useEffect(() => {
+    timelineChart(datas);
+    console.log('qwe')
+    console.log(svg)
+    setSvgState(svg);
   }, []);
-  const moveZoom = (type: any) => {
+  console.log('as',svgState)
+  useEffect(() => {
+    if(svgState){
+      console.log('loaded');
+    console.log(document.getElementById('timeline-chart'))
+    const removechart: any =document.getElementById('timeline-chart');
+    removechart.innerHTML ='';
+    if (!openTable[0]){
+      datas.forEach((item) => {
+        console.log('item' ,item)
+        if(item.id.includes('Centennial')){
+          item.schedule = [];
+        }
+      });
+
+      console.log('data' ,datas)
+      timelineChart(datas);
+    }
+    if (!openTable[1]){
+      datas.forEach((item) => {
+        if(item.id.includes('Commerce')){
+          item.schedule = [];
+        }
+      });
+      timelineChart(datas);
+    }
+    if (!openTable[2]){
+      datas.forEach((item) => {
+        if(item.id.includes('Denver')){
+          item.schedule = [];
+        }
+      });
+      timelineChart(datas);
+    }
+    }
+  }, [openTable]);
+  const moveZoom = (type: any,) => {
     const adder = type === 'in' ? 1.4 : 0.7;
     svg.transition().call(zoom.scaleBy, adder);
   }
@@ -763,8 +813,10 @@ const CalendarView = () => {
       </Col>
     </Row>
     <div style={{overflowY:'scroll'}}>
-    <div id="timeline-chart" />
+      <div id='chartContainer'>
+      <div id="timeline-chart" />
       {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/> */}
+      </div>
     </div>
     
   </div>

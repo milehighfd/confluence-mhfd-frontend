@@ -235,7 +235,7 @@ const PortafolioBody = () => {
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} setHoverTable={setHoverTable}/>}
                       {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef}/>}
-                      {optionSelect === 'Schedule'  && <CalendarView/>}
+                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable}/>}
                     </Col>
                   </Row>
                   </div>

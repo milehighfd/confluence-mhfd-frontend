@@ -2799,12 +2799,17 @@ export const PROJECTS_STYLES = {
             "#FF0000",
             ["Complete"],
             "#06242D",
-            "hsl(40, 100%, 50%)"
+            "#b36304"
           ],
-          "text-halo-color": "hsl(0, 0%, 45%)",
-          "text-halo-width": 0.5,
-          "text-halo-blur": 5,
-          "text-opacity": ["step", ["zoom"], 0.7, 14, 1, 22, 1]
+          // "text-halo-color": "hsl(0, 0%, 45%)",
+          // "text-halo-width": 0.5,
+          // "text-halo-blur": 5,
+
+          'text-halo-color': "#ffffff",
+          'text-halo-width': 1,
+          'text-halo-blur': 0,
+
+          "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
       }
     }
   ]
