@@ -99,7 +99,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
       ]
     },
     {
-      id: 'Commerce0',
+      id: 'Tittle2',
       date: moment('2022/08/11'),
       schedule: [
       ]
@@ -125,7 +125,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
       ]
     },
     {
-      id: 'Denver0',
+      id: 'Tittle3',
       date: moment('2022/08/11'),
       schedule: [
       ]
@@ -173,7 +173,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
   
     const timelineChart = (datasets: any) => {
     let barHeight = 29;
-    let width = widthofDiv -3, height = (barHeight + 10.5) * (rawData.length + 1);
+    let width = widthofDiv -20, height = (barHeight + 10.5) * (datas.length + 1);
     svg = d3.select('#timeline-chart')
     .append('svg')
     .attr('width', width)
@@ -198,7 +198,7 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
     let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
     let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
     let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
-    width = widhtDiv;
+    width = widhtDiv -3;
     
     let backgroundRects = svg.append("g")
     .append("rect")
@@ -660,36 +660,35 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
     const removechart: any =document.getElementById('timeline-chart');
     removeAllChildNodes(removechart);
     if (!openTable[0]){
-      // datas = datas .filter(function(el){
-      //   if (el.id !== 'Centennial0'){
-      //     return !el.id.includes('Centennial');
+      datas = datas.filter(function(el){
+          return !el.id.includes('Centennial');
+      });
+      // datas.forEach((item) => {
+      //   console.log('item' ,item)
+      //   if(item.id.includes('Centennial')){
+      //     item.schedule = [];
       //   }
       // });
-      datas.forEach((item) => {
-        console.log('item' ,item)
-        if(item.id.includes('Centennial')){
-          item.schedule = [];
-        }
-      });
     }
     if (!openTable[1]){
-      // datas = datas .filter(function(el){
-      //   if (el.id !== 'Commerce0'){
-      //     return !el.id.includes('Commerce');
+      datas = datas.filter(function(el){
+          return !el.id.includes('Commerce');
+      });
+      // datas.forEach((item) => {
+      //   if(item.id.includes('Commerce')){
+      //     item.schedule = [];
       //   }
       // });
-      datas.forEach((item) => {
-        if(item.id.includes('Commerce')){
-          item.schedule = [];
-        }
-      });
     }
     if (!openTable[2]){
-      datas.forEach((item) => {
-        if(item.id.includes('Denver')){
-          item.schedule = [];
-        }
-      });
+      datas = datas.filter(function(el){
+        return !el.id.includes('Denver');
+    });
+      // datas.forEach((item) => {
+      //   if(item.id.includes('Denver')){
+      //     item.schedule = [];
+      //   }
+      // });
     }
     console.log('data' ,datas)
     timelineChart(datas);
