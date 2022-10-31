@@ -52,7 +52,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
         <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 20 }} lg={{ span: 20 }}>
-              <h1 style={{marginTop: '15px'}}>Work Request Submission
+              <h1 style={{marginTop: '15px'}}>{type === 'WORK_REQUEST' ? 'Work Request' : 'Work Plan'} Submission
               </h1>
             </Col>
             <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
