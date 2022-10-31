@@ -1,6 +1,6 @@
 import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router';
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
 import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest';
@@ -38,7 +38,7 @@ const { TabPane } = Tabs;
 const { Panel } = Collapse;
 let currentProject: any = {};
 let columDragAction = [false, 0, 0];
-
+let counterBoardsCalls = 0;
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
@@ -397,7 +397,8 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }, [namespaceId])
 
-  const getBoardD = useMemo(() => () => {
+  const getBoardD = () => {
+    counterBoardsCalls++;
     getBoardData({
       type,
       year: `${year}`,
@@ -461,16 +462,20 @@ const RequestView = ({ type, isFirstRendering }: {
           }
         }
         setTimeout(() => {
-          setBoardFlag(boardFlag + 1);
+          setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
+          counterBoardsCalls--;
         }, 5700);
+        
       },
       (e) => {
         console.log('e', e);
       }
     )
-  }, []);
+  };
   useEffect(() => {
-    getBoardD();
+    if (counterBoardsCalls < 3) {
+      getBoardD();
+    }
     // return () => {getBoardFlag = false};
   }, [namespaceId, columns, boardFlag]);
 
@@ -686,9 +691,6 @@ const RequestView = ({ type, isFirstRendering }: {
       label: item
     };
   };
-  useEffect(() => {
-    console.log('shows', showModalProject, 'create', showCreateProject, 'showbar', visibleCreateProject);
-  }, [showModalProject, showCreateProject, visibleCreateProject]);
   return <>
     {  showModalProject &&
       <ModalProjectView
