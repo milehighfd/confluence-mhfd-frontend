@@ -207,8 +207,8 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     let toData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.to - b.to});
     let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
     let timelineEndTime = moment(toData[toData.length - 1].to).add(6, 'months').startOf('month');
-    let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
-    let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
+    // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
+    // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
     let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
     width = widhtDiv -3;
     
@@ -223,10 +223,6 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     let xScale = d3.scaleTime()
       .domain([timelineStartTime, timelineEndTime])
       .range([padding.left, width - padding.right])
-
-    d3.scaleTime()
-      .domain([timelineStartTimeForYears, timelineEndTimeForYears])
-      .range([padding.left, width - padding.right]);
 
     let yScale = d3.scaleBand()
       .domain(datasets.map((d:any) => d.id))
