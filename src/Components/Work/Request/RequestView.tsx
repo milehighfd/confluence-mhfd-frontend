@@ -7,6 +7,7 @@ import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
+import { useBoardState } from 'hook/boardHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
@@ -98,6 +99,8 @@ const RequestView = ({ type, isFirstRendering }: {
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
+  // TODO: openmodal
+  const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
@@ -159,7 +162,9 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setColumns(newcols);
   }
-
+  // useEffect(() => {
+  //   console.log('isOpenModal', isOpenModal);
+  // }, [isOpenModal]);
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
@@ -397,93 +402,159 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }, [namespaceId])
 
-  const getBoardD = () => {
-    counterBoardsCalls++;
+  // const getBoardD = () => {
+  //   counterBoardsCalls++;
+  //   getBoardData({
+  //     type,
+  //     year: `${year}`,
+  //     locality,
+  //     projecttype: tabKey
+  //   })
+  //   .then(
+  //     (r: any) => {
+  //       if (!r) return;
+  //       if ( r === 'error') {
+  //         setTimeout(() => {
+  //           setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
+  //           counterBoardsCalls--;
+  //         }, 8000);
+  //       } else if(r){
+  //         let { board, projects } = r;
+  //         ProjectEditService.setProjects(projects);
+  //         if (board) {
+  //           if (board.status !== boardStatus) {
+  //             setBoardStatus(board.status);
+  //           }
+  //           if (board.substatus !== boardSubstatus) {
+  //             setBoardSubstatus(board.substatus);
+  //           }
+  //           if (board.comment !== boardComment) {
+  //             setBoardComment(board.comment);
+  //           }
+  //           if (board._id !== namespaceId) {
+  //             setNamespaceId(board._id)
+  //           }
+  //           let reqManagerEq = true;
+  //           for (var i = 1 ; i <= 5; i++) {
+  //             if (board[`targetcost${i}`] != reqManager[i-1]) {
+  //               reqManagerEq = false;
+  //             }
+  //           }
+  //           if (!reqManagerEq) {
+  //             setReqManager([
+  //               board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+  //             ])
+  //           }
+  //         }
+  //         if (projects) {
+  //           let cols = generateColumns(projects, year, tabKey);
+  //           let areEqual: boolean = compareColumns(columns, cols);
+  //           if (!areEqual) {
+  //             setColumns(cols);
+  //             let justProjects = projects.map((proj:any)=> {
+  //               return proj.projectData.cartodb_id;
+  //             });
+  //             let idsProjects = projects.map((proj:any)=> {
+  //               return proj.projectData?.projectid;
+  //             });
+  //             let projectAmounts = projects.map((proj:any)=> {
+  //               return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
+  //               cartodb_id: proj.projectData?.cartodb_id
+  //               }
+  //             });
+  //             setProjectAmounts(projectAmounts);
+  //             if(projects.length>0){
+  //               setBoardProjects({cartoids:justProjects, ids: idsProjects});
+  //             } else {
+  //               setBoardProjects(['-8887']);
+  //             }
+  //           }
+  //         }
+  //       }
+  //       setTimeout(() => {
+  //         setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
+  //         counterBoardsCalls--;
+  //       }, 5700);
+        
+  //     },
+  //     (e) => {
+  //       console.log('e', e);
+  //     }
+  //   )
+  // };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
     getBoardData({
       type,
       year: `${year}`,
       locality,
       projecttype: tabKey
     })
-    .then(
-      (r: any) => {
-        if (!r) return;
-        if ( r === 'error') {
-          setTimeout(() => {
-            setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
-            counterBoardsCalls--;
-          }, 8000);
-        } else if(r){
-          let { board, projects } = r;
-          ProjectEditService.setProjects(projects);
-          if (board) {
-            if (board.status !== boardStatus) {
-              setBoardStatus(board.status);
-            }
-            if (board.substatus !== boardSubstatus) {
-              setBoardSubstatus(board.substatus);
-            }
-            if (board.comment !== boardComment) {
-              setBoardComment(board.comment);
-            }
-            if (board._id !== namespaceId) {
-              setNamespaceId(board._id)
-            }
-            let reqManagerEq = true;
-            for (var i = 1 ; i <= 5; i++) {
-              if (board[`targetcost${i}`] != reqManager[i-1]) {
-                reqManagerEq = false;
-              }
-            }
-            if (!reqManagerEq) {
-              setReqManager([
-                board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-              ])
-            }
-          }
-          if (projects) {
-            let cols = generateColumns(projects, year, tabKey);
-            let areEqual: boolean = compareColumns(columns, cols);
-            if (!areEqual) {
-              setColumns(cols);
-              let justProjects = projects.map((proj:any)=> {
-                return proj.projectData.cartodb_id;
-              });
-              let idsProjects = projects.map((proj:any)=> {
-                return proj.projectData?.projectid;
-              });
-              let projectAmounts = projects.map((proj:any)=> {
-                return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-                cartodb_id: proj.projectData?.cartodb_id
+        .then(
+          (r: any) => {
+            if (!r) return;
+            if(r){
+              let { board, projects } = r;
+              ProjectEditService.setProjects(projects);
+              if (board) {
+                if (board.status !== boardStatus) {
+                  setBoardStatus(board.status);
                 }
-              });
-              setProjectAmounts(projectAmounts);
-              if(projects.length>0){
-                setBoardProjects({cartoids:justProjects, ids: idsProjects});
-              } else {
-                setBoardProjects(['-8887']);
+                if (board.substatus !== boardSubstatus) {
+                  setBoardSubstatus(board.substatus);
+                }
+                if (board.comment !== boardComment) {
+                  setBoardComment(board.comment);
+                }
+                if (board._id !== namespaceId) {
+                  setNamespaceId(board._id)
+                }
+                let reqManagerEq = true;
+                for (var i = 1 ; i <= 5; i++) {
+                  if (board[`targetcost${i}`] != reqManager[i-1]) {
+                    reqManagerEq = false;
+                  }
+                }
+                if (!reqManagerEq) {
+                  setReqManager([
+                    board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+                  ])
+                }
+              }
+              if (projects) {
+                let cols = generateColumns(projects, year, tabKey);
+                let areEqual: boolean = compareColumns(columns, cols);
+                if (!areEqual) {
+                  setColumns(cols);
+                  let justProjects = projects.map((proj:any)=> {
+                    return proj.projectData.cartodb_id;
+                  });
+                  let idsProjects = projects.map((proj:any)=> {
+                    return proj.projectData?.projectid;
+                  });
+                  let projectAmounts = projects.map((proj:any)=> {
+                    return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
+                    cartodb_id: proj.projectData?.cartodb_id
+                    }
+                  });
+                  setProjectAmounts(projectAmounts);
+                  if(projects.length>0){
+                    setBoardProjects({cartoids:justProjects, ids: idsProjects});
+                  } else {
+                    setBoardProjects(['-8887']);
+                  }
+                }
               }
             }
+          },
+          (e) => {
+            console.log('e', e);
           }
-        }
-        setTimeout(() => {
-          setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
-          counterBoardsCalls--;
-        }, 5700);
-        
-      },
-      (e) => {
-        console.log('e', e);
-      }
-    )
-  };
-  useEffect(() => {
-    console.log('counter Board Calls', counterBoardsCalls, boardFlag);
-    if (counterBoardsCalls < 3) {
-      getBoardD();
-    }
-    // return () => {getBoardFlag = false};
-  }, [namespaceId, columns, boardFlag]);
+        )
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [namespaceId, columns]);
 
   useEffect(() => {
     let [rows, totals] = getTotalsByProperty(columns, 'county');

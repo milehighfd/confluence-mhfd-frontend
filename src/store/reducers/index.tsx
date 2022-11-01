@@ -25,7 +25,7 @@ const appReducer = (history: any) => combineReducers({
   notes: notesReducer,
   detailed: detailedReducer,
   colorList: colorListReducer,
-  boardReducer: boardReducer
+  board: boardReducer
 });
 
 export type RootState = ReturnType<typeof appReducer>;
