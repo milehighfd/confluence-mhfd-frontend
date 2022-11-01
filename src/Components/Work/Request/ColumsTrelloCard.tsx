@@ -97,6 +97,7 @@ const ColumsTrelloCard = (
           onDrop={(e: any) => {onDrop(e, columnIdx); setDragAction([false, 0, 0]);}}
           onScrollCapture={(e:any)=>{
             setTimeout(() => {
+              columRef.current?.scrollTo(0,0);
               e.target.scrollTo(0,0);
             }, 5000);
           }}
