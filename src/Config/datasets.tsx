@@ -9,7 +9,8 @@ export const postData = (url: any, body: any, token?: any) => {
     .then(response => response.json())
     .then(data => {return (data);})
     .catch((err) => {
-      console.log(err);
+      console.error('at',url, 'with error', err);
+      return 'error';
     });
 }
 

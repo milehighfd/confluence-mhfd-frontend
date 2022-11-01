@@ -408,7 +408,12 @@ const RequestView = ({ type, isFirstRendering }: {
     .then(
       (r: any) => {
         if (!r) return;
-        if(r){
+        if ( r === 'error') {
+          setTimeout(() => {
+            setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
+            counterBoardsCalls--;
+          }, 8000);
+        } else if(r){
           let { board, projects } = r;
           ProjectEditService.setProjects(projects);
           if (board) {
@@ -473,6 +478,7 @@ const RequestView = ({ type, isFirstRendering }: {
     )
   };
   useEffect(() => {
+    console.log('counter Board Calls', counterBoardsCalls, boardFlag);
     if (counterBoardsCalls < 3) {
       getBoardD();
     }
