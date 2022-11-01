@@ -7,9 +7,8 @@ import ModalTollgate from "routes/list-view/components/ModalTollgate";
 
 
 const { Step } = Steps;
-const CalendarView = ({openTable}:{openTable:boolean[]}) => {
+const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedule:string}) => {
   const [current, setCurrent] = useState(0);
-  const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
   const [zoomState, setZoomState] = useState<any>();
@@ -699,8 +698,12 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
     const adder = type === 'in' ? 1.4 : 0.7;
     svgState.transition().call(zoom.scaleBy, adder);
   }
+  useEffect(()=> {
+    if(moveSchedule === 'in' || moveSchedule === 'out'){
+      moveZoom(moveSchedule)
+    }
+  },[moveSchedule])
   return <div className="calendar-body" id='widthDivforChart'>
-    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     {openPiney && <div className="piney-text">
       <div className="header-piney" style={{marginBottom:'20px'}}>
         <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
@@ -794,38 +797,6 @@ const CalendarView = ({openTable}:{openTable:boolean[]}) => {
         </div>
       </div>
     </div>}
-    <Row style={{margin:'13px 10px'}}>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }}>
-        <div>
-          <span className="span-dots-heder">
-            <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-            <span style={{marginLeft:'1px', marginRight:'15px'}}>Completed</span>
-          </span>
-          <span className="span-dots-heder">
-            <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-            <span style={{marginLeft:'1px', marginRight:'15px'}}>Active</span>
-          </span>
-          <span className="span-dots-heder">
-            <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
-            <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
-          </span>
-          <span className="span-dots-heder">
-            <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-            <span style={{marginLeft:'1px', marginRight:'15px'}}>Delayed</span>
-          </span>
-        </div>
-      </Col>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}}>
-        <div>
-          <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
-            <CalendarOutlined /> Edit Dates
-          </Button>
-          <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
-          <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => moveZoom('in')}/>
-          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} onClick={() => moveZoom('out')}/>
-        </div>
-      </Col>
-    </Row>
     <div style={{overflowY:'scroll'}}>
       <div id='chartContainer'>
       <div id="timeline-chart" />

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined } from "@ant-design/icons";
+import { CalendarOutlined, CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
@@ -10,6 +10,7 @@ import ActionItems from "./ActionItems";
 import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 import ModalFields from "routes/list-view/components/ModalFields";
+import ModalTollgate from "routes/list-view/components/ModalTollgate";
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special', 'DIP'];
@@ -23,6 +24,7 @@ const popovers: any = [
 const PortafolioBody = () => {
   const [tabKey, setTabKey] = useState<any>('All');
   const [openAction, setOpenAction] = useState(true);
+  const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
@@ -31,7 +33,8 @@ const PortafolioBody = () => {
   const [hoverTable, setHoverTable] = useState([0, 0, 0])
   const tableRef = useRef<null | HTMLDivElement>(null); 
   const searchRef = useRef<null | HTMLDivElement>(null); 
-  const phaseRef = useRef<null | HTMLDivElement>(null); 
+  const phaseRef = useRef<null | HTMLDivElement>(null);
+  const [moveSchedule, setMoveSchedule] = useState('null'); 
   const menu = (
     <Menu
       className="menu-drop"
@@ -150,6 +153,7 @@ const PortafolioBody = () => {
   );
   return <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
+    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div>
       <div className="portafolio-head">
         <Row>
@@ -201,7 +205,7 @@ const PortafolioBody = () => {
               Customize table
             </Button>
           }
-          {optionSelect === 'Phase'  && <div>
+          {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
                   <span style={{marginLeft:'1px', marginRight:'15px'}}>Completed</span>
@@ -218,6 +222,16 @@ const PortafolioBody = () => {
                   <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
                   <span style={{marginLeft:'1px', marginRight:'15px'}}>Delayed</span>
                 </span>
+                {optionSelect === 'Schedule' && <>
+                  <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
+                    <CalendarOutlined /> Edit Dates
+                  </Button>
+                  <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
+                  <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setMoveSchedule('in')}/>
+                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setMoveSchedule('out')}/>
+                </>
+
+                }
               </div>}
         </div>
         <Tabs defaultActiveKey={displayedTabKey[1]}
@@ -235,7 +249,7 @@ const PortafolioBody = () => {
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} setHoverTable={setHoverTable}/>}
                       {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef}/>}
-                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable}/>}
+                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={moveSchedule}/>}
                     </Col>
                   </Row>
                   </div>
