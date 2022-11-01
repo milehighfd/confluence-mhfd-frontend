@@ -12,6 +12,7 @@ import detailedReducer from './detailedReducer';
 import notesReducer from './notesReducer';
 import colorListReducer from './colorListReducer';
 
+import boardReducer from './boardReducer';
 const appReducer = (history: any) => combineReducers({
   router: connectRouter(history),
   map: mapReducer,
@@ -23,7 +24,8 @@ const appReducer = (history: any) => combineReducers({
   project,
   notes: notesReducer,
   detailed: detailedReducer,
-  colorList: colorListReducer
+  colorList: colorListReducer,
+  boardReducer: boardReducer
 });
 
 export type RootState = ReturnType<typeof appReducer>;
