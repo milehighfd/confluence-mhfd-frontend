@@ -75,7 +75,8 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       setBoardsLength(ls.length);
     } else {
       setLoading(true);
-      getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
+      const work = locality !== 'MHFD District Work Plan' ? 'WORK_REQUEST' : 'WORK_PLAN';
+      getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${work}`, getToken())
         .then((r) => {
           let list = substatus ? substatus.split(',') : [];
           let newBoardsSorted = [...r.boards];
