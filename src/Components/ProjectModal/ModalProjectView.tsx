@@ -180,9 +180,9 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
 
   useEffect(() => {
     // TODO: openmodal
-    setTimeout(() => {
-      setIsOpenModal(true);
-    }, 3000);
+    // setTimeout(() => {
+    //   setIsOpenModal(true);
+    // }, 3000);
     return () => {
       setBoardProjectsCreate([]);
       // setIsOpenModal(false);
