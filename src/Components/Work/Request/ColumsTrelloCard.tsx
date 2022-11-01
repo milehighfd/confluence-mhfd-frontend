@@ -55,6 +55,8 @@ const ColumsTrelloCard = (
   const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [sizeCard, setSizeCard] = useState([0,0])
   const divRef = useRef(null);
+  const columRef = useRef<null | HTMLDivElement>(null); 
+  const [onScrollValue, setOnScrollValue] = useState(-1);
   var windowWidth = window.innerWidth ;
   const onDrop = (e: any, columnIdx: number) => {
     let txt = e.dataTransfer.getData("text");
@@ -74,6 +76,15 @@ const ColumsTrelloCard = (
   const onDragOver = (e: any) => {
     e.preventDefault();
   }
+  // useEffect(()=>{
+  //   console.log('qui', onScrollValue)
+  //   // if(onScrollValue){
+  //   //   console.log('Dotty', onScrollValue)
+  //   //   // setOnScrollValue(false)
+  //   // }else{
+  //   //   // console.log('Dotty....')
+  //   // }
+  // },[onScrollValue])
   return (
     columns.map((column:any, columnIdx:number) => (
       <div className="container-drag" key={columnIdx+Math.random()}>
@@ -82,7 +93,13 @@ const ColumsTrelloCard = (
           className={column.hasCreateOption ? "col-wr droppable colum-hascreate":"col-wr droppable"}
           style={dragAction[0] && columnIdx === Math.trunc(Number(dragAction[1])) ? {backgroundColor:'#f2f4ff'} : {}}
           onDragOver={onDragOver}
+          ref={columRef}
           onDrop={(e: any) => {onDrop(e, columnIdx); setDragAction([false, 0, 0]);}}
+          onScrollCapture={(e:any)=>{
+            setTimeout(() => {
+              e.target.scrollTo(0,0);
+            }, 5000);
+          }}
           onDragLeaveCapture={(e) => {
             let dr: any = divRef.current;
             let bounds = dr.getBoundingClientRect();
