@@ -28,6 +28,12 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
   };
   let rawData = [
     {
+    id: 'Tittle0',
+    date: moment('2022/08/11'),
+    schedule: [
+    ]
+    },
+    {
       id: 'Centennial1',
       date: moment('2022/08/11'),
       schedule: [
@@ -172,7 +178,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
   
     const timelineChart = (datasets: any) => {
     let barHeight = 29;
-    let width = widthofDiv -20, height = (barHeight + 10.5) * (datas.length + 1);
+    let width = widthofDiv -20, height = 25 +(barHeight + 10.5) * (datas.length + 1);
     svg = d3.select('#timeline-chart')
     .append('svg')
     .attr('width', width)
@@ -182,7 +188,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       
       let dragablesLines = 'dragginglines';      
       
-        let padding = { top: 35, right: 10, bottom: 10, left: 75 }
+        let padding = { top: 55, right: 10, bottom: 10, left: 75 }
         let offsetBar = 20;
         const dragableLineLength = 3;
         const dragableLineHalf = (dragableLineLength / 2);
