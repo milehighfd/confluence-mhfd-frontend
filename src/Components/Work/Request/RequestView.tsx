@@ -7,6 +7,7 @@ import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
+import { useBoardState } from 'hook/boardHook ';
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
@@ -98,6 +99,8 @@ const RequestView = ({ type, isFirstRendering }: {
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
+  // TODO: openmodal
+  const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
@@ -159,7 +162,9 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setColumns(newcols);
   }
-
+  // useEffect(() => {
+  //   console.log('isOpenModal', isOpenModal);
+  // }, [isOpenModal]);
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {

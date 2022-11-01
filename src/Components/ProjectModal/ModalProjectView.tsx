@@ -11,7 +11,7 @@ import { useAttachmentDispatch } from "../../hook/attachmentHook";
 import { getAllowedBasedOnLocality } from "../Work/Request/RequestViewUtil";
 import { postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
-
+import { useBoardDispatch } from "../../hook/boardHook ";
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -47,7 +47,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   const [visibleStudy, setVisibleStudy] = useState(false);
   const [allowed, setAllowed] = useState<string[]>([]);
   const {getAttachmentByProject} = useAttachmentDispatch();
-  
+  const { setIsOpenModal } = useBoardDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
 
   const handleOk = (e: any) => {  
@@ -179,13 +179,15 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   }, [locality]);
 
   useEffect(() => {
+    // TODO: openmodal
+    setTimeout(() => {
+      setIsOpenModal(true);
+    }, 3000);
     return () => {
       setBoardProjectsCreate([]);
+      // setIsOpenModal(false);
     }
   },[]);
-  useEffect(() => {
-    console.log('capital', visibleCapital);
-  }, [visibleCapital]);
   return (
     <>
      {visibleCapital && <ModalCapital

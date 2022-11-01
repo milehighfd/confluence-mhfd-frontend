@@ -87,7 +87,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   };
-
   const content = () => {
     const items: MenuProps['items'] = [{
       key: '0',
