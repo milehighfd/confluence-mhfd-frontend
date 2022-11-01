@@ -78,7 +78,12 @@ const HorizontalBarChart = ({
         }
       })
     }
-
+    data = data.filter((r: any) => r.counter !== 0);
+    data.forEach((d: any) => {
+      if(d.value === ''){
+        d.value ='No Jurisdiction';
+      }
+    });
     let height = Math.max(data.length * spaceBetween, minHeight);
     let maxi: any = d3.max(data, (d: any) => d.counter);
 
