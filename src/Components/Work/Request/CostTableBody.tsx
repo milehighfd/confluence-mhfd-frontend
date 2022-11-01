@@ -28,8 +28,8 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
     return '';
   }
   const localityName = (name: string) => {
-    return name.includes('County') || name.includes('county') || name.includes('Service Area') 
-      ? name : name + ` ${getSuffix(name)}`;
+    return name === '' ? 'No Jurisdiction' : (name.includes('County') || name.includes('county') || name.includes('Service Area') 
+      ? name : name + ` ${getSuffix(name)}`);
   }
   const content00 = (
     <div className="popver-info">
