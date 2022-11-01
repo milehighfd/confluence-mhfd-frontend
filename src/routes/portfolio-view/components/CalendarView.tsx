@@ -77,10 +77,10 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       id: 'Centennial5',
       date: moment('2022/08/15'),
       schedule: [
-        { objectId: 189990, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Work Request' },
+        { objectId: 189990, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Draft' },
         { objectId: 189990, categoryNo: 5, from: moment('2022/08/27 08:30:00'), to: moment('2022/10/02 10:00:00'), status: 'active', name: 'Start-Up ' },
         { objectId: 189990, categoryNo: 1, from: moment('2022/07/21 07:30:00'), to: moment('2022/08/12 08:30:00'), status: 'delayed', name: 'Work Request' },
-        { objectId: 189990, categoryNo: 4, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/26 10:00:00'), status: 'active', name: 'Work-Plan' }
+        { objectId: 189990, categoryNo: 4, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/26 10:00:00'), status: 'active', name: 'Work Plan' }
       ]
     },
     {
@@ -89,8 +89,8 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       schedule: [
         { objectId: 6800, categoryNo: 0, from: moment('2022/07/27 00:00:00'), to: moment('2022/08/12 07:00:00'), status: 'active', name: 'Draft ' },
         { objectId: 6800, categoryNo: 1, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/28 10:00:00'), status: 'active', name: 'Work Request' },
-        { objectId: 6800, categoryNo: 2, from: moment('2022/08/29 07:30:00'), to: moment('2022/09/10 08:30:00'), status: 'delayed', name: 'Conceptual Desig' },
-        { objectId: 6800, categoryNo: 3, from: moment('2022/09/11 08:30:00'), to: moment('2022/09/22 10:00:00'), status: 'active', name: 'Preliminary Desig' }
+        { objectId: 6800, categoryNo: 2, from: moment('2022/08/29 07:30:00'), to: moment('2022/09/10 08:30:00'), status: 'delayed', name: 'Conceptual Design' },
+        { objectId: 6800, categoryNo: 3, from: moment('2022/09/11 08:30:00'), to: moment('2022/09/22 10:00:00'), status: 'active', name: 'Preliminary Design' }
       ]
     },
     {
@@ -99,8 +99,8 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       schedule: [
         { objectId: 6810, categoryNo: 0, from: moment('2022/07/27 00:00:00'), to: moment('2022/08/12 07:00:00'), status: 'active', name: 'Draft ' },
         { objectId: 6810, categoryNo: 1, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/28 10:00:00'), status: 'active', name: 'Work Request' },
-        { objectId: 6810, categoryNo: 2, from: moment('2022/08/29 07:30:00'), to: moment('2022/09/10 08:30:00'), status: 'delayed', name: 'Conceptual Desig' },
-        { objectId: 6810, categoryNo: 3, from: moment('2022/09/11 08:30:00'), to: moment('2022/09/22 10:00:00'), status: 'active', name: 'Preliminary Desig' }
+        { objectId: 6810, categoryNo: 2, from: moment('2022/08/29 07:30:00'), to: moment('2022/09/10 08:30:00'), status: 'delayed', name: 'Conceptual Design' },
+        { objectId: 6810, categoryNo: 3, from: moment('2022/09/11 08:30:00'), to: moment('2022/09/22 10:00:00'), status: 'active', name: 'Preliminary Design' }
       ]
     },
     {
@@ -152,7 +152,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
         { objectId: 98090, categoryNo: 0, from: moment('2022/07/11 00:00:00'), to: moment('2022/07/21 07:00:00'), status: 'active', name: 'Substantial Completion' },
         { objectId: 98090, categoryNo: 5, from: moment('2022/08/11 08:30:00'), to: moment('2022/08/29 10:00:00'), status: 'active', name: 'Closed' },
         { objectId: 98090, categoryNo: 1, from: moment('2022/07/22 07:30:00'), to: moment('2022/08/10 08:30:00'), status: 'notStarted', name: 'Construction' },
-        { objectId: 98090, categoryNo: 4, from: moment('2022/06/20 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft 1' }
+        { objectId: 98090, categoryNo: 4, from: moment('2022/06/20 08:30:00'), to: moment('2022/07/10 10:00:00'), status: 'notStarted', name: 'Draft' }
       ]
     },
     {
@@ -160,9 +160,9 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       date: moment('2022/08/15'),
       schedule: [
         { objectId: 181190, categoryNo: 0, from: moment('2022/07/01 00:00:00'), to: moment('2022/07/20 07:00:00'), status: 'notStarted', name: 'Work-Request' },
-        { objectId: 181190, categoryNo: 5, from: moment('2022/08/27 08:30:00'), to: moment('2022/10/02 10:00:00'), status: 'active', name: 'Start-Up ' },
+        { objectId: 181190, categoryNo: 5, from: moment('2022/08/27 08:30:00'), to: moment('2022/10/02 10:00:00'), status: 'active', name: 'Start Up' },
         { objectId: 181190, categoryNo: 1, from: moment('2022/07/21 07:30:00'), to: moment('2022/08/12 08:30:00'), status: 'delayed', name: 'Work Request' },
-        { objectId: 181190, categoryNo: 4, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/26 10:00:00'), status: 'active', name: 'Work-Plan' }
+        { objectId: 181190, categoryNo: 4, from: moment('2022/08/13 08:30:00'), to: moment('2022/08/26 10:00:00'), status: 'active', name: 'Work Plan' }
       ]
     },
   ];    
@@ -196,6 +196,13 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
 
         let leftLine: any;
     let rightLine: any;
+    let counterDataForChart: number = 0;
+    datasets.forEach((sch:any) => {
+      if (sch.schedule.length !== 0) {
+        counterDataForChart++;
+      }
+    });
+    if (counterDataForChart !== 0){
     let fromData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.from - b.from});
     let toData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.to - b.to});
     let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
@@ -354,7 +361,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
         return xScaleTo + dragableLineHalf-3; })
       .attr("y1", function(d: any) { 
         let yScaleId: any = yScale(d['id']);
-        return yScaleId + h})
+        return yScaleId + h -2 })
       .attr("y2", function(d: any) { 
         let yScaleId: any = yScale(d['id']);
         return yScaleId + h + 8})
@@ -636,27 +643,22 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       updateRects();
       currentZScale = d3.event.transform.k;
     }
+  
     zoom = d3.zoom()
       .scaleExtent([0.5, 20])
       .translateExtent([[0, 0], [width, 0]])
       .on('zoom', zoomed);
     svg.call(zoom);
     svg.transition().call(zoom.scaleBy, currentZScale)
-    console.log(zoom);
-    //setZoomState(zoom)
+  }
     }
 
   useEffect(() => {
     timelineChart(datas);
-    console.log('qwe')
-    console.log(svg)
     setSvgState(svg);
   }, []);
-  console.log('as',svgState)
   useEffect(() => {
     if(svgState){
-      console.log('loaded');
-    console.log(document.getElementById('timeline-chart'))
     const removeAllChildNodes = (parent: any) => {
       while (parent.firstChild) {
           parent.removeChild(parent.firstChild);
@@ -668,39 +670,21 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       datas = datas.filter(function(el){
           return !el.id.includes('Centennial');
       });
-      // datas.forEach((item) => {
-      //   console.log('item' ,item)
-      //   if(item.id.includes('Centennial')){
-      //     item.schedule = [];
-      //   }
-      // });
     }
     if (!openTable[1]){
       datas = datas.filter(function(el){
           return !el.id.includes('Commerce');
       });
-      // datas.forEach((item) => {
-      //   if(item.id.includes('Commerce')){
-      //     item.schedule = [];
-      //   }
-      // });
     }
     if (!openTable[2]){
       datas = datas.filter(function(el){
         return !el.id.includes('Denver');
     });
-      // datas.forEach((item) => {
-      //   if(item.id.includes('Denver')){
-      //     item.schedule = [];
-      //   }
-      // });
     }
-    console.log('data' ,datas)
     timelineChart(datas);
     }
   }, [openTable]);
   const moveZoom = (type: any,) => {
-    console.log('inside zoom',svgState)
     const adder = type === 'in' ? 1.4 : 0.7;
     svgState.transition().call(zoom.scaleBy, adder);
   }
