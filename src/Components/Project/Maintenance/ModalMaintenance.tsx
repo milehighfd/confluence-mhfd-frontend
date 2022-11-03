@@ -228,8 +228,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [projectReturn.state.project.userPolygon]);
 
   useEffect(() => {
-    const possible = isWorkPlan ? county.length : county.length && serviceArea.length && jurisdiction.length;
-    if (description != '' && possible && sponsor !== '' && nameProject !== '' && sponsor !== undefined) {
+    if (description != '' && county.length && serviceArea.length && jurisdiction.length && sponsor !== '' && nameProject !== '' && sponsor !== undefined) {
       setDisable(false);
     }
     else {
