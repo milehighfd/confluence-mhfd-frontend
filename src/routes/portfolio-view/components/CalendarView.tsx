@@ -645,7 +645,14 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       .translateExtent([[0, 0], [width, 0]])
       .on('zoom', zoomed);
     svg.call(zoom);
-    svg.transition().call(zoom.scaleBy, currentZScale)
+    svg.call(zoom.scaleBy, currentZScale)
+
+    const moveZoom = (type: any,) => {
+      console.log('working');
+      const adder = type === 'in' ? 1.4 : 0.7;
+      svg.transition().call(zoom.scaleBy, adder);
+    }
+    moveZoom(moveSchedule);
   }
     }
 
@@ -679,16 +686,13 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     }
     timelineChart(datas);
     }
-  }, [openTable]);
-  const moveZoom = (type: any,) => {
-    const adder = type === 'in' ? 1.4 : 0.7;
-    svgState.transition().call(zoom.scaleBy, adder);
-  }
-  useEffect(()=> {
-    if(moveSchedule === 'in' || moveSchedule === 'out'){
-      moveZoom(moveSchedule)
-    }
-  },[moveSchedule])
+  }, [openTable, moveSchedule]);
+  
+  // useEffect(()=> {
+  //   if(moveSchedule === 'in' || moveSchedule === 'out'){
+  //     moveZoom(moveSchedule)
+  //   }
+  // },[moveSchedule])
   return <div className="calendar-body" id='widthDivforChart'>
     {openPiney && <div className="piney-text">
       <div className="header-piney" style={{marginBottom:'20px'}}>
