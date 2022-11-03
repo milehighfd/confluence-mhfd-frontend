@@ -31,6 +31,7 @@ export const LocationInformation = ({
 
 }) => {
   const isMaintenance = originModal === 'Maintenance';
+  const isStudy = originModal === 'Study';
   const getLabel = () => {
     if (originModal == 'Study') {
       return 'Study'
@@ -150,7 +151,7 @@ export const LocationInformation = ({
       <Row gutter={[16, 16]}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Service Area <Popover content={contentSerAre}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          {isMaintenance && !isWorkPlan && <>
+          {(isMaintenance || isStudy) && !isWorkPlan && <>
             <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="serviceid">
@@ -163,11 +164,9 @@ export const LocationInformation = ({
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">County <Popover content={contentCounty}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          {
-            isMaintenance && <>
-              <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
-            </>
-          }
+          {(isMaintenance || isStudy) && !isWorkPlan && <>
+            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+            </>}
           <div className="sponsor-select" id="countyid">
             <Select mode="multiple" placeholder={county?.length !== 0 ? county : "Select a County"} style={{ width: '100%' }} value={county} onChange={(county: any) => apllyCounty(county)} disabled={disable} getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
               {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) => {
@@ -180,8 +179,8 @@ export const LocationInformation = ({
       <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Jurisdiction <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-          {isMaintenance && !isWorkPlan && <>
-              <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
+          {(isMaintenance || isStudy) && !isWorkPlan && <>
+            <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="jurisdictionid">
             <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Jurisdiction"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
