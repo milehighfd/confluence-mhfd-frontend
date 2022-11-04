@@ -35,6 +35,10 @@ const PortafolioBody = () => {
   const searchRef = useRef<null | HTMLDivElement>(null); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
   const [moveSchedule, setMoveSchedule] = useState('null'); 
+  const [zoomTimeline, setZoomTimeline] = useState(0);
+  console.log('zoom',zoomTimeline);
+  
+
   const menu = (
     <Menu
       className="menu-drop"
@@ -227,8 +231,8 @@ const PortafolioBody = () => {
                     <CalendarOutlined /> Edit Dates
                   </Button>
                   <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
-                  <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setMoveSchedule('in')}/>
-                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setMoveSchedule('out')}/>
+                  <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)}/>
+                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/>
                 </>
 
                 }
@@ -249,7 +253,7 @@ const PortafolioBody = () => {
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} setHoverTable={setHoverTable}/>}
                       {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef}/>}
-                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={moveSchedule}/>}
+                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={zoomTimeline}/>}
                     </Col>
                   </Row>
                   </div>

@@ -7,11 +7,15 @@ import ModalTollgate from "routes/list-view/components/ModalTollgate";
 
 
 const { Step } = Steps;
-const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedule:string}) => {
+const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedule:number}) => {
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
-  const [zoomState, setZoomState] = useState<any>();
+  const [zoomStatus, setZoomStatus] = useState(0);
+  const [currentZScale, setCurrentZScale] = useState(4);
+  // const svgRef = useRef<SVGSVGElement>(null);
+  // const [currentZScale, setcurrentZScale] = useState<any>();
+  console.log( 'openTable', openTable);
   const next = () => {
     setCurrent(current + 1);
   };
@@ -183,9 +187,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-
-      let currentZScale = 4;
-      
+          
       let dragablesLines = 'dragginglines';      
       
         let padding = { top: 55, right: 10, bottom: 10, left: 75 }
@@ -205,8 +207,8 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     if (counterDataForChart !== 0){
     let fromData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.from - b.from});
     let toData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.to - b.to});
-    let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
-    let timelineEndTime = moment(toData[toData.length - 1].to).add(6, 'months').startOf('month');
+    let timelineStartTime = moment(fromData[0].from.startOf('day')).subtract(6, 'days');
+    let timelineEndTime = moment(toData[toData.length - 1].to).add(6, 'days').startOf('day');
     // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
     // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
     let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
@@ -426,6 +428,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     let rectDrag = d3.drag()
       .on('start', dragStart)
       .on('drag', function (d: any) {
+        console.log('draggg');
         let newPosition = d3.event.dx;
         let between = d['to'].diff(d['from'], 'days')
         let fromTime = moment(zoomedXScale.invert(zoomedXScale(d['from']) + newPosition))
@@ -637,7 +640,8 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       gX.call(xAxis.scale(zoomedXScale));
       gX2.call(xAxis2.scale(zoomedXScale));
       updateRects();
-      currentZScale = d3.event.transform.k;
+      setCurrentZScale(d3.event.transform.k);
+      //console.log( 'currentZScale', currentZScale)
     }
   
     zoom = d3.zoom()
@@ -647,11 +651,19 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     svg.call(zoom);
     svg.call(zoom.scaleBy, currentZScale)
 
-    const moveZoom = (type: any,) => {
-      console.log('working');
+    const moveZoom = (newZoomValue: any) => {
+      let type: any;
+      if(zoomStatus > newZoomValue){
+        type = 'in';
+      } else {
+        type = 'out';
+      }
+      console.log('working', type);
       const adder = type === 'in' ? 1.4 : 0.7;
       svg.transition().call(zoom.scaleBy, adder);
+      setZoomStatus(newZoomValue);
     }
+    console.log( 'in or out', moveSchedule)
     moveZoom(moveSchedule);
   }
     }
@@ -687,7 +699,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     timelineChart(datas);
     }
   }, [openTable, moveSchedule]);
-  
+
   // useEffect(()=> {
   //   if(moveSchedule === 'in' || moveSchedule === 'out'){
   //     moveZoom(moveSchedule)
