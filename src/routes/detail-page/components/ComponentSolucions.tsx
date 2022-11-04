@@ -42,7 +42,7 @@ const ComponentSolucions = () => {
     <>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>COMPONENT & SOLUTIONS</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="component-solutions">COMPONENT & SOLUTIONS</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
           <div className="line-01"></div>

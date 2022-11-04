@@ -5,7 +5,7 @@ import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator
 const DetailInformationProject = () => {
   return (
     <>
-      <h3 style={{marginBottom:'15px'}}>PROJECT BASICS</h3>
+      <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Stream</i></label>
@@ -54,7 +54,7 @@ const DetailInformationProject = () => {
 
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>PROBLEM</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="problem">PROBLEM</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
           <div className="line-01"></div>
@@ -77,7 +77,7 @@ const DetailInformationProject = () => {
 
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>VENDORS</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="vendors">VENDORS</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
           <div className="line-01"></div>

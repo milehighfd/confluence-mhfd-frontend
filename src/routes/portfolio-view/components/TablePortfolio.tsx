@@ -3,6 +3,7 @@ import { Button, Col, Input, Layout, Popover, Row, Select, Space, Table, Tabs, T
 import { ColumnsType } from "antd/lib/table";
 import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
+import DetailModal from "routes/detail-page/components/DetailModal";
 const TablePortafolio = (
   {divRef, searchRef, openTable, setHoverTable}
   :{
@@ -11,6 +12,8 @@ const TablePortafolio = (
     openTable: boolean[],
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
   }) => {
+  
+  const [detailOpen, setDetailOpen] = useState(false);
   interface DataType {
     key: string;
     phase: string;
@@ -176,12 +179,13 @@ const TablePortafolio = (
       title: '',
       key: 'view',
       render: (_, record) => (
-        <Button className="btn-purple">View</Button>
+        <Button className="btn-purple" onClick={()=>(setDetailOpen(true))}>View</Button>
       ),
       width: "8%",
     },
   ];
   return <div className="table-body">
+    {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'10px'}}/>
     <div
       className="table-body-body"

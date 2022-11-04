@@ -32,7 +32,7 @@ const Management = () => {
       {modalAction && <ModalAction visible={modalAction} setVisible={setModalAction}/>}
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>PROJECT MANAGEMENT</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-management">PROJECT MANAGEMENT</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
           <div className="line-01"></div>

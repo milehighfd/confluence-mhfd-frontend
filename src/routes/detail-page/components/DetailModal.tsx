@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Carousel, Col, Modal, Progress, Row, Tooltip } from "antd";
+import React, { useState } from "react";
+import { Button, Carousel, Col, Modal, Popover, Progress, Row, Tabs, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import DetailInformationProject from "./DetailInformationProject";
 import ComponentSolucions from "./ComponentSolucions";
@@ -9,7 +9,19 @@ import Management from "./Management";
 import Map from "./Map";
 import Documents from "./Documents";
 
+const { TabPane } = Tabs;
+const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
+const popovers: any = [
+  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
+  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
+  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
+  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+]
 const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Function}) => {
+  const [tabKey, setTabKey] = useState<any>('Project Basics');
+  const [openSecction, setOpenSecction] = useState(0)
+  let displayedTabKey = tabKeys;
   return (
     <Modal
       className="detailed-modal"
@@ -54,7 +66,19 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
             </Tooltip>
           </Col>
         </Row>
-        <Row className="detailed-b">
+        <div style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px'}}>
+          <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(0)}}>Project Basics</a>
+          <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(1)}}>Problem</a>
+          <a href="#vendors" className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(2)}}>Vendors</a>
+          <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(3)}}>Component & Solutions</a>
+          <a href="#project-roadmap" className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(4)}}>Project Roadmap</a>
+          <a href="#graphical-view" className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(5)}}>Graphical View</a>
+          <a href="#project-financials" className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(6)}}>Project Financials</a>
+          <a href="#project-management" className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(7)}}>Project Management</a>
+          <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(8)}}>Maps</a>
+          <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(9)}}>Attachments</a>
+        </div>
+        <Row className="detailed-b" style={{height:'calc(100vh - 200px)', overflowY:'auto'}}>
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }} className="carouse-detail">
             <Carousel autoplay className="detail-carousel">
               <div key={1} className="detailed-c">

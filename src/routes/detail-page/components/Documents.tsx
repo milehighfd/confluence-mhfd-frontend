@@ -9,7 +9,7 @@ const Documents = () => {
     <>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>DOCUMENTS</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="attachments">ATTACHMENTS</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
           <div className="line-01"></div>
@@ -19,7 +19,7 @@ const Documents = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
           <p><FileOutlined /> Little Dry Creek_report.pdf</p>
           <p><FileOutlined /> Little Dry Creek_report.pdf</p>
-          <Button className="btn-purple"><PlusOutlined /> Add Documents</Button>
+          {/* <Button className="btn-purple"><PlusOutlined /> Add Documents</Button> */}
         </Col>
       </Row>
     </>

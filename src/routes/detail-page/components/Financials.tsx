@@ -68,7 +68,7 @@ const Financials = () => {
     <>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>PROJECT FINANCIALS</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-financials">PROJECT FINANCIALS</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
           <div className="line-01"></div>
