@@ -224,7 +224,7 @@ const PortafolioBody = () => {
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Delayed</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
                 </span>
                 {optionSelect === 'Schedule' && <>
                   <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
