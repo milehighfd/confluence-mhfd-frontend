@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Carousel, Col, Modal, Popover, Progress, Row, Tabs, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import DetailInformationProject from "./DetailInformationProject";
@@ -21,6 +21,7 @@ const popovers: any = [
 const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Function}) => {
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0)
+  let divRef = useRef<null | HTMLDivElement>(null); 
   let displayedTabKey = tabKeys;
   return (
     <Modal
@@ -66,7 +67,9 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
             </Tooltip>
           </Col>
         </Row>
-        <div style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px'}}>
+        <div
+          style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth'}}
+        >
           <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(0)}}>Project Basics</a>
           <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(1)}}>Problem</a>
           <a href="#vendors" className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(2)}}>Vendors</a>
@@ -78,7 +81,42 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(8)}}>Maps</a>
           <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(9)}}>Attachments</a>
         </div>
-        <Row className="detailed-b" style={{height:'calc(100vh - 200px)', overflowY:'auto'}}>
+        <Row
+          className="detailed-b"
+          style={{height:'calc(100vh - 200px)', overflowY:'auto'}}
+          onScrollCapture={(e)=>{
+            let numberSecction = 0;
+            if(divRef.current &&  divRef.current?.scrollTop > 450){
+              numberSecction= 1;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 500){
+              numberSecction= 2;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 650){
+              numberSecction= 3;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 900){
+              numberSecction= 4;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 1200){
+              numberSecction= 5;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 1650){
+              numberSecction= 6;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 2900){
+              numberSecction= 7;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 3700){
+              numberSecction= 8;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 4100){
+              numberSecction= 9;
+            }
+            setOpenSecction(numberSecction);
+          }}
+          ref={divRef}
+        >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }} className="carouse-detail">
             <Carousel autoplay className="detail-carousel">
               <div key={1} className="detailed-c">
