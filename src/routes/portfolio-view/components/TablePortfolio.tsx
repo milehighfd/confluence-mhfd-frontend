@@ -51,7 +51,7 @@ const TablePortafolio = (
       ellipsis: true,
     },
     {
-      title: <>MHFD Staff Lead <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
+      title: <>MHFD Lead/PM<ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'mhfd',
       key: 'mhfd',
       width: "15%",

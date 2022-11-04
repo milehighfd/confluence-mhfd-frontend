@@ -720,6 +720,9 @@
           border-color: 1px solid rgba(37, 24, 99, 0.1) !important;
         }
       }
+      .checkbox-select-active{
+        background-color: #d9ebf8;;
+      }
     }
     .piney-text{
       position: absolute;
@@ -729,8 +732,6 @@
       width: 300px;
       height: 100%;
       padding: 15px 15px;
-      margin-top: -15px;
-      
       box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
       .header-piney{
         box-sizing: border-box;

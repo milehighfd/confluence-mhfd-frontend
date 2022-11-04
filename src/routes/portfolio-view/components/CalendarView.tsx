@@ -16,6 +16,14 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
   // const svgRef = useRef<SVGSVGElement>(null);
   // const [currentZScale, setcurrentZScale] = useState<any>();
   console.log( 'openTable', openTable);
+  const [zoomState, setZoomState] = useState<any>();
+  const [actionItemsState, setActionItemsState] = useState({
+    draft:true,
+    sign:false,
+    request:false,
+    send:false,
+    pay:false,
+  });
   const next = () => {
     setCurrent(current + 1);
   };
@@ -720,7 +728,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>MHFD Lead</p>
+                <p>MHFD Lead/PM</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
               <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span>
@@ -776,25 +784,50 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
                 <Progress percent={20} />
               </Col>
             </Row>
-          <div className="checkbox-select">
+          <div className={actionItemsState.draft ? "checkbox-select checkbox-select-active":"checkbox-select"}>
             <p>Draft IGA</p>
-            <Checkbox></Checkbox>
+            <Checkbox
+              checked={actionItemsState.draft}
+              onChange={e=>{
+                setActionItemsState({...actionItemsState, draft:!actionItemsState.draft });
+              }}>
+            </Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={actionItemsState.sign ? "checkbox-select checkbox-select-active":"checkbox-select"}>
             <p>Sign IGA</p>
-            <Checkbox></Checkbox>
+            <Checkbox
+              checked={actionItemsState.sign}
+              onChange={e=>{
+                setActionItemsState({...actionItemsState, sign:!actionItemsState.sign });
+              }}>
+            </Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={actionItemsState.request ? "checkbox-select checkbox-select-active":"checkbox-select"}>
             <p>Request Funding</p>
-            <Checkbox></Checkbox>
+            <Checkbox
+              checked={actionItemsState.request}
+              onChange={e=>{
+                setActionItemsState({...actionItemsState, request:!actionItemsState.request });
+              }}>
+            </Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={actionItemsState.send ? "checkbox-select checkbox-select-active":"checkbox-select"}>
             <p>Send Invoice</p>
-            <Checkbox></Checkbox>
+            <Checkbox
+              checked={actionItemsState.send}
+              onChange={e=>{
+                setActionItemsState({...actionItemsState, send:!actionItemsState.send });
+              }}>
+            </Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={actionItemsState.pay ? "checkbox-select checkbox-select-active":"checkbox-select"}>
             <p>Pay Invoice</p>
-            <Checkbox></Checkbox>
+            <Checkbox
+              checked={actionItemsState.pay}
+              onChange={e=>{
+                setActionItemsState({...actionItemsState, pay:!actionItemsState.pay });
+              }}>
+            </Checkbox>
           </div>
         </div>
       </div>
@@ -802,7 +835,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
     <div style={{overflowY:'scroll'}}>
       <div id='chartContainer'>
       <div id="timeline-chart" />
-      {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/> */}
+      {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
       </div>
     </div>
     
