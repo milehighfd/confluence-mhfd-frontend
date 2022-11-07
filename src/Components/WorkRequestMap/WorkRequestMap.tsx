@@ -1651,9 +1651,6 @@ const applyProblemClusterLayer = () => {
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>
         </div>
-        <Button style={{ transform:'translate(19px, -836px)'}} onClick={() => createRandomGeomOnARCGIS()}>
-          <span className="btn-02"  id='asasas'></span>
-        </Button>
         <div className="measure-button">
           {!measuringState && (
             <Button style={{ borderRadius: '4px' }} onClick={() => setMeasuringState(true)}>
@@ -1728,6 +1725,9 @@ const applyProblemClusterLayer = () => {
               </div>
             </div>
           )}
+        <Button style={{ top:'50px'}} onClick={() => createRandomGeomOnARCGIS()}>
+          <span className="btn-02"  id='asasas'></span>
+        </Button>
         </div>
         <div className="m-zoom">
           <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()}>
