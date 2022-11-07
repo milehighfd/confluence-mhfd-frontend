@@ -122,6 +122,8 @@ export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
 
+export const TEST_LINE ='test_line';
+
 export const USE_LAND_COVER_LABEL = 'use_land_cover';
 
 export const USE_LAND_COVER = {
@@ -423,7 +425,8 @@ export const SELECT_ALL_FILTERS = [
   STREAMS_POINT,
   BORDER,
   AREA_BASED_MASK,
-  USE_LAND_COVER
+  USE_LAND_COVER,
+  TEST_LINE
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];

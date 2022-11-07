@@ -62,7 +62,8 @@ import {
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
   STREAM_IMPROVEMENT_MEASURE,
-  USE_LAND_COVER
+  USE_LAND_COVER,
+  TEST_LINE
 } from "./constants";
 
 export const localComponents = {
@@ -4055,7 +4056,7 @@ export const tileStyles = {
           12
       ]
     }
-  }, 
+  },
   // {
   //   type: 'line',
   //   'source-layer': 'pluto15v1',
@@ -4177,6 +4178,23 @@ export const tileStyles = {
   //   }
   // }
 ], 
+[TEST_LINE]: [{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {},
+  "paint": {
+    "line-color": "#880808",
+    "line-width": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      12,
+      5,
+      22,
+      2
+    ],
+  }
+}],
   [XSTREAMS]: [{
     type: 'symbol',
     'source-layer': 'pluto15v1',

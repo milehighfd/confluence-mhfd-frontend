@@ -56,6 +56,7 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
+  TEST_LINE,
   NEARMAP_TOKEN,
   EFFECTIVE_REACHES,
   SERVICE_AREA_FILTERS,
@@ -1102,6 +1103,9 @@ const applyProblemClusterLayer = () => {
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if (map.map.getLayer(key + '_' + index)) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          }
+          if ( key === TEST_LINE) {
+            map.map.setLayoutProperty(key+ '_' + index, 'visibility', 'visible');
           }
         });
       }
