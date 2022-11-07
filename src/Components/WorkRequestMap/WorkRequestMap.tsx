@@ -64,7 +64,8 @@ import {
   PROJECTS_DRAFT,
   MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
-  MAPTYPES
+  MAPTYPES,
+  templateGeomRandom
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -1513,6 +1514,30 @@ const applyProblemClusterLayer = () => {
     };
   }, [allLayers]);
 
+  const generateRangom = (low: any, up: any) => {
+    const u = Math.max(low, up);
+    const l = Math.min(low, up);
+    const diff = u - l;
+    const r = Math.floor(Math.random() * (diff + 1)); //'+1' because Math.random() returns 0..0.99, it does not include 'diff' value, so we do +1, so 'diff + 1' won't be included, but just 'diff' value will be.
+    
+    return l + r; //add the random number that was selected within distance between low and up to the lower limit.  
+  }
+  const createRandomGeomOnARCGIS = () => {
+    const formData = new FormData();
+    const newGEOM = [...templateGeomRandom];
+    newGEOM[0].geometry.paths[0] = [
+      [generateRangom(-108, -104),generateRangom(35, 40)], 
+      [generateRangom(-108, -104),generateRangom(35, 40)], 
+      [generateRangom(-108, -104),generateRangom(35, 40)], 
+      [generateRangom(-108, -104),generateRangom(35, 40)], 
+      [generateRangom(-108, -104),generateRangom(35, 40)], 
+    ];
+    formData.append('f', 'json');
+    formData.append('adds', JSON.stringify(newGEOM));
+    datasets.postDataMultipart('https://gis.mhfd.org/server/rest/services/TestLine/FeatureServer/0/applyedits', formData).then(res => {
+      console.log('return create of geom', res);
+    });
+  };
   const renderOption = (item: any) => {
     return {
       key: `${item.text}|${item.place_name}`,
@@ -1626,9 +1651,9 @@ const applyProblemClusterLayer = () => {
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>
         </div>
-        <Button style={{ transform:'translate(19px, -836px)'}}>
-                <span className="btn-02"  id='asasas'></span>
-              </Button>
+        <Button style={{ transform:'translate(19px, -836px)'}} onClick={() => createRandomGeomOnARCGIS()}>
+          <span className="btn-02"  id='asasas'></span>
+        </Button>
         <div className="measure-button">
           {!measuringState && (
             <Button style={{ borderRadius: '4px' }} onClick={() => setMeasuringState(true)}>
