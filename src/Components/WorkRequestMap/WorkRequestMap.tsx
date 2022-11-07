@@ -1626,6 +1626,9 @@ const applyProblemClusterLayer = () => {
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>
         </div>
+        <Button style={{ transform:'translate(19px, -836px)'}}>
+                <span className="btn-02"  id='asasas'></span>
+              </Button>
         <div className="measure-button">
           {!measuringState && (
             <Button style={{ borderRadius: '4px' }} onClick={() => setMeasuringState(true)}>
