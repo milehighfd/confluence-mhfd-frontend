@@ -1245,6 +1245,24 @@
       .title-search{
         width: 110% !important;
       }
+      .text-search {
+        padding: 15.6px 0px !important;
+      }
+    }
+  }
+  .search{
+    .title-search{
+      // width: 110% !important;
+    }
+    .text-search {
+      padding: 15.6px 0px !important;
+    }
+  }
+  .table-body{
+    .table-portafolio{
+      .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+        padding: 10px 14px !important;
+      }
     }
   }
 }

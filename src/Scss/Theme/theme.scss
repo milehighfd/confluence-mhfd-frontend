@@ -373,6 +373,23 @@ body{
   .ant-modal-footer {
     display: none;
   }
+  .detailed-b{
+
+  }
+  .detailed-b::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .detailed-b::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .detailed-b::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
 }
 .action-modal {
   width: 760 !important;
@@ -392,6 +409,12 @@ body{
   }
   .action-body{
     padding: 25px;
+    .title{
+      color: $purple00;
+    }
+    .date{
+      color: $purple00;
+    }
     p {
       color: $purple00;
     }
@@ -1616,7 +1639,7 @@ body{
   padding: 5px 12px;
   border-radius: 3px;
   color: #28c499;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .phaseview-timeline{
   margin-top: -7px;

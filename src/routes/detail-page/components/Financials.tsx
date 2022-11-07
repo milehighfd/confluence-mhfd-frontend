@@ -76,7 +76,7 @@ const Financials = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{textAlign:'end'}}>
-          <Button className="btn-purple"><PlusOutlined /> Amount</Button>
+          <Button className="btn-purple" style={{height:'40px'}}><PlusOutlined /> Amount</Button>
         </Col>
       </Row>
       <Row>

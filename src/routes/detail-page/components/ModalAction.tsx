@@ -8,7 +8,7 @@ import Financials from "./Financials";
 import Management from "./Management";
 import Map from "./Map";
 import Documents from "./Documents";
-import { BarsOutlined, CheckOutlined, CheckSquareOutlined, ClockCircleOutlined, FlagOutlined, MenuOutlined, PlusOutlined, TagOutlined, TeamOutlined } from "@ant-design/icons";
+import { BarsOutlined, CheckOutlined, CheckSquareOutlined, ClockCircleOutlined, CloseCircleFilled, FileOutlined, FlagOutlined, MenuOutlined, PaperClipOutlined, PlusOutlined, TagOutlined, TeamOutlined } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 
 const ModalAction = ({visible, setVisible}:{visible: boolean, setVisible: Function}) => {
@@ -84,6 +84,8 @@ const ModalAction = ({visible, setVisible}:{visible: boolean, setVisible: Functi
                 <PlusOutlined  style={{fontSize:'18px'}}/>
               </Dropdown>
             </div>
+            <p>In Progress</p>
+            <p>Very High</p>
           </Col>
         </Row>
         <Row className="action-body" style={{paddingTop:'0px'}}>
@@ -118,11 +120,32 @@ const ModalAction = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           <Col xs={{ span: 24 }} lg={{ span: 16 }}>
             <p style={{fontWeight:'700'}}><BarsOutlined />&nbsp; Activity</p>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{paddingLeft:'25px'}}>
-            <Badge dot className="badge-inactive"><Avatar size={24} src="/picture/user01.png" /></Badge><span>Jane Smith</span><span>*</span><span>6 min ago</span> 
+          <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{paddingLeft:'25px'}}>
+            <Badge dot className="badge-inactive"><Avatar size={24} src="/picture/user01.png" /></Badge><span className="title" style={{marginLeft:'10px'}}>Jane Smith</span><span className="title" style={{opacity:'0.5'}}>&nbsp; &#8226; &nbsp; 6 min ago</span> 
+          </Col><Col xs={{ span: 24 }} lg={{ span: 18 }} style={{paddingLeft:'25px'}}>
+            <span className="title" style={{opacity:'0.5'}}>Hi Dan! Could you take quick look at these Landing Page designs?
+Thanks so much!</span> 
           </Col>
+          <br></br>
+          <br></br>
+          <br></br>
           <Col xs={{ span: 24 }} lg={{ span: 6 }} style={{paddingLeft:'20px'}}>
             <Button>Hide Details</Button>
+          </Col>
+          <br></br>
+          <br></br>
+          <br></br>
+          <Col xs={{ span: 24 }} lg={{ span: 24 }}>
+            <TextArea rows={3} placeholder="Comment or type ‘/’ for commands" maxLength={4} className="text-action"/>
+          </Col>
+        </Row>
+        <Row className="action-body" style={{paddingTop:'0px'}}>
+          <Col xs={{ span: 24 }} lg={{ span: 16 }}>
+            <p style={{fontWeight:'700'}}><PaperClipOutlined />&nbsp; Related Documents</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{paddingLeft:'25px'}}>
+            <span style={{color:'#251863', marginRight:'10px'}}><FileOutlined style={{opacity:' 0.35'}}/>&nbsp;8.13.22-tollgate-creek-crm.xlsx&nbsp;<CloseCircleFilled style={{opacity:' 0.15'}}/></span>
+            <span style={{color:'#251863', marginRight:'10px'}}><FileOutlined style={{opacity:' 0.35'}}/>&nbsp;8.13.22-tollgate-creek-crm.xlsx&nbsp;<CloseCircleFilled style={{opacity:' 0.15'}}/></span>
           </Col>
         </Row>
       </div>

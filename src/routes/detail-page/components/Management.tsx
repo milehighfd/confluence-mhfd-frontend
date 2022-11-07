@@ -211,7 +211,7 @@ const Management = () => {
           </Row>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{textAlign: 'end'}}>
-          <Button style={{marginRight:'10px', height:'40px', borderRadius:'7px'}}><EditOutlined />Settings</Button>
+          <Button style={{marginRight:'10px', height:'40px', borderRadius:'7px'}}><EditOutlined />Settings <DownOutlined /></Button>
           <Dropdown overlay={menu} trigger={['click']}>
             <a onClick={e => e.preventDefault()}>
               <Button  style={{marginRight:'10px', height:'40px', borderRadius:'7px'}}><TableOutlined /> Density<DownOutlined /></Button>
@@ -219,11 +219,11 @@ const Management = () => {
           </Dropdown>
           <Button className="btn-purple" style={{height:'40px'}}><PlusOutlined />Item</Button>
           <div style={{textAlign:'initial', padding:'20px'}} className="timeline-detail">
-            <p><span className="span-wp"><ArrowRightOutlined /> Work Plan</span>  Mar 3 to Nov 15, 2022 <span style={{opacity:'0.4', margin:'0px 5px'}}>|</span> <ClockCircleOutlined /> 55 scheduled</p>
+            <p><span className="span-wp"><ArrowRightOutlined /> Procurement</span>  Mar 3 to Nov 15, 2022 <span style={{opacity:'0.4', margin:'0px 5px'}}>|</span> <ClockCircleOutlined /> 55 scheduled</p>
             <Timeline mode='left'>
               <Timeline.Item label={<span>Mar 24</span>}>
                 <div style={{paddingBottom:'20px'}}>
-                  <p>Phase 3:  Work Plan</p>
+                  <p>Phase 7:  Procurement</p>
                   <div className="notes">
                     <p style={{marginBottom:'0px'}}>Notes</p>
                     <p style={{opacity:'0.6', marginBottom:'0px'}}>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
