@@ -107,7 +107,7 @@ const AddAmountModal = ({visible, setVisible}: {visible: boolean, setVisible: Re
             <p>Encumbered <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
           </Col>
           <Col xs={{ span: 48 }} lg={{ span: 12 }}>
-            <Input placeholder='100,000.00' prefix={<>&#36;</>} suffix={<LockOutlined />}></Input>
+            <Input className='yellow-input' placeholder='100,000.00' prefix={<>&#36;</>} suffix={<LockOutlined />}></Input>
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white', minHeight:'10px', padding:'8px 20px'}}>
@@ -123,7 +123,7 @@ const AddAmountModal = ({visible, setVisible}: {visible: boolean, setVisible: Re
             <p>Contract Date <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
           </Col>
           <Col xs={{ span: 48 }} lg={{ span: 12 }}>
-            <DatePicker style={{ width: '100%' }} defaultValue={moment('2015-01-01', 'YYYY-MM-DD')}/>
+            <DatePicker style={{ width: '100%' }} defaultValue={moment('2022-04-21', 'YYYY-MM-DD')} onChange={()=>{}}/>
             {/* <Input placeholder='April 21, 2022'></Input> */}
           </Col>
         </Row>

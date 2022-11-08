@@ -259,3 +259,10 @@
 .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
   align-self: center;
 }
+.ant-input-affix-wrapper .yellow-input{
+  background-color: #fff4df !important;
+  border: 1px solid #fbcc69 !important;
+  input.ant-input {
+    background: #fff4df !important;
+  }
+}

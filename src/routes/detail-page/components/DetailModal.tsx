@@ -8,8 +8,9 @@ import Financials from "./Financials";
 import Management from "./Management";
 import Map from "./Map";
 import Documents from "./Documents";
-import { LeftCircleFilled, RightCircleFilled } from "@ant-design/icons";
+import { LeftCircleFilled, LeftOutlined, RightCircleFilled, RightOutlined } from "@ant-design/icons";
 import { CarouselRef } from "antd/lib/carousel";
+import ImageModal from "Components/Shared/Modals/ImageModal";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -23,10 +24,13 @@ const popovers: any = [
 const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Function}) => {
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0)
+  const [openImage, setOpenImage] = useState(false);
   let divRef = useRef<null | HTMLDivElement>(null); 
-  let carouselRef = useRef<typeof Carousel | undefined>();
+  let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
   return (
+    <>
+    <ImageModal visible={openImage} setVisible={setOpenImage}/>
     <Modal
       className="detailed-modal"
       style={{ top: 30 }}
@@ -121,22 +125,22 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           ref={divRef}
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }} className="carouse-detail">
-            <Carousel autoplay className="detail-carousel">
-              <div key={1} className="detailed-c">
+            <Carousel className="detail-carousel" ref={carouselRef}>
+              <div key={1} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
                 <img width="100%" height="100%" src={'detailed/capital.png'} alt="" />
               </div>
-              <div key={2} className="detailed-c">
+              <div key={2} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
                 <img width="100%" height="100%" src={'detailed/restoration.png'} alt="" />
               </div>
             </Carousel>
             <div style={{position:'absolute', right: '15px', top: '180px'}}>
               <img src="/picture/map-denver.png" alt="" height="70px" />
             </div>
-            <div style={{position:'absolute', left: '15px', top: '80px'}}>
-              <LeftCircleFilled />
+            <div style={{position:'absolute', left: '15px', top: '118px'}}>
+              <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev()}}/>
             </div>
-            <div style={{position:'absolute', right: '15px', top: '80px'}}>
-              <RightCircleFilled />
+            <div style={{position:'absolute', right: '15px', top: '118px'}}>
+              <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div>
             <div className="detailed-info">
               <DetailInformationProject />
@@ -154,6 +158,8 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
         </Row>
       </div>
     </Modal>
+    </>
+    
   )
 }
 
