@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Row, Col } from 'antd';
 import TeamModal from './TeamModal';
 import { PlusOutlined } from '@ant-design/icons';
+import AddTeamModal from './AddTeamModal';
 
 const TeamCollaborator = () => {
   const [selected, setSelected] = useState(true);
+  const [openTeam, setOpenTeam] = useState(false);
   return (
     <div className="chat-r">
+      <AddTeamModal visible={openTeam} setVisible={setOpenTeam} />
       <Row style={{paddingBottom: '15px'}}>
         <Col span={5}>
           <div
@@ -29,7 +32,7 @@ const TeamCollaborator = () => {
           </div>
         </Col>
         <Col span={2} style={{textAlign:'end'}}>
-          <PlusOutlined />
+          <PlusOutlined onClick={()=>{setOpenTeam(true)}}/>
         </Col>
       </Row>
       {selected && <TeamModal />}

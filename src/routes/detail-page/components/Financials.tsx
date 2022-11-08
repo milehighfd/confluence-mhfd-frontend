@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, PlusOutlined } from "@ant-design/icons";
+import AddAmountModal from "Components/Shared/Modals/AddAmountModal";
 
 const Financials = () => {
+  const [openModalAmount, setOpenModalAmount] = useState(false);
   const columns = [
     {
       title: 'Agreement',
@@ -66,6 +68,7 @@ const Financials = () => {
   ];
   return (
     <>
+      <AddAmountModal visible={openModalAmount} setVisible={setOpenModalAmount}/>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-financials">PROJECT FINANCIALS</h3>
@@ -76,7 +79,7 @@ const Financials = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{textAlign:'end'}}>
-          <Button className="btn-purple" style={{height:'40px'}}><PlusOutlined /> Amount</Button>
+          <Button className="btn-purple" style={{height:'40px'}} onClick={()=>{setOpenModalAmount(true)}}><PlusOutlined /> Amount</Button>
         </Col>
       </Row>
       <Row>

@@ -8,6 +8,8 @@ import Financials from "./Financials";
 import Management from "./Management";
 import Map from "./Map";
 import Documents from "./Documents";
+import { LeftCircleFilled, RightCircleFilled } from "@ant-design/icons";
+import { CarouselRef } from "antd/lib/carousel";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -22,6 +24,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0)
   let divRef = useRef<null | HTMLDivElement>(null); 
+  let carouselRef = useRef<typeof Carousel | undefined>();
   let displayedTabKey = tabKeys;
   return (
     <Modal
@@ -68,7 +71,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           </Col>
         </Row>
         <div
-          style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth'}}
+          style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
           <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(0)}}>Project Basics</a>
           <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(1)}}>Problem</a>
@@ -83,7 +86,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
         </div>
         <Row
           className="detailed-b"
-          style={{height:'calc(100vh - 200px)', overflowY:'auto'}}
+          style={{height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}}
           onScrollCapture={(e)=>{
             let numberSecction = 0;
             if(divRef.current &&  divRef.current?.scrollTop > 450){
@@ -118,7 +121,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           ref={divRef}
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }} className="carouse-detail">
-            <Carousel autoplay className="detail-carousel">
+            <Carousel autoplay className="detail-carousel" ref={carouselRef}>
               <div key={1} className="detailed-c">
                 <img width="100%" height="100%" src={'detailed/capital.png'} alt="" />
               </div>
@@ -126,6 +129,15 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
                 <img width="100%" height="100%" src={'detailed/restoration.png'} alt="" />
               </div>
             </Carousel>
+            <div style={{position:'absolute', right: '15px', top: '180px'}}>
+              <img src="/picture/map-denver.png" alt="" height="70px" />
+            </div>
+            <div style={{position:'absolute', left: '15px', top: '80px'}}>
+              <LeftCircleFilled />
+            </div>
+            <div style={{position:'absolute', right: '15px', top: '80px'}}>
+              <RightCircleFilled />
+            </div>
             <div className="detailed-info">
               <DetailInformationProject />
               <ComponentSolucions />
