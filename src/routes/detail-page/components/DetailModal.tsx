@@ -121,7 +121,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           ref={divRef}
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }} className="carouse-detail">
-            <Carousel autoplay className="detail-carousel" ref={carouselRef}>
+            <Carousel autoplay className="detail-carousel">
               <div key={1} className="detailed-c">
                 <img width="100%" height="100%" src={'detailed/capital.png'} alt="" />
               </div>
