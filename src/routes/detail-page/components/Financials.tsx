@@ -14,17 +14,20 @@ const Financials = () => {
       key: 'agreement',
       render: (agreement:string[]) => (
         <p className={"table-" + agreement[1]}>{agreement[0]}</p>
-      )
+      ),
+      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: 'Amendment',
       dataIndex: 'amendment',
       key: 'amendment',
+      sorter: (a:any, b:any) => a.amendment.length - b.amendment.length,
     },
     {
       title: 'Partner',
       dataIndex: 'partner',
       key: 'partner',
+      sorter: (a:any, b:any) => a.amendment.length - b.amendment.length,
     },
     {
       title: 'Phase',
@@ -35,6 +38,7 @@ const Financials = () => {
           {phase}
         </span>
       ),
+      sorter: (a:any, b:any) => a.phase.length - b.phase.length,
     },
     {
       title: 'Projected',
@@ -42,7 +46,8 @@ const Financials = () => {
       key: 'projected',
       render: (projected:string[]) => (
         <p className={"table-" + projected[1]}>{projected[0]}</p>
-      )
+      ),
+      sorter: (a:any, b:any) => a.projected.length - b.projected.length,
     },
     {
       title: 'Encumbered',
@@ -50,7 +55,8 @@ const Financials = () => {
       key: 'encumbered',
       render: (encumbered:string[]) => (
         <p className={"table-" + encumbered[1]}>{encumbered[0]}</p>
-      )
+      ),
+      sorter: (a:any, b:any) => a.encumbered.length - b.encumbered.length,
     },
     {
       title: 'Tyler Encumbered',
@@ -58,12 +64,14 @@ const Financials = () => {
       key: 'tyler',
       render: (tyler:string[]) => (
         <p className={"table-" + tyler[1]}>{tyler[0]}</p>
-      )
+      ),
+      sorter: (a:any, b:any) => a.tyler.length - b.tyler.length,
     },
     {
       title: 'Available',
       dataIndex: 'available',
       key: 'available',
+      sorter: (a:any, b:any) => a.available.length - b.available.length,
     },
   ];
   return (

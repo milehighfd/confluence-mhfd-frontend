@@ -315,6 +315,6 @@ export const DATA_FINANCIALS = [
     agreement: ['Total','total'],
     projected: ['$400,320', 'total'],
     encumbered:['$400,320', 'total'],
-    tyler:['', ''],
+    tyler:['$400,320', 'total'],
   },
 ];

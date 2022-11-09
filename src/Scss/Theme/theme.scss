@@ -407,8 +407,30 @@ body{
   .ant-modal-footer {
     display: none;
   }
+  .body-action{
+    overflow-y: auto;
+    height: calc(100vh - 194px);
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  .body-action::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  .body-action::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .body-action::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
   .action-body{
     padding: 25px;
+    padding-top: 0px;
     .title{
       color: $purple00;
     }
@@ -448,6 +470,25 @@ body{
       align-items: center;
       color: #11093C;
     }
+    .tag-yellow{
+      color: #fdb32b;
+      background: #fff8ea;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+    .tag-red{
+      color: #ff0000;
+      background: #ffe6e6;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+    .button-tex-area{
+      background: #f8f8fa;
+      margin-left: 20px;
+      text-align: end;
+      padding: 10px;
+      padding-top: 0px;
+    }
   }
 }
 .detailed-version {
@@ -469,7 +510,25 @@ body{
 }
 .detailed-Team {
   width: 480px !important;
-
+  .detailed-body{
+    overflow-y: auto;
+    height: calc(100vh - 200px);
+  }
+  .detailed-body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  .detailed-body::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .detailed-body::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
   /* Default close button */
   .ant-modal-close {
     display: none;
@@ -1613,7 +1672,7 @@ body{
     color: $purple00;
     opacity: 0.5;
     font-size: 16px;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
   }
   .active{
     border-bottom: 2px solid #11093C;
@@ -1663,6 +1722,26 @@ body{
     min-width: 120px;
     float: right;
     background: $white !important;
+  }
+  // .detailed-h-list-view{
+  //   height: 326px;
+  //   overflow-y: auto;
+  //   margin-right: -10px;
+  //   padding-right: 10px;
+  // }
+  .body-modal-team::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .body-modal-team::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .body-modal-team::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
   }
   .row-modal-list-view{
     height: 326px;

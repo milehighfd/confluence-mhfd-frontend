@@ -10,33 +10,32 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
   return (
     <Modal
       className="detailed-image"
-      style={{ top: 60, width: '455px' }}
+      style={{ top: 30, width: '455px' }}
       visible={visible}
       onCancel={() => setVisible(false)}
       forceRender={false}
       destroyOnClose>
       <div className="detailed">
-        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white', borderBottom:'1px solid #eae8f0', paddingBottom:'4px'}}>
-          <Col xs={{ span: 12 }} lg={{ span: 2 }} style={{paddingTop:'40px'}}>
+        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white', borderBottom:'1px solid #eae8f0', paddingBottom:'0px', minHeight:'71px'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 2 }} style={{paddingTop:'15px'}}>
             <span className={active===0 ? 'active title' : 'title'} onClick={()=>{setActive(0)}}>Photos</span>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 4 }}style={{paddingTop:'40px'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 4 }}style={{paddingTop:'15px'}}>
             <span className={active===1 ? 'active title' : 'title'} onClick={()=>{setActive(1)}}>3D Component View</span>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 2 }}style={{paddingTop:'40px'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 2 }}style={{paddingTop:'15px'}}>
             <span className={active===2 ? 'active title' : 'title'} onClick={()=>{setActive(2)}}>Map View</span>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 16 }} style={{textAlign: 'end'}}>
-            <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
-            <br></br>
+          <Col xs={{ span: 12 }} lg={{ span: 16 }} style={{textAlign: 'end', alignItems: 'center'}}>
             <div style={{color:'#11093C'}}>
               <HeartOutlined /> Favorite &nbsp; &nbsp; &nbsp;
-              <ShareAltOutlined /> Share
+              <ShareAltOutlined /> Share &nbsp; &nbsp; &nbsp;
+              <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </div>
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 8 }} className='body-modal-team'>
+          <Col xs={{ span: 48 }} lg={{ span: 8 }} className='body-modal-team' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
            <img width="47.5%" src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px'}}/>
            <img width="47.5%" src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px'}} />
            <img width="100%"src={'picture/img-3.png'} alt="" style={{ marginBottom:'15px'}}/>
