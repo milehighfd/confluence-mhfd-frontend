@@ -28,8 +28,10 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 16 }} style={{textAlign: 'end', alignItems: 'center'}}>
             <div style={{color:'#11093C'}}>
-              <HeartOutlined /> Favorite &nbsp; &nbsp; &nbsp;
-              <ShareAltOutlined /> Share &nbsp; &nbsp; &nbsp;
+              <Button className='btn-filter-k'><HeartOutlined /> &nbsp; &nbsp;Favorite</Button>
+               &nbsp; &nbsp; &nbsp;
+               <Button className='btn-filter-k'><ShareAltOutlined /> &nbsp; &nbsp;Share</Button>
+               &nbsp; &nbsp; &nbsp;
               <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </div>
           </Col>

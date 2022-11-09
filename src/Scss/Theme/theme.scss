@@ -510,6 +510,16 @@ body{
 }
 .detailed-Team {
   width: 480px !important;
+  .btn-filter-k{
+    border: 1px solid #ffffff;
+    color: #11093c;
+    background: #f8f7f9;
+    /* opacity: 0.6; */
+    border-radius: 6px;
+    box-shadow: none;
+    padding: 4px 10px;
+    margin: 0px 3px;
+  }
   .detailed-body{
     overflow-y: auto;
     height: calc(100vh - 200px);
@@ -607,7 +617,20 @@ body{
 }
 .detailed-image {
   width: 1376px !important;
-
+  .btn-filter-k{
+    border: 1px solid #ffffff;
+    color: #11093c;
+    background: #f8f7f9;
+    /* opacity: 0.6; */
+    border-radius: 6px;
+    box-shadow: none;
+    padding: 4px 10px;
+    margin: 0px 3px;
+  }
+  .btn-filter-k:hover{
+    color: #11093c;
+    opacity: 1;
+  }
   /* Default close button */
   .ant-modal-close {
     display: none;

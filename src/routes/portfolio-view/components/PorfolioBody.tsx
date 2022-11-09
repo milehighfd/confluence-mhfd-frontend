@@ -188,16 +188,18 @@ const PortafolioBody = () => {
             <Button className="btn-filter-k">
               <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> My Projects
             </Button>
-            <span style={{color:'#DBDBE1'}}>|</span>
+            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className="btn-filter-k">
               <HeartOutlined style={{color: '#cdcbd6', fontSize: '16px'}}  /> Favorites
             </Button>
-            <span style={{color:'#DBDBE1'}}>|</span>
+            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className="btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
               <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#bfbcc9' }} src=""/>&nbsp;Filter
             </Button>
-            <span style={{color:'#DBDBE1'}}>|</span>
-            <ToTopOutlined style={{fontSize: '16px', marginLeft:'10px', color: '#706b8a'}}/>
+            <Button className="btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
+              <ToTopOutlined style={{fontSize: '16px', color: '#706b8a'}}/>
+            </Button>
+            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
           </Col>
         </Row>
       </div>

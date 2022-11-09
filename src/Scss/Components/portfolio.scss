@@ -284,6 +284,10 @@
     opacity: 0.6;
     font-weight: 400;
   }
+  .btn-filter-k:hover{
+    color: #11093c;
+    opacity: 1;
+  }
   .btn-view:hover  .btn-view:focus .btn-view:active{
     color: #11093c;
     background: rgba(17, 9, 60, 0.03);
@@ -297,10 +301,14 @@
     font-weight: 500;
   }
   .btn-filter-k{
-    border: 1px solid transparent;
+    border: 1px solid #ffffff;
     color: #11093c;
-    background: #fff;
-    opacity: 0.6;
+    background: #f8f7f9;
+    /* opacity: 0.6; */
+    border-radius: 6px;
+    box-shadow: none;
+    padding: 4px 10px;
+    margin: 0px 3px;
   }
   .btn-filter-k:hover  .btn-filter-k:focus .btn-filter-k:active{
     color: #11093c;
