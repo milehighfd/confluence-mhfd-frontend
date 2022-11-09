@@ -918,8 +918,9 @@ const MapView = () => {
               totalElements = cardInformation.length;
             } else {
               cardInformation = galleryProjectsV2.map((project: any) => {
+                console.log(project);
                 const x = {
-                  cartodb_id: project.cartodb_id,
+                  cartodb_id: project.project_id,
                   image: (
                     project.projectType === 'Capital' ? '/projectImages/capital.png' :
                       project.projectType === 'Study' ? '/projectImages/study.png' :
@@ -932,11 +933,11 @@ const MapView = () => {
                                   project.projectsubtype === 'Debris Management' ?'/projectImages/debris-management.png': '/Icons/eje.png'
                                   ) : '/Icons/eje.png'
                   ),
-                  requestName: project.projectName,
+                  requestName: project.project_name,
                   sponsor: project.sponsor,
                   estimatedCost: project.estimatedcost ?  project.estimatedcost: project.finalcost,
                   componentCost: project.component_cost ? project.component_cost: 0,
-                  status: project.status,
+                  status: project?.project_status?.code_phase_type?.code_status_type?.status_name,
                   projecttype: project.projectType,
                   objectid: project.objectid,
                   type: project.type,
@@ -945,7 +946,6 @@ const MapView = () => {
                   totalComponents: project.totalComponents,
                   // coordinates: project.coordinates[0]
                 }
-                console.log(x);
                 return x;
               });
               totalElements = cardInformation.length;
