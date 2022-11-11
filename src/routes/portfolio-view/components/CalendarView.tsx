@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { Button, Calendar, Checkbox, Col, Input, Layout, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
 import { CalendarOutlined, ClockCircleOutlined, CloseOutlined, FormOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
+import PineyView from "./PineyView";
 
 
 const { Step } = Steps;
@@ -714,124 +715,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
   //   }
   // },[moveSchedule])
   return <div className="calendar-body" id='widthDivforChart'>
-    {openPiney && <div className="piney-text">
-      <div className="header-piney" style={{marginBottom:'20px'}}>
-        <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
-        <FormOutlined style={{fontSize:'20px'}}/>
-      </div>
-      <div className="body-piney">
-        <h1 style={{color:'#000000', fontSize:'16px', marginBottom:'15px'}}>Piney Creek Channel Restore</h1>
-        <div className="body-piney-body">
-          <span className="tag-blue">Funding Phase</span><span className="tag-blue">Capital</span>
-          <p style={{marginTop:'20px', marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-          <p>The same screen can be built in a lot of different ways, but only a few of them will get your message accross correctly and result in an easy-to-use software or...<span style={{fontWeight:'700'}}>more</span></p>
-          <div className="form-text-calendar">
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>MHFD Lead/PM</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-              <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>Total Cost</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                <p>$3,708,000</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>Phase</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                <span>Funding</span> <span className="tag-blue">20%</span>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>Start Date</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                <p>July 1, 2021</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>End Date</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                <p>December 6, 2021</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>Duration</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-              <ClockCircleOutlined />&nbsp; &nbsp;  <span>5 months  5 days</span>
-              </Col>
-            </Row>
-          </div>
-          <p style={{marginTop:'10px', marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Action Items</p>
-            <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 4 }}>
-                <p style={{fontSize:'12px', fontWeight:'700', paddingTop:'2px'}}>20%</p>
-              </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 20 }}>
-                <Progress percent={20} />
-              </Col>
-            </Row>
-          <div className={actionItemsState.draft ? "checkbox-select checkbox-select-active":"checkbox-select"}>
-            <p>Draft IGA</p>
-            <Checkbox
-              checked={actionItemsState.draft}
-              onChange={e=>{
-                setActionItemsState({...actionItemsState, draft:!actionItemsState.draft });
-              }}>
-            </Checkbox>
-          </div>
-          <div className={actionItemsState.sign ? "checkbox-select checkbox-select-active":"checkbox-select"}>
-            <p>Sign IGA</p>
-            <Checkbox
-              checked={actionItemsState.sign}
-              onChange={e=>{
-                setActionItemsState({...actionItemsState, sign:!actionItemsState.sign });
-              }}>
-            </Checkbox>
-          </div>
-          <div className={actionItemsState.request ? "checkbox-select checkbox-select-active":"checkbox-select"}>
-            <p>Request Funding</p>
-            <Checkbox
-              checked={actionItemsState.request}
-              onChange={e=>{
-                setActionItemsState({...actionItemsState, request:!actionItemsState.request });
-              }}>
-            </Checkbox>
-          </div>
-          <div className={actionItemsState.send ? "checkbox-select checkbox-select-active":"checkbox-select"}>
-            <p>Send Invoice</p>
-            <Checkbox
-              checked={actionItemsState.send}
-              onChange={e=>{
-                setActionItemsState({...actionItemsState, send:!actionItemsState.send });
-              }}>
-            </Checkbox>
-          </div>
-          <div className={actionItemsState.pay ? "checkbox-select checkbox-select-active":"checkbox-select"}>
-            <p>Pay Invoice</p>
-            <Checkbox
-              checked={actionItemsState.pay}
-              onChange={e=>{
-                setActionItemsState({...actionItemsState, pay:!actionItemsState.pay });
-              }}>
-            </Checkbox>
-          </div>
-        </div>
-      </div>
-    </div>}
+    {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
     <div style={{overflowY:'scroll'}}>
       <div id='chartContainer'>
       <div id="timeline-chart" />

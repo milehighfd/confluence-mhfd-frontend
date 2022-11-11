@@ -44,7 +44,7 @@ export const DATA_FINANCIALS = [
     projected: ['$50,000', 'green'],
     encumbered: ['$50,000', 'green'],
     tyler: ['$50,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '2',
@@ -55,7 +55,7 @@ export const DATA_FINANCIALS = [
     projected: ['$50,000', 'green'],
     encumbered: ['$50,000', 'green'],
     tyler: ['$50,000', 'green'],
-    available:'$100,000',
+    available: ['$100,000', 'purple'],
   },
   {
     key: '3',
@@ -66,7 +66,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$250,000', 'green'],
     tyler:['$250,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '4',
@@ -77,7 +77,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$250,000', 'green'],
     tyler:['$250,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '5',
@@ -88,7 +88,7 @@ export const DATA_FINANCIALS = [
     projected: ['$12,100', 'red'],
     encumbered: ['$12,100', 'red'],
     tyler: ['$12,100', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '6',
@@ -99,7 +99,7 @@ export const DATA_FINANCIALS = [
     projected: ['$87,155', 'red'],
     encumbered: ['$87,155', 'red'],
     tyler: ['$87,155', 'purple'],
-    available:'$500,745',
+    available: ['$500,745', 'purple'],
   },
   {
     key: '7',
@@ -110,7 +110,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$250,000', 'green'],
     tyler:['$250,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '8',
@@ -121,7 +121,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$250,000', 'green'],
     tyler:['$250,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '9',
@@ -132,7 +132,7 @@ export const DATA_FINANCIALS = [
     projected: ['$18,200', 'red'],
     encumbered: ['$18,200', 'red'],
     tyler: ['$18,200', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '10',
@@ -143,7 +143,7 @@ export const DATA_FINANCIALS = [
     projected: ['$15,600', 'red'],
     encumbered: ['$15,600', 'red'],
     tyler: ['$15,600', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '12',
@@ -154,7 +154,7 @@ export const DATA_FINANCIALS = [
     projected: ['$50,000', 'green'],
     encumbered:['$50,000', 'green'],
     tyler:['$50,000', 'green'],
-    available:'$100,000',
+    available: ['$100,000', 'purple'],
   },
   {
     key: '13',
@@ -165,7 +165,7 @@ export const DATA_FINANCIALS = [
     projected: ['$50,000', 'green'],
     encumbered:['$50,000', 'green'],
     tyler:['$50,000', 'green'],
-    available:'$100,000',
+    available: ['$100,000', 'purple'],
   },
   {
     key: '14',
@@ -176,7 +176,7 @@ export const DATA_FINANCIALS = [
     projected: ['$15,600', 'red'],
     encumbered: ['$15,600', 'red'],
     tyler: ['$15,600', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '15',
@@ -187,7 +187,7 @@ export const DATA_FINANCIALS = [
     projected: ['$91,083', 'red'],
     encumbered: ['$91,083', 'red'],
     tyler: ['$91,083', 'red'],
-    available:'$500,745',
+    available: ['$500,745', 'purple'],
   },
   {
     key: '16',
@@ -198,7 +198,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$250,000', 'green'],
     tyler:['$250,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '17',
@@ -209,7 +209,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$250,000', 'green'],
     tyler:['$250,000', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '18',
@@ -220,7 +220,7 @@ export const DATA_FINANCIALS = [
     projected: ['$375,414', 'red'],
     encumbered: ['$375,414', 'red'],
     tyler: ['$375,414', 'red'],
-    available:'$1,000,448',
+    available: ['$1,000,448', 'purple'],
   },
   {
     key: '19',
@@ -231,7 +231,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered: ['$0', 'green'],
     tyler: ['$0', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '21',
@@ -242,7 +242,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'green'],
     encumbered:['$0', 'green'],
     tyler:['$0', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '22',
@@ -253,7 +253,7 @@ export const DATA_FINANCIALS = [
     projected: ['$350,000', 'green'],
     encumbered:['$0', 'green'],
     tyler:['$0', 'green'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '23',
@@ -264,7 +264,7 @@ export const DATA_FINANCIALS = [
     projected: ['$750,000', 'red'],
     encumbered:['$0', 'purple'],
     tyler:['$0', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '24',
@@ -275,7 +275,7 @@ export const DATA_FINANCIALS = [
     projected: ['$750,000', 'red'],
     encumbered:['$0', 'purple'],
     tyler:['$0', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '25',
@@ -286,7 +286,7 @@ export const DATA_FINANCIALS = [
     projected: ['$250,000', 'red'],
     encumbered:['$0', 'purple'],
     tyler:['$0', 'purple'],
-    available:'$50,448',
+    available: ['$50,448', 'purple'],
   },
   {
     key: '26',
@@ -297,7 +297,7 @@ export const DATA_FINANCIALS = [
     projected: ['$200,000', 'red'],
     encumbered:['$0', 'purple'],
     tyler:['$0', 'purple'],
-    available:'',
+    available: ['', 'purple'],
   },
   {
     key: '27',
@@ -308,7 +308,7 @@ export const DATA_FINANCIALS = [
     projected: ['$50,000', 'red'],
     encumbered:['$0', 'purple'],
     tyler:['$0', 'purple'],
-    available:'-$199,552',
+    available: ['-$199,552', 'purple'],
   },
   {
     key: '28',
@@ -316,5 +316,6 @@ export const DATA_FINANCIALS = [
     projected: ['$400,320', 'total'],
     encumbered:['$400,320', 'total'],
     tyler:['$400,320', 'total'],
+    available: ['$50,000', 'total'],
   },
 ];

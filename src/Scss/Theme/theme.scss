@@ -620,16 +620,38 @@ body{
   .btn-filter-k{
     border: 1px solid #ffffff;
     color: #11093c;
-    background: #f8f7f9;
-    /* opacity: 0.6; */
+    background: #ffffff;
+    opacity: 0.6;
     border-radius: 6px;
-    box-shadow: none;
     padding: 4px 10px;
     margin: 0px 3px;
+    box-shadow: none !important;
+    border: none !important;
+    --ant-wave-shadow-color: none !important;
   }
   .btn-filter-k:hover{
     color: #11093c;
+    // background: #fff;
+    background: #f8f7f9;
     opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .btn-filter-k-active{
+    color: #11093c;
+    // background: #fff;
+    background: #f8f7f9;
+    opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .btn-filter-k:hover, .btn-filter-k:focus, .btn-filter-k:active, .btn-filter-k.active{
+    color: #11093c;
+    // background: #fff;
+    background: #f8f7f9;
+    opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
   }
   /* Default close button */
   .ant-modal-close {

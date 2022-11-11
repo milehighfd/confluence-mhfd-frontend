@@ -71,6 +71,9 @@ const Financials = () => {
       title: 'Available',
       dataIndex: 'available',
       key: 'available',
+      render: (available:string[]) => (
+        <p className={"table-" + available[1]}>{available[0]}</p>
+      ),
       sorter: (a:any, b:any) => a.available.length - b.available.length,
     },
   ];
@@ -85,11 +88,11 @@ const Financials = () => {
           <div className="line-01"></div>
         </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{textAlign:'end'}}>
           <Button className="btn-purple" style={{height:'40px'}} onClick={()=>{setOpenModalAmount(true)}}><PlusOutlined /> Amount</Button>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
           <div style={{width:'100%', overflowX:'scroll'}}>

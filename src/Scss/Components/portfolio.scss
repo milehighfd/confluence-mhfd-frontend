@@ -147,6 +147,37 @@
     margin-right: 6px;
   }
 }
+.piney-text{
+  position: absolute;
+  background: white;
+  z-index: 3;
+  right: 0px;
+  width: 300px;
+  height: 100%;
+  padding: 15px 15px;
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  .header-piney{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color:#11093C !important;
+  }
+  .tag-blue{
+    background-color: #047cd7;
+    color: white;
+    margin-right: 10px;
+    border-radius: 10px;
+    padding: 3px 10px;
+  }
+  p{
+    color: #11093C !important;
+  }
+  .active-btn-piney{
+    color:#047cd7;
+  }
+}
 .portafolio-head{
   background: $white;
   .circulo {
@@ -303,16 +334,38 @@
   .btn-filter-k{
     border: 1px solid #ffffff;
     color: #11093c;
-    background: #f8f7f9;
-    /* opacity: 0.6; */
+    background: #ffffff;
+    opacity: 0.6;
     border-radius: 6px;
-    box-shadow: none;
     padding: 4px 10px;
     margin: 0px 3px;
+    box-shadow: none !important;
+    border: none !important;
+    --ant-wave-shadow-color: none !important;
   }
-  .btn-filter-k:hover  .btn-filter-k:focus .btn-filter-k:active{
+  .btn-filter-k:hover{
     color: #11093c;
-    background: #fff;
+    // background: #fff;
+    background: #f8f7f9;
+    opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .btn-filter-k-active{
+    color: #11093c;
+    // background: #fff;
+    background: #f8f7f9;
+    opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .btn-filter-k:hover, .btn-filter-k:focus, .btn-filter-k:active, .btn-filter-k.active{
+    color: #11093c;
+    // background: #fff;
+    background: #f8f7f9;
+    opacity: 1;
+    box-shadow: none !important;
+    border: none !important;
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     border-radius: 2px !important;
@@ -954,7 +1007,6 @@
       width: 300px;
       height: 100%;
       padding: 15px 15px;
-      margin-top: -15px;
       
       box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
       .header-piney{
@@ -1010,7 +1062,7 @@
   border-radius: 4px;
   color: #11093C;
   text-align: center;
-  height:  calc(100vh - 122px);;
+  height:  calc(100vh - 59px);;
   overflow-y: auto;
   h1{
     font-size: 16px;
