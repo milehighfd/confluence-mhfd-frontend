@@ -25,7 +25,20 @@
   stroke: red;
   visibility: hidden;
 }
+.ant-table-body::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+.ant-table-body::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.ant-table-body::-webkit-scrollbar-thumb {
+  background: $purple00;
+  border-radius: 10px;
+}
 .topHeader text{
   fill: #11093C;
   width: 58px;

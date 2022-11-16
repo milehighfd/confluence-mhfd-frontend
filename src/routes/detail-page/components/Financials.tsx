@@ -95,8 +95,15 @@ const Financials = () => {
       </Row> */}
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
-          <div style={{width:'100%', overflowX:'scroll'}}>
-            <Table dataSource={DATA_FINANCIALS} columns={columns} pagination={{ pageSize: 50 }}/>
+          <div style={{width:'100%', overflowX:'hidden'}}>
+            <Table dataSource={DATA_FINANCIALS} columns={columns} pagination={{ pageSize: 50 }}  scroll={{ y: 350 }} />
+            <div style={{display:'flex', paddingTop:'5px'}}>
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'50%'}}>Total</p>
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
+              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p>
+            </div>
           </div>
           
         </Col>

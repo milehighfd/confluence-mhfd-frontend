@@ -6,6 +6,13 @@
   bottom: 0;
   width: 100%;
 }
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: rgba(0,0,0,.85);
+  font-weight: 600;
+  background-color: #f7f7f9 !important;
+  margin: 3px;
+  border-radius: 5px;
+}
 .body-modal-data{
   .ant-select-item-option {
     padding: 7.5px 10px 8px 10px;
@@ -1128,14 +1135,18 @@
   text-align: left;
   font-size: 12px;
   opacity: 0.6;
-  color: $black !important;
+  color: $purple !important;
   // border-bottom: 1px solid $opacity01;
+  margin: 3px;
+  border-radius: 5px;
 }
 .ant-select-item-option-active{
-  background: rgba(73, 97, 246, 0.15) !important;
-  color: $black !important;
+  background: #f7f7f9 !important;
+  color: $purple !important;
   font-weight: 500 !important;
   opacity: 1;
+  margin: 3px;
+  border-radius: 5px;
 }
 .mdi-circle {
   font-size: 16px;

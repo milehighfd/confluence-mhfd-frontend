@@ -310,12 +310,12 @@ export const DATA_FINANCIALS = [
     tyler:['$0', 'purple'],
     available: ['-$199,552', 'purple'],
   },
-  {
-    key: '28',
-    agreement: ['Total','total'],
-    projected: ['$400,320', 'total'],
-    encumbered:['$400,320', 'total'],
-    tyler:['$400,320', 'total'],
-    available: ['$50,000', 'total'],
-  },
+  // {
+  //   key: '28',
+  //   agreement: ['Total','total'],
+  //   projected: ['$400,320', 'total'],
+  //   encumbered:['$400,320', 'total'],
+  //   tyler:['$400,320', 'total'],
+  //   available: ['$50,000', 'total'],
+  // },
 ];
