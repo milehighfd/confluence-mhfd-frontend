@@ -1,8 +1,10 @@
 import { ArrowDownOutlined, CalendarOutlined, InfoCircleOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, Row } from 'antd';
+import { Button, Checkbox, Col, DatePicker, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React from 'react';
 import { NewProjectsFilter } from '../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter';
+
+const { RangePicker } = DatePicker;
 
 const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
   return (
@@ -27,8 +29,6 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                <p style={{marginBottom:'25px'}}>Draft </p>
-                <p style={{marginBottom:'25px'}}>Work Request (WR) </p>
                 <p style={{marginBottom:'25px'}}>Work Plan (WP) </p>
                 <p style={{marginBottom:'25px'}}>Startup </p>
                 <p style={{marginBottom:'25px'}}>Initial Funding </p>
@@ -43,43 +43,37 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                    <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
-                </p>
-                <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
-                </p>
-                <p className='calendar-toollgate'>
-                  <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/><RightOutlined style={{fontSize:'9px'}}/> <span style={{color:'#E6E9EA'}}>&nbsp;|&nbsp;</span> <CalendarOutlined /> Wed 4/6 <LeftOutlined style={{fontSize:'9px'}}/> <RightOutlined style={{fontSize:'9px'}}/>
+                  <RangePicker bordered={false}/>
                 </p>
               </Col>
             </Row>

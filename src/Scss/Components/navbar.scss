@@ -162,13 +162,21 @@
   padding: 6px 0px;
 }
 .ant-dropdown-menu-item{
-  color: $opacity;
+  color: #11093C !important;
   font-size: 12px !important;
+  margin: 3px;
+  border-radius: 5px;
+  opacity: 0.6;
+  font-weight: 500;
 }
 .ant-dropdown-menu-item-active{
-  background: white !important;
-  color: $green;
-  font-weight: bold;
+  background: #f7f7f9 !important;
+  color: #11093c;
+  margin: 3px;
+  border-radius: 5px;
+  /* font-weight: bold; */
+  font-weight: 500;
+  opacity: 1;
 }
 .menu-density{
   .ant-dropdown-menu-item-active {

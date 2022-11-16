@@ -746,14 +746,58 @@ body{
   width: 322px !important;
 }
 .calendar-toollgate{
-  margin-bottom: 15px !important;
+  margin-bottom: 14px !important;
   background-color: #f8f8fa;
-  padding: 5px ;
+  padding: 0px;
   border-radius: 2px;
   color: #11093C !important;
 }
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
+  border: 1px solid #11093c;
+}
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #11093c;
+}
+.ant-picker-cell-in-view.ant-picker-cell-in-range:before {
+  background: #11093c1a;
+}
+.ant-picker-date-panel .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner:after, .ant-picker-date-panel .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner:after {
+  background: #11093c1a;
+}
+.ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single):before, .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single):before {
+  background: #11093c1a;
+}
+.ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover:before, .ant-picker-cell-in-view.ant-picker-cell-range-end.ant-picker-cell-range-hover:before, .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single).ant-picker-cell-range-hover-end:before, .ant-picker-cell-in-view.ant-picker-cell-range-start.ant-picker-cell-range-hover:before, .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single).ant-picker-cell-range-hover-start:before, .ant-picker-panel>:not(.ant-picker-date-panel) .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-end:before, .ant-picker-panel>:not(.ant-picker-date-panel) .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start:before {
+  background: #11093c2e;
+}
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-end.ant-picker-cell-range-end-single:after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-end.ant-picker-cell-range-start.ant-picker-cell-range-end.ant-picker-cell-range-start-near-hover:after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-start.ant-picker-cell-range-start-single:after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-start.ant-picker-cell-range-start.ant-picker-cell-range-end.ant-picker-cell-range-end-near-hover:after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):after, .ant-picker-cell-in-view.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range):after {
+  border-top: 1px dashed #11093c;
+  border-bottom: 1px dashed #11093c;
+}
+.ant-picker-cell-in-view.ant-picker-cell-end.ant-picker-cell-range-hover-edge-end.ant-picker-cell-range-hover-edge-end-near-range:after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-edge-end:not(.ant-picker-cell-range-hover-edge-end-near-range):after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-end:after, tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child:after, tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:last-child:after {
+  border-right: 1px dashed #11093c;
+}
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-edge-start:not(.ant-picker-cell-range-hover-edge-start-near-range):after, .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:after, .ant-picker-cell-in-view.ant-picker-cell-start.ant-picker-cell-range-hover-edge-start.ant-picker-cell-range-hover-edge-start-near-range:after, tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover-end:first-child:after, tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
+  border-left: 1px dashed  #11093c;
+}
+
 .modal-tollgate{
   width: 470px !important;
+  .ant-picker-range .ant-picker-active-bar {
+    background: #11093c;
+  }
+  .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
+    border: 1px solid #11093c;
+  }
+  .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+    background: #11093c;
+  }
+  .ant-picker-cell-in-view.ant-picker-cell-in-range:before {
+    background: #11093c1a;
+  }
+  .ant-picker-date-panel .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-end .ant-picker-cell-inner:after, .ant-picker-date-panel .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start .ant-picker-cell-inner:after {
+    background: #11093c1a;
+  }
 }
 .detailed-upload {
   width: 760px !important;

@@ -228,16 +228,12 @@ const PortafolioBody = () => {
                   <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
                   <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
                 </span>
-                {optionSelect === 'Schedule' && <>
-                  <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
+                  <Button style={{paddingLeft:'0px',border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
                     <CalendarOutlined /> Edit Dates
                   </Button>
                   <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
                   <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)}/>
                   <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/>
-                </>
-
-                }
               </div>}
         </div>
         <Tabs defaultActiveKey={displayedTabKey[1]}
