@@ -60,7 +60,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>MHFD Lead</p>
+                <p>MHFD Lead/PM</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
