@@ -110,48 +110,48 @@ const Search = (
           }
         }}
         onMouseEnter={()=>{
-          setHoverTable([0,1,0]);
+          setHoverTable([0,0,0]);
         }}
       >
         <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]])}}>
           <Panel header="Centennial" key="1" id='testing1'>
-            <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Upstream of Zuni...</p>
               </Popover>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,1]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase III</p>
               </Popover>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,2]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Niver Detention Dam - EAP...</p>
               </Popover>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 3 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 3 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,3]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Barr Creek - E470 to Quebec</p>
               </Popover>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 4 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 4 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,4]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Trib M - Thornton</p>
               </Popover>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search"  style={hoverTable[2] === 5 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}}>
+            <div className="text-search"  style={hoverTable[2] === 5 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,5]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Big Dry Creek (ARAPCO)</p>
               </Popover>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}}>
+            <div className="text-search" style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}} onMouseEnter={()=>{setHoverTable([1,0,6]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>West Tollgate Creek</p>
               </Popover>
@@ -161,13 +161,13 @@ const Search = (
         </Collapse>
         <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]])}}>
           <Panel header="Commerce City" key="1" id='testing2'>
-            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}>
+            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}  onMouseEnter={()=>{setHoverTable([1,1,0]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase IV</p>
               </Popover>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa', marginRight:'11px'}:{marginRight:'11px'}}>
+            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa', marginRight:'11px'}:{marginRight:'11px'}}  onMouseEnter={()=>{setHoverTable([1,1,1]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Snyder Creek - E470 to Quebec</p>
               </Popover>
@@ -177,19 +177,19 @@ const Search = (
         </Collapse>
         <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}  onChange={(e)=>{setOpenTable([openTable[0], openTable[1],e.length > 0 ])}}>
           <Panel header="Denver" key="1" id='testing3'>
-            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
+            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,0]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>Piney Creek Channel Restore</p>
               </Popover>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search"  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
+            <div className="text-search"  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,1]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>No Name Creek Regional </p>
               </Popover>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}}>
+            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,2]);}}>
               <Popover content={content} title="Title" overlayClassName="popover-porfolio" placement="topLeft">
                 <p onClick={()=>{setDetailOpen(true)}}>East Tollgate Creek</p>
               </Popover>

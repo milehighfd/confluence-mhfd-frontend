@@ -5,12 +5,13 @@ import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
 import DetailModal from "routes/detail-page/components/DetailModal";
 const TablePortafolio = (
-  {divRef, searchRef, openTable, setHoverTable}
+  {divRef, searchRef, openTable, setHoverTable,hoverTable}
   :{
     divRef:React.MutableRefObject<HTMLDivElement | null>,
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
     openTable: boolean[],
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
+    hoverTable:number[],
   }) => {
   
   const [detailOpen, setDetailOpen] = useState(false);
@@ -189,7 +190,7 @@ const TablePortafolio = (
             onClick: event => {}, // click row
             onDoubleClick: event => {}, // double click row
             onContextMenu: event => {}, // right button click row
-            onMouseEnter: event => {setHoverTable([1,0,rowIndex? rowIndex:0]); console.log('Dotty', record, rowIndex)}, // mouse enter row
+            onMouseEnter: event => {setHoverTable([1,0,rowIndex? rowIndex:0]);}, // mouse enter row
             onMouseLeave: event => {}, // mouse leave row
           };
         }}
@@ -201,6 +202,12 @@ const TablePortafolio = (
             onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
             onMouseLeave: event => {}, // mouse leave row
           };
+        }}
+        rowClassName={(record:any) => {
+          if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === 0){
+            return 'active-table-row'
+          }
+          return ''
         }}
       />
       <Table
@@ -225,6 +232,12 @@ const TablePortafolio = (
             onMouseLeave: event => {}, // mouse leave row
           };
         }}
+        rowClassName={(record:any) => {
+          if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === 1){
+            return 'active-table-row'
+          }
+          return ''
+        }}
       />
       <Table
         columns={columns}
@@ -248,6 +261,12 @@ const TablePortafolio = (
             onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
             onMouseLeave: event => {}, // mouse leave row
           };
+        }}
+        rowClassName={(record:any) => {
+          if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === 2){
+            return 'active-table-row'
+          }
+          return ''
         }}
       />
     </div>
