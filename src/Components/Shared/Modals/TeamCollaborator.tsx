@@ -21,18 +21,18 @@ const TeamCollaborator = () => {
             <h5 className={selected ? 'active-title': ''}>Team</h5>
           </div>
         </Col>
-        <Col span={16}>
+        <Col span={16} >
           <div
             className="chart-title"
             onClick={() => {setSelected(false)}}
             role="button"
             tabIndex={1}
           >
-            <h5 className={!selected ? 'active-title': ''}>Action Iteams</h5>
+            <h5 className={!selected ? 'active-title': ''} style={{opacity:'0.5'}}>Action Iteams</h5>
           </div>
         </Col>
         <Col span={2} style={{textAlign:'end'}}>
-          <PlusOutlined onClick={()=>{setOpenTeam(true)}}/>
+          <PlusOutlined style={{opacity:'0.5'}} onClick={()=>{setOpenTeam(true)}}/>
         </Col>
       </Row>
       {selected && <TeamModal />}

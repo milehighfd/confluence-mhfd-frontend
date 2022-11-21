@@ -65,6 +65,7 @@ const TeamModal = () => {
         <span>MHFD</span>
       </Col>
     </Row>
+    <div style={{opacity:'0.5'}}>
     <Row style={{paddingBottom: '15px'}}>
       <Col span={14}>
         <h5 style={{textDecoration: 'none'}}>
@@ -173,6 +174,7 @@ const TeamModal = () => {
         />
         Send
       </button>
+      </div>
     </div>
   </>
 };

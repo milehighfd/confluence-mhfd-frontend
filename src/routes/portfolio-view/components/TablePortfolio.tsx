@@ -102,16 +102,7 @@ const TablePortafolio = (
       dataIndex: 'contact',
       width: "10%",
       ellipsis: true,
-    },
-    {
-      title: 'View',
-      key: 'view',
-      render: (_, record) => (
-        <Button className="btn-transparent transparent-btn" style={{color:'transparent'}}>view</Button>
-      ),
-      width: "8%",
-      ellipsis: true,
-    },
+    }
   ];
   const columns: ColumnsType<DataType> = [
     {
@@ -174,15 +165,7 @@ const TablePortafolio = (
       dataIndex: 'contact',
       width: "10%",
       ellipsis: true,
-    },
-    {
-      title: '',
-      key: 'view',
-      render: (_, record) => (
-        <Button className="btn-purple" onClick={()=>(setDetailOpen(true))}>View</Button>
-      ),
-      width: "8%",
-    },
+    }
   ];
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}

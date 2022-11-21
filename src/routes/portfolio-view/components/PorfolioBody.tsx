@@ -196,21 +196,21 @@ const PortafolioBody = () => {
             <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(true)}}>
               <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#bfbcc9' }} src=""/>&nbsp;Filter
             </Button>
-            <Button className=" btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
+            {/* <Button className=" btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
               <ToTopOutlined style={{fontSize: '16px', color: '#706b8a'}}/>
-            </Button>
+            </Button> */}
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
           </Col>
         </Row>
       </div>
       <div className="work-body portafolio">
         <div style={{position: 'absolute',right: '5px', zIndex:'3'}}>
-          {optionSelect === 'List' &&
+          {/* {optionSelect === 'List' &&
             <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{setOpenModalTable(true)}}>
               <SettingFilled />
               Customize table
             </Button>
-          }
+          } */}
           {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
@@ -231,9 +231,10 @@ const PortafolioBody = () => {
                   <Button style={{paddingLeft:'0px',border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
                     <CalendarOutlined /> Edit Dates
                   </Button>
-                  <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
+                  
+                  {optionSelect === 'Schedule' && <><span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
                   <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)}/>
-                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/>
+                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/></>}
               </div>}
         </div>
         <Tabs defaultActiveKey={displayedTabKey[1]}

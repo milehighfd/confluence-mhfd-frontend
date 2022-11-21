@@ -20,7 +20,7 @@ const Roadmap = () => {
           <img src="/picture/calendar.png" width='100%'/>
           </Col>
       </Row>
-      <Row>
+      <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="graphical-view">GRAPHICAL VIEW</h3>
         </Col>
@@ -28,7 +28,7 @@ const Roadmap = () => {
           <div className="line-01"></div>
         </Col>
       </Row>
-      <Row>
+      <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
           <div style={{color: '#11093C'}}>
             <span className={timeOpen ? "span-roadmap-active" :"span-roadmap"} onClick={()=>{setTimeOpen(true)}}>

@@ -11,6 +11,7 @@ import Documents from "./Documents";
 import { LeftCircleFilled, LeftOutlined, RightCircleFilled, RightOutlined } from "@ant-design/icons";
 import { CarouselRef } from "antd/lib/carousel";
 import ImageModal from "Components/Shared/Modals/ImageModal";
+import History from "./History";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -87,6 +88,8 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           <a href="#project-management" className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(7)}}>Project Management</a>
           <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(8)}}>Maps</a>
           <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(9)}}>Attachments</a>
+
+          <a href="#history" className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(10)}}>History</a>
         </div>
         <Row
           className="detailed-b"
@@ -111,14 +114,17 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
             if(divRef.current &&  divRef.current?.scrollTop > 1650){
               numberSecction= 6;
             }
-            if(divRef.current &&  divRef.current?.scrollTop > 2900){
+            if(divRef.current &&  divRef.current?.scrollTop > 2050){
               numberSecction= 7;
             }
-            if(divRef.current &&  divRef.current?.scrollTop > 3800){
+            if(divRef.current &&  divRef.current?.scrollTop > 3000){
               numberSecction= 8;
             }
-            if(divRef.current &&  divRef.current?.scrollTop > 4150){
+            if(divRef.current &&  divRef.current?.scrollTop > 3650){
               numberSecction= 9;
+            }
+            if(divRef.current &&  divRef.current?.scrollTop > 3850){
+              numberSecction= 10;
             }
             setOpenSecction(numberSecction);
           }}
@@ -150,6 +156,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
               <Management />
               <Map />
               <Documents />
+              <History />
             </div>
           </Col>
           <Col span={7} className="mobile-display">

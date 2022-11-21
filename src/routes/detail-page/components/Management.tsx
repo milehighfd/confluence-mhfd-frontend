@@ -30,7 +30,7 @@ const Management = () => {
   return (
     <>
       {modalAction && <ModalAction visible={modalAction} setVisible={setModalAction}/>}
-      <Row>
+      <Row  style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-management">PROJECT MANAGEMENT</h3>
         </Col>
@@ -38,7 +38,7 @@ const Management = () => {
           <div className="line-01"></div>
         </Col>
       </Row>
-      <Row>
+      <Row  style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
           <p style={{marginTop:'5px'}}>Phase</p>
           <Row>
