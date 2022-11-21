@@ -13,11 +13,11 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [currentZScale, setCurrentZScale] = useState(4);
+  const [currentZScale, setCurrentZScale] = useState(100);
   // const svgRef = useRef<SVGSVGElement>(null);
   // const [currentZScale, setcurrentZScale] = useState<any>();
   console.log( 'openTable', openTable);
-  const [zoomState, setZoomState] = useState<any>();
+  const [zoomedState, setZoomedState] = useState<any>();
   const [actionItemsState, setActionItemsState] = useState({
     draft:true,
     sign:false,
@@ -657,7 +657,7 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
       .scaleExtent([0.5, 20])
       .translateExtent([[0, 0], [width, 0]])
       .on('zoom', zoomed);
-    svg.call(zoom);
+    svg.call(zoom).on("wheel.zoom", null);
     svg.call(zoom.scaleBy, currentZScale)
 
     const moveZoom = (newZoomValue: any) => {
