@@ -34,6 +34,7 @@ const PortafolioBody = () => {
   const tableRef = useRef<null | HTMLDivElement>(null); 
   const searchRef = useRef<null | HTMLDivElement>(null); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
+  const scheduleRef = useRef<null | HTMLDivElement>(null);
   const [moveSchedule, setMoveSchedule] = useState('null'); 
   const [zoomTimeline, setZoomTimeline] = useState(0);
   console.log('zoom',zoomTimeline);
@@ -247,12 +248,12 @@ const PortafolioBody = () => {
                     {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                   <Row>
                     <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                      <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef}/>
+                      <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef}/>
                     </Col>
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} setHoverTable={setHoverTable}/>}
                       {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef}/>}
-                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={zoomTimeline}/>}
+                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef}/>}
                     </Col>
                   </Row>
                   </div>

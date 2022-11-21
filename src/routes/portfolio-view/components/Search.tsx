@@ -16,10 +16,11 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const Search = (
-  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef}
+  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef, scheduleRef}
   :{
     searchRef: React.MutableRefObject<HTMLDivElement | null>,
     tableRef: React.MutableRefObject<HTMLDivElement | null>,
+    scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: boolean[],
     hoverTable:number[],
@@ -82,7 +83,7 @@ const Search = (
   );
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
-    <div className="search">
+    <div className="search" id='searchPortfolio'>
       <div className="search-head">
         <Input placeholder="Search" prefix={<SearchOutlined />} style={{width:'85%'}}/>
         <Dropdown overlay={menu} trigger={['click']} >
@@ -103,6 +104,9 @@ const Search = (
           }
           if(phaseRef.current){
             phaseRef.current.scrollTo(0, dr.scrollTop)
+          }
+          if(scheduleRef.current){
+            scheduleRef.current.scrollTo(0, dr.scrollTop)
           }
         }}
         onMouseEnter={()=>{

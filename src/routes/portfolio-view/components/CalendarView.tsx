@@ -8,7 +8,12 @@ import PineyView from "./PineyView";
 
 
 const { Step } = Steps;
-const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedule:number}) => {
+const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
+  openTable:boolean[],
+  moveSchedule:number,
+  scheduleRef:React.MutableRefObject<HTMLDivElement | null>,
+  searchRef:React.MutableRefObject<HTMLDivElement | null>,
+}) => {
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
@@ -714,10 +719,20 @@ const CalendarView = ({openTable, moveSchedule}:{openTable:boolean[],moveSchedul
   //     moveZoom(moveSchedule)
   //   }
   // },[moveSchedule])
+  let heightOfList = document.getElementById('searchPortfolio')?.offsetHeight;
+
   return <div className="calendar-body" id='widthDivforChart'>
     {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
-    <div style={{overflowY:'scroll'}}>
-      <div id='chartContainer'>
+    <div id='chartContainer' style={{height: heightOfList, overflowY:'auto'}}
+    ref={scheduleRef}
+    onScroll={(e:any) => {
+      let dr: any =  scheduleRef.current;
+      if(searchRef.current){
+        searchRef.current.scrollTo(0, dr.scrollTop);
+      }
+    }}
+    >
+      <div>
       <div id="timeline-chart" />
       {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
       </div>
