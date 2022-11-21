@@ -1983,7 +1983,7 @@ hr.filters-line {
   }
   .notification-body{
     display: flex;
-    margin-bottom: 10px;
+    padding: 4px;
     .text-notification{
       margin-left: 5px;
       p{
@@ -2000,6 +2000,11 @@ hr.filters-line {
         opacity: 0.6;
       }
     }
+  }
+  .notification-body:hover{
+    background-color: #f7f7f9;
+    border-radius: 5px;
+    cursor: pointer;
   }
 }
 .check-scroll{
