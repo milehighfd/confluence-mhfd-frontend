@@ -120,10 +120,10 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
             if(divRef.current &&  divRef.current?.scrollTop > 3000){
               numberSecction= 8;
             }
-            if(divRef.current &&  divRef.current?.scrollTop > 3650){
+            if(divRef.current &&  divRef.current?.scrollTop > 3450){
               numberSecction= 9;
             }
-            if(divRef.current &&  divRef.current?.scrollTop > 3850){
+            if(divRef.current &&  divRef.current?.scrollTop > 3500){
               numberSecction= 10;
             }
             setOpenSecction(numberSecction);
