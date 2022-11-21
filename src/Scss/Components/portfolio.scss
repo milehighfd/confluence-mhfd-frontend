@@ -193,6 +193,14 @@
   .active-btn-piney{
     color:#047cd7;
   }
+  .active-btn-piney-edit{
+    padding: 5px;
+    margin-top: -5px;
+    border-radius: 5px;
+  }
+  .active-btn-piney-edit:hover{
+    background-color: #f8f7f9;
+  }
 }
 .portafolio-head{
   background: $white;
@@ -577,6 +585,9 @@
         text-overflow: ellipsis;
         overflow: hidden;
       }
+    }
+    .text-search:hover {
+      background-color: #fbfbfc;
     }
   }
   .search::-webkit-scrollbar {
@@ -1078,8 +1089,8 @@
   border-radius: 4px;
   color: #11093C;
   text-align: center;
-  height:  calc(100vh - 59px);;
-  overflow-y: auto;
+  height:  calc(100vh - 59px);
+  overflow-y: hidden;
   h1{
     font-size: 16px;
     margin: 0px;
@@ -1090,6 +1101,28 @@
   .color-sub{
     color: #11093C;
     opacity: 0.6;
+  }
+  .profile{
+    height:  calc(100vh - 390px);
+    overflow-y: auto;
+  }
+  .profile::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .profile::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .profile::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 25px !important;
+    min-height: auto !important;
   }
 }
 .profile-myprofile::-webkit-scrollbar {

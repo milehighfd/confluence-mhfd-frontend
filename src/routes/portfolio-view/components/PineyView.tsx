@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Calendar, Checkbox, Col, DatePicker, Dropdown, Input, Layout, Menu, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
 import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter";
 import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, PlusOutlined } from "@ant-design/icons";
+import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 
 
 const { Step } = Steps;
 const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
+  const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
   const [editView, setEditView] = useState(false);
   const menu = (
     <Menu
@@ -47,7 +49,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
     <div className="piney-text">
       <div className="header-piney" style={{marginBottom:'20px'}}>
         <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
-        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney':''} onClick={()=>{setEditView(!editView)}}/>
+        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setEditView(!editView)}}/>
       </div>
       <div className="body-piney">
         <h1 style={{color:'#000000', fontSize:'16px', marginBottom:'15px'}}>Piney Creek Channel Restore</h1>
@@ -103,7 +105,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
-                  <DatePicker style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} />
+                  <DatePicker style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList}/>
                   :<p>July 1, 2021</p>
                 }
               </Col>
@@ -114,7 +116,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
-                  <DatePicker style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} />
+                  <DatePicker style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} />
                   :<p>December 6, 2021</p>
                 }
               </Col>
