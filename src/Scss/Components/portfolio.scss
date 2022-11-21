@@ -858,7 +858,7 @@
     }
   }
   .phaseview-body{
-    width: 1424px !important;
+    width: 100% !important;
     overflow-x: scroll;
     // height: calc(100vh - 181px);
     .phaseview-content{
@@ -869,7 +869,7 @@
         height: 100%;
         overflow-y: auto;
         height: calc(100vh - 205px);
-        width: 110%;
+        width: 100%;
       }
       .phaseview-title{
         display: flex;
@@ -882,7 +882,7 @@
         /* padding: 19px 0px; */
         background: #ffffff;
         border-bottom: 1px solid #d4d2d9;
-        width: 100%;
+        width: 1090px;
         p{
           width: 6.6666666667%;
           padding: 0px 0px;

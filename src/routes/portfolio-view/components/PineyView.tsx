@@ -8,7 +8,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 const { Step } = Steps;
 const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
-  const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
+  const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [editView, setEditView] = useState(false);
   const menu = (
     <Menu

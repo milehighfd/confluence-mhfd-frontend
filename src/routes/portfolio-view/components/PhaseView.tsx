@@ -27,7 +27,7 @@ const PhaseView = (
 
   const phaseChart = (dataDotchart: any) => {
     var margin = { top: -22, right: 30, bottom: -26, left: 10 },
-    width = 1575 - margin.left - margin.right,
+    width = 1405 - margin.left - margin.right,
     heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight, //265 - margin.top - margin.bottom;
     height: any  = heightDiv +3;
     console.log(dataDotchart[0].id);
@@ -170,8 +170,6 @@ const PhaseView = (
     {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
     <div className="phaseview-content">
       <div className="phaseview-title">
-        <p>Draft</p>
-        <p>Work Request (WR)</p>
         <p>Work Plan<br/>(WP)</p>
         <p>Startup</p>
         <p>Funding</p>
