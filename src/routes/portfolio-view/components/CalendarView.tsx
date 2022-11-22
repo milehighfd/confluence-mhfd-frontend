@@ -21,8 +21,10 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
   const [currentZScale, setCurrentZScale] = useState(100);
   // const svgRef = useRef<SVGSVGElement>(null);
   // const [currentZScale, setcurrentZScale] = useState<any>();
-  console.log( 'openTable', openTable);
   const [zoomedState, setZoomedState] = useState<any>();
+  const [isZoomToday, setIsZoomToday] = useState<any>(false);
+  const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
+  const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [actionItemsState, setActionItemsState] = useState({
     draft:true,
     sign:false,
@@ -204,7 +206,7 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
           
       let dragablesLines = 'dragginglines';      
       
-        let padding = { top: 55, right: 10, bottom: 10, left: 75 }
+        let padding = { top: 35, right: 10, bottom: 10, left: 75 }
         let offsetBar = 20;
         const dragableLineLength = 3;
         const dragableLineHalf = (dragableLineLength / 2);
@@ -221,8 +223,8 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
     if (counterDataForChart !== 0){
     let fromData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.from - b.from});
     let toData = datasets.map((ds:any) => ds.schedule).flat().sort(function(a: any, b: any) { return a.to - b.to});
-    let timelineStartTime = moment(fromData[0].from.startOf('day')).subtract(6, 'days');
-    let timelineEndTime = moment(toData[toData.length - 1].to).add(6, 'days').startOf('day');
+    let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
+    let timelineEndTime = moment(toData[toData.length - 1].to).add(6, 'months').startOf('month');
     // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
     // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
     let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
@@ -235,7 +237,9 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
     .attr("x", (d: any) => 0)
     .attr("width", (d: any) => width)
    .attr('class', 'backgroundRecthidden')
-
+      console.log('timelineStartTime', timelineStartTime)
+      console.log('timelineEndTime', timelineEndTime)
+      console.log('today', today)
     let xScale = d3.scaleTime()
       .domain([timelineStartTime, timelineEndTime])
       .range([padding.left, width - padding.right])
@@ -247,16 +251,22 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
     let chartHeight = height - padding.top - padding.bottom
     let timeFormatterForYears: any = d3.timeFormat('%Y');
     let timeFormatterForMonths: any = d3.timeFormat('%b');
+    let timeFormatterForDays: any = d3.timeFormat('%d');
     let tickFormatEmpty: any = '';
-    let xAxis2 = d3.axisTop(xScale)
+    let xAxisYear = d3.axisTop(xScale)
       .tickSize(-chartHeight+100)
       .ticks(d3.timeYear.every(1))
       .tickFormat(timeFormatterForYears);
     
-      let xAxis = d3.axisTop(xScale)
+      let xAxisMonth = d3.axisTop(xScale)
       .ticks(d3.timeMonth.every(1))
       .tickSize(-chartHeight)
       .tickFormat(timeFormatterForMonths, )
+
+      let xAxisDay = d3.axisTop(xScale)
+      .ticks(d3.timeDay.every(1))
+      .tickSize(-chartHeight)
+      .tickFormat(timeFormatterForDays, )
 
       let yAxis = d3.axisLeft(yScale)
       .ticks(12)
@@ -266,13 +276,13 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
     let gX = svg.append('g')
       .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
       .attr("class", "topHeader")
-      .call(xAxis)
+      .call(xAxisDay)
 
     let gX2 = svg.append('g')
       .attr('transform', 'translate(' + 0 + ',' + (padding.top- 20) + ')')
       .attr("class", "topHeaderYear")
       .style("text-anchor", "start")
-      .call(xAxis2);
+      .call(xAxisYear);
 
       svg.append('g')
       .attr('transform', 'translate(' + (width - padding.left) + ',' + -22 + ')')
@@ -650,16 +660,24 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
       }
     });
     let zoomed = function () {
-      zoomedXScale = d3.event.transform.rescaleX(xScale);
-      gX.call(xAxis.scale(zoomedXScale));
-      gX2.call(xAxis2.scale(zoomedXScale));
-      updateRects();
       setCurrentZScale(d3.event.transform.k);
+      zoomedXScale = d3.event.transform.rescaleX(xScale);
+      if (currentZScale < 12){
+        gX.call(xAxisMonth.scale(zoomedXScale));
+      gX2.call(xAxisYear.scale(zoomedXScale));
+      } else {
+        gX.call(xAxisDay.scale(zoomedXScale));
+        gX2.call(xAxisMonth.scale(zoomedXScale));
+      }
+      updateRects();
+
       //console.log( 'currentZScale', currentZScale)
     }
+
+
   
     zoom = d3.zoom()
-      .scaleExtent([0.5, 20])
+      .scaleExtent([0.5, 30])
       .translateExtent([[0, 0], [width, 0]])
       .on('zoom', zoomed);
     svg.call(zoom).on("wheel.zoom", null);
@@ -672,13 +690,43 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
       } else {
         type = 'out';
       }
-      console.log('working', type);
-      const adder = type === 'in' ? 1.4 : 0.7;
-      svg.transition().call(zoom.scaleBy, adder);
-      setZoomStatus(newZoomValue);
+      if(zoomStatus === newZoomValue){
+
+      } else {
+        console.log('working', type);
+        const adder = type === 'in' ? 1.4 : 0.7;
+        svg.transition().call(zoom.scaleBy, adder);
+        setZoomStatus(newZoomValue);
+      }
+
     }
-    console.log( 'in or out', moveSchedule)
+    console.log( 'in or out', currentZScale)
     moveZoom(moveSchedule);
+    if(isZoomToday){
+      console.log('whatever');
+      // svg
+      // .transition().call(zoom.scaleBy, 18);
+       zoom.scaleTo(svg, 30)
+       zoom.translateTo(svg, 0.9 * width, 0.5 *height)
+      setIsZoomToday(false);
+    }
+    if(isZoomWeekly){
+      console.log('whatever');
+      // svg
+      // .transition().call(zoom.scaleBy, 18);
+       zoom.scaleTo(svg, 15)
+       zoom.translateTo(svg, 0.9 * width, 0.5 *height)
+      setIsZoomWeekly(false);
+    }
+    if(isZoomMonthly){
+      console.log('whatever');
+      // svg
+      // .transition().call(zoom.scaleBy, 18);
+       zoom.scaleTo(svg, 4)
+       zoom.translateTo(svg, 0.9 * width, 0.5 *height)
+      setIsZoomMonthly(false);
+    }
+   
   }
     }
 
@@ -712,7 +760,7 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
     }
     timelineChart(datas);
     }
-  }, [openTable, moveSchedule]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly]);
 
   // useEffect(()=> {
   //   if(moveSchedule === 'in' || moveSchedule === 'out'){
@@ -721,8 +769,21 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
   // },[moveSchedule])
   let heightOfList = document.getElementById('searchPortfolio')?.offsetHeight;
 
+  // const moveZoom = (testt: string)=>{
+  //   console.log(testt);
+  // }
+
   return <div className="calendar-body" id='widthDivforChart'>
     {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
+    <Row>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}}>
+        <div>
+          <button style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setIsZoomToday(true)}>Today</button>
+          <button style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setIsZoomWeekly(true)}>Weekly</button>
+          <button style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setIsZoomMonthly(true)}>Monthly</button>
+        </div>
+      </Col>
+    </Row>
     <div id='chartContainer' style={{height: heightOfList, overflowY:'auto'}}
     ref={scheduleRef}
     onScroll={(e:any) => {
