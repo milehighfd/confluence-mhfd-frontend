@@ -701,15 +701,16 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
 
     }
     console.log( 'in or out', currentZScale)
-    moveZoom(moveSchedule);
+    
     if(isZoomToday){
-      console.log('whatever');
-      // svg
-      // .transition().call(zoom.scaleBy, 18);
-       zoom.scaleTo(svg, 30)
-       zoom.translateTo(svg, 0.9 * width, 0.5 *height)
+    zoom.translateTo(svg, xScale(today), 0);
+      //  zoom.scaleTo(svg, 30)
+      //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
       setIsZoomToday(false);
+    } else {
+      moveZoom(moveSchedule);
     }
+
     if(isZoomWeekly){
       console.log('whatever');
       // svg
