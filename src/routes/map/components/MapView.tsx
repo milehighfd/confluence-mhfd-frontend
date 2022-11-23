@@ -664,13 +664,14 @@ const MapView = () => {
 
   const onSelect = (value: any, isSelect?:any) => {
     setAutocomplete(value);
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.name === value).map((element: any) => {
       return {
-        aoi: element.aoi,
+        aoi: element.name,
         filter: element.filter,
-        coordinates: element.coordinates
+        coordinates: element.bbox
       }
     });
+    // TODO addis parse el bbox to coordinates jurisdiction
     if(zoomareaSelected[0]){
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect' ? undefined : "isSelect");
@@ -919,7 +920,7 @@ const MapView = () => {
               totalElements = cardInformation.length;
             } else {
               cardInformation = galleryProjectsV2.map((project: any) => {
-                console.log(project);
+                // console.log(project);
                 const x = {
                   cartodb_id: project.project_id,
                   image: (
