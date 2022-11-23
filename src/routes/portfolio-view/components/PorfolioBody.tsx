@@ -164,7 +164,7 @@ const PortafolioBody = () => {
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
             <h2 style={{width:'205px'}}>
-              <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header">
+              <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header" placement="bottomRight">
                 <div className="select-area">
                   <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
                     South Watershed &nbsp;<DownOutlined style={{fontSize:'14px'}}/>

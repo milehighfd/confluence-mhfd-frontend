@@ -739,7 +739,7 @@
       }
       .ant-table-thead > tr > th {
         background: #ffffff;
-        padding-top: 17px !important;
+        padding-top: 17px;
       }
       .ant-table-tbody {
         // display: none;
@@ -892,7 +892,7 @@
         /* padding: 19px 0px; */
         background: #ffffff;
         border-bottom: 1px solid #d4d2d9;
-        width: 1090px;
+        width: 100%;
         p{
           width: 6.6666666667%;
           padding: 0px 0px;
@@ -900,7 +900,7 @@
           line-height: 14px;
           margin-bottom: 0px;
           letter-spacing: -1px;
-          width: 80px;
+          width: 7.6%;
           height: 28px;
 
           font-family: 'Ubuntu';
@@ -1361,30 +1361,157 @@
   }
 }
 
-@media (min-width: 1999px) and (max-width: 3999px){
-  .portafolio-body{
-    .search{
-      .title-search{
-        width: 110% !important;
+@media (min-width: 1900px) and (max-width: 2549px){
+  .portafolio-head{
+    h2{
+      width: 290px !important;
+      color: $purple00;
+      font-size: 30px;
+      span{
+        font-size: 20px !important;
       }
-      .text-search {
-        padding: 15.6px 0px !important;
-      }
+    }
+    span{
+      font-size: 20px !important;
     }
   }
   .search{
+    .search-body{
+      height: calc(100vh - 228px) !important;
+    }
     .title-search{
-      // width: 110% !important;
+      width: 110% !important;
+    }
+    p{
+      font-size: 20px !important;
     }
     .text-search {
-      padding: 15.6px 0px !important;
+      padding: 12.4px 0px !important;
+      p{
+        font-size: 18px !important;
+      }
+    }
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+      padding: 5px 10px !important;
+      font-size: 20px !important;
+      height: 43px !important;
     }
   }
   .table-body{
+    .table-body-body{
+      height: calc(100vh - 230px) !important;
+    }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
-        padding: 10px 14px !important;
+        padding: 13px 14px !important;
+        font-size: 16.5px;
+      }
+      .ant-table-thead>tr>th {
+        height: 43px !important;
+        font-size: 16px;
       }
     }
+    .header-table{
+      .ant-table-thead > tr > th {
+        padding-top: 8px !important;
+      }
+    }
+  }
+  .phaseview-body{
+    .phaseview-content{
+      .container-timeline{
+        height: calc(100vh - 228px) !important;
+      }
+      .phaseview-title{
+        p{
+          font-size: 16px !important;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 2555px) and (max-width: 4999px){
+  .portafolio-head{
+    h2{
+      width: 325px !important;
+      color: #11093c;
+      font-size: 34px;
+      span{
+        font-size: 20px !important;
+      }
+    }
+    span{
+      font-size: 24px !important;
+    }
+  }
+  .search{
+    .search-body{
+      height: calc(100vh - 228px) !important;
+    }
+    .title-search{
+      width: 110% !important;
+    }
+    p{
+      font-size: 20px !important;
+    }
+    .text-search {
+      padding: 15.4px 0px !important;
+      p{
+        font-size: 24px !important;
+      }
+    }
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+      padding: 10px 10px !important;
+      font-size: 24px !important;
+      height: 48px !important;
+    }
+  }
+  .table-body{
+    .table-body-body{
+      height: calc(100vh - 230px) !important;
+    }
+    .table-portafolio{
+      .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+        padding: 16.4px 14px !important;
+        font-size: 22px;
+      }
+      .ant-table-thead>tr>th {
+        height: 48px !important;
+        font-size: 20px;
+        padding-top: 10px !important;
+      }
+    }
+    .header-table{
+      .ant-table-thead > tr > th {
+        padding-top: 10px !important;
+      }
+    }
+  }
+  .phaseview-body{
+    .phaseview-content{
+      .container-timeline{
+        height: calc(100vh - 228px) !important;
+      }
+      .phaseview-title{
+        p{
+          font-size: 20px !important;
+          line-height: 16px !important;
+        }
+      }
+    }
+  }
+  .span-dots-heder {
+    font-size: 20px;
+    .circulo{
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .ant-btn {
+    font-size: 20px !important;
+  }
+  .popover-porfolio .ant-popover-inner p {
+    font-size: 18px;
+    line-height: 21px;
   }
 }

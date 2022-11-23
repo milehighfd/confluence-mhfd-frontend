@@ -2507,4 +2507,41 @@ body{
 .dropdown-container-filter {
   display: flex;
 }
-
+@media (min-width: 1900px) and (max-width: 3999px){
+  .detailed-h{
+    h1{
+      font-size: 28px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+  .detailed-info{
+    padding: 20px 40px 0px 40px;
+    font-size: 18px;
+    p{
+      font-size: 16px !important;
+    }
+    span{
+      font-size: 16px !important;
+    }
+  }
+  .table-detail-modal{
+    .ant-table-thead>tr>th {
+      font-size: 18px;
+    }
+    .ant-table-tbody>tr>td {
+      font-size: 16px;
+    }
+    .span-Active{
+      font-size: 16px;
+    }
+  }
+}
+@media (min-width: 2555) and (max-width: 3999px){
+  .detailed{
+    .header-body-modal{
+      font-size: 18px !important;
+    }
+  }
+}
