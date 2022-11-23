@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import moment from 'moment';
+import moment, { months } from 'moment';
 import * as d3 from 'd3';
 import { Button, Calendar, Checkbox, Col, Input, Layout, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
 import { CalendarOutlined, ClockCircleOutlined, CloseOutlined, FormOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
@@ -206,7 +206,7 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
           
       let dragablesLines = 'dragginglines';      
       
-        let padding = { top: 35, right: 10, bottom: 10, left: 75 }
+        let padding = { top: 35, right: 10, bottom: 10, left: 0 }
         let offsetBar = 20;
         const dragableLineLength = 3;
         const dragableLineHalf = (dragableLineLength / 2);
@@ -266,7 +266,7 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
       let xAxisDay = d3.axisTop(xScale)
       .ticks(d3.timeDay.every(1))
       .tickSize(-chartHeight)
-      .tickFormat(timeFormatterForDays, )
+      .tickFormat(timeFormatterForDays)
 
       let yAxis = d3.axisLeft(yScale)
       .ticks(12)
@@ -278,17 +278,16 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
       .attr("class", "topHeader")
       .call(xAxisDay)
 
+      let gX1 = svg.append('g')
+      .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
+      .attr("class", "topHeaderMonth")
+      .call(xAxisMonth)
+
     let gX2 = svg.append('g')
       .attr('transform', 'translate(' + 0 + ',' + (padding.top- 20) + ')')
       .attr("class", "topHeaderYear")
-      .style("text-anchor", "start")
       .call(xAxisYear);
 
-      svg.append('g')
-      .attr('transform', 'translate(' + (width - padding.left) + ',' + -22 + ')')
-      .attr("class", "topHeaderYear")
-      .style("text-anchor", "start")
-      .call(yAxis);
 
     let scheduleG = svg.append("g")
       .selectAll("g")
@@ -659,15 +658,54 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
         d3.select('.stackedbarClicked').attr('class', 'stackedbar' )
       }
     });
+
+    let YearsToPixels = function (years:any) {
+      let d1 = new Date();
+      let firstvalue: any =zoomedXScale(d3.timeYear.offset(d1, years));
+      let secondvalue: any = zoomedXScale(d1);
+      return  firstvalue-secondvalue;
+  }
+     let MonthsToPixels = function (months:any) {
+      let d1 = new Date();
+      let firstvalue: any =zoomedXScale(d3.timeMonth.offset(d1, months));
+      let secondvalue: any = zoomedXScale(d1);
+      return  firstvalue-secondvalue;
+  }
+  let DaysToPixels = function (days:any) {
+    let d1 = new Date();
+    let firstvalue: any =zoomedXScale(d3.timeDay.offset(d1, days));
+    let secondvalue: any = zoomedXScale(d1);
+    return  firstvalue-secondvalue;
+  }
+    let adjustTextLabelsYears = function() {
+      d3.selectAll('.topHeaderYear text')
+        .attr('transform', 'translate(' + YearsToPixels(1)/2 + ',0)');
+    }
+    let adjustTextLabelsMonths = function() {
+      d3.selectAll('.topHeaderYear text')
+        .attr('transform', 'translate(' + MonthsToPixels(1)/2 + ',0)');
+    }
+    let adjustTextLabelsMonths2 = function() {
+      d3.selectAll('.topHeader text')
+        .attr('transform', 'translate(' + MonthsToPixels(1)/2 + ',0)');
+    }
+    let adjustTextLabelsDays = function() {
+        d3.selectAll('.topHeader text')
+        .attr('transform', 'translate(' + DaysToPixels(1)/2 + ',0)');
+    }
+
+    console.log(MonthsToPixels(1));//d3.selectAll('.topHeaderMonth text').attr('transform','translate('+));
     let zoomed = function () {
       setCurrentZScale(d3.event.transform.k);
       zoomedXScale = d3.event.transform.rescaleX(xScale);
       if (currentZScale < 12){
-        gX.call(xAxisMonth.scale(zoomedXScale));
-      gX2.call(xAxisYear.scale(zoomedXScale));
+        gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+        gX1.call(xAxisMonth.scale(zoomedXScale));
+      gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
       } else {
-        gX.call(xAxisDay.scale(zoomedXScale));
-        gX2.call(xAxisMonth.scale(zoomedXScale));
+        gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+        gX2.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);;
+        gX1.call(xAxisMonth.scale(zoomedXScale));
       }
       updateRects();
 
@@ -704,7 +742,7 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
     
     if(isZoomToday){
     zoom.translateTo(svg, xScale(today), 0);
-      //  zoom.scaleTo(svg, 30)
+    zoom.scaleTo(svg, 30)
       //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
       setIsZoomToday(false);
     } else {
@@ -777,13 +815,13 @@ const CalendarView = ({openTable, moveSchedule, scheduleRef, searchRef}:{
   return <div className="calendar-body" id='widthDivforChart'>
     {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
     <Row>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}}>
-        <div>
+      {/* <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'1px'} : {textAlign:'end', paddingRight:'0px'}}> */}
+        <div style={openPiney ? {textAlign:'end', paddingLeft:'383px'} : {textAlign:'end', paddingLeft:'676px'}}>
           <button style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setIsZoomToday(true)}>Today</button>
           <button style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setIsZoomWeekly(true)}>Weekly</button>
           <button style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setIsZoomMonthly(true)}>Monthly</button>
         </div>
-      </Col>
+      {/* </Col> */}
     </Row>
     <div id='chartContainer' style={{height: heightOfList, overflowY:'auto'}}
     ref={scheduleRef}

@@ -58,6 +58,16 @@
   order: 4;
   flex-grow: 0;
 }
+.topHeaderMonth text{
+  visibility: hidden;
+}
+.topHeaderMonth line{
+  stroke: gray;
+  opacity: 1;
+}
+.topHeaderMonth path{
+  visibility: hidden;
+}
 
 .topHeaderYear text{
   fill: #11093C;
