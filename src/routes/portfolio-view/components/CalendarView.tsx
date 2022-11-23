@@ -46,13 +46,13 @@ const CalendarView = ({
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [currentZScale, setCurrentZScale] = useState(100);
+  const [currentZScale, setCurrentZScale] = useState(4);
   // const svgRef = useRef<SVGSVGElement>(null);
-  // const [currentZScale, setcurrentZScale] = useState<any>();
   const [zoomedState, setZoomedState] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
+  const [zoomSelected, setZoomSelected] = useState('Monthly');
   const [actionItemsState, setActionItemsState] = useState({
     draft: true,
     sign: false,
@@ -621,9 +621,6 @@ const CalendarView = ({
         .attr('x', (d: any) => 0)
         .attr('width', (d: any) => width)
         .attr('class', 'backgroundRecthidden');
-      console.log('timelineStartTime', timelineStartTime);
-      console.log('timelineEndTime', timelineEndTime);
-      console.log('today', today);
       xScale = d3
         .scaleTime()
         .domain([timelineStartTime, timelineEndTime])
@@ -698,7 +695,7 @@ const CalendarView = ({
         .attr('x1', function() {
           return xScale(today);
         })
-        .attr('y1', padding.top)
+        .attr('y1', padding.top -20)
         .attr('x2', function() {
           return xScale(today);
         })
@@ -707,6 +704,14 @@ const CalendarView = ({
         .style('stroke-width', 2)
         .style('stroke', '#047CD7')
         .style('fill', 'none');
+
+        let todayCircle = scheduleG.join("circle")
+      .attr("cx", function() {
+        return xScale(today);
+      })
+      .attr("cy", padding.top -20)
+      .attr("r", 5)
+      .style("fill", '#047CD7')
 
       let scheduleRects = scheduleG
         .join('rect')
@@ -1040,6 +1045,7 @@ const CalendarView = ({
       let updateRects = function() {
         todayline.attr('x1', calctodayX);
         todayline.attr('x2', calctodayX);
+        todayCircle.attr('cx', calctodayX);
         scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
         scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
         rectNames.attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
@@ -1141,11 +1147,11 @@ const CalendarView = ({
         d3.selectAll('.topHeader text').attr('transform', 'translate(' + DaysToPixels(1) / 2 + ',0)');
       };
 
-      console.log(MonthsToPixels(1)); //d3.selectAll('.topHeaderMonth text').attr('transform','translate('+));
+      //console.log(currentZScale); //d3.selectAll('.topHeaderMonth text').attr('transform','translate('+));
       let zoomed = function() {
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
-        if (currentZScale < 12) {
+        if (d3.event.transform.k < 9) {
           gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
           gX1.call(xAxisMonth.scale(zoomedXScale));
           gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
@@ -1155,8 +1161,6 @@ const CalendarView = ({
           gX1.call(xAxisMonth.scale(zoomedXScale));
         }
         updateRects();
-
-        //console.log( 'currentZScale', currentZScale)
       };
 
       zoom = d3
@@ -1185,27 +1189,21 @@ const CalendarView = ({
           setZoomStatus(newZoomValue);
         }
       };
-      console.log('in or out', currentZScale);
-
+      moveZoom(moveSchedule);
       if (isZoomToday) {
         zoom.translateTo(svg, xScale(today), 0);
         zoom.scaleTo(svg, 30);
         //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
         setIsZoomToday(false);
-      } else {
-        moveZoom(moveSchedule);
       }
-      console.log('rendering');
       if (isZoomWeekly) {
-        console.log('whatever');
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 15);
+        zoom.scaleTo(svg, 11);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
         setIsZoomWeekly(false);
       }
       if (isZoomMonthly) {
-        console.log('whatever');
         // svg
         // .transition().call(zoom.scaleBy, 18);
         zoom.scaleTo(svg, 4);
@@ -1220,7 +1218,7 @@ const CalendarView = ({
     console.log(zoom);
     if(zoom && svg){
       zoom.translateTo(svg, xScale(today), 0);
-      zoom.scaleTo(svg, 30);
+      zoom.scaleTo(svg, 11);
     }
   }
   useEffect(() => {
@@ -1281,24 +1279,31 @@ const CalendarView = ({
               : { textAlign: 'end', paddingRight: '0px', width: '100%' }
           }
         >
-          <button
-            style={{ marginRight: '12px', color: '#11093C', opacity: '0.6' }}
-            onClick={() => zoomToToday()}
+          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'initial', paddingLeft: '10px'}}>
+          <Button
+            className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
+            
+            onClick={() => {zoomToToday(); setZoomSelected('Today')}}
           >
             Today
-          </button>
-          <button
-            style={{ marginRight: '12px', color: '#11093C', opacity: '0.6' }}
-            onClick={() => setIsZoomWeekly(true)}
+          </Button>
+          <span style={{marginRight:'0px', color:'#11093c', opacity:0.6}}> |</span>
+          <Button
+            className={zoomSelected=== 'Weekly' ? "btn-view btn-view-active": "btn-view"}
+            
+            onClick={() => {setIsZoomWeekly(true); setZoomSelected('Weekly')}}
           >
             Weekly
-          </button>
-          <button
-            style={{ marginRight: '12px', color: '#11093C', opacity: '0.6' }}
-            onClick={() => setIsZoomMonthly(true)}
+          </Button>
+          <span style={{marginRight:'0px', color:'#11093c', opacity:0.6}}> |</span>
+          <Button
+            className={zoomSelected=== 'Monthly' ? "btn-view btn-view-active": "btn-view"}
+            
+            onClick={() => {setIsZoomMonthly(true); setZoomSelected('Monthly')}}
           >
             Monthly
-          </button>
+          </Button>
+          </Col>
         </div>
         {/* </Col> */}
       </Row>

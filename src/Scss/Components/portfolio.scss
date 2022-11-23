@@ -120,12 +120,13 @@
   opacity: 1;
   visibility: hidden;
 }
-
+//change to hidden to avoid modifying dates. Dates will be modify from modal
 .dragginglinesonclick line{
   stroke: white;
   stroke-width: 2;
   opacity: 1;
-  visibility: visible;
+  //visibility: visible;
+  visibility: hidden;
 }
 
 .backgroundRecthidden {
@@ -768,6 +769,32 @@
     border-radius: 10px;
   }
   .calendar-body{
+    .btn-view{
+      border: 1px solid transparent;
+      padding: 4px 4px;
+      font-size: 12px;
+      margin: 0px 0px;
+      border-radius: 0px;
+      box-shadow: none;
+      color: #11093C;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+    .btn-filter-k:hover{
+      color: #11093c;
+      opacity: 1;
+    }
+    .btn-view:hover  .btn-view:focus .btn-view:active{
+      color: #11093c;
+      background: rgba(17, 9, 60, 0.03);
+      opacity: 1;
+      font-weight: 500;
+    }
+    .btn-view-active{
+      color: #11093c;
+      opacity: 1;
+      font-weight: 500;
+    }
     .form-text-calendar{
       margin-top: 10px;
       p{

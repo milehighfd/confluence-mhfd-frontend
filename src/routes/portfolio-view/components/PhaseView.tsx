@@ -16,6 +16,7 @@ const PhaseView = (
   }) => {
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
+  const windowWidth = window.innerWidth;
   const next = () => {
     setCurrent(current + 1);
   };
@@ -26,8 +27,8 @@ const PhaseView = (
   useEffect(() => {
 
   const phaseChart = (dataDotchart: any) => {
-    var margin = { top: -22, right: 30, bottom: -26, left: 10 },
-    width = 1405 - margin.left - margin.right,
+    var margin = { top: -22, right: -10, bottom: -26, left: 20 },
+    width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth,//= 1405 - margin.left - margin.right,
     heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight, //265 - margin.top - margin.bottom;
     height: any  = heightDiv +3;
     console.log(dataDotchart[0].id);
@@ -51,7 +52,7 @@ const PhaseView = (
   }
 
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 16]).range([margin.left, width]);
+  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width]);
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;
@@ -169,7 +170,7 @@ const PhaseView = (
   return <div className="phaseview-body">
     {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
     <div className="phaseview-content">
-      <div className="phaseview-title">
+      <div className="phaseview-title" id='phaseviewTitlleWidth'>
         <p>Work Plan<br/>(WP)</p>
         <p>Startup</p>
         <p>Funding</p>
