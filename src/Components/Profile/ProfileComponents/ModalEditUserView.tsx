@@ -125,6 +125,7 @@ const ModalEditUserView = ({ user, updateUserInformation, isVisible, hideProfile
 
   const menuZoom = () => {
     const itemMenuZoom: MenuProps['items'] = [];
+    console.log('fucking menu zoom');
     groupOrganization.forEach((item: { aoi: string, values: Array<{ name: string }> }, index: number) => {
       itemMenuZoom.push({
         key: `${index}|${item.aoi}`,

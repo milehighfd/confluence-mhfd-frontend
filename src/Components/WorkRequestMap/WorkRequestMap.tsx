@@ -537,7 +537,7 @@ const WorkRequestMap = (type: any) => {
     if (groupOrganization.length == 0) {
       getGroupOrganization();
     }
-
+    console.log('getting group organization')
     const zoomareaSelected = groupOrganization
       .filter((x: any) => type.locality.locality.includes(x.aoi))
       .map((element: any) => {

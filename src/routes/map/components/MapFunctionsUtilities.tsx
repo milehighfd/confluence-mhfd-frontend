@@ -18,7 +18,7 @@ export const flytoBoundsCoor = (
   }
   if(userInformation.isSelect != 'isSelect') {
     setTimeout(()=>{
-     const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === userInformation.zoomarea).map((element: any) => {
+     const zoomareaSelected = groupOrganization.filter((x: any) => x.name === userInformation.zoomarea).map((element: any) => {
        return {
          aoi: element.aoi,
          filter: element.filter,

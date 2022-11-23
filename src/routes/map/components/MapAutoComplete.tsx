@@ -14,13 +14,8 @@ const MapAutoComplete = ({
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [valueA, setvalueA] = useState('');
   const ref = useRef<any>(null);
-  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
-    if (item.aoi === undefined) {
-      return false;
-    }
-    return true;
-  }).map((item: { aoi: string }) => {
-    return { key: item.aoi, value: item.aoi, label: item.aoi }
+  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
+    return { key: item.id, value: item.name, label: item.name }
   }));
 
   const onSelect = (value: any, isSelect?: any) => {
@@ -28,13 +23,8 @@ const MapAutoComplete = ({
     onAutoCompleteSelected(value, isSelect);
   };
   useEffect(() => {
-    setDataAutocomplete(groupOrganization.filter(function (item: any) {
-      if (item.aoi === undefined) {
-        return false;
-      }
-      return true;
-    }).map((item: { aoi: string }) => {
-      return { key: item.aoi, value: item.aoi, label: item.aoi }
+    setDataAutocomplete(groupOrganization.map((item: any) => {
+      return { key: item.name, value: item.name, label: item.name }
     }));
   }, [groupOrganization]);
 

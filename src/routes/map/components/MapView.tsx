@@ -633,7 +633,8 @@ const MapView = () => {
     user.isSelect = isSelect;
     saveUserInformation(user);
     setNameZoomArea(name);
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
+    console.log('changing center');
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.name === name).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,

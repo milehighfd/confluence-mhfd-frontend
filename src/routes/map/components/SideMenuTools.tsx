@@ -44,7 +44,7 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
     user.isSelect = isSelect;
     saveUserInformation(user);
     setNameZoomArea(name);
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === name).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.name === name).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,
@@ -73,7 +73,7 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
   }
   const onSelect = (value: any, isSelect?:any) => {
     setAutocomplete(value);
-    const zoomareaSelected = groupOrganization.filter((x: any) => x.aoi === value).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => x.name === value).map((element: any) => {
       return {
         aoi: element.aoi,
         filter: element.filter,
