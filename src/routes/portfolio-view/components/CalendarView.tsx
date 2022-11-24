@@ -1162,6 +1162,7 @@ const CalendarView = ({
           gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
         } else {
           gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+          gX.attr('class', 'topHeader');
           gX2.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
           gX1.call(xAxisMonth.scale(zoomedXScale));
         }
