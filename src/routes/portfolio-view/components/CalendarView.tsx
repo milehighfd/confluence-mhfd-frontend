@@ -28,6 +28,7 @@ import {
   ZoomOutOutlined,
 } from '@ant-design/icons';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
+import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
 
 const { Step } = Steps;
@@ -53,6 +54,8 @@ const CalendarView = ({
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [zoomSelected, setZoomSelected] = useState('Monthly');
+  const [openModalTollgate, setOpenModalTollgate] = useState(false);
+  const [openModalTable, setOpenModalTable] = useState(false);
   const [actionItemsState, setActionItemsState] = useState({
     draft: true,
     sign: false,
@@ -578,7 +581,7 @@ const CalendarView = ({
 
     let dragablesLines = 'dragginglines';
 
-    let padding = { top: 30, right: 10, bottom: 10, left: 0 };
+    let padding = { top: 38, right: 10, bottom: 10, left: 0 };
     let offsetBar = 18;
     const dragableLineLength = 3;
     const dragableLineHalf = dragableLineLength / 2;
@@ -633,7 +636,7 @@ const CalendarView = ({
 
       let chartHeight = height - padding.top - padding.bottom;
       let timeFormatterForYears: any = d3.timeFormat('%Y');
-      let timeFormatterForMonths: any = d3.timeFormat('%b');
+      let timeFormatterForMonths: any = d3.timeFormat('%B');
       let timeFormatterForDays: any = d3.timeFormat('%d');
       let tickFormatEmpty: any = '';
       let xAxisYear = d3
@@ -674,7 +677,7 @@ const CalendarView = ({
 
       let gX2 = svg
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 15) + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22) + ')')
         .attr('class', 'topHeaderYear')
         .call(xAxisYear);
 
@@ -1142,6 +1145,7 @@ const CalendarView = ({
       };
       let adjustTextLabelsMonths2 = function() {
         d3.selectAll('.topHeader text').attr('transform', 'translate(' + MonthsToPixels(1) / 2 + ',0)');
+        d3.selectAll('.topHeaderM text').attr('transform', 'translate(' + MonthsToPixels(1) / 2 + ',0)');
       };
       let adjustTextLabelsDays = function() {
         d3.selectAll('.topHeader text').attr('transform', 'translate(' + DaysToPixels(1) / 2 + ',0)');
@@ -1153,6 +1157,7 @@ const CalendarView = ({
         zoomedXScale = d3.event.transform.rescaleX(xScale);
         if (d3.event.transform.k < 9) {
           gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+          gX.attr('class', 'topHeaderM');
           gX1.call(xAxisMonth.scale(zoomedXScale));
           gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
         } else {
@@ -1268,19 +1273,16 @@ const CalendarView = ({
   // }
 
   return (
+    <>
+    {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
+    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
-      <Row>
-        {/* <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'1px'} : {textAlign:'end', paddingRight:'0px'}}> */}
-        <div
-          style={
-            openPiney
-              ? { textAlign: 'end', paddingRight: '300px', width: '100%' }
-              : { textAlign: 'end', paddingRight: '0px', width: '100%' }
-          }
-        >
-          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'initial', paddingLeft: '10px'}}>
-          <Button
+
+      <Row style={{margin:'13px 10px'}}>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+        <div>
+        <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
             
             onClick={() => {zoomToToday(); setZoomSelected('Today')}}
@@ -1303,10 +1305,19 @@ const CalendarView = ({
           >
             Monthly
           </Button>
-          </Col>
         </div>
-        {/* </Col> */}
-      </Row>
+      </Col>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}}>
+        <div>
+          <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
+            <CalendarOutlined /> Edit Dates
+          </Button>
+          <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
+          <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} />
+          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} />
+        </div>
+      </Col>
+    </Row>
       <div
         id="chartContainer"
         style={{ height: heightOfList, overflowY: 'auto' }}
@@ -1324,7 +1335,7 @@ const CalendarView = ({
         </div>
       </div>
     </div>
-  );
+    </>);
 };
 
 export default CalendarView;

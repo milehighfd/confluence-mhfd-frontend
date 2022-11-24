@@ -19,9 +19,8 @@
 }
 
 .topHeader line{
-  fill: aquamarine;
   stroke: gray;
-  opacity: .5;
+  opacity: .3;
 }
 
 .topHeader path{
@@ -49,7 +48,7 @@
   font-family: 'Ubuntu';
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 14px;
   text-align: center;
   mix-blend-mode: normal;
@@ -57,13 +56,37 @@
   flex: none;
   order: 4;
   flex-grow: 0;
+  position: fixed;
+}
+.topHeaderM text{
+  fill: #11093C;
+  width: 58px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 12px;
+  text-align: center;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+  position: fixed;
+}
+.topHeaderM path{
+  visibility: hidden;
+}
+.topHeaderM line{
+  visibility: hidden;
 }
 .topHeaderMonth text{
   visibility: hidden;
 }
 .topHeaderMonth line{
   stroke: gray;
-  opacity: 1;
+  opacity: 0.8;
 }
 .topHeaderMonth path{
   visibility: hidden;
