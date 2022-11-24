@@ -50,7 +50,79 @@ const PhaseView = (
   for (var i = 0; i < datas[0].data.length; i++) {
     arrayForCirclesAndLines.push(i);
   }
+  let svgDefinitions = svg.append("defs");
+  svg.selectAll("defs")
+      .data(datas)
+      .enter()
+  let completedtoActive = svgDefinitions.append("linearGradient");
+  completedtoActive
+    .attr("id", "Completed_Active")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  completedtoActive.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#5E5FE2')
+  completedtoActive.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#047CD7')
 
+  let completedtoDelayed = svgDefinitions.append("linearGradient");
+  completedtoDelayed
+    .attr("id", "Completed_Delayed")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  completedtoDelayed.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#5E5FE2')
+  completedtoDelayed.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#F5575C')
+
+  let ActivetoNotStarted = svgDefinitions.append("linearGradient");
+  ActivetoNotStarted
+    .attr("id", "Active_NotStarted")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  ActivetoNotStarted.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#047CD7')
+  ActivetoNotStarted.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#D4D2D9')
+
+  let ActivetoDelayed = svgDefinitions.append("linearGradient");
+  ActivetoDelayed
+    .attr("id", "Active_Delayed")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  ActivetoDelayed.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#047CD7')
+  ActivetoDelayed.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#F5575C')
+
+  let delayedtoNotStarted = svgDefinitions.append("linearGradient");
+  delayedtoNotStarted
+    .attr("id", "Delayed_NotStarted")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  delayedtoNotStarted.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#F5575C')
+  delayedtoNotStarted.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#D4D2D9')
   // Add X axis
   var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width]);
   let xdr: any = (r: any) => {
@@ -94,6 +166,15 @@ const PhaseView = (
           let colorstroke: any = colorScale[d.data[r].status];
           return colorstroke;
         })
+        .attr("stroke", function(d: any) {      
+          let currentStatus = d.data[r].status.replace(/\s+/g, '');
+          let nextStatus = d.data[r+1].status.replace(/\s+/g, '');
+          return ( 
+            (currentStatus === nextStatus) ?
+          colorScale[d.data[r].status]
+          : (`url(#${currentStatus}_${nextStatus})`))
+        })
+        // .attr("stroke", "url(#textBg)")
         .attr("stroke-width", "2.5px");
     }
   });
