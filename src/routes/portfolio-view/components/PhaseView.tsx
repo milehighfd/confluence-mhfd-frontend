@@ -27,7 +27,7 @@ const PhaseView = (
   useEffect(() => {
 
   const phaseChart = (dataDotchart: any) => {
-    var margin = { top: -22, right: -10, bottom: -26, left: 20 },
+    var margin = { top: -22, right: -2, bottom: -26, left: 9 },
     width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth,//= 1405 - margin.left - margin.right,
     heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight, //265 - margin.top - margin.bottom;
     height: any  = heightDiv +3;

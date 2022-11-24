@@ -56,6 +56,7 @@ const CalendarView = ({
   const [zoomSelected, setZoomSelected] = useState('Monthly');
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
+  const [zoomTimeline, setZoomTimeline] = useState(0);
   const [actionItemsState, setActionItemsState] = useState({
     draft: true,
     sign: false,
@@ -909,26 +910,28 @@ const CalendarView = ({
           .attr('width', calcScheduleWidth);
         updateRects();
       };
-      let rectDrag = d3
-        .drag()
-        .on('start', dragStart)
-        .on('drag', function(d: any) {
-          console.log('draggg');
-          let newPosition = d3.event.dx;
-          let between = d['to'].diff(d['from'], 'days');
-          let fromTime = moment(zoomedXScale.invert(zoomedXScale(d['from']) + newPosition));
-          let toTime = moment(fromTime).add(between, 'days');
+      
+      // commented to avoid dragging rects
+      // let rectDrag = d3
+      //   .drag()
+      //   .on('start', dragStart)
+      //   .on('drag', function(d: any) {
+      //     console.log('draggg');
+      //     let newPosition = d3.event.dx;
+      //     let between = d['to'].diff(d['from'], 'days');
+      //     let fromTime = moment(zoomedXScale.invert(zoomedXScale(d['from']) + newPosition));
+      //     let toTime = moment(fromTime).add(between, 'days');
 
-          if (timelineStartTime.diff(fromTime) > 0) return;
-          else if (timelineEndTime.diff(toTime) < 0) return;
+      //     if (timelineStartTime.diff(fromTime) > 0) return;
+      //     else if (timelineEndTime.diff(toTime) < 0) return;
 
-          d['from'] = fromTime;
-          d['to'] = toTime;
-          d3.select(this).attr('x', calcScheduleX);
-          moveOtherRects(newPosition, d.categoryNo, d.id);
-          updateRects();
-        })
-        .on('end', dragEndRect);
+      //     d['from'] = fromTime;
+      //     d['to'] = toTime;
+      //     d3.select(this).attr('x', calcScheduleX);
+      //     moveOtherRects(newPosition, d.categoryNo, d.id);
+      //     updateRects();
+      //   })
+      //   .on('end', dragEndRect);
       let moveOtherRects = function(moveX: any, dataId: any, groupId: any) {
         let currentDataset = datasets.filter((d: any) => d.id === groupId)[0];
         currentDataset.schedule.forEach((sch: any) => {
@@ -1010,8 +1013,10 @@ const CalendarView = ({
         .on('drag', lineDragFunction)
         .on('end', dragEndLines);
 
-      scheduleRects.style('cursor', 'move').call(rectDrag);
-      scheduleRectsCenter.style('cursor', 'move').call(rectDrag);
+      // commented to avoid dragging rects
+
+      // scheduleRects.style('cursor', 'move').call(rectDrag);
+      // scheduleRectsCenter.style('cursor', 'move').call(rectDrag);
       dragableLineLeft
         .style('cursor', 'ew-resize')
         .style('stroke-linecap', 'round')
@@ -1179,7 +1184,6 @@ const CalendarView = ({
         .on('zoom', zoomed);
       svg.call(zoom).on('wheel.zoom', null);
       svg.call(zoom.scaleBy, currentZScale);
-
       const moveZoom = (newZoomValue: any) => {
         let type: any;
         if (zoomStatus > newZoomValue) {
@@ -1195,7 +1199,7 @@ const CalendarView = ({
           setZoomStatus(newZoomValue);
         }
       };
-      moveZoom(moveSchedule);
+      moveZoom(zoomTimeline);
       if (isZoomToday) {
         zoom.translateTo(svg, xScale(today), 0);
         zoom.scaleTo(svg, 30);
@@ -1227,6 +1231,7 @@ const CalendarView = ({
       zoom.scaleTo(svg, 11);
     }
   }
+
   useEffect(() => {
     timelineChart(datas);
     setSvgState(svg);
@@ -1260,13 +1265,15 @@ const CalendarView = ({
       }
       timelineChart(datas);
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline]);
 
   // useEffect(()=> {
-  //   if(moveSchedule === 'in' || moveSchedule === 'out'){
-  //     moveZoom(moveSchedule)
+  //   if(zoom && svg){
+  //     if(zoomTimeline === 'in' || zoomTimeline === 'out'){
+  //       moveZoom(zoomTimeline)
+  //     }
   //   }
-  // },[moveSchedule])
+  // },[zoomTimeline])
   let heightOfList = document.getElementById('searchPortfolio')?.offsetHeight;
 
   // const moveZoom = (testt: string)=>{
@@ -1314,8 +1321,8 @@ const CalendarView = ({
             <CalendarOutlined /> Edit Dates
           </Button>
           <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
-          <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} />
-          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} />
+          <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
+          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/>
         </div>
       </Col>
     </Row>
