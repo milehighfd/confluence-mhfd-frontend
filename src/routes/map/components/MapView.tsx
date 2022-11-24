@@ -628,6 +628,7 @@ const MapView = () => {
   }
 
   const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
+    console.log('change Center', name, coordinates, isSelect);
     const user = userInformation;
     user.polygon = coordinates;
     user.isSelect = isSelect;
@@ -636,11 +637,12 @@ const MapView = () => {
     console.log('changing center');
     const zoomareaSelected = groupOrganization.filter((x: any) => x.name === name).map((element: any) => {
       return {
-        aoi: element.aoi,
+        aoi: element.name,
         filter: element.filter,
         coordinates: element.coordinates
       }
     });
+    console.log('TODO: zoom area selected missing filter', zoomareaSelected);
     if (zoomareaSelected.length > 0) {
       switch (zoomareaSelected[0].filter) {
         case 'County':
