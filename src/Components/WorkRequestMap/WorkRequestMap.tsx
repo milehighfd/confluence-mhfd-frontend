@@ -1551,18 +1551,33 @@ const applyMapLayerfromArcgis = useCallback(async () => {
     return l + r; //add the random number that was selected within distance between low and up to the lower limit.  
   }
   const createRandomGeomOnARCGIS = () => {
+    // const formData = new FormData();
+    // const newGEOM = [...templateGeomRandom];
+    // newGEOM[0].geometry.paths[0] = [
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    // ];
+    // formData.append('f', 'json');
+    // formData.append('adds', JSON.stringify(newGEOM));
+    // const TOKEN = 'O1WHjHuEOlj3UQHK5Sm7wj7v_TQ-kTazIFLaKt8sMcmHuIJ8wJjjf9sgz80RE6Ff4h5tnsA2HYO5AEGt7uiXjTaXiY35rQlguRHt76w88dfPAGIf4w1rJ27Xl0FY79J86JjzNYrssNuoqhKANZd0Ig..';
+    // formData.append('token', TOKEN);
+    // datasets.postDataMultipart('https://gis.mhfd.org/server/rest/services/Confluence/mhfd_projects_created_dev/FeatureServer/0/applyedits', formData).then(res => {
+    //   console.log('return create of geom', res);
+    // });
     const formData = new FormData();
-    const newGEOM = [...templateGeomRandom];
-    newGEOM[0].geometry.paths[0] = [
-      [generateRangom(-108, -104),generateRangom(35, 40)], 
-      [generateRangom(-108, -104),generateRangom(35, 40)], 
-      [generateRangom(-108, -104),generateRangom(35, 40)], 
-      [generateRangom(-108, -104),generateRangom(35, 40)], 
-      [generateRangom(-108, -104),generateRangom(35, 40)], 
-    ];
-    formData.append('f', 'json');
-    formData.append('adds', JSON.stringify(newGEOM));
-    datasets.postDataMultipart('https://gis.mhfd.org/server/rest/services/TestLine/FeatureServer/0/applyedits', formData).then(res => {
+    formData.append('username', 'ricardo_confluence');
+    formData.append('password', 'M!l3H!gh$m$');
+    formData.append('client', 'ip');
+    // THIS IP IS MOMENTARILY TO TEST TODO: add to env
+    formData.append('ip', '181.188.178.182');
+    formData.append('expiration', '60');
+    formData.append('f', 'pjson');
+    formData.append('referer', '');
+    const URL_TOKEN = 'https://gis.mhfd.org/portal/sharing/rest/generateToken';
+    datasets.postDataMultipart(URL_TOKEN, formData).then(res => {
       console.log('return create of geom', res);
     });
   };
