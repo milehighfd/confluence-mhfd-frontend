@@ -19,12 +19,21 @@
 }
 
 .topHeader line{
-  fill: aquamarine;
   stroke: gray;
-  opacity: .5;
+  opacity: .3;
+  visibility: hidden;
 }
 
 .topHeader path{
+  stroke: red;
+  visibility: hidden;
+}
+.topHeaderChart line{
+  stroke: gray;
+  opacity: .3;
+}
+
+.topHeaderChart path{
   stroke: red;
   visibility: hidden;
 }
@@ -49,7 +58,7 @@
   font-family: 'Ubuntu';
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 14px;
   text-align: center;
   mix-blend-mode: normal;
@@ -57,13 +66,38 @@
   flex: none;
   order: 4;
   flex-grow: 0;
+  position: fixed;
+}
+.topHeaderM text{
+  fill: #11093C;
+  width: 58px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 12px;
+  text-align: center;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+  position: fixed;
+}
+.topHeaderM path{
+  visibility: hidden;
+}
+.topHeaderM line{
+  visibility: hidden;
 }
 .topHeaderMonth text{
   visibility: hidden;
 }
 .topHeaderMonth line{
   stroke: gray;
-  opacity: 1;
+  opacity: 0.8;
+  visibility: hidden;
 }
 .topHeaderMonth path{
   visibility: hidden;
@@ -79,7 +113,7 @@
   font-family: 'Ubuntu';
   font-style: normal;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 15px;
   text-align: center; 
 }
@@ -88,6 +122,84 @@
   visibility: hidden;
 }
 .topHeaderYear line{
+  stroke: red;
+  opacity: .5;
+  visibility: hidden;
+}
+
+.topHeaderChart text{
+  visibility: hidden;
+  fill: #11093C;
+  width: 58px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+  position: fixed;
+}
+.topHeaderMChart text{
+  visibility: hidden;
+  fill: #11093C;
+  width: 58px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 12px;
+  text-align: center;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+  position: fixed;
+}
+.topHeaderMChart path{
+  visibility: hidden;
+}
+.topHeaderMChart line{
+  visibility: hidden;
+}
+.topHeaderMonthChart text{
+  visibility: hidden;
+}
+.topHeaderMonthChart line{
+  stroke: gray;
+  opacity: 0.8;
+}
+.topHeaderMonthChart path{
+  visibility: hidden;
+}
+
+.topHeaderYearChart text{
+  visibility: hidden;
+  fill: #11093C;
+  position: absolute;
+  height: 15px;
+  left: 23.15%;
+  right: 73.15%;
+  top: calc(50% - 15px/2 - 327.5px);
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center; 
+}
+.topHeaderYearChart path{
+  stroke: red;
+  visibility: hidden;
+}
+.topHeaderYearChart line{
   stroke: red;
   opacity: .5;
   visibility: hidden;
@@ -955,7 +1067,7 @@
         height: 32px;
       }
       .phaseview-timeline{
-        padding: 11px 20px;
+        //padding: 0px 40px;
         padding-bottom: 13px;
         .ant-steps {
           padding: 0px 0px;

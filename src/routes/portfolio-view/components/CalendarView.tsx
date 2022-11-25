@@ -28,6 +28,7 @@ import {
   ZoomOutOutlined,
 } from '@ant-design/icons';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
+import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
 
 const { Step } = Steps;
@@ -46,13 +47,16 @@ const CalendarView = ({
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [currentZScale, setCurrentZScale] = useState(4);
+  const [currentZScale, setCurrentZScale] = useState(1.5);
   // const svgRef = useRef<SVGSVGElement>(null);
   const [zoomedState, setZoomedState] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [zoomSelected, setZoomSelected] = useState('Monthly');
+  const [openModalTollgate, setOpenModalTollgate] = useState(false);
+  const [openModalTable, setOpenModalTable] = useState(false);
+  const [zoomTimeline, setZoomTimeline] = useState(0);
   const [actionItemsState, setActionItemsState] = useState({
     draft: true,
     sign: false,
@@ -562,6 +566,7 @@ const CalendarView = ({
   });
   let zoom: any;
   let svg: any;
+  let svgAxis: any;
   let xScale: any;
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
@@ -575,10 +580,15 @@ const CalendarView = ({
       .append('svg')
       .attr('width', width)
       .attr('height', height);
+    svgAxis = d3
+    .select('#timeline-chart-axis')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', 40);
 
     let dragablesLines = 'dragginglines';
 
-    let padding = { top: 30, right: 10, bottom: 10, left: 0 };
+    let padding = { top: 38, right: 10, bottom: 10, left: -2500 };
     let offsetBar = 18;
     const dragableLineLength = 3;
     const dragableLineHalf = dragableLineLength / 2;
@@ -604,9 +614,9 @@ const CalendarView = ({
         .sort(function(a: any, b: any) {
           return a.to - b.to;
         });
-      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
+      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(24, 'months');
       let timelineEndTime = moment(toData[toData.length - 1].to)
-        .add(6, 'months')
+        .add(24, 'months')
         .startOf('month');
       // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
       // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
@@ -624,7 +634,7 @@ const CalendarView = ({
       xScale = d3
         .scaleTime()
         .domain([timelineStartTime, timelineEndTime])
-        .range([padding.left, width - padding.right]);
+        .range([padding.left, width - padding.right + 2500]);
 
       let yScale = d3
         .scaleBand()
@@ -633,7 +643,7 @@ const CalendarView = ({
 
       let chartHeight = height - padding.top - padding.bottom;
       let timeFormatterForYears: any = d3.timeFormat('%Y');
-      let timeFormatterForMonths: any = d3.timeFormat('%b');
+      let timeFormatterForMonths: any = d3.timeFormat('%B');
       let timeFormatterForDays: any = d3.timeFormat('%d');
       let tickFormatEmpty: any = '';
       let xAxisYear = d3
@@ -662,19 +672,37 @@ const CalendarView = ({
 
       let gX = svg
         .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40 )+ ')')
+        .attr('class', 'topHeaderChart')
+        .call(xAxisDay);
+
+      let gX1 = svg
+        .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40) + ')')
+        .attr('class', 'topHeaderMonthChart')
+        .call(xAxisMonth);
+
+      let gX2 = svg
+        .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40) + ')')
+        .attr('class', 'topHeaderYearChart')
+        .call(xAxisYear);
+
+        let gXa = svgAxis
+        .append('g')
         .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
         .attr('class', 'topHeader')
         .call(xAxisDay);
 
-      let gX1 = svg
+      let gX1a = svgAxis
         .append('g')
         .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
         .attr('class', 'topHeaderMonth')
         .call(xAxisMonth);
 
-      let gX2 = svg
+      let gX2a = svgAxis
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 15) + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22) + ')')
         .attr('class', 'topHeaderYear')
         .call(xAxisYear);
 
@@ -695,7 +723,7 @@ const CalendarView = ({
         .attr('x1', function() {
           return xScale(today);
         })
-        .attr('y1', padding.top -20)
+        .attr('y1', padding.top -40)
         .attr('x2', function() {
           return xScale(today);
         })
@@ -709,9 +737,51 @@ const CalendarView = ({
       .attr("cx", function() {
         return xScale(today);
       })
-      .attr("cy", padding.top -20)
+      .attr("cy", padding.top -40)
       .attr("r", 5)
       .style("fill", '#047CD7')
+
+      let getVisibleMonths = function(domain: any) {
+        var time = d3.timeMonth.floor(domain[0]),
+            end = d3.timeMonth.floor(domain[1]),
+            times = [ time ];
+        while(time < end) {
+            time = d3.timeMonth.offset(time, 1);
+            times.push(time);
+        }
+        console.log(times);
+        return times;
+    } 
+    getVisibleMonths(xScale.domain());
+
+    let setTextPosition = function(selection: any, scale: any) {
+      selection.each(function(this:any, d:any) {
+          var width = this.getBBox().width,
+              nextMonthPos = scale(d3.timeMonth.offset(d, 1)),
+              padding = 3,
+              minPos = 0, maxPos = scale.range()[1],
+              x, opacity;
+
+          x = scale(d) + DaysToPixels(15) - width / 2; // center
+          x = Math.max(minPos, x); // left-left
+          x = Math.min(x, nextMonthPos - width - padding);  // left-right
+
+          x = Math.min(x, maxPos - width); // right-right
+          x = Math.max(x, scale(d) + padding); // right-left
+
+          if (x < minPos) {
+              opacity = (x + width - minPos) / width;
+          } else if (x + width > maxPos) {
+              opacity = (maxPos - x) / width;
+          } else {
+              opacity = 1;
+          }
+          let thisVar: any = d3.select(this)
+          d3.transition(thisVar)
+              .attr('x', x)
+              .attr('opacity', opacity);
+      });
+  }
 
       let scheduleRects = scheduleG
         .join('rect')
@@ -906,26 +976,28 @@ const CalendarView = ({
           .attr('width', calcScheduleWidth);
         updateRects();
       };
-      let rectDrag = d3
-        .drag()
-        .on('start', dragStart)
-        .on('drag', function(d: any) {
-          console.log('draggg');
-          let newPosition = d3.event.dx;
-          let between = d['to'].diff(d['from'], 'days');
-          let fromTime = moment(zoomedXScale.invert(zoomedXScale(d['from']) + newPosition));
-          let toTime = moment(fromTime).add(between, 'days');
+      
+      // commented to avoid dragging rects
+      // let rectDrag = d3
+      //   .drag()
+      //   .on('start', dragStart)
+      //   .on('drag', function(d: any) {
+      //     console.log('draggg');
+      //     let newPosition = d3.event.dx;
+      //     let between = d['to'].diff(d['from'], 'days');
+      //     let fromTime = moment(zoomedXScale.invert(zoomedXScale(d['from']) + newPosition));
+      //     let toTime = moment(fromTime).add(between, 'days');
 
-          if (timelineStartTime.diff(fromTime) > 0) return;
-          else if (timelineEndTime.diff(toTime) < 0) return;
+      //     if (timelineStartTime.diff(fromTime) > 0) return;
+      //     else if (timelineEndTime.diff(toTime) < 0) return;
 
-          d['from'] = fromTime;
-          d['to'] = toTime;
-          d3.select(this).attr('x', calcScheduleX);
-          moveOtherRects(newPosition, d.categoryNo, d.id);
-          updateRects();
-        })
-        .on('end', dragEndRect);
+      //     d['from'] = fromTime;
+      //     d['to'] = toTime;
+      //     d3.select(this).attr('x', calcScheduleX);
+      //     moveOtherRects(newPosition, d.categoryNo, d.id);
+      //     updateRects();
+      //   })
+      //   .on('end', dragEndRect);
       let moveOtherRects = function(moveX: any, dataId: any, groupId: any) {
         let currentDataset = datasets.filter((d: any) => d.id === groupId)[0];
         currentDataset.schedule.forEach((sch: any) => {
@@ -1007,8 +1079,10 @@ const CalendarView = ({
         .on('drag', lineDragFunction)
         .on('end', dragEndLines);
 
-      scheduleRects.style('cursor', 'move').call(rectDrag);
-      scheduleRectsCenter.style('cursor', 'move').call(rectDrag);
+      // commented to avoid dragging rects
+
+      // scheduleRects.style('cursor', 'move').call(rectDrag);
+      // scheduleRectsCenter.style('cursor', 'move').call(rectDrag);
       dragableLineLeft
         .style('cursor', 'ew-resize')
         .style('stroke-linecap', 'round')
@@ -1142,6 +1216,7 @@ const CalendarView = ({
       };
       let adjustTextLabelsMonths2 = function() {
         d3.selectAll('.topHeader text').attr('transform', 'translate(' + MonthsToPixels(1) / 2 + ',0)');
+        d3.selectAll('.topHeaderM text').attr('transform', 'translate(' + MonthsToPixels(1) / 2 + ',0)');
       };
       let adjustTextLabelsDays = function() {
         d3.selectAll('.topHeader text').attr('transform', 'translate(' + DaysToPixels(1) / 2 + ',0)');
@@ -1151,14 +1226,26 @@ const CalendarView = ({
       let zoomed = function() {
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
-        if (d3.event.transform.k < 9) {
+        if (d3.event.transform.k < 7) {
           gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+          gX.attr('class', 'topHeaderMChart');
           gX1.call(xAxisMonth.scale(zoomedXScale));
           gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
+
+          gXa.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+          gXa.attr('class', 'topHeaderM');
+          gX1a.call(xAxisMonth.scale(zoomedXScale));
+          gX2a.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
         } else {
           gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+          gX.attr('class', 'topHeaderChart');
           gX2.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
           gX1.call(xAxisMonth.scale(zoomedXScale));
+
+          gXa.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+          gXa.attr('class', 'topHeader');
+          gX2a.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
+          gX1a.call(xAxisMonth.scale(zoomedXScale));
         }
         updateRects();
       };
@@ -1173,7 +1260,8 @@ const CalendarView = ({
         .on('zoom', zoomed);
       svg.call(zoom).on('wheel.zoom', null);
       svg.call(zoom.scaleBy, currentZScale);
-
+      svgAxis.call(zoom).on('wheel.zoom', null);
+      svgAxis.call(zoom.scaleBy, currentZScale);
       const moveZoom = (newZoomValue: any) => {
         let type: any;
         if (zoomStatus > newZoomValue) {
@@ -1186,10 +1274,11 @@ const CalendarView = ({
           console.log('working', type);
           const adder = type === 'in' ? 1.4 : 0.7;
           svg.transition().call(zoom.scaleBy, adder);
+          svgAxis.transition().call(zoom.scaleBy, adder);
           setZoomStatus(newZoomValue);
         }
       };
-      moveZoom(moveSchedule);
+      moveZoom(zoomTimeline);
       if (isZoomToday) {
         zoom.translateTo(svg, xScale(today), 0);
         zoom.scaleTo(svg, 30);
@@ -1199,15 +1288,19 @@ const CalendarView = ({
       if (isZoomWeekly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 11);
+        zoom.scaleTo(svg, 7);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
+        zoom.scaleTo(svgAxis, 7);
+        zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomWeekly(false);
       }
       if (isZoomMonthly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 4);
+        zoom.scaleTo(svg, 1.5);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
+        zoom.scaleTo(svgAxis, 1.5);
+        zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomMonthly(false);
       }
     }
@@ -1218,9 +1311,12 @@ const CalendarView = ({
     console.log(zoom);
     if(zoom && svg){
       zoom.translateTo(svg, xScale(today), 0);
-      zoom.scaleTo(svg, 11);
+      zoom.scaleTo(svg, 7);
+      zoom.translateTo(svgAxis, xScale(today), 0);
+      zoom.scaleTo(svgAxis, 7);
     }
   }
+
   useEffect(() => {
     timelineChart(datas);
     setSvgState(svg);
@@ -1236,7 +1332,9 @@ const CalendarView = ({
         }
       };
       const removechart: any = document.getElementById('timeline-chart');
+      const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
+      removeAllChildNodes(removechartAxis);
       if (!openTable[0]) {
         datas = datas.filter(function(el) {
           return !el.id.includes('Centennial');
@@ -1254,13 +1352,15 @@ const CalendarView = ({
       }
       timelineChart(datas);
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline]);
 
   // useEffect(()=> {
-  //   if(moveSchedule === 'in' || moveSchedule === 'out'){
-  //     moveZoom(moveSchedule)
+  //   if(zoom && svg){
+  //     if(zoomTimeline === 'in' || zoomTimeline === 'out'){
+  //       moveZoom(zoomTimeline)
+  //     }
   //   }
-  // },[moveSchedule])
+  // },[zoomTimeline])
   let heightOfList = document.getElementById('searchPortfolio')?.offsetHeight;
 
   // const moveZoom = (testt: string)=>{
@@ -1268,19 +1368,16 @@ const CalendarView = ({
   // }
 
   return (
+    <>
+    {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
+    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
-      <Row>
-        {/* <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'1px'} : {textAlign:'end', paddingRight:'0px'}}> */}
-        <div
-          style={
-            openPiney
-              ? { textAlign: 'end', paddingRight: '300px', width: '100%' }
-              : { textAlign: 'end', paddingRight: '0px', width: '100%' }
-          }
-        >
-          <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'initial', paddingLeft: '10px'}}>
-          <Button
+
+      <Row style={{margin:'13px 10px'}}>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+        <div>
+        <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
             
             onClick={() => {zoomToToday(); setZoomSelected('Today')}}
@@ -1303,10 +1400,22 @@ const CalendarView = ({
           >
             Monthly
           </Button>
-          </Col>
         </div>
-        {/* </Col> */}
-      </Row>
+      </Col>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}}>
+        <div>
+          <Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
+            <CalendarOutlined /> Edit Dates
+          </Button>
+          <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
+          <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
+          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/>
+        </div>
+      </Col>
+    </Row>
+    <div style={{width:'100%'}}>
+      <div id="timeline-chart-axis" />
+    </div>
       <div
         id="chartContainer"
         style={{ height: heightOfList, overflowY: 'auto' }}
@@ -1324,7 +1433,7 @@ const CalendarView = ({
         </div>
       </div>
     </div>
-  );
+    </>);
 };
 
 export default CalendarView;

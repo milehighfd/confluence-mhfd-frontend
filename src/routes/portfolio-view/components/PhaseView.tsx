@@ -16,7 +16,7 @@ const PhaseView = (
   }) => {
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
-  const windowWidth = window.innerWidth;
+  const windowWidth: any = window.innerWidth;
   const next = () => {
     setCurrent(current + 1);
   };
@@ -25,13 +25,16 @@ const PhaseView = (
     setCurrent(current - 1);
   };
   useEffect(() => {
-
+    console.log(windowWidth);
+    const marginLeft = (windowWidth>=1900 && windowWidth<=2549 ? 26 : (windowWidth>=2550 && windowWidth<=3999 ? 35: (windowWidth>=1201 && windowWidth<=1899 ? 26 :16)))
+    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
+    const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -10 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -10) )
   const phaseChart = (dataDotchart: any) => {
-    var margin = { top: -22, right: -10, bottom: -26, left: 20 },
+
+    var margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft },
     width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth,//= 1405 - margin.left - margin.right,
     heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight, //265 - margin.top - margin.bottom;
     height: any  = heightDiv +3;
-    console.log(dataDotchart[0].id);
   // append the svg object to the body of the page
   var svg = d3
     .select(`#dotchart_${dataDotchart[0].id}`)
@@ -44,15 +47,85 @@ const PhaseView = (
 
   let datas = dataDotchart;
 
-  console.log(document.getElementById('testing1')?.offsetHeight);
-
   let arrayForCirclesAndLines = [];
   for (var i = 0; i < datas[0].data.length; i++) {
     arrayForCirclesAndLines.push(i);
   }
+  let svgDefinitions = svg.append("defs");
+  svg.selectAll("defs")
+      .data(datas)
+      .enter()
+  let completedtoActive = svgDefinitions.append("linearGradient");
+  completedtoActive
+    .attr("id", "Completed_Active")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  completedtoActive.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#5E5FE2')
+  completedtoActive.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#047CD7')
 
+  let completedtoDelayed = svgDefinitions.append("linearGradient");
+  completedtoDelayed
+    .attr("id", "Completed_Delayed")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  completedtoDelayed.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#5E5FE2')
+  completedtoDelayed.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#F5575C')
+
+  let ActivetoNotStarted = svgDefinitions.append("linearGradient");
+  ActivetoNotStarted
+    .attr("id", "Active_NotStarted")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  ActivetoNotStarted.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#047CD7')
+  ActivetoNotStarted.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#D4D2D9')
+
+  let ActivetoDelayed = svgDefinitions.append("linearGradient");
+  ActivetoDelayed
+    .attr("id", "Active_Delayed")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  ActivetoDelayed.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#047CD7')
+  ActivetoDelayed.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#F5575C')
+
+  let delayedtoNotStarted = svgDefinitions.append("linearGradient");
+  delayedtoNotStarted
+    .attr("id", "Delayed_NotStarted")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0")
+    .attr("y2", "0");
+  delayedtoNotStarted.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", '#F5575C')
+  delayedtoNotStarted.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", '#D4D2D9')
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width]);
+  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right]);
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;
@@ -94,6 +167,15 @@ const PhaseView = (
           let colorstroke: any = colorScale[d.data[r].status];
           return colorstroke;
         })
+        .attr("stroke", function(d: any) {      
+          let currentStatus = d.data[r].status.replace(/\s+/g, '');
+          let nextStatus = d.data[r+1].status.replace(/\s+/g, '');
+          return ( 
+            (currentStatus === nextStatus) ?
+          colorScale[d.data[r].status]
+          : (`url(#${currentStatus}_${nextStatus})`))
+        })
+        // .attr("stroke", "url(#textBg)")
         .attr("stroke-width", "2.5px");
     }
   });
