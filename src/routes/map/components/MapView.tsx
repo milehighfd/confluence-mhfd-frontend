@@ -638,22 +638,26 @@ const MapView = () => {
     const zoomareaSelected = groupOrganization.filter((x: any) => x.name === name).map((element: any) => {
       return {
         aoi: element.name,
-        filter: element.filter,
-        coordinates: element.coordinates
+        filter: element.table,
+        coordinates: element.coordinates.coordinates
       }
     });
-    console.log('TODO: zoom area selected missing filter', zoomareaSelected);
+    console.log(zoomareaSelected);
     if (zoomareaSelected.length > 0) {
       switch (zoomareaSelected[0].filter) {
         case 'County':
+        case 'CODE_STATE_COUNTY':
+          console.log('enter here ');
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Jurisdiction':
+        case 'CODE_LOCAL_GOVERNMENT':
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
         case 'Service Area':
+        case 'CODE_SERVICE_AREA':
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
@@ -666,11 +670,12 @@ const MapView = () => {
 
   const onSelect = (value: any, isSelect?:any) => {
     setAutocomplete(value);
+    console.log('enter here');
     const zoomareaSelected = groupOrganization.filter((x: any) => x.name === value).map((element: any) => {
       return {
         aoi: element.name,
-        filter: element.filter,
-        coordinates: element.bbox
+        filter: element.table,
+        coordinates: element.coordinates.coordinates
       }
     });
     // TODO addis parse el bbox to coordinates jurisdiction

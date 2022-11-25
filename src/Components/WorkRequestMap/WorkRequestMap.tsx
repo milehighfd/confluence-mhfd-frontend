@@ -489,12 +489,12 @@ const WorkRequestMap = (type: any) => {
   const setBounds = (value: any) => {
     if (!value) return;
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi)))
+      .filter((x: any) => (x.name.includes(value)|| value.includes(x.name)))
       .map((element: any) => {
         return {
-          aoi: element.aoi,
-          filter: element.filter,
-          coordinates: element.coordinates,
+          aoi: element.name,
+          filter: element.table,
+          coordinates: element.coordinates.coordinates,
         };
       });
     if (zoomareaSelected[0]) {
@@ -534,17 +534,17 @@ const WorkRequestMap = (type: any) => {
     }
   }, [type.locality]);
   const getGroupOrganizationZoomWithouBounds = () => {
-    if (groupOrganization.length == 0) {
+    if (groupOrganization.length === 0) {
       getGroupOrganization();
     }
     console.log('getting group organization')
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => type.locality.locality.includes(x.aoi))
+      .filter((x: any) => type.locality.locality.includes(x.name))
       .map((element: any) => {
         return {
-          aoi: element.aoi,
-          filter: element.filter,
-          coordinates: element.coordinates,
+          aoi: element.name,
+          filter: element.table,
+          coordinates: element.coordinates.coordinates,
         };
       });
     if (zoomareaSelected[0]) {

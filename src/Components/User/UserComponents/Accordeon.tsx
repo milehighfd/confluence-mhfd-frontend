@@ -132,8 +132,8 @@ const Accordeon = ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }
     } else {
       itemMenu = groupOrganization.map((item: any, index: number) => {
         return {
-          key: `${index}|${item.aoi}`,
-          label: <span>{item.aoi}</span>
+          key: `${item.id}`,
+          label: <span>{item.name}</span>
         }
       });
     }

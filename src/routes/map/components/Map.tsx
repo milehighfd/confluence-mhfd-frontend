@@ -511,9 +511,13 @@ const Map = ({
       }
     },[markersNotes, commentVisible]);
     useEffect(() => {
+      console.log('changing ', coordinatesJurisdiction);
       let mask;
+      if (map)
+      console.log(coordinatesJurisdiction.length > 0 , map , map.isStyleLoaded());
       if (coordinatesJurisdiction.length > 0 && map && map.isStyleLoaded()) {
         mask = turf.multiPolygon(coordinatesJurisdiction);
+        console.log('my mask is ', mask);
         let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
         var arrayBounds = misbounds.split(',');
         let poly = polyMask(mask, arrayBounds);
