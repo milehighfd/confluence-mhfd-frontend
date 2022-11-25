@@ -47,7 +47,7 @@ const CalendarView = ({
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [currentZScale, setCurrentZScale] = useState(4);
+  const [currentZScale, setCurrentZScale] = useState(1.5);
   // const svgRef = useRef<SVGSVGElement>(null);
   const [zoomedState, setZoomedState] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
@@ -582,7 +582,7 @@ const CalendarView = ({
 
     let dragablesLines = 'dragginglines';
 
-    let padding = { top: 38, right: 10, bottom: 10, left: 0 };
+    let padding = { top: 38, right: 10, bottom: 10, left: -2500 };
     let offsetBar = 18;
     const dragableLineLength = 3;
     const dragableLineHalf = dragableLineLength / 2;
@@ -608,9 +608,9 @@ const CalendarView = ({
         .sort(function(a: any, b: any) {
           return a.to - b.to;
         });
-      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(6, 'months');
+      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(24, 'months');
       let timelineEndTime = moment(toData[toData.length - 1].to)
-        .add(6, 'months')
+        .add(24, 'months')
         .startOf('month');
       // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
       // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
@@ -628,7 +628,7 @@ const CalendarView = ({
       xScale = d3
         .scaleTime()
         .domain([timelineStartTime, timelineEndTime])
-        .range([padding.left, width - padding.right]);
+        .range([padding.left, width - padding.right + 2500]);
 
       let yScale = d3
         .scaleBand()
@@ -716,6 +716,48 @@ const CalendarView = ({
       .attr("cy", padding.top -20)
       .attr("r", 5)
       .style("fill", '#047CD7')
+
+      let getVisibleMonths = function(domain: any) {
+        var time = d3.timeMonth.floor(domain[0]),
+            end = d3.timeMonth.floor(domain[1]),
+            times = [ time ];
+        while(time < end) {
+            time = d3.timeMonth.offset(time, 1);
+            times.push(time);
+        }
+        console.log(times);
+        return times;
+    } 
+    getVisibleMonths(xScale.domain());
+
+    let setTextPosition = function(selection: any, scale: any) {
+      selection.each(function(this:any, d:any) {
+          var width = this.getBBox().width,
+              nextMonthPos = scale(d3.timeMonth.offset(d, 1)),
+              padding = 3,
+              minPos = 0, maxPos = scale.range()[1],
+              x, opacity;
+
+          x = scale(d) + DaysToPixels(15) - width / 2; // center
+          x = Math.max(minPos, x); // left-left
+          x = Math.min(x, nextMonthPos - width - padding);  // left-right
+
+          x = Math.min(x, maxPos - width); // right-right
+          x = Math.max(x, scale(d) + padding); // right-left
+
+          if (x < minPos) {
+              opacity = (x + width - minPos) / width;
+          } else if (x + width > maxPos) {
+              opacity = (maxPos - x) / width;
+          } else {
+              opacity = 1;
+          }
+          let thisVar: any = d3.select(this)
+          d3.transition(thisVar)
+              .attr('x', x)
+              .attr('opacity', opacity);
+      });
+  }
 
       let scheduleRects = scheduleG
         .join('rect')
@@ -1160,7 +1202,7 @@ const CalendarView = ({
       let zoomed = function() {
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
-        if (d3.event.transform.k < 9) {
+        if (d3.event.transform.k < 7) {
           gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
           gX.attr('class', 'topHeaderM');
           gX1.call(xAxisMonth.scale(zoomedXScale));
@@ -1209,14 +1251,14 @@ const CalendarView = ({
       if (isZoomWeekly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 11);
+        zoom.scaleTo(svg, 7);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
         setIsZoomWeekly(false);
       }
       if (isZoomMonthly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 4);
+        zoom.scaleTo(svg, 1.5);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
         setIsZoomMonthly(false);
       }
@@ -1228,7 +1270,7 @@ const CalendarView = ({
     console.log(zoom);
     if(zoom && svg){
       zoom.translateTo(svg, xScale(today), 0);
-      zoom.scaleTo(svg, 11);
+      zoom.scaleTo(svg, 7);
     }
   }
 
