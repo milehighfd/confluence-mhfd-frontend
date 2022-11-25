@@ -566,6 +566,7 @@ const CalendarView = ({
   });
   let zoom: any;
   let svg: any;
+  let svgAxis: any;
   let xScale: any;
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
@@ -579,6 +580,11 @@ const CalendarView = ({
       .append('svg')
       .attr('width', width)
       .attr('height', height);
+    svgAxis = d3
+    .select('#timeline-chart-axis')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', 40);
 
     let dragablesLines = 'dragginglines';
 
@@ -666,17 +672,35 @@ const CalendarView = ({
 
       let gX = svg
         .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40 )+ ')')
+        .attr('class', 'topHeaderChart')
+        .call(xAxisDay);
+
+      let gX1 = svg
+        .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40) + ')')
+        .attr('class', 'topHeaderMonthChart')
+        .call(xAxisMonth);
+
+      let gX2 = svg
+        .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40) + ')')
+        .attr('class', 'topHeaderYearChart')
+        .call(xAxisYear);
+
+        let gXa = svgAxis
+        .append('g')
         .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
         .attr('class', 'topHeader')
         .call(xAxisDay);
 
-      let gX1 = svg
+      let gX1a = svgAxis
         .append('g')
         .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
         .attr('class', 'topHeaderMonth')
         .call(xAxisMonth);
 
-      let gX2 = svg
+      let gX2a = svgAxis
         .append('g')
         .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22) + ')')
         .attr('class', 'topHeaderYear')
@@ -699,7 +723,7 @@ const CalendarView = ({
         .attr('x1', function() {
           return xScale(today);
         })
-        .attr('y1', padding.top -20)
+        .attr('y1', padding.top -40)
         .attr('x2', function() {
           return xScale(today);
         })
@@ -713,7 +737,7 @@ const CalendarView = ({
       .attr("cx", function() {
         return xScale(today);
       })
-      .attr("cy", padding.top -20)
+      .attr("cy", padding.top -40)
       .attr("r", 5)
       .style("fill", '#047CD7')
 
@@ -1204,14 +1228,24 @@ const CalendarView = ({
         zoomedXScale = d3.event.transform.rescaleX(xScale);
         if (d3.event.transform.k < 7) {
           gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
-          gX.attr('class', 'topHeaderM');
+          gX.attr('class', 'topHeaderMChart');
           gX1.call(xAxisMonth.scale(zoomedXScale));
           gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
+
+          gXa.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+          gXa.attr('class', 'topHeaderM');
+          gX1a.call(xAxisMonth.scale(zoomedXScale));
+          gX2a.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
         } else {
           gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
-          gX.attr('class', 'topHeader');
+          gX.attr('class', 'topHeaderChart');
           gX2.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
           gX1.call(xAxisMonth.scale(zoomedXScale));
+
+          gXa.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+          gXa.attr('class', 'topHeader');
+          gX2a.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
+          gX1a.call(xAxisMonth.scale(zoomedXScale));
         }
         updateRects();
       };
@@ -1226,6 +1260,8 @@ const CalendarView = ({
         .on('zoom', zoomed);
       svg.call(zoom).on('wheel.zoom', null);
       svg.call(zoom.scaleBy, currentZScale);
+      svgAxis.call(zoom).on('wheel.zoom', null);
+      svgAxis.call(zoom.scaleBy, currentZScale);
       const moveZoom = (newZoomValue: any) => {
         let type: any;
         if (zoomStatus > newZoomValue) {
@@ -1238,6 +1274,7 @@ const CalendarView = ({
           console.log('working', type);
           const adder = type === 'in' ? 1.4 : 0.7;
           svg.transition().call(zoom.scaleBy, adder);
+          svgAxis.transition().call(zoom.scaleBy, adder);
           setZoomStatus(newZoomValue);
         }
       };
@@ -1253,6 +1290,8 @@ const CalendarView = ({
         // .transition().call(zoom.scaleBy, 18);
         zoom.scaleTo(svg, 7);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
+        zoom.scaleTo(svgAxis, 7);
+        zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomWeekly(false);
       }
       if (isZoomMonthly) {
@@ -1260,6 +1299,8 @@ const CalendarView = ({
         // .transition().call(zoom.scaleBy, 18);
         zoom.scaleTo(svg, 1.5);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
+        zoom.scaleTo(svgAxis, 1.5);
+        zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomMonthly(false);
       }
     }
@@ -1271,6 +1312,8 @@ const CalendarView = ({
     if(zoom && svg){
       zoom.translateTo(svg, xScale(today), 0);
       zoom.scaleTo(svg, 7);
+      zoom.translateTo(svgAxis, xScale(today), 0);
+      zoom.scaleTo(svgAxis, 7);
     }
   }
 
@@ -1289,7 +1332,9 @@ const CalendarView = ({
         }
       };
       const removechart: any = document.getElementById('timeline-chart');
+      const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
+      removeAllChildNodes(removechartAxis);
       if (!openTable[0]) {
         datas = datas.filter(function(el) {
           return !el.id.includes('Centennial');
@@ -1368,6 +1413,9 @@ const CalendarView = ({
         </div>
       </Col>
     </Row>
+    <div style={{width:'100%'}}>
+      <div id="timeline-chart-axis" />
+    </div>
       <div
         id="chartContainer"
         style={{ height: heightOfList, overflowY: 'auto' }}
