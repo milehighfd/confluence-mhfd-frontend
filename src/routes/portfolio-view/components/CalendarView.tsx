@@ -575,6 +575,11 @@ const CalendarView = ({
     let barHeight = 27;
     let width = widthofDiv - 20,
       height = 16 + (barHeight + 12) * (datas.length + 1);
+      if (svg){
+        svg.selectAll('*').remove();
+        svgAxis.selectAll('*').remove();
+      }
+
     svg = d3
       .select('#timeline-chart')
       .append('svg')
@@ -588,7 +593,7 @@ const CalendarView = ({
 
     let dragablesLines = 'dragginglines';
 
-    let padding = { top: 38, right: 10, bottom: 10, left: -2500 };
+    let padding = { top: 38, right: 10, bottom: 10, left: -0 };
     let offsetBar = 18;
     const dragableLineLength = 3;
     const dragableLineHalf = dragableLineLength / 2;
@@ -614,9 +619,9 @@ const CalendarView = ({
         .sort(function(a: any, b: any) {
           return a.to - b.to;
         });
-      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(24, 'months');
+      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(7, 'months');
       let timelineEndTime = moment(toData[toData.length - 1].to)
-        .add(24, 'months')
+        .add(7, 'months')
         .startOf('month');
       // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
       // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
@@ -634,7 +639,7 @@ const CalendarView = ({
       xScale = d3
         .scaleTime()
         .domain([timelineStartTime, timelineEndTime])
-        .range([padding.left, width - padding.right + 2500]);
+        .range([padding.left, width - padding.right + 0]);
 
       let yScale = d3
         .scaleBand()
@@ -656,7 +661,7 @@ const CalendarView = ({
         .axisTop(xScale)
         .ticks(d3.timeMonth.every(1))
         .tickSize(-chartHeight)
-        .tickFormat(timeFormatterForMonths);
+        .tickFormat(tickFormatEmpty);
 
       let xAxisDay = d3
         .axisTop(xScale)
@@ -1207,28 +1212,128 @@ const CalendarView = ({
       };
 
       //console.log(currentZScale); //d3.selectAll('.topHeaderMonth text').attr('transform','translate('+));
+
+      let getVisibleMonths = function(domain: any) {
+        var time = d3.timeMonth.floor(domain[0]),
+            end = d3.timeMonth.floor(domain[1]),
+            times = [ time ];
+        while(time < end) {
+            time = d3.timeMonth.offset(time, 1);
+            times.push(time);
+    }
+        console.log(times);
+        return times;
+    } 
+
+    let setTextPosition = function(selection: any) {
+      selection.each(function(this:any, d:any) {
+          var width = this.getBBox().width,
+              nextMonthPos = zoomedXScale(d3.timeMonth.offset(d, 1)),
+              padding = 3,
+              minPos = 0, maxPos = zoomedXScale.range()[1],
+              x, opacity;
+          
+          x = zoomedXScale(d) + DaysToPixels(15) - width / 2; // center
+          x = Math.max(minPos, x); // left-left
+          x = Math.min(x, nextMonthPos - width - padding);  // left-right
+
+          x = Math.min(x, maxPos - width); // right-right
+          x = Math.max(x, zoomedXScale(d) + padding); // right-left
+          
+          if (x < minPos) {
+              opacity = (x + width - minPos) / width;
+          } else if (x + width > maxPos) {
+              opacity = (maxPos - x) / width;
+          } else {
+              opacity = 1;
+          }
+          //console.log(x, 'opa', opacity)
+          let thisVar: any = d3.select(this)
+          d3.select(this)
+              .attr('x', (x=== 0 ? x+width : x))
+              //.attr('transform', 'translate(' + x + ',' +0+ ')')
+              .attr('opacity', opacity);
+              //console.log(this)
+      });
+  }
+  let renderMonthNames: any = function(scale: any) {
+
+      let gettimefornames = function(name: any) {
+          var f, params = Array.prototype.slice.call(arguments, 1);
+          return function(d: any) {
+              f = d[name];
+              return typeof(f)==='function' ? f.apply(d, params) : f;
+          };
+      };
+
+        let scale1 = zoomedXScale.copy(),
+        scale0 = renderMonthNames.scale || scale1,
+        data = getVisibleMonths(zoomedXScale.domain()),
+        name = d3.select('.topHeaderYear').selectAll('.name').data(data, gettimefornames('getTime')),
+        nameEnter, nameUpdate, nameExit,
+        text, textEnter, textUpdate;
+
+    //console.log('name',data);
+    // console.log('scale',scale0);
+    renderMonthNames.scale = scale1;
+
+    nameEnter = name.enter();
+    nameUpdate = name;
+    nameExit = name.exit();
+
+    // ENTER
+    //
+    nameEnter
+        .append('text')
+        .attr('class', 'name')
+        .text(function(d: any) { return d3.timeFormat('%B')(d); })
+        .call(setTextPosition, zoomedXScale);
+
+            // set text position in the other thread
+            // because we need BBox of the already rendered text element
+            // setTimeout(function() {
+            d3.select('.topHeaderYear').selectAll('.name').call(setTextPosition, zoomedXScale);
+            // }, 1);
+              nameUpdate = nameUpdate.transition().duration(300);
+              nameExit = nameExit.transition().duration(300);
+
+    // UPDATE
+    // 
+    nameUpdate
+        .call(setTextPosition, zoomedXScale);
+
+    // EXIT
+    //
+    nameExit
+        .attr('opacity', 1e-6)
+        .call(setTextPosition, zoomedXScale)
+        .remove();
+  } // renderMonthNames
+
       let zoomed = function() {
+        renderMonthNames();
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
         if (d3.event.transform.k < 7) {
-          gX.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+          gX.call(xAxisMonth.scale(zoomedXScale));
           gX.attr('class', 'topHeaderMChart');
           gX1.call(xAxisMonth.scale(zoomedXScale));
-          gX2.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
+          gX2.call(xAxisYear.scale(zoomedXScale));
 
-          gXa.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths2);
+          gXa.call(xAxisMonth.scale(zoomedXScale));
           gXa.attr('class', 'topHeaderM');
           gX1a.call(xAxisMonth.scale(zoomedXScale));
-          gX2a.call(xAxisYear.scale(zoomedXScale)).call(adjustTextLabelsYears);
+          gX2a.call(xAxisYear.scale(zoomedXScale));
         } else {
+          
           gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
           gX.attr('class', 'topHeaderChart');
-          gX2.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
+          gX2.call(xAxisMonth.scale(zoomedXScale));
           gX1.call(xAxisMonth.scale(zoomedXScale));
 
           gXa.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
           gXa.attr('class', 'topHeader');
-          gX2a.call(xAxisMonth.scale(zoomedXScale)).call(adjustTextLabelsMonths);
+          gX2a.call(xAxisMonth.scale(zoomedXScale));
           gX1a.call(xAxisMonth.scale(zoomedXScale));
         }
         updateRects();
@@ -1288,92 +1393,6 @@ const CalendarView = ({
         setIsZoomMonthly(false);
       }
 
-//       let getVisibleMonths = function(domain: any) {
-//         var time = d3.timeMonth.floor(domain[0]),
-//             end = d3.timeMonth.floor(domain[1]),
-//             times = [ time ];
-//         while(time < end) {
-//             time = d3.timeMonth.offset(time, 1);
-//             times.push(time);
-//     }
-//         console.log(times);
-//         return times;
-//     } 
-//     getVisibleMonths(xScale.domain());
-
-//     let setTextPosition = function(selection: any, scale: any) {
-//       selection.each(function(this:any, d:any) {
-//           var width = this.getBBox().width,
-//               nextMonthPos = zoomedXScale(d3.timeMonth.offset(d, 1)),
-//               padding = 3,
-//               minPos = 0, maxPos = zoomedXScale.range()[1],
-//               x, opacity;
-//           console.log(this, width)
-//           x = zoomedXScale(d) + DaysToPixels(15) - width / 2; // center
-//           x = Math.max(minPos, x); // left-left
-//           x = Math.min(x, nextMonthPos - width - padding);  // left-right
-
-//           x = Math.min(x, maxPos - width); // right-right
-//           x = Math.max(x, zoomedXScale(d) + padding); // right-left
-
-//           if (x < minPos) {
-//               opacity = (x + width - minPos) / width;
-//           } else if (x + width > maxPos) {
-//               opacity = (maxPos - x) / width;
-//           } else {
-//               opacity = 1;
-//           }
-//           let thisVar: any = d3.select(this)
-//           d3.transition(thisVar)
-//               .attr('x', x)
-//               .attr('opacity', opacity);
-//       });
-//   }
-//   let renderMonthNames: any = function() {
-//         let scale1 = zoomedXScale.copy(),
-//         scale0 = scale1,
-//         data = getVisibleMonths(zoomedXScale.domain()),
-//         name = d3.select('.topHeaderYear').selectAll('.name').data(data),
-//         nameEnter, nameUpdate, nameExit,
-//         text, textEnter, textUpdate;
-
-//     console.log('name',data);
-//     renderMonthNames.scale = scale1;
-
-//     nameEnter = name.enter();
-//     nameUpdate = name;
-//     nameExit = name.exit();
-
-//     // ENTER
-//     //
-//     nameEnter
-//         .append('text')
-//         .attr('class', 'name')
-//         .text(function(d: any) { return d3.timeFormat('%B')(d); })
-//         .call(setTextPosition, scale0);
-
-//             // set text position in the other thread
-//             // because we need BBox of the already rendered text element
-//             setTimeout(function() {
-//             d3.select('.topHeaderYear').selectAll('.name').call(setTextPosition, scale0);
-//             }, 1);
-//             nameUpdate = nameUpdate.transition().duration(300);
-//             nameExit = nameExit.transition().duration(300);
-
-
-//     // UPDATE
-//     // 
-//     nameUpdate
-//         .call(setTextPosition, scale1);
-
-//     // EXIT
-//     //
-//     nameExit
-//         .attr('opacity', 1e-6)
-//         .call(setTextPosition, scale1)
-//         .remove();
-// } // renderMonthNames
-// renderMonthNames();
     }
 
   };
