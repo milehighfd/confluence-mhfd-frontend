@@ -717,7 +717,17 @@ const CalendarView = ({
         .data((d: any) => {
           return d.schedule;
         });
-
+        let scheduleGaxis = svgAxis
+        .append('g')
+        .selectAll('g')
+        .data(datasets)
+        .enter()
+        .append('g')
+        .attr('class', 'jurisdiction')
+        .selectAll()
+        .data((d: any) => {
+          return d.schedule;
+        });
       let todayline = scheduleG
         .join('line')
         .attr('x1', function() {
@@ -733,13 +743,27 @@ const CalendarView = ({
         .style('stroke', '#047CD7')
         .style('fill', 'none');
 
-        let todayCircle = scheduleG.join("circle")
+        let todayCircle = scheduleGaxis.join("circle")
       .attr("cx", function() {
         return xScale(today);
       })
-      .attr("cy", padding.top -40)
-      .attr("r", 5)
+      .attr("cy", 10)
+      .attr("r", 6)
       .style("fill", '#047CD7')
+      let todaylineaxis = scheduleGaxis
+        .join('line')
+        .attr('x1', function() {
+          return xScale(today);
+        })
+        .attr('y1', 10)
+        .attr('x2', function() {
+          return xScale(today);
+        })
+        .attr('y2', height + padding.top - padding.bottom)
+        .style('stroke-dasharray', 5.5)
+        .style('stroke-width', 2)
+        .style('stroke', '#047CD7')
+        .style('fill', 'none');
 
       let scheduleRects = scheduleG
         .join('rect')
@@ -1077,6 +1101,8 @@ const CalendarView = ({
       let updateRects = function() {
         todayline.attr('x1', calctodayX);
         todayline.attr('x2', calctodayX);
+        todaylineaxis.attr('x1', calctodayX);
+        todaylineaxis.attr('x2', calctodayX);
         todayCircle.attr('cx', calctodayX);
         scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
         scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
