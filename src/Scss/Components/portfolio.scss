@@ -115,6 +115,26 @@
 .topHeaderMonth line{
   visibility: hidden;
 }
+.topHeaderYearAxis text{
+  fill: #11093C;
+  position: absolute;
+  height: 15px;
+  left: 23.15%;
+  right: 73.15%;
+  top: calc(50% - 15px/2 - 327.5px);
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center; 
+}
+.topHeaderYearAxis path{
+  visibility: hidden;
+}
+.topHeaderYearAxis line{
+  visibility: hidden;
+}
 .topHeaderMonthforTicks text{
   visibility: hidden;
 }

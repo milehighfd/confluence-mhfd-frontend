@@ -30,6 +30,7 @@ import {
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
+import { exit } from 'process';
 
 const { Step } = Steps;
 const CalendarView = ({
@@ -47,7 +48,7 @@ const CalendarView = ({
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [currentZScale, setCurrentZScale] = useState(1.5);
+  const [currentZScale, setCurrentZScale] = useState(4.5);
   // const svgRef = useRef<SVGSVGElement>(null);
   const [zoomedState, setZoomedState] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
@@ -568,6 +569,7 @@ const CalendarView = ({
   let svg: any;
   let svgAxis: any;
   let xScale: any;
+  let zoomedXScale: any;
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
 
@@ -655,7 +657,7 @@ const CalendarView = ({
         .axisTop(xScale)
         .tickSize(-chartHeight + 100)
         .ticks(d3.timeYear.every(1))
-        .tickFormat(timeFormatterForYears);
+        .tickFormat(tickFormatEmpty);
 
       let xAxisMonth = d3
         .axisTop(xScale)
@@ -723,6 +725,12 @@ const CalendarView = ({
         .attr('class', 'topHeaderYear')
         .call(xAxisYear);
 
+        let gX2aYear = svgAxis
+        .append('g')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22) + ')')
+        .attr('class', 'topHeaderYearAxis')
+        .call(xAxisYear);
+      
       let scheduleG = svg
         .append('g')
         .selectAll('g')
@@ -907,7 +915,7 @@ const CalendarView = ({
           return yScaleId + h + 8;
         });
 
-      let zoomedXScale = xScale;
+      zoomedXScale = xScale;
       let calctodayX = function(d: any) {
         return zoomedXScale(today);
       };
@@ -1236,6 +1244,17 @@ const CalendarView = ({
         //console.log(times);
         return times;
     } 
+    let getVisibleYears = function(domain: any) {
+      var time = d3.timeYear.floor(domain[0]),
+          end = d3.timeYear.floor(domain[1]),
+          times = [ time ];
+      while(time < end) {
+          time = d3.timeYear.offset(time, 1);
+          times.push(time);
+  }
+      //console.log(times);
+      return times;
+  } 
 
     let setTextPositionMonth = function(selection: any) {
       selection.each(function(this:any, d:any) {
@@ -1262,12 +1281,43 @@ const CalendarView = ({
           //console.log(x, 'opa', opacity)
           let thisVar: any = d3.select(this)
           d3.select(this)
-              .attr('x', (x=== 0 ? x+width : x))
+              .attr('x', (x>= 0 && x<=width/2+ 15 ? width/2+ 15 : x))
               //.attr('transform', 'translate(' + x + ',' +0+ ')')
               .attr('opacity', opacity);
               //console.log(this)
       });
   }
+  let setTextPositionYear = function(selection: any) {
+    selection.each(function(this:any, d:any) {
+        var width = this.getBBox().width,
+            nextMonthPos = zoomedXScale(d3.timeYear.offset(d, 1)),
+            padding = 3,
+            minPos = 0, maxPos = zoomedXScale.range()[1],
+            x, opacity;
+        
+        x = zoomedXScale(d) + DaysToPixels(182) - width / 2; // center
+        x = Math.max(minPos, x); // left-left
+        x = Math.min(x, nextMonthPos - width - padding);  // left-right
+
+        x = Math.min(x, maxPos - width); // right-right
+        x = Math.max(x, zoomedXScale(d) + padding); // right-left
+        
+        if (x < minPos) {
+            opacity = (x + width - minPos) / width;
+        } else if (x + width > maxPos) {
+            opacity = (maxPos - x) / width;
+        } else {
+            opacity = 1;
+        }
+        //console.log(x, 'opa', opacity)
+        let thisVar: any = d3.select(this)
+        d3.select(this)
+            .attr('x', (x=== 0 ? x+width : x))
+            //.attr('transform', 'translate(' + x + ',' +0+ ')')
+            .attr('opacity', opacity);
+            //console.log(this)
+    });
+}
   let renderMonthNames: any = function(scale: any) {
 
       let gettimefornames = function(name: any) {
@@ -1324,11 +1374,69 @@ const CalendarView = ({
         .remove();
   } // renderMonthNames
 
+  let renderYearNames: any = function(scale: any) {
+
+    let gettimefornames = function(name: any) {
+        var f, params = Array.prototype.slice.call(arguments, 1);
+        return function(d: any) {
+            f = d[name];
+            return typeof(f)==='function' ? f.apply(d, params) : f;
+        };
+    };
+
+      let scale1 = zoomedXScale.copy(),
+      scale0 = renderYearNames.scale || scale1,
+      data = getVisibleYears(zoomedXScale.domain()),
+      name = d3.select('.topHeaderYearAxis').selectAll('.nameYear').data(data, gettimefornames('getTime')),
+      nameEnter, nameUpdate, nameExit,
+      text, textEnter, textUpdate;
+
+  //console.log('name',data);
+  // console.log('scale',scale0);
+  renderYearNames.scale = scale1;
+
+  nameEnter = name.enter();
+  nameUpdate = name;
+  nameExit = name.exit();
+
+  // ENTER
+  //
+  console.log(d3.event.transform.k);
+  nameEnter
+      .append('text')
+      .attr('class', 'nameYear')
+      .attr('transform', function(d: any) { return (d3.event.transform.k < 13.44 ? 'translate(0,' +0+ ')' : 'translate(0,' +0+ ')')})
+      .text(function(d: any) { return d3.timeFormat('%Y')(d); })
+      
+      .call(setTextPositionYear, zoomedXScale);
+          // set text position in the other thread
+          // because we need BBox of the already rendered text element
+          // setTimeout(function() {
+          d3.select('.topHeaderYearAxis').selectAll('.nameYear').call(setTextPositionYear, zoomedXScale);
+          // }, 1);
+            nameUpdate = nameUpdate.transition().duration(300);
+            nameExit = nameExit.transition().duration(300);
+
+  // UPDATE
+  // 
+  nameUpdate
+      .call(setTextPositionYear, zoomedXScale);
+
+  // EXIT
+  //
+  nameExit
+      .attr('opacity', 1e-6)
+      .call(setTextPositionYear, zoomedXScale)
+      .remove();
+} // renderMonthNames
+
       let zoomed = function() {
+        
         renderMonthNames();
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
-        if (d3.event.transform.k < 13.44) {
+        if (d3.event.transform.k < 10) {
+          renderYearNames();
           gX.call(xAxisMonth.scale(zoomedXScale));
           gX.attr('class', 'topHeaderMChart');
           //gXamonth.call(xAxisMonthMonthly.scale(zoomedXScale)).call(adjustTextLabelsMonths2)
@@ -1338,7 +1446,8 @@ const CalendarView = ({
           gXa.call(xAxisMonth.scale(zoomedXScale));
           gXa.attr('class', 'topHeaderM');
           gX1a.call(xAxisMonth.scale(zoomedXScale));
-          gX2a.call(xAxisYear.scale(zoomedXScale));
+          //gX2a.call(xAxisYear.scale(zoomedXScale));
+          gX2aYear.call(xAxisYear.scale(zoomedXScale));
         } else {
           
           d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden' );
@@ -1384,12 +1493,14 @@ const CalendarView = ({
         }
       };
       moveZoom(zoomTimeline);
-      if (isZoomToday) {
-        zoom.translateTo(svg, xScale(today), 0);
-        zoom.scaleTo(svg, 30);
-        //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
-        setIsZoomToday(false);
-      }
+      // if (isZoomToday) {
+      //   zoom.translateTo(svg, xScale(today), 0);
+      //   zoom.scaleTo(svg, 13.44);
+      //   zoom.translateTo(svgAxis, xScale(today), 0);
+      //   zoom.scaleTo(svgAxis, 13.44);
+      //   //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
+      //   // setIsZoomToday(false);
+      // }
       if (isZoomWeekly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
@@ -1414,14 +1525,19 @@ const CalendarView = ({
   };
 
   const zoomToToday = () => {
+    
     console.log(svg);
     console.log(zoom);
     if(zoom && svg){
-      zoom.translateTo(svg, xScale(today), 0);
-      zoom.scaleTo(svg, 7);
       zoom.translateTo(svgAxis, xScale(today), 0);
-      zoom.scaleTo(svgAxis, 7);
+      zoom.scaleTo(svgAxis, 13.44);
+      zoom.translateTo(svg, xScale(today), 0);
+      zoom.scaleTo(svg, 13.44);
+
     }
+
+    //d3.select('.topHeaderYear').selectAll('.name').attr('visibility', 'hidden');
+    d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
   }
 
   useEffect(() => {
