@@ -2756,6 +2756,9 @@ body{
     }
   }
   .table-financials-modal{
+      .ant-table-tbody>tr>td {
+        font-size: 20px !important;
+      }
     .span-Preliminary{
       background: #eff0fd;
       padding: 5px 5px;
