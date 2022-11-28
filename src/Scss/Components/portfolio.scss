@@ -68,6 +68,7 @@
   flex-grow: 0;
   position: fixed;
 }
+
 .topHeaderM text{
   fill: #11093C;
   width: 58px;
@@ -92,14 +93,37 @@
   visibility: hidden;
 }
 .topHeaderMonth text{
+  fill: #11093C;
+  width: 58px;
+  height: 14px;
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 14px;
+  text-align: center;
+  mix-blend-mode: normal;
+  opacity: 0.6;
+  flex: none;
+  order: 4;
+  flex-grow: 0;
+  position: fixed;
+}
+.topHeaderMonth path{
   visibility: hidden;
 }
 .topHeaderMonth line{
+  visibility: hidden;
+}
+.topHeaderMonthforTicks text{
+  visibility: hidden;
+}
+.topHeaderMonthforTicks line{
   stroke: gray;
   opacity: 0.8;
   visibility: hidden;
 }
-.topHeaderMonth path{
+.topHeaderMonthforTicks path{
   visibility: hidden;
 }
 
