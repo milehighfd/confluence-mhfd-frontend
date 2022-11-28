@@ -2507,8 +2507,15 @@ body{
 .dropdown-container-filter {
   display: flex;
 }
-@media (min-width: 1900px) and (max-width: 3999px){
+@media (min-width: 1900px) and (max-width: 2550px){
+  .detailed-modal {
+    width: 1420px !important;
+  }
   .detailed-h{
+    .ant-input {
+      padding: 6px 11px;
+      font-size: 20px;
+    }
     h1{
       font-size: 28px;
     }
@@ -2537,10 +2544,256 @@ body{
       font-size: 16px;
     }
   }
+  .detailed-Team {
+    width: 596px !important;
+    .body-modal-data{
+      height: 305px;
+      p{
+        font-size: 16px;
+        color: #11093C;
+        opacity: 0.6;
+      }
+      h6{
+        font-size: 18px;
+        margin-bottom: -4.5px;
+      }
+      img{
+        height: 45px !important;
+      }
+    }
+  }
+  .menu-drop{
+    width: 185px !important;
+  }
+  .ant-dropdown-menu-item-group-title {
+    p {
+      font-size: 14px !important;
+    }
+  }
+  .detailed-h{
+    .title{
+      font-size: 18px;
+      padding-bottom: 8px;
+    }
+    .active{
+      border-bottom: 3px solid #11093C;
+      color: $purple00;
+        opacity: 1;
+      h4{
+        color: $purple00;
+        opacity: 1;
+      }
+    }
+  }
+  .detailed-image {
+    .btn-filter-k{
+      padding: 2px 10px;
+      font-size: 18px;
+    }
+  }
+  .table-financials-modal{
+    .span-Preliminary{
+      background: #eff0fd;
+      padding: 5px 5px;
+      border-radius: 3px;
+      color: #5e63e4;
+    }
+    .span-Constracting{
+      background: #eafaf5;
+      padding: 5px 1px;
+      border-radius: 3px;
+      color: #28c499;
+    }
+    .span-Construction{
+      background: #fff8ea;
+      padding: 5px 1px;
+      border-radius: 3px;
+      color: #fdb32b
+    }
+    .span-Establishment{
+      background: #eaf8fa;
+      padding: 5px px;
+      border-radius: 3px;
+      color: #28B2C4;
+    }
+  }
+  .action-modal {
+    width: 860px !important;
+  }
+  .action-body{
+    .title{
+      font-size: 18px;
+    }
+    .date{
+      font-size: 18px;
+    }
+    p {
+      font-size: 18px;
+    }
+    .text-action {
+      font-size: 18px;
+    }
+    .content-progress{
+      font-size: 18px;
+    }
+    .ant-btn{
+      font-size: 18px !important;
+      padding: 3px 14px !important;
+    }
+    .btn-purple{
+      height: 36px !important;
+      font-size: 18px !important;
+    }
+    span{
+      font-size: 18px !important;
+    }
+  }
 }
-@media (min-width: 2555) and (max-width: 3999px){
+@media (min-width: 2550px) and (max-width: 4999px){
   .detailed{
     .header-body-modal{
+      font-size: 20px !important;
+    }
+  }
+  .detailed-modal {
+    width: 1420px !important;
+  }
+  .detailed-mmm {
+    font-size: 20px;
+  }
+  .detailed-h{
+    h1{
+      font-size: 32px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+  .detailed-info{
+    padding: 20px 40px 0px 40px;
+    font-size: 24px;
+    p{
+      font-size: 22px !important;
+    }
+    span{
+      font-size: 22px !important;
+    }
+  }
+  .table-detail-modal{
+    .ant-table-thead>tr>th {
+      font-size: 18px;
+    }
+    .ant-table-tbody>tr>td {
+      font-size: 22px;
+    }
+    .span-Active{
+      font-size: 22px;
+    }
+  }
+  .detailed-Team {
+    width: 830px !important;
+    .ant-select {
+      font-size: 23px;
+    }
+    .body-modal-data{
+      height: 385px;
+      p{
+        font-size: 22px;
+        color: #11093C;
+        opacity: 0.6;
+      }
+      h6{
+        font-size: 24px;
+        margin-bottom: -4.5px;
+      }
+      img{
+        height: 64px !important;
+      }
+    }
+  }
+  .menu-drop{
+    width: 185px !important;
+  }
+  .ant-dropdown-menu-item-group-title {
+    p {
+      font-size: 14px !important;
+    }
+  }
+  .detailed-h{
+    .title{
+      font-size: 18px;
+      padding-bottom: 8px;
+    }
+    .active{
+      border-bottom: 3px solid #11093C;
+      color: $purple00;
+        opacity: 1;
+      h4{
+        color: $purple00;
+        opacity: 1;
+      }
+    }
+  }
+  .detailed-image {
+    .btn-filter-k{
+      padding: 2px 10px;
+      font-size: 18px;
+    }
+  }
+  .table-financials-modal{
+    .span-Preliminary{
+      background: #eff0fd;
+      padding: 5px 5px;
+      border-radius: 3px;
+      color: #5e63e4;
+    }
+    .span-Constracting{
+      background: #eafaf5;
+      padding: 5px 1px;
+      border-radius: 3px;
+      color: #28c499;
+    }
+    .span-Construction{
+      background: #fff8ea;
+      padding: 5px 1px;
+      border-radius: 3px;
+      color: #fdb32b
+    }
+    .span-Establishment{
+      background: #eaf8fa;
+      padding: 5px px;
+      border-radius: 3px;
+      color: #28B2C4;
+    }
+  }
+  .action-modal {
+    width: 860px !important;
+  }
+  .action-body{
+    .title{
+      font-size: 18px;
+    }
+    .date{
+      font-size: 18px;
+    }
+    p {
+      font-size: 18px;
+    }
+    .text-action {
+      font-size: 18px;
+    }
+    .content-progress{
+      font-size: 18px;
+    }
+    .ant-btn{
+      font-size: 18px !important;
+      padding: 3px 14px !important;
+    }
+    .btn-purple{
+      height: 36px !important;
+      font-size: 18px !important;
+    }
+    span{
       font-size: 18px !important;
     }
   }

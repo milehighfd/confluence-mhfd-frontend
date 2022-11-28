@@ -269,3 +269,14 @@
 .ant-click-animating-node {
   display: none;
 }
+@media (min-width: 1900px) and (max-width: 3999px){
+  .ant-checkbox-wrapper {
+    font-size: 17px !important;
+  }
+}
+@media (min-width: 2250px) and (max-width: 4999px){
+  .btn-circle {
+    height: 42px;
+    width: 42px;
+  }
+}

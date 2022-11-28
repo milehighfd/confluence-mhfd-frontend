@@ -1055,7 +1055,7 @@
         /* padding: 19px 0px; */
         background: #ffffff;
         border-bottom: 1px solid #d4d2d9;
-        width: 100%;
+        width: 99%;
         p{
           width: 6.6666666667%;
           padding: 0px 0px;
@@ -1594,6 +1594,31 @@
   }
 }
 @media (min-width: 2555px) and (max-width: 4999px){
+  .phaseview-body{
+    .piney-text{
+      width: 445px !important;
+      h1{
+        font-size: 24px !important;
+      }
+      .tag-blue{
+        font-size: 20px !important;
+      }
+      p{
+        font-size: 20px !important;
+      }
+      span{
+        font-size: 20px !important;
+      }
+    }
+    .body-piney-body{
+      .form-text-calendar{
+        img{height: 36px !important;}
+        input{
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
   .portafolio-head{
     h2{
       width: 325px !important;
@@ -1622,10 +1647,13 @@
       p{
         font-size: 24px !important;
       }
+      span{
+        font-size: 20px !important;
+      }
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 10px 10px !important;
-      font-size: 24px !important;
+      font-size: 26px !important;
       height: 48px !important;
     }
   }
