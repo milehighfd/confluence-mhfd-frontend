@@ -574,7 +574,7 @@ const CalendarView = ({
   const timelineChart = (datasets: any) => {
     let barHeight = 27;
     let width = widthofDiv - 20,
-      height = 25 + (barHeight + 10.5) * (datas.length + 1);
+      height = 16 + (barHeight + 12) * (datas.length + 1);
     svg = d3
       .select('#timeline-chart')
       .append('svg')
@@ -672,19 +672,19 @@ const CalendarView = ({
 
       let gX = svg
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40 )+ ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top )+ ')')
         .attr('class', 'topHeaderChart')
         .call(xAxisDay);
 
       let gX1 = svg
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40) + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
         .attr('class', 'topHeaderMonthChart')
         .call(xAxisMonth);
 
       let gX2 = svg
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top-40) + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
         .attr('class', 'topHeaderYearChart')
         .call(xAxisYear);
 
@@ -740,48 +740,6 @@ const CalendarView = ({
       .attr("cy", padding.top -40)
       .attr("r", 5)
       .style("fill", '#047CD7')
-
-      let getVisibleMonths = function(domain: any) {
-        var time = d3.timeMonth.floor(domain[0]),
-            end = d3.timeMonth.floor(domain[1]),
-            times = [ time ];
-        while(time < end) {
-            time = d3.timeMonth.offset(time, 1);
-            times.push(time);
-        }
-        console.log(times);
-        return times;
-    } 
-    getVisibleMonths(xScale.domain());
-
-    let setTextPosition = function(selection: any, scale: any) {
-      selection.each(function(this:any, d:any) {
-          var width = this.getBBox().width,
-              nextMonthPos = scale(d3.timeMonth.offset(d, 1)),
-              padding = 3,
-              minPos = 0, maxPos = scale.range()[1],
-              x, opacity;
-
-          x = scale(d) + DaysToPixels(15) - width / 2; // center
-          x = Math.max(minPos, x); // left-left
-          x = Math.min(x, nextMonthPos - width - padding);  // left-right
-
-          x = Math.min(x, maxPos - width); // right-right
-          x = Math.max(x, scale(d) + padding); // right-left
-
-          if (x < minPos) {
-              opacity = (x + width - minPos) / width;
-          } else if (x + width > maxPos) {
-              opacity = (maxPos - x) / width;
-          } else {
-              opacity = 1;
-          }
-          let thisVar: any = d3.select(this)
-          d3.transition(thisVar)
-              .attr('x', x)
-              .attr('opacity', opacity);
-      });
-  }
 
       let scheduleRects = scheduleG
         .join('rect')
@@ -1303,7 +1261,95 @@ const CalendarView = ({
         zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomMonthly(false);
       }
+
+//       let getVisibleMonths = function(domain: any) {
+//         var time = d3.timeMonth.floor(domain[0]),
+//             end = d3.timeMonth.floor(domain[1]),
+//             times = [ time ];
+//         while(time < end) {
+//             time = d3.timeMonth.offset(time, 1);
+//             times.push(time);
+//     }
+//         console.log(times);
+//         return times;
+//     } 
+//     getVisibleMonths(xScale.domain());
+
+//     let setTextPosition = function(selection: any, scale: any) {
+//       selection.each(function(this:any, d:any) {
+//           var width = this.getBBox().width,
+//               nextMonthPos = zoomedXScale(d3.timeMonth.offset(d, 1)),
+//               padding = 3,
+//               minPos = 0, maxPos = zoomedXScale.range()[1],
+//               x, opacity;
+//           console.log(this, width)
+//           x = zoomedXScale(d) + DaysToPixels(15) - width / 2; // center
+//           x = Math.max(minPos, x); // left-left
+//           x = Math.min(x, nextMonthPos - width - padding);  // left-right
+
+//           x = Math.min(x, maxPos - width); // right-right
+//           x = Math.max(x, zoomedXScale(d) + padding); // right-left
+
+//           if (x < minPos) {
+//               opacity = (x + width - minPos) / width;
+//           } else if (x + width > maxPos) {
+//               opacity = (maxPos - x) / width;
+//           } else {
+//               opacity = 1;
+//           }
+//           let thisVar: any = d3.select(this)
+//           d3.transition(thisVar)
+//               .attr('x', x)
+//               .attr('opacity', opacity);
+//       });
+//   }
+//   let renderMonthNames: any = function() {
+//         let scale1 = zoomedXScale.copy(),
+//         scale0 = scale1,
+//         data = getVisibleMonths(zoomedXScale.domain()),
+//         name = d3.select('.topHeaderYear').selectAll('.name').data(data),
+//         nameEnter, nameUpdate, nameExit,
+//         text, textEnter, textUpdate;
+
+//     console.log('name',data);
+//     renderMonthNames.scale = scale1;
+
+//     nameEnter = name.enter();
+//     nameUpdate = name;
+//     nameExit = name.exit();
+
+//     // ENTER
+//     //
+//     nameEnter
+//         .append('text')
+//         .attr('class', 'name')
+//         .text(function(d: any) { return d3.timeFormat('%B')(d); })
+//         .call(setTextPosition, scale0);
+
+//             // set text position in the other thread
+//             // because we need BBox of the already rendered text element
+//             setTimeout(function() {
+//             d3.select('.topHeaderYear').selectAll('.name').call(setTextPosition, scale0);
+//             }, 1);
+//             nameUpdate = nameUpdate.transition().duration(300);
+//             nameExit = nameExit.transition().duration(300);
+
+
+//     // UPDATE
+//     // 
+//     nameUpdate
+//         .call(setTextPosition, scale1);
+
+//     // EXIT
+//     //
+//     nameExit
+//         .attr('opacity', 1e-6)
+//         .call(setTextPosition, scale1)
+//         .remove();
+// } // renderMonthNames
+// renderMonthNames();
     }
+
   };
 
   const zoomToToday = () => {
@@ -1361,8 +1407,10 @@ const CalendarView = ({
   //     }
   //   }
   // },[zoomTimeline])
-  let heightOfList = document.getElementById('searchPortfolio')?.offsetHeight;
-
+  let heightOfList: any = document.getElementById('searchPortfolio')?.offsetHeight;
+  let chartheaderHeight: any = document.getElementById('timeline-chart-axis')?.offsetHeight;
+  let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
+  let heightOfChart = heightOfList - chartheaderHeight - zoomButtonsHeight- 10;
   // const moveZoom = (testt: string)=>{
   //   console.log(testt);
   // }
@@ -1374,7 +1422,7 @@ const CalendarView = ({
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
 
-      <Row style={{margin:'13px 10px'}}>
+      <Row id='zoomButtons' style={{margin:'9px 10px'}}>
       <Col xs={{ span: 10 }} lg={{ span: 12 }}>
         <div>
         <Button
@@ -1414,11 +1462,11 @@ const CalendarView = ({
       </Col>
     </Row>
     <div style={{width:'100%'}}>
-      <div id="timeline-chart-axis" />
+      <div id="timeline-chart-axis"/>
     </div>
       <div
         id="chartContainer"
-        style={{ height: heightOfList, overflowY: 'auto' }}
+        style={{ height: heightOfChart, overflowY: 'auto' }}
         ref={scheduleRef}
         onScroll={(e: any) => {
           let dr: any = scheduleRef.current;
@@ -1427,7 +1475,7 @@ const CalendarView = ({
           }
         }}
       >
-        <div>
+        <div style={{marginTop: '-80px'}}>
           <div id="timeline-chart" />
           {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
         </div>

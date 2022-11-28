@@ -26,7 +26,7 @@ const PhaseView = (
   };
   useEffect(() => {
     console.log(windowWidth);
-    const marginLeft = (windowWidth>=1900 && windowWidth<=2549 ? 26 : (windowWidth>=2550 && windowWidth<=3999 ? 35: (windowWidth>=1201 && windowWidth<=1899 ? 26 :16)))
+    const marginLeft = (windowWidth>=1900 && windowWidth<=2549 ? 26 : (windowWidth>=2550 && windowWidth<=3999 ? 35: (windowWidth>=1450 && windowWidth<=1899 ? 26 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :16))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
     const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -10 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -10) )
   const phaseChart = (dataDotchart: any) => {
