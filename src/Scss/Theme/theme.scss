@@ -2650,6 +2650,18 @@ body{
   }
 }
 @media (min-width: 2550px) and (max-width: 4999px){
+  .modal-tollgate{
+    width: 545px !important;
+      font-size: 18px !important;
+      .ant-picker-input>input {
+        font-size: 18px !important;
+      }
+  }
+  .calendar-toollgate {
+    span{
+      font-size: 18px !important;
+    };
+  }
   .detailed{
     .header-body-modal{
       font-size: 20px !important;
@@ -2662,6 +2674,9 @@ body{
     font-size: 20px;
   }
   .detailed-h{
+    .row-modal-list-view{
+      height: 574px !important;
+    }
     h1{
       font-size: 32px;
     }
