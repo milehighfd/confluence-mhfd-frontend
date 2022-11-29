@@ -47,10 +47,11 @@ const CalendarView = ({
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
+  const [svgAxisState, setSvgAxisState] = useState<any>();
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [currentZScale, setCurrentZScale] = useState(4.5);
+  const [currentZScale, setCurrentZScale] = useState(6);
   // const svgRef = useRef<SVGSVGElement>(null);
-  const [zoomedState, setZoomedState] = useState<any>();
+  const [xScaleChart, setxScaleChart] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
@@ -570,8 +571,27 @@ const CalendarView = ({
   let svgAxis: any;
   let xScale: any;
   let zoomedXScale: any;
+  let zoomed: any;
+  let zoomfortoday: any
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
+  let fromData = datas
+  .map((ds: any) => ds.schedule)
+  .flat()
+  .sort(function(a: any, b: any) {
+    return a.from - b.from;
+  });
+let toData = datas
+  .map((ds: any) => ds.schedule)
+  .flat()
+  .sort(function(a: any, b: any) {
+    return a.to - b.to;
+  });
+
+  let StartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
+  let EndTime = moment(toData[toData.length - 1].to)
+    .add(12, 'months')
+    .startOf('month');
 
   const timelineChart = (datasets: any) => {
     let barHeight = 27;
@@ -609,21 +629,10 @@ const CalendarView = ({
       }
     });
     if (counterDataForChart !== 0) {
-      let fromData = datasets
-        .map((ds: any) => ds.schedule)
-        .flat()
-        .sort(function(a: any, b: any) {
-          return a.from - b.from;
-        });
-      let toData = datasets
-        .map((ds: any) => ds.schedule)
-        .flat()
-        .sort(function(a: any, b: any) {
-          return a.to - b.to;
-        });
-      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(7, 'months');
+      
+      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
       let timelineEndTime = moment(toData[toData.length - 1].to)
-        .add(7, 'months')
+        .add(12, 'months')
         .startOf('month');
       // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
       // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
@@ -642,7 +651,6 @@ const CalendarView = ({
         .scaleTime()
         .domain([timelineStartTime, timelineEndTime])
         .range([padding.left, width - padding.right + 0]);
-
       let yScale = d3
         .scaleBand()
         .domain(datasets.map((d: any) => d.id))
@@ -1318,6 +1326,7 @@ const CalendarView = ({
             //console.log(this)
     });
 }
+  
   let renderMonthNames: any = function(scale: any) {
 
       let gettimefornames = function(name: any) {
@@ -1345,19 +1354,20 @@ const CalendarView = ({
 
     // ENTER
     //
-    console.log(d3.event.transform.k);
+    zoomfortoday = d3.event.transform.k;
     nameEnter
         .append('text')
         .attr('class', 'name')
-        .attr('transform', function(d: any) { return (d3.event.transform.k < 13.44 ? 'translate(0,' +20+ ')' : 'translate(0,' +0+ ')')})
+        
         .text(function(d: any) { return d3.timeFormat('%B')(d); })
         
         .call(setTextPositionMonth, zoomedXScale);
             // set text position in the other thread
             // because we need BBox of the already rendered text element
-            // setTimeout(function() {
+             setTimeout(function() {
             d3.select('.topHeaderYear').selectAll('.name').call(setTextPositionMonth, zoomedXScale);
-            // }, 1);
+             }, 100);
+             name.attr('transform', function(d: any) { return (d3.event.transform.k < 14 ? 'translate(0,' +20+ ')' : 'translate(0,' +0+ ')')})
               nameUpdate = nameUpdate.transition().duration(300);
               nameExit = nameExit.transition().duration(300);
 
@@ -1385,11 +1395,9 @@ const CalendarView = ({
     };
 
       let scale1 = zoomedXScale.copy(),
-      scale0 = renderYearNames.scale || scale1,
       data = getVisibleYears(zoomedXScale.domain()),
       name = d3.select('.topHeaderYearAxis').selectAll('.nameYear').data(data, gettimefornames('getTime')),
-      nameEnter, nameUpdate, nameExit,
-      text, textEnter, textUpdate;
+      nameEnter, nameUpdate, nameExit;
 
   //console.log('name',data);
   // console.log('scale',scale0);
@@ -1401,11 +1409,10 @@ const CalendarView = ({
 
   // ENTER
   //
-  console.log(d3.event.transform.k);
   nameEnter
       .append('text')
       .attr('class', 'nameYear')
-      .attr('transform', function(d: any) { return (d3.event.transform.k < 13.44 ? 'translate(0,' +0+ ')' : 'translate(0,' +0+ ')')})
+      .attr('transform', function(d: any) { return (d3.event.transform.k < 14 ? 'translate(0,' +0+ ')' : 'translate(0,' +0+ ')')})
       .text(function(d: any) { return d3.timeFormat('%Y')(d); })
       
       .call(setTextPositionYear, zoomedXScale);
@@ -1430,12 +1437,13 @@ const CalendarView = ({
       .remove();
 } // renderMonthNames
 
-      let zoomed = function() {
+      zoomed = function() {
         
-        renderMonthNames();
+        console.log(d3.event.transform.k);
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
-        if (d3.event.transform.k < 10) {
+        if (d3.event.transform.k < 14) {
+          renderMonthNames();
           renderYearNames();
           gX.call(xAxisMonth.scale(zoomedXScale));
           gX.attr('class', 'topHeaderMChart');
@@ -1449,7 +1457,7 @@ const CalendarView = ({
           //gX2a.call(xAxisYear.scale(zoomedXScale));
           gX2aYear.call(xAxisYear.scale(zoomedXScale));
         } else {
-          
+          renderMonthNames();
           d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden' );
           gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
           gX.attr('class', 'topHeaderChart');
@@ -1504,18 +1512,18 @@ const CalendarView = ({
       if (isZoomWeekly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 13.44);
+        zoom.scaleTo(svg, 18);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-        zoom.scaleTo(svgAxis, 13.44);
+        zoom.scaleTo(svgAxis, 18);
         zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomWeekly(false);
       }
       if (isZoomMonthly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 4.5);
+        zoom.scaleTo(svg, 6);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-        zoom.scaleTo(svgAxis, 4.5);
+        zoom.scaleTo(svgAxis, 6);
         zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomMonthly(false);
       }
@@ -1524,25 +1532,15 @@ const CalendarView = ({
 
   };
 
-  const zoomToToday = () => {
-    
-    console.log(svg);
-    console.log(zoom);
-    if(zoom && svg){
-      zoom.translateTo(svgAxis, xScale(today), 0);
-      zoom.scaleTo(svgAxis, 13.44);
-      zoom.translateTo(svg, xScale(today), 0);
-      zoom.scaleTo(svg, 13.44);
-
-    }
-
-    //d3.select('.topHeaderYear').selectAll('.name').attr('visibility', 'hidden');
-    d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
-  }
-
   useEffect(() => {
     timelineChart(datas);
     setSvgState(svg);
+    setSvgAxisState(svgAxis);
+    // if(xScale){
+    //   console.log(xScale)
+    // setxScaleChart(xScale);
+    // console.log(xScaleChart)
+    // }
    //setZoomedState(zoom);
 
   }, []);
@@ -1574,6 +1572,13 @@ const CalendarView = ({
         });
       }
       timelineChart(datas);
+      // setSvgState(svg);
+      // setSvgAxisState(svgAxis);
+      // if(xScale){
+      //   console.log(xScale)
+      // setxScaleChart(xScale);
+      // console.log(xScaleChart)
+      // }
     }
   }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline]);
 
@@ -1591,7 +1596,32 @@ const CalendarView = ({
   // const moveZoom = (testt: string)=>{
   //   console.log(testt);
   // }
+  const zoomToToday = () => {
+    console.log(zoomed)
+    zoom = d3
+        .zoom()
+        .scaleExtent([0.5, 30])
+        .translateExtent([
+          [0, 0],
+          [widthofDiv - 20, 0],
+        ])
+        .on('zoom', zoomed);
+    console.log(svgState);
+    console.log(zoom);
+    console.log(xScale)
+    //console.log(xScaleToday);
+    console.log(xScaleChart)
+    if(zoom && svgState){
+      zoom.translateTo(svgAxisState, (xScale ? xScale(today): xScale(today)), 0);
+      zoom.scaleTo(svgAxisState, 18);
+      zoom.translateTo(svgState, (xScale ? xScale(today): xScale(today)), 0);
+      zoom.scaleTo(svgState, 18);
 
+    }
+
+    //d3.select('.topHeaderYear').selectAll('.name').attr('visibility', 'hidden');
+    d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
+  }
   return (
     <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
