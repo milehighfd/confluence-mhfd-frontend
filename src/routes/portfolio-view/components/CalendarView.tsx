@@ -1585,6 +1585,7 @@ let toData = datas
           gXa.attr('class', 'topHeader');
           gX2a.call(xAxisMonth.scale(zoomedXScale));
           gX1a.call(xAxisMonth.scale(zoomedXScale));
+          d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
         }
         updateRects();
       };
@@ -1597,9 +1598,9 @@ let toData = datas
           [width, 0],
         ])
         .on('zoom', zoomed);
-      svg.call(zoom).on('wheel.zoom', null);
+      svg.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
       svg.call(zoom.scaleBy, currentZScale);
-      svgAxis.call(zoom).on('wheel.zoom', null);
+      svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
       svgAxis.call(zoom.scaleBy, currentZScale);
       const moveZoom = (newZoomValue: any) => {
         // if(zoomSelected === 'Today'){
