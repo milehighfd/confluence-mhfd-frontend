@@ -95,44 +95,44 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
         </div>
         <Row
           className="detailed-b"
-          
-          onScrollCapture={(e)=>{
-            let numberSecction = 0;
-            if(divRef.current &&  divRef.current?.scrollTop > 450){
-              numberSecction= 1;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 500){
-              numberSecction= 2;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 650){
-              numberSecction= 3;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 900){
-              numberSecction= 4;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 1200){
-              numberSecction= 5;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 1650){
-              numberSecction= 6;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 2050){
-              numberSecction= 7;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 3000){
-              numberSecction= 8;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 3450){
-              numberSecction= 9;
-            }
-            if(divRef.current &&  divRef.current?.scrollTop > 3500){
-              numberSecction= 10;
-            }
-            setOpenSecction(numberSecction);
-          }}
-          ref={divRef}
         >
-          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail">
+          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
+            onScrollCapture={(e)=>{
+              let numberSecction = 0;
+              if(divRef.current &&  divRef.current?.scrollTop > 450){
+                numberSecction= 1;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 500){
+                numberSecction= 2;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 650){
+                numberSecction= 3;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 900){
+                numberSecction= 4;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 1200){
+                numberSecction= 5;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 1650){
+                numberSecction= 6;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 2050){
+                numberSecction= 7;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 3000){
+                numberSecction= 8;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 3450){
+                numberSecction= 9;
+              }
+              if(divRef.current &&  divRef.current?.scrollTop > 3500){
+                numberSecction= 10;
+              }
+              setOpenSecction(numberSecction);
+            }}
+            ref={divRef}
+          >
             <Carousel className="detail-carousel" ref={carouselRef}>
               <div key={1} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
                 <img width="100%" height="100%" src={'detailed/capital.png'} alt="" />
