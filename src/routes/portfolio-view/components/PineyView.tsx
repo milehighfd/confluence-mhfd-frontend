@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Calendar, Checkbox, Col, DatePicker, Dropdown, Input, Layout, Menu, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
 import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter";
-import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, PlusOutlined } from "@ant-design/icons";
+import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, PlusOutlined, UpOutlined } from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 
@@ -9,6 +9,7 @@ import TextArea from "antd/lib/input/TextArea";
 const { Step } = Steps;
 const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
+  const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
   const menu = (
     <Menu
@@ -63,10 +64,10 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
                   <>
-                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode}>
+                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onOpenChange={()=>{console.log('aqui'); setOpenDrop(!openDrop)}}>
                       <Space style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
                         <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
-                        <DownOutlined style={{color:'#251863'}} />
+                        {openDrop ? <UpOutlined style={{color:'#251863'}} /> : < DownOutlined style={{color:'#251863'}} />}
                       </Space>
                     </Dropdown>
                   </>
