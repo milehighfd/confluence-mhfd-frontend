@@ -906,24 +906,15 @@ let toData = datas
           //moment('2022/08/11')
           console.log(d)
           let xScaleAgrupation = xScale(d['from'])
-          return xScaleAgrupation -300;
+          return 100;
         })
         .attr('y', function(d: any) {
           let yScaleId: any = yScale(d['id'])
           return yScaleId + 12;
         })
         .attr('width', function(d: any) {
-          let xScaleTo: any;
-          let xScaleFrom: any;
-          if (d.type === 'title'){
-            xScaleTo = xScale(moment('2023/07/11'));
-            xScaleFrom = xScale(moment('2022/06/11'));
-          } else {
-            xScaleTo = xScale(d['from']);
-            xScaleFrom = xScale(d['from']);
-          }
-
-          return xScaleTo - xScaleFrom;
+          let scaleName: any =xScale(d['from'])
+          return (d.type === 'title' ? scaleName +35 :0 );
         })
         .attr('height', barHeight -20 )
         .attr('fill', '#C9C5D8');
