@@ -62,7 +62,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           <Col xs={{ span: 10 }} lg={{ span: 6 }}>
             <div className="header-button">
               <div className="detailed-mmm">
-                <p>Estimated Cost</p>
+                <p style={{marginTop:'-10px'}}>Estimated Cost</p>
                 <b>$5,262,129</b>
               </div>
               <Button className="btn-circle">
