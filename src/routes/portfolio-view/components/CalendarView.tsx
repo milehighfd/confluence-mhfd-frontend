@@ -1485,6 +1485,9 @@ let toData = datas
       svgAxis.call(zoom).on('wheel.zoom', null);
       svgAxis.call(zoom.scaleBy, currentZScale);
       const moveZoom = (newZoomValue: any) => {
+        // if(zoomSelected === 'Today'){
+        //   setZoomSelected('')
+        // }
         let type: any;
         if (zoomStatus > newZoomValue) {
           type = 'in';
@@ -1501,14 +1504,18 @@ let toData = datas
         }
       };
       moveZoom(zoomTimeline);
-      // if (isZoomToday) {
-      //   zoom.translateTo(svg, xScale(today), 0);
-      //   zoom.scaleTo(svg, 13.44);
-      //   zoom.translateTo(svgAxis, xScale(today), 0);
-      //   zoom.scaleTo(svgAxis, 13.44);
-      //   //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
-      //   // setIsZoomToday(false);
-      // }
+      console.log(zoomSelected)
+      if (zoomSelected === 'Today') {
+        console.log( 'inside')
+        zoom.translateTo(svg, xScale(today), 0);
+        zoom.scaleTo(svg, 18);
+        zoom.translateTo(svgAxis, xScale(today), 0);
+        zoom.scaleTo(svgAxis, 18);
+        //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
+        //setIsZoomToday(false);
+        moveZoom(zoomTimeline);
+        d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
+      }
       if (isZoomWeekly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
@@ -1580,7 +1587,7 @@ let toData = datas
       // console.log(xScaleChart)
       // }
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected]);
 
   // useEffect(()=> {
   //   if(zoom && svg){
@@ -1611,7 +1618,7 @@ let toData = datas
     console.log(xScale)
     //console.log(xScaleToday);
     console.log(xScaleChart)
-    if(zoom && svgState){
+    if(zoom && svgState && xScale){
       zoom.translateTo(svgAxisState, (xScale ? xScale(today): xScale(today)), 0);
       zoom.scaleTo(svgAxisState, 18);
       zoom.translateTo(svgState, (xScale ? xScale(today): xScale(today)), 0);
@@ -1635,7 +1642,7 @@ let toData = datas
         <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
             
-            onClick={() => {zoomToToday(); setZoomSelected('Today')}}
+            onClick={() => {setIsZoomToday(true); setZoomSelected('Today')}}
           >
             Today
           </Button>
