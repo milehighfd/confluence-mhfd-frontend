@@ -50,7 +50,7 @@ const CalendarView = ({
   const [zoomStatus, setZoomStatus] = useState(0);
   const [currentZScale, setCurrentZScale] = useState(6);
   // const svgRef = useRef<SVGSVGElement>(null);
-  const [xScaleChart, setxScaleChart] = useState<any>();
+  const [heightDiv, setHeightDiv] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
@@ -636,6 +636,8 @@ const CalendarView = ({
         }),
     };
   });
+  const windowHeight: any = window.innerHeight;
+  const windowWidth: any = window.innerWidth;
   let zoom: any;
   let svg: any;
   let svgAxis: any;
@@ -645,6 +647,11 @@ const CalendarView = ({
   let zoomfortoday: any
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
+  let heightOfList: any = document.getElementById('searchPortfolio')?.offsetHeight;
+  let chartheaderHeight: any = document.getElementById('timeline-chart-axis')?.offsetHeight;
+  let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
+ let heightt =heightOfList - 47 - 32- 10;
+ console.log(windowWidth, windowHeight ,heightOfList)
   let fromData = datas
   .map((ds: any) => ds.schedule)
   .flat()
@@ -664,10 +671,14 @@ let toData = datas
     .startOf('month');
 
   const timelineChart = (datasets: any) => {
-    console.log(datasets);
     let barHeight = 27;
     let width = widthofDiv - 20,
       height = 16 + (barHeight + 12) * (datas.length + 1);
+      let padding = { top: 38, right: 10, bottom: 10, left: -0 };
+      if (windowWidth > 2325 && windowHeight >980){
+        barHeight = 27
+        height =( 220 + (barHeight + 12) * (datas.length + 1));
+      }
       if (svg){
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
@@ -686,7 +697,6 @@ let toData = datas
 
     let dragablesLines = 'dragginglines';
 
-    let padding = { top: 38, right: 10, bottom: 10, left: -0 };
     let offsetBar = 18;
     const dragableLineLength = 3;
     const dragableLineHalf = dragableLineLength / 2;
@@ -872,7 +882,6 @@ let toData = datas
       let scheduleRects = scheduleG
         .join('rect')
         .attr('id', function(d: any) {
-          console.log(d)
           return `${d.id}_${d.categoryNo}`;
         })
         .attr('class', 'stackedbar')
@@ -903,9 +912,6 @@ let toData = datas
         .attr('rx', 3)
         .attr('ry', 3)
         .attr('x', function(d: any) {
-          //moment('2022/08/11')
-          console.log(d)
-          let xScaleAgrupation = xScale(d['from'])
           return 100;
         })
         .attr('y', function(d: any) {
@@ -1614,7 +1620,6 @@ let toData = datas
         }
       };
       moveZoom(zoomTimeline);
-      console.log(zoomSelected)
       if (zoomSelected === 'Today') {
         console.log( 'inside')
         zoom.translateTo(svg, xScale(today), 0);
@@ -1692,10 +1697,6 @@ let toData = datas
   //     }
   //   }
   // },[zoomTimeline])
-  let heightOfList: any = document.getElementById('searchPortfolio')?.offsetHeight;
-  let chartheaderHeight: any = document.getElementById('timeline-chart-axis')?.offsetHeight;
-  let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
-  let heightOfChart = heightOfList - chartheaderHeight - zoomButtonsHeight- 10;
 
   // const zoomToToday = () => {
   //   console.log(zoomed)
@@ -1774,7 +1775,7 @@ let toData = datas
     </div>
       <div
         id="chartContainer"
-        style={{ height: heightOfChart, overflowY: 'auto' }}
+        style={{ height: heightt, overflowY: 'auto' }}
         ref={scheduleRef}
         onScroll={(e: any) => {
           let dr: any = scheduleRef.current;
@@ -1783,8 +1784,8 @@ let toData = datas
           }
         }}
       >
-        <div style={{marginTop: '-80px'}}>
-          <div id="timeline-chart" />
+        <div style={{marginTop: (windowWidth > 2325 && windowHeight >980 ? '-73px':'-80px')}}>
+          <div style={{height: heightt}} id="timeline-chart" />
           {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
         </div>
       </div>
