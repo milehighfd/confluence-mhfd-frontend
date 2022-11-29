@@ -215,11 +215,11 @@ const PortafolioBody = () => {
           {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Completed</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Active</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
