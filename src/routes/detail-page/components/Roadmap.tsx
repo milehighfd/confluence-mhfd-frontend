@@ -3,7 +3,7 @@ import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "ant
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_SOLUTIONS } from "../constants";
 
-const Roadmap = () => {
+const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>, openPiney:boolean}) => {
   const [timeOpen, setTimeOpen] = useState(true);
   return (
     <>
@@ -17,7 +17,7 @@ const Roadmap = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
-          <img src="/picture/calendar.png" width='100%'/>
+          <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/>
           </Col>
       </Row>
       <Row style={{opacity:'0.5'}}>

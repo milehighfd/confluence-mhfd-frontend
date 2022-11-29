@@ -12,6 +12,7 @@ import { LeftCircleFilled, LeftOutlined, RightCircleFilled, RightOutlined } from
 import { CarouselRef } from "antd/lib/carousel";
 import ImageModal from "Components/Shared/Modals/ImageModal";
 import History from "./History";
+import PineyView from "routes/portfolio-view/components/PineyView";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -24,7 +25,8 @@ const popovers: any = [
 ]
 const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Function}) => {
   const [tabKey, setTabKey] = useState<any>('Project Basics');
-  const [openSecction, setOpenSecction] = useState(0)
+  const [openSecction, setOpenSecction] = useState(0);
+  const [openPiney, setOpenPiney] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
@@ -51,8 +53,8 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
                 <span> South Service Area</span></p>
               </div>
               <div className="status-d" style={{display:'flex'}}>
-                <p>Status:<span className="status-active">Active</span></p>
-                <p style={{marginLeft:'10px'}}>Phase:<span className="status-final">Final Design</span></p>
+                <p>Status<br></br><span className="status-active" style={{marginRight:'20px'}}>Active</span></p>
+                <p style={{marginLeft:'10px'}}>Phase<br></br><span className="status-final">Final Design</span></p>
               </div>
             </div>
           </Col>
@@ -93,7 +95,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
         </div>
         <Row
           className="detailed-b"
-          style={{height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}}
+          
           onScrollCapture={(e)=>{
             let numberSecction = 0;
             if(divRef.current &&  divRef.current?.scrollTop > 450){
@@ -130,7 +132,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           }}
           ref={divRef}
         >
-          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' }} className="carouse-detail">
+          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail">
             <Carousel className="detail-carousel" ref={carouselRef}>
               <div key={1} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
                 <img width="100%" height="100%" src={'detailed/capital.png'} alt="" />
@@ -151,7 +153,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
             <div className="detailed-info">
               <DetailInformationProject />
               <ComponentSolucions />
-              <Roadmap />
+              <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
               <Financials />
               <Management />
               <Map />
@@ -159,8 +161,9 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
               <History />
             </div>
           </Col>
-          <Col span={7} className="mobile-display">
-            <TeamCollaborator />
+          <Col span={7} className="mobile-display" style={{height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}}>
+            {openPiney? <div className="piney-modal-detail"><PineyView setOpenPiney={setOpenPiney} /></div>
+            :<TeamCollaborator />} 
           </Col>
         </Row>
       </div>

@@ -15,38 +15,31 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
       className="card-dropdown"
       items={[
         {
-          key: '1',
-          type: 'group',
-          label: 'People',
-          children: [
-            {
-              key: '1-1',
-              label: <>
-                <img src="/picture/user.png" height={30} width="30" style={{marginRight:'5px'}}/>
-                <span style={{fontSize:'14px'}}>Jon Villines</span>
-              </>,
-            },
-            {
-              key: '1-2',
-              label: <>
-                <img src="/picture/user01.png"height={30} width="30" style={{marginRight:'5px'}}/>
-                <span style={{fontSize:'14px'}}>Jane Smith </span>
-              </>,
-            },
-            {
-              key: '1-3',
-              label: <>
-                <img src="/picture/user02.png"height={30} width="30" style={{marginRight:'5px'}}/>
-                <span style={{fontSize:'14px'}}>Robert Croquette  </span>
-              </>,
-            },
-          ],
+          key: '1-1',
+          label: <>
+            <img src="/picture/user.png" height={30} width="30" style={{marginRight:'5px'}}/>
+            <span style={{fontSize:'14px'}}>Jon Villines</span>
+          </>,
+        },
+        {
+          key: '1-2',
+          label: <>
+            <img src="/picture/user01.png"height={30} width="30" style={{marginRight:'5px'}}/>
+            <span style={{fontSize:'14px'}}>Jane Smith </span>
+          </>,
+        },
+        {
+          key: '1-3',
+          label: <>
+            <img src="/picture/user02.png"height={30} width="30" style={{marginRight:'5px'}}/>
+            <span style={{fontSize:'14px'}}>Robert Croquette  </span>
+          </>,
         },
       ]}
     />
   );
   return (
-    <div className="piney-text">
+    <>
       <div className="header-piney" style={{marginBottom:'20px'}}>
         <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
         <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setEditView(!editView)}}/>
@@ -161,7 +154,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 };
 

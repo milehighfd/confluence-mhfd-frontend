@@ -1,4 +1,4 @@
-import { ArrowDownOutlined, CalendarOutlined, InfoCircleOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, CalendarOutlined, EyeInvisibleOutlined, EyeOutlined, InfoCircleOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, DatePicker, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React from 'react';
@@ -25,21 +25,45 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
             <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
           </Col>
         </Row>
+        <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 24}}>
+            <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
+              <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                <Row style={{height: '30px'}} >
+                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  </Col>
+                </Row>
+              </Col>
+              <Col xs={{ span: 12 }} lg={{ span: 13}}>
+                <Row style={{height: '30px'}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 11}} style={{textAlign:'center'}}>
+                    <h5>Start Date</h5>
+                  </Col>
+                  <Col xs={{ span: 12 }} lg={{ span: 11}} style={{textAlign:'center'}}>
+                    <h5>End Date</h5>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
         <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                <p style={{marginBottom:'25px'}}>Work Plan (WP) </p>
-                <p style={{marginBottom:'25px'}}>Startup </p>
-                <p style={{marginBottom:'25px'}}>Initial Funding </p>
-                <p style={{marginBottom:'25px'}}>Consultant Procurement </p>
-                <p style={{marginBottom:'25px'}}>Conceptual Design </p>
-                <p style={{marginBottom:'25px'}}>Preliminary Design </p>
-                <p style={{marginBottom:'25px'}}>Final Design </p>
-                <p style={{marginBottom:'25px'}}>Construction Contracting </p>
-                <p style={{marginBottom:'25px'}}>Construction </p>
-                <p style={{marginBottom:'25px'}}>Substantial Completion </p>
-                <p style={{marginBottom:'25px'}}>Closed </p>
+                <p style={{marginBottom:'25px'}}>Work Plan (WP) <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Startup <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Initial Funding <EyeInvisibleOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Consultant Procurement <EyeInvisibleOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Conceptual Design <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Preliminary Design <EyeInvisibleOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Final Design <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Construction Contracting <EyeInvisibleOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Construction <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Substantial Completion <EyeInvisibleOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Closed <EyeOutlined /></p>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
                 <p className='calendar-toollgate'>

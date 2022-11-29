@@ -250,7 +250,7 @@ const PhaseView = (
   }, []);
   
   return <div className="phaseview-body">
-    {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
+    {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
     <div className="phaseview-content">
       <div className="phaseview-title" id='phaseviewTitlleWidth'>
         <p>Work Plan<br/>(WP)</p>

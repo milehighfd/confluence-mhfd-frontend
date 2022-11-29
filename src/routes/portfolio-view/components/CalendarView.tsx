@@ -1634,7 +1634,7 @@ let toData = datas
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div className="calendar-body" id="widthDivforChart">
-      {openPiney && <PineyView setOpenPiney={setOpenPiney} />}
+      {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
 
       <Row id='zoomButtons' style={{margin:'9px 10px'}}>
       <Col xs={{ span: 10 }} lg={{ span: 12 }}>

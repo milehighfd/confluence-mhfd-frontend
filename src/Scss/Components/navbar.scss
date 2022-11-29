@@ -678,6 +678,20 @@
   }
 }
 @media(min-width: 2550px) and (max-width: 4999px){
+  .card-dropdown{
+    width: 235px;
+  }
+  .piney-text{
+    .ant-dropdown-menu-title-content{
+      span{
+        font-size: 18px !important;
+      }
+      img{
+        height: 34px !important;
+        width: 34px !important;
+      }
+    }
+  }
   .menu-drop-sub{
     font-size: 18px;
     padding: 9px 10px;
@@ -692,6 +706,15 @@
   }
   .ant-dropdown-menu-item {
     font-size: 16px !important;
+    .ant-dropdown-menu-title-content{
+      span{
+        font-size: 18px !important;
+      }
+      img{
+        height: 34px !important;
+        width: 34px !important;
+      }
+    }
   }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     padding: 7px 12px;
