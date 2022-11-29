@@ -31,6 +31,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
+  let pageWidth  = document.documentElement.scrollWidth;
   return (
     <>
     <ImageModal visible={openImage} setVisible={setOpenImage}/>
@@ -99,35 +100,101 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
             onScrollCapture={(e)=>{
               let numberSecction = 0;
-              if(divRef.current &&  divRef.current?.scrollTop > 450){
-                numberSecction= 1;
+              if(pageWidth < 1900){
+                if(divRef.current &&  divRef.current?.scrollTop > 450){
+                  numberSecction= 1;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 550){
+                  numberSecction= 2;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 650){
+                  numberSecction= 3;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 900){
+                  numberSecction= 4;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1200){
+                  numberSecction= 5;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1650){
+                  numberSecction= 6;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 2050){
+                  numberSecction= 7;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 3000){
+                  numberSecction= 8;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 3450){
+                  numberSecction= 9;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 3500){
+                  numberSecction= 10;
+                }
               }
-              if(divRef.current &&  divRef.current?.scrollTop > 500){
-                numberSecction= 2;
+              if(pageWidth < 2550 && pageWidth >= 1900){
+                if(divRef.current &&  divRef.current?.scrollTop > 550){
+                  numberSecction= 1;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 650){
+                  numberSecction= 2;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 750){
+                  numberSecction= 3;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1100){
+                  numberSecction= 4;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1440){
+                  numberSecction= 5;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1888){
+                  numberSecction= 6;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 2440){
+                  numberSecction= 7;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 3555){
+                  numberSecction= 8;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 3767){
+                  numberSecction= 9;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 3870){
+                  numberSecction= 10;
+                }
               }
-              if(divRef.current &&  divRef.current?.scrollTop > 650){
-                numberSecction= 3;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 900){
-                numberSecction= 4;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 1200){
-                numberSecction= 5;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 1650){
-                numberSecction= 6;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 2050){
-                numberSecction= 7;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 3000){
-                numberSecction= 8;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 3450){
-                numberSecction= 9;
-              }
-              if(divRef.current &&  divRef.current?.scrollTop > 3500){
-                numberSecction= 10;
+              if(pageWidth >= 2550){
+                if(divRef.current &&  divRef.current?.scrollTop > 600){
+                  numberSecction= 1;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 750){
+                  numberSecction= 2;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 900){
+                  numberSecction= 3;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1257){
+                  numberSecction= 4;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 1650){
+                  numberSecction= 5;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 2250){
+                  numberSecction= 6;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 2850){
+                  numberSecction= 7;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 4179){
+                  numberSecction= 8;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 4400){
+                  numberSecction= 9;
+                }
+                if(divRef.current &&  divRef.current?.scrollTop > 4560){
+                  numberSecction= 10;
+                }
               }
               setOpenSecction(numberSecction);
             }}
