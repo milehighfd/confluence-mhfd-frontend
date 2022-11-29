@@ -53,6 +53,8 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                <p style={{marginBottom:'25px'}}>Draft <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Work Request (WR) <EyeOutlined /></p>
                 <p style={{marginBottom:'25px'}}>Work Plan (WP) <EyeOutlined /></p>
                 <p style={{marginBottom:'25px'}}>Startup <EyeOutlined /></p>
                 <p style={{marginBottom:'25px'}}>Initial Funding <EyeInvisibleOutlined /></p>
@@ -66,6 +68,12 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                 <p style={{marginBottom:'25px'}}>Closed <EyeOutlined /></p>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
+                <p className='calendar-toollgate'>
+                  <RangePicker bordered={false}/>
+                </p>
+                <p className='calendar-toollgate'>
+                    <RangePicker bordered={false}/>
+                </p>
                 <p className='calendar-toollgate'>
                   <RangePicker bordered={false}/>
                 </p>

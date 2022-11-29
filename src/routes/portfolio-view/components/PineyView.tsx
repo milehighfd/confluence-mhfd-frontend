@@ -46,9 +46,12 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
       </div>
       <div className="body-piney">
         <h1 style={{color:'#000000', fontSize:'16px', marginBottom:'15px'}}>Piney Creek Channel Restore</h1>
-        <div className="body-piney-body">
+        <div style={{marginBottom:'25px'}}>
           <span className="tag-blue">Funding Phase</span><span className="tag-blue">Capital</span>
-          <p style={{marginTop:'20px', marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
+        </div>
+        <div className="body-piney-body">
+          {/* <span className="tag-blue">Funding Phase</span><span className="tag-blue">Capital</span> */}
+          <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
           {editView? <><TextArea rows={4} style={{marginBottom:'15px'}}/></>:
             <p>The same screen can be built in a lot of different ways, but only a few of them will get your message accross correctly and result in an easy-to-use software or...<span style={{fontWeight:'700'}}>more</span></p>
           }
@@ -60,11 +63,11 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
                   <>
-                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
-                    <Space style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
-                      <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
-                      <DownOutlined style={{color:'#251863'}} />
-                    </Space>
+                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode}>
+                      <Space style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
+                        <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
+                        <DownOutlined style={{color:'#251863'}} />
+                      </Space>
                     </Dropdown>
                   </>
                   :<>
