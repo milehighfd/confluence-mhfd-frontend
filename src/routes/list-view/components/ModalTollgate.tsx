@@ -7,6 +7,7 @@ import { NewProjectsFilter } from '../../../Components/FiltersProject/NewProject
 const { RangePicker } = DatePicker;
 
 const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
+  const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   return (
     <Modal
       className="detailed-version modal-tollgate"
@@ -69,43 +70,43 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                    <RangePicker bordered={false}/>
+                    <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                    <RangePicker bordered={false}/>
+                    <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false}/>
+                  <RangePicker bordered={false} format={dateFormatList}/>
                 </p>
               </Col>
             </Row>
