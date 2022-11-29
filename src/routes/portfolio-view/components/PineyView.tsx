@@ -4,6 +4,7 @@ import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProject
 import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, PlusOutlined, UpOutlined } from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
+import { drag } from "d3";
 
 
 const { Step } = Steps;
@@ -11,6 +12,13 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
+  const [checkboxValue, setCheckboxValue] = useState({
+    draft:true,
+    sign:false,
+    request: false,
+    send: false,
+    pay: false,
+  });
   const menu = (
     <Menu
       className="card-dropdown"
@@ -136,25 +144,25 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 <Progress percent={20} />
               </Col>
             </Row>
-          <div className="checkbox-select">
+          <div className={checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"}>
             <p>Draft IGA</p>
-            <Checkbox></Checkbox>
+            <Checkbox checked={checkboxValue.draft} onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}></Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={checkboxValue.sign ? "checkbox-select-active checkbox-select":"checkbox-select"}>
             <p>Sign IGA</p>
-            <Checkbox></Checkbox>
+            <Checkbox checked={checkboxValue.sign} onChange={(e)=>{setCheckboxValue({...checkboxValue, sign: !checkboxValue.sign })}}></Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={checkboxValue.request ? "checkbox-select-active checkbox-select":"checkbox-select"}>
             <p>Request Funding</p>
-            <Checkbox></Checkbox>
+            <Checkbox checked={checkboxValue.request} onChange={(e)=>{setCheckboxValue({...checkboxValue, request: !checkboxValue.request })}}></Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={checkboxValue.send ? "checkbox-select-active checkbox-select":"checkbox-select"}>
             <p>Send Invoice</p>
-            <Checkbox></Checkbox>
+            <Checkbox checked={checkboxValue.send} onChange={(e)=>{setCheckboxValue({...checkboxValue, send: !checkboxValue.send })}}></Checkbox>
           </div>
-          <div className="checkbox-select">
+          <div className={checkboxValue.pay ? "checkbox-select-active checkbox-select":"checkbox-select"}>
             <p>Pay Invoice</p>
-            <Checkbox></Checkbox>
+            <Checkbox checked={checkboxValue.pay} onChange={(e)=>{setCheckboxValue({...checkboxValue, pay: !checkboxValue.pay })}}></Checkbox>
           </div>
         </div>
       </div>
