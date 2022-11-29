@@ -30,7 +30,6 @@ import {
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
-import { exit } from 'process';
 
 const { Step } = Steps;
 const CalendarView = ({
@@ -84,7 +83,16 @@ const CalendarView = ({
     {
       id: 'Tittle0',
       date: moment('2022/08/11'),
-      schedule: [],
+      schedule: [
+        {
+          objectId: 10,
+          type: 'title',
+          from: moment('2022/06/02 00:00:00'),
+          to: moment('2022/06/02 00:00:00'),
+          status: 'completed',
+          name: 'Work Request',
+        }
+      ],
     },
     {
       id: 'Centennial1',
@@ -92,6 +100,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 100059,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/02 00:00:00'),
           to: moment('2022/07/21 07:00:00'),
@@ -100,6 +109,7 @@ const CalendarView = ({
         },
         {
           objectId: 100059,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/07/22 08:30:00'),
           to: moment('2022/08/17 10:00:00'),
@@ -108,6 +118,7 @@ const CalendarView = ({
         },
         {
           objectId: 100059,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/06/22 07:30:00'),
           to: moment('2022/07/01 08:30:00'),
@@ -116,6 +127,7 @@ const CalendarView = ({
         },
         {
           objectId: 100059,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/08/18 08:30:00'),
           to: moment('2022/11/10 10:00:00'),
@@ -130,6 +142,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 8905,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/02 00:00:00'),
           to: moment('2022/07/24 07:00:00'),
@@ -138,6 +151,7 @@ const CalendarView = ({
         },
         {
           objectId: 8905,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/08/27 08:30:00'),
           to: moment('2022/09/08 10:00:00'),
@@ -146,6 +160,7 @@ const CalendarView = ({
         },
         {
           objectId: 8905,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/07/25 07:30:00'),
           to: moment('2022/08/12 08:30:00'),
@@ -154,6 +169,7 @@ const CalendarView = ({
         },
         {
           objectId: 8905,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/08/13 08:30:00'),
           to: moment('2022/08/26 10:00:00'),
@@ -168,6 +184,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 31599,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/08/11 00:00:00'),
           to: moment('2022/08/21 07:00:00'),
@@ -176,6 +193,7 @@ const CalendarView = ({
         },
         {
           objectId: 31599,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/08/22 08:30:00'),
           to: moment('2022/08/31 10:00:00'),
@@ -184,6 +202,7 @@ const CalendarView = ({
         },
         {
           objectId: 31599,
+          type: 'rect',
           categoryNo: 2,
           from: moment('2022/09/01 07:30:00'),
           to: moment('2022/09/10 08:30:00'),
@@ -192,6 +211,7 @@ const CalendarView = ({
         },
         {
           objectId: 31599,
+          type: 'rect',
           categoryNo: 3,
           from: moment('2022/09/11 08:30:00'),
           to: moment('2022/09/22 10:00:00'),
@@ -206,6 +226,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 98000,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/11 00:00:00'),
           to: moment('2022/07/21 07:00:00'),
@@ -214,6 +235,7 @@ const CalendarView = ({
         },
         {
           objectId: 98000,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/08/11 08:30:00'),
           to: moment('2022/08/29 10:00:00'),
@@ -222,6 +244,7 @@ const CalendarView = ({
         },
         {
           objectId: 98000,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/07/22 07:30:00'),
           to: moment('2022/08/10 08:30:00'),
@@ -230,6 +253,7 @@ const CalendarView = ({
         },
         {
           objectId: 98000,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/06/24 08:30:00'),
           to: moment('2022/07/10 10:00:00'),
@@ -244,6 +268,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 189990,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/01 00:00:00'),
           to: moment('2022/07/20 07:00:00'),
@@ -252,6 +277,7 @@ const CalendarView = ({
         },
         {
           objectId: 189990,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/08/27 08:30:00'),
           to: moment('2022/10/02 10:00:00'),
@@ -260,6 +286,7 @@ const CalendarView = ({
         },
         {
           objectId: 189990,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/07/21 07:30:00'),
           to: moment('2022/08/12 08:30:00'),
@@ -268,6 +295,7 @@ const CalendarView = ({
         },
         {
           objectId: 189990,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/08/13 08:30:00'),
           to: moment('2022/08/26 10:00:00'),
@@ -282,6 +310,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 6800,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/27 00:00:00'),
           to: moment('2022/08/12 07:00:00'),
@@ -290,6 +319,7 @@ const CalendarView = ({
         },
         {
           objectId: 6800,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/08/13 08:30:00'),
           to: moment('2022/08/28 10:00:00'),
@@ -298,6 +328,7 @@ const CalendarView = ({
         },
         {
           objectId: 6800,
+          type: 'rect',
           categoryNo: 2,
           from: moment('2022/08/29 07:30:00'),
           to: moment('2022/09/10 08:30:00'),
@@ -306,6 +337,7 @@ const CalendarView = ({
         },
         {
           objectId: 6800,
+          type: 'rect',
           categoryNo: 3,
           from: moment('2022/09/11 08:30:00'),
           to: moment('2022/09/22 10:00:00'),
@@ -320,6 +352,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 6810,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/27 00:00:00'),
           to: moment('2022/08/12 07:00:00'),
@@ -328,6 +361,7 @@ const CalendarView = ({
         },
         {
           objectId: 6810,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/08/13 08:30:00'),
           to: moment('2022/08/28 10:00:00'),
@@ -336,6 +370,7 @@ const CalendarView = ({
         },
         {
           objectId: 6810,
+          type: 'rect',
           categoryNo: 2,
           from: moment('2022/08/29 07:30:00'),
           to: moment('2022/09/10 08:30:00'),
@@ -344,6 +379,7 @@ const CalendarView = ({
         },
         {
           objectId: 6810,
+          type: 'rect',
           categoryNo: 3,
           from: moment('2022/09/11 08:30:00'),
           to: moment('2022/09/22 10:00:00'),
@@ -355,7 +391,14 @@ const CalendarView = ({
     {
       id: 'Tittle2',
       date: moment('2022/08/11'),
-      schedule: [],
+      schedule: [{
+        objectId: 10,
+        type: 'title',
+        from: moment('2022/06/02 00:00:00'),
+        to: moment('2022/06/02 00:00:00'),
+        status: 'completed',
+        name: 'Commerce City',
+      }],
     },
     {
       id: 'Commerce1',
@@ -363,6 +406,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 8915,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/02 00:00:00'),
           to: moment('2022/07/24 07:00:00'),
@@ -371,6 +415,7 @@ const CalendarView = ({
         },
         {
           objectId: 8915,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/08/27 08:30:00'),
           to: moment('2022/09/08 10:00:00'),
@@ -379,6 +424,7 @@ const CalendarView = ({
         },
         {
           objectId: 8915,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/07/25 07:30:00'),
           to: moment('2022/08/12 08:30:00'),
@@ -387,6 +433,7 @@ const CalendarView = ({
         },
         {
           objectId: 8915,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/08/13 08:30:00'),
           to: moment('2022/08/26 10:00:00'),
@@ -401,6 +448,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 31299,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/08/11 00:00:00'),
           to: moment('2022/08/21 07:00:00'),
@@ -409,6 +457,7 @@ const CalendarView = ({
         },
         {
           objectId: 31299,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/08/22 08:30:00'),
           to: moment('2022/08/31 10:00:00'),
@@ -417,6 +466,7 @@ const CalendarView = ({
         },
         {
           objectId: 31299,
+          type: 'rect',
           categoryNo: 2,
           from: moment('2022/09/01 07:30:00'),
           to: moment('2022/09/10 08:30:00'),
@@ -425,6 +475,7 @@ const CalendarView = ({
         },
         {
           objectId: 31299,
+          type: 'rect',
           categoryNo: 3,
           from: moment('2022/09/11 08:30:00'),
           to: moment('2022/09/22 10:00:00'),
@@ -436,7 +487,14 @@ const CalendarView = ({
     {
       id: 'Tittle3',
       date: moment('2022/08/11'),
-      schedule: [],
+      schedule: [{
+        objectId: 10,
+        type: 'title',
+        from: moment('2022/06/02 00:00:00'),
+        to: moment('2022/06/02 00:00:00'),
+        status: 'completed',
+        name: 'Denver',
+      }],
     },
     {
       id: 'Denver1',
@@ -444,6 +502,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 31589,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/08/11 00:00:00'),
           to: moment('2022/08/21 07:00:00'),
@@ -452,6 +511,7 @@ const CalendarView = ({
         },
         {
           objectId: 31589,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/08/22 08:30:00'),
           to: moment('2022/08/31 10:00:00'),
@@ -460,6 +520,7 @@ const CalendarView = ({
         },
         {
           objectId: 31589,
+          type: 'rect',
           categoryNo: 2,
           from: moment('2022/09/01 07:30:00'),
           to: moment('2022/09/10 08:30:00'),
@@ -468,6 +529,7 @@ const CalendarView = ({
         },
         {
           objectId: 31589,
+          type: 'rect',
           categoryNo: 3,
           from: moment('2022/09/11 08:30:00'),
           to: moment('2022/09/22 10:00:00'),
@@ -482,6 +544,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 98090,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/11 00:00:00'),
           to: moment('2022/07/21 07:00:00'),
@@ -490,6 +553,7 @@ const CalendarView = ({
         },
         {
           objectId: 98090,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/08/11 08:30:00'),
           to: moment('2022/08/29 10:00:00'),
@@ -498,6 +562,7 @@ const CalendarView = ({
         },
         {
           objectId: 98090,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/07/22 07:30:00'),
           to: moment('2022/08/10 08:30:00'),
@@ -506,6 +571,7 @@ const CalendarView = ({
         },
         {
           objectId: 98090,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/06/20 08:30:00'),
           to: moment('2022/07/10 10:00:00'),
@@ -520,6 +586,7 @@ const CalendarView = ({
       schedule: [
         {
           objectId: 181190,
+          type: 'rect',
           categoryNo: 0,
           from: moment('2022/07/01 00:00:00'),
           to: moment('2022/07/20 07:00:00'),
@@ -528,6 +595,7 @@ const CalendarView = ({
         },
         {
           objectId: 181190,
+          type: 'rect',
           categoryNo: 5,
           from: moment('2022/08/27 08:30:00'),
           to: moment('2022/10/02 10:00:00'),
@@ -536,6 +604,7 @@ const CalendarView = ({
         },
         {
           objectId: 181190,
+          type: 'rect',
           categoryNo: 1,
           from: moment('2022/07/21 07:30:00'),
           to: moment('2022/08/12 08:30:00'),
@@ -544,6 +613,7 @@ const CalendarView = ({
         },
         {
           objectId: 181190,
+          type: 'rect',
           categoryNo: 4,
           from: moment('2022/08/13 08:30:00'),
           to: moment('2022/08/26 10:00:00'),
@@ -594,6 +664,7 @@ let toData = datas
     .startOf('month');
 
   const timelineChart = (datasets: any) => {
+    console.log(datasets);
     let barHeight = 27;
     let width = widthofDiv - 20,
       height = 16 + (barHeight + 12) * (datas.length + 1);
@@ -801,6 +872,7 @@ let toData = datas
       let scheduleRects = scheduleG
         .join('rect')
         .attr('id', function(d: any) {
+          console.log(d)
           return `${d.id}_${d.categoryNo}`;
         })
         .attr('class', 'stackedbar')
@@ -821,6 +893,40 @@ let toData = datas
         .attr('fill', function(d: any) {
           return colorScale[d.status];
         });
+
+        let agrupationTitles = scheduleG
+        .join('rect')
+        .attr('id', function(d: any) {
+          return `${d.id}_${d.categoryNo}_type`;
+        })
+        .attr('class', 'agrupationbar')
+        .attr('rx', 3)
+        .attr('ry', 3)
+        .attr('x', function(d: any) {
+          //moment('2022/08/11')
+          console.log(d)
+          let xScaleAgrupation = xScale(d['from'])
+          return xScaleAgrupation -300;
+        })
+        .attr('y', function(d: any) {
+          let yScaleId: any = yScale(d['id'])
+          return yScaleId + 12;
+        })
+        .attr('width', function(d: any) {
+          let xScaleTo: any;
+          let xScaleFrom: any;
+          if (d.type === 'title'){
+            xScaleTo = xScale(moment('2023/07/11'));
+            xScaleFrom = xScale(moment('2022/06/11'));
+          } else {
+            xScaleTo = xScale(d['from']);
+            xScaleFrom = xScale(d['from']);
+          }
+
+          return xScaleTo - xScaleFrom;
+        })
+        .attr('height', barHeight -20 )
+        .attr('fill', '#C9C5D8');
 
       let scheduleRectsCenter = scheduleG
         .join('rect')
@@ -863,6 +969,35 @@ let toData = datas
           let xScaleFrom: any = xScale(d['from']);
           return xScaleTo - xScaleFrom;
         })
+        .text((d: any) => d.name);
+
+        let rectNamesAgrupation = scheduleG
+        .join('text')
+        .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
+        .attr('class', (d: any) => (d.type === 'title' ? 'labelsAgrupation':'labels'))
+        .style('fill', '#11093C')
+        .style('font-weight', 500)
+        .attr('x', function(d: any) {
+          let scaleName: any =xScale(d['from'])
+          return scaleName + 150;
+        })
+        .attr('y', function(d: any) {
+          let yScaleId: any = yScale(d['id']);
+          return yScaleId + yScale.bandwidth() / 2;
+        })
+        .attr('width', function(d: any) {
+          let xScaleTo: any;
+          let xScaleFrom: any;
+          if (d.type === 'title'){
+            xScaleTo = xScale(moment('2022/11/11'));
+            xScaleFrom = xScale(moment('2022/06/11'));
+          } else {
+            xScaleTo = xScale(d['from']);
+            xScaleFrom = xScale(d['from']);
+          }
+          return xScaleTo - xScaleFrom;
+        })
+        .attr('visibility', (d: any) => (d.type === 'title' ? 'visible':'hidden'))
         .text((d: any) => d.name);
 
       let dragableLineLeft = scheduleG
@@ -1239,8 +1374,6 @@ let toData = datas
         d3.selectAll('.topHeader text').attr('transform', 'translate(' + DaysToPixels(1) / 2 + ',0)');
       };
 
-      //console.log(currentZScale); //d3.selectAll('.topHeaderMonth text').attr('transform','translate('+));
-
       let getVisibleMonths = function(domain: any) {
         var time = d3.timeMonth.floor(domain[0]),
             end = d3.timeMonth.floor(domain[1]),
@@ -1249,7 +1382,6 @@ let toData = datas
             time = d3.timeMonth.offset(time, 1);
             times.push(time);
     }
-        //console.log(times);
         return times;
     } 
     let getVisibleYears = function(domain: any) {
@@ -1260,7 +1392,6 @@ let toData = datas
           time = d3.timeYear.offset(time, 1);
           times.push(time);
   }
-      //console.log(times);
       return times;
   } 
 
@@ -1286,13 +1417,9 @@ let toData = datas
           } else {
               opacity = 1;
           }
-          //console.log(x, 'opa', opacity)
-          let thisVar: any = d3.select(this)
           d3.select(this)
               .attr('x', (x>= 0 && x<=width/2+ 15 ? width/2+ 15 : x))
-              //.attr('transform', 'translate(' + x + ',' +0+ ')')
               .attr('opacity', opacity);
-              //console.log(this)
       });
   }
   let setTextPositionYear = function(selection: any) {
@@ -1317,13 +1444,10 @@ let toData = datas
         } else {
             opacity = 1;
         }
-        //console.log(x, 'opa', opacity)
         let thisVar: any = d3.select(this)
         d3.select(this)
             .attr('x', (x=== 0 ? x+width : x))
-            //.attr('transform', 'translate(' + x + ',' +0+ ')')
             .attr('opacity', opacity);
-            //console.log(this)
     });
 }
   
@@ -1344,8 +1468,6 @@ let toData = datas
         nameEnter, nameUpdate, nameExit,
         text, textEnter, textUpdate;
 
-    //console.log('name',data);
-    // console.log('scale',scale0);
     renderMonthNames.scale = scale1;
 
     nameEnter = name.enter();
@@ -1399,8 +1521,6 @@ let toData = datas
       name = d3.select('.topHeaderYearAxis').selectAll('.nameYear').data(data, gettimefornames('getTime')),
       nameEnter, nameUpdate, nameExit;
 
-  //console.log('name',data);
-  // console.log('scale',scale0);
   renderYearNames.scale = scale1;
 
   nameEnter = name.enter();
@@ -1439,7 +1559,7 @@ let toData = datas
 
       zoomed = function() {
         
-        console.log(d3.event.transform.k);
+        //console.log(d3.event.transform);
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
         if (d3.event.transform.k < 14) {
@@ -1496,7 +1616,6 @@ let toData = datas
         }
         if (zoomStatus === newZoomValue) {
         } else {
-          console.log('working', type);
           const adder = type === 'in' ? 1.4 : 0.7;
           svg.transition().call(zoom.scaleBy, adder);
           svgAxis.transition().call(zoom.scaleBy, adder);
@@ -1543,13 +1662,6 @@ let toData = datas
     timelineChart(datas);
     setSvgState(svg);
     setSvgAxisState(svgAxis);
-    // if(xScale){
-    //   console.log(xScale)
-    // setxScaleChart(xScale);
-    // console.log(xScaleChart)
-    // }
-   //setZoomedState(zoom);
-
   }, []);
 
   useEffect(() => {
@@ -1579,13 +1691,6 @@ let toData = datas
         });
       }
       timelineChart(datas);
-      // setSvgState(svg);
-      // setSvgAxisState(svgAxis);
-      // if(xScale){
-      //   console.log(xScale)
-      // setxScaleChart(xScale);
-      // console.log(xScaleChart)
-      // }
     }
   }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected]);
 
@@ -1600,35 +1705,33 @@ let toData = datas
   let chartheaderHeight: any = document.getElementById('timeline-chart-axis')?.offsetHeight;
   let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
   let heightOfChart = heightOfList - chartheaderHeight - zoomButtonsHeight- 10;
-  // const moveZoom = (testt: string)=>{
-  //   console.log(testt);
+
+  // const zoomToToday = () => {
+  //   console.log(zoomed)
+  //   zoom = d3
+  //       .zoom()
+  //       .scaleExtent([0.5, 30])
+  //       .translateExtent([
+  //         [0, 0],
+  //         [widthofDiv - 20, 0],
+  //       ])
+  //       .on('zoom', zoomed);
+  //   console.log(svgState);
+  //   console.log(zoom);
+  //   console.log(xScale)
+  //   //console.log(xScaleToday);
+  //   console.log(xScaleChart)
+  //   if(zoom && svgState && xScale){
+  //     zoom.translateTo(svgAxisState, (xScale ? xScale(today): xScale(today)), 0);
+  //     zoom.scaleTo(svgAxisState, 18);
+  //     zoom.translateTo(svgState, (xScale ? xScale(today): xScale(today)), 0);
+  //     zoom.scaleTo(svgState, 18);
+
+  //   }
+
+  //   //d3.select('.topHeaderYear').selectAll('.name').attr('visibility', 'hidden');
+  //   d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
   // }
-  const zoomToToday = () => {
-    console.log(zoomed)
-    zoom = d3
-        .zoom()
-        .scaleExtent([0.5, 30])
-        .translateExtent([
-          [0, 0],
-          [widthofDiv - 20, 0],
-        ])
-        .on('zoom', zoomed);
-    console.log(svgState);
-    console.log(zoom);
-    console.log(xScale)
-    //console.log(xScaleToday);
-    console.log(xScaleChart)
-    if(zoom && svgState && xScale){
-      zoom.translateTo(svgAxisState, (xScale ? xScale(today): xScale(today)), 0);
-      zoom.scaleTo(svgAxisState, 18);
-      zoom.translateTo(svgState, (xScale ? xScale(today): xScale(today)), 0);
-      zoom.scaleTo(svgState, 18);
-
-    }
-
-    //d3.select('.topHeaderYear').selectAll('.name').attr('visibility', 'hidden');
-    d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
-  }
   return (
     <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
