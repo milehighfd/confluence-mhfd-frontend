@@ -26,7 +26,7 @@ const PhaseView = (
   };
   useEffect(() => {
     console.log(windowWidth);
-    const marginLeft = (windowWidth>=1900 && windowWidth<=2549 ? 26 : (windowWidth>=2550 && windowWidth<=3999 ? 35: (windowWidth>=1450 && windowWidth<=1899 ? 26 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :16))))
+    const marginLeft = (windowWidth>=1900 && windowWidth<=2549 ? 29 : (windowWidth>=2550 && windowWidth<=3999 ? 35: (windowWidth>=1450 && windowWidth<=1899 ? 22 :(windowWidth>=1199 && windowWidth<=1449 ? 16 :16))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
     const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -10 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -10) )
   const phaseChart = (dataDotchart: any) => {
@@ -125,7 +125,7 @@ const PhaseView = (
     .attr("offset", "100%")
     .attr("stop-color", '#D4D2D9')
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right]);
+  var x = d3.scaleLinear().domain([0, 15]).range([margin.left, width +margin.right]);
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;
@@ -253,6 +253,8 @@ const PhaseView = (
     {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
     <div className="phaseview-content">
       <div className="phaseview-title" id='phaseviewTitlleWidth'>
+        <p>Draft</p>
+        <p>Work Request (WR)</p>
         <p>Work Plan<br/>(WP)</p>
         <p>Startup</p>
         <p>Funding</p>
@@ -262,7 +264,7 @@ const PhaseView = (
         <p>Final<br/>Design</p>
         <p>Construction Contracting</p>
         <p>Construction</p>
-        <p>Documentation</p>
+        {windowWidth>=1199 && windowWidth<=1449 ? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
         <p>Establishment</p>
         <p>Closeout</p>
         <p>Closed</p>
