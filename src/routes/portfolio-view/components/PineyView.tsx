@@ -72,7 +72,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
                   <>
-                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onOpenChange={()=>{console.log('aqui'); setOpenDrop(!openDrop)}}>
+                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} /*onOpenChange={()=>{console.log('aqui'); setOpenDrop(!openDrop)}}*/>
                       <Space style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
                         <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
                         {openDrop ? <UpOutlined style={{color:'#251863'}} /> : < DownOutlined style={{color:'#251863'}} />}
