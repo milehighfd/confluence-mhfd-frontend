@@ -181,10 +181,13 @@ const TablePortafolio = (
         }
       }}
     >
+      <div className="line-table">
+
+      </div>
       <Table
         columns={columns}
         dataSource={dataTable}
-        className={openTable[0] ? "table-portafolio": "table-portafolio table-close"}
+        className={openTable[0] ? "table-portafolio table-first": "table-portafolio table-close table-first"}
         onRow={(record, rowIndex) => {
           return {
             onClick: event => {}, // click row

@@ -113,8 +113,11 @@ const Search = (
           setHoverTable([0,0,0]);
         }}
       >
-        <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]])}}>
+        <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]]); console.log(e, 'Dotty')}} className={openTable[0]? "collapse-first":""}>
           <Panel header="Centennial" key="1" id='testing1'>
+            <div className="text-search text-first">
+              <p>sss</p>
+            </div>
             <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Upstream of Zuni...</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
@@ -145,7 +148,7 @@ const Search = (
             </div>
           </Panel>
         </Collapse>
-        <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]])}}>
+        <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]]);console.log(e, 'Dotty')}}>
           <Panel header="Commerce City" key="1" id='testing2'>
             <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}  onMouseEnter={()=>{setHoverTable([1,1,0]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase IV</p>

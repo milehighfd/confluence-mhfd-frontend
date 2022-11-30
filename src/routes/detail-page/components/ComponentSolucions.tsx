@@ -7,23 +7,25 @@ import { ArrowDownOutlined } from "@ant-design/icons";
 const ComponentSolucions = () => {
   const columns = [
     {
-      title: <>Component <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Component</>,
       dataIndex: 'component',
       key: 'component',
       render: (component:any) => (
         <p className={"table-" + component[1]}>{component[0]}</p>
       ),
+      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Cost <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Cost</>,
       dataIndex: 'cost',
       key: 'cost',
       render: (cost:any) => (
         <p className={"table-" + cost[1]}>{cost[0]}</p>
       ),
+      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Status <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Status</>,
       dataIndex: 'status',
       key: 'status',
       render: (status:any) => (
@@ -31,11 +33,13 @@ const ComponentSolucions = () => {
           {status}
         </span> 
       ),
+      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Solution Type <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Solution Type</>,
       dataIndex: 'type',
       key: 'type',
+      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
   ];
   return (

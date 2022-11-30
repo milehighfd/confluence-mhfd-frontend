@@ -704,6 +704,12 @@
     padding: 10px 10px;
   }
 }
+.collapse-first{
+  .ant-collapse-header {
+    position: absolute !important;
+    width: 96.5% !important;
+  }
+}
 .protafolio-body{
   .filters {
     position: absolute;
@@ -752,6 +758,7 @@
         content: url("../../../public/Icons/ico-dots.svg")
       }
     }
+    
     .search-body{
       overflow-y: auto;
       height: calc(100vh - 205px);
@@ -791,6 +798,9 @@
       h3{
         color: rgb(17 9 60);
       }
+    }
+    .text-first{
+      height: 34.6px;
     }
     .text-search {
       display: flex;
@@ -856,6 +866,13 @@
     .table-body-body{
       overflow-y: auto;
       height: calc(100vh - 205px);
+      .line-table{
+        height: 31px;
+        background-color: #fbfbfc;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+      }
     }
     .table-body-body::-webkit-scrollbar-thumb {
       background: transparent; 
@@ -877,6 +894,15 @@
     }
     .table-close{
       .ant-table-tbody {
+        display: none;
+      }
+    }
+    .table-first{
+      margin-top: 34px;
+      .table-body .table-portafolio .ant-table-thead {
+        display: none;
+      }
+      .ant-table-thead {
         display: none;
       }
     }
