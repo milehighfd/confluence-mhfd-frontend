@@ -26,7 +26,7 @@ const PhaseView = (
   };
   useEffect(() => {
     console.log(windowWidth);
-    const marginLeft = (windowWidth>=1900 && windowWidth<=2549 ? 29 : (windowWidth>=2550 && windowWidth<=3999 ? 35: (windowWidth>=1450 && windowWidth<=1899 ? 22 :(windowWidth>=1199 && windowWidth<=1449 ? 16 :16))))
+    const marginLeft = (windowWidth>=2001 && windowWidth<=2549 ? 29 : (windowWidth>=2550 && windowWidth<=3999 ? 33: (windowWidth>=1450 && windowWidth<=2000 ? 23 :(windowWidth>=1199 && windowWidth<=1449 ? 18 :16))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
     const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -10 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -10) )
   const phaseChart = (dataDotchart: any) => {
@@ -179,7 +179,7 @@ const PhaseView = (
         .attr("stroke-width", "2.5px");
     }
   });
-  const radius = 12;
+  const radius = (windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3999 ? 20: (windowWidth>=1450 && windowWidth<=2000 ? 12 :(windowWidth>=1199 && windowWidth<=1449 ? 12 :12))));
   let circles = svg.selectAll("mycircle").data(datas).enter();
   arrayForCirclesAndLines.forEach((r) => {
       circles
@@ -225,7 +225,7 @@ const PhaseView = (
       .append("text")
       .attr("class", "circletext")
       .attr('fill', '#ffffff')
-      .attr('font-size', 11)
+      .attr('font-size',(windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3999 ? 16: (windowWidth>=1450 && windowWidth<=2000 ? 12 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11)))))
       .text(function (d: any) {
         return d.data[r].value;
       })
