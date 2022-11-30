@@ -1,29 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import moment, { months } from 'moment';
+import moment from 'moment';
 import * as d3 from 'd3';
 import {
   Button,
-  Calendar,
-  Checkbox,
   Col,
-  Input,
-  Layout,
-  message,
-  Popover,
-  Progress,
   Row,
-  Select,
-  Space,
-  Steps,
-  Table,
-  Tabs,
-  Tag,
 } from 'antd';
 import {
   CalendarOutlined,
-  ClockCircleOutlined,
-  CloseOutlined,
-  FormOutlined,
   ZoomInOutlined,
   ZoomOutOutlined,
 } from '@ant-design/icons';
@@ -31,7 +15,6 @@ import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
 
-const { Step } = Steps;
 const CalendarView = ({
   openTable,
   moveSchedule,
@@ -50,7 +33,6 @@ const CalendarView = ({
   const [zoomStatus, setZoomStatus] = useState(0);
   const [currentZScale, setCurrentZScale] = useState(6);
   // const svgRef = useRef<SVGSVGElement>(null);
-  const [heightDiv, setHeightDiv] = useState<any>();
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
@@ -81,16 +63,17 @@ const CalendarView = ({
   };
   let rawData = [
     {
-      id: 'Tittle0',
+      id: 'Title0',
       date: moment('2022/08/11'),
       schedule: [
         {
           objectId: 10,
           type: 'title',
-          from: moment('2022/06/02 00:00:00'),
-          to: moment('2022/06/02 00:00:00'),
+          categoryNo: 100,
+          from: moment('2022/06/01 00:00:00'),
+          to: moment('2022/06/01 00:00:00'),
           status: 'completed',
-          name: 'Work Request',
+          name: 'Centennial',
         }
       ],
     },
@@ -389,13 +372,14 @@ const CalendarView = ({
       ],
     },
     {
-      id: 'Tittle2',
+      id: 'Title1',
       date: moment('2022/08/11'),
       schedule: [{
         objectId: 10,
         type: 'title',
-        from: moment('2022/06/02 00:00:00'),
-        to: moment('2022/06/02 00:00:00'),
+        categoryNo: 100,
+        from: moment('2022/07/01 00:00:00'),
+        to: moment('2022/11/01 00:00:00'),
         status: 'completed',
         name: 'Commerce City',
       }],
@@ -485,13 +469,14 @@ const CalendarView = ({
       ],
     },
     {
-      id: 'Tittle3',
+      id: 'Title2',
       date: moment('2022/08/11'),
       schedule: [{
         objectId: 10,
         type: 'title',
-        from: moment('2022/06/02 00:00:00'),
-        to: moment('2022/06/02 00:00:00'),
+        categoryNo: 100,
+        from: moment('2022/06/01 00:00:00'),
+        to: moment('2022/10/01 00:00:00'),
         status: 'completed',
         name: 'Denver',
       }],
@@ -624,6 +609,8 @@ const CalendarView = ({
     },
   ];
 
+  const locations: any = ['Centennial', 'Commerce', 'Denver'];
+  let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
     return {
       ...el,
@@ -651,8 +638,7 @@ const CalendarView = ({
   let chartheaderHeight: any = document.getElementById('timeline-chart-axis')?.offsetHeight;
   let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
  let heightt =heightOfList - 47 - 32- 10;
- console.log(windowWidth, windowHeight ,heightOfList)
-  let fromData = datas
+  let fromData: any = datas
   .map((ds: any) => ds.schedule)
   .flat()
   .sort(function(a: any, b: any) {
@@ -669,6 +655,44 @@ let toData = datas
   let EndTime = moment(toData[toData.length - 1].to)
     .add(12, 'months')
     .startOf('month');
+  locations.forEach((location: any) => {
+    let isTheFirst = 0; 
+    fromData.forEach((elem: any) => {
+      if (elem.id.includes(location) && isTheFirst === 0){
+
+        agrupationData.push({
+          objectId: 10,
+          type: 'title',
+          categoryNo: 100,
+          from: elem.from,
+          to: elem.to,
+          status: 'completed',
+          name: 'Denver'});
+        isTheFirst++
+      }
+    })
+  });
+  locations.forEach((location: any, index: any) => {
+    let theLast:any; 
+    toData.forEach((elem: any) => {
+      if (elem.id.includes(location)){
+        theLast= elem;
+      }
+    })
+    agrupationData[index]['to'] = theLast?.to;
+    agrupationData[index].id = `Title${index}`
+    agrupationData[index].objectId = index
+    agrupationData[index].type = 'title'
+    agrupationData[index].name = (locations[index]==='Commerce'? 'Commerce City':locations[index])
+  });
+
+  let positions =0;
+  datas.forEach((element:any) => {
+      if(element.id.includes('Title')){
+        element.schedule[0] = agrupationData[positions];
+        positions++
+      }
+  });
 
   const timelineChart = (datasets: any) => {
     let barHeight = 27;
@@ -884,46 +908,55 @@ let toData = datas
         .attr('id', function(d: any) {
           return `${d.id}_${d.categoryNo}`;
         })
-        .attr('class', 'stackedbar')
-        .attr('rx', 12)
-        .attr('ry', 12)
+        .attr('class', function(d: any) {
+          return (d.type === 'title'? 'agrupationbar':'stackedbar')
+        })
+        .attr('rx', function(d: any) {
+          return (d.type === 'title'? 3:12)
+        })
+        .attr('ry', function(d: any) {
+          return (d.type === 'title'? 3:12)
+        })
         .attr('x', function(d: any) {
           return xScale(d['from']);
         })
         .attr('y', function(d: any) {
-          return yScale(d['id']);
+          let yScaleRect: any = yScale(d['id']);
+          return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
         })
         .attr('width', function(d: any) {
           let xScaleTo: any = xScale(d['to']);
           let xScaleFrom: any = xScale(d['from']);
           return xScaleTo - xScaleFrom;
         })
-        .attr('height', barHeight)
+        .attr('height', function(d: any) {
+          return (d.type === 'title'? barHeight/4:barHeight);
+        })
         .attr('fill', function(d: any) {
-          return colorScale[d.status];
+          return (d.type === 'title'? '#C9C5D8':colorScale[d.status]);
         });
 
-        let agrupationTitles = scheduleG
-        .join('rect')
-        .attr('id', function(d: any) {
-          return `${d.id}_${d.categoryNo}_type`;
-        })
-        .attr('class', 'agrupationbar')
-        .attr('rx', 3)
-        .attr('ry', 3)
-        .attr('x', function(d: any) {
-          return 100;
-        })
-        .attr('y', function(d: any) {
-          let yScaleId: any = yScale(d['id'])
-          return yScaleId + 12;
-        })
-        .attr('width', function(d: any) {
-          let scaleName: any =xScale(d['from'])
-          return (d.type === 'title' ? scaleName +35 :0 );
-        })
-        .attr('height', barHeight -20 )
-        .attr('fill', '#C9C5D8');
+        // let agrupationTitles = scheduleG
+        // .join('rect')
+        // .attr('id', function(d: any) {
+        //   return `${d.id}_${d.categoryNo}_type`;
+        // })
+        // .attr('class', 'agrupationbar')
+        // .attr('rx', 3)
+        // .attr('ry', 3)
+        // .attr('x', function(d: any) {      
+        //       return 100;
+        // })
+        // .attr('y', function(d: any) {
+        //   let yScaleId: any = yScale(d['id'])
+        //   return yScaleId + 12;
+        // })
+        // .attr('width', function(d: any) {
+        //   let scaleName: any =xScale(d['from'])
+        //   return (d.type === 'title' ? scaleName +35 :0 );
+        // })
+        // .attr('height', barHeight -20 )
+        // .attr('fill', '#C9C5D8');
 
       let scheduleRectsCenter = scheduleG
         .join('rect')
@@ -941,7 +974,7 @@ let toData = datas
         .attr('width', function(d: any) {
           let xScaleTo: any = xScale(d['to']);
           let xScaleFrom: any = xScale(d['from']);
-          return xScaleTo - xScaleFrom;
+          return (d.type === 'title'? 0:xScaleTo - xScaleFrom);
         })
         .attr('height', barHeight - 2)
         .attr('fill', function(d: any) {
@@ -951,11 +984,12 @@ let toData = datas
       let rectNames = scheduleG
         .join('text')
         .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
-        .attr('class', 'labels')
-        .style('fill', 'white')
-        .style('font-size', 12)
+        .attr('class', (d: any) =>(d.type === 'title'? 'labelsAgrupation':'labels'))
+        .style('fill', (d: any) =>(d.type === 'title'? '#11093C':'white'))
+        .style('font-size', (d: any) =>(d.type === 'title'? 13:12))
+        .style('font-weight', (d: any) =>(d.type === 'title'? 500:400))
         .attr('x', function(d: any) {
-          return xScale(d['from']);
+          return (d.type === 'title'? xScale(d['to']):xScale(d['from']));
         })
         .attr('y', function(d: any) {
           let yScaleId: any = yScale(d['id']);
@@ -964,38 +998,38 @@ let toData = datas
         .attr('width', function(d: any) {
           let xScaleTo: any = xScale(d['to']);
           let xScaleFrom: any = xScale(d['from']);
-          return xScaleTo - xScaleFrom;
+          return (d.type === 'title'? 100: xScaleTo - xScaleFrom);
         })
         .text((d: any) => d.name);
 
-        let rectNamesAgrupation = scheduleG
-        .join('text')
-        .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
-        .attr('class', (d: any) => (d.type === 'title' ? 'labelsAgrupation':'labels'))
-        .style('fill', '#11093C')
-        .style('font-weight', 500)
-        .attr('x', function(d: any) {
-          let scaleName: any =xScale(d['from'])
-          return scaleName + 150;
-        })
-        .attr('y', function(d: any) {
-          let yScaleId: any = yScale(d['id']);
-          return yScaleId + yScale.bandwidth() / 2;
-        })
-        .attr('width', function(d: any) {
-          let xScaleTo: any;
-          let xScaleFrom: any;
-          if (d.type === 'title'){
-            xScaleTo = xScale(moment('2022/11/11'));
-            xScaleFrom = xScale(moment('2022/06/11'));
-          } else {
-            xScaleTo = xScale(d['from']);
-            xScaleFrom = xScale(d['from']);
-          }
-          return xScaleTo - xScaleFrom;
-        })
-        .attr('visibility', (d: any) => (d.type === 'title' ? 'visible':'hidden'))
-        .text((d: any) => d.name);
+        // let rectNamesAgrupation = scheduleG
+        // .join('text')
+        // .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
+        // .attr('class', (d: any) => (d.type === 'title' ? 'labelsAgrupation':'labels'))
+        // .style('fill', '#11093C')
+        // .style('font-weight', 500)
+        // .attr('x', function(d: any) {
+        //   let scaleName: any =xScale(d['from'])
+        //   return scaleName + 150;
+        // })
+        // .attr('y', function(d: any) {
+        //   let yScaleId: any = yScale(d['id']);
+        //   return yScaleId + yScale.bandwidth() / 2;
+        // })
+        // .attr('width', function(d: any) {
+        //   let xScaleTo: any;
+        //   let xScaleFrom: any;
+        //   if (d.type === 'title'){
+        //     xScaleTo = xScale(moment('2022/11/11'));
+        //     xScaleFrom = xScale(moment('2022/06/11'));
+        //   } else {
+        //     xScaleTo = xScale(d['from']);
+        //     xScaleFrom = xScale(d['from']);
+        //   }
+        //   return xScaleTo - xScaleFrom;
+        // })
+        // .attr('visibility', (d: any) => (d.type === 'title' ? 'visible':'hidden'))
+        // .text((d: any) => d.name);
 
       let dragableLineLeft = scheduleG
         .join('g')
@@ -1069,7 +1103,8 @@ let toData = datas
       };
       let calcScheduleXCenter = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
-        return zoomedXScaleFrom + offsetBar;
+        let zoomedXScaleTo: any = zoomedXScale(d['to']);
+        return (d.type === 'title'? zoomedXScaleTo +5 :zoomedXScaleFrom + offsetBar);
       };
       let calcScheduleWidth = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
@@ -1080,7 +1115,7 @@ let toData = datas
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
         let zoomedXScaleTo: any = zoomedXScale(d['to']);
         let widthcenter = zoomedXScaleTo - zoomedXScaleFrom - 24;
-        return widthcenter >= 0 ? widthcenter : 0;
+        return (d.type === 'title'? 0:(widthcenter >= 0 ? widthcenter : 0));
       };
       let calcLeftXLine = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
@@ -1270,7 +1305,7 @@ let toData = datas
         todaylineaxis.attr('x2', calctodayX);
         todayCircle.attr('cx', calctodayX);
         scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-        scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
+        scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width',calcScheduleWidthInner);
         rectNames.attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
         leftLine.attr('x1', calcLeftXLine).attr('x2', calcLeftXLine);
         d3.selectAll('.labels').call(dotme);
@@ -1315,6 +1350,7 @@ let toData = datas
         d3.event.stopPropagation();
       });
       scheduleRects.on('click', function() {
+        if(!d3.event.target.id.includes('Title')){
         setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
@@ -1325,6 +1361,7 @@ let toData = datas
         d3.select(`#${d3.event.target.id}_left`).attr('class', 'dragginglinesonclick');
 
         backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
+      }
         d3.event.stopPropagation();
       });
       svg.on('click', function() {
@@ -1622,7 +1659,6 @@ let toData = datas
       };
       moveZoom(zoomTimeline);
       if (zoomSelected === 'Today') {
-        console.log( 'inside')
         zoom.translateTo(svg, xScale(today), 0);
         zoom.scaleTo(svg, 18);
         zoom.translateTo(svgAxis, xScale(today), 0);
