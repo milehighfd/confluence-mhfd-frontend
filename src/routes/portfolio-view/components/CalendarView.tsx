@@ -625,6 +625,7 @@ const CalendarView = ({
   });
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
+  console.log(windowWidth, windowHeight)
   let zoom: any;
   let svg: any;
   let svgAxis: any;
