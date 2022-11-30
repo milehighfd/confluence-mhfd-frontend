@@ -1821,7 +1821,7 @@ let toData = datas
           }
         }}
       >
-        <div style={{marginTop: (windowWidth > 2325 && windowHeight >980 ? '-73px':'-80px')}}>
+        <div style={{marginTop: (windowWidth > 2325 && windowHeight >980 ? '-73px':'-42px')}}>
           <div style={{height: heightt}} id="timeline-chart" />
           {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
         </div>
