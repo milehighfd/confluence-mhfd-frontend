@@ -184,6 +184,9 @@ const PhaseView = (
   arrayForCirclesAndLines.forEach((r) => {
       circles
       .append("circle")
+      .attr('id',(d: any) => {
+      return `${d.name}_${d.id}_${d.data[r].phase}`;
+      })
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
         let ydname: any = y(d.name);
@@ -193,7 +196,6 @@ const PhaseView = (
       .style("fill", function (d: any) {
         return colorScale[d.data[r].status];
       })
-      .on("click", (d: any) => setOpenPiney(true));
     circles
       .append("circle")
       .attr("cx", xdr(r))
@@ -205,7 +207,7 @@ const PhaseView = (
       .style("fill", function (d) {
         return "white";
       })
-      .on("click", (d: any) => setOpenPiney(true));
+
     circles
       .append("circle")
       .attr("cx", xdr(r))
@@ -217,7 +219,7 @@ const PhaseView = (
       .style("fill", function (d: any) {
         return colorScale[d.data[r].status];
       })
-      .on("click", (d: any) => setOpenPiney(true));
+
     svg
       .selectAll("myText")
       .data(datas)
@@ -238,7 +240,28 @@ const PhaseView = (
         let ydname: any = y(d.name);
         return ydname + radius / 3;
       })
-      .on("click", (d: any) => setOpenPiney(false));
+
+      ;
+      circles
+      .append("circle")
+      .attr('id', (d:any)=>{ return `${d.name}_${d.id}_${d.data[r].phase}_outer`})
+      .attr("cx", xdr(r))
+      .attr("cy", (d: any) => {
+        let ydname: any = y(d.name);
+      return ydname;
+      })
+      .attr("r", radius)
+      .style("fill", 'white')
+      .style('opacity', 0)
+      .on("click", (d: any) => setOpenPiney(true))
+      .on("mouseover", (d: any) =>{
+        d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
+      })
+      .on("mouseout",(d: any) =>{
+        d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
+          return colorScale[d.data[r].status];
+        });
+      })
       ;
   });
   //circles.on("click", (d: any) => setOpenPiney(true));
