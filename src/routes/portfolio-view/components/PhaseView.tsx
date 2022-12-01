@@ -252,6 +252,14 @@ const PhaseView = (
   return <div className="phaseview-body">
     {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
     <div className="phaseview-content">
+      <div className="phaseview-title-label" id='phaseviewTitlleWidth'>
+        <p>Draft</p>
+        <p>Requested</p>
+        <p>Approved</p>
+        <p style={{display:'flex', width:'40%'}}><hr ></hr>Active<hr></hr></p>
+        <p style={{display:'flex', width:'33.33333335%'}}><hr ></hr>Closeout<hr></hr></p>
+        <p>Closed</p>
+      </div>
       <div className="phaseview-title" id='phaseviewTitlleWidth'>
         <p>Draft</p>
         <p>Work Request (WR)</p>

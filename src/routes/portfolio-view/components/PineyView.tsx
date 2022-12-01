@@ -6,7 +6,6 @@ import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 import { drag } from "d3";
 
-
 const { Step } = Steps;
 const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];

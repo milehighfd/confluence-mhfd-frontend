@@ -4,7 +4,7 @@ import Modal from 'antd/lib/modal/Modal';
 import React from 'react';
 import { NewProjectsFilter } from '../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter';
 
-const { RangePicker } = DatePicker;
+const { RangePicker }:any = DatePicker;
 
 const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];

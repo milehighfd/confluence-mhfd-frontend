@@ -13,13 +13,15 @@ import ModalFields from "routes/list-view/components/ModalFields";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
 
 const { TabPane } = Tabs;
-const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special', 'DIP'];
+const tabKeys = ['All','Capital', 'Restoration', 'Study', 'Acquisition', 'R&D', 'DIP'];
 const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+  <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
+  <div className="popoveer-00"><b>Restoration:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
+  <div className="popoveer-00"><b>Study:</b> Property with high flood risk or needed for improvements.</div>,
+  <div className="popoveer-00"><b>Acquisition:</b> Any other effort for which MHFD funds or staff time is requested.</div>,
+  <div className="popoveer-00"><b>R&D:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+  <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
 ]
 const PortafolioBody = () => {
   const [tabKey, setTabKey] = useState<any>('All');

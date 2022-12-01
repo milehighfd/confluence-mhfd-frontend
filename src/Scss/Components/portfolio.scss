@@ -971,7 +971,7 @@
     .header-table{
       margin-bottom: 0px;
       .ant-table-thead {
-        height: 48px !important;
+        height: 48px ;
         border-radius: 7px 7px 0px 0px;
       }
       .ant-table-thead > tr > th {
@@ -1144,13 +1144,56 @@
         height: calc(100vh - 205px);
         width: 100%;
       }
+      .phaseview-title-label{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: center;
+        height: 18px;
+        padding-top:9px;
+        /* padding: 19px 0px; */
+        background: #ffffff;
+        width: 99%;
+        hr{
+          border-top: 4px dashed #D5D3DA;
+          width: 37%;
+        }
+        p{
+          width: 6.6666666667%;
+          padding: 0px 0px;
+          color: #6d6888;
+          line-height: 14px;
+          margin-bottom: 0px;
+          letter-spacing: -1px;
+          width: 6.666666667%;
+          height: 28px;
+          border-left: 2px solid #eae8f0;
+
+          font-family: 'Ubuntu';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          text-align: center;
+
+          color: #11093C;
+
+          mix-blend-mode: normal;
+          opacity: 0.6;
+
+          /* Inside auto layout */
+
+          flex: none;
+          order: 1;
+          flex-grow: 0;
+        }
+      }
       .phaseview-title{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         text-align: center;
-        height: 48px;
-        margin-bottom: 10px;
+        height: 40px;
         padding-top:9px;
         /* padding: 19px 0px; */
         background: #ffffff;
@@ -1680,6 +1723,13 @@
       }
     }
   }
+  .table-body{
+    .table-body-body{
+      .line-table{
+        height: 42px !important;
+      }
+    }
+  }
 }
 
 @media (min-width: 1900px) and (max-width: 2549px){
@@ -1749,6 +1799,9 @@
     }
   }
   .search{
+    .text-first{
+      height: 48.6px !important;
+    }
     .search-body{
       height: calc(100vh - 228px) !important;
     }
@@ -1773,6 +1826,12 @@
   .table-body{
     .table-body-body{
       height: calc(100vh - 230px) !important;
+      .line-table{
+        height: 43px !important;
+      }
+    }
+    .table-first{
+      margin-top: 49px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
@@ -1797,7 +1856,12 @@
       }
       .phaseview-title{
         p{
-          font-size: 16px !important;
+          font-size: 14px !important;
+        }
+      }
+      .phaseview-title-label{
+        p{
+          font-size: 14px !important;
         }
       }
     }
@@ -1871,6 +1935,12 @@
   }
 }
 @media (min-width: 2555px) and (max-width: 4999px){
+  .ant-input{
+    font-size: 20px !important;
+  }
+  .ant-input-affix-wrapper {
+    font-size: 18px !important;
+  }
   .phaseview-body{
     .piney-text{
       width: 445px !important;
@@ -1898,6 +1968,14 @@
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 382px) !important;
+      }
+    }
+    .phaseview-content{
+      .phaseview-title{
+        height: 45px !important;
+      }
+      .phaseview-title-label{
+        margin-bottom: 5px !important;
       }
     }
   }
@@ -1989,6 +2067,9 @@
         font-size: 20px !important;
       }
     }
+    .text-first {
+      height: 48.9px !important;
+    }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 10px 10px !important;
       font-size: 26px !important;
@@ -1998,6 +2079,12 @@
   .table-body{
     .table-body-body{
       height: calc(100vh - 230px) !important;
+      .line-table{
+        height: 48px !important;
+      }
+    }
+    .table-first{
+     margin-top: 48.9px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
@@ -2015,6 +2102,11 @@
         padding-top: 10px !important;
       }
     }
+    .header-table{
+      .ant-table-thead {
+        height: 58px !important;
+      }
+    }
   }
   .phaseview-body{
     .phaseview-content{
@@ -2025,6 +2117,11 @@
         p{
           font-size: 20px !important;
           line-height: 16px !important;
+        }
+      }
+      .phaseview-title-label{
+        p{
+          font-size: 20px !important;
         }
       }
     }
