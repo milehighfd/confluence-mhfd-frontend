@@ -126,7 +126,7 @@ const TablePortafolio = (
       key: 'status',
       width: "12.5%",
       render: status => 
-      <div style={{textAlign:'center'}}>
+      <div style={{}}>
         <span className={typeStatus(status)}>{status}</span>
       </div>,
       ellipsis: true,
