@@ -51,35 +51,35 @@ const TablePortafolio = (
       title: <>Phase <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'phase',
       key: 'name',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
       title: <>MHFD Lead/PM<ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'mhfd',
       key: 'mhfd',
-      width: "12.5%",
+      width: "13.5%",
       ellipsis: true,
     },
     {
       title: <>Status <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'status',
       key: 'status',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
       title: <>Service Area <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'serviceArea',
       key: 'age',
-      width: "12.5%",
+      width: "13.5%",
       ellipsis: true,
     },
     {
       title: <>County <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'county',
       key: 'address',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
@@ -87,21 +87,21 @@ const TablePortafolio = (
       key: 'cost',
       dataIndex: 'cost',
       render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C'}}>${text}</span>;},
-      width: "12.5%",
+      width: "14.5%",
       ellipsis: true,
     },
     {
       title: <>Stream <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       dataIndex: 'stream',
       key: 'stream',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
       title: <>Contract <ArrowDownOutlined style={{opacity:'0.45'}}/></>,
       key: 'contact',
       dataIndex: 'contact',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     }
   ];
@@ -110,21 +110,21 @@ const TablePortafolio = (
       title: '',
       dataIndex: 'phase',
       key: 'name',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
       title: '',
       dataIndex: 'mhfd',
       key: 'mhfd',
-      width: "12.5%",
+      width: "13.5%",
       ellipsis: true,
     },
     {
       title: '',
       dataIndex: 'status',
       key: 'status',
-      width: "12.5%",
+      width: "11.5%",
       render: status => 
       <div style={{}}>
         <span className={typeStatus(status)}>{status}</span>
@@ -135,14 +135,14 @@ const TablePortafolio = (
       title: '',
       dataIndex: 'serviceArea',
       key: 'age',
-      width: "12.5%",
+      width: "13.5%",
       ellipsis: true,
     },
     {
       title: '',
       dataIndex: 'county',
       key: 'address',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
@@ -150,27 +150,27 @@ const TablePortafolio = (
       key: 'cost',
       dataIndex: 'cost',
       render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
-      width: "12.5%",
+      width: "14.5%",
       ellipsis: true,
     },
     {
       title: '',
       dataIndex: 'stream',
       key: 'stream',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     },
     {
       title: '',
       key: 'contact',
       dataIndex: 'contact',
-      width: "12.5%",
+      width: "11.5%",
       ellipsis: true,
     }
   ];
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
-    <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'10px'}}/>
+    <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
     <div
       className="table-body-body"
       ref={divRef}

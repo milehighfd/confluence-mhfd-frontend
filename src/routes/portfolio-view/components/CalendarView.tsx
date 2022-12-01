@@ -1783,8 +1783,8 @@ let toData = datas
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
 
-      <Row id='zoomButtons' style={{margin:'9px 10px'}}>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }}>
+      <Row id='zoomButtons' style={{margin:'9px 10px', marginBottom:'-6px'}}>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
         <div>
         <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
