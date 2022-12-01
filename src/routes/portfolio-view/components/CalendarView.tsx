@@ -694,16 +694,13 @@ let toData = datas
         positions++
       }
   });
-
+  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-30px': (windowWidth>=1450 && windowWidth<=2000 ? '-35px' :(windowWidth>=1199 && windowWidth<=1449 ? '-42px' :'-42px')))); 
   const timelineChart = (datasets: any) => {
-    let barHeight = 27;
-    let width = widthofDiv - 20,
-      height = 16 + (barHeight + 12) * (datas.length + 1);
+    let barHeight = (windowWidth>=2001 && windowWidth<=2549 ? 36 : (windowWidth>=2550 && windowWidth<=3999 ? 38: (windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27))));;
+    let width = widthofDiv - 20;
+    let factorHeight =(windowWidth>=2001 && windowWidth<=2549 ? 259 : (windowWidth>=2550 && windowWidth<=3999 ? 268: (windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 23 :23))));
+      let height = factorHeight + (barHeight + 12) * (datas.length + 1);
       let padding = { top: 38, right: 10, bottom: 10, left: -0 };
-      if (windowWidth > 2325 && windowHeight >980){
-        barHeight = 27
-        height =( 220 + (barHeight + 12) * (datas.length + 1));
-      }
       if (svg){
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
@@ -987,14 +984,15 @@ let toData = datas
         .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
         .attr('class', (d: any) =>(d.type === 'title'? 'labelsAgrupation':'labels'))
         .style('fill', (d: any) =>(d.type === 'title'? '#11093C':'white'))
-        .style('font-size', (d: any) =>(d.type === 'title'? 13:12))
-        .style('font-weight', (d: any) =>(d.type === 'title'? 500:400))
+        // .style('font-size', (d: any) =>(d.type === 'title'? 13:12))
+        // .style('font-weight', (d: any) =>(d.type === 'title'? 500:400))
         .attr('x', function(d: any) {
           return (d.type === 'title'? xScale(d['to']):xScale(d['from']));
         })
         .attr('y', function(d: any) {
           let yScaleId: any = yScale(d['id']);
-          return yScaleId + yScale.bandwidth() / 2;
+          let yfactor: any = (windowWidth>=2001 && windowWidth<=2549 ? -14 : (windowWidth>=2550 && windowWidth<=3999 ? -10: (windowWidth>=1450 && windowWidth<=2000 ?-7:(windowWidth>=1199 && windowWidth<=1449 ?0:0))));
+          return yScaleId + yfactor + yScale.bandwidth() / 2;
         })
         .attr('width', function(d: any) {
           let xScaleTo: any = xScale(d['to']);
@@ -1822,7 +1820,7 @@ let toData = datas
           }
         }}
       >
-        <div style={{marginTop: (windowWidth > 2325 && windowHeight >980 ? '-73px':'-42px')}}>
+        <div style={{marginTop: marginTopFactor}}>
           <div style={{height: heightt}} id="timeline-chart" />
           {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
         </div>

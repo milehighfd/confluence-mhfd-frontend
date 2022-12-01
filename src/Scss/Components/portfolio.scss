@@ -1802,6 +1802,73 @@
       }
     }
   }
+  .topHeaderYear text{
+    fill: #11093C;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px/2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 15px;
+    text-align: center; 
+  }
+  .topHeaderYear path{
+    stroke: red;
+    visibility: hidden;
+  }
+  .topHeaderYear line{
+    stroke: red;
+    opacity: .5;
+    visibility: hidden;
+  }
+  .topHeaderYearAxis text{
+    fill: #11093C;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px/2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 15px;
+    text-align: center; 
+  }
+  .topHeaderYearAxis path{
+    visibility: hidden;
+  }
+  .topHeaderYearAxis line{
+    visibility: hidden;
+  }
+  .labels{
+    width: 77px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 18.38px;
+    color: #FFFFFF;
+    mix-blend-mode: normal;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+  .labelsAgrupation{
+    width: 85px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px !important;
+    line-height: 14px;
+    color: #11093C;
+  }
 }
 @media (min-width: 2555px) and (max-width: 4999px){
   .phaseview-body{
@@ -1975,5 +2042,72 @@
   .popover-porfolio .ant-popover-inner p {
     font-size: 18px;
     line-height: 21px;
+  }
+  .topHeaderYear text{
+    fill: #11093C;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px/2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 23px;
+    text-align: center; 
+  }
+  .topHeaderYear path{
+    stroke: red;
+    visibility: hidden;
+  }
+  .topHeaderYear line{
+    stroke: red;
+    opacity: .5;
+    visibility: hidden;
+  }
+  .topHeaderYearAxis text{
+    fill: #11093C;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px/2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 26px;
+    text-align: center; 
+  }
+  .topHeaderYearAxis path{
+    visibility: hidden;
+  }
+  .topHeaderYearAxis line{
+    visibility: hidden;
+  }
+  .labels{
+    width: 77px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px !important;
+    line-height: 18.38px;
+    color: #FFFFFF;
+    mix-blend-mode: normal;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+  .labelsAgrupation{
+    width: 85px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px !important;
+    line-height: 14px;
+    color: #11093C;
   }
 }
