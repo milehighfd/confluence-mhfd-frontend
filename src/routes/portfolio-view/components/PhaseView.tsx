@@ -28,7 +28,7 @@ const PhaseView = (
     console.log(windowWidth);
     const marginLeft = (windowWidth>=2001 && windowWidth<=2549 ? 29 : (windowWidth>=2550 && windowWidth<=3999 ? 33: (windowWidth>=1450 && windowWidth<=2000 ? 23 :(windowWidth>=1199 && windowWidth<=1449 ? 18 :16))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
-    const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -10 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -10) )
+    const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -22 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -15) )
   const phaseChart = (dataDotchart: any) => {
 
     var margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft },
@@ -179,7 +179,7 @@ const PhaseView = (
         .attr("stroke-width", "2.5px");
     }
   });
-  const radius = (windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3999 ? 20: (windowWidth>=1450 && windowWidth<=2000 ? 12 :(windowWidth>=1199 && windowWidth<=1449 ? 12 :12))));
+  const radius = (windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3999 ? 20: (windowWidth>=1450 && windowWidth<=2000 ? 15 :(windowWidth>=1199 && windowWidth<=1449 ? 12 :12))));
   let circles = svg.selectAll("mycircle").data(datas).enter();
   arrayForCirclesAndLines.forEach((r) => {
       circles
@@ -225,7 +225,7 @@ const PhaseView = (
       .append("text")
       .attr("class", "circletext")
       .attr('fill', '#ffffff')
-      .attr('font-size',(windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3999 ? 16: (windowWidth>=1450 && windowWidth<=2000 ? 12 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11)))))
+      .attr('font-size',(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3999 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11)))))
       .text(function (d: any) {
         return d.data[r].value;
       })
@@ -277,6 +277,7 @@ const PhaseView = (
         <p>Closeout</p>
         <p>Closed</p>
       </div>
+      <div className="header-timeline"></div>
       <div
         className="container-timeline"
         ref={phaseRef}
@@ -287,8 +288,6 @@ const PhaseView = (
           }
         }}
       >
-        
-        <div className="header-timeline"></div>
         <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
           <div id="dotchart_1" hidden={!openTable[0]}></div>
         </div>

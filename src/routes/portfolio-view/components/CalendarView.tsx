@@ -694,12 +694,41 @@ let toData = datas
         positions++
       }
   });
-  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-30px': (windowWidth>=1450 && windowWidth<=2000 ? '-35px' :(windowWidth>=1199 && windowWidth<=1449 ? '-42px' :'-42px')))); 
+  let heightDivLeft: any= 0;
+  for (let index = 0; index < positions; index++) {
+    heightDivLeft = heightDivLeft + document.getElementById(`testing${index+1}`)?.offsetHeight;
+  }
+  const collapseItemStatus =()=>{
+    if (!openTable[0]) {
+      datas = datas.filter(function(el) {
+        return !el.id.includes('Centennial');
+      });
+    }
+    if (!openTable[1]) {
+      datas = datas.filter(function(el) {
+        return !el.id.includes('Commerce');
+      });
+    }
+    if (!openTable[2]) {
+      datas = datas.filter(function(el) {
+        return !el.id.includes('Denver');
+      });
+    }
+  }
+
+  //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
+  // heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
+
+  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-8px': (windowWidth>=1450 && windowWidth<=2000 ? '-21px' :(windowWidth>=1199 && windowWidth<=1449 ? '-42px' :'-42px'))));
+ 
   const timelineChart = (datasets: any) => {
-    let barHeight = (windowWidth>=2001 && windowWidth<=2549 ? 36 : (windowWidth>=2550 && windowWidth<=3999 ? 38: (windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27))));;
+    let barHeight = (windowWidth>=2001 && windowWidth<=2549 ? 36 : (windowWidth>=2550 && windowWidth<=3999 ? 38: (windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27))));
     let width = widthofDiv - 20;
     let factorHeight =(windowWidth>=2001 && windowWidth<=2549 ? 259 : (windowWidth>=2550 && windowWidth<=3999 ? 268: (windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 23 :23))));
-      let height = factorHeight + (barHeight + 12) * (datas.length + 1);
+      // let heightChart = heightDivLeft * 1.14;
+      // let barHeight = heightChart * 0.04173;
+      // let factorHeight = heightChart * 0.03555; 
+      let height = factorHeight + (barHeight+12) * (datas.length + 1);
       let padding = { top: 38, right: 10, bottom: 10, left: -0 };
       if (svg){
         svg.selectAll('*').remove();
@@ -1436,7 +1465,7 @@ let toData = datas
               minPos = 0, maxPos = zoomedXScale.range()[1],
               x, opacity;
           
-          x = zoomedXScale(d) + DaysToPixels(15) - width / 2; // center
+          x = zoomedXScale(d) + DaysToPixels(17.5) - width / 2; // center
           x = Math.max(minPos, x); // left-left
           x = Math.min(x, nextMonthPos - width - padding);  // left-right
 
@@ -1691,6 +1720,7 @@ let toData = datas
   };
 
   useEffect(() => {
+    collapseItemStatus();
     timelineChart(datas);
     setSvgState(svg);
     setSvgAxisState(svgAxis);
@@ -1707,21 +1737,7 @@ let toData = datas
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
       removeAllChildNodes(removechartAxis);
-      if (!openTable[0]) {
-        datas = datas.filter(function(el) {
-          return !el.id.includes('Centennial');
-        });
-      }
-      if (!openTable[1]) {
-        datas = datas.filter(function(el) {
-          return !el.id.includes('Commerce');
-        });
-      }
-      if (!openTable[2]) {
-        datas = datas.filter(function(el) {
-          return !el.id.includes('Denver');
-        });
-      }
+      collapseItemStatus();
       timelineChart(datas);
     }
   }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected]);

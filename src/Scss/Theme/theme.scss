@@ -2131,7 +2131,7 @@ body{
   margin-right: 10px;
 }
 .phaseview-timeline{
-  margin-top: -7px;
+  margin-top: -10px;
   .ant-steps {
     padding: 0px 0px;
   }
@@ -2749,6 +2749,64 @@ body{
       font-size: 18px !important;
     }
   }
+  .phaseview-timeline{
+    margin-top: -6px !important;
+    .ant-steps {
+      padding: 0px 0px;
+    }
+    .ant-steps-item-title:after {
+      height: 3px;
+      left: -42%;
+      right: -42%;
+    }
+    .border-active {
+      font-size: 15px;
+      background: #c0b9da;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .border-active-active {
+      font-size: 15px;
+      background: #917cd9;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .border-inactive {
+      font-size: 15px;
+      background: transparent;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .active{
+      font-size: 12px;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #c0b9da;
+    }
+    .active-active{
+      font-size: 12px;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #917cd9;
+    }
+    .inactive{
+      font-size: 12px;
+      color: #d1cfde;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #fbfbfb;
+      border: 1px solid #d3d1e0;
+    }
+    .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+      background: #c0b9da;
+      top: 19px;
+    }
+  }
 }
 @media (min-width: 2550px) and (max-width: 4999px){
   .modal-tollgate{
@@ -2921,5 +2979,63 @@ body{
   }
   .detailed-hh{
     height: 40px;
+  }
+  .phaseview-timeline{
+    margin-top: -32px !important;
+    .ant-steps {
+      padding: 0px 0px;
+    }
+    .ant-steps-item-title:after {
+      height: 3px;
+      left: -42%;
+      right: -42%;
+    }
+    .border-active {
+      font-size: 15px;
+      background: #c0b9da;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .border-active-active {
+      font-size: 15px;
+      background: #917cd9;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .border-inactive {
+      font-size: 15px;
+      background: transparent;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .active{
+      font-size: 12px;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #c0b9da;
+    }
+    .active-active{
+      font-size: 12px;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #917cd9;
+    }
+    .inactive{
+      font-size: 12px;
+      color: #d1cfde;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #fbfbfb;
+      border: 1px solid #d3d1e0;
+    }
+    .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+      background: #c0b9da;
+      top: 19px;
+    }
   }
 }
