@@ -720,12 +720,12 @@ let toData = datas
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
   // heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
 
-  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-8px': (windowWidth>=1450 && windowWidth<=2000 ? '-21px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px'))));
+  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-8px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px'))));
  
   const timelineChart = (datasets: any) => {
     let barHeight = (windowWidth>=2001 && windowWidth<=2549 ? 36 : (windowWidth>=2550 && windowWidth<=3999 ? 38: (windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27))));
     let width = widthofDiv - 20;
-    let factorHeight =(windowWidth>=2001 && windowWidth<=2549 ? 259 : (windowWidth>=2550 && windowWidth<=3999 ? 268: (windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 23 :23))));
+    let factorHeight =(windowWidth>=2001 && windowWidth<=2549 ? 259 : (windowWidth>=2550 && windowWidth<=3999 ? 268: (windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 21.5 :21.5))));
       // let heightChart = heightDivLeft * 1.14;
       // let barHeight = heightChart * 0.04173;
       // let factorHeight = heightChart * 0.03555; 

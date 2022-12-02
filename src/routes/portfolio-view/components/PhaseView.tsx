@@ -24,19 +24,25 @@ const PhaseView = (
   const prev = () => {
     setCurrent(current - 1);
   };
-  useEffect(() => {
+  let heightDiv1  = document.getElementById(`testing1`)?.offsetHeight;
+  let heightDiv2  = document.getElementById(`testing2`)?.offsetHeight;
+  let heightDiv3  = document.getElementById(`testing3`)?.offsetHeight;
+  let svg:any;
+
     console.log(windowWidth);
-    const marginLeft = (windowWidth>=2001 && windowWidth<=2549 ? 29 : (windowWidth>=2550 && windowWidth<=3999 ? 37.5: (windowWidth>=1450 && windowWidth<=2000 ? 27.5 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20))))
+    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 27.5 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
-    const marginTop = (windowWidth>=1900 && windowWidth<=2549 ? -22 : (windowWidth>=2550 && windowWidth<=3999 ? -5: -15) )
+    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -10:(windowWidth>=1900 && windowWidth<=2549 ? -28 : (windowWidth>=2550 && windowWidth<=3000 ? -24: -15)))
   const phaseChart = (dataDotchart: any) => {
 
-    var margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft },
-    width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth,//= 1405 - margin.left - margin.right,
-    heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight, //265 - margin.top - margin.bottom;
-    height: any  = heightDiv +3;
+    let margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft };
+    let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
+    let heightDiv: any;
+      heightDiv  = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
+      console.log('height div',heightDiv)
+    let height: any  = heightDiv +3;
   // append the svg object to the body of the page
-  var svg = d3
+   svg = d3
     .select(`#dotchart_${dataDotchart[0].id}`)
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -170,6 +176,7 @@ const PhaseView = (
         .attr("stroke", function(d: any) {      
           let currentStatus = d.data[r].status.replace(/\s+/g, '');
           let nextStatus = d.data[r+1].status.replace(/\s+/g, '');
+          //console.log(currentStatus, nextStatus)
           return ( 
             (currentStatus === nextStatus) ?
           colorScale[d.data[r].status]
@@ -204,7 +211,7 @@ const PhaseView = (
       return ydname;
       })
       .attr("r", radius - 1)
-      .style("fill", function (d) {
+      .style("fill", function (d:any) {
         return "white";
       })
 
@@ -271,10 +278,10 @@ const PhaseView = (
   });
   //circles.on("click", (d: any) => setOpenPiney(true));
   }
-
-    phaseChart(dataDot1);
-    phaseChart(dataDot2);
-    phaseChart(dataDot3);
+  useEffect(() => {
+      phaseChart(dataDot3);
+      phaseChart(dataDot2);
+      phaseChart(dataDot1);
   }, []);
   
   return <div className="phaseview-body">
@@ -316,11 +323,11 @@ const PhaseView = (
           }
         }}
       >
-        <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
+        <div className="phaseview-timeline" >
           <div id="dotchart_1" hidden={!openTable[0]}></div>
         </div>
         <div className="header-timeline"></div>
-        <div className="phaseview-timeline"  style={!openTable[0] ? {paddingBottom:'6px'}:{}}>
+        <div className="phaseview-timeline" >
           <div id="dotchart_2" hidden={!openTable[1]}></div>
         </div>
         <div className="header-timeline"></div>
