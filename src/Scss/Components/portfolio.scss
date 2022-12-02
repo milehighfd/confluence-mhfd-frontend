@@ -2435,25 +2435,25 @@
     }
   }
   .ant-input{
-    font-size: 20px !important;
+    font-size: 25px !important;
   }
   .ant-input-affix-wrapper {
     font-size: 18px !important;
   }
   .phaseview-body{
     .piney-text{
-      width: 445px !important;
+      width: 625px !important;
       h1{
-        font-size: 24px !important;
+        font-size: 26px !important;
       }
       .tag-blue{
-        font-size: 20px !important;
+        font-size: 25px !important;
       }
       p{
-        font-size: 20px !important;
+        font-size: 25px !important;
       }
       span{
-        font-size: 20px !important;
+        font-size: 25px !important;
       }
     }
     .body-piney-body{
@@ -2583,11 +2583,11 @@
     .header-zoom{
       // padding-right: 465px !important;
       span{
-        font-size: 20px !important;
+        font-size: 22px !important;
       }
     }
     .piney-text{
-      width: 445px !important;
+      width: 625px !important;
       .ant-dropdown-menu-title-content{
         span{
           font-size: 18px !important;
@@ -2598,16 +2598,16 @@
         }
       }
       h1{
-        font-size: 24px !important;
+        font-size: 26px !important;
       }
       .tag-blue{
-        font-size: 20px !important;
+        font-size: 25px !important;
       }
       p{
-        font-size: 20px !important;
+        font-size: 25px !important;
       }
       span{
-        font-size: 20px !important;
+        font-size: 25px !important;
       }
     }
     .body-piney-body{
@@ -2634,6 +2634,7 @@
   }
   .search{
     .search-body{
+      margin-top: 15.5px !important;
       height: calc(100vh - 282px) !important;
     }
     .title-search{
@@ -2716,14 +2717,15 @@
     }
   }
   .span-dots-heder {
-    font-size: 20px;
+    font-size: 25px;
     .circulo{
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
     }
   }
   .ant-btn {
-    font-size: 20px !important;
+    font-size: 22px !important;
+    height: 50px !important;
   }
   .popover-porfolio .ant-popover-inner p {
     font-size: 18px;

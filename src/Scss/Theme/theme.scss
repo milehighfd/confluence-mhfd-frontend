@@ -3041,10 +3041,10 @@ body{
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .modal-tollgate{
-    width: 698px !important;
+    width: 1028px !important;
       font-size: 18px !important;
       .ant-picker-input>input {
-        font-size: 20px !important;
+        font-size: 26px !important;
       }
   }
   .calendar-toollgate {
@@ -3054,37 +3054,41 @@ body{
   }
   .detailed{
     .header-body-modal{
-      font-size: 20px !important;
+      font-size: 24px !important;
     }
   }
   .detailed-modal {
     width: 2350px !important;
   }
   .detailed-mmm {
-    font-size: 20px;
+    font-size: 24px;
   }
   .detailed-h{
     .row-modal-list-view{
       height: 574px !important;
       h5{
-        font-size: 20px;
+        font-size: 24px;
       }
     }
     h1{
       font-size: 32px;
     }
     p {
-      font-size: 20px;
+      font-size: 26px !important;
+      margin-bottom: 28px !important;
+    }
+    .calendar-toollgate{
+      margin-bottom: 15px !important;
     }
   }
   .detailed-info{
     padding: 20px 40px 0px 40px;
-    font-size: 21px;
+    font-size: 26px !important;
     p{
-      font-size: 21px !important;
+      font-size: 26px !important;
     }
     span{
-      font-size: 21px !important;
+      font-size: 26px !important;
     }
   }
   .table-detail-modal{
@@ -3092,26 +3096,26 @@ body{
       font-size: 18px;
     }
     .ant-table-tbody>tr>td {
-      font-size: 21px;
+      font-size: 24px;
     }
     .span-Active{
       font-size: 21px;
     }
   }
   .detailed-Team {
-    width: 830px !important;
+    width: 1010px !important;
     .ant-select {
       font-size: 23px;
     }
     .body-modal-data{
-      height: 385px;
+      height: 485px;
       p{
         font-size: 21px;
         color: #11093C;
         opacity: 0.6;
       }
       h6{
-        font-size: 22px;
+        font-size: 28px;
         margin-bottom: -4.5px;
       }
       img{
@@ -3150,7 +3154,7 @@ body{
   }
   .table-financials-modal{
       .ant-table-tbody>tr>td {
-        font-size: 20px !important;
+        font-size: 26px !important;
       }
     .span-Preliminary{
       background: #eff0fd;
