@@ -385,7 +385,7 @@ const CalendarView = ({
       }],
     },
     {
-      id: 'Commerce1',
+      id: 'CommerceCity1',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -427,7 +427,7 @@ const CalendarView = ({
       ],
     },
     {
-      id: 'Commerce2',
+      id: 'CommerceCity2',
       date: moment('2022/08/19'),
       schedule: [
         {
@@ -609,7 +609,7 @@ const CalendarView = ({
     },
   ];
 
-  const locations: any = ['Centennial', 'Commerce', 'Denver'];
+  const locations: any = ['Centennial', 'CommerceCity', 'Denver'];
   let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
     return {
@@ -684,7 +684,7 @@ let toData = datas
     agrupationData[index].id = `Title${index}`
     agrupationData[index].objectId = index
     agrupationData[index].type = 'title'
-    agrupationData[index].name = (locations[index]==='Commerce'? 'Commerce City':locations[index])
+    agrupationData[index].name = (locations[index]==='CommerceCity'? 'Commerce City':locations[index])
   });
 
   let positions =0;
@@ -706,7 +706,7 @@ let toData = datas
     }
     if (!openTable[1]) {
       datas = datas.filter(function(el) {
-        return !el.id.includes('Commerce');
+        return !el.id.includes('CommerceCity');
       });
     }
     if (!openTable[2]) {
@@ -719,7 +719,7 @@ let toData = datas
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
   // heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
 
-  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-8px': (windowWidth>=1450 && windowWidth<=2000 ? '-21px' :(windowWidth>=1199 && windowWidth<=1449 ? '-42px' :'-42px'))));
+  let marginTopFactor=(windowWidth>=2001 && windowWidth<=2549 ? '-28px' : (windowWidth>=2550 && windowWidth<=3999 ? '-8px': (windowWidth>=1450 && windowWidth<=2000 ? '-21px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px'))));
  
   const timelineChart = (datasets: any) => {
     let barHeight = (windowWidth>=2001 && windowWidth<=2549 ? 36 : (windowWidth>=2550 && windowWidth<=3999 ? 38: (windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27))));
@@ -1372,6 +1372,8 @@ let toData = datas
                 d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
                 d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
               }
+              let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+              d3.select(`#${searchTextId}`).style('background-color','#fafafa');
       });
       scheduleRectsCenter.on("mouseout",(d: any) =>{
         if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
@@ -1385,6 +1387,8 @@ let toData = datas
         }else{
           d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar');
         }
+        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+        d3.select(`#${searchTextId}`).style('background-color','white');
       })
 
 
@@ -1395,6 +1399,8 @@ let toData = datas
           d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
           d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked')
         }
+        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+        d3.select(`#${searchTextId}`).style('background-color','#fafafa');
       });
       rectNames.on("mouseout",(d: any) =>{
         if (d3.event.target.className.animVal === 'nameClicked'){
@@ -1408,6 +1414,8 @@ let toData = datas
         }else{
           d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar');
         }
+        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+        d3.select(`#${searchTextId}`).style('background-color','white');
       })
 
 
@@ -1427,6 +1435,7 @@ let toData = datas
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
         backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
+        console.log(d3.event.target.y.animVal.value)
         d3.event.stopPropagation();
       });
       rectNames.on('click', function() {
@@ -1441,7 +1450,9 @@ let toData = datas
         } else {
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
-        backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
+        //backgroundRects.attr('y', (d: any) => d3.event.target.id).attr('class', 'backgroundRectvisible');
+        // let temporalY: any= d3.select(`#${d3.event.target.id.slice(0, -5)}_center`)
+        // console.log(temporalY?.[0]);
         d3.event.stopPropagation();
       });
       scheduleRects.on('click', function() {
@@ -1454,7 +1465,7 @@ let toData = datas
 
         d3.select(`#${d3.event.target.id}_right`).attr('class', 'dragginglinesonclick');
         d3.select(`#${d3.event.target.id}_left`).attr('class', 'dragginglinesonclick');
-
+        console.log(d3.event.target.y.animVal.value)
         backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
       }
         d3.event.stopPropagation();
