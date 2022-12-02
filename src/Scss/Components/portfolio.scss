@@ -312,6 +312,12 @@
   stroke-opacity: 1;
   stroke: gray;
 }
+.stackedbar:hover {
+  fill-opacity: 1;
+  visibility: visible;
+  stroke-opacity: 1;
+  stroke: white;
+}
 .agrupationbar {
   fill-opacity: 1;
   visibility: visible;
@@ -326,6 +332,9 @@
 
 .stackedbarCenter {
    visibility: visible;
+}
+.stackedbarCenterClicked {
+  visibility: visible;
 }
 .stackedbarHidden {
   visibility: hidden;

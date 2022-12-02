@@ -1010,7 +1010,10 @@ let toData = datas
 
       let rectNames = scheduleG
         .join('text')
-        .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
+        //.attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
+        .attr('id', function(d: any) {
+          return `${d.id}_${d.categoryNo}_text`;
+        })
         .attr('class', (d: any) =>(d.type === 'title'? 'labelsAgrupation':'labels'))
         .style('fill', (d: any) =>(d.type === 'title'? '#11093C':'white'))
         // .style('font-size', (d: any) =>(d.type === 'title'? 13:12))
@@ -1305,7 +1308,7 @@ let toData = datas
       const dotme = (text: any) => {
         text.each((d: any) => {
           const completeLabel = `${d['name']}`;
-          const idText = 'text_' + d['name'].replace(/ +/g, '') + '_' + d.objectId;
+          const idText = `${d.id}_${d.categoryNo}_text`;
           const textElem: any = d3.select(`#${idText}`);
           const rectElem = d3.select(`#${d.id}_${d.categoryNo}`);
           const padding = 15;
@@ -1362,6 +1365,27 @@ let toData = datas
             return yScaleId + h + 13;
           });
       };
+            scheduleRectsCenter.on('mouseover', function() {   
+              d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar:hover');
+              if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
+                d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+                d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+                d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
+              }
+      });
+      scheduleRectsCenter.on("mouseout",(d: any) =>{
+        if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
+          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+                d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+                d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
+          if(d3.select('.stackedbarClicked')){
+            d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
+          }
+          d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+        }else{
+          d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar');
+        }
+      })
       scheduleRectsCenter.on('click', function() {
         setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
@@ -1371,6 +1395,7 @@ let toData = datas
         d3.select(`#${d3.event.target.id.slice(0, -7)}_left`).attr('class', 'dragginglinesonclick');
         if (d3.event.target.id.includes('center')) {
           d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+          d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked');
         } else {
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
