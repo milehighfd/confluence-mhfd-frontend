@@ -32,7 +32,7 @@ const PhaseView = (
     console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 27.5 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
-    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -10:(windowWidth>=1900 && windowWidth<=2549 ? -28 : (windowWidth>=2550 && windowWidth<=3000 ? -24: -15)))
+    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -35:(windowWidth>=1900 && windowWidth<=2549 ? -28 : (windowWidth>=2550 && windowWidth<=3000 ? -24: -15)))
   const phaseChart = (dataDotchart: any) => {
 
     let margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft };
@@ -40,7 +40,8 @@ const PhaseView = (
     let heightDiv: any;
       heightDiv  = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       console.log('height div',heightDiv)
-    let height: any  = heightDiv +3;
+      let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 10:0);
+    let height: any  = factorHeight + heightDiv +3;
   // append the svg object to the body of the page
    svg = d3
     .select(`#dotchart_${dataDotchart[0].id}`)
@@ -323,11 +324,15 @@ const PhaseView = (
           }
         }}
       >
-        <div className="phaseview-timeline" >
+        <div className="phaseview-timeline" 
+        style={!openTable[0]&& windowWidth>=2601 && windowWidth<=3999 ? { marginBottom:'20px'}:{marginBottom:'2px'}}
+        >
           <div id="dotchart_1" hidden={!openTable[0]}></div>
         </div>
         <div className="header-timeline"></div>
-        <div className="phaseview-timeline" >
+        <div className="phaseview-timeline" 
+        style={!openTable[1]&& windowWidth>=2601 && windowWidth<=3999 ? { marginBottom:'20px'}:{marginBottom:'2px'}}
+        >
           <div id="dotchart_2" hidden={!openTable[1]}></div>
         </div>
         <div className="header-timeline"></div>
