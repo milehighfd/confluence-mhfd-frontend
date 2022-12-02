@@ -1822,7 +1822,7 @@
       height: 48.6px !important;
     }
     .search-body{
-      height: calc(100vh - 228px) !important;
+      height: calc(100vh - 252px) !important;
     }
     .title-search{
       width: 110% !important;
@@ -1838,13 +1838,13 @@
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 5px 10px !important;
-      font-size: 20px !important;
+      font-size: 18px !important;
       height: 43px !important;
     }
   }
   .table-body{
     .table-body-body{
-      height: calc(100vh - 230px) !important;
+      height: calc(100vh - 253px) !important;
       .line-table{
         height: 43px !important;
       }
@@ -1871,7 +1871,7 @@
   .phaseview-body{
     .phaseview-content{
       .container-timeline{
-        height: calc(100vh - 228px) !important;
+        height: calc(100vh - 253px) !important;
       }
       .phaseview-title{
         p{
@@ -2154,19 +2154,20 @@
   }
   .piney-modal-detail{
     h1{
-      font-size: 24px !important;
+      font-size: 22px !important;
     }
     .tag-blue{
-      font-size: 22px !important;
+      font-size: 21px !important;
     }
     p{
-      font-size: 22px !important;
+      font-size: 21px !important;
     }
     span{
-      font-size: 22px !important;
+      font-size: 21px !important;
     }
   }
   .body-piney-body{
+    height: calc(100vh - 378px) !important;
     .form-text-calendar{
       img{height: 36px !important;}
       input{
