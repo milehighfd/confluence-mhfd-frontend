@@ -116,7 +116,7 @@ const Search = (
         <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]]); console.log(e, 'Dotty')}} className={openTable[0]? "collapse-first":""}>
           <Panel header="Centennial" key="1" id='testing1'>
             <div className="text-search text-first">
-              <p>sss</p>
+              <p></p>
             </div>
             <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Upstream of Zuni...</p>

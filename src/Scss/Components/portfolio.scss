@@ -707,7 +707,7 @@
 .collapse-first{
   .ant-collapse-header {
     position: absolute !important;
-    width: 96.5% !important;
+    width: 99.5% !important;
   }
 }
 .protafolio-body{
@@ -762,7 +762,7 @@
     
     .search-body{
       overflow-y: auto;
-      height: calc(100vh - 205px);
+      height: calc(100vh - 225px);
       margin-top: 19.5px;
     }
     .search-body::-webkit-scrollbar {
@@ -867,7 +867,7 @@
   .table-body{
     .table-body-body{
       overflow-y: auto;
-      height: calc(100vh - 205px);
+      height: calc(100vh - 225.5px);
       .line-table{
         height: 31px;
         background-color: #fbfbfc;
@@ -2058,10 +2058,12 @@
     }
     .phaseview-content{
       .phaseview-title{
-        height: 45px !important;
+        height: 51px !important;
+        padding-top: 10px !important;
       }
       .phaseview-title-label{
         margin-bottom: 5px !important;
+        padding-top: 12px !important;
       }
       .header-timeline{
         background: #fbfbfc;
@@ -2164,6 +2166,11 @@
     }
   }
   .calendar-body{
+    .header-zoom{
+      span{
+        font-size: 20px !important;
+      }
+    }
     .piney-text{
       width: 445px !important;
       .ant-dropdown-menu-title-content{
@@ -2212,7 +2219,7 @@
   }
   .search{
     .search-body{
-      height: calc(100vh - 228px) !important;
+      height: calc(100vh - 282px) !important;
     }
     .title-search{
       width: 110% !important;
@@ -2240,7 +2247,7 @@
   }
   .table-body{
     .table-body-body{
-      height: calc(100vh - 230px) !important;
+      height: calc(100vh - 283px) !important;
       .line-table{
         height: 48px !important;
       }
@@ -2250,7 +2257,7 @@
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
-        padding: 15.7px 14px !important;
+        padding: 15.4px 14px !important;
         font-size: 20px;
       }
       .ant-table-thead>tr>th {
@@ -2266,14 +2273,14 @@
     }
     .header-table{
       .ant-table-thead {
-        height: 58px !important;
+        height: 63px !important;
       }
     }
   }
   .phaseview-body{
     .phaseview-content{
       .container-timeline{
-        height: calc(100vh - 228px) !important;
+        height: calc(100vh - 338.5px) !important;
       }
       .phaseview-title{
         p{
@@ -2284,6 +2291,8 @@
       .phaseview-title-label{
         p{
           font-size: 20px !important;
+          height: 20px !important;
+          border-left: 4px solid #eae8f0 !important;
         }
       }
     }

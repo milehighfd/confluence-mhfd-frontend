@@ -285,13 +285,13 @@ const PhaseView = (
       </div>
       <div className="phaseview-title" id='phaseviewTitlleWidth'>
         <p>Draft</p>
-        <p>Work Request (WR)</p>
+        <p>Work Request<br/>(WR)</p>
         <p>Work Plan<br/>(WP)</p>
         <p>Startup</p>
         <p>Funding</p>
         <p>Consultant Procurement</p>
         <p>Conceptual Design</p>
-        <p>Preliminary Design</p>
+        <p>Preliminary<br/>Design</p>
         <p>Final<br/>Design</p>
         <p>Construction Contracting</p>
         <p>Construction</p>
