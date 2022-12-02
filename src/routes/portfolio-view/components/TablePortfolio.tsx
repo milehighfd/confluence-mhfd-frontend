@@ -188,13 +188,13 @@ const TablePortafolio = (
         }
       }}
     >
-      <div className="line-table">
+      <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}>
 
       </div>
       <Table
         columns={columns}
         dataSource={dataTable}
-        className={openTable[0] ? "table-portafolio table-first": "table-portafolio table-close table-first"}
+        className={openTable[0] ? "table-portafolio table-first": "table-portafolio table-close table-first table-clouse-first"}
         onRow={(record, rowIndex) => {
           return {
             onClick: event => {}, // click row

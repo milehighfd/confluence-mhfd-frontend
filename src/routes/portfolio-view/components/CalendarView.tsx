@@ -40,6 +40,7 @@ const CalendarView = ({
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   const [zoomTimeline, setZoomTimeline] = useState(0);
+  let pageWidth  = document.documentElement.scrollWidth;
   const [actionItemsState, setActionItemsState] = useState({
     draft: true,
     sign: false,
@@ -1861,14 +1862,13 @@ let toData = datas
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div className="calendar-body" id="widthDivforChart">
-      {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
+      {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} /></div>}
 
-      <Row id='zoomButtons' style={{margin:'9px 10px', marginBottom:'-6px'}}>
+      <Row id='zoomButtons' style={{margin:'9px 10px', marginBottom:'-6px'}} className='zoom-buttons'>
       <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
         <div>
         <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
-            
             onClick={() => {setIsZoomToday(true); setZoomSelected('Today')}}
           >
             Today
@@ -1891,9 +1891,9 @@ let toData = datas
           </Button>
         </div>
       </Col>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? {textAlign:'end', paddingRight:'305px'} : {textAlign:'end', paddingRight:'15px'}} className='header-zoom'>
+      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth>2550 ?{textAlign:'end', paddingRight:'465px'}: {textAlign:'end', paddingRight: '305px'}): {textAlign:'end', paddingRight:'15px'}} className='header-zoom'>
         <div>
-        {openPiney ? <><Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
+        {openPiney ? <><Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop:'0px', paddingBottom:'0px'}} onClick={() => {setOpenModalTollgate(true)}}>
             <CalendarOutlined /> Edit Dates
           </Button>
           <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>

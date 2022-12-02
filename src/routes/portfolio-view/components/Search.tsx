@@ -113,7 +113,15 @@ const Search = (
           setHoverTable([0,0,0]);
         }}
       >
-        <Collapse defaultActiveKey={['1']} onChange={(e)=>{setOpenTable([e.length > 0 , openTable[1], openTable[2]]); console.log(e, 'Dotty')}} className={openTable[0]? "collapse-first":""}>
+        <Collapse
+          defaultActiveKey={['1']}
+          onChange={
+            (e)=>{
+              setTimeout(()=>{
+                setOpenTable([e.length > 0 , openTable[1], openTable[2]]);
+              },70)
+            }
+          } className={openTable[0]? "collapse-first":""}>
           <Panel header="Centennial" key="1" id='testing1'>
             <div className="text-search text-first">
               <p></p>

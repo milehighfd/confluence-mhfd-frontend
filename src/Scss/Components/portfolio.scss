@@ -920,6 +920,9 @@
         display: none;
       }
     }
+    .table-clouse-first{
+      margin-top: 30px;
+    }
     .table-portafolio{
       overflow: hidden;
       margin-bottom: 10.5px;
@@ -1019,6 +1022,9 @@
     border-radius: 10px;
   }
   .calendar-body{
+    .zoom-buttons{
+      height: 26px !important;
+    }
     .calendar-header{
       margin-top: -6px;
     }
@@ -1067,9 +1073,23 @@
     .body-piney{
       .body-piney-body{
         overflow-x: auto;
-        height: calc(100vh - 251px);
+        height: calc(100vh - 309px);
         margin-right: -15px;
         padding-right: 20px;
+      }
+      .body-piney-body::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      /* Track */
+      .body-piney-body::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
+       
+      /* Handle */
+      .body-piney-body::-webkit-scrollbar-thumb {
+        background: $purple00;
+        border-radius: 10px;
       }
       .ant-progress-text {display: none;}
       .ant-progress-show-info .ant-progress-outer {
@@ -1107,6 +1127,9 @@
       .checkbox-select-active{
         background-color: #d9ebf8;;
       }
+    }
+    .piney-calendar{
+      margin-top: -9px !important;
     }
     .piney-text{
       position: absolute;
@@ -1785,6 +1808,13 @@
       }
     }
   }
+  .calendar-body{
+    .body-piney{
+      .body-piney-body{
+        height: calc(100vh - 350px) !important;
+      }
+    }
+  }
   .piney-modal-detail{
     h1{
       font-size: 20px !important;
@@ -1854,6 +1884,9 @@
     }
     .table-first{
       margin-top: 49px !important;
+    }
+    .table-clouse-first{
+      margin-top: 42px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
