@@ -1389,19 +1389,18 @@ let toData = datas
 
 
       rectNames.on('mouseover', function() {   
-        console.log(d3.event.target.id.slice(0, -5))
         d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar:hover');
-        if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
-          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+        if (d3.event.target.className.animVal === 'nameClicked'){
+          d3.selectAll('.nameClicked').attr('class', 'labels');
           d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
-          d3.select(`#${d3.event.target.id.slice(0, -5)}_center`).attr('class', 'stackedbarCenterClicked')
+          d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked')
         }
       });
       rectNames.on("mouseout",(d: any) =>{
-        if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
-          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+        if (d3.event.target.className.animVal === 'nameClicked'){
+          d3.selectAll('.nameClicked').attr('class', 'labels');
                 d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
-                d3.select(`#${d3.event.target.id.slice(0, -5)}_center}`).attr('class', 'stackedbarCenterClicked')
+                d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked')
           if(d3.select('.stackedbarClicked')){
             d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
           }
@@ -1423,6 +1422,7 @@ let toData = datas
         if (d3.event.target.id.includes('center')) {
           d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked');
+          d3.select(`#${d3.event.target.id.slice(0, -7)}_text`).attr('class', 'nameClicked');
         } else {
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
@@ -1437,6 +1437,7 @@ let toData = datas
         if (d3.event.target.id.includes('text')) {
           d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
           d3.select(`#${d3.event.target.id.slice(0, -5)}_center`).attr('class', 'stackedbarCenterClicked');
+          d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked');
         } else {
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
@@ -1462,6 +1463,8 @@ let toData = datas
         setOpenPiney(false);
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
         d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden');
+        d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+        d3.selectAll('.nameClicked').attr('class', 'label');
         if (d3.event.target.id.includes('center')) {
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         } else {
