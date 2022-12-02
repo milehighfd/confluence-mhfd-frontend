@@ -127,7 +127,7 @@ const Search = (
               <p></p>
             </div>
             <div className="text-search" id='Centennial1' style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Upstream of Zuni...</p>
+              <p onClick={()=>{setDetailOpen(true)}}>West Tollgate Creek GSB Drops </p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" id='Centennial2' style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,1]);}}>

@@ -2065,7 +2065,7 @@
     color: #11093C;
   }
 }
-@media (min-width: 2555px) and (max-width: 4999px){
+@media (min-width: 2555px) and (max-width: 3799px){
   .ant-input{
     font-size: 20px !important;
   }
@@ -2310,6 +2310,374 @@
       .ant-table-thead>tr>th {
         height: 48px !important;
         font-size: 20px;
+        padding-top: 10px !important;
+      }
+    }
+    .header-table{
+      .ant-table-thead > tr > th {
+        padding-top: 10px !important;
+      }
+    }
+    .header-table{
+      .ant-table-thead {
+        height: 63px !important;
+      }
+    }
+  }
+  .phaseview-body{
+    .phaseview-content{
+      .container-timeline{
+        height: calc(100vh - 338.5px) !important;
+      }
+      .phaseview-title{
+        p{
+          font-size: 20px !important;
+          line-height: 16px !important;
+        }
+      }
+      .phaseview-title-label{
+        p{
+          font-size: 20px !important;
+          height: 20px !important;
+          border-left: 4px solid #eae8f0 !important;
+        }
+      }
+    }
+  }
+  .span-dots-heder {
+    font-size: 20px;
+    .circulo{
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .ant-btn {
+    font-size: 20px !important;
+  }
+  .popover-porfolio .ant-popover-inner p {
+    font-size: 18px;
+    line-height: 21px;
+  }
+  .topHeaderYear text{
+    fill: #11093C;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px/2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 23px;
+    text-align: center; 
+  }
+  .topHeaderYear path{
+    stroke: red;
+    visibility: hidden;
+  }
+  .topHeaderYear line{
+    stroke: red;
+    opacity: .5;
+    visibility: hidden;
+  }
+  .topHeaderYearAxis text{
+    fill: #11093C;
+    position: absolute;
+    height: 15px;
+    left: 23.15%;
+    right: 73.15%;
+    top: calc(50% - 15px/2 - 327.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 26px;
+    text-align: center; 
+  }
+  .topHeaderYearAxis path{
+    visibility: hidden;
+  }
+  .topHeaderYearAxis line{
+    visibility: hidden;
+  }
+  .labels{
+    width: 77px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px !important;
+    line-height: 18.38px;
+    color: #FFFFFF;
+    mix-blend-mode: normal;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+  .labelsAgrupation{
+    width: 85px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px !important;
+    line-height: 14px;
+    color: #11093C;
+  }
+}
+@media (min-width: 3800px) and (max-width: 5999px){
+  .protafolio-body{
+    .search-head{
+      .ic-dots{
+        height: 34px !important;
+      }
+    }
+  }
+  .ant-input{
+    font-size: 20px !important;
+  }
+  .ant-input-affix-wrapper {
+    font-size: 18px !important;
+  }
+  .phaseview-body{
+    .piney-text{
+      width: 445px !important;
+      h1{
+        font-size: 24px !important;
+      }
+      .tag-blue{
+        font-size: 20px !important;
+      }
+      p{
+        font-size: 20px !important;
+      }
+      span{
+        font-size: 20px !important;
+      }
+    }
+    .body-piney-body{
+      .form-text-calendar{
+        img{height: 36px !important;}
+        input{
+          font-size: 20px !important;
+        }
+      }
+    }
+    .body-piney{
+      .body-piney-body{
+        height: calc(100vh - 382px) !important;
+      }
+    }
+    .phaseview-content{
+      .phaseview-title{
+        height: 51px !important;
+        padding-top: 10px !important;
+      }
+      .phaseview-title-label{
+        margin-bottom: 5px !important;
+        padding-top: 12px !important;
+      }
+      .header-timeline{
+        background: #fbfbfc;
+        /* padding: 23.5px; */
+        height: 48px !important;
+        margin-bottom: 10px;
+      }
+      .phaseview-timeline{
+        //padding: 0px 40px;
+        padding-bottom: 6px !important;
+        .ant-steps {
+          padding: 0px 0px;
+        }
+        .ant-steps-item-title:after {
+          height: 3px;
+          left: -42%;
+          right: -42%;
+        }
+        .border-active {
+          font-size: 15px;
+          background-color: #beaef3;
+          padding: 2px;
+          border-radius: 50%;
+          padding-bottom: 3px;
+        }
+        .active{
+          font-size: 13px;
+          color: white;
+          padding: 0px 5px;
+          border-radius: 100%;
+          background: #beaef3;
+          border: 2px solid #ffffff;
+        }
+        .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+          background-color: #bfaff4;
+          top: 19px;
+        }
+        .final{
+          font-size: 13px;
+          color: white;
+          padding: 0px 5px;
+          border-radius: 100%;
+          border: 2px solid #ffffff;
+          background: #917cd9;
+        }
+        .border-final {
+          font-size: 15px;
+          background-color: #917cd9;
+          padding: 2px;
+          border-radius: 50%;
+          padding-bottom: 3px;
+        }
+        .wait{
+          font-size: 13px;
+          color: white;
+          padding: 0px 5px;
+          border-radius: 100%;
+          background: #d4d2d9;
+          border: 2px solid #ffffff;
+        }
+        .border-wait {
+          font-size: 15px;
+          background-color: #d4d2d9;
+          padding: 2px;
+          border-radius: 50%;
+          padding-bottom: 3px;
+        }
+        .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+          background: linear-gradient(to right, #8873cf -3%, #d4d2d9c2 1% 1%, yellow 1% 1%, green 60% 80%, blue 80%);
+        }
+        .ant-steps-item-title:after {
+          top: 19px;
+        }
+        .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item {
+          padding-left: 0px;
+        }
+      }
+    }
+  }
+  .piney-modal-detail{
+    h1{
+      font-size: 22px !important;
+    }
+    .tag-blue{
+      font-size: 21px !important;
+    }
+    p{
+      font-size: 21px !important;
+    }
+    span{
+      font-size: 21px !important;
+    }
+  }
+  .body-piney-body{
+    height: calc(100vh - 378px) !important;
+    .form-text-calendar{
+      img{height: 36px !important;}
+      input{
+        font-size: 22px !important;
+      }
+    }
+  }
+  .calendar-body{
+    .header-zoom{
+      // padding-right: 465px !important;
+      span{
+        font-size: 20px !important;
+      }
+    }
+    .piney-text{
+      width: 445px !important;
+      .ant-dropdown-menu-title-content{
+        span{
+          font-size: 18px !important;
+        }
+        img{
+          height: 34px !important;
+          width: 34px !important;
+        }
+      }
+      h1{
+        font-size: 24px !important;
+      }
+      .tag-blue{
+        font-size: 20px !important;
+      }
+      p{
+        font-size: 20px !important;
+      }
+      span{
+        font-size: 20px !important;
+      }
+    }
+    .body-piney-body{
+      .form-text-calendar{
+        img{height: 36px !important;}
+        input{
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
+  .portafolio-head{
+    h2{
+      width: 360px !important;
+      color: #11093c;
+      font-size: 37px;
+      span{
+        font-size: 27px !important;
+      }
+    }
+    span{
+      font-size: 28px !important;
+    }
+  }
+  .search{
+    .search-body{
+      height: calc(100vh - 282px) !important;
+    }
+    .title-search{
+      width: 110% !important;
+    }
+    p{
+      font-size: 20px !important;
+    }
+    .text-search {
+      padding: 15.4px 0px !important;
+      p{
+        font-size: 25.9px !important;
+      }
+      span{
+        font-size: 24px !important;
+      }
+    }
+    .text-first {
+      height: 48.9px !important;
+    }
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+      padding: 10px 10px !important;
+      font-size: 28.5px !important;
+      height: 48px !important;
+    }
+  }
+  .table-body{
+    .table-body-body{
+      height: calc(100vh - 283px) !important;
+      .line-table{
+        height: 48px !important;
+      }
+    }
+    .table-first{
+     margin-top: 48.9px !important;
+    }
+    .table-portafolio{
+      .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+        padding: 15.4px 14px !important;
+        font-size: 24.5px;
+      }
+      .ant-table-thead>tr>th {
+        height: 48px !important;
+        font-size: 24.5px;
         padding-top: 10px !important;
       }
     }

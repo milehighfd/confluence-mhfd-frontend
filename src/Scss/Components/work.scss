@@ -1829,7 +1829,7 @@
     }
   }
 }
-@media (min-width: 3000px) and (max-width: 3999px){
+@media (min-width: 3000px) and (max-width: 4999px){
   .work-table{
     h3 {
     font-size: 21px !important;
@@ -1859,5 +1859,12 @@
   }
   .work .map .mapboxgl-ctrl-scale {
     left: 80px !important;
+  }
+  .work-body{
+    .ant-tabs-nav{
+      .ant-tabs-tab{
+        font-size: 25px !important;
+      }
+    }
   }
 }
