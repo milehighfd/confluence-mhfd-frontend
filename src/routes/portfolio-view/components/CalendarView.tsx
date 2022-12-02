@@ -1386,6 +1386,33 @@ let toData = datas
           d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar');
         }
       })
+
+
+      rectNames.on('mouseover', function() {   
+        console.log(d3.event.target.id.slice(0, -5))
+        d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar:hover');
+        if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
+          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+          d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
+          d3.select(`#${d3.event.target.id.slice(0, -5)}_center`).attr('class', 'stackedbarCenterClicked')
+        }
+      });
+      rectNames.on("mouseout",(d: any) =>{
+        if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
+          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+                d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
+                d3.select(`#${d3.event.target.id.slice(0, -5)}_center}`).attr('class', 'stackedbarCenterClicked')
+          if(d3.select('.stackedbarClicked')){
+            d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
+          }
+          d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
+        }else{
+          d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar');
+        }
+      })
+
+
+
       scheduleRectsCenter.on('click', function() {
         setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
@@ -1396,6 +1423,20 @@ let toData = datas
         if (d3.event.target.id.includes('center')) {
           d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked');
+        } else {
+          d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
+        }
+        backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
+        d3.event.stopPropagation();
+      });
+      rectNames.on('click', function() {
+        setOpenPiney(true);
+        d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
+        d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
+
+        if (d3.event.target.id.includes('text')) {
+          d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
+          d3.select(`#${d3.event.target.id.slice(0, -5)}_center`).attr('class', 'stackedbarCenterClicked');
         } else {
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
