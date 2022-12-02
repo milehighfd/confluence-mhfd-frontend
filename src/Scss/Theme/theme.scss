@@ -2808,7 +2808,7 @@ body{
     }
   }
 }
-@media (min-width: 2550px) and (max-width: 4999px){
+@media (min-width: 2550px) and (max-width: 3799px){
   .modal-tollgate{
     width: 698px !important;
       font-size: 18px !important;
@@ -2828,6 +2828,237 @@ body{
   }
   .detailed-modal {
     width: 1850px !important;
+  }
+  .detailed-mmm {
+    font-size: 20px;
+  }
+  .detailed-h{
+    .row-modal-list-view{
+      height: 574px !important;
+      h5{
+        font-size: 20px;
+      }
+    }
+    h1{
+      font-size: 32px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
+  .detailed-info{
+    padding: 20px 40px 0px 40px;
+    font-size: 21px;
+    p{
+      font-size: 21px !important;
+    }
+    span{
+      font-size: 21px !important;
+    }
+  }
+  .table-detail-modal{
+    .ant-table-thead>tr>th {
+      font-size: 18px;
+    }
+    .ant-table-tbody>tr>td {
+      font-size: 21px;
+    }
+    .span-Active{
+      font-size: 21px;
+    }
+  }
+  .detailed-Team {
+    width: 830px !important;
+    .ant-select {
+      font-size: 23px;
+    }
+    .body-modal-data{
+      height: 385px;
+      p{
+        font-size: 21px;
+        color: #11093C;
+        opacity: 0.6;
+      }
+      h6{
+        font-size: 22px;
+        margin-bottom: -4.5px;
+      }
+      img{
+        height: 60px !important;
+      }
+    }
+  }
+  .menu-drop{
+    width: 185px !important;
+  }
+  .ant-dropdown-menu-item-group-title {
+    p {
+      font-size: 14px !important;
+    }
+  }
+  .detailed-h{
+    .title{
+      font-size: 21px;
+      padding-bottom: 8px;
+    }
+    .active{
+      border-bottom: 3px solid #11093C;
+      color: $purple00;
+        opacity: 1;
+      h4{
+        color: $purple00;
+        opacity: 1;
+      }
+    }
+  }
+  .detailed-image {
+    .btn-filter-k{
+      padding: 2px 10px;
+      font-size: 18px;
+    }
+  }
+  .table-financials-modal{
+      .ant-table-tbody>tr>td {
+        font-size: 20px !important;
+      }
+    .span-Preliminary{
+      background: #eff0fd;
+      padding: 5px 5px;
+      border-radius: 3px;
+      color: #5e63e4;
+    }
+    .span-Constracting{
+      background: #eafaf5;
+      padding: 5px 1px;
+      border-radius: 3px;
+      color: #28c499;
+    }
+    .span-Construction{
+      background: #fff8ea;
+      padding: 5px 1px;
+      border-radius: 3px;
+      color: #fdb32b
+    }
+    .span-Establishment{
+      background: #eaf8fa;
+      padding: 5px px;
+      border-radius: 3px;
+      color: #28B2C4;
+    }
+  }
+  .action-modal {
+    width: 860px !important;
+  }
+  .action-body{
+    .title{
+      font-size: 21px;
+    }
+    .date{
+      font-size: 21px;
+    }
+    p {
+      font-size: 21px;
+    }
+    .text-action {
+      font-size: 21px;
+    }
+    .content-progress{
+      font-size: 21px;
+    }
+    .ant-btn{
+      font-size: 21px !important;
+      padding: 3px 14px !important;
+    }
+    .btn-purple{
+      height: 36px !important;
+      font-size: 18px !important;
+    }
+    span{
+      font-size: 21px !important;
+    }
+  }
+  .detailed-hh{
+    height: 40px;
+  }
+  .phaseview-timeline{
+    margin-top: -14px !important;
+    .ant-steps {
+      padding: 0px 0px;
+    }
+    .ant-steps-item-title:after {
+      height: 3px;
+      left: -42%;
+      right: -42%;
+    }
+    .border-active {
+      font-size: 15px;
+      background: #c0b9da;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .border-active-active {
+      font-size: 15px;
+      background: #917cd9;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .border-inactive {
+      font-size: 15px;
+      background: transparent;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .active{
+      font-size: 12px;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #c0b9da;
+    }
+    .active-active{
+      font-size: 12px;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #917cd9;
+    }
+    .inactive{
+      font-size: 12px;
+      color: #d1cfde;
+      padding: 2px 7px;
+      border-radius: 100%;
+      background: #fbfbfb;
+      border: 1px solid #d3d1e0;
+    }
+    .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+      background: #c0b9da;
+      top: 19px;
+    }
+  }
+}
+@media (min-width: 3800px) and (max-width: 5999px){
+  .modal-tollgate{
+    width: 698px !important;
+      font-size: 18px !important;
+      .ant-picker-input>input {
+        font-size: 20px !important;
+      }
+  }
+  .calendar-toollgate {
+    span{
+      font-size: 18px !important;
+    };
+  }
+  .detailed{
+    .header-body-modal{
+      font-size: 20px !important;
+    }
+  }
+  .detailed-modal {
+    width: 2350px !important;
   }
   .detailed-mmm {
     font-size: 20px;
