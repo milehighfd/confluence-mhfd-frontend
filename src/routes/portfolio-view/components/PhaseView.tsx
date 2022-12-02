@@ -185,7 +185,7 @@ const PhaseView = (
       circles
       .append("circle")
       .attr('id',(d: any) => {
-      return `${d.name}_${d.id}_${d.data[r].phase}`;
+      return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}`;
       })
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
@@ -244,7 +244,7 @@ const PhaseView = (
       ;
       circles
       .append("circle")
-      .attr('id', (d:any)=>{ return `${d.name}_${d.id}_${d.data[r].phase}_outer`})
+      .attr('id', (d:any)=>{ return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}_outer`})
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
         let ydname: any = y(d.name);
@@ -255,12 +255,17 @@ const PhaseView = (
       .style('opacity', 0)
       .on("click", (d: any) => setOpenPiney(true))
       .on("mouseover", (d: any) =>{
+        //d3.selectAll('.text-search:hover').attr('text-search');
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
+        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+        d3.select(`#${searchTextId}`).style('background-color','#fafafa');
       })
       .on("mouseout",(d: any) =>{
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
           return colorScale[d.data[r].status];
         });
+        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+        d3.select(`#${searchTextId}`).style('background-color','white');
       })
       ;
   });

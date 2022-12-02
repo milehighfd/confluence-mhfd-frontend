@@ -118,31 +118,31 @@ const Search = (
             <div className="text-search text-first">
               <p></p>
             </div>
-            <div className="text-search" style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
+            <div className="text-search" id='Centennial1' style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Upstream of Zuni...</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,1]);}}>
+            <div className="text-search" id='Centennial2' style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,1]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase III</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,2]);}}>
+            <div className="text-search" id='Centennial3' style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,2]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Niver Detention Dam - EAP...</p>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 3 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,3]);}}>
+            <div className="text-search" id='Centennial4' style={hoverTable[2] === 3 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,3]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Barr Creek - E470 to Quebec</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 4 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,4]);}}>
+            <div className="text-search" id='Centennial5' style={hoverTable[2] === 4 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,4]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Niver Creek Trib M - Thornton</p>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search"  style={hoverTable[2] === 5 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,5]);}}>
+            <div className="text-search" id='Centennial6'  style={hoverTable[2] === 5 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,5]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Big Dry Creek (ARAPCO)</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}} onMouseEnter={()=>{setHoverTable([1,0,6]);}}>
+            <div className="text-search" id='Centennial7' style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}} onMouseEnter={()=>{setHoverTable([1,0,6]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>West Tollgate Creek</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10.5px'}}/>
             </div>
@@ -150,11 +150,11 @@ const Search = (
         </Collapse>
         <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]]);console.log(e, 'Dotty')}}>
           <Panel header="Commerce City" key="1" id='testing2'>
-            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}  onMouseEnter={()=>{setHoverTable([1,1,0]);}}>
+            <div className="text-search" id='CommerceCity1'  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}  onMouseEnter={()=>{setHoverTable([1,1,0]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase IV</p>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa', marginRight:'11px'}:{marginRight:'11px'}}  onMouseEnter={()=>{setHoverTable([1,1,1]);}}>
+            <div className="text-search" id='CommerceCity2' style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa', marginRight:'11px'}:{marginRight:'11px'}}  onMouseEnter={()=>{setHoverTable([1,1,1]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Snyder Creek - E470 to Quebec</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
@@ -162,15 +162,15 @@ const Search = (
         </Collapse>
         <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}  onChange={(e)=>{setOpenTable([openTable[0], openTable[1],e.length > 0 ])}}>
           <Panel header="Denver" key="1" id='testing3'>
-            <div className="text-search"  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,0]);}}>
+            <div className="text-search" id='Denver1'  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,0]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>Piney Creek Channel Restore</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search"  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,1]);}}>
+            <div className="text-search" id='Denver2'  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,1]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>No Name Creek Regional </p>
               <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
             </div>
-            <div className="text-search" style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,2]);}}>
+            <div className="text-search" id='Denver3' style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,2]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>East Tollgate Creek</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
