@@ -71,7 +71,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
                   <>
-                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} /*onOpenChange={()=>{console.log('aqui'); setOpenDrop(!openDrop)}}*/>
+                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onVisibleChange={()=>{console.log('aqui'); setOpenDrop(!openDrop)}}>
                       <Space style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
                         <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
                         {openDrop ? <UpOutlined style={{color:'#251863'}} /> : < DownOutlined style={{color:'#251863'}} />}
@@ -143,23 +143,23 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 <Progress percent={20} />
               </Col>
             </Row>
-          <div className={checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"}>
+          <div className={checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}>
             <p>Draft IGA</p>
             <Checkbox checked={checkboxValue.draft} onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}></Checkbox>
           </div>
-          <div className={checkboxValue.sign ? "checkbox-select-active checkbox-select":"checkbox-select"}>
+          <div className={checkboxValue.sign ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, sign: !checkboxValue.sign })}}>
             <p>Sign IGA</p>
             <Checkbox checked={checkboxValue.sign} onChange={(e)=>{setCheckboxValue({...checkboxValue, sign: !checkboxValue.sign })}}></Checkbox>
           </div>
-          <div className={checkboxValue.request ? "checkbox-select-active checkbox-select":"checkbox-select"}>
+          <div className={checkboxValue.request ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, request: !checkboxValue.request })}}>
             <p>Request Funding</p>
             <Checkbox checked={checkboxValue.request} onChange={(e)=>{setCheckboxValue({...checkboxValue, request: !checkboxValue.request })}}></Checkbox>
           </div>
-          <div className={checkboxValue.send ? "checkbox-select-active checkbox-select":"checkbox-select"}>
+          <div className={checkboxValue.send ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, send: !checkboxValue.send })}}>
             <p>Send Invoice</p>
             <Checkbox checked={checkboxValue.send} onChange={(e)=>{setCheckboxValue({...checkboxValue, send: !checkboxValue.send })}}></Checkbox>
           </div>
-          <div className={checkboxValue.pay ? "checkbox-select-active checkbox-select":"checkbox-select"}>
+          <div className={checkboxValue.pay ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, pay: !checkboxValue.pay })}}>
             <p>Pay Invoice</p>
             <Checkbox checked={checkboxValue.pay} onChange={(e)=>{setCheckboxValue({...checkboxValue, pay: !checkboxValue.pay })}}></Checkbox>
           </div>
