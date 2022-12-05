@@ -146,7 +146,31 @@
 .topHeaderMonthforTicks path{
   visibility: hidden;
 }
-
+.modal-graphic{
+  position: absolute;
+  width: 222px;
+  background-color: #06242d;
+  color: white;
+  border-radius: 5px;
+  padding: 15px 20px;
+  text-align: center;
+  border-top: 6px solid #917cd9;
+  p{
+    font-size: 12px;
+    margin-bottom: 1px ;
+  }
+  .title{
+    margin-bottom: -4px;
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  hr{
+    // border: 1px solid #FFFFFF;
+    opacity: 0.1;
+    background-color: #ffffff;
+    height: 0.5px;
+  }
+}
 .topHeaderYear text{
   fill: #11093C;
   position: absolute;

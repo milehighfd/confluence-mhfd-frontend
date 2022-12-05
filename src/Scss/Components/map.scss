@@ -1477,6 +1477,12 @@
 .img-negative{
   background-image: url('../../Icons/icon-21.svg') !important;
 }
+.tabs-style{
+  // margin-left: -30px !important;
+  .ant-popover-content{
+    margin-left: -20px;
+  }
+}
 .tabs-map{
   .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
     color: $purple !important;

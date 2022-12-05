@@ -4,6 +4,7 @@ import { dataDot1, dataDot2, dataDot3,colorScale } from "../constants/PhaseViewD
 import { Button, Col, Input, Layout, message, Popover, Progress, Checkbox, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
 import { CalendarOutlined, ClockCircleOutlined, CloseOutlined, FormOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import PineyView from "./PineyView";
+import ModalGraphic from "./ModalGraphic";
 
 const { Step } = Steps;
 
@@ -15,6 +16,8 @@ const PhaseView = (
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
   }) => {
   const [current, setCurrent] = useState(0);
+  const [graphicOpen, setGrapphicOpen] = useState(true);
+  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [openPiney, setOpenPiney] = useState(false);
   const windowWidth: any = window.innerWidth;
   const next = () => {
@@ -322,6 +325,7 @@ const PhaseView = (
   
   return <div className="phaseview-body">
     {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     <div className="phaseview-content">
       <div className="phaseview-title-label" id='phaseviewTitlleWidth'>
         <p style={{border:'transparent'}}>Draft</p>
