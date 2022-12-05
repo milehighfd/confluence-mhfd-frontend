@@ -1387,7 +1387,21 @@ let toData = datas
             return yScaleId + h + 13;
           });
       };
+      scheduleRects.on('mousemove', function() {
+        if (d3.event.target.className.animVal === 'agrupationbar'){
+          d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbarHover')
+        }
+      })
+      scheduleRects.on('mouseout', function() {
+        if (d3.event.target.className.animVal === 'agrupationbarHover'){
+          d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbar')
+        }
+      })
             scheduleRectsCenter.on('mousemove', function() {
+              if (d3.event.target.className.animVal === 'agrupationbar'){
+    
+                d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
+              }
               setGrapphicOpen(true); 
               let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
               let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
@@ -1424,6 +1438,7 @@ let toData = datas
 
 
       rectNames.on('mousemove', function() {  
+        if (d3.event.target.className.animVal !== 'labelsAgrupation'){
         setGrapphicOpen(true); 
         let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
         let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
@@ -1440,6 +1455,7 @@ let toData = datas
         }
         let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
         d3.select(`#${searchTextId}`).style('background-color','#fafafa');
+      }
       });
       rectNames.on("mouseout",(d: any) =>{
         setGrapphicOpen(false);

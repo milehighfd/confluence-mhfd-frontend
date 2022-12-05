@@ -294,6 +294,7 @@
   order: 1;
   flex-grow: 0;
 }
+
 .labelsAgrupation{
   width: 85px;
   height: 14px;
@@ -353,6 +354,12 @@
   fill-opacity: 1;
   visibility: visible;
 
+}
+.agrupationbarHover {
+  fill-opacity: 1;
+  visibility: visible;
+  stroke-opacity: 1;
+  stroke: gray;
 }
 .stackedbarClicked {
   fill-opacity: 0.7;
