@@ -1806,6 +1806,17 @@
 }
 
 @media (min-width: 1900px) and (max-width: 2549px){
+  .modal-graphic{
+    width: 253px;
+    p{
+      font-size: 14px;
+    }
+    .title{
+      font-size: 12px;
+    }
+    hr{
+    }
+  }
   .phaseview-body{
     .piney-text{
       width: 385px !important;
@@ -2118,6 +2129,17 @@
   }
 }
 @media (min-width: 2555px) and (max-width: 3799px){
+  .modal-graphic{
+    width: 296px;
+    p{
+      font-size: 18px;
+    }
+    .title{
+      font-size: 16px;
+    }
+    hr{
+    }
+  }
   .ant-input{
     font-size: 20px !important;
   }
@@ -2503,6 +2525,17 @@
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .modal-graphic{
+    width: 253px;
+    p{
+      font-size: 14px;
+    }
+    .title{
+      font-size: 12px;
+    }
+    hr{
+    }
+  }
   .protafolio-body{
     .search-head{
       .ic-dots{
