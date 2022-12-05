@@ -1024,7 +1024,7 @@ let toData = datas
         })
         .attr('y', function(d: any) {
           let yScaleId: any = yScale(d['id']);
-          let yfactor: any = (windowWidth>=2001 && windowWidth<=2549 ? -14 : (windowWidth>=2550 && windowWidth<=3999 ? 0: (windowWidth>=1450 && windowWidth<=2000 ?-7:(windowWidth>=1199 && windowWidth<=1449 ?0:0))));
+          let yfactor: any = (windowWidth>=2001 && windowWidth<=2549 ? -14 : (windowWidth>=2550 && windowWidth<=3999 ? -3: (windowWidth>=1450 && windowWidth<=2000 ?-7:(windowWidth>=1199 && windowWidth<=1449 ?-2:-2))));
           let forTitle:any = (windowWidth>=2550 && windowWidth<=3999 &&d.type === 'title' ? -9:0);
           return yScaleId + yfactor +forTitle+ yScale.bandwidth() / 2;
         })
