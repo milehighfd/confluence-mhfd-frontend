@@ -1997,6 +1997,23 @@
       }
     }
   }
+  .topHeader text{
+    fill: #11093C;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px !important;
+    line-height: 14px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
   .topHeaderYear text{
     fill: #11093C;
     position: absolute;
@@ -2007,7 +2024,7 @@
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 15px;
     text-align: center; 
   }
@@ -2030,7 +2047,7 @@
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 15px;
     text-align: center; 
   }
@@ -2358,6 +2375,23 @@
     font-size: 18px;
     line-height: 21px;
   }
+  .topHeader text{
+    fill: #11093C;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    line-height: 14px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
   .topHeaderYear text{
     fill: #11093C;
     position: absolute;
@@ -2368,8 +2402,8 @@
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 500;
-    font-size: 21px;
-    line-height: 23px;
+    font-size: 19px!important;
+    line-height: 23px!important;
     text-align: center; 
   }
   .topHeaderYear path{
@@ -2385,14 +2419,11 @@
     fill: #11093C;
     position: absolute;
     height: 15px;
-    left: 23.15%;
-    right: 73.15%;
-    top: calc(50% - 15px/2 - 327.5px);
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 500;
-    font-size: 23px;
-    line-height: 26px;
+    font-size: 21px!important;
+    line-height: 26px!important;
     text-align: center; 
   }
   .topHeaderYearAxis path{
@@ -2731,6 +2762,23 @@
     font-size: 18px;
     line-height: 21px;
   }
+  .topHeader text{
+    fill: #11093C;
+    width: 58px;
+    height: 14px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 14px;
+    text-align: center;
+    mix-blend-mode: normal;
+    opacity: 0.6;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    position: fixed;
+  }
   .topHeaderYear text{
     fill: #11093C;
     position: absolute;
@@ -2741,7 +2789,7 @@
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 500;
-    font-size: 21px;
+    font-size: 19px !important;
     line-height: 23px;
     text-align: center; 
   }
@@ -2764,7 +2812,7 @@
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 500;
-    font-size: 23px;
+    font-size: 21px !important;
     line-height: 26px;
     text-align: center; 
   }
