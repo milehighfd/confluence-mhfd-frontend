@@ -37,14 +37,14 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 8 }} className='body-modal-team' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
+          <Col xs={{ span: 48 }} lg={{ span: 8 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
            <img width="47.5%" src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px'}}/>
            <img width="47.5%" src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px'}} />
            <img width="100%"src={'picture/img-3.png'} alt="" style={{ marginBottom:'15px'}}/>
            <img width="47.5%" src={'picture/img-4.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px'}}/>
            <img width="47.5%" src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px'}} />
           </Col>
-          <Col xs={{ span: 48 }} lg={{ span: 16 }} className='body-modal-team'>
+          <Col xs={{ span: 48 }} lg={{ span: 16 }} className='body-modal-team image-modal-body'>
             <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'79.5%', marginTop:'-20px', marginLeft:'85px'}} >
               <div key={1} className="detailed-c">
                 <img width="100%" height="100%" src={'picture/img-6.png'} alt="" />

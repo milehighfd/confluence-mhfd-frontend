@@ -50,9 +50,9 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
             </Row>
           </Col>
         </Row>
-        <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
+        <Row className="detailed-h list-tollgate" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
-            <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view">
+            <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
                 <p style={{marginBottom:'25px'}}>Draft <EyeOutlined /></p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR) <EyeOutlined /></p>

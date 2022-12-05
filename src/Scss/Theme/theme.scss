@@ -867,6 +867,7 @@ body{
 
 .modal-tollgate{
   width: 544px !important;
+  top:110px !important;
   .ant-picker-range .ant-picker-active-bar {
     background: #11093c;
   }
@@ -1939,6 +1940,9 @@ body{
     background: $purple00;
     border-radius: 10px;
   }
+  .tollgate-body{
+    height: 269px !important;
+  }
 }
 .ant-picker {
   color: #11093C;
@@ -2607,7 +2611,14 @@ body{
   .detailed-modal {
     width: 1420px !important;
   }
+  .detailed-image{
+    width: 1731px !important;
+    top:75px !important;
+  }
   .detailed-h{
+    .image-modal-body{
+      height: 580px !important;
+    }
     .ant-input {
       padding: 6px 11px;
       font-size: 20px;
@@ -2617,6 +2628,9 @@ body{
     }
     p {
       font-size: 16px;
+    }
+    .tollgate-body{
+      height: 471px !important;
     }
   }
   .detailed-info{
@@ -2642,6 +2656,7 @@ body{
   }
   .detailed-Team {
     width: 596px !important;
+    top: 133px !important;
     .body-modal-data{
       height: 305px;
       p{
@@ -2812,6 +2827,7 @@ body{
   .modal-tollgate{
     width: 698px !important;
       font-size: 18px !important;
+      top:150px !important;
       .ant-picker-input>input {
         font-size: 20px !important;
       }
@@ -2832,7 +2848,17 @@ body{
   .detailed-mmm {
     font-size: 20px;
   }
+  .detailed-image{
+    top: 115px !important;
+    width: 2150px !important;
+  }
   .detailed-h{
+    .image-modal-body{
+      height: 754px !important;
+    }
+    .tollgate-body{
+      height: 269px !important;
+    }
     .row-modal-list-view{
       height: 574px !important;
       h5{
@@ -2869,6 +2895,7 @@ body{
   }
   .detailed-Team {
     width: 830px !important;
+    top: 150px !important;
     .ant-select {
       font-size: 23px;
     }
@@ -3043,6 +3070,7 @@ body{
   .modal-tollgate{
     width: 1028px !important;
       font-size: 18px !important;
+      top: 200px !important;
       .ant-picker-input>input {
         font-size: 26px !important;
       }
@@ -3063,7 +3091,17 @@ body{
   .detailed-mmm {
     font-size: 24px;
   }
+  .detailed-image{
+    width: 2955px !important;
+    top:300px !important;
+  }
   .detailed-h{
+    .image-modal-body{
+      height: 956px !important;
+    }
+    .tollgate-body{
+      height: 269px !important;
+    }
     .row-modal-list-view{
       height: 574px !important;
       h5{
@@ -3104,6 +3142,7 @@ body{
   }
   .detailed-Team {
     width: 1010px !important;
+    top: 195px !important;
     .ant-select {
       font-size: 23px;
     }

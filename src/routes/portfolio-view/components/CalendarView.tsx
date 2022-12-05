@@ -1901,6 +1901,7 @@ let toData = datas
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
+    <div className='lines-calendar'></div>
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} /></div>}
 
@@ -1949,8 +1950,9 @@ let toData = datas
     </div>
       <div
         id="chartContainer"
-        style={{ height: heightt, overflowY: 'auto' }}
+        style={{ overflowY: 'auto' }}
         ref={scheduleRef}
+        className='chart-container'
         onScroll={(e: any) => {
           let dr: any = scheduleRef.current;
           if (searchRef.current) {
