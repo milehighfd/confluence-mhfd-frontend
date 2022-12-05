@@ -1829,7 +1829,7 @@
   }
 }
 .lines-calendar{
-  background: white;
+  background: #fbfbfc;
   position: absolute;
   height: 30px;
   width: 100%;
@@ -2585,8 +2585,8 @@
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .lines-calendar{
-    height: 41px;
-    top: 74px;
+    height: 50px;
+    top: 95px;
   }
   .modal-graphic{
     width: 253px;
