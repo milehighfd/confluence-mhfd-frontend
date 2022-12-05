@@ -11,6 +11,8 @@ import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 import ModalFields from "routes/list-view/components/ModalFields";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
+import ModalGraphic from "./ModalGraphic";
+
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','Capital', 'Restoration', 'Study', 'Acquisition', 'R&D', 'DIP'];
@@ -24,6 +26,8 @@ const popovers: any = [
   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
 ]
 const PortafolioBody = () => {
+  const [graphicOpen, setGrapphicOpen] = useState(false);
+  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [tabKey, setTabKey] = useState<any>('All');
   const [openAction, setOpenAction] = useState(true);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
@@ -159,6 +163,7 @@ const PortafolioBody = () => {
     />
   );
   return <>
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div>
@@ -254,8 +259,8 @@ const PortafolioBody = () => {
                     </Col>
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable}/>}
-                      {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef}/>}
-                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef}/>}
+                      {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
+                      {optionSelect === 'Schedule'  && <CalendarView openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
                     </Col>
                   </Row>
                   </div>

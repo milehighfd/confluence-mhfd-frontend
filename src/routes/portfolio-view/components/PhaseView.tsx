@@ -9,15 +9,25 @@ import ModalGraphic from "./ModalGraphic";
 const { Step } = Steps;
 
 const PhaseView = (
-  {openTable, phaseRef, searchRef}
+  {openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic}
   :{
     openTable:boolean[],
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
-  }) => {
+    graphicOpen:boolean,
+    setGrapphicOpen:React.Dispatch<React.SetStateAction<boolean>>,
+    positionModalGraphic:{
+      left: number;
+      top: number;
+  }
+    setPositionModalGraphic:React.Dispatch<React.SetStateAction<{
+      left: number;
+      top: number;
+  }>>;
+      }) => {
   const [current, setCurrent] = useState(0);
-  const [graphicOpen, setGrapphicOpen] = useState(false);
-  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
+  // const [graphicOpen, setGrapphicOpen] = useState(false);
+  // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [openPiney, setOpenPiney] = useState(false);
   const windowWidth: any = window.innerWidth;
   const next = () => {
@@ -277,11 +287,13 @@ const PhaseView = (
       .on("click", (d: any) => setOpenPiney(true))
       .on("mousemove", (d: any) =>{
         console.log(d3.event)
-        let popupfactor = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
+        let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
         let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-        let positionTop: any=d3.event.layerY-heightOfPopup-popupfactor;
-        let positionLeft: any=d3.event.layerX - widthOfPopup/2;
+        //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+        let positionTop: any=d3.event.layerY-heightOfPopup+popupfactorTop;
+        let positionLeft: any=d3.event.layerX - widthOfPopup/2 +popupfactorLeft;
         setPositionModalGraphic({left: positionLeft,top:positionTop})
       setGrapphicOpen(true);
         //d3.selectAll('.text-search:hover').attr('text-search');
@@ -302,9 +314,22 @@ const PhaseView = (
   //circles.on("click", (d: any) => setOpenPiney(true));
   }
   useEffect(() => {
+    // let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+    // let popupfactorRigth = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+    //     let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
+    //     let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+    // const mouseFn = (e: any) => {
+    //   console.log('Mousemove event', e);
+    //   setPositionModalGraphic({ left: e.screenX-185, top: e.screenY-355});
+    // };
+    // window.addEventListener('mousemove', mouseFn);
+    
       phaseChart(dataDot3);
       phaseChart(dataDot2);
       phaseChart(dataDot1);
+      // return () => {
+      //   window.removeEventListener('mousemove', mouseFn);
+      // };
   }, []);
 
   useEffect(() => {
@@ -334,7 +359,6 @@ const PhaseView = (
   
   return <div className="phaseview-body">
     {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     <div className="phaseview-content">
       <div className="phaseview-title-label" id='phaseviewTitlleWidth'>
         <p style={{border:'transparent'}}>Draft</p>

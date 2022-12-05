@@ -21,14 +21,25 @@ const CalendarView = ({
   moveSchedule,
   scheduleRef,
   searchRef,
+  graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic
 }: {
   openTable: boolean[];
   moveSchedule: number;
   scheduleRef: React.MutableRefObject<HTMLDivElement | null>;
   searchRef: React.MutableRefObject<HTMLDivElement | null>;
+  graphicOpen:boolean,
+    setGrapphicOpen:React.Dispatch<React.SetStateAction<boolean>>,
+    positionModalGraphic:{
+      left: number;
+      top: number;
+  }
+    setPositionModalGraphic:React.Dispatch<React.SetStateAction<{
+      left: number;
+      top: number;
+  }>>;
 }) => {
-  const [graphicOpen, setGrapphicOpen] = useState(false);
-  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
+  // const [graphicOpen, setGrapphicOpen] = useState(false);
+  // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
@@ -1378,11 +1389,12 @@ let toData = datas
       };
             scheduleRectsCenter.on('mousemove', function() {
               setGrapphicOpen(true); 
-              let popupfactor = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+              let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
+              let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
               let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
               let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-              let positionTop: any=d3.event.layerY-heightOfPopup-popupfactor;
-              let positionLeft: any=d3.event.layerX - widthOfPopup/2;
+              let positionTop: any=d3.event.layerY-heightOfPopup+popupfactorTop;
+              let positionLeft: any=d3.event.layerX - widthOfPopup/2 + popupfactorLeft;
               setPositionModalGraphic({left: positionLeft,top:positionTop})
               d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar:hover');
               if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
@@ -1413,11 +1425,12 @@ let toData = datas
 
       rectNames.on('mousemove', function() {  
         setGrapphicOpen(true); 
-        let popupfactor = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
+        let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
         let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-        let positionTop: any=d3.event.layerY-heightOfPopup-popupfactor;
-        let positionLeft: any=d3.event.layerX - widthOfPopup/2;
+        let positionTop: any=d3.event.layerY-heightOfPopup+popupfactorTop;
+        let positionLeft: any=d3.event.layerX - widthOfPopup/2 + popupfactorLeft;
         setPositionModalGraphic({left: positionLeft,top:positionTop})
         d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar:hover');
         if (d3.event.target.className.animVal === 'nameClicked'){
