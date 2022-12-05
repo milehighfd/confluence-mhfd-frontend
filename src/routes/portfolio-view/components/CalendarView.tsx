@@ -720,7 +720,7 @@ let toData = datas
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
   // heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
 
-  let marginTopFactor= (windowWidth>=3001 && windowWidth<=3999 ? '-44px':(windowWidth>=2550 && windowWidth<=3000 ? '-34px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' : (windowWidth>=2001 && windowWidth<=2549 ? '-28px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px')))));
+  let marginTopFactor= (windowWidth>=3001 && windowWidth<=3999 ? '-44px':(windowWidth>=2550 && windowWidth<=3000 ? '-45px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' : (windowWidth>=2001 && windowWidth<=2549 ? '-28px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px')))));
   let barHeight =  (windowWidth>=3001 && windowWidth<=3999 ? 42:(windowWidth>=2550 && windowWidth<=3000 ? 40: (windowWidth>=2001 && windowWidth<=2549 ? 36 :(windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27)))));
   let width = widthofDiv - 20;
   let factorHeight =(windowWidth>=3001 && windowWidth<=3999 ? 250:(windowWidth>=2550 && windowWidth<=3000 ? 158:(windowWidth>=2001 && windowWidth<=2549 ? 259 :(windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 21.5 :21.5)))));
