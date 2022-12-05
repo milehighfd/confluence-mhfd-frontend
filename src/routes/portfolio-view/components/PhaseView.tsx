@@ -16,7 +16,7 @@ const PhaseView = (
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
   }) => {
   const [current, setCurrent] = useState(0);
-  const [graphicOpen, setGrapphicOpen] = useState(true);
+  const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [openPiney, setOpenPiney] = useState(false);
   const windowWidth: any = window.innerWidth;
@@ -275,13 +275,22 @@ const PhaseView = (
       .style("fill", 'white')
       .style('opacity', 0)
       .on("click", (d: any) => setOpenPiney(true))
-      .on("mouseover", (d: any) =>{
+      .on("mousemove", (d: any) =>{
+        console.log(d3.event)
+        let popupfactor = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+        let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
+        let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+        let positionTop: any=d3.event.layerY-heightOfPopup-popupfactor;
+        let positionLeft: any=d3.event.layerX - widthOfPopup/2;
+        setPositionModalGraphic({left: positionLeft,top:positionTop})
+      setGrapphicOpen(true);
         //d3.selectAll('.text-search:hover').attr('text-search');
-        d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
+        d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
         let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
         d3.select(`#${searchTextId}`).style('background-color','#fafafa');
       })
       .on("mouseout",(d: any) =>{
+        setGrapphicOpen(false);
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
           return colorScale[d.data[r].status];
         });
@@ -320,7 +329,7 @@ const PhaseView = (
         }
       }, 210);
 
-}, [openTable]);
+}, [openTable, windowWidth]);
 
   
   return <div className="phaseview-body">

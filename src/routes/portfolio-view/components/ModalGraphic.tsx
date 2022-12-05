@@ -9,7 +9,7 @@ import { drag } from "d3";
 const { Step } = Steps;
 const ModalGraphic = ({positionModalGraphic}:{positionModalGraphic:any}) => {
   return(
-    <div className='modal-graphic' style={{left:positionModalGraphic.left, top:positionModalGraphic.top}}>
+    <div className='modal-graphic' id='popup-phaseview' style={{left:positionModalGraphic.left, top:positionModalGraphic.top}}>
       <p className="title">Work Request</p>
       <p>Niver Creek Upstream of Zuni Ave and Thompson Ct</p>
       <hr></hr>

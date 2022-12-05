@@ -51,6 +51,12 @@
   background: $purple00;
   border-radius: 10px;
 }
+.topHeaderYaxis line{
+  stroke: red;
+}
+.topHeaderYaxis path{
+  stroke: red;
+}
 .topHeader text{
   fill: #11093C;
   width: 58px;

@@ -14,6 +14,7 @@ import {
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
+import ModalGraphic from "./ModalGraphic";
 
 const CalendarView = ({
   openTable,
@@ -26,6 +27,8 @@ const CalendarView = ({
   scheduleRef: React.MutableRefObject<HTMLDivElement | null>;
   searchRef: React.MutableRefObject<HTMLDivElement | null>;
 }) => {
+  const [graphicOpen, setGrapphicOpen] = useState(false);
+  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
@@ -824,11 +827,11 @@ let toData = datas
         .tickSize(width)
         .tickFormat(tickFormatEmpty);
 
-        let gY = svg
-        .append('g')
-        .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
-        .attr('class', 'topHeaderChart')
-        .call(yAxis);
+        // let gY = svg
+        // .append('g')
+        // .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
+        // .attr('class', 'topHeaderYaxis')
+        // .call(yAxis);
 
       let gX = svg
         .append('g')
@@ -1373,7 +1376,14 @@ let toData = datas
             return yScaleId + h + 13;
           });
       };
-            scheduleRectsCenter.on('mouseover', function() {   
+            scheduleRectsCenter.on('mousemove', function() {
+              setGrapphicOpen(true); 
+              let popupfactor = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+              let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
+              let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+              let positionTop: any=d3.event.layerY-heightOfPopup-popupfactor;
+              let positionLeft: any=d3.event.layerX - widthOfPopup/2;
+              setPositionModalGraphic({left: positionLeft,top:positionTop})
               d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar:hover');
               if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
                 d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
@@ -1384,6 +1394,7 @@ let toData = datas
               d3.select(`#${searchTextId}`).style('background-color','#fafafa');
       });
       scheduleRectsCenter.on("mouseout",(d: any) =>{
+        setGrapphicOpen(false);
         if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
           d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
                 d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
@@ -1400,7 +1411,14 @@ let toData = datas
       })
 
 
-      rectNames.on('mouseover', function() {   
+      rectNames.on('mousemove', function() {  
+        setGrapphicOpen(true); 
+        let popupfactor = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
+        let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
+        let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+        let positionTop: any=d3.event.layerY-heightOfPopup-popupfactor;
+        let positionLeft: any=d3.event.layerX - widthOfPopup/2;
+        setPositionModalGraphic({left: positionLeft,top:positionTop})
         d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar:hover');
         if (d3.event.target.className.animVal === 'nameClicked'){
           d3.selectAll('.nameClicked').attr('class', 'labels');
@@ -1411,6 +1429,7 @@ let toData = datas
         d3.select(`#${searchTextId}`).style('background-color','#fafafa');
       });
       rectNames.on("mouseout",(d: any) =>{
+        setGrapphicOpen(false);
         if (d3.event.target.className.animVal === 'nameClicked'){
           d3.selectAll('.nameClicked').attr('class', 'labels');
                 d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
@@ -1867,6 +1886,7 @@ let toData = datas
   return (
     <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} /></div>}
