@@ -147,6 +147,7 @@
   visibility: hidden;
 }
 .modal-graphic{
+  z-index: 9999999999;
   position: absolute;
   width: 222px;
   background-color: #06242d;
@@ -1946,7 +1947,7 @@
   .phaseview-body{
     .phaseview-content{
       .container-timeline{
-        height: calc(100vh - 253px) !important;
+        height: calc(100vh - 303px) !important;
       }
       .phaseview-title{
         p{
