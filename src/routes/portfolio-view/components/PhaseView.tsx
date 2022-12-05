@@ -24,6 +24,7 @@ const PhaseView = (
   const prev = () => {
     setCurrent(current - 1);
   };
+  const [svgStatePhase, setSvgStatePhase] = useState<any>();
   let heightDiv1  = document.getElementById(`testing1`)?.offsetHeight;
   let heightDiv2  = document.getElementById(`testing2`)?.offsetHeight;
   let heightDiv3  = document.getElementById(`testing3`)?.offsetHeight;
@@ -32,8 +33,81 @@ const PhaseView = (
     console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 27.5 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
-    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -35:(windowWidth>=1900 && windowWidth<=2549 ? -28 : (windowWidth>=2550 && windowWidth<=3000 ? -24: -15)))
-  const phaseChart = (dataDotchart: any) => {
+    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -32:(windowWidth>=1900 && windowWidth<=2549 ? -28 : (windowWidth>=2550 && windowWidth<=3000 ? -24: -15)))
+  
+    const gradientLinesClass = (svgDefinitions:any)=>{
+      let completedtoActive = svgDefinitions.append("linearGradient");
+      completedtoActive
+        .attr("id", "Completed_Active")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0")
+        .attr("y2", "0");
+      completedtoActive.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", '#5E5FE2')
+      completedtoActive.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", '#047CD7')
+    
+      let completedtoDelayed = svgDefinitions.append("linearGradient");
+      completedtoDelayed
+        .attr("id", "Completed_Delayed")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0")
+        .attr("y2", "0");
+      completedtoDelayed.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", '#5E5FE2')
+      completedtoDelayed.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", '#F5575C')
+    
+      let ActivetoNotStarted = svgDefinitions.append("linearGradient");
+      ActivetoNotStarted
+        .attr("id", "Active_NotStarted")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0")
+        .attr("y2", "0");
+      ActivetoNotStarted.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", '#047CD7')
+      ActivetoNotStarted.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", '#D4D2D9')
+    
+      let ActivetoDelayed = svgDefinitions.append("linearGradient");
+      ActivetoDelayed
+        .attr("id", "Active_Delayed")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0")
+        .attr("y2", "0");
+      ActivetoDelayed.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", '#047CD7')
+      ActivetoDelayed.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", '#F5575C')
+    
+      let delayedtoNotStarted = svgDefinitions.append("linearGradient");
+      delayedtoNotStarted
+        .attr("id", "Delayed_NotStarted")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0")
+        .attr("y2", "0");
+      delayedtoNotStarted.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", '#F5575C')
+      delayedtoNotStarted.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", '#D4D2D9')  
+    }
+    
+    const phaseChart = (dataDotchart: any) => {
 
     let margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
@@ -51,7 +125,8 @@ const PhaseView = (
     //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+  
+    setSvgStatePhase(svg);
   let datas = dataDotchart;
 
   let arrayForCirclesAndLines = [];
@@ -62,75 +137,9 @@ const PhaseView = (
   svg.selectAll("defs")
       .data(datas)
       .enter()
-  let completedtoActive = svgDefinitions.append("linearGradient");
-  completedtoActive
-    .attr("id", "Completed_Active")
-    .attr("x1", "0%")
-    .attr("x2", "100%")
-    .attr("y1", "0")
-    .attr("y2", "0");
-  completedtoActive.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", '#5E5FE2')
-  completedtoActive.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", '#047CD7')
 
-  let completedtoDelayed = svgDefinitions.append("linearGradient");
-  completedtoDelayed
-    .attr("id", "Completed_Delayed")
-    .attr("x1", "0%")
-    .attr("x2", "100%")
-    .attr("y1", "0")
-    .attr("y2", "0");
-  completedtoDelayed.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", '#5E5FE2')
-  completedtoDelayed.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", '#F5575C')
+      gradientLinesClass(svgDefinitions)
 
-  let ActivetoNotStarted = svgDefinitions.append("linearGradient");
-  ActivetoNotStarted
-    .attr("id", "Active_NotStarted")
-    .attr("x1", "0%")
-    .attr("x2", "100%")
-    .attr("y1", "0")
-    .attr("y2", "0");
-  ActivetoNotStarted.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", '#047CD7')
-  ActivetoNotStarted.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", '#D4D2D9')
-
-  let ActivetoDelayed = svgDefinitions.append("linearGradient");
-  ActivetoDelayed
-    .attr("id", "Active_Delayed")
-    .attr("x1", "0%")
-    .attr("x2", "100%")
-    .attr("y1", "0")
-    .attr("y2", "0");
-  ActivetoDelayed.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", '#047CD7')
-  ActivetoDelayed.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", '#F5575C')
-
-  let delayedtoNotStarted = svgDefinitions.append("linearGradient");
-  delayedtoNotStarted
-    .attr("id", "Delayed_NotStarted")
-    .attr("x1", "0%")
-    .attr("x2", "100%")
-    .attr("y1", "0")
-    .attr("y2", "0");
-  delayedtoNotStarted.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", '#F5575C')
-  delayedtoNotStarted.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", '#D4D2D9')
   // Add X axis
   var x = d3.scaleLinear().domain([0, 15]).range([margin.left, width +margin.right]);
   let xdr: any = (r: any) => {
@@ -187,7 +196,7 @@ const PhaseView = (
         .attr("stroke-width", "2.5px");
     }
   });
-  const radius = (windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3999 ? 20: (windowWidth>=1450 && windowWidth<=2000 ? 15 :(windowWidth>=1199 && windowWidth<=1449 ? 12 :12))));
+  const radius = (windowWidth>=3001 && windowWidth<=3999 ? 24 : (windowWidth>=2001 && windowWidth<=2549 ? 14 : (windowWidth>=2550 && windowWidth<=3000 ? 20: (windowWidth>=1450 && windowWidth<=2000 ? 15 :(windowWidth>=1199 && windowWidth<=1449 ? 12 :12)))));
   let circles = svg.selectAll("mycircle").data(datas).enter();
   arrayForCirclesAndLines.forEach((r) => {
       circles
@@ -235,13 +244,14 @@ const PhaseView = (
       .append("text")
       .attr("class", "circletext")
       .attr('fill', '#ffffff')
-      .attr('font-size',(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3999 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11)))))
+      .attr('font-size',(windowWidth>=3001 && windowWidth<=3999 ? 23 :(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3000 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11))))))
       .text(function (d: any) {
         return d.data[r].value;
       })
       .attr("x", function (d: any) {
+        const factorCenter:any = (windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3999 ? 1.65: (windowWidth>=1450 && windowWidth<=2000 ? 1.7 :(windowWidth>=1199 && windowWidth<=1449 ? 2 :2))))
         const offset =
-          +d.data[r].value > 9 ? xdr(r) - radius / 2 : xdr(r) - radius / 4;
+          +d.data[r].value > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
         return offset;
       })
       .attr("y", (d: any) => {
@@ -284,6 +294,31 @@ const PhaseView = (
       phaseChart(dataDot2);
       phaseChart(dataDot1);
   }, []);
+
+  useEffect(() => {
+      const removeAllChildNodes = (parent: any) => {
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
+      };
+      for (let index = 0; index < 3; index++) {
+        const chart = document.getElementById(`dotchart_${index+1}`);
+          removeAllChildNodes(chart);
+      }
+      setTimeout(() => {
+        if(openTable[2]){
+          phaseChart(dataDot3);
+        }
+        if(openTable[1]){
+          phaseChart(dataDot2);
+        }
+        if(openTable[0]){
+          phaseChart(dataDot1);
+        }
+      }, 210);
+
+}, [openTable]);
+
   
   return <div className="phaseview-body">
     {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
@@ -313,7 +348,7 @@ const PhaseView = (
         <p>Closeout</p>
         <p>Closed</p>
       </div>
-      <div className="header-timeline"></div>
+      <div className="header-timeline"style={!openTable[0]&& windowWidth>=2501 && windowWidth<=3999 ? { marginBottom:'100px'}:{marginBottom:'0px'}}></div>
       <div
         className="container-timeline"
         ref={phaseRef}
@@ -325,19 +360,17 @@ const PhaseView = (
         }}
       >
         <div className="phaseview-timeline" 
-        style={!openTable[0]&& windowWidth>=2601 && windowWidth<=3999 ? { marginBottom:'20px'}:{marginBottom:'2px'}}
         >
-          <div id="dotchart_1" hidden={!openTable[0]}></div>
+          <div id="dotchart_1" ></div>
         </div>
-        <div className="header-timeline"></div>
+        <div className="header-timeline" style={!openTable[1]&& windowWidth>=2501 && windowWidth<=3999 ? { marginBottom:'20px'}:{marginBottom:'0px'}}></div>
         <div className="phaseview-timeline" 
-        style={!openTable[1]&& windowWidth>=2601 && windowWidth<=3999 ? { marginBottom:'20px'}:{marginBottom:'2px'}}
         >
-          <div id="dotchart_2" hidden={!openTable[1]}></div>
+          <div id="dotchart_2" ></div>
         </div>
         <div className="header-timeline"></div>
         <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px', marginBottom:'15px'}:{marginBottom:'15px'}}>
-          <div id="dotchart_3" hidden={!openTable[2]}></div>
+          <div id="dotchart_3" ></div>
         </div>
       </div>
     </div>

@@ -249,7 +249,7 @@
   visibility: hidden;
 }
 
-.labels text{
+.labels{
   width: 77px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -263,7 +263,7 @@
   order: 1;
   flex-grow: 0;
 }
-.labelsAgrupation text{
+.labelsAgrupation{
   width: 85px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -340,6 +340,10 @@
   visibility: hidden;
 }
 .nameClicked {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
   visibility: visible;
 }
 
@@ -1923,11 +1927,11 @@
         background: #fbfbfc;
         /* padding: 23.5px; */
         height: 43px !important;
-        margin-bottom: 18px !important;
+        margin-bottom: 17px !important;
       }
       .phaseview-timeline{
         //padding: 0px 40px;
-        padding-bottom: 0px !important;
+        padding-bottom: 4px !important;
         .ant-steps {
           padding: 0px 0px;
         }
@@ -2081,6 +2085,13 @@
     line-height: 14px;
     color: #11093C;
   }
+  .nameClicked {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px !important;
+    visibility: visible;
+  }
 }
 @media (min-width: 2555px) and (max-width: 3799px){
   .ant-input{
@@ -2135,7 +2146,7 @@
       }
       .phaseview-timeline{
         //padding: 0px 40px;
-        padding-bottom: 0.5px !important;
+        padding-bottom: 2.5px !important;
         .ant-steps {
           padding: 0px 0px;
         }
@@ -2455,6 +2466,13 @@
     font-size: 22px !important;
     line-height: 14px;
     color: #11093C;
+  }
+  .nameClicked {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px !important;
+    visibility: visible;
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
@@ -2845,5 +2863,12 @@
     font-size: 22px !important;
     line-height: 14px;
     color: #11093C;
+  }
+  .nameClicked {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px !important;
+    visibility: visible;
   }
 }
