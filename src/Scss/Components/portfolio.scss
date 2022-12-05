@@ -2520,7 +2520,7 @@
     }
     .phaseview-content{
       .phaseview-title{
-        height: 51px !important;
+        height: 70px !important;
         padding-top: 8px !important;
       }
       .phaseview-title-label{
@@ -2629,6 +2629,11 @@
     }
   }
   .calendar-body{
+    .zoom-buttons{
+      height: 26px !important;
+    margin-bottom: 18px !important;
+    background: transparent !important;
+    }
     .header-zoom{
       // padding-right: 465px !important;
       span{
@@ -2683,7 +2688,7 @@
   }
   .search{
     .search-body{
-      margin-top: 10px !important;
+      margin-top: 28px !important;
       height: calc(100vh - 282px) !important;
     }
     .title-search{
@@ -2738,7 +2743,7 @@
     }
     .header-table{
       .ant-table-thead {
-        height: 63px !important;
+        height: 81px !important;
       }
     }
   }
