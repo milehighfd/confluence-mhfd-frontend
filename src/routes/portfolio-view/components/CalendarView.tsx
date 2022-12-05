@@ -824,6 +824,12 @@ let toData = datas
         .tickSize(width)
         .tickFormat(tickFormatEmpty);
 
+        let gY = svg
+        .append('g')
+        .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
+        .attr('class', 'topHeaderChart')
+        .call(yAxis);
+
       let gX = svg
         .append('g')
         .attr('transform', 'translate(' + 0 + ',' + (padding.top )+ ')')

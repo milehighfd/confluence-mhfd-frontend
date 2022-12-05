@@ -36,7 +36,7 @@ const PhaseView = (
     console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 27.5 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
-    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -32:(windowWidth>=1900 && windowWidth<=2549 ? -28 : (windowWidth>=2550 && windowWidth<=3000 ? -24: -15)))
+    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -25 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -15.8)))
   
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
@@ -352,7 +352,7 @@ const PhaseView = (
         <p>Closeout</p>
         <p>Closed</p>
       </div>
-      <div className="header-timeline"style={!openTable[0]&& windowWidth>=2501 && windowWidth<=3999 ? { marginBottom:'100px'}:{marginBottom:'0px'}}></div>
+      <div className="header-timeline"></div>
       <div
         className="container-timeline"
         ref={phaseRef}
@@ -367,7 +367,7 @@ const PhaseView = (
         >
           <div id="dotchart_1" ></div>
         </div>
-        <div className="header-timeline" style={!openTable[1]&& windowWidth>=2501 && windowWidth<=3999 ? { marginBottom:'20px'}:{marginBottom:'0px'}}></div>
+        <div className="header-timeline"></div>
         <div className="phaseview-timeline" 
         >
           <div id="dotchart_2" ></div>
