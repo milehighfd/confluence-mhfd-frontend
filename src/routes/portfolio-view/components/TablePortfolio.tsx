@@ -48,7 +48,7 @@ const TablePortafolio = (
   }
   const columnsHeader: ColumnsType<DataType> = [
     {
-      title: <>Phas &nbsp;<ArrowDownOutlined /></>,
+      title: <>Phase &nbsp;<ArrowDownOutlined /></>,
       dataIndex: 'phase',
       key: 'name',
       width: "11.5%",

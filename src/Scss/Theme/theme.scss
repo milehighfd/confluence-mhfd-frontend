@@ -594,6 +594,7 @@ body{
 }
 .detailed-Team {
   width: 480px !important;
+  top: 127px !important;
   .btn-filter-k{
     border: 1px solid #ffffff;
     color: #11093c;
@@ -701,6 +702,7 @@ body{
 }
 .detailed-image {
   width: 1376px !important;
+  top: 48px;
   .btn-filter-k{
     border: 1px solid #ffffff;
     color: #11093c;
@@ -867,7 +869,7 @@ body{
 
 .modal-tollgate{
   width: 544px !important;
-  top:110px !important;
+  top:164px !important;
   .ant-picker-range .ant-picker-active-bar {
     background: #11093c;
   }
@@ -1941,7 +1943,7 @@ body{
     border-radius: 10px;
   }
   .tollgate-body{
-    height: 269px !important;
+    height: calc(100vh - 466px) !important;
   }
 }
 .ant-picker {
@@ -2331,6 +2333,11 @@ body{
    img{
     position: relative !important;
     // margin-top: -20%;
+  }
+  .img-modal{
+    width: 710px;
+    height: 514px;
+    border-radius: 27px;
   }
 }
 .detailed-info{

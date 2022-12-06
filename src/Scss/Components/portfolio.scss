@@ -824,12 +824,12 @@
       width: 1.5px;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 0px 10px;
+      padding: 5px 10px;
       padding-left: 10px;
       color: #11093c !important;
       background: #fbfbfc;
       line-height: 30px;
-      height: 32px;
+      height: 39px;
       box-shadow: none !important;
       font-size: 16px;
       // margin-right: 10px;
@@ -856,7 +856,7 @@
       }
     }
     .text-first{
-      height: 34.6px;
+      height: 39px;
     }
     .text-search {
       display: flex;
@@ -923,7 +923,7 @@
       overflow-y: auto;
       height: calc(100vh - 225.5px);
       .line-table{
-        height: 31px;
+        height: 39px;
         background-color: #fbfbfc;
         position: absolute;
         z-index: 10;
@@ -954,7 +954,7 @@
       }
     }
     .table-first{
-      margin-top: 34px;
+      margin-top: 39px;
       .table-body .table-portafolio .ant-table-thead {
         display: none;
       }
@@ -969,7 +969,7 @@
       overflow: hidden;
       margin-bottom: 10.5px;
       .ant-table-thead {
-        height: 32px;
+        height: 39px;
         border-radius: 7px 7px 0px 0px;
       }
       .span-not-started{
@@ -1065,7 +1065,7 @@
   }
   .calendar-body{
     .chart-container{
-      height: calc(100vh - 231px);
+      height: calc(100vh - 250px);
     }
     .chart-container::-webkit-scrollbar {
       width: 5px;
@@ -1838,7 +1838,7 @@
 .lines-calendar{
   background: #fbfbfc;
   position: absolute;
-  height: 30px;
+  height: 39px;
   width: 100%;
   top: 71px;
 }

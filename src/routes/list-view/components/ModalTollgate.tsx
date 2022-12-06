@@ -54,19 +54,19 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                <p style={{marginBottom:'25px'}}>Draft <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Work Request (WR) <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Work Plan (WP) <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Startup <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Initial Funding <EyeInvisibleOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Consultant Procurement <EyeInvisibleOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Conceptual Design <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Preliminary Design <EyeInvisibleOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Final Design <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Construction Contracting <EyeInvisibleOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Construction <EyeOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Substantial Completion <EyeInvisibleOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Closed <EyeOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Draft</p>
+                <p style={{marginBottom:'25px'}}>Work Request (WR)</p>
+                <p style={{marginBottom:'25px'}}>Work Plan (WP)</p>
+                <p style={{marginBottom:'25px'}}>Startup</p>
+                <p style={{marginBottom:'25px'}}>Initial Funding</p>
+                <p style={{marginBottom:'25px'}}>Consultant Procurement</p>
+                <p style={{marginBottom:'25px'}}>Conceptual Design</p>
+                <p style={{marginBottom:'25px'}}>Preliminary Design</p>
+                <p style={{marginBottom:'25px'}}>Final Design</p>
+                <p style={{marginBottom:'25px'}}>Construction Contracting</p>
+                <p style={{marginBottom:'25px'}}>Construction</p>
+                <p style={{marginBottom:'25px'}}>Substantial Completion</p>
+                <p style={{marginBottom:'25px'}}>Closed</p>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
                 <p className='calendar-toollgate'>
