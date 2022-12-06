@@ -131,7 +131,7 @@ const Search = (
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" id='Centennial2' style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,1]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase III</p>
+              <p onClick={()=>{setDetailOpen(true)}}>Piney Creek Channel Restoration - Phase III</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
             <div className="text-search" id='Centennial3' style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,2]);}}>
