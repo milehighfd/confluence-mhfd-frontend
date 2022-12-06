@@ -2380,7 +2380,7 @@ body{
       font-family: 'Ubuntu';
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: 12px !important;
       line-height: 14px;
       text-align: center;
 
@@ -2853,6 +2853,7 @@ body{
         font-size: 19px;
         left: 564px;
         top: 571px;
+        border-radius: 21px;
       }
       .btn-left-carousel{
         top: 288px;
