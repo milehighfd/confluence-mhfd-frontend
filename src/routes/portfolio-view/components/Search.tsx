@@ -140,8 +140,8 @@ const Search = (
                   </div>
                 }
                 {
-                  elem.values.map((d:any) => (
-                    <div className="text-search" id={d.id} style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,0]);}}>
+                  elem.values.map((d:any, index_elem: number) => (
+                    <div className="text-search" id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}>
                       <p onClick={()=>{setDetailOpen(true)}}> {d.rowLabel} </p>
                       <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
                     </div>

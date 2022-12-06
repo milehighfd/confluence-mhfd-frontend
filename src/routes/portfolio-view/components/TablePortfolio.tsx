@@ -261,7 +261,7 @@ const TablePortafolio = (
             onClick: event => {}, // click row
             onDoubleClick: event => {}, // double click row
             onContextMenu: event => {}, // right button click row
-            onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
+            onMouseEnter: event => {setHoverTable([0,2,rowIndex? rowIndex:0]);}, // mouse enter row
             onMouseLeave: event => {}, // mouse leave row
           };
         }}
