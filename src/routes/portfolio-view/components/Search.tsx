@@ -132,7 +132,7 @@ const Search = (
                     setOpenTable([e.length > 0 , openTable[1], openTable[2]]);
                   },70)
                 }
-              } className={openTable[0]? "collapse-first":""}>
+              } className={openTable[0] && index === 0? "collapse-first":""}>
               <Panel header={elem.headerLabel} key="1" id={elem.id}>
                 {
                   index === 0 && <div className="text-search text-first" id="headerCentennial">
