@@ -209,13 +209,13 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
                 <img width="100%" height="100%" src={'detailed/restoration.png'} alt="" />
               </div>
             </Carousel>
-            <div style={{position:'absolute', right: '15px', top: '180px'}}>
+            <div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" height="70px" />
             </div>
-            <div style={{position:'absolute', left: '15px', top: '118px'}}>
+            <div className="detail-left">
               <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev()}}/>
             </div>
-            <div style={{position:'absolute', right: '15px', top: '118px'}}>
+            <div className="detail-right">
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div>
             <div className="detailed-info">

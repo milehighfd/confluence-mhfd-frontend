@@ -2434,23 +2434,23 @@
       }
     }
     .text-first {
-      height: 48.9px !important;
+      height: 63.78px !important;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 10px 10px !important;
+      padding: 17px 10px !important;
       font-size: 24.5px !important;
-      height: 48px !important;
+      height: 63.78px !important;
     }
   }
   .table-body{
     .table-body-body{
       height: calc(100vh - 283px) !important;
       .line-table{
-        height: 48px !important;
+        height: 63.78px !important;
       }
     }
     .table-first{
-     margin-top: 48.9px !important;
+     margin-top: 63.78px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
@@ -2595,6 +2595,11 @@
     font-weight: 400;
     font-size: 21px !important;
     visibility: visible;
+  }
+  .filters{
+    .filters-foot{
+      bottom: 190px !important;
+    }
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
