@@ -119,7 +119,7 @@ const Search = (
           }
         }}
         onMouseEnter={()=>{
-          setHoverTable([0,0,0]);
+          setHoverTable([0,0,0] );
         }}
       >
         {
