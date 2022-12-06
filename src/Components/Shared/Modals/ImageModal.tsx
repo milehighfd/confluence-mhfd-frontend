@@ -7,9 +7,8 @@ import React, { useEffect, useRef, useState } from 'react';
 const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
   let carouselRef = useRef<undefined | any>(undefined);
   const [active, setActive] = useState(0);
-  useEffect (()=>{
-    console.log(carouselRef, 'dotty');
-  },[carouselRef])
+  const [numberCarousel, setNumberCarousel] = useState(1);
+  const numberElementCarousel = 3
   return (
     <Modal
       className="detailed-image"
@@ -20,16 +19,12 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
       destroyOnClose>
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white', borderBottom:'1px solid #eae8f0', paddingBottom:'0px', minHeight:'71px'}}>
-          <Col xs={{ span: 12 }} lg={{ span: 2 }} style={{paddingTop:'15px'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 12 }} style={{paddingTop:'15px'}}>
             <span className={active===0 ? 'active title' : 'title'} onClick={()=>{setActive(0)}}>Photos</span>
-          </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 4 }}style={{paddingTop:'15px'}}>
             <span className={active===1 ? 'active title' : 'title'} onClick={()=>{setActive(1)}}>3D Component View</span>
-          </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 2 }}style={{paddingTop:'15px'}}>
             <span className={active===2 ? 'active title' : 'title'} onClick={()=>{setActive(2)}}>Map View</span>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 16 }} style={{textAlign: 'end', alignItems: 'center'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 12 }} style={{textAlign: 'end', alignItems: 'center'}}>
             <div style={{color:'#11093C'}}>
               <Button className='btn-filter-k'><HeartOutlined /> &nbsp; &nbsp;Favorite</Button>
                &nbsp; &nbsp;
@@ -56,17 +51,17 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
                 <img src={'picture/img-1.png'} alt="" className='img-modal'/>
               </div>
               <div key={3} className="detailed-c">
-                <img src={'picture/img-6.png'} alt="" className='img-modal'/>
+                <img src={'picture/img-2.png'} alt="" className='img-modal'/>
               </div>
             </Carousel>
             <div className='tag-carousel'>
-              1 of 3
+              {numberCarousel} of {numberElementCarousel}
             </div>
-            <div style={{position:'absolute', left: '50px', top: '205px'}} className='btn-left-carousel'>
-              <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev()}}/>
+            <div className='btn-left-carousel'>
+              <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}/>
             </div>
-            <div style={{position:'absolute', right: '50px', top: '205px'}}className='btn-right-carousel'>
-              <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
+            <div className='btn-right-carousel'>
+              <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}/>
             </div>
           </Col>
         </Row>
