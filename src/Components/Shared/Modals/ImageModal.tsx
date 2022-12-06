@@ -43,7 +43,7 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
            <img width="47.5%" src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px'}} />
           </Col>
           <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
-            <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'79.5%', marginTop:'-20px', marginLeft:'85px'}} >
+            <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.5%', marginTop:'-20px', marginLeft:'85px'}} >
               <div key={1} className="detailed-c">
                 <img src={'picture/img-6.png'} alt="" className='img-modal'/>
               </div>

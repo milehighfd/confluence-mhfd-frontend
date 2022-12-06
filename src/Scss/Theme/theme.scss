@@ -2400,7 +2400,7 @@ body{
       font-family: 'Ubuntu';
       font-style: normal;
       font-weight: 400;
-      font-size: 12px;
+      font-size: 12px !important;
       line-height: 14px;
       text-align: center;
 
@@ -2820,9 +2820,27 @@ body{
     width: 1731px !important;
     top:75px !important;
   }
+  .detailed-c{
+    .img-modal{
+      width: 975px;
+      height: 640px;
+    }
+  }
   .detailed-h{
     .image-modal-body{
-      height: 580px !important;
+      height: 650px !important;
+      .tag-carousel{
+        font-size: 19px;
+        left: 564px;
+        top: 571px;
+      }
+      .btn-left-carousel{
+        top: 288px;
+        left: 50px;
+      }
+      .btn-right-carousel{
+        top: 288px;
+      }
     }
     .ant-input {
       padding: 6px 11px;
@@ -2835,7 +2853,7 @@ body{
       font-size: 16px;
     }
     .tollgate-body{
-      height: 471px !important;
+      height: calc(100vh - 565px) !important;
     }
   }
   .detailed-info{
@@ -2879,7 +2897,7 @@ body{
     }
   }
   .menu-drop{
-    width: 245px !important;
+    width: 225px !important;
   }
   .ant-dropdown-menu-item-group-title {
     p {
@@ -3047,6 +3065,12 @@ body{
       font-size: 20px !important;
     }
   }
+  .detailed-c{
+    .img-modal{
+      width: 975px;
+      height: 640px;
+    }
+  }
   .detailed-modal {
     width: 1850px !important;
   }
@@ -3060,6 +3084,17 @@ body{
   .detailed-h{
     .image-modal-body{
       height: 754px !important;
+      .tag-carousel{
+        font-size: 19px;
+        left: 564px;
+        top: 571px;
+      }
+      .btn-left-carousel{
+        
+      }
+      .btn-right-carousel{
+
+      }
     }
     .tollgate-body{
       height: 269px !important;
@@ -3300,9 +3335,26 @@ body{
     width: 2955px !important;
     top:300px !important;
   }
+  .detailed-c{
+    .img-modal{
+      width: 975px;
+      height: 640px;
+    }
+  }
   .detailed-h{
     .image-modal-body{
       height: 956px !important;
+      .tag-carousel{
+        font-size: 19px;
+        left: 564px;
+        top: 571px;
+      }
+      .btn-left-carousel{
+        
+      }
+      .btn-right-carousel{
+
+      }
     }
     .tollgate-body{
       height: 269px !important;
