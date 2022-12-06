@@ -11,7 +11,7 @@ const ModalGraphic = ({positionModalGraphic}:{positionModalGraphic:any}) => {
   return(
     <div className='modal-graphic' id='popup-phaseview' style={{left:positionModalGraphic.left, top:positionModalGraphic.top}}>
       <p className="title">Work Request</p>
-      <p>Niver Creek Upstream of Zuni Ave and Thompson Ct</p>
+      <p style={{color:'white'}}>Niver Creek Upstream of Zuni Ave and Thompson Ct</p>
       <hr></hr>
       <p>1 Action Item of 5 Remaining</p>
       <hr></hr>
