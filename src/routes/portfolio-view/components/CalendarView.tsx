@@ -17,12 +17,14 @@ import PineyView from './PineyView';
 import ModalGraphic from "./ModalGraphic";
 
 const CalendarView = ({
+  rawData,
   openTable,
   moveSchedule,
   scheduleRef,
   searchRef,
   graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic
 }: {
+  rawData: any,
   openTable: boolean[];
   moveSchedule: number;
   scheduleRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -76,553 +78,7 @@ const CalendarView = ({
     notStarted: '#D4D2D9',
     delayed: '#F5575C',
   };
-  let rawData = [
-    {
-      id: 'Title0',
-      date: moment('2022/08/11'),
-      schedule: [
-        {
-          objectId: 10,
-          type: 'title',
-          categoryNo: 100,
-          from: moment('2022/06/01 00:00:00'),
-          to: moment('2022/06/01 00:00:00'),
-          status: 'completed',
-          name: 'Centennial',
-        }
-      ],
-    },
-    {
-      id: 'Centennial1',
-      date: moment('2022/08/11'),
-      schedule: [
-        {
-          objectId: 100059,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/02 00:00:00'),
-          to: moment('2022/07/21 07:00:00'),
-          status: 'completed',
-          name: 'Work Request',
-        },
-        {
-          objectId: 100059,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/07/22 08:30:00'),
-          to: moment('2022/08/17 10:00:00'),
-          status: 'completed',
-          name: 'Start Up',
-        },
-        {
-          objectId: 100059,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/06/22 07:30:00'),
-          to: moment('2022/07/01 08:30:00'),
-          status: 'active',
-          name: 'Draft',
-        },
-        {
-          objectId: 100059,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/08/18 08:30:00'),
-          to: moment('2022/11/10 10:00:00'),
-          status: 'active',
-          name: 'Work Plan',
-        },
-      ],
-    },
-    {
-      id: 'Centennial2',
-      date: moment('2022/08/15'),
-      schedule: [
-        {
-          objectId: 8905,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/02 00:00:00'),
-          to: moment('2022/07/24 07:00:00'),
-          status: 'active',
-          name: 'Draft',
-        },
-        {
-          objectId: 8905,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/08/27 08:30:00'),
-          to: moment('2022/09/08 10:00:00'),
-          status: 'delayed',
-          name: 'Conceptual Design',
-        },
-        {
-          objectId: 8905,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/07/25 07:30:00'),
-          to: moment('2022/08/12 08:30:00'),
-          status: 'delayed',
-          name: 'Initial Funding',
-        },
-        {
-          objectId: 8905,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/08/13 08:30:00'),
-          to: moment('2022/08/26 10:00:00'),
-          status: 'completed',
-          name: 'Consultant Procurement',
-        },
-      ],
-    },
-    {
-      id: 'Centennial3',
-      date: moment('2022/08/19'),
-      schedule: [
-        {
-          objectId: 31599,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/08/11 00:00:00'),
-          to: moment('2022/08/21 07:00:00'),
-          status: 'delayed',
-          name: 'Draft',
-        },
-        {
-          objectId: 31599,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/08/22 08:30:00'),
-          to: moment('2022/08/31 10:00:00'),
-          status: 'completed',
-          name: 'Preliminary Design',
-        },
-        {
-          objectId: 31599,
-          type: 'rect',
-          categoryNo: 2,
-          from: moment('2022/09/01 07:30:00'),
-          to: moment('2022/09/10 08:30:00'),
-          status: 'completed',
-          name: 'Final Design',
-        },
-        {
-          objectId: 31599,
-          type: 'rect',
-          categoryNo: 3,
-          from: moment('2022/09/11 08:30:00'),
-          to: moment('2022/09/22 10:00:00'),
-          status: 'active',
-          name: 'Construction Contracting',
-        },
-      ],
-    },
-    {
-      id: 'Centennial4',
-      date: moment('2022/08/11'),
-      schedule: [
-        {
-          objectId: 98000,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/11 00:00:00'),
-          to: moment('2022/07/21 07:00:00'),
-          status: 'active',
-          name: 'Substantial Completion',
-        },
-        {
-          objectId: 98000,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/08/11 08:30:00'),
-          to: moment('2022/08/29 10:00:00'),
-          status: 'active',
-          name: 'Closed',
-        },
-        {
-          objectId: 98000,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/07/22 07:30:00'),
-          to: moment('2022/08/10 08:30:00'),
-          status: 'notStarted',
-          name: 'Construction',
-        },
-        {
-          objectId: 98000,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/06/24 08:30:00'),
-          to: moment('2022/07/10 10:00:00'),
-          status: 'notStarted',
-          name: 'Draft',
-        },
-      ],
-    },
-    {
-      id: 'Centennial5',
-      date: moment('2022/08/15'),
-      schedule: [
-        {
-          objectId: 189990,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/01 00:00:00'),
-          to: moment('2022/07/20 07:00:00'),
-          status: 'notStarted',
-          name: 'Draft',
-        },
-        {
-          objectId: 189990,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/08/27 08:30:00'),
-          to: moment('2022/10/02 10:00:00'),
-          status: 'active',
-          name: 'Start-Up ',
-        },
-        {
-          objectId: 189990,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/07/21 07:30:00'),
-          to: moment('2022/08/12 08:30:00'),
-          status: 'delayed',
-          name: 'Work Request',
-        },
-        {
-          objectId: 189990,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/08/13 08:30:00'),
-          to: moment('2022/08/26 10:00:00'),
-          status: 'active',
-          name: 'Work Plan',
-        },
-      ],
-    },
-    {
-      id: 'Centennial6',
-      date: moment('2022/08/19'),
-      schedule: [
-        {
-          objectId: 6800,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/27 00:00:00'),
-          to: moment('2022/08/12 07:00:00'),
-          status: 'active',
-          name: 'Draft ',
-        },
-        {
-          objectId: 6800,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/08/13 08:30:00'),
-          to: moment('2022/08/28 10:00:00'),
-          status: 'active',
-          name: 'Work Request',
-        },
-        {
-          objectId: 6800,
-          type: 'rect',
-          categoryNo: 2,
-          from: moment('2022/08/29 07:30:00'),
-          to: moment('2022/09/10 08:30:00'),
-          status: 'delayed',
-          name: 'Conceptual Design',
-        },
-        {
-          objectId: 6800,
-          type: 'rect',
-          categoryNo: 3,
-          from: moment('2022/09/11 08:30:00'),
-          to: moment('2022/09/22 10:00:00'),
-          status: 'active',
-          name: 'Preliminary Design',
-        },
-      ],
-    },
-    {
-      id: 'Centennial7',
-      date: moment('2022/08/19'),
-      schedule: [
-        {
-          objectId: 6810,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/27 00:00:00'),
-          to: moment('2022/08/12 07:00:00'),
-          status: 'active',
-          name: 'Draft ',
-        },
-        {
-          objectId: 6810,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/08/13 08:30:00'),
-          to: moment('2022/08/28 10:00:00'),
-          status: 'active',
-          name: 'Work Request',
-        },
-        {
-          objectId: 6810,
-          type: 'rect',
-          categoryNo: 2,
-          from: moment('2022/08/29 07:30:00'),
-          to: moment('2022/09/10 08:30:00'),
-          status: 'delayed',
-          name: 'Conceptual Design',
-        },
-        {
-          objectId: 6810,
-          type: 'rect',
-          categoryNo: 3,
-          from: moment('2022/09/11 08:30:00'),
-          to: moment('2022/09/22 10:00:00'),
-          status: 'active',
-          name: 'Preliminary Design',
-        },
-      ],
-    },
-    {
-      id: 'Title1',
-      date: moment('2022/08/11'),
-      schedule: [{
-        objectId: 10,
-        type: 'title',
-        categoryNo: 100,
-        from: moment('2022/07/01 00:00:00'),
-        to: moment('2022/11/01 00:00:00'),
-        status: 'completed',
-        name: 'Commerce City',
-      }],
-    },
-    {
-      id: 'CommerceCity1',
-      date: moment('2022/08/15'),
-      schedule: [
-        {
-          objectId: 8915,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/02 00:00:00'),
-          to: moment('2022/07/24 07:00:00'),
-          status: 'active',
-          name: 'Draft',
-        },
-        {
-          objectId: 8915,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/08/27 08:30:00'),
-          to: moment('2022/09/08 10:00:00'),
-          status: 'delayed',
-          name: 'Conceptual Design',
-        },
-        {
-          objectId: 8915,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/07/25 07:30:00'),
-          to: moment('2022/08/12 08:30:00'),
-          status: 'delayed',
-          name: 'Initial Funding',
-        },
-        {
-          objectId: 8915,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/08/13 08:30:00'),
-          to: moment('2022/08/26 10:00:00'),
-          status: 'completed',
-          name: 'Consultant Procurement',
-        },
-      ],
-    },
-    {
-      id: 'CommerceCity2',
-      date: moment('2022/08/19'),
-      schedule: [
-        {
-          objectId: 31299,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/08/11 00:00:00'),
-          to: moment('2022/08/21 07:00:00'),
-          status: 'delayed',
-          name: 'Draft',
-        },
-        {
-          objectId: 31299,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/08/22 08:30:00'),
-          to: moment('2022/08/31 10:00:00'),
-          status: 'completed',
-          name: 'Preliminary Design',
-        },
-        {
-          objectId: 31299,
-          type: 'rect',
-          categoryNo: 2,
-          from: moment('2022/09/01 07:30:00'),
-          to: moment('2022/09/10 08:30:00'),
-          status: 'completed',
-          name: 'Final Design',
-        },
-        {
-          objectId: 31299,
-          type: 'rect',
-          categoryNo: 3,
-          from: moment('2022/09/11 08:30:00'),
-          to: moment('2022/09/22 10:00:00'),
-          status: 'active',
-          name: 'Construction Contracting',
-        },
-      ],
-    },
-    {
-      id: 'Title2',
-      date: moment('2022/08/11'),
-      schedule: [{
-        objectId: 10,
-        type: 'title',
-        categoryNo: 100,
-        from: moment('2022/06/01 00:00:00'),
-        to: moment('2022/10/01 00:00:00'),
-        status: 'completed',
-        name: 'Denver',
-      }],
-    },
-    {
-      id: 'Denver1',
-      date: moment('2022/08/19'),
-      schedule: [
-        {
-          objectId: 31589,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/08/11 00:00:00'),
-          to: moment('2022/08/21 07:00:00'),
-          status: 'delayed',
-          name: 'Draft',
-        },
-        {
-          objectId: 31589,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/08/22 08:30:00'),
-          to: moment('2022/08/31 10:00:00'),
-          status: 'completed',
-          name: 'Preliminary Design',
-        },
-        {
-          objectId: 31589,
-          type: 'rect',
-          categoryNo: 2,
-          from: moment('2022/09/01 07:30:00'),
-          to: moment('2022/09/10 08:30:00'),
-          status: 'completed',
-          name: 'Final Design',
-        },
-        {
-          objectId: 31589,
-          type: 'rect',
-          categoryNo: 3,
-          from: moment('2022/09/11 08:30:00'),
-          to: moment('2022/09/22 10:00:00'),
-          status: 'active',
-          name: 'Construction Contracting',
-        },
-      ],
-    },
-    {
-      id: 'Denver2',
-      date: moment('2022/08/11'),
-      schedule: [
-        {
-          objectId: 98090,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/11 00:00:00'),
-          to: moment('2022/07/21 07:00:00'),
-          status: 'active',
-          name: 'Substantial Completion',
-        },
-        {
-          objectId: 98090,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/08/11 08:30:00'),
-          to: moment('2022/08/29 10:00:00'),
-          status: 'active',
-          name: 'Closed',
-        },
-        {
-          objectId: 98090,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/07/22 07:30:00'),
-          to: moment('2022/08/10 08:30:00'),
-          status: 'notStarted',
-          name: 'Construction',
-        },
-        {
-          objectId: 98090,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/06/20 08:30:00'),
-          to: moment('2022/07/10 10:00:00'),
-          status: 'notStarted',
-          name: 'Draft',
-        },
-      ],
-    },
-    {
-      id: 'Denver3',
-      date: moment('2022/08/15'),
-      schedule: [
-        {
-          objectId: 181190,
-          type: 'rect',
-          categoryNo: 0,
-          from: moment('2022/07/01 00:00:00'),
-          to: moment('2022/07/20 07:00:00'),
-          status: 'notStarted',
-          name: 'Work-Request',
-        },
-        {
-          objectId: 181190,
-          type: 'rect',
-          categoryNo: 5,
-          from: moment('2022/08/27 08:30:00'),
-          to: moment('2022/10/02 10:00:00'),
-          status: 'active',
-          name: 'Start Up',
-        },
-        {
-          objectId: 181190,
-          type: 'rect',
-          categoryNo: 1,
-          from: moment('2022/07/21 07:30:00'),
-          to: moment('2022/08/12 08:30:00'),
-          status: 'delayed',
-          name: 'Work Request',
-        },
-        {
-          objectId: 181190,
-          type: 'rect',
-          categoryNo: 4,
-          from: moment('2022/08/13 08:30:00'),
-          to: moment('2022/08/26 10:00:00'),
-          status: 'active',
-          name: 'Work Plan',
-        },
-      ],
-    },
-  ];
+ 
 
   const locations: any = ['Centennial', 'CommerceCity', 'Denver'];
   let agrupationData: any= [];
@@ -715,37 +171,39 @@ let toData = datas
   }
   const collapseItemStatus =()=>{
     if (!openTable[0]) {
-      datas = datas.filter(function(el) {
+      datas = datas.filter(function(el: any) {
         return !el.id.includes('Centennial');
       });
     }
     if (!openTable[1]) {
-      datas = datas.filter(function(el) {
+      datas = datas.filter(function(el: any) {
         return !el.id.includes('CommerceCity');
       });
     }
     if (!openTable[2]) {
-      datas = datas.filter(function(el) {
+      datas = datas.filter(function(el: any) {
         return !el.id.includes('Denver');
       });
     }
   }
 
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
-  let heightDiv: any = document.getElementById(`Centennial1`)?.offsetHeight;
-  console.log('height Div ', heightDiv);
+  
 
   let marginTopFactor= (windowWidth>=3001 && windowWidth<=3999 ? '-44px':(windowWidth>=2550 && windowWidth<=3000 ? '-45px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' : (windowWidth>=2001 && windowWidth<=2549 ? '-28px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px')))));
-  let barHeight =  (windowWidth>=3001 && windowWidth<=3999 ? 42:(windowWidth>=2550 && windowWidth<=3000 ? 40: (windowWidth>=2001 && windowWidth<=2549 ? 36 :(windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27)))));
+  let barHeightDefault =  (windowWidth>=3001 && windowWidth<=3999 ? 42:(windowWidth>=2550 && windowWidth<=3000 ? 40: (windowWidth>=2001 && windowWidth<=2549 ? 36 :(windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27)))));
   let width = widthofDiv - 20;
-  let factorHeight =(windowWidth>=3001 && windowWidth<=3999 ? 250:(windowWidth>=2550 && windowWidth<=3000 ? 162:(windowWidth>=2001 && windowWidth<=2549 ? 259 :(windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 21.5 :21.5)))));
+  let factorHeight =(windowWidth>=3001 && windowWidth<=3999 ? 250:(windowWidth>=2550 && windowWidth<=3000 ? 162:(windowWidth>=2001 && windowWidth<=2549 ? 259 :(windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 21.55 :21.5)))));
     // let heightChart = heightDivLeft * 1.14;
     // let barHeight = heightChart * 0.04173;
     // let factorHeight = heightChart * 0.03555; 
   const timelineChart = (datasets: any) => {
-    
-      let height = factorHeight + (barHeight+12) * (datas.length + 1);
-      let padding = { top: 38, right: 10, bottom: 10, left: -0 };
+    let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
+    let barHeight = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight) * 0.8: barHeightDefault;
+    let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight) * 0.2: 12;
+    console.log('VALUES ', barHeight, paddingBars, heightDiv);
+    let height = (barHeight+paddingBars) * (datas.length + 1);
+    let padding = { top: 38, right: 10, bottom: 10, left: -0 };
       if (svg){
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
