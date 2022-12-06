@@ -150,7 +150,7 @@ const Search = (
               <p onClick={()=>{setDetailOpen(true)}}>Big Dry Creek (ARAPCO)</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
             </div>
-            <div className="text-search" id='Centennial7' style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa',marginBottom:'10px'}:{marginBottom:'10px'}} onMouseEnter={()=>{setHoverTable([1,0,6]);}}>
+            <div className="text-search" id='Centennial7' style={hoverTable[2] === 6 && hoverTable[0] && hoverTable[1] === 0 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,0,6]);}}>
               <p onClick={()=>{setDetailOpen(true)}}>West Tollgate Creek</p>
               <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10.5px'}}/>
             </div>

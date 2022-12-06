@@ -732,7 +732,8 @@ let toData = datas
   }
 
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
-  // heightDiv: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
+  let heightDiv: any = document.getElementById(`Centennial1`)?.offsetHeight;
+  console.log('height Div ', heightDiv);
 
   let marginTopFactor= (windowWidth>=3001 && windowWidth<=3999 ? '-44px':(windowWidth>=2550 && windowWidth<=3000 ? '-45px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' : (windowWidth>=2001 && windowWidth<=2549 ? '-28px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px')))));
   let barHeight =  (windowWidth>=3001 && windowWidth<=3999 ? 42:(windowWidth>=2550 && windowWidth<=3000 ? 40: (windowWidth>=2001 && windowWidth<=2549 ? 36 :(windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27)))));
@@ -838,11 +839,11 @@ let toData = datas
         .tickSize(width)
         .tickFormat(tickFormatEmpty);
 
-        // let gY = svg
-        // .append('g')
-        // .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
-        // .attr('class', 'topHeaderYaxis')
-        // .call(yAxis);
+        let gY = svg
+        .append('g')
+        .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
+        .attr('class', 'topHeaderYaxis')
+        .call(yAxis);
 
       let gX = svg
         .append('g')
