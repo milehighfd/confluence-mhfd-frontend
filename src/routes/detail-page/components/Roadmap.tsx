@@ -323,10 +323,55 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
         </Col>
       </Row>
       <Row>
+      <div className="phaseview-content">
+        <div className="phaseview-title-label" id='phaseviewTitlleWidth'>
+          <p style={{border:'transparent'}}>DRAFT</p>
+          <p>REQUESTED</p>
+          <p>APPROVED</p>
+          <p style={{display:'flex', width:'40%'}}><hr className='hr2'></hr>ACTIVE<hr></hr></p>
+          <p style={{display:'flex', width:'33.33333335%'}}><hr ></hr>CLOSEOUT<hr></hr></p>
+          <p>CLOSED</p>
+        </div>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
-        <div id="dotchart_1_detailPage" ></div>
+          <div id="dotchart_1_detailPage" ></div>
           {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
-          </Col>
+        </Col>
+        <div className="phaseview-title" id='phaseviewTitlleWidth'>
+          <p>Draft</p>
+          <p>Work Request<br/>(WR)</p>
+          <p>Work Plan<br/>(WP)</p>
+          <p>Startup</p>
+          <p>Funding</p>
+          <p>Consultant Procurement</p>
+          <p>Conceptual Design</p>
+          <p>Preliminary<br/>Design</p>
+          <p>Final<br/>Design</p>
+          <p>Construction Contracting</p>
+          <p>Construction</p>
+          {windowWidth>=1199 && windowWidth<=1449 ? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
+          <p>Establishment</p>
+          <p>Closeout</p>
+          <p>Closed</p>
+        </div>
+        <div style={{textAlign:'center', paddingTop:'10px'}}>
+        <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
+                </span>
+        </div>
+      </div>
       </Row>
       <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>

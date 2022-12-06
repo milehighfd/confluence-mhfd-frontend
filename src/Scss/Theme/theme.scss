@@ -2318,6 +2318,181 @@ body{
     color: #29C499;
   }
 }
+.phaseview-content{
+  width: 110%;
+  overflow-y: auto;
+  overflow-x: scroll;
+  .container-timeline{
+    overflow-x: hidden;
+    height: 100%;
+    overflow-y: auto;
+    height: calc(100vh - 269px);
+    width: 100%;
+  }
+  .phaseview-title-label{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    height: 25px;
+    padding-top:9px;
+    /* padding: 19px 0px; */
+    background: #ffffff;
+    width: 99%;
+    hr{
+      border-top: 3px dashed #D5D3DA;
+      width: 39%;
+    }
+    .hr2{
+      width: 44%;
+    }
+    p{
+      width: 6.6666666667%;
+      padding: 0px 0px;
+      color: #6d6888;
+      line-height: 14px;
+      margin-bottom: 0px;
+      letter-spacing: -1px;
+      width: 6.666666667%;
+      height: 13px;
+      border-left: 2px solid #eae8f0;
+
+      font-family: 'Ubuntu';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      text-align: center;
+
+      color: #11093C;
+
+      mix-blend-mode: normal;
+      opacity: 0.6;
+
+      /* Inside auto layout */
+
+      flex: none;
+      order: 1;
+      flex-grow: 0;
+    }
+  }
+  .phaseview-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    height: 46px;
+    padding-top:9px;
+    /* padding: 19px 0px; */
+    background: #ffffff;
+    //border-bottom: 1px solid #d4d2d9;
+    width: 99%;
+    p{
+      width: 6.6666666667%;
+      padding: 0px 0px;
+      color: #6d6888;
+      line-height: 14px;
+      margin-bottom: 0px;
+      letter-spacing: -1px;
+      width: 6.666666667%;
+      height: 28px;
+
+      font-family: 'Ubuntu';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 14px;
+      text-align: center;
+
+      color: #11093C;
+
+      mix-blend-mode: normal;
+      opacity: 0.6;
+
+      /* Inside auto layout */
+
+      flex: none;
+      order: 1;
+      flex-grow: 0;
+    }
+  }
+  .header-timeline{
+    background: #fbfbfc;
+    /* padding: 23.5px; */
+    height: 39px;
+    margin-bottom: 0px;
+  }
+  .phaseview-timeline{
+    //padding: 0px 40px;
+    padding-bottom: 0px;
+    .ant-steps {
+      padding: 0px 0px;
+    }
+    .ant-steps-item-title:after {
+      height: 3px;
+      left: -42%;
+      right: -42%;
+    }
+    .border-active {
+      font-size: 15px;
+      background-color: #beaef3;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .active{
+      font-size: 13px;
+      color: white;
+      padding: 0px 5px;
+      border-radius: 100%;
+      background: #beaef3;
+      border: 2px solid #ffffff;
+    }
+    .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+      background-color: #bfaff4;
+      top: 19px;
+    }
+    .final{
+      font-size: 13px;
+      color: white;
+      padding: 0px 5px;
+      border-radius: 100%;
+      border: 2px solid #ffffff;
+      background: #917cd9;
+    }
+    .border-final {
+      font-size: 15px;
+      background-color: #917cd9;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .wait{
+      font-size: 13px;
+      color: white;
+      padding: 0px 5px;
+      border-radius: 100%;
+      background: #d4d2d9;
+      border: 2px solid #ffffff;
+    }
+    .border-wait {
+      font-size: 15px;
+      background-color: #d4d2d9;
+      padding: 2px;
+      border-radius: 50%;
+      padding-bottom: 3px;
+    }
+    .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after {
+      background: linear-gradient(to right, #8873cf -3%, #d4d2d9c2 1% 1%, yellow 1% 1%, green 60% 80%, blue 80%);
+    }
+    .ant-steps-item-title:after {
+      top: 19px;
+    }
+    .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item {
+      padding-left: 0px;
+    }
+  }
+}
 .detailed-mm{
   font-size: 14px;
   color: $purple;
