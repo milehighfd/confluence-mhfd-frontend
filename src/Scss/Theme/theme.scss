@@ -3050,7 +3050,7 @@ body{
   .modal-tollgate{
     width: 698px !important;
       font-size: 18px !important;
-      top:150px !important;
+      top:184px !important;
       .ant-picker-input>input {
         font-size: 20px !important;
       }
@@ -3085,22 +3085,23 @@ body{
     .image-modal-body{
       height: 807px !important;
       .tag-carousel{
-        font-size: 19px;
-        left: 564px;
-        top: 571px;
+        font-size: 23px;
+        left: 687px;
+        top: 710px;
       }
       .btn-left-carousel{
-        
+        top: 367px;
       }
       .btn-right-carousel{
-
+        right: 76px;
+        top: 367px;
       }
     }
     .tollgate-body{
       height: 269px !important;
     }
     .row-modal-list-view{
-      height: 574px !important;
+      height: calc(100vh - 542px) !important;
       h5{
         font-size: 20px;
       }
@@ -3246,6 +3247,18 @@ body{
   }
   .detailed-hh{
     height: 40px;
+  }
+  .phaseview-content{
+    .phaseview-title{
+      p{
+        font-size: 14px !important;
+      }
+    }
+    .phaseview-title-label{
+      p{
+        font-size: 14px !important;
+      }
+    }
   }
   .phaseview-timeline{
     margin-top: 0px !important;
