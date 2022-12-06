@@ -4,6 +4,7 @@ import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator
 import { DATA_SOLUTIONS } from "../constants";
 import * as d3 from 'd3';
 import { dataDot1,dataDot2, dataDot3,colorScale  } from "routes/portfolio-view/constants/PhaseViewData";
+import ModalGraphic from "routes/portfolio-view/components/ModalGraphic";
 
 
 const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>, openPiney:boolean}) => {
@@ -193,7 +194,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       circles
       .append("circle")
       .attr('id',(d: any) => {
-      return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}`;
+      return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}_detailPage`;
       })
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
@@ -253,7 +254,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       ;
       circles
       .append("circle")
-      .attr('id', (d:any)=>{ return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}_outer`})
+      .attr('id', (d:any)=>{ return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}_detailPage_outer`})
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
         let ydname: any = y(d.name);
@@ -267,18 +268,17 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
         let popupVisible:any =document.getElementById('popup-phaseview');
         setGrapphicOpen(true);
         if (popupVisible !== null){
-        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
-        let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
+          console.log(d3.event)
+        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?100:100)))))
+        let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?600:600)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
         let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
         //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-        let positionTop: any=d3.event.layerY-heightOfPopup+popupfactorTop;
-        let positionLeft: any=d3.event.layerX - widthOfPopup/2 +popupfactorLeft;
+        let positionTop: any=d3.event.pageY-heightOfPopup -20;
+        let positionLeft: any=d3.event.pageX - widthOfPopup/2 ;
         setPositionModalGraphic({left: positionLeft,top:positionTop})
         //d3.selectAll('.text-search:hover').attr('text-search');
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
-        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
-        d3.select(`#${searchTextId}`).style('background-color','#fafafa');
        }
       })
       .on("mouseout",(d: any) =>{
@@ -287,8 +287,6 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
           return colorScale[d.data[r].status];
         });
-        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
-        d3.select(`#${searchTextId}`).style('background-color','white');
       })
       ;
   });
@@ -315,6 +313,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
 
   return (
     <>
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
       <Row id='ProjectRoadmapHeader'>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-roadmap">PROJECT ROADMAP</h3>
