@@ -21,8 +21,8 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
   let svg:any;
 
     // console.log(windowWidth);
-    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 25:(windowWidth>=2550 && windowWidth<=3000 ? 20:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 14 :14)))))
-    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 5 : (windowWidth>=2550 && windowWidth<=3999 ? 8: 5) )
+    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 26:(windowWidth>=2550 && windowWidth<=3000 ? 20:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 14 :14)))))
+    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 15 : (windowWidth>=2550 && windowWidth<=3999 ? 19: 13) )
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -25 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -15.8)))
   
     const gradientLinesClass = (svgDefinitions:any)=>{
@@ -102,7 +102,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
      let dataDetailed = dataDotchart.filter((e:any) => e.specificId === 3);
 
     let margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft };
-    let width: any = document.getElementById('ProjectRoadmapHeader')?.offsetWidth;//= 1405 - margin.left - margin.right,
+    let width: any = document.getElementById('phaseviewTitleDetailPage')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
       heightDiv  = document.getElementById(`ProjectRoadmapHeader`)?.offsetHeight; //265 - margin.top - margin.bottom;
       console.log('height div',heightDiv)
@@ -324,7 +324,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       </Row>
       <Row>
       <div className="phaseview-content">
-        <div className="phaseview-title-label" id='phaseviewTitlleWidth'>
+        <div className="phaseview-title-label" id='phaseviewTitleDetailPage'>
           <p style={{border:'transparent'}}>DRAFT</p>
           <p>REQUESTED</p>
           <p>APPROVED</p>
@@ -336,7 +336,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <div id="dotchart_1_detailPage" ></div>
           {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
         </Col>
-        <div className="phaseview-title" id='phaseviewTitlleWidth'>
+        <div className="phaseview-title" id='phaseviewTitleDetailPage'>
           <p>Draft</p>
           <p>Work Request<br/>(WR)</p>
           <p>Work Plan<br/>(WP)</p>
