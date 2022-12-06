@@ -378,6 +378,8 @@ body{
       position: absolute;
       right: 15px;
       top: 180px;
+      width: 80px;
+      height: 70px;
     }
     .detail-left{
       position: absolute;
@@ -2333,6 +2335,9 @@ body{
     color: #29C499;
   }
 }
+.phaseview-content::-webkit-scrollbar {
+  display: none;
+}
 .phaseview-content{
   width: 110%;
   overflow-y: auto;
@@ -3064,9 +3069,9 @@ body{
 @media (min-width: 2550px) and (max-width: 3799px){
   .detailed-b{
     .img-carousel-detail{
-      position: absolute;
-      right: 20px;
-      top: 284px !important;
+      width: 125px !important;
+      top: 271px !important;
+      height: 88px !important;
     }
     .detail-left{
       position: absolute;
@@ -3355,19 +3360,18 @@ body{
 @media (min-width: 3800px) and (max-width: 5999px){
   .detailed-b{
     .img-carousel-detail{
-      position: absolute;
-      right: 15px;
-      top: 180px;
+      right: 30px !important;
+    top: 326px !important;
+    height: 118px !important;
+    width: 200px !important;
     }
     .detail-left{
-      position: absolute;
-      left: 15px;
-      top: 118px;
+      left: 30px !important;
+      top: 118px !important;
     }
     .detail-right{
-      position: absolute;
-      right: 15px;
-      top: 118px;
+      right: 30px !important;
+      top: 118px !important;
     }
   }
   .modal-tollgate{

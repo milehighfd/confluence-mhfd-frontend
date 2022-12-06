@@ -210,7 +210,7 @@ const DetailModal = ({visible, setVisible}:{visible: boolean, setVisible: Functi
               </div>
             </Carousel>
             <div className="img-carousel-detail">
-              <img src="/picture/map-denver.png" alt="" height="70px" />
+              <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} />
             </div>
             <div className="detail-left">
               <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev()}}/>
