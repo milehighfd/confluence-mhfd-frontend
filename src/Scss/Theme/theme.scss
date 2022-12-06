@@ -1808,6 +1808,28 @@ body{
   background: #f5f7ff;
   padding: 20px 20px;
   margin: 0px !important;
+  .image-modal-body{
+    .tag-carousel{
+      background-color: #251863;
+      padding: 3px 11px;
+      color: white;
+      position: absolute;
+      left: 440px;
+      top: 460px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    .btn-left-carousel{
+      position: absolute;
+      left: 50px;
+      top:239px;
+    }
+    .btn-right-carousel{
+      position: absolute;
+      right: 50px;
+      top:239px;
+    }
+  }
   .yellow-input{
     .ant-input-affix-wrapper {
       background-color: #fff4df;

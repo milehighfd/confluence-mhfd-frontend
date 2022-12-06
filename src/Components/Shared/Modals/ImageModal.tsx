@@ -2,11 +2,14 @@ import { HeartOutlined, LeftOutlined, RightOutlined, ShareAltOutlined } from '@a
 import { Carousel, MenuProps, Select } from 'antd';
 import { Button, Col, Dropdown, Input, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
   let carouselRef = useRef<undefined | any>(undefined);
   const [active, setActive] = useState(0);
+  useEffect (()=>{
+    console.log(carouselRef, 'dotty');
+  },[carouselRef])
   return (
     <Modal
       className="detailed-image"
@@ -52,11 +55,17 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
               <div key={2} className="detailed-c">
                 <img src={'picture/img-1.png'} alt="" className='img-modal'/>
               </div>
+              <div key={3} className="detailed-c">
+                <img src={'picture/img-6.png'} alt="" className='img-modal'/>
+              </div>
             </Carousel>
-            <div style={{position:'absolute', left: '50px', top: '205px'}}>
+            <div className='tag-carousel'>
+              1 of 3
+            </div>
+            <div style={{position:'absolute', left: '50px', top: '205px'}} className='btn-left-carousel'>
               <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev()}}/>
             </div>
-            <div style={{position:'absolute', right: '50px', top: '205px'}}>
+            <div style={{position:'absolute', right: '50px', top: '205px'}}className='btn-right-carousel'>
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div>
           </Col>
