@@ -43,7 +43,7 @@ const PhaseView = (
   let heightDiv3  = document.getElementById(`testing3`)?.offsetHeight;
   let svg:any;
 
-    console.log(windowWidth);
+    // console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 27.5 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -25 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -15.8)))
@@ -281,12 +281,14 @@ const PhaseView = (
         let ydname: any = y(d.name);
       return ydname;
       })
-      .attr("r", radius)
+      .attr("r", radius+0.5)
       .style("fill", 'white')
       .style('opacity', 0)
       .on("click", (d: any) => setOpenPiney(true))
       .on("mousemove", (d: any) =>{
-        console.log(d3.event)
+        let popupVisible:any =document.getElementById('popup-phaseview');
+        setGrapphicOpen(true);
+        if (popupVisible !== null){
         let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
         let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
@@ -295,14 +297,15 @@ const PhaseView = (
         let positionTop: any=d3.event.layerY-heightOfPopup+popupfactorTop;
         let positionLeft: any=d3.event.layerX - widthOfPopup/2 +popupfactorLeft;
         setPositionModalGraphic({left: positionLeft,top:positionTop})
-      setGrapphicOpen(true);
         //d3.selectAll('.text-search:hover').attr('text-search');
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
         let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
         d3.select(`#${searchTextId}`).style('background-color','#fafafa');
+       }
       })
       .on("mouseout",(d: any) =>{
         setGrapphicOpen(false);
+        setPositionModalGraphic({left: 10000,top:10000})
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
           return colorScale[d.data[r].status];
         });

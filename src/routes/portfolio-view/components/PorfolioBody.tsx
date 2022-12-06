@@ -27,7 +27,7 @@ const popovers: any = [
 ]
 const PortafolioBody = () => {
   const [graphicOpen, setGrapphicOpen] = useState(false);
-  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
+  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
   const [openAction, setOpenAction] = useState(true);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
@@ -43,7 +43,7 @@ const PortafolioBody = () => {
   const scheduleRef = useRef<null | HTMLDivElement>(null);
   const [moveSchedule, setMoveSchedule] = useState('null'); 
   const [zoomTimeline, setZoomTimeline] = useState(0);
-  console.log('zoom',zoomTimeline);
+  // console.log('zoom',zoomTimeline);
   
 
   const menu = (
