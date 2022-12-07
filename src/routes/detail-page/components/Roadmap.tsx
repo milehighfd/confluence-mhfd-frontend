@@ -324,7 +324,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       </Row>
       <Row>
       <div className="phaseview-content">
-        <div className="phaseview-title-label" id='phaseviewTitleDetailPage'>
+        <div className="phaseview-title-label" id='phaseviewTitleDetailPage' style={{marginBottom:'10px'}}>
           <p style={{border:'transparent'}}>DRAFT</p>
           <p>REQUESTED</p>
           <p>APPROVED</p>
