@@ -28,7 +28,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
       completedtoActive
-        .attr("id", "Completed_Active")
+        .attr("id", "completed_active")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -42,7 +42,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let completedtoDelayed = svgDefinitions.append("linearGradient");
       completedtoDelayed
-        .attr("id", "Completed_Delayed")
+        .attr("id", "completed_delayed")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -56,7 +56,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let ActivetoNotStarted = svgDefinitions.append("linearGradient");
       ActivetoNotStarted
-        .attr("id", "Active_NotStarted")
+        .attr("id", "active_notStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -70,7 +70,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let ActivetoDelayed = svgDefinitions.append("linearGradient");
       ActivetoDelayed
-        .attr("id", "Active_Delayed")
+        .attr("id", "active_delayed")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -84,7 +84,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let delayedtoNotStarted = svgDefinitions.append("linearGradient");
       delayedtoNotStarted
-        .attr("id", "Delayed_NotStarted")
+        .attr("id", "delayed_notStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
