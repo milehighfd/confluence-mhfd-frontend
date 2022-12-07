@@ -657,19 +657,16 @@
     }
   }
 }
-@media(min-width: 1900px) and (max-width: 2549){
+@media(min-width: 1900px) and (max-width: 2549px){
   .menu-drop-sub{
     font-size: 16px !important;
-  }
-  .menu-drop-sub{
-    font-size: 16px;
-    padding: 6px 10px;
+    padding: 6px 10px !important;
   }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     font-size: 16px;
   }
   .menu-drop{
-    width: 160px !important;
+    width: 211px !important;
     .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
       font-size: 16px;
       padding-top: 7px;
@@ -685,7 +682,7 @@
 }
 @media(min-width: 2550px) and (max-width: 3799px){
   .menu-drop-sub{
-    font-size: 16px !important;
+    font-size: 20px !important;
   }
   .card-dropdown{
     width: 235px;
@@ -703,14 +700,20 @@
   }
   .menu-drop-sub{
     font-size: 18px;
-    padding: 9px 10px;
+    padding: 5px 10px;
+  }
+  .ant-dropdown-menu-title-content{
+    padding: 4px 0px !important;
   }
   .menu-drop{
     width: 261px !important;
     .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
       font-size: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding-top: 13px;
+      padding-bottom: 13px;
+      span{
+        font-size: 20px !important;
+      }
     }
   }
   .ant-dropdown-menu-item {
@@ -731,7 +734,8 @@
 }
 @media(min-width: 3800px) and (max-width: 5999px){
   .menu-drop-sub{
-    font-size: 20px !important;
+    font-size:26px !important;
+    padding: 8.5px 10px !important;
   }
   .card-dropdown{
     width: 336px;
@@ -754,13 +758,17 @@
   .menu-drop{
     width: 279px !important;
     .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
-      font-size: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      font-size: 26px !important;
+      padding-top: 19px !important;
+      padding-bottom: 19px !important;
+      span{
+        font-size: 26px !important;
+      }
     }
   }
   .ant-dropdown-menu-item {
-    font-size: 16px !important;
+    font-size: 20px !important;
+    padding: 14px 10px !important;
     .ant-dropdown-menu-title-content{
       span{
         font-size: 18px !important;
