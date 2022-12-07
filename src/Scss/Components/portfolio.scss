@@ -630,6 +630,7 @@
     background: rgba(17, 9, 60, 0.03);
     opacity: 1;
     font-weight: 500;
+    height: auto !important;
   }
   .btn-filter-k{
     border: 1px solid #ffffff;
@@ -641,6 +642,7 @@
     margin: 0px 3px;
     box-shadow: none !important;
     border: none !important;
+    height: auto;
     --ant-wave-shadow-color: none !important;
   }
   .btn-filter-k:hover{
@@ -815,6 +817,7 @@
       margin-bottom: 10px;
       margin-top: 3px;
       .ic-dots{
+        margin-top: 2px;
         content: url("../../../public/Icons/ico-dots.svg")
       }
     }
@@ -928,7 +931,7 @@
       overflow-y: auto;
       height: calc(100vh - 226.5px);
       .line-table{
-        height: 39px;
+        height: 38px;
         background-color: #fbfbfc;
         position: absolute;
         z-index: 10;
@@ -1293,6 +1296,9 @@
           flex: none;
           order: 1;
           flex-grow: 0;
+        }
+        .border-transparent{
+          border-left: 0px solid transparent !important;
         }
       }
       .phaseview-title{
@@ -2005,6 +2011,9 @@
         p{
           font-size: 14px !important;
         }
+        .border-transparent{
+          border-left: 0px solid transparent !important;
+        }
       }
       .header-timeline{
         background: #fbfbfc;
@@ -2235,11 +2244,11 @@
     .phaseview-content{
       .phaseview-title{
         height: 51px !important;
-        padding-top: 10px !important;
+        padding-top: 5px !important;
       }
       .phaseview-title-label{
         margin-bottom: 5px !important;
-        padding-top: 12px !important;
+        padding-top: 5px !important;
       }
       .header-timeline{
         background: #fbfbfc;
@@ -2415,8 +2424,19 @@
     span{
       font-size: 24px !important;
     }
+    .btn-view{
+      margin: 0px 10px;
+    }
   }
   .search{
+    .search-head{
+      .ic-dots{
+        margin-top: 4px !important;
+        width: 30px;
+        height: 30px;
+        margin-right: 10px !important;
+      }
+    }
     .search-body{
       height: calc(100vh - 282px) !important;
     }
@@ -2433,6 +2453,7 @@
       }
       span{
         font-size: 20px !important;
+        margin-right: 20px !important;
       }
     }
     .text-first {
@@ -2442,6 +2463,11 @@
       padding: 17px 10px !important;
       font-size: 24.5px !important;
       height: 63.78px !important;
+      .ant-collapse-expand-icon{
+        span{
+          font-size: 20px !important;
+        }
+      }
     }
   }
   .table-body{
@@ -2452,7 +2478,7 @@
       }
     }
     .table-first{
-     margin-top: 63.78px !important;
+     margin-top: 63.79px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
@@ -2463,6 +2489,9 @@
         height: 48px !important;
         font-size: 20px;
         padding-top: 10px !important;
+      }
+      .ant-table-thead {
+        height: 63.79px !important;
       }
     }
     .header-table{
@@ -2484,7 +2513,7 @@
       .phaseview-title{
         p{
           font-size: 20px !important;
-          line-height: 16px !important;
+          line-height: 20px !important;
         }
       }
       .phaseview-title-label{
@@ -2492,6 +2521,9 @@
           font-size: 20px !important;
           height: 20px !important;
           border-left: 4px solid #eae8f0 !important;
+        }
+        .border-transparent{
+          border-left: 0px solid transparent !important;
         }
       }
     }
@@ -2623,7 +2655,7 @@
   .protafolio-body{
     .search-head{
       .ic-dots{
-        height: 34px !important;
+        height: 36px !important;
       }
     }
   }
@@ -2834,8 +2866,19 @@
     span{
       font-size: 28px !important;
     }
+    .btn-view{
+      margin: 0px 14px;
+    }
   }
   .search{
+    .search-head{
+      .ic-dots{
+        margin-top: 5px !important;
+        width: 36px;
+        height: 30px;
+        margin-right: 16px;
+      }
+    }
     .search-body{
       margin-top: 28px !important;
       height: calc(100vh - 282px) !important;
@@ -2853,26 +2896,30 @@
       }
       span{
         font-size: 24px !important;
+        margin-right: 29px !important;
       }
     }
     .text-first {
-      height: 48.9px !important;
+      height: 73.3px !important;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 10px 10px !important;
-      font-size: 28.5px !important;
-      height: 48px !important;
+      padding: 21px 10px !important;
+      font-size: 30.5px !important;
+      height: 73.3px !important;
+      span{
+        font-size: 30px !important;
+      }
     }
   }
   .table-body{
     .table-body-body{
       height: calc(100vh - 283px) !important;
       .line-table{
-        height: 48px !important;
+        height: 73.3px !important;
       }
     }
     .table-first{
-     margin-top: 48.9px !important;
+     margin-top: 73.3px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
@@ -2883,6 +2930,10 @@
         height: 48px !important;
         font-size: 25px;
         padding-top: 10px !important;
+      }
+      .ant-table-thead {
+        height: 73.3px !important;
+        border-radius: 7px 7px 0px 0px;
       }
     }
     .header-table{
@@ -2904,7 +2955,7 @@
       .phaseview-title{
         p{
           font-size: 24px !important;
-          line-height: 18px !important;
+          line-height: 21px !important;
         }
       }
       .phaseview-title-label{

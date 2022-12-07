@@ -90,6 +90,32 @@ export const dataTable = [
     view: 'id',
     options:'red',
   },
+  {
+    key: '8',
+    phase: 'Initiation',
+    mhfd: 'Jon Villines',
+    status:'Delayed',
+    serviceArea: 'Northeast',
+    county: 'Douglas',
+    cost: '348,000',
+    stream:'Big Dry Creek',
+    contact: 'ICON',
+    view: 'id',
+    options:'red',
+  },
+  {
+    key: '9',
+    phase: 'Preliminary',
+    mhfd: 'Jon Villines',
+    status:'Not Started',
+    serviceArea: 'Southwest',
+    county: 'Denver',
+    cost: '273,900',
+    stream:'Big Dry Creek',
+    contact: 'Calibre',
+    view: 'id',
+    options:'red',
+  },
 ];
 export const dataTable01 = [
   {

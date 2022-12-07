@@ -361,7 +361,7 @@ const PhaseView = (
       )}
       <div className="phaseview-content">
         <div className="phaseview-title-label" id="phaseviewTitlleWidth">
-          <p style={{ border: 'transparent' }}>Draft</p>
+          <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
           <p>Requested</p>
           <p>Approved</p>
           <p style={{ display: 'flex', width: '40%' }}>

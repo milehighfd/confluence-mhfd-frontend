@@ -325,11 +325,11 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       <Row>
       <div className="phaseview-content">
         <div className="phaseview-title-label" id='phaseviewTitleDetailPage' style={{marginBottom:'10px'}}>
-          <p style={{border:'transparent'}}>DRAFT</p>
+          <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
           <p>REQUESTED</p>
           <p>APPROVED</p>
-          <p style={{display:'flex', width:'40%'}}><hr className='hr2'></hr>ACTIVE<hr></hr></p>
-          <p style={{display:'flex', width:'33.33333335%'}}><hr ></hr>CLOSEOUT<hr></hr></p>
+          <p style={{display:'flex', width:'40%'}}><hr className='hr2' style={{color:'transparent', border:'transparent'}}></hr>ACTIVE<hr style={{color:'transparent', border:'transparent'}}></hr></p>
+          <p style={{display:'flex', width:'33.33333335%'}}><hr style={{color:'transparent', border:'transparent'}}></hr>CLOSEOUT<hr style={{color:'transparent', border:'transparent'}}></hr></p>
           <p>CLOSED</p>
         </div>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
