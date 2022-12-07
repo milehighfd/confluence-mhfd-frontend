@@ -1052,7 +1052,7 @@ let toData = datas
   }
       return times;
   } 
-
+  let yearOffset= (windowWidth>=3001 && windowWidth<=3999 ? 15:(windowWidth>=2550 && windowWidth<=3000 ? 15:(windowWidth>=2001 && windowWidth<=2549 ? 17 :(windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 15 :15)))));
     let setTextPositionMonth = function(selection: any) {
       selection.each(function(this:any, d:any) {
           var widthMonth = this.getBBox().width,
@@ -1103,7 +1103,7 @@ let toData = datas
         }
         let thisVar: any = d3.select(this)
         d3.select(this)
-            .attr('x', (x=== 0 ? x+width : x))
+            .attr('x', (x>= 0 && x<=width/2+ yearOffset ? width/2+yearOffset : x))
             .attr('opacity', opacity);
     });
 }
@@ -1134,11 +1134,12 @@ let toData = datas
     // ENTER
     //
     zoomfortoday = d3.event.transform.k;
+   // console.log(zoomfortoday)
     nameEnter
         .append('text')
         .attr('class', 'name')
         
-        .text(function(d: any) { return d3.timeFormat('%b')(d); })
+        .text(function(d: any) { console.log(d3.event.transform.k); return (d3.event.transform.k < 10 ? d3.timeFormat('%b')(d):d3.timeFormat('%B')(d)) })
         
         .call(setTextPositionMonth, zoomedXScale);
             // set text position in the other thread
