@@ -1055,28 +1055,27 @@ let toData = datas
 
     let setTextPositionMonth = function(selection: any) {
       selection.each(function(this:any, d:any) {
-          var width = this.getBBox().width,
+          var widthMonth = this.getBBox().width,
               nextMonthPos = zoomedXScale(d3.timeMonth.offset(d, 1)),
               padding = 3,
               minPos = 0, maxPos = zoomedXScale.range()[1],
               x, opacity;
-          
-          x = zoomedXScale(d) + DaysToPixels(17.5) - width / 2; // center
+          x = zoomedXScale(d) + (MonthsToPixels(1) / 2); // center
           x = Math.max(minPos, x); // left-left
-          x = Math.min(x, nextMonthPos - width - padding);  // left-right
+          x = Math.min(x, nextMonthPos - widthMonth - padding);  // left-right
 
-          x = Math.min(x, maxPos - width); // right-right
+          x = Math.min(x, maxPos - widthMonth); // right-right
           x = Math.max(x, zoomedXScale(d) + padding); // right-left
           
           if (x < minPos) {
-              opacity = (x + width - minPos) / width;
-          } else if (x + width > maxPos) {
-              opacity = (maxPos - x) / width;
+              opacity = (x + widthMonth - minPos) / widthMonth;
+          } else if (x + widthMonth > maxPos) {
+              opacity = (maxPos - x) / widthMonth;
           } else {
               opacity = 1;
           }
           d3.select(this)
-              .attr('x', (x>= 0 && x<=width/2+ 15 ? width/2+ 15 : x))
+              .attr('x', (x>= 0 && x<=widthMonth/2+ 15 ? widthMonth/2+ 15 : x))
               .attr('opacity', opacity);
       });
   }
@@ -1139,7 +1138,7 @@ let toData = datas
         .append('text')
         .attr('class', 'name')
         
-        .text(function(d: any) { return d3.timeFormat('%B')(d); })
+        .text(function(d: any) { return d3.timeFormat('%b')(d); })
         
         .call(setTextPositionMonth, zoomedXScale);
             // set text position in the other thread
