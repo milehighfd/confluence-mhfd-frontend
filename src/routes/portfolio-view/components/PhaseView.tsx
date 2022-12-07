@@ -45,10 +45,10 @@ const PhaseView = (
   let svg:any;
 
     // console.log(windowWidth);
-    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 20 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
+    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 28 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -27 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -22)))
-    const marginBottom = (windowWidth>=1900 && windowWidth<=2549 ? -35 :-26)
+    const marginBottom = (windowWidth>=2550 && windowWidth<=3000 ? -43:(windowWidth>=1900 && windowWidth<=2549 ? -35 :-26))
 
     const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
     const completeData = sortedData.map((elem: any) => {
