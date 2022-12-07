@@ -58,7 +58,6 @@ const PhaseView = (
       }
     });
     const lengthData = completeData.length;
-
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
       completedtoActive
@@ -131,15 +130,13 @@ const PhaseView = (
         .attr("stop-color", '#D4D2D9')  
     }
     
-    const phaseChart = (dataDotchart: any, index:number) => {
+   const phaseChart = (dataDotchart: any, index:number) => {
     
 
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
-    console.log(`${dataDotchart[index].id}`)
       heightDiv  = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
-      console.log('height div',heightDiv)
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 10:0);
     let height: any  = factorHeight + heightDiv +3;
   // append the svg object to the body of the page
@@ -155,7 +152,6 @@ const PhaseView = (
     setSvgStatePhase(svg);
     //dataDotchart =dataDotchart[0].values
   let datas = dataDotchart[index].values;
-  console.log(datas);
   let arrayForCirclesAndLines = [];
   for (var i = 0; i < datas[0].schedule.length; i++) {
     arrayForCirclesAndLines.push(i);
@@ -187,7 +183,7 @@ const PhaseView = (
     .range([0, height])
     .domain(
       datas.map((d: any) => {
-        return d.rowLabel;
+        return d.id;
       })
     )
     .padding(1);
@@ -204,7 +200,7 @@ const PhaseView = (
         .attr("x", xdr(r))
         .attr("width", xdr(r + 1) - xdr(r))
         .attr("y", (d: any) => {
-            let ydname: any = y(d.rowLabel);
+            let ydname: any = y(d.id);
           return ydname;
         })
         .attr("height", 2)
@@ -215,7 +211,6 @@ const PhaseView = (
         .attr("stroke", function(d: any) {      
           let currentStatus = d.schedule[r].status.replace(/\s+/g, '');
           let nextStatus = d.schedule[r+1].status.replace(/\s+/g, '');
-          //console.log(currentStatus, nextStatus)
           return ( 
             (currentStatus === nextStatus) ?
           colorScale[d.schedule[r].status]
@@ -235,7 +230,7 @@ const PhaseView = (
       })
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.rowLabel);
+        let ydname: any = y(d.id);
       return ydname;
       })
       .attr("r", radius)
@@ -246,7 +241,7 @@ const PhaseView = (
       .append("circle")
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.rowLabel);
+        let ydname: any = y(d.id);
       return ydname;
       })
       .attr("r", radius - 1)
@@ -258,7 +253,7 @@ const PhaseView = (
       .append("circle")
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.rowLabel);
+        let ydname: any = y(d.id);
       return ydname;
       })
       .attr("r", radius - 3)
@@ -284,7 +279,7 @@ const PhaseView = (
         return offset;
       })
       .attr("y", (d: any) => {
-        let ydname: any = y(d.rowLabel);
+        let ydname: any = y(d.id);
         return ydname + radius / 3;
       })
 
@@ -294,7 +289,7 @@ const PhaseView = (
       .attr('id', (d:any)=>{ return `${d.id}_${d.schedule[r].phase}_outer`})
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.rowLabel);
+        let ydname: any = y(d.id);
       return ydname;
       })
       .attr("r", radius+0.5)
