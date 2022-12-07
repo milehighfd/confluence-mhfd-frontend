@@ -2243,12 +2243,12 @@
     }
     .phaseview-content{
       .phaseview-title{
-        height: 51px !important;
-        padding-top: 5px !important;
+        height: 66px !important;
+        padding-top: 11px !important;
       }
       .phaseview-title-label{
         margin-bottom: 5px !important;
-        padding-top: 5px !important;
+        padding-top: 14px !important;
       }
       .header-timeline{
         background: #fbfbfc;
@@ -2439,6 +2439,7 @@
     }
     .search-body{
       height: calc(100vh - 282px) !important;
+      margin-top: 35px !important;
     }
     .title-search{
       width: 110% !important;
@@ -2501,7 +2502,7 @@
     }
     .header-table{
       .ant-table-thead {
-        height: 63px !important;
+        height: 80px !important;
       }
     }
   }
