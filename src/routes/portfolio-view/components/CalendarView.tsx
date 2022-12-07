@@ -79,8 +79,9 @@ const CalendarView = ({
     delayed: '#F5575C',
   };
  
-
-  const locations: any = ['Centennial', 'CommerceCity', 'Denver'];
+  const sortedData = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel);
+  const locations: any = ['Centennial', 'CommerceCity', 'Denver', 'MHFD_District'];
+  // console.log('cortesd', sortedData, locations);
   let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
     return {
@@ -122,6 +123,7 @@ let toData = datas
   .sort(function(a: any, b: any) {
     return a.to - b.to;
   });
+  
 
   let StartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
   let EndTime = moment(toData[toData.length - 1].to)
@@ -194,6 +196,7 @@ let toData = datas
   let barHeightDefault =  (windowWidth>=3001 && windowWidth<=3999 ? 42:(windowWidth>=2550 && windowWidth<=3000 ? 40: (windowWidth>=2001 && windowWidth<=2549 ? 36 :(windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27)))));
   let width = widthofDiv - 20;
   let factorHeight =(windowWidth>=3001 && windowWidth<=3999 ? 250:(windowWidth>=2550 && windowWidth<=3000 ? 162:(windowWidth>=2001 && windowWidth<=2549 ? 259 :(windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 21.55 :21.5)))));
+  let screenOffset = (windowWidth>=3001 && windowWidth<=3999 ? 24:(windowWidth>=2550 && windowWidth<=3000 ? 12:(windowWidth>=2001 && windowWidth<=2549 ? 64 :(windowWidth>=1450 && windowWidth<=2000 ? 6 :(windowWidth>=1199 && windowWidth<=1449 ? 5 :21.5)))));
     // let heightChart = heightDivLeft * 1.14;
     // let barHeight = heightChart * 0.04173;
     // let factorHeight = heightChart * 0.03555; 
@@ -261,7 +264,7 @@ let toData = datas
       let yScale = d3
         .scaleBand()
         .domain(datasets.map((d: any) => d.id))
-        .range([padding.top, height - padding.bottom]);
+        .range([padding.top + screenOffset , height - padding.bottom + screenOffset]);
       // console.log('BANDWIDTH', padding.top, height - padding.bottom, datasets.length, yScale.bandwidth());
       let chartHeight = height - padding.top - padding.bottom;
       let timeFormatterForYears: any = d3.timeFormat('%Y');
