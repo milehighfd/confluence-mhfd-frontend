@@ -91,9 +91,6 @@ const Search = (
     }
   });
   useEffect(() => {
-    console.log('opent', openTable);
-  }, [openTable]);
-  useEffect(() => {
   }, [sortedData]);
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
@@ -136,7 +133,6 @@ const Search = (
                   // setTimeout(()=>{
                     const newOpenTable = [...openTable];
                     newOpenTable[index] = !openTable[index] as any;
-                    console.log('bew open', newOpenTable);
                     setOpenTable(newOpenTable);
                   // },70)
                 }

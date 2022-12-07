@@ -79,9 +79,17 @@ const CalendarView = ({
     delayed: '#F5575C',
   };
  
-  const sortedData = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel);
-  const locations: any = ['Centennial', 'CommerceCity', 'Denver', 'MHFD_District'];
-  // console.log('cortesd', sortedData, locations);
+  //const sortedData = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
+  const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+  const completeData = sortedData.map((elem: any) => {
+    return {
+      ...elem,
+      values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+    }
+  });
+
+
+  const locations: any = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
   let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
     return {
@@ -97,7 +105,6 @@ const CalendarView = ({
   });
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
-  console.log(windowWidth, windowHeight)
   let zoom: any;
   let svg: any;
   let svgAxis: any;
@@ -172,21 +179,13 @@ let toData = datas
     heightDivLeft = heightDivLeft + document.getElementById(`testing${index+1}`)?.offsetHeight;
   }
   const collapseItemStatus =()=>{
-    if (!openTable[0]) {
-      datas = datas.filter(function(el: any) {
-        return !el.id.includes('Centennial');
-      });
-    }
-    if (!openTable[1]) {
-      datas = datas.filter(function(el: any) {
-        return !el.id.includes('CommerceCity');
-      });
-    }
-    if (!openTable[2]) {
-      datas = datas.filter(function(el: any) {
-        return !el.id.includes('Denver');
-      });
-    }
+    completeData.forEach((element:any, index:any) => {
+      if (!openTable[index]) {
+        datas = datas.filter(function(el: any) {
+          return !el.id.includes(element.headerLabel.replace(/\s/g, ''));
+        });
+      }
+    });
   }
 
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
@@ -301,11 +300,11 @@ let toData = datas
         .tickSize(width)
         .tickFormat(tickFormatEmpty);
 
-        let gY = svg
-        .append('g')
-        .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
-        .attr('class', 'topHeaderYaxis')
-        .call(yAxis);
+        // let gY = svg
+        // .append('g')
+        // .attr('transform', 'translate(' + 50 + ',' + (0)+ ')')
+        // .attr('class', 'topHeaderYaxis')
+        // .call(yAxis);
 
       let gX = svg
         .append('g')
@@ -954,7 +953,6 @@ let toData = datas
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
         }
         backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
-        console.log(d3.event.target.y.animVal.value)
         d3.event.stopPropagation();
       });
       rectNames.on('click', function() {
@@ -984,7 +982,6 @@ let toData = datas
 
         d3.select(`#${d3.event.target.id}_right`).attr('class', 'dragginglinesonclick');
         d3.select(`#${d3.event.target.id}_left`).attr('class', 'dragginglinesonclick');
-        console.log(d3.event.target.y.animVal.value)
         backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
       }
         d3.event.stopPropagation();
