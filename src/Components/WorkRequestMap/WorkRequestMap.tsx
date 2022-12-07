@@ -310,7 +310,7 @@ const WorkRequestMap = (type: any) => {
           map.isStyleLoaded(() => {
             applyMapLayers();
             applyProblemClusterLayer();
-            applyMapLayerfromArcgis();
+            // applyMapLayerfromArcgis();
           });
       }
   }, [layerFilters, selectedLayersWR]);
@@ -666,32 +666,32 @@ const applyProblemClusterLayer = () => {
     setProblemClusterGeojson(geoj.geom);
   });
 }
-const applyMapLayerfromArcgis = useCallback(async () => {
-  if (!map.map.getSource('testprojectarcgis')) {
-  map.map.addSource("testprojectarcgis",
-  {
-  type: "geojson",
-  //data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry=%7B%22xmin%22%3A-11740727.54461383%2C%22ymin%22%3A4852834.051789243%2C%22xmax%22%3A-11701591.786131874%2C%22ymax%22%3A4891969.810271202%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
-  data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22:-11750727.54461383,%22ymin%22:4852634.051789243,%22xmax%22:-11601591.786131874,%22ymax%22:4898969.810271202,%22spatialReference%22:{%22wkid%22:102100,%22latestWkid%22:3857}}&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
-  })
-  }
-  if (!map.map.getLayer('testprojects')) {
-  map.map.addLayer({
-  id: "testprojects",
-  type: "line",
-  source: "testprojectarcgis",
+// const applyMapLayerfromArcgis = useCallback(async () => {
+//   if (!map.map.getSource('testprojectarcgis')) {
+//   map.map.addSource("testprojectarcgis",
+//   {
+//   type: "geojson",
+//   //data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry=%7B%22xmin%22%3A-11740727.54461383%2C%22ymin%22%3A4852834.051789243%2C%22xmax%22%3A-11701591.786131874%2C%22ymax%22%3A4891969.810271202%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
+//   data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22:-11750727.54461383,%22ymin%22:4852634.051789243,%22xmax%22:-11601591.786131874,%22ymax%22:4898969.810271202,%22spatialReference%22:{%22wkid%22:102100,%22latestWkid%22:3857}}&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
+//   })
+//   }
+//   if (!map.map.getLayer('testprojects')) {
+//   map.map.addLayer({
+//   id: "testprojects",
+//   type: "line",
+//   source: "testprojectarcgis",
   
-  paint: {
-  "line-color": "white",
-  'line-width': 5
-  }
-  });
-  }
-  function showFsLayer () {
-  map.map.setLayoutProperty("testprojects", 'visibility', 'visible')
-  }
-  showFsLayer();
-  }, [selectedLayersWR]);
+//   paint: {
+//   "line-color": "white",
+//   'line-width': 5
+//   }
+//   });
+//   }
+//   function showFsLayer () {
+//   map.map.setLayoutProperty("testprojects", 'visibility', 'visible')
+//   }
+//   showFsLayer();
+//   }, [selectedLayersWR]);
   
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
@@ -1133,9 +1133,9 @@ const applyMapLayerfromArcgis = useCallback(async () => {
           if (map.map.getLayer(key + '_' + index)) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
-          if ( key === TEST_LINE) {
-            map.map.setLayoutProperty(key+ '_' + index, 'visibility', 'visible');
-          }
+          // if ( key === TEST_LINE) {
+          //   map.map.setLayoutProperty(key+ '_' + index, 'visibility', 'visible');
+          // }
         });
       }
       if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
@@ -1768,9 +1768,9 @@ const applyMapLayerfromArcgis = useCallback(async () => {
               </div>
             </div>
           )}
-        <Button style={{ top:'50px'}} onClick={() => createRandomGeomOnARCGIS()}>
+        {/* <Button style={{ top:'50px'}} onClick={() => createRandomGeomOnARCGIS()}>
           <span className="btn-02"  id='asasas'></span>
-        </Button>
+        </Button> */}
         </div>
         <div className="m-zoom">
           <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()}>
