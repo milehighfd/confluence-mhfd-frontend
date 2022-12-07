@@ -1277,7 +1277,7 @@ const PortafolioBody = () => {
     {
       id: 'Centennial8',
       headerLabel: 'Centennial',
-      rowLabel: 'West Tollgate Creek ',
+      rowLabel: 'West Tollgate Creek 1',
       date: moment('2022/08/19'),
       schedule: [
                {
@@ -1450,7 +1450,7 @@ const PortafolioBody = () => {
     {
       id: 'Centennial9',
       headerLabel: 'Centennial',
-      rowLabel: 'West Tollgate Creek ',
+      rowLabel: 'West Tollgate Creek 2',
       date: moment('2022/08/19'),
       schedule: [
         {
@@ -2343,7 +2343,7 @@ const PortafolioBody = () => {
     {
       id: 'Denver3',
       headerLabel: 'Denver',
-      rowLabel: 'East Tollgate Creek',
+      rowLabel: 'East Tollgate Creek 6',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -2515,7 +2515,7 @@ const PortafolioBody = () => {
     },{
       id: 'Denver4',
       headerLabel: 'Denver',
-      rowLabel: 'East Tollgate Creek',
+      rowLabel: 'East Tollgate Creek 1',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -2688,7 +2688,7 @@ const PortafolioBody = () => {
     {
       id: 'Denver5',
       headerLabel: 'Denver',
-      rowLabel: 'East Tollgate Creek',
+      rowLabel: 'East Tollgate Creek 2',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -2861,7 +2861,7 @@ const PortafolioBody = () => {
     {
       id: 'Denver6',
       headerLabel: 'Denver',
-      rowLabel: 'East Tollgate Creek',
+      rowLabel: 'East Tollgate Creek 3',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -3034,7 +3034,7 @@ const PortafolioBody = () => {
     {
       id: 'Denver7',
       headerLabel: 'Denver',
-      rowLabel: 'East Tollgate Creek',
+      rowLabel: 'East Tollgate Creek 4',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -3207,7 +3207,7 @@ const PortafolioBody = () => {
     {
       id: 'Denver8',
       headerLabel: 'Denver',
-      rowLabel: 'East Tollgate Creek',
+      rowLabel: 'East Tollgate Creek 5',
       date: moment('2022/08/15'),
       schedule: [
         {
@@ -3591,7 +3591,7 @@ const PortafolioBody = () => {
                     </Col>
                     <Col xs={{span:34}} lg={{span:19}}>
                       {optionSelect === 'List' && <TablePortafolio divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable}/>}
-                      {optionSelect === 'Phase'  && <PhaseView openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
+                      {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
                       {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
                     </Col>
                   </Row>

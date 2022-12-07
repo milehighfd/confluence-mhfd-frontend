@@ -9,8 +9,9 @@ import ModalGraphic from "./ModalGraphic";
 const { Step } = Steps;
 
 const PhaseView = (
-  {openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic}
+  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic}
   :{
+    rawData:any,
     openTable:boolean[],
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
@@ -49,10 +50,22 @@ const PhaseView = (
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -27 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -22)))
     const marginBottom = (windowWidth>=1900 && windowWidth<=2549 ? -35 :-26)
 
+    const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+    const completeData = sortedData.map((elem: any) => {
+      return {
+        ...elem,
+        values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+      }
+    });
+    const lengthData = completeData.length;
+    console.log('Data0',lengthData);
+    console.log('Data1', completeData[0].values);
+    console.log('Data2', dataDot1);
+
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
       completedtoActive
-        .attr("id", "Completed_Active")
+        .attr("id", "completed_active")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -66,7 +79,7 @@ const PhaseView = (
     
       let completedtoDelayed = svgDefinitions.append("linearGradient");
       completedtoDelayed
-        .attr("id", "Completed_Delayed")
+        .attr("id", "completed_delayed")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -80,7 +93,7 @@ const PhaseView = (
     
       let ActivetoNotStarted = svgDefinitions.append("linearGradient");
       ActivetoNotStarted
-        .attr("id", "Active_NotStarted")
+        .attr("id", "active_notStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -94,7 +107,7 @@ const PhaseView = (
     
       let ActivetoDelayed = svgDefinitions.append("linearGradient");
       ActivetoDelayed
-        .attr("id", "Active_Delayed")
+        .attr("id", "active_delayed")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -108,7 +121,7 @@ const PhaseView = (
     
       let delayedtoNotStarted = svgDefinitions.append("linearGradient");
       delayedtoNotStarted
-        .attr("id", "Delayed_NotStarted")
+        .attr("id", "delayed_notStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -121,19 +134,20 @@ const PhaseView = (
         .attr("stop-color", '#D4D2D9')  
     }
     
-    const phaseChart = (dataDotchart: any) => {
+    const phaseChart = (dataDotchart: any, index:number) => {
+    
 
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
-    console.log(document.getElementById(`Title${dataDotchart[0].id}`))
-      heightDiv  = document.getElementById(`Title${dataDotchart[0].id -1}`)?.offsetHeight; //265 - margin.top - margin.bottom;
+    console.log(`${dataDotchart[index].id}`)
+      heightDiv  = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       console.log('height div',heightDiv)
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 10:0);
     let height: any  = factorHeight + heightDiv +3;
   // append the svg object to the body of the page
    svg = d3
-    .select(`#dotchart_${dataDotchart[0].id}`)
+    .select(`#dotchart_${dataDotchart[index].id}`)
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -142,12 +156,14 @@ const PhaseView = (
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
     setSvgStatePhase(svg);
-  let datas = dataDotchart;
-
+    //dataDotchart =dataDotchart[0].values
+  let datas = dataDotchart[index].values;
+  console.log(datas);
   let arrayForCirclesAndLines = [];
-  for (var i = 0; i < datas[0].data.length; i++) {
+  for (var i = 0; i < datas[0].schedule.length; i++) {
     arrayForCirclesAndLines.push(i);
   }
+
   let svgDefinitions = svg.append("defs");
   svg.selectAll("defs")
       .data(datas)
@@ -168,12 +184,13 @@ const PhaseView = (
     .call(d3.axisBottom(x));
 
   // Y axis
+
   var y = d3
     .scaleBand()
     .range([0, height])
     .domain(
       datas.map((d: any) => {
-        return d.name;
+        return d.rowLabel;
       })
     )
     .padding(1);
@@ -190,21 +207,21 @@ const PhaseView = (
         .attr("x", xdr(r))
         .attr("width", xdr(r + 1) - xdr(r))
         .attr("y", (d: any) => {
-            let ydname: any = y(d.name);
+            let ydname: any = y(d.rowLabel);
           return ydname;
         })
         .attr("height", 2)
         .attr("stroke", (d: any) => {
-          let colorstroke: any = colorScale[d.data[r].status];
+          let colorstroke: any = colorScale[d.schedule[r].status];
           return colorstroke;
         })
         .attr("stroke", function(d: any) {      
-          let currentStatus = d.data[r].status.replace(/\s+/g, '');
-          let nextStatus = d.data[r+1].status.replace(/\s+/g, '');
+          let currentStatus = d.schedule[r].status.replace(/\s+/g, '');
+          let nextStatus = d.schedule[r+1].status.replace(/\s+/g, '');
           //console.log(currentStatus, nextStatus)
           return ( 
             (currentStatus === nextStatus) ?
-          colorScale[d.data[r].status]
+          colorScale[d.schedule[r].status]
           : (`url(#${currentStatus}_${nextStatus})`))
         })
         // .attr("stroke", "url(#textBg)")
@@ -217,22 +234,22 @@ const PhaseView = (
       circles
       .append("circle")
       .attr('id',(d: any) => {
-      return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}`;
+      return `${d.id}_${d.schedule[r].phase}`;
       })
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.name);
+        let ydname: any = y(d.rowLabel);
       return ydname;
       })
       .attr("r", radius)
       .style("fill", function (d: any) {
-        return colorScale[d.data[r].status];
+        return colorScale[d.schedule[r].status];
       })
     circles
       .append("circle")
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.name);
+        let ydname: any = y(d.rowLabel);
       return ydname;
       })
       .attr("r", radius - 1)
@@ -244,12 +261,12 @@ const PhaseView = (
       .append("circle")
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.name);
+        let ydname: any = y(d.rowLabel);
       return ydname;
       })
       .attr("r", radius - 3)
       .style("fill", function (d: any) {
-        return colorScale[d.data[r].status];
+        return colorScale[d.schedule[r].status];
       })
 
     svg
@@ -261,26 +278,26 @@ const PhaseView = (
       .attr('fill', '#ffffff')
       .attr('font-size',(windowWidth>=3001 && windowWidth<=3999 ? 23 :(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3000 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11))))))
       .text(function (d: any) {
-        return d.data[r].tasks;
+        return d.schedule[r].tasks;
       })
       .attr("x", function (d: any) {
         const factorCenter:any = (windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3999 ? 1.65: (windowWidth>=1450 && windowWidth<=2000 ? 1.7 :(windowWidth>=1199 && windowWidth<=1449 ? 2 :2))))
         const offset =
-          +d.data[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
+          +d.schedule[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
         return offset;
       })
       .attr("y", (d: any) => {
-        let ydname: any = y(d.name);
+        let ydname: any = y(d.rowLabel);
         return ydname + radius / 3;
       })
 
       ;
       circles
       .append("circle")
-      .attr('id', (d:any)=>{ return `${d.jurisdiction}${d.specificId}_${d.data[r].phase}_outer`})
+      .attr('id', (d:any)=>{ return `${d.id}_${d.schedule[r].phase}_outer`})
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
-        let ydname: any = y(d.name);
+        let ydname: any = y(d.rowLabel);
       return ydname;
       })
       .attr("r", radius+0.5)
@@ -309,114 +326,128 @@ const PhaseView = (
         setGrapphicOpen(false);
         setPositionModalGraphic({left: 10000,top:10000})
         d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-          return colorScale[d.data[r].status];
+          return colorScale[d.schedule[r].status];
         });
         let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
         d3.select(`#${searchTextId}`).style('background-color','white');
       })
       ;
   });
-  //circles.on("click", (d: any) => setOpenPiney(true));
   }
   useEffect(() => {
-    // let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
-    // let popupfactorRigth = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 40:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?38:(windowWidth>=1199 && windowWidth<=1449?30:30)))))
-    //     let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
-    //     let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-    // const mouseFn = (e: any) => {
-    //   console.log('Mousemove event', e);
-    //   setPositionModalGraphic({ left: e.screenX-185, top: e.screenY-355});
-    // };
-    // window.addEventListener('mousemove', mouseFn);
-    
-      phaseChart(dataDot3);
-      phaseChart(dataDot2);
-      phaseChart(dataDot1);
-      // return () => {
-      //   window.removeEventListener('mousemove', mouseFn);
-      // };
+    for (let index = 0; index < completeData.length; index++) {
+      phaseChart(completeData,index);
+    }
   }, []);
 
   useEffect(() => {
-      const removeAllChildNodes = (parent: any) => {
-        while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
-        }
-      };
-      for (let index = 0; index < 3; index++) {
-        const chart = document.getElementById(`dotchart_${index+1}`);
-          removeAllChildNodes(chart);
-      }
+      // const removeAllChildNodes = (parent: any) => {
+      //   while (parent.firstChild) {
+      //     parent.removeChild(parent.firstChild);
+      //   }
+      // };
+      // completeData.map((elem: any, index: number) => (
+      //   removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
+      // ));
       setTimeout(() => {
         if(openTable[2]){
-          phaseChart(dataDot3);
+          //phaseChart(dataDot3);
         }
         if(openTable[1]){
-          phaseChart(dataDot2);
+         // phaseChart(dataDot2);
         }
         if(openTable[0]){
-          phaseChart(dataDot1);
+          //phaseChart(completeData);
         }
       }, 210);
 
 }, [openTable, windowWidth]);
 
   
-  return <div className="phaseview-body">
-    {openPiney && <div className="piney-text"><PineyView setOpenPiney={setOpenPiney} /></div>}
-    <div className="phaseview-content">
-      <div className="phaseview-title-label" id='phaseviewTitlleWidth'>
-        <p style={{border:'transparent'}}>Draft</p>
-        <p>Requested</p>
-        <p>Approved</p>
-        <p style={{display:'flex', width:'40%'}}><hr className='hr2'></hr>Active<hr></hr></p>
-        <p style={{display:'flex', width:'33.33333335%'}}><hr ></hr>Closeout<hr></hr></p>
-        <p>Closed</p>
-      </div>
-      <div className="phaseview-title" id='phaseviewTitlleWidth'>
-        <p>Draft</p>
-        <p>Work Request<br/>(WR)</p>
-        <p>Work Plan<br/>(WP)</p>
-        <p>Startup</p>
-        <p>Funding</p>
-        <p>Consultant Procurement</p>
-        <p>Conceptual Design</p>
-        <p>Preliminary<br/>Design</p>
-        <p>Final<br/>Design</p>
-        <p>Construction Contracting</p>
-        <p>Construction</p>
-        {windowWidth>=1199 && windowWidth<=1449 ? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
-        <p>Establishment</p>
-        <p>Closeout</p>
-        <p>Closed</p>
-      </div>
-      <div className="header-timeline"></div>
-      <div
-        className="container-timeline"
-        ref={phaseRef}
-        onScroll={(e:any) => {
-          let dr: any =  phaseRef.current;
-          if(searchRef.current){
-            searchRef.current.scrollTo(0, dr.scrollTop);
-          }
-        }}
-      >
-        <div className="phaseview-timeline" 
-        >
-          <div id="dotchart_1" ></div>
+  return (
+    <div className="phaseview-body">
+      {openPiney && (
+        <div className="piney-text">
+          <PineyView setOpenPiney={setOpenPiney} />
+        </div>
+      )}
+      <div className="phaseview-content">
+        <div className="phaseview-title-label" id="phaseviewTitlleWidth">
+          <p style={{ border: 'transparent' }}>Draft</p>
+          <p>Requested</p>
+          <p>Approved</p>
+          <p style={{ display: 'flex', width: '40%' }}>
+            <hr className="hr2"></hr>Active<hr></hr>
+          </p>
+          <p style={{ display: 'flex', width: '33.33333335%' }}>
+            <hr></hr>Closeout<hr></hr>
+          </p>
+          <p>Closed</p>
+        </div>
+        <div className="phaseview-title" id="phaseviewTitlleWidth">
+          <p>Draft</p>
+          <p>
+            Work Request
+            <br />
+            (WR)
+          </p>
+          <p>
+            Work Plan
+            <br />
+            (WP)
+          </p>
+          <p>Startup</p>
+          <p>Funding</p>
+          <p>Consultant Procurement</p>
+          <p>Conceptual Design</p>
+          <p>
+            Preliminary
+            <br />
+            Design
+          </p>
+          <p>
+            Final
+            <br />
+            Design
+          </p>
+          <p>Construction Contracting</p>
+          <p>Construction</p>
+          {windowWidth >= 1199 && windowWidth <= 1449 ? (
+            <p>
+              Documen-
+              <br />
+              tation
+            </p>
+          ) : (
+            <p>Documentation</p>
+          )}
+          <p>Establishment</p>
+          <p>Closeout</p>
+          <p>Closed</p>
         </div>
         <div className="header-timeline"></div>
-        <div className="phaseview-timeline" 
-        >
-          <div id="dotchart_2" ></div>
-        </div>
-        <div className="header-timeline"></div>
-        <div className="phaseview-timeline" style={!openTable[0] ? {paddingBottom:'6px', marginBottom:'15px'}:{marginBottom:'15px'}}>
-          <div id="dotchart_3" ></div>
+        <div
+            className="container-timeline"
+            ref={phaseRef}
+            onScroll={(e: any) => {
+              let dr: any = phaseRef.current;
+              if (searchRef.current) {
+                searchRef.current.scrollTo(0, dr.scrollTop);
+              }
+            }}
+          >
+        {completeData.map((elem: any, index: number) => (
+          <div>
+            <div className="phaseview-timeline">
+              <div id={`dotchart_${elem.id}`}></div>
+            </div>
+            {lengthData-1 ===index ?'': <div className="header-timeline"></div>}
+          </div>
+        ))}
         </div>
       </div>
     </div>
-  </div>
+  );
 };
 
 export default PhaseView;
