@@ -168,8 +168,13 @@ const PortafolioBody = () => {
     setOpenTable(new Array(sortedData.length).fill(true));
   }, []);
   useEffect(() => {
-    console.log('opent', openTable);
-  }, [openTable]);
+    console.log('opent', optionSelect);
+    if(searchRef) {
+      let div: any = searchRef?.current;
+      console.log('dicv', div);
+      div.scrollTop = 0;
+    }
+  }, [optionSelect]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
