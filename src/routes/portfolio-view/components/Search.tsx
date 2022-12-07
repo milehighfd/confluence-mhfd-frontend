@@ -28,6 +28,7 @@ const Search = (
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     rawData: any
   }) => {
+
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   const [detailOpen, setDetailOpen] = useState(false);
   let displayedTabKey = tabKeys;
@@ -89,6 +90,8 @@ const Search = (
       values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
+  useEffect(() => {
+  }, [sortedData]);
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div className="search" id='searchPortfolio'>
@@ -128,7 +131,10 @@ const Search = (
               onChange={
                 (e)=>{
                   setTimeout(()=>{
-                    setOpenTable([e.length > 0 , openTable[1], openTable[2]]);
+                    setOpenTable( oldArray => {
+                      oldArray[index] = !oldArray[index];
+                      return oldArray;
+                    });
                   },70)
                 }
               } className={openTable[0] && index === 0? "collapse-first":""}>
