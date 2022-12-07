@@ -26,8 +26,9 @@ const UserView = lazy(() => import('./Components/User/UserView'));
 const maptest = lazy(() => import('./routes/maptest'));
 
 const App = () => {
-  console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
-  console.log('Aug 26 version');
+  // console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
+  // console.log(`ENVIRONTMENT: ${JSON.stringify(process.env, null, 2)}`);
+  console.log('Dec 7   version');
   
 
   const appUser = useAppUserState();

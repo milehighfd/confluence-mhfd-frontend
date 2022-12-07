@@ -243,6 +243,9 @@ const RequestView = ({ type, isFirstRendering }: {
             setLocalities(r.localities);
             let localitiesData = r.localities.map((l: any) => l.name);
             localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+            localitiesData.push('月');
+            
+            
             setDataAutocomplete(localitiesData);
               if (_year) {
                 setYear(_year)
