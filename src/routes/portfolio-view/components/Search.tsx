@@ -22,7 +22,7 @@ const Search = (
     tableRef: React.MutableRefObject<HTMLDivElement | null>,
     scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
-    openTable: boolean[],
+    openTable: any[],
     hoverTable:number[],
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
@@ -91,6 +91,9 @@ const Search = (
     }
   });
   useEffect(() => {
+    console.log('opent', openTable);
+  }, [openTable]);
+  useEffect(() => {
   }, [sortedData]);
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
@@ -129,13 +132,13 @@ const Search = (
             <Collapse
               defaultActiveKey={['1']}
               onChange={
-                (e)=>{
-                  setTimeout(()=>{
-                    setOpenTable( oldArray => {
-                      oldArray[index] = !oldArray[index];
-                      return oldArray;
-                    });
-                  },70)
+                ()=>{
+                  // setTimeout(()=>{
+                    const newOpenTable = [...openTable];
+                    newOpenTable[index] = !openTable[index] as any;
+                    console.log('bew open', newOpenTable);
+                    setOpenTable(newOpenTable);
+                  // },70)
                 }
               } className={openTable[0] && index === 0? "collapse-first":""}>
               <Panel header={elem.headerLabel} key="1" id={elem.id}>

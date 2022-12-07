@@ -167,7 +167,9 @@ const PortafolioBody = () => {
     const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
     setOpenTable(new Array(sortedData.length).fill(true));
   }, []);
-
+  useEffect(() => {
+    console.log('opent', openTable);
+  }, [openTable]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
