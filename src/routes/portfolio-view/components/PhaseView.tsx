@@ -58,9 +58,6 @@ const PhaseView = (
       }
     });
     const lengthData = completeData.length;
-    console.log('Data0',lengthData);
-    console.log('Data1', completeData[0].values);
-    console.log('Data2', dataDot1);
 
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
@@ -341,24 +338,20 @@ const PhaseView = (
   }, []);
 
   useEffect(() => {
-      // const removeAllChildNodes = (parent: any) => {
-      //   while (parent.firstChild) {
-      //     parent.removeChild(parent.firstChild);
-      //   }
-      // };
-      // completeData.map((elem: any, index: number) => (
-      //   removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
-      // ));
+      const removeAllChildNodes = (parent: any) => {
+        while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+        }
+      };
+      completeData.map((elem: any, index: number) => (
+        removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
+      ));
       setTimeout(() => {
-        if(openTable[2]){
-          //phaseChart(dataDot3);
-        }
-        if(openTable[1]){
-         // phaseChart(dataDot2);
-        }
-        if(openTable[0]){
-          //phaseChart(completeData);
-        }
+        for (let index = 0; index < completeData.length; index++) {
+          if(openTable[index]){
+            phaseChart(completeData,index);
+          }
+        }        
       }, 210);
 
 }, [openTable, windowWidth]);
