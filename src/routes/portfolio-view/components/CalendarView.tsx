@@ -190,8 +190,12 @@ let toData = datas
 
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
   
+  let heigthOfHeaderAxis= (windowWidth>=3001 && windowWidth<=3999 ? 50:(windowWidth>=2550 && windowWidth<=3000 ?57: (windowWidth>=1450 && windowWidth<=2000 ?40:(windowWidth>=2001 && windowWidth<=2549 ?40:(windowWidth>=1199 && windowWidth<=1449 ?40:40)))));
+  let separationHeaderAxisYear= (windowWidth>=3001 && windowWidth<=3999 ? 3:(windowWidth>=2550 && windowWidth<=3000 ?6: (windowWidth>=1450 && windowWidth<=2000 ?0:(windowWidth>=2001 && windowWidth<=2549 ?0:(windowWidth>=1199 && windowWidth<=1449 ?0:0)))));
+  let separationHeaderAxisMonth= (windowWidth>=3001 && windowWidth<=3999 ? 10:(windowWidth>=2550 && windowWidth<=3000 ?13: (windowWidth>=1450 && windowWidth<=2000 ?0:(windowWidth>=2001 && windowWidth<=2549 ?0:(windowWidth>=1199 && windowWidth<=1449 ?0:0)))));
+  let separationHeaderAxisInFunction= (windowWidth>=3001 && windowWidth<=3999 ? 25:(windowWidth>=2550 && windowWidth<=3000 ?25: (windowWidth>=1450 && windowWidth<=2000 ?20:(windowWidth>=2001 && windowWidth<=2549 ?20:(windowWidth>=1199 && windowWidth<=1449 ?20:20)))));
 
-  let marginTopFactor= (windowWidth>=3001 && windowWidth<=3999 ? '-44px':(windowWidth>=2550 && windowWidth<=3000 ? '-45px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' : (windowWidth>=2001 && windowWidth<=2549 ? '-28px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px')))));
+  let marginTopFactor= (windowWidth>=3001 && windowWidth<=3999 ? '-55px':(windowWidth>=2550 && windowWidth<=3000 ? '-45px': (windowWidth>=1450 && windowWidth<=2000 ? '-40px' : (windowWidth>=2001 && windowWidth<=2549 ? '-28px' :(windowWidth>=1199 && windowWidth<=1449 ? '-45px' :'-45px')))));
   let barHeightDefault =  (windowWidth>=3001 && windowWidth<=3999 ? 42:(windowWidth>=2550 && windowWidth<=3000 ? 40: (windowWidth>=2001 && windowWidth<=2549 ? 36 :(windowWidth>=1450 && windowWidth<=2000 ? 30:(windowWidth>=1199 && windowWidth<=1449 ? 27 :27)))));
   let width = widthofDiv - 20;
   let factorHeight =(windowWidth>=3001 && windowWidth<=3999 ? 250:(windowWidth>=2550 && windowWidth<=3000 ? 162:(windowWidth>=2001 && windowWidth<=2549 ? 259 :(windowWidth>=1450 && windowWidth<=2000 ? 180 :(windowWidth>=1199 && windowWidth<=1449 ? 21.55 :21.5)))));
@@ -221,7 +225,7 @@ let toData = datas
     .select('#timeline-chart-axis')
     .append('svg')
     .attr('width', width)
-    .attr('height', 40);
+    .attr('height', heigthOfHeaderAxis);
 
     let dragablesLines = 'dragginglines';
 
@@ -326,7 +330,7 @@ let toData = datas
 
         let gXa = svgAxis
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top+ separationHeaderAxisMonth)+ ')')
         .attr('class', 'topHeader')
         .call(xAxisDay);
 
@@ -344,13 +348,13 @@ let toData = datas
 
       let gX2a = svgAxis
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22) + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22 + separationHeaderAxisMonth) + ')')
         .attr('class', 'topHeaderYear')
         .call(xAxisYear);
 
         let gX2aYear = svgAxis
         .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22) + ')')
+        .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22+ separationHeaderAxisYear) + ')')
         .attr('class', 'topHeaderYearAxis')
         .call(xAxisYear);
       
@@ -1147,7 +1151,7 @@ let toData = datas
              setTimeout(function() {
             d3.select('.topHeaderYear').selectAll('.name').call(setTextPositionMonth, zoomedXScale);
              }, 100);
-             name.attr('transform', function(d: any) { return (d3.event.transform.k < 14 ? 'translate(0,' +20+ ')' : 'translate(0,' +0+ ')')})
+             name.attr('transform', function(d: any) { return (d3.event.transform.k < 14 ? 'translate(0,' +separationHeaderAxisInFunction+ ')' : 'translate(0,' +0+ ')')})
               nameUpdate = nameUpdate.transition().duration(300);
               nameExit = nameExit.transition().duration(300);
 
