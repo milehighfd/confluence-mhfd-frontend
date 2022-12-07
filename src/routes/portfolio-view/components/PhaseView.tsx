@@ -126,7 +126,8 @@ const PhaseView = (
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
-      heightDiv  = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
+    console.log(document.getElementById(`Title${dataDotchart[0].id}`))
+      heightDiv  = document.getElementById(`Title${dataDotchart[0].id -1}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       console.log('height div',heightDiv)
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 10:0);
     let height: any  = factorHeight + heightDiv +3;
@@ -260,12 +261,12 @@ const PhaseView = (
       .attr('fill', '#ffffff')
       .attr('font-size',(windowWidth>=3001 && windowWidth<=3999 ? 23 :(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3000 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11))))))
       .text(function (d: any) {
-        return d.data[r].value;
+        return d.data[r].tasks;
       })
       .attr("x", function (d: any) {
         const factorCenter:any = (windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3999 ? 1.65: (windowWidth>=1450 && windowWidth<=2000 ? 1.7 :(windowWidth>=1199 && windowWidth<=1449 ? 2 :2))))
         const offset =
-          +d.data[r].value > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
+          +d.data[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
         return offset;
       })
       .attr("y", (d: any) => {
