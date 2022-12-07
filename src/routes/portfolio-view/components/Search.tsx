@@ -89,7 +89,6 @@ const Search = (
       values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
-  console.log('complete Data', completeData);
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div className="search" id='searchPortfolio'>

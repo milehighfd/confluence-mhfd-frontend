@@ -199,11 +199,12 @@ let toData = datas
     // let factorHeight = heightChart * 0.03555; 
   const timelineChart = (datasets: any) => {
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
-    let barHeight = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight) * 0.8: barHeightDefault;
-    let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight) * 0.2: 12;
-    console.log('VALUES ', barHeight, paddingBars, heightDiv);
-    let height = (barHeight+paddingBars) * (datas.length + 1);
+    let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8): barHeightDefault;
+    let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight): 12;
     let padding = { top: 38, right: 10, bottom: 10, left: -0 };
+    // console.log('VALUES ', barHeight, paddingBars, "CALC",  heightDiv[0].offsetHeight, '*', datasets.length, '+', padding.top, padding.bottom);
+    let height =  (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
+    // console.log('HEIGHT ', height);
       if (svg){
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
@@ -260,8 +261,8 @@ let toData = datas
       let yScale = d3
         .scaleBand()
         .domain(datasets.map((d: any) => d.id))
-        .range([padding.top + 5, height - padding.bottom]);
-
+        .range([padding.top, height - padding.bottom]);
+      // console.log('BANDWIDTH', padding.top, height - padding.bottom, datasets.length, yScale.bandwidth());
       let chartHeight = height - padding.top - padding.bottom;
       let timeFormatterForYears: any = d3.timeFormat('%Y');
       let timeFormatterForMonths: any = d3.timeFormat('%B');
