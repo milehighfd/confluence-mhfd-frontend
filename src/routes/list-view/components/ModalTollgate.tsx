@@ -39,10 +39,10 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
                 <Row style={{height: '30px'}}>
-                  <Col xs={{ span: 12 }} lg={{ span: 9}} style={{textAlign:'center'}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
                     <h5>Start Date</h5>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 9}} style={{textAlign:'center'}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
                     <h5>End Date</h5>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 4}} style={{textAlign:'center'}}>
