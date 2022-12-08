@@ -377,9 +377,12 @@ body{
     .img-carousel-detail{
       position: absolute;
       right: 15px;
-      top: 180px;
+      top: 186px;
       width: 80px;
       height: 70px;
+      img:hover{
+        border: 1px solid white;
+      }
     }
     .detail-left{
       position: absolute;
@@ -886,7 +889,7 @@ body{
 
 .modal-tollgate{
   width: 544px !important;
-  top:157px !important;
+  top:123px !important;
   .ant-picker-range .ant-picker-active-bar {
     background: #11093c;
   }
@@ -1983,7 +1986,7 @@ body{
     border-radius: 10px;
   }
   .tollgate-body{
-    height: calc(100vh - 466px) !important;
+    height: calc(100vh - 438px) !important;
   }
 }
 .ant-picker {
@@ -3066,6 +3069,18 @@ body{
       top: 19px;
     }
   }
+  .detailed-modal{
+    .detailed-b{
+      .img-carousel-detail{
+        top: 200px ;
+        width: 90px;
+        height: 80px;
+      }
+    }
+  }
+  .modal-tollgate{
+    width: 165px !important;
+  }
 }
 @media (min-width: 2550px) and (max-width: 3799px){
   .detailed-b{
@@ -3088,7 +3103,7 @@ body{
   .modal-tollgate{
     width: 698px !important;
       font-size: 18px !important;
-      top:184px !important;
+      top:159px !important;
       .ant-picker-input>input {
         font-size: 20px !important;
       }
@@ -3122,6 +3137,9 @@ body{
   .detailed-h{
     .image-modal-body{
       height: 807px !important;
+      img{
+        border-radius: 20px !important;
+      }
       .tag-carousel{
         font-size: 23px;
         left: 687px;
@@ -3140,7 +3158,7 @@ body{
       height: 269px !important;
     }
     .row-modal-list-view{
-      height: calc(100vh - 542px) !important;
+      height: calc(100vh - 620px) !important;
       h5{
         font-size: 20px;
       }

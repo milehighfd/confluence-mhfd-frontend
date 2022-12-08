@@ -1897,8 +1897,8 @@ hr.filters-line {
 .filt-00{
   margin-bottom: 18px;
   h5{
-    font-size: 14px;
-    color: $purple;
+    font-size: 15px;
+    color: #131436;
     // text-transform: uppercase;
   }
   .filt-s{
@@ -2043,7 +2043,7 @@ hr.filters-line {
   font-size: 12px;
   text-align: center;
 }
-@media only screen and (min-width: 1600px){
+@media only screen and (min-width: 1900px){
   .svg-scroll{
     height: 220px !important;
   }
@@ -2060,8 +2060,13 @@ hr.filters-line {
     font-size: 18px !important;
     color: #131436 !important;
   }
+  .filt-00{
+    h5{
+      font-size: 18px !important;
+    }
+  }
 }
-@media only screen and (min-width: 2000px){
+@media only screen and (min-width: 2549px){
   .svg-scroll{
     height: 260px !important;
   }
@@ -2075,8 +2080,18 @@ hr.filters-line {
       font-weight: 400 !important;
     }
   }
+  .filt-00{
+    h5{
+      font-size: 21px !important;
+    }
+  }
 }
-@media only screen and (min-width: 3000px){
+@media only screen and (min-width: 3800px){
+  .filt-00{
+    h5{
+      font-size: 29px !important;
+    }
+  }
   .svg-scroll{
     height: 450px !important;
   }

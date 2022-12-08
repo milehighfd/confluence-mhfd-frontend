@@ -2632,12 +2632,19 @@
     visibility: visible;
   }
   .filters{
+    width: 927px !important;
     .filters-foot{
       bottom: 190px !important;
     }
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .filters{
+    width: 1220px !important;
+    .filters-foot{
+      bottom: 190px !important;
+    }
+  }
   .lines-calendar{
     height: 50px;
     top: 95px;
@@ -2667,17 +2674,40 @@
     font-size: 18px !important;
   }
   .phaseview-body{
+    .chart-container{
+      height: calc(100vh - 277px) !important;
+    }
+    .zoom-buttons{
+      height: 26px !important;
+    margin-bottom: 18px !important;
+    background: transparent !important;
+    }
+    .header-zoom{
+      // padding-right: 465px !important;
+      span{
+        font-size: 22px !important;
+      }
+    }
     .piney-text{
       width: 625px !important;
+      .ant-dropdown-menu-title-content{
+        span{
+          font-size: 18px !important;
+        }
+        img{
+          height: 34px !important;
+          width: 34px !important;
+        }
+      }
       h1{
         font-size: 26px !important;
       }
       .tag-blue{
         font-size: 25px !important;
+        border-radius: 25px !important;
       }
       p{
         font-size: 25px !important;
-        line-height: 22px !important;
       }
       span{
         font-size: 25px !important;
@@ -2691,6 +2721,8 @@
         }
       }
     }
+  }
+    
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 382px) !important;
@@ -2782,7 +2814,6 @@
         }
       }
     }
-  }
   .piney-modal-detail{
     h1{
       font-size: 22px !important;
@@ -2951,7 +2982,7 @@
   .phaseview-body{
     .phaseview-content{
       .container-timeline{
-        height: calc(100vh - 338.5px) !important;
+        height: calc(100vh - 363.5px) !important;
       }
       .phaseview-title{
         p{

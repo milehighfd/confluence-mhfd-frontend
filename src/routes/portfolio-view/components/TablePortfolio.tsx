@@ -5,13 +5,14 @@ import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
 import DetailModal from "routes/detail-page/components/DetailModal";
 const TablePortafolio = (
-  {divRef, searchRef, openTable, setHoverTable,hoverTable}
+  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData}
   :{
     divRef:React.MutableRefObject<HTMLDivElement | null>,
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
     openTable: boolean[],
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     hoverTable:number[],
+    rawData: any,
   }) => {
   
   const [detailOpen, setDetailOpen] = useState(false);
@@ -168,6 +169,13 @@ const TablePortafolio = (
       ellipsis: true,
     }
   ];
+  const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+  const completeData = sortedData.map((elem: any) => {
+    return {
+      ...elem,
+      values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+    }
+  });
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
@@ -181,10 +189,46 @@ const TablePortafolio = (
         }
       }}
     >
-      <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}>
-
-      </div>
-      <Table
+    <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
+    {
+      completeData.map((elem: any, index: number) => {
+        console.log(index, elem.values, 'Dottyyyyy')
+        return(
+          <Table
+            columns={columns}
+            dataSource={elem.values}
+            pagination={{ pageSize: 1000 }}
+            className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: event => {}, // click row
+                onDoubleClick: event => {}, // double click row
+                onContextMenu: event => {}, // right button click row
+                onMouseEnter: event => {setHoverTable([1,index,rowIndex? rowIndex:0]);}, // mouse enter row
+                onMouseLeave: event => {}, // mouse leave row
+              };
+            }}
+            onHeaderRow={(record, rowIndex) => {
+              return {
+                onClick: event => {}, // click row
+                onDoubleClick: event => {}, // double click row
+                onContextMenu: event => {}, // right button click row
+                onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
+                onMouseLeave: event => {}, // mouse leave row
+              };
+            }}
+            rowClassName={(record:any) => {
+              if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === index){
+                return 'active-table-row'
+              }
+              return ''
+            }}
+          />
+        )
+        
+      })
+    }
+      {/* <Table
         columns={columns}
         dataSource={dataTable}
         className={openTable[0] ? "table-portafolio table-first": "table-portafolio table-close table-first table-clouse-first"}
@@ -271,7 +315,7 @@ const TablePortafolio = (
           }
           return ''
         }}
-      />
+      /> */}
     </div>
     
   </div>

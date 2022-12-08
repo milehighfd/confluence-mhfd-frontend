@@ -328,8 +328,8 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
           <p>REQUESTED</p>
           <p>APPROVED</p>
-          <p style={{display:'flex', width:'40%'}}><hr className='hr2' style={{color:'transparent', border:'transparent'}}></hr>ACTIVE<hr style={{color:'transparent', border:'transparent'}}></hr></p>
-          <p style={{display:'flex', width:'33.33333335%'}}><hr style={{color:'transparent', border:'transparent'}}></hr>CLOSEOUT<hr style={{color:'transparent', border:'transparent'}}></hr></p>
+          <p style={{display:'flex', width:'40%'}}><hr className='hr2' style={{width:'35%'}}></hr>ACTIVE<hr style={{width:'35%'}}></hr></p>
+          <p style={{display:'flex', width:'33.33333335%'}}><hr  style={{width:'31%'}}></hr>CLOSEOUT<hr style={{width:'31%'}}></hr></p>
           <p>CLOSED</p>
         </div>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
