@@ -824,7 +824,7 @@
     
     .search-body{
       overflow-y: auto;
-      height: calc(100vh - 225px);
+      height: calc(100vh - 232px);
       margin-top: 19.5px;
     }
     .search-body::-webkit-scrollbar {
@@ -929,7 +929,7 @@
   .table-body{
     .table-body-body{
       overflow-y: auto;
-      height: calc(100vh - 226.5px);
+      height: calc(100vh - 232.5px);
       .line-table{
         height: 38px;
         background-color: #fbfbfc;
@@ -1072,7 +1072,7 @@
   }
   .calendar-body{
     .chart-container{
-      height: calc(100vh - 250px);
+      height: calc(100vh - 223px);
     }
     .chart-container::-webkit-scrollbar {
       width: 5px;
@@ -1866,6 +1866,9 @@
     }
   }
   .phaseview-body{
+    .chart-container{
+      height: calc(100vh - 250px) !important;
+    }
     .piney-text{
       width: 385px !important;
       h1{
@@ -1899,9 +1902,32 @@
     .chart-container{
       height: calc(100vh - 250px) !important;
     }
+    .piney-text{
+      width: 385px !important;
+      h1{
+        font-size: 20px !important;
+      }
+      .tag-blue{
+        font-size: 16px !important;
+      }
+      p{
+        font-size: 16px !important;
+      }
+      span{
+        font-size: 16px !important;
+      }
+    }
+    .body-piney-body{
+      .form-text-calendar{
+        img{height: 30px !important;}
+        input{
+          font-size: 16px !important;
+        }
+      }
+    }
     .body-piney{
       .body-piney-body{
-        height: calc(100vh - 350px) !important;
+        height: calc(100vh - 338px) !important;
       }
     }
   }
@@ -2236,6 +2262,7 @@
         }
       }
     }
+  }
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 382px) !important;
@@ -2326,7 +2353,7 @@
           padding-left: 0px;
         }
       }
-    }
+    
   }
   .piney-modal-detail{
     h1{
@@ -2913,7 +2940,7 @@
     }
     .search-body{
       margin-top: 35px !important;
-      height: calc(100vh - 282px) !important;
+      height: calc(100vh - 295px) !important;
     }
     .title-search{
       width: 110% !important;
@@ -2964,7 +2991,7 @@
         padding-top: 10px !important;
       }
       .ant-table-thead {
-        height: 73.3px !important;
+        height: 80.3px !important;
         border-radius: 7px 7px 0px 0px;
       }
     }

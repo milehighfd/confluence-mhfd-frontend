@@ -776,6 +776,9 @@ body{
     color: #11093c;
     overflow-y: hidden;
     // height: 400px;
+    img{
+      border-radius: 20px !important;
+    }
   }
   .body-modal-data{
     overflow-y: scroll;
