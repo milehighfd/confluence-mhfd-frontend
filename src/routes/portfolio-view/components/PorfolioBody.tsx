@@ -6,7 +6,7 @@ import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
 import TablePortafolio from "./TablePortfolio";
 import PhaseView from "./PhaseView";
-import ActionItems from "./ActionItems";
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 import ModalFields from "routes/list-view/components/ModalFields";
@@ -45,7 +45,15 @@ const PortafolioBody = () => {
   const [moveSchedule, setMoveSchedule] = useState('null'); 
   const [zoomTimeline, setZoomTimeline] = useState(0);
   // console.log('zoom',zoomTimeline);
-  
+  const {
+    boundsMap,
+    filterProjectOptions,
+  } = useMapState();
+  const {
+    getParamFilterProjects,
+    setFilterProjectOptions
+} = useMapDispatch();
+
   const menu = (
     <Menu
       className="menu-drop"
@@ -166,6 +174,8 @@ const PortafolioBody = () => {
   useEffect(() => {
     const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
     setOpenTable(new Array(sortedData.length).fill(true));
+    // console.log('boundsmap', boundsMap, filterProjectOptions);
+    getParamFilterProjects('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
   }, []);
   useEffect(() => {
     console.log('opent', optionSelect);

@@ -192,7 +192,6 @@ const TablePortafolio = (
     <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
     {
       completeData.map((elem: any, index: number) => {
-        console.log(index, elem.values, 'Dottyyyyy')
         return(
           <Table
             columns={columns}

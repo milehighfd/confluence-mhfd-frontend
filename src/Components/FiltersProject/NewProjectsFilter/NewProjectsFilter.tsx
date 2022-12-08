@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Col, Popover, Select } from 'antd';
 import PieChart from "../NewProblemsFilter/PieChart";
 import TreeMap from "../NewProblemsFilter/TreeMap";
@@ -89,7 +89,9 @@ export const NewProjectsFilter = () => {
         });
 
     const axisLabel = 'Number of Projects';
-
+    useEffect(() => {
+      console.log('param Projects', paramProjects);
+    }, [paramProjects]);
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00">
             <Col span={12}>
