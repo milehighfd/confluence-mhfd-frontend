@@ -237,7 +237,7 @@
   opacity: 0.6 !important;
   font-weight: 400 !important;
   margin: -5px -7px;
-  padding: 5px 10px;
+  padding: 3px 10px;
   font-size: 14px;
   border-radius: 5px;
 }
@@ -249,6 +249,7 @@
 }
 .menu-sub-drop {
   opacity: 1 !important;
+  padding: 4.5px 10px !important;
 }
 .tutorial{
   .btn-question{
@@ -776,6 +777,7 @@
       img{
         height: 34px !important;
         width: 34px !important;
+
       }
     }
   }
