@@ -51,7 +51,7 @@ const PortafolioBody = () => {
   } = useMapState();
   const {
     getParamFilterProjects,
-    setFilterProjectOptions
+    setBoundMap
 } = useMapDispatch();
 
   const menu = (
@@ -175,8 +175,14 @@ const PortafolioBody = () => {
     const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
     setOpenTable(new Array(sortedData.length).fill(true));
     // console.log('boundsmap', boundsMap, filterProjectOptions);
-    getParamFilterProjects('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
+    setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
   }, []);
+  useEffect(() => {
+    console.log('bounds map', boundsMap);
+    if (boundsMap !== '') {
+      getParamFilterProjects(boundsMap);
+    }
+  }, [boundsMap]);
   useEffect(() => {
     console.log('opent', optionSelect);
     if(searchRef) {
