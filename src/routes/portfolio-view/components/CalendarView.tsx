@@ -1143,7 +1143,7 @@ let toData = datas
         .append('text')
         .attr('class', 'name')
         
-        .text(function(d: any) { console.log(d3.event.transform.k); return (d3.event.transform.k < 10 ? d3.timeFormat('%b')(d):d3.timeFormat('%B')(d)) })
+        .text(function(d: any) { console.log(d); return (d3.event.transform.k < 10 ? d3.timeFormat('%b')(d):d3.timeFormat('%B')(d)) })
         
         .call(setTextPositionMonth, zoomedXScale);
             // set text position in the other thread
@@ -1414,7 +1414,7 @@ let toData = datas
       </Col>
       <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth>1900 ?(pageWidth>2550 ?((pageWidth>3800 ?{textAlign:'end', paddingRight:'638px'}:{textAlign:'end', paddingRight:'465px'})):{textAlign:'end', paddingRight:'396px'}): {textAlign:'end', paddingRight: '305px'}): {textAlign:'end', paddingRight:'15px'}} className='header-zoom'>
         <div>
-        {openPiney ? <><Button style={{border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop:'0px', paddingBottom:'0px'}} onClick={() => {setOpenModalTollgate(true)}}>
+        {openPiney ? <><Button style={{border: '1px solid transparent', background: 'none',color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop:'0px', paddingBottom:'0px'}} onClick={() => {setOpenModalTollgate(true)}}>
             <CalendarOutlined /> Edit Dates
           </Button>
           <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
