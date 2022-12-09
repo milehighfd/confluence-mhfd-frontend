@@ -323,7 +323,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       </Row>
       <Row>
       <div className="phaseview-content">
-        <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{marginBottom:'10px'}}>
+        <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage'>
           <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
           <p>REQUESTED</p>
           <p>APPROVED</p>
@@ -346,7 +346,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <p>Construction Contracting</p>
           <p>Construction</p>
           {(windowWidth>=1199 && windowWidth<=2700) || (windowWidth>=3000 && windowWidth<=3999)? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
-          {(windowWidth>=1199 && windowWidth<=1449) || (windowWidth>=3000 && windowWidth<=3999) ? <p>Establish-<br/>ment</p>: <p>Establishment</p>}
+          {(windowWidth>=1199 && windowWidth<=2000) || (windowWidth>=3000 && windowWidth<=3999) ? <p>Establish-<br/>ment</p>: <p>Establishment</p>}
           <p>Closeout</p>
           <p>Closed</p>
         </div>
