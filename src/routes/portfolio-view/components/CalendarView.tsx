@@ -1143,7 +1143,7 @@ let toData = datas
         .append('text')
         .attr('class', 'name')
         
-        .text(function(d: any) { console.log(d); return (d3.event.transform.k < 10 ? d3.timeFormat('%b')(d):d3.timeFormat('%B')(d)) })
+        .text(function(d: any) {return (d3.event.transform.k > 10 ? d3.timeFormat('%B')(d): (d.getMonth() ===8?d3.timeFormat('%bt')(d):d3.timeFormat('%b')(d))) })
         
         .call(setTextPositionMonth, zoomedXScale);
             // set text position in the other thread
