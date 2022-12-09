@@ -345,8 +345,8 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <p>Final<br/>Design</p>
           <p>Construction Contracting</p>
           <p>Construction</p>
-          {windowWidth>=1199 && windowWidth<=1449 ? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
-          {windowWidth>=1199 && windowWidth<=1449 ? <p>Establish-<br/>ment</p>: <p>Establishment</p>}
+          {(windowWidth>=1199 && windowWidth<=2700) || (windowWidth>=3000 && windowWidth<=3999)? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
+          {(windowWidth>=1199 && windowWidth<=1449) || (windowWidth>=3000 && windowWidth<=3999) ? <p>Establish-<br/>ment</p>: <p>Establishment</p>}
           <p>Closeout</p>
           <p>Closed</p>
         </div>
