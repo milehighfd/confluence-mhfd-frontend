@@ -11,10 +11,10 @@ const Filters = ({openFilters, setOpenFilters}:{openFilters:boolean, setOpenFilt
       <NewProjectsFilter />
     </div>
     <div className="filters-foot">
-      <Button style={{marginRight:'20px', border:'1px solid #251863', color:'#251863', borderRadius:'5px', height:'auto'}} onClick={()=>{setOpenFilters(false)}}>
+      <Button className="btn-filter" style={{marginRight:'20px', border:'1px solid #251863', color:'#251863', borderRadius:'5px', height:'auto'}} onClick={()=>{setOpenFilters(false)}}>
         Cancel
       </Button>
-      <Button className="btn-purple" onClick={()=>{setOpenFilters(false)}} style={{height:'auto'}}>
+      <Button className="btn-purple btn-filter" onClick={()=>{setOpenFilters(false)}} style={{height:'auto'}}>
         Apply
       </Button>
     </div>

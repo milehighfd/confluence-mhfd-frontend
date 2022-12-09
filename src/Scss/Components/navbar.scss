@@ -89,7 +89,26 @@
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub{
   background: $dark !important;
 }
+.popoveer-notification-box{
+  .ant-popover-arrow{
+    display: none;
+  }
+  .ant-popover-inner{
+    margin-top: -9px;
+  }
+  .ant-popover-placement-bottom .ant-popover-arrow {
+    display: none;
+  }
+}
 .header{
+  .popoveer-notification-box{
+    .ant-popover-arrow{
+      display: none;
+    }
+    .ant-popover-placement-bottom .ant-popover-arrow {
+      display: none;
+    }
+  }
   .ll-00{
     color: $white;
     background: $green;
@@ -661,7 +680,7 @@
 @media(min-width: 1900px) and (max-width: 2549px){
   .menu-drop-sub{
     font-size: 16px !important;
-    padding: 6px 10px !important;
+    padding: 5px 10px !important;
   }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     font-size: 16px;
@@ -684,6 +703,7 @@
 @media(min-width: 2550px) and (max-width: 3799px){
   .menu-drop-sub{
     font-size: 20px !important;
+    padding: 0.5px 10px !important;
   }
   .card-dropdown{
     width: 235px;
@@ -701,7 +721,7 @@
   }
   .menu-drop-sub{
     font-size: 18px;
-    padding: 2.5px 10px;
+    padding: 5.5px 10px;
   }
   .ant-dropdown-menu-title-content{
     padding: 4px 0px !important;
@@ -736,7 +756,7 @@
 @media(min-width: 3800px) and (max-width: 5999px){
   .menu-drop-sub{
     font-size:26px !important;
-    padding: 8.5px 10px !important;
+    padding: 7px 10px !important;
   }
   .card-dropdown{
     width: 336px;
@@ -760,8 +780,8 @@
     width: 279px !important;
     .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
       font-size: 26px !important;
-      padding-top: 16px !important;
-      padding-bottom: 16px !important;
+      padding-top: 18px !important;
+      padding-bottom: 18px !important;
       span{
         font-size: 26px !important;
       }
@@ -769,7 +789,7 @@
   }
   .ant-dropdown-menu-item {
     font-size: 20px !important;
-    padding: 14px 10px !important;
+    padding: 15px 10px !important;
     .ant-dropdown-menu-title-content{
       span{
         font-size: 18px !important;

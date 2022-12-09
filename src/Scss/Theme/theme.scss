@@ -1993,7 +1993,7 @@ body{
       color: #11093C;
     }
     h3{
-      color: #11093C;
+      color: #11093C !important;
     }
   }
   .row-modal-list-view::-webkit-scrollbar {
@@ -2901,6 +2901,10 @@ body{
     p {
       font-size: 16px;
     }
+    .duration-toollgate{
+      margin-bottom: 14px !important;
+      height: 35.14px !important;
+    }
     .tollgate-body{
       height: calc(100vh - 565px) !important;
     }
@@ -3104,14 +3108,14 @@ body{
     }
   }
   .modal-tollgate{
-    width: 550px !important;
+    width: 793px !important;
   }
 }
 @media (min-width: 2550px) and (max-width: 3799px){
   .detailed-b{
     .img-carousel-detail{
-      width: 125px !important;
-      top: 271px !important;
+      width: 116px !important;
+      top: 278px !important;
       height: 88px !important;
     }
     .detail-left{
@@ -3126,7 +3130,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 698px !important;
+    width: 940px !important;
       font-size: 18px !important;
       top:159px !important;
       .ant-picker-input>input {
@@ -3160,6 +3164,10 @@ body{
     width: 2150px !important;
   }
   .detailed-h{
+    .duration-toollgate{
+      margin-bottom: 14px !important;
+      height: 42.38px !important;
+    }
     .image-modal-body{
       height: 807px !important;
       img{
@@ -3183,9 +3191,12 @@ body{
       height: 269px !important;
     }
     .row-modal-list-view{
-      height: 670px !important;
+      height: 608px !important;
       h5{
         font-size: 20px;
+      }
+      h3{
+        font-size: 33px;
       }
     }
     h1{
@@ -3328,7 +3339,7 @@ body{
     }
   }
   .detailed-hh{
-    height: 40px;
+    height: 89px;
   }
   .phaseview-content{
     .phaseview-title{
@@ -3467,6 +3478,10 @@ body{
     }
   }
   .detailed-h{
+    .duration-toollgate{
+      margin-bottom: 15px !important;
+      height: 52.84px !important;
+    }
     .image-modal-body{
       height: 1107px !important;
       .tag-carousel{
@@ -3494,13 +3509,19 @@ body{
       height: 269px !important;
     }
     .row-modal-list-view{
-      height: calc(100vh - 1265px) !important;
+      height: 731px !important;
       h5{
         font-size: 24px;
+      }
+      h3{
+        font-size: 30px !important;
       }
     }
     h1{
       font-size: 32px;
+    }
+    h3{
+      font-size: 30px !important;
     }
     p {
       font-size: 26px !important;
@@ -3644,7 +3665,7 @@ body{
     }
   }
   .detailed-hh{
-    height: 40px;
+    height: 108px;
   }
   .phaseview-timeline{
     margin-top: 0px !important;

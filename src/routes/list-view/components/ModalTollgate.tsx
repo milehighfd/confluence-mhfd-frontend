@@ -17,7 +17,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
       forceRender={false}
       destroyOnClose>
       <div className="detailed">
-        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white'}}>
+        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 20 }}>
             <h1 style={{marginTop: '15px'}}>Tollgate Creek</h1>
             <p>Define the time period for each phase.</p>
@@ -32,7 +32,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               <Col xs={{ span: 12 }} lg={{ span: 16}}>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 8}} style={{textAlign:'center'}}>
-                <h3 style={{marginBottom:'0px'}}>Duration</h3>
+                <h3 style={{marginBottom:'0px', color: '#11093C'}}>Duration</h3>
               </Col>
             </Row>
           </Col>

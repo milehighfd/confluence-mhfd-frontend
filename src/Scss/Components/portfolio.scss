@@ -771,23 +771,35 @@
   .filters {
     position: absolute;
     width: 500px;
-    right: 1px;
+    right: 0px;
     z-index: 11;
     background-color: white;
-    height: 100%;
+    height: calc(100vh - 164px);
     box-shadow: 0px 2px 10px rgba(68, 58, 121, 0.12);
     padding-top: 20px;
+    .filters-body::-webkit-scrollbar {
+      width: 5px;
+    }
+    /* Track */
+    .filters-body::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    /* Handle */
+    .filters-body::-webkit-scrollbar-thumb {
+      background: $purple00;
+      border-radius: 10px;
+    }
     .filters-body{
-      height: 63%;
-      overflow-y: scroll;
+      height: 89%;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
     .filters-foot{
-      height: 8%;
       text-align: end;
       padding: 15px;
       position: absolute;
       width: 100%;
-      bottom: 166px;
+      bottom: 0px;
       background: white;
       .button{
         margin: 5px;
@@ -1900,7 +1912,7 @@
   }
   .calendar-body{
     .chart-container{
-      height: calc(100vh - 250px) !important;
+      height: calc(100vh - 252px) !important;
     }
     .piney-text{
       width: 385px !important;
@@ -1971,7 +1983,7 @@
       height: 53.06px !important;
     }
     .search-body{
-      height: calc(100vh - 252px) !important;
+      height: calc(100vh - 262px) !important;
     }
     .title-search{
       width: 110% !important;
@@ -1988,26 +2000,27 @@
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 5px 10px !important;
       font-size: 18px !important;
-      height: 53.06px !important;
+      height: 53.07px !important;
     }
   }
   .table-body{
     .table-body-body{
-      height: calc(100vh - 253px) !important;
+      height: calc(100vh - 263px) !important;
       .line-table{
-        height: 53.06px !important;
+        height: 53.07px !important;
       }
     }
     .table-first{
       margin-top: 53.06px !important;
     }
     .table-clouse-first{
-      margin-top: 42px !important;
+      margin-top: 53.06px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 13px 14px !important;
         font-size: 16.5px;
+        height: 53.06px !important;
       }
       .ant-table-thead>tr>th {
         height: 43px !important;
@@ -2026,7 +2039,7 @@
   .phaseview-body{
     .phaseview-content{
       .container-timeline{
-        height: calc(100vh - 303px) !important;
+        height: calc(100vh - 314px) !important;
       }
       .phaseview-title{
         p{
@@ -2213,6 +2226,15 @@
   .lines-calendar{
     height: 53.06px;
     top: 74px;
+  }
+  .filters{
+    width: 655px !important;
+    .filters-foot{
+      bottom: 26px !important;
+      .btn-filter{
+        font-size: 19px !important;
+      }
+    }
   }
 }
 
@@ -2469,7 +2491,7 @@
       }
     }
     .search-body{
-      height: calc(100vh - 282px) !important;
+      height: calc(100vh - 302px) !important;
       margin-top: 35px !important;
     }
     .title-search{
@@ -2504,7 +2526,7 @@
   }
   .table-body{
     .table-body-body{
-      height: calc(100vh - 283px) !important;
+      height: calc(100vh - 303px) !important;
       .line-table{
         height: 63.78px !important;
       }
@@ -2516,6 +2538,7 @@
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
         font-size: 20px;
+        height: 63.8px !important;
       }
       .ant-table-thead>tr>th {
         height: 48px !important;
@@ -2540,7 +2563,7 @@
   .phaseview-body{
     .phaseview-content{
       .container-timeline{
-        height: calc(100vh - 338.5px) !important;
+        height: calc(100vh - 366.5px) !important;
       }
       .phaseview-title{
         p{
@@ -2665,15 +2688,22 @@
   .filters{
     width: 927px !important;
     .filters-foot{
-      bottom: 190px !important;
+      bottom: 37px !important;
+      .btn-filter{
+        font-size: 23px !important;
+      }
     }
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .filters{
-    width: 1220px !important;
+    width: 1324px !important;
     .filters-foot{
-      bottom: 190px !important;
+      bottom: 104px !important;
+      .btn-filter{
+        font-size: 29px !important;
+        height: auto !important;
+      }
     }
   }
   .lines-calendar{
@@ -2870,7 +2900,7 @@
   }
   .calendar-body{
     .chart-container{
-      height: calc(100vh - 363px) !important;
+      height: calc(100vh - 366px) !important;
     }
     .zoom-buttons{
       height: 26px !important;
@@ -2972,7 +3002,7 @@
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 21px 10px !important;
       font-size: 30.5px !important;
-      height: 73.3px !important;
+      height: 73.03px !important;
       span{
         font-size: 30px !important;
       }
@@ -2982,7 +3012,7 @@
     .table-body-body{
       height: calc(100vh - 363px) !important;
       .line-table{
-        height: 73.3px !important;
+        height: 73.03px !important;
       }
     }
     .table-first{
@@ -2992,6 +3022,7 @@
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
         font-size: 25.6px;
+        height: 73.03px !important;
       }
       .ant-table-thead>tr>th {
         height: 48px !important;
@@ -2999,7 +3030,7 @@
         padding-top: 10px !important;
       }
       .ant-table-thead {
-        height: 80.3px !important;
+        height: 73.03px !important;
         border-radius: 7px 7px 0px 0px;
       }
     }
@@ -3016,8 +3047,11 @@
   }
   .phaseview-body{
     .phaseview-content{
+      .container-timeline::-webkit-scrollbar {
+        display: none;
+    }
       .container-timeline{
-        height: calc(100vh - 363.5px) !important;
+        height: calc(100vh - 444.5px) !important;
       }
       .phaseview-title{
         p{

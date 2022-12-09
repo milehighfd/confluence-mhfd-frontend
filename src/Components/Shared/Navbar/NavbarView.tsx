@@ -40,7 +40,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
   const { timesLogged } = useUsersState();
   let displayedTabKey = tabKeys;
   const contentNotification = (
-    <div className="popoveer-00" style={{maxWidth:'1000px', width:'369px'}}>
+    <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
       <div className="notification-header">
         <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2> <a>Mark all as read</a>
       </div>
@@ -226,7 +226,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
       key: 'my-notification',
       label: (
         <>
-          <Popover content={locationPage.pathname === '/portfolio-list-view' ? contentNotification : content}>
+          <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={locationPage.pathname === '/portfolio-list-view' ? contentNotification : content}>
             {locationPage.pathname === '/portfolio-list-view' ?
             (<span className="avatar-item">
               <Badge count={22}>

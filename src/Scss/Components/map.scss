@@ -1242,7 +1242,7 @@
 
 @media (min-width: 1900px) and (max-width: 2799px){ 
   .ant-select-item-option{
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -2000,6 +2000,10 @@ hr.filters-line {
         font-style: normal;
         font-weight: 400;
         line-height: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 320px;
       }
       .date{
         font-size: 12px;
@@ -2078,6 +2082,12 @@ hr.filters-line {
       color: $purple !important;
       padding: 0px -10px 0px -10px!important;
       font-weight: 400 !important;
+      font-size: 21px;
+    }
+    .ant-tabs-nav{
+      .ant-tabs-tab{
+        font-size: 21px;
+      }
     }
   }
   .filt-00{
@@ -2407,5 +2417,94 @@ hr.filters-line {
   background-color: transparent;
   &:hover {
     cursor: pointer;
+  }
+}
+
+@media(min-width: 1900px) and (max-width: 2549px){
+  .notification-popoveer{
+    width: 418px !important;
+  }
+  .popoveer-00{
+    .notification-header{
+      a{
+        font-size: 14px !important;
+      }
+    }
+    .notification-body{
+      padding: 7.5px 0px !important;
+      .text-notification{
+        p{
+          font-size: 15px !important;
+          width: 369px !important;
+        }
+        .date{
+          font-size: 13px !important;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 2550px) and (max-width: 3799px){
+  .notification-popoveer{
+    width: 536px !important;
+  }
+  .popoveer-00{
+    font-size: 17px;
+    .notification-header{
+      a{
+        font-size: 17px !important;
+      }
+      h2{
+        font-size: 23px;
+      }
+    }
+    .notification-body{
+      padding: 12.5px 0px !important;
+      .text-notification{
+        p{
+          font-size: 20px !important;
+          width: 518px !important;
+        }
+        .date{
+          font-size: 17px !important;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 3800px) and (max-width: 5999px){
+  .notification-popoveer{
+    width: 697px !important;
+  }
+  .popoveer-00{
+    font-size: 20px;
+    .notification-header{
+      a{
+        font-size: 23px !important;
+        margin-top: 10px;
+      }
+      h2{
+        font-size: 32px;
+        margin-left: 14px;
+        margin-top: 10px;
+      }
+    }
+    .notification-body{
+      padding: 17.5px 0px !important;
+      img{
+        height: 45px !important;
+        margin-right: 10px !important;
+      }
+      .text-notification{
+        p{
+          font-size: 25.5px !important;
+          line-height: 23px !important;
+          width: 628px !important;
+        }
+        .date{
+          font-size: 24px !important;
+        }
+      }
+    }
   }
 }
