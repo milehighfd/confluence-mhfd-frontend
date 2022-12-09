@@ -853,7 +853,11 @@
       height: 39px;
       box-shadow: none !important;
       font-size: 16px;
-      // margin-right: 10px;
+      position: sticky;
+      top: 0;
+      display: flex;
+      width: 100%;
+      z-index: 2;
     }
     .ant-collapse-content > .ant-collapse-content-box {
       padding: 0px 10px !important;
