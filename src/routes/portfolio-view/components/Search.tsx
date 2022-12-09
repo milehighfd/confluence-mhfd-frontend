@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Collapse, Dropdown, Input, Layout, Menu, Popover, Row, Select, Tabs } from 'antd';
 import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
@@ -32,6 +32,9 @@ const Search = (
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   const [detailOpen, setDetailOpen] = useState(false);
   let displayedTabKey = tabKeys;
+  const [onscroll, setOnScroll ] = useState(0);
+  const [titleCollaps, setTitleCollaps ] = useState([0,'']);
+  const [firstData, setFirstData]= useState<any>([]);
   const content = (
     <div style={{width:'137px'}}>
       <p style={{marginBottom:'0px'}}>This is a sample blurb describing the project. Alternatively we can open the detail page.</p>
@@ -92,6 +95,53 @@ const Search = (
   });
   useEffect(() => {
   }, [sortedData]);
+  useEffect(()=>{
+    if(onscroll === 1 && firstData){
+      console.log('**********************');
+      let sw = 0;
+      // for(let i = 1; i <= firstData.length; i++){
+      //   const el = document.querySelector('#collapse'+i)
+      //   // eslint-disable-next-line no-loop-func
+      //   const observer = new window.IntersectionObserver(([entry]) => {
+      //     if (entry.isIntersecting && sw === 0) {
+      //       console.log('ENTER', firstData[i].id, firstData);
+      //       setTitleCollaps([0,firstData[i].headerLabel])
+      //       sw=1;
+      //     }
+      //     console.log('LEAVE', firstData[i].id)
+      //   }, {
+      //     root: null,
+      //     threshold: 0.10, // set offset 0.1 means trigger if atleast 10% of element in viewport
+      //   })
+      //   if(el){
+      //     observer.observe(el);
+      //   }
+      // }
+      firstData.map((elem: any, index: number) => {
+        const el = document.querySelector('#collapse'+index)
+        const observer = new window.IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting && sw === 0) {
+            console.log('ENTER', elem.id, elem);
+            setTitleCollaps([0,elem.headerLabel])
+            sw=1;
+            return
+          }
+          console.log('LEAVE', elem.id)
+        }, {
+          root: null,
+          threshold: 0.02, // set offset 0.1 means trigger if atleast 10% of element in viewport
+        })
+        if(el){
+          observer.observe(el);
+        }
+      })
+    }
+    
+  }, [onscroll] )
+  useEffect(()=>{
+    setOnScroll(1);
+    setFirstData(completeData);
+  }, [] )
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div className="search" id='searchPortfolio'>
@@ -119,41 +169,50 @@ const Search = (
           if(scheduleRef.current){
             scheduleRef.current.scrollTo(0, dr.scrollTop)
           }
+          setOnScroll(onscroll === 2 ? 0 : onscroll + 1);
         }}
         onMouseEnter={()=>{
           setHoverTable([0,0,0] );
         }}
       >
+        <div className='line-search'>
+          <span><DownOutlined className="icon-line"/></span><span>{titleCollaps[1]}</span>
+        </div>
         {
-          completeData.map((elem: any, index: number) => (
-            <Collapse
-              defaultActiveKey={['1']}
-              onChange={
-                ()=>{
-                  // setTimeout(()=>{
-                    const newOpenTable = [...openTable];
-                    newOpenTable[index] = !openTable[index] as any;
-                    setOpenTable(newOpenTable);
-                  // },70)
-                }
-              } className={openTable[0] && index === 0? "collapse-first":""}>
-              <Panel header={elem.headerLabel} key="1" id={elem.id}>
-                {
-                  index === 0 && <div className="text-search text-first" id="headerCentennial">
-                    <p></p>
-                  </div>
-                }
-                {
-                  elem.values.map((d:any, index_elem: number) => (
-                    <div className="text-search" id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}>
-                      <p onClick={()=>{setDetailOpen(true)}}> {d.rowLabel} </p>
-                      <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
-                    </div>
-                  ))
-                }
-              </Panel>
-            </Collapse>
-          ))
+          completeData.map((elem: any, index: number) => {
+            const id = 'collapse' + index;
+            return (
+              <div id={id}>
+                <Collapse
+                  defaultActiveKey={['1']}
+                  onChange={
+                    ()=>{
+                      // setTimeout(()=>{
+                        const newOpenTable = [...openTable];
+                        newOpenTable[index] = !openTable[index] as any;
+                        setOpenTable(newOpenTable);
+                      // },70)
+                    }
+                  } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/>
+                  <Panel header={elem.headerLabel} key="1" id={elem.id}>
+                    {/* {
+                      index === 0 && <div className="text-search text-first" id="headerCentennial">
+                        <p></p>
+                      </div>
+                    } */}
+                    {
+                      elem.values.map((d:any, index_elem: number) => (
+                        <div className="text-search" id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}>
+                          <p onClick={()=>{setDetailOpen(true)}}> {d.rowLabel} </p>
+                          <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
+                        </div>
+                      ))
+                    }
+                  </Panel>
+                </Collapse>
+              </div>
+            )
+          })
         }
         
         {/* <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]]);console.log(e, 'Dotty')}}>
