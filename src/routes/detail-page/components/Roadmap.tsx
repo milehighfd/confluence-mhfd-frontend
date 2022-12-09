@@ -268,12 +268,12 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
         let popupVisible:any =document.getElementById('popup-phaseview');
         setGrapphicOpen(true);
         if (popupVisible !== null){
-        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?100:100)))))
+        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 50:(windowWidth>=2550 && windowWidth<=3000 ? 42:(windowWidth>=2001 && windowWidth<=2549 ? 33:(windowWidth>=1450 && windowWidth<=2000 ?31:(windowWidth>=1199 && windowWidth<=1449?20:20)))))
         let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?600:600)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
         let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
         //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-        let positionTop: any=d3.event.pageY-heightOfPopup -20;
+        let positionTop: any=d3.event.pageY-heightOfPopup -popupfactorTop;
         let positionLeft: any=d3.event.pageX - widthOfPopup/2 ;
         setPositionModalGraphic({left: positionLeft,top:positionTop})
         //d3.selectAll('.text-search:hover').attr('text-search');

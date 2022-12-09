@@ -2926,6 +2926,17 @@ body{
       font-size: 16px !important;
     }
   }
+  .modal-graphic{
+    width: 253px !important;
+    p{
+      font-size: 14px !important;
+    }
+    .title{
+      font-size: 12px !important;
+    }
+    hr{
+    }
+  }
   .table-detail-modal{
     .ant-table-thead>tr>th {
       font-size: 18px;
@@ -3236,6 +3247,17 @@ body{
       font-size: 21px !important;
     }
   }
+  .modal-graphic{
+    width: 296px !important;
+    p{
+      font-size: 18px !important;
+    }
+    .title{
+      font-size: 16px !important;
+    }
+    hr{
+    }
+  }
   .table-detail-modal{
     .ant-table-thead>tr>th {
       font-size: 18px;
@@ -3434,7 +3456,6 @@ body{
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
-
   .scroll-filters {
     padding: 0px 70px !important;
   }
@@ -3564,6 +3585,17 @@ body{
     }
     span{
       font-size: 26px !important;
+    }
+  }
+  .modal-graphic{
+    width: 253px !important;
+    p{
+      font-size: 14px !important;
+    }
+    .title{
+      font-size: 12px !important;
+    }
+    hr{
     }
   }
   .table-detail-modal{
