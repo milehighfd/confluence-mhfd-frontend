@@ -35,35 +35,47 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-           <img width="47.5%" src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px'}}/>
-           <img width="47.5%" src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px'}} />
-           <img width="100%"src={'picture/img-3.png'} alt="" style={{ marginBottom:'15px'}}/>
-           <img width="47.5%" src={'picture/img-4.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px'}}/>
-           <img width="47.5%" src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px'}} />
+          {active === 0 &&<>
+            <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
+              <img width="47.5%" src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%", width:"47.5%" }}/>
+              <img width="47.5%" src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%" , width:"47.5%" }} />
+              <img width="100%" src={'picture/img-3.png'} alt="" style={{ marginBottom:'15px', objectFit:'cover', height:"48%", width: "100%"}}/>
+              <img width="47.5%" src={'picture/img-4.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%", width:"47.5%"}}/>
+              <img width="47.5%" src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%", width:"47.5%"}} />
+              </Col>
+            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
+              <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
+                <div key={1} className="detailed-c">
+                  <img src={'picture/img-6.png'} alt="" className='img-modal'/>
+                </div>
+                <div key={2} className="detailed-c">
+                  <img src={'picture/img-1.png'} alt="" className='img-modal'/>
+                </div>
+                <div key={3} className="detailed-c">
+                  <img src={'picture/img-2.png'} alt="" className='img-modal'/>
+                </div>
+              </Carousel>
+              <div className='tag-carousel'>
+                {numberCarousel} of {numberElementCarousel}
+              </div>
+              <div className='btn-left-carousel'>
+                <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}/>
+              </div>
+              <div className='btn-right-carousel'>
+                <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}/>
+              </div>
+            </Col>
+          </>}
+          {active === 1 &&
+            <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
+              <img src={'picture/map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
+            </Col>
+          }
+          {active === 2 &&
+            <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
+            <img src={'picture/map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
           </Col>
-          <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
-            <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
-              <div key={1} className="detailed-c">
-                <img src={'picture/img-6.png'} alt="" className='img-modal'/>
-              </div>
-              <div key={2} className="detailed-c">
-                <img src={'picture/img-1.png'} alt="" className='img-modal'/>
-              </div>
-              <div key={3} className="detailed-c">
-                <img src={'picture/img-2.png'} alt="" className='img-modal'/>
-              </div>
-            </Carousel>
-            <div className='tag-carousel'>
-              {numberCarousel} of {numberElementCarousel}
-            </div>
-            <div className='btn-left-carousel'>
-              <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}/>
-            </div>
-            <div className='btn-right-carousel'>
-              <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}/>
-            </div>
-          </Col>
+          }
         </Row>
       </div>
     </Modal>

@@ -99,7 +99,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 <p>Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                <span>Funding</span> <span className="tag-blue">20%</span>
+                <span>Funding</span> &nbsp;<span className="tag-blue">20%</span>
               </Col>
             </Row>
             <Row>

@@ -133,153 +133,157 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               <Col xs={{ span: 12 }} lg={{ span: 8}} style={{paddingLeft:'10px'}}>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>0</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"0"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>0</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"0"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>1</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"1"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>1</p>
+                    <input className='duration-toollgate duration-toollgate-r'  maxLength={2} placeholder={"1"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>2</p>
+                    <input className='duration-toollgate duration-toollgate-l'  maxLength={2} placeholder={"2"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>2</p>
+                    <input className='duration-toollgate duration-toollgate-r'  maxLength={2} placeholder={"2"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>3</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"3"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>3</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"3"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>4</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"4"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>4</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"4"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>5</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"5"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>5</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"5"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>6</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"6"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>6</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"6"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>7</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"7"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>7</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"7"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>8</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"8"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>8</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"8"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>9</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"9"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>9</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"9"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>10</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"10"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>10</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"10"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>11</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder={"11"}></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>11</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"11"}></input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-l'>12</p>
+                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} placeholder="12"></input>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 2}}>
                     <p className='duration-toollgate border-tollgate' >|</p>
                   </Col>
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <p className='duration-toollgate duration-toollgate-r'>12</p>
+                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} placeholder={"12"}></input>
                   </Col>
                 </Row>
               </Col>
             </Row>
-            <div style={{textAlign:'end', marginTop:'10px'}} >
-              <Button style={{width:'40%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent">Clear</Button>
-              <Button style={{width:'40%', height:'40px',fontSize:'17.5px'}} className='btn-purple'>Save</Button>
-            </div>
+            <Row>
+              <Col xs={{ span: 12 }} lg={{ span: 12}}>
+              </Col>
+              <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
+                <Button style={{width:'50%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent">Clear</Button>
+                <Button style={{width:'50%', height:'40px',fontSize:'17.5px'}} className='btn-purple'>Save</Button>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>

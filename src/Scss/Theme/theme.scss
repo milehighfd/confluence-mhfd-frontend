@@ -778,6 +778,9 @@ body{
     // height: 400px;
     img{
       border-radius: 20px !important;
+      // width: 100%;
+      // height: 100%;
+      object-fit: cover;
     }
   }
   .body-modal-data{
@@ -876,9 +879,13 @@ body{
 }
 .duration-toollgate-l{
   border-radius: 5px 0px 0px 5px;
+  width: 100%;
+  border: none;
 }
 .duration-toollgate-r{
   border-radius: 0px 5px 5px 0px;
+  width: 100%;
+  border: none;
 }
 .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
   border: 1px solid #11093c;
@@ -1991,6 +1998,7 @@ body{
     padding-right: 10px;
     h5{
       color: #11093C;
+      font-size: 12px;
     }
     h3{
       color: #11093C !important;
@@ -2011,7 +2019,7 @@ body{
     border-radius: 10px;
   }
   .tollgate-body{
-    height: calc(100vh - 438px) !important;
+    height: calc(100vh - 432px) !important;
   }
 }
 .ant-picker {
@@ -2603,6 +2611,19 @@ body{
   h2, h3{
     color: $purple00;
     font-size: 18;
+  }
+  .history-body{
+    p{
+      color: #000000;
+      font-size: 14px;
+    }
+    .avatar-history{
+      height: 28px;
+      width: 28px;
+      background-color: #443a79;
+      margin-right: 15px;
+      font-size: 11.9px;
+    }
   }
 }
 .tabs-detailed{
