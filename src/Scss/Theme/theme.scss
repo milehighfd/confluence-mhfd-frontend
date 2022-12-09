@@ -2436,6 +2436,10 @@ body{
     //border-bottom: 1px solid #d4d2d9;
     width: 99%;
     p{
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
       width: 6.6666666667%;
       padding: 0px 0px;
       color: #6d6888;
