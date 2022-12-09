@@ -23,7 +23,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     // console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 26:(windowWidth>=2550 && windowWidth<=3000 ? 20:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 14 :14)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 15 : (windowWidth>=2550 && windowWidth<=3999 ? 19: 13) )
-    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -25 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -15.8)))
+    const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -20 : (windowWidth>=2550 && windowWidth<=3000 ? -35: -15.8)))
   
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
@@ -101,13 +101,13 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
 
      let dataDetailed = dataDotchart.filter((e:any) => e.specificId === 3);
 
-    let margin = { top: marginTop, right: marginRight, bottom: -26, left: marginLeft };
+    let margin = { top: marginTop, right: marginRight, bottom: -30, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitleDetailPage')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
       heightDiv  = document.getElementById(`ProjectRoadmapHeader`)?.offsetHeight; //265 - margin.top - margin.bottom;
       console.log('height div',heightDiv)
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 10:0);
-    let height: any  = factorHeight + heightDiv +30;
+    let height: any  = factorHeight + heightDiv +40;
   // append the svg object to the body of the page
    svg = d3
     .select(`#dotchart_${dataDotchart[0].id}_detailPage`)
@@ -116,7 +116,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     .attr("height", height + margin.top + margin.bottom)
     //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate("+margin.left+","+margin.top+")");
   
     setSvgStatePhase(svg);
   let datas = dataDetailed;
@@ -323,7 +323,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       </Row>
       <Row>
       <div className="phaseview-content">
-        <div className="phaseview-title-label" id='phaseviewTitleDetailPage' style={{marginBottom:'10px'}}>
+        <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{marginBottom:'10px'}}>
           <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
           <p>REQUESTED</p>
           <p>APPROVED</p>
@@ -331,10 +331,8 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <p style={{display:'flex', width:'33.33333335%'}}><hr  style={{width:'31%'}}></hr>CLOSEOUT<hr style={{width:'31%'}}></hr></p>
           <p>CLOSED</p>
         </div>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
           <div id="dotchart_1_detailPage" ></div>
           {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
-        </Col>
         <div className="phaseview-title" id='phaseviewTitleDetailPage'>
           <p>Draft</p>
           <p>Work Request<br/>(WR)</p>
@@ -348,7 +346,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <p>Construction Contracting</p>
           <p>Construction</p>
           {windowWidth>=1199 && windowWidth<=1449 ? <p>Documen-<br/>tation</p>: <p>Documentation</p>}
-          <p>Establishment</p>
+          {windowWidth>=1199 && windowWidth<=1449 ? <p>Establish-<br/>ment</p>: <p>Establishment</p>}
           <p>Closeout</p>
           <p>Closed</p>
         </div>

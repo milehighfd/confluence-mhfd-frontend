@@ -2377,7 +2377,7 @@ body{
     height: calc(100vh - 269px);
     width: 100%;
   }
-  .phaseview-title-label{
+  .phaseview-title-label-roadmap{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -3351,7 +3351,8 @@ body{
         font-size: 14px !important;
       }
     }
-    .phaseview-title-label{
+    .phaseview-title-label-roadmap{
+      margin-bottom:20px !important;
       p{
         font-size: 14px !important;
       }
@@ -3440,8 +3441,8 @@ body{
         line-height: 20px !important;
       }
     }
-    .phaseview-title-label{
-      margin-bottom: 20px;
+    .phaseview-title-label-roadmap{
+      margin-bottom: 35px !important;
       p{
         font-size: 18px !important;
       }
