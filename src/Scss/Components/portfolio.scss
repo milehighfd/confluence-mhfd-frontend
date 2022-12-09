@@ -940,6 +940,9 @@
   }
   .table-body{
     .table-body-body{
+      .ant-table-tbody>tr>td {
+        border-bottom: 1px solid #f0f0f000;
+      }
       overflow-y: auto;
       height: calc(100vh - 232.5px);
       .line-table{
@@ -2528,17 +2531,17 @@
     .table-body-body{
       height: calc(100vh - 303px) !important;
       .line-table{
-        height: 63.78px !important;
+        height: 59.78px !important;
       }
     }
     .table-first{
-     margin-top: 63.79px !important;
+     margin-top: 59.79px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
         font-size: 20px;
-        height: 63.8px !important;
+        height: 63.79px !important;
       }
       .ant-table-thead>tr>th {
         height: 48px !important;
@@ -3022,7 +3025,7 @@
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
         font-size: 25.6px;
-        height: 73.03px !important;
+        height: 73.07px !important;
       }
       .ant-table-thead>tr>th {
         height: 48px !important;
@@ -3041,7 +3044,7 @@
     }
     .header-table{
       .ant-table-thead {
-        height: 89px !important;
+        height: 84px !important;
       }
     }
   }
