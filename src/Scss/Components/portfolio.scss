@@ -1891,7 +1891,6 @@
   height: 39px;
   width: 100%;
   top: 71px;
-  display: none; // TODO: REMOVE
 }
 @media (min-width: 1900px) and (max-width: 2549px){
   .protafolio-body{
@@ -2269,7 +2268,7 @@
   }
   .lines-calendar{
     height: 53.06px;
-    top: 74px;
+    top: 71px;
   }
   .filters{
     width: 655px !important;
@@ -2329,8 +2328,8 @@
 
 @media (min-width: 2555px) and (max-width: 3799px){
   .lines-calendar{
-    height: 63.78px;
-    top: 80px;
+    height: 63.77px;
+    top: 96px;
   }
   .modal-graphic{
     width: 296px;
@@ -2843,8 +2842,8 @@
     }
   }
   .lines-calendar{
-    height: 50px;
-    top: 95px;
+    height: 73.02px;
+    top: 103px;
   }
   .modal-graphic{
     width: 253px;
