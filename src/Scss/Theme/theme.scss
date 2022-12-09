@@ -2862,6 +2862,9 @@ body{
   display: flex;
 }
 @media (min-width: 1900px) and (max-width: 2550px){
+  .scroll-filters {
+    padding: 0px 20px;
+  }
   .ant-picker-input>input {
     font-size: 16px;
   }
@@ -3431,6 +3434,10 @@ body{
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+
+  .scroll-filters {
+    padding: 0px 70px !important;
+  }
   .detailed-b{
     .img-carousel-detail{
       right: 30px !important;
