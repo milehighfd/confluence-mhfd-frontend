@@ -71,7 +71,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 {editView ?
                   <>
                     <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
-                      <Space style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
+                      <Space style={{border:'1px solid #eae8f0', borderRadius:'17.5px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
                         <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
                         {openDrop ? <UpOutlined style={{color:'#251863'}} /> : < DownOutlined style={{color:'#251863'}} />}
                       </Space>
