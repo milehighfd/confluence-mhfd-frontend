@@ -37,11 +37,11 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-              <img width="47.5%" src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%", width:"47.5%" }}/>
-              <img width="47.5%" src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%" , width:"47.5%" }} />
-              <img width="100%" src={'picture/img-3.png'} alt="" style={{ marginBottom:'15px', objectFit:'cover', height:"48%", width: "100%"}}/>
-              <img width="47.5%" src={'picture/img-4.png'} alt="" style={{marginRight:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%", width:"47.5%"}}/>
-              <img width="47.5%" src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%', marginBottom:'15px', objectFit:'cover', height:"23%", width:"47.5%"}} />
+              <img src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%'}} className='img-list'/>
+              <img src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%' }} className='img-list'/>
+              <img src={'picture/img-3.png'} alt="" className='img-list-big'/>
+              <img src={'picture/img-4.png'} alt="" style={{marginRight:'2.5%'}} className='img-list'/>
+              <img src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%'}} className='img-list'/>
               </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >

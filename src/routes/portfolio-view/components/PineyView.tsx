@@ -89,7 +89,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
-                  <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}}></input>
+                  <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}} className='input-focus'></input>
                   :<p>$3,708,000</p>
                 }
               </Col>

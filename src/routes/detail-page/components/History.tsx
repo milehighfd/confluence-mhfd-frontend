@@ -22,14 +22,16 @@ const History = () => {
       </Row>
       <Row style={{marginBottom:'70px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className='history-body'>
+        <ul className="list-history">
           {
             editedDates.map((element: string) => {
               const names = element.split(" ");
               return(
-                <p><Avatar className="avatar-history">{names[0].charAt(0)}{names[1].charAt(0)}</Avatar>{element}</p>
+                <li><p>{element}</p></li>
               )
             })
           }
+          </ul>
         </Col>
       </Row>
     </>

@@ -881,11 +881,21 @@ body{
   border-radius: 5px 0px 0px 5px;
   width: 100%;
   border: none;
+  padding-right: 4px;
+  padding-left: 4px;
 }
+.duration-toollgate-l:focus{
+  box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
+  margin-left: -2px !important;
+}
+
 .duration-toollgate-r{
   border-radius: 0px 5px 5px 0px;
   width: 100%;
   border: none;
+}
+.duration-toollgate-r:focus{
+  box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
 }
 .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner:before {
   border: 1px solid #11093c;
@@ -1878,6 +1888,24 @@ body{
       right: 50px;
       top:239px;
     }
+    .img-list{
+      margin-bottom: 15px;
+      object-fit: cover;
+      height: 23%;
+      width: 47.5%;
+    }
+    .img-list:hover{
+      border: 2px solid #11093c;
+    }
+    .img-list-big{
+      margin-bottom: 15px;
+      object-fit: cover;
+      height: 48%;
+      width: 100%;
+    }
+    .img-list-big:hover{
+      border: 2px solid #11093c;
+    }
   }
   .yellow-input{
     .ant-input-affix-wrapper {
@@ -2020,6 +2048,7 @@ body{
   }
   .tollgate-body{
     height: calc(100vh - 432px) !important;
+    padding-top: 2px;
   }
 }
 .ant-picker {
@@ -2624,6 +2653,9 @@ body{
       margin-right: 15px;
       font-size: 11.9px;
     }
+    .list-history{
+      margin-left: -23px;
+    }
   }
 }
 .tabs-detailed{
@@ -2908,7 +2940,7 @@ body{
       .tag-carousel{
         font-size: 19px;
         left: 564px;
-        top: 571px;
+        top: 577px;
         border-radius: 21px;
       }
       .btn-left-carousel{

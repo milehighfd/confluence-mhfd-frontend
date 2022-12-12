@@ -465,6 +465,7 @@
   }
   p{
     color: #11093C !important;
+    margin-bottom: 21px;
   }
   .active-btn-piney{
     color:#047cd7;
@@ -476,6 +477,20 @@
   }
   .active-btn-piney-edit:hover{
     background-color: #f8f7f9;
+  }
+  .body-piney-body{
+    .form-text-calendar{
+      img{height: 30px !important;}
+      input{
+        font-size: 16px !important;
+      }
+      .input-focus:focus{
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
+      .input-focus:active{
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
+    }
   }
 }
 .portafolio-head{
@@ -521,10 +536,10 @@
     padding: 0px 8px;
   }
   .icon-bt{
-    height: 4px;
-    width: 24px;
     background: $purple;
-    padding: 9px;
+    padding: 8px;
+    margin-top: -4px;
+    margin-right: 4px;
   }
   .btn-opacity:hover > .icon-bt{
     opacity: 1;
@@ -1175,6 +1190,12 @@
         color: #047cd7 !important;
         opacity: 1 !important;
       }
+      .input-focus:focus{
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
+      .input-focus:active{
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
     }
     .body-piney{
       .body-piney-body{
@@ -1540,6 +1561,12 @@
       }
       p{
         color: #11093C !important;
+      }
+      .input-focus:focus{
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
+      .input-focus:active{
+        box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
       }
     }
     h1{
@@ -1926,6 +1953,11 @@
       height: calc(100vh - 250px) !important;
     }
     .piney-text{
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
       width: 385px !important;
       h1{
         font-size: 20px !important;
@@ -1946,11 +1978,85 @@
         input{
           font-size: 16px !important;
         }
+        .input-focus:focus{
+          box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+        }
+        .input-focus:active{
+          box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+        }
       }
     }
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 338px) !important;
+      }
+      .checkbox-select{
+        .ant-checkbox-inner {
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          margin-bottom: -6px;
+        }
+        .ant-checkbox-inner:after {
+          width: 6.714286px;
+          height: 13.142857px;
+        }
+      }
+    }
+  }
+  .piney-modal-detail{
+    .chart-container{
+      height: calc(100vh - 250px) !important;
+    }
+    .piney-text{
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
+      width: 385px !important;
+      h1{
+        font-size: 20px !important;
+      }
+      .tag-blue{
+        font-size: 16px !important;
+      }
+      p{
+        font-size: 16px !important;
+      }
+      span{
+        font-size: 16px !important;
+      }
+    }
+    .body-piney-body{
+      .form-text-calendar{
+        img{height: 30px !important;}
+        input{
+          font-size: 16px !important;
+        }
+        .input-focus:focus{
+          box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+        }
+        .input-focus:active{
+          box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+        }
+      }
+    }
+    .body-piney{
+      .body-piney-body{
+        height: calc(100vh - 357px) !important;
+      }
+      .checkbox-select{
+        .ant-checkbox-inner {
+          border-radius: 50%;
+          width: 27px;
+          height: 27px;
+          margin-bottom: -2px;
+        }
+        .ant-checkbox-inner:after {
+          width: 6.714286px;
+          height: 13.142857px;
+        }
       }
     }
   }
@@ -1959,6 +2065,12 @@
       height: calc(100vh - 252px) !important;
     }
     .piney-text{
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
+      padding: 15px 18px;
       width: 385px !important;
       h1{
         font-size: 20px !important;
@@ -1984,6 +2096,18 @@
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 338px) !important;
+      }
+      .checkbox-select{
+        .ant-checkbox-inner {
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          margin-bottom: -6px;
+        }
+        .ant-checkbox-inner:after {
+          width: 6.714286px;
+          height: 13.142857px;
+        }
       }
     }
   }
@@ -2010,6 +2134,10 @@
     }
   }
   .portafolio-head{
+    .icon-bt{
+      padding: 10px;
+      margin-top: -6px;
+    }
     h2{
       width: 290px !important;
       color: $purple00;
@@ -2023,6 +2151,14 @@
     }
   }
   .search{
+    .search-head{
+      .ic-dots{
+        margin-top: 2px;
+        height: 24px;
+        width: 24px;
+        margin-left: -29px;
+      }
+    }
     .text-first{
       height: 53.06px !important;
     }
@@ -2039,6 +2175,10 @@
       padding: 12.4px 0px !important;
       p{
         font-size: 18px !important;
+      }
+      span{
+        margin-right: 17px !important;
+        font-size: 17px !important;
       }
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
