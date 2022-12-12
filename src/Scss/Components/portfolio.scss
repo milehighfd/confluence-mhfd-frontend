@@ -21,7 +21,7 @@
 .topHeader line{
   stroke: gray;
   opacity: .3;
-  visibility: hidden;
+  //visibility: hidden;
 }
 
 .topHeader path{
@@ -147,7 +147,7 @@
 .topHeaderMonthforTicks line{
   stroke: gray;
   opacity: 0.8;
-  visibility: hidden;
+  //visibility: hidden;
 }
 .topHeaderMonthforTicks path{
   visibility: hidden;
@@ -1891,6 +1891,7 @@
   height: 39px;
   width: 100%;
   top: 71px;
+  display: none; 
 }
 @media (min-width: 1900px) and (max-width: 2549px){
   .protafolio-body{

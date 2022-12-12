@@ -189,8 +189,13 @@ let toData = datas
   }
 
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
-  
-  let heigthOfHeaderAxis= (windowWidth>=3001 && windowWidth<=3999 ? 50:(windowWidth>=2550 && windowWidth<=3000 ?57: (windowWidth>=1450 && windowWidth<=2000 ?40:(windowWidth>=2001 && windowWidth<=2549 ?40:(windowWidth>=1199 && windowWidth<=1449 ?40:40)))));
+  // let heightofFloatdiv: any = document.getElementById('line-calendar')?.offsetHeight;
+  // console.log( 'heightofFloatdiv', heightofFloatdiv);
+  let marginReducerHeaderAxis = (windowWidth>=3001 && windowWidth<=3999 ? '-5.3px':(windowWidth>=2550 && windowWidth<=3000 ?'-5.9px': (windowWidth>=1450 && windowWidth<=2000 ?'-5.9px':(windowWidth>=2001 && windowWidth<=2549 ?'-5.9px':(windowWidth>=1199 && windowWidth<=1449 ?'-5.9px':'-5.9px')))));
+  let factortransformSVG = (windowWidth>=3001 && windowWidth<=3999 ? -75:(windowWidth>=2550 && windowWidth<=3000 ?-65: (windowWidth>=1450 && windowWidth<=2000 ?-50:(windowWidth>=2001 && windowWidth<=2549 ?-50:(windowWidth>=1199 && windowWidth<=1449 ?-30:-30)))));
+
+
+  let heigthOfHeaderAxis= (windowWidth>=3001 && windowWidth<=3999 ? 123.02:(windowWidth>=2550 && windowWidth<=3000 ?120.77: (windowWidth>=1450 && windowWidth<=2000 ?93.06:(windowWidth>=2001 && windowWidth<=2549 ?100:(windowWidth>=1199 && windowWidth<=1449 ?79:79)))));
   let separationHeaderAxisYear= (windowWidth>=3001 && windowWidth<=3999 ? 3:(windowWidth>=2550 && windowWidth<=3000 ?6: (windowWidth>=1450 && windowWidth<=2000 ?0:(windowWidth>=2001 && windowWidth<=2549 ?0:(windowWidth>=1199 && windowWidth<=1449 ?0:0)))));
   let separationHeaderAxisMonth= (windowWidth>=3001 && windowWidth<=3999 ? 10:(windowWidth>=2550 && windowWidth<=3000 ?13: (windowWidth>=1450 && windowWidth<=2000 ?0:(windowWidth>=2001 && windowWidth<=2549 ?0:(windowWidth>=1199 && windowWidth<=1449 ?0:0)))));
   let separationHeaderAxisInFunction= (windowWidth>=3001 && windowWidth<=3999 ? 20:(windowWidth>=2550 && windowWidth<=3000 ?25: (windowWidth>=1450 && windowWidth<=2000 ?20:(windowWidth>=2001 && windowWidth<=2549 ?20:(windowWidth>=1199 && windowWidth<=1449 ?20:20)))));
@@ -220,7 +225,8 @@ let toData = datas
       .select('#timeline-chart')
       .append('svg')
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height)
+      .attr('transform', 'translate(' + 0 + ',' + (factortransformSVG)+ ')')
     svgAxis = d3
     .select('#timeline-chart-axis')
     .append('svg')
@@ -1381,7 +1387,7 @@ let toData = datas
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
-    <div className='lines-calendar'></div>
+    {/* <div className='lines-calendar' id='line-calendar'></div> */}
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} /></div>}
 
@@ -1425,7 +1431,7 @@ let toData = datas
         </div>
       </Col>
     </Row>
-    <div style={{width:'100%'}}>
+    <div style={{width:'100%', marginBottom:marginReducerHeaderAxis}}>
       <div id="timeline-chart-axis"/>
     </div>
       <div
