@@ -875,7 +875,7 @@ let toData = datas
                 d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
               }
               setGrapphicOpen(true); 
-              let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
+              let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 374:(windowWidth>=2550 && windowWidth<=3000 ? 275:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?240:(windowWidth>=1199 && windowWidth<=1449?205:205)))))
               let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
               let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
               let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
@@ -912,7 +912,7 @@ let toData = datas
       rectNames.on('mousemove', function() {  
         if (d3.event.target.className.animVal !== 'labelsAgrupation'){
         setGrapphicOpen(true); 
-        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 210:(windowWidth>=2550 && windowWidth<=3000 ? 170:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
+        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 374:(windowWidth>=2550 && windowWidth<=3000 ? 275:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?240:(windowWidth>=1199 && windowWidth<=1449?205:205)))))
         let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
         let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
