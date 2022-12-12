@@ -854,6 +854,11 @@
       overflow-y: auto;
       height: calc(100vh - 232px);
       margin-top: 19.5px;
+      .tabs-map{
+        .ant-collapse{
+          padding-right: 4px;
+        }
+      }
     }
     .search-body::-webkit-scrollbar {
       background: transparent;
@@ -1953,6 +1958,8 @@
       height: calc(100vh - 250px) !important;
     }
     .piney-text{
+      width: 391px !important;
+      padding: 20px !important;
       .header-piney{
         span{
           font-size: 18px !important;
@@ -2009,6 +2016,8 @@
       height: calc(100vh - 250px) !important;
     }
     .piney-text{
+      width: 391px !important;
+      padding: 20px !important;
       .header-piney{
         span{
           font-size: 18px !important;
@@ -2061,6 +2070,8 @@
     }
   }
   .piney-text{
+    width: 391px !important;
+      padding: 20px !important;
     .header-piney{
       span{
         font-size: 18px !important;
@@ -2111,6 +2122,8 @@
       height: calc(100vh - 252px) !important;
     }
     .piney-text{
+      width: 391px !important;
+      padding: 20px !important;
       .header-piney{
         span{
           font-size: 18px !important;
@@ -2180,6 +2193,8 @@
     }
   }
   .piney-text{
+    width: 391px !important;
+      padding: 20px !important;
     .header-piney{
       span{
         font-size: 18px !important;
@@ -2244,11 +2259,11 @@
   }
   .search{
     .search-head{
+      padding: 0px 16px !important;
       .ic-dots{
         margin-top: 2px;
         height: 24px;
         width: 24px;
-        margin-left: -29px;
       }
     }
     .text-first{
@@ -2256,6 +2271,11 @@
     }
     .search-body{
       height: calc(100vh - 262px) !important;
+      .tabs-map{
+        .ant-collapse{
+          padding-left: 12px !important;
+        }
+      }
     }
     .title-search{
       width: 110% !important;
@@ -2264,18 +2284,17 @@
       font-size: 20px !important;
     }
     .text-search {
-      padding: 12.4px 0px !important;
+      padding: 12.4px 6px !important;
       p{
         font-size: 18px !important;
       }
       span{
-        margin-right: 17px !important;
         font-size: 17px !important;
       }
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 5px 10px !important;
-      font-size: 18px !important;
+      padding: 9px 16px !important;
+      font-size: 21px !important;
       height: 53.07px !important;
     }
   }
@@ -2287,16 +2306,16 @@
       }
     }
     .table-first{
-      margin-top: 53.06px !important;
+      margin-top: 52px !important;
     }
     .table-clouse-first{
-      margin-top: 53.06px !important;
+      margin-top: 52px !important;
     }
     .table-portafolio{
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 13px 14px !important;
         font-size: 16.5px;
-        height: 53.06px !important;
+        height: 53.07px !important;
       }
       .ant-table-thead>tr>th {
         height: 43px !important;
@@ -2584,6 +2603,11 @@
   .phaseview-body{
     .piney-text{
       width: 445px !important;
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
       h1{
         font-size: 24px !important;
       }
@@ -2750,6 +2774,11 @@
     }
     .piney-text{
       width: 445px !important;
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
       .ant-dropdown-menu-title-content{
         span{
           font-size: 18px !important;
@@ -2804,6 +2833,7 @@
   }
   .search{
     .search-head{
+      padding: 0px 18px !important;
       .ic-dots{
         margin-top: 4px !important;
         width: 30px;
@@ -2814,6 +2844,11 @@
     .search-body{
       height: calc(100vh - 302px) !important;
       margin-top: 35px !important;
+      .tabs-map{
+        .ant-collapse{
+          padding-left: 15px !important;
+        }
+      }
     }
     .title-search{
       width: 110% !important;
@@ -3150,6 +3185,60 @@
   .ant-input-affix-wrapper {
     font-size: 18px !important;
   }
+  .piney-modal-detail{
+    .chart-container{
+      height: calc(100vh - 277px) !important;
+    }
+    .zoom-buttons{
+      height: 26px !important;
+    margin-bottom: 18px !important;
+    background: transparent !important;
+    }
+    .header-zoom{
+      // padding-right: 465px !important;
+      span{
+        font-size: 22px !important;
+      }
+    }
+    .piney-text{
+      width: 625px !important;
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
+      .ant-dropdown-menu-title-content{
+        span{
+          font-size: 18px !important;
+        }
+        img{
+          height: 34px !important;
+          width: 34px !important;
+        }
+      }
+      h1{
+        font-size: 26px !important;
+      }
+      .tag-blue{
+        font-size: 25px !important;
+        border-radius: 25px !important;
+      }
+      p{
+        font-size: 25px !important;
+      }
+      span{
+        font-size: 25px !important;
+      }
+    }
+    .body-piney-body{
+      .form-text-calendar{
+        img{height: 36px !important;}
+        input{
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
   .phaseview-body{
     .chart-container{
       height: calc(100vh - 277px) !important;
@@ -3167,6 +3256,11 @@
     }
     .piney-text{
       width: 625px !important;
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
       .ant-dropdown-menu-title-content{
         span{
           font-size: 18px !important;
@@ -3331,6 +3425,11 @@
     }
     .piney-text{
       width: 625px !important;
+      .header-piney{
+        span{
+          font-size: 18px !important;
+        }
+      }
       .ant-dropdown-menu-title-content{
         span{
           font-size: 18px !important;
