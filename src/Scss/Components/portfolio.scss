@@ -2602,10 +2602,11 @@
   }
   .phaseview-body{
     .piney-text{
-      width: 445px !important;
+      width: 465px !important;
+      padding: 20px 25px !important;
       .header-piney{
         span{
-          font-size: 18px !important;
+          font-size: 22px !important;
         }
       }
       h1{
@@ -2633,6 +2634,19 @@
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 382px) !important;
+      }
+      .checkbox-select{
+        .ant-checkbox-inner {
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          margin-bottom: -10px;
+          margin-top: 1.5px;
+        }
+        .ant-checkbox-inner:after {
+          width: 10.714286px;
+          height: 19.142857px;
+        }
       }
     }
     .phaseview-content{
@@ -2773,10 +2787,16 @@
       }
     }
     .piney-text{
-      width: 445px !important;
       .header-piney{
         span{
-          font-size: 18px !important;
+          font-size: 28px !important;
+        }
+      }
+      width: 465px !important;
+      padding: 20px 25px !important;
+      .header-piney{
+        span{
+          font-size: 25px !important;
         }
       }
       .ant-dropdown-menu-title-content{
@@ -2831,19 +2851,19 @@
       margin: 0px 10px;
     }
   }
+  
   .search{
     .search-head{
-      padding: 0px 18px !important;
+      padding: 6px 23px !important;
       .ic-dots{
         margin-top: 4px !important;
         width: 30px;
         height: 30px;
-        margin-right: 10px !important;
       }
     }
     .search-body{
       height: calc(100vh - 302px) !important;
-      margin-top: 35px !important;
+      margin-top: 23px !important;
       .tabs-map{
         .ant-collapse{
           padding-left: 15px !important;
@@ -2857,20 +2877,19 @@
       font-size: 20px !important;
     }
     .text-search {
-      padding: 15.4px 0px !important;
+      padding: 15.4px 16px !important;
       p{
         font-size: 21px !important;
       }
       span{
         font-size: 20px !important;
-        margin-right: 20px !important;
       }
     }
     .text-first {
       height: 63.78px !important;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-      padding: 17px 10px !important;
+      padding: 17px 23px !important;
       font-size: 24.5px !important;
       height: 63.78px !important;
       .ant-collapse-expand-icon{
@@ -2884,7 +2903,7 @@
     .table-body-body{
       height: calc(100vh - 303px) !important;
       .line-table{
-        height: 59.78px !important;
+        height: 63.78px !important;
       }
     }
     .table-first{
@@ -2902,7 +2921,7 @@
         padding-top: 10px !important;
       }
       .ant-table-thead {
-        height: 63.79px !important;
+        height: 63.78px !important;
       }
     }
     .header-table{

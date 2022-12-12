@@ -2446,7 +2446,8 @@ hr.filters-line {
 }
 @media(min-width: 2550px) and (max-width: 3799px){
   .notification-popoveer{
-    width: 536px !important;
+    width: 550px !important;
+    padding: 10px !important;
   }
   .popoveer-00{
     font-size: 17px;
@@ -2466,7 +2467,8 @@ hr.filters-line {
           width: 518px !important;
         }
         .date{
-          font-size: 17px !important;
+          font-size: 20px !important;
+          margin-top: 7px !important;
         }
       }
     }

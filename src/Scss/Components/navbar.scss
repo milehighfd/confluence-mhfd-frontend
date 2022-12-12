@@ -705,7 +705,7 @@
 @media(min-width: 2550px) and (max-width: 3799px){
   .menu-drop-sub{
     font-size: 20px !important;
-    padding: 0.5px 10px !important;
+    padding: 4.5px 10px !important;
   }
   .card-dropdown{
     width: 235px;
@@ -734,6 +734,8 @@
       font-size: 20px;
       padding-top: 13px;
       padding-bottom: 13px;
+      padding-left: 13px;
+      padding-right: 13px;
       span{
         font-size: 20px !important;
       }
