@@ -168,12 +168,15 @@ export default forwardRef(({
 
       }
       if(type === PROBLEMS_MODAL) {
+        i = 0;
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
+          console.log('about ot add this layer name',`${PROBLEMS_TRIGGER}-layer_${i}`);
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
           map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           i++;
         }
+        addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
         FLOOD_HAZARDS.tiles.forEach((tiles:any) => {
           map.addVectorSource(tiles, layers.floodhazards[tiles]);
           styles[tiles].forEach((element: any, index: number) => {
@@ -183,7 +186,6 @@ export default forwardRef(({
           addMapListeners(tiles, `${tiles}-layer_`);
           // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
         });
-        addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
         detailedPage?.components?.forEach((element: any) => {
           if(element.projectid) {
@@ -237,6 +239,7 @@ export default forwardRef(({
     }
   }
   const addMapListeners = (key: string, value: string) => {
+    console.log('GET STYLE');
     const styles = { ...tileStyles as any };
     if (styles[key]) {
         styles[key]?.forEach((style : LayerStylesType, index : number) => {
@@ -260,7 +263,7 @@ export default forwardRef(({
               if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                 return;
               }
-              if (key === MENU_OPTIONS.PROBLEMS) {
+              if (key === PROBLEMS_TRIGGER) {
                 getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
                 const item = {
                     type: MENU_OPTIONS.PROBLEMS,
