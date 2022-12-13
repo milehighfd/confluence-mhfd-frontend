@@ -300,7 +300,7 @@ const PhaseView = (
         let popupVisible:any =document.getElementById('popup-phaseview');
         setGrapphicOpen(true);
         if (popupVisible !== null){
-        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 245:(windowWidth>=2550 && windowWidth<=3000 ? 165:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
+        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 253:(windowWidth>=2550 && windowWidth<=3000 ? 165:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?150:(windowWidth>=1199 && windowWidth<=1449?140:140)))))
         let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
         let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
         let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
