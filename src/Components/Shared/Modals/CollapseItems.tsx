@@ -162,7 +162,6 @@ export default forwardRef(({
               map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailedPage?.problemid : detailedPage?.projectid]);
               i++;
             }
-            //console.log('from addlayer', key)
             addMapListeners(key, key );
           }
 
@@ -171,7 +170,6 @@ export default forwardRef(({
         i = 0;
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
-          console.log('about ot add this layer name',`${PROBLEMS_TRIGGER}-layer_${i}`);
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
           map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           i++;
@@ -239,7 +237,6 @@ export default forwardRef(({
     }
   }
   const addMapListeners = (key: string, value: string) => {
-    console.log('GET STYLE');
     const styles = { ...tileStyles as any };
     if (styles[key]) {
         styles[key]?.forEach((style : LayerStylesType, index : number) => {
@@ -265,16 +262,33 @@ export default forwardRef(({
               }
               if (key === PROBLEMS_TRIGGER) {
                 getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
+                
                 const item = {
-                    type: MENU_OPTIONS.PROBLEMS,
-                    title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
-                    name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
-                    organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                    value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
-                    status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                    priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
-                    popupId: 'popup-detailed-page'
-                };
+                  type: MENU_OPTIONS.PROBLEMS,
+                  streamname: e.features[0].properties.streamname,
+                  title: e.features[0].properties.problem_type ? (e.features[0].properties.problem_type + ' Problem') : '-',
+                  problem_type: e.features[0].properties.problem_type ? e.features[0].properties.problem_type: '-',
+                  name: e.features[0].properties.problem_name ? e.features[0].properties.problem_name : '-',
+                  organization: e.features[0].properties.local_government ? e.features[0].properties.local_government : '-',
+                  value: e.features[0].properties.estimated_cost ? e.features[0].properties.estimated_cost : e.features[0].properties.component_cost ? e.features[0].properties.component_cost : '-1',
+                  status: e.features[0].properties.component_status ? (e.features[0].properties.component_status + '%') : '-',
+                  priority: e.features[0].properties.problem_severity ? e.features[0].properties.problem_severity + ' Priority' : '-',
+                  problemid: e.features[0].properties.problem_id,
+                  component_count: e.features[0].properties.component_count ?? 0,
+                  popupId: 'popup',
+                  image: `gallery/${e.features[0].properties.problem_type}.png`,
+              };
+                
+                // const item = {
+                //     type: MENU_OPTIONS.PROBLEMS,
+                //     title: e.features[0].properties.problem_type ? (e.features[0].properties.problem_type + ' Problem') : '-',
+                //     name: e.features[0].properties.problem_name ? e.features[0].properties.problem_name : '-',
+                //     organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                //     value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
+                //     status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
+                //     priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
+                //     popupId: 'popup-detailed-page'
+                // };
                 html = loadMainPopup(item);
               }
               if (key.includes(MENU_OPTIONS.PROJECTS) && !key.includes('mep')) {
@@ -293,7 +307,6 @@ export default forwardRef(({
               }
 
               if (e.features[0].source.includes('flood_hazard')||e.features[0].source.includes('stream_function')||e.features[0].source.includes('future_development')) {
-                console.log('working')
                 const item = {
                   layer: getTitleOfProblemsPart(e.features[0]),
                   feature: getTitleOfProblemsPart(e.features[0]),
@@ -320,7 +333,6 @@ export default forwardRef(({
                           //     problemname = aw[0]?.problemname;
                           //   }
                           // }
-                console.log('e', e.properties, problemid, e.features[0])
 
                 let volume 
               if(e.features[0].source === 'detention_facilities'){
