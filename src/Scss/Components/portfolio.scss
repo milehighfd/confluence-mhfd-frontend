@@ -1143,12 +1143,6 @@
     border-radius: 10px;
   }
   .calendar-body{
-    .calendar-text-header{
-      font-size: 20px !important;
-      span{
-        font-size: 20px !important;
-      }
-    }
     .chart-container{
       height: calc(100vh - 223px);
     }
@@ -2675,7 +2669,7 @@
   }
     .body-piney{
       .body-piney-body{
-        height: calc(100vh - 382px) !important;
+        height: calc(100vh - 400px) !important;
       }
       .checkbox-select{
         .ant-checkbox-inner {
@@ -2834,6 +2828,12 @@
     }
   }
   .calendar-body{
+    .calendar-text-header{
+      font-size: 16px !important;
+      span{
+        font-size: 16px !important;
+      }
+    }
     .chart-container{
       height: calc(100vh - 282px) !important;
     }
@@ -3624,6 +3624,12 @@
     }
   }
   .calendar-body{
+    .calendar-text-header{
+      font-size: 20px !important;
+      span{
+        font-size: 20px !important;
+      }
+    }
     .chart-container{
       height: calc(100vh - 366px) !important;
     }

@@ -2463,12 +2463,14 @@ hr.filters-line {
       padding: 15.5px 0px !important;
       .text-notification{
         p{
-          font-size: 22px !important;
-          width: 552px !important;
+          font-size: 21px !important;
+    width: 552px !important;
+    line-height: 19px !important;
+    margin-left: 9px !important;
         }
         .date{
-          font-size: 22px !important;
-          margin-top: 7px !important;
+          font-size: 19px !important;
+          margin-top: 8px !important;
         }
       }
     }
@@ -2500,7 +2502,7 @@ hr.filters-line {
       .text-notification{
         p{
           font-size: 25.5px !important;
-          line-height: 23px !important;
+          line-height: 25px !important;
           width: 628px !important;
         }
         .date{
