@@ -439,6 +439,17 @@
   p{
     color: #11093C !important;
   }
+  .form-text-calendar{
+    p{
+      opacity: 0.5 !important;
+    }
+    .ant-space-align-center {
+      opacity: 1 !important;
+      span{
+        opacity: 1 !important;
+      }
+    }
+  }
   .active-btn-piney{
     color:#047cd7;
   }
@@ -449,6 +460,12 @@
   }
   .active-btn-piney-edit:hover{
     background-color: #f8f7f9;
+  }
+  .ant-space-align-center {
+    opacity: 1 !important;
+    span{
+      opacity: 1 !important;
+    }
   }
 }
 .piney-modal-detail{
@@ -501,6 +518,15 @@
       }
       .input-focus:active{
         box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
+      p{
+        opacity: 0.5 !important;
+      }
+      .ant-space-align-center {
+        opacity: 1 !important;
+        span{
+          opacity: 1 !important;
+        }
       }
     }
   }
@@ -1302,6 +1328,20 @@
       p{
         color: #11093C !important;
       }
+      .form-text-calendar{
+        p{
+          opacity: 0.5 !important;
+        }
+        .ant-space-align-center {
+          opacity: 1 !important;
+          span{
+            opacity: 1 !important;
+          }
+        }
+      }
+      .ant-space-align-center {
+        opacity: 1 !important;
+      }
     }
     h1{
       // top: calc(50% - 15px/2 - 306.5px);
@@ -1579,11 +1619,25 @@
       p{
         color: #11093C !important;
       }
+      .form-text-calendar{
+        p{
+          opacity: 0.5 !important;
+        }
+        .ant-space-align-center {
+          opacity: 1 !important;
+          span{
+            opacity: 1 !important;
+          }
+        }
+      }
       .input-focus:focus{
         box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
       }
       .input-focus:active{
         box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+      }
+      .ant-space-align-center {
+        opacity: 1 !important;
       }
     }
     h1{
@@ -1997,11 +2051,17 @@
         input{
           font-size: 16px !important;
         }
+        .input-focus{
+          margin-top: -2px !important;
+        }
         .input-focus:focus{
           box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
         }
         .input-focus:active{
           box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
+        }
+        .ant-space-align-center {
+          margin-top: -6px;
         }
       }
     }
@@ -2020,6 +2080,9 @@
           width: 6.714286px;
           height: 13.142857px;
         }
+      }
+      .ant-space-align-center {
+        margin-top: -6px;
       }
     }
   }
@@ -2055,6 +2118,9 @@
         input{
           font-size: 16px !important;
         }
+        .input-focus{
+          margin-top: -2px !important;
+        }
         .input-focus:focus{
           box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
         }
@@ -2062,10 +2128,16 @@
           box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
         }
       }
+      .ant-space-align-center {
+        margin-top: -6px;
+      }
     }
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 357px) !important;
+        .ant-space-align-center {
+          margin-top: -6px;
+        }
       }
       .checkbox-select{
         .ant-checkbox-inner {
@@ -2110,11 +2182,17 @@
       input{
         font-size: 16px !important;
       }
+      .ant-space-align-center {
+        margin-top: -6px;
+      }
     }
   }
   .body-piney{
     .body-piney-body{
       height: calc(100vh - 338px) !important;
+      .ant-space-align-center {
+        margin-top: -6px;
+      }
     }
     .checkbox-select{
       .ant-checkbox-inner {
@@ -2162,11 +2240,20 @@
         input{
           font-size: 16px !important;
         }
+        .input-focus{
+          margin-top: -2px !important;
+        }
+        .ant-space-align-center {
+          margin-top: -6px;
+        }
       }
     }
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 338px) !important;
+        .ant-space-align-center {
+          margin-top: -6px;
+        }
       }
       .checkbox-select{
         .ant-checkbox-inner {
@@ -2202,6 +2289,9 @@
       input{
         font-size: 16px !important;
       }
+      .ant-space-align-center {
+        margin-top: -6px;
+      }
     }
   }
   .piney-text{
@@ -2233,11 +2323,17 @@
       input{
         font-size: 16px !important;
       }
+      .ant-space-align-center {
+        margin-top: -6px;
+      }
     }
   }
   .body-piney{
     .body-piney-body{
       height: calc(100vh - 338px) !important;
+      .ant-space-align-center {
+        margin-top: -6px;
+      }
     }
     .checkbox-select{
       .ant-checkbox-inner {
@@ -3235,7 +3331,8 @@
     }
   }
   .filters{
-    padding-top: 40px !important;
+    padding-top: 50px !important;
+    padding-left: 8px !important;
     width: 1324px !important;
     .filters-foot{
       padding: 64px !important;
@@ -3273,7 +3370,7 @@
       top: -0.2em !important;
     }
     .ant-checkbox+span{
-      padding-left: 20px !important;
+      padding-left: 24px !important;
     }
     .scroll-filters {
       padding: 0px 70px !important;
@@ -3454,7 +3551,10 @@
     }
     .body-piney-body{
       .form-text-calendar{
-        img{height: 36px !important;}
+        img{
+          height: 36px !important;
+          margin-top: -8px !important;
+        }
         input{
           font-size: 24px !important;
         }
@@ -3695,7 +3795,10 @@
     }
     .body-piney-body{
       .form-text-calendar{
-        img{height: 36px !important;}
+        img{
+          height: 36px !important;
+          margin-top: -8px !important;
+        }
         input{
           font-size: 20px !important;
         }

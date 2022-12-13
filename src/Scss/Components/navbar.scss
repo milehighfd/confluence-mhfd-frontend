@@ -758,6 +758,11 @@
   }
 }
 @media(min-width: 3800px) and (max-width: 5999px){
+  .popoveer-notification-box{
+    .ant-popover-inner{
+      margin-top: 6px !important;
+    }
+  }
   .menu-drop-sub{
     font-size:26px !important;
     padding: 7px 10px !important;

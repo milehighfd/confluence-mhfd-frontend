@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CalendarOutlined, CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
+import { CalendarOutlined, CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
@@ -44,6 +44,7 @@ const PortafolioBody = () => {
   const scheduleRef = useRef<null | HTMLDivElement>(null);
   const [moveSchedule, setMoveSchedule] = useState('null'); 
   const [zoomTimeline, setZoomTimeline] = useState(0);
+  const [openDrop, setOpenDrop] = useState(false);
   // console.log('zoom',zoomTimeline);
   const {
     boundsMap,
@@ -200,10 +201,11 @@ const PortafolioBody = () => {
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
             <h2 style={{width:'205px'}}>
-              <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header" placement="bottomRight">
+              <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header" placement="bottomRight" onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
                 <div className="select-area">
                   <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
-                    South Watershed &nbsp;<DownOutlined style={{fontSize:'14px'}}/>
+                    South Watershed &nbsp;
+                    {openDrop ? <UpOutlined style={{color:'#251863'}} /> : < DownOutlined style={{color:'#251863'}} />}
                   </a>
                 </div>
               </Dropdown>

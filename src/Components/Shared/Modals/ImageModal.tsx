@@ -68,12 +68,12 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
           </>}
           {active === 1 &&
             <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-              <img src={'picture/map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
+              <img src={'picture/map-map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
             </Col>
           }
           {active === 2 &&
             <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-            <img src={'picture/map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
+            <img src={'picture/map-map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
           </Col>
           }
         </Row>

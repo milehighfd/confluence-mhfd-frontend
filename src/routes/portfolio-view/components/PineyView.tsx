@@ -78,7 +78,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                     </Dropdown>
                   </>
                   :<>
-                    <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span>
+                    <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span  style={{opacity:'0.5'}}>Jon Villines</span>
                   </>
                 }
               </Col>
@@ -99,7 +99,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 <p>Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                <span>Funding</span> &nbsp;<span className="tag-blue">20%</span>
+                <span style={{opacity:'0.5'}}>Funding</span> &nbsp;<span className="tag-blue">20%</span>
               </Col>
             </Row>
             <Row>
@@ -129,7 +129,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 <p>Duration</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-              <ClockCircleOutlined />&nbsp; &nbsp;<span>5 months  5 days</span>
+              <ClockCircleOutlined style={{opacity:'0.5'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5'}}>5 months  5 days</span>
               </Col>
             </Row>
           </div>
