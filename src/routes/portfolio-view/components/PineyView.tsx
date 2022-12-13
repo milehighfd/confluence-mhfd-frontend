@@ -108,7 +108,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
-                  <DatePicker style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList}/>
+                  <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList}/>
                   :<p>July 1, 2021</p>
                 }
               </Col>
@@ -119,7 +119,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
-                  <DatePicker style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} />
+                  <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} />
                   :<p>December 6, 2021</p>
                 }
               </Col>

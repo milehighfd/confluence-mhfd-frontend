@@ -3220,6 +3220,9 @@ body{
       .ant-picker-input>input {
         font-size: 20px !important;
       }
+      h3{
+        font-size: 22px !important;
+      }
   }
   .calendar-toollgate {
     span{
@@ -3509,15 +3512,18 @@ body{
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .piney-modal-detail{
+
+  }
   .scroll-filters {
     padding: 0px 70px !important;
   }
   .detailed-b{
     .img-carousel-detail{
       right: 30px !important;
-    top: 326px !important;
+    top: 340px !important;
     height: 118px !important;
-    width: 200px !important;
+    width: 155px !important;
     }
     .detail-left{
       left: 30px !important;
@@ -3543,7 +3549,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 1028px !important;
+    width: 1220px !important;
       font-size: 18px !important;
       top: 260px !important;
       .ant-picker-input>input {
@@ -3604,6 +3610,11 @@ body{
         }
       }
     }
+    .btn-tollgate{
+      font-size: 27px !important;
+      height: auto !important;
+      margin-top: 17px !important;
+    }
     .tollgate-body{
       height: 269px !important;
     }
@@ -3615,6 +3626,14 @@ body{
       h3{
         font-size: 30px !important;
       }
+      .left-tollgate{
+        p{
+          margin-bottom: 27px !important;
+        }
+      }
+      input{
+        font-size: 26px !important;
+      }
     }
     h1{
       font-size: 32px;
@@ -3624,7 +3643,6 @@ body{
     }
     p {
       font-size: 26px !important;
-      margin-bottom: 28px !important;
     }
     .calendar-toollgate{
       margin-bottom: 15px !important;
@@ -3711,7 +3729,9 @@ body{
   .detailed-image {
     .btn-filter-k{
       padding: 2px 10px;
-      font-size: 18px;
+      font-size: 24px;
+      padding-top: 8px !important;
+
     }
   }
   .table-financials-modal{

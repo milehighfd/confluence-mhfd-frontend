@@ -211,13 +211,13 @@ const Management = () => {
           </Row>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{textAlign: 'end'}}>
-          <Button style={{marginRight:'10px', height:'40px', borderRadius:'7px'}}><EditOutlined />Settings <DownOutlined /></Button>
+          <Button style={{marginRight:'10px', height:'auto', borderRadius:'7px'}}><EditOutlined />Settings <DownOutlined /></Button>
           <Dropdown overlay={menu} trigger={['click']}>
             <a onClick={e => e.preventDefault()}>
-              <Button  style={{marginRight:'10px', height:'40px', borderRadius:'7px'}}><TableOutlined /> Density<DownOutlined /></Button>
+              <Button  style={{marginRight:'10px', height:'auto', borderRadius:'7px'}}><TableOutlined /> Density<DownOutlined /></Button>
             </a>
           </Dropdown>
-          <Button className="btn-purple" style={{height:'40px'}} onClick={()=>{setModalAction(true)}}><PlusOutlined />Item</Button>
+          <Button className="btn-purple" style={{height:'auto'}} onClick={()=>{setModalAction(true)}}><PlusOutlined />Item</Button>
           <div style={{textAlign:'initial', padding:'20px'}} className="timeline-detail">
             <p><span className="span-wp"><ArrowRightOutlined /> Procurement</span>  Mar 3 to Nov 15, 2022 <span style={{opacity:'0.4', margin:'0px 5px'}}>|</span> <ClockCircleOutlined /> 55 scheduled</p>
             <Timeline mode='left'>

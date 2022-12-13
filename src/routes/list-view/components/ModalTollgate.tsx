@@ -102,7 +102,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         <Row className="detailed-h list-tollgate" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
-              <Col xs={{ span: 12 }} lg={{ span: 8}} style={{paddingRight:'10px'}}>
+              <Col xs={{ span: 12 }} lg={{ span: 8}} style={{paddingRight:'10px'}} className='left-tollgate'>
                 <p style={{marginBottom:'25px'}}>Draft</p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR)</p>
                 <p style={{marginBottom:'25px'}}>Work Plan (WP)</p>
@@ -308,8 +308,8 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               <Col xs={{ span: 12 }} lg={{ span: 12}}>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
-                <Button style={{width:'50%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent">Clear</Button>
-                <Button style={{width:'50%', height:'40px',fontSize:'17.5px'}} className='btn-purple'>Save</Button>
+                <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate">Clear</Button>
+                <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate'>Save</Button>
               </Col>
             </Row>
           </Col>

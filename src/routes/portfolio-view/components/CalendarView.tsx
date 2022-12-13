@@ -1393,7 +1393,7 @@ let toData = datas
 
       <Row id='zoomButtons' style={{margin:'9px 10px', marginBottom:'-6px'}} className='zoom-buttons'>
       <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
-        <div>
+        <div className='calendar-text-header'>
         <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
             onClick={() => {setIsZoomToday(true); setZoomSelected('Today')}}
