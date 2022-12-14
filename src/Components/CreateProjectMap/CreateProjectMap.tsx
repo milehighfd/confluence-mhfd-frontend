@@ -1569,7 +1569,7 @@ const CreateProjectMap = (type: any) => {
               </div>
             </div> : ''
           }
-      <div id="map3" style={{ height: '100%', width: '100%' }}></div>
+      <div id="map3" style={{ height: '100%', width: '100%', borderRadius:'10px' }}></div>
       {visible && <DetailedModal
         detailed={detailed}
         type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
