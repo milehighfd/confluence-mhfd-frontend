@@ -1273,6 +1273,16 @@
       height: 350px;
     }
     .footer-drawer{
+      width: 100% !important;
+      position: absolute !important;
+      right: 0px !important;
+      padding: 20px 32px !important;
+      bottom: 0px !important;
+      padding-right: 50px !important;
+      h4{
+        margin-top: 15px !important;
+        font-size: 18px !important;
+      }
       button{
         height: 58px;
         width: 150px;
@@ -1437,7 +1447,7 @@
       max-width: 620px !important;
     }
     .icon-bt{
-      height: 32px !important;
+      height: 59px !important;
       width: 30px !important;
       background: #251863;
       padding: 0px !important;
@@ -1445,7 +1455,7 @@
     }
     .btn-filter-d:hover > .icon-bt{
       opacity: 1;
-      height: 32px !important;
+      height: 59px !important;
       width: 30px !important;
       background: $green !important;
       padding: 0px !important;
@@ -1482,7 +1492,7 @@
       right: 37px;
     }
     .icon-bt{
-      height: 32px !important;
+      height: 59px !important;
       width: 30px !important;
       background: $purple;
       padding: 0px !important;
@@ -1490,7 +1500,7 @@
     }
     .btn-filter-d:hover > .icon-bt{
       opacity: 1;
-      height: 32px !important;
+      height: 59px !important;
       width: 30px !important;
       background: $green !important;
       padding: 0px !important;
@@ -1536,13 +1546,18 @@
     .purple, .purple-priority, .yellow{
       font-size: 17px !important;
     }
+    .purple-priority{
+      bottom: 40px !important;
+    }
     .purple{
       bottom: 10px !important;
       left: 10px !important;
+      padding: 0px 10px !important;
     }
     .yellow{
       bottom: 10px !important;
       right: 10px !important;
+      padding: 0px 10px !important;
     }
     .menu-wr {
       // top: 12px !important;
@@ -1709,6 +1724,16 @@
       height: 450px;
     }
     .footer-drawer{
+      width: 100% !important;
+      position: absolute !important;
+      right: 0px !important;
+      padding: 20px 32px !important;
+      bottom: 0px !important;
+      padding-right: 50px !important;
+      h4{
+        margin-top: 20px !important;
+        font-size: 24px !important;
+      }
       button{
         height: 78px !important;
         width: 195px !important;
@@ -1895,6 +1920,16 @@
     }
     .purple-priority{
       bottom: 45px !important;
+    }
+    .purple{
+      bottom: 10px !important;
+      left: 10px !important;
+      padding: 0px 15px !important;
+    }
+    .yellow{
+      bottom: 10px !important;
+      right: 10px !important;
+      padding: 0px 15px !important;
     }
     .menu-wr {
       font-size: 18px;
