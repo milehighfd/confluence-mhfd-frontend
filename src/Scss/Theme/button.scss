@@ -319,4 +319,9 @@
   .ant-select{
     font-size:24px !important;
   }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 5px !important;
+    align-self: center;
+    min-height: 55px;
+  }
 }
