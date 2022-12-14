@@ -1835,6 +1835,40 @@
     font-size: 21px !important;
     width: 400px !important;
     }
+    .col-wr {
+      min-width: 215px;
+      width: 215px;
+      height: calc(100vh - 330px);
+      // min-height: 685px;
+      margin-top: 15px;
+    }
+    .btn-transparent {
+      font-size: 16px;
+
+      img{
+        height: 18px;
+      }
+    }
+    .card-wr {
+      width: 203px;
+      height: 110px;
+    }
+    h4 {
+      font-size: 18px;
+      line-height: 25px !important;
+    }
+    h6{
+      font-size: 14px;
+    }
+    .purple, .purple-priority, .yellow{
+      font-size: 19px !important;
+    }
+    .purple-priority{
+      bottom: 45px !important;
+    }
+    .menu-wr {
+      font-size: 18px;
+    }
   }
   .work-table .col-wr {
     width: 400px !important;
@@ -1842,13 +1876,14 @@
   .work-table .card-wr {
     width: 100% !important;
     height: 160px !important;
+    margin-bottom: 15px !important;
   }
   .work-table .col-wr {
       min-width: 400px !important;
       width: 285px !important;
       height: calc(100vh - 360px) !important;
       margin-right: 15px !important;
-      padding: 20px 10px 20px 10px;
+      padding: 20px 15px !important;
       margin-top: 10px !important;
   }
   .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list, .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
@@ -1864,6 +1899,51 @@
     .ant-tabs-nav{
       .ant-tabs-tab{
         font-size: 25px !important;
+      }
+    }
+    .icon-bt{
+      height: 38px !important;
+      width: 43px !important;
+      background: $purple;
+      padding: 9px;
+      -webkit-mask-size: 23px 38px !important;
+    }
+    .btn-filter-d:hover > .icon-bt{
+      opacity: 1;
+      height: 38px !important;
+      width: 43px !important;
+      background: $green !important;
+      padding: 9px;
+      -webkit-mask-size: 23px 38px !important;
+    }
+  }
+  .work-head{
+    .icon-bt{
+      height: 54px !important;
+      width: 45px !important;
+      background: $purple;
+      padding: 0px;
+      -webkit-mask-size: 23px 38px !important;
+    }
+    .btn-filter-d:hover > .icon-bt{
+      opacity: 1;
+      height: 54px !important;
+      width: 45px !important;
+      background: $green !important;
+      padding: 0px;
+      -webkit-mask-size: 23px 38px !important;
+    }
+  }
+  .work-utilities{
+    .footer-drawer{
+      width: 100% !important;
+      position: absolute !important;
+      right: 0px !important;
+      padding: 20px 32px !important;
+      bottom: 37px !important;
+      padding-right: 50px !important;
+      h4{
+        font-size: 24px !important;
       }
     }
   }

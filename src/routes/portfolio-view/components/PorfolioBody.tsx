@@ -17,15 +17,15 @@ import { rawData } from "../constants/PhaseViewData";
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','Capital', 'Restoration', 'Study', 'Acquisition', 'R&D', 'DIP'];
-const popovers: any = [
-  <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Restoration:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Study:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Any other effort for which MHFD funds or staff time is requested.</div>,
-  <div className="popoveer-00"><b>R&D:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
-]
+// const popovers: any = [
+//   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+//   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
+//   <div className="popoveer-00"><b>Restoration:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
+//   <div className="popoveer-00"><b>Study:</b> Property with high flood risk or needed for improvements.</div>,
+//   <div className="popoveer-00"><b>Acquisition:</b> Any other effort for which MHFD funds or staff time is requested.</div>,
+//   <div className="popoveer-00"><b>R&D:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+//   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
+// ]
 const PortafolioBody = () => {
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
@@ -281,7 +281,7 @@ const PortafolioBody = () => {
             onChange={(key) => setTabKey(key)} className="tabs-map">
             {
               displayedTabKey.map((tk: string) => (
-                <TabPane style={{marginBottom:'0px'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover> </span>} key={tk}>
+                <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
                   <div className="protafolio-body">
                     {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                   <Row>
