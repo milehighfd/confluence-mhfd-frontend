@@ -51,7 +51,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const [isHovered, setIsHovered] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
-
+  const pageWidth  = document.documentElement.scrollWidth;
   const deleteProject = () => {
     delProject(projectid)
     setLoading(true);
@@ -228,7 +228,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       tabKey={tabKey}
       projectsubtype={projectsubtype}
       />
-    <div ref={divRef} className="card-wr" style={{ borderLeft: `3px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
+    <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, projectid);
       }}

@@ -1922,7 +1922,7 @@
       height: 54px !important;
       width: 45px !important;
       background: $purple;
-      padding: 0px;
+      padding: 0px !important;
       -webkit-mask-size: 23px 38px !important;
     }
     .btn-filter-d:hover > .icon-bt{
@@ -1930,7 +1930,7 @@
       height: 54px !important;
       width: 45px !important;
       background: $green !important;
-      padding: 0px;
+      padding: 0px !important;
       -webkit-mask-size: 23px 38px !important;
     }
   }
