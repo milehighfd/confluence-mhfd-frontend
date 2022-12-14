@@ -64,7 +64,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     if (type === 'WORK_REQUEST') {
       console.log('substatus', substatus);
       let list = substatus ? substatus.split(',') : [];
-      let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special']
+      let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
       setBoardsData(ls.map((l) => {
         return {
           locality: l,

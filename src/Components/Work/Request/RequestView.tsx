@@ -40,13 +40,13 @@ const { Panel } = Collapse;
 let currentProject: any = {};
 let columDragAction = [false, 0, 0];
 let counterBoardsCalls = 0;
-const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
+const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
   <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>R&D:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
@@ -185,11 +185,11 @@ const RequestView = ({ type, isFirstRendering }: {
           if (l.type === 'COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.type === 'SERVICE_AREA') {
-            displayedTabKey = ['Study', 'Acquisition', 'Special'];
+            displayedTabKey = ['Study', 'Acquisition', 'R&D'];
           }
         } else {
           if (l.type === 'COUNTY') {
-            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'Special']
+            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study'];
           }
@@ -279,7 +279,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     if (l.type === 'COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
-                      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
                       displayedTabKey = tabKeys;
@@ -300,7 +300,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     if (l.type === 'COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
-                      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
                       displayedTabKey = tabKeys;
@@ -747,7 +747,7 @@ const RequestView = ({ type, isFirstRendering }: {
     if (localityType === 'COUNTY') {
       displayedTabKey = ['Capital', 'Maintenance']
     } else if (localityType === 'SERVICE_AREA') {
-      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
     }
     if (locality === 'MHFD District Work Plan') {
       displayedTabKey = tabKeys;

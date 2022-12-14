@@ -246,7 +246,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
                 <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Special</label>
+                <label className="tag-name" style={{padding:'10px'}}>R&D</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>

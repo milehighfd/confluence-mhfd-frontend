@@ -336,7 +336,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
               <img src="/Icons/project/special.svg" alt="" height="30px" />
             </div>
             <div className="project-info">
-              <h5>Special</h5>
+              <h5>R&D</h5>
               <p>Any other effort for which MHFD funds or staff time is requested.</p>
             </div>
           </Button>
@@ -352,7 +352,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
               <img src="/Icons/project/special.svg" alt="" height="30px" />
             </div>
             <div className="project-info">
-              <h5>Special</h5>
+              <h5>R&D</h5>
               <p>Any other effort for which MHFD funds or staff time is requested.</p>
             </div>
           </Button>
