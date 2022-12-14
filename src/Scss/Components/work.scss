@@ -1902,18 +1902,18 @@
       }
     }
     .icon-bt{
-      height: 38px !important;
-      width: 43px !important;
+      height: 54px !important;
+      width: 45px !important;
       background: $purple;
-      padding: 9px;
+      padding: 0px;
       -webkit-mask-size: 23px 38px !important;
     }
     .btn-filter-d:hover > .icon-bt{
       opacity: 1;
-      height: 38px !important;
-      width: 43px !important;
+      height: 54px !important;
+      width: 45px !important;
       background: $green !important;
-      padding: 9px;
+      padding: 0px;
       -webkit-mask-size: 23px 38px !important;
     }
   }
@@ -1943,7 +1943,11 @@
       bottom: 37px !important;
       padding-right: 50px !important;
       h4{
-        font-size: 24px !important;
+        margin-top: 5px !important;
+        font-size: 29px !important;
+      }
+      .btn-purple{
+        font-size: 29px !important;
       }
     }
   }
