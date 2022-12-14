@@ -314,11 +314,9 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
       <Row id='ProjectRoadmapHeader'>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-roadmap">PROJECT ROADMAP</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="project-roadmap">PROJECT ROADMAP</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'75%'}}></div>
         </Col>
       </Row>
       <Row>
@@ -371,11 +369,9 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       </div>
       </Row>
       <Row style={{opacity:'0.5'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="graphical-view">GRAPHICAL VIEW</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="graphical-view">GRAPHICAL VIEW</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'77%'}}></div>
         </Col>
       </Row>
       <Row style={{opacity:'0.5'}}>

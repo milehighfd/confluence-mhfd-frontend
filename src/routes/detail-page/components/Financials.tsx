@@ -81,11 +81,9 @@ const Financials = () => {
     <>
       <AddAmountModal visible={openModalAmount} setVisible={setOpenModalAmount}/>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-financials">PROJECT FINANCIALS</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="project-financials">PROJECT FINANCIALS</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'73%'}}></div>
         </Col>
       </Row>
       {/* <Row>

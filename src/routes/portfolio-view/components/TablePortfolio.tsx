@@ -87,7 +87,7 @@ const TablePortafolio = (
       title: <>Estimate Cost &nbsp;<ArrowDownOutlined /></>,
       key: 'cost',
       dataIndex: 'cost',
-      render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C'}}>${text}</span>;},
+      render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#251863'}}>${text}</span>;},
       width: "14.5%",
       ellipsis: true,
     },

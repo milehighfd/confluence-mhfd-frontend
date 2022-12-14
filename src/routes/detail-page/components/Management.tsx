@@ -31,11 +31,9 @@ const Management = () => {
     <>
       {modalAction && <ModalAction visible={modalAction} setVisible={setModalAction}/>}
       <Row  style={{opacity:'0.5'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}} id="project-management">PROJECT MANAGEMENT</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 16 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="project-management">PROJECT MANAGEMENT</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'71%'}}></div>
         </Col>
       </Row>
       <Row  style={{opacity:'0.5'}}>

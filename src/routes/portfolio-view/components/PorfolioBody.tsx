@@ -233,7 +233,7 @@ const PortafolioBody = () => {
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(!openFilters)}}>
-              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#bfbcc9' }} src=""/>&nbsp;Filter
+              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#251863' }} src=""/>&nbsp;Filter
             </Button>
             {/* <Button className=" btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
               <ToTopOutlined style={{fontSize: '16px', color: '#706b8a'}}/>
