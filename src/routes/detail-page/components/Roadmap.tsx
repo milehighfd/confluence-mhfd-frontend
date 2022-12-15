@@ -3,9 +3,8 @@ import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "ant
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_SOLUTIONS } from "../constants";
 import * as d3 from 'd3';
-import { dataDot1,dataDot2, dataDot3,colorScale  } from "routes/portfolio-view/constants/PhaseViewData";
+import { dataDot1,dataDot2, dataDot3,colorScale, rawData  } from "routes/portfolio-view/constants/PhaseViewData";
 import ModalGraphic from "routes/portfolio-view/components/ModalGraphic";
-
 
 const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>, openPiney:boolean}) => {
   const [timeOpen, setTimeOpen] = useState(true);
@@ -22,7 +21,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
 
     // console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 26:(windowWidth>=2550 && windowWidth<=3000 ? 20:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 14 :14)))))
-    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 15 : (windowWidth>=2550 && windowWidth<=3999 ? 19: 13) )
+    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3000 ? 32: (windowWidth>=3001 && windowWidth<=3999? 40:22)))
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -20 : (windowWidth>=2550 && windowWidth<=3000 ? -35: -15.8)))
   
     const gradientLinesClass = (svgDefinitions:any)=>{
@@ -133,7 +132,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       gradientLinesClass(svgDefinitions)
 
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 15]).range([margin.left, width +margin.right]);
+  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right]);
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;
@@ -322,8 +321,8 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       <Row>
       <div className="phaseview-content">
         <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage'>
-          <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
-          <p>REQUESTED</p>
+          {/* <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
+          <p>REQUESTED</p> */}
           <p>APPROVED</p>
           <p style={{display:'flex', width:'40%'}}><hr className='hr2' style={{width:'35%'}}></hr>ACTIVE<hr style={{width:'35%'}}></hr></p>
           <p style={{display:'flex', width:'33.33333335%'}}><hr  style={{width:'31%'}}></hr>CLOSEOUT<hr style={{width:'31%'}}></hr></p>
@@ -332,8 +331,8 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           <div id="dotchart_1_detailPage" ></div>
           {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
         <div className="phaseview-title" id='phaseviewTitleDetailPage'>
-          <p>Draft</p>
-          <p>Work Request<br/>(WR)</p>
+          {/* <p>Draft</p>
+          <p>Work Request<br/>(WR)</p> */}
           <p>Work Plan<br/>(WP)</p>
           <p>Startup</p>
           <p>Funding</p>

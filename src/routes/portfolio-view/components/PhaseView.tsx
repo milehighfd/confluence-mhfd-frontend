@@ -45,14 +45,14 @@ const PhaseView = (
   let svg:any;
 
     // console.log(windowWidth);
-    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 55:(windowWidth>=2550 && windowWidth<=3000 ? 37.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 28 :(windowWidth>=1199 && windowWidth<=1449 ? 20 :20)))))
-    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
+    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 49:(windowWidth>=2550 && windowWidth<=3000 ? 32.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 24 :(windowWidth>=1199 && windowWidth<=1449 ? 18 :20)))))
+    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 41 : (windowWidth>=2550 && windowWidth<=3000 ? 50: (windowWidth>=3001 && windowWidth<=3999 ? 85:30) ))
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41.2:(windowWidth>=1900 && windowWidth<=2549 ? -27 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -22)))
     const marginBottom = (windowWidth>=3001 && windowWidth<=3999 ? -40.5:(windowWidth>=2550 && windowWidth<=3000 ? -43:(windowWidth>=1900 && windowWidth<=2549 ? -35 :-26)))
     const prevData = rawData.map((elem: any) => {
       return {
         ...elem,
-        schedule: elem.schedule.filter((val: any) => val.phase != 'Draft' && val.phase != 'WorkRequest')
+        schedule: elem.schedule.filter((val: any) => val.phase !== 'Draft' && val.phase !== 'WorkRequest')
       }
     });
     const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
@@ -170,7 +170,7 @@ const PhaseView = (
       gradientLinesClass(svgDefinitions)
 
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 15]).range([margin.left, width +margin.right]);
+  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right]);
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;

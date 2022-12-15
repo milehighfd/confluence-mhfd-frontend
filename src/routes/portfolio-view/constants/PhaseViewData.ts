@@ -53,8 +53,6 @@ export const dataDot1 = [
     specificId: 3,
     jurisdiction: 'Centennial',
     data: [
-      { phase: 'Draft', tasks: 3, status: 'completed' },
-      { phase: 'WR', tasks: 11, status: 'completed' },
       { phase: 'WP', tasks: 2, status: 'completed' },
       { phase: 'Startup', tasks: 10, status: 'completed' },
       { phase: 'Funding', tasks: 4, status: 'completed' },
