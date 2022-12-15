@@ -7,6 +7,7 @@ import TrelloLikeCard from './TrelloLikeCard';
 import WsService from './WsService';
 
 let columDragAction = [false, 0, 0];
+let stop = 0;
 const ColumsTrelloCard = (
   {
     columns,
@@ -60,6 +61,10 @@ const ColumsTrelloCard = (
   var windowWidth = window.innerWidth ;
   const onDrop = (e: any, columnIdx: number) => {
     let txt = e.dataTransfer.getData("text");
+    console.log('txt', txt)
+    console.log('columns', columns)
+    console.log('columnIdx', columnIdx)
+    console.log('dragAction', dragAction)
     let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction);
     if (cols) {
       WsService.sendUpdate(cols);
@@ -74,6 +79,7 @@ const ColumsTrelloCard = (
     setComponentsFromMap([]);
   }
   const onDragOver = (e: any) => {
+    stop=0
     e.preventDefault();
   }
   // useEffect(()=>{
@@ -101,30 +107,69 @@ const ColumsTrelloCard = (
               e.target.scrollTo(0,0);
             }, 5000);
           }}
-          onDragLeaveCapture={(e) => {
-            let dr: any = divRef.current;
-            let bounds = dr.getBoundingClientRect();
-            setSizeCard([bounds.height, bounds.width])
-            let size= 100;
-            let sizeCard= 70;
-            if(windowWidth >= 1900 ){
-              size=75;
-              sizeCard=0;
-            }
-            if(windowWidth >= 2500 ){
-              size=80;
-              sizeCard=0;
-            }
-            if(columnIdx !==0 ){
-              if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
-                setDragAction([true, columnIdx,  ((e.clientY-sizeCard)/bounds.height)-3]);
+          // onDragEnter={(e) => {
+          //   console.log('stop',stop)
+          //   if (stop<=1){
+          //     console.log('dragEnter')
+          //     let dr: any = divRef.current;
+          //     let bounds = dr.getBoundingClientRect();
+          //     setSizeCard([bounds.height, bounds.width])
+          //     let size= 100;
+          //     let sizeCard= 70;
+          //     if(windowWidth >= 1900 ){
+          //       size=75;
+          //       sizeCard=0;
+          //     }
+          //     if(windowWidth >= 2500 ){
+          //       size=80;
+          //       sizeCard=0;
+          //     }
+          //     if(columnIdx !==0 ){
+          //       if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
+          //         setDragAction([true, columnIdx,  ((e.clientY-sizeCard)/bounds.height)-3]);
+          //       }
+          //     }else{
+          //       if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
+          //         setDragAction([true, columnIdx,  ((e.clientY-size)/bounds.height)-3]);
+          //       }
+          //     }
+          //     console.log('what is inside',dragAction)
+          //     stop++;
+          //   }
+          //   e.preventDefault()
+          //   e.stopPropagation()
+          // }}
+          onDragEnterCapture={(e) => {
+            console.log('stop',stop)
+            if (stop<=1){
+              console.log('dragEnter')
+              let dr: any = divRef.current;
+              let bounds = dr.getBoundingClientRect();
+              setSizeCard([bounds.height, bounds.width])
+              let size= 100;
+              let sizeCard= 70;
+              if(windowWidth >= 1900 ){
+                size=75;
+                sizeCard=0;
               }
-            }else{
-              if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
-                setDragAction([true, columnIdx,  ((e.clientY-size)/bounds.height)-3]);
+              if(windowWidth >= 2500 ){
+                size=80;
+                sizeCard=0;
               }
+              if(columnIdx !==0 ){
+                if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
+                  setDragAction([true, columnIdx,  ((e.clientY-sizeCard)/bounds.height)-3]);
+                }
+              }else{
+                if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
+                  setDragAction([true, columnIdx,  ((e.clientY-size)/bounds.height)-3]);
+                }
+              }
+              console.log('what is inside',dragAction)
+              stop++;
             }
-            
+            e.preventDefault()
+            e.stopPropagation()
           }}
           onDrag={(e) => {
             let dr: any = divRef.current;
