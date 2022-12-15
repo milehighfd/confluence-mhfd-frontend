@@ -15,7 +15,15 @@ class ColorService {
                 }
             })
         } else {
+          const positions = [0,1,2,3,4,5];
+          positions.forEach((pos) => {
+            if (project[`originPosition${pos}`]) {
+              index = project[`originPosition${pos}`];
+            }
+          });
+          if (index === -1) {
             index = project[`originPosition${columnIdx}`];
+          }
         }
         switch(index) {
             case 0:
