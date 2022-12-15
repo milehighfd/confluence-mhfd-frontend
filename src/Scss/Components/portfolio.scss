@@ -1364,7 +1364,7 @@
     overflow-x: scroll;
     // height: calc(100vh - 181px);
     .phaseview-content{
-      width: 110%;
+      width: 100%;//110%
       overflow-y: auto;
       overflow-x: scroll;
       .container-timeline{
@@ -1373,6 +1373,20 @@
         overflow-y: auto;
         height: calc(100vh - 275px);
         width: 100%;
+      }
+      .container-timeline::-webkit-scrollbar {
+        width: 5px;
+      }
+      
+      /* Track */
+      .container-timeline::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
+       
+      /* Handle */
+      .container-timeline::-webkit-scrollbar-thumb {
+        background: $purple00;
+        border-radius: 10px;
       }
       .phaseview-title-label{
         display: flex;

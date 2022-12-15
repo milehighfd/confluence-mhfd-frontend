@@ -366,24 +366,24 @@ const PhaseView = (
       )}
       <div className="phaseview-content">
         <div className="phaseview-title-label" id="phaseviewTitlleWidth">
-          <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
-          <p>Requested</p>
-          <p>Approved</p>
-          <p style={{ display: 'flex', width: '40%' }}>
-            <hr className="hr2"></hr>Active<hr></hr>
+          {/* <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
+          <p>Requested</p> */}
+          <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
+          <p style={{ display: 'flex', width: '46.15384615384615%' }}>
+            <hr className="hr2"></hr>Active<hr className="hr2"></hr>
           </p>
-          <p style={{ display: 'flex', width: '33.33333335%' }}>
+          <p style={{ display: 'flex', width: '38.46153846153846%' }}>
             <hr></hr>Closeout<hr></hr>
           </p>
           <p>Closed</p>
         </div>
         <div className="phaseview-title" id="phaseviewTitlleWidth">
-          <p>Draft</p>
+          {/* <p>Draft</p>
           <p>
             Work Request
             <br />
             (WR)
-          </p>
+          </p> */}
           <p>
             Work Plan
             <br />
