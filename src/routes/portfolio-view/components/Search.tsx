@@ -31,6 +31,7 @@ const Search = (
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   const [detailOpen, setDetailOpen] = useState(false);
+  const [likeActive, setLikeActive] = useState([1,0,2]);
   let displayedTabKey = tabKeys;
   const content = (
     <div style={{width:'137px'}}>
@@ -153,7 +154,8 @@ const Search = (
                       elem.values.map((d:any, index_elem: number) => (
                         <div className="text-search" id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}>
                           <p onClick={()=>{setDetailOpen(true)}}> {d.rowLabel} </p>
-                          <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
+                          {likeActive[0] && likeActive[1]=== index && likeActive[2] === index_elem ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([1, index , index_elem]))} />}
+                          {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>
                       ))
                     }

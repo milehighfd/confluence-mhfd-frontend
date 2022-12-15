@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CalendarOutlined, CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
+import { CalendarOutlined, CheckCircleFilled, CheckCircleOutlined, CheckCircleTwoTone, DownOutlined, HeartFilled, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
@@ -33,6 +33,8 @@ const PortafolioBody = () => {
   const [openAction, setOpenAction] = useState(true);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
+  const [openProjects, setOpenProjects] = useState(false);
+  const [openFavorites, setOpenFavorites] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List');
@@ -224,12 +226,12 @@ const PortafolioBody = () => {
 
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
-            <Button className="btn-filter-k ">
-              <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> My Projects
+            <Button className={openProjects ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenProjects(!openProjects)}}>
+              {openProjects?  <CheckCircleFilled style={{color: '#29C499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Projects
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
-            <Button className="btn-filter-k">
-              <HeartOutlined style={{color: '#cdcbd6', fontSize: '16px'}}  /> Favorites
+            <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFavorites(!openFavorites)}}>
+              {openFavorites? <HeartFilled style={{color: '#F5575C', fontSize: '16px'}} />:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(!openFilters)}}>
