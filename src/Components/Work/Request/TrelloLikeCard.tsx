@@ -149,7 +149,21 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }, [project, columnIdx]);
 
   useEffect(() => {
-    setPriority(project[`originPosition${columnIdx}`]);
+    if (type === 'WORK_REQUEST') {
+      setPriority(project[`originPosition${columnIdx}`]);  
+    } else {
+      const positions = [0,1,2,3,4,5];
+      let newPriority = -1;
+      positions.forEach((pos) => {
+        if (project[`originPosition${pos}`]) {
+          newPriority = project[`originPosition${pos}`];
+        }
+      });
+      if (newPriority === -1) {
+        newPriority = project[`originPosition${columnIdx}`];
+      }
+      setPriority(newPriority);
+    }
   }, [project, columnIdx]);
 
   useEffect(()=>{
