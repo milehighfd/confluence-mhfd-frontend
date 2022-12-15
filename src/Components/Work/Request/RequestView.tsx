@@ -981,7 +981,7 @@ const RequestView = ({ type, isFirstRendering }: {
                  }} className="tabs-map">
                   {
                     displayedTabKey.map((tk: string) => (
-                      <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+                      <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         <div className="work-table" ref={wrtRef}>
                           <ColumsTrelloCard
                             columns={columns}
