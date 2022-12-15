@@ -225,7 +225,6 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     }
   })
   let newCardPos =  columns[Math.trunc(Number(dragAction[1]))].projects.length <= Math.trunc(Number(dragAction[2])) ? -1 : Math.trunc(Number(dragAction[2]));
-  console.log('newCardPos', newCardPos)
   if (fromColumnIdx === columnIdx) {
     let beforePos = -1;
     columns[columnIdx].projects.forEach((p: any, posBef: number) => {
@@ -296,29 +295,28 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
         })
       }
     })
-    console.log('newobj',newObj)
     if (newCardPos === -1) {
       temporalColumns[columnIdx].projects.push(newObj);
     } else {
       let arr = [];
-      console.log('tamañocolumn',temporalColumns[columnIdx].projects.length, temporalColumns[columnIdx])
       if(temporalColumns[columnIdx].projects.length === 0){
         temporalColumns[columnIdx].projects.push(newObj);
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA')
       }else{
+        let hasInserted = false;
         for (var i = 0 ; i < temporalColumns[columnIdx].projects.length ; i++) {
           let p = temporalColumns[columnIdx].projects[i];
-          console.log('PPP contains: ', p)
           if (newCardPos === i) {
+            hasInserted = true;
             arr.push(newObj);
           }
           arr.push(p)
         } 
-      console.log('arr',arr)
+        if (!hasInserted){
+          arr.push(newObj);
+        }
       temporalColumns[columnIdx].projects = arr;
     }
     }
-    console.log('array final', temporalColumns)
     return temporalColumns;
   }
 }
