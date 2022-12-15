@@ -2138,6 +2138,9 @@ body{
     color: #251863;
     background: #ffffff;
   }
+  .ant-table-thead>tr>th {
+    border-bottom: 1px solid #251863;
+  }
   .ant-table-tbody>tr>td {
     border-top: 1px solid #f0f0f0;
     border-bottom: none;
