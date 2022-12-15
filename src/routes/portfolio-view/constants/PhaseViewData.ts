@@ -361,7 +361,7 @@ export const rawData = [
         to: moment('2022/08/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -545,7 +545,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -729,7 +729,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -913,7 +913,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -1097,7 +1097,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -1281,7 +1281,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -1465,7 +1465,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -1649,7 +1649,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -1833,7 +1833,7 @@ export const rawData = [
         to: moment('2022/05/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 9
       },
       {
@@ -2031,7 +2031,7 @@ export const rawData = [
         to: moment('2022/08/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -2215,7 +2215,7 @@ export const rawData = [
         to: moment('2022/08/17 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -2413,7 +2413,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -2597,7 +2597,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -2781,7 +2781,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -2964,7 +2964,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -3148,7 +3148,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -3332,7 +3332,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -3516,7 +3516,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -3700,7 +3700,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -3898,7 +3898,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -4082,7 +4082,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -4266,7 +4266,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -4449,7 +4449,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -4633,7 +4633,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -4817,7 +4817,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -5001,7 +5001,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -5185,7 +5185,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -5369,7 +5369,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -5553,7 +5553,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -5737,7 +5737,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -5921,7 +5921,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -6105,7 +6105,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -6289,7 +6289,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -6487,7 +6487,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -6671,7 +6671,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -6855,7 +6855,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -7038,7 +7038,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -7222,7 +7222,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -7406,7 +7406,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -7590,7 +7590,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -7774,7 +7774,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -7958,7 +7958,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -8142,7 +8142,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -8326,7 +8326,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -8510,7 +8510,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -8694,7 +8694,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -8878,7 +8878,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -9062,7 +9062,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -9246,7 +9246,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -9430,7 +9430,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -9614,7 +9614,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -9798,7 +9798,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -9982,7 +9982,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -10180,7 +10180,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -10364,7 +10364,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -10548,7 +10548,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -10731,7 +10731,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -10915,7 +10915,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -11099,7 +11099,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -11283,7 +11283,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -11467,7 +11467,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -11651,7 +11651,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -11835,7 +11835,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -12019,7 +12019,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -12203,7 +12203,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -12387,7 +12387,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {
@@ -12571,7 +12571,7 @@ export const rawData = [
         to: moment('2022/08/10 10:00:00'),
         status: 'completed',
         name: 'Work Plan',
-        hase: 'WorkPlan', 
+        phase: 'WorkPlan', 
         tasks: 12
       },
       {

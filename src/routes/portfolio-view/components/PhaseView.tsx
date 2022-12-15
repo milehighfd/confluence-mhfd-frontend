@@ -49,12 +49,17 @@ const PhaseView = (
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3999 ? 40: 20) )
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41.2:(windowWidth>=1900 && windowWidth<=2549 ? -27 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -22)))
     const marginBottom = (windowWidth>=3001 && windowWidth<=3999 ? -40.5:(windowWidth>=2550 && windowWidth<=3000 ? -43:(windowWidth>=1900 && windowWidth<=2549 ? -35 :-26)))
-
-    const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+    const prevData = rawData.map((elem: any) => {
+      return {
+        ...elem,
+        schedule: elem.schedule.filter((val: any) => val.phase != 'Draft' && val.phase != 'WorkRequest')
+      }
+    });
+    const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
     const completeData = sortedData.map((elem: any) => {
       return {
         ...elem,
-        values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+        values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
       }
     });
     const lengthData = completeData.length;
