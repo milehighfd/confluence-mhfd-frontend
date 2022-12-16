@@ -254,7 +254,7 @@ const typeStatus = (status:string) => {
 // ];
 export const AllHeaderTable:ColumnsType<DataType | DataTypeAll | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
     width:"14.28571428571429",
@@ -360,7 +360,7 @@ export const AllValueTable:ColumnsType<DataTypeAll | any> = [
 ];
 export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
     width:"6.666666666666667",
@@ -602,7 +602,7 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
 
 export const RDHeaderTable:ColumnsType<DataTypeRD | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
     width:"16.66666666666667",
@@ -695,7 +695,7 @@ export const RDValueTable:ColumnsType<DataTypeRD | any> = [
 ];
 export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
     width:"7.142857142857143",
@@ -914,7 +914,7 @@ export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
 ];
 export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
     width:"7.142857142857143",
@@ -1133,45 +1133,45 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
 ];
 export const PlanningHeaderTable:ColumnsType<DataTypePlanning | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>Status &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'status',
     key: 'status',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>Phase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'phase',
     key: 'phase',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'mhfd',
     key: 'mhfd',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>Project Sponsor &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'project_sponsor',
     key: 'project_sponsor',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>Total Funding &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'total_funding',
     key: 'total_funding',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   
@@ -1179,21 +1179,21 @@ export const PlanningHeaderTable:ColumnsType<DataTypePlanning | any> = [
     title: <>Consultant &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'consultant',
     key: 'consultant',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'serviceArea',
     key: 'serviceArea',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: <>Stream &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'stream',
     key: 'stream',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
 ];
@@ -1202,7 +1202,7 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
     title: '',
     dataIndex: 'onbase',
     key: 'onbase',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
@@ -1213,28 +1213,28 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
     <div style={{}}>
       <span className={typeStatus(status)}>{status}</span>
     </div>,
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: '',
     dataIndex: 'phase',
     key: 'phase',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: '',
     dataIndex: 'mhfd',
     key: 'mhfd',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: '',
     dataIndex: 'project_sponsor',
     key: 'project_sponsor',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
@@ -1242,7 +1242,7 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
     dataIndex: 'total_funding',
     key: 'total_funding',
     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   
@@ -1250,28 +1250,28 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
     title: '',
     dataIndex: 'consultant',
     key: 'consultant',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: '',
     dataIndex: 'serviceArea',
     key: 'serviceArea',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
   {
     title: '',
     dataIndex: 'stream',
     key: 'stream',
-    width:"11.11111111111111",
+    width:"11.11111111111111%",
     ellipsis: true,
   },
 ];
 
 export const PropertyAcquisitionHeaderTable:ColumnsType<DataTypePropertyAcquisition | any> = [
   {
-    title: <>Onbase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
     dataIndex: 'onbase',
     key: 'onbase',
     width:"10%",

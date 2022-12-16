@@ -96,7 +96,7 @@ const TablePortafolio = (
   });
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
-    <div  style={tabKey==='DIP' || tabKey==='Restoration' || tabKey === 'CIP'?{width:'270%', overflowX:'scroll'}:(tabKey ==='Planning' || tabKey === 'Property Acquisition'?{width:'140%', overflowX:'scroll'}:{})}>
+    <div  style={tabKey==='DIP' || tabKey==='Restoration' || tabKey === 'CIP'?{width:'270%', overflowX:'scroll'}:(tabKey ==='Planning' || tabKey === 'Property Acquisition'?{width:'140%', overflowX:'scroll'}:{width:'100%'})}>
       <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
     <div
       className="table-body-body"
