@@ -700,6 +700,11 @@
     span{
       // color: #251863 !important;
     }
+    img{
+      height: 16px;
+      margin-right: 8px;
+      margin-bottom: 4px;
+    }
   }
   .btn-filter-k:hover{
     color: #251863;
@@ -2477,6 +2482,12 @@
     span{
       font-size: 20px !important;
     }
+    .btn-filter-k{
+      img{
+        height: 20px !important;
+        margin-bottom: 6px;
+      }
+    }
   }
   .search{
     .search-head{
@@ -3148,6 +3159,12 @@
     }
     .btn-view{
       margin: 0px 10px;
+    }
+    .btn-filter-k{
+      img{
+        height: 24px !important;
+        margin-bottom: 10px;
+      }
     }
   }
 
@@ -3942,6 +3959,12 @@
     }
     .btn-view{
       margin: 0px 14px;
+    }
+    .btn-filter-k{
+      img{
+        height: 28px !important;
+        margin-bottom: 14px;
+      }
     }
   }
   .search{

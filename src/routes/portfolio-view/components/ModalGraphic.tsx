@@ -13,7 +13,7 @@ const ModalGraphic = ({positionModalGraphic}:{positionModalGraphic:any}) => {
       <p className="title">Work Request</p>
       <p style={{color:'white'}}>Niver Creek Upstream of Zuni Ave and Thompson Ct</p>
       <hr></hr>
-      <p>1 Action Item of 5 Remaining</p>
+      <p>1 Action Item of 5 Closed</p>
       <hr></hr>
       <p>Due on November 26, 2022.</p>
     </div>

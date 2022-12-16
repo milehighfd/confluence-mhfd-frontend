@@ -734,6 +734,10 @@ body{
     box-shadow: none !important;
     border: none !important;
     --ant-wave-shadow-color: none !important;
+    img{
+      height: 16px;
+      margin-right: 6px;
+    }
   }
   .btn-filter-k:hover{
     color: #11093c;
@@ -750,6 +754,10 @@ body{
     opacity: 1;
     box-shadow: none !important;
     border: none !important;
+    img{
+      height: 16px;
+      margin-right: 6px;
+    }
   }
   .btn-filter-k:hover, .btn-filter-k:focus, .btn-filter-k:active, .btn-filter-k.active{
     color: #11093c;
@@ -2138,11 +2146,14 @@ body{
     color: #251863;
     background: #ffffff;
   }
+  .ant-table-column-sorter {
+    color: #251863;
+  }
   .ant-table-thead>tr>th {
-    border-bottom: 1px solid #251863;
+    border-bottom: 1px solid #eae8f0;
   }
   .ant-table-tbody>tr>td {
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid transparent;
     border-bottom: none;
     color: #11093c;
     padding: 6px;
@@ -2314,13 +2325,13 @@ body{
     background: #ffffff;
   }
   .ant-table-column-sorter {
-    // color: #251863;
-  }
-  .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
     color: #251863;
   }
+  .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
+    color: #bebebe;
+  }
   .ant-table-thead>tr>th {
-    border-bottom: 1px solid #251863;
+    border-bottom: 1px solid #eae8f0;
   }
   .ant-table-tbody>tr>td {
     border-top: none;
@@ -2437,7 +2448,7 @@ body{
     background: #ffffff;
     width: 99%;
     hr{
-      border-top: 3px dashed #D5D3DA;
+      border-top: 3px dashed #251863;
       width: 39%;
     }
     .hr2{
