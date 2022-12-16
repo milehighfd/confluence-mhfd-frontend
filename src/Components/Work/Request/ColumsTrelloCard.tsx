@@ -174,7 +174,24 @@ const ColumsTrelloCard = (
                 if(i===Math.trunc(Number(dragStart[1])) && columnIdx === Math.trunc(Number(dragStart[0])) && dragAction[0]){
                   return(
                     <>
-                    <div style={{backgroundColor:'#d6d8e0', opacity:'0.5', width:'100%', height:`${sizeCard[0]}px`, marginBottom:'10px', borderRadius:'5px'}}><br></br></div>
+                    {/* <div style={{backgroundColor:'#ffff00', opacity:'0.5', width:'100%', height:`${sizeCard[0]}px`, marginBottom:'10px', borderRadius:'5px'}}><br></br></div> */}
+                    <TrelloLikeCard key={i}
+                      year={year}
+                      type={type}
+                      setLoading={setLoading}
+                      delProject={deleteProject}
+                      namespaceId={namespaceId}
+                      project={p}
+                      columnIdx={columnIdx}
+                      rowIdx={i}
+                      saveData={saveData}
+                      tabKey={tabKey}
+                      editable={boardStatus !== 'Approved'}
+                      filtered={!notIsFiltered}
+                      locality={locality}
+                      borderColor={ColorService.getColor(type, p, arr, year, columnIdx, boardStatus !== 'Approved')}
+                      divRef={divRef}
+                    />
                     </>
                   )
                 } else {
