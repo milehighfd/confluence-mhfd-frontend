@@ -1027,6 +1027,7 @@
     }
   }
   .table-body{
+    overflow-x: auto;
     .table-body-body{
       .ant-table-tbody>tr>td {
         border-bottom: none;
@@ -1080,7 +1081,7 @@
       margin-top: 39px;
     }
     .table-portafolio{
-      overflow: hidden;
+      overflow: hidden;  
       .ant-table-thead {
         height: 39px;
         border-radius: 7px 7px 0px 0px;

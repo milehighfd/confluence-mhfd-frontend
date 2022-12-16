@@ -16,7 +16,7 @@ import { rawData } from "../constants/PhaseViewData";
 
 
 const { TabPane } = Tabs;
-const tabKeys = ['All','Capital', 'Restoration', 'Study', 'Acquisition', 'R&D', 'DIP'];
+const tabKeys = ['All','DIP', 'R&D', 'Restoration', 'CIP', 'Planning', 'Property Acquisition'];
 // const popovers: any = [
 //   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -280,25 +280,25 @@ const PortafolioBody = () => {
         </div>
         <Tabs defaultActiveKey={displayedTabKey[1]}
           activeKey={tabKey}
-            onChange={(key) => setTabKey(key)} className="tabs-map">
-            {
-              displayedTabKey.map((tk: string) => (
-                <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
-                  <div className="protafolio-body">
-                    {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
-                  <Row>
-                    <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                      <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef} rawData={rawData}/>
-                    </Col>
-                    <Col xs={{span:34}} lg={{span:19}}>
-                      {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable}/>}
-                      {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
-                      {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
-                    </Col>
-                  </Row>
-                  </div>
-                </TabPane>
-              ))
+          onChange={(key) => setTabKey(key)} className="tabs-map">
+          {
+            displayedTabKey.map((tk: string) => (
+              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
+                <div className="protafolio-body">
+                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
+                <Row>
+                  <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+                    <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef} rawData={rawData}/>
+                  </Col>
+                  <Col xs={{span:34}} lg={{span:19}}>
+                    {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey}/>}
+                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
+                    {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
+                  </Col>
+                </Row>
+                </div>
+              </TabPane>
+            ))
             }
           </Tabs>
         </div>

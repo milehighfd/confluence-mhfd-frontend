@@ -4,8 +4,9 @@ import { ColumnsType } from "antd/lib/table";
 import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
 import DetailModal from "routes/detail-page/components/DetailModal";
+import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 const TablePortafolio = (
-  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData}
+  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData, tabKey}
   :{
     divRef:React.MutableRefObject<HTMLDivElement | null>,
     searchRef:React.MutableRefObject<HTMLDivElement | null>,
@@ -13,162 +14,79 @@ const TablePortafolio = (
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     hoverTable:number[],
     rawData: any,
+    tabKey:any,
   }) => {
-  
+
   const [detailOpen, setDetailOpen] = useState(false);
-  interface DataType {
-    key: string;
-    phase: string;
-    serviceArea: string;
-    county: string;
-    cost: string;
-    contact: string;
-    view:string;
-    options: string;
-  }
-  const typeStatus = (status:string) => {
-    let text ='';
-    switch(status) {
-      case "Not Started" :{
-        text = 'span-not-started';
-        break;}
-      case "Completed" :{
-        text = 'span-completed';
-        break;}
-      case "Active" :{
-        text = 'span-active';
-        break;}
-      case "Delayed" :{
-        text = 'span-delayed';
-        break;}
+  
+  const ValueTabsHeader = () => {
+    let header = AllHeaderTable;
+    switch(tabKey){
+      case "All" :{
+        header = AllHeaderTable;
+        break;
+      }
+      case "DIP" :{
+        header = DIPHeaderTable;
+        break;
+      }
+      case "R&D" :{
+        header = RDHeaderTable;
+        break;
+      }
+      case "Restoration" :{
+        header = RestorationHeaderTable;
+        break;
+      }
+      case "CIP" :{
+        header = CIPHeaderTable;
+        break;
+      }
+      case "Planning" :{
+        header = PlanningHeaderTable;
+        break;
+      }
+      case "Property Acquisition" :{
+        header = PropertyAcquisitionHeaderTable;
+        break;
+      }
       default: {
-        text = 'span-not-started';
-        break; }
+        header = AllHeaderTable;
+        break;
+      }
     }
-    return text;
+    return header;
   }
-  const columnsHeader: ColumnsType<DataType> = [
-    {
-      title: <>Phase &nbsp;<ArrowDownOutlined /></>,
-      dataIndex: 'phase',
-      key: 'name',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: <>MHFD Lead/PM &nbsp;<ArrowDownOutlined /></>,
-      dataIndex: 'mhfd',
-      key: 'mhfd',
-      width: "14%",
-      ellipsis: true,
-    },
-    {
-      title: <>Status &nbsp;<ArrowDownOutlined /></>,
-      dataIndex: 'status',
-      key: 'status',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
-      dataIndex: 'serviceArea',
-      key: 'age',
-      width: "13%",
-      ellipsis: true,
-    },
-    {
-      title: <>County &nbsp;<ArrowDownOutlined /></>,
-      dataIndex: 'county',
-      key: 'address',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: <>Estimate Cost &nbsp;<ArrowDownOutlined /></>,
-      key: 'cost',
-      dataIndex: 'cost',
-      render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#251863'}}>${text}</span>;},
-      width: "14.5%",
-      ellipsis: true,
-    },
-    {
-      title: <>Stream &nbsp;<ArrowDownOutlined /></>,
-      dataIndex: 'stream',
-      key: 'stream',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: <>Contract &nbsp;<ArrowDownOutlined /></>,
-      key: 'contact',
-      dataIndex: 'contact',
-      width: "11.5%",
-      ellipsis: true,
+  
+  const ValueTabsValue = () => {
+    switch(tabKey){
+      case "All" :{
+        return AllValueTable;
+      }
+      case "DIP" :{
+        return DIPValueTable;
+      }
+      case "R&D" :{
+        return RDValueTable;
+      }
+      case "Restoration" :{
+        return RestorationValueTable;
+      }
+      case "CIP" :{
+        return CIPValueTable;
+      }
+      case "Property Acquisition" :{
+        return PropertyAcquisitionValueTable;
+      }
+      case "Planning" :{
+        return PlanningValueTable;
+      }
+      default: {
+        return AllValueTable;
+      }
     }
-  ];
-  const columns: ColumnsType<DataType> = [
-    {
-      title: '',
-      dataIndex: 'phase',
-      key: 'name',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: '',
-      dataIndex: 'mhfd',
-      key: 'mhfd',
-      width: "14%",
-      ellipsis: true,
-    },
-    {
-      title: '',
-      dataIndex: 'status',
-      key: 'status',
-      width: "11.5%",
-      render: status => 
-      <div style={{}}>
-        <span className={typeStatus(status)}>{status}</span>
-      </div>,
-      ellipsis: true,
-    },
-    {
-      title: '',
-      dataIndex: 'serviceArea',
-      key: 'age',
-      width: "13%",
-      ellipsis: true,
-    },
-    {
-      title: '',
-      dataIndex: 'county',
-      key: 'address',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: '',
-      key: 'cost',
-      dataIndex: 'cost',
-      render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
-      width: "14.5%",
-      ellipsis: true,
-    },
-    {
-      title: '',
-      dataIndex: 'stream',
-      key: 'stream',
-      width: "11.5%",
-      ellipsis: true,
-    },
-    {
-      title: '',
-      key: 'contact',
-      dataIndex: 'contact',
-      width: "11.5%",
-      ellipsis: true,
-    }
-  ];
+  }
+
   const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
   const completeData = sortedData.map((elem: any) => {
     return {
@@ -178,7 +96,8 @@ const TablePortafolio = (
   });
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
-    <Table columns={columnsHeader} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
+    <div  style={tabKey==='DIP' || tabKey==='Restoration' || tabKey === 'CIP'?{width:'270%', overflowX:'scroll'}:(tabKey ==='Planning' || tabKey === 'Property Acquisition'?{width:'140%', overflowX:'scroll'}:{})}>
+      <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
     <div
       className="table-body-body"
       ref={divRef}
@@ -194,7 +113,7 @@ const TablePortafolio = (
       completeData.map((elem: any, index: number) => {
         return(
           <Table
-            columns={columns}
+            columns={ValueTabsValue()}
             dataSource={elem.values}
             pagination={{ pageSize: 1000 }}
             className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
@@ -227,6 +146,8 @@ const TablePortafolio = (
         
       })
     }
+    </div>
+    
       {/* <Table
         columns={columns}
         dataSource={dataTable}
