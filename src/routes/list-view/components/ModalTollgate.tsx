@@ -2,12 +2,28 @@ import { ArrowDownOutlined, CalendarOutlined, EyeInvisibleOutlined, EyeOutlined,
 import { Button, Checkbox, Col, DatePicker, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useState } from 'react';
-import { NewProjectsFilter } from '../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter';
+import moment from 'moment';
 
 const { RangePicker }:any = DatePicker;
 
 const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
+  const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
+  const [dateValue, setDateValue] = useState({
+    draft:  [null,null],
+    work_request:  [null,null],
+    work_plan: [null,null],
+    startup: [null,null],
+    initial_funding: [null,null],
+    consultant_procurement:  [null,null],
+    conceptual_design: [null,null],
+    preliminary_design: [null,null],
+    final_design: [null,null],
+    construction_contracting: [null,null],
+    construction: [null,null],
+    substantial_completion: [null,null],
+    closed: [null,null],
+  })
   const [valueInput, setValueInput] = useState({
     oneL: '0',
     oneR:'0',
@@ -119,43 +135,107 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 8}}>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{console.log(e);setDateValue({...dateValue, draft:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.draft[0], dateValue.draft[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                    <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, work_request:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.work_request[0], dateValue.work_request[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, work_plan:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.work_plan[0], dateValue.work_plan[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                    <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, startup:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.startup[0], dateValue.startup[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, initial_funding:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.initial_funding[0], dateValue.initial_funding[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, consultant_procurement:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.consultant_procurement[0], dateValue.consultant_procurement[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, conceptual_design:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.conceptual_design[0], dateValue.conceptual_design[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, preliminary_design:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.preliminary_design[0], dateValue.preliminary_design[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, final_design:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.final_design[0], dateValue.final_design[1]]}
+                  />                </p>
+                <p className='calendar-toollgate'>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, construction_contracting:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.construction_contracting[0], dateValue.construction_contracting[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, construction:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.construction[0], dateValue.construction[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, substantial_completion:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.substantial_completion[0], dateValue.substantial_completion[1]]}
+                  />
                 </p>
                 <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
-                </p>
-                <p className='calendar-toollgate'>
-                  <RangePicker bordered={false} format={dateFormatList}/>
+                  <RangePicker
+                    bordered={false}
+                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, closed:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
+                    format={dateFormatList}
+                    value={[dateValue.closed[0], dateValue.closed[1]]}
+                  />
                 </p>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 8}} style={{paddingLeft:'10px'}}>
