@@ -3199,6 +3199,9 @@ body{
     }
     .phaseview-title-label-roadmap{
       margin-bottom:6px !important;
+      hr{
+        transform: translate(0px, -1.2px);
+      }
       p{
         font-size: 12px !important;
       }
@@ -3469,8 +3472,13 @@ body{
     }
     .phaseview-title-label-roadmap{
       margin-bottom:20px !important;
+      hr{
+        transform: translate(0px, -2.2px);
+      }
       p{
         font-size: 14px !important;
+        height: 14px !important;
+        border-left: 3px solid #eae8f0 !important;
       }
     }
   }
@@ -3565,8 +3573,13 @@ body{
     }
     .phaseview-title-label-roadmap{
       margin-bottom: 35px !important;
+      hr{
+        transform: translate(0px, -2.5px);
+      }
       p{
         font-size: 18px !important;
+        height: 18px !important;
+        border-left: 4px solid #eae8f0 !important;
       }
     }
   }

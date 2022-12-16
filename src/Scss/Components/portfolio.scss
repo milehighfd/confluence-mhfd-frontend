@@ -2911,7 +2911,10 @@
         height: 66px !important;
         padding-top: 11px !important;
       }
-      .phaseview-title-label{
+      .phaseview-title-label{ 
+        hr{
+          transform: translate(0px, -2.6px) !important;
+        }
         margin-bottom: 5px !important;
         padding-top: 14px !important;
       }
@@ -4067,6 +4070,7 @@
           border-left: 4px solid #eae8f0 !important;
         }
         hr{
+          transform: translate(0px, -5px) !important;
           border-top: 5px dashed #D5D3DA;
         }
       }
