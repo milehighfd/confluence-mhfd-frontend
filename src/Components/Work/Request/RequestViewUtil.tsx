@@ -207,7 +207,7 @@ export const priceParser = (value: any) => {
   return value
 }
 
-export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey: string, dragAction:(number | boolean)[]) => {
+export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey: string, dragAction:(number | boolean)[], saveData: Function) => {
   let parsedObject = JSON.parse(txt);
   let { id, fromColumnIdx } = parsedObject;
 
@@ -268,6 +268,24 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     }
   }
   if (destinyColumnHasProject) {
+    const newSumAmountData = {
+      projectId: id,
+      years: [null, null],
+      amounts: []
+    };
+    const newAmounts: any = [];
+    columns[columnIdx].projects.forEach((p: any) => {
+      if (p.project_id == id) {
+        const numArray = [1,2,3,4,5];
+        numArray.forEach((num: any) => {
+          newAmounts.push(p[`req${num}`]);
+        });
+        newAmounts[columnIdx-1] = newAmounts[columnIdx-1] + newAmounts[fromColumnIdx-1];
+        newAmounts[fromColumnIdx-1] = 0;
+        newSumAmountData.amounts = newAmounts;
+      }
+    });
+    saveData(newSumAmountData);
     return;
   } else {
     let newObj = {
@@ -276,7 +294,7 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
       [`req${columnIdx}`]: columnIdx === 0 ? null : project[`req${fromColumnIdx}`],
       [`req${fromColumnIdx}`]: null,
       [`position${fromColumnIdx}`]: null,
-    }
+    };
     let temporalColumns: any = columns.map((c, colIdx: number) => {
       return {
         ...c,

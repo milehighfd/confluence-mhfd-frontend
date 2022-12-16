@@ -61,7 +61,7 @@ const ColumsTrelloCard = (
   var windowWidth = window.innerWidth ;
   const onDrop = (e: any, columnIdx: number) => {
     let txt = e.dataTransfer.getData("text");
-    let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction);
+    let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction, saveData);
     if (cols) {
       WsService.sendUpdate(cols);
       setColumns(cols);
