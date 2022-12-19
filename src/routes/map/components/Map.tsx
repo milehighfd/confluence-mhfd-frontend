@@ -1311,9 +1311,9 @@ const Map = ({
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
                 }
-                if(filterField === 'maptype') {
-                  continue;
-                }
+                // if(filterField === 'maptype') {
+                //   continue;
+                // }
                 if (filterField === 'component_type') {
                     showSelectedComponents(filters.split(','));
                 }
@@ -1416,7 +1416,7 @@ const Map = ({
                         for (const filter of filters.split(',')) {
                             if (isNaN(+filter)) {
                                 if(filterField == 'projecttype') {
-                                  console.log('style ', style.filter);
+                                  console.log('style ', style.filter, 'filter', styles[key], key);
                                   if(style.filter && JSON.stringify(style.filter).includes(filter)) {
                                     options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
                                   }
