@@ -154,10 +154,10 @@ const UserList = () => {
           </Button>
           </Col>
           <Col  xs={{ span: 9}} lg={{ span: 3 }} style={{textAlign:'end'}}>
-          <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{marginTop: '8px', height:'38px'}}>
+          {/* <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{marginTop: '8px', height:'38px'}}>
             <PlusOutlined />
             Add New User
-          </Button>
+          </Button> */}
         </Col> </>}
       </Row>
       <div className="table-user-management">

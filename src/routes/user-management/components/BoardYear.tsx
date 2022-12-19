@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Input, Layout, Popover, Row, Select, Table, Tabs } from 'antd';
-import { ArrowDownOutlined, DownOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { ArrowDownOutlined, DownOutlined, PlusOutlined, SearchOutlined, UpOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import { ColumnsType } from "antd/lib/table";
@@ -9,7 +9,9 @@ import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
+
 const BoardYear = () => {
+  const [openDropYear, setOpenDropYear] = useState(false);
   interface DataType {
     key: React.Key;
     name: string[];
@@ -108,12 +110,14 @@ const BoardYear = () => {
       <div className="table-user-management" style={{paddingLeft:'15px'}}>
         <span style={{color: 'rgb(17, 9, 60)', paddingRight: '10px'}}>Most recent board year:</span>
         <Select
-        placeholder="2022"
-      >
-        <Option key={'2022'} value={'2022'}>2022</Option>
-        <Option key={'2023'} value={'2023'}>2023</Option>
-        <Option key={'2024'} value={'2024'}>2024</Option>
-        <Option key={'2025'} value={'2025'}>2025</Option>
+          placeholder="2022"
+          suffixIcon={openDropYear? < UpOutlined/> :< DownOutlined  />}
+          onClick={()=>(setOpenDropYear(!openDropYear))}
+        >
+          <Option key={'2022'} value={'2022'}>2022</Option>
+          <Option key={'2023'} value={'2023'}>2023</Option>
+          <Option key={'2024'} value={'2024'}>2024</Option>
+          <Option key={'2025'} value={'2025'}>2025</Option>
         </Select>
       </div>
     </div>
