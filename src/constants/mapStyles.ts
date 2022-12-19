@@ -2512,7 +2512,50 @@ export const PROJECTS_STYLES = {
           ]
       }
     },
-  ],
+  ]
+}
+export const PROJECTS_STYLES_WR = {
+  [PROJECTS_POLYGONS]: [  
+    {
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "hsla(52, 100%, 50%, 0.1)",
+            "hsla(0, 0%, 0%, 0)"
+        ]
+      }
+    },{
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            1,
+            10.37,
+            8,
+            22,
+            24
+        ],
+        "line-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "hsl(52, 100%, 50%)",
+            "hsla(52, 100%, 50%, 0)"
+        ],
+        "line-blur": 22
+      }
+    }
+],
   [PROJECTS_DRAFT]: [
     {
       type: 'symbol',
@@ -2814,7 +2857,6 @@ export const PROJECTS_STYLES = {
       }
     }
   ]
-  
 }
 
 export const tileStyles = {
@@ -6228,6 +6270,3419 @@ export const tileStyles = {
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
   ...PROJECTS_STYLES,
+}
+
+export const tileStyles_WR = {
+  ...LAND_OBJECT,
+  [FLOODPLAINS_FEMA_FILTERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(192, 84%, 71%, 0.55)",
+      "fill-outline-color": "hsla(0, 0%, 0%, 0)"
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": ["to-string", ["get", "fld_zone"]],
+      "symbol-placement": "line"
+    },
+    "paint": {
+        "text-color": "hsl(0, 4%, 98%)",
+        "text-opacity": ["step", ["zoom"], 0, 14, 1, 22, 1]
+    }
+  }],
+  [FLOODPLAINS_NON_FEMA_FILTERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(213, 94%, 43%, 0.6)"
+    }
+  }],
+  [OPACITY_LAYERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    'paint': {
+      'fill-opacity': 0.8
+    }
+  }],
+  [ACTIVE_LOMS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'fill-color': [
+        "match",
+        ["get", "status"],
+        ["Completed"],
+        "hsla(317, 60%, 77%, 0.4)",
+        ["Suspended"],
+        "hsla(321, 62%, 46%, 0.5)",
+        ["Violation"],
+        "hsla(0, 70%, 38%, 0.4)",
+        ["Active"],
+        "hsla(92, 80%, 40%, 0.2)",
+        "hsla(0, 0%, 0%, 0)"
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': [
+        "match",
+        ["get", "status"],
+        ["Completed"],
+        "hsl(325, 73%, 84%)",
+        ["Suspended"],
+        "hsl(297, 69%, 44%)",
+        ["Violation"],
+        "hsl(338, 85%, 40%)",
+        "hsla(325, 87%, 68%, 0)"
+      ],
+      'line-width': 2.25
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    paint: {
+      'line-color': [
+        "match",
+        ["get", "status"],
+        ["Active"],
+        "hsl(95, 85%, 38%)",
+        "hsla(325, 87%, 68%, 0)"
+      ],
+      'line-width': 3,
+      'line-dasharray':[2.5, 2.5]
+    }
+  }],
+  [STREAMS_POINT]: [
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "circle-color": "hsl(181, 14%, 95%)",
+        "circle-stroke-color": "#000000",
+        "circle-stroke-width": 0,
+        "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12.9,
+          0,
+          14,
+          0.9,
+          15,
+          1
+        ],
+        'circle-radius': 1,
+        'circle-pitch-scale': 'map'
+      }
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "circle-color": "#9cebed",
+        "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12.9,
+          0,
+          14,
+          0.9,
+          15,
+          0.9
+        ],
+        "circle-stroke-color": "#000000",
+        "circle-radius": 3,
+        "circle-stroke-width": 0,
+        "circle-stroke-opacity": 1
+      }
+    },
+    {
+      type: 'circle',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "circle-color": "hsla(181, 69%, 77%, 0)",
+        "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12.9,
+          0,
+          14,
+          0.9,
+          15,
+          1
+        ],
+        "circle-stroke-color": "#9cebed",
+        "circle-radius": 2,
+        "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          0,
+          14,
+          3
+        ],
+        "circle-stroke-opacity": 0.4
+      }
+    }
+  ],
+  [EFFECTIVE_REACHES]: [
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      'line-cap': 'butt',
+      'line-join':"miter",
+      'line-miter-limit':2
+    },
+    paint: {
+      'line-color': [
+        "match",
+        ["get", "studyname"],
+        ["unknown"],
+        "hsl(138, 38%, 70%)",
+        "hsl(316, 50%, 51%)"
+      ],
+      'line-width':2
+    }
+  },
+  {
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {
+    'line-cap': 'butt',
+    'line-join':"miter",
+    'line-miter-limit':2
+  },
+  paint: {
+    'line-color': [
+      "match",
+      ["get", "studyname"],
+      ["unknown"],
+      "hsl(138, 75%, 41%)",
+      "hsl(329, 83%, 32%)"
+    ],
+    'line-width':2,
+    'line-opacity':0.5,
+    'line-offset':-2
+  }
+},{
+  type: 'circle',
+  'source-layer': 'pluto15v1',
+  layout: {},
+  "paint": {
+    "circle-color": [
+      "match",
+      ["get", "studyname"],
+      ["unknown"],
+      "hsl(277, 66%, 62%)",
+      "hsl(159, 71%, 39%)"
+    ],
+    "circle-stroke-color": "#000000",
+    "circle-stroke-width": 0,
+    "circle-radius": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      11.9,
+      0,
+      12,
+      3,
+      16,
+      3,
+      18,
+      8
+    ],
+    "circle-stroke-opacity": 1,
+    "circle-opacity":0.4,
+    "circle-blur":0
+  }
+},
+{
+  type: 'circle',
+  'source-layer': 'pluto15v1',
+  layout: {},
+  "paint": {
+    "circle-color": [
+      "match",
+      ["get", "studyname"],
+      ["unknown"],
+      "hsl(138, 49%, 40%)",
+      "hsl(304, 47%, 62%)"
+    ],
+    "circle-stroke-color": "#000000",
+    "circle-stroke-width": 0,
+    "circle-radius": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      9,
+      0,
+      12,
+      1.5,
+      14,
+      2,
+      15,
+      4
+    ],
+    "circle-stroke-opacity": 1,
+    "circle-blur":0,
+    "circle-opacity":1,
+    
+  }
+}
+],
+  [FEMA_FLOOD_HAZARD]: [ 
+  //   {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-color": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         [
+  //             "match",
+  //             ["get", "fld_zone"],
+  //             ["AE", "A", "AO", "AH"],
+  //             "#17285e",
+  //             "hsla(0, 0%, 100%, 0)"
+  //         ],
+  //         13,
+  //         [
+  //             "match",
+  //             ["get", "fld_zone"],
+  //             ["AE", "A", "AO", "AH"],
+  //             "#17285e",
+  //             "hsla(0, 0%, 100%, 0)"
+  //         ],
+  //         22,
+  //         [
+  //             "match",
+  //             ["get", "fld_zone"],
+  //             ["AE", "A", "AO", "AH"],
+  //             "#17285e",
+  //             "hsla(0, 0%, 100%, 0)"
+  //         ]
+  //     ],
+  //     "fill-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         1,
+  //         13,
+  //         0.76,
+  //         15,
+  //         0,
+  //         22,
+  //         0
+  //     ]
+  //   }
+  // }, {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "line-color": [
+  //         "match",
+  //         ["get", "fld_zone"],
+  //         ["A", "AE", "AO", "AH"],
+  //         "#17285e",
+  //         "hsla(0, 94%, 25%, 0)"
+  //     ],
+  //     "line-width": 3,
+  //     "line-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         1,
+  //         14,
+  //         1,
+  //         22,
+  //         1
+  //     ]
+  //   }
+  // }, {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "line-color": [
+  //         "match",
+  //         ["get", "zone_subty"],
+  //         ["FLOODWAY"],
+  //         "#17285e",
+  //         "hsla(0, 0%, 100%, 0)"
+  //     ],
+  //     "line-width": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         0.5,
+  //         14,
+  //         0.5,
+  //         22,
+  //         3
+  //     ],
+  //     "line-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         1,
+  //         11,
+  //         1,
+  //         22,
+  //         1
+  //     ],
+  //     "line-dasharray": [2, 2]
+  //   }
+  // },
+  // {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-opacity": 0.57,
+  //     "fill-color": [
+  //         "match",
+  //         ["get", "fld_zone"],
+  //         ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
+  //         "hsl(192, 79%, 57%)",
+  //         "hsla(0, 0%, 0%, 0)"
+  //     ],
+  //     "fill-outline-color": "hsla(0, 0%, 0%, 0.48)"
+  //   }
+  // }, {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-opacity": 0.5,
+  //     "fill-color": [
+  //         "match",
+  //         ["get", "zone_subty"],
+  //         ["0.2 PCT ANNUAL CHANCE FLOOD HAZARD"],
+  //         "hsl(40, 90%, 56%)",
+  //         "hsla(0, 0%, 0%, 0)"
+  //     ]
+  //   }
+  // }, {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     "fill-opacity": 0.53,
+  //     "fill-color": [
+  //         "match",
+  //         ["get", "fld_zone"],
+  //         ["AREA WITH REDUCED FLOOD RISK DUE TO LEVEE", "AE"],
+  //         "hsl(176, 79%, 57%)",
+  //         "hsla(0, 0%, 0%, 0)"
+  //     ],
+  //     "fill-pattern": [
+  //         "match",
+  //         ["get", "zone_subty"],
+  //         ["FLOODWAY"],
+  //         "fema-floodway",
+  //         ""
+  //     ],
+  //     "fill-antialias": false
+  //   }
+  // }, {
+  //   type: 'fill',
+  //   'source-layer': 'pluto15v1',
+  //   "paint": {
+  //     'fill-translate': [0, 0],
+  //     "fill-opacity": 0.5,
+  //     "fill-pattern":[
+  //       "match",
+  //       ["get", "zone_subty"],
+  //       [
+  //         "AREA WITH REDUCED FLOOD RISK DUE TO LEVEE"
+  //       ],
+  //       "Levee",
+  //       ""
+  //     ],
+  //     "fill-antialias": true
+  //   }
+  // }
+   {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "fld_zone"],
+        ["A", "AE", "AO", "AH"],
+        "#17285e",
+        "hsla(0, 94%, 25%, 0)"
+      ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0,
+        14,
+        1,
+        22,
+        1
+      ],
+      'line-width':2,
+    },
+    'layout':{
+      'line-cap': 'butt',
+      'line-join': "miter",
+      'line-miter-limit': 2,
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        "#17285e",
+        "hsla(0, 0%, 100%, 0)"
+      ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1,
+        11,
+        1,
+        22,
+        1
+      ],
+      'line-width': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        0.5,
+        14,
+        0.5,
+        22,
+        3
+      ],
+      'line-dasharray': [2, 2]
+    },
+    'layout':{
+      'line-cap': 'butt',
+      'line-join': "miter",
+      'line-miter-limit': 2,
+    }
+  },
+  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "fill-color": [
+        "match",
+        ["get", "zone_subty"],
+        [
+          "0.2 PCT ANNUAL CHANCE FLOOD HAZARD"
+        ],
+        "#f4b02a",
+        "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-opacity": 0.5,
+      'fill-antialias': false,
+      // 'fill-outline-color': "#000000",
+    }
+},
+{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      'fill-translate': [0, 0],
+      "fill-opacity": 0.5,
+      "fill-pattern":[
+        "match",
+        ["get", "zone_subty"],
+        [
+          "AREA WITH REDUCED FLOOD RISK DUE TO LEVEE"
+        ],
+        "Levee",
+        ""
+      ],
+      "fill-antialias": true
+    }
+  },
+  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    "paint": {
+      "fill-color": [
+        "match",
+        ["get", "fld_zone"],
+        ["AE", "A", "AO", "AH"],
+        "hsl(186, 100%, 50%)",
+        "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-opacity": 0.5,
+      'fill-antialias': true,
+      //'fill-outline-color': "#000000",
+    }
+},  
+{
+  type: 'fill',
+  'source-layer': 'pluto15v1',
+  "paint": {
+    "fill-pattern": [
+      "match",
+      ["get", "zone_subty"],
+      ["FLOODWAY"],
+      "fema-floodway",
+      ""
+    ],
+    "fill-opacity": 0.53,
+    'fill-antialias': false,
+  }
+},
+  {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      'symbol-placement': 'line',
+      'symbol-spacing': 250,
+      'text-max-angle': 45,
+      'symbol-avoid-edges': false,
+      'text-rotation-alignment': "viewport",
+      'text-padding': 2,
+      'icon-padding': 2,
+      'icon-size': 1,
+      'icon-image': [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ]
+      ],
+      "text-field": [
+          "concat",
+          [
+            "to-string",
+            ["get", "fld_zone"]
+          ],
+          ["get", "zone_subty"]
+      ],
+      "text-font":[
+        "Open Sans Bold",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-letter-spacing":0,
+      "text-transform": "none",
+    },
+    "paint": {
+      "text-color":"hsl(189, 78%, 12%)",
+      "text-opacity": 1,
+      "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
+      "text-halo-width":1,
+      "text-halo-blur":0,
+      'icon-opacity': 1
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      'symbol-placement': 'line',
+      'symbol-spacing': 250,
+      'text-max-angle': 45,
+      'symbol-avoid-edges': false,
+      'text-rotation-alignment': "viewport",
+      'text-padding': 2,
+      'icon-padding': 2,
+      'icon-size': 1,
+      'icon-image': [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ]
+      ],
+      "text-field": [
+        "match",
+        ["get", "zone_subty"],
+        ["FLOODWAY"],
+        [
+          "to-string",
+          ["get", "zone_subty"]
+        ],
+        ""
+      ],
+      "text-font":[
+        "Open Sans Bold",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":16,
+      "text-line-height":1.2,
+      "text-letter-spacing":0,
+      "text-transform": "none",
+    },
+    "paint": {
+      "text-color":"hsl(189, 78%, 12%)",
+      "text-opacity": 1,
+      "text-halo-color":"hsla(0, 3%, 97%, 0.72)",
+      "text-halo-width":1,
+      "text-halo-blur":0,
+      'icon-opacity': 1,
+    }
+  }
+
+  ], 
+  [WATERSHED_FILTERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "case",
+          ["match", ["get", "reach_code"], ["3001"], true, false],
+          "hsl(0, 84%, 41%)",
+          ["match", ["get", "reach_code"], ["3002"], true, false],
+          "hsl(0, 90%, 47%)",
+          ["match", ["get", "reach_code"], ["3034"], true, false],
+          "hsl(226, 66%, 54%)",
+          ["match", ["get", "reach_code"], ["3041"], true, false],
+          "hsl(116, 61%, 65%)",
+          ["match", ["get", "reach_code"], ["3200"], true, false],
+          "hsl(62, 51%, 56%)",
+          ["match", ["get", "reach_code"], ["3300"], true, false],
+          "hsl(209, 44%, 71%)",
+          ["match", ["get", "reach_code"], ["3400"], true, false],
+          "hsl(303, 84%, 60%)",
+          ["match", ["get", "reach_code"], ["3500"], true, false],
+          "hsl(96, 54%, 34%)",
+          ["match", ["get", "reach_code"], ["3600"], true, false],
+          "hsl(0, 43%, 72%)",
+          ["match", ["get", "reach_code"], ["3650"], true, false],
+          "hsl(0, 75%, 73%)",
+          ["match", ["get", "reach_code"], ["3700"], true, false],
+          "hsl(39, 82%, 42%)",
+          ["match", ["get", "reach_code"], ["3800"], true, false],
+          "hsl(231, 81%, 31%)",
+          ["match", ["get", "reach_code"], ["3900"], true, false],
+          "hsl(175, 69%, 56%)",
+          ["match", ["get", "reach_code"], ["4000"], true, false],
+          "hsl(136, 79%, 56%)",
+          ["match", ["get", "reach_code"], ["4100"], true, false],
+          "hsl(86, 78%, 72%)",
+          ["match", ["get", "reach_code"], ["4200"], true, false],
+          "hsl(25, 93%, 64%)",
+          ["match", ["get", "reach_code"], ["4300"], true, false],
+          "hsl(323, 52%, 68%)",
+          ["match", ["get", "reach_code"], ["4400"], true, false],
+          "hsl(0, 44%, 83%)",
+          ["match", ["get", "reach_code"], ["4600"], true, false],
+          "hsl(104, 91%, 29%)",
+          ["match", ["get", "reach_code"], ["4700"], true, false],
+          "hsl(86, 91%, 69%)",
+          ["match", ["get", "reach_code"], ["4800"], true, false],
+          "hsl(80, 85%, 80%)",
+          ["match", ["get", "reach_code"], ["4900"], true, false],
+          "hsl(75, 93%, 34%)",
+          ["match", ["get", "reach_code"], ["5000"], true, false],
+          "hsl(243, 40%, 43%)",
+          ["match", ["get", "reach_code"], ["5100"], true, false],
+          "hsl(0, 45%, 40%)",
+          ["match", ["get", "reach_code"], ["5200"], true, false],
+          "hsl(0, 95%, 79%)",
+          ["match", ["get", "reach_code"], ["5300"], true, false],
+          "hsl(0, 91%, 31%)",
+          ["match", ["get", "reach_code"], ["5400"], true, false],
+          "hsl(0, 34%, 58%)",
+          ["match", ["get", "reach_code"], ["5500"], true, false],
+          "hsl(0, 87%, 93%)",
+          ["match", ["get", "reach_code"], ["5600"], true, false],
+          "hsl(0, 91%, 56%)",
+          ["match", ["get", "reach_code"], ["5700"], true, false],
+          "hsl(0, 52%, 51%)",
+          ["match", ["get", "reach_code"], ["5800"], true, false],
+          "hsl(328, 71%, 44%)",
+          ["match", ["get", "reach_code"], ["5900"], true, false],
+          "hsl(310, 75%, 38%)",
+          ["match", ["get", "reach_code"], ["6000"], true, false],
+          "hsl(288, 88%, 79%)",
+          ["match", ["get", "reach_code"], ["6100"], true, false],
+          "hsl(291, 55%, 42%)",
+          ["match", ["get", "reach_code"], ["6200"], true, false],
+          "hsl(269, 87%, 75%)",
+          ["match", ["get", "reach_code"], ["6300"], true, false],
+          "hsl(254, 47%, 38%)",
+          ["match", ["get", "reach_code"], ["6400"], true, false],
+          "hsl(208, 68%, 31%)",
+          ["match", ["get", "reach_code"], ["6500"], true, false],
+          "hsl(216, 24%, 77%)",
+          ["match", ["get", "reach_code"], ["6600"], true, false],
+          "hsl(200, 68%, 54%)",
+          ["match", ["get", "reach_code"], ["6700"], true, false],
+          "hsl(184, 92%, 85%)",
+          ["match", ["get", "reach_code"], ["6800"], true, false],
+          "hsl(165, 83%, 50%)",
+          ["match", ["get", "reach_code"], ["6900"], true, false],
+          "hsl(160, 84%, 37%)",
+          ["match", ["get", "reach_code"], ["7000"], true, false],
+          "hsl(135, 88%, 80%)",
+          ["match", ["get", "reach_code"], ["7100"], true, false],
+          "hsl(88, 83%, 75%)",
+          ["match", ["get", "reach_code"], ["7200"], true, false],
+          "hsl(72, 93%, 89%)",
+          ["match", ["get", "reach_code"], ["7300"], true, false],
+          "hsl(48, 81%, 40%)",
+          ["match", ["get", "reach_code"], ["7950"], true, false],
+          "hsl(23, 76%, 47%)",
+          ["match", ["get", "reach_code"], ["7980"], true, false],
+          "hsl(0, 25%, 31%)",
+          ["match", ["get", "reach_code"], ["8000"], true, false],
+          "hsl(0, 94%, 33%)",
+          ["match", ["get", "reach_code"], ["8014"], true, false],
+          "hsl(0, 63%, 60%)",
+          ["match", ["get", "reach_code"], ["8015"], true, false],
+          "hsl(0, 93%, 84%)",
+          ["match", ["get", "reach_code"], ["8041"], true, false],
+          "hsl(0, 46%, 70%)",
+          ["match", ["get", "reach_code"], ["8050"], true, false],
+          "hsl(337, 81%, 38%)",
+          ["match", ["get", "reach_code"], ["8051"], true, false],
+          "hsl(314, 63%, 38%)",
+          ["match", ["get", "reach_code"], ["8061"], true, false],
+          "hsl(317, 42%, 83%)",
+          ["match", ["get", "reach_code"], ["8094"], true, false],
+          "hsl(283, 92%, 38%)",
+          ["match", ["get", "reach_code"], ["8100"], true, false],
+          "hsl(243, 82%, 45%)",
+          ["match", ["get", "reach_code"], ["8160"], true, false],
+          "hsl(235, 93%, 87%)",
+          ["match", ["get", "reach_code"], ["8162"], true, false],
+          "hsl(234, 39%, 54%)",
+          ["match", ["get", "reach_code"], ["8250"], true, false],
+          "hsl(210, 93%, 55%)",
+          ["match", ["get", "reach_code"], ["8251"], true, false],
+          "hsl(171, 86%, 73%)",
+          ["match", ["get", "reach_code"], ["8260"], true, false],
+          "hsl(168, 86%, 56%)",
+          ["match", ["get", "reach_code"], ["8261"], true, false],
+          "hsl(141, 93%, 53%)",
+          ["match", ["get", "reach_code"], ["8270"], true, false],
+          "hsl(85, 91%, 80%)",
+          ["match", ["get", "reach_code"], ["8271"], true, false],
+          "hsl(40, 76%, 65%)",
+          ["match", ["get", "reach_code"], ["8350"], true, false],
+          "hsl(29, 93%, 30%)",
+          ["match", ["get", "reach_code"], ["8450"], true, false],
+          "hsl(267, 93%, 63%)",
+          ["match", ["get", "reach_code"], ["8470"], true, false],
+          "hsl(207, 91%, 67%)",
+          ["match", ["get", "reach_code"], ["8620"], true, false],
+          "hsl(140, 78%, 74%)",
+          ["match", ["get", "reach_code"], ["8910"], true, false],
+          "hsl(85, 93%, 80%)",
+          ["match", ["get", "reach_code"], ["8920"], true, false],
+          "hsl(32, 89%, 47%)",
+          ["match", ["get", "reach_code"], ["8930"], true, false],
+          "hsl(324, 85%, 59%)",
+          ["match", ["get", "reach_code"], ["8940"], true, false],
+          "hsl(257, 80%, 55%)",
+          ["match", ["get", "reach_code"], ["8950"], true, false],
+          "hsl(168, 75%, 41%)",
+          ["match", ["get", "reach_code"], ["8960"], true, false],
+          "hsl(100, 91%, 75%)",
+          ["match", ["get", "reach_code"], ["8970"], true, false],
+          "hsl(61, 93%, 60%)",
+          ["match", ["get", "reach_code"], ["8980"], true, false],
+          "hsl(31, 95%, 49%)",
+          ["match", ["get", "reach_code"], ["8980"], true, false],
+          "hsl(33, 91%, 91%)",
+          ["match", ["get", "reach_code"], ["9210"], true, false],
+          "hsl(0, 80%, 53%)",
+          ["match", ["get", "reach_code"], ["9220"], true, false],
+          "hsl(0, 79%, 83%)",
+          ["match", ["get", "reach_code"], ["9230"], true, false],
+          "hsl(285, 87%, 42%)",
+          ["match", ["get", "reach_code"], ["9240"], true, false],
+          "hsl(156, 82%, 58%)",
+          ["match", ["get", "reach_code"], ["9330"], true, false],
+          "hsl(47, 83%, 48%)",
+          ["match", ["get", "reach_code"], ["9340"], true, false],
+          "hsl(254, 89%, 54%)",
+          ["match", ["get", "reach_code"], ["9420"], true, false],
+          "hsl(203, 93%, 79%)",
+          ["match", ["get", "reach_code"], ["9930"], true, false],
+          "hsl(122, 84%, 63%)",
+          ["match", ["get", "reach_code"], ["9940"], true, false],
+          "hsl(104, 93%, 76%)",
+          ["match", ["get", "reach_code"], ["9970"], true, false],
+          "hsl(90, 42%, 32%)",
+          ["match", ["get", "reach_code"], ["9980"], true, false],
+          "hsl(0, 20%, 79%)",
+          "hsl(153, 77%, 37%)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.24,
+          14,
+          0.33,
+          16,
+          0,
+          22,
+          0
+      ],
+      "fill-outline-color": "hsla(0, 89%, 55%, 0.17)"
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {"line-join": "round"},
+    "paint": {
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          13,
+          0.25,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-offset": 1,
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          1,
+          22,
+          6
+      ],
+      "line-color": "hsl(0, 0%, 0%)"
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {"line-join": "round"},
+    "paint": {
+      "line-color": [
+          "step",
+          ["zoom"],
+          "hsla(24, 72%, 49%, 0)",
+          13,
+          "hsla(24, 66%, 21%, 0.54)",
+          22,
+          "hsl(24, 68%, 22%)"
+      ],
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          13,
+          0.25,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-offset": 1,
+      "line-width": 4
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {"line-join": "round"},
+    "paint": {
+      "line-color": "hsl(24, 72%, 49%)",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          13,
+          0.25,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-dasharray": [2, 2],
+      "line-offset": 1
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {"line-join": "round"},
+    "paint": {
+      "line-color": "hsl(24, 72%, 49%)",
+      "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          13,
+          0.25,
+          15,
+          1,
+          22,
+          1
+      ],
+      "line-dasharray": [2, 2],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          14.28,
+          2,
+          22,
+          3
+      ]
+    }
+  }], 
+  [STREAMS_FILTERS]: [
+    {
+      "source_name":MHFD_STREAMS_FILTERS,
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        "line-miter-limit":2
+      },
+      "paint": {
+        "line-color": "#154784",
+        "line-opacity": [
+          "step",
+          ["zoom"],
+          0.9,
+          11.49,
+          0.8,
+          11.59,
+          0.3,
+          12,
+          0
+        ],
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "max_catch_sum"],
+          130.08,
+          1,
+          1000,
+          1.5,
+          400000,
+          10
+        ],
+        
+      }
+    },
+    {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-opacity": 0,
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          5,
+          640,
+          6,
+          6400,
+          9,
+          1131411.35931,
+          16
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-opacity": 0,
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          4,
+          640,
+          6,
+          6400,
+          9,
+          1131411.35931,
+          16
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(0, 0%, 0%, 0.12)",
+          10.5,
+          "hsla(210, 69%, 51%, 0.34)",
+          11,
+          "hsla(210, 71%, 35%, 0.67)",
+          12,
+          "hsl(210, 71%, 37%)",
+          12.58,
+          "hsl(210, 69%, 62%)",
+          22,
+          "hsl(210, 69%, 77%)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ],
+    
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        11,
+        0,
+        11.7,
+        1,
+        22,
+        1
+      ]
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "minzoom": 11,
+    "layout": {
+        "text-field": [
+            "case",
+            [">", ["get", "catch_sum"], 100000],
+            ["to-string", ["get", "str_name"]],
+            ["to-string", ""]
+        ],
+        "symbol-placement": "line",
+        "text-letter-spacing": 0.02,
+        "text-allow-overlap": true,
+        "text-ignore-placement": true
+    },
+    "paint": {
+        "text-color": "hsl(0, 3%, 100%)",
+        "text-halo-color": "#474a71",
+        "text-halo-width": 1.5,
+        "text-opacity": ["step", ["zoom"], 0, 10, 1]
+    }
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "minzoom": 11,
+    "layout": {
+        "text-size": 12,
+        "text-field": [
+            "case",
+            ["<=", ["get", "catch_sum"], 100000],
+            ["to-string", ["get", "str_name"]],
+            ""
+        ],
+        "symbol-avoid-edges": true,
+        "symbol-placement": "line"
+    },
+    "paint": {
+        "text-color": "hsl(0, 3%, 100%)",
+        "text-halo-color": "#474a71",
+        "text-halo-width": 1,
+        "text-opacity": ["step", ["zoom"], 0, 13, 1]
+    }
+  }], 
+  [MHFD_STREAMS_FILTERS]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "#0ff500",
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["get", "catch_sum"],
+          130.080010015,
+          0.5,
+          640,
+          1,
+          6400,
+          4,
+          1131411.35931,
+          12
+      ]
+    }
+  },
+  // {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   "paint": {
+  //     "line-color": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         "hsla(0, 0%, 0%, 0.12)",
+  //         10.5,
+  //         "hsla(210, 69%, 51%, 0.34)",
+  //         11,
+  //         "hsla(210, 71%, 35%, 0.67)",
+  //         12,
+  //         "hsl(210, 71%, 37%)",
+  //         12.58,
+  //         "hsl(210, 69%, 62%)",
+  //         22,
+  //         "hsl(210, 69%, 77%)"
+  //     ],
+  //     "line-width": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["get", "catch_sum"],
+  //         130.080010015,
+  //         0.5,
+  //         640,
+  //         1,
+  //         6400,
+  //         4,
+  //         1131411.35931,
+  //         12
+  //     ]
+  //   }
+  // }, {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   "paint": {
+  //     "line-color": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         0,
+  //         "hsla(0, 0%, 0%, 0.12)",
+  //         10.5,
+  //         "hsla(210, 69%, 51%, 0.34)",
+  //         11,
+  //         "hsla(210, 71%, 35%, 0.67)",
+  //         12,
+  //         "hsl(210, 71%, 37%)",
+  //         12.58,
+  //         "hsl(210, 69%, 62%)",
+  //         22,
+  //         "hsl(210, 69%, 77%)"
+  //     ],
+  //     "line-width": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["get", "catch_sum"],
+  //         130.080010015,
+  //         0.5,
+  //         640,
+  //         1,
+  //         6400,
+  //         4,
+  //         1131411.35931,
+  //         12
+  //     ]
+  //   }
+  // }, {
+  //   type: 'symbol',
+  //   'source-layer': 'pluto15v1',
+  //   "layout": {
+  //     "text-size": 12,
+  //     "text-variable-anchor": ["center"],
+  //     "text-max-angle": 0,
+  //     "symbol-spacing": 550,
+  //     "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
+  //     "symbol-placement": "line-center",
+  //     "text-justify": "auto",
+  //     "text-padding": 1,
+  //     "text-rotation-alignment": "map",
+  //     "text-field": [
+  //         "coalesce",
+  //         ["get", "name_en"],
+  //         ["get", "name"],
+  //         ["get", "str_name"]
+  //     ],
+  //     "text-max-width": 111
+  //   },
+  //   "paint": {
+  //       "text-color": "hsl(0, 0%, 100%)",
+  //       "text-translate": [10, 0],
+  //       "text-translate-anchor": "viewport"
+  //   }
+  // }, {
+  //   type: 'symbol',
+  //   'source-layer': 'pluto15v1',
+  //   "layout": {
+  //     "text-size": 12,
+  //     "text-variable-anchor": ["center"],
+  //     "text-max-angle": 0,
+  //     "symbol-spacing": 550,
+  //     "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"],
+  //     "symbol-placement": "line-center",
+  //     "text-justify": "auto",
+  //     "text-padding": 1,
+  //     "text-rotation-alignment": "map",
+  //     "text-field": ["to-string", ["get", "str_name"]],
+  //     "text-max-width": 111
+  //   },
+  //   "paint": {
+  //       "text-color": "hsl(0, 0%, 100%)",
+  //       "text-translate": [10, 0],
+  //       "text-translate-anchor": "viewport"
+  //   }
+  // }
+], 
+[TEST_LINE]: [{
+  type: 'line',
+  'source-layer': 'pluto15v1',
+  layout: {},
+  "paint": {
+    "line-color": "#880808",
+    "line-width": [
+      "interpolate",
+      ["linear"],
+      ["zoom"],
+      12,
+      5,
+      22,
+      2
+    ],
+  }
+}],
+  [XSTREAMS]: [{
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": ["to-string", ["get", "str_name"]],
+      "symbol-placement": "line",
+      "text-font": ["Open Sans SemiBold", "Arial Unicode MS Regular"]
+    },
+    "paint": {
+        "text-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            "hsl(227, 63%, 76%)",
+            22,
+            "hsl(227, 0%, 100%)"
+        ]
+    }
+  }],
+  [SERVICE_AREA_FILTERS]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-width": 2,
+      "line-color": "hsl(0, 3%, 97%)",
+      "line-dasharray": [2, 2]
+    }
+  },
+  {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":14,
+      "text-line-height":1.2,
+      "text-letter-spacing":0.4,
+      "text-justify":"auto",
+      "text-offset":[0, 2],
+      "text-allow-overlap":true,
+      "symbol-avoid-edges":false,
+      "text-rotation-alignment":"map",
+      "symbol-placement":"line",
+      "symbol-spacing":200,
+      "text-max-angle":20,
+      "text-padding":30
+    },
+    "paint": {
+      "text-color":"#fcfcfc",
+      "text-opacity":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        12.5,
+        0.8,
+        12.51,
+        1,
+        13.9,
+        1,
+        13.91,
+        0.8
+      ],
+      "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
+      "text-halo-width":20,
+      "text-halo-blur":20
+    }
+  }, 
+  {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-offset":[0, 1.5],
+      "text-size":13,
+      "text-letter-spacing":0.35,
+      "text-line-height": 1.4,
+      "text-justify": "right",
+      "symbol-placement":"line",
+      "symbol-spacing":250,
+      // "text-max-angle":15,
+      // "symbol-avoid-edges":true,
+      // "text-rotation-alignment":"map",
+      "text-padding":40
+    },
+    "paint": {
+      "text-color":"#fcfcfc", //fix this,
+      "text-opacity":1,
+      "text-halo-color":"hsla(250, 61%, 24%, 0.35)",
+      "text-halo-width":20,
+      "text-halo-blur":20
+    }
+  }, 
+  {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":22,
+      "text-line-height":1.2,
+      "text-justify":"center",
+      // "text-anchor":"center",
+      "text-offset":[0,2],
+      // "text-translate":[0, 0],
+      "symbol-placement":"point",
+      "symbol-spacing":250,
+      "text-max-angle":45,
+      // "symbol-avoid-edges":true,
+      "text-padding":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10,
+        60,
+        11,
+        120,
+        12,
+        180,
+        22,
+        180
+      ],
+      "text-letter-spacing":0.4,
+      "text-max-width":10
+    },
+    "paint": {
+        "text-halo-color":"hsla(250, 61%, 24%, 0.52)",
+        "text-halo-width":24,
+        "text-halo-blur":24,
+        "text-color": "#fcfcfc",
+        "text-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          12,
+          1,
+          13.5,
+          0,
+          22,
+          0
+        ]
+    }
+  },
+  {
+    // copy4
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+        "concat",
+        [
+          "to-string",
+          ["get", "servicearea"]
+        ],
+        " ",
+        "Service Area"
+      ],
+      "text-font":[
+        "Open Sans Regular",
+        "Arial Unicode MS Regular"
+      ],
+      "text-size":20,
+      "text-line-height":1.2,
+      "text-justify":"center",
+      // "text-anchor":"center",
+      // "text-translate":[0, 0],
+      "symbol-placement":"point",
+      // "symbol-avoid-edges":true,
+      "text-padding":[
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10,
+        60,
+        11,
+        120,
+        12,
+        180,
+        22,
+        180
+      ],
+      "text-letter-spacing":0.4,
+      "text-max-width":10
+    },
+    "paint": {
+        "text-halo-color":"hsla(250, 61%, 24%, 0.52)",
+        "text-halo-width":120,
+        "text-halo-blur":12,
+        "text-color": "hsl(163, 2%, 96%)",
+        "text-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          12,
+          1,
+          13,
+          0,
+          22,
+          0
+        ]
+    }
+  },
+  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color":'#ffffff',
+      "fill-opacity":0.01
+    }
+  }
+],
+  [SERVICE_AREA_POINTS]: [],
+  [MUNICIPALITIES_FILTERS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "city"],
+          ["Aurora"],
+          "hsl(212, 50%, 56%)",
+          ["Denver"],
+          "#ae3727",
+          ["Glendale"],
+          "#487920",
+          ["Lone Tree"],
+          "hsl(0, 93%, 72%)",
+          ["Englewood"],
+          "hsl(103, 38%, 28%)",
+          ["Lakeside"],
+          "hsl(312, 85%, 58%)",
+          ["Bow Mar"],
+          "hsl(253, 88%, 55%)",
+          ["Lafayette"],
+          "hsl(66, 83%, 62%)",
+          ["Golden"],
+          "hsl(48, 89%, 56%)",
+          ["Federal Heights"],
+          "hsl(189, 78%, 58%)",
+          ["Erie"],
+          "hsl(0, 94%, 53%)",
+          ["Columbine Valley"],
+          "hsl(288, 79%, 55%)",
+          ["Lousiville"],
+          "hsl(114, 63%, 66%)",
+          ["Sheridan"],
+          "hsl(43, 96%, 37%)",
+          ["Foxfield"],
+          "hsl(0, 13%, 52%)",
+          ["Morrison"],
+          "hsl(360, 86%, 37%)",
+          ["Castle Rock"],
+          "hsl(125, 78%, 70%)",
+          ["Boulder"],
+          "hsl(17, 83%, 41%)",
+          ["Commerce City"],
+          "hsl(0, 24%, 46%)",
+          ["Superior"],
+          "hsl(211, 89%, 82%)",
+          ["Westminster"],
+          "hsl(281, 79%, 46%)",
+          ["Wheat Ridge"],
+          "hsl(62, 71%, 73%)",
+          ["Lochbuie"],
+          "hsl(128, 88%, 53%)",
+          ["Parker"],
+          "hsl(242, 83%, 45%)",
+          ["Cherry Hills Village"],
+          "#d40c2b",
+          ["Centennial"],
+          "hsl(188, 67%, 24%)",
+          ["Mountain View"],
+          "hsl(202, 89%, 81%)",
+          ["Arvada"],
+          "hsl(168, 81%, 63%)",
+          ["Brighton"],
+          "hsl(237, 53%, 38%)",
+          ["Edgewater"],
+          "hsl(183, 83%, 56%)",
+          ["Northglenn"],
+          "hsl(130, 93%, 40%)",
+          ["Castle Pines"],
+          "hsl(97, 48%, 24%)",
+          ["Greenwood Village"],
+          "hsl(39, 84%, 75%)",
+          ["Lakewood"],
+          "hsl(219, 93%, 31%)",
+          ["Thornton"],
+          "hsl(0, 91%, 68%)",
+          ["Littleton"],
+          "hsl(47, 85%, 38%)",
+          ["Broomfield"],
+          "hsl(36, 84%, 45%)",
+          "hsl(0, 0%, 0%)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.45,
+          12,
+          0.45,
+          14,
+          0,
+          22,
+          0
+      ],
+      "fill-outline-color": "hsla(0, 0%, 0%, 0)"
+     }
+    }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-dasharray": [1],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.5,
+          10,
+          0.5,
+          14,
+          1,
+          22,
+          6
+      ],
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(0, 3%, 75%)",
+          10,
+          "hsl(0, 3%, 75%)",
+          13,
+          "hsl(0, 0%, 100%)",
+          22,
+          "hsl(0, 0%, 100%)"
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12.5,
+          "hsl(0, 0%, 75%)",
+          14,
+          "hsl(0, 0%, 0%)",
+          17,
+          "hsl(0, 0%, 0%)",
+          22,
+          "hsl(0, 0%, 0%)"
+      ],
+      "line-dasharray": [2, 1],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.5,
+          9.89,
+          1,
+          22,
+          6
+      ]
+    }
+  }], 
+  [MUNICIPALITIES_POINTS]: [ {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "match",
+          ["get", "city"],
+          [
+              "Broomfield",
+              "Littleton",
+              "Aurora",
+              "Boulder",
+              "Denver",
+              "Parker",
+              "Lakewood",
+              "Golden",
+              "Brighton"
+          ],
+          ["to-string", ["get", "city"]],
+          ""
+      ],
+      "text-offset": [1, 1],
+      "text-pitch-alignment": "viewport",
+      "text-padding": 111,
+      "symbol-avoid-edges": true,
+      "text-justify": "auto",
+      "visibility": "none"
+    },
+    "paint": {
+        "text-color": "hsl(227, 100%, 100%)",
+        "text-halo-color": "hsla(196, 0%, 31%, 0.57)",
+        "text-halo-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            13.19,
+            0,
+            22,
+            3
+        ],
+        "text-halo-blur": 1,
+        "text-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            12,
+            1,
+            13,
+            0,
+            22,
+            0
+        ]
+    }
+},  {
+  type: 'symbol',
+  'source-layer': 'pluto15v1',
+  "layout": {
+    "text-field": [
+        "step",
+        ["zoom"],
+        [
+            "match",
+            ["get", "city"],
+            [
+                "Broomfield",
+                "Littleton",
+                "Aurora",
+                "Boulder",
+                "Denver",
+                "Parker",
+                "Lakewood",
+                "Golden",
+                "Brighton"
+            ],
+            ["to-string", ["get", "city"]],
+            ["to-string", ["get", "city"]]
+        ],
+        13,
+        ["to-string", ["get", "city"]],
+        22,
+        [
+            "match",
+            ["get", "city"],
+            [
+                "Broomfield",
+                "Littleton",
+                "Aurora",
+                "Boulder",
+                "Denver",
+                "Parker",
+                "Lakewood",
+                "Golden",
+                "Brighton"
+            ],
+            ["to-string", ["get", "city"]],
+            ["to-string", ["get", "city"]]
+        ]
+    ],
+    "symbol-placement": "line",
+    "text-offset": [2, 2],
+    "text-pitch-alignment": "viewport",
+    "symbol-spacing": 500,
+    "symbol-avoid-edges": true,
+    "text-font": ["Open Sans SemiBold", "Arial Unicode MS Regular"],
+    "visibility": "none"
+  },
+  "paint": {
+      "text-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsl(227, 100%, 100%)",
+          13.5,
+          "hsl(227, 95%, 100%)",
+          14,
+          "hsl(227, 100%, 0%)",
+          22,
+          "hsl(227, 100%, 0%)"
+      ],
+      "text-halo-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          "hsla(196, 0%, 31%, 0.57)",
+          22,
+          "hsla(196, 4%, 97%, 0.57)"
+      ],
+      "text-halo-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          13.15,
+          0,
+          22,
+          2
+      ],
+      "text-halo-blur": 1,
+      "text-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          12.5,
+          0,
+          14.08,
+          1,
+          22,
+          1
+      ]
+  }
+  }],
+  [COUNTIES_FILTERS]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 3%, 96%)",
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          0.5,
+          22,
+          5
+      ],
+      "line-dasharray": [5, 2, 3, 2, 5]
+    }
+  },{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color":'#ffffff',
+      "fill-opacity":0.01
+    }
+  }],
+  [COUNTIES_POINTS]: [{
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": [
+          "concat",
+          ["to-string", ["get", "county"]],
+          " ",
+          "County"
+      ],
+      "text-size": 18,
+      "text-padding": 66,
+      "visibility": "none"
+    },
+    "paint": {"text-color": "hsl(0, 4%, 58%)"}
+  }],
+  [MHFD_BOUNDARY_FILTERS]: [{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 0%, 100%)", 
+      "line-width": 4
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": "hsl(0, 3%, 39%)",
+      "line-dasharray": [5, 5],
+      "line-width": 2
+    }
+  }], 
+  [PROBLEMS_TRIGGER]: [
+    {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "line-round-limit": 1,
+      "line-cap": "round",
+      "line-miter-limit": 0,
+      "line-join": "round"
+    },
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "problem_type"],
+        ["Watershed Change"],
+        "hsla(0, 100%, 51%,1)",
+        "hsla(0, 0%, 0%, 0)",
+          // "step",
+          // ["zoom"],
+          // "hsla(0, 99%, 49%, 0.65)",
+          // 7,
+          // "hsla(0, 99%, 49%,0.72)",
+          // 11,
+          // "hsla(0, 99%, 49%,0.85)",
+          // 13,
+          // "hsla(0, 99%, 49%,0.95)",
+          // 22,
+          // "hsla(0, 99%, 49%, 0.39)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9, 10,
+          16, 22,
+        ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10.2, 0.0,
+        11.22, 0.89,
+      ]
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "line-round-limit": 1,
+      "line-cap": "round",
+      "line-miter-limit": 0,
+      "line-join": "round"
+    },
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "problem_type"],
+        ["Stream Function"],
+        "hsla(0, 93%, 39%, 1)",
+        "hsla(0, 0%, 0%, 0)",
+          // "step",
+          // ["zoom"],
+          // "hsla(0, 99%, 49%, 0.65)",
+          // 7,
+          // "hsla(0, 99%, 49%,0.72)",
+          // 11,
+          // "hsla(0, 99%, 49%,0.85)",
+          // 13,
+          // "hsla(0, 99%, 49%,0.95)",
+          // 22,
+          // "hsla(0, 99%, 49%, 0.39)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9, 10,
+          16, 22,
+        ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10.2, 0.0,
+        11.22, 0.89,
+      ]
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "line-round-limit": 1,
+      "line-cap": "round",
+      "line-miter-limit": 0,
+      "line-join": "round"
+    },
+    "paint": {
+      "line-color": [
+        "match",
+        ["get", "problem_type"],
+        ["Flood Hazard"],
+        "hsla(0, 100%, 28%,1)",
+        "hsla(0, 0%, 0%, 0)",
+          // "step",
+          // ["zoom"],
+          // "hsla(0, 99%, 49%, 0.65)",
+          // 7,
+          // "hsla(0, 99%, 49%,0.72)",
+          // 11,
+          // "hsla(0, 99%, 49%,0.85)",
+          // 13,
+          // "hsla(0, 99%, 49%,0.95)",
+          // 22,
+          // "hsla(0, 99%, 49%, 0.39)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          9, 10,
+          16, 22,
+        ],
+      "line-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        10.2, 0.0,
+        11.22, 0.89,
+      ]
+    }
+  }
+],
+  [FLOOD_HAZARD_POLYGON]: [ {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "#ea8448",
+      "fill-opacity": 1,
+      "fill-antialias": true,
+      "fill-outline-color": "#000000"
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#ea8448",
+      "line-opacity": 0.5,
+      "line-width": 5,
+      "line-offset": -2
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#16927c",
+      "line-opacity": 1,
+      "line-width": 3,
+      "line-dasharray": [1, 1],
+      "line-offset": 2
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 9,
+      "line-opacity": 0,
+    },
+  }],
+  [FLOOD_HAZARD_LINE]: [
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#ea8448",
+      "line-opacity": 1,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        6,
+        1,
+        15,
+        10
+      ]
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#ea8448",
+      "line-opacity": 0.34,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        6,
+        1,
+        18,
+        20
+      ]
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 8,
+      "line-opacity": 0,
+    },
+  }],
+  [FLOOD_HAZARD_POINT]: [ 
+  {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-pitch-scale": "map",
+      "circle-pitch-alignment": "viewport",
+      "circle-color": "hsla(169, 74%, 33%, 1)",
+      "circle-stroke-color": "hsla(0, 0%, 0%, 1)",
+      "circle-stroke-width": 0,
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        2,
+        13,
+        6
+      ]
+    }
+  },
+  {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-pitch-scale": "map",
+      "circle-pitch-alignment": "viewport",
+      "circle-color": "hsla(169, 74%, 33%, 0.6)",
+      "circle-stroke-color": "hsla(0, 0%, 0%, 1)",
+      "circle-stroke-width": 0,
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        4,
+        13,
+        9
+      ]
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-pitch-scale": "map",
+      "circle-pitch-alignment": "viewport",
+      "circle-color": "#ea8448",
+      "circle-opacity": 1,
+      "circle-blur": 0,
+      "circle-stroke-color": "#000000",
+      "circle-stroke-opacity": 1,
+      "circle-stroke-width": 0,
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        2,
+        13,
+        4
+      ]
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'circle-radius': 9,
+      "circle-opacity": 0,
+    },
+  }],
+  [STREAM_FUNCTION_POLYGON]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "miter",
+      "line-miter-limit": 2
+    },
+    "paint": {
+      "line-color": "hsl(22, 57%, 35%)",
+      "line-opacity": 1,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        12,
+        0.5,
+        22,
+        3
+      ],
+      "line-offset": -2
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "miter",
+      "line-miter-limit": 2
+    },
+    "paint": {
+      "line-color": "hsl(22, 79%, 60%)",
+      "line-opacity": 1,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        12,
+        0.5,
+        22,
+        2
+      ],
+    }
+  },{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsl(22, 63%, 81%)",
+      "fill-opacity": 0.8,
+      "fill-antialias": true,
+      //"fill-outline-color": "#000000"
+    }
+  },  
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
+  }],
+  [STREAM_FUNCTION_POINT]: [ {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-pitch-scale": "map",
+      "circle-pitch-alignment": "viewport",
+      "circle-color": "hsla(22, 79%, 60%, 0.7)",
+      "circle-stroke-color": "hsla(0, 0%, 0%, 0)",
+      "circle-stroke-opacity": 1,
+      "circle-stroke-width": 2,
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        4,
+        13,
+        9
+      ]
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-pitch-scale": "map",
+      "circle-pitch-alignment": "viewport",
+      "circle-color": "hsl(22, 57%, 35%)",
+      "circle-opacity": 1,
+      "circle-stroke-color": "hsla(0, 0%, 0%, 0)",
+      "circle-stroke-opacity": 1,
+      "circle-stroke-width": 2,
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        2,
+        13,
+        7
+      ]
+    }
+  },{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-pitch-scale": "map",
+      "circle-pitch-alignment": "viewport",
+      "circle-color": "#ea8448",
+      "circle-opacity": 1,
+      "circle-stroke-color": "#000000",
+      "circle-stroke-opacity": 1,
+      "circle-stroke-width": 0,
+      "circle-radius": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        1,
+        13,
+        5
+      ]
+    }
+  },
+  {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'circle-radius': 9,
+      "circle-opacity": 0,
+    },
+  }],
+  [STREAM_FUNCTION_LINE]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "round",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#ea8448",
+      "line-opacity": 1,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        1,
+        22,
+        3
+      ],
+      "line-offset": 2
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#ea8448",
+      "line-opacity": 0.5,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        4,
+        22,
+        8
+      ],
+      "line-offset": -2
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "round",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#edc7b1",
+      "line-opacity": 1,
+      "line-width": 1,
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "round",
+      "line-round-limit": 1.05
+    },
+    "paint": {
+      "line-color": "#8c4c26",
+      "line-opacity": 1,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        0.5,
+        22,
+        3
+      ],
+      "line-offset": -2
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
+  }],
+  [FUTURE_DEVELOPMENT_POLYGON]: [ 
+    {
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsl(22, 63%, 81%)",
+        "fill-opacity": 0.5,
+        "fill-antialias": true,
+        "fill-outline-color": "#000000"
+      }
+    },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "miter",
+      "line-miter-limit": 2
+    },
+    "paint": {
+      "line-color": "#000000",
+      "line-opacity": 1,
+      "line-width": 1,
+    }
+  },{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsl(129, 78%, 68%)",
+      "fill-opacity": 1,
+      "fill-antialias": true,
+      "fill-outline-color": "#000000"
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
+  }],
+  [FUTURE_DEVELOPMENT_LINE]: [ {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "miter",
+      "line-miter-limit": 2
+    },
+    "paint": {
+      "line-color": "hsl(22, 79%, 60%)",
+      "line-opacity": 1,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        2,
+        15,
+        10
+      ],
+      "line-dasharray": [0.2, 0.08]
+    }
+  },
+  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {
+      "line-cap": "butt",
+      "line-join": "miter",
+      "line-miter-limit": 2
+    },
+    "paint": {
+      "line-color": "hsl(22, 79%, 60%)",
+      "line-opacity": 0.3,
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        8,
+        3,
+        15,
+        14
+      ],
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: { },
+    "paint": {
+      'line-width': 7,
+      "line-opacity": 0,
+    },
+  }],
+  [STUDIES]: [ {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Funding"],
+          "hsla(129, 1%, 63%, 0.47)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Funding"],
+          "hsl(112, 3%, 97%)",
+          "hsla(112, 3%, 52%, 0)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.37,
+          22,
+          0
+      ]
+    }
+  },  {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Funding"],
+          "hsl(0, 3%, 54%)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          1,
+          15.475,
+          5,
+          17,
+          10,
+          22,
+          12
+      ]
+    }
+  },  {
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "sstatus"],
+          ["In Progress"],
+          "hsla(131, 56%, 68%, 0.2)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": [
+          "match",
+          ["get", "sstatus"],
+          ["In Progress"],
+          "hsl(124, 94%, 48%)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1,
+          13,
+          0.56,
+          22,
+          0
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "sstatus"],
+          ["In Progress"],
+          "#80db90",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          1,
+          15.475,
+          5,
+          17,
+          10,
+          22,
+          12
+      ]
+    }
+  },{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Design"],
+          "hsla(73, 66%, 66%, 0.24)",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "fill-outline-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Design"],
+          "hsl(61, 94%, 56%)",
+          "hsla(61, 94%, 56%, 0)"
+      ],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          1,
+          12.5,
+          0.38,
+          22,
+          0
+      ]
+    }
+  },{
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "match",
+          ["get", "sstatus"],
+          ["Design"],
+          "#c9e26f",
+          "hsla(0, 0%, 0%, 0)"
+      ],
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          1,
+          15.475,
+          5,
+          17,
+          10,
+          22,
+          12
+      ]
+    }
+  }],
+  [NRCS_SOILS]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": [
+          "match",
+          ["get", "hydgrpdcd"],
+          ["A"],
+          "hsla(39, 87%, 52%, 0.33)",
+          ["A/D"],
+          "hsla(341, 78%, 58%, 0.33)",
+          ["B"],
+          "hsla(162, 81%, 36%, 0.33)",
+          ["C"],
+          "hsla(215, 50%, 45%, 0.33)",
+          ["D"],
+          "hsla(290, 40%, 39%, 0.33)",
+          ["<Null>"],
+          "hsla(96, 3%, 52%, 0.33)",
+          "#000000"
+      ]
+    }
+  }],
+  [DWR_DAM_SAFETY]: [{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "#c10022",
+      "circle-stroke-color": "hsl(244, 0%, 98%)",
+      "circle-stroke-width": 1,
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          5,
+          22,
+          10
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          1,
+          22,
+          1
+      ]
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "#feda00",
+      "circle-stroke-color": "hsl(0, 0%, 100%)",
+      "circle-stroke-width": 1,
+      "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          9,
+          2,
+          22,
+          5
+      ],
+      "circle-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          1,
+          22,
+          1
+      ],
+      "circle-stroke-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0,
+          8.9,
+          0,
+          9,
+          1,
+          22,
+          1
+      ]
+    }
+  }], 
+  [STREAM_MANAGEMENT_CORRIDORS]: [
+    {
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "paint": {
+          "fill-color": "hsla(0, 0%, 0%, 0)",
+          "fill-outline-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(27, 97%, 56%)",
+                  ["Stream Corridor"],
+                  "hsl(301, 60%, 56%)",
+                  "#000000"
+              ],
+              "#000000"
+          ]
+      }
+    }, , {
+      "type": "fill",
+      "source-layer": 'pluto15v1',
+      "paint": {
+          "fill-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(77, 88%, 64%)",
+                  ["Stream Corridor"],
+                  "hsl(288, 80%, 59%)",
+                  "#000000"
+              ],
+              "hsla(0, 0%, 0%, 0)"
+          ],
+          "fill-opacity": 0.21
+      }
+    }, {
+      "type": "fill",
+      "source-layer": "pluto15v1",
+      "paint": {
+          "fill-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(77, 88%, 64%)",
+                  ["Stream Corridor"],
+                  "hsl(288, 80%, 59%)",
+                  "#000000"
+              ],
+              "hsla(0, 0%, 0%, 0)"
+          ],
+          "fill-pattern": [
+              "match",
+              ["get", "smc_type"],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "ic-stripered",
+                  ["Stream Corridor"],
+                  "ic-stripeviolet",
+                  "pedestrian-polygon"
+              ],
+              "pedestrian-polygon"
+          ]
+      }
+    }, {
+      "type": "fill",
+      'source-layer': 'pluto15v1',
+      "paint": {
+          "fill-color": [
+              "match",
+              ["get", "smc_type"],
+              ["Stream Management Corridor"],
+              "hsl(46, 100%, 61%)",
+              ["Avulsion Hazard Zone"],
+              "hsla(303, 80%, 82%, 0)",
+              ["Active Stream Corridor"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsl(46, 88%, 67%)",
+                  ["Stream Corridor"],
+                  "#7a43db",
+                  "#000000"
+              ],
+              ["Fluvial Hazard Buffer"],
+              [
+                  "match",
+                  ["get", "scale"],
+                  ["Watershed"],
+                  "hsla(77, 88%, 64%, 0)",
+                  ["Stream Corridor"],
+                  "hsla(288, 80%, 59%, 0)",
+                  "hsla(0, 0%, 0%, 0)"
+              ],
+              "#000000"
+          ],
+          "fill-opacity": 0.8
+      }
+    }
+  ],
+  [BLOCK_CLEARANCE_ZONES_LAYERS]: [
+    {
+      type: 'fill',
+      filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsla(25, 61%, 38%, 0.32)",
+        "fill-pattern": ["step", ["zoom"], "pjm2", 22, "pjm2"],
+        "fill-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0.2,
+            22,
+            0.25
+        ],
+        "fill-antialias": false,
+        "fill-outline-color": "#000000"
+      }
+    }, {
+      type: 'fill',
+      filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsla(25, 61%, 38%, 0.32)",
+        "fill-outline-color": "hsl(189, 90%, 55%)"
+      }
+    },
+    {
+      type: 'line',
+      filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "line-color": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8,
+            "hsl(289, 55%, 10%)",
+            8.67,
+            "hsl(289, 52%, 20%)",
+            9,
+            "hsl(289, 60%, 15%)",
+            9.67,
+            "hsl(289, 52%, 20%)",
+            22,
+            "hsl(289, 52%, 20%)"
+        ],
+        "line-gap-width": 12,
+        "line-blur": 22,
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            11,
+            22,
+            22
+        ]
+      }
+    }, {
+      type: 'fill',
+      filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsl(180, 75%, 86%)",
+        "fill-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            8.5,
+            1,
+            14,
+            0.51
+        ]
+      }
+    }, {
+      type: 'fill',
+      filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": "hsl(292, 72%, 88%)",
+        "fill-pattern": [
+            "step",
+            ["zoom"],
+            "viewpoint-11",
+            22,
+            "viewpoint-15"
+        ]
+    }
+    }
+  ],
+  [BCZ_PREBLE_MEADOW_JUMPING]: [{
+    type: 'fill',
+    filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(25, 61%, 38%, 0.32)",
+      "fill-pattern": ["step", ["zoom"], "pjm2", 22, "pjm2"],
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.2,
+          22,
+          0.25
+      ],
+      "fill-antialias": false,
+      "fill-outline-color": "#000000"
+    }
+  }, {
+    type: 'fill',
+    filter: ['==', 'species_name', 'Prebles meadow jumping mouse'],
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(25, 61%, 38%, 0.32)",
+      "fill-outline-color": "hsl(189, 90%, 55%)"
+    }
+  }],
+  [BCZ_UTE_LADIES_TRESSES_ORCHID]: [{
+    type: 'line',
+    filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "line-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          "hsl(289, 55%, 10%)",
+          8.67,
+          "hsl(289, 52%, 20%)",
+          9,
+          "hsl(289, 60%, 15%)",
+          9.67,
+          "hsl(289, 52%, 20%)",
+          22,
+          "hsl(289, 52%, 20%)"
+      ],
+      "line-gap-width": 12,
+      "line-blur": 22,
+      "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          11,
+          22,
+          22
+      ]
+    }
+  }, {
+    type: 'fill',
+    filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsl(180, 75%, 86%)",
+      "fill-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8.5,
+          1,
+          14,
+          0.51
+      ]
+    }
+  }, {
+    type: 'fill',
+    filter: ['!=', 'species_name', 'Prebles meadow jumping mouse'],
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsl(292, 72%, 88%)",
+      "fill-pattern": [
+          "step",
+          ["zoom"],
+          "viewpoint-11",
+          22,
+          "viewpoint-15"
+      ]
+  }
+  }],
+  [RESEARCH_MONITORING]: [{
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          10,
+          22,
+          20
+      ],
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          7,
+          22,
+          15
+      ],
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+   }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          5,
+          22,
+          10
+      ],
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+    }
+  }, {
+    type: 'circle',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "circle-color": "hsl(295, 90%, 51%)",
+      "circle-stroke-width": 7,
+      "circle-stroke-color": "hsla(91, 83%, 46%, 0.44)"
+    }
+  }],
+  [CLIMB_TO_SAFETY]: [{
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          0.02,
+          22,
+          0.2
+      ],
+      "icon-offset": [-225, -250],
+      "text-line-height": 6,
+      "text-justify": "auto",
+      "text-offset": [-4, -4],
+      "icon-optional": true,
+      "icon-text-fit-padding": [5, 2, 5, 2],
+      "icon-image": "Frame17m2t"
+    },
+    "paint": {
+        "text-color": "hsl(0, 85%, 53%)",
+        "icon-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            0,
+            8.5,
+            0.66,
+            9,
+            1,
+            22,
+            1
+        ]
+    }
+  }
+  // , {
+  //   type: 'circle',
+  //   'source-layer': 'pluto15v1',
+  //   layout: {},
+  //   "paint": {
+  //     "circle-color": "hsl(60, 100%, 68%)",
+  //     "circle-stroke-color": "hsla(116, 60%, 42%, 0.66)",
+  //     "circle-stroke-width": 3,
+  //     "circle-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         8.9,
+  //         0.5,
+  //         9,
+  //         0.54,
+  //         22,
+  //         1
+  //     ],
+  //     "circle-stroke-opacity": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         9.9,
+  //         0,
+  //         10,
+  //         0.54,
+  //         22,
+  //         1
+  //     ]
+  //   }
+  // }
+],
+  [SEMSWA_SERVICE_AREA]: [{
+    type: 'fill',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {
+      "fill-color": "hsla(221, 57%, 42%, 0.2)",
+      "fill-outline-color": "#2ee550"
+    }
+  }, {
+    type: 'line',
+    'source-layer': 'pluto15v1',
+    layout: {},
+    "paint": {"line-dasharray": [5, 3]}
+  }, {
+    type: 'symbol',
+    'source-layer': 'pluto15v1',
+    "layout": {
+      "text-field": "SEMSWA",
+      "symbol-avoid-edges": true,
+      "text-letter-spacing": 0.44,
+      "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          8,
+          22,
+          16
+      ],
+      "text-rotate": -45,
+      "text-justify": "auto"
+    },
+    "paint": {
+        "text-color": "#2ee550",
+        "text-halo-width": 44,
+        "text-opacity": 0.66,
+        "text-halo-color": "hsla(0, 4%, 20%, 0.88)"
+    }
+  }],
+  ...COMPONENT_LAYERS_STYLE,
+  ...MEP_PROJECTS_STYLES,
+  ...ROUTINE_MAINTENANCE_STYLES,
+  ...PROJECTS_STYLES_WR,
 }
 
 export const USER_POLYGON_FILL_STYLES = {

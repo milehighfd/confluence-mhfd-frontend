@@ -70,7 +70,7 @@ import {
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button, Popover } from 'antd';
-import { tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
+import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useDetailedState } from '../../hook/detailedHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
