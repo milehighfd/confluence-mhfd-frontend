@@ -6,13 +6,14 @@ import ButtonGroup from "antd/lib/button/button-group";
 import UserList from "./UserList";
 import ProjectsList from "./ProjectsList";
 import UserActivity from "./UserActivity";
+import BoardYear from "./BoardYear";
 
 const { TabPane } = Tabs;
-const tabKeys = ['Users Management', 'User Activity' ];
+const tabKeys = ['Users Management', 'User Activity', 'Board Year' ];
 const popovers: any = [
   <div className="popoveer-00"><b>Users Management:</b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
   <div className="popoveer-00"><b>User Activity:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
-  <div className="popoveer-00"><b>Project Management:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
+  <div className="popoveer-00"><b>Board Year:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
 ]
 const UserManagementBody = () => {
   const [tabKey, setTabKey] = useState<any>('Users Management');
@@ -31,6 +32,7 @@ const UserManagementBody = () => {
               <div className="user-management-body">
                 {tabKey === 'Users Management' &&<UserList/>}
                 {tabKey === 'User Activity' &&<UserActivity/>}
+                {tabKey === 'Board Year' &&<BoardYear/>}
                 {tabKey === 'Project Management' && <ProjectsList/>}
               </div>
             </TabPane>

@@ -9,7 +9,7 @@ import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
-const UserActivity = () => {
+const BoardYear = () => {
   interface DataType {
     key: React.Key;
     name: string[];
@@ -101,18 +101,23 @@ const UserActivity = () => {
       <Row>
         <Col xs={{ span: 9}} lg={{ span: 5 }}>
           <div className="list-view-head" style={{paddingTop:'10px', paddingLeft:'15px'}} >
-            <h2 style={{color:'rgb(29, 22, 70)'}}className="title">User Activity</h2>
+            <h2 style={{color:'rgb(29, 22, 70)'}}className="title">Board Year</h2>
           </div>
           </Col>
       </Row>
-      <div className="table-user-management">
-        <Table
-          columns={columns2}
-          dataSource={DATA_USER_ACTIVITY}
-        />
+      <div className="table-user-management" style={{paddingLeft:'15px'}}>
+        <span style={{color: 'rgb(17, 9, 60)', paddingRight: '10px'}}>Most recent board year:</span>
+        <Select
+        placeholder="2022"
+      >
+        <Option key={'2022'} value={'2022'}>2022</Option>
+        <Option key={'2023'} value={'2023'}>2023</Option>
+        <Option key={'2024'} value={'2024'}>2024</Option>
+        <Option key={'2025'} value={'2025'}>2025</Option>
+        </Select>
       </div>
     </div>
   </>
 };
 
-export default UserActivity;
+export default BoardYear;
