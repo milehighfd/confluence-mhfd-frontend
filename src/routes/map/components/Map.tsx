@@ -582,6 +582,7 @@ const Map = ({
 
     useEffect(() => {
         if (map) {
+          console.log('filter projects', filterProjects);
             applyFilters(MHFD_PROJECTS, filterProjects);
         }
     }, [filterProjects, componentDetailIds]);
@@ -591,6 +592,7 @@ const Map = ({
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
             }
+            console.log('filter projects 2', filterProjects);
             applyFilters(MHFD_PROJECTS, filterProjects);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
@@ -1091,6 +1093,7 @@ const Map = ({
       });
     }
     const applyMapLayers = async () => {
+      console.log('SELECT ALL ', SELECT_ALL_FILTERS);
         await SELECT_ALL_FILTERS.forEach(async (layer) => {
             if (typeof layer === 'object') {
               if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
@@ -1129,6 +1132,7 @@ const Map = ({
             }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
+        console.log('filter projects3', filterProjects);
         applyFilters(MHFD_PROJECTS, filterProjects);
         setTimeout(()=>{
             topStreams()
@@ -1294,15 +1298,21 @@ const Map = ({
     }
     const applyFilters = useCallback((key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
+
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map.getLayer(key + '_' + index)) {
                 return;
             }
             const allFilters: any[] = ['all'];
+            console.log('to Filter', toFilter);
             for (const filterField in toFilter) {
+              console.log('filterfield0, filt', filterField, toFilter);
                 let filters = toFilter[filterField];
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
+                }
+                if(filterField === 'maptype') {
+                  continue;
                 }
                 if (filterField === 'component_type') {
                     showSelectedComponents(filters.split(','));
@@ -1406,7 +1416,8 @@ const Map = ({
                         for (const filter of filters.split(',')) {
                             if (isNaN(+filter)) {
                                 if(filterField == 'projecttype') {
-                                  if(JSON.stringify(style.filter).includes(filter)) {
+                                  console.log('style ', style.filter);
+                                  if(style.filter && JSON.stringify(style.filter).includes(filter)) {
                                     options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
                                   }
                                 } else {
@@ -1435,6 +1446,7 @@ const Map = ({
               addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             }
             if (map.getLayer(key + '_' + index)) {
+              console.log('all filters', allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });

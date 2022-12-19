@@ -180,7 +180,8 @@ const initState = {
         jurisdiction: '',
         county: '',
         servicearea: '',
-        keyword: {}
+        keyword: {},
+        maptype: 'main'
     },
     filterComponents: {
         component_type: '',
