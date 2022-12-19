@@ -266,6 +266,71 @@
     }
   }
 }
+.profile-myprofile{
+  background: #FFFFFF;
+  border: 1px solid #E3E5E5;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  color: #11093C;
+  text-align: center;
+  height:  calc(100vh - 59px);
+  overflow-y: hidden;
+  h1{
+    font-size: 16px;
+    margin: 0px;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: rgb(29 22 70);
+  }
+  .color-sub{
+    color: #11093C;
+    opacity: 0.6;
+  }
+  .profile{
+    height:  calc(100vh - 440px);
+    overflow-y: auto;
+  }
+  .profile::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .profile::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .profile::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 25px !important;
+    min-height: auto !important;
+  }
+  .foot-profile{
+    position: absolute;
+    /* z-index: 198; */
+    bottom: 0px;
+    width: 93%;
+    background: white;
+    padding: 10px 0px;
+  }
+}
+.profile-myprofile::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.profile-myprofile::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.profile-myprofile::-webkit-scrollbar-thumb {
+  background: $purple00;
+  border-radius: 10px;
+}
 .card-style {
   overflow: hidden;
   color: rgb(29 22 70);

@@ -162,6 +162,7 @@ const UserList = () => {
       </Row>
       <div className="table-user-management">
         {optionSelect !== 'User Activity' ?  <Table
+          pagination={{ pageSize: 20 }}
           columns={columns}
           expandable={{
             expandedRowRender: record => (

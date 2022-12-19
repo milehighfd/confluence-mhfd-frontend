@@ -65,7 +65,9 @@ const Profile = () => {
             }
           </Col>
         </Row>
-        <Button style={{width:'100%'}} className="btn-purple" onClick={()=>{setEditProfile(!editProfile)}}>{editProfile ? 'Save':'Edit Profile'}</Button>
+        <div className="foot-profile">
+          <Button style={{width:'100%'}} className="btn-purple" onClick={()=>{setEditProfile(!editProfile)}}>{editProfile ? 'Save':'Edit Profile'}</Button>
+        </div>
       </div>
     </div>
   )
