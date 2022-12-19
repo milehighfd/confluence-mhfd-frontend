@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Input, Layout, Popover, Row, Select, Table, Tabs } from 'antd';
-import { ArrowDownOutlined, DownOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Table, Tabs } from 'antd';
+import { ArrowDownOutlined, DownOutlined, MinusCircleTwoTone, MoreOutlined, PlusCircleTwoTone, PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import { ColumnsType } from "antd/lib/table";
+import type { MenuProps } from 'antd';
 import ProfileUser from "./ProfileUser";
 import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
 
@@ -48,7 +49,7 @@ const UserList = () => {
     { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
     { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'change', key: 'change' },
   ];
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<DataType|any> = [
     {
       title: <>Name <ArrowDownOutlined className="ico-arrow"/></>,
       dataIndex: 'name',
@@ -96,16 +97,39 @@ const UserList = () => {
   const [openFilters, setOpenFilters] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
+  const items = [
+    { key: 'edit-user', label: 'Edit User' },
+    { key: 'message-user', label: 'Message User' },
+    { key: 'delete-user', label: 'Delete User' },
+  ];
+  const menu = (record:any, onExpand:any)=> (
+    <Menu
+      className="menu-login-dropdown"
+      style={{ marginTop: '12px'}}
+      items={items}
+      onClick={({ key }) => {
+        switch(key) {
+          case 'edit-user':
+            onExpand(record, key)
+            break;
+          case 'message-user':
+            break;
+          case 'delete-user':
+            break;
+        }
+      }}
+    />
+  );
   return <>
     <div>
       <Row>
         <Col xs={{ span: 9}} lg={{ span: 5 }}>
           <div className="list-view-head" >
-            <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginRight:'10px', marginTop: '5px', marginLeft:'10px', width:'92%'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
-                <Option value="Approved Users">Approved Users</Option>
-                <Option value="Pending User Requests">Pending User Requests</Option>
-                <Option value="Deleted Users">Deleted Users</Option>
-                <Option value="User Activity">User Activity</Option>
+            <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginRight:'10px', marginTop: '5px', width:'92%', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
+                <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
+                <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
+                <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
+                {/* <Option value="User Activity">User Activity</Option> */}
             </Select>
           </div>
           </Col>
@@ -116,16 +140,16 @@ const UserList = () => {
             placeholder="Search by Name"
             prefix={<SearchOutlined />}
           />
-          <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
+          <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
               <Option value="Organization">Organization</Option>
           </Select>
-          <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
+          <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
               <Option value="Service Area">Service Area</Option>
           </Select>
-          <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
+          <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
               <Option value="User Designation">User Designation</Option>
           </Select>
-          <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'38px', width:'8%'}}>
+          <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'36px', width:'8%'}}>
             Reset
           </Button>
           </Col>
@@ -140,8 +164,21 @@ const UserList = () => {
         {optionSelect !== 'User Activity' ?  <Table
           columns={columns}
           expandable={{
-            expandedRowRender: record => <ProfileUser record={record}/>,
+            expandedRowRender: record => (
+              <ProfileUser record={record}/>
+            ),
+            expandIcon: ({ expanded, onExpand, record }) =>
+              expanded ? (
+                <DownOutlined onClick={(e:any) => onExpand(record, e)} />
+              ) : (
+                <Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >
+                  <MoreOutlined />
+                </Dropdown>
+              )
           }}
+          // expandable={{
+          //   expandedRowRender: record => <ProfileUser record={record}/>,
+          // }}
           dataSource={DATA_USER_LIST}
         /> : <Table
           columns={columns2}

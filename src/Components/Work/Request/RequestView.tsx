@@ -1,4 +1,4 @@
-import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
+import { DownCircleTwoTone, DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router';
@@ -94,6 +94,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [alertStatus, setAlertStatus] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const {clear} = useAttachmentDispatch();
+  const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
   const ref = useRef<any>(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
@@ -928,6 +929,8 @@ const RequestView = ({ type, isFirstRendering }: {
                     <Select
                       defaultValue={year}
                       value={`Year ${year}`}
+                      suffixIcon={openYearDropdown? < DownOutlined/> :<UpOutlined  />}
+                      onClick={()=>(setOpenYearDropdown(!openYearDropdown))}
                       onChange={(y: any) => {
                         setYear(y);
                         setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
