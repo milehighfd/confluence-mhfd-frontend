@@ -29,36 +29,60 @@ const Profile = () => {
         <Row >
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Email</p>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Phone</p>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Organization</p>
-            <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
-            <p className="color-sub" style={{paddingBottom:'15px' }}>County</p>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Service Area</p>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Default Map</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
               <input type="text" placeholder="jvillines@confluence.com" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>jvillines@confluence.com</p>
             }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Phone</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
               <input type="text" placeholder="+1 234 5678 9090" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>+1 234 5678 9090</p>
             }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Organization</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
               <input type="text" placeholder="MHFD District Boundary" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>MHFD District Boundary</p>
             }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
             <Select defaultValue="None" style={{ width: '100%', marginBottom:'15px', borderRadius:'25px' }}>
               <Option value="None">None</Option>
               <Option value="None1">None1</Option>
             </Select>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'15px' }}>County</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
             <Select defaultValue="Douglas" style={{ width: '100%', marginBottom:'15px'  }}>
               <Option value="Douglas">Douglas</Option>
             </Select>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Service Area</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
             <Select defaultValue="South" style={{ width: '100%', marginBottom:'20px'  }}>
               <Option value="South">South</Option>
             </Select>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Default Map</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
               <input type="text" placeholder="Mile High Flood District" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p>
