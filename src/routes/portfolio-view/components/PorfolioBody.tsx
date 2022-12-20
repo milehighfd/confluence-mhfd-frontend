@@ -16,7 +16,7 @@ import { rawData } from "../constants/PhaseViewData";
 
 
 const { TabPane } = Tabs;
-const tabKeys = ['All','DIP', 'R&D', 'Restoration', 'CIP', 'Planning', 'Property Acquisition'];
+const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Property Acquisition'];
 // const popovers: any = [
 //   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
