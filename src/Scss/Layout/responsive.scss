@@ -636,6 +636,9 @@
     width: 1500px !important;
   }
   .tabs-map{
+    .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+      font-size: 28px;
+    }
     .ant-tabs-nav .ant-tabs-tab {
       padding: 15px 0px 15px 0px !important;
       margin: 0 70px 0 0;

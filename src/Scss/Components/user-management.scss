@@ -265,6 +265,9 @@
       }
     }
   }
+  .ant-checkbox-wrapper{
+    width: 100%;
+  }
 }
 .profile-myprofile{
   background: #FFFFFF;
@@ -631,63 +634,81 @@
 @media (min-width: 3800px) and (max-width: 5999px){
   .profile-myprofile{
     img{
-      height: 170px !important;
-      width: 170px !important;
+      height: 200px !important;
+      width: 200px !important;
     }
     h1{
-      font-size: 26px !important;
+      font-size: 31px !important;
     }
     p{
-      font-size: 21px !important;
+      font-size: 27px !important;
     }
     h2{
-      font-size: 28px !important;
+      font-size: 33px !important;
     }
     .profile{
       height: calc(100vh - 574px) !important;
       padding: 25px !important;
       .input-profile{
-        height: 40px !important;
-        font-size: 21px !important;
+        height: 50px !important;
+        border-radius: 20px !important;
+        padding: 10px 15px !important;
+        font-size: 27px !important;
       }
     }
     .foot-profile{
-      padding: 20px 0px !important
+      padding: 40px 0px !important;
+      bottom: 57px;
     }
     .btn-purple{
       width: 100%;
-      font-size: 21px !important;
+      font-size: 27px !important;
       padding: 10px !important;
-      height: 50px !important;
+      height: 64px !important;
     }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      height: 40px !important;
+      height: 50px !important;
+      padding: 10px 15px !important;
     }
   }
   .searches-myprofile{
     padding: 5px 20px !important;
     p {
-      font-size: 21px !important;
+      font-size: 27px !important;
     }
     h1{
-      font-size: 24px !important;
+      font-size: 30px !important;
     }
     .card-map{
       h4{
-        font-size: 24px !important;
-        line-height: 25px !important;
+        font-size: 30px !important;
+        line-height: 32px !important;
       }
       h6{
-        font-size: 21px !important;
-        margin-top: 14px;
+        font-size: 27px !important;
+        margin-top: 23px;
         margin-bottom: 13px;
       }
       h5{
-        font-size: 24px !important;
+        font-size: 30px !important;
       }
       span{
-        font-size: 21px !important;
+        font-size: 27px !important;
       }
+    }
+  }
+  .user-management-body{
+    .ant-checkbox{
+      margin-right: 20px !important;
+    }
+    .ant-checkbox-inner {
+      width: 26px;
+      height: 26px;
+      // margin-right: 20px;
+    }
+    .ant-checkbox-inner:after {
+      width: 9.714286px;
+      height: 14.142857px;
     }
   }
 }
