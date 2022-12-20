@@ -381,6 +381,10 @@
   h1, h2, h3, h4, h5, h6, p {
     color: rgb(29 22 70);
   }
+  .title-action{
+    font-size: 16px ;
+    margin-left: 0px !important;
+  }
   h2{
     margin-left: 9px !important;
   }
@@ -552,6 +556,9 @@
     h1{
       font-size: 18px !important;
     }
+    .title-action{
+      font-size: 20px ;
+    }
     .card-map{
       h4{
         font-size: 18px !important;
@@ -612,6 +619,9 @@
     h1{
       font-size: 24px !important;
     }
+    .title-action{
+      font-size: 26px ;
+    }
     .card-map{
       h4{
         font-size: 24px !important;
@@ -630,12 +640,24 @@
       }
     }
   }
+  .user-management-body{
+    h2{
+      font-size: 28px;
+    }
+  }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .profile-myprofile{
     img{
-      height: 200px !important;
-      width: 200px !important;
+      height: 250px !important;
+      width: 250px !important;
+      margin-top: 170px !important;
+    }
+    .sub-title{
+      margin-bottom: 120px !important;
+    }
+    .color-sub{
+      // margin-bottom: 82px !important;
     }
     h1{
       font-size: 31px !important;
@@ -679,6 +701,10 @@
     h1{
       font-size: 30px !important;
     }
+    .title-action{
+      font-size: 32px ;
+      margin-left: 31px !important;
+    }
     .card-map{
       h4{
         font-size: 30px !important;
@@ -696,8 +722,15 @@
         font-size: 27px !important;
       }
     }
+    .body-action{
+      padding: 0px 27px;
+    }
   }
   .user-management-body{
+    h2{
+      font-size: 36px;
+      margin-left: 23px !important;
+    }
     .ant-checkbox{
       margin-right: 20px !important;
     }
@@ -709,6 +742,9 @@
     .ant-checkbox-inner:after {
       width: 9.714286px;
       height: 14.142857px;
+    }
+    .infinite-scroll-component{
+      padding: 0px 20px !important;
     }
   }
 }

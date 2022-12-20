@@ -8,7 +8,7 @@ const Profile = () => {
     <div className="profile-myprofile">
       <img src="/picture/user.png" height={90} width="90" style={{marginBottom:'15px', marginTop:'50px'}}/>
       <h1>Jon Villines</h1>
-      <p style={{marginBottom:'30px'}} className="color-sub">MHFD Senior Manager</p>
+      <p style={{marginBottom:'30px'}} className="color-sub sub-title">MHFD Senior Manager</p>
       <div style={{margin:'0px'}} className="line-01"></div>
       <Row>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
