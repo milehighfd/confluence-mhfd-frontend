@@ -57,6 +57,7 @@ const checkPriority = (value: number | null, option: string) => {
   return value === +option - 1;
 }
 export const hasPriority = (value: any, options: string[], columnIdx: number) => {
+  console.log('has priority', value, options, columnIdx);
   return options.some((option: string) => checkPriority(value[`originPosition${columnIdx}`], option));
 }
 
@@ -207,17 +208,9 @@ export const priceParser = (value: any) => {
   return value
 }
 
-export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey: string, dragAction:(number | boolean)[], saveData: Function) => {
-  let parsedObject = JSON.parse(txt);
-  let { id, fromColumnIdx } = parsedObject;
-
+export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: string, dragAction:(number | boolean)[], saveData: Function) => {
+  let { id, fromColumnIdx } = txt;
   let project: any;
-  columns[fromColumnIdx].projects.forEach((p: any) => {
-    if (p.project_id == id) {
-      project = p;
-    }
-  })
-
   let destinyColumnHasProject = false;
   columns[columnIdx].projects.forEach((p: any) => {
     if (p.project_id == id) {

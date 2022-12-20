@@ -66,9 +66,10 @@ const ColumsTrelloCard = ({
   const columRef = useRef<null | HTMLDivElement>(null);
   const [onScrollValue, setOnScrollValue] = useState(-1);
   var windowWidth = window.innerWidth;
-  const onDrop = (e: any, columnIdx: number) => {
-    let txt = e.dataTransfer.getData('text');
+  const onDrop = (txt: any, columnIdx: number) => {
+    console.log('cols before drop', columns);
     let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction, saveData);
+    console.log('Cols After Drop', cols);
     if (cols) {
       WsService.sendUpdate(cols);
       setColumns(cols);
@@ -81,37 +82,30 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
-  const onDragOver = (e: any) => {
-    stop = 0;
-    e.preventDefault();
-  };
-  // useEffect(()=>{
-  //   console.log('qui', onScrollValue)
-  //   // if(onScrollValue){
-  //   //   console.log('Dotty', onScrollValue)
-  //   //   // setOnScrollValue(false)
-  //   // }else{
-  //   //   // console.log('Dotty....')
-  //   // }
-  // },[onScrollValue])
-  return columns.map((column: any, columnIdx: number) => (
+  return <DragDropContext onDragEnd={result => 
+    {
+      const { source, destination } = result;
+      if (!destination){
+        return;
+      }
+      const sInd = +source.droppableId;
+      const dInd = +destination.droppableId;
+      const sPos = +source.index;
+      const dPos = +destination.index;
+      const txt = {
+        fromColumnIdx: sInd,
+        id: columns[sInd].projects[sPos].id
+      };
+      setDragAction([true, dInd, dPos]);
+      onDrop(txt, sInd);
+    }
+    }>
+      {columns.map((column: any, columnIdx: number) => (
     
     <div className="container-drag" key={columnIdx + Math.random()}>
       <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
-      <DragDropContext onDragEnd={result => 
-        {
-          console.log(result)
-          const { source, destination } = result;
-          if (!destination){
-            return;
-          }
-          if (source.index === destination.index && source.droppableId === destination.droppableId){
-            return;
-          }
-          
-        }
-        }>
-        <Droppable droppableId={`containerDropplable${columnIdx}`}>
+      
+        <Droppable droppableId={`${columnIdx}`}>
           {droppableProvided => (
             <div
               {...droppableProvided.droppableProps}
@@ -120,67 +114,67 @@ const ColumsTrelloCard = ({
               style={
                 dragAction[0] && columnIdx === Math.trunc(Number(dragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
               }
-              onDragOver={onDragOver}
+              // onDragOver={onDragOver}
               // ref={columRef}
-              onDrop={(e: any) => {console.log(column);onDrop(e, columnIdx); setDragAction([false, 0, 0]);}}
+              // onDrop={(e: any) => {console.log(column);onDrop(e, columnIdx); setDragAction([false, 0, 0]);}}
               // onScrollCapture={(e:any)=>{
               //   setTimeout(() => {
               //     columRef.current?.scrollTo(0,0);
               //     e.target.scrollTo(0,0);
               //   }, 5000);
               // }}
-              onDragEnterCapture={(e) => {
-                if (stop<=1){
-                  let dr: any = divRef.current;
-                  let bounds = dr.getBoundingClientRect();
-                  setSizeCard([bounds.height, bounds.width])
-                  let size= 100;
-                  let sizeCard= 70;
-                  if(windowWidth >= 1900 ){
-                    size=75;
-                    sizeCard=0;
-                  }
-                  if(windowWidth >= 2500 ){
-                    size=80;
-                    sizeCard=0;
-                  }
-                  if(columnIdx !==0 ){
-                    if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
-                      setDragAction([true, columnIdx,  ((e.clientY-sizeCard)/bounds.height)-3]);
-                    }
-                  }else{
-                    if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
-                      setDragAction([true, columnIdx,  ((e.clientY-size)/bounds.height)-3]);
-                    }
-                  }
-                  stop++;
-                }
-                e.preventDefault()
-                e.stopPropagation()
-              }}
-              onDrag={(e) => {
-                let dr: any = divRef.current;
-                let bounds = dr.getBoundingClientRect();
-                let size= 100;
-                let sizeCard= 70;
-                if(windowWidth >= 1900 ){
-                  size=75;
-                  sizeCard=0;
-                }
-                if(windowWidth >= 2500 ){
-                  size=80;
-                  sizeCard=0;
-                }
-                if(columnIdx !== 0){
-                  if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
-                    setDragstart([columnIdx,  ((e.clientY-sizeCard)/bounds.height)-2]);
-                  }
-                }else{
-                  if(columnIdx >= 0 && ((e.clientY - size)/bounds.height)-2 >= 0){
-                    setDragstart([columnIdx,  ((e.clientY - size)/bounds.height)-2]);
-                  }
-                }
-              }}
+              // onDragEnterCapture={(e) => {
+              //   if (stop<=1){
+              //     let dr: any = divRef.current;
+              //     let bounds = dr.getBoundingClientRect();
+              //     setSizeCard([bounds.height, bounds.width])
+              //     let size= 100;
+              //     let sizeCard= 70;
+              //     if(windowWidth >= 1900 ){
+              //       size=75;
+              //       sizeCard=0;
+              //     }
+              //     if(windowWidth >= 2500 ){
+              //       size=80;
+              //       sizeCard=0;
+              //     }
+              //     if(columnIdx !==0 ){
+              //       if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
+              //         setDragAction([true, columnIdx,  ((e.clientY-sizeCard)/bounds.height)-3]);
+              //       }
+              //     }else{
+              //       if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-size)/bounds.height)-2 >= 0){
+              //         setDragAction([true, columnIdx,  ((e.clientY-size)/bounds.height)-3]);
+              //       }
+              //     }
+              //     stop++;
+              //   }
+              //   e.preventDefault()
+              //   e.stopPropagation()
+              // }}
+              // onDrag={(e) => {
+              //   let dr: any = divRef.current;
+              //   let bounds = dr.getBoundingClientRect();
+              //   let size= 100;
+              //   let sizeCard= 70;
+              //   if(windowWidth >= 1900 ){
+              //     size=75;
+              //     sizeCard=0;
+              //   }
+              //   if(windowWidth >= 2500 ){
+              //     size=80;
+              //     sizeCard=0;
+              //   }
+              //   if(columnIdx !== 0){
+              //     if((e.clientX/bounds.width)-3 >= 0 && ((e.clientY-sizeCard)/bounds.height)-2 >= 0){
+              //       setDragstart([columnIdx,  ((e.clientY-sizeCard)/bounds.height)-2]);
+              //     }
+              //   }else{
+              //     if(columnIdx >= 0 && ((e.clientY - size)/bounds.height)-2 >= 0){
+              //       setDragstart([columnIdx,  ((e.clientY - size)/bounds.height)-2]);
+              //     }
+              //   }
+              // }}
             >
               {column.hasCreateOption && (
                 <Button className="btn-transparent button-createProject " onClick={onClickNewProject}>
@@ -198,7 +192,7 @@ const ColumsTrelloCard = ({
                     p,
                   ),
                 )
-                .filter((p: any) => hasPriority(p, prioritySelected, columnIdx))
+                .filter((p: any) => { console.log('projecs', p); return hasPriority(p, prioritySelected, columnIdx)})
                 .map((p: any, i: number, arr: any[]) => {
                   columDragAction = dragAction;
                   const valuePosition: number = Number(columDragAction[2]);
@@ -393,8 +387,8 @@ const ColumsTrelloCard = ({
             </div>
           )}
         </Droppable>
-      </DragDropContext>
     </div>
-  ));
+  ))}
+  </DragDropContext>
 };
 export default ColumsTrelloCard;
