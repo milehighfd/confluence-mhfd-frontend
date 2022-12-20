@@ -32,7 +32,7 @@ const Profile = () => {
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input type="text" placeholder="jvillines@confluence.com" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input className="input-profile" type="text" placeholder="jvillines@confluence.com" style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>jvillines@confluence.com</p>
             }
           </Col>
@@ -41,7 +41,7 @@ const Profile = () => {
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input type="text" placeholder="+1 234 5678 9090" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input className="input-profile" type="text" placeholder="+1 234 5678 9090" style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>+1 234 5678 9090</p>
             }
           </Col>
@@ -50,7 +50,7 @@ const Profile = () => {
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input type="text" placeholder="MHFD District Boundary" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input className="input-profile" type="text" placeholder="MHFD District Boundary" style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>MHFD District Boundary</p>
             }
           </Col>
@@ -84,7 +84,7 @@ const Profile = () => {
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input type="text" placeholder="Mile High Flood District" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input className="input-profile" type="text" placeholder="Mile High Flood District" style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p>
             }
           </Col>

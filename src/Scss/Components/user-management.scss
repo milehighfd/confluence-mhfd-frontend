@@ -289,6 +289,9 @@
   .profile{
     height:  calc(100vh - 440px);
     overflow-y: auto;
+    .input-profile{
+      height: 32px !important;
+    }
   }
   .profile::-webkit-scrollbar {
     width: 5px;
@@ -519,6 +522,11 @@
     }
     .profile{
       padding: 20px !important;
+      height: calc(100vh - 504px) !important;
+      .input-profile{
+        height: 34px !important;
+        font-size: 17px !important;
+      }
     }
     .foot-profile{
       padding: 20px 0px !important
@@ -528,6 +536,10 @@
       font-size: 17px !important;
       padding: 10px !important;
       height: 45px !important;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      height: 34px !important;
+      font-size: 17px !important;
     }
   }
   .searches-myprofile{
@@ -554,8 +566,128 @@
   }
 }
 @media (min-width: 2555px) and (max-width: 3799px){
-
+  .profile-myprofile{
+    img{
+      height: 170px !important;
+      width: 170px !important;
+    }
+    h1{
+      font-size: 26px !important;
+    }
+    p{
+      font-size: 21px !important;
+    }
+    h2{
+      font-size: 28px !important;
+    }
+    .profile{
+      height: calc(100vh - 574px) !important;
+      padding: 25px !important;
+      .input-profile{
+        height: 40px !important;
+        font-size: 21px !important;
+      }
+    }
+    .foot-profile{
+      padding: 20px 0px !important
+    }
+    .btn-purple{
+      width: 100%;
+      font-size: 21px !important;
+      padding: 10px !important;
+      height: 50px !important;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      height: 40px !important;
+    }
+  }
+  .searches-myprofile{
+    padding: 5px 20px !important;
+    p {
+      font-size: 21px !important;
+    }
+    h1{
+      font-size: 24px !important;
+    }
+    .card-map{
+      h4{
+        font-size: 24px !important;
+        line-height: 25px !important;
+      }
+      h6{
+        font-size: 21px !important;
+        margin-top: 14px;
+        margin-bottom: 13px;
+      }
+      h5{
+        font-size: 24px !important;
+      }
+      span{
+        font-size: 21px !important;
+      }
+    }
+  }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
-
+  .profile-myprofile{
+    img{
+      height: 170px !important;
+      width: 170px !important;
+    }
+    h1{
+      font-size: 26px !important;
+    }
+    p{
+      font-size: 21px !important;
+    }
+    h2{
+      font-size: 28px !important;
+    }
+    .profile{
+      height: calc(100vh - 574px) !important;
+      padding: 25px !important;
+      .input-profile{
+        height: 40px !important;
+        font-size: 21px !important;
+      }
+    }
+    .foot-profile{
+      padding: 20px 0px !important
+    }
+    .btn-purple{
+      width: 100%;
+      font-size: 21px !important;
+      padding: 10px !important;
+      height: 50px !important;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      height: 40px !important;
+    }
+  }
+  .searches-myprofile{
+    padding: 5px 20px !important;
+    p {
+      font-size: 21px !important;
+    }
+    h1{
+      font-size: 24px !important;
+    }
+    .card-map{
+      h4{
+        font-size: 24px !important;
+        line-height: 25px !important;
+      }
+      h6{
+        font-size: 21px !important;
+        margin-top: 14px;
+        margin-bottom: 13px;
+      }
+      h5{
+        font-size: 24px !important;
+      }
+      span{
+        font-size: 21px !important;
+      }
+    }
+  }
 }
