@@ -8,6 +8,7 @@ import WsService from './WsService';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 let columDragAction = [false, 0, 0];
+let fixedDragAction = [false, 0, 0];
 let stop = 0;
 const ColumsTrelloCard = ({
   columns,
@@ -66,9 +67,9 @@ const ColumsTrelloCard = ({
   const columRef = useRef<null | HTMLDivElement>(null);
   const [onScrollValue, setOnScrollValue] = useState(-1);
   var windowWidth = window.innerWidth;
-  const onDrop = (txt: any, columnIdx: number) => {
+  const onDrop = (txt: any, columnIdx: number,state:boolean, destColumn:any, destPosition:any) => {
     console.log('cols before drop', columns);
-    let cols = onDropFn(txt, columns, columnIdx, tabKey, dragAction, saveData);
+    let cols = onDropFn(txt, columns, columnIdx, tabKey, state, destColumn, destPosition, saveData);
     console.log('Cols After Drop', cols);
     if (cols) {
       WsService.sendUpdate(cols);
@@ -90,14 +91,20 @@ const ColumsTrelloCard = ({
       }
       const sInd = +source.droppableId;
       const dInd = +destination.droppableId;
+      // if (sInd === dInd){
+      //   return;
+      // }
       const sPos = +source.index;
       const dPos = +destination.index;
       const txt = {
         fromColumnIdx: sInd,
-        id: columns[sInd].projects[sPos].id
+        id: columns[sInd].projects[sPos].project_id
       };
+      console.log('drag1',dInd, dPos)
       setDragAction([true, dInd, dPos]);
-      onDrop(txt, sInd);
+      console.log('dragaction',dragAction, txt)
+      fixedDragAction=[true, dInd, dPos];
+      onDrop(txt, sInd,true, dInd, dPos);
     }
     }>
       {columns.map((column: any, columnIdx: number) => (
@@ -112,7 +119,7 @@ const ColumsTrelloCard = ({
               ref={droppableProvided.innerRef}
               className={column.hasCreateOption ? 'col-wr droppable colum-hascreate' : 'col-wr droppable'}
               style={
-                dragAction[0] && columnIdx === Math.trunc(Number(dragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
+                fixedDragAction[0] && columnIdx === Math.trunc(Number(fixedDragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
               }
               // onDragOver={onDragOver}
               // ref={columRef}
@@ -192,9 +199,9 @@ const ColumsTrelloCard = ({
                     p,
                   ),
                 )
-                .filter((p: any) => { console.log('projecs', p); return hasPriority(p, prioritySelected, columnIdx)})
+                .filter((p: any) => { return hasPriority(p, prioritySelected, columnIdx)})
                 .map((p: any, i: number, arr: any[]) => {
-                  columDragAction = dragAction;
+                  columDragAction = fixedDragAction;
                   const valuePosition: number = Number(columDragAction[2]);
                   const valuePositionx: number = Number(columDragAction[1]);
                   if (
@@ -206,7 +213,7 @@ const ColumsTrelloCard = ({
                     if (
                       i === Math.trunc(Number(dragStart[1])) &&
                       columnIdx === Math.trunc(Number(dragStart[0])) &&
-                      dragAction[0]
+                      fixedDragAction[0]
                     ) {
                       return (
                         <>
@@ -316,7 +323,7 @@ const ColumsTrelloCard = ({
                     if (
                       i === Math.trunc(Number(dragStart[1])) &&
                       columnIdx === Math.trunc(Number(dragStart[0])) &&
-                      dragAction[0]
+                      fixedDragAction[0]
                     ) {
                       // return(
                       //   <>
