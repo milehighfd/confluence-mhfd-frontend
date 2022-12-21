@@ -208,6 +208,68 @@ export const priceParser = (value: any) => {
   return value
 }
 
+export const onDropFunction = (projectid: any, columns: any[], tabKey: string, state: boolean, sourceColumn: number, sourcePosition: number, destColumn:any, destPosition:any, saveData: Function) => { 
+  let id = projectid;
+  let project: any;
+  let destinyColumnHasProject = false;
+  // To check if the destiny Column has the same project
+  columns[destColumn].projects.forEach((p: any) => {
+    if (p.project_id == id) {
+      destinyColumnHasProject = true;
+    }
+  })
+  // To get the current project dragged
+  columns[sourceColumn].projects.forEach((p: any) => {
+    if (p.project_id == id) {
+      project = p;
+    }
+  })
+  console.log('bef columns', columns);
+  // if dropped on the same column 
+  if (sourceColumn === destColumn) {
+    const currentColumn = [...columns[destColumn].projects];
+    const result = Array.from([...currentColumn]);
+    const [removed] = result.splice(sourcePosition, 1);
+    result.splice(destPosition, 0, removed);
+    columns[destColumn].projects = [...result];
+    return columns;
+  }
+  if (tabKey === 'Maintenance') {
+    var destinyColumnMaintenance = MaintenanceTypes.indexOf(project.projectData.projectsubtype) + 1;
+    if (!(destColumn === 0 || destColumn === destinyColumnMaintenance)) {
+      return;
+    }
+  }
+  if (destinyColumnHasProject) {
+    const newSumAmountData = {
+      projectId: id,
+      years: [null, null],
+      amounts: []
+    };
+    const newAmounts: any = [];
+    columns[destColumn].projects.forEach((p: any) => {
+      if (p.project_id == id) {
+        const numArray = [1,2,3,4,5];
+        numArray.forEach((num: any) => {
+          newAmounts.push(p[`req${num}`]);
+        });
+        newAmounts[destColumn-1] = newAmounts[destColumn-1] + newAmounts[sourceColumn-1];
+        newAmounts[sourceColumn-1] = 0;
+        newSumAmountData.amounts = newAmounts;
+      }
+    });
+    saveData(newSumAmountData);
+    return;
+  } else {
+    let newObj = {
+      ...project,
+      [`position${destColumn}`]: destPosition === -1 ? columns[destColumn].projects.length : destPosition,
+      [`req${destColumn}`]: destColumn === 0 ? null : project[`req${sourceColumn}`],
+      [`req${sourceColumn}`]: null,
+      [`position${sourceColumn}`]: null,
+    };
+  }
+}
 export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: string, state:boolean, destColumn:any, destPosition:any, saveData: Function) => {
   let dragAction=[state, destColumn, destPosition]
   let { id, fromColumnIdx } = txt;
@@ -218,19 +280,24 @@ export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: st
       destinyColumnHasProject = true;
     }
   })
-  console.log('DRAGACTION',dragAction)
+  columns[fromColumnIdx].projects.forEach((p: any) => {
+    if (p.project_id == id) {
+      project = p;
+    }
+  })
   let newCardPos =  columns[Math.trunc(Number(dragAction[1]))].projects.length <= Math.trunc(Number(dragAction[2])) ? -1 : Math.trunc(Number(dragAction[2]));
   console.log('condition',fromColumnIdx, columnIdx)
   if (fromColumnIdx === columnIdx) {
     let beforePos = -1;
     columns[columnIdx].projects.forEach((p: any, posBef: number) => {
-      console.log('ids project',p.project_id, id)
       if (p.project_id == id) {
         beforePos = posBef;
       }
-    })
+    });
+    
     let projects: any[] = [];
     if (newCardPos === -1) {
+      console.log('columns[columnIdx].projects', columns[columnIdx].projects);
       projects = [].concat(columns[columnIdx].projects);
       projects.splice(beforePos, 1);
       projects.push(project);
@@ -240,6 +307,7 @@ export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: st
       } else {
         columns[columnIdx].projects.forEach((p: any, pos: number) => {
           if (pos === newCardPos) {
+            console.log('projecsts to isert', project);
             projects.push(project);
           }
           projects.push(p);

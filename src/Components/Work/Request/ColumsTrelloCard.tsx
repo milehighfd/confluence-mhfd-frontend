@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import React, { useState, useEffect, useRef } from 'react';
-import { filterByJurisdictionAndCsaSelected, hasPriority, onDropFn } from './RequestViewUtil';
+import { filterByJurisdictionAndCsaSelected, hasPriority, onDropFn, onDropFunction } from './RequestViewUtil';
 import TrelloLikeCard from './TrelloLikeCard';
 import WsService from './WsService';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -67,15 +67,19 @@ const ColumsTrelloCard = ({
   const columRef = useRef<null | HTMLDivElement>(null);
   const [onScrollValue, setOnScrollValue] = useState(-1);
   var windowWidth = window.innerWidth;
-  const onDrop = (txt: any, columnIdx: number,state:boolean, destColumn:any, destPosition:any) => {
-    console.log('cols before drop', columns);
-    let cols = onDropFn(txt, columns, columnIdx, tabKey, state, destColumn, destPosition, saveData);
-    console.log('Cols After Drop', cols);
-    if (cols) {
-      WsService.sendUpdate(cols);
-      setColumns(cols);
-    }
-  };
+  // const onDrop = (txt: any, columnIdx: number,state:boolean, destColumn:any, destPosition:any) => {
+  //   console.log('cols before drop', columns);
+  //   let cols = onDropFn(txt, columns, columnIdx, tabKey, state, destColumn, destPosition, saveData);
+  //   onDropFunction(txt.id, columns, tabKey, state, );
+  //   console.log('Cols After Drop', cols);
+  //   if (cols) {
+  //     WsService.sendUpdate(cols);
+  //     setColumns(cols);
+  //   }
+  // };
+  const onDrop = (projectid: number, state: boolean, sourceColumn: number, sourcePosition: number, destColumn: number, destPosition: number) => {
+    let cols = onDropFunction(projectid, columns, tabKey, state, sourceColumn, sourcePosition, destColumn, destPosition, saveData);
+  }
   const onClickNewProject = () => {
     // if (locality === 'MHFD District Work Plan') return;
     clear();
@@ -89,22 +93,22 @@ const ColumsTrelloCard = ({
       if (!destination){
         return;
       }
-      const sInd = +source.droppableId;
-      const dInd = +destination.droppableId;
+      const sourceColumn = +source.droppableId;
+      const destColumn = +destination.droppableId;
       // if (sInd === dInd){
       //   return;
       // }
-      const sPos = +source.index;
-      const dPos = +destination.index;
+      const sPosition = +source.index;
+      const dPosition = +destination.index;
       const txt = {
-        fromColumnIdx: sInd,
-        id: columns[sInd].projects[sPos].project_id
+        fromColumnIdx: sourceColumn,
+        id: columns[sourceColumn].projects[sPosition].project_id
       };
-      console.log('drag1',dInd, dPos)
-      setDragAction([true, dInd, dPos]);
+      // setDragAction([true, dInd, dPos]);
       console.log('dragaction',dragAction, txt)
-      fixedDragAction=[true, dInd, dPos];
-      onDrop(txt, sInd,true, dInd, dPos);
+      // fixedDragAction=[true, dInd, dPos];
+      // onDrop(txt, sInd,true, dInd, dPos);
+      onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
     }
     }>
       {columns.map((column: any, columnIdx: number) => (
