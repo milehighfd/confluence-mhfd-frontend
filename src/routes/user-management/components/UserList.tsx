@@ -134,24 +134,27 @@ const UserList = () => {
           </div>
           </Col>
           {optionSelect !== 'User Activity' && <>
-         <Col  xs={{ span: 30}} lg={{ span: 16 }} style={{textAlign:'end', zIndex:'2'}} className='filter-user-management'>
-          <Input
-            style={{ width: '30%', marginRight:'10px', height: '36px'}}
-            placeholder="Search by Name"
-            prefix={<SearchOutlined />}
-          />
-          <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-              <Option value="Organization">Organization</Option>
-          </Select>
-          <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-              <Option value="Service Area">Service Area</Option>
-          </Select>
-          <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-              <Option value="User Designation">User Designation</Option>
-          </Select>
-          <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'36px', width:'8%'}}>
-            Reset
-          </Button>
+         <Col  xs={{ span: 30}} lg={{ span: 16 }} style={{textAlign:'end', zIndex:'2'}}>
+          <div  className='filter-user-management'>
+            <Input
+              style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
+              placeholder="Search by Name"
+              prefix={<SearchOutlined />}
+            />
+            <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+                <Option value="Organization">Organization</Option>
+            </Select>
+            <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+                <Option value="Service Area">Service Area</Option>
+            </Select>
+            <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+                <Option value="User Designation">User Designation</Option>
+            </Select>
+            <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'40px', width:'8%'}}>
+              Reset
+            </Button>
+          </div>
+          
           </Col>
           <Col  xs={{ span: 9}} lg={{ span: 3 }} style={{textAlign:'end'}}>
           {/* <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{marginTop: '8px', height:'38px'}}>
