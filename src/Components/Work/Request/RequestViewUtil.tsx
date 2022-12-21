@@ -268,6 +268,43 @@ export const onDropFunction = (projectid: any, columns: any[], tabKey: string, s
       [`req${sourceColumn}`]: null,
       [`position${sourceColumn}`]: null,
     };
+    let temporalColumns: any = columns.map((c, colIdx: number) => {
+      return {
+        ...c,
+        projects: c.projects
+        .filter((p: any) => {
+          if (colIdx == sourceColumn && p.project_id == id) {
+            return false;
+          }
+          return true;
+        })
+        .map((p: any) => {
+          if (p.project_id == id) {
+            return newObj;
+          }
+          return p;
+        })
+      }
+    });
+    if(temporalColumns[destColumn].projects.length === 0){
+      temporalColumns[destColumn].projects.push(newObj);
+    } else {
+      let arr = [];
+      let hasInserted = false;
+        for (var i = 0 ; i < temporalColumns[destColumn].projects.length ; i++) {
+          let p = temporalColumns[destColumn].projects[i];
+          if (destPosition === i) {
+            hasInserted = true;
+            arr.push(newObj);
+          }
+          arr.push(p)
+        } 
+        if (!hasInserted){
+          arr.push(newObj);
+        }
+      temporalColumns[destColumn].projects = arr;
+    }
+    return temporalColumns;
   }
 }
 export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: string, state:boolean, destColumn:any, destPosition:any, saveData: Function) => {

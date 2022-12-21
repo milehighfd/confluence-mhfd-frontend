@@ -79,6 +79,10 @@ const ColumsTrelloCard = ({
   // };
   const onDrop = (projectid: number, state: boolean, sourceColumn: number, sourcePosition: number, destColumn: number, destPosition: number) => {
     let cols = onDropFunction(projectid, columns, tabKey, state, sourceColumn, sourcePosition, destColumn, destPosition, saveData);
+    if(cols) {
+      WsService.sendUpdate(cols);
+      setColumns(cols);
+    }
   }
   const onClickNewProject = () => {
     // if (locality === 'MHFD District Work Plan') return;
