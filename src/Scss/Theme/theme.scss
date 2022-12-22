@@ -880,7 +880,7 @@ body{
   color: #11093C !important;
   height: 32px;
   text-align: center;
-    padding: 5px 0px;
+    // padding: 5px 0px;
 }
 .number-wrapper {
   position: relative;
@@ -933,7 +933,7 @@ body{
     color: #251863;
   }
   .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
-    font-size: 10px;
+    font-size: 7px;
   }
 }
 .duration-toollgate-l:focus{
@@ -3050,6 +3050,18 @@ body{
       margin-bottom: 14px !important;
       height: 35.14px !important;
     }
+    .duration-toollgate-l{
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+        font-size: 9px;
+      }
+      .ant-input-number-input {
+        padding: 10px 0px;
+        padding-right: 15px;
+        text-align: center;
+        font-size: 16px;
+        height: 35px;
+      }
+    }
     .tollgate-body{
       height: calc(100vh - 565px) !important;
     }
@@ -3347,7 +3359,16 @@ body{
     }
     .duration-toollgate{
       margin-bottom: 14px !important;
-      height: 42.38px !important;
+      height: 42px !important;
+    }
+    .duration-toollgate-l{
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+        font-size: 10px;
+      }
+      .ant-input-number-input {
+        font-size: 20px;
+        height: 42px;
+      }
     }
     .image-modal-body{
       height: 807px !important;
@@ -3693,6 +3714,7 @@ body{
     .duration-toollgate{
       margin-bottom: 15px !important;
       height: 52.84px !important;
+      padding: 10px 0px;
     }
     .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
       font-size: 17px;
