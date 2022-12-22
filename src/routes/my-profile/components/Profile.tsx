@@ -58,7 +58,7 @@ const Profile = () => {
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            <Select defaultValue="None" style={{ width: '100%', marginBottom:'15px', borderRadius:'25px' }}>
+            <Select defaultValue="None" style={{ width: '100%', marginBottom:'15px', borderRadius:'25px' }} getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option value="None">None</Option>
               <Option value="None1">None1</Option>
             </Select>
@@ -67,7 +67,7 @@ const Profile = () => {
             <p className="color-sub" style={{paddingBottom:'15px' }}>County</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            <Select defaultValue="Douglas" style={{ width: '100%', marginBottom:'15px'  }}>
+            <Select defaultValue="Douglas" style={{ width: '100%', marginBottom:'15px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option value="Douglas">Douglas</Option>
             </Select>
           </Col>
@@ -75,7 +75,7 @@ const Profile = () => {
             <p className="color-sub" style={{paddingBottom:'10px' }}>Service Area</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            <Select defaultValue="South" style={{ width: '100%', marginBottom:'20px'  }}>
+            <Select defaultValue="South" style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option value="South">South</Option>
             </Select>
           </Col>

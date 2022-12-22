@@ -11,7 +11,7 @@ import ModalEditSearch from "./ModalEditSearch";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
-const tabKeys = ['Projects 12', 'Problems 30', 'Saved Searches', 'Teams', 'Account Settings'];
+const tabKeys = ['Projects 12', 'Problems 30', 'Teams', 'Account Settings'];
 const Searches = () => {
   const { userInformation: user } = useProfileState();
   const [tabKey, setTabKey] = useState<any>('Projects 12');
