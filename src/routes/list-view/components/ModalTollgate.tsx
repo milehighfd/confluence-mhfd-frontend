@@ -1,5 +1,5 @@
 import { ArrowDownOutlined, CalendarOutlined, EyeInvisibleOutlined, EyeOutlined, InfoCircleOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, DatePicker, Row } from 'antd';
+import { Button, Checkbox, Col, DatePicker, InputNumber, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useState } from 'react';
 import moment from 'moment';
@@ -27,8 +27,8 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
   const [valueInput, setValueInput] = useState({
     oneL: '0',
     oneR:'0',
-    twoL: '1',
-    twoR: '1',
+    twoL: 1,
+    twoR: 0,
     threeL:'2',
     threeR:'2',
     fourL:'3',
@@ -73,16 +73,19 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row>
-              <Col xs={{ span: 12 }} lg={{ span: 16}}>
+              <Col xs={{ span: 12 }} lg={{ span: 9}}>
               </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 8}} style={{textAlign:'center'}}>
+              <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
+                <h3 style={{marginBottom:'0px', color: '#11093C'}} className='dates-title'>Dates</h3>
+              </Col>
+              <Col xs={{ span: 12 }} lg={{ span: 5}} style={{textAlign:'center'}}>
                 <h3 style={{marginBottom:'0px', color: '#11093C'}}>Duration</h3>
               </Col>
             </Row>
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
-              <Col xs={{ span: 12 }} lg={{ span: 8}}>
+              <Col xs={{ span: 12 }} lg={{ span: 9}}>
                 <Row style={{height: '30px'}} >
                   <Col xs={{ span: 12 }} lg={{ span: 11}}>
                   </Col>
@@ -90,7 +93,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                   </Col>
                 </Row>
               </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 8}}>
+              <Col xs={{ span: 12 }} lg={{ span: 10}}>
                 <Row style={{height: '30px'}}>
                   <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
                     <h5>Start Date</h5>
@@ -102,13 +105,10 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                   </Col>
                 </Row>
               </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 8}}>
+              <Col xs={{ span: 12 }} lg={{ span: 5}}>
                 <Row style={{height: '30px'}}>
-                  <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'center'}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}} style={{textAlign:'center'}}>
                     <h5>Weeks</h5>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'center'}}>
-                    <h5>Days</h5>
                   </Col>
                 </Row>
               </Col>
@@ -118,7 +118,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         <Row className="detailed-h list-tollgate" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
-              <Col xs={{ span: 12 }} lg={{ span: 8}} style={{paddingRight:'10px'}} className='left-tollgate'>
+              <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
                 <p style={{marginBottom:'25px'}}>Draft</p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR)</p>
                 <p style={{marginBottom:'25px'}}>Work Plan (WP)</p>
@@ -133,7 +133,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                 <p style={{marginBottom:'25px'}}>Substantial Completion</p>
                 <p style={{marginBottom:'25px'}}>Closed</p>
               </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 8}}>
+              <Col xs={{ span: 12 }} lg={{ span: 10}}>
                 <p className='calendar-toollgate'>
                   <RangePicker
                     bordered={false}
@@ -238,148 +238,70 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                   />
                 </p>
               </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 8}} style={{paddingLeft:'10px'}}>
+              <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.oneL} onChange={(e)=>{setValueInput({...valueInput, oneL:e.target.value})}}></input>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.oneR} onChange={(e)=>{setValueInput({...valueInput, oneR:e.target.value})}}></input>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
+                    <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={10} defaultValue={3} onChange={(e)=>{setValueInput({...valueInput, twoL:e})}} />
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.twoL} onChange={(e)=>{setValueInput({...valueInput, twoL:e.target.value})}}></input>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r'  maxLength={2} value={valueInput.twoR} onChange={(e)=>{setValueInput({...valueInput, twoR:e.target.value})}}></input>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
+                    <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={10} defaultValue={3} onChange={(e)=>{setValueInput({...valueInput, twoL:e})}} />
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-l'  maxLength={2} value={valueInput.threeL} onChange={(e)=>{setValueInput({...valueInput, threeL:e.target.value})}}></input>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r'  maxLength={2} value={valueInput.threeR} onChange={(e)=>{setValueInput({...valueInput, threeR:e.target.value})}}></input>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
+                    <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={10} defaultValue={3} onChange={(e)=>{setValueInput({...valueInput, twoL:e})}} />
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.fourL} onChange={(e)=>{setValueInput({...valueInput, fourL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.fourR} onChange={(e)=>{setValueInput({...valueInput, fourR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.fiveL} onChange={(e)=>{setValueInput({...valueInput, fiveL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.fiveR} onChange={(e)=>{setValueInput({...valueInput, fiveR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.sixL} onChange={(e)=>{setValueInput({...valueInput, sixL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.sixR} onChange={(e)=>{setValueInput({...valueInput, sixR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.sevenL} onChange={(e)=>{setValueInput({...valueInput, sevenL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.sevenR} onChange={(e)=>{setValueInput({...valueInput, sevenR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.eightL} onChange={(e)=>{setValueInput({...valueInput, eightL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.eightR} onChange={(e)=>{setValueInput({...valueInput, eightR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.nineL} onChange={(e)=>{setValueInput({...valueInput, nineL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.nineR} onChange={(e)=>{setValueInput({...valueInput, nineR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.tenL} onChange={(e)=>{setValueInput({...valueInput, tenL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.tenR} onChange={(e)=>{setValueInput({...valueInput, tenR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.elevenL} onChange={(e)=>{setValueInput({...valueInput, elevenL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.elevenR} onChange={(e)=>{setValueInput({...valueInput, elevenR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.twelveL} onChange={(e)=>{setValueInput({...valueInput, twelveL:e.target.value})}}></input>
                   </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.twelveR} onChange={(e)=>{setValueInput({...valueInput, twelveR:e.target.value})}}></input>
-                  </Col>
                 </Row>
                 <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
                     <input className='duration-toollgate duration-toollgate-l' maxLength={2} value={valueInput.thirteenL} onChange={(e)=>{setValueInput({...valueInput, thirteenL:e.target.value})}}></input>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 2}}>
-                    <p className='duration-toollgate border-tollgate' >|</p>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                    <input className='duration-toollgate duration-toollgate-r' maxLength={2} value={valueInput.thirteenR} onChange={(e)=>{setValueInput({...valueInput, thirteenR :e.target.value})}}></input>
                   </Col>
                 </Row>
               </Col>
