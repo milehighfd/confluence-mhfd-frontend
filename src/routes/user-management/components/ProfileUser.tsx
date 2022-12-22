@@ -92,10 +92,10 @@ const ProfileUser = ({record}:{record:any}) => {
       </Row>
       <br />
       <div style={{textAlign:"end"}}>
-        <Button style={{marginRight:'20px', borderColor:'transparent'}}>
+        <Button className="btn-profile-list" style={{marginRight:'20px', borderColor:'transparent'}}>
           Cancel
         </Button>
-        <Button className="btn-purple">
+        <Button className="btn-purple btn-profile-list">
           Save
         </Button>
       </div>

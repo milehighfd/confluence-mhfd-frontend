@@ -60,8 +60,8 @@ const UserList = () => {
             <img src={name[2] !== '' ? name[2] :"/picture/Avatar1.svg"} alt="" height="34px" />
           </div>
           <div>
-            <p style={{fontSize:'12px', marginBottom:'0px', fontWeight:'500', paddingLeft:'5px'}}>{name[0]}</p>
-            <p style={{fontSize:'12px', marginBottom:'0px', opacity: '0.6', paddingLeft:'5px'}}>{name[1]}</p>
+            <p className="name-user-list">{name[0]}</p>
+            <p className="oganization-user-list">{name[1]}</p>
           </div>
         </div>
       ),
@@ -122,47 +122,38 @@ const UserList = () => {
   );
   return <>
     <div>
-      <Row>
-        <Col xs={{ span: 9}} lg={{ span: 5 }}>
-          <div className="list-view-head" >
-            <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginRight:'10px', marginTop: '5px', width:'92%', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
-                <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
-                <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
-                <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
-                {/* <Option value="User Activity">User Activity</Option> */}
-            </Select>
-          </div>
-          </Col>
-          {optionSelect !== 'User Activity' && <>
-         <Col  xs={{ span: 30}} lg={{ span: 16 }} style={{textAlign:'end', zIndex:'2'}}>
-          <div  className='filter-user-management'>
-            <Input
-              style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
-              placeholder="Search by Name"
-              prefix={<SearchOutlined />}
-            />
-            <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-                <Option value="Organization">Organization</Option>
-            </Select>
-            <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-                <Option value="Service Area">Service Area</Option>
-            </Select>
-            <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-                <Option value="User Designation">User Designation</Option>
-            </Select>
-            <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'40px', width:'8%'}}>
-              Reset
-            </Button>
-          </div>
-          
-          </Col>
-          <Col  xs={{ span: 9}} lg={{ span: 3 }} style={{textAlign:'end'}}>
-          {/* <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{marginTop: '8px', height:'38px'}}>
-            <PlusOutlined />
-            Add New User
-          </Button> */}
-        </Col> </>}
-      </Row>
+      <div className="head-list">
+        <div className="list-view-head" >
+        <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginTop: '5px', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
+            <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
+            <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
+            <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
+            {/* <Option value="User Activity">User Activity</Option> */}
+        </Select>
+        </div>
+        <div  className='filter-user-management'>
+          <Input
+            style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
+            placeholder="Search by Name"
+            prefix={<SearchOutlined />}
+          />
+          <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+              <Option value="Organization">Organization</Option>
+          </Select>
+          <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+              <Option value="Service Area">Service Area</Option>
+          </Select>
+          <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+              <Option value="User Designation">User Designation</Option>
+          </Select>
+          <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'40px', width:'8%'}}>
+            Reset
+          </Button>
+        </div>
+        <div className="button-space">
+
+        </div>
+      </div>
       <div className="table-user-management">
         {optionSelect !== 'User Activity' ?  <Table
           pagination={{ pageSize: 20 }}
