@@ -64,6 +64,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
+  const [callBoard, setCallBoard] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
@@ -337,6 +338,7 @@ const RequestView = ({ type, isFirstRendering }: {
         (r: any) => {
           if (!r) return;
           let { board, projects } = r;
+          console.log('But this are the projects in board', projects);
           ProjectEditService.setProjects(projects);
           if (board) {
             setTotalCountyBudget(board.total_county_budget || 0);
@@ -393,10 +395,14 @@ const RequestView = ({ type, isFirstRendering }: {
       console.log('connected', socket.id);
     });
     WsService.receiveUpdate((data: any) => {
-      console.log('receiveUpdate', data);
-      setColumns(data);
-      splitColumns(data);
-    })
+      // setColumns(data);
+      // splitColumns(data);
+      // setTimeout(() => {
+        console.log('This is the data after ws', data);
+        setCallBoard(Math.random());
+      // }, 2400);
+      
+    });
     WsService.receiveReqmanager((data: any) => {
       console.log('receiveReqmanager', data);
       setReqManager(data);
@@ -488,9 +494,13 @@ const RequestView = ({ type, isFirstRendering }: {
   // };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-    if ( counterBoardsCalls < 2) {
-    counterBoardsCalls++;
+    // WsService.receiveUpdate(() => {
+    //   console.log('just edited call board');
+    // });
+    // const interval = setInterval(() => {
+    // if ( counterBoardsCalls < 2) {
+    // counterBoardsCalls++;
+    console.log('Get Board now...');
       getBoardData({
         type,
         year: `${year}`,
@@ -500,6 +510,7 @@ const RequestView = ({ type, isFirstRendering }: {
           .then(
             (r: any) => {
               counterBoardsCalls--;
+              console.log('hey this is the calue', r);
               if (!r) return;
               if(r){
                 let { board, projects } = r;
@@ -532,6 +543,7 @@ const RequestView = ({ type, isFirstRendering }: {
                 }
                 if (projects) {
                   let cols = generateColumns(projects, year, tabKey);
+                  console.log('HERE ARE THE NEW COLS IN PROJECTS', cols);
                   let areEqual: boolean = compareColumns(columns, cols);
                   if (!areEqual) {
                     setColumns(cols);
@@ -561,12 +573,12 @@ const RequestView = ({ type, isFirstRendering }: {
               counterBoardsCalls--;
             }
           )
-    }
+    // }
 
 
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [namespaceId, columns]);
+    // }, 5000);
+    // return () => clearInterval(interval);
+  }, [namespaceId, callBoard]);
 
   useEffect(() => {
     let [rows, totals] = getTotalsByProperty(columns, 'county');
@@ -731,6 +743,7 @@ const RequestView = ({ type, isFirstRendering }: {
         req1: null, req2: null, req3: null, req4: null, req5: null,
         projectData: projectData.projectData
       };
+      console.log('new Project Data', newProjectData);
       temporalColumns[0].projects.push(newProjectData);
       WsService.sendUpdate(temporalColumns)
       setColumns(temporalColumns);

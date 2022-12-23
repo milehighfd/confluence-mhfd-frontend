@@ -1306,7 +1306,6 @@ const Map = ({
             const allFilters: any[] = ['all'];
             console.log('to Filter', toFilter);
             for (const filterField in toFilter) {
-              console.log('filterfield0, filt', filterField, toFilter);
                 let filters = toFilter[filterField];
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
@@ -1446,7 +1445,6 @@ const Map = ({
               addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             }
             if (map.getLayer(key + '_' + index)) {
-              console.log('all filters', allFilters);
                 map.setFilter(key + '_' + index, allFilters);
             }
         });

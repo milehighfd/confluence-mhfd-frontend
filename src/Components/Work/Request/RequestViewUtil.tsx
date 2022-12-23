@@ -163,7 +163,7 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
 
   boardProjects.forEach((boardProject: boardProject | any) => {
     let isInAnyColumn = false;
-    for(var i = 1 ; i <= 5; i++) {
+    for(var i = 0 ; i <= 5; i++) {
       if (boardProject[`position${i}`] != null) {
         isInAnyColumn = true;
         temporalColumns[i].push(boardProject);
