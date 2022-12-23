@@ -1741,23 +1741,7 @@
 .ant-timeline-item {
   padding-bottom: 0px;
 }
-.list-view-head {
-  .ant-select-selector{
-    border:transparent !important;
-    padding: 0px !important;
-  }
-  .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
-    margin-right: 8px !important;
-    color: rgb(29 22 70) !important;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
-  }
-  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
-    border-color: transparent;
-    box-shadow: none;
-  }
-}
+
 .button-footer-modal{
   text-align: end;
   position: fixed;

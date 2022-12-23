@@ -880,17 +880,61 @@ body{
   color: #11093C !important;
   height: 32px;
   text-align: center;
-    padding: 5px 0px;
+    // padding: 5px 0px;
+}
+.number-wrapper {
+  position: relative;
+}
+
+.number-wrapper:after,
+.number-wrapper:before {
+  position: absolute;
+  right: 5px;
+  width: 1.6em;
+  height: .9em;
+  font-size: 10px;
+  pointer-events: none;
+  background: #fff;
+}
+
+.number-wrapper:after {
+  color: blue;
+  content: "\25B2";
+  margin-top: 1px;
+}
+
+.number-wrapper:before {
+  color: red;
+  content: "\25BC";
+  margin-bottom: 5px;
+  bottom: -.5em;
 }
 .border-tollgate{
   color: rgb(191 191 191) !important;
 }
 .duration-toollgate-l{
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 5px 5px 5px;
   width: 100%;
   border: none;
   padding-right: 4px;
   padding-left: 4px;
+  .ant-input-number-input {
+    padding-right: 15px;
+    text-align: center;
+  }
+  .ant-input-number-handler-wrap {
+    // display: block;
+    opacity: 1;
+  }
+  .ant-input-number-handler {
+    background: #fbfbfc;
+  }
+  .ant-input-number-handler-down-inner, .ant-input-number-handler-up-inner {
+    color: #251863;
+  }
+  .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+    font-size: 7px;
+  }
 }
 .duration-toollgate-l:focus{
   box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
@@ -935,7 +979,7 @@ body{
 }
 
 .modal-tollgate{
-  width: 755px !important;
+  width: 700px !important;
   top:115px !important;
   .ant-picker-range .ant-picker-active-bar {
     background: #11093c;
@@ -1875,6 +1919,9 @@ body{
   background: #f5f7ff;
   padding: 20px 20px;
   margin: 0px !important;
+  .dates-title{
+    margin-left: -24px;
+  }
   .image-modal-body{
     .tag-carousel{
       background-color: #251863;
@@ -2970,6 +3017,9 @@ body{
     }
   }
   .detailed-h{
+    .dates-title{
+      margin-left: -24px;
+    }
     .image-modal-body{
       height: 650px !important;
       .tag-carousel{
@@ -2999,6 +3049,18 @@ body{
     .duration-toollgate{
       margin-bottom: 14px !important;
       height: 35.14px !important;
+    }
+    .duration-toollgate-l{
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+        font-size: 9px;
+      }
+      .ant-input-number-input {
+        padding: 10px 0px;
+        padding-right: 15px;
+        text-align: center;
+        font-size: 16px;
+        height: 35px;
+      }
     }
     .tollgate-body{
       height: calc(100vh - 565px) !important;
@@ -3230,7 +3292,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 793px !important;
+    width: 716px !important;
   }
 }
 @media (min-width: 2550px) and (max-width: 3799px){
@@ -3252,7 +3314,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 940px !important;
+    width: 900px !important;
       font-size: 18px !important;
       top:159px !important;
       .ant-picker-input>input {
@@ -3289,9 +3351,24 @@ body{
     width: 2150px !important;
   }
   .detailed-h{
+    .dates-title{
+      margin-left: -24px;
+    }
+    .dates-title{
+      margin-left: -24px;
+    }
     .duration-toollgate{
       margin-bottom: 14px !important;
-      height: 42.38px !important;
+      height: 42px !important;
+    }
+    .duration-toollgate-l{
+      .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+        font-size: 10px;
+      }
+      .ant-input-number-input {
+        font-size: 20px;
+        height: 42px;
+      }
     }
     .image-modal-body{
       height: 807px !important;
@@ -3597,7 +3674,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 1220px !important;
+    width: 1170px !important;
       font-size: 18px !important;
       top: 260px !important;
       .ant-picker-input>input {
@@ -3631,9 +3708,21 @@ body{
     }
   }
   .detailed-h{
+    .dates-title{
+      margin-left: -24px;
+    }
     .duration-toollgate{
       margin-bottom: 15px !important;
       height: 52.84px !important;
+      padding: 10px 0px;
+    }
+    .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-down-inner, .duration-toollgate-l .ant-input-number-handler-wrap .ant-input-number-handler .ant-input-number-handler-up-inner {
+      font-size: 17px;
+    }
+    .duration-toollgate-l .ant-input-number-handler-wrap {
+      opacity: 1;
+      width: 35px;
+      padding-right: 3px;
     }
     .image-modal-body{
       height: 1107px !important;
