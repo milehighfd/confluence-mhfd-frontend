@@ -150,7 +150,6 @@ const CardInformationView = ({
   };
 
   const setValuesMap = (type: string, value: string) => {
-    console.log('type ', type,  'value', value);
     setHighlighted({type: type, value: value});
   }
   return (

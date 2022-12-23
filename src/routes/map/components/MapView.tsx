@@ -906,6 +906,7 @@ const MapView = () => {
             let cardInformation: Array<Object> = [];
             if (value === FILTER_PROBLEMS_TRIGGER) {
               cardInformation = galleryProblems.map((problem: any) => {
+                console.log('problem', problem);
                 return {
                   cartodb_id: problem.cartodb_id,
                   image: `gallery/${problem.problemtype}.png`,
@@ -927,27 +928,36 @@ const MapView = () => {
               totalElements = cardInformation.length;
             } else {
               cardInformation = galleryProjectsV2.map((project: any) => {
-                // console.log(project);
+                const projectType = project?.project_status?.code_phase_type?.code_project_type?.project_type_name;
                 const x = {
                   cartodb_id: project.project_id,
+                  // TODO: MISSING IMAGES
+                  // FEMA Grant Management
+                  // Letter of Map Change
+                  // FHAD to PMR (PMR)
+                  // Development Improvement Project (DIP)
+                  // General Maintenance
+                  // Permitting
+                  // Maintenance Eligibiity Project (MEP)
+                  // Research and Development (RD)
                   image: (
-                    project.projectType === 'Capital' ? '/projectImages/capital.png' :
-                      project.projectType === 'Study' ? '/projectImages/study.png' :
-                        project.projectType === 'Special' ? '/projectImages/special.png' :
-                        project.projectType === 'Maintenance' ?
+                    projectType === 'Capital (CIP)' ? '/projectImages/capital.png' :
+                      projectType === 'Planning Study (Study)' ? '/projectImages/study.png' :
+                        projectType === 'Special' ? '/projectImages/special.png' :
+                        projectType === 'Maintenance' ?
                           (project.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
                             project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                              project.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
+                              project.projectsubtype === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
                                 project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
-                                  project.projectsubtype === 'Debris Management' ?'/projectImages/debris-management.png': '/Icons/eje.png'
-                                  ) : '/Icons/eje.png'
+                                  project.projectsubtype === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png'
+                                  ) : '/projectImages/watershed-change.png'
                   ),
                   requestName: project.project_name,
                   sponsor: project.sponsor,
                   estimatedCost: project.estimatedcost ?  project.estimatedcost: project.finalcost,
                   componentCost: project.component_cost ? project.component_cost: 0,
                   status: project?.project_status?.code_phase_type?.code_status_type?.status_name,
-                  projecttype: project.projectType,
+                  projecttype: projectType,
                   objectid: project.objectid,
                   type: project.type,
                   value: project.cartodb_id,
