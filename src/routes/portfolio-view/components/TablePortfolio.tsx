@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Col, Input, Layout, Popover, Row, Select, Space, Table, Tabs, Tag } from 'antd';
 import { ColumnsType } from "antd/lib/table";
 import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
@@ -61,24 +61,66 @@ const TablePortafolio = (
   const ValueTabsValue = () => {
     switch(tabKey){
       case "All" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return AllValueTable;
       }
       case "DIP" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return DIPValueTable;
       }
       case "R&D" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return RDValueTable;
       }
       case "Restoration" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return RestorationValueTable;
       }
       case "CIP" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return CIPValueTable;
       }
       case "Property Acquisition" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return PropertyAcquisitionValueTable;
       }
       case "Planning" :{
+        if(searchRef.current){
+          searchRef.current.scrollTo(0, 0);
+        }
+        if(divRef.current){
+          divRef.current.scrollTo(0, 0);
+        }
         return PlanningValueTable;
       }
       default: {
@@ -94,6 +136,16 @@ const TablePortafolio = (
       values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
+  const scrollDiv = useCallback((e:any) =>{
+    let dr: any = divRef.current;
+    if(searchRef.current){
+      console.log(dr.scrollTop, 'Dotttyyyyy', e.target.scrollTop)
+      searchRef.current.scrollTo(0, e.target.scrollTop);
+    }
+  },[divRef.current, searchRef.current])
+  useEffect (()=>{
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', searchRef.current)
+  }, [searchRef.current])
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div  style={tabKey==='DIP' || tabKey==='Restoration' || tabKey === 'CIP'?{width:'270%', overflowX:'scroll'}:(tabKey ==='Planning' || tabKey === 'Property Acquisition'?{width:'140%', overflowX:'scroll'}:{width:'100%'})}>
@@ -101,12 +153,7 @@ const TablePortafolio = (
     <div
       className="table-body-body"
       ref={divRef}
-      onScrollCapture={(e:any) => {
-        let dr: any = divRef.current;
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, dr.scrollTop);
-        }
-      }}
+      onScrollCapture={scrollDiv}
     >
     <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
     {

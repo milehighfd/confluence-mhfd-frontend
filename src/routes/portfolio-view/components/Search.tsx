@@ -111,14 +111,15 @@ const Search = (
         ref={searchRef}
         onScrollCapture={(e:any) => {
           let dr: any = searchRef.current;
+          console.log(dr.scrollTop, '-------------------', e.target.scrollTop)
           if(tableRef.current){
-            tableRef.current.scrollTo(0, dr.scrollTop);
+            tableRef.current.scrollTo(0, e.target.scrollTop);
           }
           if(phaseRef.current){
-            phaseRef.current.scrollTo(0, dr.scrollTop)
+            phaseRef.current.scrollTo(0, e.target.scrollTopp)
           }
           if(scheduleRef.current){
-            scheduleRef.current.scrollTo(0, dr.scrollTop)
+            scheduleRef.current.scrollTo(0, e.target.scrollTop)
           }
         }}
         onMouseEnter={()=>{
