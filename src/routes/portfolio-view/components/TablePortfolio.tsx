@@ -98,13 +98,9 @@ const TablePortafolio = (
   const scrollDiv = useCallback((e:any) =>{
     let dr: any = divRef.current;
     if(searchRef.current){
-      console.log(dr.scrollTop, 'Dotttyyyyy', e.target.scrollTop)
       searchRef.current.scrollTo(0, e.target.scrollTop);
     }
   },[divRef.current, searchRef.current])
-  useEffect (()=>{
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', searchRef.current)
-  }, [searchRef.current])
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div  style={tabKey==='DIP' || tabKey==='Restoration' || tabKey === 'CIP'?{width:'270%', overflowX:'scroll'}:(tabKey ==='Planning' || tabKey === 'Property Acquisition'?{width:'140%', overflowX:'scroll'}:{width:'100%'})}>

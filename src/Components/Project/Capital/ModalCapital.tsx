@@ -1020,7 +1020,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Enter Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
+              <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Overhead Cost Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
               </Col>
             </Row>
             <br/>
@@ -1035,7 +1035,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </Row>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Enter Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+                <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Additional Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
               </Col>
             </Row>
             <hr/>
