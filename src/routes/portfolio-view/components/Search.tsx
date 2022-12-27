@@ -16,17 +16,18 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const Search = (
-  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef, scheduleRef, rawData}
+  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef, scheduleRef, rawData, index}
   :{
-    searchRef: React.MutableRefObject<HTMLDivElement | null>,
-    tableRef: React.MutableRefObject<HTMLDivElement | null>,
+    searchRef: React.MutableRefObject<any>,
+    tableRef: React.MutableRefObject<any>,
     scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: any[],
     hoverTable:number[],
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
-    rawData: any
+    rawData: any,
+    index: number
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
@@ -108,12 +109,12 @@ const Search = (
       </div>
       <div
         className="search-body"
-        ref={searchRef}
+        ref={el => searchRef.current[index] = el}
         onScrollCapture={(e:any) => {
-          let dr: any = searchRef.current;
-          console.log(dr.scrollTop, '-------------------', e.target.scrollTop)
-          if(tableRef.current){
-            tableRef.current.scrollTo(0, e.target.scrollTop);
+          // TODO
+          let dr: any = searchRef.current[index];
+          if(tableRef.current[index]){
+            tableRef.current[index].scrollTo(0, dr.scrollTop);
           }
           if(phaseRef.current){
             phaseRef.current.scrollTo(0, e.target.scrollTopp)

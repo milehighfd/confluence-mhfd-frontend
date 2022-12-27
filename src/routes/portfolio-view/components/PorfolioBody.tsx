@@ -40,8 +40,8 @@ const PortafolioBody = () => {
   const [optionSelect, setOptionSelect] = useState('List');
   const [openTable, setOpenTable] = useState<any>([]);
   const [hoverTable, setHoverTable] = useState([0, 0, 0])
-  const tableRef = useRef<null | HTMLDivElement>(null); 
-  const searchRef = useRef<null | HTMLDivElement>(null); 
+  const tableRef = useRef([]); 
+  const searchRef = useRef([]); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
   const scheduleRef = useRef<null | HTMLDivElement>(null);
   const [moveSchedule, setMoveSchedule] = useState('null'); 
@@ -179,6 +179,10 @@ const PortafolioBody = () => {
     setOpenTable(new Array(sortedData.length).fill(true));
     // console.log('boundsmap', boundsMap, filterProjectOptions);
     setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
+    return () => {
+      // tableRef.current = null;
+      // searchRef.current = null;
+    }
   }, []);
   useEffect(() => {
     console.log('bounds map', boundsMap);
@@ -187,13 +191,13 @@ const PortafolioBody = () => {
     }
   }, [boundsMap]);
   useEffect(() => {
-    console.log('opent', optionSelect);
-    if(searchRef) {
-      let div: any = searchRef?.current;
-      console.log('dicv', div);
-      div.scrollTop = 0;
+    if(searchRef.current.length) {
+      searchRef.current.forEach(element => {
+        let div: any = element;
+        div.scrollTop = 0;  
+      });
     }
-  }, [optionSelect]);
+  }, [optionSelect, tabKey]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
@@ -282,23 +286,23 @@ const PortafolioBody = () => {
           activeKey={tabKey}
           onChange={(key) => setTabKey(key)} className="tabs-map">
           {
-            displayedTabKey.map((tk: string) => (
+            displayedTabKey.map((tk: string, idx: number) => { return (
               <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
                 <div className="protafolio-body">
                   {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                 <Row>
                   <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                    <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef} rawData={rawData}/>
+                    <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef} rawData={rawData} index={idx}/>
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
-                    {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey}/>}
-                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
-                    {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic}/>}
+                    {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}
+                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
+                    {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
                   </Col>
                 </Row>
                 </div>
               </TabPane>
-            ))
+            )})
             }
           </Tabs>
         </div>

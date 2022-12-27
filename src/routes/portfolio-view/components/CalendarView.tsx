@@ -22,13 +22,14 @@ const CalendarView = ({
   moveSchedule,
   scheduleRef,
   searchRef,
-  graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic
+  graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic,
+  index
 }: {
   rawData: any,
   openTable: boolean[];
   moveSchedule: number;
   scheduleRef: React.MutableRefObject<HTMLDivElement | null>;
-  searchRef: React.MutableRefObject<HTMLDivElement | null>;
+  searchRef: React.MutableRefObject<any>;
   graphicOpen:boolean,
     setGrapphicOpen:React.Dispatch<React.SetStateAction<boolean>>,
     positionModalGraphic:{
@@ -38,7 +39,8 @@ const CalendarView = ({
     setPositionModalGraphic:React.Dispatch<React.SetStateAction<{
       left: number;
       top: number;
-  }>>;
+  }>>,
+  index: number;
 }) => {
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
@@ -1441,8 +1443,8 @@ let toData = datas
         className='chart-container'
         onScroll={(e: any) => {
           let dr: any = scheduleRef.current;
-          if (searchRef.current) {
-            searchRef.current.scrollTo(0, dr.scrollTop);
+          if (searchRef.current[index]) {
+            searchRef.current[index].scrollTo(0, dr.scrollTop);
           }
         }}
       >

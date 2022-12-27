@@ -9,22 +9,23 @@ import ModalGraphic from "./ModalGraphic";
 const { Step } = Steps;
 
 const PhaseView = (
-  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic}
+  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic, index}
   :{
     rawData:any,
     openTable:boolean[],
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
-    searchRef:React.MutableRefObject<HTMLDivElement | null>,
+    searchRef:React.MutableRefObject<any>,
     graphicOpen:boolean,
     setGrapphicOpen:React.Dispatch<React.SetStateAction<boolean>>,
     positionModalGraphic:{
       left: number;
       top: number;
-  }
+   }
     setPositionModalGraphic:React.Dispatch<React.SetStateAction<{
       left: number;
       top: number;
-  }>>;
+  }>>, 
+  index: number;
       }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -424,8 +425,8 @@ const PhaseView = (
             ref={phaseRef}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
-              if (searchRef.current) {
-                searchRef.current.scrollTo(0, dr.scrollTop);
+              if (searchRef.current[index]) {
+                searchRef.current[index].scrollTo(0, dr.scrollTop);
               }
             }}
           >
