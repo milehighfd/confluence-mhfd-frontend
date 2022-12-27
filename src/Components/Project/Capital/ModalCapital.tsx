@@ -746,7 +746,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </Row>
 
             <Timeline className="sub-project" style={{marginTop:'10px'}}>
-              <Timeline.Item color="purple">
+              {/* <Timeline.Item color="purple">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Overhead Cost</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
@@ -775,7 +775,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[0])}</Col>
                 </Row>
-              </Timeline.Item>
+              </Timeline.Item> */}
               <Timeline.Item color="purple">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Mobilization</label></Col>

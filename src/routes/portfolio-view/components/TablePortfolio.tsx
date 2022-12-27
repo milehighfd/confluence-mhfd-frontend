@@ -47,7 +47,7 @@ const TablePortafolio = (
         header = PlanningHeaderTable;
         break;
       }
-      case "Property Acquisition" :{
+      case "Acquisition" :{
         header = PropertyAcquisitionHeaderTable;
         break;
       }
@@ -62,66 +62,24 @@ const TablePortafolio = (
   const ValueTabsValue = () => {
     switch(tabKey){
       case "All" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
         return AllValueTable;
       }
       case "DIP" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
         return DIPValueTable;
       }
       case "R&D" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
         return RDValueTable;
       }
       case "Restoration" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
         return RestorationValueTable;
       }
       case "CIP" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
         return CIPValueTable;
       }
-      case "Property Acquisition" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
+      case "Acquisition" :{
         return PropertyAcquisitionValueTable;
       }
       case "Planning" :{
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, 0);
-        }
-        if(divRef.current){
-          divRef.current.scrollTo(0, 0);
-        }
         return PlanningValueTable;
       }
       default: {
