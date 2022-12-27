@@ -6,15 +6,16 @@ import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/c
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 const TablePortafolio = (
-  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData, tabKey}
+  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData, tabKey, index}
   :{
-    divRef:React.MutableRefObject<HTMLDivElement | null>,
-    searchRef:React.MutableRefObject<HTMLDivElement | null>,
+    divRef:React.MutableRefObject<any>,
+    searchRef:React.MutableRefObject<any>,
     openTable: boolean[],
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     hoverTable:number[],
     rawData: any,
     tabKey:any,
+    index: number
   }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -100,11 +101,12 @@ const TablePortafolio = (
       <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
     <div
       className="table-body-body"
-      ref={divRef}
+      ref={el => divRef.current[index] = el}
       onScrollCapture={(e:any) => {
-        let dr: any = divRef.current;
-        if(searchRef.current){
-          searchRef.current.scrollTo(0, dr.scrollTop);
+        let dr: any = divRef.current[index];
+        console.log('div Ref', divRef.current, 'searchRef.current', searchRef.current);
+        if(searchRef.current[index]){
+          searchRef.current[index].scrollTo(0, dr.scrollTop);
         }
       }}
     >
