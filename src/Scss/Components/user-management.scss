@@ -211,7 +211,7 @@
         color: rgb(29 22 70);
       }
       h3{
-        font-size: 20px;
+        font-size: 19px;
       }
       h1{
         font-size: 16px;
@@ -663,105 +663,112 @@
       }
     }
   }
+  // BODDY MANAGEMENT
   .user-management-body{
     .list-view-head{
       width: 375.88px !important;
       .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
-        font-size: 30px !important;
-        padding-right: 27px !important;
+        font-size: 28px !important;
+        padding-right: 25px !important;
       }
     }
     .filter-user-management {
       width: 1253px !important;
-      padding: 11px;
+      padding: 9px;
       height: auto;
       button{
-        height: 45px !important;
+        height: 40px !important;
       }
       .ant-input-affix-wrapper{
-        height: 45px !important;
-        font-size: 18px !important;
+        height: 40px !important;
+        font-size: 16px !important;
         input{
-          font-size: 18px !important;
+          font-size: 16px !important;
         }
       }
       .ant-select-selector{
-        height: 45px !important;
-        font-size: 18px !important;
+        height: 40px !important;
+        font-size: 16px !important;
         align-items: center !important;
         span{
-          font-size: 18px !important;
+          font-size: 16px !important;
         }
       }
       .ant-select-arrow {
-        height: 20px !important;
-        font-size: 16px !important;
+        height: 18px !important;
+        font-size: 14px !important;
       }
     }
     .button-space {
       width: 211px;
     }
     .table-user-management{
+      height: calc(100vh - 222px);
       margin-top: 10px !important;
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-        height: 46px !important;
+        height: 40px !important;
       }
       .ant-table-thead .ant-table-cell {
-        font-size: 18px;
+        font-size: 16px;
       }
       .ant-table-tbody > tr > td, .user-management-body .table-user-management .ant-table-thead > tr > th, .user-management-body .table-user-management .ant-table tfoot > tr > td, .user-management-body .table-user-management .ant-table tfoot > tr > th {
         padding: 8px 16px;
-        font-size: 18px;
+        font-size: 16px;
       }
       .user-tab{
         img{
-          height: 45px !important;
+          height: 43px !important;
         }
         .name-user-list {
-          font-size: 18px !important;
+          font-size: 16px !important;
           margin-bottom: -4px !important;
           margin-left: 10px !important;
         }
         .oganization-user-list{
-          font-size: 14px !important;
+          font-size: 12px !important;
           margin-left: 10px !important;
         }
       }
       .span-admin {
         padding: 4px 10px;
         border-radius: 5px;
-        font-size: 18px;
+        font-size: 16px;
       }
       .span-manager{
         padding: 4px 10px;
         border-radius: 5px;
-        font-size: 18px;
+        font-size: 16px;
       }
       .span-gov{
         padding: 4px 10px;
         border-radius: 5px;
-        font-size: 18px;
+        font-size: 16px;
+      }
+      .span-Active{
+        .circulo{
+          margin-top: 8px;
+        }
       }
       .btn-profile-list{
-        font-size: 17.6px;
+        font-size: 16px;
         height: auto;
-        padding: 13px 50px;
+        padding: 10px 45px;
       }
     }
     .profile-user{
       h3 {
-        font-size: 26px !important;
+        font-size: 22px !important;
       }
       h1{
-        font-size: 21px !important;
+        font-size: 18px !important;
       }
       input {
         border-radius: 5px !important;
-        height: 46px !important;
-        font-size: 18px !important;
+        height: 40px !important;
+        font-size: 16px !important;
       }
       span{
-        font-size: 18px !important;
+        font-size: 16px !important;
       }
     }
   }
@@ -958,10 +965,10 @@
     }
     .profile-user{
       h3 {
-        font-size: 36px !important;
+        font-size: 32px !important;
       }
       h1{
-        font-size: 28px !important;
+        font-size: 26px !important;
       }
       input {
         border-radius: 5px !important;
