@@ -7,14 +7,38 @@ import { ColumnsType } from "antd/lib/table";
 import type { MenuProps } from 'antd';
 import ProfileUser from "./ProfileUser";
 import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
+import * as datasets from "../../../Config/datasets";
+import { OptionsFiltersUser, User } from "Classes/TypeList";
+import { SERVER } from "Config/Server.config";
+import { useUsersDispatch, useUsersState } from "hook/usersHook";
+import { PAGE_USER } from "constants/constants";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
+
+const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
+  datasets.getData(url, datasets.getToken()).then(res => {
+    console.log(res.users)
+    const arrayUsers = res.users.map((elem: any) => {
+      return {
+        ...elem,
+        name: [elem.name, elem.email, elem.photo]
+      }
+    });
+    console.log('arry',arrayUsers)
+    if (res.users) {
+      saveUser(res.users);
+      setUser(arrayUsers);
+      setTotal(res.totalPages * 10);
+    }
+  });
+}
+
 const UserList = () => {
   interface DataType {
     key: React.Key;
     name: string[];
-    role: string;
+    designation: string;
     serviceArea: string;
     county: string;
     city: string;
@@ -57,7 +81,7 @@ const UserList = () => {
       render: (name) => (
         <div className="user-tab">
           <div style={{marginRight:'5px'}}>
-            <img src={name[2] !== '' ? name[2] :"/picture/Avatar1.svg"} alt="" height="34px" />
+            <img src={name[2] !== null ? name[2] :"/picture/Avatar1.svg"} alt="" height="34px" />
           </div>
           <div>
             <p className="name-user-list">{name[0]}</p>
@@ -68,11 +92,11 @@ const UserList = () => {
     },
     {
       title: <>Role <ArrowDownOutlined className="ico-arrow"/></>,
-      dataIndex: 'role',
-      key: 'role',
-      render: (role) => (
-        <span className={'span-' + roleSpan(role)}>
-          {role}
+      dataIndex: 'designation',
+      key: 'designation',
+      render: (designation) => (
+        <span className={'span-' + roleSpan(designation)}>
+          {designation}
         </span> 
       ),
     },
@@ -92,6 +116,26 @@ const UserList = () => {
     // { title: 'Actions', dataIndex: 'actions', key: 'actions' },
     Table.EXPAND_COLUMN,
   ];
+  const {
+    userActivity
+  } = useUsersState();
+  const {
+    saveUserActivated,
+    saveUserPending,
+    getUserActivity,
+    getAllUserActivity
+  } = useUsersDispatch();
+  const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
+  const [totalUsersDeleted, setTotalUsersDeleted] = useState<number>(0);
+  const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
+  const [userDeleted, setUserDeleted] = useState<Array<User>>([]);
+  const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
+  const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
+
+  const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
+  const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
+  const [optionUserDeleted, setOptionUserDeteled] = useState<OptionsFiltersUser>(PAGE_USER);
+
   const [tabKey, setTabKey] = useState<any>('Users Management');
   const [openAction, setOpenAction] = useState(true);
   const [openFilters, setOpenFilters] = useState(false);
@@ -120,6 +164,41 @@ const UserList = () => {
       }}
     />
   );
+  const urlOptions = (options: OptionsFiltersUser) => {
+    console.log('options',options, totalUsersActivated)
+    return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
+      + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : ''
+      + '&sort=' + options.sort) + '&limit=' + 100 + '&page=' + options.page;
+  }
+  const getAllUser = () => {
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated), setTotalUsersActivated);
+    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(optionUserPending), setTotalUsersPending);
+    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(optionUserDeleted), setTotalUsersDeleted);
+  }
+  const searchUserActivated = (option: OptionsFiltersUser) => {
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(option), setTotalUsersActivated);
+  }
+  const searchUserPending = (option: OptionsFiltersUser) => {
+    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(option), setTotalUsersPending);
+  }
+  const searchUserDelete = (option: OptionsFiltersUser) => {
+    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(option), setTotalUsersDeleted);
+  }
+  
+  useEffect(() => {
+    const resetOptions = {...PAGE_USER};
+    searchUserActivated(resetOptions);
+    console.log('activity1',userActivatedState)
+  }, []);
+  useEffect(() => {
+    const resetOptions = {...PAGE_USER};
+    searchUserActivated(resetOptions);
+    searchUserPending(resetOptions);
+    searchUserDelete(resetOptions);
+    console.log('activity2',userActivatedState)
+  }, [optionSelect]);
+
+  console.log(optionSelect)
   return <>
     <div>
       <div className="head-list">
@@ -174,11 +253,13 @@ const UserList = () => {
           // expandable={{
           //   expandedRowRender: record => <ProfileUser record={record}/>,
           // }}
-          dataSource={DATA_USER_LIST}
-        /> : <Table
+          dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
+        /> : ()=> {getAllUserActivity() 
+          console.log('userActivity',userActivity);
+          return <Table
           columns={columns2}
           dataSource={DATA_USER_ACTIVITY}
-        /> }
+        /> }}
       </div>
     </div>
   </>

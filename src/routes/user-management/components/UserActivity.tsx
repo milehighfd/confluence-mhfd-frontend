@@ -6,6 +6,8 @@ import ButtonGroup from "antd/lib/button/button-group";
 import { ColumnsType } from "antd/lib/table";
 import ProfileUser from "./ProfileUser";
 import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
+import { useUsersDispatch, useUsersState } from "hook/usersHook";
+import moment from "moment";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
@@ -43,10 +45,10 @@ const UserActivity = () => {
     return span;
   }
   const columns2: ColumnsType<any> = [
-    { title: <>Date and Time <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'dateTime', key: 'dateTime' },
+    { title: <>Date and Time <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'registerDate', key: 'registerDate' },
     { title: <>User <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'user', key: 'user' },
     { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
-    { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'change', key: 'change' },
+    { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'activityType', key: 'activityType' },
   ];
   const columns: ColumnsType<DataType> = [
     {
@@ -91,11 +93,43 @@ const UserActivity = () => {
     // { title: 'Actions', dataIndex: 'actions', key: 'actions' },
     Table.EXPAND_COLUMN,
   ];
+  const {
+    userActivity
+  } = useUsersState();
+  const {
+    saveUserActivated,
+    saveUserPending,
+    getUserActivity,
+    getAllUserActivity
+  } = useUsersDispatch();
   const [tabKey, setTabKey] = useState<any>('Users Management');
   const [openAction, setOpenAction] = useState(true);
   const [openFilters, setOpenFilters] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
+
+  
+  userActivity.data.forEach((element: any) => {
+    element.user = element.firstName + " " + element.lastName;
+    element.registerDate = moment(new Date('' + element.registerDate)).format('MM/DD/YYYY hh:mm A');
+  });
+  const pagination = {
+    current: + userActivity.currentPage,
+    pageSize: 20,
+    total: userActivity.totalPages*20
+  };
+  const handleTableChange = (pagination: any, filters: {}, sorter: any) => {
+    getUserActivity(getUrlOptionsUserActivity(pagination, sorter));
+  };
+  const getUrlOptionsUserActivity = (pagination: {current: number, pageSize: number}, sorter: {field?: string, order?: string}) => {
+    return 'page=' + pagination.current + '&limit=' + pagination.pageSize + (sorter?.order ? ('&sort=' + sorter.field + '&sorttype=' + (sorter.order === "descend" ? 'DESC': 'ASC')): '&sort=registerDate&sorttype=DESC')
+  }
+  console.log('useractiviy',userActivity);
+
+  useEffect(() => {
+    getUserActivity(getUrlOptionsUserActivity({current: 1, pageSize: 20}, {}));
+  }, [])
+
   return <>
     <div>
       <Row>
@@ -108,7 +142,10 @@ const UserActivity = () => {
       <div className="table-user-management">
         <Table
           columns={columns2}
-          dataSource={DATA_USER_ACTIVITY}
+          // dataSource={DATA_USER_ACTIVITY}
+          rowKey={record => record.registerDate}
+          dataSource={userActivity.data}
+          pagination={pagination} onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)}
         />
       </div>
     </div>
