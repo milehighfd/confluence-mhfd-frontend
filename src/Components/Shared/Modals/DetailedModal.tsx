@@ -161,7 +161,7 @@ const DetailedModal = ({
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={{ span: 13 }}>
               <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.project_name} </h1>
-              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.project_status.code_phase_type.code_project_type.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span>{detailedPage?.problemtype ? ( detailedPage?.jurisdiction + ', CO' ) : ('TODO ADD SPONSOR ON BACKEND')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage?.codeStateCounty.county_name + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage?.codeServiceArea.service_area_name + ' Service Area'} </span></p>
@@ -175,7 +175,8 @@ const DetailedModal = ({
                 <Progress percent={detailedPage?.solutionstatus ? detailedPage?.solutionstatus : 0} size="small" status="active" />
               </div>
               ) : (
-                <div className="btn-opacity">{detailedPage?.project_status.code_phase_type.code_status_type.status_name}</div>
+                <div className="btn-opacity">{detailedPage?.project_status?.code_phase_type?.code_status_type?.status_name ?
+                  detailedPage?.project_status?.code_phase_type?.code_status_type?.status_name: 'N/A'}</div>
               )
               }
 
