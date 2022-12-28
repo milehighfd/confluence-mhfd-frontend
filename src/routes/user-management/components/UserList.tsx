@@ -16,6 +16,15 @@ import { PAGE_USER } from "constants/constants";
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
 
+const titleCase = (str:any)=> {
+  str = str.replaceAll('_', ' ');
+  var splitStr = str.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+  }
+  return splitStr.join(' '); 
+}
+
 const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
     console.log(res.users)
@@ -23,7 +32,11 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
       return {
         ...elem,
         name: [elem.name, elem.email, elem.photo],
-        statusAccount: elem.activated === true? 'Active': 'Inactive'
+        statusAccount: elem.activated === true? 'Active': 'Inactive',
+        serviceArea: elem.serviceArea !== null ? elem.serviceArea : '-',
+        city: elem.city !== null ? elem.city : '-',
+        county: elem.county !== null ? elem.county : '-',
+        designation: titleCase(elem.designation)
       }
     });
     console.log('arry',arrayUsers)
@@ -148,8 +161,9 @@ const UserList = () => {
     { key: 'message-user', label: 'Message User' },
     { key: 'delete-user', label: 'Delete User' },
   ];
-  const menu = (record:any, onExpand:any)=> (
-    <Menu
+  const menu = (record:any, onExpand:any)=> {
+    // console.log(record);
+    return <Menu
       className="menu-login-dropdown"
       style={{ marginTop: '12px'}}
       items={items}
@@ -165,7 +179,7 @@ const UserList = () => {
         }
       }}
     />
-  );
+    };
   const urlOptions = (options: OptionsFiltersUser) => {
     console.log('options',options, totalUsersActivated)
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
