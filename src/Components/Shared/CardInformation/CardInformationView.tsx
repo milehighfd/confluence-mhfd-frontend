@@ -198,15 +198,15 @@ const CardInformationView = ({ data, type, detailed, setHighlighted, selectedOnM
             : 
             <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
           }
-          <Popover placement="topLeft" content={cost}>
+          {/* <Popover placement="topLeft" content={cost}> */}
             <h5>{
               data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
               } 
-              <Popover content={total}>
+              {/* <Popover content={total}> */}
                 <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Components</b></span>
-              </Popover> 
+              {/* </Popover>  */}
             </h5>
-          </Popover>
+          {/* </Popover> */}
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
