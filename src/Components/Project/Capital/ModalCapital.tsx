@@ -66,7 +66,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col>
       <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
-      <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
+      <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
   )
 }
@@ -645,8 +645,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                     onMouseLeave={()=> setValuesComp({table:'', value:''})}
                                     >
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
-                                      <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                      <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
+                                      <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
+                                      <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
                                       <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
                                         <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                     </Row>
@@ -673,8 +673,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
-                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}>{formatter.format(component.original_cost)}</Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
+                                    <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}>{formatter.format(component.original_cost)}</Col>
                                     <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
                                       <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
@@ -706,8 +706,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                             <Timeline.Item color="green">
                               <Row style={{marginLeft:'-18px'}}>
                                 <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
-                                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
-                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} >
+                                <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
+                                <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} >
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">
                                     <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)} maxLength={11}/>
                                   </Tooltip>
