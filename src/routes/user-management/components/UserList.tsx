@@ -12,6 +12,8 @@ import { OptionsFiltersUser, User } from "Classes/TypeList";
 import { SERVER } from "Config/Server.config";
 import { useUsersDispatch, useUsersState } from "hook/usersHook";
 import { PAGE_USER } from "constants/constants";
+import UserFilters from "Components/User/UserFilters";
+import UserMngFilters from "./UserMngFilters";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
@@ -200,6 +202,11 @@ const UserList = () => {
   const searchUserDelete = (option: OptionsFiltersUser) => {
     getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(option), setTotalUsersDeleted);
   }
+  const resetActivated = () => {
+    const resetOptions = {...PAGE_USER};
+    setOptionUserActivated(resetOptions);
+    searchUserActivated(resetOptions);
+  }
   
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
@@ -227,23 +234,25 @@ const UserList = () => {
         </Select>
         </div>
         <div  className='filter-user-management'>
-          <Input
+          <UserMngFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated}
+          reset={resetActivated} title={'activated'}/>
+          {/* <Input
             style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
             placeholder="Search by Name"
             prefix={<SearchOutlined />}
-          />
-          <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+          /> */}
+          {/* <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
               <Option value="Organization">Organization</Option>
-          </Select>
-          <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
+          </Select> */}
+          {/* <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
               <Option value="Service Area">Service Area</Option>
           </Select>
           <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
               <Option value="User Designation">User Designation</Option>
-          </Select>
-          <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'40px', width:'8%'}}>
+          </Select> */}
+          {/* <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'40px', width:'8%'}}>
             Reset
-          </Button>
+          </Button> */}
         </div>
         <div className="button-space">
 
