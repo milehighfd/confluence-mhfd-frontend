@@ -69,11 +69,11 @@ const UserList = () => {
         span ='admin';
         break;
       }
-      case 'MHFD Senior Manager': {
+      case 'Admin': {
         span ='manager';
         break;
       }
-      case 'Local Gov': {
+      case 'Government Staff': {
         span ='gov';
         break;
       }
@@ -113,7 +113,11 @@ const UserList = () => {
       key: 'designation',
       render: (designation) => (
         <span className={'span-' + roleSpan(designation)}>
-          {designation}
+          {designation === 'Admin' ? 'MHFD Senior Manager':
+          designation === 'Consultant' ? 'Consultant/Contractor':
+          designation === 'Government Staff' ? 'Local Government':
+          designation === 'Staff' ? 'MHFD Staff': designation
+          }
         </span> 
       ),
     },
