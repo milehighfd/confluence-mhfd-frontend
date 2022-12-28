@@ -28,7 +28,26 @@
   background-color: $white !important;
   border-color: $purple00 !important;
 }
-
+// BUTTON BORDE MANAGEMENT
+.btn-borde-management{
+  width: 100%;
+  min-height: 36px !important;
+  border-radius: 7px !important;
+  // border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
+  background-color: #ffffff !important;
+  color: $opacity !important;
+  box-shadow: none !important;
+  position: relative;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    // border-radius: 2px;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+}
+.btn-borde-management:hover, .btn-borde-management:focus, .btn-borde-management:active, .btn-borde-management.active{
+  color: $purple00 !important;
+  background-color: $white !important;
+  border-color: $purple00 !important;
+}
 // BUTTON OPACITY
 .btn-opacity, .btn-opacity:hover, .btn-opacity:focus, .btn-opacity:active, .btn-opacity.active{
   background-color: $light-purple !important;

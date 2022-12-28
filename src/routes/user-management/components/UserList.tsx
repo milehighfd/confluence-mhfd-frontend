@@ -38,7 +38,7 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
         serviceArea: elem.serviceArea !== null ? elem.serviceArea : '-',
         city: elem.city !== null ? elem.city : '-',
         county: elem.county !== null ? elem.county : '-',
-        designation: titleCase(elem.designation)
+        //designation: titleCase(elem.designation)
       }
     });
     console.log('arry',arrayUsers)
@@ -64,6 +64,7 @@ const UserList = () => {
   }
   const roleSpan = (role:string) => {
     let span = ''
+    titleCase(role)
     switch(role) {
       case 'Super Admin': {
         span ='admin';
@@ -113,10 +114,10 @@ const UserList = () => {
       key: 'designation',
       render: (designation) => (
         <span className={'span-' + roleSpan(designation)}>
-          {designation === 'Admin' ? 'MHFD Senior Manager':
-          designation === 'Consultant' ? 'Consultant/Contractor':
-          designation === 'Government Staff' ? 'Local Government':
-          designation === 'Staff' ? 'MHFD Staff': designation
+          {designation === 'admin' ? 'MHFD Senior Manager':
+          designation === 'consultant' ? 'Consultant/Contractor':
+          designation === 'government_staff' ? 'Local Government':
+          designation === 'staff' ? 'MHFD Staff': designation
           }
         </span> 
       ),
@@ -160,6 +161,7 @@ const UserList = () => {
   const [tabKey, setTabKey] = useState<any>('Users Management');
   const [openAction, setOpenAction] = useState(true);
   const [openFilters, setOpenFilters] = useState(false);
+  const [userSelected, setUserSelected] = useState<any>();
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
   const items = [
@@ -176,6 +178,8 @@ const UserList = () => {
       onClick={({ key }) => {
         switch(key) {
           case 'edit-user':
+            console.log('key', record)
+            setUserSelected(record);
             onExpand(record, key)
             break;
           case 'message-user':
@@ -211,7 +215,20 @@ const UserList = () => {
     setOptionUserActivated(resetOptions);
     searchUserActivated(resetOptions);
   }
-  
+  const deleteUserActivated = (id: string) => {
+    datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
+      if (res?._id) {
+        getAllUser();
+      }
+    });
+
+  }
+  const deleteUserDatabase = (id: String) => {
+    datasets.deleteData(SERVER.DELETE_USER + '/' + id, datasets.getToken()).then(res => {
+      getAllUser();
+    })
+  }
+
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
     searchUserActivated(resetOptions);
@@ -267,11 +284,18 @@ const UserList = () => {
           pagination={{ pageSize: 20 }}
           columns={columns}
           expandable={{
-            expandedRowRender: record => (
-              <ProfileUser record={record}/>
-            ),
+            expandedRowRender: record => {
+            console.log('entra record',userSelected);
+            if(userSelected !== undefined){
+            if(userSelected._id === record._id){
+              return (
+                <ProfileUser record={record} saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted"
+                deleteUserDatabase={deleteUserDatabase} />
+              )
+            }}
+            },
             expandIcon: ({ expanded, onExpand, record }) =>
-              expanded ? (
+              expanded && userSelected._id === record._id? (
                 <DownOutlined onClick={(e:any) => onExpand(record, e)} />
               ) : (
                 <Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >

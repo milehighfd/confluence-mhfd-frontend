@@ -14,6 +14,7 @@ import moment from 'moment';
 import { useProfileState } from '../../../hook/profileHook';
 
 const Accordeon = ({ user, pos, saveUser, deleteUser, type, deleteUserDatabase }: { user: User, pos: number, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
+  console.log(user, pos, saveUser, deleteUser, type, deleteUserDatabase)
   const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
