@@ -37,6 +37,9 @@ const DetailedModal = ({
     getComponentsByProblemId,
     resetDetailed
   } = useMapDispatch();
+  useEffect(() => {
+    console.log(detailed);
+  }, [detailed]);
 
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
@@ -67,7 +70,8 @@ const DetailedModal = ({
         setProblemPart(t);
       });
     } else {
-      getDetailedPageProject(data.id || data.projectid);
+      console.log('my data after clicking ', data);
+      getDetailedPageProject(data.project_id);
       getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
@@ -90,7 +94,7 @@ const DetailedModal = ({
       if (type === FILTER_PROBLEMS_TRIGGER) {
         url = `problemid=${data.problemid}`;
       } else {
-        url = `type=${data.type}&projectid=${data.id ? data.id : data.projectid}`;
+        url = `type=${data.type}&project_id=${data.project_id}`;
       }
       event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
       event.preventDefault();
@@ -156,11 +160,11 @@ const DetailedModal = ({
         {loaderDetailedPage && <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={{ span: 13 }}>
-              <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.projectname} </h1>
-              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.projecttype + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span>{detailedPage?.problemtype ? ( detailedPage?.jurisdiction + ', CO' ) : (detailedPage?.sponsor)}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage?.county + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage?.servicearea + ' Service Area'} </span></p>
+              <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.project_name} </h1>
+              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.project_status.code_phase_type.code_project_type.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span>{detailedPage?.problemtype ? ( detailedPage?.jurisdiction + ', CO' ) : ('TODO ADD SPONSOR ON BACKEND')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage?.codeStateCounty.county_name + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage?.codeServiceArea.service_area_name + ' Service Area'} </span></p>
               <Button className="btn-transparent btn-close-mobile" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </Col>
             <Col xs={{ span: 10 }} lg={{ span: 5 }}>
@@ -171,7 +175,7 @@ const DetailedModal = ({
                 <Progress percent={detailedPage?.solutionstatus ? detailedPage?.solutionstatus : 0} size="small" status="active" />
               </div>
               ) : (
-                <div className="btn-opacity">{detailedPage?.status}</div>
+                <div className="btn-opacity">{detailedPage?.project_status.code_phase_type.code_status_type.status_name}</div>
               )
               }
 
@@ -191,11 +195,7 @@ const DetailedModal = ({
                 ) : (
                   <div className="detailed-mm">
                     <b>{ 
-                      detailedPage?.estimatedcost 
-                      ? 
-                      ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailedPage?.estimatedcost))) 
-                      : 
-                      (detailedPage?.componentcost?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage?.componentcost)): 'No Cost Data')}
+                      (detailedPage?.sumCost != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage?.sumCost)): 'No Cost Data')}
                     </b>
                   </div>
                 )

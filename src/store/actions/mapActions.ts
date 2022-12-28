@@ -415,9 +415,14 @@ export const setSelectedPopup = (currentPopup: number) => {
 export const getDetailedPageProject = (id: number) => {
     return (dispatch: Function) => {
         dispatch({ type: detailedTypes.REPLACE_VALUE_SPIN })
-        datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?projectid=' + id, datasets.getToken()).then(detailed => {
+        datasets.getData(SERVER.V2_DETAILED_PAGE(id), datasets.getToken()).then(detailed => {
             dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
         });
+        /*
+            datasets.getData(SERVER.DETAILED_PAGE_PROJECT + '?projectid=' + id, datasets.getToken()).then(detailed => {
+                dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
+            });
+        */
     }
 }
 export const getDetailedPageProblem = (id: string) => {

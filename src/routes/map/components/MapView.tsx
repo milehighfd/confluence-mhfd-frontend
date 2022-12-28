@@ -931,6 +931,7 @@ const MapView = () => {
                 const projectType = project?.project_status?.code_phase_type?.code_project_type?.project_type_name;
                 const x = {
                   cartodb_id: project.project_id,
+                  project_id: project.project_id,
                   // TODO: MISSING IMAGES
                   // FEMA Grant Management
                   // Letter of Map Change

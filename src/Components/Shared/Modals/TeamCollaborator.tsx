@@ -25,7 +25,7 @@ const TeamCollaborator = () => {
             role="button"
             tabIndex={1}
           >
-            <h5 className={!selected ? 'active-title': ''}>Action Iteams</h5>
+            <h5 className={!selected ? 'active-title': ''}>Action Items</h5>
           </div>
         </Col>
         <Col span={2} style={{textAlign:'end'}}>
