@@ -48,7 +48,13 @@ const UserActivity = () => {
     { title: <>Date and Time <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'registerDate', key: 'registerDate' },
     { title: <>User <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'user', key: 'user' },
     { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
-    { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'activityType', key: 'activityType' },
+    { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'activityType', key: 'activityType',
+    render: (activityType) => (
+      <span className="span-activityType">
+        {activityType}
+      </span>
+    ),
+    },
   ];
   const columns: ColumnsType<DataType> = [
     {
@@ -108,9 +114,19 @@ const UserActivity = () => {
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
 
-  
+  const titleCase = (str:any)=> {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+ }
   userActivity.data.forEach((element: any) => {
-    element.user = element.firstName + " " + element.lastName;
+    const completeName = (element.firstName + " " + element.lastName);
+    const activitytype: any = element.activityType!==undefined ?element.activityType:'-';
+    element.city = element.city ? element.city : '-';
+    element.activityType = titleCase(activitytype.replaceAll('_', ' '));
+    element.user = completeName.includes('MHFD') ? completeName: titleCase(completeName);
     element.registerDate = moment(new Date('' + element.registerDate)).format('MM/DD/YYYY hh:mm A');
   });
   const pagination = {
@@ -124,7 +140,6 @@ const UserActivity = () => {
   const getUrlOptionsUserActivity = (pagination: {current: number, pageSize: number}, sorter: {field?: string, order?: string}) => {
     return 'page=' + pagination.current + '&limit=' + pagination.pageSize + (sorter?.order ? ('&sort=' + sorter.field + '&sorttype=' + (sorter.order === "descend" ? 'DESC': 'ASC')): '&sort=registerDate&sorttype=DESC')
   }
-  console.log('useractiviy',userActivity);
 
   useEffect(() => {
     getUserActivity(getUrlOptionsUserActivity({current: 1, pageSize: 20}, {}));
@@ -143,7 +158,7 @@ const UserActivity = () => {
         <Table
           columns={columns2}
           // dataSource={DATA_USER_ACTIVITY}
-          rowKey={record => record.registerDate}
+          rowKey={record => `${record.user}_${record.registerDate}`}
           dataSource={userActivity.data}
           pagination={pagination} onChange={(pagination, filters, sort) => handleTableChange(pagination, filters, sort)}
         />

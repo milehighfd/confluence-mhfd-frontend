@@ -130,6 +130,7 @@ const UserView = () => {
                       <UserFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated}
                         reset={resetActivated} title={'activated'}/>
                       {userActivatedState.map((user: User, index: number) => {
+                        console.log('what is inside',userActivatedState)
                         aprPos++;
                         return (
                           <div key={user._id} style={{ marginBottom: 10 }}>

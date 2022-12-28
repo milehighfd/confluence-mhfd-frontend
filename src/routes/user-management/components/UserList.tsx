@@ -22,7 +22,8 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
     const arrayUsers = res.users.map((elem: any) => {
       return {
         ...elem,
-        name: [elem.name, elem.email, elem.photo]
+        name: [elem.name, elem.email, elem.photo],
+        statusAccount: elem.activated === true? 'Active': 'Inactive'
       }
     });
     console.log('arry',arrayUsers)
@@ -44,6 +45,7 @@ const UserList = () => {
     city: string;
     status: string;
     actions: string;
+    statusAccount: string
   }
   const roleSpan = (role:string) => {
     let span = ''
@@ -105,11 +107,11 @@ const UserList = () => {
     { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
     {
       title: <>Status <ArrowDownOutlined className="ico-arrow"/></>,
-      dataIndex: 'status',
-      key: 'status',
-      render: (status) => (
-        <span className={'span-' + status}>
-          <div className="circulo"/>{status}
+      dataIndex: 'statusAccount',
+      key: 'statusAccount',
+      render: (statusAccount) => (
+        <span className={'span-'+statusAccount}>
+          <div className="circulo"/>{statusAccount}
         </span>
       ),
     },
