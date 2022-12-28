@@ -219,6 +219,9 @@
       input{
         border-radius: 5px;
       }
+      .line-01{
+        margin-top: 13px;
+      }
     }
   }
   .table-activity-management::-webkit-scrollbar {
@@ -348,6 +351,9 @@
       color: #11093C;
       h1, h2, h3, h4, h5, h6 {
         color: rgb(29 22 70);
+      }
+      .line-01{
+        margin-top: 5px;
       }
     }
   }
@@ -770,6 +776,9 @@
       span{
         font-size: 16px !important;
       }
+      .line-01{
+        margin-top: 17px !important;
+      }
     }
   }
 }
@@ -987,6 +996,10 @@
         height: 23px !important;
         margin-top: -12px !important;
         margin-left: -12px !important;
+      }
+      .line-01{
+        margin-top: 25px !important;
+        height: 2px !important;
       }
     }
   }
@@ -1245,6 +1258,10 @@
         height: 35px !important;
         margin-top: -18px !important;
         margin-left: -18px !important;
+      }
+      .line-01{
+        margin-top: 40px !important;
+        height: 3px !important;
       }
     }
   }
