@@ -185,7 +185,6 @@ const PortafolioBody = () => {
     }
   }, []);
   useEffect(() => {
-    console.log('bounds map', boundsMap);
     if (boundsMap !== '') {
       getParamFilterProjects(boundsMap);
     }
@@ -296,7 +295,7 @@ const PortafolioBody = () => {
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
                     {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}
-                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
+                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} indexParent={idx}/>}
                     {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
                   </Col>
                 </Row>

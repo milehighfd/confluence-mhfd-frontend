@@ -9,7 +9,7 @@ import ModalGraphic from "./ModalGraphic";
 const { Step } = Steps;
 
 const PhaseView = (
-  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic, index}
+  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic, indexParent}
   :{
     rawData:any,
     openTable:boolean[],
@@ -25,7 +25,7 @@ const PhaseView = (
       left: number;
       top: number;
   }>>, 
-  index: number;
+  indexParent: number;
       }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -425,8 +425,8 @@ const PhaseView = (
             ref={phaseRef}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
-              if (searchRef.current[index]) {
-                searchRef.current[index].scrollTo(0, dr.scrollTop);
+              if (searchRef.current[indexParent]) {
+                searchRef.current[indexParent].scrollTo(0, dr.scrollTop);
               }
             }}
           >

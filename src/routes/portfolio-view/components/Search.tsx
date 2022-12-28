@@ -117,7 +117,7 @@ const Search = (
             tableRef.current[index].scrollTo(0, dr.scrollTop);
           }
           if(phaseRef.current){
-            phaseRef.current.scrollTo(0, e.target.scrollTopp)
+            phaseRef.current.scrollTo(0, e.target.scrollTop)
           }
           if(scheduleRef.current){
             scheduleRef.current.scrollTo(0, e.target.scrollTop)
