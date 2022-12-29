@@ -945,13 +945,11 @@ const MapView = () => {
                     projectType === 'Capital (CIP)' ? '/projectImages/capital.png' :
                       projectType === 'Planning Study (Study)' ? '/projectImages/study.png' :
                         projectType === 'Special' ? '/projectImages/special.png' :
-                        projectType === 'Maintenance' ?
-                          (project.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                            project.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                              project.projectsubtype === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
-                                project.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
-                                  project.projectsubtype === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png'
-                                  ) : '/projectImages/watershed-change.png'
+                          projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                            projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+                              projectType === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
+                                projectType === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+                                  projectType === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/projectImages/watershed-change.png'
                   ),
                   requestName: project.project_name,
                   sponsor: project.sponsor,

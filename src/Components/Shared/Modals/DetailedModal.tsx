@@ -41,6 +41,7 @@ const DetailedModal = ({
     console.log(detailed);
   }, [detailed]);
 
+  const [projectType, setProjecttype] = useState('');
   const ciprRef = useRef(null);
   const cipjRef = useRef(null);
   const [typeDetail, setTypeDetail] = useState('');
@@ -147,6 +148,9 @@ const DetailedModal = ({
 
   useEffect(() => {
     console.log('detailedPage', detailedPage);
+    const projectType = detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+    console.log('project tyep', projectType);
+    setProjecttype(projectType);
   }, [detailedPage]);
   return (
     <>
@@ -221,23 +225,24 @@ const DetailedModal = ({
                   {detailedPage?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailedPage?.problemtype + ".png"} /> </div>
                   ) : (
-                      detailedPage?.attachments?.length == 0 ? (
-                        <div className="detailed-c"> <img  src={detailedPage?.projecttype === 'Capital' ? 'detailed/capital.png' :
-                            detailedPage?.projecttype === 'Study' ? 'projectImages/study.jpg' :
-                              detailedPage?.projecttype === 'Maintenance' ?
-                                (detailedPage?.projectsubtype === 'Vegetation Management' ? 'detailed/vegetation-management.png' :
-                                  detailedPage?.projectsubtype === 'Sediment Removal' ? 'detailed/sediment-removal.png' :
-                                    detailedPage?.projectsubtype === 'Restoration' ? 'detailed/restoration.png' :
-                                      detailedPage?.projectsubtype === 'Minor Repairs' ? 'detailed/minor-repairs.png' :
-                                        'detailed/debris-management.png') : 'Icons/eje.png'
+                      // detailedPage?.attachments?.length == 0 ? (
+                        <div className="detailed-c"> <img  src={
+                          projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
+                            projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
+                              projectType === 'Special' ? '/detailed/special.png' :
+                                projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
+                                  projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
+                                    projectType === 'Maintenance Restoration' ? '/detailed/restoration.png' :
+                                      projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
+                                        projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
                         } /> </div>
-                      ) : (
-                        detailedPage?.attachments && detailedPage?.attachments.map((image: string, index: number) => {
-                          return <div key={index} className="detailed-c">
-                            <img width="100%" height="100%" src={image} alt="" />
-                          </div>
-                        })
-                      )
+                      // ) : (
+                      //   detailedPage?.attachments && detailedPage?.attachments.map((image: string, index: number) => {
+                      //     return <div key={index} className="detailed-c">
+                      //       <img width="100%" height="100%" src={image} alt="" />
+                      //     </div>
+                      //   })
+                      // )
 
                     )}
               </Carousel>
