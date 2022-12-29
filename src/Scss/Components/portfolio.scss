@@ -964,6 +964,9 @@
         text-overflow: ellipsis;
         overflow: hidden;
       }
+      .title-project:hover{
+        text-decoration: underline;
+      }
     }
     .text-search:hover {
       background-color: #fafafa;
@@ -1028,6 +1031,23 @@
   }
   .table-body{
     overflow-x: auto;
+    .table-table-body{
+      width: min-content;
+    }
+    .table-table-body::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    .table-table-body::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    .table-table-bodyy::-webkit-scrollbar-thumb {
+      background: $purple00;
+      border-radius: 10px;
+    }
     .table-body-body{
       .ant-table-tbody>tr>td {
         border-bottom: none;
@@ -1036,13 +1056,13 @@
         border-bottom:  none;
       }
       overflow-y: auto;
-      height: calc(100vh - 232.5px);
+      height: calc(100vh - 241.5px);
       .line-table{
         height: 39px;
         background-color: #fbfbfc;
         position: absolute;
         z-index: 10;
-        width: 100%;
+        width: 99%;
       }
     }
     .table-body-body::-webkit-scrollbar-thumb {
@@ -1062,6 +1082,7 @@
     .table-body-body::-webkit-scrollbar-thumb {
       background: $purple00;
       border-radius: 10px;
+      z-index: 100;
     }
     .table-close{
       .ant-table-tbody {
@@ -1115,7 +1136,7 @@
       }
       .ant-table-thead>tr>th {
         color: #251863;
-        background: #f8f8fa;
+        background: #fbfbfc;
         // opacity: 0.6;
         padding: 5px 14px !important;
       }
@@ -1163,6 +1184,24 @@
         color: transparent;
         display: none;
       }
+    }
+    .table-text-body{
+      width: 162px;
+    }
+    .onbase{
+      width: 115px !important;
+    }
+    .landscape{
+      width: 203px !important;
+    }
+    .construction_start_date{
+      width: 215px !important;
+    }
+    .local_government{
+      width: 170px !important;
+    }
+    .rd-table{
+      width: 194px !important;
     }
   }
   .table-body::-webkit-scrollbar {
@@ -2349,9 +2388,10 @@
   }
   .table-body{
     .table-body-body{
-      height: calc(100vh - 263px) !important;
+      height: calc(100vh - 267px) !important;
       .line-table{
         height: 53.07px !important;
+        width: 99.5%;
       }
     }
     .table-first{
@@ -2361,17 +2401,34 @@
       margin-top: 52px !important;
     }
     .table-portafolio{
+      .table-text-body{
+        width: 217px !important;
+      }
+      .onbase{
+        width: 165px !important;
+      }
+      .landscape{
+        width: 216px !important;
+      }
+      .construction_start_date{
+        width: 215px !important;
+      }
+      .local_government{
+        width: 170px !important;
+      }
+      .rd-table{
+        width: 260px !important;
+      }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 13px 14px !important;
         font-size: 16.5px;
         height: 53.07px !important;
+        // width: 219px !important;
       }
       .ant-table-thead>tr>th {
         height: 43px !important;
         font-size: 16px;
-      }
-      .ant-table-thead{
-        height: 53.06px !important;
+        // width: 219px !important;
       }
     }
     .header-table{
@@ -3040,12 +3097,49 @@
       height: calc(100vh - 303px) !important;
       .line-table{
         height: 63.78px !important;
+        width: 99.6%;
       }
     }
     .table-first{
      margin-top: 59.79px !important;
     }
     .table-portafolio{
+      .table-text-body{
+        width: 217px !important;
+      }
+      .onbase{
+        width: 165px !important;
+      }
+      .landscape{
+        width: 216px !important;
+      }
+      .construction_start_date{
+        width: 215px !important;
+      }
+      .local_government{
+        width: 170px !important;
+      }
+      .rd-table{
+        width: 260px !important;
+      }
+      .table-text-body{
+        width: 295px !important;
+      }
+      .onbase{
+        width: 203px !important;
+      }
+      .landscape{
+        width: 275px !important;
+      }
+      .construction_start_date{
+        width: 292px !important;
+      }
+      .local_government{
+        width: 170px !important;
+      }
+      .rd-table{
+        width: 394px !important;
+      }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
         font-size: 20px;
@@ -3830,15 +3924,34 @@
   }
   .table-body{
     .table-body-body{
-      height: calc(100vh - 363px) !important;
+      height: calc(100vh - 373px) !important;
       .line-table{
         height: 73.06px !important;
+        width: 99.7%;
       }
     }
     .table-first{
      margin-top: 73.3px !important;
     }
     .table-portafolio{
+      .table-text-body{
+        width: 442px !important;
+      }
+      .onbase{
+        width: 300px !important;
+      }
+      .landscape{
+        width: 442px !important;
+      }
+      .construction_start_date{
+        width: 442px !important;
+      }
+      .local_government{
+        width: 442px !important;
+      }
+      .rd-table{
+        width: 530px !important;
+      }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
         font-size: 25.6px;
