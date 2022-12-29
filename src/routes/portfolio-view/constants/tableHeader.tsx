@@ -638,7 +638,7 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
     title: '',
     dataIndex: 'local_government',
     key: 'local_government',
-    className:'table-text-body',
+    className:'local_government',
     // width:"6.666666666666667",
     ellipsis: true,
   },

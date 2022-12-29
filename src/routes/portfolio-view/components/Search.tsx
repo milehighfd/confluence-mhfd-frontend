@@ -113,8 +113,9 @@ const Search = (
         onScrollCapture={(e:any) => {
           // TODO
           let dr: any = searchRef.current[index];
+          let drTable: any = tableRef.current[index];
           if(tableRef.current[index]){
-            tableRef.current[index].scrollTo(0, dr.scrollTop);
+            tableRef.current[index].scrollTo(drTable.scrollLeft, dr.scrollTop);
           }
           if(phaseRef.current){
             phaseRef.current.scrollTo(0, e.target.scrollTop)

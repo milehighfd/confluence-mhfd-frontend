@@ -19,7 +19,7 @@ const TablePortafolio = (
   }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
-  
+  const tableRef = useRef<null | HTMLDivElement>(null);
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
     switch(tabKey){
@@ -103,56 +103,61 @@ const TablePortafolio = (
   },[divRef.current, searchRef.current])
   return <div className="table-body">
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
-    <div className="table-table-body" style={{width:'min-content'}}>
-      <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
-    <div
-      className="table-body-body"
+    <div className="table-table-body" style={{width:'min-content'}} >
+      <div ref={tableRef} className="scroll-scroll-table">
+        <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
+      </div>
+    <div className="table-body-body"
       ref={el => divRef.current[index] = el}
       onScrollCapture={(e:any) => {
         let dr: any = divRef.current[index];
-        if(searchRef.current[index]){
-          searchRef.current[index].scrollTo(0, dr.scrollTop);
+        if(searchRef.current[index] && tableRef.current){
+            searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+            tableRef.current.scrollTo(dr.scrollLeft, 0);
         }
       }}
     >
-    <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
-    {
-      completeData.map((elem: any, index: number) => {
-        return(
-          <Table
-            columns={ValueTabsValue()}
-            dataSource={elem.values}
-            pagination={{ pageSize: 1000 }}
-            className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: event => {}, // click row
-                onDoubleClick: event => {}, // double click row
-                onContextMenu: event => {}, // right button click row
-                onMouseEnter: event => {setHoverTable([1,index,rowIndex? rowIndex:0]);}, // mouse enter row
-                onMouseLeave: event => {}, // mouse leave row
-              };
-            }}
-            onHeaderRow={(record, rowIndex) => {
-              return {
-                onClick: event => {}, // click row
-                onDoubleClick: event => {}, // double click row
-                onContextMenu: event => {}, // right button click row
-                onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
-                onMouseLeave: event => {}, // mouse leave row
-              };
-            }}
-            rowClassName={(record:any) => {
-              if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === index){
-                return 'active-table-row'
-              }
-              return ''
-            }}
-          />
-        )
-        
-      })
-    }
+      <div
+        className="scroll-table"
+      >
+      <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
+      {
+        completeData.map((elem: any, index: number) => {
+          return(
+            <Table
+              columns={ValueTabsValue()}
+              dataSource={elem.values}
+              pagination={{ pageSize: 1000 }}
+              className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: event => {}, // click row
+                  onDoubleClick: event => {}, // double click row
+                  onContextMenu: event => {}, // right button click row
+                  onMouseEnter: event => {setHoverTable([1,index,rowIndex? rowIndex:0]);}, // mouse enter row
+                  onMouseLeave: event => {}, // mouse leave row
+                };
+              }}
+              onHeaderRow={(record, rowIndex) => {
+                return {
+                  onClick: event => {}, // click row
+                  onDoubleClick: event => {}, // double click row
+                  onContextMenu: event => {}, // right button click row
+                  onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
+                  onMouseLeave: event => {}, // mouse leave row
+                };
+              }}
+              rowClassName={(record:any) => {
+                if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === index){
+                  return 'active-table-row'
+                }
+                return ''
+              }}
+            />
+          )
+        })
+      }
+      </div>
     </div>
     
       {/* <Table

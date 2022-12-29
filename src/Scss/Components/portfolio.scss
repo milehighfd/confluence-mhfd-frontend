@@ -1030,7 +1030,7 @@
     }
   }
   .table-body{
-    overflow-x: auto;
+    overflow-x: hidden;
     .table-table-body{
       width: min-content;
     }
@@ -1048,7 +1048,15 @@
       background: $purple00;
       border-radius: 10px;
     }
+    .scroll-scroll-table{
+      width: calc(100vw - 348px);
+      overflow: auto;
+    }
+    .scroll-scroll-table::-webkit-scrollbar {
+      display: none;
+      }
     .table-body-body{
+      width: calc(100vw - 348px);
       .ant-table-tbody>tr>td {
         border-bottom: none;
       }
@@ -1056,13 +1064,14 @@
         border-bottom:  none;
       }
       overflow-y: auto;
-      height: calc(100vh - 241.5px);
+      height: calc(100vh - 237.5px);
       .line-table{
         height: 39px;
         background-color: #fbfbfc;
         position: absolute;
         z-index: 10;
-        width: 99%;
+        width: 99.3%;
+        top:72px;
       }
     }
     .table-body-body::-webkit-scrollbar-thumb {
@@ -1071,6 +1080,7 @@
     }
     .table-body-body::-webkit-scrollbar {
       width: 5px;
+      height: 5px;
     }
     
     /* Track */
@@ -1083,6 +1093,65 @@
       background: $purple00;
       border-radius: 10px;
       z-index: 100;
+    }
+    
+    .table-body-body::-webkit-scrollbar-button {
+      display: none;  /* Oculta las flechas */
+    }
+    
+    .table-body-body::-moz-scrollbar {
+      width: 5px;  /* Tamaño de la barra de desplazamiento */
+      background-color: #F5F5F5;  /* Color del track */
+    }
+    
+    .table-body-body::-moz-scrollbar-thumb {
+      background-color: $purple00;  /* Color del thumb */
+      border-radius: 10px;  /* Bordes redondeados del thumb */
+    }
+    
+    .table-body-body::-moz-scrollbar-button {
+      display: none;  /* Oculta las flechas */
+    }
+    .scroll-table{
+      width: min-content;
+    }
+    .scroll-table::-webkit-scrollbar-thumb {
+      background: transparent; 
+      border-radius: 10px;
+    }
+    .scroll-table::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    /* Track */
+    .scroll-table::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+     
+    /* Handle */
+    .scroll-table::-webkit-scrollbar-thumb {
+      background: $purple00;
+      border-radius: 10px;
+      z-index: 100;
+    }
+    
+    .scroll-tabley::-webkit-scrollbar-button {
+      display: none;  /* Oculta las flechas */
+    }
+    
+    .scroll-table::-moz-scrollbar {
+      width: 5px;  /* Tamaño de la barra de desplazamiento */
+      background-color: #F5F5F5;  /* Color del track */
+      height: 5px;
+    }
+    
+    .scroll-table::-moz-scrollbar-thumb {
+      background-color: $purple00;  /* Color del thumb */
+      border-radius: 10px;  /* Bordes redondeados del thumb */
+    }
+    
+    .scroll-table::-moz-scrollbar-button {
+      display: none;  /* Oculta las flechas */
     }
     .table-close{
       .ant-table-tbody {
@@ -1102,7 +1171,7 @@
       margin-top: 39px;
     }
     .table-portafolio{
-      overflow: hidden;  
+      // overflow: hidden;  
       .ant-table-thead {
         height: 39px;
         border-radius: 7px 7px 0px 0px;
@@ -2387,8 +2456,12 @@
     }
   }
   .table-body{
+    .scroll-scroll-table{
+      width: calc(100vw - 448px) !important;
+    }
     .table-body-body{
       height: calc(100vh - 267px) !important;
+      width: calc(100vw - 448px) !important;
       .line-table{
         height: 53.07px !important;
         width: 99.5%;
@@ -2414,7 +2487,7 @@
         width: 215px !important;
       }
       .local_government{
-        width: 170px !important;
+        width: 203px !important;
       }
       .rd-table{
         width: 260px !important;
@@ -2426,7 +2499,7 @@
         // width: 219px !important;
       }
       .ant-table-thead>tr>th {
-        height: 43px !important;
+        height: 53.07px !important;
         font-size: 16px;
         // width: 219px !important;
       }
@@ -3093,11 +3166,16 @@
     }
   }
   .table-body{
+    .scroll-scroll-table{
+      width: calc(100vw - 582px) !important;
+    }
     .table-body-body{
-      height: calc(100vh - 303px) !important;
+      height: calc(100vh - 307px) !important;
+      width: calc(100vw - 582px) !important;
       .line-table{
         height: 63.78px !important;
-        width: 99.6%;
+        width: 99.6% !important;
+        top: 97px !important;
       }
     }
     .table-first{
@@ -3135,10 +3213,10 @@
         width: 292px !important;
       }
       .local_government{
-        width: 170px !important;
+        width: 241px !important;
       }
       .rd-table{
-        width: 394px !important;
+        width: 354px !important;
       }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 15.4px 14px !important;
@@ -3923,11 +4001,16 @@
     }
   }
   .table-body{
+    .scroll-scroll-table{
+      width: calc(100vw - 882px) !important;
+    }
     .table-body-body{
-      height: calc(100vh - 373px) !important;
+      height: calc(100vh - 370px) !important;
+      width: calc(100vw - 882px) !important;
       .line-table{
         height: 73.06px !important;
-        width: 99.7%;
+        width: 99.7% !important;
+        top: 102px !important;
       }
     }
     .table-first{
