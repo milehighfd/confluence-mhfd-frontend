@@ -9,7 +9,7 @@ import * as datasets from "../../../Config/datasets";
 import { User } from '../../../Classes/TypeList';
 // import Alert from '../../Shared/Alert';
 import moment from 'moment';
-import { useProfileState } from '../../../hook/profileHook';
+import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
 import { SERVER } from "Config/Server.config";
 import RadioItemsView from "Components/User/UserComponents/RadioItemsView";
 import RadioDesignation from "./RadioDesignation";
@@ -18,10 +18,17 @@ import MenuAreaView from "Components/User/UserComponents/MenuAreaView";
 
 const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
-  
+  const {
+    updateUserInformation,
+    getGroupOrganization,
+    uploadImage,
+    spinValue
+  } = useProfileDispatch();
+
   const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
+  console.log('groupOrganization', groupOrganization)
   const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
     if (item.aoi === undefined) {
       return false;
@@ -35,6 +42,25 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   };
   const [organizationList, setOrganizationList] = useState<any[]>([]);
   const [consultantList, setConsultantList] = useState<any[]>([]);
+  useEffect(() => {
+    getGroupOrganization();
+  }, []);
+  useEffect(() => {
+    setDataAutocomplete(groupOrganization.filter(function (item: any) {
+      if (item.aoi === undefined) {
+        return false;
+      }
+      return true;
+    }).map((item: { aoi: string }) => {
+      return { key: item.aoi, value: item.aoi, label: item.aoi }
+    }));
+  }, [groupOrganization]);
+  console.log('dataAutocomplete',dataAutocomplete)
+  const itemsZoomtoarea = dataAutocomplete.map((item:any) => {
+
+    return item.key
+  })
+  console.log('itemsZoomtoarea', itemsZoomtoarea)
   useEffect(() => {
     datasets.getData(SERVER.GET_ORGANIZATIONS)
       .then((rows) => {
@@ -94,6 +120,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       }}>
     </Menu>
   };
+
   const menu = () => {
     let itemMenu: MenuProps['items']
     let regional: any = [];
@@ -149,6 +176,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         }
       });
     }
+    console.log('itemMenu', itemMenu)
     return <Menu
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
@@ -270,6 +298,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       </Col>
     </Row>
   );
+
+  console.log(MenuAreaView(CITIES, 'city', values, setTitle));
 
   return (
     <>
@@ -414,7 +444,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <Row gutter={16}>
-              <div className="gutter-row"  id={'zoomarea' + values._id}>
+              <div className="gutter-row"  id={'zoomarea' + values._id} style={{width:'100%'}}>
                 <Dropdown
                 className="dropdown-user-management"
                   trigger={['click']}
