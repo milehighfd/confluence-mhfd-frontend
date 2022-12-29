@@ -286,6 +286,9 @@ export const addPopupsOnClick = async (
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         }
           const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
+          const sponsors = dataFromDB?.sponsor.map((el:any) => el.business_associate.business_name);
+          const estimatedcost = dataFromDB?.estimatedCost[0].cost;
+          const componentcost = dataFromDB?.componentCost[0].cost;
           const filtered = galleryProjects.filter((item: any) =>
               item.cartodb_id === feature.properties.cartodb_id
           );
@@ -301,14 +304,14 @@ export const addPopupsOnClick = async (
             name: (dataFromDB.project_name
               ? dataFromDB.project_name
               : '-'),
-            organization: 'TODO MISSING SPONSOR VALUE ',
-            value: 'TODO ESTIMATED COST AND COMPONENT COST',
+            organization: sponsors.join(','),
+            value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : 0),
             projecctype: dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name,
             status: dataFromDB?.project_status?.code_phase_type?.code_status_type?.status_name,
             objectid: dataFromDB?.codeStateCounty?.objectid,
             component_count: 0 , // TODO component_count
             valueid: feature.properties.cartodb_id,
-            id: feature.properties.projectid,
+            id: dataFromDB.project_id,
             streamname: feature.properties.streamname, // TODO streamname
             isEditPopup: feature.source === PROJECTS_DRAFT,
             popupId: 'popup',
