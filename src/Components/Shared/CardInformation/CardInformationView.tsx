@@ -58,9 +58,9 @@ const CardInformationView = ({
     }
     return false;
   }
-  const [activeCard, setActiveCard] = useState(isActive(data.type, data.id));
+  const [activeCard, setActiveCard] = useState(isActive(data.type || 'project', data.project_id));
   useEffect(() => {
-    const status = isActive(data.type, data.problemid || data.id);
+    const status = isActive(data.type || 'project', data.problemid || data.project_id);
     setActiveCard(status);
   }, [favorites, deleteFavorite, addFavorite]);
 
@@ -184,7 +184,7 @@ const CardInformationView = ({
                <Button onClick={(event) => {
                   event.stopPropagation();
 
-                  activeCard ?  deleteFavorite(user.email, (data.id || data.problemid), data.type) : addFavorite(user.email, (data.id || data.problemid), data.type);
+                  activeCard ?  deleteFavorite(user.email, (data.project_id || data.problemid), (data.type || 'project')) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || 'project'));
                 }
                }
                 >
