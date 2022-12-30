@@ -95,13 +95,61 @@
     padding: 5px;
     filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.2));
     border-radius: 3px;
-    height: 52px;
+    height: 47px;
     display: flex;
     justify-content: space-between;
     width: 940px;
     z-index: 20;
     .ant-select-arrow {
       height: 16px !important;
+    }
+    .dropdown-special-bottomLeft-filter{
+      margin-right:10px;
+      text-align: initial;
+      height:36px;
+    }
+    .filter-area{
+      margin-right:10px;
+      width: 19%;
+      text-align: initial;
+      height:36px;
+    }
+    .btn-borde{
+      width: 100%;
+      text-align: initial;
+      height:36px;
+      justify-content: space-between;
+      display: flex;
+      padding: 6.5px 10px;
+      border-radius: 3px !important;
+      span{
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      .anticon{
+        margin-top: 7px;
+      }
+    }
+    .sign-menu-organization {
+      width: 176px;
+    }
+    .menu-sub-drop{
+      opacity: 0.6 !important;
+      padding: 4.5px 7px !important;
+    }
+    .menu-sub-drop:hover{
+      opacity: 1 !important;
+    }
+    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+      line-height: 18px;
+    }
+    .ant-input-search-button {
+      height: 36px;
+    }
+    .ant-input{
+      height: 36px;
     }
   }
   .head-list{
@@ -168,7 +216,7 @@
       color: #251863;
     }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      min-height: 36px !important;
+      min-height: 34px !important;
     }
     .ant-pagination-item-active {
       border-color: #251863;
@@ -192,6 +240,11 @@
         margin-bottom: 0px;
         opacity: 0.6;
         padding-left:5px;
+      }
+      img{
+        border-radius: 50% !important;
+        height: 34px !important;
+        width: 34px !important;
       }
     }
     .ant-table-tbody>tr>td{
@@ -293,6 +346,25 @@
       .line-01{
         margin-top: 13px;
       }
+      .btn-borde-management {
+        width: 100%;
+        text-align: initial;
+        height:36px;
+        justify-content: space-between;
+        display: flex;
+        padding: 6.5px 10px;
+        border-radius: 3px !important;
+        margin-bottom: 15px;
+        span{
+          display: inline-block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        .anticon{
+          margin-top: 7px;
+        }
+      }
     }
   }
   .table-activity-management::-webkit-scrollbar {
@@ -352,6 +424,11 @@
         margin-bottom: 0px;
         opacity: 0.6;
         padding-left:5px;
+      }
+      img{
+        border-radius: 50% !important;
+        height: 34px !important;
+        width: 34px !important;
       }
     }
     .ant-table-tbody>tr>td{
@@ -775,6 +852,54 @@
         height: 18px !important;
         font-size: 14px !important;
       }
+      .dropdown-special-bottomLeft-filter{
+        margin-right:10px;
+        text-align: initial;
+        height:36px;
+      }
+      .filter-area{
+        margin-right:10px;
+        width: 19%;
+        text-align: initial;
+        height:36px;
+      }
+      .btn-borde{
+        width: 100%;
+        text-align: initial;
+        height:36px;
+        justify-content: space-between;
+        display: flex;
+        padding: 6.5px 10px;
+        border-radius: 3px !important;
+        span{
+          display: inline-block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        .anticon{
+          margin-top: 7px;
+        }
+      }
+      .sign-menu-organization {
+        width: 231px;
+      }
+      .menu-sub-drop{
+        opacity: 0.6 !important;
+        padding: 4.5px 7px !important;
+      }
+      .menu-sub-drop:hover{
+        opacity: 1 !important;
+      }
+      .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+        line-height: 20px;
+      }
+      .ant-input-search-button {
+        height: 36px;
+      }
+      .ant-input{
+        height: 40px;
+      }
     }
     .button-space {
       width: 211px;
@@ -782,6 +907,17 @@
     .table-user-management{
       height: calc(100vh - 222px);
       margin-top: 10px !important;
+      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+        min-width: 40px;
+        height: 40px;
+      }
+      .ant-pagination-item, .ant-pagination-total-text {
+        height: 40px;
+        line-height: 38px;
+      }
+      .ant-pagination-item {
+        min-width: 40px;
+      }
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         height: 40px !important;
       }
@@ -846,6 +982,9 @@
       }
       span{
         font-size: 16px !important;
+      }
+      .btn-borde-management .anticon {
+        margin-top: 3px;
       }
       .line-01{
         margin-top: 17px !important;
@@ -946,9 +1085,20 @@
       width: 1671px !important;
       padding: 14px;
       height: auto;
+      .sign-menu-organization {
+        width: 309px;
+      }
       button{
         height: 55px !important;
         font-size: 21px;
+        width: 46px;
+      }
+      .btn-borde .anticon {
+        margin-top: 11px;
+        font-size: 18px;
+      }
+      .ant-input{
+        height: 55px !important;
       }
       .ant-input-affix-wrapper{
         height: 55px !important;
@@ -976,6 +1126,18 @@
     .table-user-management{
       margin-top: 10px !important;
       height: calc(100vh - 249px);
+      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+        min-width: 60px;
+        height: 60px;
+      }
+      .ant-pagination-item, .ant-pagination-total-text {
+        height: 60px;
+        line-height: 53px;
+        font-size: 20px;
+      }
+      .ant-pagination-item {
+        min-width: 60px;
+      }
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         min-height: 60px !important;
       }
@@ -992,6 +1154,7 @@
       .user-tab{
         img{
           height: 60px !important;
+          width: 60px !important;
         }
         .name-user-list {
           font-size: 21px !important;
@@ -1037,7 +1200,7 @@
       .btn-profile-list{
         font-size: 32px !important;
         height: auto;
-        padding: 15px 60px;
+        padding: 11px 60px;
         span{
           font-size: 32px !important;
         }
@@ -1071,6 +1234,10 @@
       .line-01{
         margin-top: 25px !important;
         height: 2px !important;
+      }
+      .btn-borde-management{
+        height: 60px !important;
+        padding: 11.5px 16px !important;
       }
     }
   }
@@ -1201,9 +1368,25 @@
       width: 2507px !important;
       padding: 21px;
       height: auto;
+      .sign-menu-organization {
+        width: 309px;
+      }
       button{
         height: 75px !important;
         font-size: 32px;
+        width: 70px;
+        padding: 11px 20px !important;
+        .anticon{
+          font-size: 20px;
+        }
+      }
+      .btn-borde .anticon {
+        margin-top: 19px;
+        font-size: 25px;
+      }
+      .ant-input{
+        height: 75px !important;
+        font-size: 32px !important;
       }
       .ant-input-affix-wrapper{
         height: 75px !important;
@@ -1234,6 +1417,18 @@
       margin-top: 15px !important;
       height: calc(100vh - 350px);
       padding: 0px 20px;
+      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+        min-width: 80px;
+        height: 80px;
+      }
+      .ant-pagination-item, .ant-pagination-total-text {
+        height: 80px;
+        line-height: 73px;
+        font-size: 30px;
+      }
+      .ant-pagination-item {
+        min-width: 80px;
+      }
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         min-height: 80px !important;
       }
@@ -1250,6 +1445,7 @@
       .user-tab{
         img{
           height: 90px !important;
+          width: 90px !important;
         }
         .name-user-list {
           font-size: 35px !important;
@@ -1297,7 +1493,7 @@
       .btn-profile-list{
         font-size: 44px !important;
         height: auto;
-        padding: 18px 75px;
+        padding: 11px 75px;
         margin-left: 20px;
         span{
           font-size: 44px !important;
@@ -1333,6 +1529,10 @@
       .line-01{
         margin-top: 40px !important;
         height: 3px !important;
+      }
+      .btn-borde-management{
+        height: 80px !important;
+        padding: 13.5px 25px !important;
       }
     }
   }

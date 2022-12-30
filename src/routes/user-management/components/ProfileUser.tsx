@@ -319,7 +319,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
 
   return (
     <>
-      <div className="profile-record">
+      <div className="profile-user">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 2 }} style={{ paddingRight: '20px' }}>
             <h3>PROFILE</h3>
@@ -336,7 +336,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               value={values.firstName}
               name="firstName"
               onChange={handleChange}
-              style={errors.firstName && touched.firstName ? { border: 'solid red' } : {}}
+              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
             />
             <h1>EMAIL</h1>
             <Input
@@ -344,7 +344,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               value={values.email}
               name="email"
               onChange={handleChange}
-              style={errors.email && touched.email ? { border: 'solid red' } : {}}
+              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
             />
             <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
@@ -356,10 +356,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               value={values.lastName}
               name="lastName"
               onChange={handleChange}
-              style={errors.lastName && touched.lastName ? { border: 'solid red' } : {}}
+              style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
             />
             <h1>TITLE</h1>
-            <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} />
+            <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} style={{marginBottom: '15px'}} />
           </Col>
         </Row>
         <br />
@@ -372,6 +372,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           </Col>
         </Row>
         <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+          <Row>
           <Radio.Group
             name="designation"
             value={designation}
@@ -387,14 +389,14 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               setTitle(values.organization);
               setDesignation(event.target.value);
             }}
-            style={{ display: 'inline-flex', width: '100%', alignSelf: 'stretch' }}
+              // style={{ display: 'inline-flex', width: '100%', alignSelf: 'stretch' }}
           >
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px', display: 'flex' }}>
+              <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{ paddingRight: '20px'}}>
               {RADIO_ITEMS.map((item: { value: string; name: string }, index: number) => {
                 console.log('indexx', index);
                 if (index < 3) {
                 }
-                return <RadioDesignation key={index} index={index} value={item.value} name={item.name} />;
+                  return <RadioDesignation key={index} index={index} value={item.value} name={item.name}/>;
               })}
             </Col>
           </Radio.Group>
@@ -410,6 +412,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           </Col>
         </Col> */}
         </Row>
+          </Col>
+          </Row>
         <br />
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 2 }} style={{ paddingRight: '20px' }}>
@@ -453,13 +457,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 </div>
           </Col>
         </Row>
-        <br />
-        <br />
-        <div></div>
         <h3>DEFAULT MAP ZOOM AREA</h3>
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-            <Row gutter={16}>
+            <Row>
               <div className="gutter-row"  id={'zoomarea' + values._id} style={{width:'100%'}}>
                 <Dropdown
                 className="dropdown-user-management"
