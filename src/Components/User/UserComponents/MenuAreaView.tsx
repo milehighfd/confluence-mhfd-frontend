@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, MenuProps } from 'antd';
 import { User } from '../../../Classes/TypeList';
 
-const MenuAreaView = (items: Array<string>, fieldName: string, values: User, setTitle: Function) => {
+const MenuAreaView = (items: Array<string> = [], fieldName: string, values: User, setTitle: Function) => {
   const itemMenu: MenuProps['items'] = [];
   items.forEach((item: string, index: number) => {
     itemMenu.push({

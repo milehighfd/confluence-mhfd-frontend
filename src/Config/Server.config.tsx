@@ -119,6 +119,7 @@ export const SERVER = (function () {
     const ORGANIZATIONS = 'organizations';
     const CONSULTANTS = 'consultants';
     const CONFIGURATIONS = 'configuration';
+    const ALL_ORGANIZATION = 'get-list?servicearea=1&county=1&jurisdiction=1';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -183,6 +184,7 @@ export const SERVER = (function () {
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         MAP_CENTER_SEARCH: `${URL_BASE.BASE}/${MAP}/${GET_AOI_CENTER}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/all-localities`,// `${URL_BASE.BASE}/${ZOOMAREA}/complete`,
+        ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
