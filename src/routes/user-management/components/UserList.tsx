@@ -63,18 +63,19 @@ const UserList = () => {
     statusAccount: string
   }
   const roleSpan = (role:string) => {
+    console.log(role, 'Dotty');
     let span = ''
     titleCase(role)
     switch(role) {
-      case 'Super Admin': {
+      case 'admin': {
         span ='admin';
         break;
       }
-      case 'Admin': {
+      case 'consultant': {
         span ='manager';
         break;
       }
-      case 'Government Staff': {
+      case 'government_staff': {
         span ='gov';
         break;
       }

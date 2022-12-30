@@ -1,8 +1,9 @@
 import React from 'react';
-import { Dropdown, Button, Input, Menu, MenuProps } from 'antd';
+import { Dropdown, Button, Input, Menu, MenuProps, Select } from 'antd';
 import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, RADIO_ITEMS } from "../../../constants/constants";
 import { OptionsFiltersUser } from '../../../Classes/TypeList';
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { Option } from 'antd/lib/mentions';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation', 'Date Registered'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' },
@@ -18,16 +19,16 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
     if (defaultValue) {
-      itemMenu.push({ key: `all|${title}`, label: <span style={{border:'transparent'}}>Organization - All</span> });
+      itemMenu.push({ key: `all|${title}`, label: <span style={{border:'transparent'}}  className="menu-drop-sub menu-sub-drop">Organization - All</span> });
     }
     list.forEach((element: string, index: number) => {
       itemMenu.push({
         key: `${index}|${element}`,
-        label: <span style={{border:'transparent'}} className="user-filter-items-text">{element}</span>
+        label: <span style={{border:'transparent'}} className="user-filter-items-text menu-drop-sub menu-sub-drop">{element}</span>
       });
     });
     return <Menu
-      className="js-mm-00 sign-menu"
+      className="js-mm-00 sign-menu-organization"
       items={itemMenu}
       onClick={(event) => {
         const auxOption = { ...option };
@@ -58,13 +59,13 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
     ORGANIZATION.forEach((item: string, index: number) => {
       itemOrganization.push({
         key: `${index}|${item}`,
-        label: <span style={{border:'transparent'}}>{item}</span>
+        label: <span style={{border:'transparent'}} className="menu-drop-sub menu-sub-drop">{item}</span>
       });
     });
     CONSULTANT_CONTRACTOR.forEach((item: string, index: number) => {
       itemConsultant.push({
         key: `${index}|${item}`,
-        label: <span style={{border:'transparent'}}>{item}</span>
+        label: <span style={{border:'transparent'}}  className="menu-drop-sub menu-sub-drop">{item}</span>
       });
     });
     const itemMenuOrganization: MenuProps['items'] = [
@@ -86,8 +87,9 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
   };
 
   return (
-    <div className="user-filter-mng" >
-      <div>
+    <>
+    {/* <div className="user-filter-mng" > */}
+      {/* <div> */}
         <Search
           placeholder="Search by Name"
           onSearch={value => {
@@ -96,23 +98,25 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
             setOption(auxOption);
             search(auxOption);
           }}
-          style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
+          style={{ width: '30%', marginRight:'10px', height: '36px', borderRadius:'5px'}}
+          // style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
           // style={{ width: 240, paddingRight: '10px' }}
-          prefix={<SearchOutlined />}
+          // prefix={<SearchOutlined />}
         />
-      </div>
+      {/* </div> */}
 
-      <div id={"filter-organization" + title}>
+      <div id={"filter-organization" + title} className="filter-area">
         <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}
-          overlayClassName="dropdown-special-bottomLeft">
-          <Button className="btn-borde">
+          overlayClassName="dropdown-special-bottomLeft-filter" >
+          <Button className="btn-borde" >
             {option.organization ? option.organization : 'Organization'}
             <DownOutlined />
           </Button>
         </Dropdown>
       </div>
-      <div id={"filter-service-area" + title}>
+      <div id={"filter-service-area" + title}  className="filter-area">
         <Dropdown trigger={['click']} overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
+        overlayClassName="dropdown-special-bottomLeft-filter"
           getPopupContainer={() => document.getElementById("filter-service-area" + title ) as HTMLElement}>
           <Button className="btn-borde">
             {option.serviceArea ? option.serviceArea : 'Service Area'}
@@ -121,8 +125,9 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
         </Dropdown>
       </div>
 
-      <div id={"filter-designation" + title}>
+      <div id={"filter-designation" + title}  className="filter-area">
         <Dropdown trigger={['click']} overlay={menu(ROLES, 'designation', 'User Designation')}
+        overlayClassName="dropdown-special-bottomLeft-filter"
           getPopupContainer={() => document.getElementById("filter-designation" + title ) as HTMLElement}>
           <Button className="btn-borde">
             {option.designation ? RADIO_ITEMS.filter(item => item.value === option.designation)[0].name : 'User Designation'}
@@ -131,11 +136,9 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
         </Dropdown>
       </div>
 
-      <div>
-        <Button className="f-btn" onClick={() => {
-          reset();
-        }}>Reset</Button>
-      </div>
+      <Button className="btn-purple" style={{height:'36px', width:'8%'}} onClick={() => {
+        reset();
+      }}>Reset</Button>
 
       {/* <div className="btn-r" id={"filter-sort" + title}>
         <label>Sort by:</label>
@@ -146,7 +149,8 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
           </Button>
         </Dropdown>
       </div> */}
-    </div>
+    {/* </div> */}
+    </>
   )
 };
 
