@@ -105,7 +105,7 @@ const TablePortafolio = (
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div className="table-table-body" style={{width:'min-content'}} >
       <div ref={tableRef} className="scroll-scroll-table">
-        <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'19px'}}/>
+        <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'21px'}}/>
       </div>
     <div className="table-body-body"
       ref={el => divRef.current[index] = el}

@@ -86,16 +86,17 @@ const UserList = () => {
     return span;
   }
   const columns2: ColumnsType<any> = [
-    { title: <>Date and Time <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'dateTime', key: 'dateTime' },
-    { title: <>User <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'user', key: 'user' },
-    { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
-    { title: <>Change <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'change', key: 'change' },
+    { title: <>Date and Time <ArrowDownOutlined/></>, dataIndex: 'dateTime', key: 'dateTime' },
+    { title: <>User <ArrowDownOutlined/></>, dataIndex: 'user', key: 'user' },
+    { title: <>City <ArrowDownOutlined/></>, dataIndex: 'city', key: 'city' },
+    { title: <>Change <ArrowDownOutlined/></>, dataIndex: 'change', key: 'change' },
   ];
   const columns: ColumnsType<DataType|any> = [
     {
-      title: <>Name <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Name</>,
       dataIndex: 'name',
       key: 'name',
+      sorter: (a, b) => a.name - b.name,
       render: (name) => (
         <div className="user-tab">
           <div style={{marginRight:'5px'}}>
@@ -109,9 +110,10 @@ const UserList = () => {
       ),
     },
     {
-      title: <>Role <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Role</>,
       dataIndex: 'designation',
       key: 'designation',
+      sorter: (a, b) => a.designation - b.designation,
       render: (designation) => (
         <span className={'span-' + roleSpan(designation)}>
           {designation === 'admin' ? 'MHFD Senior Manager':
@@ -122,13 +124,14 @@ const UserList = () => {
         </span> 
       ),
     },
-    { title: <>Service Area <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'serviceArea', key: 'serviceArea' },
-    { title: <>County <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'county', key: 'county' },
-    { title: <>City <ArrowDownOutlined className="ico-arrow"/></>, dataIndex: 'city', key: 'city' },
+    { title: <>Service Area</>, dataIndex: 'serviceArea', key: 'serviceArea',sorter: (a, b) => a.serviceArea - b.serviceArea, },
+    { title: <>County</>, dataIndex: 'county', key: 'county', sorter: (a, b) => a.county - b.county, },
+    { title: <>City</>, dataIndex: 'city', key: 'city', sorter: (a, b) => a.city - b.city, },
     {
-      title: <>Status <ArrowDownOutlined className="ico-arrow"/></>,
+      title: <>Status</>,
       dataIndex: 'statusAccount',
       key: 'statusAccount',
+      sorter: (a, b) => a.statusAccount - b.statusAccount,
       render: (statusAccount) => (
         <span className={'span-'+statusAccount}>
           <div className="circulo"/>{statusAccount}

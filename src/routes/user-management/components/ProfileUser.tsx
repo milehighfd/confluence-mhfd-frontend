@@ -344,6 +344,14 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             />
             <h1>TITLE</h1>
             <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} style={{marginBottom: '15px'}} />
+            <h1>ORGANIZATIONS</h1>
+            {/* TODO: change data dropdown */}
+            <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
+              getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
+              <Button className="btn-borde-management">
+                {values.city ? values.city : 'City'} <DownOutlined />
+              </Button>
+            </Dropdown>
           </Col>
         </Row>
         <br />
