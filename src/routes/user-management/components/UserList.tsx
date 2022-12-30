@@ -29,7 +29,7 @@ const titleCase = (str:any)=> {
 
 const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
-    console.log(res.users)
+    // console.log(res.users)
     const arrayUsers = res.users.map((elem: any) => {
       return {
         ...elem,
@@ -41,7 +41,7 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
         //designation: titleCase(elem.designation)
       }
     });
-    console.log('arry',arrayUsers)
+    // console.log('arry',arrayUsers)
     if (res.users) {
       saveUser(res.users);
       setUser(arrayUsers);
@@ -63,7 +63,6 @@ const UserList = () => {
     statusAccount: string
   }
   const roleSpan = (role:string) => {
-    console.log(role, 'Dotty');
     let span = ''
     titleCase(role)
     switch(role) {
@@ -192,7 +191,7 @@ const UserList = () => {
     />
     };
   const urlOptions = (options: OptionsFiltersUser) => {
-    console.log('options',options, totalUsersActivated)
+    // console.log('options',options, totalUsersActivated)
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
       + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : ''
       + '&sort=' + options.sort) + '&limit=' + 100 + '&page=' + options.page;
@@ -233,22 +232,22 @@ const UserList = () => {
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
     searchUserActivated(resetOptions);
-    console.log('activity1',userActivatedState)
+    // console.log('activity1',userActivatedState)
   }, []);
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
     searchUserActivated(resetOptions);
     searchUserPending(resetOptions);
     searchUserDelete(resetOptions);
-    console.log('activity2',userActivatedState)
+    // console.log('activity2',userActivatedState)
   }, [optionSelect]);
 
-  console.log(optionSelect)
+  // console.log(optionSelect)
   return <>
     <div>
       <div className="head-list">
         <div className="list-view-head" >
-        <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginTop: '5px', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{console.log(e);setOptionSelect(e)}}>
+        <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginTop: '5px', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{setOptionSelect(e)}}>
             <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
             <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
             <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
@@ -286,7 +285,7 @@ const UserList = () => {
           columns={columns}
           expandable={{
             expandedRowRender: record => {
-            console.log('entra record',userSelected);
+            // console.log('entra record',userSelected);
             if(userSelected !== undefined){
             if(userSelected._id === record._id){
               return (
@@ -309,7 +308,7 @@ const UserList = () => {
           // }}
           dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
         /> : ()=> {getAllUserActivity() 
-          console.log('userActivity',userActivity);
+          // console.log('userActivity',userActivity);
           return <Table
           columns={columns2}
           dataSource={DATA_USER_ACTIVITY}
