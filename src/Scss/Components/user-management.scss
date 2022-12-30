@@ -1085,9 +1085,20 @@
       width: 1671px !important;
       padding: 14px;
       height: auto;
+      .sign-menu-organization {
+        width: 309px;
+      }
       button{
         height: 55px !important;
         font-size: 21px;
+        width: 46px;
+      }
+      .btn-borde .anticon {
+        margin-top: 11px;
+        font-size: 18px;
+      }
+      .ant-input{
+        height: 55px !important;
       }
       .ant-input-affix-wrapper{
         height: 55px !important;
@@ -1115,6 +1126,18 @@
     .table-user-management{
       margin-top: 10px !important;
       height: calc(100vh - 249px);
+      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+        min-width: 60px;
+        height: 60px;
+      }
+      .ant-pagination-item, .ant-pagination-total-text {
+        height: 60px;
+        line-height: 53px;
+        font-size: 20px;
+      }
+      .ant-pagination-item {
+        min-width: 60px;
+      }
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         min-height: 60px !important;
       }
@@ -1131,6 +1154,7 @@
       .user-tab{
         img{
           height: 60px !important;
+          width: 60px !important;
         }
         .name-user-list {
           font-size: 21px !important;
@@ -1176,7 +1200,7 @@
       .btn-profile-list{
         font-size: 32px !important;
         height: auto;
-        padding: 15px 60px;
+        padding: 11px 60px;
         span{
           font-size: 32px !important;
         }
@@ -1210,6 +1234,10 @@
       .line-01{
         margin-top: 25px !important;
         height: 2px !important;
+      }
+      .btn-borde-management{
+        height: 60px !important;
+        padding: 11.5px 16px !important;
       }
     }
   }
@@ -1340,9 +1368,25 @@
       width: 2507px !important;
       padding: 21px;
       height: auto;
+      .sign-menu-organization {
+        width: 309px;
+      }
       button{
         height: 75px !important;
         font-size: 32px;
+        width: 70px;
+        padding: 11px 20px !important;
+        .anticon{
+          font-size: 20px;
+        }
+      }
+      .btn-borde .anticon {
+        margin-top: 19px;
+        font-size: 25px;
+      }
+      .ant-input{
+        height: 75px !important;
+        font-size: 32px !important;
       }
       .ant-input-affix-wrapper{
         height: 75px !important;
@@ -1373,6 +1417,18 @@
       margin-top: 15px !important;
       height: calc(100vh - 350px);
       padding: 0px 20px;
+      .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
+        min-width: 80px;
+        height: 80px;
+      }
+      .ant-pagination-item, .ant-pagination-total-text {
+        height: 80px;
+        line-height: 73px;
+        font-size: 30px;
+      }
+      .ant-pagination-item {
+        min-width: 80px;
+      }
       .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         min-height: 80px !important;
       }
@@ -1389,6 +1445,7 @@
       .user-tab{
         img{
           height: 90px !important;
+          width: 90px !important;
         }
         .name-user-list {
           font-size: 35px !important;
@@ -1436,7 +1493,7 @@
       .btn-profile-list{
         font-size: 44px !important;
         height: auto;
-        padding: 18px 75px;
+        padding: 11px 75px;
         margin-left: 20px;
         span{
           font-size: 44px !important;
@@ -1472,6 +1529,10 @@
       .line-01{
         margin-top: 40px !important;
         height: 3px !important;
+      }
+      .btn-borde-management{
+        height: 80px !important;
+        padding: 13.5px 25px !important;
       }
     }
   }
