@@ -71,8 +71,8 @@ const DetailedModal = ({
         setProblemPart(t);
       });
     } else {
-      console.log('my data after clicking ', data);
-      getDetailedPageProject(data.project_id);
+      const project_id = data.project_id ? data.project_id : ( data.id ? data.id : 0);
+      getDetailedPageProject(project_id);
       getComponentsByProblemId({id: data.id || data.projectid, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
@@ -167,8 +167,8 @@ const DetailedModal = ({
               <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.project_name} </h1>
               <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span>{detailedPage?.problemtype ? ( detailedPage?.jurisdiction + ', CO' ) : ('TODO ADD SPONSOR ON BACKEND')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage?.codeStateCounty.county_name + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-              <span> {detailedPage?.codeServiceArea.service_area_name + ' Service Area'} </span></p>
+              <span> {detailedPage?.codeStateCounty?.county_name + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <span> {detailedPage?.codeServiceArea?.service_area_name + ' Service Area'} </span></p>
               <Button className="btn-transparent btn-close-mobile" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </Col>
             <Col xs={{ span: 10 }} lg={{ span: 5 }}>

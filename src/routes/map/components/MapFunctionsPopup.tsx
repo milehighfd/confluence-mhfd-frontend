@@ -287,8 +287,8 @@ export const addPopupsOnClick = async (
         }
           const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
           const sponsors = dataFromDB?.sponsor.map((el:any) => el.business_associate.business_name);
-          const estimatedcost = dataFromDB?.estimatedCost[0].cost;
-          const componentcost = dataFromDB?.componentCost[0].cost;
+          const estimatedcost = dataFromDB?.estimatedCost.length ? dataFromDB?.estimatedCost[0].cost : 0;
+          const componentcost = dataFromDB?.componentCost.length ? dataFromDB?.componentCost[0].cost : 0;
           const filtered = galleryProjects.filter((item: any) =>
               item.cartodb_id === feature.properties.cartodb_id
           );
@@ -305,7 +305,7 @@ export const addPopupsOnClick = async (
               ? dataFromDB.project_name
               : '-'),
             organization: sponsors.join(','),
-            value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : 0),
+            value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : -1),
             projecctype: dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name,
             status: dataFromDB?.project_status?.code_phase_type?.code_status_type?.status_name,
             objectid: dataFromDB?.codeStateCounty?.objectid,

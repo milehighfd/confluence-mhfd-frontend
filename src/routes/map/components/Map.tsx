@@ -1644,7 +1644,7 @@ const Map = ({
         if (item.problemid) {
             existDetailedPageProblem(item.problemid);
         } else {
-            const url = 'projectid' + (item.projectid || item.id);
+            const url = 'projectid=' + (item.projectid || item.id);
             existDetailedPageProject(url);
         }
 
@@ -1937,7 +1937,6 @@ const Map = ({
            
         };
     const seeDetails = (details: any, event: any) => {
-
         if (details.problemid) {
             setData({
                 id: '',
@@ -1948,6 +1947,7 @@ const Map = ({
                 problemid: details.problemid
             });
         } else {
+          console.log('details', details.id, details);
             setData({
                 id: details.id !== '-'? details.id: undefined,
                 objectid: details.objectid,

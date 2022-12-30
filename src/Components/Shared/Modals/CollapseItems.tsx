@@ -147,6 +147,7 @@ export default forwardRef(({
   }
   const addLayer = () => {
     if(map) {
+      console.log('detailedpage data', detailedPage);
       let i = 0;
       const styles = {...tileStyles as any};
       for (const key in layers.components) {
@@ -167,6 +168,7 @@ export default forwardRef(({
 
       }
       if(type === PROBLEMS_MODAL) {
+        console.log('problems modal');
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
@@ -195,6 +197,7 @@ export default forwardRef(({
         });
         addMapListeners(MHFD_PROJECTS, 'projects-line_');
       } else if(type === PROJECTS_MODAL) {
+        console.log('projects modal');
         detailedPage?.problems?.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
@@ -211,8 +214,8 @@ export default forwardRef(({
         let idProjectLine = 0;
         for (const project of tileStyles[MHFD_PROJECTS]) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-          if (detailedPage?.cartodb_id) {
-            map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
+          if (detailedPage?.project_id) {
+            map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailedPage?.project_id]);
           }
           
           idProjectLine++;
