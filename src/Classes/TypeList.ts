@@ -28,9 +28,9 @@ export type OptionsFiltersUser = {
         page: number,
         limit: number,
         name: string,
-        organization: string,
-        serviceArea: string,
-        designation: string,
+        organization: string | number,
+        serviceArea: string | number,
+        designation: string | number,
         sort: string
 }
 
