@@ -109,7 +109,6 @@ const ColumsTrelloCard = ({
         id: columns[sourceColumn].projects[sPosition].project_id
       };
       // setDragAction([true, dInd, dPos]);
-      console.log('dragaction',dragAction, txt)
       // fixedDragAction=[true, dInd, dPos];
       // onDrop(txt, sInd,true, dInd, dPos);
       onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
