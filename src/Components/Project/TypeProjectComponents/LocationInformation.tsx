@@ -108,7 +108,11 @@ export const LocationInformation = ({
           }
           if (service) { SA = [...SA, element]; }
         });
-        setServiceArea(SA);
+        if (originModal === 'Acquisition' || originModal === 'Special') { 
+          setServiceArea(currentServiceAreaCounty['Service Area']);
+        } else {
+          setServiceArea(SA);
+        }
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
@@ -122,7 +126,11 @@ export const LocationInformation = ({
           }
           if (service) { C = [...C, element]; }
         });
-        setCounty(C);
+        if (originModal === 'Acquisition' || originModal === 'Special') {
+          setCounty(currentServiceAreaCounty['County']);
+        } else {
+          setCounty(C);
+        }
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
         let J = jUrisdiction;
@@ -136,7 +144,11 @@ export const LocationInformation = ({
           }
           if (service) { J = [...J, element]; }
         });
-        setjurisdiction(J);
+        if (originModal === 'Acquisition' || originModal === 'Special') {
+          setjurisdiction(currentServiceAreaCounty['jurisdiction']);
+        } else {
+          setjurisdiction(J);
+        }
       }
     }
   }, [currentServiceAreaCounty]);
