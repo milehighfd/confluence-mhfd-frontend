@@ -59,10 +59,10 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
     });
     setPS(ps);
   }
-  const reset = () => {
-    setJurisdictionSelected(jurisdictionSelected.map( elem => true));
-    setCsaSelected(csaSelected.map(elem => true));
-    setPrioritySelected(prioritySelected.map(elem => true));
+  const reset = (value:boolean) => {
+    setJurisdictionSelected(jurisdictionSelected.map( elem => value));
+    setCsaSelected(csaSelected.map(elem => value));
+    setPrioritySelected(prioritySelected.map(elem => value));
     setJS(jurisdictionFilterList);
     setCS(csaFilterList);
     setPS(priorityFilterList);
@@ -162,7 +162,8 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
      
       <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
         <div> 
-          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={reset}>Reset</h4>
+          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={()=> reset(true)}>Reset | </h4>
+          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem', marginLeft: '3px'}} onClick={()=> reset(false)}>Clear all</h4>
         <Button className="btn-purple" onClick={applyFilters}>
           Apply
         </Button>
