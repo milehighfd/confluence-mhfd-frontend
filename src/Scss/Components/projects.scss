@@ -131,6 +131,9 @@
         margin: -2px 0px 0px 2px;
       }
     }
+    .ant-select-dropdown {
+      max-height: 176px
+    }
     textarea.ant-input{
       margin-bottom: 20px;
     }
@@ -968,6 +971,9 @@
           height: 20px;
         }
       }
+      .ant-select-dropdown {
+        max-height: 180px
+      }
       textarea.ant-input {
         height: 165px;
         font-size: 24px;
@@ -1201,5 +1207,8 @@
 @media (min-width: 3000px) and (max-width: 5999px){
   .projects{
     width: 2955px !important;
+    .body-project .ant-select-dropdown {
+      max-height: 275px;
+    }
   }
 }

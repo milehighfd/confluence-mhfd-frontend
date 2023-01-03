@@ -49,10 +49,12 @@ const Profile = () => {
             <p className="color-sub" style={{paddingBottom:'10px' }}>Organization</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder="MHFD District Boundary" style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>MHFD District Boundary</p>
-            }
+            {/* {editProfile ? */}
+              <Select defaultValue="MHFD District Boundary" style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
+                <Option value="MHFD District Boundary">MHFD District Boundary</Option>
+              </Select>
+              {/* // :<p style={{paddingBottom:'10px' }}>MHFD District Boundary</p> */}
+            {/* } */}
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
@@ -83,10 +85,12 @@ const Profile = () => {
             <p className="color-sub" style={{paddingBottom:'10px' }}>Default Map</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder="Mile High Flood District" style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p>
-            }
+            {/* {editProfile ? */}
+            <Select defaultValue="Mile High Flood District" style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
+              <Option value="Mile High Flood District">Mile High Flood District</Option>
+            </Select>
+              {/* :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p> */}
+            {/* } */}
           </Col>
         </Row>
         <div className="foot-profile">

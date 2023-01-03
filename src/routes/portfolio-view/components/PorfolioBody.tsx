@@ -230,11 +230,11 @@ const PortafolioBody = () => {
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
             <Button className={openProjects ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenProjects(!openProjects)}}>
-              {openProjects? <img src="/Icons/check-fill.svg" alt=""/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Projects
+              {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Projects
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFavorites(!openFavorites)}}>
-              {openFavorites? <img src="/Icons/heart-fill.svg" alt=""/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
+              {openFavorites? <HeartFilled style={{color: '#f5575c', fontSize: '16px'}}/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(!openFilters)}}>

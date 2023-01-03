@@ -88,6 +88,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
                 </Select>
               </div>
             </Col>
+            <br></br>
           </>
         )}
         {reasonForm && reasonForm === STUDY_REASON[2] && ( 
@@ -102,6 +103,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
                 </Select>
               </div>
             </Col>
+            <br></br>
           </>
         )}
 
@@ -111,10 +113,10 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
               <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
               <TextArea rows={4} placeholder="Add another reason" onChange={(text)=>apllyOtherReason(text)} value={otherReason}/>
             </Col>
+            <br></br>
           </>
         )}
       </Row>
-      <br />
       <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} placeholder="Add description" onChange={(description)=>apllyDescription(description)} value={description}/>
     </>
