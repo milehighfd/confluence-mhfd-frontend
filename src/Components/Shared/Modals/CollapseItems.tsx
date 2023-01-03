@@ -535,13 +535,13 @@ export default forwardRef(({
               <label><i>Contractor</i></label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <p>{ detailedPage?.contractors && detailedPage?.contractors.length ? detailedPage?.contractors.join(',') : 'N/A' }</p>
+              <p>{ detailedPage?.contractors && detailedPage?.contractors.length ? detailedPage?.contractors[0].business_associate.business_associate_name : 'N/A' }</p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 4 }}>
               <label><i>Consultant</i></label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <p>{detailedPage?.consultants && detailedPage?.consultants.length ? detailedPage?.consultants.join(',') : 'N/A' }</p>
+              <p>{detailedPage?.consultants && detailedPage?.consultants.length ? detailedPage?.consultants[0].business_associate.business_associate_name : 'N/A' }</p>
             </Col>
           </Row>
         </div>
