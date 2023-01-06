@@ -35,6 +35,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
   const [disable, setDisable] = useState(true);
+  const [year, setYear] = useState(2023);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
   const [sponsor, setSponsor] = useState(organization+"");
@@ -50,6 +51,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const location = useLocation();
   const isWorkPlan = location.pathname.includes('work-plan');
 
+  useEffect(() => {
+    const params = new URLSearchParams(history.location.search);
+    if (params.get('year')) {
+      const t = params.get('year') ?? '2023';
+      setYear(+t);
+    }
+  }, [history]);
   const { toggleAttachmentCover} = useAttachmentDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
 
@@ -198,7 +206,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setVisibleAlert ={setVisibleAlert}
       setSave = {setSave}
       jurisdictions={jurisdiction}
-      counties={null}
+      counties={year === 2023 ? [county] : null}
       serviceareas={serviceArea}
       type="Special"
       isEdit={swSave}
@@ -237,7 +245,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
                 <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
-                <label className="tag-name" style={{padding:'10px'}}>Special</label>
+                <label className="tag-name" style={{padding:'10px'}}>R&D</label>
                 <Popover content={content}>
                   <img className="hh-img" src="/Icons/project/question.svg" alt="" height="18px" />
                 </Popover>

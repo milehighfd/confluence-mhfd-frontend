@@ -246,6 +246,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
 }
   const addFile = (file: any, description: any, type: string) => {
     const newFile = renameFile(file, description ? description : file.name);
+    console.log(file, description, type, "aca" )
     if (type === 'images') {
       setDataImages((oldData) => {
         return [...oldData, {

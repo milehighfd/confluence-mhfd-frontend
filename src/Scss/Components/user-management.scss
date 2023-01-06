@@ -217,6 +217,10 @@
     }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
       min-height: 34px !important;
+      display: none;
+    }
+    .ant-pagination-options-size-changer.ant-select {
+      display: none;
     }
     .ant-pagination-item-active {
       border-color: #251863;
@@ -907,6 +911,9 @@
     .table-user-management{
       height: calc(100vh - 222px);
       margin-top: 10px !important;
+      .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
+        color: #251863;
+      }
       .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
         min-width: 40px;
         height: 40px;

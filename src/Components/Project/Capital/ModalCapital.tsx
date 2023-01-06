@@ -66,7 +66,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col>
       <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
-      <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
+      <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
   )
 }
@@ -302,6 +302,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         saveProjectCapital(capital);
       }
       setVisibleCapital(false);
+      console.log('or this could it be');
       setVisible(false);
     }
   },[save]);
@@ -325,7 +326,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    
     if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && sponsor !== undefined  && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0){
         setDisable(false);
     }
@@ -348,6 +348,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     const auxState = {...state};
     setVisibleCapital (false);
     setState(auxState);
+    console.log('or this one');
     setVisible(false);
   };
 
@@ -575,7 +576,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     height: lengthName > 259 ? 'unset' :'34px'
                   }} />
                 </label>
-                <p>{serviceArea?(serviceArea.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea.length > 0 && county.length > 0)?'·':''} {county?(county.length > 1? 'Multiple Counties': (county[0])):''} </p>
+                <p>{serviceArea?(serviceArea?.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea?.length > 0 && county?.length > 0)?'·':''} {county?(county?.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
 
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
@@ -643,8 +644,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                     onMouseLeave={()=> setValuesComp({table:'', value:''})}
                                     >
                                       <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
-                                      <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                      <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
+                                      <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
+                                      <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}> {formatter.format(Math.floor(component.original_cost))}</Col>
                                       <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
                                         <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                     </Row>
@@ -671,8 +672,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                                 <Timeline.Item color="green">
                                   <Row style={{marginLeft:'-18px'}}>
                                     <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }} onClick={()=>setValueZoomComp(component)}><label>{component.type}</label></Col>
-                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
-                                    <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}>{formatter.format(component.original_cost)}</Col>
+                                    <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} onClick={()=>setValueZoomComp(component)}>{component.status}</Col>
+                                    <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} onClick={()=>setValueZoomComp(component)}>{formatter.format(component.original_cost)}</Col>
                                     <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}>
                                       <Button className="btn-transparent" onClick={() => removeComponent(component)}><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                   </Row>
@@ -704,8 +705,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                             <Timeline.Item color="green">
                               <Row style={{marginLeft:'-18px'}}>
                                 <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
-                                <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
-                                <Col className="third" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} >
+                                <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
+                                <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} >
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">
                                     <Input placeholder="$200,000" onChange={(e) => changeValueIndComp(e, 'cost',indComp)} value={formatter.format(indComp.cost)} maxLength={11}/>
                                   </Tooltip>
@@ -744,7 +745,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </Row>
 
             <Timeline className="sub-project" style={{marginTop:'10px'}}>
-              <Timeline.Item color="purple">
+              {/* <Timeline.Item color="purple">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Overhead Cost</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
@@ -773,7 +774,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[0])}</Col>
                 </Row>
-              </Timeline.Item>
+              </Timeline.Item> */}
               <Timeline.Item color="purple">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Mobilization</label></Col>
@@ -1018,7 +1019,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-              <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Enter Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
+              <Input placeholder={overheadDescription!==""? overheadDescription  +"": "Overhead Cost Description"} onChange={(description) => onChangeOverheadDescription(description)} value={overheadDescription}/>
               </Col>
             </Row>
             <br/>
@@ -1033,7 +1034,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </Row>
             <Row className="sub-project">
               <Col xs={{ span: 24 }} lg={{ span: 18 }} xxl={{ span: 18 }}>
-                <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Enter Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
+                <Input placeholder={additionalDescription!==""? additionalDescription  +"":"Additional Cost Description"} onChange={(description) => onChangeAdditionalDescription(description)} value={additionalDescription}/>
               </Col>
             </Row>
             <hr/>

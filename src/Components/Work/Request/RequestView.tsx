@@ -1,12 +1,13 @@
-import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
+import { DownCircleTwoTone, DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router';
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
 import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
+//import { useBoardState } from 'hook/boardHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
@@ -36,17 +37,16 @@ const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
-
 let currentProject: any = {};
 let columDragAction = [false, 0, 0];
-
-const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special'];
+let counterBoardsCalls = 0;
+const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
   <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
+  <div className="popoveer-00"><b>R&D:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
@@ -64,6 +64,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [year, setYear] = useState<any>(years[0]);
   const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
+  const [callBoard, setCallBoard] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
@@ -94,15 +95,18 @@ const RequestView = ({ type, isFirstRendering }: {
   const [alertStatus, setAlertStatus] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const {clear} = useAttachmentDispatch();
+  const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
   const ref = useRef<any>(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
+  // TODO: openmodal
+//  const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-
+  const [boardFlag, setBoardFlag] = useState(0);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -160,7 +164,9 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setColumns(newcols);
   }
-
+  // useEffect(() => {
+  //   console.log('isOpenModal', isOpenModal);
+  // }, [isOpenModal]);
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
@@ -181,11 +187,11 @@ const RequestView = ({ type, isFirstRendering }: {
           if (l.type === 'COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.type === 'SERVICE_AREA') {
-            displayedTabKey = ['Study', 'Acquisition', 'Special'];
+            displayedTabKey = ['Study', 'Acquisition', 'R&D'];
           }
         } else {
           if (l.type === 'COUNTY') {
-            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'Special']
+            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study'];
           }
@@ -239,6 +245,9 @@ const RequestView = ({ type, isFirstRendering }: {
             setLocalities(r.localities);
             let localitiesData = r.localities.map((l: any) => l.name);
             localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+            localitiesData.push('月');
+            
+            
             setDataAutocomplete(localitiesData);
               if (_year) {
                 setYear(_year)
@@ -272,7 +281,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     if (l.type === 'COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
-                      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
                       displayedTabKey = tabKeys;
@@ -293,7 +302,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     if (l.type === 'COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
-                      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+                      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
                       displayedTabKey = tabKeys;
@@ -329,6 +338,7 @@ const RequestView = ({ type, isFirstRendering }: {
         (r: any) => {
           if (!r) return;
           let { board, projects } = r;
+          console.log('But this are the projects in board', projects);
           ProjectEditService.setProjects(projects);
           if (board) {
             setTotalCountyBudget(board.total_county_budget || 0);
@@ -385,10 +395,14 @@ const RequestView = ({ type, isFirstRendering }: {
       console.log('connected', socket.id);
     });
     WsService.receiveUpdate((data: any) => {
-      console.log('receiveUpdate', data);
-      setColumns(data);
-      splitColumns(data);
-    })
+      // setColumns(data);
+      // splitColumns(data);
+      // setTimeout(() => {
+        console.log('This is the data after ws', data);
+        setCallBoard(Math.random());
+      // }, 2400);
+      
+    });
     WsService.receiveReqmanager((data: any) => {
       console.log('receiveReqmanager', data);
       setReqManager(data);
@@ -398,78 +412,173 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }, [namespaceId])
 
+  // const getBoardD = () => {
+  //   counterBoardsCalls++;
+  //   getBoardData({
+  //     type,
+  //     year: `${year}`,
+  //     locality,
+  //     projecttype: tabKey
+  //   })
+  //   .then(
+  //     (r: any) => {
+  //       if (!r) return;
+  //       if ( r === 'error') {
+  //         setTimeout(() => {
+  //           setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
+  //           counterBoardsCalls--;
+  //         }, 8000);
+  //       } else if(r){
+  //         let { board, projects } = r;
+  //         ProjectEditService.setProjects(projects);
+  //         if (board) {
+  //           if (board.status !== boardStatus) {
+  //             setBoardStatus(board.status);
+  //           }
+  //           if (board.substatus !== boardSubstatus) {
+  //             setBoardSubstatus(board.substatus);
+  //           }
+  //           if (board.comment !== boardComment) {
+  //             setBoardComment(board.comment);
+  //           }
+  //           if (board._id !== namespaceId) {
+  //             setNamespaceId(board._id)
+  //           }
+  //           let reqManagerEq = true;
+  //           for (var i = 1 ; i <= 5; i++) {
+  //             if (board[`targetcost${i}`] != reqManager[i-1]) {
+  //               reqManagerEq = false;
+  //             }
+  //           }
+  //           if (!reqManagerEq) {
+  //             setReqManager([
+  //               board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+  //             ])
+  //           }
+  //         }
+  //         if (projects) {
+  //           let cols = generateColumns(projects, year, tabKey);
+  //           let areEqual: boolean = compareColumns(columns, cols);
+  //           if (!areEqual) {
+  //             setColumns(cols);
+  //             let justProjects = projects.map((proj:any)=> {
+  //               return proj.projectData.cartodb_id;
+  //             });
+  //             let idsProjects = projects.map((proj:any)=> {
+  //               return proj.projectData?.projectid;
+  //             });
+  //             let projectAmounts = projects.map((proj:any)=> {
+  //               return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
+  //               cartodb_id: proj.projectData?.cartodb_id
+  //               }
+  //             });
+  //             setProjectAmounts(projectAmounts);
+  //             if(projects.length>0){
+  //               setBoardProjects({cartoids:justProjects, ids: idsProjects});
+  //             } else {
+  //               setBoardProjects(['-8887']);
+  //             }
+  //           }
+  //         }
+  //       }
+  //       setTimeout(() => {
+  //         setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
+  //         counterBoardsCalls--;
+  //       }, 5700);
+        
+  //     },
+  //     (e) => {
+  //       console.log('e', e);
+  //     }
+  //   )
+  // };
+
   useEffect(() => {
-    const interval = setInterval(() => {
-    getBoardData({
-      type,
-      year: `${year}`,
-      locality,
-      projecttype: tabKey
-    })
-        .then(
-          (r: any) => {
-            if (!r) return;
-            if(r){
-              let { board, projects } = r;
-              ProjectEditService.setProjects(projects);
-              if (board) {
-                if (board.status !== boardStatus) {
-                  setBoardStatus(board.status);
-                }
-                if (board.substatus !== boardSubstatus) {
-                  setBoardSubstatus(board.substatus);
-                }
-                if (board.comment !== boardComment) {
-                  setBoardComment(board.comment);
-                }
-                if (board._id !== namespaceId) {
-                  setNamespaceId(board._id)
-                }
-                let reqManagerEq = true;
-                for (var i = 1 ; i <= 5; i++) {
-                  if (board[`targetcost${i}`] != reqManager[i-1]) {
-                    reqManagerEq = false;
+    // WsService.receiveUpdate(() => {
+    //   console.log('just edited call board');
+    // });
+    // const interval = setInterval(() => {
+    // if ( counterBoardsCalls < 2) {
+    // counterBoardsCalls++;
+    console.log('Get Board now...');
+      getBoardData({
+        type,
+        year: `${year}`,
+        locality,
+        projecttype: tabKey
+      })
+          .then(
+            (r: any) => {
+              counterBoardsCalls--;
+              console.log('hey this is the calue', r);
+              if (!r) return;
+              if(r){
+                let { board, projects } = r;
+                // console.log('board', board, 'proj', projects);
+                ProjectEditService.setProjects(projects);
+                if (board) {
+                  if (board.status !== boardStatus) {
+                    setBoardStatus(board.status);
                   }
-                }
-                if (!reqManagerEq) {
-                  setReqManager([
-                    board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-                  ])
-                }
-              }
-              if (projects) {
-                let cols = generateColumns(projects, year, tabKey);
-                let areEqual: boolean = compareColumns(columns, cols);
-                if (!areEqual) {
-                  setColumns(cols);
-                  let justProjects = projects.map((proj:any)=> {
-                    return proj.projectData.cartodb_id;
-                  });
-                  let idsProjects = projects.map((proj:any)=> {
-                    return proj.projectData?.projectid;
-                  });
-                  let projectAmounts = projects.map((proj:any)=> {
-                    return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-                    cartodb_id: proj.projectData?.cartodb_id
+                  if (board.substatus !== boardSubstatus) {
+                    setBoardSubstatus(board.substatus);
+                  }
+                  if (board.comment !== boardComment) {
+                    setBoardComment(board.comment);
+                  }
+                  if (board._id !== namespaceId) {
+                    setNamespaceId(board._id)
+                  }
+                  let reqManagerEq = true;
+                  for (var i = 1 ; i <= 5; i++) {
+                    if (board[`targetcost${i}`] != reqManager[i-1]) {
+                      reqManagerEq = false;
                     }
-                  });
-                  setProjectAmounts(projectAmounts);
-                  if(projects.length>0){
-                    setBoardProjects({cartoids:justProjects, ids: idsProjects});
-                  } else {
-                    setBoardProjects(['-8887']);
+                  }
+                  if (!reqManagerEq) {
+                    setReqManager([
+                      board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+                    ])
+                  }
+                }
+                if (projects) {
+                  let cols = generateColumns(projects, year, tabKey);
+                  console.log('HERE ARE THE NEW COLS IN PROJECTS', cols);
+                  let areEqual: boolean = compareColumns(columns, cols);
+                  if (!areEqual) {
+                    setColumns(cols);
+                    let justProjects = projects.map((proj:any)=> {
+                      return proj.projectData.cartodb_id;
+                    });
+                    let idsProjects = projects.map((proj:any)=> {
+                      return proj.projectData?.projectid;
+                    });
+                    let projectAmounts = projects.map((proj:any)=> {
+                      return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
+                      cartodb_id: proj.projectData?.cartodb_id
+                      }
+                    });
+                    setProjectAmounts(projectAmounts);
+                    if(projects.length>0){
+                      setBoardProjects({cartoids:justProjects, ids: idsProjects});
+                    } else {
+                      setBoardProjects(['-8887']);
+                    }
                   }
                 }
               }
+            },
+            (e) => {
+              console.log('e', e);
+              counterBoardsCalls--;
             }
-          },
-          (e) => {
-            console.log('e', e);
-          }
-        )
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [namespaceId, columns]);
+          )
+    // }
+
+
+    // }, 5000);
+    // return () => clearInterval(interval);
+  }, [namespaceId, callBoard]);
 
   useEffect(() => {
     let [rows, totals] = getTotalsByProperty(columns, 'county');
@@ -634,6 +743,7 @@ const RequestView = ({ type, isFirstRendering }: {
         req1: null, req2: null, req3: null, req4: null, req5: null,
         projectData: projectData.projectData
       };
+      console.log('new Project Data', newProjectData);
       temporalColumns[0].projects.push(newProjectData);
       WsService.sendUpdate(temporalColumns)
       setColumns(temporalColumns);
@@ -651,11 +761,28 @@ const RequestView = ({ type, isFirstRendering }: {
     if (localityType === 'COUNTY') {
       displayedTabKey = ['Capital', 'Maintenance']
     } else if (localityType === 'SERVICE_AREA') {
-      displayedTabKey = ['Study', 'Acquisition', 'Special'];
+      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
     }
     if (locality === 'MHFD District Work Plan') {
       displayedTabKey = tabKeys;
     }
+      /*
+    if (year < 2022) {
+      if (localityType === 'COUNTY') {
+        displayedTabKey = ['Capital', 'Maintenance']
+      } else if (localityType === 'SERVICE_AREA') {
+        displayedTabKey = ['Study', 'Acquisition', 'Special'];
+      }
+    } else {
+      if (localityType === 'COUNTY') {
+        displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'Special']
+      } else if (localityType === 'SERVICE_AREA') {
+        displayedTabKey = ['Study'];
+      }
+    }
+    if (locality === 'MHFD District Work Plan') {
+      displayedTabKey = tabKeys;
+    }*/
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
@@ -812,6 +939,8 @@ const RequestView = ({ type, isFirstRendering }: {
                     <Select
                       defaultValue={year}
                       value={`Year ${year}`}
+                      suffixIcon={openYearDropdown? < DownOutlined/> :<UpOutlined  />}
+                      onClick={()=>(setOpenYearDropdown(!openYearDropdown))}
                       onChange={(y: any) => {
                         setYear(y);
                         setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
@@ -865,7 +994,7 @@ const RequestView = ({ type, isFirstRendering }: {
                  }} className="tabs-map">
                   {
                     displayedTabKey.map((tk: string) => (
-                      <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+                      <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         <div className="work-table" ref={wrtRef}>
                           <ColumsTrelloCard
                             columns={columns}

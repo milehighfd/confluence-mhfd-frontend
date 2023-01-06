@@ -1,39 +1,71 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CheckCircleOutlined, DownOutlined, HeartOutlined, SettingFilled, ToTopOutlined } from "@ant-design/icons";
+import { CalendarOutlined, CheckCircleFilled, CheckCircleOutlined, CheckCircleTwoTone, DownOutlined, HeartFilled, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import Search from "./Search";
 import TablePortafolio from "./TablePortfolio";
 import PhaseView from "./PhaseView";
-import ActionItems from "./ActionItems";
+import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 import ModalFields from "routes/list-view/components/ModalFields";
+import ModalTollgate from "routes/list-view/components/ModalTollgate";
+
+import { rawData } from "../constants/PhaseViewData";
+import ModalGraphic from "./ModalGraphic";
+
 
 const { TabPane } = Tabs;
-const tabKeys = ['All','Capital', 'Study', 'Maintenance', 'Acquisition', 'Special', 'DIP'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
+const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
+// const popovers: any = [
+//   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+//   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
+//   <div className="popoveer-00"><b>Restoration:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
+//   <div className="popoveer-00"><b>Study:</b> Property with high flood risk or needed for improvements.</div>,
+//   <div className="popoveer-00"><b>Acquisition:</b> Any other effort for which MHFD funds or staff time is requested.</div>,
+//   <div className="popoveer-00"><b>R&D:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
+//   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
+// ]
 const PortafolioBody = () => {
+  const [graphicOpen, setGrapphicOpen] = useState(false);
+  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
   const [openAction, setOpenAction] = useState(true);
+  const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
+  const [openProjects, setOpenProjects] = useState(false);
+  const [openFavorites, setOpenFavorites] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List');
+  const [openTable, setOpenTable] = useState<any>([]);
+  const [hoverTable, setHoverTable] = useState([0, 0, 0])
+  const tableRef = useRef([]); 
+  const searchRef = useRef([]); 
+  const phaseRef = useRef<null | HTMLDivElement>(null);
+  const scheduleRef = useRef<null | HTMLDivElement>(null);
+  const [moveSchedule, setMoveSchedule] = useState('null'); 
+  const [zoomTimeline, setZoomTimeline] = useState(0);
+  const [openDrop, setOpenDrop] = useState(false);
+  // console.log('zoom',zoomTimeline);
+  const {
+    boundsMap,
+    filterProjectOptions,
+  } = useMapState();
+  const {
+    getParamFilterProjects,
+    setBoundMap
+} = useMapDispatch();
+
   const menu = (
     <Menu
       className="menu-drop"
       items={[
         {
           key: '1',
-          label: 'MHFD Staff Lead',
+          label: 'MHFD Lead/PM',
+          className:'menu-drop-sub-sub',
           children: [
             {
               key: '1-1',
@@ -142,17 +174,44 @@ const PortafolioBody = () => {
       ]}
     />
   );
+
+  useEffect(() => {
+    const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+    setOpenTable(new Array(sortedData.length).fill(true));
+    // console.log('boundsmap', boundsMap, filterProjectOptions);
+    setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
+    return () => {
+      // tableRef.current = null;
+      // searchRef.current = null;
+    }
+  }, []);
+  useEffect(() => {
+    if (boundsMap !== '') {
+      getParamFilterProjects(boundsMap);
+    }
+  }, [boundsMap]);
+  useEffect(() => {
+    if(searchRef.current.length) {
+      searchRef.current.forEach(element => {
+        let div: any = element;
+        div.scrollTop = 0;  
+      });
+    }
+  }, [optionSelect, tabKey]);
   return <>
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
+    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div>
       <div className="portafolio-head">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
             <h2 style={{width:'205px'}}>
-              <Dropdown overlay={menu} trigger={['click']} >
+              <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header" placement="bottomRight" onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
                 <div className="select-area">
                   <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
-                    South Watershed &nbsp;<DownOutlined style={{fontSize:'14px'}}/>
+                    South Watershed &nbsp;
+                    {openDrop ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
                   </a>
                 </div>
               </Dropdown>
@@ -171,38 +230,40 @@ const PortafolioBody = () => {
 
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
-            <Button className="btn-filter-k">
-              <CheckCircleOutlined style={{color: '#cdcbd6', fontSize: '16px'}} /> All Projects
+            <Button className={openProjects ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenProjects(!openProjects)}}>
+              {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Projects
             </Button>
-            <span style={{color:'#DBDBE1'}}>|</span>
-            <Button className="btn-filter-k">
-              <HeartOutlined style={{color: '#cdcbd6', fontSize: '16px'}}  /> Favorites
+            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
+            <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFavorites(!openFavorites)}}>
+              {openFavorites? <HeartFilled style={{color: '#f5575c', fontSize: '16px'}}/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
             </Button>
-            <span style={{color:'#DBDBE1'}}>|</span>
-            <Button className="btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
-              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#bfbcc9' }} src=""/>&nbsp;Filter
+            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
+            <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(!openFilters)}}>
+              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#251863' }} src=""/>&nbsp;Filter
             </Button>
-            <span style={{color:'#DBDBE1'}}>|</span>
-            <ToTopOutlined style={{fontSize: '16px', marginLeft:'10px', color: '#706b8a'}}/>
+            {/* <Button className=" btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
+              <ToTopOutlined style={{fontSize: '16px', color: '#706b8a'}}/>
+            </Button> */}
+            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
           </Col>
         </Row>
       </div>
       <div className="work-body portafolio">
-        <div style={{position: 'absolute',right: '5px', zIndex:'3'}}>
-          {optionSelect === 'List' &&
-            <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{console.log('Entraaaaaaaaaaaaaaaaaa'); setOpenModalTable(true)}}>
+        <div style={{position: 'absolute',right: '5px', zIndex:'3', marginTop:'15px'}}>
+          {/* {optionSelect === 'List' &&
+            <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{setOpenModalTable(true)}}>
               <SettingFilled />
               Customize table
             </Button>
-          }
-          {optionSelect === 'Phase'  && <div>
+          } */}
+          {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Completed</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Active</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
@@ -210,31 +271,38 @@ const PortafolioBody = () => {
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Delayed</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
                 </span>
+                  {/* <Button style={{paddingLeft:'0px',border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
+                    <CalendarOutlined /> Edit Dates
+                  </Button>
+                  
+                  {optionSelect === 'Schedule' && <><span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
+                  <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)}/>
+                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/></>} */}
               </div>}
         </div>
         <Tabs defaultActiveKey={displayedTabKey[1]}
           activeKey={tabKey}
-            onChange={(key) => setTabKey(key)} className="tabs-map">
-            {
-              displayedTabKey.map((tk: string) => (
-                <TabPane style={{marginBottom:'0px'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
-                  <div className="protafolio-body">
-                    {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
-                  <Row>
-                    <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                      <Search />
-                    </Col>
-                    <Col xs={{span:34}} lg={{span:19}}>
-                      {optionSelect === 'List' && <TablePortafolio/>}
-                      {optionSelect === 'Phase'  && <PhaseView/>}
-                      {optionSelect === 'Schedule'  && <CalendarView/>}
-                    </Col>
-                  </Row>
-                  </div>
-                </TabPane>
-              ))
+          onChange={(key) => setTabKey(key)} className="tabs-map">
+          {
+            displayedTabKey.map((tk: string, idx: number) => { return (
+              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
+                <div className="protafolio-body">
+                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
+                <Row>
+                  <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+                    <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef} rawData={rawData} index={idx}/>
+                  </Col>
+                  <Col xs={{span:34}} lg={{span:19}}>
+                    {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}
+                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} indexParent={idx}/>}
+                    {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
+                  </Col>
+                </Row>
+                </div>
+              </TabPane>
+            )})
             }
           </Tabs>
         </div>
