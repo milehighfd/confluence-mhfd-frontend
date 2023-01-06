@@ -49,7 +49,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [completeProjectData, setCompleteProjectData] = useState<any>();
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const pageWidth  = document.documentElement.scrollWidth;
@@ -66,17 +66,12 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   }
-  const getCompleteProjectData = () => {
+  const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
     //dataForBoard.projecttype = typeProject;
     console.log('dataForBoard',dataForBoard)
-    postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard)
-      .then(
-        (r: any) => {
-          console.log('rrrrrr',r)
-          setCompleteProjectData(r); 
-        }
-      )
+    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard);
+    setCompleteProjectData(newDataComplete); 
   }
   const copyProjectToCurrent = () => {
     setLoading(true);
@@ -108,7 +103,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
-      onClick: (() => setShowModalProject(true))
+      onClick: (() => getCompleteProjectData())
     }, {
       key: '1',
       label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
@@ -180,10 +175,19 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     }
   }, [project, columnIdx]);
 
+  
+  useEffect(() => {
+    console.log('completeProjectData', completeProjectData);
+    if (completeProjectData) {
+      setShowModalProject(true);
+    }
+  }, [completeProjectData]);
+
   useEffect(()=>{
     if(showModalProject) {
-      getCompleteProjectData()
       updateSelectedLayers([]);
+    } else {
+      setCompleteProjectData(null);
     }
   },[showModalProject]);
 
