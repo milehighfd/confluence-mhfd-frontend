@@ -6,10 +6,20 @@ export const UploaderModal = (
 ) => {
   const [selectedFile, setSelectedFile] = useState<any>(undefined);
   const [descriptionFile, setDescriptionFile] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const handleFileUpload = (event: any) => {
-    if(event.target.files[0]) {
-      setSelectedFile(event.target.files[0]);
+    if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
+      return;
     }
+    const name = event.target.files[0].name;
+    const lastDot = name.lastIndexOf('.');
+    const ext = name.substring(lastDot + 1);
+    if (!ext || ext !== 'pdf' || ext !== 'docx' || ext !== 'xlsx' || ext !== 'jpg' || ext !== 'png' || ext !== 'mp4') {
+      setErrorMessage('File type not allowed')
+      return;
+    }
+    setSelectedFile(event.target.files[0]);
+    setErrorMessage('')
   }
   const preventDefault = (e:any) => {
     e.preventDefault();
@@ -86,6 +96,18 @@ export const UploaderModal = (
               color: 'white',
               padding: '3px 15px'
             }}> {selectedFile.name}    </span>
+          </div>
+        </Row>
+        }
+        {
+          errorMessage && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '7px 20px'}}>
+          <div style={{width: '100%', padding: '8px'}}>
+            <span style={{
+              background: 'white',
+              borderRadius: '16px',              
+              color: 'red',
+              padding: '3px 15px'
+            }}> {errorMessage}    </span>
           </div>
         </Row>
         }
