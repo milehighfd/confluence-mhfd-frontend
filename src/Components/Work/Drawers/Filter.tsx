@@ -163,7 +163,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
       <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
         <div> 
           <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={()=> reset(true)}>Reset</h4>
-          <h4  style={{ float: 'left', marginTop: '0.8rem', marginLeft: '4px'}}>|</h4>
+          <h4  style={{ float: 'left', marginTop: '0.75rem', marginLeft: '4px'}}>|</h4>
           <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem', marginLeft: '4px'}} onClick={()=> reset(false)}>Clear all</h4>
         <Button className="btn-purple" onClick={applyFilters}>
           Apply
