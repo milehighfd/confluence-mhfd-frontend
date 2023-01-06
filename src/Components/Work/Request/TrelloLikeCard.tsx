@@ -49,6 +49,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>();
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const pageWidth  = document.documentElement.scrollWidth;
@@ -65,7 +66,18 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   }
-
+  const getCompleteProjectData = () => {
+    let dataForBoard = {...project.projectData};
+    //dataForBoard.projecttype = typeProject;
+    console.log('dataForBoard',dataForBoard)
+    postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard)
+      .then(
+        (r: any) => {
+          console.log('rrrrrr',r)
+          setCompleteProjectData(r); 
+        }
+      )
+  }
   const copyProjectToCurrent = () => {
     setLoading(true);
     postData(
@@ -87,6 +99,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   };
+
+  
   const content = () => {
     const items: MenuProps['items'] = [{
       key: '0',
@@ -168,6 +182,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
 
   useEffect(()=>{
     if(showModalProject) {
+      getCompleteProjectData()
       updateSelectedLayers([]);
     }
   },[showModalProject]);
@@ -226,7 +241,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     <ModalProjectView
         visible= {showModalProject}
         setVisible= {setShowModalProject}
-        data={project.projectData}
+        data={completeProjectData}
         showDefaultTab={true}
         locality={locality}
         editable= {editable}

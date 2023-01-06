@@ -141,6 +141,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     }
   },[defaultTab]);
   useEffect(()=>{
+    console.log('data inside',data);
     if(showDefaultTab) {
       if(data === "no data"){
         setVisibleCapital(true);
