@@ -19,7 +19,10 @@ class ColorService {
           positions.forEach((pos) => {
             if (project[`originPosition${pos}`] !== null) {
               index = project[`originPosition${pos}`];
-            } 
+            }
+            if (columnIdx === 0){
+              index = 100;
+            }
           });
           if (index === -1) {
             index = project[`originPosition${columnIdx}`];
