@@ -49,6 +49,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const pageWidth  = document.documentElement.scrollWidth;
@@ -65,7 +66,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   }
-
+  const getCompleteProjectData = async () => {
+    let dataForBoard = {...project.projectData};
+    //dataForBoard.projecttype = typeProject;
+    console.log('dataForBoard',dataForBoard)
+    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard);
+    setCompleteProjectData(newDataComplete); 
+  }
   const copyProjectToCurrent = () => {
     setLoading(true);
     postData(
@@ -87,6 +94,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   };
+
+  
   const content = () => {
     const items: MenuProps['items'] = [{
       key: '0',
@@ -94,7 +103,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
-      onClick: (() => setShowModalProject(true))
+      onClick: (() => getCompleteProjectData())
     }, {
       key: '1',
       label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
@@ -166,9 +175,19 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     }
   }, [project, columnIdx]);
 
+  
+  useEffect(() => {
+    console.log('completeProjectData', completeProjectData);
+    if (completeProjectData) {
+      setShowModalProject(true);
+    }
+  }, [completeProjectData]);
+
   useEffect(()=>{
     if(showModalProject) {
       updateSelectedLayers([]);
+    } else {
+      setCompleteProjectData(null);
     }
   },[showModalProject]);
 
@@ -226,7 +245,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     <ModalProjectView
         visible= {showModalProject}
         setVisible= {setShowModalProject}
-        data={project.projectData}
+        data={completeProjectData}
         showDefaultTab={true}
         locality={locality}
         editable= {editable}
