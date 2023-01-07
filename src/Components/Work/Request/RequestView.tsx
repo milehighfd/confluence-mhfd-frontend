@@ -338,7 +338,6 @@ const RequestView = ({ type, isFirstRendering }: {
         (r: any) => {
           if (!r) return;
           let { board, projects } = r;
-          console.log('But this are the projects in board', projects);
           ProjectEditService.setProjects(projects);
           if (board) {
             setTotalCountyBudget(board.total_county_budget || 0);
@@ -510,7 +509,6 @@ const RequestView = ({ type, isFirstRendering }: {
           .then(
             (r: any) => {
               counterBoardsCalls--;
-              console.log('hey this is the calue', r);
               if (!r) return;
               if(r){
                 let { board, projects } = r;
@@ -543,7 +541,6 @@ const RequestView = ({ type, isFirstRendering }: {
                 }
                 if (projects) {
                   let cols = generateColumns(projects, year, tabKey);
-                  console.log('HERE ARE THE NEW COLS IN PROJECTS', cols);
                   let areEqual: boolean = compareColumns(columns, cols);
                   if (!areEqual) {
                     setColumns(cols);

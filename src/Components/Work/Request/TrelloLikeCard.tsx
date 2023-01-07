@@ -177,7 +177,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
 
   
   useEffect(() => {
-    console.log('completeProjectData', completeProjectData);
     if (completeProjectData) {
       setShowModalProject(true);
     }
