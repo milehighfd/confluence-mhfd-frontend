@@ -113,7 +113,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   };
   const handleCancel = (e: any) => {
     setVisibleModal(false);
-    console.log('could it be this');
     setVisible(false);
   };
   const chooseSubtypes = (e: any) => {
@@ -141,7 +140,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     }
   },[defaultTab]);
   useEffect(()=>{
-    console.log('data inside',data);
     if(showDefaultTab) {
       if(data === "no data"){
         setVisibleCapital(true);

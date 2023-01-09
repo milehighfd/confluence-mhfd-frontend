@@ -1,6 +1,7 @@
 import * as types from '../types/ProjectTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
+import WsService from './../../Components/Work/Request/WsService';
 
 export const saveSpecial = (data: any) => {
   return ( dispatch: Function) => {
@@ -29,6 +30,7 @@ export const saveSpecial = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -61,6 +63,7 @@ export const saveAcquisition = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -94,6 +97,7 @@ export const saveCapital = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -125,6 +129,7 @@ export const saveMaintenance = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -148,7 +153,7 @@ export const saveStudy = (data: any) => {
       } else {
         formData.append(key, data[key]);
       }
-    })
+    });
     datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
@@ -156,6 +161,7 @@ export const saveStudy = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_SAVE, status });
     })
   };
@@ -187,6 +193,7 @@ export const editSpecial = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -219,6 +226,7 @@ export const editAcquisition = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -251,6 +259,7 @@ export const editStudy = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -283,6 +292,7 @@ export const editMaintenance = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_EDIT, status });
     })
   };
@@ -315,6 +325,7 @@ export const editCapital = (data: any) => {
       }else{
         status = 0;
       }
+      WsService.sendEdit();
       dispatch({ type: types.SET_EDIT, status });
     })
   };

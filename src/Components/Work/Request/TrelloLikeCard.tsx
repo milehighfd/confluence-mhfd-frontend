@@ -68,8 +68,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
-    //dataForBoard.projecttype = typeProject;
-    console.log('dataForBoard',dataForBoard)
     const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard);
     setCompleteProjectData(newDataComplete); 
   }

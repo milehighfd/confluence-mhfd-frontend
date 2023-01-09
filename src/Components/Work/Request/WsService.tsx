@@ -29,7 +29,9 @@ class WsService {
   sendUpdate(data: any) {
     this.socket.emit('update', data);
   }
-
+  sendEdit() {
+    this.socket.emit('finishedit');
+  }
   receiveUpdate(callback: Function) {
       this.socket.on('update', callback)
   }
