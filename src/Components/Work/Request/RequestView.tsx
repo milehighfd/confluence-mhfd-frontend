@@ -398,6 +398,7 @@ const RequestView = ({ type, isFirstRendering }: {
       // splitColumns(data);
       // setTimeout(() => {
         console.log('This is the data after ws', data);
+        setLoading(true);
         setCallBoard(Math.random());
       // }, 2400);
       
@@ -564,6 +565,7 @@ const RequestView = ({ type, isFirstRendering }: {
                   }
                 }
               }
+              setLoading(false);
             },
             (e) => {
               console.log('e', e);
