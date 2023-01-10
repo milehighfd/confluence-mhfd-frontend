@@ -14,12 +14,14 @@ export const UploaderModal = (
     const name = event.target.files[0].name;
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
-    if (!ext || ext !== 'pdf' || ext !== 'docx' || ext !== 'xlsx' || ext !== 'jpg' || ext !== 'png' || ext !== 'mp4') {
+    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'png' || ext === 'mp4') {
+      setSelectedFile(event.target.files[0]);
+      setErrorMessage('')
+    }
+    else {
       setErrorMessage('File type not allowed')
       return;
     }
-    setSelectedFile(event.target.files[0]);
-    setErrorMessage('')
   }
   const preventDefault = (e:any) => {
     e.preventDefault();
@@ -39,8 +41,18 @@ export const UploaderModal = (
   }
   const fileDrop = (event:any) => {
     preventDefault(event);
-    if(event.dataTransfer.files[0]) {
+    if (!event || !event.dataTransfer || !event.dataTransfer.files || event.dataTransfer.files.length === 0) {
+      return;
+    }
+    const name = event.dataTransfer.files[0].name;
+    const lastDot = name.lastIndexOf('.');
+    const ext = name.substring(lastDot + 1);
+    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'png' || ext === 'mp4') {
       setSelectedFile(event.dataTransfer.files[0]);
+      setErrorMessage('')
+    } else {
+      setErrorMessage('File type not allowed')
+      return;
     }
   }
   return (
