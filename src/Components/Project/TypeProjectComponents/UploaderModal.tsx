@@ -14,7 +14,7 @@ export const UploaderModal = (
     const name = event.target.files[0].name;
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
-    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'png' || ext === 'mp4') {
+    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'mp4') {
       setSelectedFile(event.target.files[0]);
       setErrorMessage('')
     }
@@ -47,7 +47,7 @@ export const UploaderModal = (
     const name = event.dataTransfer.files[0].name;
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
-    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'png' || ext === 'mp4') {
+    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'mp4') {
       setSelectedFile(event.dataTransfer.files[0]);
       setErrorMessage('')
     } else {
