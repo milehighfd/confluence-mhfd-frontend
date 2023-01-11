@@ -121,6 +121,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
                 <span>
                 <Checkbox checked={jurisdictionSelected[index]} onChange={e => {
                   let v = e.target.checked;
+                  setPrioritySelected(prioritySelected.map(elem => true));
                   setJurisdictionSelected(jurisdictionSelected.map((w, i) => {
                     if (i === index) {
                       return v;
@@ -146,6 +147,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
                 <span>
                 <Checkbox checked={csaSelected[index]} onChange={e => {
                   let v = e.target.checked;
+                  setPrioritySelected(prioritySelected.map(elem => true));
                   setCsaSelected(csaSelected.map((w, i) => {
                     if (i === index) {
                       return v;
