@@ -315,7 +315,7 @@ export const rawData = [
   {
     id: 'Centennial1',
     headerLabel: 'Centennial',
-    rowLabel: 'West Tollgate Creek GSB Drops  ',
+    rowLabel: 'West Tollgate Creek GSB Drops  ', //description
     date: moment('2022/08/11'),
     key: '1',
     phase: 'Initiation',

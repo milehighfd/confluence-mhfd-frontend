@@ -11,9 +11,10 @@ import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 import ModalFields from "routes/list-view/components/ModalFields";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
-
 import { rawData } from "../constants/PhaseViewData";
 import ModalGraphic from "./ModalGraphic";
+import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
+import moment from 'moment';
 
 
 const { TabPane } = Tabs;
@@ -28,6 +29,8 @@ const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisit
 //   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
 // ]
 const PortafolioBody = () => {
+  const [page, setPage] = useState(1);
+  const pageSize = 25;
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
@@ -48,7 +51,30 @@ const PortafolioBody = () => {
   const [moveSchedule, setMoveSchedule] = useState('null'); 
   const [zoomTimeline, setZoomTimeline] = useState(0);
   const [openDrop, setOpenDrop] = useState(false);
+  const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
+  const [newData, setNewData] = useState<any>([]);
+  const mainFilters = [
+    // {label: 'MHFD Lead/PM', value: 'MHFD' },
+    // {label: 'Service Area', value: 'Service' },
+    // {label: 'County', value: 'County' },
+    // {label: 'Consultant', value: 'Consultant' },
+    // {label: 'Contractor', value: 'Contractor' },
+    {label: 'Jurisdiction', value: 'jurisdiction'},
+    {label: 'Status', value: 'status'},
+    {label: 'County', value: 'county'}
+  ];
+  const groupsBy = [
+    'Status',
+    'Jurisdiction',
+    'County',
+    'Service Area',
+    'Streams',
+    'MHFD Lead/PM',
+    'Consultant',
+    'Contractor'
+  ];
   // console.log('zoom',zoomTimeline);
+  const [filtersGroups, setFiltersGroup] = useState({});
   const {
     boundsMap,
     filterProjectOptions,
@@ -56,7 +82,7 @@ const PortafolioBody = () => {
   const {
     getParamFilterProjects,
     setBoundMap
-} = useMapDispatch();
+  } = useMapDispatch();
 
   const menu = (
     <Menu
@@ -175,10 +201,20 @@ const PortafolioBody = () => {
     />
   );
 
-  useEffect(() => {
+  const getData = async () => {
+    let pjs = await getListProjects(page, pageSize);
+    console.log('pjs', pjs);
+  }
+  const getGroupLists = async () => {
+    mainFilters.forEach(async (f) => {
+      let gList = await getGroupList(f.value);
+      setFiltersGroup({...filtersGroups, f: gList});
+    });
+  }
+  useEffect( () => {  
     const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+    getGroupLists();
     setOpenTable(new Array(sortedData.length).fill(true));
-    // console.log('boundsmap', boundsMap, filterProjectOptions);
     setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
     return () => {
       // tableRef.current = null;
@@ -198,6 +234,32 @@ const PortafolioBody = () => {
       });
     }
   }, [optionSelect, tabKey]);
+  useEffect(() => {
+    getGroupList(currentGroup).then((valuesGroups) => {
+      console.log('values Groups', valuesGroups);
+      const groups = valuesGroups.groups;
+      const updatedGroups: any = [];
+      groups.forEach((element: any) => {
+        updatedGroups.push({
+          id: `Title${element.id}`,
+          headerLabel: element.name,
+          date: moment('2022/08/11'),
+          schedule: [
+            {
+              objectId: 10,
+              type: 'title',
+              categoryNo: 100,
+              from: moment('2022/02/01 00:00:00'),
+              to: moment('2022/06/01 00:00:00'),
+              status: 'completed',
+              name: element.name,
+            }
+          ],
+        });
+      });
+      setNewData(updatedGroups);
+    });
+  }, [currentGroup]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
@@ -292,7 +354,20 @@ const PortafolioBody = () => {
                   {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
                 <Row>
                   <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                    <Search searchRef={searchRef} tableRef={tableRef} setOpenTable={setOpenTable} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} phaseRef={phaseRef} scheduleRef={scheduleRef} rawData={rawData} index={idx}/>
+                    <Search
+                      searchRef={searchRef}
+                      tableRef={tableRef}
+                      setOpenTable={setOpenTable}
+                      openTable={openTable}
+                      hoverTable={hoverTable}
+                      setHoverTable={setHoverTable}
+                      phaseRef={phaseRef}
+                      scheduleRef={scheduleRef}
+                      rawData={newData}
+                      index={idx}
+                      groupsBy={groupsBy}
+                      setCurrentGroup={setCurrentGroup}
+                    />
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
                     {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}

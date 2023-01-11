@@ -120,6 +120,7 @@ export const SERVER = (function () {
     const CONSULTANTS = 'consultants';
     const CONFIGURATIONS = 'configuration';
     const ALL_ORGANIZATION = 'get-list?servicearea=1&county=1&jurisdiction=1';
+    const PMTOOLS = 'pm-tools';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -229,6 +230,8 @@ export const SERVER = (function () {
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
+        GET_LIST_PMTOOLS: (page: number, pagesize: number) => `${URL_BASE.BASE}/${PMTOOLS}/list?limit=${pagesize}&page=${page}`,
+        GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/board/update-budget/${id}`,
         GET_CONFIGURATIONS: (key: string) => {
             return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;

@@ -16,7 +16,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const Search = (
-  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef, scheduleRef, rawData, index}
+  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef, scheduleRef, rawData, index, groupsBy, setCurrentGroup}
   :{
     searchRef: React.MutableRefObject<any>,
     tableRef: React.MutableRefObject<any>,
@@ -27,7 +27,9 @@ const Search = (
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     rawData: any,
-    index: number
+    index: number,
+    groupsBy: any[],
+    setCurrentGroup: Function
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
@@ -47,40 +49,12 @@ const Search = (
           key: '1',
           label: <p style={{fontWeight:'700', color:'#11093C', opacity:'0.5', fontSize:'12px', marginBottom:'2px', marginLeft:'3px'}}>Group By</p>,
           type: 'group',
-          children: [
-            {
-              key: '1-1',
-              label: <div className="menu-drop-sub menu-sub-drop">Status</div>,
-            },
-            {
-              key: '1-2',
-              label: <div className="menu-drop-sub menu-sub-drop">Jurisdiction</div>,
-            },
-            {
-              key: '1-3',
-              label: <div className="menu-drop-sub menu-sub-drop">County</div>,
-            },
-            {
-              key: '1-4',
-              label: <div className="menu-drop-sub menu-sub-drop">Service Area</div>,
-            },
-            {
-              key: '1-5',
-              label: <div className="menu-drop-sub menu-sub-drop">Streams</div>,
-            },
-            {
-              key: '1-6',
-              label: <div className="menu-drop-sub menu-sub-drop">MHFD Lead/PM</div>,
-            },
-            {
-              key: '1-7',
-              label: <div className="menu-drop-sub menu-sub-drop">Consultant</div>,
-            },
-            {
-              key: '1-8',
-              label: <div className="menu-drop-sub menu-sub-drop">Contractor</div>,
-            },
-          ],
+          children: groupsBy.map((gb, index) => {
+            return {
+              key: `1-${index + 1}`,
+              label: <div className="menu-drop-sub menu-sub-drop" onClick={() => setCurrentGroup(gb.toLowerCase())}>{gb}</div>
+            }
+          })
         },
       ]}
     />
