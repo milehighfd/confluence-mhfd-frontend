@@ -22,7 +22,6 @@ const MapAutoComplete = ({
   }).map((item: { aoi: string }) => {
     return { key: item.aoi, value: item.aoi, label: item.aoi }
   }));
-  console.log(groupOrganization);
   const onSelect = (value: any, isSelect?: any) => {
     setvalueA(value);
     onAutoCompleteSelected(value, isSelect);

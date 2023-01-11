@@ -149,7 +149,7 @@ export const addPopupAndListeners = (
           document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
           document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
           document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
-          document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit.bind(popups[index], popups[index]));
+          document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit?.bind(popups[index], popups[index]));
           document.getElementById('buttonComponents-' + index)?.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
       }
   }
@@ -312,7 +312,7 @@ export const addPopupsOnClick = async (
                   : '-1',
               projecctype:
                 feature.source === PROJECTS_DRAFT
-                  ? 'STATUS'
+                  ? feature.properties.projecttype
                   : feature.properties.projectsubtype
                   ? feature.properties.projectsubtype
                   : feature.properties.projecttype
