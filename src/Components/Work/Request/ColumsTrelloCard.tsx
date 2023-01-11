@@ -6,6 +6,7 @@ import { filterByJurisdictionAndCsaSelected, hasPriority, onDropFn, onDropFuncti
 import TrelloLikeCard from './TrelloLikeCard';
 import WsService from './WsService';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { ADMIN, STAFF } from 'constants/constants';
 
 let columDragAction = [false, 0, 0];
 let fixedDragAction = [false, 0, 0];
@@ -30,6 +31,7 @@ const ColumsTrelloCard = ({
   boardStatus,
   notIsFiltered,
   ColorService,
+  userDesignation
 }: {
   columns: any;
   setColumns: any;
@@ -50,6 +52,7 @@ const ColumsTrelloCard = ({
   boardStatus: any;
   notIsFiltered: any;
   ColorService: any;
+  userDesignation: any
 }) => {
   const [dragAction, setDragAction] = useState([false, 0, 0]);
   const [dragStart, setDragstart] = useState([0, 0]);
@@ -255,7 +258,7 @@ const ColumsTrelloCard = ({
                                   rowIdx={i}
                                   saveData={saveData}
                                   tabKey={tabKey}
-                                  editable={boardStatus !== 'Approved'}
+                                  editable={boardStatus !== 'Approved' || (userDesignation === ADMIN || userDesignation === STAFF)}
                                   filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
@@ -307,7 +310,7 @@ const ColumsTrelloCard = ({
                                   rowIdx={i}
                                   saveData={saveData}
                                   tabKey={tabKey}
-                                  editable={boardStatus !== 'Approved'}
+                                  editable={boardStatus !== 'Approved' || (userDesignation === ADMIN || userDesignation === STAFF)}
                                   filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
@@ -359,7 +362,7 @@ const ColumsTrelloCard = ({
                                   rowIdx={i}
                                   saveData={saveData}
                                   tabKey={tabKey}
-                                  editable={boardStatus !== 'Approved'}
+                                  editable={boardStatus !== 'Approved' || (userDesignation === ADMIN || userDesignation === STAFF)}
                                   filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(

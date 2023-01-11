@@ -1018,6 +1018,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             boardStatus={boardStatus}
                             notIsFiltered={notIsFiltered}
                             ColorService={ColorService}
+                            userDesignation={userInformation.designation}
                           />
                         </div>
 
