@@ -65,6 +65,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
   const [callBoard, setCallBoard] = useState(0);
+  const [flagforScroll, setFlagforScroll] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
@@ -543,7 +544,10 @@ const RequestView = ({ type, isFirstRendering }: {
                 if (projects) {
                   let cols = generateColumns(projects, year, tabKey);
                   let areEqual: boolean = compareColumns(columns, cols);
+                  setFlagforScroll(Math.random());
                   if (!areEqual) {
+                    
+
                     setColumns(cols);
                     let justProjects = projects.map((proj:any)=> {
                       return proj.projectData.cartodb_id;
@@ -1019,6 +1023,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             notIsFiltered={notIsFiltered}
                             ColorService={ColorService}
                             userDesignation={userInformation.designation}
+                            flagforScroll={flagforScroll}
                           />
                         </div>
 

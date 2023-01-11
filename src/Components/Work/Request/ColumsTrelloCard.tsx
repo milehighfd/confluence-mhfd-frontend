@@ -11,6 +11,9 @@ import { ADMIN, STAFF } from 'constants/constants';
 let columDragAction = [false, 0, 0];
 let fixedDragAction = [false, 0, 0];
 let stop = 0;
+let scrollValues:any= [0,0,0,0,0,0];
+let scrollByIds:any = [];
+
 const ColumsTrelloCard = ({
   columns,
   setColumns,
@@ -31,7 +34,8 @@ const ColumsTrelloCard = ({
   boardStatus,
   notIsFiltered,
   ColorService,
-  userDesignation
+  userDesignation,
+  flagforScroll
 }: {
   columns: any;
   setColumns: any;
@@ -52,7 +56,8 @@ const ColumsTrelloCard = ({
   boardStatus: any;
   notIsFiltered: any;
   ColorService: any;
-  userDesignation: any
+  userDesignation: any;
+  flagforScroll: any;
 }) => {
   const [dragAction, setDragAction] = useState([false, 0, 0]);
   const [dragStart, setDragstart] = useState([0, 0]);
@@ -68,7 +73,7 @@ const ColumsTrelloCard = ({
   const [sizeCard, setSizeCard] = useState([0, 0]);
   const divRef = useRef(null);
   const columRef = useRef<null | HTMLDivElement>(null);
-  const [onScrollValue, setOnScrollValue] = useState(-1);
+  const [onScrollValue, setOnScrollValue] = useState([]);
   var windowWidth = window.innerWidth;
   // const onDrop = (txt: any, columnIdx: number,state:boolean, destColumn:any, destPosition:any) => {
   //   console.log('cols before drop', columns);
@@ -80,6 +85,57 @@ const ColumsTrelloCard = ({
   //     setColumns(cols);
   //   }
   // };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if( document.getElementById(`column_1`)){
+        scrollValues.forEach((element:any, index:any ) => {
+          console.log('indexxx', element,index)
+          scrollByIds[index] = document.getElementById(`column_${index}`);
+          console.log('valor scroll',index, onScrollValue[index])
+          scrollByIds[index].scrollTop = onScrollValue[index];
+          console.log('entra aqui')
+        });
+      }
+    }, 1000);
+
+  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if( document.getElementById(`column_1`)){
+  //       scrollValues.forEach((element:any, index:any ) => {
+  //         console.log('indexxx', element,index)
+  //         scrollByIds[index] = document.getElementById(`column_${index}`);
+  //         console.log('valor scroll',index, onScrollValue[index])
+  //         scrollByIds[index].scrollTop = onScrollValue[index];
+  //         console.log('entra aqui')
+  //       });
+  //     }
+  //   }, 5000);
+
+  // }, [onScrollValue,scrollValues,columns]);
+  useEffect(() => {
+    console.log('reaches this')
+    setTimeout(() => {
+      if( document.getElementById(`column_1`)){
+        scrollValues.forEach((element:any, index:any ) => {
+          scrollByIds[index] = document.getElementById(`column_${index}`);
+          scrollByIds[index].scrollTop = onScrollValue[index];
+        });
+      }
+    }, 1000);
+  }, [flagforScroll]);
+
+  // if( document.getElementById(`column_1`)){
+  //   scrollValues.forEach((element:any, index:any ) => {
+  //     console.log('indexxx', element,index)
+  //     scrollByIds[index] = document.getElementById(`column_${index}`);
+  //     console.log('valor scroll',index, onScrollValue[index])
+  //     scrollByIds[index].scrollTop = onScrollValue[index];
+  //     console.log('entra aqui')
+  //   });
+  // }
+
   const onDrop = (projectid: number, state: boolean, sourceColumn: number, sourcePosition: number, destColumn: number, destPosition: number) => {
     let cols = onDropFunction(projectid, columns, tabKey, state, sourceColumn, sourcePosition, destColumn, destPosition, saveData);
     if(cols) {
@@ -115,6 +171,13 @@ const ColumsTrelloCard = ({
       // fixedDragAction=[true, dInd, dPos];
       // onDrop(txt, sInd,true, dInd, dPos);
       onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
+
+      if( document.getElementById(`column_1`)){
+        scrollValues.forEach((element:any, index:any ) => {
+          scrollValues[index] = document.getElementById(`column_${index}`)?.scrollTop
+          setOnScrollValue(scrollValues)
+        });
+      }
     }
     }>
       {columns.map((column: any, columnIdx: number) => (
@@ -127,10 +190,15 @@ const ColumsTrelloCard = ({
             <div
               {...droppableProvided.droppableProps}
               ref={droppableProvided.innerRef}
+              id={`column_${columnIdx}`}
               className={column.hasCreateOption ? 'col-wr droppable colum-hascreate' : 'col-wr droppable'}
               style={
                 fixedDragAction[0] && columnIdx === Math.trunc(Number(fixedDragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
               }
+              onScroll={(e:any)=>{              
+                  scrollValues[columnIdx] = document.getElementById(`column_${columnIdx}`)?.scrollTop
+                  setOnScrollValue(scrollValues)
+                }}
               // onDragOver={onDragOver}
               // ref={columRef}
               // onDrop={(e: any) => {console.log(column);onDrop(e, columnIdx); setDragAction([false, 0, 0]);}}
