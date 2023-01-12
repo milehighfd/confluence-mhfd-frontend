@@ -239,6 +239,7 @@ const PortafolioBody = () => {
       getListProjects(currentGroup).then((valuesList) => {
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
+          if (valuesList[element.id]) {
           updatedGroups.push({
             id: `Title${index}`,
             headerLabel: element.name,
@@ -255,7 +256,6 @@ const PortafolioBody = () => {
               }
             ],
           });
-          if (valuesList[element.id]) {
             valuesList[element.id].forEach((elem: any, idx: number) => {
               updatedGroups.push({
                 id: `${element.name}${idx}`,
