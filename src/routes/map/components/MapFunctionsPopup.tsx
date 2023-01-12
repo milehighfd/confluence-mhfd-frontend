@@ -326,6 +326,7 @@ export const addPopupsOnClick = async (
               streamname: feature.properties.streamname,
               isEditPopup: feature.source === PROJECTS_DRAFT,
               popupId: 'popup',
+              mapType: mapType ? mapType : 'MAINMAP',
               image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
                 feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
                   feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
