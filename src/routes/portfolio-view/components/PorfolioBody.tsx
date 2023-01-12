@@ -202,7 +202,7 @@ const PortafolioBody = () => {
   );
 
   const getData = async () => {
-    let pjs = await getListProjects(page, pageSize);
+    let pjs = await getListProjects(currentGroup);
     console.log('pjs', pjs);
   }
   const getGroupLists = async () => {
@@ -212,9 +212,6 @@ const PortafolioBody = () => {
     });
   }
   useEffect( () => {  
-    const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
-    getGroupLists();
-    setOpenTable(new Array(sortedData.length).fill(true));
     setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
     return () => {
       // tableRef.current = null;
@@ -236,28 +233,235 @@ const PortafolioBody = () => {
   }, [optionSelect, tabKey]);
   useEffect(() => {
     getGroupList(currentGroup).then((valuesGroups) => {
-      console.log('values Groups', valuesGroups);
       const groups = valuesGroups.groups;
-      const updatedGroups: any = [];
-      groups.forEach((element: any) => {
-        updatedGroups.push({
-          id: `Title${element.id}`,
-          headerLabel: element.name,
-          date: moment('2022/08/11'),
-          schedule: [
-            {
-              objectId: 10,
-              type: 'title',
-              categoryNo: 100,
-              from: moment('2022/02/01 00:00:00'),
-              to: moment('2022/06/01 00:00:00'),
-              status: 'completed',
-              name: element.name,
-            }
-          ],
+      console.log('groups', groups);
+      // setNewData(updatedGroups);
+      getListProjects(currentGroup).then((valuesList) => {
+        const updatedGroups: any = [];
+        groups.forEach((element: any, index: number) => {
+          updatedGroups.push({
+            id: `Title${index}`,
+            headerLabel: element.name,
+            date: moment('2022/08/11'),
+            schedule: [
+              {
+                objectId: 10,
+                type: 'title',
+                categoryNo: 100,
+                from: moment('2022/02/01 00:00:00'),
+                to: moment('2022/06/01 00:00:00'),
+                status: 'completed',
+                name: element.name,
+              }
+            ],
+          });
+          if (valuesList[element.id]) {
+            valuesList[element.id].forEach((elem: any, idx: number) => {
+              updatedGroups.push({
+                id: `${element.name}${idx}`,
+                headerLabel: element.name,
+                rowLabel: elem.description, //description
+                date: moment('2022/08/11'),
+                key: idx+elem.project_id,
+                phase: elem?.project_status?.code_phase_type?.phase_name,
+                mhfd: 'Jon Villines',
+                mhfd_support:'Jane Smith',
+                lg_lead:'Jane Smith',
+                developer:'Robert Croquette',
+                consultant:'Jon Villines',
+                civil_contractor:'Robert Croquette',
+                landscape_contractor:'Jane Smith',
+                construction_start_date:'12/05/2022',
+                local_government:'Broomfield',
+                onbase: "234",
+                total_funding:'1,350,000',
+                project_sponsor:'Broomfield',
+                type:"Restoration",
+                status:'Not Started',
+                serviceArea: elem?.serviceArea?.codeServiceArea?.service_area_name,
+                county: 'Arapahoe',
+                cost: '420,000',
+                stream:'Big Dry Creek',
+                contact: 'ICON',
+                view: 'id',
+                options:'red',
+                schedule: [
+                  {
+                    objectId: 1,
+                    type: 'rect',
+                    categoryNo: 1,
+                    from: moment('2022/06/22 07:30:00'),
+                    to: moment('2022/07/01 08:30:00'),
+                    status: 'completed',
+                    name: 'Draft',
+                    phase: 'Draft', 
+                    tasks: 6,
+                  },
+                  {
+                    objectId: 2,
+                    type: 'rect',
+                    categoryNo: 2,
+                    from: moment('2022/07/02 00:00:00'),
+                    to: moment('2022/07/21 07:00:00'),
+                    status: 'completed',
+                    name: 'Work Request',
+                    phase: 'WorkRequest', 
+                    tasks: 8
+                  },
+                  {
+                    objectId: 3,
+                    type: 'rect',
+                    categoryNo: 3,
+                    from: moment('2022/07/22 08:30:00'),
+                    to: moment('2022/08/17 10:00:00'),
+                    status: 'completed',
+                    name: 'Work Plan',
+                    phase: 'WorkPlan', 
+                    tasks: 12
+                  },
+                  {
+                    objectId: 4,
+                    type: 'rect',
+                    categoryNo: 4,
+                    from: moment('2022/08/18 08:30:00'),
+                    to: moment('2022/09/10 10:00:00'),
+                    status: 'active',
+                    name: 'Start Up',
+                    phase: 'StartUp', 
+                    tasks: 32
+                  },
+                  {
+                    objectId: 5,
+                    type: 'rect',
+                    categoryNo: 5,
+                    from: moment('2022/09/11 08:30:00'),
+                    to: moment('2022/10/11 10:00:00'),
+                    status: 'active',
+                    name: 'Funding',
+                    phase: 'Funding', 
+                    tasks: 6
+                  },
+                  {
+                    objectId: 6,
+                    type: 'rect',
+                    categoryNo: 6,
+                    from: moment('2022/10/12 08:30:00'),
+                    to: moment('2022/12/10 10:00:00'),
+                    status: 'active',
+                    name: 'Consultant Procurement',
+                    phase: 'ConsultantProcurement', 
+                    tasks: 12
+                  },
+                  {
+                    objectId: 7,
+                    type: 'rect',
+                    categoryNo: 7,
+                    from: moment('2022/12/11 00:00:00'),
+                    to: moment('2023/01/20 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Conceptual Design',
+                    phase: 'ConceptualDesign', 
+                    tasks: 15
+                  },
+                  {
+                    objectId: 8,
+                    type: 'rect',
+                    categoryNo: 8,
+                    from: moment('2023/01/21 00:00:00'),
+                    to: moment('2023/03/01 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Preliminary Design',
+                    phase: 'PreliminaryDesign', 
+                    tasks: 9
+                  },
+                  {
+                    objectId: 9,
+                    type: 'rect',
+                    categoryNo: 9,
+                    from: moment('2023/03/02 00:00:00'),
+                    to: moment('2023/05/03 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Final Design',
+                    phase: 'FinalDesign', 
+                    tasks: 2
+                  },
+                  {
+                    objectId: 10,
+                    type: 'rect',
+                    categoryNo: 10,
+                    from: moment('2023/05/04 00:00:00'),
+                    to: moment('2023/06/15 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Construction Contracting',
+                    phase: 'ConstructionContracting', 
+                    tasks: 7
+                  },
+                  {
+                    objectId: 11,
+                    type: 'rect',
+                    categoryNo: 11,
+                    from: moment('2023/06/16 00:00:00'),
+                    to: moment('2023/07/29 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Construction',
+                    phase: 'Construction', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 12,
+                    type: 'rect',
+                    categoryNo: 12,
+                    from: moment('2023/07/30 00:00:00'),
+                    to: moment('2023/09/20 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Documentation',
+                    phase: 'Documentation', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 13,
+                    type: 'rect',
+                    categoryNo: 13,
+                    from: moment('2023/09/21 00:00:00'),
+                    to: moment('2023/10/20 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Establishment',
+                    phase: 'Establishment', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 14,
+                    type: 'rect',
+                    categoryNo: 14,
+                    from: moment('2023/10/21 00:00:00'),
+                    to: moment('2023/11/20 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Close Out',
+                    phase: 'CloseOut', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 15,
+                    type: 'rect',
+                    categoryNo: 15,
+                    from: moment('2023/11/21 00:00:00'),
+                    to: moment('2023/12/30 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Closed',
+                    phase: 'Closed', 
+                    tasks: 10
+                  },
+                ],
+              })
+            });
+          }
         });
+        console.log('update d', updatedGroups);
+        console.log('wad', rawData);
+        setNewData(updatedGroups);
+        const sortedData = updatedGroups.filter((elem: any) => elem.id.includes('Title'));
+        setOpenTable(new Array(sortedData.length).fill(true));
       });
-      setNewData(updatedGroups);
     });
   }, [currentGroup]);
   return <>
@@ -370,7 +574,7 @@ const PortafolioBody = () => {
                     />
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
-                    {optionSelect === 'List' && <TablePortafolio rawData={rawData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}
+                    {optionSelect === 'List' && <TablePortafolio rawData={newData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}
                     {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} indexParent={idx}/>}
                     {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
                   </Col>

@@ -26,7 +26,7 @@ export const saveSpecial = (data: any) => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
-      }else{
+      } else {
         status = 0;
       }
       dispatch({ type: types.SET_SAVE, status });

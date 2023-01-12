@@ -230,7 +230,7 @@ export const SERVER = (function () {
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
-        GET_LIST_PMTOOLS: (page: number, pagesize: number) => `${URL_BASE.BASE}/${PMTOOLS}/list?limit=${pagesize}&page=${page}`,
+        GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/board/update-budget/${id}`,
         GET_CONFIGURATIONS: (key: string) => {
