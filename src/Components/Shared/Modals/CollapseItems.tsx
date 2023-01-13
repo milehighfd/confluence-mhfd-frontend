@@ -213,8 +213,12 @@ export default forwardRef(({
         let idProjectLine = 0;
         for (const project of tileStyles[MHFD_PROJECTS]) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-          if (detailedPage?.cartodb_id) {
-            map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
+          // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
+          // if (detailedPage?.cartodb_id) {
+          //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
+          // }
+          if (detailedPage?.projectid) {
+            map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailedPage?.projectid]);
           }
           
           idProjectLine++;
