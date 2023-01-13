@@ -45,7 +45,10 @@ const capitalize = (s : string) => {
     if (typeof s !== 'string') return '';
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
-export const MainPopup = ({id, item, test, sw, ep } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any}) => {
+export const MainPopup = ({id, item, test, sw, ep, detailPage } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any, detailPage?:any}) => {
+  if(detailPage === undefined){
+    detailPage =false;
+  }
     for (const key in item) {
         if (!item[key]) {
             item[key] = '-';
@@ -79,7 +82,7 @@ export const MainPopup = ({id, item, test, sw, ep } : {id: number, item: any, te
             <span style={{color: item.type !== MENU_OPTIONS.PROBLEMS ? '#11093c' : '', opacity: item.type  !==  MENU_OPTIONS.PROBLEMS ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === MENU_OPTIONS.PROBLEMS ? ((item.status == '-'?'0%':item.status) + " Solved" ) : capitalize(item.status)}</span>
           </div>
         </div>
-        { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { (!ep && detailPage===false)  && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             { item.type != 'project' && <Button id={"buttonCreate-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Create Project</Button>}
             <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test(item)} className="btn-borde">See Details</Button>
         </div>} 
