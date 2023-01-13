@@ -257,7 +257,6 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
-              if (idx > 100) return ;
               updatedGroups.push({
                 id: `${element.name}${idx}`,
                 headerLabel: element.name,
