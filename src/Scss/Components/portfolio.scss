@@ -905,6 +905,9 @@
           padding-right: 4px;
         }
       }
+      .ant-collapse > .ant-collapse-item:last-child, .tabs-map .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+        margin-bottom: 0px;
+      }
     }
     .search-body::-webkit-scrollbar {
       background: transparent;
