@@ -233,8 +233,10 @@ const PortafolioBody = () => {
   useEffect(() => {
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
+      console.log('values groups', valuesGroups);
       // setNewData(updatedGroups);
       getListProjects(currentGroup).then((valuesList) => {
+        console.log('values list', valuesList);
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
           if (valuesList[element.id]) {
@@ -255,7 +257,7 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
-              if (idx > 10) return ;
+              if (idx > 100) return ;
               updatedGroups.push({
                 id: `${element.name}${idx}`,
                 headerLabel: element.name,

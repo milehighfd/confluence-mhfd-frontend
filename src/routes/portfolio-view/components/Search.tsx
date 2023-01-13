@@ -52,7 +52,7 @@ const Search = (
           children: groupsBy.map((gb, index) => {
             return {
               key: `1-${index + 1}`,
-              label: <div className="menu-drop-sub menu-sub-drop" onClick={() => setCurrentGroup(gb.toLowerCase())}>{gb}</div>
+              label: <div className="menu-drop-sub menu-sub-drop" onClick={() => setCurrentGroup(gb.toLowerCase().replace(' ', ''))}>{gb}</div>
             }
           })
         },
