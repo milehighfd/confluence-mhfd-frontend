@@ -66,6 +66,15 @@ const Search = (
       values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
+
+  const getActiveKeys = () => {
+    const indices = openTable.reduce(
+      (out, bool, index) => bool ? out.concat(index) : out, 
+      []
+    );
+    return indices;
+  }
+
   useEffect(() => {
   }, [sortedData]);
   return <>
@@ -111,7 +120,7 @@ const Search = (
             return (
               <div id={id}>
                 <Collapse
-                  defaultActiveKey={['1']}
+                  activeKey={getActiveKeys()}
                   onChange={
                     ()=>{
                       // setTimeout(()=>{
@@ -121,7 +130,7 @@ const Search = (
                       // },70)
                     }
                   } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/>
-                  <Panel header={elem.headerLabel} key="1" id={elem.id}>
+                  <Panel header={elem.headerLabel} key={index} id={elem.id}>
                     {/* {
                       index === 0 && <div className="text-search text-first" id="headerCentennial">
                         <p></p>

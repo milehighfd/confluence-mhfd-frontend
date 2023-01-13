@@ -83,7 +83,6 @@ const PortafolioBody = () => {
     getParamFilterProjects,
     setBoundMap
   } = useMapDispatch();
-
   const menu = (
     <Menu
       className="menu-drop"
@@ -234,7 +233,6 @@ const PortafolioBody = () => {
   useEffect(() => {
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('groups', groups);
       // setNewData(updatedGroups);
       getListProjects(currentGroup).then((valuesList) => {
         const updatedGroups: any = [];
@@ -257,6 +255,7 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
+              if (idx > 10) return ;
               updatedGroups.push({
                 id: `${element.name}${idx}`,
                 headerLabel: element.name,
@@ -272,12 +271,12 @@ const PortafolioBody = () => {
                 civil_contractor:'Robert Croquette',
                 landscape_contractor:'Jane Smith',
                 construction_start_date:'12/05/2022',
-                local_government:'Broomfield',
-                onbase: "234",
+                local_government: elem?.localGovernment?.codeLocalGovernment?.local_government_name,
+                onbase: elem?.onbase_project_number,
                 total_funding:'1,350,000',
-                project_sponsor:'Broomfield',
-                type:"Restoration",
-                status:'Not Started',
+                project_sponsor:elem?.sponsor,
+                type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
+                status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
                 serviceArea: elem?.serviceArea?.codeServiceArea?.service_area_name,
                 county: 'Arapahoe',
                 cost: '420,000',
@@ -456,8 +455,6 @@ const PortafolioBody = () => {
             });
           }
         });
-        console.log('update d', updatedGroups);
-        console.log('wad', rawData);
         setNewData(updatedGroups);
         const sortedData = updatedGroups.filter((elem: any) => elem.id.includes('Title'));
         setOpenTable(new Array(sortedData.length).fill(true));
