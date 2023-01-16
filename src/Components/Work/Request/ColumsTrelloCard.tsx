@@ -100,26 +100,12 @@ const ColumsTrelloCard = ({
     }, 1000);
 
   }, []);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if( document.getElementById(`column_1`)){
-  //       scrollValues.forEach((element:any, index:any ) => {
-  //         console.log('indexxx', element,index)
-  //         scrollByIds[index] = document.getElementById(`column_${index}`);
-  //         console.log('valor scroll',index, onScrollValue[index])
-  //         scrollByIds[index].scrollTop = onScrollValue[index];
-  //         console.log('entra aqui')
-  //       });
-  //     }
-  //   }, 5000);
 
-  // }, [onScrollValue,scrollValues,columns]);
   useEffect(() => {
-    console.log('reaches this')
     setTimeout(() => {
-      if( document.getElementById(`column_1`)){
+      if( document.getElementById(`column_${tabKey}_1`)){
         scrollValues.forEach((element:any, index:any ) => {
-          scrollByIds[index] = document.getElementById(`column_${index}`);
+          scrollByIds[index] = document.getElementById(`column_${tabKey}_${index}`);
           scrollByIds[index].scrollTop = onScrollValue[index];
         });
       }
@@ -172,9 +158,9 @@ const ColumsTrelloCard = ({
       // onDrop(txt, sInd,true, dInd, dPos);
       onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
 
-      if( document.getElementById(`column_1`)){
+      if( document.getElementById(`column_${tabKey}_1`)){
         scrollValues.forEach((element:any, index:any ) => {
-          scrollValues[index] = document.getElementById(`column_${index}`)?.scrollTop
+          scrollValues[index] = document.getElementById(`column_${tabKey}_${index}`)?.scrollTop
           setOnScrollValue(scrollValues)
         });
       }
@@ -182,7 +168,7 @@ const ColumsTrelloCard = ({
     }>
       {columns.map((column: any, columnIdx: number) => (
     
-    <div className="container-drag" key={columnIdx + Math.random()}>
+    <div className="container-drag" id={`container_${tabKey}`} key={columnIdx + Math.random()}>
       <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
       
         <Droppable droppableId={`${columnIdx}`}>
@@ -190,13 +176,13 @@ const ColumsTrelloCard = ({
             <div
               {...droppableProvided.droppableProps}
               ref={droppableProvided.innerRef}
-              id={`column_${columnIdx}`}
+              id={`column_${tabKey}_${columnIdx}`}
               className={column.hasCreateOption ? 'col-wr droppable colum-hascreate' : 'col-wr droppable'}
               style={
                 fixedDragAction[0] && columnIdx === Math.trunc(Number(fixedDragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
               }
-              onScroll={(e:any)=>{              
-                  scrollValues[columnIdx] = document.getElementById(`column_${columnIdx}`)?.scrollTop
+              onScroll={(e:any)=>{       
+                  scrollValues[columnIdx] = e.currentTarget?.scrollTop
                   setOnScrollValue(scrollValues)
                 }}
               // onDragOver={onDragOver}

@@ -992,7 +992,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
                   </Button>
                 }
-                <Tabs defaultActiveKey={displayedTabKey[0]}
+                <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                  onChange={(key) => {
                   setTabKey(key);
