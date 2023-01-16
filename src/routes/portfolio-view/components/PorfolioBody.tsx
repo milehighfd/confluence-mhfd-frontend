@@ -239,6 +239,7 @@ const PortafolioBody = () => {
         console.log('values list', valuesList);
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
+          console.log('valuesList[element.id]', valuesList[element.id], element.id);
           if (valuesList[element.id]) {
           updatedGroups.push({
             id: `Title${index}`,
@@ -268,9 +269,9 @@ const PortafolioBody = () => {
                 mhfd_support:'Jane Smith',
                 lg_lead:'Jane Smith',
                 developer:'Robert Croquette',
-                consultant:'Jon Villines',
-                civil_contractor:'Robert Croquette',
-                landscape_contractor:'Jane Smith',
+                consultant: elem?.consultants[0]?.consultant[0]?.business_name,
+                civil_contractor: elem?.civilContractor[0]?.business[0]?.business_name,
+                landscape_contractor:elem?.landscapeContractor[0]?.business[0]?.business_name,
                 construction_start_date:'12/05/2022',
                 local_government: elem?.localGovernment?.codeLocalGovernment?.local_government_name,
                 onbase: elem?.onbase_project_number,
