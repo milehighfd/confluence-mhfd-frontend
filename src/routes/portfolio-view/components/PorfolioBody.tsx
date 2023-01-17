@@ -19,6 +19,7 @@ import moment from 'moment';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
+const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 // const popovers: any = [
 //   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -34,6 +35,7 @@ const PortafolioBody = () => {
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
+  const [currentIdTab, setCurrentIdTab] = useState(null);
   const [openAction, setOpenAction] = useState(true);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
@@ -200,16 +202,6 @@ const PortafolioBody = () => {
     />
   );
 
-  const getData = async () => {
-    let pjs = await getListProjects(currentGroup);
-    console.log('pjs', pjs);
-  }
-  const getGroupLists = async () => {
-    mainFilters.forEach(async (f) => {
-      let gList = await getGroupList(f.value);
-      setFiltersGroup({...filtersGroups, f: gList});
-    });
-  }
   useEffect( () => {  
     setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
     return () => {
@@ -233,13 +225,12 @@ const PortafolioBody = () => {
   useEffect(() => {
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('values groups', valuesGroups);
+      const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
-      getListProjects(currentGroup).then((valuesList) => {
+      getListProjects(currentGroup, currentId).then((valuesList) => {
         console.log('values list', valuesList);
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
-          console.log('valuesList[element.id]', valuesList[element.id], element.id);
           if (valuesList[element.id]) {
           updatedGroups.push({
             id: `Title${index}`,
@@ -462,7 +453,7 @@ const PortafolioBody = () => {
         setOpenTable(new Array(sortedData.length).fill(true));
       });
     });
-  }, [currentGroup]);
+  }, [currentGroup, tabKey]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
