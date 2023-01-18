@@ -140,42 +140,42 @@ export const widthOnBase = ():string =>{
 }
 // export const AllHeaderTable:ColumnsType<DataType> = [
 //   {
-//     title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+//     title: <>Phase</>,
 //     dataIndex: 'phase',
 //     key: 'name',
     // width: "11.5%",
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>MHFD Lead/PM &nbsp;<ArrowDownOutlined /></>,
+//     title: <>MHFD Lead/PM</>,
 //     dataIndex: 'mhfd',
 //     key: 'mhfd',
     // width: "14%",
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>Status &nbsp;<ArrowDownOutlined /></>,
+//     title: <>Status</>,
 //     dataIndex: 'status',
 //     key: 'status',
     // width: "11.5%",
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+//     title: <>Service Area</>,
 //     dataIndex: 'serviceArea',
 //     key: 'age',
     // width: "13%",
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>County &nbsp;<ArrowDownOutlined /></>,
+//     title: <>County</>,
 //     dataIndex: 'county',
 //     key: 'address',
     // width: "11.5%",
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>Estimate Cost &nbsp;<ArrowDownOutlined /></>,
+//     title: <>Estimate Cost</>,
 //     key: 'cost',
 //     dataIndex: 'cost',
 //     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#251863'}}>${text}</span>;},
@@ -183,14 +183,14 @@ export const widthOnBase = ():string =>{
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+//     title: <>Stream</>,
 //     dataIndex: 'stream',
 //     key: 'stream',
     // width: "11.5%",
 //     ellipsis: true,
 //   },
 //   {
-//     title: <>Contract &nbsp;<ArrowDownOutlined /></>,
+//     title: <>Contract</>,
 //     key: 'contact',
 //     dataIndex: 'contact',
     // width: "11.5%",
@@ -263,60 +263,67 @@ export const widthOnBase = ():string =>{
 // ];
 export const AllHeaderTable:ColumnsType<DataType | DataTypeAll | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:widthOnBase(),
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Project Type &nbsp;<ArrowDownOutlined /></>,
+    title: <>Project Type</>,
     dataIndex: 'type',
     key: 'type',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     key: 'phase',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     key: 'mhfd',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+    title: <>Service Area</>,
     key: 'serviceArea',
     dataIndex: 'serviceArea',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+    title: <>Stream</>,
     dataIndex: 'stream',
     key: 'stream',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   }
 ];
 export const AllValueTable:ColumnsType<DataTypeAll | any> = [
@@ -383,135 +390,150 @@ export const AllValueTable:ColumnsType<DataTypeAll | any> = [
 ];
 export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     key: 'phase',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     key: 'mhfd',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>LG Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>LG Lead</>,
     dataIndex: 'lg_lead',
     key: 'lg_lead',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Estimated Cost &nbsp;<ArrowDownOutlined /></>,
+    title: <>Estimated Cost</>,
     dataIndex: 'cost',
     key: 'cost',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Developer &nbsp;<ArrowDownOutlined /></>,
+    title: <>Developer</>,
     dataIndex: 'developer',
     key: 'developer',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Consultant &nbsp;<ArrowDownOutlined /></>,
+    title: <>Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Civil Contractor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Civil Contractor</>,
     dataIndex: 'civil_contractor',
     key: 'civil_contractor',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Landscape Contractor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Landscape Contractor</>,
     dataIndex: 'landscape_contractor',
     key: 'landscape_contractor',
     className:'landscape',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Construction Start &nbsp;<ArrowDownOutlined /></>,
+    title: <>Construction Start</>,
     dataIndex: 'construction_start_date',
     key: 'construction_start_date',
     className:'construction_start_date',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+    title: <>Service Area</>,
     dataIndex: 'serviceArea',
     key: 'serviceArea',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>County &nbsp;<ArrowDownOutlined /></>,
+    title: <>County</>,
     dataIndex: 'county',
     key: 'county',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Local Government &nbsp;<ArrowDownOutlined /></>,
+    title: <>Local Government</>,
     dataIndex: 'local_government',
     key: 'local_government',
     className:'local_government',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+    title: <>Stream</>,
     dataIndex: 'stream',
     key: 'stream',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
 ];
 export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
@@ -655,52 +677,58 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
 
 export const RDHeaderTable:ColumnsType<DataTypeRD | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:"16.66666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     className:'rd-table',
     // width:"16.66666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     key: 'phase',
     className:'rd-table',
     // width:"16.66666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     key: 'mhfd',
     className:'rd-table',
     // width:"16.66666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Estimated Cost &nbsp;<ArrowDownOutlined /></>,
+    title: <>Estimated Cost</>,
     dataIndex: 'cost',
     key: 'cost',
     className:'rd-table',
     // width:"16.66666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Consultant &nbsp;<ArrowDownOutlined /></>,
+    title: <>Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'rd-table',
     // width:"16.66666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
 ];
 export const RDValueTable:ColumnsType<DataTypeRD | any> = [
@@ -760,123 +788,137 @@ export const RDValueTable:ColumnsType<DataTypeRD | any> = [
 ];
 export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     className:'table-text-body',
     key: 'phase',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     key: 'mhfd',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>LG Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>LG Lead</>,
     dataIndex: 'lg_lead',
     key: 'lg_lead',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Project Sponsor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Project Sponsor</>,
     dataIndex: 'project_sponsor',
     key: 'project_sponsor',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Estimated Cost &nbsp;<ArrowDownOutlined /></>,
+    title: <>Estimated Cost</>,
     dataIndex: 'cost',
     key: 'cost',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Consultant &nbsp;<ArrowDownOutlined /></>,
+    title: <>Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Civil Contractor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Civil Contractor</>,
     dataIndex: 'civil_contractor',
     key: 'civil_contractor',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Landscape Contractor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Landscape Contractor</>,
     dataIndex: 'landscape_contractor',
     key: 'landscape_contractor',
     className:'landscape',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Construction Start &nbsp;<ArrowDownOutlined /></>,
+    title: <>Construction Start</>,
     dataIndex: 'construction_start_date',
     key: 'construction_start_date',
     className:'construction_start_date',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+    title: <>Service Area</>,
     dataIndex: 'serviceArea',
     key: 'serviceArea',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>County &nbsp;<ArrowDownOutlined /></>,
+    title: <>County</>,
     dataIndex: 'county',
     key: 'county',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+    title: <>Stream</>,
     dataIndex: 'stream',
     className:'table-text-body',
     key: 'stream',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
 ];
 export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
@@ -1008,123 +1050,137 @@ export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
 ];
 export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     key: 'phase',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     className:'table-text-body',
     key: 'mhfd',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>LG Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>LG Lead</>,
     dataIndex: 'lg_lead',
     key: 'lg_lead',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Project Sponsor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Project Sponsor</>,
     dataIndex: 'project_sponsor',
     key: 'project_sponsor',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Estimated Cost &nbsp;<ArrowDownOutlined /></>,
+    title: <>Estimated Cost</>,
     dataIndex: 'cost',
     className:'table-text-body',
     key: 'cost',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Consultant &nbsp;<ArrowDownOutlined /></>,
+    title: <>Consultant</>,
     dataIndex: 'consultant',
     className:'table-text-body',
     key: 'consultant',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Civil Contractor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Civil Contractor</>,
     dataIndex: 'civil_contractor',
     key: 'civil_contractor',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Landscape Contractor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Landscape Contractor</>,
     dataIndex: 'landscape_contractor',
     key: 'landscape_contractor',
     className:'landscape',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Construction Start Date &nbsp;<ArrowDownOutlined /></>,
+    title: <>Construction Start Date</>,
     dataIndex: 'construction_start_date',
     key: 'construction_start_date',
     className:'construction_start_date',
     // width:"6.666666666666667",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+    title: <>Service Area</>,
     dataIndex: 'serviceArea',
     key: 'serviceArea',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>County &nbsp;<ArrowDownOutlined /></>,
+    title: <>County</>,
     dataIndex: 'county',
     key: 'county',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+    title: <>Stream</>,
     dataIndex: 'stream',
     key: 'stream',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
 ];
 export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
@@ -1255,77 +1311,86 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
 ];
 export const PlanningHeaderTable:ColumnsType<DataTypePlanning | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     className:'table-text-body',
     key: 'phase',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     className:'table-text-body',
     key: 'mhfd',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Project Sponsor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Project Sponsor</>,
     dataIndex: 'project_sponsor',
     key: 'project_sponsor',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Total Funding &nbsp;<ArrowDownOutlined /></>,
+    title: <>Total Funding</>,
     dataIndex: 'total_funding',
     key: 'total_funding',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   
   {
-    title: <>Consultant &nbsp;<ArrowDownOutlined /></>,
+    title: <>Consultant</>,
     dataIndex: 'consultant',
     key: 'consultant',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+    title: <>Service Area</>,
     dataIndex: 'serviceArea',
     key: 'serviceArea',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+    title: <>Stream</>,
     dataIndex: 'stream',
     key: 'stream',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
 ];
 export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
@@ -1411,84 +1476,94 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
 
 export const PropertyAcquisitionHeaderTable:ColumnsType<DataTypePropertyAcquisition | any> = [
   {
-    title: <>OnBase &nbsp;<ArrowDownOutlined /></>,
+    title: <>OnBase</>,
     dataIndex: 'onbase',
     key: 'onbase',
     className:'onbase',
     // width:"10%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Status &nbsp;<ArrowDownOutlined /></>,
+    title: <>Status</>,
     dataIndex: 'status',
     key: 'status',
     // width:"10%",
     ellipsis: true,
     className:'table-text-body',
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Phase &nbsp;<ArrowDownOutlined /></>,
+    title: <>Phase</>,
     dataIndex: 'phase',
     key: 'phase',
     // width:"10%",
     ellipsis: true,
     className:'table-text-body',
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Lead &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Lead</>,
     dataIndex: 'mhfd',
     key: 'mhfd',
     // width:"10%",
     className:'table-text-body',
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>MHFD Support &nbsp;<ArrowDownOutlined /></>,
+    title: <>MHFD Support</>,
     dataIndex: 'mhfd_support',
     key: 'mhfd_support',
     // width:"10%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
     className:'table-text-body',
   },
   {
-    title: <>Project Sponsor &nbsp;<ArrowDownOutlined /></>,
+    title: <>Project Sponsor</>,
     dataIndex: 'project_sponsor',
     key: 'project_sponsor',
     // width:"10%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
     className:'table-text-body',
   },
   {
-    title: <>Estimated Cost &nbsp;<ArrowDownOutlined /></>,
+    title: <>Estimated Cost</>,
     dataIndex: 'cost',
     key: 'cost',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
   {
-    title: <>Service Area &nbsp;<ArrowDownOutlined /></>,
+    title: <>Service Area</>,
     dataIndex: 'serviceArea',
     key: 'serviceArea',
     // width:"10%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
     className:'table-text-body',
   },
   {
-    title: <>County &nbsp;<ArrowDownOutlined /></>,
+    title: <>County</>,
     dataIndex: 'county',
     key: 'county',
     // width:"10%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
     className:'table-text-body',
   },
   {
-    title: <>Stream &nbsp;<ArrowDownOutlined /></>,
+    title: <>Stream</>,
     dataIndex: 'stream',
     key: 'stream',
     className:'table-text-body',
     // width:"10%",
     ellipsis: true,
+    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
   },
 ];
 
