@@ -506,7 +506,8 @@ const RequestView = ({ type, isFirstRendering }: {
         type,
         year: `${year}`,
         locality,
-        projecttype: tabKey
+        // the next condition should be removed once all Special element would have been replace by R&D in DB
+        projecttype: (tabKey === 'R&D' ? 'Special' : tabKey)
       })
           .then(
             (r: any) => {
