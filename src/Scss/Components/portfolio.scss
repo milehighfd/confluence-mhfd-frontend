@@ -1217,6 +1217,9 @@
         height: 39px;
         color: #251863 !important;
       }
+      .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
+        color: #11093c;
+      }
       .tag{
         background-color: #eafaf5;
         padding: 4px 10px;
