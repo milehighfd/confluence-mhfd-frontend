@@ -15,6 +15,7 @@ import { rawData } from "../constants/PhaseViewData";
 import ModalGraphic from "./ModalGraphic";
 import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
 import moment from 'moment';
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
 
 const { TabPane } = Tabs;
@@ -55,6 +56,7 @@ const PortafolioBody = () => {
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const mainFilters = [
     // {label: 'MHFD Lead/PM', value: 'MHFD' },
@@ -224,12 +226,12 @@ const PortafolioBody = () => {
     }
   }, [optionSelect, tabKey]);
   const callGetGroupList = (sortValue: any) => {
+    setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
       getListProjects(currentGroup, currentId, sortValue).then((valuesList) => {
-        console.log('values list', valuesList);
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
           if (valuesList[element.id]) {
@@ -250,7 +252,7 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
-              if(idx > 20) return;
+              // if(idx > 20) return;
               updatedGroups.push({
                 id: `${element.name}${idx}`,
                 headerLabel: element.name,
@@ -451,6 +453,9 @@ const PortafolioBody = () => {
           }
         });
         setNewData(updatedGroups);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1500);
         const sortedData = updatedGroups.filter((elem: any) => elem.id.includes('Title'));
         setOpenTable(new Array(sortedData.length).fill(true));
       });
@@ -462,11 +467,15 @@ const PortafolioBody = () => {
   useEffect(() => {
     callGetGroupList(undefined);
   }, [currentGroup, tabKey]);
+  useEffect(() => {
+    console.log('this is the new data', newData);
+  }, [newData]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div>
+      {isLoading && <LoadingViewOverall />}
       <div className="portafolio-head">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
