@@ -55,6 +55,7 @@ const PortafolioBody = () => {
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
+  const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const mainFilters = [
     // {label: 'MHFD Lead/PM', value: 'MHFD' },
     // {label: 'Service Area', value: 'Service' },
@@ -222,12 +223,12 @@ const PortafolioBody = () => {
       });
     }
   }, [optionSelect, tabKey]);
-  useEffect(() => {
+  const callGetGroupList = (sortValue: any) => {
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
-      getListProjects(currentGroup, currentId).then((valuesList) => {
+      getListProjects(currentGroup, currentId, sortValue).then((valuesList) => {
         console.log('values list', valuesList);
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
@@ -249,6 +250,7 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
+              if(idx > 20) return;
               updatedGroups.push({
                 id: `${element.name}${idx}`,
                 headerLabel: element.name,
@@ -265,15 +267,15 @@ const PortafolioBody = () => {
                 landscape_contractor:elem?.landscapeContractor[0]?.business[0]?.business_name,
                 construction_start_date:'12/05/2022',
                 local_government: elem?.localGovernment?.codeLocalGovernment?.local_government_name,
-                onbase: elem?.onbase_project_number,
+                on_base: elem?.onbase_project_number,
                 total_funding:'1,350,000',
                 project_sponsor:elem?.sponsor,
-                type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
+                project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
-                serviceArea: elem?.serviceArea?.codeServiceArea?.service_area_name,
-                county: 'Arapahoe',
+                service_area: elem?.serviceArea?.codeServiceArea?.service_area_name,
+                county: elem?.county?.codeStateCounty?.county_name,
                 cost: '420,000',
-                stream:'Big Dry Creek',
+                stream: elem?.streams?.stream?.stream_name,
                 contact: 'ICON',
                 view: 'id',
                 options:'red',
@@ -453,6 +455,12 @@ const PortafolioBody = () => {
         setOpenTable(new Array(sortedData.length).fill(true));
       });
     });
+  }
+  useEffect(() => {
+    callGetGroupList(sortValue);
+  }, [sortValue]);
+  useEffect(() => {
+    callGetGroupList(undefined);
   }, [currentGroup, tabKey]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
@@ -564,7 +572,18 @@ const PortafolioBody = () => {
                     />
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
-                    {optionSelect === 'List' && <TablePortafolio rawData={newData} divRef={tableRef} searchRef={searchRef} openTable={openTable} hoverTable={hoverTable} setHoverTable={setHoverTable} tabKey={tabKey} index={idx}/>}
+                    {optionSelect === 'List' && <TablePortafolio
+                      rawData={newData}
+                      divRef={tableRef}
+                      searchRef={searchRef}
+                      openTable={openTable}
+                      hoverTable={hoverTable}
+                      setHoverTable={setHoverTable}
+                      tabKey={tabKey}
+                      index={idx}
+                      setSortValue={setSortValue}
+                      />
+                    }
                     {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} indexParent={idx}/>}
                     {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
                   </Col>

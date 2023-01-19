@@ -6,7 +6,7 @@ import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/c
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 const TablePortafolio = (
-  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData, tabKey, index}
+  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData, tabKey, index, setSortValue}
   :{
     divRef:React.MutableRefObject<any>,
     searchRef:React.MutableRefObject<any>,
@@ -15,7 +15,8 @@ const TablePortafolio = (
     hoverTable:number[],
     rawData: any,
     tabKey:any,
-    index: number
+    index: number,
+    setSortValue: Function | any
   }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -105,7 +106,20 @@ const TablePortafolio = (
     {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div className="table-table-body" style={{width:'min-content'}} >
       <div ref={tableRef} className="scroll-scroll-table">
-        <Table columns={ ValueTabsHeader()} dataSource={dataTable00} className="table-portafolio header-table" style={{marginBottom:'21px'}}/>
+        <Table
+          columns={
+          ValueTabsHeader()}
+          dataSource={dataTable00}
+          className="table-portafolio
+          header-table"
+          style={{marginBottom:'21px'}}
+          onChange={(pagination, filters, sorters:any) => {
+            setSortValue({
+              columnKey: sorters.columnKey,
+              order: sorters.order
+            });
+          }}
+        />
       </div>
     <div className="table-body-body"
       ref={el => divRef.current[index] = el}

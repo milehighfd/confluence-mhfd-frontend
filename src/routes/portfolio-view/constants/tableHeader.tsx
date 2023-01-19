@@ -7,7 +7,7 @@ const pageWidth  = document.documentElement.scrollWidth;
 interface DataType {
   key: string;
   phase: string;
-  serviceArea: string;
+  service_area: string;
   county: string;
   cost: string;
   contact: string;
@@ -21,7 +21,7 @@ interface DataTypeAll {
   status: string;
   phase: string;
   mhfd: string;
-  serviceArea:string;
+  service_area:string;
   stream: string;
 }
 interface DataTypeDIP {
@@ -37,7 +37,7 @@ interface DataTypeDIP {
   civil_contractor:string;
   landscape_contractor:string;
   construction_start_date:string;
-  serviceArea:string;
+  service_area:string;
   county:string;
   local_government:string;
   stream: string;
@@ -64,7 +64,7 @@ interface DataTypeRestoration {
   civil_contractor:string;
   landscape_contractor:string;
   construction_start_date:string;
-  serviceArea:string;
+  service_area:string;
   county:string;
   stream: string;
 }
@@ -81,7 +81,7 @@ interface DataTypeCIP {
   civil_contractor:string;
   landscape_contractor:string;
   construction_start_date:string;
-  serviceArea:string;
+  service_area:string;
   county:string;
   stream: string;
 }
@@ -93,7 +93,7 @@ interface DataTypePlanning {
   mhfd: string;
   project_sponsor:string;
   total_funding: string;
-  serviceArea:string;
+  service_area:string;
   stream: string;
 }
 interface DataTypePropertyAcquisition {
@@ -105,7 +105,7 @@ interface DataTypePropertyAcquisition {
   mhfd_support:string;
   project_sponsor:string;
   cost: string;
-  serviceArea:string;
+  service_area:string;
   county:string;
   stream: string;
 }
@@ -162,7 +162,7 @@ export const widthOnBase = ():string =>{
 //   },
 //   {
 //     title: <>Service Area</>,
-//     dataIndex: 'serviceArea',
+//     dataIndex: 'service_area',
 //     key: 'age',
     // width: "13%",
 //     ellipsis: true,
@@ -226,7 +226,7 @@ export const widthOnBase = ():string =>{
 //   },
 //   {
 //     title: '',
-//     dataIndex: 'serviceArea',
+//     dataIndex: 'service_area',
 //     key: 'age',
     // width: "13%",
 //     ellipsis: true,
@@ -264,17 +264,17 @@ export const widthOnBase = ():string =>{
 export const AllHeaderTable:ColumnsType<DataType | DataTypeAll | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:widthOnBase(),
     ellipsis: true,
-    sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
+    sorter: (a, b) => { console.log('a',a,'b,',b); return a.onbase - b.onbase; }, //TODO: funcition sort in table ant-design
   },
   {
     title: <>Project Type</>,
-    dataIndex: 'type',
-    key: 'type',
+    dataIndex: 'project_type',
+    key: 'project_type',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
@@ -309,8 +309,8 @@ export const AllHeaderTable:ColumnsType<DataType | DataTypeAll | any> = [
   },
   {
     title: <>Service Area</>,
-    key: 'serviceArea',
-    dataIndex: 'serviceArea',
+    key: 'service_area',
+    dataIndex: 'service_area',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
@@ -329,16 +329,16 @@ export const AllHeaderTable:ColumnsType<DataType | DataTypeAll | any> = [
 export const AllValueTable:ColumnsType<DataTypeAll | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"14.28571428571429",
     ellipsis: true,
   },
   {
     title: '',
-    dataIndex: 'type',
-    key: 'type',
+    dataIndex: 'project_type',
+    key: 'project_type',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
@@ -373,8 +373,8 @@ export const AllValueTable:ColumnsType<DataTypeAll | any> = [
   },
   {
     title: '',
-    key: 'serviceArea',
-    dataIndex: 'serviceArea',
+    key: 'service_area',
+    dataIndex: 'service_area',
     className:'table-text-body',
     // width:"14.28571428571429",
     ellipsis: true,
@@ -391,8 +391,8 @@ export const AllValueTable:ColumnsType<DataTypeAll | any> = [
 export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"6.666666666666667",
     ellipsis: true,
@@ -498,8 +498,8 @@ export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | a
   
   {
     title: <>Service Area</>,
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
@@ -539,8 +539,8 @@ export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | a
 export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"6.666666666666667",
     ellipsis: true,
@@ -640,8 +640,8 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
   
   {
     title: '',
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
@@ -678,8 +678,8 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
 export const RDHeaderTable:ColumnsType<DataTypeRD | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"16.66666666666667",
     ellipsis: true,
@@ -734,8 +734,8 @@ export const RDHeaderTable:ColumnsType<DataTypeRD | any> = [
 export const RDValueTable:ColumnsType<DataTypeRD | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"16.66666666666667",
     ellipsis: true,
@@ -789,8 +789,8 @@ export const RDValueTable:ColumnsType<DataTypeRD | any> = [
 export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -894,8 +894,8 @@ export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
   
   {
     title: <>Service Area</>,
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -924,8 +924,8 @@ export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
 export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1024,8 +1024,8 @@ export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
   
   {
     title: '',
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1051,8 +1051,8 @@ export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
 export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1156,8 +1156,8 @@ export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
   
   {
     title: <>Service Area</>,
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1186,8 +1186,8 @@ export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
 export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1285,8 +1285,8 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
   
   {
     title: '',
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1312,8 +1312,8 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
 export const PlanningHeaderTable:ColumnsType<DataTypePlanning | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"11.11111111111111%",
     ellipsis: true,
@@ -1376,8 +1376,8 @@ export const PlanningHeaderTable:ColumnsType<DataTypePlanning | any> = [
   },
   {
     title: <>Service Area</>,
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
@@ -1396,8 +1396,8 @@ export const PlanningHeaderTable:ColumnsType<DataTypePlanning | any> = [
 export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"11.11111111111111%",
     ellipsis: true,
@@ -1458,8 +1458,8 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
   },
   {
     title: '',
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"11.11111111111111%",
     ellipsis: true,
@@ -1477,8 +1477,8 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
 export const PropertyAcquisitionHeaderTable:ColumnsType<DataTypePropertyAcquisition | any> = [
   {
     title: <>OnBase</>,
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"10%",
     ellipsis: true,
@@ -1540,8 +1540,8 @@ export const PropertyAcquisitionHeaderTable:ColumnsType<DataTypePropertyAcquisit
   },
   {
     title: <>Service Area</>,
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     // width:"10%",
     ellipsis: true,
     sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
@@ -1570,8 +1570,8 @@ export const PropertyAcquisitionHeaderTable:ColumnsType<DataTypePropertyAcquisit
 export const PropertyAcquisitionValueTable:ColumnsType<DataTypePropertyAcquisition | any> = [
   {
     title: '',
-    dataIndex: 'onbase',
-    key: 'onbase',
+    dataIndex: 'on_base',
+    key: 'on_base',
     className:'onbase',
     // width:"10%",
     ellipsis: true,
@@ -1631,8 +1631,8 @@ export const PropertyAcquisitionValueTable:ColumnsType<DataTypePropertyAcquisiti
   },
   {
     title: '',
-    dataIndex: 'serviceArea',
-    key: 'serviceArea',
+    dataIndex: 'service_area',
+    key: 'service_area',
     className:'table-text-body',
     // width:"10%",
     ellipsis: true,
