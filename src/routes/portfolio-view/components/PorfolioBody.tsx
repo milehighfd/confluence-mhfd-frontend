@@ -277,7 +277,7 @@ const PortafolioBody = () => {
                 service_area: elem?.serviceArea?.codeServiceArea?.service_area_name,
                 county: elem?.county?.codeStateCounty?.county_name,
                 cost: '420,000',
-                stream: elem?.streams?.stream?.stream_name,
+                stream: elem?.streams?.stream[0]?.stream_name,
                 contact: 'ICON',
                 view: 'id',
                 options:'red',
