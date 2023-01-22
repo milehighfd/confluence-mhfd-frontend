@@ -251,6 +251,7 @@ const PortafolioBody = () => {
               }
             ],
           });
+          console.log('valuesList', valuesList);
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;
               updatedGroups.push({
@@ -267,7 +268,7 @@ const PortafolioBody = () => {
                 consultant: elem?.consultants[0]?.consultant[0]?.business_name,
                 civil_contractor: elem?.civilContractor[0]?.business[0]?.business_name,
                 landscape_contractor:elem?.landscapeContractor[0]?.business[0]?.business_name,
-                construction_start_date:'12/05/2022',
+                construction_start_date: elem?.construction_start_date,
                 local_government: elem?.localGovernment?.codeLocalGovernment?.local_government_name,
                 on_base: elem?.onbase_project_number,
                 total_funding:'1,350,000',
@@ -276,7 +277,7 @@ const PortafolioBody = () => {
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
                 service_area: elem?.serviceArea?.codeServiceArea?.service_area_name,
                 county: elem?.county?.codeStateCounty?.county_name,
-                cost: '420,000',
+                estimated_cost: elem?.estimatedCost?.cost || 0 ,
                 stream: elem?.streams?.stream[0]?.stream_name,
                 contact: 'ICON',
                 view: 'id',
@@ -467,9 +468,6 @@ const PortafolioBody = () => {
   useEffect(() => {
     callGetGroupList(undefined);
   }, [currentGroup, tabKey]);
-  useEffect(() => {
-    console.log('this is the new data', newData);
-  }, [newData]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}

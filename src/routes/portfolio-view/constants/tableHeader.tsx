@@ -176,8 +176,8 @@ export const widthOnBase = ():string =>{
 //   },
 //   {
 //     title: <>Estimate Cost</>,
-//     key: 'cost',
-//     dataIndex: 'cost',
+//     key: 'estimated_cost',
+//     dataIndex: 'estimated_cost',
 //     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#251863'}}>${text}</span>;},
     // width: "14.5%",
 //     ellipsis: true,
@@ -240,8 +240,8 @@ export const widthOnBase = ():string =>{
 //   },
 //   {
 //     title: '',
-//     key: 'cost',
-//     dataIndex: 'cost',
+//     key: 'estimated_cost',
+//     dataIndex: 'estimated_cost',
 //     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
     // width: "14.5%",
 //     ellipsis: true,
@@ -438,8 +438,8 @@ export const DIPHeaderTable:ColumnsType<DataTypeDIP | DataType | DataTypeAll | a
   
   {
     title: <>Estimated Cost</>,
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
@@ -585,9 +585,9 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
   
   {
     title: '',
-    dataIndex: 'cost',
+    dataIndex: 'estimated_cost',
     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
-    key: 'cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     // width:"6.666666666666667",
     ellipsis: true,
@@ -714,8 +714,8 @@ export const RDHeaderTable:ColumnsType<DataTypeRD | any> = [
   },
   {
     title: <>Estimated Cost</>,
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'rd-table',
     // width:"16.66666666666667",
     ellipsis: true,
@@ -770,8 +770,8 @@ export const RDValueTable:ColumnsType<DataTypeRD | any> = [
   },
   {
     title:  '',
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'rd-table',
     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
     // width:"16.66666666666667",
@@ -844,8 +844,8 @@ export const RestorationHeaderTable:ColumnsType<DataTypeRestoration | any> = [
   },
   {
     title: <>Estimated Cost</>,
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -977,8 +977,8 @@ export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
   },
   {
     title: '',
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
     // width:"7.142857142857143",
@@ -1106,9 +1106,9 @@ export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
   },
   {
     title: <>Estimated Cost</>,
-    dataIndex: 'cost',
+    dataIndex: 'estimated_cost',
     className:'table-text-body',
-    key: 'cost',
+    key: 'estimated_cost',
     // width:"7.142857142857143",
     ellipsis: true,
     sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
@@ -1239,8 +1239,8 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
   },
   {
     title: '',
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
     // width:"7.142857142857143",
@@ -1531,8 +1531,8 @@ export const PropertyAcquisitionHeaderTable:ColumnsType<DataTypePropertyAcquisit
   },
   {
     title: <>Estimated Cost</>,
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     // width:"7.142857142857143",
     ellipsis: true,
@@ -1622,8 +1622,8 @@ export const PropertyAcquisitionValueTable:ColumnsType<DataTypePropertyAcquisiti
   },
   {
     title: '',
-    dataIndex: 'cost',
-    key: 'cost',
+    dataIndex: 'estimated_cost',
+    key: 'estimated_cost',
     className:'table-text-body',
     render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
     // width:"7.142857142857143",
