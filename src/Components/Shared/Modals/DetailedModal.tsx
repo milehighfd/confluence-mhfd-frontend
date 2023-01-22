@@ -225,7 +225,7 @@ const DetailedModal = ({
                   {detailedPage?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailedPage?.problemtype + ".png"} /> </div>
                   ) : (
-                      // detailedPage?.attachments?.length == 0 ? (
+                      detailedPage?.attachments?.length == 0 ? (
                         <div className="detailed-c"> <img  src={
                           projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
                             projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
@@ -236,14 +236,13 @@ const DetailedModal = ({
                                       projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
                                         projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
                         } /> </div>
-                      // ) : (
-                      //   detailedPage?.attachments && detailedPage?.attachments.map((image: string, index: number) => {
-                      //     return <div key={index} className="detailed-c">
-                      //       <img width="100%" height="100%" src={image} alt="" />
-                      //     </div>
-                      //   })
-                      // )
-
+                      ) : (
+                         detailedPage?.attachments && detailedPage?.attachments.map((image: string, index: number) => {
+                           return <div key={index} className="detailed-c">
+                             <img width="100%" height="100%" src={image} alt="" />
+                           </div>
+                         })
+                       )
                     )}
               </Carousel>
               <DetailedInfo detailedPage={detailedPage} />
