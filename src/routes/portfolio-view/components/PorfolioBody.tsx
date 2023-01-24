@@ -16,6 +16,7 @@ import ModalGraphic from "./ModalGraphic";
 import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
 import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
+import store from "../../../store";
 
 
 const { TabPane } = Tabs;
@@ -58,6 +59,8 @@ const PortafolioBody = () => {
   const [newData, setNewData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
+  const appUser = store.getState().profile;
+  const [currentUserId, setCurrentUserId] = useState(null);
   const mainFilters = [
     // {label: 'MHFD Lead/PM', value: 'MHFD' },
     // {label: 'Service Area', value: 'Service' },
@@ -68,6 +71,11 @@ const PortafolioBody = () => {
     {label: 'Status', value: 'status'},
     {label: 'County', value: 'county'}
   ];
+  useEffect(() => {
+    if (appUser.userInformation?._id) {
+      setCurrentUserId(appUser.userInformation?._id);
+    }
+  }, [appUser]);
   const groupsBy = [
     'Status',
     'Jurisdiction',
@@ -225,13 +233,13 @@ const PortafolioBody = () => {
       });
     }
   }, [optionSelect, tabKey]);
-  const callGetGroupList = (sortValue: any) => {
+  const callGetGroupList = (sortValue: any, withFavorites: any) => {
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
-      getListProjects(currentGroup, currentId, sortValue).then((valuesList) => {
+      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId).then((valuesList) => {
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
           if (valuesList[element.id]) {
@@ -463,10 +471,10 @@ const PortafolioBody = () => {
     });
   }
   useEffect(() => {
-    callGetGroupList(sortValue);
-  }, [sortValue]);
+    callGetGroupList(sortValue, openFavorites);
+  }, [sortValue, openFavorites]);
   useEffect(() => {
-    callGetGroupList(undefined);
+    callGetGroupList(undefined, openFavorites);
   }, [currentGroup, tabKey]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
