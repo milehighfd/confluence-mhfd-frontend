@@ -121,6 +121,7 @@ export const SERVER = (function () {
     const CONFIGURATIONS = 'configuration';
     const ALL_ORGANIZATION = 'get-list?servicearea=1&county=1&jurisdiction=1';
     const PMTOOLS = 'pm-tools';
+    const STREAMS = 'streams';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -174,6 +175,7 @@ export const SERVER = (function () {
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,
         DETAILED_PAGE_PROJECT: `${URL_BASE.BASE}/${GALLERY}/${DETAILED_PAGE_PROJECT}`,
         V2_DETAILED_PAGE: (id: number) => `${URL_BASE.BASE}/${V2_DETAILED_PAGE}/${id}`,
+        STREAM_BY_ID: (id: number) => `${URL_BASE.BASE}/${STREAMS}/${id}`,
         PARAM_FILTERS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTERS}`,
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,
         COMPONENTS_BY_ENTITYID: `${URL_BASE.BASE}/${GALLERY}/${COMPONENTS_BY_ENTITYID}`,
