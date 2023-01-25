@@ -115,8 +115,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
 
-    console.log('data',data)
-
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {

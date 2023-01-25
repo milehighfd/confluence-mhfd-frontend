@@ -73,7 +73,9 @@ const ColumsTrelloCard = ({
   const [sizeCard, setSizeCard] = useState([0, 0]);
   const divRef = useRef(null);
   const columRef = useRef<null | HTMLDivElement>(null);
-  const [onScrollValue, setOnScrollValue] = useState([]);
+  let scrollValuesInit:any= [0,0,0,0,0,0];
+  const [onScrollValue, setOnScrollValue] = useState(scrollValuesInit);
+
   var windowWidth = window.innerWidth;
   // const onDrop = (txt: any, columnIdx: number,state:boolean, destColumn:any, destPosition:any) => {
   //   console.log('cols before drop', columns);
@@ -88,13 +90,10 @@ const ColumsTrelloCard = ({
 
   useEffect(() => {
     setTimeout(() => {
-      if( document.getElementById(`column_1`)){
+      if( document.getElementById(`column_${tabKey}_1`)){
         scrollValues.forEach((element:any, index:any ) => {
-          console.log('indexxx', element,index)
-          scrollByIds[index] = document.getElementById(`column_${index}`);
-          console.log('valor scroll',index, onScrollValue[index])
+          scrollByIds[index] = document.getElementById(`column_${tabKey}_${index}`);
           scrollByIds[index].scrollTop = onScrollValue[index];
-          console.log('entra aqui')
         });
       }
     }, 1000);
@@ -181,9 +180,13 @@ const ColumsTrelloCard = ({
               style={
                 fixedDragAction[0] && columnIdx === Math.trunc(Number(fixedDragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
               }
-              onScroll={(e:any)=>{       
-                  scrollValues[columnIdx] = e.currentTarget?.scrollTop
-                  setOnScrollValue(scrollValues)
+              onScroll={(e:any)=>{
+                  if(document.getElementById('modalProjectView')===null){
+                    scrollValues[columnIdx] = e.currentTarget?.scrollTop
+                    setOnScrollValue(scrollValues)
+                  }       
+                  e.preventDefault()
+                  e.stopPropagation()
                 }}
               // onDragOver={onDragOver}
               // ref={columRef}

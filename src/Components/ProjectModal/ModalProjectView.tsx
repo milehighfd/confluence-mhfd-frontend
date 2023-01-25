@@ -188,7 +188,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     }
   },[]);
   return (
-    <>
+    <div id='modalProjectView'>
      {visibleCapital && <ModalCapital
       visibleCapital = {visibleCapital} 
       setVisibleCapital = {setVisibleCapital}
@@ -382,6 +382,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       </Row></>}
       
      </Modal>}
-    </>
+    </div>
   );
 }
