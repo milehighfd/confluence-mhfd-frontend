@@ -1638,6 +1638,14 @@ body{
     border-radius: 5px;
     border-color: transparent;
   }
+  .type:first-letter {
+    text-transform: uppercase;
+  }
+}
+.file-upload-document{
+  .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
+    padding: 16px 10px;
+  }
 }
 .user-name-upload {
   width: 111px;

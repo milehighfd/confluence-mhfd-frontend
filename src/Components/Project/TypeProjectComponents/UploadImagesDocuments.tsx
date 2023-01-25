@@ -352,18 +352,19 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           </span>
         </Col>
       </Row>
-      <Row gutter={[16, 16]} style={{padding: '8px', marginTop: '40px', marginLeft: '0px', paddingLeft: '0px'}}>
-        <Table
-          style={{width: '100%'}}
-          rowSelection={{
-            type: 'checkbox',
-            ...rowSelectionFiles,
-          }}
-          columns={COLUMNS_UPLOAD02}
-          dataSource={dataFiles}
-          className='table-upload-document'
-        />
-      </Row>
+      <div className='table-upload-document'>
+        <Row gutter={[16, 16]} style={{padding: '8px', marginTop: '40px', marginLeft: '0px', paddingLeft: '0px'}}>
+          <Table
+            style={{width: '100%'}}
+            rowSelection={{
+              type: 'checkbox',
+              ...rowSelectionFiles,
+            }}
+            columns={COLUMNS_UPLOAD02}
+            dataSource={dataFiles}
+          />
+        </Row>
+      </div>
       {modal02 &&
         <UploaderModal  modal={modal02} setModal={setModal02} addFile={addFile} type="documents"/>
       }
