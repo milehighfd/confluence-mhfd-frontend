@@ -179,14 +179,14 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_projects@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Master Plan')) {
-    return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_MasterPlan@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
-    )
-  }
-  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'FHAD')) {
+  if (menu === "Project" && popups.projecctype !== undefined && (popups.name.includes('FHAD'))) {
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_FHAD@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    )
+  }
+  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Study')) {
+    return (
+      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_MasterPlan@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
   if (menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')) {
