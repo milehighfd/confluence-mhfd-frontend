@@ -74,7 +74,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       title: "Filename",
       dataIndex: "filename",
       className: "user-name-upload",
-      width: "40%",
+      width: "35%",
       render: (text: string) => (
         <>
           {text.substring(0, text.indexOf('.'))}
@@ -85,7 +85,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       title: "Size",
       dataIndex: "size",
       className: "user-text",
-      width: "10%"
+      width: "15%"
     },
     {
       title: "Date",
@@ -218,24 +218,24 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       name: record.name,
     }),
   };
-  const formatBytes = (bytes: number, decimals = 2) => {
+  const formatBytes = (bytes: number, decimals = 0) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(0)) + ' ' + sizes[i];
   }
 
   const formatDate = (timestamp: number) => {
     let date = new Date(timestamp);
     var day = date.getDate();
-    let months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var month = date.getMonth();
     var year = date.getFullYear();
     // var hours = date.getHours();
     // var minutes = date.getMinutes() > 10 ? date.getMinutes() : '0' + date.getMinutes();
-    return `${day} ${months[month]}, ${year}`;
+    return `${months[month]} ${day}, ${year}`;
   }
   function renameFile(originalFile: any, newName: string) {
     const lastI = originalFile.name.indexOf('.');
@@ -361,7 +361,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           }}
           columns={COLUMNS_UPLOAD02}
           dataSource={dataFiles}
-
+          className='table-upload-document'
         />
       </Row>
       {modal02 &&
