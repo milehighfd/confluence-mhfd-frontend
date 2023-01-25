@@ -12,7 +12,7 @@ const Filters = ({openFilters, setOpenFilters}:{openFilters:boolean, setOpenFilt
     </div>
     <div className="filters-foot">
       <Button style={{marginRight:'20px', border:'1px solid #251863', color:'#251863', borderRadius:'5px'}} onClick={()=>{setOpenFilters(false)}}>
-        Calcel
+        Cancel
       </Button>
       <Button className="btn-purple" onClick={()=>{setOpenFilters(false)}}>
         Apply

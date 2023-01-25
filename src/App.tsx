@@ -48,13 +48,14 @@ const App = () => {
         <Route path={`/user-settings`} component={UserManagement} />
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
         <Route path={`/list-view`} component={ListView} />
-        <Route path={`/portfolio-list-view`} component={PortfolioView} />
+        <Route path={`/pm-tools`} component={PortfolioView} />
         <Route path={`/detail-page`} component={DetailPage} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />
         <Route path={`/map`} component={MapRoute} />
-        {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />}
+        {/* {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={ProfileView} />} */}
+        {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={MyProfile} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||

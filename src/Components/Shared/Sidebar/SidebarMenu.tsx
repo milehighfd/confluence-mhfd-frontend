@@ -41,9 +41,10 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     </Link>
   }, {
     key: '5',
-    label: <Link to={'/map'}>
-      <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
-      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2', }} />
+    label: <Link to={userApproved ? '/pm-tools' : '#'}>
+      <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2'}} />
+      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>PM Tools</span>
     </Link>
   }, {
     key: '2',
@@ -94,6 +95,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   if (!showWorkRequestPlan) {
     removeItemArray('3');
     removeItemArray('4');
+    removeItemArray('11');
   }
   return <Menu theme="dark" style={{display: 'flex !important'}} className="menu-mobile" defaultSelectedKeys={[indexOf]} mode="inline" items={itemMenuSidebar}>
   </Menu>
