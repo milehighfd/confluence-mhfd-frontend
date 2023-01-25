@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, Layout, Menu, Popover, Row, Select, Tabs } from 'antd';
+import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
 import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
@@ -16,7 +16,22 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const Search = (
-  {searchRef, tableRef, setOpenTable, openTable, hoverTable, setHoverTable, phaseRef, scheduleRef, rawData, index, groupsBy, setCurrentGroup}
+  {
+    searchRef,
+    tableRef,
+    setOpenTable,
+    openTable,
+    hoverTable,
+    setHoverTable,
+    phaseRef,
+    scheduleRef,
+    rawData,
+    index,
+    groupsBy,
+    setCurrentGroup,
+    setSearchWord,
+    fullData
+  }
   :{
     searchRef: React.MutableRefObject<any>,
     tableRef: React.MutableRefObject<any>,
@@ -29,12 +44,16 @@ const Search = (
     rawData: any,
     index: number,
     groupsBy: any[],
-    setCurrentGroup: Function
+    setCurrentGroup: Function,
+    setSearchWord: Function,
+    fullData: any
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   const [detailOpen, setDetailOpen] = useState(false);
   const [likeActive, setLikeActive] = useState([1,0,2]);
+  const [keyword, setKeyword] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
   let displayedTabKey = tabKeys;
   const content = (
     <div style={{width:'137px'}}>
@@ -74,14 +93,37 @@ const Search = (
     );
     return indices;
   }
-
-  useEffect(() => {
-  }, [sortedData]);
+  const renderOption = (item: any) => {
+    return {
+      key: `${item.rowLabel}${item.on_base}`,
+      value: `${item.rowLabel}`,
+      label: <div className="global-search-item">
+      <h6>{item.rowLabel}</h6>
+    </div>
+    }
+  }
+  const handleSearch = (value: string) => {
+    if (value) {
+      setFilteredData(fullData.filter((item: any) => !item.id.includes('Title') && item.rowLabel.toLowerCase().includes(value.toLowerCase())));
+    } else {
+      setFilteredData([]);
+    }
+    setSearchWord(value);
+    setKeyword(value);
+  }
   return <>
       {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
-        <Input placeholder="Search" prefix={<SearchOutlined />} style={{width:'85%'}}/>
+        <AutoComplete
+          dropdownMatchSelectWidth={true}
+          options={filteredData.map(renderOption)}
+          onSelect={(word: string) => {setSearchWord(word); setKeyword(word)}}
+          onSearch={handleSearch}
+          value={keyword}
+        >
+          <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'85%'}}/>
+        </AutoComplete>
         <Dropdown overlay={menu} trigger={['click']} >
           <div className="select-area">
             <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>

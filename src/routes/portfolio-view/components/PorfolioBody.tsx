@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
+import { Button, Col, Dropdown, Input, Layout, AutoComplete, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
 import { CalendarOutlined, CheckCircleFilled, CheckCircleOutlined, CheckCircleTwoTone, DownOutlined, HeartFilled, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
@@ -17,7 +17,6 @@ import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
 import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
-
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -57,7 +56,9 @@ const PortafolioBody = () => {
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
+  const [completeData, setCompleteData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -71,6 +72,12 @@ const PortafolioBody = () => {
     {label: 'Status', value: 'status'},
     {label: 'County', value: 'county'}
   ];
+  useEffect(() => {
+    console.log('complete', completeData);
+  }, [completeData]);
+  useEffect(() => {
+    console.log('raw data', rawData);
+  }, [rawData]);
   useEffect(() => {
     if (appUser.userInformation?._id) {
       setCurrentUserId(appUser.userInformation?._id);
@@ -233,6 +240,18 @@ const PortafolioBody = () => {
       });
     }
   }, [optionSelect, tabKey]);
+  useEffect(() => {
+    if (searchWord) {
+      const currentNewData = newData.filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
+      setNewData(currentNewData);
+      const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
+      setOpenTable(new Array(sortedData.length).fill(true));
+    } else {
+      setNewData(completeData);
+      const sortedData = completeData.filter((elem: any) => elem.id.includes('Title'));
+      setOpenTable(new Array(sortedData.length).fill(true));
+    }
+  }, [searchWord]);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
@@ -259,7 +278,6 @@ const PortafolioBody = () => {
               }
             ],
           });
-          console.log('valuesList', valuesList);
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;
               updatedGroups.push({
@@ -462,6 +480,7 @@ const PortafolioBody = () => {
           }
         });
         setNewData(updatedGroups);
+        setCompleteData(updatedGroups);
         setTimeout(() => {
           setIsLoading(false);
         }, 1500);
@@ -584,6 +603,8 @@ const PortafolioBody = () => {
                       index={idx}
                       groupsBy={groupsBy}
                       setCurrentGroup={setCurrentGroup}
+                      setSearchWord={setSearchWord}
+                      fullData={completeData}
                     />
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
