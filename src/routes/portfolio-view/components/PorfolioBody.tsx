@@ -242,7 +242,8 @@ const PortafolioBody = () => {
   }, [optionSelect, tabKey]);
   useEffect(() => {
     if (searchWord) {
-      const currentNewData = newData.filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
+      let currentNewData = completeData.filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
+      currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
       setNewData(currentNewData);
       const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
