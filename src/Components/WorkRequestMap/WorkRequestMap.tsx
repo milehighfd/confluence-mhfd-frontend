@@ -65,7 +65,8 @@ import {
   MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
   MAPTYPES,
-  templateGeomRandom
+  templateGeomRandom,
+  PROJECTS_MAP_STYLES
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -696,14 +697,14 @@ const applyProblemClusterLayer = () => {
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-        if (layer.tiles) {
-          layer.tiles.forEach((subKey: string) => {
-            const tiles = layerFilters[layer.name] as any;
-            if (tiles) {
-              addLayersSource(subKey, tiles[subKey]);
-            }
-          });
-        }
+          if (layer.tiles) {
+            layer.tiles.forEach((subKey: string) => {
+              const tiles = layerFilters[layer.name] as any;
+              if (tiles) {
+                addLayersSource(subKey, tiles[subKey]);
+              }
+            });
+        }   
       } else {
         addLayersSource(layer, layerFilters[layer]);
       }
@@ -723,9 +724,11 @@ const applyProblemClusterLayer = () => {
         return;
       }
       if (typeof layer === 'object') {
-        layer.tiles.forEach((subKey: string) => {
+        if(layer.name !== 'projects'){
+          layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
-        });
+          });
+        }
       } else {
         showLayers(layer);
       }
@@ -749,6 +752,13 @@ const applyProblemClusterLayer = () => {
     if (type.type === 'CAPITAL') {
       applyComponentFilter();
     }
+    selectedLayersWR.forEach((layer: LayersType) => {
+      if (typeof layer === 'object') {
+        if(layer.name === 'projects'){
+          showLayers(PROJECTS_DRAFT);
+      }
+      } 
+    });
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
@@ -1374,7 +1384,7 @@ const applyProblemClusterLayer = () => {
         ];
         updateSelectedLayersWR(selectedLayersMaintenance);
       } else {
-        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
+        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROJECTS_MAP_STYLES];
         updateSelectedLayersWR(selectedLayersOthers);
       }
     }
