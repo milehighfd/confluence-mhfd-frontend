@@ -1,7 +1,9 @@
 import * as datasets from "./../../../Config/datasets";
 import { SERVER } from "./../../../Config/Server.config";
 
-export const getListProjects =  async (groupname: string, currentTabId: number, sortValue: any, withFavorites: boolean, userId: any) => {
+export const getListProjects =  async (groupname: string, currentTabId: number, sortValue: any, withFavorites: boolean, userId: any,
+    filtervalue: number, filterby: string
+  ) => {
   let filterTab = '';
   if (currentTabId) {
     filterTab = `&code_project_type_id=${currentTabId}`
@@ -14,7 +16,11 @@ export const getListProjects =  async (groupname: string, currentTabId: number, 
   if(userId && withFavorites) {
     favoritesValue = `&favorites=${withFavorites}&_id=${userId}`
   }
-  let projects = await datasets.getData(SERVER.GET_LIST_PMTOOLS(groupname) + filterTab + sortValues + favoritesValue, datasets.getToken());
+  let specialFilter = '';
+  if (filterby && filtervalue && filtervalue !== -1) {
+    specialFilter = `&filterby=${filterby}&filtervalue=${filtervalue}`;
+  }
+  let projects = await datasets.getData(SERVER.GET_LIST_PMTOOLS(groupname) + filterTab + sortValues + favoritesValue + specialFilter, datasets.getToken());
   return projects;
 }
 export const getGroupList = async (groupname: string) => {

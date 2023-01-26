@@ -1,0 +1,125 @@
+import React, { useEffect, useState } from "react";
+import { Menu } from 'antd';
+import { getGroupList } from "./ListUtils";
+
+const STATUS = 'status', JURISDICTION = 'jurisdiction',
+COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
+CONTRACTOR = 'contractor', STREAMS = 'streams';
+export const FilterByGroupName = ({
+  setFilterby, setFiltervalue, setFiltername
+}: {
+  setFilterby: Function,
+  setFiltervalue: Function,
+  setFiltername: Function
+}) => {
+  const [serviceAreaList, setServiceAreaList] = useState([]);
+  const [countyList, setCountyList] = useState([]);
+  const [jurisdictionList, setJurisdictionList] = useState([]);
+  const [consultantList, setConsultantList] = useState([]);
+  const [contractorList, setContractorList] = useState([]);
+
+  const parseToMenuItem = (list: any, filterby: string) => {
+    return list.map((element: any) => {
+      return {
+        key: `${filterby}-${element.id}`,
+        label: <div onClick={(e) => {
+          setFilterby(filterby);
+          setFiltervalue(element.id);
+          setFiltername(element.name);
+        }} className="menu-drop-sub">{element.name}</div>,
+        filterby: filterby,
+        id: element.id,
+      };
+    });
+  }
+  
+  useEffect(() => {
+    getGroupList(SERVICE_AREA).then((valuesGroups) => {
+      const groups = valuesGroups.groups;
+      console.log('the group is ', groups);
+      setServiceAreaList(parseToMenuItem(groups, SERVICE_AREA));
+    });
+    getGroupList(COUNTY).then((valuesGroups) => {
+      const groups = valuesGroups.groups;
+      console.log('the group is ', groups);
+      setCountyList(parseToMenuItem(groups, COUNTY));
+    });
+    getGroupList(JURISDICTION).then((valuesGroups) => {
+      const groups = valuesGroups.groups;
+      console.log('the group is ', groups);
+      setJurisdictionList(parseToMenuItem(groups, JURISDICTION));
+    });
+    getGroupList(CONSULTANT).then((valuesGroups) => {
+      const groups = valuesGroups.groups;
+      console.log('the group is ', groups);
+      setConsultantList(parseToMenuItem(groups, CONSULTANT));
+    });
+    getGroupList(CONTRACTOR).then((valuesGroups) => {
+      const groups = valuesGroups.groups;
+      console.log('the group is ', groups);
+      setContractorList(parseToMenuItem(groups, CONTRACTOR));
+    });
+  }, []);
+
+  return (
+    <Menu
+      className="menu-drop"
+      items={[
+        {
+          key: '-1',
+          label: 'MHFD District Plan',
+          onClick: () => {
+            setFilterby('');
+            setFiltervalue(-1);
+            setFiltername('Mile High District Flood');
+          },
+          className:'menu-drop-sub-sub',
+        },
+        {
+          key: '1',
+          label: 'MHFD Lead/PM',
+          className:'menu-drop-sub-sub',
+          children: [
+            {
+              key: '1-1',
+              label: <div className="menu-drop-sub">Jon Villines</div>,
+            },
+            {
+              key: '1-2',
+              label: <div className="menu-drop-sub">David Skoudas</div>,
+            },
+            {
+              key: '1-3',
+              label: <div className="menu-drop-sub">Mary Powell</div>,
+            },
+          ],
+        },
+        {
+          key: '2',
+          label: 'Service Area',
+          children: serviceAreaList
+        },
+        {
+          key: '3',
+          label: 'County',
+          children: countyList,
+        },
+        {
+          key: '4',
+          label: 'Jurisdiction',
+          children: jurisdictionList,
+        },
+        {
+          key: '5',
+          label: 'Consultant',
+          children: consultantList,
+        },
+        {
+          key: '6',
+          label: 'Contractor ',
+          children: contractorList,
+        },
+      ]}
+    />
+  );
+}

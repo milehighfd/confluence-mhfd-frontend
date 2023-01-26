@@ -17,6 +17,7 @@ import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
 import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
+import { FilterByGroupName } from './FilterByGroupField';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -31,6 +32,9 @@ const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 //   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
 // ]
 const PortafolioBody = () => {
+  const [filterby, setFilterby] = useState('');
+  const [filterValue, setFilterValue] = useState(-1);
+  const [filtername, setFiltername] = useState('Mile High District Flood');
   const [page, setPage] = useState(1);
   const pageSize = 25;
   const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -83,6 +87,10 @@ const PortafolioBody = () => {
       setCurrentUserId(appUser.userInformation?._id);
     }
   }, [appUser]);
+
+  useEffect(() => {
+    console.log('#########################', filterby, filterValue);
+  }, [filterby, filterValue]);
   const groupsBy = [
     'Status',
     'Jurisdiction',
@@ -104,119 +112,10 @@ const PortafolioBody = () => {
     setBoundMap
   } = useMapDispatch();
   const menu = (
-    <Menu
-      className="menu-drop"
-      items={[
-        {
-          key: '1',
-          label: 'MHFD Lead/PM',
-          className:'menu-drop-sub-sub',
-          children: [
-            {
-              key: '1-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '1-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '1-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
-        },
-        {
-          key: '2',
-          label: 'Service Area',
-          children: [
-            {
-              key: '2-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '2-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '2-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
-        },
-        {
-          key: '3',
-          label: 'County',
-          children: [
-            {
-              key: '3-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '3-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '3-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
-        },
-        {
-          key: '4',
-          label: 'Jurisdiction',
-          children: [
-            {
-              key: '4-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '4-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '4-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
-        },
-        {
-          key: '5',
-          label: 'Consultant',
-          children: [
-            {
-              key: '5-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '5-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '5-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
-        },
-        {
-          key: '6',
-          label: 'Contractor ',
-          children: [
-            {
-              key: '6-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '6-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '6-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
-        },
-      ]}
+    <FilterByGroupName 
+      setFilterby={setFilterby}
+      setFiltervalue={setFilterValue}
+      setFiltername={setFiltername}
     />
   );
 
@@ -259,7 +158,7 @@ const PortafolioBody = () => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
-      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId).then((valuesList) => {
+      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby).then((valuesList) => {
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
           if (valuesList[element.id]) {
@@ -492,10 +391,10 @@ const PortafolioBody = () => {
   }
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);
-  }, [sortValue, openFavorites]);
+  }, [sortValue, openFavorites, filterValue, filterby]);
   useEffect(() => {
     callGetGroupList(undefined, openFavorites);
-  }, [currentGroup, tabKey]);
+  }, [currentGroup, tabKey, filterValue, filterby]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
@@ -509,7 +408,7 @@ const PortafolioBody = () => {
               <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header" placement="bottomRight" onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
                 <div className="select-area">
                   <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
-                    South Watershed &nbsp;
+                    {filtername} &nbsp;
                     {openDrop ? <UpOutlined style={{color:'#251863',fontSize:'14px'}} /> : < DownOutlined style={{color:'#251863',fontSize:'14px'}} />}
                   </a>
                 </div>
