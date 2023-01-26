@@ -7,6 +7,8 @@ import { Detailed } from 'store/types/detailedTypes';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import store from 'store';
 import { COMPONENT_LAYERS, MENU_OPTIONS } from 'constants/constants';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from 'Config/Server.config';
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -71,7 +73,17 @@ const CardInformationView = ({
     selectedLayers: state.map.selectedLayers
   }));
   const changeCenter = () => {
-    setZoomProjectOrProblem(data.coordinates);
+    const project_id = data?.project_id;
+    if (project_id) {
+      datasets.getData(SERVER.GET_BBOX_BY_PROJECT_ID(project_id)).then((coordinates: any) => {
+        if( coordinates.length ) {
+          setZoomProjectOrProblem(coordinates);
+        }
+      });
+    } else {
+      setZoomProjectOrProblem(data.coordinates);
+    }
+    
   }
 
   const changeFavorite = () => {

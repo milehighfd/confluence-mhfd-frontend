@@ -175,6 +175,7 @@ export const SERVER = (function () {
         PROJECT_BY_ID: `${URL_BASE.BASE}/${GALLERY}/${PROJECT_BY_ID}`,
         DETAILED_PAGE_PROJECT: `${URL_BASE.BASE}/${GALLERY}/${DETAILED_PAGE_PROJECT}`,
         V2_DETAILED_PAGE: (id: number) => `${URL_BASE.BASE}/${V2_DETAILED_PAGE}/${id}`,
+        GET_BBOX_BY_PROJECT_ID: (project_id: number) => `${URL_BASE.BASE}/${GALLERY_PROJECTS_V2}/bbox/${project_id}`,
         STREAM_BY_ID: (id: number) => `${URL_BASE.BASE}/${STREAMS}/${id}`,
         PARAM_FILTERS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTERS}`,
         GROUP_COLUMNS: `${URL_BASE.BASE}/${GALLERY}/${GROUP_COLUMNS}`,

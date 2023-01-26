@@ -781,7 +781,7 @@ const Map = ({
 
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
-        if (zoom.length > 0) {
+        if (zoom?.length > 0) {
             map.fitBounds([zoom[0], zoom[2]], { padding: 100 });
         }
     }, [zoom]);
