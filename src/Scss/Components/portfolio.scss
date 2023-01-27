@@ -905,6 +905,9 @@
           padding-right: 4px;
         }
       }
+      .ant-collapse > .ant-collapse-item:last-child, .tabs-map .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+        margin-bottom: 0px;
+      }
     }
     .search-body::-webkit-scrollbar {
       background: transparent;
@@ -1159,7 +1162,7 @@
       }
     }
     .table-first{
-      margin-top: 38.5px;
+      margin-top: 36.5px;
       .table-body .table-portafolio .ant-table-thead {
         display: none;
       }
@@ -1168,7 +1171,7 @@
       }
     }
     .table-clouse-first{
-      margin-top: 39px;
+      margin-top: 38px;
     }
     .table-portafolio{
       // overflow: hidden;  
@@ -2471,7 +2474,7 @@
       }
     }
     .table-first{
-      margin-top: 52px !important;
+      margin-top: 49px !important;
     }
     .table-clouse-first{
       margin-top: 52px !important;
@@ -3182,7 +3185,7 @@
       }
     }
     .table-first{
-     margin-top: 59.79px !important;
+     margin-top: 57.79px !important;
     }
     .table-portafolio{
       .table-text-body{
