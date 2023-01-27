@@ -376,16 +376,18 @@ export const getGalleryProjects = () => {
             type: types.SET_SPIN_CARD_PROJECTS,
             spin: true
         });
-        datasets.postData(
-            SERVER.GALLERY_PROJECTS,
-            optionsProjects(filterOptions, filterComponent, coordinates),
-            datasets.getToken()
-        ).then(galleryProjects => {
-            if (galleryProjects?.length >= 0) {
-                dispatch({ type: types.GALLERY_PROJECTS, galleryProjects });
-            }
-            dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
-        });
+        // removed because is not necesary to pull data from CARTO
+        // datasets.postData(
+        //     SERVER.GALLERY_PROJECTS,
+        //     optionsProjects(filterOptions, filterComponent, coordinates),
+        //     datasets.getToken()
+        // ).then(galleryProjects => {
+        //     if (galleryProjects?.length >= 0) {
+        //       console.log('Gallery priject 1 ', galleryProjects);
+        //         dispatch({ type: types.GALLERY_PROJECTS, galleryProjects });
+        //     }
+        //     dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
+        // });
 
         datasets.postData(
             SERVER.GALLERY_PROJECTS_V2,
@@ -393,6 +395,7 @@ export const getGalleryProjects = () => {
             datasets.getToken()
         ).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
+              console.log('Gallery priject 2', galleryProjects);
                 dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
             }
             dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });

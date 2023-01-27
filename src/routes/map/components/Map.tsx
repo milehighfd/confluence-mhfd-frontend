@@ -161,7 +161,7 @@ const Map = ({
     autocomplete,
     currentPopup,
     layers: layerFilters,
-    galleryProjects,
+    galleryProjectsV2,
     selectedLayers,
     filterProblemOptions,
     filterProjectOptions,
@@ -678,20 +678,20 @@ const Map = ({
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setBoundMap(boundingBox);
-                if (applyFilter) {
-                    if (toggleModalFilter) {
-                        if (filterTabNumber === PROJECTS_TRIGGER) {
-                            getParamFilterProjects(boundingBox, filterProjectOptions);
-                        } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                            getParamFilterProblems(boundingBox, filterProblemOptions);
-                        } else {
-                            getParamFilterComponents(boundingBox, filterComponentOptions);
-                        }
-                        getParamsFilter(boundingBox);
-                    } else {
-                        setFilterCoordinates(boundingBox, tabCards);
-                    }
-                }
+                // if (applyFilter) {
+                //     if (toggleModalFilter) {
+                //         if (filterTabNumber === PROJECTS_TRIGGER) {
+                //             getParamFilterProjects(boundingBox, filterProjectOptions);
+                //         } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                //             getParamFilterProblems(boundingBox, filterProblemOptions);
+                //         } else {
+                //             getParamFilterComponents(boundingBox, filterComponentOptions);
+                //         }
+                //         getParamsFilter(boundingBox);
+                //     } else {
+                //         setFilterCoordinates(boundingBox, tabCards);   // This is commented because the zoonendcounter will trigger useeffect with the same function
+                //     }
+                // }
             }
 
         });
@@ -703,19 +703,19 @@ const Map = ({
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
-            if (applyFilter) {
-                if (toggleModalFilter) {
-                    if (filterTabNumber === PROJECTS_TRIGGER) {
-                        getParamFilterProjects(boundingBox, filterProjectOptions);
-                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                        getParamFilterProblems(boundingBox, filterProblemOptions);
-                    } else {
-                        getParamFilterComponents(boundingBox, filterComponentOptions);
-                    }
-                } else {
-                    setFilterCoordinates(boundingBox, tabCards);
-                }
-            }
+            // if (applyFilter) {
+            //     if (toggleModalFilter) {
+            //         if (filterTabNumber === PROJECTS_TRIGGER) {
+            //             getParamFilterProjects(boundingBox, filterProjectOptions);
+            //         } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+            //             getParamFilterProblems(boundingBox, filterProblemOptions);
+            //         } else {
+            //             getParamFilterComponents(boundingBox, filterComponentOptions);
+            //         }
+            //     } else {
+            //         // setFilterCoordinates(boundingBox, tabCards);  // This is commented because the zoonendcounter will trigger useeffect with the same function
+            //     }
+            // }
         });
         const updateZoom = () => {
             const zoom = map.getZoom().toFixed(2);
@@ -767,18 +767,17 @@ const Map = ({
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);
         let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
-        if (toggleModalFilter) {
-            if (filterTabNumber === PROJECTS_TRIGGER) {
-                getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
-            } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
-            } else {
-                getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
-            }
+        if (toggleModalFilter) { // if tab of filters is open 
+          if (filterTabNumber === PROJECTS_TRIGGER) {
+              getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
+          } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+              getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
+          } else {
+              getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
+          }
         } else {
-            setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
+          setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
-
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
         if (zoom?.length > 0) {
@@ -1895,7 +1894,7 @@ const Map = ({
                 coordX,
                 coordY,
                 e,
-                galleryProjects,
+                galleryProjectsV2,
                 mobile,
                 menuOptions,
                 popups,

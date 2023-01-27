@@ -210,7 +210,7 @@ export const addPopupsOnClick = async (
   coordX: any,
   coordY: any,
   e: any,
-  galleryProjects: any,
+  galleryProjectsV2: any,
   mobile: any,
   menuOptions: any,
   popups: any,
@@ -289,8 +289,8 @@ export const addPopupsOnClick = async (
           const sponsors = dataFromDB?.sponsor.map((el:any) => el.business_associate.business_name);
           const estimatedcost = dataFromDB?.estimatedCost.length ? dataFromDB?.estimatedCost[0].cost : 0;
           const componentcost = dataFromDB?.componentCost.length ? dataFromDB?.componentCost[0].cost : 0;
-          const filtered = galleryProjects.filter((item: any) =>
-              item.cartodb_id === feature.properties.cartodb_id
+          const filtered = galleryProjectsV2.filter((item: any) =>
+              item.project_id === projectidfeature // Diff project id name between carto and db
           );
           const projecttypename = dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name;
           const item = {
@@ -315,7 +315,7 @@ export const addPopupsOnClick = async (
             streamname: feature.properties.streamname, // TODO streamname
             isEditPopup: feature.source === PROJECTS_DRAFT,
             popupId: 'popup',
-            image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
+            image: filtered.length  && filtered[0]?.attachments ? filtered[0]?.attachments : (
               projecttypename === 'Capital (CIP)' ? '/projectImages/capital.png' :
                 projecttypename === 'Planning Study (Study)' ? '/projectImages/study.png' :
                   projecttypename === 'Special' ? '/projectImages/special.png' :
