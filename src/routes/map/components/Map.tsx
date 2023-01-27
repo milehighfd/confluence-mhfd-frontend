@@ -2050,7 +2050,6 @@ const Map = ({
                       if (hovereableLayers.includes(key)) {
                           
                           if(e.features[0].source === 'mhfd_projects'){
-                            console.log('feature',e.features[0])
                             showHighlighted(key, e.features[0].properties.projectid);
                           }else{
                             showHighlighted(key, e.features[0].properties.cartodb_id);
