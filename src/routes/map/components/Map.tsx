@@ -1444,13 +1444,14 @@ const Map = ({
         });
     }, [problemClusterGeojson]);
 
-    const showHighlighted = (key: string, cartodb_id: string) => {
+    // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
+    const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
         if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
                     if(map.getLayer(key + '_highlight_' + index)) { 
-                        map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+                        map.setFilter(key + '_highlight_' + index, ['in', 'projectid', projectid])
                     }
                     
                 }
@@ -1462,7 +1463,7 @@ const Map = ({
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
                 if(map.getLayer(key + '_highlight_' + index)) {
-                    map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+                    map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
                 }
             }
         });
@@ -1472,7 +1473,7 @@ const Map = ({
         for (const key in styles) {
           styles[key].forEach((style: LayerStylesType, index: number) => {
             if (map.getLayer(key + '_highlight_' + index)) {
-                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+                map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
             }
           });
         }

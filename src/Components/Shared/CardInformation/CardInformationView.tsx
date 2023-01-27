@@ -180,8 +180,16 @@ const CardInformationView = ({
           // hoverable
           style={{ width: '100%', padding: '0px' }}
           onClick={() => setVisible(true)}
-          onMouseEnter={() =>  setValuesMap(data.type, data.value)}
-          onMouseLeave={()=> setValuesMap('','')}
+          onMouseEnter={(e) =>  {console.log('data',data);
+          let typeInData:any 
+          let valueInData:any  
+          if(data.project_id){
+              typeInData = 'mhfd_projects';
+              valueInData = data.project_id;
+            }
+            e.stopPropagation()
+            return setValuesMap(typeInData, valueInData)}}
+          onMouseLeave={(e)=> {setValuesMap('',''); e.stopPropagation()}}
           className="card-information"
           cover={
             <div>
