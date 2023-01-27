@@ -161,7 +161,7 @@ const Map = ({
     autocomplete,
     currentPopup,
     layers: layerFilters,
-    galleryProjects,
+    galleryProjectsV2,
     selectedLayers,
     filterProblemOptions,
     filterProjectOptions,
@@ -678,20 +678,20 @@ const Map = ({
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setBoundMap(boundingBox);
-                if (applyFilter) {
-                    if (toggleModalFilter) {
-                        if (filterTabNumber === PROJECTS_TRIGGER) {
-                            getParamFilterProjects(boundingBox, filterProjectOptions);
-                        } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                            getParamFilterProblems(boundingBox, filterProblemOptions);
-                        } else {
-                            getParamFilterComponents(boundingBox, filterComponentOptions);
-                        }
-                        getParamsFilter(boundingBox);
-                    } else {
-                        setFilterCoordinates(boundingBox, tabCards);
-                    }
-                }
+                // if (applyFilter) {
+                //     if (toggleModalFilter) {
+                //         if (filterTabNumber === PROJECTS_TRIGGER) {
+                //             getParamFilterProjects(boundingBox, filterProjectOptions);
+                //         } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+                //             getParamFilterProblems(boundingBox, filterProblemOptions);
+                //         } else {
+                //             getParamFilterComponents(boundingBox, filterComponentOptions);
+                //         }
+                //         getParamsFilter(boundingBox);
+                //     } else {
+                //         setFilterCoordinates(boundingBox, tabCards);   // This is commented because the zoonendcounter will trigger useeffect with the same function
+                //     }
+                // }
             }
 
         });
@@ -703,19 +703,19 @@ const Map = ({
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
-            if (applyFilter) {
-                if (toggleModalFilter) {
-                    if (filterTabNumber === PROJECTS_TRIGGER) {
-                        getParamFilterProjects(boundingBox, filterProjectOptions);
-                    } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                        getParamFilterProblems(boundingBox, filterProblemOptions);
-                    } else {
-                        getParamFilterComponents(boundingBox, filterComponentOptions);
-                    }
-                } else {
-                    setFilterCoordinates(boundingBox, tabCards);
-                }
-            }
+            // if (applyFilter) {
+            //     if (toggleModalFilter) {
+            //         if (filterTabNumber === PROJECTS_TRIGGER) {
+            //             getParamFilterProjects(boundingBox, filterProjectOptions);
+            //         } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+            //             getParamFilterProblems(boundingBox, filterProblemOptions);
+            //         } else {
+            //             getParamFilterComponents(boundingBox, filterComponentOptions);
+            //         }
+            //     } else {
+            //         // setFilterCoordinates(boundingBox, tabCards);  // This is commented because the zoonendcounter will trigger useeffect with the same function
+            //     }
+            // }
         });
         const updateZoom = () => {
             const zoom = map.getZoom().toFixed(2);
@@ -767,18 +767,17 @@ const Map = ({
         const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
         setBoundMap(boundingBox);
         let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
-        if (toggleModalFilter) {
-            if (filterTabNumber === PROJECTS_TRIGGER) {
-                getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
-            } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
-            } else {
-                getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
-            }
+        if (toggleModalFilter) { // if tab of filters is open 
+          if (filterTabNumber === PROJECTS_TRIGGER) {
+              getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
+          } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+              getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
+          } else {
+              getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
+          }
         } else {
-            setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
+          setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
-
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
         if (zoom?.length > 0) {
@@ -1447,7 +1446,8 @@ const Map = ({
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
-        if (styles[key]) {
+        if(key === 'mhfd_projects'){
+          if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
                     if(map.getLayer(key + '_highlight_' + index)) { 
@@ -1456,25 +1456,53 @@ const Map = ({
                     
                 }
             });
+          }
+        }else{
+          if (styles[key]) {
+            styles[key].forEach((style: LayerStylesType, index: number) => {
+                if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+                    if(map.getLayer(key + '_highlight_' + index)) { 
+                        map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', projectid])
+                    }
+                    
+                }
+            });
+          }
         }
+        
     };
     const hideOneHighlighted = (key: string) => {
         const styles = { ...tileStyles as any }
         styles[key].forEach((style: LayerStylesType, index: number) => {
+          if(key === 'mhfd_projects'){
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-                if(map.getLayer(key + '_highlight_' + index)) {
-                    map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
-                }
-            }
+              if(map.getLayer(key + '_highlight_' + index)) {
+                  map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
+              }
+          }
+          }else{
+            if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+              if(map.getLayer(key + '_highlight_' + index)) {
+                  map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+              }
+          }
+        }
         });
     };
     const hideHighlighted = () => {
         const styles = { ...tileStyles as any };
         for (const key in styles) {
           styles[key].forEach((style: LayerStylesType, index: number) => {
-            if (map.getLayer(key + '_highlight_' + index)) {
+            if(key === 'mhfd_projects'){
+              if (map.getLayer(key + '_highlight_' + index)) {
                 map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
+              }
+            }else {
+              if (map.getLayer(key + '_highlight_' + index)) {
+                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
             }
+            }
+           
           });
         }
     };
@@ -1896,7 +1924,7 @@ const Map = ({
                 coordX,
                 coordY,
                 e,
-                galleryProjects,
+                galleryProjectsV2,
                 mobile,
                 menuOptions,
                 popups,
@@ -2020,7 +2048,12 @@ const Map = ({
                           return;
                       }
                       if (hovereableLayers.includes(key)) {
-                          showHighlighted(key, e.features[0].properties.cartodb_id);
+                          
+                          if(e.features[0].source === 'mhfd_projects'){
+                            showHighlighted(key, e.features[0].properties.projectid);
+                          }else{
+                            showHighlighted(key, e.features[0].properties.cartodb_id);
+                          }
                       }
                       if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                           map.getCanvas().style.cursor = 'pointer';

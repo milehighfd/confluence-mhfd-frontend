@@ -40,7 +40,6 @@ const MapView = () => {
   const { saveUserInformation } = useProfileDispatch();
   const {
     galleryProblems,
-    galleryProjects,
     galleryProjectsV2,
     filterProblemOptions,
     filterProjectOptions,
