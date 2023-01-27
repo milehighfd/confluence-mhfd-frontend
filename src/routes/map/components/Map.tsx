@@ -1446,7 +1446,8 @@ const Map = ({
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
-        if (styles[key]) {
+        if(key === 'mhfd_projects'){
+          if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
                     if(map.getLayer(key + '_highlight_' + index)) { 
@@ -1455,25 +1456,53 @@ const Map = ({
                     
                 }
             });
+          }
+        }else{
+          if (styles[key]) {
+            styles[key].forEach((style: LayerStylesType, index: number) => {
+                if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+                    if(map.getLayer(key + '_highlight_' + index)) { 
+                        map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', projectid])
+                    }
+                    
+                }
+            });
+          }
         }
+        
     };
     const hideOneHighlighted = (key: string) => {
         const styles = { ...tileStyles as any }
         styles[key].forEach((style: LayerStylesType, index: number) => {
+          if(key === 'mhfd_projects'){
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-                if(map.getLayer(key + '_highlight_' + index)) {
-                    map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
-                }
-            }
+              if(map.getLayer(key + '_highlight_' + index)) {
+                  map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
+              }
+          }
+          }else{
+            if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+              if(map.getLayer(key + '_highlight_' + index)) {
+                  map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
+              }
+          }
+        }
         });
     };
     const hideHighlighted = () => {
         const styles = { ...tileStyles as any };
         for (const key in styles) {
           styles[key].forEach((style: LayerStylesType, index: number) => {
-            if (map.getLayer(key + '_highlight_' + index)) {
+            if(key === 'mhfd_projects'){
+              if (map.getLayer(key + '_highlight_' + index)) {
                 map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
+              }
+            }else {
+              if (map.getLayer(key + '_highlight_' + index)) {
+                map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id'])
             }
+            }
+           
           });
         }
     };
@@ -2019,7 +2048,13 @@ const Map = ({
                           return;
                       }
                       if (hovereableLayers.includes(key)) {
-                          showHighlighted(key, e.features[0].properties.cartodb_id);
+                          
+                          if(e.features[0].source === 'mhfd_projects'){
+                            console.log('feature',e.features[0])
+                            showHighlighted(key, e.features[0].properties.projectid);
+                          }else{
+                            showHighlighted(key, e.features[0].properties.cartodb_id);
+                          }
                       }
                       if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                           map.getCanvas().style.cursor = 'pointer';
