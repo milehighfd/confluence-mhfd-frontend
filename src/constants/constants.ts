@@ -122,6 +122,8 @@ export const STREAM_FUNCTION_LINE = 'stream_function_line_';
 export const FUTURE_DEVELOPMENT_POLYGON ='future_development_polygon_';
 export const FUTURE_DEVELOPMENT_LINE ='future_development_line_';
 
+export const TEST_LINE ='test_line';
+
 export const USE_LAND_COVER_LABEL = 'use_land_cover';
 
 export const USE_LAND_COVER = {
@@ -361,8 +363,9 @@ export const ROUTINE_MAINTENANCE = {
 };
 
 export const PROJECTS_POLYGONS = 'projects_polygon_';
-export const MHFD_PROJECTS = 'mhfd_projects';
-export const PROJECTS_DRAFT = 'mhfd_projects_created' + (process.env.REACT_APP_NODE_ENV ? ( '_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '_dev')
+export const MHFD_PROJECTS = 'mhfd_projects' + (process.env.REACT_APP_NODE_ENV ? ( '_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '_dev')
+// export const PROJECTS_DRAFT = 'mhfd_projects_created' + (process.env.REACT_APP_NODE_ENV ? ( '_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '_dev')
+export const PROJECTS_DRAFT = 'mhfd_projects' + (process.env.REACT_APP_NODE_ENV ? ( '_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV) ) : '_dev')
 export const STUDIES = 'studies';
 
 export const PROJECTS_MAP_STYLES = {
@@ -423,7 +426,8 @@ export const SELECT_ALL_FILTERS = [
   STREAMS_POINT,
   BORDER,
   AREA_BASED_MASK,
-  USE_LAND_COVER
+  USE_LAND_COVER,
+  TEST_LINE
 ];
 
 export const PROJECT_TYPES = ['capital', 'study', 'maintenance', 'propertyAcquisition', 'special'];
@@ -1495,3 +1499,28 @@ export const list = [
       "filter": ""
   }
 ];
+
+export const templateGeomRandom = [{"geometry":{"paths":[
+  [
+    [
+      -105.01494996072074,
+      39.77312083233659
+    ],
+    [
+      -104.95217252678378,
+      39.76875639819286
+    ],
+    [
+      -104.9300900123337,
+      39.73916794052451
+    ],
+    [
+      -105.01179531579953,
+      39.75517638914542
+    ],
+    [
+      -105.02031285708722,
+      39.7733632927868
+    ]
+  ]
+],"spatialReference" : {"wkid" : 4326}},"attributes":{"Date":null,"Name":"RANDOM NAME TEST"}}];

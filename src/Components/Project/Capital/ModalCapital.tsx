@@ -114,6 +114,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
+
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -330,7 +331,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         setDisable(false);
     }
     else{setDisable(true);}
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected]);
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction]);
 
   useEffect(() => {
     getTextWidth(nameProject);
@@ -546,6 +547,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       isEdit={swSave}
       sendToWr={sendToWR}
       setsendToWR={setsendToWR}
+      locality={[locality.replace(' Work Plan', '')]}
      />}
      <Modal
        centered

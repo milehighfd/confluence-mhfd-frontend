@@ -13,7 +13,7 @@ import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { STREAM_IMPROVEMENT_MEASURE } from '../../../routes/map/constants/layout.constants';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-
+import { getTitleOfProblemsPart, getTitleOfStreamImprovements } from 'routes/map/components/MapFunctionsUtilities';
 const { Panel } = Collapse;
 var map: any;
 
@@ -122,7 +122,7 @@ export default forwardRef(({
   );
   const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
       <>
-          <MainPopup id={-1} item={item} test={() => {}}></MainPopup>
+          <MainPopup id={-1} item={item} test={() => {}} detailPage={true}></MainPopup>
       </>
   );
   const updateZoom = () => {
@@ -147,7 +147,6 @@ export default forwardRef(({
   }
   const addLayer = () => {
     if(map) {
-      console.log('detailedpage data', detailedPage);
       let i = 0;
       const styles = {...tileStyles as any};
       for (const key in layers.components) {
@@ -168,22 +167,23 @@ export default forwardRef(({
 
       }
       if(type === PROBLEMS_MODAL) {
-        console.log('problems modal');
+        i = 0;
         map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
           map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
           map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
           i++;
         }
+        addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
         FLOOD_HAZARDS.tiles.forEach((tiles:any) => {
           map.addVectorSource(tiles, layers.floodhazards[tiles]);
           styles[tiles].forEach((element: any, index: number) => {
             map.addLayer(`${tiles}-layer_${index}`, tiles, element);
             map.setFilter(`${tiles}-layer_${index}`, ['in', 'problem_id', detailedPage?.problemid]);
           }); 
+          addMapListeners(tiles, `${tiles}-layer_`);
           // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
         });
-        addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
         let idProjectLine = 0;
         detailedPage?.components?.forEach((element: any) => {
           if(element.projectid) {
@@ -197,7 +197,6 @@ export default forwardRef(({
         });
         addMapListeners(MHFD_PROJECTS, 'projects-line_');
       } else if(type === PROJECTS_MODAL) {
-        console.log('projects modal');
         detailedPage?.problems?.forEach((element: any) => {
           if(element.problemid) {
             i = 0;
@@ -214,8 +213,12 @@ export default forwardRef(({
         let idProjectLine = 0;
         for (const project of tileStyles[MHFD_PROJECTS]) {
           map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-          if (detailedPage?.project_id) {
-            map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailedPage?.project_id]);
+          // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
+          // if (detailedPage?.cartodb_id) {
+          //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
+          // }
+          if (detailedPage?.projectid) {
+            map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailedPage?.projectid]);
           }
           
           idProjectLine++;
@@ -261,18 +264,35 @@ export default forwardRef(({
               if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                 return;
               }
-              if (key === MENU_OPTIONS.PROBLEMS) {
+              if (key === PROBLEMS_TRIGGER) {
                 getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
+                
                 const item = {
-                    type: MENU_OPTIONS.PROBLEMS,
-                    title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
-                    name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
-                    organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                    value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
-                    status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                    priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
-                    popupId: 'popup-detailed-page'
-                };
+                  type: MENU_OPTIONS.PROBLEMS,
+                  streamname: e.features[0].properties.streamname,
+                  title: e.features[0].properties.problem_type ? (e.features[0].properties.problem_type + ' Problem') : '-',
+                  problem_type: e.features[0].properties.problem_type ? e.features[0].properties.problem_type: '-',
+                  name: e.features[0].properties.problem_name ? e.features[0].properties.problem_name : '-',
+                  organization: e.features[0].properties.local_government ? e.features[0].properties.local_government : '-',
+                  value: e.features[0].properties.estimated_cost ? e.features[0].properties.estimated_cost : e.features[0].properties.component_cost ? e.features[0].properties.component_cost : '-1',
+                  status: e.features[0].properties.component_status ? (e.features[0].properties.component_status + '%') : '-',
+                  priority: e.features[0].properties.problem_severity ? e.features[0].properties.problem_severity + ' Priority' : '-',
+                  problemid: e.features[0].properties.problem_id,
+                  component_count: e.features[0].properties.component_count ?? 0,
+                  popupId: 'popup',
+                  image: `gallery/${e.features[0].properties.problem_type}.png`,
+              };
+                
+                // const item = {
+                //     type: MENU_OPTIONS.PROBLEMS,
+                //     title: e.features[0].properties.problem_type ? (e.features[0].properties.problem_type + ' Problem') : '-',
+                //     name: e.features[0].properties.problem_name ? e.features[0].properties.problem_name : '-',
+                //     organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                //     value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
+                //     status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
+                //     priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
+                //     popupId: 'popup-detailed-page'
+                // };
                 html = loadMainPopup(item);
               }
               if (key.includes(MENU_OPTIONS.PROJECTS) && !key.includes('mep')) {
@@ -289,27 +309,86 @@ export default forwardRef(({
                   };
                   html = loadMainPopup(item);
               }
-              if (COMPONENT_LAYERS.tiles.includes( key)) {
-                const problemid = e.properties.problemid ?e.properties.problemid:(e.properties.problem_id ? e.properties.problem_id :'');
-                          let problemname = '';
-                          if(problemid) {
-                            if (e.source === STREAM_IMPROVEMENT_MEASURE){
-                              let aw = await datasets.getData(SERVER.PROBLEMNNAMECOMP+problemid, datasets.getToken());
-                              problemname = aw.problem_name;
-                            } else {
-                              let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-                              problemname = aw[0]?.problemname;
-                            }
-                          }
+
+              if (e.features[0].source.includes('flood_hazard')||e.features[0].source.includes('stream_function')||e.features[0].source.includes('future_development')) {
                 const item = {
+                  layer: getTitleOfProblemsPart(e.features[0]),
+                  feature: getTitleOfProblemsPart(e.features[0]),
+                  problem_part_category: e.features[0].properties.problem_part_category ? e.features[0].properties.problem_part_category : '-',
+                  problem_part_subcategory: e.features[0].properties.problem_part_subcategory ? e.features[0].properties.problem_part_subcategory : '-',
+                  problem_part_name: e.features[0].properties.problem_part_name ? e.features[0].properties.problem_part_name : '-',
+                  source_complete_year: e.features[0].properties.source_complete_year ? e.features[0].properties.source_complete_year : '0',
+                  stream_name: e.features[0].properties.stream_name ? e.features[0].properties.stream_name : '-',
+                  local_government: e.features[0].properties.local_government ? e.features[0].properties.local_government : '-'
+        
+                };
+                html = loadComponentPopup(item);
+              }
+
+              if (COMPONENT_LAYERS.tiles.includes( key)) {
+                const problemid = (e.features[0].properties.problem_id ? e.features[0].properties.problem_id :'');
+                          let problemname = '';
+                          // if(problemid) {
+                          //   if (e.source === STREAM_IMPROVEMENT_MEASURE){
+                          //     let aw = await datasets.getData(SERVER.PROBLEMNNAMECOMP+problemid, datasets.getToken());
+                          //     problemname = aw.problem_name;
+                          //   } else {
+                          //     let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
+                          //     problemname = aw[0]?.problemname;
+                          //   }
+                          // }
+
+                let volume 
+              if(e.features[0].source === 'detention_facilities'){
+                  volume = {volume:e.features[0].properties.detention_volume? e.features[0].properties.detention_volume : '-'}
+              }
+              let item;
+
+              if(e.features[0].source === STREAM_IMPROVEMENT_MEASURE ) {
+                item = {
+                  layer: MENU_OPTIONS.COMPONENTS,
+                  type: getTitleOfStreamImprovements(e.features[0].properties),
+                  subtype: e.features[0].properties.complexity_subtype ? e.features[0].properties.complexity_subtype : '-',
+                  estimatedcost: e.features[0].properties.estimated_cost_base ? e.features[0].properties.estimated_cost_base : '-',
+                  studyname: e.features[0].properties.source_name ? e.features[0].properties.source_name : '-',
+                  studyyear: e.features[0].properties.source_complete_year ? e.features[0].properties.source_complete_year: '-',
+                  streamname: e.features[0].properties.stream_name ? e.features[0].properties.stream_name : '-',
+                  local_gov: e.features[0].properties.local_government ? e.features[0].properties.local_government: '-',
+                  objectid: e.features[0].properties.objectid?e.features[0].properties.objectid:'-',
+                  table: e.features[0].source ? e.features[0].source : '-',
+                  problem: problemname,
+                  ...volume
+                }
+              } else {
+                  item= {
                     layer: MENU_OPTIONS.COMPONENTS,
-                    subtype: e.features[0].properties.type ? e.features[0].properties.type : '-',
-                    status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                    type: e.features[0].properties.type ? e.features[0].properties.type : '-',
+                    subtype: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                    status: e.features[0].properties.status ? e.features[0].properties.status : '-',
                     estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
                     studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
+                    studyyear: e.features[0].properties.year_of_study ? e.features[0].properties.year_of_study: '-',
                     jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                    problem: problemname
-                };
+                    original_cost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                    table: e.features[0].source ? e.features[0].source : '-',
+                    cartodb_id: e.features[0].properties.cartodb_id? e.features[0].properties.cartodb_id: '-',
+                    problem: problemname,
+                    problemid: problemid,
+                    objectid: e.features[0].properties.objectid?e.features[0].properties.objectid:'-',
+                    streamname: e.features[0].properties.drainageway,
+                    ...volume,
+                  };
+                }
+
+                // const item = {
+                //     layer: MENU_OPTIONS.COMPONENTS,
+                //     subtype: e.features[0]?.properties?.type ? e.features[0]?.properties?.type : '-',
+                //     status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                //     estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                //     studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
+                //     jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                //     problem: problemname
+                // };
                 html = loadComponentPopup(item);
             }
               if (key === MEP_PROJECTS_TEMP_LOCATIONS) {
@@ -535,13 +614,13 @@ export default forwardRef(({
               <label><i>Contractor</i></label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <p>{ detailedPage?.contractors && detailedPage?.contractors.length ? detailedPage?.contractors[0].business_associate.business_associate_name : 'N/A' }</p>
+              <p>{ detailedPage?.contractor ? detailedPage?.contractor : 'N/A' }</p>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 4 }}>
               <label><i>Consultant</i></label>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-              <p>{detailedPage?.consultants && detailedPage?.consultants.length ? detailedPage?.consultants[0].business_associate.business_associate_name : 'N/A' }</p>
+              <p>{detailedPage?.consultant ? detailedPage?.consultant : 'N/A' }</p>
             </Col>
           </Row>
         </div>

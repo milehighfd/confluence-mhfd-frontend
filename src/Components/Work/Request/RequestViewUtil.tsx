@@ -57,6 +57,7 @@ const checkPriority = (value: number | null, option: string) => {
   return value === +option - 1;
 }
 export const hasPriority = (value: any, options: string[], columnIdx: number) => {
+  //console.log('has priority', value, options, columnIdx);
   return options.some((option: string) => checkPriority(value[`originPosition${columnIdx}`], option));
 }
 
@@ -119,14 +120,22 @@ export const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-export const getAllowedBasedOnLocality = (locality: string) => {
+export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   let all = [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study]; 
   if (locality.startsWith('Unincorporated') && locality.endsWith('County')) {
     return all;
   } else if (locality.endsWith('County')) {
-    return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance]
+      if (year && year < 2022) {
+        return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance];
+      } else {
+        return [NEW_PROJECT_TYPES.Capital, NEW_PROJECT_TYPES.Maintenance, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
+      }
   } else if (locality.endsWith('Service Area')) {
-    return [NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special, NEW_PROJECT_TYPES.Study];
+    if (year && year < 2022) {
+      return [NEW_PROJECT_TYPES.Study, NEW_PROJECT_TYPES.Acquisition, NEW_PROJECT_TYPES.Special];
+    } else {
+      return [NEW_PROJECT_TYPES.Study];
+    }
   } else {
     return all;
   }
@@ -154,7 +163,7 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
 
   boardProjects.forEach((boardProject: boardProject | any) => {
     let isInAnyColumn = false;
-    for(var i = 1 ; i <= 5; i++) {
+    for(var i = 0 ; i <= 5; i++) {
       if (boardProject[`position${i}`] != null) {
         isInAnyColumn = true;
         temporalColumns[i].push(boardProject);
@@ -199,33 +208,133 @@ export const priceParser = (value: any) => {
   return value
 }
 
-export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey: string, dragAction:(number | boolean)[]) => {
-  let parsedObject = JSON.parse(txt);
-  let { id, fromColumnIdx } = parsedObject;
-
+export const onDropFunction = (projectid: any, columns: any[], tabKey: string, state: boolean, sourceColumn: number, sourcePosition: number, destColumn:any, destPosition:any, saveData: Function) => { 
+  let id = projectid;
   let project: any;
-  columns[fromColumnIdx].projects.forEach((p: any) => {
+  let destinyColumnHasProject = false;
+  // To check if the destiny Column has the same project
+  columns[destColumn].projects.forEach((p: any) => {
+    if (p.project_id == id) {
+      destinyColumnHasProject = true;
+    }
+  })
+  // To get the current project dragged
+  columns[sourceColumn].projects.forEach((p: any) => {
     if (p.project_id == id) {
       project = p;
     }
   })
-
+  console.log('bef columns', columns);
+  // if dropped on the same column 
+  if (sourceColumn === destColumn) {
+    const currentColumn = [...columns[destColumn].projects];
+    const result = Array.from([...currentColumn]);
+    const [removed] = result.splice(sourcePosition, 1);
+    result.splice(destPosition, 0, removed);
+    columns[destColumn].projects = [...result];
+    return columns;
+  }
+  if (tabKey === 'Maintenance') {
+    var destinyColumnMaintenance = MaintenanceTypes.indexOf(project.projectData.projectsubtype) + 1;
+    if (!(destColumn === 0 || destColumn === destinyColumnMaintenance)) {
+      return;
+    }
+  }
+  if (destinyColumnHasProject) {
+    const newSumAmountData = {
+      projectId: id,
+      years: [null, null],
+      amounts: []
+    };
+    const newAmounts: any = [];
+    columns[destColumn].projects.forEach((p: any) => {
+      if (p.project_id == id) {
+        const numArray = [1,2,3,4,5];
+        numArray.forEach((num: any) => {
+          newAmounts.push(p[`req${num}`]);
+        });
+        newAmounts[destColumn-1] = newAmounts[destColumn-1] + newAmounts[sourceColumn-1];
+        newAmounts[sourceColumn-1] = 0;
+        newSumAmountData.amounts = newAmounts;
+      }
+    });
+    saveData(newSumAmountData);
+    return;
+  } else {
+    let newObj = {
+      ...project,
+      [`position${destColumn}`]: destPosition === -1 ? columns[destColumn].projects.length : destPosition,
+      [`req${destColumn}`]: destColumn === 0 ? null : project[`req${sourceColumn}`],
+      [`req${sourceColumn}`]: null,
+      [`position${sourceColumn}`]: null,
+    };
+    let temporalColumns: any = columns.map((c, colIdx: number) => {
+      return {
+        ...c,
+        projects: c.projects
+        .filter((p: any) => {
+          if (colIdx == sourceColumn && p.project_id == id) {
+            return false;
+          }
+          return true;
+        })
+        .map((p: any) => {
+          if (p.project_id == id) {
+            return newObj;
+          }
+          return p;
+        })
+      }
+    });
+    if(temporalColumns[destColumn].projects.length === 0){
+      temporalColumns[destColumn].projects.push(newObj);
+    } else {
+      let arr = [];
+      let hasInserted = false;
+        for (var i = 0 ; i < temporalColumns[destColumn].projects.length ; i++) {
+          let p = temporalColumns[destColumn].projects[i];
+          if (destPosition === i) {
+            hasInserted = true;
+            arr.push(newObj);
+          }
+          arr.push(p)
+        } 
+        if (!hasInserted){
+          arr.push(newObj);
+        }
+      temporalColumns[destColumn].projects = arr;
+    }
+    return temporalColumns;
+  }
+}
+export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: string, state:boolean, destColumn:any, destPosition:any, saveData: Function) => {
+  let dragAction=[state, destColumn, destPosition]
+  let { id, fromColumnIdx } = txt;
+  let project: any;
   let destinyColumnHasProject = false;
   columns[columnIdx].projects.forEach((p: any) => {
     if (p.project_id == id) {
       destinyColumnHasProject = true;
     }
   })
+  columns[fromColumnIdx].projects.forEach((p: any) => {
+    if (p.project_id == id) {
+      project = p;
+    }
+  })
   let newCardPos =  columns[Math.trunc(Number(dragAction[1]))].projects.length <= Math.trunc(Number(dragAction[2])) ? -1 : Math.trunc(Number(dragAction[2]));
+  console.log('condition',fromColumnIdx, columnIdx)
   if (fromColumnIdx === columnIdx) {
     let beforePos = -1;
     columns[columnIdx].projects.forEach((p: any, posBef: number) => {
       if (p.project_id == id) {
         beforePos = posBef;
       }
-    })
+    });
+    
     let projects: any[] = [];
     if (newCardPos === -1) {
+      console.log('columns[columnIdx].projects', columns[columnIdx].projects);
       projects = [].concat(columns[columnIdx].projects);
       projects.splice(beforePos, 1);
       projects.push(project);
@@ -235,6 +344,7 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
       } else {
         columns[columnIdx].projects.forEach((p: any, pos: number) => {
           if (pos === newCardPos) {
+            console.log('projecsts to isert', project);
             projects.push(project);
           }
           projects.push(p);
@@ -260,6 +370,24 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
     }
   }
   if (destinyColumnHasProject) {
+    const newSumAmountData = {
+      projectId: id,
+      years: [null, null],
+      amounts: []
+    };
+    const newAmounts: any = [];
+    columns[columnIdx].projects.forEach((p: any) => {
+      if (p.project_id == id) {
+        const numArray = [1,2,3,4,5];
+        numArray.forEach((num: any) => {
+          newAmounts.push(p[`req${num}`]);
+        });
+        newAmounts[columnIdx-1] = newAmounts[columnIdx-1] + newAmounts[fromColumnIdx-1];
+        newAmounts[fromColumnIdx-1] = 0;
+        newSumAmountData.amounts = newAmounts;
+      }
+    });
+    saveData(newSumAmountData);
     return;
   } else {
     let newObj = {
@@ -268,7 +396,7 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
       [`req${columnIdx}`]: columnIdx === 0 ? null : project[`req${fromColumnIdx}`],
       [`req${fromColumnIdx}`]: null,
       [`position${fromColumnIdx}`]: null,
-    }
+    };
     let temporalColumns: any = columns.map((c, colIdx: number) => {
       return {
         ...c,
@@ -287,19 +415,27 @@ export const onDropFn = (txt: string, columns: any[], columnIdx: number, tabKey:
         })
       }
     })
-    
     if (newCardPos === -1) {
       temporalColumns[columnIdx].projects.push(newObj);
     } else {
       let arr = [];
-      for (var i = 0 ; i < temporalColumns[columnIdx].projects.length ; i++) {
-        let p = temporalColumns[columnIdx].projects[i];
-        if (newCardPos === i) {
+      if(temporalColumns[columnIdx].projects.length === 0){
+        temporalColumns[columnIdx].projects.push(newObj);
+      }else{
+        let hasInserted = false;
+        for (var i = 0 ; i < temporalColumns[columnIdx].projects.length ; i++) {
+          let p = temporalColumns[columnIdx].projects[i];
+          if (newCardPos === i) {
+            hasInserted = true;
+            arr.push(newObj);
+          }
+          arr.push(p)
+        } 
+        if (!hasInserted){
           arr.push(newObj);
         }
-        arr.push(p)
-      }
       temporalColumns[columnIdx].projects = arr;
+    }
     }
     return temporalColumns;
   }

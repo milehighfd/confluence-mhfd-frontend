@@ -56,6 +56,7 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
+  TEST_LINE,
   NEARMAP_TOKEN,
   EFFECTIVE_REACHES,
   SERVICE_AREA_FILTERS,
@@ -63,12 +64,14 @@ import {
   PROJECTS_DRAFT,
   MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
-  MAPTYPES
+  MAPTYPES,
+  templateGeomRandom,
+  PROJECTS_MAP_STYLES
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button, Popover } from 'antd';
-import { tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
+import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useDetailedState } from '../../hook/detailedHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
@@ -308,6 +311,7 @@ const WorkRequestMap = (type: any) => {
           map.isStyleLoaded(() => {
             applyMapLayers();
             applyProblemClusterLayer();
+            // applyMapLayerfromArcgis();
           });
       }
   }, [layerFilters, selectedLayersWR]);
@@ -489,12 +493,12 @@ const WorkRequestMap = (type: any) => {
   const setBounds = (value: any) => {
     if (!value) return;
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => (x.name.includes(value)|| value.includes(x.name)))
+      .filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi)))
       .map((element: any) => {
         return {
-          aoi: element.name,
-          filter: element.table,
-          coordinates: element.coordinates.coordinates,
+          aoi: element.aoi,
+          filter: element.filter,
+          coordinates: element.coordinates,
         };
       });
     if (zoomareaSelected[0]) {
@@ -534,17 +538,17 @@ const WorkRequestMap = (type: any) => {
     }
   }, [type.locality]);
   const getGroupOrganizationZoomWithouBounds = () => {
-    if (groupOrganization.length === 0) {
+    if (groupOrganization.length == 0) {
       getGroupOrganization();
     }
-    console.log('getting group organization')
+
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => type.locality.locality.includes(x.name))
+      .filter((x: any) => type.locality.locality.includes(x.aoi))
       .map((element: any) => {
         return {
-          aoi: element.name,
-          filter: element.table,
-          coordinates: element.coordinates.coordinates,
+          aoi: element.aoi,
+          filter: element.filter,
+          coordinates: element.coordinates,
         };
       });
     if (zoomareaSelected[0]) {
@@ -663,17 +667,44 @@ const applyProblemClusterLayer = () => {
     setProblemClusterGeojson(geoj.geom);
   });
 }
+// const applyMapLayerfromArcgis = useCallback(async () => {
+//   if (!map.map.getSource('testprojectarcgis')) {
+//   map.map.addSource("testprojectarcgis",
+//   {
+//   type: "geojson",
+//   //data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry=%7B%22xmin%22%3A-11740727.54461383%2C%22ymin%22%3A4852834.051789243%2C%22xmax%22%3A-11701591.786131874%2C%22ymax%22%3A4891969.810271202%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
+//   data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22:-11750727.54461383,%22ymin%22:4852634.051789243,%22xmax%22:-11601591.786131874,%22ymax%22:4898969.810271202,%22spatialReference%22:{%22wkid%22:102100,%22latestWkid%22:3857}}&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
+//   })
+//   }
+//   if (!map.map.getLayer('testprojects')) {
+//   map.map.addLayer({
+//   id: "testprojects",
+//   type: "line",
+//   source: "testprojectarcgis",
+  
+//   paint: {
+//   "line-color": "white",
+//   'line-width': 5
+//   }
+//   });
+//   }
+//   function showFsLayer () {
+//   map.map.setLayoutProperty("testprojects", 'visibility', 'visible')
+//   }
+//   showFsLayer();
+//   }, [selectedLayersWR]);
+  
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-        if (layer.tiles) {
-          layer.tiles.forEach((subKey: string) => {
-            const tiles = layerFilters[layer.name] as any;
-            if (tiles) {
-              addLayersSource(subKey, tiles[subKey]);
-            }
-          });
-        }
+          if (layer.tiles) {
+            layer.tiles.forEach((subKey: string) => {
+              const tiles = layerFilters[layer.name] as any;
+              if (tiles) {
+                addLayersSource(subKey, tiles[subKey]);
+              }
+            });
+        }   
       } else {
         addLayersSource(layer, layerFilters[layer]);
       }
@@ -693,9 +724,11 @@ const applyProblemClusterLayer = () => {
         return;
       }
       if (typeof layer === 'object') {
-        layer.tiles.forEach((subKey: string) => {
+        if(layer.name !== 'projects'){
+          layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
-        });
+          });
+        }
       } else {
         showLayers(layer);
       }
@@ -719,6 +752,13 @@ const applyProblemClusterLayer = () => {
     if (type.type === 'CAPITAL') {
       applyComponentFilter();
     }
+    selectedLayersWR.forEach((layer: LayersType) => {
+      if (typeof layer === 'object') {
+        if(layer.name === 'projects'){
+          showLayers(PROJECTS_DRAFT);
+      }
+      } 
+    });
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
@@ -1103,6 +1143,9 @@ const applyProblemClusterLayer = () => {
           if (map.map.getLayer(key + '_' + index)) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
+          // if ( key === TEST_LINE) {
+          //   map.map.setLayoutProperty(key+ '_' + index, 'visibility', 'visible');
+          // }
         });
       }
       if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
@@ -1341,7 +1384,7 @@ const applyProblemClusterLayer = () => {
         ];
         updateSelectedLayersWR(selectedLayersMaintenance);
       } else {
-        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
+        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROJECTS_MAP_STYLES];
         updateSelectedLayersWR(selectedLayersOthers);
       }
     }
@@ -1509,6 +1552,45 @@ const applyProblemClusterLayer = () => {
     };
   }, [allLayers]);
 
+  const generateRangom = (low: any, up: any) => {
+    const u = Math.max(low, up);
+    const l = Math.min(low, up);
+    const diff = u - l;
+    const r = Math.floor(Math.random() * (diff + 1)); //'+1' because Math.random() returns 0..0.99, it does not include 'diff' value, so we do +1, so 'diff + 1' won't be included, but just 'diff' value will be.
+    
+    return l + r; //add the random number that was selected within distance between low and up to the lower limit.  
+  }
+  const createRandomGeomOnARCGIS = () => {
+    // const formData = new FormData();
+    // const newGEOM = [...templateGeomRandom];
+    // newGEOM[0].geometry.paths[0] = [
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
+    // ];
+    // formData.append('f', 'json');
+    // formData.append('adds', JSON.stringify(newGEOM));
+    // const TOKEN = 'O1WHjHuEOlj3UQHK5Sm7wj7v_TQ-kTazIFLaKt8sMcmHuIJ8wJjjf9sgz80RE6Ff4h5tnsA2HYO5AEGt7uiXjTaXiY35rQlguRHt76w88dfPAGIf4w1rJ27Xl0FY79J86JjzNYrssNuoqhKANZd0Ig..';
+    // formData.append('token', TOKEN);
+    // datasets.postDataMultipart('https://gis.mhfd.org/server/rest/services/Confluence/mhfd_projects_created_dev/FeatureServer/0/applyedits', formData).then(res => {
+    //   console.log('return create of geom', res);
+    // });
+    const formData = new FormData();
+    formData.append('username', 'ricardo_confluence');
+    formData.append('password', 'M!l3H!gh$m$');
+    formData.append('client', 'ip');
+    // THIS IP IS MOMENTARILY TO TEST TODO: add to env
+    formData.append('ip', '181.188.178.182');
+    formData.append('expiration', '60');
+    formData.append('f', 'pjson');
+    formData.append('referer', '');
+    const URL_TOKEN = 'https://gis.mhfd.org/portal/sharing/rest/generateToken';
+    datasets.postDataMultipart(URL_TOKEN, formData).then(res => {
+      console.log('return create of geom', res);
+    });
+  };
   const renderOption = (item: any) => {
     return {
       key: `${item.text}|${item.place_name}`,
@@ -1696,6 +1778,9 @@ const applyProblemClusterLayer = () => {
               </div>
             </div>
           )}
+        {/* <Button style={{ top:'50px'}} onClick={() => createRandomGeomOnARCGIS()}>
+          <span className="btn-02"  id='asasas'></span>
+        </Button> */}
         </div>
         <div className="m-zoom">
           <Button style={{ borderRadius: '4px' }} onClick={() => centerToLocalityy()}>

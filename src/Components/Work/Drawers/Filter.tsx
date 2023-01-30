@@ -59,10 +59,10 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
     });
     setPS(ps);
   }
-  const reset = () => {
-    setJurisdictionSelected(jurisdictionSelected.map( elem => true));
-    setCsaSelected(csaSelected.map(elem => true));
-    setPrioritySelected(prioritySelected.map(elem => true));
+  const reset = (value:boolean) => {
+    setJurisdictionSelected(jurisdictionSelected.map( elem => value));
+    setCsaSelected(csaSelected.map(elem => value));
+    setPrioritySelected(prioritySelected.map(elem => value));
     setJS(jurisdictionFilterList);
     setCS(csaFilterList);
     setPS(priorityFilterList);
@@ -121,6 +121,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
                 <span>
                 <Checkbox checked={jurisdictionSelected[index]} onChange={e => {
                   let v = e.target.checked;
+                  setPrioritySelected(prioritySelected.map(elem => true));
                   setJurisdictionSelected(jurisdictionSelected.map((w, i) => {
                     if (i === index) {
                       return v;
@@ -146,6 +147,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
                 <span>
                 <Checkbox checked={csaSelected[index]} onChange={e => {
                   let v = e.target.checked;
+                  setPrioritySelected(prioritySelected.map(elem => true));
                   setCsaSelected(csaSelected.map((w, i) => {
                     if (i === index) {
                       return v;
@@ -162,7 +164,9 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
      
       <div className="footer-drawer" style={{position: 'fixed', bottom: '50px', right: '19px', backgroundColor: 'white', 'width': '277px'}}>
         <div> 
-          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={reset}>Reset</h4>
+          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem'}} onClick={()=> reset(true)}>Reset</h4>
+          <h4  style={{ float: 'left', marginTop: '0.75rem', marginLeft: '4px'}}>|</h4>
+          <h4 className="resetFilter" style={{ float: 'left', marginTop: '0.8rem', marginLeft: '4px'}} onClick={()=> reset(false)}>Clear all</h4>
         <Button className="btn-purple" onClick={applyFilters}>
           Apply
         </Button>

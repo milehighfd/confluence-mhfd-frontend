@@ -23,6 +23,13 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}}>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.5 - January 12, 2023</p>
+            <ul>
+                <li>Improved usability and project card movement within the Work Request and Work Plan boards</li>
+                <li>Improved performance in the Work Request and Work Plan boards</li>
+                <li>Bug fixes related to the Work Plan filters and Project pop-ups</li>
+                <li>New "Clear All" button in the Work Plan filters</li>
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.4 - October 3, 2022</p>
             <ul>
               <li>New priority label for Work Request/Plan cards</li>

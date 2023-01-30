@@ -7,7 +7,7 @@ import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
-//import { useBoardState } from 'hook/boardHook';
+import { useBoardState } from 'hook/boardHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
@@ -65,6 +65,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
   const [callBoard, setCallBoard] = useState(0);
+  const [flagforScroll, setFlagforScroll] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
   const [sumTotal, setSumTotal] = useState<any>({});
@@ -102,7 +103,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
   // TODO: openmodal
-//  const { isOpenModal } = useBoardState();
+  const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
@@ -338,7 +339,6 @@ const RequestView = ({ type, isFirstRendering }: {
         (r: any) => {
           if (!r) return;
           let { board, projects } = r;
-          console.log('But this are the projects in board', projects);
           ProjectEditService.setProjects(projects);
           if (board) {
             setTotalCountyBudget(board.total_county_budget || 0);
@@ -399,6 +399,7 @@ const RequestView = ({ type, isFirstRendering }: {
       // splitColumns(data);
       // setTimeout(() => {
         console.log('This is the data after ws', data);
+        setLoading(true);
         setCallBoard(Math.random());
       // }, 2400);
       
@@ -505,12 +506,12 @@ const RequestView = ({ type, isFirstRendering }: {
         type,
         year: `${year}`,
         locality,
-        projecttype: tabKey
+        // the next condition should be removed once all Special element would have been replace by R&D in DB
+        projecttype: (tabKey === 'R&D' ? 'Special' : tabKey)
       })
           .then(
             (r: any) => {
               counterBoardsCalls--;
-              console.log('hey this is the calue', r);
               if (!r) return;
               if(r){
                 let { board, projects } = r;
@@ -543,9 +544,11 @@ const RequestView = ({ type, isFirstRendering }: {
                 }
                 if (projects) {
                   let cols = generateColumns(projects, year, tabKey);
-                  console.log('HERE ARE THE NEW COLS IN PROJECTS', cols);
                   let areEqual: boolean = compareColumns(columns, cols);
+                  setFlagforScroll(Math.random());
                   if (!areEqual) {
+                    
+
                     setColumns(cols);
                     let justProjects = projects.map((proj:any)=> {
                       return proj.projectData.cartodb_id;
@@ -567,6 +570,7 @@ const RequestView = ({ type, isFirstRendering }: {
                   }
                 }
               }
+              setLoading(false);
             },
             (e) => {
               console.log('e', e);
@@ -803,6 +807,7 @@ const RequestView = ({ type, isFirstRendering }: {
           locality={locality}
           editable={true}
           currentData={currentDataForBoard}
+          year={year}
       />
     }{  showCreateProject &&
       <ModalProjectView
@@ -814,6 +819,7 @@ const RequestView = ({ type, isFirstRendering }: {
           editable={true}
           problemId= {problemid}
           currentData={currentDataForBoard}
+          year={year}
       />
     }
     {
@@ -869,6 +875,7 @@ const RequestView = ({ type, isFirstRendering }: {
           locality={locality}
           editable = {true}
           currentData={currentDataForBoard}
+          year={year}
         />
       }
     <Layout>
@@ -986,7 +993,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
                   </Button>
                 }
-                <Tabs defaultActiveKey={displayedTabKey[0]}
+                <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
                  onChange={(key) => {
                   setTabKey(key);
@@ -1016,6 +1023,8 @@ const RequestView = ({ type, isFirstRendering }: {
                             boardStatus={boardStatus}
                             notIsFiltered={notIsFiltered}
                             ColorService={ColorService}
+                            userDesignation={userInformation.designation}
+                            flagforScroll={flagforScroll}
                           />
                         </div>
 

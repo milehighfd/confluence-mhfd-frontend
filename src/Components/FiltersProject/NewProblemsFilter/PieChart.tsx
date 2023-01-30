@@ -69,7 +69,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     .enter()
     .append('path')
     .attr('fill', (d: any): any => { return '#ddd'; })
-      .style("opacity", 0.5)
+      .style("opacity", 1)
     .on('click', clickFn)
     .transition().duration(2000)
     .attr('d', (d: any) => {

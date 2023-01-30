@@ -44,14 +44,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     projectsubtype,
     status
   } = project.projectData;
+  const {id} = project
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
-
+  const pageWidth  = document.documentElement.scrollWidth;
   const deleteProject = () => {
     delProject(projectid)
     setLoading(true);
@@ -65,7 +67,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         setLoading(false)
       })
   }
-
+  const getCompleteProjectData = async () => {
+    let dataForBoard = {...project.projectData};
+    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard);
+    setCompleteProjectData(newDataComplete); 
+  }
   const copyProjectToCurrent = () => {
     setLoading(true);
     postData(
@@ -88,6 +94,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       })
   };
 
+  
   const content = () => {
     const items: MenuProps['items'] = [{
       key: '0',
@@ -95,7 +102,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
-      onClick: (() => setShowModalProject(true))
+      onClick: (() => getCompleteProjectData())
     }, {
       key: '1',
       label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
@@ -150,12 +157,35 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }, [project, columnIdx]);
 
   useEffect(() => {
-    setPriority(project[`originPosition${columnIdx}`]);
+    if (type === 'WORK_REQUEST') {
+      setPriority(project[`originPosition${columnIdx}`]);  
+    } else {
+      const positions = [0,1,2,3,4,5];
+      let newPriority = -1;
+      positions.forEach((pos) => {
+        if (project[`originPosition${pos}`]) {
+          newPriority = project[`originPosition${pos}`];
+        }
+      });
+      if (newPriority === -1) {
+        newPriority = project[`originPosition${columnIdx}`];
+      }
+      setPriority(newPriority);
+    }
   }, [project, columnIdx]);
+
+  
+  useEffect(() => {
+    if (completeProjectData) {
+      setShowModalProject(true);
+    }
+  }, [completeProjectData]);
 
   useEffect(()=>{
     if(showModalProject) {
       updateSelectedLayers([]);
+    } else {
+      setCompleteProjectData(null);
     }
   },[showModalProject]);
 
@@ -213,7 +243,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     <ModalProjectView
         visible= {showModalProject}
         setVisible= {setShowModalProject}
-        data={project.projectData}
+        data={completeProjectData}
         showDefaultTab={true}
         locality={locality}
         editable= {editable}
@@ -229,7 +259,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       tabKey={tabKey}
       projectsubtype={projectsubtype}
       />
-    <div ref={divRef} className="card-wr" style={{ borderLeft: `3px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
+    <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {
         onDragStart(e, projectid);
       }}
@@ -252,6 +282,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
             <b>Project: </b> {projectid}
             <br />
             <b>Board: </b> {namespaceId}
+            <br />
+            <b>Board project: </b> {id}
             </>}>
             <h4>{displayName}</h4>
           </Popover>
@@ -273,7 +305,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
               !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
               <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px'}}>
                 <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                  <MoreOutlined className="menu-wr" style={{fontSize:'15px', marginTop:'3px', width:'3px'}}>
+                  <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px'}}>
                   <defs>
                     <clipPath id="clip-path">
                       <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
