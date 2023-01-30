@@ -125,6 +125,7 @@ const WorkRequestMap = (type: any) => {
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
   const user = store.getState().profile.userInformation;
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const {
     layers,
     mapSearch,
@@ -1491,6 +1492,7 @@ const applyProblemClusterLayer = () => {
           MAPTYPES.WORKREQUEST
         );
       }
+      
       if (popups && popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
