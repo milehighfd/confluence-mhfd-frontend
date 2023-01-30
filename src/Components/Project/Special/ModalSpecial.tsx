@@ -212,6 +212,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       isEdit={swSave}
       sendToWr={sendToWR}
       setsendToWR={setsendToWR}
+      locality={[locality.replace(' Work Plan', '')]}
      />}
      <Modal
        centered

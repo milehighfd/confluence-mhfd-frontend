@@ -69,6 +69,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
 
+  
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
@@ -138,7 +139,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       }, 2200);
 
     } else {
-      setStreamIntersected([]);
+      setStreamIntersected({ geom: null });
       setEditLocation(undefined);
     }
   }, [data]);
@@ -152,16 +153,20 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.isWorkPlan = isWorkPlan;
       maintenance.year = _year ?? maintenance.year;
       let cservice = "";
-      serviceArea.forEach((element: any) => {
-        cservice = cservice + element + ",";
-      });
+      if (serviceArea && serviceArea.length) {
+        serviceArea.forEach((element: any) => {
+          cservice = cservice + element + ",";
+        });
+      }
       if (cservice.length != 0) {
         cservice = cservice.substring(0, cservice.length - 1);
       }
       let ccounty = "";
-      county.forEach((element: any) => {
-        ccounty = ccounty + element + ",";
-      })
+      if (county && county.length) {
+        county.forEach((element: any) => {
+          ccounty = ccounty + element + ",";
+        })
+      }
       if (ccounty.length != 0) {
         ccounty = ccounty.substring(0, ccounty.length - 1);
       }
@@ -181,14 +186,16 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
           csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
-      maintenance.servicearea = cservice;
-      maintenance.county = ccounty;
-      maintenance.jurisdiction = cjurisdiction;
+      maintenance.servicearea = cservice || '';
+      maintenance.county = ccounty || '';
+      maintenance.jurisdiction = cjurisdiction || '';
       maintenance.sponsor = sponsor;
       maintenance.cosponsor = csponsor;
       maintenance.projectname = nameProject;
       maintenance.description = description;
-      maintenance.geom = streamIntersected.geom;
+      if (streamIntersected.geom) {
+        maintenance.geom = streamIntersected.geom;
+      }
       maintenance.projectsubtype = subType;
       maintenance.frequency = frequency;
       maintenance.maintenanceeligibility = eligibility;
@@ -221,7 +228,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [projectReturn.state.project.userPolygon]);
 
   useEffect(() => {
-    if (geom != undefined && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && jurisdiction.length !== 0 && nameProject !== '' && streamIntersected.geom && streamIntersected.geom != null && sponsor !== undefined) {
+    if (description != '' && county.length && serviceArea.length && jurisdiction.length && sponsor !== '' && nameProject !== '' && sponsor !== undefined) {
       setDisable(false);
     }
     else {
@@ -286,6 +293,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         isEdit={swSave}
         sendToWr={sendToWR}
         setsendToWR={setsendToWR}
+        locality={[locality.replace(' Work Plan', '')]}
       />}
       <Modal
         centered
@@ -316,7 +324,12 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                       height: lengthName > 217 ? 'unset' : '34px'
                     }} />
                   </label>
-                  <p>{serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''} {(serviceArea.length > 0 && county.length > 0) ? '·' : ''} {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''} </p>
+                  {/** mark */}
+                  <p>
+                    {serviceArea ? (serviceArea.length > 1 ? 'Multiple Service Area' : (serviceArea[0])) : ''}
+                    {(serviceArea && serviceArea.length > 0 && county && county.length > 0) ? '·' : ''}
+                    {county ? (county.length > 1 ? 'Multiple Counties' : (county[0])) : ''}
+                  </p>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{ textAlign: 'right' }}>
                   <label className="tag-name">Maintenance</label>
@@ -373,8 +386,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
               <br />
               <h5 style={{marginTop:'5px'}}>
                 2. Draw Activity
-                <span className="requiered">&nbsp;*&nbsp;</span>
-                <img src="/Icons/icon-08.svg" />
               </h5>
               <div className={"draw " + (isDraw ? 'active' : '')} onClick={onClickDraw}>
                 <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
@@ -395,6 +406,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 editable={editable}
                 isEdit={swSave}
                 originModal="Maintenance"
+                isWorkPlan={isWorkPlan}
               />
               <br />
               <UploadImagesDocuments

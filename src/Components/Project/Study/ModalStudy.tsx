@@ -240,7 +240,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   }, [projectReturn.state.project]);
 
   useEffect(() => {
-    if (ids.length !== 0 && description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && sponsor !== undefined && jurisdiction.length !== 0 && streamsIntersectedIds != null && listStreams !== 0) {
+    if (description != '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && sponsor !== undefined && jurisdiction.length !== 0) {
       setDisable(false);
     }
     else {
@@ -344,6 +344,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         isEdit={swSave}
         sendToWr={sendToWR}
         setsendToWR={setsendToWR}
+        locality={[locality.replace(' Work Plan', '')]}
       />}
       <Modal
         centered
@@ -405,8 +406,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               <br />
               <h5 style={{marginTop:'5px'}}>
                 2. SELECT STREAMS
-                <span className="requiered">&nbsp;*&nbsp;</span>
-              <img src="/Icons/icon-08.svg" />
             </h5>
               <div className={"draw " + (isDrawState ? 'active' : '')} onClick={onClickDraw}>
                 <img src="" className="icon-draw active" style={{ WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat' }} />
