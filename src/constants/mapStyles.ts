@@ -4874,6 +4874,49 @@ export const tileStyles = {
   }], 
   [PROBLEMS_TRIGGER]: [
     {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-miter-limit': 1.05,
+        'line-join': "miter"
+      },
+      paint: {
+        'line-color': "#000000",
+        'line-opacity': 0.5,
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Flood Hazard",
+            "Flood Hazard "
+          ],
+          15,
+          0
+        ],
+        'line-blur': 5
+      },
+    },
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-round-limit': 1.05,
+        'line-join': "round"
+      },
+      paint: {
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Flood Hazard"
+          ],
+          7.5,
+          0
+        ]
+      },
+    },
+    {
     type: 'line',
     'source-layer': 'pluto15v1',
     "layout": {
@@ -4961,50 +5004,50 @@ export const tileStyles = {
       ]
     }
   },
-  {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "line-round-limit": 1,
-      "line-cap": "round",
-      "line-miter-limit": 0,
-      "line-join": "round"
-    },
-    "paint": {
-      "line-color": [
-        "match",
-        ["get", "problem_type"],
-        ["Flood Hazard"],
-        "hsla(0, 100%, 28%,1)",
-        "hsla(0, 0%, 0%, 0)",
-          // "step",
-          // ["zoom"],
-          // "hsla(0, 99%, 49%, 0.65)",
-          // 7,
-          // "hsla(0, 99%, 49%,0.72)",
-          // 11,
-          // "hsla(0, 99%, 49%,0.85)",
-          // 13,
-          // "hsla(0, 99%, 49%,0.95)",
-          // 22,
-          // "hsla(0, 99%, 49%, 0.39)"
-      ],
-      "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          9, 10,
-          16, 22,
-        ],
-      "line-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        10.2, 0.0,
-        11.22, 0.89,
-      ]
-    }
-  }
+  // {
+  //   type: 'line',
+  //   'source-layer': 'pluto15v1',
+  //   "layout": {
+  //     "line-round-limit": 1,
+  //     "line-cap": "round",
+  //     "line-miter-limit": 0,
+  //     "line-join": "round"
+  //   },
+  //   "paint": {
+  //     "line-color": [
+  //       "match",
+  //       ["get", "problem_type"],
+  //       ["Flood Hazard"],
+  //       "hsla(0, 100%, 28%,1)",
+  //       "hsla(0, 0%, 0%, 0)",
+  //         // "step",
+  //         // ["zoom"],
+  //         // "hsla(0, 99%, 49%, 0.65)",
+  //         // 7,
+  //         // "hsla(0, 99%, 49%,0.72)",
+  //         // 11,
+  //         // "hsla(0, 99%, 49%,0.85)",
+  //         // 13,
+  //         // "hsla(0, 99%, 49%,0.95)",
+  //         // 22,
+  //         // "hsla(0, 99%, 49%, 0.39)"
+  //     ],
+  //     "line-width": [
+  //         "interpolate",
+  //         ["linear"],
+  //         ["zoom"],
+  //         9, 10,
+  //         16, 22,
+  //       ],
+  //     "line-opacity": [
+  //       "interpolate",
+  //       ["linear"],
+  //       ["zoom"],
+  //       10.2, 0.0,
+  //       11.22, 0.89,
+  //     ]
+  //   }
+  // }
 ],
   [FLOOD_HAZARD_POLYGON]: [ {
     type: 'fill',

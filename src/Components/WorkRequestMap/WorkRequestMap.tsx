@@ -56,7 +56,6 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
-  TEST_LINE,
   NEARMAP_TOKEN,
   EFFECTIVE_REACHES,
   SERVICE_AREA_FILTERS,
@@ -65,7 +64,6 @@ import {
   MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
   MAPTYPES,
-  templateGeomRandom,
   PROJECTS_MAP_STYLES
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
