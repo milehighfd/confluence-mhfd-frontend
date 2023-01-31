@@ -108,6 +108,7 @@ const PortafolioBody = () => {
     filterProjectOptions,
   } = useMapState();
   const {
+    resetFiltercomponentOptions,
     getParamFilterProjects,
     setBoundMap
   } = useMapDispatch();
@@ -122,6 +123,7 @@ const PortafolioBody = () => {
   useEffect( () => {  
     setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
     return () => {
+      resetFiltercomponentOptions();
       // tableRef.current = null;
       // searchRef.current = null;
     }
@@ -393,8 +395,8 @@ const PortafolioBody = () => {
     callGetGroupList(sortValue, openFavorites);
   }, [sortValue, openFavorites, filterValue, filterby]);
   useEffect(() => {
-    callGetGroupList(undefined, openFavorites);
-  }, [currentGroup, tabKey, filterValue, filterby]);
+    setSortValue({columnKey: null, order: undefined});
+  }, [currentGroup, tabKey]);
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}

@@ -5,10 +5,9 @@ import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProject
 
 const { Step } = Steps;
 const Filters = ({openFilters, setOpenFilters}:{openFilters:boolean, setOpenFilters:any}) => {
-
   return <div className="filters">
     <div className="filters-body">
-      <NewProjectsFilter />
+      <NewProjectsFilter originpage="portfolio"/>
     </div>
     <div className="filters-foot">
       <Button style={{marginRight:'20px', border:'1px solid #251863', color:'#251863', borderRadius:'5px'}} onClick={()=>{setOpenFilters(false)}}>
