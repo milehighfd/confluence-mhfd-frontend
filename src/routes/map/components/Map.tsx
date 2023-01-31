@@ -1446,7 +1446,7 @@ const Map = ({
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
-        if(key === 'mhfd_projects'){
+        if(key.includes('mhfd_projects')){
           if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
@@ -1474,7 +1474,7 @@ const Map = ({
     const hideOneHighlighted = (key: string) => {
         const styles = { ...tileStyles as any }
         styles[key].forEach((style: LayerStylesType, index: number) => {
-          if(key === 'mhfd_projects'){
+          if(key.includes('mhfd_projects')){
             if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
               if(map.getLayer(key + '_highlight_' + index)) {
                   map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
@@ -1493,7 +1493,7 @@ const Map = ({
         const styles = { ...tileStyles as any };
         for (const key in styles) {
           styles[key].forEach((style: LayerStylesType, index: number) => {
-            if(key === 'mhfd_projects'){
+            if(key.includes('mhfd_projects')){
               if (map.getLayer(key + '_highlight_' + index)) {
                 map.setFilter(key + '_highlight_' + index, ['in', 'projectid'])
               }
@@ -2048,8 +2048,9 @@ const Map = ({
                           return;
                       }
                       if (hovereableLayers.includes(key)) {
-                          
-                          if(e.features[0].source === 'mhfd_projects'){
+
+                          if(e.features[0].source.includes('mhfd_projects')){
+                            console.log('highlight', key, e.features[0])
                             showHighlighted(key, e.features[0].properties.projectid);
                           }else{
                             showHighlighted(key, e.features[0].properties.cartodb_id);
