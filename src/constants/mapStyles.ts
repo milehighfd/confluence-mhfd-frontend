@@ -4883,7 +4883,13 @@ export const tileStyles = {
       },
       paint: {
         'line-color': "#000000",
-        'line-opacity': 0.5,
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 0.5,
+        ],
         'line-width': [
           "match",
           ["get", "problem_type"],
@@ -4914,7 +4920,14 @@ export const tileStyles = {
           ],
           7.5,
           0
-        ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
       },
     },
     // STREAM FUNCTION
@@ -4926,7 +4939,13 @@ export const tileStyles = {
         'line-join': "miter"
       },
       paint: {
-        'line-opacity': 0.5,
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 0.5,
+        ],
         'line-offset': 0,
         'line-color': "#000000",
         'line-width': [
@@ -4963,7 +4982,14 @@ export const tileStyles = {
           ],
           2.5,
           0
-        ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
       },
     },
     {
@@ -4986,7 +5012,14 @@ export const tileStyles = {
           ],
           2.5,
           0
-        ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
       },
     },
     // WATER
@@ -4998,7 +5031,13 @@ export const tileStyles = {
         'line-join': "miter"
       },
       paint: {
-        'line-opacity': 0.5,
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 0.5,
+        ],
         'line-offset': 0,
         'line-color': "#000000",
         'line-width': [
@@ -5028,7 +5067,14 @@ export const tileStyles = {
           ["Watershed Change"],
           5,
           0
-        ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
       },
     },
     {
@@ -5047,7 +5093,14 @@ export const tileStyles = {
           ["Watershed Change"],
           2.5,
           0
-        ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
       },
     },
     {
@@ -5066,7 +5119,14 @@ export const tileStyles = {
           ["Watershed Change"],
           2.5,
           0
-        ]
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
       },
     }
 ],
