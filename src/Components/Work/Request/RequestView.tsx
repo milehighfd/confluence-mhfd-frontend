@@ -103,7 +103,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
   // TODO: openmodal
-  const { isOpenModal } = useBoardState();
+  // const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
