@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { DownOutlined, RightOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull, MainPopupCreateMap, ComponentPopupCreate } from '../../../Components/Map/MapPopups';
-import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF } from '../../../constants/constants';
+import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, MAPTYPES } from '../../../constants/constants';
 
 const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
 MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
@@ -66,7 +66,7 @@ export const loadMenuPopupWithData = (
   test: any,
   ep?: any,
   title?: any,
-  isCreateProjectMap?:boolean
+  maptype?:any
 ) => {
   const popupNode = document.createElement("div");
   ReactDOM.render(
@@ -83,7 +83,7 @@ export const loadMenuPopupWithData = (
                 : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation)
             )
           )
-          :(isCreateProjectMap === true ?
+          :(maptype === MAPTYPES.CREATEPROJECTMAP ?
           loadMainPopupCreateMap(0, popups[0], test,undefined ,userInformation) :
           (menuOptions[0] === 'Project' ? 
           loadMainPopup(0, popups[0], test, userInformation, true) : 
@@ -106,16 +106,16 @@ export const loadMenuPopupWithData = (
                           (
                             menu == MENU_OPTIONS.MEASURES ?
                               loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation) :
-                              (isCreateProjectMap === true ?
+                              (maptype === MAPTYPES.CREATEPROJECTMAP ?
                               loadComponentPopupCreate(index, popups[index],!notComponentOptions.includes(menuOptions[index]))  :
                               loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation)
                               )
                           )
                       )
-                      :(isCreateProjectMap === true ?
+                      :(maptype === MAPTYPES.CREATEPROJECTMAP ?
                         loadMainPopupCreateMap(index, popups[index], test,undefined ,userInformation) :
                       (menu === 'Project' ? 
-                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup) : 
+                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup, maptype) : 
                       loadMainPopup(index, popups[index], test, userInformation)))
                       }
                   </div>
@@ -129,9 +129,9 @@ export const loadMenuPopupWithData = (
 return popupNode;
 };
 
-const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean) => (
+const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean, mapType?:any) => (
   <>
-    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false}></MainPopup>
+    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false} mapType={mapType}></MainPopup>
   </>
 );
 const loadMainPopupCreateMap = (id: number, item: any, test: Function, sw?: boolean, user?: any) => (

@@ -133,7 +133,7 @@ export const addPopupAndListeners = (
   isEditPopup? :any,
   getComponentsFromProjProb?: any
 ) => {
-  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup, undefined, maptype === MAPTYPES.CREATEPROJECTMAP);
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup, undefined, maptype);
   setMobilePopups(mobile);
   setActiveMobilePopups(mobileIds);
   setSelectedPopup(0);

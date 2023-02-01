@@ -32,6 +32,8 @@ import WsService from 'Components/Work/Request/WsService';
 
 import '../../../index.scss';
 import ColumsTrelloCard from './ColumsTrelloCard';
+import { SERVER } from 'Config/Server.config';
+import { postData } from '../../../Config/datasets';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -108,6 +110,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [boardFlag, setBoardFlag] = useState(0);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -646,6 +649,16 @@ const RequestView = ({ type, isFirstRendering }: {
   const openEdit = (project:any,event:any) => {
     setShowModalEdit(project);
   }
+  const getCompleteProjectData = async (data:any) => {
+    let dataForBoard = {...data};
+    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard).then((value:any)=> {
+      console.log('value',value)
+      setCompleteProjectData(value); 
+      setTimeout(()=>{
+      setShowModalProject(true);
+    },200);});
+    
+  }
   const setShowModalEdit = (project: any) => {
     let projectswithid: any = new Set();
     let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.id.toString()));
@@ -655,9 +668,10 @@ const RequestView = ({ type, isFirstRendering }: {
     let newArray = [...projectswithid.values()];
     if(newArray[0]){
       currentProject = {...newArray[0].projectData};
-      setTimeout(()=>{
-        setShowModalProject(true);
-      },200);
+      getCompleteProjectData(currentProject);
+      // setTimeout(()=>{
+      //   setShowModalProject(true);
+      // },200);
     }
   }
   const saveData = ({ projectId, amounts, years }:{ projectId: any, amounts: any[], years: any[] }) => {
@@ -802,7 +816,7 @@ const RequestView = ({ type, isFirstRendering }: {
       <ModalProjectView
           visible={showModalProject}
           setVisible={setShowModalProject}
-          data={currentProject}
+          data={completeProjectData}
           showDefaultTab={true}
           locality={locality}
           editable={true}
