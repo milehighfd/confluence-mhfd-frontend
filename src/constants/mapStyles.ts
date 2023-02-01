@@ -4873,139 +4873,263 @@ export const tileStyles = {
     }
   }], 
   [PROBLEMS_TRIGGER]: [
+    //Flood Hazard
     {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "line-round-limit": 1,
-      "line-cap": "round",
-      "line-miter-limit": 0,
-      "line-join": "round"
-    },
-    "paint": {
-      "line-color": [
-        "match",
-        ["get", "problem_type"],
-        ["Watershed Change"],
-        "hsla(0, 100%, 51%,1)",
-        "hsla(0, 0%, 0%, 0)",
-          // "step",
-          // ["zoom"],
-          // "hsla(0, 99%, 49%, 0.65)",
-          // 7,
-          // "hsla(0, 99%, 49%,0.72)",
-          // 11,
-          // "hsla(0, 99%, 49%,0.85)",
-          // 13,
-          // "hsla(0, 99%, 49%,0.95)",
-          // 22,
-          // "hsla(0, 99%, 49%, 0.39)"
-      ],
-      "line-width": [
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-miter-limit': 1.05,
+        'line-join': "miter"
+      },
+      paint: {
+        'line-color': "#000000",
+        "line-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          9, 10,
-          16, 22,
+          10.2, 0.0,
+          11.22, 0.5,
         ],
-      "line-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        10.2, 0.0,
-        11.22, 0.89,
-      ]
-    }
-  },
-  {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "line-round-limit": 1,
-      "line-cap": "round",
-      "line-miter-limit": 0,
-      "line-join": "round"
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Flood Hazard",
+            "Flood Hazard "
+          ],
+          15,
+          0
+        ],
+        'line-blur': 5
+      },
     },
-    "paint": {
-      "line-color": [
-        "match",
-        ["get", "problem_type"],
-        ["Stream Function"],
-        "hsla(0, 93%, 39%, 1)",
-        "hsla(0, 0%, 0%, 0)",
-          // "step",
-          // ["zoom"],
-          // "hsla(0, 99%, 49%, 0.65)",
-          // 7,
-          // "hsla(0, 99%, 49%,0.72)",
-          // 11,
-          // "hsla(0, 99%, 49%,0.85)",
-          // 13,
-          // "hsla(0, 99%, 49%,0.95)",
-          // 22,
-          // "hsla(0, 99%, 49%, 0.39)"
-      ],
-      "line-width": [
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-round-limit': 1.05,
+        'line-join': "round"
+      },
+      paint: {
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Flood Hazard"
+          ],
+          7.5,
+          0
+        ],
+        "line-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          9, 10,
-          16, 22,
+          10.2, 0.0,
+          11.22, 1,
         ],
-      "line-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        10.2, 0.0,
-        11.22, 0.89,
-      ]
-    }
-  },
-  {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    "layout": {
-      "line-round-limit": 1,
-      "line-cap": "round",
-      "line-miter-limit": 0,
-      "line-join": "round"
+      },
     },
-    "paint": {
-      "line-color": [
-        "match",
-        ["get", "problem_type"],
-        ["Flood Hazard"],
-        "hsla(0, 100%, 28%,1)",
-        "hsla(0, 0%, 0%, 0)",
-          // "step",
-          // ["zoom"],
-          // "hsla(0, 99%, 49%, 0.65)",
-          // 7,
-          // "hsla(0, 99%, 49%,0.72)",
-          // 11,
-          // "hsla(0, 99%, 49%,0.85)",
-          // 13,
-          // "hsla(0, 99%, 49%,0.95)",
-          // 22,
-          // "hsla(0, 99%, 49%, 0.39)"
-      ],
-      "line-width": [
+    // STREAM FUNCTION
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-miter-limit': 2,
+        'line-join': "miter"
+      },
+      paint: {
+        "line-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          9, 10,
-          16, 22,
+          10.2, 0.0,
+          11.22, 0.5,
         ],
-      "line-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        10.2, 0.0,
-        11.22, 0.89,
-      ]
+        'line-offset': 0,
+        'line-color': "#000000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Stream Function",
+            "Stream Fucntion",
+            "Stream function"
+          ],
+          15,
+          0
+        ],
+        'line-blur': 5
+      },
+    },
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-miter-limit': 2,
+        'line-join': "miter"
+      },
+      paint: {
+        'line-offset': 3,
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Stream Function",
+            "Stream Fucntion",
+            "Stream function"
+          ],
+          2.5,
+          0
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
+      },
+    },
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-round-limit': 1.05,
+        'line-join': "round"
+      },
+      paint: {
+        'line-offset': -3,
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          [
+            "Stream Function",
+            "Stream Fucntion",
+            "Stream function"
+          ],
+          2.5,
+          0
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
+      },
+    },
+    // WATER
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-miter-limit': 2,
+        'line-join': "miter"
+      },
+      paint: {
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 0.5,
+        ],
+        'line-offset': 0,
+        'line-color': "#000000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          ["Watershed Change"],
+          15,
+          0
+        ],
+        'line-blur': 5
+      },
+    },
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-round-limit': 1.05,
+        'line-join': "round"
+      },
+      paint: {
+        'line-dasharray': [0.9, 1.1],
+        'line-offset': 0,
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          ["Watershed Change"],
+          5,
+          0
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
+      },
+    },
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-miter-limit': 2,
+        'line-join': "miter"
+      },
+      paint: {
+        'line-offset': 3,
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          ["Watershed Change"],
+          2.5,
+          0
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
+      },
+    },
+    {
+      type:'line',
+      'source-layer': 'pluto15v1',
+      layout: {
+        'line-round-limit': 1.05,
+        'line-join': "round"
+      },
+      paint: {
+        'line-offset': -3,
+        'line-color': "#a80000",
+        'line-width': [
+          "match",
+          ["get", "problem_type"],
+          ["Watershed Change"],
+          2.5,
+          0
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10.2, 0.0,
+          11.22, 1,
+        ],
+      },
     }
-  }
-],
+  ],
   [FLOOD_HAZARD_POLYGON]: [ {
     type: 'fill',
     'source-layer': 'pluto15v1',
