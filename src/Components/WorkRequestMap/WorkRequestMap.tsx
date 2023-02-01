@@ -435,12 +435,12 @@ const WorkRequestMap = (type: any) => {
           const promises: Promise<any>[] = [];
           promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
           Promise.all(promises).then(tiles => {
-            updateLayerSource(PROJECTS_DRAFT, tiles[0]);
-            showLayers(PROJECTS_DRAFT);
+            updateLayerSource(PROJECTS_DRAFT+'draft', tiles[0]);
+            showLayers(PROJECTS_DRAFT+'draft');
           });
           map.isRendered(() => {
             setTimeout(() => {
-              applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
+              applyFiltersIDs(PROJECTS_DRAFT+'draft', filterProjectsDraft);
             }, 700);
           });
         });
@@ -724,11 +724,9 @@ const applyProblemClusterLayer = () => {
         return;
       }
       if (typeof layer === 'object') {
-        if(layer.name !== 'projects'){
           layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
           });
-        }
       } else {
         showLayers(layer);
       }
@@ -752,13 +750,6 @@ const applyProblemClusterLayer = () => {
     if (type.type === 'CAPITAL') {
       applyComponentFilter();
     }
-    selectedLayersWR.forEach((layer: LayersType) => {
-      if (typeof layer === 'object') {
-        if(layer.name === 'projects'){
-          showLayers(PROJECTS_DRAFT);
-      }
-      } 
-    });
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
@@ -854,9 +845,9 @@ const applyProblemClusterLayer = () => {
         map.map.moveLayer(`${MHFD_PROJECTS}_${index}`);
       }
     });
-    styles[PROJECTS_DRAFT].forEach((style: LayerStylesType, index: number) => {
-      if (map.map.getLayer(`${PROJECTS_DRAFT}_${index}`)) {
-        map.map.moveLayer(`${PROJECTS_DRAFT}_${index}`);
+    styles[PROJECTS_DRAFT+'draft'].forEach((style: LayerStylesType, index: number) => {
+      if (map.map.getLayer(`${PROJECTS_DRAFT+'draft'}_${index}`)) {
+        map.map.moveLayer(`${PROJECTS_DRAFT+'draft'}_${index}`);
       }
     });
   };
@@ -908,7 +899,7 @@ const applyProblemClusterLayer = () => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        if (key === PROJECTS_DRAFT) {
+        if (key === PROJECTS_DRAFT+'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           if (idsBoardProjects && idsBoardProjects.length > 0) {
             let boardids = idsBoardProjects;
@@ -1110,7 +1101,7 @@ const applyProblemClusterLayer = () => {
         return;
       }
       const allFilters: any[] = ['all'];
-      if (key === PROJECTS_DRAFT) {
+      if (key === PROJECTS_DRAFT+'draft') {
         if (idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
           let boardids = idsBoardProjects;
           allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
@@ -1194,7 +1185,7 @@ const applyProblemClusterLayer = () => {
   const addTilesLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes(PROJECTS_DRAFT)) {
+      if (key.includes(PROJECTS_DRAFT+'draft')) {
         if (map.map.getLayer(key + '_' + index)) {
           return;
         }
@@ -1384,7 +1375,7 @@ const applyProblemClusterLayer = () => {
         ];
         updateSelectedLayersWR(selectedLayersMaintenance);
       } else {
-        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROJECTS_MAP_STYLES];
+        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
         updateSelectedLayersWR(selectedLayersOthers);
       }
     }
