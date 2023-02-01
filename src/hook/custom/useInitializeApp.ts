@@ -15,7 +15,7 @@ const useInitializeApp = () => {
   useEffect(() => { initGA(); }, []);
 
   useEffect(() => {
-    return history.listen((location) => {
+    return history.listen((location: any) => {
       ReactGA.pageview(location.pathname);
     })
   }, [history]);

@@ -1,7 +1,7 @@
 import { DownCircleTwoTone, DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
 import { getBoardData, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';

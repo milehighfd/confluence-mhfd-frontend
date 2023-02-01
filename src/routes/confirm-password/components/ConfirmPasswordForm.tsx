@@ -3,7 +3,7 @@ import { Row, Form, Button } from 'antd';
 import { Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { PASSWORD, PASSWORD_IS_REQUIRED, PASWORDS_ARE_NOT_SIMILAR, PASWORD_CONFIRM_IS_REQUIRED } from "./constantsConfirmPassword";
