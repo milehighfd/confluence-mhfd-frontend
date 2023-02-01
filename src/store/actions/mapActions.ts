@@ -317,6 +317,11 @@ export const setProjectKeyword = (keyword: string) => {
     }
 }
 
+export const resetFiltercomponentOptions = () => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.RESET_FILTER_PROJECT_OPTIONS });
+  };
+}
 export const setFilterComponentOptions = (filters: OptionComponents) => {
     const auxFilter = {
         component_type: filters.component_type,

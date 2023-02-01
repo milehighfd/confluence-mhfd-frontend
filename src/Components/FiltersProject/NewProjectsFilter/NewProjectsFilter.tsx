@@ -24,7 +24,7 @@ const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> 
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 
-export const NewProjectsFilter = () => {
+export const NewProjectsFilter = ({originpage}: {originpage?:string}) => {
     const {
         filterProjectOptions,
         paramFilters: {
@@ -64,7 +64,11 @@ export const NewProjectsFilter = () => {
         }
         
         setFilterProjectOptions(options);
-        getGalleryProjects();
+        if(originpage === 'portfolio') {
+          console.log('call projectss');
+        } else {
+          getGalleryProjects();
+        }
         options.servicearea = options.servicearea.trim();
         options.county = options.county.replace("County","").trim();
         getParamFilterProjects(boundsMap, options);

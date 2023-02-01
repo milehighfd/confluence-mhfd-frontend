@@ -4,7 +4,7 @@ import {
   setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
   getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
   setOpacityLayer, setCoordinatesJurisdiction,
-  setFilterProblemOptions, setFilterProjectOptions, setNameZoomArea,
+  setFilterProblemOptions, setFilterProjectOptions, resetFiltercomponentOptions, setNameZoomArea,
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
   setAutocomplete, getBBOXComponents, updateSelectedLayers,
   addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards,
@@ -69,6 +69,9 @@ export const useMapDispatch = () => {
     },
     setCoordinatesJurisdiction: (coordinates: any[]) => {
       dispatch(setCoordinatesJurisdiction(coordinates));
+    },
+    resetFiltercomponentOptions: () => {
+      dispatch(resetFiltercomponentOptions());
     },
     setFilterProjectOptions: (filters: OptionProjects) => {
       dispatch(setFilterProjectOptions(filters));
