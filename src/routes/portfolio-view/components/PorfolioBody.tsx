@@ -184,6 +184,7 @@ const PortafolioBody = () => {
               // if(idx > 20) return;
               updatedGroups.push({
                 id: `${element.name}${idx}`,
+                project_id: elem.project_id,
                 headerLabel: element.name,
                 rowLabel: elem.description, //description
                 date: moment('2022/08/11'),

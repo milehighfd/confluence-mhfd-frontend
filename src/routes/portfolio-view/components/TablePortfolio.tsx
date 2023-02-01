@@ -103,7 +103,7 @@ const TablePortafolio = (
     }
   },[divRef.current, searchRef.current])
   return <div className="table-body">
-    {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
+    {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
     <div className="table-table-body" style={{width:'min-content'}} >
       <div ref={tableRef} className="scroll-scroll-table">
         <Table
