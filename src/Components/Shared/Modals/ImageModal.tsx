@@ -2,13 +2,16 @@ import { HeartOutlined, LeftOutlined, RightOutlined, ShareAltOutlined } from '@a
 import { Carousel, MenuProps, Select } from 'antd';
 import { Button, Col, Dropdown, Input, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
+import { useDetailedState } from 'hook/detailedHook';
 import React, { useEffect, useRef, useState } from 'react';
 
 const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
+  const {detailed} = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
   const [active, setActive] = useState(0);
   const [numberCarousel, setNumberCarousel] = useState(1);
-  const numberElementCarousel = 3
+  const numberElementCarousel = 3;
+
   return (
     <Modal
       className="detailed-image"
@@ -37,23 +40,31 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-              <img src={'picture/img-1.png'} alt="" style={{marginRight:'2.5%'}} className='img-list'/>
-              <img src={'picture/img-2.png'} alt="" style={{marginLeft:'2.5%' }} className='img-list'/>
-              <img src={'picture/img-3.png'} alt="" className='img-list-big'/>
-              <img src={'picture/img-4.png'} alt="" style={{marginRight:'2.5%'}} className='img-list'/>
-              <img src={'picture/img-5.png'} alt="" style={{marginLeft:'2.5%'}} className='img-list'/>
+              {detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
+                if(index % 3){
+                  return <img src={image} alt="" className='img-list-big' onClick={carouselRef.current.goTo(index)}/>
+                }else {
+                  if(index % 2){
+                    return <img src={image} alt="" className='img-list'/>
+                  }else{
+                    return <img src={image} alt="" style={{marginRight:'5%'}} className='img-list'/>
+                  }
+                }
+                })
+              }
               </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
-                <div key={1} className="detailed-c">
-                  <img src={'picture/img-6.png'} alt="" className='img-modal'/>
-                </div>
-                <div key={2} className="detailed-c">
-                  <img src={'picture/img-1.png'} alt="" className='img-modal'/>
-                </div>
-                <div key={3} className="detailed-c">
-                  <img src={'picture/img-2.png'} alt="" className='img-modal'/>
-                </div>
+              {detailed?.problemid ? (
+                    <div className="detailed-c" > <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
+                  ) : (
+                    detailed?.attachments?.length !== 0 &&
+                        detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
+                           return <div key={index} className="detailed-c">
+                             <img  className='img-modal' src={image} alt=""/>
+                           </div>
+                         })
+                    )}
               </Carousel>
               <div className='tag-carousel'>
                 {numberCarousel} of {numberElementCarousel}

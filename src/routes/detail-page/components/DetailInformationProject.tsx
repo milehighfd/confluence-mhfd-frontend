@@ -34,13 +34,13 @@ const DetailInformationProject = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>LG Managar</i></label>
+          <label><i>LG Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>Jon Nelson</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>MHFD Managar</i></label>
+          <label><i>MHFD Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p> Jon Villines</p>

@@ -40,6 +40,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   } = useDetailedState();
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
+  const [projectType, setProjecttype] = useState('');
   const [openPiney, setOpenPiney] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   const [typeDetail, setTypeDetail] = useState('');
@@ -51,7 +52,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
 
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
-      console.log(data, 'DATAAAAAAAAAAAAAAAAAAAA')
       getDetailedPageProblem(data.on_base);
       getComponentsByProblemId({id: data.on_base, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
@@ -85,7 +85,13 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   }, []);
   useEffect(() =>{
     console.log(detailed, 'UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
-  },[detailed])
+  },[detailed]);
+  useEffect(() => {
+    console.log('detailedPage', detailed);
+    const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+    console.log('project tyep', projectType);
+    setProjecttype(projectType);
+  }, [detailed]);
 
   return (
     <>
@@ -274,12 +280,28 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             ref={divRef}
           >
             <Carousel className="detail-carousel" ref={carouselRef}>
-              <div key={1} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
-                <img width="100%" height="100%" src={'detailed/capital.png'} alt="" />
-              </div>
-              <div key={2} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
-                <img width="100%" height="100%" src={'detailed/restoration.png'} alt="" />
-              </div>
+              {detailed?.problemid ? (
+                    <div className="detailed-c" onClick={()=>{setOpenImage(true)}}> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
+                  ) : (
+                    detailed?.attachments?.length == 0 ? (
+                        <div className="detailed-c" onClick={()=>{setOpenImage(true)}}> <img  src={
+                          projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
+                            projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
+                            projectType === 'Special' ? '/detailed/special.png' :
+                              projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
+                                projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
+                                  projectType === 'Maintenance Restoration' ? '/detailed/restoration.png' :
+                                    projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
+                                      projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
+                        }/> </div>
+                      ) : (
+                        detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
+                           return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
+                             <img width="100%" height="100%" src={image} alt=""/>
+                           </div>
+                         })
+                       )
+                    )}
             </Carousel>
             <div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} />
@@ -291,14 +313,18 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div>
             <div className="detailed-info">
-              <DetailInformationProject />
-              <ComponentSolucions />
-              <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
-              <Financials />
-              <Management />
-              <Map type={type}/>
-              <Documents />
-              <History />
+              {detailed &&
+                <>
+                  <DetailInformationProject />
+                  <ComponentSolucions />
+                  <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
+                  <Financials />
+                  <Management />
+                  <Map type={type}/>
+                  <Documents />
+                  <History />
+                </>
+              }
             </div>
           </Col>
           <Col span={7} className="mobile-display" style={{height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}}>

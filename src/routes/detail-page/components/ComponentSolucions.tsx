@@ -17,30 +17,13 @@ const ComponentSolucions = () => {
       status: data.status? data.status : 'N/A',
       type: data.type? data.type : 'N/A',
     }
-  }) : {}
-  
-  // const sumCost = () =>{
-  //   console.log('date')
-  // }
-  // let dataSolutionFinal = {};
-  // const valueTotalCost = {
-  //   key: '10000',
-  //   component: ['Total Estimated Cost','total'],
-  //   // cost: [sumCost(),''],
-  // }
-  // useEffect(() =>{
-  //   // dataSolutionFinal = { ...dataSolution , ...valueTotalCost}
-  // },[dataSolution]);
+  }) : {};
   const columns = [
     {
       title: <>Action</>,
       dataIndex: 'component',
       key: 'component',
-      // render: (component:any) => (
-      //   <p className={"table-" + component[1]}>{component[0]}</p>
-      // ),
       with:'30%',
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
@@ -48,9 +31,6 @@ const ComponentSolucions = () => {
       dataIndex: 'cost',
       key: 'cost',
       with:'20%',
-      // render: (cost:any) => (
-      //   <p className={"table-" + cost[1]}>{cost[0]}</p>
-      // ),
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
@@ -83,7 +63,7 @@ const ComponentSolucions = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
-          <Table dataSource={dataSolution} columns={columns} pagination={false}/>
+          {detailed?.componentCost && <Table dataSource={detailed?.componentCost ?  dataSolution : {}} columns={columns} pagination={false}/>}
           <div className="value-total">
             <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
           </div>

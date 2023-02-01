@@ -322,7 +322,7 @@ const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
-          {/* <div id="map2" style={{height:'520px', width:'100%'}}></div> */}
+          <div id="map2" style={{height:'520px', width:'100%', borderRadius:'1%'}}></div>
           {/* <img src="/picture/map.png" width='100%'/> */}
         </Col>
       </Row>
