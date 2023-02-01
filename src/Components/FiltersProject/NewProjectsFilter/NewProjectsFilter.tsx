@@ -24,7 +24,7 @@ const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> 
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 
-export const NewProjectsFilter = ({originpage}: {originpage?:string}) => {
+export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:string, setApplyFilter?:Function}) => {
     const {
         filterProjectOptions,
         paramFilters: {
@@ -64,8 +64,8 @@ export const NewProjectsFilter = ({originpage}: {originpage?:string}) => {
         }
         
         setFilterProjectOptions(options);
-        if(originpage === 'portfolio') {
-          console.log('call projectss');
+        if(originpage === 'portfolio' && setApplyFilter) {
+          setApplyFilter(Math.random());
         } else {
           getGalleryProjects();
         }
@@ -161,7 +161,7 @@ export const NewProjectsFilter = ({originpage}: {originpage?:string}) => {
                 }
             </Col>
         </Row>
-        <hr className='filters-line'></hr>
+        {/* <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12} >
                 <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -173,7 +173,7 @@ export const NewProjectsFilter = ({originpage}: {originpage?:string}) => {
                         onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
                 }
             </Col>
-        </Row>
+        </Row> */}
         <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">

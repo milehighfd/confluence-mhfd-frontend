@@ -5,6 +5,7 @@ import { SERVER } from "../../Config/Server.config";
 import * as datasets from "../../Config/datasets";
 import * as constants from '../../constants/constants';
 import { OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
+import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
 import store from '..';
 
 export const getMapTables = (trigger: string, name?: string) => {
@@ -99,75 +100,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         sorttype: options.order
     }
 }
-const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string) => {
-    const applyFilter = store.getState().map.applyFilter;
-    let servicearea = '';
-    if (options.servicearea) {
-        servicearea = options.servicearea;
-    } else {
-        if (filterComponent.servicearea) {
-            servicearea = filterComponent.servicearea;
-        }
-    }
-    return applyFilter ? {
-        name: options.keyword,
-        projecttype: options.projecttype,
-        status: options.status,
-        startyear: options.startyear,
-        completedyear: options.completedyear,
-        mhfddollarsallocated: options.mhfddollarsallocated,
-        lgmanager: options.lgmanager,
-        streamname: options.streamname,
-        creator: options.creator,
-        totalcost: options.totalcost,
-        workplanyear: options.workplanyear,
-        problemtype: options.problemtype,
-        mhfdmanager: options.mhfdmanager,
-        jurisdiction: options.jurisdiction,
-        county: options.county,
-        estimatedcostComp: filterComponent.estimatedcost,
-        componenttype: filterComponent.component_type,
-        componentstatus: filterComponent.status,
-        watershed: options.mhfdmanager,
-        jurisdictionComp: filterComponent.jurisdiction,
-        countyComp: filterComponent.county,
-        yearofstudy: filterComponent.yearofstudy,
-        sortby: options.column,
-        sorttype: options.order,
-        bounds: coordinates,
-        consultant: options.consultant,
-        contractor: options.contractor,
-        servicearea: servicearea 
-    } : {
-        name: options.keyword,
-        projecttype: options.projecttype,
-        status: options.status,
-        startyear: options.startyear,
-        completedyear: options.completedyear,
-        mhfddollarsallocated: options.mhfddollarsallocated,
-        lgmanager: options.lgmanager,
-        streamname: options.streamname,
-        creator: options.creator,
-        totalcost: options.totalcost,
-        workplanyear: options.workplanyear,
-        problemtype: options.problemtype,
-        mhfdmanager: options.mhfdmanager,
-        jurisdiction: options.jurisdiction,
-        county: options.county,
-        estimatedcostComp: filterComponent.estimatedcost,
-        componenttype: filterComponent.component_type,
-        componentstatus: filterComponent.status,
-        watershed: options.mhfdmanager,
-        jurisdictionComp: filterComponent.jurisdiction,
-        countyComp: filterComponent.county,
-        yearofstudy: filterComponent.yearofstudy,
-        consultant: options.consultant,
-        contractor: options.contractor,
-        servicearea: servicearea, 
-        sortby: options.column,
-        sorttype: options.order
-    }
-}
+
 
 export const setFilterCoordinates = (coordinates: string, tab: string) => {
     return (dispatch: Function) => {
@@ -393,10 +326,10 @@ export const getGalleryProjects = () => {
         //     }
         //     dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         // });
-
+        const applyFilter = store.getState().map.applyFilter;
         datasets.postData(
             SERVER.GALLERY_PROJECTS_V2,
-            optionsProjects(filterOptions, filterComponent, coordinates),
+            optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
             datasets.getToken()
         ).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {

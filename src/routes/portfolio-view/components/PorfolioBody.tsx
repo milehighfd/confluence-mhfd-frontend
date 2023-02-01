@@ -18,6 +18,7 @@ import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
+import { optionsProjects } from "./ListUtils";
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -33,6 +34,7 @@ const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 // ]
 const PortafolioBody = () => {
   const [filterby, setFilterby] = useState('');
+  const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High District Flood');
   const [page, setPage] = useState(1);
@@ -77,12 +79,6 @@ const PortafolioBody = () => {
     {label: 'County', value: 'county'}
   ];
   useEffect(() => {
-    console.log('complete', completeData);
-  }, [completeData]);
-  useEffect(() => {
-    console.log('raw data', rawData);
-  }, [rawData]);
-  useEffect(() => {
     if (appUser.userInformation?._id) {
       setCurrentUserId(appUser.userInformation?._id);
     }
@@ -106,6 +102,8 @@ const PortafolioBody = () => {
   const {
     boundsMap,
     filterProjectOptions,
+    filterCoordinates,
+    filterComponentOptions,
   } = useMapState();
   const {
     resetFiltercomponentOptions,
@@ -155,12 +153,14 @@ const PortafolioBody = () => {
     }
   }, [searchWord]);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
+    const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);
+    console.log('options filters', optionsfilters);
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
-      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby).then((valuesList) => {
+      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {
         const updatedGroups: any = [];
         groups.forEach((element: any, index: number) => {
           if (valuesList[element.id]) {
@@ -394,7 +394,7 @@ const PortafolioBody = () => {
   }
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);
-  }, [sortValue, openFavorites, filterValue, filterby]);
+  }, [sortValue, openFavorites, filterValue, filterby, applyFilter]);
   useEffect(() => {
     setSortValue({columnKey: null, order: undefined});
   }, [currentGroup, tabKey]);
@@ -490,7 +490,7 @@ const PortafolioBody = () => {
             displayedTabKey.map((tk: string, idx: number) => { return (
               <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
                 <div className="protafolio-body">
-                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters}/>}
+                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter}/>}
                 <Row>
                   <Col xs={{ span: 10 }} lg={{ span: 5 }}>
                     <Search
