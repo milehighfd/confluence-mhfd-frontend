@@ -8,18 +8,16 @@ const Documents = () => {
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>DOCUMENTS</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="attachments">ATTACHMENTS</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
         </Col>
       </Row>
       <Row style={{marginBottom:'40px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
-          <p><FileOutlined /> Little Dry Creek_report.pdf</p>
-          <p><FileOutlined /> Little Dry Creek_report.pdf</p>
-          <Button className="btn-purple"><PlusOutlined /> Add Documents</Button>
+          <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> Little Dry Creek_report.pdf</span>
+          <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}} /> Little Dry Creek_report.pdf</span>
+          {/* <Button className="btn-purple"><PlusOutlined /> Add Documents</Button> */}
         </Col>
       </Row>
     </>

@@ -18,7 +18,7 @@ const DetailPage = () => {
       <Layout>
         <SidebarView></SidebarView>
         <Layout style={{overflow:'hidden'}} className="map-00 profile-00">
-          {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
+          {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
           {}
           {}
           {}

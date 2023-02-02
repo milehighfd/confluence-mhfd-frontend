@@ -1,17 +1,21 @@
 import React from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
+import { useDetailedState } from "hook/detailedHook";
 
 const DetailInformationProject = () => {
+  const {detailed,} = useDetailedState();
+  // const date = new Date(detailed?.start_date ? detailed?.start_date : '');
+  // console.log( date, 'YEAR', detailed?.start_date)
   return (
     <>
-      <h3 style={{marginBottom:'15px'}}>PROJECT BASICS</h3>
+      <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Stream</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>Big Dry Creek</p>
+          <p>{detailed?.streamname ? detailed?.streamname : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
@@ -19,7 +23,7 @@ const DetailInformationProject = () => {
           <label><i>Start Year</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>2018</p>
+          {/* <p>{detailed && date.getFullYear()? date.getFullYear() : 'N/A'}</p> */}
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Completed Year</i></label>
@@ -30,13 +34,13 @@ const DetailInformationProject = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>LG Managar</i></label>
+          <label><i>LG Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>Jon Nelson</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>MHFD Managar</i></label>
+          <label><i>MHFD Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p> Jon Villines</p>
@@ -47,17 +51,15 @@ const DetailInformationProject = () => {
           <label><i>Description</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-          <p>Channel restoration to increase conveyance and stabilize Little Dry Creek from Alpha Street to city boundary. Roadway crossing improvements at Alpha St, Beta Ave. Pedestrian crossing in park.</p>
+          <p>{detailed?.description ? detailed?.description : 'N/A'}</p>
         </Col>
       </Row>
 
 
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>PROBLEM</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="problem">PROBLEM</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
         </Col>
       </Row>
       <Row>
@@ -76,11 +78,9 @@ const DetailInformationProject = () => {
       </Row>
 
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px'}}>VENDORS</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
-          <div className="line-01"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="vendors">VENDORS</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
         </Col>
       </Row>
       <Row>
@@ -88,13 +88,13 @@ const DetailInformationProject = () => {
           <label><i>Contractor</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>Naranjo Civil</p>
+          <p>{ detailed?.contractors && detailed?.contractors.length ? detailed?.contractors[0].business_associate.business_associate_name : 'N/A' }</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Consultant</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p> ICON Engineering</p>
+          <p>{detailed?.consultants && detailed?.consultants.length ? detailed?.consultants[0].business_associate.business_associate_name : 'N/A' }</p>
         </Col>
       </Row>
     </>

@@ -4,6 +4,7 @@ import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutli
 import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import DetailModal from "routes/detail-page/components/DetailModal";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -51,6 +52,7 @@ const Search = (
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
   const [detailOpen, setDetailOpen] = useState(false);
+  const [dataDetail, setDataDetail] = useState();
   const [likeActive, setLikeActive] = useState([1,0,2]);
   const [keyword, setKeyword] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -112,7 +114,7 @@ const Search = (
     setKeyword(value);
   }
   return <>
-      {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>}
+      {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen} data={dataDetail} type={FILTER_PROJECTS_TRIGGER}/>}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
         <AutoComplete
@@ -181,7 +183,7 @@ const Search = (
                     {
                       elem.values.map((d:any, index_elem: number) => (
                         <div className="text-search" id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}>
-                          <p onClick={()=>{setDetailOpen(true)}} className="title-project">{d.rowLabel}</p>
+                          <p onClick={()=>{setDetailOpen(true); console.log(d, 'DAAAAAAAAAATAAAAAAAAA'); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
                           {likeActive[0] && likeActive[1]=== index && likeActive[2] === index_elem ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([1, index , index_elem]))} />}
                           {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>
