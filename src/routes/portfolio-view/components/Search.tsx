@@ -114,7 +114,12 @@ const Search = (
     setKeyword(value);
   }
   return <>
-      {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen} data={dataDetail} type={FILTER_PROJECTS_TRIGGER}/>}
+      {detailOpen && <DetailModal
+        visible={detailOpen}
+        setVisible={setDetailOpen}
+        data={dataDetail}
+        type={FILTER_PROJECTS_TRIGGER}
+      />}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
         <AutoComplete
@@ -183,7 +188,7 @@ const Search = (
                     {
                       elem.values.map((d:any, index_elem: number) => (
                         <div className="text-search" id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}>
-                          <p onClick={()=>{setDetailOpen(true); console.log(d, 'DAAAAAAAAAATAAAAAAAAA'); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
+                          <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
                           {likeActive[0] && likeActive[1]=== index && likeActive[2] === index_elem ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([1, index , index_elem]))} />}
                           {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>

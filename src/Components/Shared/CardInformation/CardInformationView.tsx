@@ -9,6 +9,7 @@ import store from 'store';
 import { COMPONENT_LAYERS, MENU_OPTIONS } from 'constants/constants';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -40,7 +41,6 @@ const CardInformationView = ({
   const { favorites } = useMapState();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {
-    console.log('data in show components', data);
     const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
@@ -166,12 +166,18 @@ const CardInformationView = ({
   }
   return (
     <>
-      {visible && <DetailedModal
+      {/* {visible && <DetailedModal
         detailed={detailed}
         type={type}
         data={data}
         visible={visible}
         setVisible={setVisible}
+      />} */}
+      {visible && <DetailModal
+        visible={visible}
+        setVisible={setVisible}
+        data={data}
+        type={type}
       />}
 
       <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}}>
@@ -180,7 +186,7 @@ const CardInformationView = ({
           // hoverable
           style={{ width: '100%', padding: '0px' }}
           onClick={() => setVisible(true)}
-          onMouseEnter={(e) =>  {console.log('data',data);
+          onMouseEnter={(e) =>  {
           let typeInData:any 
           let valueInData:any  
           if(data.project_id){

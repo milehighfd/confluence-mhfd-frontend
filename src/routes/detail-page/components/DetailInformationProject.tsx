@@ -5,8 +5,15 @@ import { useDetailedState } from "hook/detailedHook";
 
 const DetailInformationProject = () => {
   const {detailed,} = useDetailedState();
-  // const date = new Date(detailed?.start_date ? detailed?.start_date : '');
-  // console.log( date, 'YEAR', detailed?.start_date)
+  const capitalizeWords = (str:any) =>{
+    let words = str.split(" ");
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return words.join(" ");
+  }
+  const date = detailed?.start_date ? new Date(detailed?.start_date ? detailed?.start_date : '') : new Date();
+  
   return (
     <>
       <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
@@ -23,7 +30,7 @@ const DetailInformationProject = () => {
           <label><i>Start Year</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          {/* <p>{detailed && date.getFullYear()? date.getFullYear() : 'N/A'}</p> */}
+          <p>{detailed?.start_date ? (date.getFullYear() ? date.getFullYear() : 'N/A') : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Completed Year</i></label>
@@ -94,7 +101,7 @@ const DetailInformationProject = () => {
           <label><i>Consultant</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.consultants && detailed?.consultants.length ? detailed?.consultants[0].business_associate.business_associate_name : 'N/A' }</p>
+          <p>{detailed?.consultants && detailed?.consultants.length ? capitalizeWords(detailed?.consultants[0].business_associate.business_associate_name) : 'N/A' }</p>
         </Col>
       </Row>
     </>

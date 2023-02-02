@@ -14,10 +14,13 @@ import { CarouselRef } from "antd/lib/carousel";
 import ImageModal from "Components/Shared/Modals/ImageModal";
 import History from "./History";
 import PineyView from "routes/portfolio-view/components/PineyView";
-import { FILTER_PROBLEMS_TRIGGER } from "constants/constants";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from "Config/Server.config";
 import { useDetailedState } from "hook/detailedHook";
+import DetailInformationProblem from "./DetailInformationProblem";
+import ProblemParts from "./ProblemParts";
+import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -41,6 +44,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
   const [projectType, setProjecttype] = useState('');
+  const [active, setActive] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   const [typeDetail, setTypeDetail] = useState('');
@@ -52,10 +56,10 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
 
   useEffect(() => {
     if (type === FILTER_PROBLEMS_TRIGGER) {
-      getDetailedPageProblem(data.on_base);
-      getComponentsByProblemId({id: data.on_base, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
+      getDetailedPageProblem(data.problemid);
+      getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
-      datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + data.on_base, datasets.getToken()).then(data => {
+      datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + data.problemid, datasets.getToken()).then(data => {
         const t: any[] = [];
         data.data.forEach((element: any) => {
           element.forEach((d: any, idnex: number) => {
@@ -83,19 +87,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     //   resetDetailed();
     // };
   }, []);
-  useEffect(() =>{
-    console.log(detailed, 'UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
-  },[detailed]);
   useEffect(() => {
-    console.log('detailedPage', detailed);
     const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
-    console.log('project tyep', projectType);
     setProjecttype(projectType);
   }, [detailed]);
 
   return (
     <>
-    <ImageModal visible={openImage} setVisible={setOpenImage}/>
+    <ImageModal visible={openImage} setVisible={setOpenImage} type={type} active={active} setActive={setActive}/>
     <Modal
       className="detailed-modal"
       style={{ top: 30 }}
@@ -105,17 +104,17 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       destroyOnClose>
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
-          <Col xs={{ span: 24 }} lg={{ span: 17 }}>
+          <Col xs={{ span: 24 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 17}}>
             <div className="header-detail">
               <div>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (detailed?.sponsor && detailed?.sponsor.length > 0 && detailed?.sponsor[0].business_associate?.business_associate_name ? detailed?.sponsor[0].business_associate.business_associate_name:'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.codeStateCounty?.county_name + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.codeServiceArea?.service_area_name + ' Service Area'} </span></p>
+                <span> {detailed?.problemtype ? (detailed?.county + ' County') : (detailed?.codeStateCounty?.county_name + ' County' )}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <span> {detailed?.problemtype ? (detailed?.servicearea + ' Service Area'):(detailed?.codeServiceArea?.service_area_name + ' Service Area')} </span></p>
               </div>
               {detailed?.problemtype ? 
-                <></> :
+                <></>:
                 <div className="status-d" style={{display:'flex'}}>
                   <p>Status<br></br><span className="status-active" style={{marginRight:'20px'}}>{detailed?.project_status?.code_phase_type?.code_status_type?.status_name}</span></p>
                   <p style={{}}>Phase<br></br><span className="status-final">{detailed?.project_status?.code_phase_type?.phase_name}</span></p>
@@ -123,18 +122,22 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               }
             </div>
           </Col>
-          <Col xs={{ span: 10 }} lg={{ span: 6 }}>
+          <Col xs={{ span: 10 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 10}:{ span: 6}}>
             <div className="header-button">{
-                detailed?.problemtype ? (
-                  <div className="detailed-mm">
-                    <b>{ 
-                      (detailed?.estimatedcost
-                      ? 
-                        ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format((detailed?.estimatedcost)))
-                        : 
-                        (detailed?.component_cost?( '$'+ new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailed?.component_cost)): 'No Cost Data'))}
-                    </b>
+                detailed?.problemtype ? (<>
+                  <div className="progress">
+                    <div className="text-progress">
+                      <p>Solution Status</p><p className="value">{detailed?.solutionstatus ? detailed.solutionstatus : 0}%</p>
+                    </div>
+                    <Progress percent={detailed?.solutionstatus ? detailed.solutionstatus : 0} />
                   </div>
+                  <div className="detailed-mmm">
+                    <p style={{marginTop:'-10px'}}>Cost</p>
+                    <b>{ 
+                      (detailed?.component_cost != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailed?.component_cost)): 'No Cost Data')}</b>
+                  </div>
+                </>
+                  
                 ) : (
                   <div className="detailed-mmm">
                     <p style={{marginTop:'-10px'}}>Estimated Cost</p>
@@ -157,7 +160,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             </Tooltip>
           </Col>
         </Row>
-        <div
+        {!detailed?.problemtype && <div
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
           <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(0)}}>Project Basics</a>
@@ -172,7 +175,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(9)}}>Attachments</a>
 
           <a href="#history" className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(10)}}>History</a>
-        </div>
+        </div>}
         <Row
           className="detailed-b"
         >
@@ -281,10 +284,10 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           >
             <Carousel className="detail-carousel" ref={carouselRef}>
               {detailed?.problemid ? (
-                    <div className="detailed-c" onClick={()=>{setOpenImage(true)}}> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
+                    <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (
                     detailed?.attachments?.length == 0 ? (
-                        <div className="detailed-c" onClick={()=>{setOpenImage(true)}}> <img  src={
+                        <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img  src={
                           projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
                             projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
                             projectType === 'Special' ? '/detailed/special.png' :
@@ -296,24 +299,32 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                         }/> </div>
                       ) : (
                         detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
-                           return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true)}}>
+                           return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true);setActive(0)}}>
                              <img width="100%" height="100%" src={image} alt=""/>
                            </div>
                          })
                        )
                     )}
             </Carousel>
-            <div className="img-carousel-detail">
-              <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} />
+            {type === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
+              <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} onClick={()=>{setOpenImage(true);setActive(2)}} />
             </div>
             <div className="detail-left">
               <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev()}}/>
             </div>
             <div className="detail-right">
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
-            </div>
+            </div></>}
             <div className="detailed-info">
-              {detailed &&
+              {detailed?.problemtype ?
+                <>
+                  <DetailInformationProblem />
+                  <ProblemParts problemParts={problemPart}/>
+                  <ComponentSolucionsByProblems />
+                  <Map type={type}/>
+                  <br></br>
+                  <br></br>
+                </>:
                 <>
                   <DetailInformationProject />
                   <ComponentSolucions />
