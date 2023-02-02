@@ -199,6 +199,8 @@ const RequestView = ({ type, isFirstRendering }: {
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study'];
           }
+        }if (l.name.includes('South Platte River County')) {
+          displayedTabKey = tabKeys;
         }
         if (l.name === 'MHFD District Work Plan') {
           displayedTabKey = tabKeys;
