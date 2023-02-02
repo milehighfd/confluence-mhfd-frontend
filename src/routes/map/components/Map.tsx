@@ -1144,12 +1144,13 @@ const Map = ({
             topServiceArea();
             topComponents();
             topFemaFH();
-            if (map.getLayer('borderMASK')) {
-              map.moveLayer('borderMASK');
-            }
             if (map.getLayer('area_based_maskMASK')) {
               map.moveLayer('area_based_maskMASK');
             }
+            if (map.getLayer('borderMASK')) {
+              map.moveLayer('borderMASK');
+            }
+            
         },800);
     }
     const topHovereableLayers = () => {
