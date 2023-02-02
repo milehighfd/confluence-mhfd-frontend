@@ -181,7 +181,7 @@ const initState = {
         county: '',
         servicearea: '',
         keyword: {},
-        maptype: 'main'
+        // maptype: 'main'
     },
     filterComponents: {
         component_type: '',
