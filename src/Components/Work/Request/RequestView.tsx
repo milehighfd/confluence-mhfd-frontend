@@ -188,19 +188,17 @@ const RequestView = ({ type, isFirstRendering }: {
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
         if (year < 2022) {
-          if (l.type === 'COUNTY') {
+          if (l.type === 'COUNTY' || l.type === 'County') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study', 'Acquisition', 'R&D'];
           }
         } else {
-          if (l.type === 'COUNTY') {
+          if (l.type === 'COUNTY' || l.type === 'County') {
             displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study'];
           }
-        }if (l.name.includes('South Platte River County')) {
-          displayedTabKey = tabKeys;
         }
         if (l.name === 'MHFD District Work Plan') {
           displayedTabKey = tabKeys;
@@ -284,7 +282,7 @@ const RequestView = ({ type, isFirstRendering }: {
                   displayedTabKey = tabKeys;
                 } else {
                   if (l) {
-                    if (l.type === 'COUNTY') {
+                    if (l.type === 'COUNTY' || l.type === 'County') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
@@ -305,7 +303,7 @@ const RequestView = ({ type, isFirstRendering }: {
                 } else {
                   if (l) {
                     let displayedTabKey: string[] = [];
-                    if (l.type === 'COUNTY') {
+                    if (l.type === 'COUNTY' || l.type === 'County') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
@@ -602,7 +600,7 @@ const RequestView = ({ type, isFirstRendering }: {
       return p.name === locality;
     })
     if (l) {
-      if (l.type === 'COUNTY') {
+      if (l.type === 'COUNTY' || l.type === 'County') {
         setCsaFilterList(uniqueCounties);
         setCsaSelected(uniqueCounties)
       } else {
@@ -778,7 +776,7 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
-    if (localityType === 'COUNTY') {
+    if (localityType === 'COUNTY' || localityType === 'County') {
       displayedTabKey = ['Capital', 'Maintenance']
     } else if (localityType === 'SERVICE_AREA') {
       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
