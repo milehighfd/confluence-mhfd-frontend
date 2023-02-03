@@ -338,8 +338,9 @@ export const getGalleryProjects = (origin?: any) => {
             }
             dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
-       if (origin !== 'bounds') {
-          getProjectsFilteredIds();
+        console.log('origins', origin, origin != 'bounds');
+       if (origin != 'bounds') {
+         dispatch(getProjectsFilteredIds());
        }
     }
 }
