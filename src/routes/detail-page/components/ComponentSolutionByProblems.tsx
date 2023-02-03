@@ -6,54 +6,53 @@ import { ArrowDownOutlined } from "@ant-design/icons";
 import { useDetailedState } from "hook/detailedHook";
 import { useMapState } from "hook/mapHook";
 
-const ComponentSolucions = () => {
+const ComponentSolucionsByProblems = () => {
   const {detailed} = useDetailedState();
   const {
     componentsByProblemId: componentsOfProblems
   } = useMapState();
   let totalCost = 0;
-  const dataSolution = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {
+  const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
+  const componentSolutionData = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {
     totalCost = totalCost + data.estimated_cost? data.estimated_cost : 0;
     return {
       key: index,
-      component: data.name ? data.name : 'N/A',
-      cost: data.estimated_cost? '$'+data.estimated_cost : 'N/A',
-      status: data.status? data.status : 'N/A',
-      type: data.type? data.type : 'N/A',
+      type: data.type,
+      estimated_cost: data.estimated_cost,
+      percen: data.percen,
+      complete_cost: data.complete_cost,
     }
   }) : {};
   const columns = [
     {
-      title: <>Action</>,
-      dataIndex: 'component',
-      key: 'component',
+      title: <>Actions</>,
+      dataIndex: 'type',
+      key: 'type',
       width:'30%',
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: <>Cost</>,
-      dataIndex: 'cost',
-      key: 'cost',
+      dataIndex: 'estimated_cost',
+      key: 'estimated_cost',
       width:'20%',
+      render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Status</>,
-      dataIndex: 'status',
-      key: 'status',
+      title: <>% Complete</>,
+      dataIndex: 'complete_cost',
+      key: 'complete_cost',
       width:'20%',
-      render: (status:any) => (
-        <span className={'span-' + status}>
-          {status}
-        </span> 
-      ),
+      render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Solution Type</>,
-      dataIndex: 'type',
+      title: <>% of Total Cost</>,
+      dataIndex: 'percen',
       width:'30%',
-      key: 'type',
+      key: 'percen',
+      render: (percen: any) => `${Math.round(percen)}%`,
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
   ];
@@ -67,9 +66,9 @@ const ComponentSolucions = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
-          {detailed?.componentCost && <Table dataSource={detailed?.componentCost ?  dataSolution : {}} columns={columns} pagination={false}/>}
+          <Table dataSource={componentsOfProblems ?  componentSolutionData : {}} columns={columns} pagination={false}/>
           <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
           </div>
         </Col>
       </Row>
@@ -77,4 +76,4 @@ const ComponentSolucions = () => {
   )
 }
 
-export default ComponentSolucions;
+export default ComponentSolucionsByProblems;

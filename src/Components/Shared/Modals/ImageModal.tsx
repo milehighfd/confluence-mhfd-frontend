@@ -4,13 +4,21 @@ import { Button, Col, Dropdown, Input, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { useDetailedState } from 'hook/detailedHook';
 import React, { useEffect, useRef, useState } from 'react';
+import MapModal from 'routes/detail-page/components/MapModal';
 
-const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const ImageModal = (
+  {visible, setVisible, type, active, setActive}:
+  {
+    visible: boolean,
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>
+    type: any,
+    active: any,
+    setActive:React.Dispatch<React.SetStateAction<number>>
+  }) => {
   const {detailed} = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
-  const [active, setActive] = useState(0);
   const [numberCarousel, setNumberCarousel] = useState(1);
-  const numberElementCarousel = 3;
+  const numberElementCarousel = detailed?.attachments?.length;
 
   return (
     <Modal
@@ -70,10 +78,10 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
                 {numberCarousel} of {numberElementCarousel}
               </div>
               <div className='btn-left-carousel'>
-                <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}/>
+                <LeftOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}}/>
               </div>
               <div className='btn-right-carousel'>
-                <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}/>
+                <RightOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}}/>
               </div>
             </Col>
           </>}
@@ -83,8 +91,8 @@ const ImageModal = ({visible, setVisible}: {visible: boolean, setVisible: React.
             </Col>
           }
           {active === 2 &&
-            <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-            <img src={'picture/map-map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
+            <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{height:'calc(100vh - 166px)', overflowY:'auto'}}>
+            <MapModal type={type}/>
           </Col>
           }
         </Row>

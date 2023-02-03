@@ -564,6 +564,7 @@
   .select-area{
     a{
       color: #11093C;
+      max-width: 342px;
     }
   }
   .ant-btn-group{
@@ -2403,7 +2404,7 @@
       margin-top: -6px;
     }
     h2{
-      width: 380px !important;
+      max-width: 487px !important;
       color: $purple00;
       font-size: 30px;
       span{
@@ -3103,7 +3104,7 @@
       padding: 13px !important;
     }
     h2{
-      width: 325px !important;
+      max-width: 551px !important;
       color: #11093c;
       font-size: 34px;
       span{
