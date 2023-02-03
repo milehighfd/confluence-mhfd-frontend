@@ -68,19 +68,23 @@ export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: 
         </div>
         <div className="bodymap">
           <h4>{item.name}</h4>
-          {/* {
+        {(mapType === MAPTYPES.MAINMAP || item.isEditPopup !== true) && <div>
+          {
               ( item.organization?.length + item.streamname?.length > 39) ? 
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
-          <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5> */}
+          <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
+        </div>}
           <hr/>
-          {/* <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
+        {(mapType === MAPTYPES.MAINMAP || item.isEditPopup !== true) && <div>
+          <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={
                 item.type ===  MENU_OPTIONS.PROBLEMS ? (problemStyle.status[priorityType] ? problemStyle.status[priorityType] : problemStyle.status['-'] ) : projectStyle.status 
               }>{item.type ===  MENU_OPTIONS.PROBLEMS ? item.priority : capitalize(item.projecctype)}</p>
             <span style={{color: item.type !== MENU_OPTIONS.PROBLEMS ? '#11093c' : '', opacity: item.type  !==  MENU_OPTIONS.PROBLEMS ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === MENU_OPTIONS.PROBLEMS ? ((item.status == '-'?'0%':item.status) + " Solved" ) : capitalize(item.status)}</span>
-          </div> */}
+          </div>
+        </div>}
         </div>
         { (!ep && detailPage===false)  && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             { item.type != 'project' && <Button id={"buttonCreate-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Create Project</Button>}
