@@ -64,6 +64,9 @@ const CardInformationView = ({
   useEffect(() => {
     const status = isActive(data.type || 'project', data.problemid || data.project_id);
     setActiveCard(status);
+    console.log("URUKAI")
+    console.log(status)
+
   }, [favorites, deleteFavorite, addFavorite]);
 
   const { bboxComponents, selectedLayers } = useSelector((state: any) => ({
