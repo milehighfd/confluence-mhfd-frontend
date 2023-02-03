@@ -3108,6 +3108,11 @@
       margin-bottom: 7px !important;
       padding: 13px !important;
     }
+    .select-area{
+      a{
+        max-width: 342px;
+      }
+    }
     h2{
       max-width: 551px !important;
       color: #11093c;
@@ -3946,12 +3951,16 @@
     }
   }
   .portafolio-head{
+    .select-area a {
+      color: #11093C;
+      max-width: 100%;
+    }
     .icon-bt{
       padding: 14px !important;
       margin-top: -10px !important;
     }
     h2{
-      width: 360px !important;
+      max-width: 616px !important;
       color: #11093c;
       font-size: 37px;
       span{

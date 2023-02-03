@@ -405,7 +405,7 @@ const PortafolioBody = () => {
       <div className="portafolio-head">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-            <h2 style={{maxWidth:'205px'}}>
+            <h2 style={{maxWidth:'351px'}}>
               <Dropdown overlay={menu} trigger={['click']} overlayClassName="drop-menu-header" placement="bottomRight" onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
                 <div className="select-area">
                   <a onClick={e => e.preventDefault()} style={{marginLeft:'2%', display:'flex', alignItems:'baseline'}}>

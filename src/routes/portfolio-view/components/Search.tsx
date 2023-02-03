@@ -128,6 +128,7 @@ const Search = (
           onSelect={(word: string) => {setSearchWord(word); setKeyword(word)}}
           onSearch={handleSearch}
           value={keyword}
+          style={{width:'100%'}}
         >
           <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'85%'}}/>
         </AutoComplete>
