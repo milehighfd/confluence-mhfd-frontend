@@ -112,7 +112,7 @@ export const deleteDataWithBody = (url: any, body: any, token?: any) => {
         headers,
         body: JSON.stringify(body)
     })
-    .then(response => response.json())
+    .then(response => response.text())
     .then(data => (data))
     .catch((err) => {
       console.log(err);

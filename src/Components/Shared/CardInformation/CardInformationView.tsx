@@ -51,9 +51,9 @@ const CardInformationView = ({
   },
   []);
   const isActive = (table: string, id: number): boolean => {
-    if (favorites) {
+    if (favorites) {      
       for (const favorite of favorites) {
-        if (favorite.table === table && favorite.id === id) {
+        if (favorite.project_table_name === table && favorite.project_id === id) {
           return true;
         }
       }
