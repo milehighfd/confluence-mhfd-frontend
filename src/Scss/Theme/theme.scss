@@ -2148,7 +2148,9 @@ body{
   //pointer-events: none;
 }
 .status-d{
-  padding: 6px 0px 6px 40px;
+  padding: 6px 0px 6px 10px;
+  width: 27%;
+  justify-content: flex-end;
   .status-active{
     // margin-left: 5px;
     padding: 3px 7px;
@@ -3082,6 +3084,7 @@ body{
     }
     h1{
       font-size: 28px;
+      line-height:26px;
     }
     p {
       font-size: 16px;
@@ -3443,6 +3446,7 @@ body{
     }
     h1{
       font-size: 32px;
+      line-height: 27px;
     }
     p {
       font-size: 20px;

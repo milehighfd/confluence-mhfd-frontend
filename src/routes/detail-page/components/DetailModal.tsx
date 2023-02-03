@@ -104,8 +104,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       destroyOnClose>
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
-          <Col xs={{ span: 24 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 17}}>
-            <div className="header-detail">
+          <Col xs={{ span: 24 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
+            <div className="header-detail" style={{alignItems: 'normal'}}>
               <div>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
@@ -122,7 +122,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               }
             </div>
           </Col>
-          <Col xs={{ span: 10 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 10}:{ span: 6}}>
+          <Col xs={{ span: 10 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 10}:{ span: 5}}>
             <div className="header-button">{
                 detailed?.problemtype ? (<>
                   <div className="progress">

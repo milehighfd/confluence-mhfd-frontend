@@ -12,8 +12,8 @@ const DetailInformationProject = () => {
     }
     return words.join(" ");
   }
-  const date = detailed?.start_date ? new Date(detailed?.start_date ? detailed?.start_date : '') : new Date();
-  
+  const date = detailed?.start_date ? new Date(detailed?.start_date) : new Date();
+  const dateComplete = detailed?.end_date ? new Date(detailed?.end_date) : new Date();  
   return (
     <>
       <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
@@ -36,7 +36,7 @@ const DetailInformationProject = () => {
           <label><i>Completed Year</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p> 2025 (Projected)</p>
+          <p>{detailed?.end_date ? (dateComplete.getFullYear() ? `${dateComplete.getFullYear()} (Projected)` : 'N/A') : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
@@ -44,13 +44,13 @@ const DetailInformationProject = () => {
           <label><i>LG Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>Jon Nelson</p>
+          <p>{detailed?.lgmanager ? detailed.lgmanager : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>MHFD Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p> Jon Villines</p>
+          <p>{detailed?.mhfdmanager ? detailed.mhfdmanager : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
@@ -58,7 +58,7 @@ const DetailInformationProject = () => {
           <label><i>Description</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-          <p>{detailed?.description ? detailed?.description : 'N/A'}</p>
+          <p>lgmanager</p>
         </Col>
       </Row>
 
@@ -74,13 +74,13 @@ const DetailInformationProject = () => {
           <label><i>Name</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>Improvements at Big Dry Creek (ARAPCO) and S University Blvd</p>
+          <p>{detailed?.problems?.name ? detailed?.problems.name : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Priority</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>High Priority</p>
+          <p>{detailed?.problems?.priority ? detailed?.problems.priorit : 'N/A'}</p>
         </Col>
       </Row>
 

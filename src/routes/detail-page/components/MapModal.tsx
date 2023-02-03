@@ -308,7 +308,7 @@ const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
 
   return (
     <>
-      <div id="map3" style={{height:'100%', width:'100%', borderRadius:'15px'}}></div>
+      <div id="map3" style={{height:'100%', width:'100%', borderRadius:'15px', paddingBottom:'10px'}}></div>
           {/* <img src="/picture/map.png" width='100%'/> */}
     </>
   )

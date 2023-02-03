@@ -25,17 +25,17 @@ const ComponentSolucionsByProblems = () => {
   }) : {};
   const columns = [
     {
-      title: <>Componet Type</>,
+      title: <>Actions</>,
       dataIndex: 'type',
       key: 'type',
-      with:'30%',
+      width:'30%',
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: <>Cost</>,
       dataIndex: 'estimated_cost',
       key: 'estimated_cost',
-      with:'20%',
+      width:'20%',
       render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
@@ -43,14 +43,14 @@ const ComponentSolucionsByProblems = () => {
       title: <>% Complete</>,
       dataIndex: 'complete_cost',
       key: 'complete_cost',
-      with:'20%',
+      width:'20%',
       render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: <>% of Total Cost</>,
       dataIndex: 'percen',
-      with:'30%',
+      width:'30%',
       key: 'percen',
       render: (percen: any) => `${Math.round(percen)}%`,
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
@@ -60,7 +60,7 @@ const ComponentSolucionsByProblems = () => {
     <>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="component-solutions">SOLUTION COMPONENTS</h3>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="component-solutions">PROPOSED ACTIONS</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'68%'}}></div>
         </Col>
       </Row>
@@ -68,7 +68,7 @@ const ComponentSolucionsByProblems = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           <Table dataSource={componentsOfProblems ?  componentSolutionData : {}} columns={columns} pagination={false}/>
           <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
           </div>
         </Col>
       </Row>

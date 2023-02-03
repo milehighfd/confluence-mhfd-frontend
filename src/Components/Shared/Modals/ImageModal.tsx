@@ -78,10 +78,10 @@ const ImageModal = (
                 {numberCarousel} of {numberElementCarousel}
               </div>
               <div className='btn-left-carousel'>
-                <LeftOutlined className="button-next" onClick={()=>{carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}/>
+                <LeftOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}}/>
               </div>
               <div className='btn-right-carousel'>
-                <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}/>
+                <RightOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}}/>
               </div>
             </Col>
           </>}

@@ -12,12 +12,12 @@ const ComponentSolucions = () => {
     componentsByProblemId: componentsOfProblems
   } = useMapState();
   let totalCost = 0;
-  const dataSolution = detailed?.componentCost ? detailed?.componentCost.map((data:any)=> {
-    totalCost = totalCost + data.cost? data.cost : 0;
+  const dataSolution = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {
+    totalCost = totalCost + data.estimated_cost? data.estimated_cost : 0;
     return {
-      key: data.code_cost_type_id,
+      key: index,
       component: data.name ? data.name : 'N/A',
-      cost: data.cost? '$'+data.cost : 'N/A',
+      cost: data.estimated_cost? '$'+data.estimated_cost : 'N/A',
       status: data.status? data.status : 'N/A',
       type: data.type? data.type : 'N/A',
     }
@@ -27,21 +27,21 @@ const ComponentSolucions = () => {
       title: <>Action</>,
       dataIndex: 'component',
       key: 'component',
-      with:'30%',
+      width:'30%',
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: <>Cost</>,
       dataIndex: 'cost',
       key: 'cost',
-      with:'20%',
+      width:'20%',
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: <>Status</>,
       dataIndex: 'status',
       key: 'status',
-      with:'20%',
+      width:'20%',
       render: (status:any) => (
         <span className={'span-' + status}>
           {status}
@@ -52,7 +52,7 @@ const ComponentSolucions = () => {
     {
       title: <>Solution Type</>,
       dataIndex: 'type',
-      with:'30%',
+      width:'30%',
       key: 'type',
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
@@ -69,7 +69,7 @@ const ComponentSolucions = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           {detailed?.componentCost && <Table dataSource={detailed?.componentCost ?  dataSolution : {}} columns={columns} pagination={false}/>}
           <div className="value-total">
-            <p className="table-total" style={{width:'calc(21.5% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
           </div>
         </Col>
       </Row>
