@@ -12,6 +12,8 @@ const DetailInformationProject = () => {
     }
     return words.join(" ");
   }
+  const mhfdManager = detailed?.managers ? detailed?.managers.find((obj:any) => obj.mhfd_staff_id === 1) : null;
+  const lgManager = detailed?.managers ? detailed?.managers.find((obj:any) => obj.mhfd_staff_id === 10) : null;
   const date = detailed?.start_date ? new Date(detailed?.start_date) : new Date();
   const dateComplete = detailed?.end_date ? new Date(detailed?.end_date) : new Date();  
   return (
@@ -44,13 +46,13 @@ const DetailInformationProject = () => {
           <label><i>LG Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.lgmanager ? detailed.lgmanager : 'N/A'}</p>
+          <p>{lgManager?.full_name ? lgManager?.full_name : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>MHFD Manager</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
-          <p>{detailed?.mhfdmanager ? detailed.mhfdmanager : 'N/A'}</p>
+          <p>{mhfdManager?.full_name ? mhfdManager?.full_name : 'N/A'}</p>
         </Col>
       </Row>
       <Row>

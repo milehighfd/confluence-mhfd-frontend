@@ -60,8 +60,10 @@ const App = () => {
           appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
           appUser.designation === 'staff') && <Route path={'/work-request'} component={WorkRequest} />}
+        {/* {(appUser.designation === 'admin' ||
+          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserView} />} */}
         {(appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserView} />}
+          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserManagement} />}
         {/* {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/upload-attachment`} component={UploadAttachmentRoute} />} */}
         {(loading && <Route path={`/`} component={LoadingView} />)}
