@@ -108,7 +108,8 @@ export const setFilterCoordinates = (coordinates: string, tab: string) => {
         if (tab === constants.PROBLEMS_TRIGGER) {
             dispatch(getGalleryProblems());
         } else {
-            dispatch(getGalleryProjects());
+          console.log('getgalleryprojectsssssss herer');
+            dispatch(getGalleryProjects('bounds'));
         }
     }
 }
@@ -301,7 +302,7 @@ export const getGalleryProblems = () => {
     }
 }
 
-export const getGalleryProjects = () => {
+export const getGalleryProjects = (origin?: any) => {
     return (dispatch: Function, getState: Function) => {
         const {
             map: {
@@ -337,7 +338,9 @@ export const getGalleryProjects = () => {
             }
             dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
-       
+       if (origin !== 'bounds') {
+          getProjectsFilteredIds();
+       }
     }
 }
 export const getProjectsFilteredIds = () => {

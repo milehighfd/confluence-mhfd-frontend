@@ -51,7 +51,8 @@ const FiltersProjectView = ({
               <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
                       setApplyFilter(!applyFilter);
                       getGalleryProblems();
-                      getGalleryProjects();
+                                           console.log('get gallery'); 
+                      getGalleryProjects();;
                   }}></Checkbox>
                 <div className="progress">
                     <div className="progress-value"></div>

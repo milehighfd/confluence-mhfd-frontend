@@ -48,7 +48,8 @@ export const NewComponentsFilter = () => {
             options[field] = values;
         }
         setFilterComponentOptions(options);
-        getGalleryProjects();
+                             console.log('get gallery'); 
+                      getGalleryProjects();;
         getGalleryProblems();
         getParamFilterComponents(boundsMap, options);
         getComponentsCounter(boundsMap, options);

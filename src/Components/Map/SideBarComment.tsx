@@ -86,7 +86,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   },[colorsList, availableColors]);
 
   useEffect(() => {
-    let newTree = groups.map((group: any) => {
+    let newTree = groups?.map((group: any) => {
       return {
         id: group._id,
         data: group,

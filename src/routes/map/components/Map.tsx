@@ -149,7 +149,8 @@ const Map = ({
     getParamFilterProjects,
     setCoordinatesJurisdiction,
     setSpinMapLoaded,
-    setSelectedPopup
+    setSelectedPopup,
+    getProjectsFilteredIds
   } = useMapDispatch();
   const {
     toggleModalFilter,
@@ -742,6 +743,7 @@ const Map = ({
             itMoved = true;
         });
         getColorsList();
+        getProjectsFilteredIds();
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {

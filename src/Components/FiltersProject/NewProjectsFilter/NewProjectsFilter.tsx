@@ -68,8 +68,8 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         if(originpage === 'portfolio' && setApplyFilter) {
           setApplyFilter(Math.random());
         } else {
-          getGalleryProjects();
-          getProjectsFilteredIds();
+                               console.log('get gallery'); 
+                      getGalleryProjects();;
         }
         options.servicearea = options.servicearea.trim();
         options.county = options.county.replace("County","").trim();

@@ -32,7 +32,8 @@ const MobileMenu = () => {
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)
             getGalleryProblems();
-            getGalleryProjects();
+                                 console.log('get gallery'); 
+                      getGalleryProjects();;
           }}></Checkbox>
           <div className="progress">
             <div className="progress-value"></div>
@@ -75,7 +76,8 @@ const MobileMenu = () => {
                   getGalleryProblems();
                 } else {
                   setTabCards(PROJECTS_TRIGGER);
-                  getGalleryProjects();
+                                       console.log('get gallery'); 
+                      getGalleryProjects();;
                 }
               }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
                 {tabs.map((value: string, index: number) => {
