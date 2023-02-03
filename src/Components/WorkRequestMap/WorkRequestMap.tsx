@@ -492,12 +492,12 @@ const WorkRequestMap = (type: any) => {
   const setBounds = (value: any) => {
     if (!value) return;
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi)))
+      .filter((x: any) => (x.name === value))
       .map((element: any) => {
         return {
-          aoi: element.aoi,
+          aoi: element.name,
           filter: element.filter,
-          coordinates: element.coordinates,
+          coordinates: element.coordinates.coordinates,
         };
       });
     if (zoomareaSelected[0]) {
@@ -542,12 +542,12 @@ const WorkRequestMap = (type: any) => {
     }
 
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => type.locality.locality.includes(x.aoi))
+      .filter((x: any) => type.locality.locality.includes(x.name))
       .map((element: any) => {
         return {
-          aoi: element.aoi,
+          aoi: element.name,
           filter: element.filter,
-          coordinates: element.coordinates,
+          coordinates: element.coordinates.coordinates,
         };
       });
     if (zoomareaSelected[0]) {
