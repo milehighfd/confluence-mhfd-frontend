@@ -16,9 +16,9 @@ const MyProfile = () => {
       <Layout>
         <SidebarView></SidebarView>
         <Layout style={{overflow:'hidden'}} className="map-00 profile-00">
-          <div className="header-myprofile">
+          {/* <div className="header-myprofile">
             <h2>My Profile</h2>
-          </div>
+          </div> */}
           <Row>
             <Col xs={{ span: 10 }} lg={{ span: 6 }}>
               <Profile />
