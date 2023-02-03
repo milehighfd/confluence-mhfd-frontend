@@ -174,6 +174,7 @@ const RequestView = ({ type, isFirstRendering }: {
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
+    setLoading(true);
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setLocality(value);
