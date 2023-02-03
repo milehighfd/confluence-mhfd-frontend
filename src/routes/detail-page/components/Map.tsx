@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server';
 import { useDetailedState } from "hook/detailedHook";
 import { NEARMAP_STYLE, tileStyles } from "constants/mapStyles";
 import store from "store/index";
-import { COMPONENT_LAYERS, FLOOD_HAZARDS, MENU_OPTIONS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_STORM_OUTFALLS, MEP_PROJECTS_TEMP_LOCATIONS, MHFD_PROJECTS, NEARMAP_TOKEN, PROBLEMS_MODAL, PROBLEMS_TRIGGER, PROJECTS_MODAL, SERVICE_AREA_FILTERS, STREAM_IMPROVEMENT_MEASURE } from "constants/constants";
+import { COMPONENT_LAYERS, FLOOD_HAZARDS, MAPTYPES, MENU_OPTIONS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_STORM_OUTFALLS, MEP_PROJECTS_TEMP_LOCATIONS, MHFD_PROJECTS, NEARMAP_TOKEN, PROBLEMS_MODAL, PROBLEMS_TRIGGER, PROJECTS_MODAL, SERVICE_AREA_FILTERS, STREAM_IMPROVEMENT_MEASURE } from "constants/constants";
 import { MapService } from "utils/MapService";
 import { LayerStylesType } from "Classes/MapTypes";
 import { getComponentCounter } from "dataFetching/map";
@@ -46,7 +46,7 @@ const Map = ({type}: {type: any}) => {
 }
 const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
   <>
-      <MainPopup id={-1} item={item} test={() => {}}></MainPopup>
+      <MainPopup id={-1} item={item} test={() => {}  } mapType={MAPTYPES.MAINMAP} ></MainPopup>
   </>
 );
 const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
