@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'antd';
-import { MENU_OPTIONS } from '../../constants/constants';
+import { MAPTYPES, MENU_OPTIONS } from '../../constants/constants';
 const problemStyle: any = {
     status: {
         'Low': {
@@ -45,7 +45,7 @@ const capitalize = (s : string) => {
     if (typeof s !== 'string') return '';
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
-export const MainPopup = ({id, item, test, sw, ep, detailPage } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any, detailPage?:any}) => {
+export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any, detailPage?:any, mapType:any}) => {
   if(detailPage === undefined){
     detailPage =false;
   }
@@ -68,26 +68,33 @@ export const MainPopup = ({id, item, test, sw, ep, detailPage } : {id: number, i
         </div>
         <div className="bodymap">
           <h4>{item.name}</h4>
+        {(mapType === MAPTYPES.MAINMAP || item.isEditPopup !== true) && <div>
           {
               ( item.organization?.length + item.streamname?.length > 39) ? 
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
           <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
+        </div>}
           <hr/>
+        {(mapType === MAPTYPES.MAINMAP || item.isEditPopup !== true) && <div>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={
                 item.type ===  MENU_OPTIONS.PROBLEMS ? (problemStyle.status[priorityType] ? problemStyle.status[priorityType] : problemStyle.status['-'] ) : projectStyle.status 
               }>{item.type ===  MENU_OPTIONS.PROBLEMS ? item.priority : capitalize(item.projecctype)}</p>
             <span style={{color: item.type !== MENU_OPTIONS.PROBLEMS ? '#11093c' : '', opacity: item.type  !==  MENU_OPTIONS.PROBLEMS ? '0.6' : '', textAlign: 'right', width:'50%', marginBottom:'0px'}}>{item.type === MENU_OPTIONS.PROBLEMS ? ((item.status == '-'?'0%':item.status) + " Solved" ) : capitalize(item.status)}</span>
           </div>
+        </div>}
         </div>
         { (!ep && detailPage===false)  && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             { item.type != 'project' && <Button id={"buttonCreate-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Create Project</Button>}
             <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test(item)} className="btn-borde">See Details</Button>
         </div>} 
-        { ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { (ep && mapType === MAPTYPES.MAINMAP) && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499'}} onClick={() => test(item)} className="btn-borde">See Details</Button>
+        </div>}
+        { (ep && (mapType === MAPTYPES.WORKPLAN || (mapType === MAPTYPES.WORKREQUEST))) && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+            <Button id={"buttonEdit-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499'}} onClick={() => test(item)} className="btn-borde">Edit Project</Button>
         </div>}
       </Card>
     </div>
