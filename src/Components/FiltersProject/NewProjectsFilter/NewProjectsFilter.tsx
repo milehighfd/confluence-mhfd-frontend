@@ -35,6 +35,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         getParamFilterProjects,
         setFilterProjectOptions,
         getGalleryProjects,
+        getProjectsFilteredIds,
         getProjectCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
@@ -62,12 +63,13 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 options[field] = values;
             }
         }
-        
+
         setFilterProjectOptions(options);
         if(originpage === 'portfolio' && setApplyFilter) {
           setApplyFilter(Math.random());
         } else {
-          getGalleryProjects();
+                               console.log('get gallery'); 
+                      getGalleryProjects();;
         }
         options.servicearea = options.servicearea.trim();
         options.county = options.county.replace("County","").trim();

@@ -58,7 +58,8 @@ const GenericTabView = ({
         }
         auxFilterComponents[tag] = tag === 'estimatedcost' ? auxValueTag : newValue;
         setFilterComponentOptions(auxFilterComponents);
-        getGalleryProjects();
+                             console.log('get gallery'); 
+                      getGalleryProjects();;
         getGalleryProblems();
     }
     const deleteTagProblem = (tag: string, value: string) => {
@@ -101,7 +102,8 @@ const GenericTabView = ({
         }
         auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
         setFilterProjectOptions(auxFilterProjects);
-        getGalleryProjects();
+                             console.log('get gallery'); 
+                      getGalleryProjects();;
     }
     const [state, setState] = useState({
         items: Array.from({ length: size }),

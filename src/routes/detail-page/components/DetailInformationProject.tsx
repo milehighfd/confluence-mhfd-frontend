@@ -22,7 +22,7 @@ const DetailInformationProject = () => {
           <label><i>Stream</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.streamname ? detailed?.streamname : 'N/A'}</p>
+          <p>{detailed?.streams?.length > 0 && detailed?.streams[0]?.stream?.stream_name ? detailed?.streams[0]?.stream?.stream_name : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
@@ -32,10 +32,10 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed?.start_date ? (date.getFullYear() ? date.getFullYear() : 'N/A') : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>Completed Year</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.end_date ? (dateComplete.getFullYear() ? `${dateComplete.getFullYear()} (Projected)` : 'N/A') : 'N/A'}</p>
         </Col>
       </Row>
@@ -46,10 +46,10 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed?.lgmanager ? detailed.lgmanager : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>MHFD Manager</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.mhfdmanager ? detailed.mhfdmanager : 'N/A'}</p>
         </Col>
       </Row>
@@ -74,13 +74,13 @@ const DetailInformationProject = () => {
           <label><i>Name</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.problems?.name ? detailed?.problems.name : 'N/A'}</p>
+          <p>{detailed?.problems?.length > 0  && detailed?.problems[0]?.problemname ? detailed?.problems[0]?.problemname : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>Priority</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.problems?.priority ? detailed?.problems.priorit : 'N/A'}</p>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
+          <p>{detailed?.problems?.length > 0 && detailed?.problems[0]?.problempriority ? detailed?.problems[0]?.problempriority : 'N/A'}</p>
         </Col>
       </Row>
 
@@ -97,10 +97,10 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{ detailed?.contractors && detailed?.contractors.length ? detailed?.contractors[0].business_associate.business_associate_name : 'N/A' }</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>Consultant</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.consultants && detailed?.consultants.length ? capitalizeWords(detailed?.consultants[0].business_associate.business_associate_name) : 'N/A' }</p>
         </Col>
       </Row>

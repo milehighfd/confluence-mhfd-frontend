@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dropdown, Button, Input, Menu, MenuProps, Select } from 'antd';
 import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, RADIO_ITEMS } from "../../../constants/constants";
 import { OptionsFiltersUser } from '../../../Classes/TypeList';
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { Option } from 'antd/lib/mentions';
-import * as datasets from "../../../Config/datasets";
-import { SERVER } from "Config/Server.config";
-import { getName } from '../utils';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation', 'Date Registered'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' },
@@ -16,37 +13,8 @@ const SORT_ITEMS = [{ name: 'Name', value: 'name' },
   { name: 'Date Registered', value: 'createdAt' }
  ];
 const ROLES = ['MHFD Senior Manager', 'MHFD Staff', 'Local Government', 'Consultant / Contractor', 'Other'];
-const menuServiceAreaView = (items: Array<any> = [], option: any, setOption: any) => {
-  console.log('the items are ', items);
-  const auxOption = { ...option };
-  const itemMenu: MenuProps['items'] = [];
-  items.forEach((item: any, index: number) => {
-    itemMenu.push({
-      key: `${index}|${item}`,
-      label: <span style={{border:'transparent'}} className="menu-item-text">{item.service_area_name}</span>,
-      onClick: (() => {
-        auxOption.serviceArea = item.code_service_area_id;
-        setOption(auxOption);
-      })
-    });
-  });
-  return <Menu className="js-mm-00 sign-menu" items={itemMenu}>
-  </Menu>
-};
-
 const UserMngFilters = ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
-  const [serviceArea, setServiceArea] = useState<any[]>([]);
-  
-  useEffect(() => {
-    datasets.getData(SERVER.ALL_GROUP_ORGANIZATION)
-    .then((rows) => {
-      const org = rows
-      setServiceArea([{ code_service_area_id: -1, service_area_name: 'None' }, ...org.servicearea]);
-    }).catch((e) => {
-      console.log(e);
-    });
-  }, []);
 
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
@@ -147,11 +115,11 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
         </Dropdown>
       </div>
       <div id={"filter-service-area" + title}  className="filter-area">
-        <Dropdown trigger={['click']} overlay={menuServiceAreaView(serviceArea, option, setOption)}
+        <Dropdown trigger={['click']} overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
         overlayClassName="dropdown-special-bottomLeft-filter"
           getPopupContainer={() => document.getElementById("filter-service-area" + title ) as HTMLElement}>
           <Button className="btn-borde">
-            {option.serviceArea ? getName(option.serviceArea, serviceArea, 'code_service_area_id', 'service_area_name') : 'Service Area'}
+            {option.serviceArea ? option.serviceArea : 'Service Area'}
             <DownOutlined />
           </Button>
         </Dropdown>
@@ -169,8 +137,8 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       </div>
 
       <Button className="btn-purple" style={{height:'36px', width:'8%'}} onClick={() => {
-          reset();
-        }}>Reset</Button>
+        reset();
+      }}>Reset</Button>
 
       {/* <div className="btn-r" id={"filter-sort" + title}>
         <label>Sort by:</label>

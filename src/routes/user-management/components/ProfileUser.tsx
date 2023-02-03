@@ -41,7 +41,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     visible: false
   };
   const [organizationList, setOrganizationList] = useState<any[]>([]);
-  const [allorganizationList, setAllOrganizationList] = useState<any[]>([]);
   const [consultantList, setConsultantList] = useState<any[]>([]);
   useEffect(() => {
     getGroupOrganization();
@@ -63,7 +62,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   })
   console.log('itemsZoomtoarea', itemsZoomtoarea)
   useEffect(() => {
-/*     datasets.getData(SERVER.GET_ORGANIZATIONS)
+    datasets.getData(SERVER.GET_ORGANIZATIONS)
       .then((rows) => {
         const organizations = rows
           .filter((row: any) => row.type === 'JURISDICTION')
@@ -76,16 +75,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       })
       .catch((e) => {
         console.log(e);
-      }) */
-    datasets.getData(SERVER.ALL_GROUP_ORGANIZATION)
-      .then((rows) => {
-        const org = rows
-        setAllOrganizationList(org);
-        console.log(org);
       })
-    .catch((e) => {
-      console.log(e);
-    })
     datasets.getData(SERVER.GET_CONSULTANTS)
       .then((rows) => {
         const consultants = rows
@@ -309,12 +299,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     </Row>
   );
 
-  const getMappedArray = (organizationList : any, nameToExtract: string, fieldToExtract: string) => {
-    if (organizationList.length <= 0 || nameToExtract == undefined || fieldToExtract == undefined) return []; 
-    const arrayOfNames = Object.values(organizationList[nameToExtract]).map((e:any) => e[fieldToExtract]);
-    return arrayOfNames;
-  }
-
   console.log(MenuAreaView(CITIES, 'city', values, setTitle));
 
   return (
@@ -360,6 +344,14 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             />
             <h1>TITLE</h1>
             <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} style={{marginBottom: '15px'}} />
+            <h1>ORGANIZATIONS</h1>
+            {/* TODO: change data dropdown */}
+            <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
+              getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
+              <Button className="btn-borde-management">
+                {values.city ? values.city : 'City'} <DownOutlined />
+              </Button>
+            </Dropdown>
           </Col>
         </Row>
         <br />
@@ -374,44 +366,44 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
           <Row>
-          <Radio.Group
-            name="designation"
-            value={designation}
-            onChange={event => {
-              values.designation = event.target.value;
-              if (values.designation === ADMIN || values.designation === STAFF) {
-                values.organization = 'Mile High Flood Control District Boundary';
-              } else if (values.designation === OTHER) {
-                values.organization = '-';
-              } else {
-                values.organization = 'Please select one';
-              }
-              setTitle(values.organization);
-              setDesignation(event.target.value);
-            }}
-              // style={{ display: 'inline-flex', width: '100%', alignSelf: 'stretch' }}
-          >
-              <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{ paddingRight: '20px'}}>
-              {RADIO_ITEMS.map((item: { value: string; name: string }, index: number) => {
-                console.log('indexx', index);
-                if (index < 3) {
+            <Radio.Group
+              name="designation"
+              value={designation}
+              onChange={event => {
+                values.designation = event.target.value;
+                if (values.designation === ADMIN || values.designation === STAFF) {
+                  values.organization = 'Mile High Flood Control District Boundary';
+                } else if (values.designation === OTHER) {
+                  values.organization = '-';
+                } else {
+                  values.organization = 'Please select one';
                 }
+                setTitle(values.organization);
+                setDesignation(event.target.value);
+              }}
+              // style={{ display: 'inline-flex', width: '100%', alignSelf: 'stretch' }}
+            >
+              <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{ paddingRight: '20px'}}>
+                {RADIO_ITEMS.map((item: { value: string; name: string }, index: number) => {
+                  console.log('indexx', index);
+                  if (index < 3) {
+                  }
                   return <RadioDesignation key={index} index={index} value={item.value} name={item.name}/>;
-              })}
+                })}
+              </Col>
+            </Radio.Group>
+            {/* <Col xs={{ span: 24}} lg={{ span: 9 }} style={{paddingRight:'20px', display:'flex'}}>
+            <Col xs={{ span: 24}} lg={{ span: 12 }} style={{paddingRight:'20px'}}>
+              <Radio style={{marginBottom: '10px'}} >MHFD Senior Manager</Radio><br />
+              <Radio style={{marginBottom: '10px'}}>MHFD Staff</Radio><br />
+              <Radio style={{marginBottom: '10px'}}>Local Government</Radio>
             </Col>
-          </Radio.Group>
-          {/* <Col xs={{ span: 24}} lg={{ span: 9 }} style={{paddingRight:'20px', display:'flex'}}>
-          <Col xs={{ span: 24}} lg={{ span: 12 }} style={{paddingRight:'20px'}}>
-            <Radio style={{marginBottom: '10px'}} >MHFD Senior Manager</Radio><br />
-            <Radio style={{marginBottom: '10px'}}>MHFD Staff</Radio><br />
-            <Radio style={{marginBottom: '10px'}}>Local Government</Radio>
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 12 }} style={{paddingLeft:'20px'}}>
-            <Radio style={{marginBottom: '10px'}}>Consultant / Contractor</Radio><br />
-            <Radio style={{marginBottom: '10px'}}>Other</Radio>
-          </Col>
-        </Col> */}
-        </Row>
+            <Col xs={{ span: 24}} lg={{ span: 12 }} style={{paddingLeft:'20px'}}>
+              <Radio style={{marginBottom: '10px'}}>Consultant / Contractor</Radio><br />
+              <Radio style={{marginBottom: '10px'}}>Other</Radio>
+            </Col>
+          </Col> */}
+          </Row>
           </Col>
           </Row>
         <br />
@@ -427,7 +419,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
           <div className="gutter-row" id={("city" + values._id)}>
                   <p>AREAS</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(getMappedArray(allorganizationList, 'jurisdiction', 'local_government_name') , 'city', values, setTitle)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.city ? values.city : 'City'} <DownOutlined />
@@ -436,7 +428,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 </div>
             <div className="gutter-row"  id={("serviceArea" + values._id)}>
                   <p>SERVICE AREA</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(getMappedArray(allorganizationList, 'servicearea', 'service_area_name') , 'serviceArea', values, setTitle)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}
                     placement="bottomLeft">
                     <Button className="btn-borde-management">
@@ -448,7 +440,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
           <div className="gutter-row"  id={("county" + values._id)}>
                   <p>COUNTY</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(getMappedArray(allorganizationList, 'county', 'county_name'), 'county', values, setTitle)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
                     getPopupContainer={() => document.getElementById(("county" + values._id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.county ? values.county : 'County'}  <DownOutlined />

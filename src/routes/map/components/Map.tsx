@@ -149,7 +149,8 @@ const Map = ({
     getParamFilterProjects,
     setCoordinatesJurisdiction,
     setSpinMapLoaded,
-    setSelectedPopup
+    setSelectedPopup,
+    getProjectsFilteredIds
   } = useMapDispatch();
   const {
     toggleModalFilter,
@@ -173,7 +174,8 @@ const Map = ({
     componentDetailIds,
     mapSearch,
     applyFilter,
-    zoomProblemOrProject: zoom
+    zoomProblemOrProject: zoom,
+    projectsids
   } = useMapState();
   const {
     detailed,
@@ -181,8 +183,9 @@ const Map = ({
     let geocoderRef = useRef<HTMLDivElement>(null);
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
-    const { notes } = useNotesState();
-    const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
+    // uncomment on NOTES ready
+    // const { notes } = useNotesState();
+    // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [mobilePopups, setMobilePopups] = useState<any>([]);
@@ -312,7 +315,8 @@ const Map = ({
         mapService.autocomplete = autocomplete;
     }, [autocomplete]);
 
-    
+    /*
+    uncomment when NOTES is ready
     useEffect(() => {
         commentAvailable = commentVisible;
         setOpen(commentVisible);
@@ -326,7 +330,7 @@ const Map = ({
           popup.remove();
         }
     }, [commentVisible]);
-
+    */
 
     useEffect(() => {
         if (map) {
@@ -352,6 +356,8 @@ const Map = ({
         }
     }, [data]);
 
+    /*
+    uncomment when NOTES is ready
     useEffect(() => {
         let totalmarkers:any = [];
         if (map) {
@@ -390,6 +396,7 @@ const Map = ({
           setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
+    */
     const eventsOnClickNotes = (noteClicked:any) => {
       const div = document.getElementById('color-list');
         if (div != null) {
@@ -439,7 +446,8 @@ const Map = ({
                             latitude: noteClicked.latitude,
                             longitude: noteClicked.longitude
                         };
-                        createNoteWithElem(note, createNote);
+                        // UN COMMENT FOR NOTES
+                        // createNoteWithElem(note, createNote);
                         popup.remove();
                         marker.remove();
                         markerNote.remove();
@@ -470,8 +478,8 @@ const Map = ({
                         latitude: noteClicked.latitude,
                         longitude: noteClicked.longitude
                     };
-                    
-                    editNoteWithElem(note, editNote);
+                    // UNCOMMENT WHEN NOTES IS READY
+                    // editNoteWithElem(note, editNote);
 
                   }
               });
@@ -480,7 +488,8 @@ const Map = ({
             if (del != null) {
               del.addEventListener('click', () => {
                 let noteId = del.getAttribute('value');
-                deleteNote(noteId);
+                // UN COMMENT WHEN NOTES IS READY 
+                // deleteNote(noteId);
               });
             }
         }
@@ -584,11 +593,17 @@ const Map = ({
         }
     }, [filterProblems]);
 
+    // useEffect(() => {
+    //     if (map) {
+    //       applyFilters(MHFD_PROJECTS, filterProjects);
+    //     }
+    // }, [filterProjects, componentDetailIds]);
     useEffect(() => {
-        if (map) {
-            applyFilters(MHFD_PROJECTS, filterProjects);
-        }
-    }, [filterProjects, componentDetailIds]);
+      console.log('projectsids', projectsids, projectsids.length);
+      if(projectsids.length) {
+        applyFilters(MHFD_PROJECTS, filterProjects);
+      }
+    }, [projectsids]);
 
     useEffect(() => {
         if (map) {
@@ -601,7 +616,8 @@ const Map = ({
     }, [filterComponents, componentDetailIds]);
 
     useEffect(() => {
-      getNotes();
+      /// UNCOMMENT WHEN NOTES IS READY
+      //getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -727,6 +743,7 @@ const Map = ({
             itMoved = true;
         });
         getColorsList();
+        getProjectsFilteredIds();
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {
@@ -744,7 +761,8 @@ const Map = ({
     useEffect(() => {
       listOfElements = colorsList;
       updateColorsList();
-      getNotes();
+      // uncomment when notes is ready
+      // getNotes();
     },[colorsList]);
     useEffect(() => {
         const bounds = map.getBounds();
@@ -1298,11 +1316,12 @@ const Map = ({
     const applyFilters = useCallback((key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
-            if (!map.getLayer(key + '_' + index)) {
+            if (!map?.getLayer(key + '_' + index)) {
                 return;
             }
             const allFilters: any[] = ['all'];
-            for (const filterField in toFilter) {
+            if (key !== MHFD_PROJECTS) {
+              for (const filterField in toFilter) {
                 let filters = toFilter[filterField];
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
@@ -1427,10 +1446,14 @@ const Map = ({
                     
                     allFilters.push(options);
                 } 
+              }
+            } else {
+              allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
             }
-            if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
-              allFilters.push(style.filter);
-            }
+            
+            // if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
+            //   allFilters.push(style.filter);
+            // }
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
@@ -1440,8 +1463,11 @@ const Map = ({
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
             }
+            if (key === MHFD_PROJECTS) {
+              console.log('allFilters', allFilters);
+            }
         });
-    }, [problemClusterGeojson]);
+    }, [problemClusterGeojson, projectsids]);
 
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
@@ -1871,7 +1897,9 @@ const Map = ({
                     listOfElements,
                     colors,
                     colorsCodes,
-                    createNote,
+                    // un comment when notes is ready
+                    () => {},
+                    // createNote,
                     rotateIcon, 
                     addListToPopupNotes,
                     popup,
@@ -2283,7 +2311,8 @@ const Map = ({
 
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
-        setOpen(status);
+        // un comment when notes is ready
+        // setOpen(status);
     }
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);

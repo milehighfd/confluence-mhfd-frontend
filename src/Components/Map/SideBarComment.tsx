@@ -7,6 +7,31 @@ import { divListOfelements } from './../Map/commetsFunctions';
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, setSwSave:Function }) => {
+    const onClose = () => {
+      setVisible(false);
+    };
+    return (
+    <>
+      <Drawer
+      title={<div className="comment-title">
+          <h5>MAP NOTES</h5>
+          <Button onClick={onClose}>
+            <span className="arrow-left"></span>
+          </Button>
+        </div>}
+      placement="left"
+      maskClosable={false}
+      mask={false}
+      closable={false}
+      onClose={() => setVisible(false)}
+      visible={visible}
+      className="comment-drawer"
+      style={{ marginLeft: '58px', width: '0px'}}
+      >
+      </Drawer>
+    </>
+  )
+    /*
   const DEFAULT_COLOR = '#FFE121';
   const { notes, groups, availableColors, isnewnote } = useNotesState();
   const { colorsList } = useColorListState();
@@ -56,12 +81,12 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       } else {
         color.selected = false;
       }
-    });
+    }); 
     setCurrentSelected(auxColorList);
   },[colorsList, availableColors]);
 
   useEffect(() => {
-    let newTree = groups.map((group: any) => {
+    let newTree = groups?.map((group: any) => {
       return {
         id: group._id,
         data: group,
@@ -283,6 +308,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       </Drawer>
   </>
   )
+  */
+
 }
 
 export default SideBarComment;

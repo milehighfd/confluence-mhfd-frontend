@@ -2399,6 +2399,11 @@
     }
   }
   .portafolio-head{
+    .select-area{
+      a{
+        max-width: 470px;
+      }
+    }
     .icon-bt{
       padding: 10px;
       margin-top: -6px;
@@ -2406,7 +2411,7 @@
     h2{
       max-width: 487px !important;
       color: $purple00;
-      font-size: 30px;
+      font-size: 29px;
       span{
         font-size: 20px !important;
       }
