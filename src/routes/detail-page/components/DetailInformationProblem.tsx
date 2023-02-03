@@ -15,10 +15,10 @@ const DetailInformationProblem = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed?.streamname ? detailed?.streamname : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>Priority</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>N/A</p>
         </Col>
       </Row>
@@ -29,10 +29,10 @@ const DetailInformationProblem = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{detailed?.problemname ? detailed?.problemname : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>Source</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.source ? detailed?.source : 'N/A'}</p>
         </Col>
       </Row>
