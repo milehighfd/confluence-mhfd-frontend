@@ -102,7 +102,6 @@ const PortafolioBody = () => {
   const {
     boundsMap,
     filterProjectOptions,
-    filterCoordinates,
     filterComponentOptions,
   } = useMapState();
   const {

@@ -233,20 +233,20 @@ export const setProjectKeyword = (keyword: string) => {
     auxFilter.keyword = keyword;
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter });
-        const params = '?field=' + keyword;
-        if (keyword) {
-            datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
-                if (tables[constants.MHFD_PROJECTS]?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
-                    auxFilterProjects.keyword = tables;
-                    auxFilterProjects.projectname = keyword;
-                    dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
-                }
-            });
-        } else {
-            auxFilterProjects.keyword = {};
-            auxFilterProjects.projectname = keyword;
-            dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
-        }
+        // const params = '?field=' + keyword;
+        // if (keyword) {
+        //     datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
+        //         if (tables[constants.MHFD_PROJECTS]?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
+        //             auxFilterProjects.keyword = tables;
+        //             auxFilterProjects.projectname = keyword;
+        //             dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
+        //         }
+        //     });
+        // } else {
+        //     auxFilterProjects.keyword = {};
+        //     auxFilterProjects.projectname = keyword;
+        //     dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
+        // }
     }
 }
 
@@ -333,12 +333,32 @@ export const getGalleryProjects = () => {
             datasets.getToken()
         ).then(galleryProjects => {
             if (galleryProjects?.length >= 0) {
-              console.log('Gallery priject 2', galleryProjects);
-                dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
+              dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
             }
             dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
+       
     }
+}
+export const getProjectsFilteredIds = () => {
+  return (dispatch: Function, getState: Function) => {
+    const {
+      map: {
+          filterCoordinates: coordinates,
+          filterProjectOptions: filterOptions,
+          filterComponentOptions: filterComponent,
+      }
+    } = getState();
+    datasets.postData(
+      SERVER.GALLERY_PROJECTS_IDS_V2,
+      optionsProjects(filterOptions, filterComponent, coordinates, false),
+      datasets.getToken()
+    ).then(projectsids => {
+        if (projectsids?.length >= 0) {
+            dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
+        }
+    });
+  };
 }
 
 export const setSpinMapLoaded = (spin: boolean) => {

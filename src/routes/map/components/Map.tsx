@@ -173,7 +173,8 @@ const Map = ({
     componentDetailIds,
     mapSearch,
     applyFilter,
-    zoomProblemOrProject: zoom
+    zoomProblemOrProject: zoom,
+    projectsids
   } = useMapState();
   const {
     detailed,
@@ -584,11 +585,17 @@ const Map = ({
         }
     }, [filterProblems]);
 
+    // useEffect(() => {
+    //     if (map) {
+    //       applyFilters(MHFD_PROJECTS, filterProjects);
+    //     }
+    // }, [filterProjects, componentDetailIds]);
     useEffect(() => {
-        if (map) {
-            applyFilters(MHFD_PROJECTS, filterProjects);
-        }
-    }, [filterProjects, componentDetailIds]);
+      console.log('projectsids', projectsids, projectsids.length);
+      if(projectsids.length) {
+        applyFilters(MHFD_PROJECTS, filterProjects);
+      }
+    }, [projectsids]);
 
     useEffect(() => {
         if (map) {
@@ -1298,11 +1305,12 @@ const Map = ({
     const applyFilters = useCallback((key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
-            if (!map.getLayer(key + '_' + index)) {
+            if (!map?.getLayer(key + '_' + index)) {
                 return;
             }
             const allFilters: any[] = ['all'];
-            for (const filterField in toFilter) {
+            if (key !== MHFD_PROJECTS) {
+              for (const filterField in toFilter) {
                 let filters = toFilter[filterField];
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
@@ -1427,10 +1435,14 @@ const Map = ({
                     
                     allFilters.push(options);
                 } 
+              }
+            } else {
+              allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
             }
-            if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
-              allFilters.push(style.filter);
-            }
+            
+            // if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
+            //   allFilters.push(style.filter);
+            // }
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
@@ -1440,8 +1452,11 @@ const Map = ({
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
             }
+            if (key === MHFD_PROJECTS) {
+              console.log('allFilters', allFilters);
+            }
         });
-    }, [problemClusterGeojson]);
+    }, [problemClusterGeojson, projectsids]);
 
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {

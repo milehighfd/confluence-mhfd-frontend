@@ -8,7 +8,7 @@ import {
   setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
   setAutocomplete, getBBOXComponents, updateSelectedLayers,
   addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards,
-  setBBOXComponents, getGalleryProblems, getGalleryProjects, setApplyFilter, setHighlighted,
+  setBBOXComponents, getGalleryProblems, getGalleryProjects, getProjectsFilteredIds, setApplyFilter, setHighlighted,
   setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter,
   mapSearchQuery, setSelectedOnMap, existDetailedPageProblem,
   existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,resetDetailed, 
@@ -127,6 +127,9 @@ export const useMapDispatch = () => {
     },
     getGalleryProjects: () => {
       dispatch(getGalleryProjects());
+    },
+    getProjectsFilteredIds: () => {
+      dispatch(getProjectsFilteredIds());
     },
     setApplyFilter: (value: boolean) => {
       dispatch(setApplyFilter(value));
