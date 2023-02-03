@@ -154,7 +154,8 @@ const MapView = () => {
     options.contractor = '';
     options.servicearea = '';
     setFilterProjectOptions(options);
-    getGalleryProjects();
+                         console.log('get gallery'); 
+                      getGalleryProjects();;
     if (toggleModalFilter) {
       getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
     }
@@ -171,7 +172,8 @@ const MapView = () => {
     options.mhfdmanager = '';
     options.servicearea = '';
     setFilterComponentOptions(options);
-    getGalleryProjects();
+                         console.log('get gallery'); 
+                      getGalleryProjects();;
     getGalleryProblems();
     if (toggleModalFilter) {
       getParamFilterComponents(withCoords ? withCoords : boundsMap, options);
@@ -334,7 +336,8 @@ const MapView = () => {
     }
     auxFilterComponents[tag] = (tag === 'estimatedcost') ? auxValueTag : newValue;
     setFilterComponentOptions(auxFilterComponents);
-    getGalleryProjects();
+                         console.log('get gallery'); 
+                      getGalleryProjects();;
     getParamFilterComponents(boundsMap, auxFilterComponents)
   }
   const generateLabelsFilterProblems = () => {
@@ -615,7 +618,8 @@ const MapView = () => {
       if (tabActive === '0') {
         getGalleryProblems();
       } else {
-        getGalleryProjects();
+                             console.log('get gallery'); 
+                      getGalleryProjects();;
       }
     }
     if (backgroundStyle === gray) {
@@ -696,7 +700,8 @@ const MapView = () => {
       const auxOptions = { ...filterProjectOptions };
       auxOptions.order = filterProjectOptions.order === 'asc' ? 'desc' : 'asc';
       setFilterProjectOptions(auxOptions);
-      getGalleryProjects();
+                           console.log('get gallery'); 
+                      getGalleryProjects();;
     }
   }
 
@@ -708,7 +713,8 @@ const MapView = () => {
           <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
             setApplyFilter(!applyFilter)
             getGalleryProblems();
-            getGalleryProjects();
+                                 console.log('get gallery'); 
+                      getGalleryProjects();;
           }}></Checkbox>
           <div className="progress">
             <div className="progress-value"></div>
@@ -734,7 +740,8 @@ const MapView = () => {
             const auxOptions = { ...filterProjectOptions };
             auxOptions.column = element.name;
             setFilterProjectOptions(auxOptions);
-            getGalleryProjects();
+                                 console.log('get gallery'); 
+                      getGalleryProjects();;
           }
         })
       });
@@ -752,7 +759,8 @@ const MapView = () => {
     } else {
       setKeywordProject('');
       setProjectKeyword('');
-      getGalleryProjects();
+                           console.log('get gallery'); 
+                      getGalleryProjects();;
     }
     if (toggleModalFilter) {
       switch(filterTabNumber) {
@@ -854,7 +862,8 @@ const MapView = () => {
                   } else {
                     setProjectKeyword(keywordProject);
                   }
-                  getGalleryProjects();
+                                       console.log('get gallery'); 
+                      getGalleryProjects();;
                 }
               }}
             />
@@ -898,7 +907,8 @@ const MapView = () => {
           } else {
             setTabActive('1');
             setTabCards(PROJECTS_TRIGGER);
-            getGalleryProjects();
+                                 console.log('get gallery'); 
+                      getGalleryProjects();;
           }
         }} activeKey={tabPosition} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" tabBarExtraContent={genExtra()}>
           {tabs.map((value: string, index: number) => {

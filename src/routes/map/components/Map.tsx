@@ -149,7 +149,8 @@ const Map = ({
     getParamFilterProjects,
     setCoordinatesJurisdiction,
     setSpinMapLoaded,
-    setSelectedPopup
+    setSelectedPopup,
+    getProjectsFilteredIds
   } = useMapDispatch();
   const {
     toggleModalFilter,
@@ -182,8 +183,9 @@ const Map = ({
     let geocoderRef = useRef<HTMLDivElement>(null);
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
-    const { notes } = useNotesState();
-    const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
+    // uncomment on NOTES ready
+    // const { notes } = useNotesState();
+    // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [mobilePopups, setMobilePopups] = useState<any>([]);
@@ -313,7 +315,8 @@ const Map = ({
         mapService.autocomplete = autocomplete;
     }, [autocomplete]);
 
-    
+    /*
+    uncomment when NOTES is ready
     useEffect(() => {
         commentAvailable = commentVisible;
         setOpen(commentVisible);
@@ -327,7 +330,7 @@ const Map = ({
           popup.remove();
         }
     }, [commentVisible]);
-
+    */
 
     useEffect(() => {
         if (map) {
@@ -353,6 +356,8 @@ const Map = ({
         }
     }, [data]);
 
+    /*
+    uncomment when NOTES is ready
     useEffect(() => {
         let totalmarkers:any = [];
         if (map) {
@@ -391,6 +396,7 @@ const Map = ({
           setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
+    */
     const eventsOnClickNotes = (noteClicked:any) => {
       const div = document.getElementById('color-list');
         if (div != null) {
@@ -440,7 +446,8 @@ const Map = ({
                             latitude: noteClicked.latitude,
                             longitude: noteClicked.longitude
                         };
-                        createNoteWithElem(note, createNote);
+                        // UN COMMENT FOR NOTES
+                        // createNoteWithElem(note, createNote);
                         popup.remove();
                         marker.remove();
                         markerNote.remove();
@@ -471,8 +478,8 @@ const Map = ({
                         latitude: noteClicked.latitude,
                         longitude: noteClicked.longitude
                     };
-                    
-                    editNoteWithElem(note, editNote);
+                    // UNCOMMENT WHEN NOTES IS READY
+                    // editNoteWithElem(note, editNote);
 
                   }
               });
@@ -481,7 +488,8 @@ const Map = ({
             if (del != null) {
               del.addEventListener('click', () => {
                 let noteId = del.getAttribute('value');
-                deleteNote(noteId);
+                // UN COMMENT WHEN NOTES IS READY 
+                // deleteNote(noteId);
               });
             }
         }
@@ -608,7 +616,8 @@ const Map = ({
     }, [filterComponents, componentDetailIds]);
 
     useEffect(() => {
-      getNotes();
+      /// UNCOMMENT WHEN NOTES IS READY
+      //getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -734,6 +743,7 @@ const Map = ({
             itMoved = true;
         });
         getColorsList();
+        getProjectsFilteredIds();
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {
@@ -751,7 +761,8 @@ const Map = ({
     useEffect(() => {
       listOfElements = colorsList;
       updateColorsList();
-      getNotes();
+      // uncomment when notes is ready
+      // getNotes();
     },[colorsList]);
     useEffect(() => {
         const bounds = map.getBounds();
@@ -1886,7 +1897,9 @@ const Map = ({
                     listOfElements,
                     colors,
                     colorsCodes,
-                    createNote,
+                    // un comment when notes is ready
+                    () => {},
+                    // createNote,
                     rotateIcon, 
                     addListToPopupNotes,
                     popup,
@@ -2298,7 +2311,8 @@ const Map = ({
 
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
-        setOpen(status);
+        // un comment when notes is ready
+        // setOpen(status);
     }
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
