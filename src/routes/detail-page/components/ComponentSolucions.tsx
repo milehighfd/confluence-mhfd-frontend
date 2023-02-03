@@ -16,12 +16,13 @@ const ComponentSolucions = () => {
     totalCost = totalCost + data.estimated_cost? data.estimated_cost : 0;
     return {
       key: index,
-      component: data.name ? data.name : 'N/A',
-      cost: data.estimated_cost? '$'+data.estimated_cost : 'N/A',
-      status: data.status? data.status : 'N/A',
-      type: data.type? data.type : 'N/A',
+      component: data.type ? data.type : '',
+      cost: data.estimated_cost? '$'+data.estimated_cost : '',
+      complete: data.complete_cost ? data.complete_cost : '',
+      total_cost: data.percen? data.percen : '',
     }
   }) : {};
+  const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
   const columns = [
     {
       title: <>Action</>,
@@ -35,25 +36,28 @@ const ComponentSolucions = () => {
       dataIndex: 'cost',
       key: 'cost',
       width:'20%',
+      render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Status</>,
-      dataIndex: 'status',
-      key: 'status',
+      title: <>% Complete</>,
+      dataIndex: 'complete',
+      key: 'complete',
+      render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
       width:'20%',
-      render: (status:any) => (
-        <span className={'span-' + status}>
-          {status}
-        </span> 
-      ),
+      // render: (status:any) => (
+      //   <span className={'span-' + status}>
+      //     {status}
+      //   </span> 
+      // ),
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
-      title: <>Solution Type</>,
-      dataIndex: 'type',
+      title: <>% of Total Cost</>,
+      dataIndex: 'total_cost',
       width:'30%',
-      key: 'type',
+      key: 'total_cost',
+      render: (percen: any) => `${Math.round(percen)}%`,
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
   ];
@@ -69,7 +73,7 @@ const ComponentSolucions = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           {detailed?.componentCost && <Table dataSource={detailed?.componentCost ?  dataSolution : {}} columns={columns} pagination={false}/>}
           <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${totalCost}</p>
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(totalCost)}</p>
           </div>
         </Col>
       </Row>
