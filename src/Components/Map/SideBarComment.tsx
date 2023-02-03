@@ -7,9 +7,28 @@ import { divListOfelements } from './../Map/commetsFunctions';
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, setSwSave:Function }) => {
-  return (
+    const onClose = () => {
+      setVisible(false);
+    };
+    return (
     <>
-      In progress...
+      <Drawer
+      title={<div className="comment-title">
+          <h5>MAP NOTES</h5>
+          <Button onClick={onClose}>
+            <span className="arrow-left"></span>
+          </Button>
+        </div>}
+      placement="left"
+      maskClosable={false}
+      mask={false}
+      closable={false}
+      onClose={() => setVisible(false)}
+      visible={visible}
+      className="comment-drawer"
+      style={{ marginLeft: '58px', width: '0px'}}
+      >
+      </Drawer>
     </>
   )
     /*
