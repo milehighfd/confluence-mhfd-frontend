@@ -7,6 +7,12 @@ import { divListOfelements } from './../Map/commetsFunctions';
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, setSwSave:Function }) => {
+  return (
+    <>
+      In progress...
+    </>
+  )
+    /*
   const DEFAULT_COLOR = '#FFE121';
   const { notes, groups, availableColors, isnewnote } = useNotesState();
   const { colorsList } = useColorListState();
@@ -56,7 +62,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       } else {
         color.selected = false;
       }
-    });
+    }); 
     setCurrentSelected(auxColorList);
   },[colorsList, availableColors]);
 
@@ -283,6 +289,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       </Drawer>
   </>
   )
+  */
+
 }
 
 export default SideBarComment;
