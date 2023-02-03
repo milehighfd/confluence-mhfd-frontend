@@ -32,6 +32,8 @@ import WsService from 'Components/Work/Request/WsService';
 
 import '../../../index.scss';
 import ColumsTrelloCard from './ColumsTrelloCard';
+import { SERVER } from 'Config/Server.config';
+import { postData } from '../../../Config/datasets';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
@@ -103,11 +105,12 @@ const RequestView = ({ type, isFirstRendering }: {
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
   // TODO: openmodal
-  // const { isOpenModal } = useBoardState();
+  const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [boardFlag, setBoardFlag] = useState(0);
+  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -171,6 +174,7 @@ const RequestView = ({ type, isFirstRendering }: {
 
   const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
+    setLoading(true);
     setShowAnalytics(false);
     setShowBoardStatus(false);
     setLocality(value);
@@ -200,6 +204,11 @@ const RequestView = ({ type, isFirstRendering }: {
         if (l.name === 'MHFD District Work Plan') {
           displayedTabKey = tabKeys;
         }
+        if (l.name.includes('South Platte River County')) {
+          displayedTabKey = tabKeys;
+          setTabKey(displayedTabKey[0]);
+        }
+
         if (!displayedTabKey.includes(tabKey)) {
           setTabKey(displayedTabKey[0]);
         }
@@ -287,6 +296,9 @@ const RequestView = ({ type, isFirstRendering }: {
                     if (l.name === 'MHFD District Work Plan') {
                       displayedTabKey = tabKeys;
                     }
+                    if (l.name.includes('South Platte River County')) {
+                      displayedTabKey = tabKeys;
+                    }
                   }
                 }
                 if (displayedTabKey.includes(_tabKey)) {
@@ -306,6 +318,9 @@ const RequestView = ({ type, isFirstRendering }: {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
+                      displayedTabKey = tabKeys;
+                    }
+                    if (l.name.includes('South Platte River County')) {
                       displayedTabKey = tabKeys;
                     }
                     setTabKey(displayedTabKey[0]);
@@ -646,6 +661,16 @@ const RequestView = ({ type, isFirstRendering }: {
   const openEdit = (project:any,event:any) => {
     setShowModalEdit(project);
   }
+  const getCompleteProjectData = async (data:any) => {
+    let dataForBoard = {...data};
+    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard).then((value:any)=> {
+      console.log('value',value)
+      setCompleteProjectData(value); 
+      setTimeout(()=>{
+      setShowModalProject(true);
+    },200);});
+    
+  }
   const setShowModalEdit = (project: any) => {
     let projectswithid: any = new Set();
     let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.id.toString()));
@@ -655,9 +680,10 @@ const RequestView = ({ type, isFirstRendering }: {
     let newArray = [...projectswithid.values()];
     if(newArray[0]){
       currentProject = {...newArray[0].projectData};
-      setTimeout(()=>{
-        setShowModalProject(true);
-      },200);
+      getCompleteProjectData(currentProject);
+      // setTimeout(()=>{
+      //   setShowModalProject(true);
+      // },200);
     }
   }
   const saveData = ({ projectId, amounts, years }:{ projectId: any, amounts: any[], years: any[] }) => {
@@ -770,6 +796,9 @@ const RequestView = ({ type, isFirstRendering }: {
     if (locality === 'MHFD District Work Plan') {
       displayedTabKey = tabKeys;
     }
+    if (locality.includes('South Platte River County')) {
+      displayedTabKey = tabKeys;
+    }
       /*
     if (year < 2022) {
       if (localityType === 'COUNTY') {
@@ -802,7 +831,7 @@ const RequestView = ({ type, isFirstRendering }: {
       <ModalProjectView
           visible={showModalProject}
           setVisible={setShowModalProject}
-          data={currentProject}
+          data={completeProjectData}
           showDefaultTab={true}
           locality={locality}
           editable={true}
