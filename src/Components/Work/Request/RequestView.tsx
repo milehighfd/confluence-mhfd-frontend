@@ -188,13 +188,13 @@ const RequestView = ({ type, isFirstRendering }: {
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
         if (year < 2022) {
-          if (l.type === 'COUNTY' || l.type === 'County') {
+          if (l.type === 'COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study', 'Acquisition', 'R&D'];
           }
         } else {
-          if (l.type === 'COUNTY' || l.type === 'County') {
+          if (l.type === 'COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
           } else if (l.type === 'SERVICE_AREA') {
             displayedTabKey = ['Study'];
@@ -203,6 +203,11 @@ const RequestView = ({ type, isFirstRendering }: {
         if (l.name === 'MHFD District Work Plan') {
           displayedTabKey = tabKeys;
         }
+        if (l.name.includes('South Platte River County')) {
+          displayedTabKey = tabKeys;
+          setTabKey(displayedTabKey[0]);
+        }
+
         if (!displayedTabKey.includes(tabKey)) {
           setTabKey(displayedTabKey[0]);
         }
@@ -282,12 +287,15 @@ const RequestView = ({ type, isFirstRendering }: {
                   displayedTabKey = tabKeys;
                 } else {
                   if (l) {
-                    if (l.type === 'COUNTY' || l.type === 'County') {
+                    if (l.type === 'COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
+                      displayedTabKey = tabKeys;
+                    }
+                    if (l.name.includes('South Platte River County')) {
                       displayedTabKey = tabKeys;
                     }
                   }
@@ -303,12 +311,15 @@ const RequestView = ({ type, isFirstRendering }: {
                 } else {
                   if (l) {
                     let displayedTabKey: string[] = [];
-                    if (l.type === 'COUNTY' || l.type === 'County') {
+                    if (l.type === 'COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
                     } else if (l.type === 'SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
+                      displayedTabKey = tabKeys;
+                    }
+                    if (l.name.includes('South Platte River County')) {
                       displayedTabKey = tabKeys;
                     }
                     setTabKey(displayedTabKey[0]);
@@ -600,7 +611,7 @@ const RequestView = ({ type, isFirstRendering }: {
       return p.name === locality;
     })
     if (l) {
-      if (l.type === 'COUNTY' || l.type === 'County') {
+      if (l.type === 'COUNTY') {
         setCsaFilterList(uniqueCounties);
         setCsaSelected(uniqueCounties)
       } else {
@@ -776,12 +787,15 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
-    if (localityType === 'COUNTY' || localityType === 'County') {
+    if (localityType === 'COUNTY') {
       displayedTabKey = ['Capital', 'Maintenance']
     } else if (localityType === 'SERVICE_AREA') {
       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
     }
     if (locality === 'MHFD District Work Plan') {
+      displayedTabKey = tabKeys;
+    }
+    if (locality.includes('South Platte River County')) {
       displayedTabKey = tabKeys;
     }
       /*
