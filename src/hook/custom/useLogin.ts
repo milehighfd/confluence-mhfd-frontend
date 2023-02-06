@@ -14,9 +14,9 @@ const useLogin = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (datasets.getToken() && appUser.email === '') {
+    if (datasets.getToken() && appUser.email === '') {     
       datasets.getData(SERVER.ME, datasets.getToken()).then(async res => {
-        if (res?._id) {
+        if (res?.user_id) {
           saveUserInformation(res);
           if (res.polygon) {
             let bottomLongitude = res.polygon[0][0];
