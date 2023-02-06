@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown, Button, Input, Menu, MenuProps, Select } from 'antd';
 import { SERVICE_AREA, ORGANIZATION, CONSULTANT_CONTRACTOR, RADIO_ITEMS } from "../../../constants/constants";
 import { OptionsFiltersUser } from '../../../Classes/TypeList';
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { Option } from 'antd/lib/mentions';
+import SelectOrganization from 'routes/Utils/SelectOrganization';
+import SelectServiceArea from 'routes/Utils/SelectServiceArea';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation', 'Date Registered'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' },
@@ -15,7 +17,8 @@ const SORT_ITEMS = [{ name: 'Name', value: 'name' },
 const ROLES = ['MHFD Senior Manager', 'MHFD Staff', 'Local Government', 'Consultant / Contractor', 'Other'];
 const UserMngFilters = ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
-
+  const [organization,setOrganization] = useState('');
+  const [serviceArea,setServiceArea] = useState('');
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
     if (defaultValue) {
@@ -106,23 +109,16 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       {/* </div> */}
 
       <div id={"filter-organization" + title} className="filter-area">
-        <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization" + title ) as HTMLElement}
-          overlayClassName="dropdown-special-bottomLeft-filter" >
-          <Button className="btn-borde" >
-            {option.organization ? option.organization : 'Organization'}
-            <DownOutlined />
-          </Button>
-        </Dropdown>
+        <SelectOrganization
+          organization={organization}
+          setOrganization={setOrganization}
+          defaultValue={'Organization'} />
       </div>
-      <div id={"filter-service-area" + title}  className="filter-area">
-        <Dropdown trigger={['click']} overlay={menu(SERVICE_AREA, 'serviceArea', 'Service Area')}
-        overlayClassName="dropdown-special-bottomLeft-filter"
-          getPopupContainer={() => document.getElementById("filter-service-area" + title ) as HTMLElement}>
-          <Button className="btn-borde">
-            {option.serviceArea ? option.serviceArea : 'Service Area'}
-            <DownOutlined />
-          </Button>
-        </Dropdown>
+      <div id={"filter-service-area" + title} className="filter-area">
+        <SelectServiceArea
+          serviceArea={serviceArea}
+          setServiceArea={setServiceArea}
+          defaultValue={'Service Area'} />
       </div>
 
       <div id={"filter-designation" + title}  className="filter-area">
