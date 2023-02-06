@@ -2,12 +2,11 @@ import { useState } from 'react';
 
 let lastId = -1;
 let cc = 0;
+let lastMaps = JSON.parse(sessionStorage.getItem('globalMap') || '[]') as any;
+let currentPosition = JSON.parse(sessionStorage.getItem('globalMap') || '[]').length -1;
 
 export const GlobalMapHook = () => {
   
-  const [lastMaps, setLastMaps] = useState(JSON.parse(sessionStorage.getItem('globalMap') || '[]') as any);
-  let [currentPosition, setCurrentPosition] = useState(JSON.parse(sessionStorage.getItem('globalMap') || '[]').length -1);
-
   const generateId = () => {
     return Math.random().toString(36).substring(2, 9);
   }
@@ -40,8 +39,8 @@ export const GlobalMapHook = () => {
         if (copy.length > 5) {
           copy.shift();
         }
-        setCurrentPosition(copy.length - 1);
-        setLastMaps(copy);
+        currentPosition =(copy.length - 1);
+        lastMaps = (copy);
         sessionStorage.setItem('globalMap', JSON.stringify(copy));
       }
     }, 2500);
@@ -56,7 +55,7 @@ export const GlobalMapHook = () => {
     if (position > 0) {
       position--;
     }
-    setCurrentPosition(position);
+    currentPosition =(position);
     // console.log(position, getPercentage());
     return lastMaps[position]; 
   }
@@ -66,7 +65,7 @@ export const GlobalMapHook = () => {
     if (position < lastMaps.length - 1) {
       position++;
     }
-    setCurrentPosition(position);
+    currentPosition =(position);
     // console.log(position, getPercentage());
     return lastMaps[position];
   }
