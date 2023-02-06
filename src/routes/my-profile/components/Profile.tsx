@@ -5,6 +5,10 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { useAppUserDispatch } from "hook/useAppUser";
 import { getGroupList } from "routes/portfolio-view/components/ListUtils";
+import { useMapDispatch } from 'hook/mapHook';
+import SelectOrganization from "routes/Utils/SelectOrganization";
+import SelectServiceArea from "routes/Utils/SelectServiceArea";
+
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
@@ -24,7 +28,7 @@ const Profile = () => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [phone, setPhone] = useState(user.phone);
-  const [organization,setOrganization] = useState(user.organization);
+  const [organization,setOrganization] = useState('');
   const [city,setCity] = useState(user.city);
   const [county,setCounty] = useState(user.county);
   const [serviceArea,setServiceArea] = useState(user.serviceArea);
@@ -41,14 +45,19 @@ const Profile = () => {
   const [optionJurisdiction, setOptionJurisdiction] = useState({})
   const [optionConsultant, setOptionConsultant] = useState({})
   const [optionContractor, setOptionContractor] = useState({})
-
+  const [counterProjects, setCounterProjects] = useState(0);
+ 
   useEffect(() => {
     setDataAutocomplete(groupOrganization.map((item: any) => {
       return { key: item.id + item.name, value: item.name, label: item.name }
     }));
   }, [groupOrganization]);
+  useEffect(() => {
+    if (user.organization) {
+      setOrganization(user.organization);
+    }
+  }, [user]);
 
-  
   useEffect(() => {   
     if (editProfile) {
       setDisable(false);
@@ -60,6 +69,11 @@ const Profile = () => {
 
   
   useEffect(() => {
+
+    datasets.getData(`${SERVER.COUNT_FAVORITES}`,datasets.getToken())
+      .then((rows) => {
+        setCounterProjects(rows.count)
+      })
     datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
       .then((rows) => {
         setCountyList(rows.county.map((item: any) => {
@@ -102,8 +116,6 @@ const Profile = () => {
     setOptionJurisdiction(jurisdiction);
     setOptionConsultant(consultant);
     setOptionContractor(contractor);
-    console.log(userTestStatus)
-    console.log(contractor)
   }, [jurisdictionList,countyList,consultantList,contractorList]);
 
   function isNull(text: string) {
@@ -159,7 +171,7 @@ const Profile = () => {
           <p className="color-sub">Action Items</p>
         </Col>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
-          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>12</h2>
+          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>{counterProjects}</h2>
           <p className="color-sub">Projects</p>
         </Col>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
@@ -209,10 +221,13 @@ const Profile = () => {
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Organization</p>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 15 }}>           
-              <Select  onChange={(value) => setOrganization(value)} disabled={disable} options={[optionCounty,optionJurisdiction,optionConsultant,optionContractor]} defaultValue="MHFD District Boundary" style={{ width: '100%', marginBottom: '20px' }} getPopupContainer={(trigger: any) => trigger.parentNode}>
-                <Option value="MHFD District Boundary">{isNull(organization)}</Option>
-              </Select>              
+          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+            <SelectOrganization
+              organization={organization}
+              setOrganization={setOrganization}
+              disable={disable}
+              defaultValue={organization}
+              value={organization}/>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
@@ -234,9 +249,12 @@ const Profile = () => {
             <p className="color-sub" style={{paddingBottom:'10px' }}>Service Area</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            <Select onChange={(value) => setServiceArea(value)} disabled={disable} options={serviceAreaList} value={isNull(serviceArea)} style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
-              <Option value="South">{isNull(serviceArea)}</Option>
-            </Select>
+          <SelectServiceArea
+              serviceArea={serviceArea}
+              setServiceArea={setServiceArea}
+              disable={disable}
+              defaultValue={serviceArea}
+              value={serviceArea}/>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Default Map</p>
