@@ -146,6 +146,7 @@ const MapView = () => {
     options.totalcost = []
     options.streamname = '';
     options.name = '';
+    options.keyword = '';
     options.county = '';
     options.lgmanager = '';
     options.creator = '';
