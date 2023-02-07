@@ -1,6 +1,6 @@
 import { Button, Col, Dropdown, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useProfileState } from "hook/profileHook";
+import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { useAppUserDispatch } from "hook/useAppUser";
@@ -9,13 +9,13 @@ import { useMapDispatch } from 'hook/mapHook';
 import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
 
-
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor', STREAMS = 'streams';
 const { Option } = Select;
 const Profile = () => {
   const [editProfile, setEditProfile] = useState(false);
+  const {getGroupOrganization} = useProfileDispatch();
   const { userInformation: user } = useProfileState();
   const { groupOrganization } = useProfileState();
   const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
@@ -40,8 +40,13 @@ const Profile = () => {
     saveUserInformation,   
   } = useAppUserDispatch();
   const [counterProjects, setCounterProjects] = useState(0);
-  console.log(useProfileState())
+  //console.log(useProfileState())
   useEffect(() => {
+    console.log("fjjghghj")
+    getGroupOrganization();   
+  }, []);
+  useEffect(() => {    
+    console.log(groupOrganization)
     setDataAutocomplete(groupOrganization.map((item: any) => {
       return { key: item.id + item.name, value: item.name, label: item.name }
     }));   
@@ -96,9 +101,9 @@ const Profile = () => {
     setEditProfile(!editProfile)
     if (!save) {
       setsave(!save)
-      console.log("ENTER EDIT")
+      //console.log("ENTER EDIT")
     } else {
-      console.log("Upload data");
+      //console.log("Upload data");
       datasets.putData(SERVER.USER_UPDATE, {
         email,
         phone,
@@ -110,7 +115,7 @@ const Profile = () => {
         firstName,
         lastName
       }, datasets.getToken()).then((data) => {
-        console.log(data);
+        //console.log(data);
       }).then(() => {
         setsave(!save)
         console.log("EXIT EDIT")
