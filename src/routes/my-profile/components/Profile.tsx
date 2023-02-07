@@ -23,7 +23,7 @@ const Profile = () => {
   }));
   const [countyList, setCountyList] = useState<any[]>([]);
   const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
-  const [serviceAreaList, setServiceAreaList] = useState<any[]>([]);
+  
   const [email, setEmail] = useState(user.email);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -39,23 +39,17 @@ const Profile = () => {
     replaceAppUser,
     saveUserInformation,   
   } = useAppUserDispatch();
-  const [consultantList, setConsultantList] = useState([]);
-  const [contractorList, setContractorList] = useState([]);
-  const [optionCounty, setOptionCounty] = useState({})
-  const [optionJurisdiction, setOptionJurisdiction] = useState({})
-  const [optionConsultant, setOptionConsultant] = useState({})
-  const [optionContractor, setOptionContractor] = useState({})
   const [counterProjects, setCounterProjects] = useState(0);
- 
+  console.log(useProfileState())
   useEffect(() => {
     setDataAutocomplete(groupOrganization.map((item: any) => {
       return { key: item.id + item.name, value: item.name, label: item.name }
-    }));
+    }));   
   }, [groupOrganization]);
   useEffect(() => {
     if (user.organization) {
       setOrganization(user.organization);
-    }
+    }    
   }, [user]);
 
   useEffect(() => {   
@@ -81,22 +75,7 @@ const Profile = () => {
         }).filter((data:any)=>!!data.value));
         setJurisdictionList(rows.jurisdiction.map((item: any) => {
           return { key: item.code_local_government_id , value: item.local_government_name, label : item.local_government_name }
-        }).filter((data:any)=>!!data.value));
-        setServiceAreaList(rows.servicearea.map((item: any) => {
-          return { key: item.code_service_area_id, value: item.service_area_name, label : item.service_area_name }
-        }).filter((data:any)=>!!data.value));
-        getGroupList(CONSULTANT).then((valuesGroups) => {
-          const groups = valuesGroups.groups;
-          setConsultantList(groups.map((item: any) => {
-            return { key: item.id, value: item.name, label : item.name }
-          }).filter((data:any)=>!!data.value));
-        });
-        getGroupList(CONTRACTOR).then((valuesGroups) => {
-          const groups = valuesGroups.groups; 
-          setContractorList(groups.map((item: any) => { 
-            return { key: item.id, value: item.name, label : item.name } 
-          }).filter((data:any)=>!!data.value));
-        });        
+        }).filter((data:any)=>!!data.value));     
         
       })
       .catch((e) => {
@@ -104,19 +83,6 @@ const Profile = () => {
       })             
   }, []);
 
-  useEffect(() => {   
-    let userTestStatus: { label:string, options: Array<{key: number, value: string , label : string}> }[] = [
-      {label:"Jurisdiction",options:jurisdictionList}      
-    ];
-    const jurisdiction = {label : "Jurisdiction",options:jurisdictionList}
-    const county = {label : "County" , options:countyList }
-    const consultant = {label:"Consultant",options:consultantList}
-    const contractor = {label:"Contractor",options:contractorList}
-    setOptionCounty(county);
-    setOptionJurisdiction(jurisdiction);
-    setOptionConsultant(consultant);
-    setOptionContractor(contractor);
-  }, [jurisdictionList,countyList,consultantList,contractorList]);
 
   function isNull(text: string) {
     if(!text){
