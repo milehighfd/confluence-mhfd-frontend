@@ -28,7 +28,27 @@
   background-color: $white !important;
   border-color: $purple00 !important;
 }
-
+// BUTTON BORDE MANAGEMENT
+.btn-borde-management{
+  text-align: left;
+  width: 100%;
+  min-height: 36px !important;
+  border-radius: 7px !important;
+  // border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
+  background-color: #ffffff !important;
+  color: $opacity !important;
+  box-shadow: none !important;
+  position: relative;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    // border-radius: 2px;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+}
+.btn-borde-management:hover, .btn-borde-management:focus, .btn-borde-management:active, .btn-borde-management.active{
+  color: $purple00 !important;
+  background-color: $white !important;
+  border-color: $purple00 !important;
+}
 // BUTTON OPACITY
 .btn-opacity, .btn-opacity:hover, .btn-opacity:focus, .btn-opacity:active, .btn-opacity.active{
   background-color: $light-purple !important;
@@ -246,7 +266,7 @@
   border-radius: 5px !important;
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-  border-radius: 5px !important;
+  border-radius: 5px !important; 
   align-self: center;
   min-height: 40px;
 }
@@ -258,4 +278,73 @@
 }
 .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
   align-self: center;
+}
+.ant-input-affix-wrapper .yellow-input{
+  background-color: #fff4df !important;
+  border: 1px solid #fbcc69 !important;
+  input.ant-input {
+    background: #fff4df !important;
+  }
+}
+.ant-click-animating-node {
+  display: none;
+}
+@media (min-width: 1900px) and (max-width: 2549px){
+  .ant-checkbox-wrapper {
+    font-size: 17px !important;
+  }
+}
+@media (min-width: 2250px) and (max-width: 3799px){
+  .btn-circle {
+    height: 42px;
+    width: 42px;
+  }
+  .btn-svg{
+    font-size: 17px !important;
+  }
+  .btn-svg:hover{
+    font-size: 17px !important;
+  }
+  .scroll-filters{
+    .ant-checkbox-wrapper{
+      font-size: 20px !important;
+    }
+    .ant-checkbox-group{
+      height: 180px !important;
+    }
+  }
+  .ant-select{
+    font-size: 19px !important;
+  }
+}
+@media (min-width: 3800px) and (max-width: 5999px){
+  .btn-circle {
+    height: 42px;
+    width: 42px;
+  }
+  .btn-svg{
+    font-size: 24px !important;
+  }
+  .btn-svg:hover{
+    font-size: 22px !important;
+  }
+  .scroll-filters{
+    .ant-checkbox-wrapper{
+      font-size: 25px !important;
+    }
+    .ant-checkbox-group{
+      height: 250px !important;
+    }
+  }
+  .ant-select{
+    font-size:24px !important;
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 5px !important;
+    align-self: center;
+    min-height: 70px;
+  }
+  .work-head .ant-select-2 {
+    min-width: 184px !important;
+  }
 }

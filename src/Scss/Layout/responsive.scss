@@ -636,6 +636,9 @@
     width: 1500px !important;
   }
   .tabs-map{
+    .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+      font-size: 28px;
+    }
     .ant-tabs-nav .ant-tabs-tab {
       padding: 15px 0px 15px 0px !important;
       margin: 0 70px 0 0;
@@ -763,7 +766,7 @@
   .ant-drawer-right .ant-drawer-content-wrapper {
     right: 0;
     height: 100vh;
-    margin-top: -58px;
+    margin-top: 38px;
     width: 720px !important;
   }
   // DETILED
@@ -788,7 +791,7 @@
     }
     .btn-transparent{
       padding: 0px 12px !important;
-      margin: 28px 5px !important;
+      margin: 2px 5px !important;
     }
     .information{
       color:'#11093C' !important;
@@ -813,7 +816,7 @@
     }
   }
   .detailed-c {
-    height: 700px !important;
+    height: 1092px !important;
   }
   .detailed-info {
     padding: 40px 50px 0px 50px !important;
@@ -936,10 +939,10 @@
       height: 60px !important;
     }
     h6 {
-     font-size: 21px !important;
+     font-size: 25px !important;
    }
    p, span {
-     font-size: 18px !important;
+     font-size: 23px !important;
     }
     .chat-00 .chat-footer .ant-input {
       font-size: 18px !important;

@@ -1991,32 +1991,6 @@ body{
     justify-content: end;
     width: 100%;
     align-items: center;
-    .text-progress{
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 100%;
-      .value{
-        color: rgb(17 9 60);
-        font-weight: 600;
-      }
-    }
-    .progress{
-      width: 46%;
-      .ant-progress-text {
-        display: none;
-      }
-      .ant-progress-show-info .ant-progress-outer {
-        padding-right: 0px; 
-      }
-      .ant-progress-inner {
-        background-color: #e8e9f7;
-      }
-      .ant-progress-bg, .ant-progress-success-bg {
-        background-color: #11093c;
-      }
-    }
   }
   h1{
     font-size: 21px;
@@ -2148,9 +2122,7 @@ body{
   //pointer-events: none;
 }
 .status-d{
-  padding: 6px 0px 6px 10px;
-  width: 27%;
-  justify-content: flex-end;
+  padding: 6px 0px 6px 40px;
   .status-active{
     // margin-left: 5px;
     padding: 3px 7px;
@@ -2222,12 +2194,6 @@ body{
   }
 }
 .table-detail-modal{
-  .value-total{
-    display: flex;
-    p{
-      padding: 10px 10px;
-    }
-  }
   .ant-table-pagination.ant-pagination {
     display: none !important;
   }
@@ -3084,7 +3050,6 @@ body{
     }
     h1{
       font-size: 28px;
-      line-height:26px;
     }
     p {
       font-size: 16px;
@@ -3446,7 +3411,6 @@ body{
     }
     h1{
       font-size: 32px;
-      line-height: 27px;
     }
     p {
       font-size: 20px;

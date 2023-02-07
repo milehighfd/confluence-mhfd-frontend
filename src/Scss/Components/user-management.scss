@@ -151,6 +151,15 @@
     .ant-input{
       height: 36px;
     }
+    .ant-input-search .ant-input:focus, .ant-input-search .ant-input:hover {
+      border-color: #251863;
+    }
+  }
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+    border-color: #251863;
+  }
+  .ant-btn:focus, .ant-btn:hover {
+    border-color: #251863;
   }
   .head-list{
     box-sizing: border-box;
