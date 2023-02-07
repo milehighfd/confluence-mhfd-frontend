@@ -81,20 +81,7 @@ export const FilterByGroupName = ({
           key: '1',
           label: 'MHFD Lead/PM',
           className:'menu-drop-sub-sub',
-          children: [
-            {
-              key: '1-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '1-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '1-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
-          ],
+          children: [],
         },
         {
           key: '2',
