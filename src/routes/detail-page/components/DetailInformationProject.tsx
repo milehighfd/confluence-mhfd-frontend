@@ -24,7 +24,7 @@ const DetailInformationProject = () => {
           <label><i>Stream</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.streams?.length > 0 && detailed?.streams[0]?.stream?.length > 0 && detailed?.streams[0]?.stream[0]?.stream_name ? detailed?.streams[0]?.stream?.stream_name : 'N/A'}</p>
+          <p>{detailed?.streams?.length > 0 && detailed?.streams[0]?.stream?.length > 0 && detailed?.streams[0]?.stream[0]?.stream_name ? detailed?.streams[0]?.stream[0]?.stream_name : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
@@ -60,7 +60,7 @@ const DetailInformationProject = () => {
           <label><i>Description</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-          <p>lgmanager</p>
+          <p>{detailed?.description ? detailed?.description : 'N/A'}</p>
         </Col>
       </Row>
 
