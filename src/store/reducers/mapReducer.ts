@@ -690,6 +690,7 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.GET_PARAM_FILTER_PROJECTS: {
+          console.log('reaches reducer ', action.params);
             return {
                 ...state,
                 paramFilters: {

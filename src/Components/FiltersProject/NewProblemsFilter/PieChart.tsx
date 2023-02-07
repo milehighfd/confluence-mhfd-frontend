@@ -9,7 +9,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const [selectedData, setSelectedData] = useState<any[]>([]);
 
   useEffect(() => {
-    setSelectedData(selected ? selected.split(',') : []);
+    // setSelectedData(selected ? selected.split(',') : []);
+    setSelectedData(selected);
   }, [selected]);
   const isProb = type === 'problemtype';
   const labelValues = isProb ? '' : 'Projects';

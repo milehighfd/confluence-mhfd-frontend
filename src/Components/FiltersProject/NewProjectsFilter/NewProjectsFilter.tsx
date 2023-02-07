@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Col, Popover, Select } from 'antd';
 import PieChart from "../NewProblemsFilter/PieChart";
 import TreeMap from "../NewProblemsFilter/TreeMap";
@@ -39,6 +39,9 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         getProjectCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
+    useEffect(() => {
+      console.log('paramProjects', paramProjects);
+    }, [paramProjects]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
@@ -96,7 +99,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.servicearea &&
+                    paramProjects?.servicearea &&
                     <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
                         selected={filterProjectOptions.servicearea} defaultValue={''}
                         onSelect={(e: string) => apply(e, 'servicearea')} />
@@ -105,7 +108,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.county &&
+                    paramProjects?.county &&
                     <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
                         selected={filterProjectOptions.county} defaultValue={''}
                         onSelect={(items: any) => apply(items, 'county')} />
@@ -117,7 +120,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.projecttype &&
+                    paramProjects?.projecttype &&
                     <PieChart type={'projecttype'} defaultValue={''}
                         data={paramProjects.projecttype}
                         selected={filterProjectOptions.projecttype}
@@ -127,7 +130,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.status &&
+                    paramProjects?.status &&
                     <CheckBoxFilters defaultValue={'Active'}
                         data={paramProjects.status.sort((a: any, b: any) => {
                             const getValue = (d: string) => {
@@ -150,7 +153,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.estimatedCost &&
+                    paramProjects?.estimatedCost &&
                     <DropdownFilters type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
@@ -176,7 +179,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">
                 <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.startyear &&
+                    paramProjects?.startyear &&
                     <DropdownFiltersYears type={'startyear'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.startyear}
                         selected={filterProjectOptions.startyear}
@@ -186,7 +189,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12} style={{ paddingLeft: '14px', paddingRight: '0px' }} >
                 <h5 className="filter-title chart-filter-title">Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.completedyear &&
+                    paramProjects?.completedyear &&
                     <DropdownFiltersYears type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
                         data={paramProjects.completedyear}
                         selected={filterProjectOptions.completedyear}
@@ -201,7 +204,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12} style={{paddingLeft:'0px'}}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.consultant &&
+                    paramProjects?.consultant &&
                     <CheckBoxFilters defaultValue={''}
                     data={paramProjects.consultant.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.consultant}
@@ -211,7 +214,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}  style={{paddingLeft:'6px'}}>
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.contractor &&
+                    paramProjects?.contractor &&
                     <CheckBoxFilters defaultValue={''}
                     data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.contractor}
@@ -224,7 +227,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.jurisdiction &&
+                    paramProjects?.jurisdiction &&
                     <CheckBoxFilters defaultValue={''}
                         data={paramProjects.jurisdiction.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterProjectOptions.jurisdiction}
@@ -234,7 +237,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title">MHFD Project Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.mhfdmanager &&
+                    paramProjects?.mhfdmanager &&
                     <CheckBoxFilters defaultValue={''}
                         data={paramProjects.mhfdmanager.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterProjectOptions.mhfdmanager}
@@ -247,7 +250,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title">Local Government Mngr <Popover content={content12}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.lgmanager &&
+                    paramProjects?.lgmanager &&
                     <>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>
@@ -269,7 +272,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title">Stream Name <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
-                    paramProjects.streamname &&
+                    paramProjects?.streamname &&
                     <>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>
@@ -294,7 +297,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             <Col span={12}>
                 <h5 className="filter-title">Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramProjects.workplanyear &&
+                    paramProjects?.workplanyear &&
                     <>
                         <Button className="btn-svg" onClick={() => { }}>
                             <u>Apply</u>

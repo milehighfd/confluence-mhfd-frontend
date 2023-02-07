@@ -13,7 +13,7 @@ export const CheckBoxFilters = ({
 
   useEffect(() => {
     if (selected && selected.length) {
-      let temporal = selected.split(',')
+      let temporal = selected
       .filter((r: any) => r !== '')
       .map((r: any) => {
         if (type === solutionstatus) {

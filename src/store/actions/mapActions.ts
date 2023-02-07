@@ -444,7 +444,8 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {
             if (params) {
               const projectsCounters = params['data'];
-                dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, projectsCounters });
+              console.log('reaches herer', projectsCounters);
+              dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
             }
         })
     }

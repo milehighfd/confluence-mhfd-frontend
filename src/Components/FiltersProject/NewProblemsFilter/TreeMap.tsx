@@ -17,7 +17,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    let sData = selected === '' ? [] : selected.split(',')
+    let sData = selected ? selected : [];
     setSelectedData(sData);
   }, [selected])
 
@@ -33,16 +33,16 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   let sum = 0;
   (data || []).forEach((d: any) => {
-    sum += d.counter;
+    sum += d.counter ? d.counter : 0 ;
   });
   data = {
     name: '',
     children: (data || []).map((d: any) => {
       return {
         name: d.value,
-        value: d.counter,
+        value: d.counter ? d.counter : 0,
         colname: 'level2',
-        percentage: (d.counter) / sum
+        percentage: (d.counter ? d.counter : 0) / sum
       }
     })
   }
