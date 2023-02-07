@@ -1035,6 +1035,9 @@
   }
   .table-body{
     overflow-x: hidden;
+    .ant-table-column-sorter {
+      color: #11093c;
+    }
     .table-table-body{
       width: min-content;
     }
