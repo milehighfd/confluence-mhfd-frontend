@@ -28,7 +28,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
-  console.log('groupOrganization', groupOrganization)
   const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
     if (item.aoi === undefined) {
       return false;
@@ -55,12 +54,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       return { key: item.aoi, value: item.aoi, label: item.aoi }
     }));
   }, [groupOrganization]);
-  console.log('dataAutocomplete',dataAutocomplete)
   const itemsZoomtoarea = dataAutocomplete.map((item:any) => {
 
     return item.key
   })
-  console.log('itemsZoomtoarea', itemsZoomtoarea)
+  //console.log('itemsZoomtoarea', itemsZoomtoarea)
   useEffect(() => {
     datasets.getData(SERVER.GET_ORGANIZATIONS)
       .then((rows) => {
@@ -176,7 +174,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         }
       });
     }
-    console.log('itemMenu', itemMenu)
+    //console.log('itemMenu', itemMenu)
     return <Menu
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
@@ -227,6 +225,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   });
 
   const updateSuccessful = () => {
+    console.log("EXITO")
     const auxMessageError = { ...messageError };
     auxMessageError.message = 'Updating record data was successful';
     auxMessageError.color = '#28C499';
@@ -257,8 +256,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
-    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {
-      if (res?.user_id) {
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {    
+      console.log(res)  
+      if (res.message === 'SUCCESS') {        
         saveUser();
         updateSuccessful();
       } else {
@@ -281,7 +281,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const genExtra = () => (
     <Row className="record-head" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col xs={{ span: 19 }} lg={{ span: 19 }} onClick={() => {
-        console.log('click click');
+        //console.log('click click');
         setActivated(!activated);
       }}>
         <h6>{'. ' + record.firstName + ' ' + record.lastName}</h6>
@@ -299,7 +299,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     </Row>
   );
 
-  console.log(MenuAreaView(CITIES, 'city', values, setTitle));
+  //console.log(MenuAreaView(CITIES, 'city', values, setTitle));
 
   return (
     <>
@@ -385,7 +385,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             >
               <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{ paddingRight: '20px'}}>
                 {RADIO_ITEMS.map((item: { value: string; name: string }, index: number) => {
-                  console.log('indexx', index);
+                  //console.log('indexx', index);
                   if (index < 3) {
                   }
                   return <RadioDesignation key={index} index={index} value={item.value} name={item.name}/>;
