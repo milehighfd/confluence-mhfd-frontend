@@ -29,7 +29,7 @@ const titleCase = (str:any)=> {
 
 const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
-    // console.log(res.users)
+    console.log(res.users)
     const arrayUsers = res.users.map((elem: any) => {
       return {
         ...elem,
@@ -38,10 +38,11 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
         serviceArea: elem.serviceArea !== null ? elem.serviceArea : '-',
         city: elem.city !== null ? elem.city : '-',
         county: elem.county !== null ? elem.county : '-',
+        key:elem.user_id,
         //designation: titleCase(elem.designation)
       }
     });
-    // console.log('arry',arrayUsers)
+     console.log('arry',arrayUsers)
     if (res.users) {
       saveUser(res.users);
       setUser(arrayUsers);
@@ -188,6 +189,7 @@ const UserList = () => {
           case 'message-user':
             break;
           case 'delete-user':
+            console.log('DELETE')
             break;
         }
       }}
@@ -218,9 +220,9 @@ const UserList = () => {
     setOptionUserActivated(resetOptions);
     searchUserActivated(resetOptions);
   }
-  const deleteUserActivated = (id: string) => {
+  const deleteUserActivated = (id: string) => { 
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
-      if (res?._id) {
+      if (res?.user_id) {
         getAllUser();
       }
     });
@@ -290,7 +292,7 @@ const UserList = () => {
             expandedRowRender: record => {
             // console.log('entra record',userSelected);
             if(userSelected !== undefined){
-            if(userSelected._id === record._id){
+            if(userSelected.user_id === record.user_id){
               return (
                 <ProfileUser record={record} saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted"
                 deleteUserDatabase={deleteUserDatabase} />
@@ -298,7 +300,7 @@ const UserList = () => {
             }}
             },
             expandIcon: ({ expanded, onExpand, record }) =>
-              expanded && userSelected._id === record._id? (
+              expanded && userSelected.user_id === record.user_id? (
                 <DownOutlined onClick={(e:any) => onExpand(record, e)} />
               ) : (
                 <Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >

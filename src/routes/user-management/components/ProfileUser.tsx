@@ -79,7 +79,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     datasets.getData(SERVER.GET_CONSULTANTS)
       .then((rows) => {
         const consultants = rows
-          .map(({_id, name}: { _id: number, name: string }) => (name))
+          .map(({user_id, name}: { user_id: number, name: string }) => (name))
           .filter((value: string, index: number, self: any) => {
             return self.indexOf(value) === index;
           }
@@ -257,8 +257,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
-    datasets.putData(SERVER.EDIT_USER + '/' + record._id, values, datasets.getToken()).then(res => {
-      if (res?._id) {
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {
+      if (res?.user_id) {
         saveUser();
         updateSuccessful();
       } else {
@@ -484,7 +484,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Button className="btn-profile-list" style={{ marginRight: '20px', borderColor: 'transparent' }}>
             Cancel
           </Button>
-          <Button className="btn-purple btn-profile-list">Save</Button>
+          <Button onClick={result} className="btn-purple btn-profile-list">Save</Button>
         </div>
       </div>
     </>
