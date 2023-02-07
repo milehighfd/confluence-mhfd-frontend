@@ -46,18 +46,13 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         || 'mhfdmanager' === field) {
             let newValue = '';
             if ('workplanyear' === field) {
-                options['status'] = options['status'] + ',Complete';
+                options['status'] = [...options['status'], 'Complete'];
             }
-
-            for (let index = 0; index < values.length; index++) {
-                const element = values[index];
-                newValue = newValue ? (newValue + ',' + element) : element;
-            }
+            newValue = values;
             options[field] = newValue;
         } else {
             if ('completedyear' === field) {
-                let newValue = options['status'] + ',Complete';
-                options['status'] = newValue;
+                options['status'] = [...options['status'], 'Complete'];
                 options[field] = values;
             } else {
                 options[field] = values;

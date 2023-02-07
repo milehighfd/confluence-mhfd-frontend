@@ -130,8 +130,8 @@ const MapView = () => {
   const resetFilterProjects = (withDefaults: boolean, withCoords?: any) => {
     const options = { ...filterProjectOptions };
     if (withDefaults) {
-      options.projecttype = 'Maintenance,Capital';
-      options.status = 'Active';
+      options.projecttype = ['Maintenance','Capital'];
+      options.status = ['Active'];
     } else {
       options.projecttype = '';
       options.status = '';
@@ -401,7 +401,8 @@ const MapView = () => {
     for (const key in filterProjectOptions) {
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
-        const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+        // const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+        const tag = filterProjects[key];
         const elements = [];
         for (let index = 0; index < tag.length; index++) {
           if (key === 'mhfddollarsallocated' || key === 'totalcost') {
@@ -518,7 +519,8 @@ const MapView = () => {
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
-      const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+      // const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+      const tag = filterProjects[key];
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
@@ -529,7 +531,8 @@ const MapView = () => {
       }
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
-        const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+        // const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
+        const tag = filterProjects[key];
         const elements = [];
         for (let index = 0; index < tag.length; index++) {
           elements.push(tag[index]);
