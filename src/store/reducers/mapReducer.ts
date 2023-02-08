@@ -118,7 +118,7 @@ const initState = {
         column: 'projectname',
         order: 'asc',
         projecttype: ['Maintenance','Capital'],
-        status: ['Active'],
+        status: [5],
         startyear: '',
         completedyear: '',
         mhfddollarsallocated: [],
@@ -167,7 +167,7 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: 'Maintenance,Capital',
-        status: 'Active',
+        status: [5],
         startyear: '0',
         completedyear: '9999',
         mhfddollarsallocated: [],
