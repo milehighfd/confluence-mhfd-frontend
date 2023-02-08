@@ -18,6 +18,7 @@ import UserMngFilters from "./UserMngFilters";
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
 
+
 const titleCase = (str:any)=> {
   str = str.replaceAll('_', ' ');
   var splitStr = str.toLowerCase().split(' ');
@@ -29,6 +30,7 @@ const titleCase = (str:any)=> {
 
 const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
+    console.log("res.users")
     console.log(res.users)
     const arrayUsers = res.users.map((elem: any) => {
       return {
@@ -42,7 +44,6 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
         //designation: titleCase(elem.designation)
       }
     });
-     console.log('arry',arrayUsers)
     if (res.users) {
       saveUser(res.users);
       setUser(arrayUsers);
@@ -158,6 +159,8 @@ const UserList = () => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
 
+  const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
+
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserDeleted, setOptionUserDeteled] = useState<OptionsFiltersUser>(PAGE_USER);
@@ -170,7 +173,7 @@ const UserList = () => {
   const [optionSelect, setOptionSelect] = useState('Approved Users')
   const items = [
     { key: 'edit-user', label: 'Edit User' },
-    { key: 'message-user', label: 'Message User' },
+    //{ key: 'message-user', label: 'Message User' },
     { key: 'delete-user', label: 'Delete User' },
     { key: 'change-status', label: 'Change Status' },
   ];
@@ -184,14 +187,19 @@ const UserList = () => {
         switch(key) {
           case 'edit-user':
             console.log('key', record)
+            console.log('key', record)
             setUserSelected(record);
             onExpand(record, key)
             break;
-          case 'message-user':
-            break;
+          {/*case 'message-user':
+          break;*/}
           case 'delete-user':
             console.log('DELETE')
             deleted(record.user_id)
+            break;
+          case 'change-status':
+            console.log('CHANGE')
+            changeStatus(record.user_id)
             break;
         }
       }}
@@ -236,6 +244,34 @@ const UserList = () => {
     })
   }
 
+  const updateError = (error: string) => {
+    const auxMessageError = { ...messageError };
+    auxMessageError.message = error;
+    auxMessageError.color = 'red';
+    setMessageError(auxMessageError);
+    const timer = setTimeout(() => {
+      const auxMessageError = { ...messageError };
+      auxMessageError.message = '';
+      auxMessageError.color = '#28C499';
+      setMessageError(auxMessageError);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }
+
+  const updateSuccessful = () => {
+    const auxMessageError = { ...messageError };
+    auxMessageError.message = 'Updating record data was successful';
+    auxMessageError.color = '#28C499';
+    setMessageError(auxMessageError);
+    const timer = setTimeout(() => {
+      const auxMessageError = { ...messageError };
+      auxMessageError.message = '';
+      auxMessageError.color = '#28C499';
+      setMessageError(auxMessageError);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }
+
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
     searchUserActivated(resetOptions);
@@ -250,19 +286,34 @@ const UserList = () => {
   }, [optionSelect]);
 
   const deleted = (record : number) => {    
-    console.log(record)
-    datasets.putData(SERVER.DELETE_USER + '/' + record, {record}, datasets.getToken()).then(res => {    
-      console.log(res)  
+    datasets.putData(SERVER.DELETE_USER + '/' + record, {record}, datasets.getToken()).then(res => { 
       if (res.message === 'SUCCESS') {        
-        //saveUser();
-        //updateSuccessful();
+        getAllUser();
+        updateSuccessful();
       } else {
         if (res?.error) {
-          //updateError(res.error);
+          updateError(res.error);
           console.log(res.error)
         }
         else {
-          //updateError(res);
+          updateError(res);
+        }
+      }
+    });
+  }
+
+  const changeStatus = (record : number) => {    
+    datasets.putData(SERVER.CHANGE_USER_STATUS + '/' + record, {record}, datasets.getToken()).then(res => { 
+      if (res.message === 'SUCCESS') {        
+        getAllUser();
+        updateSuccessful();
+      } else {
+        if (res?.error) {
+          updateError(res.error);
+          console.log(res.error)
+        }
+        else {
+          updateError(res);
         }
       }
     });

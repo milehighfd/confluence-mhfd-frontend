@@ -70,6 +70,7 @@ export const SERVER = (function () {
     const V2_DETAILED_PAGE = 'projects';
     const DETAILED_PAGE = 'detailed-page';
     const DELETE_USER = 'delete-user';
+    const MODIFY_USER_STATUS = 'modify-user-status';
     const PARAM_FILTER_PROJECTS = 'params-filter-projects';
     const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
     const PARAM_FILTER_COMPONENTS = 'params-filter-components';
@@ -190,9 +191,11 @@ export const SERVER = (function () {
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         MAP_CENTER_SEARCH: `${URL_BASE.BASE}/${MAP}/${GET_AOI_CENTER}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/all-localities`,// `${URL_BASE.BASE}/${ZOOMAREA}/complete`,
+        GROUP_ORGANIZATION_NO_GEOM: `${URL_BASE.BASE}/v2/locality/all-localities?nogeom=1`,
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
+        CHANGE_USER_STATUS: `${URL_BASE.BASE}/${ADMIN}/${MODIFY_USER_STATUS}`,
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
         PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
