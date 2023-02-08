@@ -70,7 +70,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                       getGalleryProjects();;
         }
         options.servicearea = options.servicearea;
-        options.county = options.county.replace("County","").trim();
+        options.county = options.county;
         getParamFilterProjects(boundsMap, options);
         getProjectCounter(boundsMap, options);
     }

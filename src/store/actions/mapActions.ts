@@ -174,7 +174,8 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         workplanyr: filters.workplanyear, 
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
-        county: filters.county.replace("County", "").trim(),
+        // replace County is missing
+        county: filters.county,
         problemtypeProjects: [] as any,
         consultant: filters.consultant,
         contractor: filters.contractor,
@@ -437,7 +438,7 @@ export const getParamsFilter = (bounds: string) => {
 }
 export const getParamFilterProjects = (bounds: string, data?: any) => {
     if (data) {
-        data.county = data.county.replace("County", "").trim();
+        data.county = data.county;
         // data.servicearea = data.servicearea.replace("Service Area", "");
         data.servicearea = data.servicearea
     }
