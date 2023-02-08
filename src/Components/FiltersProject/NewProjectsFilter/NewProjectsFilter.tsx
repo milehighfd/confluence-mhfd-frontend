@@ -155,7 +155,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 {
                     paramProjects?.estimatedCost &&
                     <DropdownFilters type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
-                        data={paramProjects.estimatedCost}
+                        // data={paramProjects.estimatedCost}
                         selected={filterProjectOptions.totalcost}
                         onSelect={(items: string) => apply(items, 'totalcost')} />
                 }
@@ -181,7 +181,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 {
                     paramProjects?.startyear &&
                     <DropdownFiltersYears type={'startyear'} axisLabel={axisLabel} defaultValue={''}
-                        data={paramProjects.startyear}
+                        // data={paramProjects.startyear}
                         selected={filterProjectOptions.startyear}
                         onSelect={(e: string) => apply(e, 'startyear')} />
                 }
@@ -191,7 +191,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 {
                     paramProjects?.completedyear &&
                     <DropdownFiltersYears type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
-                        data={paramProjects.completedyear}
+                        // data={paramProjects.completedyear}
                         selected={filterProjectOptions.completedyear}
                         onSelect={(e: string) => apply(e, 'completedyear')} />
                 }
