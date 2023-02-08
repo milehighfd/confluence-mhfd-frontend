@@ -81,7 +81,13 @@ export const FilterByGroupName = ({
           key: '1',
           label: 'MHFD Lead/PM',
           className:'menu-drop-sub-sub',
-          children: [],
+          children: [
+            {
+              key: 'nodata',
+              label: 'None',
+              className:'menu-drop-sub-sub'
+            }
+          ],
         },
         {
           key: '2',
