@@ -42,7 +42,8 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
         name: d.value,
         value: d.counter ? d.counter : 0,
         colname: 'level2',
-        percentage: (d.counter ? d.counter : 0) / sum
+        percentage: (d.counter ? d.counter : 0) / sum,
+        id: d.id
       }
     })
   }
@@ -76,16 +77,16 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const fontSizePercentage = '9px';
 
   let clickFn = (d: any) => {
-    let index = selectedData.indexOf(d.data.name);
+    let index = selectedData.indexOf(d.data.id);
     if (index !== -1) {
       setSelectedData(selectedData.filter((_, ind) => ind !== index))
     } else {
-      setSelectedData([...selectedData, d.data.name])
+      setSelectedData([...selectedData, d.data.id])
     }
   }
 
   useEffect(() => {
-
+console.log('selecteed', selectedData);
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
 
@@ -108,7 +109,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     rects
       .style("fill", function (d: any) {
-        let index = selectedData.indexOf(d.data.name);
+        let index = selectedData.indexOf(d.data.id);
         if (index !== -1) {
           return color;
         } else {
@@ -152,7 +153,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     newRects
       .style("fill", function (d: any) {
-        let index = selectedData.indexOf(d.data.name);
+        let index = selectedData.indexOf(d.data.id);
         if (index !== -1) {
           return color;
         } else {
