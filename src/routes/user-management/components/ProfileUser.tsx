@@ -15,6 +15,7 @@ import RadioItemsView from "Components/User/UserComponents/RadioItemsView";
 import RadioDesignation from "./RadioDesignation";
 import { DownOutlined } from "@ant-design/icons";
 import MenuAreaView from "Components/User/UserComponents/MenuAreaView";
+import SelectOrganization from "routes/Utils/SelectOrganization";
 
 const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
@@ -24,7 +25,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     uploadImage,
     spinValue
   } = useProfileDispatch();
-
+  const [organization,setOrganization] = useState('');
   const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
@@ -196,7 +197,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   useEffect(() => {
     const auxUser = { ...record };
     setInitialValues(auxUser);
-    values._id = record._id;
+    values.user_id = record.user_id;
     values.firstName = record.firstName;
     values.lastName = record.lastName;
     values.activated = record.activated;
@@ -256,6 +257,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
+    console.log(values)
     datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {    
       console.log(res)  
       if (res.message === 'SUCCESS') {        
@@ -274,8 +276,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
-    setTitle(record._id);
-    deleteUser(record._id + type);
+    setTitle(record.user_id);
+    deleteUser(record.user_id + type);
   }
 
   const genExtra = () => (
@@ -347,11 +349,17 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>ORGANIZATIONS</h1>
             {/* TODO: change data dropdown */}
             <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
-              getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
+              getPopupContainer={() => document.getElementById(("city" + values.user_id)) as HTMLElement}>
               <Button className="btn-borde-management">
                 {values.city ? values.city : 'City'} <DownOutlined />
               </Button>
             </Dropdown>
+            <SelectOrganization
+              organization={organization}
+              setOrganization={setOrganization}
+              disable={false}
+              defaultValue={organization}
+              value={organization}/>
           </Col>
         </Row>
         <br />
@@ -417,19 +425,19 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         </Row>
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-          <div className="gutter-row" id={("city" + values._id)}>
+          <div className="gutter-row" id={("city" + values.user_id)}>
                   <p>AREAS</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
+                    getPopupContainer={() => document.getElementById(("city" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.city ? values.city : 'City'} <DownOutlined />
                     </Button>
                   </Dropdown>
                 </div>
-            <div className="gutter-row"  id={("serviceArea" + values._id)}>
+            <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
                   <p>SERVICE AREA</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}
+                    getPopupContainer={() => document.getElementById(("serviceArea" + values.user_id)) as HTMLElement}
                     placement="bottomLeft">
                     <Button className="btn-borde-management">
                       {values.serviceArea ? values.serviceArea : 'Service Area'}  <DownOutlined />
@@ -438,10 +446,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-          <div className="gutter-row"  id={("county" + values._id)}>
+          <div className="gutter-row"  id={("county" + values.user_id)}>
                   <p>COUNTY</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("county" + values._id)) as HTMLElement}>
+                    getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.county ? values.county : 'County'}  <DownOutlined />
                     </Button>
@@ -453,12 +461,12 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <Row>
-              <div className="gutter-row"  id={'zoomarea' + values._id} style={{width:'100%'}}>
+              <div className="gutter-row"  id={'zoomarea' + values.user_id} style={{width:'100%'}}>
                 <Dropdown
                 className="dropdown-user-management"
                   trigger={['click']}
                   overlay={menu}
-                  getPopupContainer={() => document.getElementById('zoomarea' + values._id) as HTMLElement}
+                  getPopupContainer={() => document.getElementById('zoomarea' + values.user_id) as HTMLElement}
                 >
                   <Button className="btn-borde-management">
                     {values.zoomarea ? values.zoomarea : 'Zoom Area'} <DownOutlined />

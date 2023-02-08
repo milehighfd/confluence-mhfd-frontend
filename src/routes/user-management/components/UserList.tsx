@@ -172,6 +172,7 @@ const UserList = () => {
     { key: 'edit-user', label: 'Edit User' },
     { key: 'message-user', label: 'Message User' },
     { key: 'delete-user', label: 'Delete User' },
+    { key: 'change-status', label: 'Change Status' },
   ];
   const menu = (record:any, onExpand:any)=> {
     // console.log(record);
@@ -190,6 +191,7 @@ const UserList = () => {
             break;
           case 'delete-user':
             console.log('DELETE')
+            deleted(record.user_id)
             break;
         }
       }}
@@ -246,6 +248,25 @@ const UserList = () => {
     searchUserDelete(resetOptions);
     // console.log('activity2',userActivatedState)
   }, [optionSelect]);
+
+  const deleted = (record : number) => {    
+    console.log(record)
+    datasets.putData(SERVER.DELETE_USER + '/' + record, {record}, datasets.getToken()).then(res => {    
+      console.log(res)  
+      if (res.message === 'SUCCESS') {        
+        //saveUser();
+        //updateSuccessful();
+      } else {
+        if (res?.error) {
+          //updateError(res.error);
+          console.log(res.error)
+        }
+        else {
+          //updateError(res);
+        }
+      }
+    });
+  }
 
   // console.log(optionSelect)
   return <>
