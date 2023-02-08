@@ -2194,6 +2194,10 @@ body{
   }
 }
 .table-detail-modal{
+  .value-total{
+    display: flex;
+    padding-left: 11px;
+  }
   .ant-table-pagination.ant-pagination {
     display: none !important;
   }

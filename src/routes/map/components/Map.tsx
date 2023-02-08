@@ -67,6 +67,7 @@ import {
   addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from './MapFunctionsNotes';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -2331,6 +2332,7 @@ const Map = ({
         map.getSource('geojsonMeasure').setData(geojsonMeasures);
       }
     }
+    console.log('visible', visible, 'data', data)
     return (
         <>
         <SideBarComment
@@ -2385,12 +2387,18 @@ const Map = ({
           }
           
           <span className="zoomvaluemap"><b>Nearmap: September 4, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
-            {visible && <DetailedModal
+            {/* {visible && <DetailedModal
                 detailed={detailed}
                 type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
                 data={data}
                 visible={visible}
                 setVisible={setVisible}
+            />} */}
+            {visible && <DetailModal
+              visible={visible}
+              setVisible={setVisible}
+              data={data}
+              type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
             />}
               {(mobilePopups.length && window.innerWidth < 700) ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
             <div id="map">

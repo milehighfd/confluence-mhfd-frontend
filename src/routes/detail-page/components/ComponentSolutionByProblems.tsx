@@ -68,7 +68,7 @@ const ComponentSolucionsByProblems = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           <Table dataSource={componentsOfProblems ?  componentSolutionData : {}} columns={columns} pagination={false}/>
           {componentsOfProblems.length > 0 && <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(totalCost)}</p>
+            <p className="table-total" style={{width:'calc(30% + 2px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(totalCost)}</p>
           </div>}
         </Col>
       </Row>

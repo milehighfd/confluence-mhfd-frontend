@@ -78,9 +78,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         setProblemPart(t);
       });
     } else {
-      const project_id = data.project_id ? data.project_id : ( data.on_base ? data.on_base : 0);
+      const project_id = data.project_id ? data.project_id : ( data.id ? data.id : 0);
       getDetailedPageProject(project_id);
-      getComponentsByProblemId({id: data.on_base || data.on_base, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      getComponentsByProblemId({id: data.on_base || data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
     // return () => {
