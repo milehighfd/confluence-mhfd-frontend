@@ -21,6 +21,7 @@ import { useDetailedState } from "hook/detailedHook";
 import DetailInformationProblem from "./DetailInformationProblem";
 import ProblemParts from "./ProblemParts";
 import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -41,6 +42,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const {
     detailed,
   } = useDetailedState();
+  const [isLoading, setIsLoading] = useState(true);
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
   const [projectType, setProjecttype] = useState('');
@@ -55,6 +57,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   let pageWidth  = document.documentElement.scrollWidth;
 
   useEffect(() => {
+    resetDetailed();
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
@@ -83,17 +86,22 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       getComponentsByProblemId({id: data.on_base || data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
-    // return () => {
-    //   resetDetailed();
-    // };
   }, []);
   useEffect(() => {
     const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
     setProjecttype(projectType);
   }, [detailed]);
 
+  useEffect(()=>{
+    if(detailed?.problemname || detailed?.project_name){
+      setIsLoading(false)
+    }else{
+      setIsLoading(true)
+    }
+  }, [detailed])
   return (
     <>
+    {isLoading && <LoadingViewOverall />}
     <ImageModal visible={openImage} setVisible={setOpenImage} type={type} active={active} setActive={setActive}/>
     <Modal
       className="detailed-modal"
