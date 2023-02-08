@@ -8,6 +8,7 @@ import { getGroupList } from "routes/portfolio-view/components/ListUtils";
 import { useMapDispatch } from 'hook/mapHook';
 import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
+import SelectZoomArea from "routes/Utils/SelectZoomArea";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
@@ -41,12 +42,10 @@ const Profile = () => {
   } = useAppUserDispatch();
   const [counterProjects, setCounterProjects] = useState(0);
   //console.log(useProfileState())
-  useEffect(() => {
-    console.log("fjjghghj")
+  useEffect(() => {    
     getGroupOrganization();   
   }, []);
-  useEffect(() => {    
-    console.log(groupOrganization)
+  useEffect(() => {       
     setDataAutocomplete(groupOrganization.map((item: any) => {
       return { key: item.id + item.name, value: item.name, label: item.name }
     }));   
@@ -252,9 +251,12 @@ const Profile = () => {
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {/* {editProfile ? */}
-            <Select onChange={(value) => setZoomArea(value)} disabled={disable} options={dataAutocomplete} value={isNull(zoomarea)} style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
-              <Option value="Mile High Flood District">{isNull(zoomarea)}</Option>
-            </Select>
+            <SelectZoomArea
+              zoomArea={zoomarea}
+              setZoomArea={setZoomArea}
+              disable={disable}
+              defaultValue={zoomarea}
+              value={zoomarea}/>
               {/* :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p> */}
             {/* } */}
           </Col>
