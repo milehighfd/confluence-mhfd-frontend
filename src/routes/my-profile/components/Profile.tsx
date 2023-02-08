@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, Row, Select } from "antd";
+import { Button, Col, Dropdown, message, Row, Select, Upload } from "antd";
 import React, { useEffect, useState } from "react";
 import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
@@ -64,7 +64,7 @@ const Profile = () => {
       setDisable(true);      
     }
   }, [editProfile]);
-
+  const [ fileImage, setFileImage ] = useState({ uid: ''});
 
   
   useEffect(() => {
@@ -129,10 +129,30 @@ const Profile = () => {
         });
     }
   };
+  const beforeUpload = (file: any) => {
+    const isLt2M = file.size / 1024 / 1024 < 5;
+    if (!isLt2M) {
+      message.error('Image must smaller than 5MB!');
+    }
+    return isLt2M;
+  }
 
   return (
     <div className="profile-myprofile">
       <img src="/picture/user.png" height={90} width="90" style={{marginBottom:'15px', marginTop:'50px'}}/>
+      <div className="profile-change-image">
+        <Upload showUploadList={false} beforeUpload={beforeUpload} onChange={({ file }: any) => {
+          if (fileImage.uid !== file.uid) {
+            setFileImage({...file});
+            // spinValue(true);
+            // uploadImage([{ ...file }]);
+          }
+        }} >
+          <Button type="default" shape="circle" className="btn-edit-00">
+            <img src="/Icons/icon-66.svg" alt="" style={{marginTop: '-4px'}} className='img-change'/>
+          </Button>
+        </Upload>
+      </div>
       <h1>{isNull (user.firstName) + "  " + isNull (user.lastName)}</h1>
       <p style={{marginBottom:'30px'}} className="color-sub sub-title">{isNull (user.title)}</p>
       <div style={{margin:'0px'}} className="line-01"></div>
