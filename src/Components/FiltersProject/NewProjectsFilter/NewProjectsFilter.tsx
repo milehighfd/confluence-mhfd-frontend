@@ -69,7 +69,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                                console.log('get gallery'); 
                       getGalleryProjects();;
         }
-        options.servicearea = options.servicearea.trim();
+        options.servicearea = options.servicearea;
         options.county = options.county.replace("County","").trim();
         getParamFilterProjects(boundsMap, options);
         getProjectCounter(boundsMap, options);

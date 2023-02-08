@@ -178,7 +178,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         problemtypeProjects: [] as any,
         consultant: filters.consultant,
         contractor: filters.contractor,
-        servicearea: filters.servicearea.trim(),
+        servicearea: filters.servicearea,
         keyword
     }
     return (dispatch: Function) => {
@@ -438,7 +438,8 @@ export const getParamsFilter = (bounds: string) => {
 export const getParamFilterProjects = (bounds: string, data?: any) => {
     if (data) {
         data.county = data.county.replace("County", "").trim();
-        data.servicearea = data.servicearea.replace("Service Area", "").trim();
+        // data.servicearea = data.servicearea.replace("Service Area", "");
+        data.servicearea = data.servicearea
     }
     return (dispatch: Function) => {
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {

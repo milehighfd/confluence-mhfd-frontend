@@ -285,10 +285,11 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }, [data, selectedData])
 
   const apply = () => {
+    console.log('selected ', selectedData);
     if (type === 'county' && tab === 'problem') {
       onSelect(selectedData)
     } else {
-      onSelect(selectedData.join(','))
+      onSelect(selectedData)
     }
   }
 

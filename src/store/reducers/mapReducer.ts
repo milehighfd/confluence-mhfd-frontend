@@ -604,7 +604,7 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.SET_FILTER_PROJECTS: {
-            action.filters.servicearea = action.filters.servicearea.trim();
+            action.filters.servicearea = action.filters.servicearea;
             action.filters.county = action.filters.county.replace("County", "").trim();
             return {
                 ...state,
