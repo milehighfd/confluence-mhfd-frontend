@@ -123,20 +123,23 @@
     .btn-borde{
       width: 100%;
       text-align: initial;
-      height:36px;
+      height: 36px;
       justify-content: space-between;
       display: flex;
       padding: 6.5px 10px;
-      border-radius: 3px !important;
+      border-radius: 5px !important;
       align-items: center;
+      border: 1px solid #d9d9d9 !important;
       span{
         display: inline-block;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        color: #bfbfbf;
       }
       .anticon{
         margin-top: 7px;
+        color: #bfbfbf;
       }
     }
     .sign-menu-organization {
@@ -927,9 +930,11 @@
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
+          font-size: 17px;
         }
         .anticon{
           margin-top: 7px;
+          font-size: 14px;
         }
       }
       .sign-menu-organization {
@@ -950,6 +955,7 @@
       }
       .ant-input{
         height: 40px;
+        font-size: 16px;
       }
     }
     .button-space {
@@ -1489,6 +1495,7 @@
       .ant-select-arrow {
         height: 53px !important;
         font-size: 27px !important;
+        margin-top: -21px !important;
       }
     }
     .button-space {
