@@ -3,6 +3,7 @@ import {
    saveUserInformation,
    updateUserInformation,
    getGroupOrganization,
+   getGroupOrganizationNoGeom,
    uploadImage,
    spinValue
 } from '../store/actions/ProfileActions';
@@ -34,6 +35,9 @@ export const useProfileDispatch = () => {
       },
       getGroupOrganization: () => {
          dispatch(getGroupOrganization());
+      },
+      getGroupOrganizationNoGeom: () => {
+         dispatch(getGroupOrganizationNoGeom());
       },
       uploadImage: (files: Array<any>) => {
          dispatch(uploadImage(files));

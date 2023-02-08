@@ -16,12 +16,10 @@ CONTRACTOR = 'contractor', STREAMS = 'streams';
 const { Option } = Select;
 const Profile = () => {
   const [editProfile, setEditProfile] = useState(false);
-  const {getGroupOrganization} = useProfileDispatch();
+  
   const { userInformation: user } = useProfileState();
   const { groupOrganization } = useProfileState();
-  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
-    return { key: item.id + item.name, value: item.name, label: item.name }
-  }));
+  
   const [countyList, setCountyList] = useState<any[]>([]);
   const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
   
@@ -41,19 +39,21 @@ const Profile = () => {
     saveUserInformation,   
   } = useAppUserDispatch();
   const [counterProjects, setCounterProjects] = useState(0);
-  //console.log(useProfileState())
-  useEffect(() => {    
-    getGroupOrganization();   
-  }, []);
-  useEffect(() => {       
-    setDataAutocomplete(groupOrganization.map((item: any) => {
-      return { key: item.id + item.name, value: item.name, label: item.name }
-    }));   
-  }, [groupOrganization]);
+  //console.log(useProfileState()) 
+  useEffect(() => {
+    getMe();
+  }, []); 
   useEffect(() => {
     if (user.organization) {
       setOrganization(user.organization);
     }    
+    if (user.serviceArea) {
+      setServiceArea(user.serviceArea);
+    }   
+    if (user.zoomArea) {
+      setZoomArea(user.zoomArea);
+    }       
+    console.log("ZOOMAREA" + user.zoomarea)
   }, [user]);
 
   useEffect(() => {   
@@ -64,6 +64,13 @@ const Profile = () => {
     }
   }, [editProfile]);
   const [ fileImage, setFileImage ] = useState({ uid: ''});
+
+  const getMe = () =>{
+    datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+      replaceAppUser(result);
+      saveUserInformation(result)
+    });
+  }
 
   
   useEffect(() => {
@@ -117,11 +124,7 @@ const Profile = () => {
         //console.log(data);
       }).then(() => {
         setsave(!save)
-        console.log("EXIT EDIT")
-        datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
-          replaceAppUser(result);
-          saveUserInformation(result)
-        });
+        getMe();
       })
         .catch((e) => {
           console.log(e);
@@ -254,8 +257,7 @@ const Profile = () => {
             <SelectZoomArea
               zoomArea={zoomarea}
               setZoomArea={setZoomArea}
-              disable={disable}
-              defaultValue={zoomarea}
+              disable={disable}              
               value={zoomarea}/>
               {/* :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p> */}
             {/* } */}

@@ -18,35 +18,24 @@ const SelectZoomArea = ({
   zoomArea: string,
   setZoomArea: Function,
   disable? : boolean,
-  defaultValue : string,
+  defaultValue? : string,
   value?: string
 }) => {
     const { userInformation: user } = useProfileState();
-    const {getGroupOrganization} = useProfileDispatch();
-    const { groupOrganization } = useProfileState();
-    const [serviceAreaList, setServiceAreaList] = useState<any[]>([]);
+    const {getGroupOrganizationNoGeom} = useProfileDispatch();
+    const { groupOrganization } = useProfileState();    
     const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
         return { key: item.id + item.name, value: item.name, label: item.name }
     }));
     useEffect(() => {
-        getGroupOrganization();
+        getGroupOrganizationNoGeom();
     }, []);
     useEffect(() => {
         setDataAutocomplete(groupOrganization.map((item: any) => {
             return { key: item.id + item.name, value: item.name, label: item.name }
         }));
     }, [groupOrganization]);  
-    useEffect(() => {
-        datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
-            .then((rows) => {
-                setServiceAreaList(rows.servicearea.map((item: any) => {
-                    return { key: item.code_service_area_id, value: item.service_area_name, label: item.service_area_name }
-                }).filter((data: any) => !!data.value));
-            })
-      .catch((e) => {
-        console.log(e);
-      })             
-  }, []);
+   
   if(value === ''){
     value = undefined;
   }

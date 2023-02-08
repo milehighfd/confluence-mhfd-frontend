@@ -53,9 +53,16 @@ export const updateUserInformation = (user: User) => {
 }
 
 export const getGroupOrganization = () => {
-
   return (dispatch: Function) => {
     datasets.getData(SERVER.GROUP_ORGANIZATION, datasets.getToken()).then(data => {
+      dispatch({ type: types.GET_GROUP_ORGANIZATION, data });
+    })
+  }
+}
+
+export const getGroupOrganizationNoGeom = () => {
+  return (dispatch: Function) => {
+    datasets.getData(SERVER.GROUP_ORGANIZATION_NO_GEOM, datasets.getToken()).then(data => {
       dispatch({ type: types.GET_GROUP_ORGANIZATION, data });
     })
   }
