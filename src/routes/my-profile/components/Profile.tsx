@@ -23,15 +23,15 @@ const Profile = () => {
   const [countyList, setCountyList] = useState<any[]>([]);
   const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
   
-  const [email, setEmail] = useState(user.email);
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [phone, setPhone] = useState(user.phone);
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
   const [organization,setOrganization] = useState('');
-  const [city,setCity] = useState(user.city);
-  const [county,setCounty] = useState(user.county);
-  const [serviceArea,setServiceArea] = useState(user.serviceArea);
-  const [zoomarea,setZoomArea] = useState(user.zoomarea);
+  const [city,setCity] = useState('');
+  const [county,setCounty] = useState('');
+  const [serviceArea,setServiceArea] = useState('');
+  const [zoomarea,setZoomArea] = useState('');
   const [disable,setDisable] = useState(false);
   const [save,setsave] = useState(false);
   const {
@@ -50,10 +50,27 @@ const Profile = () => {
     if (user.serviceArea) {
       setServiceArea(user.serviceArea);
     }   
-    if (user.zoomArea) {
-      setZoomArea(user.zoomArea);
-    }       
-    console.log("ZOOMAREA" + user.zoomarea)
+    if (user.zoomarea) {
+      setZoomArea(user.zoomarea);
+    }
+    if (user.email) {
+      setEmail(user.email);
+    }
+    if (user.firstName) {
+      setFirstName(user.firstName);
+    }
+    if (user.lastName) {
+      setLastName(user.lastName);
+    }
+    if (user.phone) {
+      setPhone(user.phone);
+    }
+    if (user.city) {
+      setCity(user.city);
+    }
+    if (user.county) {
+      setCounty(user.county);
+    }
   }, [user]);
 
   useEffect(() => {   
