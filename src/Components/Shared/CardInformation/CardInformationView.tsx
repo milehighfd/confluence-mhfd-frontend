@@ -15,19 +15,22 @@ const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
+const PROJECT_TABLE = 'mhfd_projects'
 
 const CardInformationView = ({
   data,
   type,
   detailed,
   selectedOnMap,
-  setZoomProjectOrProblem
+  setZoomProjectOrProblem,
+  deleteCallback
 }: {
   data: any,
   type: string,
   detailed: Detailed,
-  selectedOnMap: any,
-  setZoomProjectOrProblem: Function
+  selectedOnMap?: any,
+  setZoomProjectOrProblem?: Function,
+  deleteCallback?: Function,
 }) => {
   const [visible, setVisible] = useState(false);
   const {
@@ -45,7 +48,6 @@ const CardInformationView = ({
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;
-
   useEffect(() => {
     favoriteList(user.email);
   },
@@ -60,9 +62,9 @@ const CardInformationView = ({
     }
     return false;
   }
-  const [activeCard, setActiveCard] = useState(isActive(data.type || 'project', data.project_id));
+  const [activeCard, setActiveCard] = useState(isActive(data.type || PROJECT_TABLE, data.project_id));
   useEffect(() => {
-    const status = isActive(data.type || 'project', data.problemid || data.project_id);
+    const status = isActive(data.type || PROJECT_TABLE, data.problemid || data.project_id);
     setActiveCard(status);    
   }, [favorites, deleteFavorite, addFavorite]);
 
@@ -74,7 +76,8 @@ const CardInformationView = ({
   }));
   const changeCenter = () => {
     const project_id = data?.project_id;
-    if (project_id) {
+    if(setZoomProjectOrProblem){
+    if (project_id) {      
       datasets.getData(SERVER.GET_BBOX_BY_PROJECT_ID(project_id)).then((coordinates: any) => {
         if( coordinates.length ) {
           setZoomProjectOrProblem(coordinates);
@@ -82,7 +85,7 @@ const CardInformationView = ({
       });
     } else {
       setZoomProjectOrProblem(data.coordinates);
-    }
+    }}
     
   }
 
@@ -92,9 +95,11 @@ const CardInformationView = ({
 
   useEffect(() => {
     const bcbbox = bboxComponents.bbox;
-    if (bcbbox.length && bcbbox[0] != null) {
-      updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
-      setZoomProjectOrProblem(bcbbox[0]);
+    if (setZoomProjectOrProblem) {
+      if (bcbbox.length && bcbbox[0] != null) {
+        updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
+        setZoomProjectOrProblem(bcbbox[0]);
+      }
     }
   }, [bboxComponents]);
   const stopModal = (e: any) => {
@@ -164,6 +169,15 @@ const CardInformationView = ({
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});
   }
+
+  const deleteFunction = (email: string, id: number, table: string) => {
+    deleteFavorite(email, id, table);
+    if (deleteCallback) {
+      deleteCallback(id);
+    }
+  }
+
+  
   return (
     <>
       {/* {visible && <DetailedModal
@@ -181,7 +195,7 @@ const CardInformationView = ({
       />}
 
       <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}}>
-      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
+      <div className="border-line-green" style={{border: (selectedOnMap?.id === data.cartodb_id && selectedOnMap?.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
         <Card
           // hoverable
           style={{ width: '100%', padding: '0px' }}
@@ -210,7 +224,7 @@ const CardInformationView = ({
                <Button onClick={(event) => {
                   event.stopPropagation();
 
-                  activeCard ?  deleteFavorite(user.email, (data.project_id || data.problemid), (data.type || 'project')) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || 'project'));
+                  activeCard ?  deleteFunction(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
                 }
                }
                 >
@@ -234,35 +248,35 @@ const CardInformationView = ({
             : 
             <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
           }
-          <Popover placement="topLeft" content={cost}>
+          {/* <Popover placement="topLeft" content={cost}> */}
             <h5>{
               data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
               } 
-              <Popover content={total}>
+              {/* <Popover content={total}> */}
                 <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Components</b></span>
-              </Popover> 
+              {/* </Popover>  */}
             </h5>
-          </Popover>
+          {/* </Popover> */}
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
             <Popover placement="topLeft" content={type}>
-              {data.priority === 'High' ? <p style={{ color: 'red', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> :
-              data.priority === 'Low' ? <p style={{ color: '#28c499', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p> :
-              <p style={{ color: '#FFD300', width: '58%', fontSize: '13px' }}>{data.priority} Priority</p>
+              {data.priority === 'High' ? <p style={{ color: 'red', width: '88%', fontSize: '13px' }}>{data.priority} Priority</p> :
+              data.priority === 'Low' ? <p style={{ color: '#28c499', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p> :
+              <p style={{ color: '#FFD300', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p>
               }
             </Popover>
             <Popover content={status}>
-              <span style={{ textAlign: 'right', width: '42%', fontSize: '13px' }}> {data.percentage}% Solved</span>
+              <span style={{ textAlign: 'right', width: '20%', fontSize: '13px' }}> {data.percentage}% Solved</span>
             </Popover>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
                <Popover placement="topLeft" content={type}>
-                 <p style={{ color: ' #11093c', width: '58%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
+                 <p style={{ color: ' #11093c', width: '80%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
                </Popover>
                <Popover content={status}>
-                  <span style={{ textAlign: 'right', width: '42%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+                  <span style={{ textAlign: 'right', width: '20%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
                 </Popover>
               </div>
             )}

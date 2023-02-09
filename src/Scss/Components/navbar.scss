@@ -253,7 +253,6 @@
   margin-left: 7px;
   max-height: 227px;
   overflow-y: auto;
-
 }
 // .ant-dropdown-menu-submenu .ant-dropdown-menu-submenu-popup   {
 //   margin-top: -16px;
@@ -615,85 +614,85 @@
 }
 @media(min-width: 1300px) and (max-width: 1400px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 17.5vw !important;
+    width: 19.5vw !important;
   }
 }
 @media(min-width: 1400px) and (max-width: 1500px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 16vw !important;
+    width: 18vw !important;
   }
 }
 @media(min-width: 1500px) and (max-width: 1600px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 15vw !important;
+    width: 17vw !important;
   }
 }
 @media(min-width: 1600px) and (max-width: 1700px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 14vw !important;
+    width: 16vw !important;
   }
 }
 @media(min-width: 1700px) and (max-width: 1800px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 13.5vw !important;
+    width: 15.5vw !important;
   }
 }
 @media(min-width: 1800px) and (max-width: 1900px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 13vw !important;
+    width: 15vw !important;
   }
 }
 @media(min-width: 1900px) and (max-width: 2000px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 12vw !important;
+    width: 14vw !important;
   }
 }
 @media(min-width: 2000px) and (max-width: 2100px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 12vw !important;
+    width: 14vw !important;
   }
 }
 @media(min-width: 2100px) and (max-width: 2200px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 11vw !important;
+    width: 13vw !important;
   }
 }
 @media(min-width: 2200px) and (max-width: 2300px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 10vw !important;
+    width: 12vw !important;
   }
 }
 @media(min-width: 2300px) and (max-width: 2400px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 10vw !important;
+    width: 12vw !important;
   }
 }
 @media(min-width: 2400px) and (max-width: 2500px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 10vw !important;
+    width: 12vw !important;
   }
 }
 @media(min-width: 2500px) and (max-width: 2600px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 9vw !important;
+    width: 11vw !important;
   }
 }
 @media(min-width: 2500px) and (max-width: 2100px){
   .ant-menu-dark.ant-menu-horizontal {
-    width: 9vw !important;
+    width: 11vw !important;
   }
 }
 @media (min-width: 2200px) and (max-width: 2999px){
   .header{
     .ant-menu-dark.ant-menu-horizontal {
-      width: 9vw;
+      width: 11vw;
     }
   }
 }
 @media (min-width: 3000px) and (max-width: 3999px){
   .header{
     .ant-menu-dark.ant-menu-horizontal {
-      width: 9vw;
+      width: 11vw;
     }
   }
 }
@@ -720,9 +719,6 @@
   }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     padding: 6px 12px;
-  }
-  .ant-dropdown-menu-submenu-popup .ant-dropdown-menu {
-    max-height: 273px;
   }
 }
 @media(min-width: 2550px) and (max-width: 3799px){
@@ -778,9 +774,6 @@
   }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     padding: 7px 12px;
-  }
-  .ant-dropdown-menu-submenu-popup .ant-dropdown-menu {
-    max-height: 273px;
   }
 }
 @media(min-width: 3800px) and (max-width: 5999px){
@@ -838,8 +831,5 @@
   }
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     padding: 7px 12px;
-  }
-  .ant-dropdown-menu-submenu-popup .ant-dropdown-menu {
-    max-height: 273px;
   }
 }

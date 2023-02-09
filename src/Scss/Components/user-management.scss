@@ -73,6 +73,12 @@
   }
 }
 .user-management-body{
+  .ant-table-column-sorter {
+    margin-left: 4px;
+    color: #1d1646;
+    font-size: 0;
+    transition: color .3s;
+}
   .btn-profile-list{
     font-size: 17.6px;
     height: auto;
@@ -117,19 +123,23 @@
     .btn-borde{
       width: 100%;
       text-align: initial;
-      height:36px;
+      height: 36px;
       justify-content: space-between;
       display: flex;
       padding: 6.5px 10px;
-      border-radius: 3px !important;
+      border-radius: 5px !important;
+      align-items: center;
+      border: 1px solid #d9d9d9 !important;
       span{
         display: inline-block;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        color: #bfbfbf;
       }
       .anticon{
         margin-top: 7px;
+        color: #bfbfbf;
       }
     }
     .sign-menu-organization {
@@ -151,6 +161,15 @@
     .ant-input{
       height: 36px;
     }
+    .ant-input-search .ant-input:focus, .ant-input-search .ant-input:hover {
+      border-color: #251863;
+    }
+  }
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+    border-color: #251863;
+  }
+  .ant-btn:focus, .ant-btn:hover {
+    border-color: #251863;
   }
   .head-list{
     box-sizing: border-box;
@@ -217,7 +236,7 @@
     }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
       min-height: 34px !important;
-      display: none;
+      // display: none;
     }
     .ant-pagination-options-size-changer.ant-select {
       display: none;
@@ -522,6 +541,24 @@
   text-align: center;
   height:  calc(100vh - 59px);
   overflow-y: hidden;
+  .profile-change-image{
+    position: absolute;
+    top: 112px;
+    width: 100%;
+    margin-left: 40px;
+    .img-change{
+      width: 33px;
+      height: 33px;
+    }
+    .ant-btn-circle {
+        min-width: 20px;
+        padding-right: 0;
+        padding-left: 0;
+        text-align: center;
+        border-radius: 50%;
+        height: auto;
+      }
+  }
   h1{
     font-size: 16px;
     margin: 0px;
@@ -764,6 +801,19 @@
       height: 125px !important;
       width: 125px !important;
     }
+    .profile-change-image{
+      position: absolute;
+      top: 127px;
+      width: 100%;
+      margin-left: 59px;
+      .img-change{
+        width: 53px !important;
+        height: 53px !important;
+      }
+      .ant-btn-circle {
+        height: 53px !important;
+      }
+    }
     h1{
       font-size: 18px !important;
     }
@@ -880,9 +930,11 @@
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
+          font-size: 17px;
         }
         .anticon{
           margin-top: 7px;
+          font-size: 14px;
         }
       }
       .sign-menu-organization {
@@ -903,6 +955,7 @@
       }
       .ant-input{
         height: 40px;
+        font-size: 16px;
       }
     }
     .button-space {
@@ -1004,6 +1057,19 @@
     img{
       height: 170px !important;
       width: 170px !important;
+    }
+    .profile-change-image{
+      position: absolute;
+      top: 163px;
+      width: 100%;
+      margin-left: 77px;
+      .img-change{
+        width: 63px !important;
+        height: 63px !important;
+      }
+      .ant-btn-circle {
+        height: 63px !important;
+      }
     }
     h1{
       font-size: 26px !important;
@@ -1125,6 +1191,7 @@
       .ant-select-arrow {
         height: 30px !important;
         font-size: 20px !important;
+        margin-top: -11px;
       }
     }
     .button-space {
@@ -1255,6 +1322,19 @@
       height: 250px !important;
       width: 250px !important;
       margin-top: 170px !important;
+    }
+    .profile-change-image{
+      position: absolute;
+      top: 163px;
+      width: 100%;
+      margin-left: 119px;
+      .img-change{
+        width: 83px !important;
+        height: 83px !important;
+      }
+      .ant-btn-circle {
+        height: 83px !important;
+      }
     }
     .sub-title{
       margin-bottom: 120px !important;
@@ -1415,6 +1495,7 @@
       .ant-select-arrow {
         height: 53px !important;
         font-size: 27px !important;
+        margin-top: -21px !important;
       }
     }
     .button-space {

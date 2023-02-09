@@ -63,16 +63,20 @@ const ImageModal = (
               </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
-              {detailed?.problemid ? (
-                    <div className="detailed-c" > <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
-                  ) : (
-                    detailed?.attachments?.length !== 0 &&
-                        detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
-                           return <div key={index} className="detailed-c">
-                             <img  className='img-modal' src={image} alt=""/>
-                           </div>
-                         })
-                    )}
+                {detailed?.problemid ? (
+                  <div className="detailed-c" > <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
+                ) : (
+                detailed?.attachments?.length !== 0 &&
+                  detailed?.attachments ? detailed?.attachments.map((image: string, index: number) => {
+                  return <div key={index} className="detailed-c">
+                    <img  className='img-modal' src={image} alt=""/>
+                  </div>
+                }):
+                <div className="detailed-c">
+                  <div className='img-modal' style={{background:'#eae8f0'}}>
+                  </div>
+                </div>
+                )}
               </Carousel>
               <div className='tag-carousel'>
                 {numberCarousel} of {numberElementCarousel}

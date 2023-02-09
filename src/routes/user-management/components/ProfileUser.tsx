@@ -15,81 +15,28 @@ import RadioItemsView from "Components/User/UserComponents/RadioItemsView";
 import RadioDesignation from "./RadioDesignation";
 import { DownOutlined } from "@ant-design/icons";
 import MenuAreaView from "Components/User/UserComponents/MenuAreaView";
+import SelectOrganization from "routes/Utils/SelectOrganization";
+import SelectZoomArea from "routes/Utils/SelectZoomArea";
+import SelectServiceArea from "routes/Utils/SelectServiceArea";
 
 const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
-  const {
-    updateUserInformation,
-    getGroupOrganization,
-    uploadImage,
-    spinValue
-  } = useProfileDispatch();
-
+  
+  const [organization,setOrganization] = useState('');
+  const [zoomArea,setZoomArea] = useState('');
+  const [serviceArea,setServiceArea] = useState('');
   const { groupOrganization } = useProfileState();
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
-  console.log('groupOrganization', groupOrganization)
-  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.filter(function (item: any) {
-    if (item.aoi === undefined) {
-      return false;
-    }
-    return true;
-  }).map((item: { aoi: string }) => {
-    return { key: item.aoi, value: item.aoi, label: item.aoi }
-  }));
+  
   const visible = {
     visible: false
   };
   const [organizationList, setOrganizationList] = useState<any[]>([]);
   const [consultantList, setConsultantList] = useState<any[]>([]);
-  useEffect(() => {
-    getGroupOrganization();
-  }, []);
-  useEffect(() => {
-    setDataAutocomplete(groupOrganization.filter(function (item: any) {
-      if (item.aoi === undefined) {
-        return false;
-      }
-      return true;
-    }).map((item: { aoi: string }) => {
-      return { key: item.aoi, value: item.aoi, label: item.aoi }
-    }));
-  }, [groupOrganization]);
-  console.log('dataAutocomplete',dataAutocomplete)
-  const itemsZoomtoarea = dataAutocomplete.map((item:any) => {
-
-    return item.key
-  })
-  console.log('itemsZoomtoarea', itemsZoomtoarea)
-  useEffect(() => {
-    datasets.getData(SERVER.GET_ORGANIZATIONS)
-      .then((rows) => {
-        const organizations = rows
-          .filter((row: any) => row.type === 'JURISDICTION')
-          .map(({id, name}: { id: number, name: string }) => (name))
-          .sort((a: string, b: string) => {
-            return a.localeCompare(b);
-          });
-          // console.log('qwe organizations', organizations);
-        setOrganizationList(organizations);
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-    datasets.getData(SERVER.GET_CONSULTANTS)
-      .then((rows) => {
-        const consultants = rows
-          .map(({_id, name}: { _id: number, name: string }) => (name))
-          .filter((value: string, index: number, self: any) => {
-            return self.indexOf(value) === index;
-          }
-          ).sort();
-        setConsultantList(consultants);
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-  }, []);
+ 
+  //console.log('itemsZoomtoarea', itemsZoomtoarea)  
+  
 
   const menu2 = () => {
     const itemMenu: MenuProps['items'] = [];
@@ -176,7 +123,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         }
       });
     }
-    console.log('itemMenu', itemMenu)
+    //console.log('itemMenu', itemMenu)
     return <Menu
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
@@ -195,10 +142,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [activated, setActivated] = useState(false);
   const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
 
-  useEffect(() => {
+  useEffect(() => {   
+    
     const auxUser = { ...record };
     setInitialValues(auxUser);
-    values._id = record._id;
+    values.user_id = record.user_id;
     values.firstName = record.firstName;
     values.lastName = record.lastName;
     values.activated = record.activated;
@@ -212,8 +160,25 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     values.phone = record.phone;
     values.title = record.title;
     values.status = record.status;
-    values.createdAt = record.createdAt;
+    values.createdAt = record.createdAt; 
+    console.log(record)
+    setOrganization (record.organization);
+    setZoomArea(record.zoomarea);
+    setServiceArea(record.serviceArea);
+    console.log(record)
+    console.log("INITIAL VALUE")
   }, [record]);
+
+  useEffect(() => {      
+    const auxUser = { ...record };
+    setInitialValues(auxUser);    
+    values.zoomarea = zoomArea;    
+    values.serviceArea = serviceArea;
+    values.organization = organization;
+    console.log(record)
+    console.log("INITIAL VALUE")
+  }, [organization,zoomArea,serviceArea]);
+
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
@@ -227,6 +192,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   });
 
   const updateSuccessful = () => {
+    console.log("EXITO")
     const auxMessageError = { ...messageError };
     auxMessageError.message = 'Updating record data was successful';
     auxMessageError.color = '#28C499';
@@ -257,8 +223,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
-    datasets.putData(SERVER.EDIT_USER + '/' + record._id, values, datasets.getToken()).then(res => {
-      if (res?._id) {
+    
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {    
+      console.log(res)  
+      if (res.message === 'SUCCESS') {        
         saveUser();
         updateSuccessful();
       } else {
@@ -274,14 +242,14 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
   const handleSwitchButton = (checked: boolean) => {
     setSwitchTo(checked);
-    setTitle(record._id);
-    deleteUser(record._id + type);
+    setTitle(record.user_id);
+    deleteUser(record.user_id + type);
   }
 
   const genExtra = () => (
     <Row className="record-head" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
       <Col xs={{ span: 19 }} lg={{ span: 19 }} onClick={() => {
-        console.log('click click');
+        //console.log('click click');
         setActivated(!activated);
       }}>
         <h6>{'. ' + record.firstName + ' ' + record.lastName}</h6>
@@ -299,7 +267,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     </Row>
   );
 
-  console.log(MenuAreaView(CITIES, 'city', values, setTitle));
+  //console.log(MenuAreaView(CITIES, 'city', values, setTitle));
 
   return (
     <>
@@ -345,13 +313,12 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>TITLE</h1>
             <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} style={{marginBottom: '15px'}} />
             <h1>ORGANIZATIONS</h1>
-            {/* TODO: change data dropdown */}
-            <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
-              getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
-              <Button className="btn-borde-management">
-                {values.city ? values.city : 'City'} <DownOutlined />
-              </Button>
-            </Dropdown>
+            {/* TODO: change data dropdown */}            
+            <SelectOrganization
+              organization={organization}
+              setOrganization={setOrganization}
+              defaultValue={organization}
+              value={organization}/>
           </Col>
         </Row>
         <br />
@@ -385,7 +352,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             >
               <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{ paddingRight: '20px'}}>
                 {RADIO_ITEMS.map((item: { value: string; name: string }, index: number) => {
-                  console.log('indexx', index);
+                  //console.log('indexx', index);
                   if (index < 3) {
                   }
                   return <RadioDesignation key={index} index={index} value={item.value} name={item.name}/>;
@@ -417,31 +384,29 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         </Row>
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-          <div className="gutter-row" id={("city" + values._id)}>
+          <div className="gutter-row" id={("city" + values.user_id)}>
                   <p>AREAS</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("city" + values._id)) as HTMLElement}>
+                    getPopupContainer={() => document.getElementById(("city" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.city ? values.city : 'City'} <DownOutlined />
                     </Button>
                   </Dropdown>
                 </div>
-            <div className="gutter-row"  id={("serviceArea" + values._id)}>
+            <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
                   <p>SERVICE AREA</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(SERVICE_AREA, 'serviceArea', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("serviceArea" + values._id)) as HTMLElement}
-                    placement="bottomLeft">
-                    <Button className="btn-borde-management">
-                      {values.serviceArea ? values.serviceArea : 'Service Area'}  <DownOutlined />
-                    </Button>
-                  </Dropdown>
+                    <SelectServiceArea
+                       serviceArea={serviceArea}
+                       setServiceArea={setServiceArea}                  
+                       defaultValue={serviceArea}
+                       value={serviceArea}/>
                 </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-          <div className="gutter-row"  id={("county" + values._id)}>
+          <div className="gutter-row"  id={("county" + values.user_id)}>
                   <p>COUNTY</p>
                   <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
-                    getPopupContainer={() => document.getElementById(("county" + values._id)) as HTMLElement}>
+                    getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.county ? values.county : 'County'}  <DownOutlined />
                     </Button>
@@ -453,17 +418,12 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <Row>
-              <div className="gutter-row"  id={'zoomarea' + values._id} style={{width:'100%'}}>
-                <Dropdown
-                className="dropdown-user-management"
-                  trigger={['click']}
-                  overlay={menu}
-                  getPopupContainer={() => document.getElementById('zoomarea' + values._id) as HTMLElement}
-                >
-                  <Button className="btn-borde-management">
-                    {values.zoomarea ? values.zoomarea : 'Zoom Area'} <DownOutlined />
-                  </Button>
-                </Dropdown>
+              <div className="gutter-row" id={'zoomarea' + values.user_id} style={{ width: '100%' }}>
+                <SelectZoomArea
+                  zoomArea={zoomArea}
+                  setZoomArea={setZoomArea}                  
+                  defaultValue={zoomArea}
+                  value={zoomArea} />
               </div>
             </Row>
             <h1 style={{ fontStyle: 'italic' }}>
@@ -484,7 +444,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Button className="btn-profile-list" style={{ marginRight: '20px', borderColor: 'transparent' }}>
             Cancel
           </Button>
-          <Button className="btn-purple btn-profile-list">Save</Button>
+          <Button onClick={result} className="btn-purple btn-profile-list">Save</Button>
         </div>
       </div>
     </>

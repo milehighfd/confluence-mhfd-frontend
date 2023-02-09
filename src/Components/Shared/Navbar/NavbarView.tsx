@@ -129,7 +129,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
     setOpenProfile(false);
   }
   const items = [
-    { key: 'my-profile', label: 'My Profile' },
+    // { key: 'my-profile', label: 'My Profile' },
     { key: 'tutorial', label: 'Tutorial' },
     { key: 'logout', label: localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout' },
   ];

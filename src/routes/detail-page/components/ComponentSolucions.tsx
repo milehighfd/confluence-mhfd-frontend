@@ -17,7 +17,7 @@ const ComponentSolucions = () => {
     return {
       key: index,
       component: data.type ? data.type : '',
-      cost: data.estimated_cost? '$'+data.estimated_cost : '',
+      cost: data.estimated_cost? data.estimated_cost : '',
       complete: data.complete_cost ? data.complete_cost : '',
       total_cost: data.percen? data.percen : '',
     }
@@ -71,10 +71,10 @@ const ComponentSolucions = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
-          {detailed?.componentCost && <Table dataSource={detailed?.componentCost ?  dataSolution : {}} columns={columns} pagination={false}/>}
-          <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(totalCost)}</p>
-          </div>
+          <Table dataSource={componentsOfProblems ?  dataSolution : {}} columns={columns} pagination={false}/>
+          {componentsOfProblems.length > 0 && <div className="value-total">
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Estimated Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(total)}</p>
+          </div>}
         </Col>
       </Row>
     </>

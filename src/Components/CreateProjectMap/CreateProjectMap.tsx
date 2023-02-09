@@ -1570,6 +1570,7 @@ const CreateProjectMap = (type: any) => {
             </div> : ''
           }
       <div id="map3" style={{ height: '100%', width: '100%' }}></div>
+      
       {visible && <DetailedModal
         detailed={detailed}
         type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}

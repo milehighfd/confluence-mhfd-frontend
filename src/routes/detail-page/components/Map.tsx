@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server';
 import { useDetailedState } from "hook/detailedHook";
 import { NEARMAP_STYLE, tileStyles } from "constants/mapStyles";
 import store from "store/index";
-import { COMPONENT_LAYERS, FLOOD_HAZARDS, MAPTYPES, MENU_OPTIONS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_STORM_OUTFALLS, MEP_PROJECTS_TEMP_LOCATIONS, MHFD_PROJECTS, NEARMAP_TOKEN, PROBLEMS_MODAL, PROBLEMS_TRIGGER, PROJECTS_MODAL, SERVICE_AREA_FILTERS, STREAM_IMPROVEMENT_MEASURE } from "constants/constants";
+import { COMPONENT_LAYERS, FLOOD_HAZARDS, MAPTYPES, MENU_OPTIONS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_STORM_OUTFALLS, MEP_PROJECTS_TEMP_LOCATIONS, MHFD_PROJECTS, NEARMAP_TOKEN, PROBLEMS_MODAL, PROBLEMS_TRIGGER, PROJECTS_MODAL, PROPSPROBLEMTABLES, SELECT_ALL_FILTERS, SERVICE_AREA_FILTERS, STREAM_IMPROVEMENT_MEASURE } from "constants/constants";
 import { MapService } from "utils/MapService";
 import { LayerStylesType } from "Classes/MapTypes";
 import { getComponentCounter } from "dataFetching/map";
@@ -54,6 +54,104 @@ const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
       <ComponentPopup item={item}></ComponentPopup>
   </>
 );
+const addLayer = () => {
+  if(map) {
+    console.log('detailedpage data', detailed);
+    let i = 0;
+    const styles = {...tileStyles as any};
+    console.log(layers, "LAYERS")
+    for (const key in layers.components) {
+      console.log(key, 'KEY')
+      map.addVectorSource(key, layers.components[key]);
+      i = 0;
+      if((detailed?.problemid && type === PROBLEMS_MODAL) ||(detailed?.projectid && type === PROJECTS_MODAL)) {
+        for (const component of styles[key] ) {
+          map.addLayer(key + i, key, component);
+          let fieldComparator = type === PROBLEMS_MODAL ? 'problemid': 'projectid';
+          if (STREAM_IMPROVEMENT_MEASURE === key) { 
+            fieldComparator = type === PROBLEMS_MODAL ? 'problem_id': 'project_id';
+          }
+          map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailed?.problemid : detailed?.projectid]);
+          i++;
+        }
+        addMapListeners(key, key );
+      }
+
+  }
+  if(type === PROBLEMS_MODAL) {
+    i = 0;
+    map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
+    for (const problem of tileStyles.problem_boundary) {
+      map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
+      map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
+      i++;
+    }
+    addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
+    FLOOD_HAZARDS.tiles.forEach((tiles:any) => {
+      map.addVectorSource(tiles, layers.floodhazards[tiles]);
+      styles[tiles].forEach((element: any, index: number) => {
+        map.addLayer(`${tiles}-layer_${index}`, tiles, element);
+        map.setFilter(`${tiles}-layer_${index}`, ['in', 'problem_id', detailed?.problemid]);
+      }); 
+      addMapListeners(tiles, `${tiles}-layer_`);
+      // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
+    });
+    let idProjectLine = 0;
+    detailed?.components?.forEach((element: any) => {
+      if(element.projectid) {
+        map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
+        for (const project of tileStyles[MHFD_PROJECTS]) {
+          map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
+          map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
+          idProjectLine++;
+        }       
+      }
+    });
+    addMapListeners(MHFD_PROJECTS, 'projects-line_');
+  } else if(type === PROJECTS_MODAL) {
+    detailed?.problems?.forEach((element: any) => {
+      if(element.problemid) {
+        i = 0;
+        map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary);
+        for (const problem of tileStyles.problem_boundary) {
+          map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, PROBLEMS_TRIGGER, problem);
+          map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'problemid', element.problemid]);
+          i++;
+        }
+      }
+    });
+    addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
+    map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
+    let idProjectLine = 0;
+    for (const project of tileStyles[MHFD_PROJECTS]) {
+      map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
+      // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
+      // if (detailedPage?.cartodb_id) {
+      //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
+      // }
+      if (detailed?.projectid) {
+        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.projectid]);
+      }
+      
+      idProjectLine++;
+    }
+    i = 0;
+    addMapListeners(MHFD_PROJECTS, 'projects-line_');
+  }
+  if (detailed?.coordinates) {
+    map.fitBounds([
+      detailed?.coordinates[0][0],
+      detailed?.coordinates[0][2]
+    ],
+      {
+        duration: 10
+      });
+  }
+  map.getLoadZoom(updateZoom);
+  map.getMoveZoom(updateZoom);
+  applyNearMapLayer();
+}
+}
   const addMapListeners = (key: string, value: string) => {
     const styles = { ...tileStyles as any };
     if (styles[key]) {
@@ -107,6 +205,7 @@ const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
                   html = loadMainPopup(item);
               }
               if (COMPONENT_LAYERS.tiles.includes( key)) {
+                console.log(e, 'e', key);
                 const problemid = e.properties.problemid ?e.properties.problemid:(e.properties.problem_id ? e.properties.problem_id :'');
                           let problemname = '';
                           if(problemid) {
@@ -201,97 +300,7 @@ const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
         });
     }
 }
-  const addLayer = () => {
-    if(map) {
-      console.log('detailedpage data', detailed);
-      let i = 0;
-      const styles = {...tileStyles as any};
-      for (const key in layers.components) {
-          map.addVectorSource(key, layers.components[key]);
-          i = 0;
-          if((detailed?.problemid && type === PROBLEMS_MODAL) ||(detailed?.projectid && type === PROJECTS_MODAL)) {
-            for (const component of styles[key] ) {
-              map.addLayer(key + i, key, component);
-              let fieldComparator = type === PROBLEMS_MODAL ? 'problemid': 'projectid';
-              if (STREAM_IMPROVEMENT_MEASURE === key) { 
-                fieldComparator = type === PROBLEMS_MODAL ? 'problem_id': 'project_id';
-              }
-              map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailed?.problemid : detailed?.projectid]);
-              i++;
-            }
-            addMapListeners(key, key );
-          }
 
-      }
-      if(type === PROBLEMS_MODAL) {
-        console.log('problems modal');
-        map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
-        for (const problem of tileStyles.problem_boundary) {
-          map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
-          map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
-          i++;
-        }
-        FLOOD_HAZARDS.tiles.forEach((tiles:any) => {
-          map.addVectorSource(tiles, layers.floodhazards[tiles]);
-          styles[tiles].forEach((element: any, index: number) => {
-            map.addLayer(`${tiles}-layer_${index}`, tiles, element);
-            map.setFilter(`${tiles}-layer_${index}`, ['in', 'problem_id', detailed?.problemid]);
-          }); 
-          // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
-        });
-        addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
-        let idProjectLine = 0;
-        detailed?.components?.forEach((element: any) => {
-          if(element.projectid) {
-            map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
-            for (const project of tileStyles[MHFD_PROJECTS]) {
-              map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-              map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
-              idProjectLine++;
-            }
-          }
-        });
-        addMapListeners(MHFD_PROJECTS, 'projects-line_');
-      } else if(type === PROJECTS_MODAL) {
-        console.log('projects modal');
-        detailed?.problems?.forEach((element: any) => {
-          if(element.problemid) {
-            i = 0;
-            map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary);
-            for (const problem of tileStyles.problem_boundary) {
-              map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, PROBLEMS_TRIGGER, problem);
-              map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'problemid', element.problemid]);
-              i++;
-            }
-          }
-        });
-        addMapListeners(MENU_OPTIONS.PROBLEMS, `${PROBLEMS_TRIGGER}-layer_`);
-        map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
-        let idProjectLine = 0;
-        for (const project of tileStyles[MHFD_PROJECTS]) {
-          map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-          if (detailed?.project_id) {
-            map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.project_id]);
-          }
-          idProjectLine++;
-        }
-        i = 0;
-        addMapListeners(MHFD_PROJECTS, 'projects-line_');
-      }
-      if (detailed?.coordinates) {
-        map.fitBounds([
-          detailed?.coordinates[0][0],
-          detailed?.coordinates[0][2]
-        ],
-          {
-            duration: 10
-          });
-      }
-      map.getLoadZoom(updateZoom);
-      map.getMoveZoom(updateZoom);
-      applyNearMapLayer();
-    }
-  }
   useEffect(() => {
     const waiting = () => {
       html = document.getElementById('map2');
@@ -309,7 +318,12 @@ const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
       map = undefined;
     }
   }, []);
-
+  useEffect(() => {
+    const div = document.getElementById('popup-detailed-page');
+    if (div != null) {
+        div.innerHTML = `${counterPopup.componentes}`;
+    }
+}, [counterPopup]);
   return (
     <>
       <Row>
