@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
+import * as turf from '@turf/turf';
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, PlusOutlined } from "@ant-design/icons";
 import ReactDOMServer from 'react-dom/server';
@@ -137,20 +138,44 @@ const addLayer = () => {
     }
     i = 0;
     addMapListeners(MHFD_PROJECTS, 'projects-line_');
+    }
+    if (detailed?.coordinates) {
+      map.fitBounds([
+        detailed?.coordinates[0][0],
+        detailed?.coordinates[0][2]
+      ],
+        {
+          duration: 10
+        });
+    }else{
+      console.log(detailed)
+      if(detailed?.project_id){
+        datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
+          .then(
+            (cordinates: any) => {
+              // let coordinates = coor.coordinates[0];
+              // setGeom(coordinates);
+              // setEditLocation(coordinates);
+              console.log(cordinates, 'RRRRRRyaaayyyyy')
+              const log =cordinates[0][0];
+              const lat = cordinates[0][1]
+              console.log(log, lat, 'sllllllllllllllllllla')
+              map.fitBounds(
+                {lon: -104.871075006 , lat: 39.509825606},
+              {
+                duration: 10
+              });
+            },
+            (e) => {
+              console.log('e', e);
+            }
+          )
+      }
+    }
+    map.getLoadZoom(updateZoom);
+    map.getMoveZoom(updateZoom);
+    applyNearMapLayer();
   }
-  if (detailed?.coordinates) {
-    map.fitBounds([
-      detailed?.coordinates[0][0],
-      detailed?.coordinates[0][2]
-    ],
-      {
-        duration: 10
-      });
-  }
-  map.getLoadZoom(updateZoom);
-  map.getMoveZoom(updateZoom);
-  applyNearMapLayer();
-}
 }
   const addMapListeners = (key: string, value: string) => {
     const styles = { ...tileStyles as any };
@@ -324,6 +349,11 @@ const addLayer = () => {
         div.innerHTML = `${counterPopup.componentes}`;
     }
 }, [counterPopup]);
+useEffect(() => {
+  if (map) {
+    map.isStyleLoaded(addLayer);
+  }
+}, [detailed]);
   return (
     <>
       <Row>

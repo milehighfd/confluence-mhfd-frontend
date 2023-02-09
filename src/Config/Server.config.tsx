@@ -11,6 +11,7 @@ export const SERVER = (function () {
     const AUTH = 'auth';
     const LOGIN = 'login';
     const GUEST = 'guest';
+    const BBOX = 'bbox'
     const PROJECT = 'projects';
     const PROBLEMS = 'problems';
     const ATTACHMENT = 'attachments';
@@ -297,6 +298,9 @@ export const SERVER = (function () {
         GET_GEOM_BY_PROJECTID: (projectId: any) => {
           return `${URL_BASE.BASE}/board/coordinates/${projectId}`
         },
+        GET_BBOX_PROJECTID: (projectId: any) => {
+            return `${URL_BASE.BASE}/${PROJECT}/${BBOX}/${projectId}`
+          },
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
           },
