@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Layout, Row } from 'antd';
 import NavbarContainer from "../../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Components/Shared/Sidebar/SidebarView";
@@ -6,9 +6,23 @@ import Search from "antd/lib/transfer/search";
 import Profile from "./components/Profile";
 import Searches from "./components/Searches";
 import Actions from "./components/Actions";
+import { SERVER } from "Config/Server.config";
+import * as datasets from "../../Config/datasets";
 
 const MyProfile = () => {
 
+  const [counterProjects, setCounterProjects] = useState(0);  
+
+  useEffect(() => {
+    getCount();
+  }, []); 
+
+  const getCount = () => {
+    datasets.getData(`${SERVER.COUNT_FAVORITES}`, datasets.getToken())
+      .then((rows) => {
+        setCounterProjects(rows.count)
+      })
+  }
 
   return <>
     <Layout>
@@ -21,10 +35,10 @@ const MyProfile = () => {
           </div> */}
           <Row>
             <Col xs={{ span: 10 }} lg={{ span: 6 }}>
-              <Profile />
+              <Profile counterProjects={counterProjects}/>
             </Col>
             <Col xs= {{span: 23}} lg={{ span: 13}}>
-              <Searches />
+              <Searches counterProjects={counterProjects} getCount={getCount}/>
             </Col>
             <Col xs={{span: 11 }}lg={{ span: 5 }}>
               <Actions />

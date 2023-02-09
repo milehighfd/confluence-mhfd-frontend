@@ -14,7 +14,11 @@ const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor', STREAMS = 'streams';
 const { Option } = Select;
-const Profile = () => {
+const Profile = ({
+  counterProjects
+}: {
+  counterProjects: number
+}) => {
   const [editProfile, setEditProfile] = useState(false);
   
   const { userInformation: user } = useProfileState();
@@ -38,7 +42,6 @@ const Profile = () => {
     replaceAppUser,
     saveUserInformation,   
   } = useAppUserDispatch();
-  const [counterProjects, setCounterProjects] = useState(0);
   //console.log(useProfileState()) 
   useEffect(() => {
     getMe();
@@ -91,11 +94,6 @@ const Profile = () => {
 
   
   useEffect(() => {
-
-    datasets.getData(`${SERVER.COUNT_FAVORITES}`,datasets.getToken())
-      .then((rows) => {
-        setCounterProjects(rows.count)
-      })
     datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
       .then((rows) => {
         setCountyList(rows.county.map((item: any) => {
