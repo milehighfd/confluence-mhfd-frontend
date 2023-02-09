@@ -158,10 +158,10 @@ const addLayer = () => {
             const log =cordinates[0][0];
               const lat = cordinates[0][1]
             map.fitBounds(
-              {lon: log, lat: lat},
-            {
-              duration: 10
-            });
+              [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
+              {
+                duration: 10
+              })
           },
           (e) => {
             console.log('e', e);
