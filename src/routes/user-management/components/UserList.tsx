@@ -171,35 +171,55 @@ const UserList = () => {
   const [userSelected, setUserSelected] = useState<any>();
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
-  const items = [
+  let items = [
     { key: 'edit-user', label: 'Edit User' },
     //{ key: 'message-user', label: 'Message User' },
     { key: 'delete-user', label: 'Delete User' },
-    { key: 'change-status', label: 'Change Status' },
+    { key: 'change-status', label: 'Approve User' },
   ];
   const menu = (record:any, onExpand:any)=> {
-    // console.log(record);
+    switch (record.status) {
+      case 'approved':
+        items = [
+          { key: 'edit-user', label: 'Edit User' },
+          { key: 'delete-user', label: 'Delete User' },
+        ];
+        break;
+      case 'deleted':
+        items = [
+          { key: 'change-status', label: 'Approve User' },
+          { key: 'delete-user-entry', label: 'Delete User' },
+        ];
+        break;
+      case 'pending':
+        items = [
+          { key: 'edit-user', label: 'Edit User' },
+          { key: 'change-status', label: 'Approve User' },
+          { key: 'delete-user', label: 'Delete User' },  
+        ];
+        break;
+    }
+
     return <Menu
       className="menu-login-dropdown"
       style={{ marginTop: '12px'}}
       items={items}
       onClick={({ key }) => {
         switch(key) {
-          case 'edit-user':
-            console.log('key', record)
-            console.log('key', record)
+          case 'edit-user':            
             setUserSelected(record);
             onExpand(record, key)
             break;
           {/*case 'message-user':
           break;*/}
-          case 'delete-user':
-            console.log('DELETE')
+          case 'delete-user':          
             deleted(record.user_id)
             break;
-          case 'change-status':
-            console.log('CHANGE')
+          case 'change-status':            
             changeStatus(record.user_id)
+            break;
+          case 'delete-user-entry':
+            deleteEntry(record.user_id)
             break;
         }
       }}
@@ -287,6 +307,23 @@ const UserList = () => {
 
   const deleted = (record : number) => {    
     datasets.putData(SERVER.DELETE_USER + '/' + record, {record}, datasets.getToken()).then(res => { 
+      if (res.message === 'SUCCESS') {        
+        getAllUser();
+        updateSuccessful();
+      } else {
+        if (res?.error) {
+          updateError(res.error);
+          console.log(res.error)
+        }
+        else {
+          updateError(res);
+        }
+      }
+    });
+  }
+
+  const deleteEntry = (record : number) => {       
+    datasets.deleteData(SERVER.DELETE_USER_ENTRY + '/' + record, datasets.getToken()).then(res => { 
       if (res.message === 'SUCCESS') {        
         getAllUser();
         updateSuccessful();
