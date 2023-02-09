@@ -48,6 +48,7 @@ export const SERVER = (function () {
     const UPLOAD_PHOTO = 'upload-photo';
     const USER_ACTIVITY = 'user-activity';
     const COUNT_PROJECTS_BY_CREATOR = 'counter-projects-by-creator';
+    const COUNT = 'count';
     const USER_ACTIVITY_CSV = 'user-activity/csv';
     const GET_ALL = 'get-all?';
     const UPDATE = 'update';
@@ -209,10 +210,11 @@ export const SERVER = (function () {
         PROBLEMNAME: `${URL_BASE.BASE}/${MAP}/${PROBLEMNAME}`,
         PROBLEMNNAMECOMP: `${URL_BASE.BASE}/${PROBLEMS}/${PROBLEMNAMECOMP}`,
         FAVORITES: `${URL_BASE.BASE}/${FAVORITES}`,
-        COUNT_FAVORITES: `${URL_BASE.BASE}/${FAVORITES}/count`,
+        COUNT_FAVORITES: `${URL_BASE.BASE}/${FAVORITES}/${COUNT}`,
         ADD_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}/${ADD_FAVORITE}`,
         DELETE_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}`,
         FAVORITE_CARDS: `${URL_BASE.BASE}/${FAVORITES}/${FAVORITE_CARDS}`,
+        FAVORITE_PROJECTS: `${URL_BASE.BASE}/${FAVORITES}/project-cards`,
         CREATE_ACQUISITION:`${URL_BASE.BASE}/${CREATE}/${ACQUISITION}`,
         CREATE_CAPITAL:`${URL_BASE.BASE}/${CREATE}/${CAPITAL}`,
         CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
