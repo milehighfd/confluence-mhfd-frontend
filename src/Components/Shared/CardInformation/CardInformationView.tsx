@@ -22,13 +22,15 @@ const CardInformationView = ({
   type,
   detailed,
   selectedOnMap,
-  setZoomProjectOrProblem
+  setZoomProjectOrProblem,
+  deleteCallback
 }: {
   data: any,
   type: string,
   detailed: Detailed,
   selectedOnMap?: any,
-  setZoomProjectOrProblem?: Function
+  setZoomProjectOrProblem?: Function,
+  deleteCallback?: Function,
 }) => {
   const [visible, setVisible] = useState(false);
   const {
@@ -167,6 +169,15 @@ const CardInformationView = ({
   const setValuesMap = (type: string, value: string) => {
     setHighlighted({type: type, value: value});
   }
+
+  const deleteFunction = (email: string, id: number, table: string) => {
+    deleteFavorite(email, id, table);
+    if (deleteCallback) {
+      deleteCallback(id);
+    }
+  }
+
+  
   return (
     <>
       {/* {visible && <DetailedModal
@@ -213,7 +224,7 @@ const CardInformationView = ({
                <Button onClick={(event) => {
                   event.stopPropagation();
 
-                  activeCard ?  deleteFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
+                  activeCard ?  deleteFunction(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
                 }
                }
                 >

@@ -17,17 +17,27 @@ const { Search } = Input;
 
 const CardsList = ({
   type,
+  getCount,
 }: {
   type: string,
+  getCount: Function,
 }) => {
-  const { detailed } = useDetailedState(); 
-  const [data,setData] = useState<Array<Object>>([]);
-  useEffect(() => {
+  const { detailed } = useDetailedState();
+  const [data, setData] = useState<Array<Object>>([]);
+
+  const updateFavoritesAndCount = (id: number) => {
+    if (type === 'Projects') {
+      getCount();
+      setData((data: Array<Object>) => {
+        return data.filter((d: any) => d.project_id !== id)
+      })
+    }
+  }
+
+  const getProjectCards = () =>{
     if (type === 'Projects') {
       datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
-        console.log(result)
         setData(result.map((project: any) => {
-          console.log(project)
           const projectType = project?.project_status?.code_phase_type?.code_project_type?.project_type_name;
           const x = {
             cartodb_id: project.project_id,
@@ -67,10 +77,13 @@ const CardsList = ({
           return x;
         }));
       });
-    }else{
-
+    } else {
+      console.log("NADA")
     }
 
+  }
+  useEffect(() => {
+    getProjectCards();
   }, []);
 
   const {
@@ -139,6 +152,7 @@ const CardsList = ({
               data={data[index]}
               detailed={detailed}
               type={type}
+              deleteCallback={updateFavoritesAndCount}
             />
           }) : ''}
         </InfiniteScroll>

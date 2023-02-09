@@ -22,6 +22,7 @@ const MyProfile = () => {
       .then((rows) => {
         setCounterProjects(rows.count)
       })
+      
   }
 
   return <>
