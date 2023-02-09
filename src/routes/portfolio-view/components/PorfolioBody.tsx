@@ -19,6 +19,8 @@ import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
 import { optionsProjects } from "./ListUtils";
+import { useProfileDispatch } from "hook/profileHook";
+import { SELECT_ALL_FILTERS } from "constants/constants";
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -33,6 +35,12 @@ const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 //   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
 // ]
 const PortafolioBody = () => {
+  const {
+    setSpinMapLoaded,
+    getMapTables
+  } = useMapDispatch();
+  const layers = store.getState().map.layers;
+  const {getGroupOrganization} = useProfileDispatch();
   const [filterby, setFilterby] = useState('');
   const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
@@ -78,6 +86,32 @@ const PortafolioBody = () => {
     {label: 'Status', value: 'status'},
     {label: 'County', value: 'county'}
   ];
+  useEffect(()=>{
+    if(Object.keys(layers).length === 0){
+      console.log('ESTA VACIO', layers)
+      setSpinMapLoaded(true);
+    getGroupOrganization();
+    console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
+      SELECT_ALL_FILTERS.forEach((layer) => {
+        console.log('layer:', layer)
+        if (typeof layer === 'object') {
+          console.log(layer.tiles, 'TILES')
+          layer.tiles.forEach((subKey: string) => {
+            getMapTables(subKey, layer.name);
+          });
+        } else {
+
+            getMapTables(layer);
+        }
+      });
+    }else{
+      console.log('ESTA LLENI', layers)
+    }
+  },[])
+
+
+
+
   useEffect(() => {
     if (appUser.userInformation?._id) {
       setCurrentUserId(appUser.userInformation?._id);
