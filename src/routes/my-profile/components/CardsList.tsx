@@ -72,6 +72,7 @@ const CardsList = ({
             value: project.cartodb_id,
             id: project.projectId,
             totalComponents: project.totalComponents,
+            isFavorite: true
             // coordinates: project.coordinates[0]
           }
           return x;
@@ -129,11 +130,6 @@ const CardsList = ({
       setState(auxState);
     }, 500);
   };
-  const deleted = (id: number, type: string) => {
-    deleteFavorite(user.email, id, type);
-    console.log('what is this used for??', type);
-    search(user.email, type === 'problems', options);
-  }
   return(
     <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', marginLeft: '-20px' }} className="card-map profile-mobile" gutter={[16, 16]}>
       {/* <div style={{ width: '100%', marginBottom: '-38px' }}></div> */}

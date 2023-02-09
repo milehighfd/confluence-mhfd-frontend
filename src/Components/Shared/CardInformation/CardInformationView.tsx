@@ -38,36 +38,15 @@ const CardInformationView = ({
     updateSelectedLayers,
     addFavorite,
     deleteFavorite,
-    favoriteList,
     setHighlighted
   } = useMapDispatch();
-  const { favorites } = useMapState();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {
     const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.id;
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;
-  useEffect(() => {
-    favoriteList(user.email);
-  },
-  []);
-  const isActive = (table: string, id: number): boolean => {
-    if (favorites) {      
-      for (const favorite of favorites) {
-        if (favorite.project_table_name === table && favorite.project_id === id) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  const [activeCard, setActiveCard] = useState(isActive(data.type || PROJECT_TABLE, data.project_id));
-  useEffect(() => {
-    const status = isActive(data.type || PROJECT_TABLE, data.problemid || data.project_id);
-    setActiveCard(status);    
-  }, [favorites, deleteFavorite, addFavorite]);
-
+ 
   const { bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
     autcomplete: state.map.autocomplete,
@@ -224,11 +203,11 @@ const CardInformationView = ({
                <Button onClick={(event) => {
                   event.stopPropagation();
 
-                  activeCard ?  deleteFunction(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
+                  data.isFavorite ?  deleteFunction(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
                 }
                }
                 >
-                 <div className={activeCard ? "like-img-on" : "like-img"}></div>
+                 <div className={data.isFavorite ? "like-img-on" : "like-img"}></div>
                 </Button>
              </div>: <></>}
            </div>
