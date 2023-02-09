@@ -15,6 +15,7 @@ const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
 const cost = (<div className="popoveer-00">Project Cost</div>);
 const total = (<div className="popoveer-00">Number Project</div>);
+const PROJECT_TABLE = 'mhfd_projects'
 
 const CardInformationView = ({
   data,
@@ -26,8 +27,8 @@ const CardInformationView = ({
   data: any,
   type: string,
   detailed: Detailed,
-  selectedOnMap: any,
-  setZoomProjectOrProblem: Function
+  selectedOnMap?: any,
+  setZoomProjectOrProblem?: Function
 }) => {
   const [visible, setVisible] = useState(false);
   const {
@@ -45,7 +46,6 @@ const CardInformationView = ({
     getBBOXComponents(data.type, id);
   }
   const user = store.getState().profile.userInformation;
-
   useEffect(() => {
     favoriteList(user.email);
   },
@@ -60,9 +60,9 @@ const CardInformationView = ({
     }
     return false;
   }
-  const [activeCard, setActiveCard] = useState(isActive(data.type || 'project', data.project_id));
+  const [activeCard, setActiveCard] = useState(isActive(data.type || PROJECT_TABLE, data.project_id));
   useEffect(() => {
-    const status = isActive(data.type || 'project', data.problemid || data.project_id);
+    const status = isActive(data.type || PROJECT_TABLE, data.problemid || data.project_id);
     setActiveCard(status);    
   }, [favorites, deleteFavorite, addFavorite]);
 
@@ -74,7 +74,8 @@ const CardInformationView = ({
   }));
   const changeCenter = () => {
     const project_id = data?.project_id;
-    if (project_id) {
+    if(setZoomProjectOrProblem){
+    if (project_id) {      
       datasets.getData(SERVER.GET_BBOX_BY_PROJECT_ID(project_id)).then((coordinates: any) => {
         if( coordinates.length ) {
           setZoomProjectOrProblem(coordinates);
@@ -82,7 +83,7 @@ const CardInformationView = ({
       });
     } else {
       setZoomProjectOrProblem(data.coordinates);
-    }
+    }}
     
   }
 
@@ -92,9 +93,11 @@ const CardInformationView = ({
 
   useEffect(() => {
     const bcbbox = bboxComponents.bbox;
-    if (bcbbox.length && bcbbox[0] != null) {
-      updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
-      setZoomProjectOrProblem(bcbbox[0]);
+    if (setZoomProjectOrProblem) {
+      if (bcbbox.length && bcbbox[0] != null) {
+        updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
+        setZoomProjectOrProblem(bcbbox[0]);
+      }
     }
   }, [bboxComponents]);
   const stopModal = (e: any) => {
@@ -181,7 +184,7 @@ const CardInformationView = ({
       />}
 
       <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}}>
-      <div className="border-line-green" style={{border: (selectedOnMap.id === data.cartodb_id && selectedOnMap.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
+      <div className="border-line-green" style={{border: (selectedOnMap?.id === data.cartodb_id && selectedOnMap?.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
         <Card
           // hoverable
           style={{ width: '100%', padding: '0px' }}
@@ -210,7 +213,7 @@ const CardInformationView = ({
                <Button onClick={(event) => {
                   event.stopPropagation();
 
-                  activeCard ?  deleteFavorite(user.email, (data.project_id || data.problemid), (data.type || 'project')) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || 'project'));
+                  activeCard ?  deleteFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
                 }
                }
                 >
