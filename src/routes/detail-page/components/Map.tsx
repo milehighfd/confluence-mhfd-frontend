@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
+import * as turf from '@turf/turf';
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, PlusOutlined } from "@ant-design/icons";
 import ReactDOMServer from 'react-dom/server';
@@ -14,6 +15,7 @@ import { getComponentCounter } from "dataFetching/map";
 import { ComponentPopup, MainPopup } from "Components/Map/MapPopups";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "Config/Server.config";
+import { getTitleOfProblemsPart } from "routes/map/components/MapFunctionsUtilities";
 
 var map: any;
 const Map = ({type}: {type: any}) => {
@@ -46,7 +48,7 @@ const Map = ({type}: {type: any}) => {
 }
 const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
   <>
-      <MainPopup id={-1} item={item} test={() => {}  } mapType={MAPTYPES.MAINMAP} ></MainPopup>
+      <MainPopup id={-1} item={item} test={() => {}  } mapType={'detail_map'} ></MainPopup>
   </>
 );
 const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
@@ -129,28 +131,50 @@ const addLayer = () => {
       // if (detailedPage?.cartodb_id) {
       //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
       // }
-      if (detailed?.projectid) {
-        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.projectid]);
+      if (detailed?.project_id) {
+        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.project_id]);
       }
       
       idProjectLine++;
     }
     i = 0;
     addMapListeners(MHFD_PROJECTS, 'projects-line_');
+    }
+    if (detailed?.coordinates) {
+      map.fitBounds([
+        detailed?.coordinates[0][0],
+        detailed?.coordinates[0][2]
+      ],
+        {
+          duration: 10
+        });
+    }else{
+      console.log(detailed)
+      if(detailed?.project_id){
+        datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
+          .then(
+            (cordinates: any) => {
+              // let coordinates = coor.coordinates[0];
+              // setGeom(coordinates);
+              // setEditLocation(coordinates);
+              const log =cordinates[0][0];
+              const lat = cordinates[0][1]
+              map.fitBounds(
+                [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
+                {
+                  duration: 10
+                })
+            },
+            (e) => {
+              console.log('e', e);
+            }
+          )
+      }
+    }
+    map.getLoadZoom(updateZoom);
+    map.getMoveZoom(updateZoom);
+    applyNearMapLayer();
   }
-  if (detailed?.coordinates) {
-    map.fitBounds([
-      detailed?.coordinates[0][0],
-      detailed?.coordinates[0][2]
-    ],
-      {
-        duration: 10
-      });
-  }
-  map.getLoadZoom(updateZoom);
-  map.getMoveZoom(updateZoom);
-  applyNearMapLayer();
-}
 }
   const addMapListeners = (key: string, value: string) => {
     const styles = { ...tileStyles as any };
@@ -176,18 +200,24 @@ const addLayer = () => {
               if ( map.getLayoutProperty(key + '_' + index, 'visibility') === 'none') {
                 return;
               }
-              if (key === MENU_OPTIONS.PROBLEMS) {
+              if (key === MENU_OPTIONS.PROBLEMS || key === 'problem_boundary') {
                 getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
+                
                 const item = {
-                    type: MENU_OPTIONS.PROBLEMS,
-                    title: e.features[0].properties.problemtype ? (e.features[0].properties.problemtype + ' Problem') : '-',
-                    name: e.features[0].properties.problemname ? e.features[0].properties.problemname : '-',
-                    organization: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                    value: e.features[0].properties.solutioncost ? e.features[0].properties.solutioncost : '0',
-                    status: e.features[0].properties.solutionstatus ? (e.features[0].properties.solutionstatus + '%') : '-',
-                    priority: e.features[0].properties.problempriority ? e.features[0].properties.problempriority + ' Priority': '-',
-                    popupId: 'popup-detailed-page'
-                };
+                  type: MENU_OPTIONS.PROBLEMS,
+                  streamname: e.features[0].properties.streamname,
+                  title: e.features[0].properties.problem_type ? (e.features[0].properties.problem_type + ' Problem') : '-',
+                  problem_type: e.features[0].properties.problem_type ? e.features[0].properties.problem_type: '-',
+                  name: e.features[0].properties.problem_name ? e.features[0].properties.problem_name : '-',
+                  organization: e.features[0].properties.local_government ? e.features[0].properties.local_government : '-',
+                  value: e.features[0].properties.estimated_cost ? e.features[0].properties.estimated_cost : e.features[0].properties.component_cost ? e.features[0].properties.component_cost : '-1',
+                  status: e.features[0].properties.component_status ? (e.features[0].properties.component_status + '%') : '-',
+                  priority: e.features[0].properties.problem_severity ? e.features[0].properties.problem_severity + ' Priority' : '-',
+                  problemid: e.features[0].properties.problem_id,
+                  component_count: e.features[0].properties.component_count ?? 0,
+                  popupId: 'popup-detailed-page',
+                  image: `gallery/${e.features[0].properties.problem_type}.png`,
+              };
                 html = loadMainPopup(item);
               }
               if (key.includes(MENU_OPTIONS.PROJECTS) && !key.includes('mep')) {
@@ -227,6 +257,20 @@ const addLayer = () => {
                     problem: problemname
                 };
                 html = loadComponentPopup(item);
+            }
+            if (e.features[0].source.includes('flood_hazard')||e.features[0].source.includes('stream_function')||e.features[0].source.includes('future_development')) {
+              const item = {
+                layer: getTitleOfProblemsPart(e.features[0]),
+                feature: getTitleOfProblemsPart(e.features[0]),
+                problem_part_category: e.features[0].properties.problem_part_category ? e.features[0].properties.problem_part_category : '-',
+                problem_part_subcategory: e.features[0].properties.problem_part_subcategory ? e.features[0].properties.problem_part_subcategory : '-',
+                problem_part_name: e.features[0].properties.problem_part_name ? e.features[0].properties.problem_part_name : '-',
+                source_complete_year: e.features[0].properties.source_complete_year ? e.features[0].properties.source_complete_year : '0',
+                stream_name: e.features[0].properties.stream_name ? e.features[0].properties.stream_name : '-',
+                local_government: e.features[0].properties.local_government ? e.features[0].properties.local_government : '-'
+      
+              };
+              html = loadComponentPopup(item);
             }
               if (key === MEP_PROJECTS_TEMP_LOCATIONS) {
                   const item = {
@@ -324,6 +368,11 @@ const addLayer = () => {
         div.innerHTML = `${counterPopup.componentes}`;
     }
 }, [counterPopup]);
+useEffect(() => {
+  if (map) {
+    map.isStyleLoaded(addLayer);
+  }
+}, [detailed]);
   return (
     <>
       <Row>

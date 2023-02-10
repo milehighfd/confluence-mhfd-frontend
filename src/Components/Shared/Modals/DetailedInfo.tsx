@@ -113,7 +113,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
       </Row>}
       {detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name.includes('Capital') && <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>MHFD Manager</i></label>
+          <label><i>MHFD Lead/PM</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{'N/A'}</p>

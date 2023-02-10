@@ -2148,7 +2148,7 @@ body{
   //pointer-events: none;
 }
 .status-d{
-  padding: 6px 0px 6px 40px;
+  padding: 6px 0px 6px 15px;
   .status-active{
     // margin-left: 5px;
     padding: 3px 7px;
@@ -2195,12 +2195,16 @@ body{
   }
 }
 .carouse-detail{
+  .ant-carousel {
+    background-color: #f5f7ff;
+  }
   .ant-carousel{
     padding: 0px !important;
     // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
     border-radius: 0px !important;
+    z-index: 3;
   }
   .detailed .ant-carousel .slick-dots{
     display: none !important;

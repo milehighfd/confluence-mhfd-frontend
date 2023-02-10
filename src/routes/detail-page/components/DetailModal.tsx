@@ -14,7 +14,7 @@ import { CarouselRef } from "antd/lib/carousel";
 import ImageModal from "Components/Shared/Modals/ImageModal";
 import History from "./History";
 import PineyView from "routes/portfolio-view/components/PineyView";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_MODAL } from "constants/constants";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from "Config/Server.config";
 import { useDetailedState } from "hook/detailedHook";
@@ -22,6 +22,8 @@ import DetailInformationProblem from "./DetailInformationProblem";
 import ProblemParts from "./ProblemParts";
 import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
+import ProblemsProjects from "./ProblemsProjects";
+import Vendors from "./Vendors";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -37,7 +39,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     getDetailedPageProblem,
     getDetailedPageProject,
     getComponentsByProblemId,
-    resetDetailed
+    resetDetailed,
+    existDetailedPageProject,
+    existDetailedPageProblem,
   } = useMapDispatch();
   const {
     detailed,
@@ -99,6 +103,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       setIsLoading(true)
     }
   }, [detailed])
+  useEffect(() => {
+    if(type === PROBLEMS_MODAL){
+      existDetailedPageProblem(data.problemid);
+    }else{
+      existDetailedPageProject(data.project_id);
+    }
+    
+  },[])
   return (
     <>
     {isLoading && <LoadingViewOverall />}
@@ -145,7 +157,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                       (detailed?.component_cost != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailed?.component_cost)): 'No Cost Data')}</b>
                   </div>
                 </>
-                  
                 ) : (
                   <div className="detailed-mmm">
                     <p style={{marginTop:'-10px'}}>Estimated Cost</p>
@@ -290,7 +301,10 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             }}
             ref={divRef}
           >
-            <Carousel className="detail-carousel" ref={carouselRef}>
+            <div style={{background:'#f5f7ff', position:'absolute', zIndex:'1', height:'266px', width:'100%'}}>
+            {/* <div className="detailed-c"></div> */}
+            </div>
+            <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3', height:'266px'}}>
               {detailed?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (
@@ -314,6 +328,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                        )
                     )}
             </Carousel>
+            {/* <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3'}}>
+              <div className="detailed-c"> <div style={{background:'red'}}/> </div>
+            </Carousel> */}
             {type === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} onClick={()=>{setOpenImage(true);setActive(2)}} />
             </div>
@@ -335,6 +352,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                 </>:
                 <>
                   <DetailInformationProject />
+                  <ProblemsProjects/>
+                  <Vendors/>
                   <ComponentSolucions />
                   <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
                   <Financials />

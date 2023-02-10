@@ -8,6 +8,8 @@ import { FILTER_PROBLEMS_TRIGGER } from "../../../constants/constants";
 import store from "../../../store";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useDetailedState } from "../../../hook/detailedHook";
+import { useProfileState } from '../../../hook/profileHook';
+const PROJECT_TABLE = 'mhfd_projects'
 
 const GenericTabView = ({
     totalElements,
@@ -21,7 +23,10 @@ const GenericTabView = ({
       setFilterProjectOptions, 
       setFilterComponentOptions,
       setZoomProjectOrProblem,
+      favoriteList
     } = useMapDispatch();
+    const { userInformation: user } = useProfileState();
+    const [data, setData] = useState<any>([]);
     const {
       detailed,
     } = useDetailedState();
@@ -30,6 +35,7 @@ const GenericTabView = ({
         filterProjectOptions,
         filterComponentOptions,
         selectedOnMap,
+        favorites
       } = useMapState();
     let totalElement = cardInformation.length;
     const size = 6;
@@ -37,6 +43,35 @@ const GenericTabView = ({
     if (totalElement) {
         sw = true;
     }
+    
+    useEffect(() => {
+        favoriteList(user.email);    
+    }, [user]);
+
+    const deleteFavorite = (id: number) => {
+        console.log('deleting ', id);
+        // TODO: fix the logic of this , dont get again the list of favorites
+        // only update the variable with a favorites.filter 
+        setTimeout(() => {
+            favoriteList(user.email);
+        }, 1000);
+    }
+
+    useEffect(() => {
+        if (favorites && cardInformation) {
+            console.log('new favorites size ', favorites.length);
+            setData(
+                cardInformation.map((ci: any) => {
+                    return {
+                        ...ci,
+                        isFavorite: favorites.some((f: any) => f.project_table_name === (ci.type || PROJECT_TABLE) && f.project_id === (ci.problemid || ci.project_id))
+                    }
+
+                })
+            )
+        }
+    }, [favorites, cardInformation]);
+
     const params = store.getState().map.paramFilters;
 
     const deleteFilter = (tag: string, value: string) => {
@@ -220,13 +255,14 @@ const GenericTabView = ({
                 endMessage={''}
                 loader={undefined}>
                 {sw ? state.items.map((i, index: number) => {
-                    return cardInformation[index] && <CardInformationView
+                    return data[index] && <CardInformationView
                         key={index}
-                        data={cardInformation[index]}
+                        data={data[index]}
                         detailed={detailed} 
                         type={type}
                         selectedOnMap={selectedOnMap}
                         setZoomProjectOrProblem={setZoomProjectOrProblem}
+                        deleteCallback={deleteFavorite}
                     />
                 }) : ''}
             </InfiniteScroll>
