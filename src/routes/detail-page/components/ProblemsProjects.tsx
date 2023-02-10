@@ -36,7 +36,7 @@ const ProblemsProjects = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
-          <Table dataSource={detailed?.problems && detailed?.problems?.length > 0  ?  problemPartsData : {}} columns={columns} pagination={false}/>
+          <Table dataSource={detailed?.problems && detailed?.problems?.length > 0  ?  problemPartsData : []} columns={columns} pagination={false}/>
         </Col>
       </Row>
     </>
