@@ -117,7 +117,7 @@ const initState = {
         keyword: '',
         column: 'projectname',
         order: 'asc',
-        projecttype: ['Maintenance','Capital'],
+        projecttype: [5,7],
         status: [5],
         startyear: '',
         completedyear: '',
@@ -166,7 +166,7 @@ const initState = {
     },
     filterProjects: {
         projectname: '',
-        projecttype: 'Maintenance,Capital',
+        projecttype: [5, 7],
         status: [5],
         startyear: '0',
         completedyear: '9999',
