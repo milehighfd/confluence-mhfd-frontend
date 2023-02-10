@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Calendar, Checkbox, Col, DatePicker, Dropdown, Input, Layout, Menu, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
 import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter";
-import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, PlusOutlined, UpOutlined } from "@ant-design/icons";
+import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, InfoCircleOutlined, PlusOutlined, UpOutlined } from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 import { drag } from "d3";
@@ -65,7 +65,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>MHFD Lead</p>
+                <p>MHFD Lead/PM</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?
@@ -85,7 +85,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>Total Cost</p>
+                <p>Total Estimated Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
                 {editView ?

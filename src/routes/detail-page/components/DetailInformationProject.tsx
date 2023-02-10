@@ -65,7 +65,7 @@ const DetailInformationProject = () => {
       </Row>
 
 
-      <Row>
+      {/* <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
           <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="problem">PROBLEM</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
@@ -84,9 +84,9 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.problems?.length > 0 && detailed?.problems[0]?.problempriority ? detailed?.problems[0]?.problempriority : 'N/A'}</p>
         </Col>
-      </Row>
+      </Row> */}
 
-      <Row>
+      {/* <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
           <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="vendors">VENDORS</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
@@ -105,7 +105,7 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.consultants && detailed?.consultants.length ? capitalizeWords(detailed?.consultants[0].business_associate.business_associate_name) : 'N/A' }</p>
         </Col>
-      </Row>
+      </Row> */}
     </>
   )
 }

@@ -22,6 +22,8 @@ import DetailInformationProblem from "./DetailInformationProblem";
 import ProblemParts from "./ProblemParts";
 import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
+import ProblemsProjects from "./ProblemsProjects";
+import Vendors from "./Vendors";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -155,7 +157,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                       (detailed?.component_cost != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailed?.component_cost)): 'No Cost Data')}</b>
                   </div>
                 </>
-                  
                 ) : (
                   <div className="detailed-mmm">
                     <p style={{marginTop:'-10px'}}>Estimated Cost</p>
@@ -348,6 +349,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                 </>:
                 <>
                   <DetailInformationProject />
+                  <ProblemsProjects/>
+                  <Vendors/>
                   <ComponentSolucions />
                   <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
                   <Financials />
