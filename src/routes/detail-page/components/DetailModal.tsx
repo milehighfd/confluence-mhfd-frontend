@@ -108,7 +108,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       existDetailedPageProject(data.project_id);
     }
     
-  })
+  },[])
   return (
     <>
     {isLoading && <LoadingViewOverall />}
