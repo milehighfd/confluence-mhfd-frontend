@@ -5,13 +5,13 @@ import { useDetailedState } from "hook/detailedHook";
 
 const Vendors = () => {
   const {detailed} = useDetailedState();
-  const problemPartsData = detailed?.contractors?.length > 0 ? detailed?.contractors?.map((data:any, index: any)=> {
-    return {
-      key: index,
-      type: data.business_associate? data.business_associate: 'N/A',
-      name: data.business_associate? data.business_associate: 'N/A',
-    }
-  }) : {};
+  // const problemPartsData = detailed?.contractors.length ? detailed?.contractors?.map((data:any, index: any)=> {
+  //   return {
+  //     key: index,
+  //     type: data.business_associate.business_associate_name? data.business_associate.business_associate_name: 'N/A',
+  //     name: 'N/A',
+  //   }
+  // }) : {};
   const columns = [
     {
       title: <>Typs</>,
@@ -36,7 +36,7 @@ const Vendors = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
-          <Table dataSource={detailed?.contractors  ?  problemPartsData : {}} columns={columns} pagination={false}/>
+          {/* <Table dataSource={detailed?.contractors.length &&  detailed?.consultants.length ?  problemPartsData : {}} columns={columns} pagination={false}/> */}
         </Col>
       </Row>
     </>
