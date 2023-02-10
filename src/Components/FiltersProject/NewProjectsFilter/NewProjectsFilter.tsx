@@ -43,6 +43,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
       console.log('paramProjects', paramProjects, filterProjectOptions);
     }, [paramProjects, filterProjectOptions]);
     const apply = (values: any, field: string) => {
+      console.log('values ', values, field);
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
         || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
@@ -57,6 +58,10 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
             if ('completedyear' === field) {
                 options['status'] = [...options['status'], 'Complete'];
                 options[field] = values;
+            } else if ('streamname' === field) {
+              options[field] = [values];
+            } else if ('totalcost' === field) {
+              options[field] = [values[0], values[values.length - 1]];
             } else {
                 options[field] = values;
             }
@@ -66,8 +71,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         if(originpage === 'portfolio' && setApplyFilter) {
           setApplyFilter(Math.random());
         } else {
-                               console.log('get gallery'); 
-                      getGalleryProjects();;
+          getGalleryProjects();;
         }
         options.servicearea = options.servicearea;
         options.county = options.county;
@@ -205,7 +209,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.consultant &&
-                    <CheckBoxFilters defaultValue={''}
+                    <CheckBoxFilters defaultValue={null}
                     data={paramProjects.consultant.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.consultant}
                     onSelect={(items: any) => apply(items, 'consultant')} />
@@ -215,7 +219,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.contractor &&
-                    <CheckBoxFilters defaultValue={''}
+                    <CheckBoxFilters defaultValue={null}
                     data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.contractor}
                     onSelect={(items: any) => apply(items, 'contractor')} />
@@ -285,7 +289,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                             apply(e, 'streamname');
                         }}>
                             {paramProjects.streamname.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} `}</Option>
+                                return element && <Option key={index} value={element.id}>{`${element.value} `}</Option>
                             })}
                         </Select>
                     </>

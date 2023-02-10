@@ -56,7 +56,7 @@ export const CheckBoxFilters = ({
         )
       }
       <Checkbox.Group 
-        defaultValue={[5]}
+        defaultValue={[defaultValue]}
         value={selectedData}
         options={data ? data.map((element: any) => {
           return {label: showLabel(element.value), value: element.id ? element.id : -1};

@@ -40,7 +40,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
       for(let i = minIndex; i <= maxIndex; i++ ) {
-        let value = `${data[i].min},${data[i].max}`;
+        let value = data[i].min;
         sData.push(value);
       }    
       setSelectedData(sData);
@@ -65,7 +65,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
         <Col xs={{ span: 45 }} lg={{ span: 23 }}  style={{ paddingLeft: '0px' }}>
           <Select
             placeholder="No min"
-            value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
+            value={minIndex === -1 ? 'No min' : moneyFormat(data[minIndex]?.min)}
             style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
@@ -88,7 +88,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
         <Col xs={{ span: 45 }} lg={{ span: 23 }} style={{ paddingRight: '0px' }} >
           <Select
             placeholder="No max"
-            value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
+            value={maxIndex === -1 ? 'No max' : moneyFormat(data[maxIndex]?.min)}
             style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if ( e > minIndex ) {
