@@ -46,7 +46,7 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any, detailPage?:any, mapType:any}) => {
-  console.log('item', item)
+  console.log('item', item, mapType)
   if(detailPage === undefined){
     detailPage =false;
   }
@@ -87,7 +87,7 @@ export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: 
           </div>
         </div>}
         </div>
-        { (!ep && detailPage===false)  && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
+        { ((!ep && detailPage===false) && mapType!=='detail_map')  && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
             { item.type != 'project' && <Button id={"buttonCreate-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Create Project</Button>}
             <Button id={"buttonPopup-" + id} style={{ width: sw? '100%' : '50%', color: '#28C499' }} onClick={() => test(item)} className="btn-borde">See Details</Button>
         </div>} 

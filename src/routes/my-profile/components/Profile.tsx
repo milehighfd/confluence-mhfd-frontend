@@ -146,6 +146,23 @@ const Profile = ({
         });
     }
   };
+
+  const uploadImage = (files: Array<any>) => {
+    console.log(files)
+    const dataForm: FormData = new FormData();
+    if (files) {
+      for (const file of files) {
+        dataForm.append('file', file.originFileObj);
+      }
+    }
+    datasets.postDataMultipart(SERVER.USER_UPLOAD_PHOTO, dataForm, datasets.getToken()).then(user => {      
+        console.log("EXITO")
+        getMe();      
+    })
+    
+  };
+
+
   const beforeUpload = (file: any) => {
     const isLt2M = file.size / 1024 / 1024 < 5;
     if (!isLt2M) {
@@ -156,13 +173,13 @@ const Profile = ({
 
   return (
     <div className="profile-myprofile">
-      <img src="/picture/user.png" height={90} width="90" style={{marginBottom:'15px', marginTop:'50px'}}/>
+      <img src={!user.photo ? "/picture/user-default.svg" : user.photo} height={90} width="90" style={{ marginBottom: '15px', marginTop: '50px' , borderRadius: '50%'}} />
       <div className="profile-change-image">
         <Upload showUploadList={false} beforeUpload={beforeUpload} onChange={({ file }: any) => {
           if (fileImage.uid !== file.uid) {
             setFileImage({...file});
             // spinValue(true);
-            // uploadImage([{ ...file }]);
+            uploadImage([{ ...file }]);
           }
         }} >
           <Button type="default" shape="circle" className="btn-edit-00">

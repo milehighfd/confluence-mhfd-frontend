@@ -47,7 +47,7 @@ const Map = ({type}: {type: any}) => {
 }
 const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
   <>
-      <MainPopup id={-1} item={item} test={() => {}  } mapType={MAPTYPES.MAINMAP} ></MainPopup>
+      <MainPopup id={-1} item={item} test={() => {}  } mapType={'detail_map'} ></MainPopup>
   </>
 );
 const loadComponentPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (

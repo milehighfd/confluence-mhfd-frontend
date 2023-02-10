@@ -2195,12 +2195,16 @@ body{
   }
 }
 .carouse-detail{
+  .ant-carousel {
+    background-color: #f5f7ff;
+  }
   .ant-carousel{
     padding: 0px !important;
     // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
     border-radius: 0px !important;
+    z-index: 3;
   }
   .detailed .ant-carousel .slick-dots{
     display: none !important;

@@ -60,11 +60,11 @@ const ImageModal = (
                 }
                 }):
                 <>
-                  <div style={{marginRight:'2.5%', background:'#f5f7ff'}} className='img-list'/>
-                  <div style={{marginLeft:'2.5%', background:'#f5f7ff' }} className='img-list'/>
-                  <div className='img-list-big' style={{background:'#f5f7ff'}}/>
-                  <div style={{marginRight:'2.5%', background:'#f5f7ff'}} className='img-list'/>
-                  <div style={{marginLeft:'2.5%', background:'#f5f7ff'}} className='img-list'/>
+                  <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
+                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px' }} className='img-list'/>
+                  <span className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px'}}/>
+                  <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
+                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
                 </>
               }
               </Col>
