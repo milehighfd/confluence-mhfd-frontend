@@ -8,7 +8,7 @@ export const CheckBoxFilters = ({
   labels,
   showControls=true,
 }: any) => {
-  const [selectedData, setSelectedData] = useState<any[]>([]);
+  const [selectedData, setSelectedData] = useState<string[]>([]);
 
 
   useEffect(() => {
@@ -56,14 +56,14 @@ export const CheckBoxFilters = ({
         )
       }
       <Checkbox.Group 
-        defaultValue={[defaultValue]}
+        defaultValue={['Active']}
         value={selectedData}
         options={data ? data.map((element: any) => {
-          return {label: showLabel(element.value), value: element.id ? element.id : -1};
+          return {label: showLabel(element.value), value: element.value ? element.value : ''};
         }) : []}
         onChange={(e) => {
-          setSelectedData(e);
-       }} />
+        setSelectedData(e.map(lol => `${lol}`));
+      }} />
     </>
   )
 }

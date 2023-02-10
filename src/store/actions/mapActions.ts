@@ -174,11 +174,12 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         workplanyr: filters.workplanyear, 
         mhfdmanager: filters.mhfdmanager,
         jurisdiction: filters.jurisdiction,
-        county: filters.county.replace("County", "").trim(),
+        // replace County is missing
+        county: filters.county,
         problemtypeProjects: [] as any,
         consultant: filters.consultant,
         contractor: filters.contractor,
-        servicearea: filters.servicearea.trim(),
+        servicearea: filters.servicearea,
         keyword
     }
     return (dispatch: Function) => {
@@ -338,7 +339,6 @@ export const getGalleryProjects = (origin?: any) => {
             }
             dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
-        console.log('origins', origin, origin != 'bounds');
        if (origin != 'bounds') {
          dispatch(getProjectsFilteredIds());
        }
@@ -438,13 +438,16 @@ export const getParamsFilter = (bounds: string) => {
 }
 export const getParamFilterProjects = (bounds: string, data?: any) => {
     if (data) {
-        data.county = data.county.replace("County", "").trim();
-        data.servicearea = data.servicearea.replace("Service Area", "").trim();
+        data.county = data.county;
+        // data.servicearea = data.servicearea.replace("Service Area", "");
+        data.servicearea = data.servicearea
     }
     return (dispatch: Function) => {
-        datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then(params => {
+        datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {
             if (params) {
-                dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params });
+              const projectsCounters = params['data'];
+              console.log('reaches herer', projectsCounters);
+              dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
             }
         })
     }

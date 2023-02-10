@@ -17,7 +17,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    let sData = selected ? selected : [];
+    let sData = selected === '' ? [] : selected.split(',')
     setSelectedData(sData);
   }, [selected])
 
@@ -33,17 +33,16 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
   let sum = 0;
   (data || []).forEach((d: any) => {
-    sum += d.counter ? d.counter : 0 ;
+    sum += d.counter;
   });
   data = {
     name: '',
     children: (data || []).map((d: any) => {
       return {
         name: d.value,
-        value: d.counter ? d.counter : 0,
+        value: d.counter,
         colname: 'level2',
-        percentage: (d.counter ? d.counter : 0) / sum,
-        id: d.id
+        percentage: (d.counter) / sum
       }
     })
   }
@@ -77,16 +76,16 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const fontSizePercentage = '9px';
 
   let clickFn = (d: any) => {
-    let index = selectedData.indexOf(d.data.id);
+    let index = selectedData.indexOf(d.data.name);
     if (index !== -1) {
       setSelectedData(selectedData.filter((_, ind) => ind !== index))
     } else {
-      setSelectedData([...selectedData, d.data.id])
+      setSelectedData([...selectedData, d.data.name])
     }
   }
 
   useEffect(() => {
-console.log('selecteed', selectedData);
+
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
 
@@ -109,7 +108,7 @@ console.log('selecteed', selectedData);
 
     rects
       .style("fill", function (d: any) {
-        let index = selectedData.indexOf(d.data.id);
+        let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
           return color;
         } else {
@@ -153,7 +152,7 @@ console.log('selecteed', selectedData);
 
     newRects
       .style("fill", function (d: any) {
-        let index = selectedData.indexOf(d.data.id);
+        let index = selectedData.indexOf(d.data.name);
         if (index !== -1) {
           return color;
         } else {
@@ -286,11 +285,10 @@ console.log('selecteed', selectedData);
   }, [data, selectedData])
 
   const apply = () => {
-    console.log('selected ', selectedData);
     if (type === 'county' && tab === 'problem') {
       onSelect(selectedData)
     } else {
-      onSelect(selectedData)
+      onSelect(selectedData.join(','))
     }
   }
 

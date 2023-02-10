@@ -117,8 +117,8 @@ const initState = {
         keyword: '',
         column: 'projectname',
         order: 'asc',
-        projecttype: 'Maintenance,Capital',
-        status: 'Active',
+        projecttype: ['Maintenance','Capital'],
+        status: [5],
         startyear: '',
         completedyear: '',
         mhfddollarsallocated: [],
@@ -167,7 +167,7 @@ const initState = {
     filterProjects: {
         projectname: '',
         projecttype: 'Maintenance,Capital',
-        status: 'Active',
+        status: [5],
         startyear: '0',
         completedyear: '9999',
         mhfddollarsallocated: [],
@@ -604,8 +604,8 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.SET_FILTER_PROJECTS: {
-            action.filters.servicearea = action.filters.servicearea.trim();
-            action.filters.county = action.filters.county.replace("County", "").trim();
+            action.filters.servicearea = action.filters.servicearea;
+            action.filters.county = action.filters.county;
             return {
                 ...state,
                 filterProjects: action.filters

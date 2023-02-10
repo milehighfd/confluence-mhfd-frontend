@@ -1,20 +1,33 @@
 import { Button, Select, Col } from 'antd';
 import React, { useEffect, useState } from 'react';
 
+const transformSelectedData = (sData: any) => {
+  return sData.map((r: any) => `${r}`);
+};
+
 const { Option } = Select;
 
-export const DropdownFiltersYears = ({ type, selected, onSelect, defaultValue, labels, showControls = true }: any) => {
+export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showControls = true }: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
-  const data: any = [{"value":2000,"counter":0},{"value":2001,"counter":0},{"value":2002,"counter":0},{"value":2003,"counter":0},{"value":2004,"counter":null},{"value":2005,"counter":0},{"value":2006,"counter":0},{"value":2007,"counter":0},{"value":2008,"counter":null},{"value":2009,"counter":null},{"value":2010,"counter":0},{"value":2011,"counter":null},{"value":2012,"counter":null},{"value":2013,"counter":null},{"value":2014,"counter":null},{"value":2015,"counter":null},{"value":2016,"counter":null},{"value":2017,"counter":null},{"value":2018,"counter":null},{"value":2019,"counter":null},{"value":2020,"counter":null},{"value":2021,"counter":null},{"value":2022,"counter":null},{"value":2023,"counter":0},{"value":2024,"counter":0},{"value":2025,"counter":0},{"value":2026,"counter":null},{"value":2027,"counter":null},{"value":2028,"counter":null},{"value":2029,"counter":null},{"value":2030,"counter":null}];
-  const apply = () => {
-    if (type === 'yearofstudy') {
-      onSelect(selectedData);
-    } else {
-      onSelect(selectedData.join(','));
+
+  const moneyFormat = (money: any) => {
+    if (isNaN(+money)) {
+      return money;
     }
+    let million = false;
+    let amount = money;
+    if (+money >= 1_000_000) {
+      amount = (+money / 1_000_000);
+      million = true;
+    }
+    return `$${amount.toFixed(0)}${million ? 'M' : ''}`;
   }
+
+  const apply = () => {
+    onSelect(transformSelectedData(selectedData));
+  };
 
   const reset = () => {
     onSelect(defaultValue);
@@ -27,9 +40,8 @@ export const DropdownFiltersYears = ({ type, selected, onSelect, defaultValue, l
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
       for(let i = minIndex; i <= maxIndex; i++ ) {
-        if (data[i]) {
-          sData.push(data[i].value);
-        }
+        let value = `${data[i].min},${data[i].max}`;
+        sData.push(value);
       }    
       setSelectedData(sData);
     }
@@ -50,10 +62,10 @@ export const DropdownFiltersYears = ({ type, selected, onSelect, defaultValue, l
         <div style={{ marginBottom: 10 }}></div>
       )}
       <div className='dropdown-container-filter'>
-        <Col span={11}>
+        <Col xs={{ span: 45 }} lg={{ span: 23 }}  style={{ paddingLeft: '0px' }}>
           <Select
-            placeholder="Min year"
-            value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
+            placeholder="No min"
+            value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
             style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
@@ -65,18 +77,18 @@ export const DropdownFiltersYears = ({ type, selected, onSelect, defaultValue, l
           >
             {(data || []).map((element: any, index: number) => {
               return (
-                element && <Option key={index} value={index}>{`${element?.value} `}</Option>
+                element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
               );
             })}
           </Select>
         </Col>
-        <Col span={2} >
+        <Col xs={{ span: 6 }} lg={{ span: 3 }} style={{ paddingRight: '0px', paddingLeft: '0px' }} >
           <hr className='linedropdown'></hr>
         </Col>
-        <Col span={11}>
+        <Col xs={{ span: 45 }} lg={{ span: 23 }} style={{ paddingRight: '0px' }} >
           <Select
-            placeholder="Max year"
-            value={maxIndex === -1 ? 'Max year' : data[maxIndex]?.value}
+            placeholder="No max"
+            value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
             style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
               if ( e > minIndex ) {
@@ -88,7 +100,7 @@ export const DropdownFiltersYears = ({ type, selected, onSelect, defaultValue, l
           >
             {(data || []).map((element: any, index: number) => {
               return (
-                element && <Option key={index} value={index}>{`${element?.value} `}</Option>
+                element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
               );
             })}
           </Select>
