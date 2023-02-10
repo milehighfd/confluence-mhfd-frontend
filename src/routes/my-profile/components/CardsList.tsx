@@ -26,11 +26,11 @@ const CardsList = ({
   const [data, setData] = useState<Array<Object>>([]);
 
   const updateFavoritesAndCount = (id: number) => {
-    if (type === 'Projects') {
-      getCount();
+    if (type === 'Projects') {      
       setData((data: Array<Object>) => {
         return data.filter((d: any) => d.project_id !== id)
       })
+      getCount();     
     }
   }
 
