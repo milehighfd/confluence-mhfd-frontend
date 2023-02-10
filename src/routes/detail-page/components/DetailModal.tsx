@@ -14,7 +14,7 @@ import { CarouselRef } from "antd/lib/carousel";
 import ImageModal from "Components/Shared/Modals/ImageModal";
 import History from "./History";
 import PineyView from "routes/portfolio-view/components/PineyView";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_MODAL } from "constants/constants";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from "Config/Server.config";
 import { useDetailedState } from "hook/detailedHook";
@@ -37,7 +37,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     getDetailedPageProblem,
     getDetailedPageProject,
     getComponentsByProblemId,
-    resetDetailed
+    resetDetailed,
+    existDetailedPageProject,
+    existDetailedPageProblem,
   } = useMapDispatch();
   const {
     detailed,
@@ -99,6 +101,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       setIsLoading(true)
     }
   }, [detailed])
+  useEffect(() => {
+    if(type === PROBLEMS_MODAL){
+      existDetailedPageProblem(data.problemid);
+    }else{
+      existDetailedPageProblem(data.project_id);
+    }
+    
+  })
   return (
     <>
     {isLoading && <LoadingViewOverall />}
@@ -290,7 +300,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             }}
             ref={divRef}
           >
-            <Carousel className="detail-carousel" ref={carouselRef}>
+            <div className="detail-carousel" style={{background:'#f5f7ff', position:'absolute', zIndex:'1'}}></div>
+            <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3'}}>
               {detailed?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (

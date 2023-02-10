@@ -129,8 +129,8 @@ const addLayer = () => {
       // if (detailedPage?.cartodb_id) {
       //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
       // }
-      if (detailed?.projectid) {
-        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.projectid]);
+      if (detailed?.project_id) {
+        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.project_id]);
       }
       
       idProjectLine++;

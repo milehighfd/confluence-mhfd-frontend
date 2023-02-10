@@ -48,7 +48,7 @@ const ImageModal = (
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-              {detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
+              {detailed?.attachments && detailed?.attachments?.length !== 0  ? detailed?.attachments.map((image: string, index: number) => {
                 if(index % 3){
                   return <img src={image} alt="" className='img-list-big' onClick={carouselRef.current.goTo(index)}/>
                 }else {
@@ -58,7 +58,14 @@ const ImageModal = (
                     return <img src={image} alt="" style={{marginRight:'5%'}} className='img-list'/>
                   }
                 }
-                })
+                }):
+                <>
+                  <div style={{marginRight:'2.5%', background:'#f5f7ff'}} className='img-list'/>
+                  <div style={{marginLeft:'2.5%', background:'#f5f7ff' }} className='img-list'/>
+                  <div className='img-list-big' style={{background:'#f5f7ff'}}/>
+                  <div style={{marginRight:'2.5%', background:'#f5f7ff'}} className='img-list'/>
+                  <div style={{marginLeft:'2.5%', background:'#f5f7ff'}} className='img-list'/>
+                </>
               }
               </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
@@ -73,13 +80,17 @@ const ImageModal = (
                   </div>
                 }):
                 <div className="detailed-c">
-                  <div className='img-modal' style={{background:'#eae8f0'}}>
+                  <div className='img-modal' style={{background:'#f5f7ff'}}>
                   </div>
                 </div>
                 )}
               </Carousel>
               <div className='tag-carousel'>
-                {numberCarousel} of {numberElementCarousel}
+                {detailed?.attachments?.length !== 0 && detailed?.attachments ?
+                `${numberCarousel} of ${numberElementCarousel}`
+                :
+                'detailed?.attachments?.length !== 0 &&'
+                }
               </div>
               <div className='btn-left-carousel'>
                 <LeftOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}}/>

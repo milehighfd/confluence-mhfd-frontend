@@ -130,8 +130,8 @@ const addLayer = () => {
       // if (detailedPage?.cartodb_id) {
       //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
       // }
-      if (detailed?.projectid) {
-        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.projectid]);
+      if (detailed?.project_id) {
+        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.project_id]);
       }
       
       idProjectLine++;
@@ -156,10 +156,8 @@ const addLayer = () => {
               // let coordinates = coor.coordinates[0];
               // setGeom(coordinates);
               // setEditLocation(coordinates);
-              console.log(cordinates, 'RRRRRRyaaayyyyy')
               const log =cordinates[0][0];
               const lat = cordinates[0][1]
-              console.log(log, lat, 'sllllllllllllllllllla')
               map.fitBounds(
                 [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
                 {
