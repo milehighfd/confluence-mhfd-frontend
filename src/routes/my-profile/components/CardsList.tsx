@@ -149,6 +149,7 @@ const CardsList = ({
               detailed={detailed}
               type={type}
               deleteCallback={updateFavoritesAndCount}
+              isProfile = {true}
             />
           }) : ''}
         </InfiniteScroll>

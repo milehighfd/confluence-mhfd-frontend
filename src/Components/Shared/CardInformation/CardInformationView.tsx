@@ -23,7 +23,8 @@ const CardInformationView = ({
   detailed,
   selectedOnMap,
   setZoomProjectOrProblem,
-  deleteCallback
+  deleteCallback,
+  isProfile
 }: {
   data: any,
   type: string,
@@ -31,6 +32,7 @@ const CardInformationView = ({
   selectedOnMap?: any,
   setZoomProjectOrProblem?: Function,
   deleteCallback?: Function,
+  isProfile?: boolean
 }) => {
   const [visible, setVisible] = useState(false);
   const {
@@ -150,14 +152,15 @@ const CardInformationView = ({
   }
 
   const deleteFunction = (email: string, id: number, table: string) => {
-    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      if (deleteCallback) {
-        deleteCallback(id);
-      }
-    });
+    deleteFavorite(email, id, table);
+    if (deleteCallback) {
+      deleteCallback(id);
+    }
   }
-
-  
+  const xs: any = isProfile ? { span: 24 } : 24
+  const lg: any = isProfile ? { span: 8 } : 12
+  const md: any = isProfile ? null : 12
+  const style : any = isProfile ? { width: '100%', display: 'inline-flex', alignSelf: 'stretch', paddingBottom: '15px', paddingLeft:'0px', paddingRight:'0px' } : {display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}
   return (
     <>
       {/* {visible && <DetailedModal
@@ -173,8 +176,8 @@ const CardInformationView = ({
         data={data}
         type={type}
       />}
-
-      <Col xs={24} lg={12} md={12} style={{display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}}>
+      
+       <Col xs={xs} lg={lg} md={md} style={style}>
       <div className="border-line-green" style={{border: (selectedOnMap?.id === data.cartodb_id && selectedOnMap?.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
         <Card
           // hoverable
@@ -200,7 +203,7 @@ const CardInformationView = ({
                 </div>
              </div>
 
-             {user.designation !== 'guest' ? <div className="like-btn">
+             {user?.designation?.toLocaleLowerCase() !== 'guest' ? <div className="like-btn">
                <Button onClick={(event) => {
                   event.stopPropagation();
 
@@ -215,9 +218,9 @@ const CardInformationView = ({
          }
         >
 
-          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
+          {!isProfile && <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
-          </Popover>
+          </Popover>}
           <div className="card-title-s">
             <h4>{data.requestName}</h4>
           </div>
