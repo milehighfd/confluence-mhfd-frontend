@@ -5,7 +5,7 @@ import { useDetailedState } from "hook/detailedHook";
 
 const ProblemsProjects = () => {
   const {detailed} = useDetailedState();
-  const problemPartsData = detailed?.problems?.length > 0 ? detailed?.problems?.map((data:any, index: any)=> {
+  const problemPartsData = detailed?.problems && detailed?.problems?.length > 0 ? detailed?.problems?.map((data:any, index: any)=> {
     return {
       key: index,
       name: data.problemname? data.problemname: 'N/A',
@@ -36,7 +36,7 @@ const ProblemsProjects = () => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
-          <Table dataSource={detailed?.problems?.length > 0  ?  problemPartsData : {}} columns={columns} pagination={false}/>
+          <Table dataSource={detailed?.problems && detailed?.problems?.length > 0  ?  problemPartsData : {}} columns={columns} pagination={false}/>
         </Col>
       </Row>
     </>
