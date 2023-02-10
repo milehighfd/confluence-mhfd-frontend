@@ -59,13 +59,16 @@ const ImageModal = (
                   }
                 }
                 }):
-                <>
-                  <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
-                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px' }} className='img-list'/>
-                  <span className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px'}}/>
-                  <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
-                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
-                </>
+                <div style={{display:'flex',  background:'#f5f7ff', borderRadius:'15px', width: '100%', height: '100%'}}>
+
+                  {/* <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block'}} className='img-list'/>
+                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block' }} className='img-list'/>
+                  <br></br>
+                  <span className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px', display: 'block'}}/>
+                  <br></br>
+                  <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block'}} className='img-list'/>
+                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block'}} className='img-list'/> */}
+                </div>
               }
               </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
@@ -89,7 +92,7 @@ const ImageModal = (
                 {detailed?.attachments?.length !== 0 && detailed?.attachments ?
                 `${numberCarousel} of ${numberElementCarousel}`
                 :
-                'detailed?.attachments?.length !== 0 &&'
+                'No Image Available'
                 }
               </div>
               <div className='btn-left-carousel'>

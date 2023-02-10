@@ -328,6 +328,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                        )
                     )}
             </Carousel>
+            {/* <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3'}}>
+              <div className="detailed-c"> <div style={{background:'red'}}/> </div>
+            </Carousel> */}
             {type === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} onClick={()=>{setOpenImage(true);setActive(2)}} />
             </div>
