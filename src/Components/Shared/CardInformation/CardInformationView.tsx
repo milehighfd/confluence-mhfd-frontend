@@ -243,24 +243,16 @@ const CardInformationView = ({
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
-            <Popover placement="topLeft" content={type}>
               {data.priority === 'High' ? <p style={{ color: 'red', width: '88%', fontSize: '13px' }}>{data.priority} Priority</p> :
               data.priority === 'Low' ? <p style={{ color: '#28c499', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p> :
               <p style={{ color: '#FFD300', width: '80%', fontSize: '13px' }}>{data.priority} Priority</p>
               }
-            </Popover>
-            <Popover content={status}>
-              <span style={{ textAlign: 'right', width: '20%', fontSize: '13px' }}> {data.percentage}% Solved</span>
-            </Popover>
+              <span style={{ textAlign: 'right', width: '50%', fontSize: '13px' }}> {data.percentage}% Solved</span>
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
-               <Popover placement="topLeft" content={type}>
                  <p style={{ color: ' #11093c', width: '80%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
-               </Popover>
-               <Popover content={status}>
                   <span style={{ textAlign: 'right', width: '20%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
-                </Popover>
               </div>
             )}
         </Card>
