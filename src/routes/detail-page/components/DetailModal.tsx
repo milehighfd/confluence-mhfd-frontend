@@ -185,7 +185,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(0)}}>Project Basics</a>
           <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(1)}}>Problem</a>
           <a href="#vendors" className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(2)}}>Vendors</a>
-          <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(3)}}>Component & Solutions</a>
+          <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(3)}}>Proposed Actions</a>
           <a href="#project-roadmap" className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(4)}}>Project Roadmap</a>
           <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(5)}}>Graphical View</a>
           <a href="#project-financials" className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(6)}}>Project Financials</a>
@@ -328,9 +328,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                        )
                     )}
             </Carousel>
-            {/* <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3'}}>
-              <div className="detailed-c"> <div style={{background:'red'}}/> </div>
-            </Carousel> */}
             {type === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} onClick={()=>{setOpenImage(true);setActive(2)}} />
             </div>
