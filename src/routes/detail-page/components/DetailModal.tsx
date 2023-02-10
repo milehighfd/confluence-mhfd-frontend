@@ -300,10 +300,10 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             }}
             ref={divRef}
           >
-            <div className="detail-carousel" style={{background:'#f5f7ff', position:'absolute', zIndex:'1'}}>
-            <div className="detailed-c"></div>
+            <div style={{background:'#f5f7ff', position:'absolute', zIndex:'1', height:'266px', width:'100%'}}>
+            {/* <div className="detailed-c"></div> */}
             </div>
-            <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3'}}>
+            <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3', height:'266px'}}>
               {detailed?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (
