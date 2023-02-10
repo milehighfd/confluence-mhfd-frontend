@@ -105,7 +105,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     if(type === PROBLEMS_MODAL){
       existDetailedPageProblem(data.problemid);
     }else{
-      existDetailedPageProblem(data.project_id);
+      existDetailedPageProject(data.project_id);
     }
     
   })
