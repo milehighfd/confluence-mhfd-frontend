@@ -9,24 +9,88 @@ import { useMapDispatch } from '../../../hook/mapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
 import CardsView from 'routes/profile-view/components/CardsView';
 import CardsViewProfile from './CardViewProfile';
+import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from 'Config/Server.config';
 
 const { Search } = Input;
 
 const CardsList = ({
   type,
-  data,
-  filter,
+  getCount,
 }: {
   type: string,
-  data: Array<any>,
-  filter: string,
+  getCount: Function,
 }) => {
   const { detailed } = useDetailedState();
+  const [data, setData] = useState<Array<Object>>([]);
+
+  const updateFavoritesAndCount = (id: number) => {
+    if (type === 'Projects') {      
+      setData((data: Array<Object>) => {
+        return data.filter((d: any) => d.project_id !== id)
+      })
+      getCount();     
+    }
+  }
+
+  const getProjectCards = () =>{
+    if (type === 'Projects') {
+      datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
+        setData(result.map((project: any) => {
+          const projectType = project?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+          const x = {
+            cartodb_id: project.project_id,
+            project_id: project.project_id,
+            // TODO: MISSING IMAGES
+            // FEMA Grant Management
+            // Letter of Map Change
+            // FHAD to PMR (PMR)
+            // Development Improvement Project (DIP)
+            // General Maintenance
+            // Permitting
+            // Maintenance Eligibiity Project (MEP)
+            // Research and Development (RD)
+            image: (
+              projectType === 'Capital (CIP)' ? '/projectImages/capital.png' :
+                projectType === 'Planning Study (Study)' ? '/projectImages/study.png' :
+                  projectType === 'Special' ? '/projectImages/special.png' :
+                    projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                      projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+                        projectType === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
+                          projectType === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+                            projectType === 'Routine Trash and Debris' ? '/projectImages/debris-management.png' : '/projectImages/watershed-change.png'
+            ),
+            requestName: project.project_name,
+            sponsor: project.sponsor,
+            estimatedCost: project.estimatedcost ? project.estimatedcost : project.finalcost,
+            componentCost: project.component_cost ? project.component_cost : 0,
+            status: project?.project_status?.code_phase_type?.code_status_type?.status_name,
+            projecttype: projectType,
+            objectid: project.objectid,
+            type: project.type,
+            value: project.cartodb_id,
+            id: project.projectId,
+            totalComponents: project.totalComponents,
+            isFavorite: true
+            // coordinates: project.coordinates[0]
+          }
+          return x;
+        }));
+      });
+    } else {
+      console.log("NADA")
+    }
+
+  }
+  useEffect(() => {
+    getProjectCards();
+  }, []);
+
   const {
     favoriteCards: search,
   } = useMapDispatch();
   let totalElement = data.length;
-  const datas = (type === 'Problems' || (type === 'Projects' && !filter)) ? data:  data.filter(element => element.projecttype === filter);
   const size = 8;
   let sw = false;
   if (totalElement) {
@@ -49,23 +113,7 @@ const CardsList = ({
   }, [totalElement])
 
 
-  const menu = () => {
-    const onClickItemMenu = (e: any)=> {
-      const auxOptions = { ...options };
-      auxOptions.column = e.key;
-      setOptions(auxOptions);
-      search(user.email, type === 'Problems', auxOptions);
-    };
-    const itemMenu: MenuProps['items'] = [];
-    valueDropdown.forEach((element) => {
-      itemMenu.push({
-        key: element.name,
-        label: <span className="menu-item-text">{element.title}</span>
-      })
-    });
-    return <Menu className="profile-menu" items={itemMenu} onClick={onClickItemMenu} defaultSelectedKeys={['problemname']}>
-    </Menu>
-  }
+  
   const fetchMoreData = () => {
     if (state.items.length >= totalElement - size) {
       const auxState = { ...state };
@@ -82,32 +130,27 @@ const CardsList = ({
       setState(auxState);
     }, 500);
   };
-  const deleted = (id: number, type: string) => {
-    deleteFavorite(user.email, id, type);
-    console.log('what is this used for??', type);
-    search(user.email, type === 'problems', options);
-  }
   return(
     <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', marginLeft: '-20px' }} className="card-map profile-mobile" gutter={[16, 16]}>
-    {/* <div style={{ width: '100%', marginBottom: '-38px' }}></div> */}
+      {/* <div style={{ width: '100%', marginBottom: '-38px' }}></div> */}
       <div style={{ width: '100%', marginBottom: '-38px' }}>
         <InfiniteScroll
           dataLength={state.items.length}
           next={fetchMoreData}
           hasMore={state.hasMore}
-        /*  loader={datas.length ? <h4>Loading...</h4> : ''} */
-          loader={datas.length ? '': ''}
-          // height={window.innerHeight - 400}
-          endMessage={''}>
-          {sw ? datas.map((data, index: number) => {
-            return data &&
-              <CardsViewProfile
-                key={'profile-card-' + data.cartodb_id}
-                data={data}
-                type={type}
-                detailed={detailed}
-                deleted={deleted}
-              />
+          height={window.innerHeight - 245}
+          className="scroll-infinite-mobile"
+          endMessage={''}
+          loader={undefined}>
+          {sw ? state.items.map((i, index: number) => {
+            return data[index] && <CardInformationView
+              key={index}
+              data={data[index]}
+              detailed={detailed}
+              type={type}
+              deleteCallback={updateFavoritesAndCount}
+              isProfile = {true}
+            />
           }) : ''}
         </InfiniteScroll>
       </div>

@@ -11,6 +11,7 @@ export const SERVER = (function () {
     const AUTH = 'auth';
     const LOGIN = 'login';
     const GUEST = 'guest';
+    const BBOX = 'bbox'
     const PROJECT = 'projects';
     const PROBLEMS = 'problems';
     const ATTACHMENT = 'attachments';
@@ -48,6 +49,7 @@ export const SERVER = (function () {
     const UPLOAD_PHOTO = 'upload-photo';
     const USER_ACTIVITY = 'user-activity';
     const COUNT_PROJECTS_BY_CREATOR = 'counter-projects-by-creator';
+    const COUNT = 'count';
     const USER_ACTIVITY_CSV = 'user-activity/csv';
     const GET_ALL = 'get-all?';
     const UPDATE = 'update';
@@ -71,6 +73,9 @@ export const SERVER = (function () {
     const DETAILED_PAGE = 'detailed-page';
     const DELETE_USER = 'delete-user';
     const PARAM_FILTER_PROJECTS = 'card-filters';
+    const DELETE_ENTRY = 'delete-entry';
+    const MODIFY_USER_STATUS = 'modify-user-status';
+    // const PARAM_FILTER_PROJECTS = 'params-filter-projects';
     const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
     const PARAM_FILTER_COMPONENTS = 'params-filter-components';
     const COUNTER_PROJECTS = 'projects-counter';
@@ -190,10 +195,14 @@ export const SERVER = (function () {
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         MAP_CENTER_SEARCH: `${URL_BASE.BASE}/${MAP}/${GET_AOI_CENTER}`,
         GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/all-localities`,// `${URL_BASE.BASE}/${ZOOMAREA}/complete`,
+        GROUP_ORGANIZATION_NO_GEOM: `${URL_BASE.BASE}/v2/locality/all-localities?nogeom=1`,
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${PARAM_FILTER_PROJECTS}`,
+        DELETE_USER_ENTRY: `${URL_BASE.BASE}/${ADMIN}/${DELETE_ENTRY}`,
+        CHANGE_USER_STATUS: `${URL_BASE.BASE}/${ADMIN}/${MODIFY_USER_STATUS}`,
+        // PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
         PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
         COUNTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROJECTS}`,
@@ -204,10 +213,11 @@ export const SERVER = (function () {
         PROBLEMNAME: `${URL_BASE.BASE}/${MAP}/${PROBLEMNAME}`,
         PROBLEMNNAMECOMP: `${URL_BASE.BASE}/${PROBLEMS}/${PROBLEMNAMECOMP}`,
         FAVORITES: `${URL_BASE.BASE}/${FAVORITES}`,
-        COUNT_FAVORITES: `${URL_BASE.BASE}/${FAVORITES}/count`,
+        COUNT_FAVORITES: `${URL_BASE.BASE}/${FAVORITES}/${COUNT}`,
         ADD_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}/${ADD_FAVORITE}`,
         DELETE_FAVORITE: `${URL_BASE.BASE}/${FAVORITES}`,
         FAVORITE_CARDS: `${URL_BASE.BASE}/${FAVORITES}/${FAVORITE_CARDS}`,
+        FAVORITE_PROJECTS: `${URL_BASE.BASE}/${FAVORITES}/project-cards`,
         CREATE_ACQUISITION:`${URL_BASE.BASE}/${CREATE}/${ACQUISITION}`,
         CREATE_CAPITAL:`${URL_BASE.BASE}/${CREATE}/${CAPITAL}`,
         CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
@@ -290,6 +300,9 @@ export const SERVER = (function () {
         GET_GEOM_BY_PROJECTID: (projectId: any) => {
           return `${URL_BASE.BASE}/board/coordinates/${projectId}`
         },
+        GET_BBOX_PROJECTID: (projectId: any) => {
+            return `${URL_BASE.BASE}/${PROJECT}/${BBOX}/${projectId}`
+          },
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
           },

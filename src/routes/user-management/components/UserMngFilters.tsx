@@ -18,7 +18,15 @@ const ROLES = ['MHFD Senior Manager', 'MHFD Staff', 'Local Government', 'Consult
 const UserMngFilters = ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
   const [organization,setOrganization] = useState('');
-  const [serviceArea,setServiceArea] = useState('');
+  const [serviceArea,setServiceArea] = useState('');  
+  useEffect(() => {
+    const auxOption = { ...option };
+    auxOption.organization = organization;
+    auxOption.serviceArea = serviceArea;
+    setOption(auxOption);
+    search(auxOption);
+    console.log(organization);
+  }, [organization, serviceArea]);
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
     if (defaultValue) {
@@ -34,6 +42,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
       onClick={(event) => {
+        console.log(event);
         const auxOption = { ...option };
         const val = event.key.split('|')[0] !== 'all' ? event.key.split('|')[1] : '';
         switch (title) {
@@ -100,6 +109,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
             auxOption.name = value;
             setOption(auxOption);
             search(auxOption);
+            console.log(auxOption);
           }}
           style={{ width: '30%', marginRight:'10px', height: '36px', borderRadius:'5px'}}
           // style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
@@ -112,13 +122,15 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
         <SelectOrganization
           organization={organization}
           setOrganization={setOrganization}
-          defaultValue={'Organization'} />
+          defaultValue={'Organization'}
+          value = {organization}/>
       </div>
       <div id={"filter-service-area" + title} className="filter-area">
         <SelectServiceArea
           serviceArea={serviceArea}
           setServiceArea={setServiceArea}
-          defaultValue={'Service Area'} />
+          defaultValue={'Service Area'} 
+          value = {serviceArea}/>
       </div>
 
       <div id={"filter-designation" + title}  className="filter-area">
@@ -133,6 +145,8 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       </div>
 
       <Button className="btn-purple" style={{height:'36px', width:'8%'}} onClick={() => {
+        setOrganization('');
+        setServiceArea('');
         reset();
       }}>Reset</Button>
 

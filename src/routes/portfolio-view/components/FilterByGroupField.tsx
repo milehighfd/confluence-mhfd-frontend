@@ -19,6 +19,13 @@ export const FilterByGroupName = ({
   const [contractorList, setContractorList] = useState([]);
 
   const parseToMenuItem = (list: any, filterby: string) => {
+    let post = '';
+    if(filterby === COUNTY){
+      post = 'County'
+    }
+    if(filterby === SERVICE_AREA){
+      post = 'Service Area'
+    }
     return list.map((element: any) => {
       return {
         key: `${filterby}-${element.id}`,
@@ -26,7 +33,7 @@ export const FilterByGroupName = ({
           setFilterby(filterby);
           setFiltervalue(element.id);
           setFiltername(element.name);
-        }} className="menu-drop-sub">{element.name}</div>,
+        }} className="menu-drop-sub">{element.name +" "+ post}</div>,
         filterby: filterby,
         id: element.id,
       };
@@ -36,27 +43,22 @@ export const FilterByGroupName = ({
   useEffect(() => {
     getGroupList(SERVICE_AREA).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('the group is ', groups);
       setServiceAreaList(parseToMenuItem(groups, SERVICE_AREA));
     });
     getGroupList(COUNTY).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('the group is ', groups);
       setCountyList(parseToMenuItem(groups, COUNTY));
     });
     getGroupList(JURISDICTION).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('the group is ', groups);
       setJurisdictionList(parseToMenuItem(groups, JURISDICTION));
     });
     getGroupList(CONSULTANT).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('the group is ', groups);
       setConsultantList(parseToMenuItem(groups, CONSULTANT));
     });
     getGroupList(CONTRACTOR).then((valuesGroups) => {
       const groups = valuesGroups.groups;
-      console.log('the group is ', groups);
       setContractorList(parseToMenuItem(groups, CONTRACTOR));
     });
   }, []);
@@ -81,17 +83,10 @@ export const FilterByGroupName = ({
           className:'menu-drop-sub-sub',
           children: [
             {
-              key: '1-1',
-              label: <div className="menu-drop-sub">Jon Villines</div>,
-            },
-            {
-              key: '1-2',
-              label: <div className="menu-drop-sub">David Skoudas</div>,
-            },
-            {
-              key: '1-3',
-              label: <div className="menu-drop-sub">Mary Powell</div>,
-            },
+              key: 'nodata',
+              label: 'None',
+              className:'menu-drop-sub-sub'
+            }
           ],
         },
         {

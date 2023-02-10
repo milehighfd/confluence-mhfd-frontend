@@ -67,6 +67,7 @@ import {
   addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from './MapFunctionsNotes';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 let map: any = null;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
@@ -522,9 +523,7 @@ const Map = ({
     useEffect(() => {
       console.log('changing ', coordinatesJurisdiction);
       let mask;
-      if (map)
-      console.log(coordinatesJurisdiction.length > 0 , map , map.isStyleLoaded());
-      if (coordinatesJurisdiction.length > 0 && map && map.isStyleLoaded()) {
+      if (coordinatesJurisdiction?.length > 0 && map && map.isStyleLoaded()) {
         mask = turf.multiPolygon(coordinatesJurisdiction);
         console.log('my mask is ', mask);
         let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
@@ -2385,12 +2384,18 @@ const Map = ({
           }
           
           <span className="zoomvaluemap"><b>Nearmap: September 4, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
-            {visible && <DetailedModal
+            {/* {visible && <DetailedModal
                 detailed={detailed}
                 type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
                 data={data}
                 visible={visible}
                 setVisible={setVisible}
+            />} */}
+            {visible && <DetailModal
+              visible={visible}
+              setVisible={setVisible}
+              data={data}
+              type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
             />}
               {(mobilePopups.length && window.innerWidth < 700) ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
             <div id="map">

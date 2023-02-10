@@ -52,9 +52,12 @@ const SelectOrganization = ({
       })
       .catch((e) => {
         console.log(e);
-      })             
-  }, []);
-
+      })           
+  
+  }, []);  
+  if(value === ''){
+    value = undefined;
+  }
   useEffect(() => {   
     let userTestStatus: { label:string, options: Array<{key: number, value: string , label : string}> }[] = [
       {label:"Jurisdiction",options:jurisdictionList}      
@@ -75,12 +78,10 @@ const SelectOrganization = ({
     }else{
       return (text)
     }
-  }   
+  }
 
   return (
-    <Select value={value} disabled={disable} onChange={(value) => setOrganization(value)} options={[optionCounty, optionJurisdiction, optionConsultant, optionContractor]} placeholder={defaultValue} style={{ width: '100%', marginBottom: '20px' }} getPopupContainer={(trigger: any) => trigger.parentNode}>
-      <Select.Option value="MHFD District Boundary">{isNull(organization)}</Select.Option>
-    </Select>
+    <Select value={value} disabled={disable} onChange={(value) => setOrganization(value)} options={[optionCounty, optionJurisdiction, optionConsultant, optionContractor]} placeholder={defaultValue} style={{ width: '100%', marginBottom: '20px' }} getPopupContainer={(trigger: any) => trigger.parentNode} />
   )
 };
 

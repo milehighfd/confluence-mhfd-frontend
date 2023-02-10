@@ -32,6 +32,9 @@ const SelectServiceArea = ({
         console.log(e);
       })             
   }, []);
+  if(value === ''){
+    value = undefined;
+  }
 
   function isNull(text: string) {
     if(!text){
@@ -42,9 +45,8 @@ const SelectServiceArea = ({
   }   
 
   return (
-    <Select value={value} onChange={(value) => setServiceArea(value)} disabled={disable} options={serviceAreaList}  placeholder={defaultValue} style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
-        <Option value="South">{isNull(serviceArea)}</Option>
-    </Select>
+    <Select value={value} onChange={(value) => setServiceArea(value)} disabled={disable} options={serviceAreaList}  placeholder={defaultValue} style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}/>
+
   )
 };
 

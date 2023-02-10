@@ -2148,9 +2148,7 @@ body{
   //pointer-events: none;
 }
 .status-d{
-  padding: 6px 0px 6px 10px;
-  width: 27%;
-  justify-content: flex-end;
+  padding: 6px 0px 6px 15px;
   .status-active{
     // margin-left: 5px;
     padding: 3px 7px;
@@ -2740,6 +2738,7 @@ body{
 .detailed-c{
   // height: 450px;
   // background-image: url('../../Icons/bg-00.png');
+  text-align: -webkit-center;
   background-size: cover;
    img{
     position: relative !important;

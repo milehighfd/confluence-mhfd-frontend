@@ -9,7 +9,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const location = useLocation();
   const appUser = store.getState().appUser;
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
-  const showWorkRequestPlan = (appUser.designation !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
+  const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
   const itemMenuSidebar: MenuProps['items'] = [{
     key: '0',
@@ -87,7 +87,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   if (!((appUser.designation === 'admin' || appUser.designation === 'staff') && (appUser.status === 'approved'))) {
     removeItemArray('6');
   }
-  if (!(appUser.designation !== 'guest')) {
+  if (!(appUser?.designation?.toLocaleLowerCase() !== 'guest')) {
     removeItemArray('0');
     removeItemArray('2');
     removeItemArray('5');

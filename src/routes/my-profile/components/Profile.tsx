@@ -1,6 +1,6 @@
-import { Button, Col, Dropdown, Row, Select } from "antd";
+import { Button, Col, Dropdown, message, Row, Select, Upload } from "antd";
 import React, { useEffect, useState } from "react";
-import { useProfileState } from "hook/profileHook";
+import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { useAppUserDispatch } from "hook/useAppUser";
@@ -8,53 +8,71 @@ import { getGroupList } from "routes/portfolio-view/components/ListUtils";
 import { useMapDispatch } from 'hook/mapHook';
 import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
-
+import SelectZoomArea from "routes/Utils/SelectZoomArea";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor', STREAMS = 'streams';
 const { Option } = Select;
-const Profile = () => {
+const Profile = ({
+  counterProjects
+}: {
+  counterProjects: number
+}) => {
   const [editProfile, setEditProfile] = useState(false);
+  
   const { userInformation: user } = useProfileState();
   const { groupOrganization } = useProfileState();
-  const [dataAutocomplete, setDataAutocomplete] = useState(groupOrganization.map((item: any) => {
-    return { key: item.id + item.name, value: item.name, label: item.name }
-  }));
+  
   const [countyList, setCountyList] = useState<any[]>([]);
   const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
-  const [serviceAreaList, setServiceAreaList] = useState<any[]>([]);
-  const [email, setEmail] = useState(user.email);
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [phone, setPhone] = useState(user.phone);
+  
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
   const [organization,setOrganization] = useState('');
-  const [city,setCity] = useState(user.city);
-  const [county,setCounty] = useState(user.county);
-  const [serviceArea,setServiceArea] = useState(user.serviceArea);
-  const [zoomarea,setZoomArea] = useState(user.zoomarea);
+  const [city,setCity] = useState('');
+  const [county,setCounty] = useState('');
+  const [serviceArea,setServiceArea] = useState('');
+  const [zoomarea,setZoomArea] = useState('');
   const [disable,setDisable] = useState(false);
   const [save,setsave] = useState(false);
   const {
     replaceAppUser,
     saveUserInformation,   
   } = useAppUserDispatch();
-  const [consultantList, setConsultantList] = useState([]);
-  const [contractorList, setContractorList] = useState([]);
-  const [optionCounty, setOptionCounty] = useState({})
-  const [optionJurisdiction, setOptionJurisdiction] = useState({})
-  const [optionConsultant, setOptionConsultant] = useState({})
-  const [optionContractor, setOptionContractor] = useState({})
-  const [counterProjects, setCounterProjects] = useState(0);
- 
+  //console.log(useProfileState()) 
   useEffect(() => {
-    setDataAutocomplete(groupOrganization.map((item: any) => {
-      return { key: item.id + item.name, value: item.name, label: item.name }
-    }));
-  }, [groupOrganization]);
+    getMe();
+  }, []); 
   useEffect(() => {
     if (user.organization) {
       setOrganization(user.organization);
+    }    
+    if (user.serviceArea) {
+      setServiceArea(user.serviceArea);
+    }   
+    if (user.zoomarea) {
+      setZoomArea(user.zoomarea);
+    }
+    if (user.email) {
+      setEmail(user.email);
+    }
+    if (user.firstName) {
+      setFirstName(user.firstName);
+    }
+    if (user.lastName) {
+      setLastName(user.lastName);
+    }
+    if (user.phone) {
+      setPhone(user.phone);
+    }
+    if (user.city) {
+      setCity(user.city);
+    }
+    if (user.county) {
+      setCounty(user.county);
     }
   }, [user]);
 
@@ -65,15 +83,17 @@ const Profile = () => {
       setDisable(true);      
     }
   }, [editProfile]);
+  const [ fileImage, setFileImage ] = useState({ uid: ''});
 
+  const getMe = () =>{
+    datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
+      replaceAppUser(result);
+      saveUserInformation(result)
+    });
+  }
 
   
   useEffect(() => {
-
-    datasets.getData(`${SERVER.COUNT_FAVORITES}`,datasets.getToken())
-      .then((rows) => {
-        setCounterProjects(rows.count)
-      })
     datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
       .then((rows) => {
         setCountyList(rows.county.map((item: any) => {
@@ -81,22 +101,7 @@ const Profile = () => {
         }).filter((data:any)=>!!data.value));
         setJurisdictionList(rows.jurisdiction.map((item: any) => {
           return { key: item.code_local_government_id , value: item.local_government_name, label : item.local_government_name }
-        }).filter((data:any)=>!!data.value));
-        setServiceAreaList(rows.servicearea.map((item: any) => {
-          return { key: item.code_service_area_id, value: item.service_area_name, label : item.service_area_name }
-        }).filter((data:any)=>!!data.value));
-        getGroupList(CONSULTANT).then((valuesGroups) => {
-          const groups = valuesGroups.groups;
-          setConsultantList(groups.map((item: any) => {
-            return { key: item.id, value: item.name, label : item.name }
-          }).filter((data:any)=>!!data.value));
-        });
-        getGroupList(CONTRACTOR).then((valuesGroups) => {
-          const groups = valuesGroups.groups; 
-          setContractorList(groups.map((item: any) => { 
-            return { key: item.id, value: item.name, label : item.name } 
-          }).filter((data:any)=>!!data.value));
-        });        
+        }).filter((data:any)=>!!data.value));     
         
       })
       .catch((e) => {
@@ -104,19 +109,6 @@ const Profile = () => {
       })             
   }, []);
 
-  useEffect(() => {   
-    let userTestStatus: { label:string, options: Array<{key: number, value: string , label : string}> }[] = [
-      {label:"Jurisdiction",options:jurisdictionList}      
-    ];
-    const jurisdiction = {label : "Jurisdiction",options:jurisdictionList}
-    const county = {label : "County" , options:countyList }
-    const consultant = {label:"Consultant",options:consultantList}
-    const contractor = {label:"Contractor",options:contractorList}
-    setOptionCounty(county);
-    setOptionJurisdiction(jurisdiction);
-    setOptionConsultant(consultant);
-    setOptionContractor(contractor);
-  }, [jurisdictionList,countyList,consultantList,contractorList]);
 
   function isNull(text: string) {
     if(!text){
@@ -130,9 +122,9 @@ const Profile = () => {
     setEditProfile(!editProfile)
     if (!save) {
       setsave(!save)
-      console.log("ENTER EDIT")
+      //console.log("ENTER EDIT")
     } else {
-      console.log("Upload data");
+      //console.log("Upload data");
       datasets.putData(SERVER.USER_UPDATE, {
         email,
         phone,
@@ -144,24 +136,40 @@ const Profile = () => {
         firstName,
         lastName
       }, datasets.getToken()).then((data) => {
-        console.log(data);
+        //console.log(data);
       }).then(() => {
         setsave(!save)
-        console.log("EXIT EDIT")
-        datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
-          replaceAppUser(result);
-          saveUserInformation(result)
-        });
+        getMe();
       })
         .catch((e) => {
           console.log(e);
         });
     }
   };
+  const beforeUpload = (file: any) => {
+    const isLt2M = file.size / 1024 / 1024 < 5;
+    if (!isLt2M) {
+      message.error('Image must smaller than 5MB!');
+    }
+    return isLt2M;
+  }
 
   return (
     <div className="profile-myprofile">
       <img src="/picture/user.png" height={90} width="90" style={{marginBottom:'15px', marginTop:'50px'}}/>
+      <div className="profile-change-image">
+        <Upload showUploadList={false} beforeUpload={beforeUpload} onChange={({ file }: any) => {
+          if (fileImage.uid !== file.uid) {
+            setFileImage({...file});
+            // spinValue(true);
+            // uploadImage([{ ...file }]);
+          }
+        }} >
+          <Button type="default" shape="circle" className="btn-edit-00">
+            <img src="/Icons/icon-66.svg" alt="" style={{marginTop: '-4px'}} className='img-change'/>
+          </Button>
+        </Upload>
+      </div>
       <h1>{isNull (user.firstName) + "  " + isNull (user.lastName)}</h1>
       <p style={{marginBottom:'30px'}} className="color-sub sub-title">{isNull (user.title)}</p>
       <div style={{margin:'0px'}} className="line-01"></div>
@@ -261,9 +269,11 @@ const Profile = () => {
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {/* {editProfile ? */}
-            <Select onChange={(value) => setZoomArea(value)} disabled={disable} options={dataAutocomplete} value={isNull(zoomarea)} style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
-              <Option value="Mile High Flood District">{isNull(zoomarea)}</Option>
-            </Select>
+            <SelectZoomArea
+              zoomArea={zoomarea}
+              setZoomArea={setZoomArea}
+              disable={disable}              
+              value={zoomarea}/>
               {/* :<p style={{paddingBottom:'10px' }}>Mile High Flood District</p> */}
             {/* } */}
           </Col>

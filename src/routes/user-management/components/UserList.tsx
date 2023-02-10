@@ -18,6 +18,7 @@ import UserMngFilters from "./UserMngFilters";
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
 
+
 const titleCase = (str:any)=> {
   str = str.replaceAll('_', ' ');
   var splitStr = str.toLowerCase().split(' ');
@@ -29,7 +30,8 @@ const titleCase = (str:any)=> {
 
 const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
   datasets.getData(url, datasets.getToken()).then(res => {
-    // console.log(res.users)
+    console.log("res.users")
+    console.log(res.users)
     const arrayUsers = res.users.map((elem: any) => {
       return {
         ...elem,
@@ -38,10 +40,10 @@ const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: F
         serviceArea: elem.serviceArea !== null ? elem.serviceArea : '-',
         city: elem.city !== null ? elem.city : '-',
         county: elem.county !== null ? elem.county : '-',
+        key:elem.user_id,
         //designation: titleCase(elem.designation)
       }
     });
-    // console.log('arry',arrayUsers)
     if (res.users) {
       saveUser(res.users);
       setUser(arrayUsers);
@@ -157,6 +159,8 @@ const UserList = () => {
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
   const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
 
+  const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
+
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserDeleted, setOptionUserDeteled] = useState<OptionsFiltersUser>(PAGE_USER);
@@ -167,27 +171,55 @@ const UserList = () => {
   const [userSelected, setUserSelected] = useState<any>();
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
-  const items = [
+  let items = [
     { key: 'edit-user', label: 'Edit User' },
-    { key: 'message-user', label: 'Message User' },
+    //{ key: 'message-user', label: 'Message User' },
     { key: 'delete-user', label: 'Delete User' },
+    { key: 'change-status', label: 'Approve User' },
   ];
   const menu = (record:any, onExpand:any)=> {
-    // console.log(record);
+    switch (record.status) {
+      case 'approved':
+        items = [
+          { key: 'edit-user', label: 'Edit User' },
+          { key: 'delete-user', label: 'Delete User' },
+        ];
+        break;
+      case 'deleted':
+        items = [
+          { key: 'change-status', label: 'Approve User' },
+          { key: 'delete-user-entry', label: 'Delete User' },
+        ];
+        break;
+      case 'pending':
+        items = [
+          { key: 'edit-user', label: 'Edit User' },
+          { key: 'change-status', label: 'Approve User' },
+          { key: 'delete-user', label: 'Delete User' },  
+        ];
+        break;
+    }
+
     return <Menu
       className="menu-login-dropdown"
       style={{ marginTop: '12px'}}
       items={items}
       onClick={({ key }) => {
         switch(key) {
-          case 'edit-user':
-            console.log('key', record)
+          case 'edit-user':            
             setUserSelected(record);
             onExpand(record, key)
             break;
-          case 'message-user':
+          {/*case 'message-user':
+          break;*/}
+          case 'delete-user':          
+            deleted(record.user_id)
             break;
-          case 'delete-user':
+          case 'change-status':            
+            changeStatus(record.user_id)
+            break;
+          case 'delete-user-entry':
+            deleteEntry(record.user_id)
             break;
         }
       }}
@@ -218,9 +250,9 @@ const UserList = () => {
     setOptionUserActivated(resetOptions);
     searchUserActivated(resetOptions);
   }
-  const deleteUserActivated = (id: string) => {
+  const deleteUserActivated = (id: string) => { 
     datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
-      if (res?._id) {
+      if (res?.user_id) {
         getAllUser();
       }
     });
@@ -230,6 +262,34 @@ const UserList = () => {
     datasets.deleteData(SERVER.DELETE_USER + '/' + id, datasets.getToken()).then(res => {
       getAllUser();
     })
+  }
+
+  const updateError = (error: string) => {
+    const auxMessageError = { ...messageError };
+    auxMessageError.message = error;
+    auxMessageError.color = 'red';
+    setMessageError(auxMessageError);
+    const timer = setTimeout(() => {
+      const auxMessageError = { ...messageError };
+      auxMessageError.message = '';
+      auxMessageError.color = '#28C499';
+      setMessageError(auxMessageError);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }
+
+  const updateSuccessful = () => {
+    const auxMessageError = { ...messageError };
+    auxMessageError.message = 'Updating record data was successful';
+    auxMessageError.color = '#28C499';
+    setMessageError(auxMessageError);
+    const timer = setTimeout(() => {
+      const auxMessageError = { ...messageError };
+      auxMessageError.message = '';
+      auxMessageError.color = '#28C499';
+      setMessageError(auxMessageError);
+    }, 5000);
+    return () => clearTimeout(timer);
   }
 
   useEffect(() => {
@@ -244,6 +304,57 @@ const UserList = () => {
     searchUserDelete(resetOptions);
     // console.log('activity2',userActivatedState)
   }, [optionSelect]);
+
+  const deleted = (record : number) => {    
+    datasets.putData(SERVER.DELETE_USER + '/' + record, {record}, datasets.getToken()).then(res => { 
+      if (res.message === 'SUCCESS') {        
+        getAllUser();
+        updateSuccessful();
+      } else {
+        if (res?.error) {
+          updateError(res.error);
+          console.log(res.error)
+        }
+        else {
+          updateError(res);
+        }
+      }
+    });
+  }
+
+  const deleteEntry = (record : number) => {       
+    datasets.deleteData(SERVER.DELETE_USER_ENTRY + '/' + record, datasets.getToken()).then(res => { 
+      if (res.message === 'SUCCESS') {        
+        getAllUser();
+        updateSuccessful();
+      } else {
+        if (res?.error) {
+          updateError(res.error);
+          console.log(res.error)
+        }
+        else {
+          updateError(res);
+        }
+      }
+    });
+  }
+
+  const changeStatus = (record : number) => {    
+    datasets.putData(SERVER.CHANGE_USER_STATUS + '/' + record, {record}, datasets.getToken()).then(res => { 
+      if (res.message === 'SUCCESS') {        
+        getAllUser();
+        updateSuccessful();
+      } else {
+        if (res?.error) {
+          updateError(res.error);
+          console.log(res.error)
+        }
+        else {
+          updateError(res);
+        }
+      }
+    });
+  }
 
   // console.log(optionSelect)
   return <>
@@ -290,7 +401,7 @@ const UserList = () => {
             expandedRowRender: record => {
             // console.log('entra record',userSelected);
             if(userSelected !== undefined){
-            if(userSelected._id === record._id){
+            if(userSelected.user_id === record.user_id){
               return (
                 <ProfileUser record={record} saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted"
                 deleteUserDatabase={deleteUserDatabase} />
@@ -298,7 +409,7 @@ const UserList = () => {
             }}
             },
             expandIcon: ({ expanded, onExpand, record }) =>
-              expanded && userSelected._id === record._id? (
+              expanded && userSelected.user_id === record.user_id? (
                 <DownOutlined onClick={(e:any) => onExpand(record, e)} />
               ) : (
                 <Dropdown overlay={menu(record, onExpand)} placement="bottomRight" >

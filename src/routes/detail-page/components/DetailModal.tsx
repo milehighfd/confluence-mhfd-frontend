@@ -14,13 +14,14 @@ import { CarouselRef } from "antd/lib/carousel";
 import ImageModal from "Components/Shared/Modals/ImageModal";
 import History from "./History";
 import PineyView from "routes/portfolio-view/components/PineyView";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_MODAL } from "constants/constants";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from "Config/Server.config";
 import { useDetailedState } from "hook/detailedHook";
 import DetailInformationProblem from "./DetailInformationProblem";
 import ProblemParts from "./ProblemParts";
 import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -36,11 +37,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     getDetailedPageProblem,
     getDetailedPageProject,
     getComponentsByProblemId,
-    resetDetailed
+    resetDetailed,
+    existDetailedPageProject,
+    existDetailedPageProblem,
   } = useMapDispatch();
   const {
     detailed,
   } = useDetailedState();
+  const [isLoading, setIsLoading] = useState(true);
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
   const [projectType, setProjecttype] = useState('');
@@ -55,6 +59,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   let pageWidth  = document.documentElement.scrollWidth;
 
   useEffect(() => {
+    resetDetailed();
     if (type === FILTER_PROBLEMS_TRIGGER) {
       getDetailedPageProblem(data.problemid);
       getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
@@ -78,22 +83,35 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         setProblemPart(t);
       });
     } else {
-      const project_id = data.project_id ? data.project_id : ( data.on_base ? data.on_base : 0);
+      const project_id = data.project_id ? data.project_id : ( data.id ? data.id : 0);
       getDetailedPageProject(project_id);
-      getComponentsByProblemId({id: data.on_base || data.on_base, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      getComponentsByProblemId({id: data.on_base || data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
-    // return () => {
-    //   resetDetailed();
-    // };
   }, []);
   useEffect(() => {
     const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
     setProjecttype(projectType);
   }, [detailed]);
 
+  useEffect(()=>{
+    if(detailed?.problemname || detailed?.project_name){
+      setIsLoading(false)
+    }else{
+      setIsLoading(true)
+    }
+  }, [detailed])
+  useEffect(() => {
+    if(type === PROBLEMS_MODAL){
+      existDetailedPageProblem(data.problemid);
+    }else{
+      existDetailedPageProject(data.project_id);
+    }
+    
+  },[])
   return (
     <>
+    {isLoading && <LoadingViewOverall />}
     <ImageModal visible={openImage} setVisible={setOpenImage} type={type} active={active} setActive={setActive}/>
     <Modal
       className="detailed-modal"
@@ -282,7 +300,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             }}
             ref={divRef}
           >
-            <Carousel className="detail-carousel" ref={carouselRef}>
+            <div className="detail-carousel" style={{background:'#f5f7ff', position:'absolute', zIndex:'1'}}></div>
+            <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3'}}>
               {detailed?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (
