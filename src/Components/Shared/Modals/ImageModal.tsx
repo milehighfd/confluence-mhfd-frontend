@@ -105,13 +105,14 @@ const ImageModal = (
             </Col>
           </>}
           {active === 1 &&
-            <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-              <img src={'picture/map-map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/>
+            <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{height:'calc(100vh - 166px)', overflowY:'auto'}}>
+              {/* <img src={'picture/map-map.png'} alt="" className='img-modal' style={{width:'100%', height:'100%'}}/> */}
+              <MapModal type={type} activeTab={active}/>
             </Col>
           }
           {active === 2 &&
             <Col xs={{ span: 48 }} lg={{ span: 24 }} className='body-modal-team image-modal-body' style={{height:'calc(100vh - 166px)', overflowY:'auto'}}>
-            <MapModal type={type}/>
+            <MapModal type={type} activeTab={active}/>
           </Col>
           }
         </Row>

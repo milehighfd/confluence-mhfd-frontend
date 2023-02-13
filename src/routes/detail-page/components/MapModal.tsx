@@ -5,26 +5,64 @@ import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, PlusOutlined } from "@ant-design/icons";
 import ReactDOMServer from 'react-dom/server';
 import { useDetailedState } from "hook/detailedHook";
-import { NEARMAP_STYLE, tileStyles } from "constants/mapStyles";
+import { NEARMAP_STYLE, tileStylesDetailPage as tileStyles } from "constants/mapStyles";
 import store from "store/index";
 import { COMPONENT_LAYERS, FLOOD_HAZARDS, MAPTYPES, MENU_OPTIONS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_STORM_OUTFALLS, MEP_PROJECTS_TEMP_LOCATIONS, MHFD_PROJECTS, NEARMAP_TOKEN, PROBLEMS_MODAL, PROBLEMS_TRIGGER, PROJECTS_MODAL, SERVICE_AREA_FILTERS, STREAM_IMPROVEMENT_MEASURE } from "constants/constants";
 import { MapService } from "utils/MapService";
+import {MapboxLayer} from '@deck.gl/mapbox';
+import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import { LayerStylesType } from "Classes/MapTypes";
 import { getComponentCounter } from "dataFetching/map";
 import { ComponentPopup, MainPopup } from "Components/Map/MapPopups";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "Config/Server.config";
 import { getTitleOfProblemsPart, getTitleOfStreamImprovements } from "routes/map/components/MapFunctionsUtilities";
+import { useMapDispatch, useMapState } from "hook/mapHook";
 
 var map: any;
-const MapModal = ({type}: {type: any}) => {
+const MapModal = ({type, activeTab}: {type: any, activeTab:any}) => {
   const {
     detailed,
   } = useDetailedState();
+  const {
+    getBBOXComponents
+  } = useMapDispatch();
+  const {
+    bboxComponents,
+  } = useMapState();
   const [, setZoomValue] = useState(0);
   const [counterPopup, setCounterPopup] = useState({componentes: 0});
   const layers = store.getState().map.layers;
   let html = document.getElementById('map3');
+  useEffect(() => {
+    const waiting = () => {
+      html = document.getElementById('map3');
+      if (!html) {
+        setTimeout(waiting, 150);
+      } else {
+        if(!map) {
+          map = new MapService('map3');
+          map.isStyleLoaded(addLayer);
+        }
+      }
+    };
+    waiting();
+    return () => {
+      map = undefined;
+    }
+  }, []);
+  const showComponents = () => {
+    console.log('data', detailed)
+    let typeForComponents:any;
+    if(detailed.project_id){
+      typeForComponents = 'mhfd_projects'
+    }else {
+      typeForComponents ='problem_boundary'
+    }
+    const id = typeForComponents === 'mhfd_projects'? detailed.project_id : detailed.problem_id;
+    // TODO: See endpoint to draw arcs in 3d detail page
+    // getBBOXComponents(typeForComponents, id);
+  }
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
         map.map.addSource('raster-tiles', {
@@ -170,9 +208,87 @@ const addLayer = () => {
           )
       }
     }
-    map.getLoadZoom(updateZoom);
-    map.getMoveZoom(updateZoom);
     applyNearMapLayer();
+
+    if(activeTab === 1){
+      showComponents()
+
+      console.log('bboxComponents 222222222', bboxComponents)
+
+      if (map.getLayer('mapboxArcs2')) {
+        map.removeLayer('mapboxArcs2');
+      }
+      if (map.getLayer('arcs2')) {
+        map.removeLayer('arcs2');
+      }
+      if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
+        console.log('bboxComponents', bboxComponents)
+        setTimeout(() => {
+          map.setPitch(0, {duration: 2000});
+        }, 3000);
+      } else {
+        const SOURCE_COLOR = [189, 56, 68];
+        const TARGET_COLOR = [13, 87, 73];
+        const CIAN_SOLID = [118, 239, 213];
+        const RED_SOLID = [255, 60, 60];
+        let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
+          return {
+            position: c.centroid,
+            name: c.component,
+            total: 1,
+            color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR,
+          };
+        });
+        let arcs: any[] = [];
+  
+        for (let i = 1; i < bboxComponents.centroids.length; i++) {
+          arcs.push({
+            source: bboxComponents.centroids[0].centroid,
+            target: bboxComponents.centroids[i].centroid,
+            value: bboxComponents.centroids[i].arcWidth,
+            colorArc: bboxComponents.centroids[i].component == 'detention_facilities' ? RED_SOLID : CIAN_SOLID,
+          });
+        }
+        let mapboxArcsLayer = new MapboxLayer({
+          type: ScatterplotLayer,
+          id: 'mapboxArcs2',
+          data: scatterData,
+          opacity: 1,
+          pickable: true,
+          getRadius: (d: any) => {
+            if (d.name === 'self') {
+              return 2;
+            } else {
+              return 1;
+            }
+          },
+          getColor: (d: any) => d.color,
+        });
+  
+        let arcsLayer = new MapboxLayer({
+          type: ArcLayer,
+          id: 'arcs2',
+          data: arcs,
+          brushRadius: 100000,
+          getStrokeWidth: (d: any) => 4,
+          opacity: 1,
+          getSourcePosition: (d: any) => d.source,
+          getTargetPosition: (d: any) => d.target,
+          getWidth: (d: any) => d.value * 2,
+          getHeight: 0.7,
+          getSourceColor: (d: any) => d.colorArc,
+          getTargetColor: (d: any) => d.colorArc,
+        });
+        // map.setPitch(70);
+
+        map.addLayer(mapboxArcsLayer);
+        map.addLayer(arcsLayer);
+        map.setPitch(80, {duration: 2000});
+      }
+    }else{
+      map.getLoadZoom(updateZoom);
+      map.getMoveZoom(updateZoom);
+    }
   }
 }
   const addMapListeners = (key: string, value: string) => {
@@ -385,24 +501,76 @@ const addLayer = () => {
         });
     }
 }
-
   useEffect(() => {
-    const waiting = () => {
-      html = document.getElementById('map3');
-      if (!html) {
-        setTimeout(waiting, 150);
-      } else {
-        if(!map) {
-          map = new MapService('map3');
-          map.isStyleLoaded(addLayer);
-        }
-      }
-    };
-    waiting();
-    return () => {
-      map = undefined;
-    }
-  }, []);
+    // if (map.getLayer('mapboxArcs')) {
+    //   map.removeLayer('mapboxArcs');
+    // }
+    // if (map.getLayer('arcs')) {
+    //   map.removeLayer('arcs');
+    // }
+    // if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
+    //   setTimeout(() => {
+    //     map.setPitch(0);
+    //   }, 3000);
+    // } else {
+    //   const SOURCE_COLOR = [189, 56, 68];
+    //   const TARGET_COLOR = [13, 87, 73];
+    //   const CIAN_SOLID = [118, 239, 213];
+    //   const RED_SOLID = [255, 60, 60];
+    //   let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
+    //     return {
+    //       position: c.centroid,
+    //       name: c.component,
+    //       total: 1,
+    //       color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR,
+    //     };
+    //   });
+    //   let arcs: any[] = [];
+
+    //   for (let i = 1; i < bboxComponents.centroids.length; i++) {
+    //     arcs.push({
+    //       source: bboxComponents.centroids[0].centroid,
+    //       target: bboxComponents.centroids[i].centroid,
+    //       value: bboxComponents.centroids[i].arcWidth,
+    //       colorArc: bboxComponents.centroids[i].component == 'detention_facilities' ? RED_SOLID : CIAN_SOLID,
+    //     });
+    //   }
+    //   let mapboxArcsLayer = new MapboxLayer({
+    //     type: ScatterplotLayer,
+    //     id: 'mapboxArcs',
+    //     data: scatterData,
+    //     opacity: 1,
+    //     pickable: true,
+    //     getRadius: (d: any) => {
+    //       if (d.name === 'self') {
+    //         return 2;
+    //       } else {
+    //         return 1;
+    //       }
+    //     },
+    //     getColor: (d: any) => d.color,
+    //   });
+
+    //   let arcsLayer = new MapboxLayer({
+    //     type: ArcLayer,
+    //     id: 'arcs',
+    //     data: arcs,
+    //     brushRadius: 100000,
+    //     getStrokeWidth: (d: any) => 4,
+    //     opacity: 1,
+    //     getSourcePosition: (d: any) => d.source,
+    //     getTargetPosition: (d: any) => d.target,
+    //     getWidth: (d: any) => d.value * 2,
+    //     getHeight: 0.7,
+    //     getSourceColor: (d: any) => d.colorArc,
+    //     getTargetColor: (d: any) => d.colorArc,
+    //   });
+    //   map.setPitch(70);
+    //   map.addLayer(mapboxArcsLayer);
+    //   map.addLayer(arcsLayer);
+    // }
+  }, [bboxComponents]);
+
   useEffect(() => {
     const div = document.getElementById('popup-detailed-page');
     if (div != null) {
