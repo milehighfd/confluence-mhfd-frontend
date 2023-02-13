@@ -249,9 +249,9 @@
     color: $purple00;
   }
   .ant-menu-item{
-    border-top: 1px solid $opacity01;
+    // border-top: 1px solid $opacity01;
     margin: 0px !important;
-    padding: 0px 0px !important;
+    padding: 0px 7px !important;
   }
   .ant-menu-item > a:hover, .ant-menu-item > a:focus,
   .ant-dropdown-menu-item > a:hover, .ant-dropdown-menu-item > a:focus {

@@ -17,9 +17,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   useEffect(() => {
     let total: any;
     let pieChartData: any;
-    total = data.reduce((a: number, x: any) => a + x.counter, 0);
-    pieChartData = data.map((d: any) => {
+    let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 7));
+    total = dataReduced.reduce((a: number, x: any) => a + x.counter, 0);
+    pieChartData = dataReduced.map((d: any) => {
       return {
+        id: d.id,
         key: d.value,
         counter: d.counter,
         value: d.counter / total
@@ -58,11 +60,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .selectAll('slices')
       .data(data_ready)
     let clickFn = (d: any) => {
-      let index = selectedData.indexOf(d.data.key);
+      let index = selectedData.indexOf(d.data.id);
       if (index !== -1) {
         setSelectedData(selectedData.filter((_, ind) => ind !== index))
       } else {
-        setSelectedData([...selectedData, d.data.key])
+        setSelectedData([...selectedData, d.data.id])
       }
     }
 
@@ -74,7 +76,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     .on('click', clickFn)
     .transition().duration(2000)
     .attr('d', (d: any) => {
-      let index = selectedData.indexOf(d.data.key);
+      let index = selectedData.indexOf(d.data.id);
       return index === -1 ? arc2(d) : arc3(d);
     })
 
@@ -102,7 +104,9 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     legendsText
       .enter()
       .append('text')
-      .text(function (d: any) { return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : d.data.key) })
+      .text(function (d: any) {
+        return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : d.data?.key?.split(' ')[0]) ;
+      })
       .attr("transform", (d: any, i) => {
         let xo = -radius + (i * separationJump) - 42;
         let yo = radius + 32;
