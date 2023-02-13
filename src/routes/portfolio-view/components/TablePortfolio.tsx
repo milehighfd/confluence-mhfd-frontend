@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Col, Input, Layout, Popover, Row, Select, Space, Table, Tabs, Tag } from 'antd';
 import { ColumnsType } from "antd/lib/table";
-import { ArrowDownOutlined, MoreOutlined } from "@ant-design/icons";
+import { ArrowDownOutlined, ConsoleSqlOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
@@ -90,12 +90,16 @@ const TablePortafolio = (
   }
 
   const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+  //console.log("SORTED DATA")
+  //console.log(sortedData)
   const completeData = sortedData.map((elem: any) => {
     return {
       ...elem,
       values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
+  //console.log("COMPLETE DATA")
+  //console.log(dataTable00)
   const scrollDiv = useCallback((e:any) =>{
     let dr: any = divRef.current;
     if(searchRef.current){
@@ -137,8 +141,11 @@ const TablePortafolio = (
       <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
       {
         completeData.map((elem: any, index: number) => {
+          //console.log("ELEM")
+          //console.log(elem) 
           return(
             <Table
+              key={elem.id}
               columns={ValueTabsValue()}
               dataSource={elem.values}
               pagination={{ pageSize: 1000 }}

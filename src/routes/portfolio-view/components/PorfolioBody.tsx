@@ -88,10 +88,10 @@ const PortafolioBody = () => {
   ];
   useEffect(()=>{
     if(Object.keys(layers).length === 0){
-      console.log('ESTA VACIO', layers)
+      //console.log('ESTA VACIO', layers)
       setSpinMapLoaded(true);
     getGroupOrganization();
-    console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
+    //console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
       SELECT_ALL_FILTERS.forEach((layer) => {
         console.log('layer:', layer)
         if (typeof layer === 'object') {
@@ -105,7 +105,7 @@ const PortafolioBody = () => {
         }
       });
     }else{
-      console.log('ESTA LLENI', layers)
+      //console.log('ESTA LLENI', layers)
     }
   },[])
 
@@ -187,18 +187,24 @@ const PortafolioBody = () => {
   }, [searchWord]);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
     const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);
+    //console.log("Filter")
+    //console.log(optionsfilters)
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       // setNewData(updatedGroups);
-      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {
+      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
         const updatedGroups: any = [];
+        //console.log("valuesList")
+        //console.log(valuesList)
         groups.forEach((element: any, index: number) => {
+          //console.log("ELEMENT")
+          //console.log(element);
           if (valuesList[element.id]) {
           updatedGroups.push({
-            id: `Title${index}`,
-            headerLabel: element.name,
+            id: `Title${element.id}`,
+            headerLabel: element.value,
             date: moment('2022/08/11'),
             schedule: [
               {
@@ -208,27 +214,28 @@ const PortafolioBody = () => {
                 from: moment('2022/02/01 00:00:00'),
                 to: moment('2022/06/01 00:00:00'),
                 status: 'completed',
-                name: element.name,
+                name: element.value,
               }
             ],
           });
+          
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;
               updatedGroups.push({
-                id: `${element.name}${idx}`,
+                id: `${element.value}${idx}`,
                 project_id: elem.project_id,
-                headerLabel: element.name,
+                headerLabel: element.value,
                 rowLabel: elem.description, //description
                 date: moment('2022/08/11'),
-                key: idx+elem.project_id,
+                key: elem.project_id+element.id,
                 phase: elem?.project_status?.code_phase_type?.phase_name,
                 mhfd: 'Jon Villines',
                 mhfd_support:'Jane Smith',
                 lg_lead:'Jane Smith',
                 developer:'Robert Croquette',
-                consultant: elem?.consultants[0]?.consultant[0]?.business_name,
-                civil_contractor: elem?.civilContractor[0]?.business[0]?.business_name,
-                landscape_contractor:elem?.landscapeContractor[0]?.business[0]?.business_name,
+                consultant: 'elem?.consultants[0]?.consultant[0]?.business_name',
+                civil_contractor: 'elem?.civilContractor[0]?.business[0]?.business_name',
+                landscape_contractor:'elem?.landscapeContractor[0]?.business[0]?.business_name',
                 construction_start_date: elem?.construction_start_date,
                 local_government: elem?.localGovernment?.codeLocalGovernment?.local_government_name,
                 on_base: elem?.onbase_project_number,
