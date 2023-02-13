@@ -6,7 +6,7 @@ import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, PlusOutlined } from "@ant-design/icons";
 import ReactDOMServer from 'react-dom/server';
 import { useDetailedState } from "hook/detailedHook";
-import { NEARMAP_STYLE, tileStyles } from "constants/mapStyles";
+import { NEARMAP_STYLE, tileStylesDetailPage as tileStyles } from "constants/mapStyles";
 import store from "store/index";
 import { COMPONENT_LAYERS, FLOOD_HAZARDS, MAPTYPES, MENU_OPTIONS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_STORM_OUTFALLS, MEP_PROJECTS_TEMP_LOCATIONS, MHFD_PROJECTS, NEARMAP_TOKEN, PROBLEMS_MODAL, PROBLEMS_TRIGGER, PROJECTS_MODAL, PROPSPROBLEMTABLES, SELECT_ALL_FILTERS, SERVICE_AREA_FILTERS, STREAM_IMPROVEMENT_MEASURE } from "constants/constants";
 import { MapService } from "utils/MapService";
