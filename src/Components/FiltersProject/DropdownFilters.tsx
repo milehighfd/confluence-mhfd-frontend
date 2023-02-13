@@ -7,7 +7,7 @@ const transformSelectedData = (sData: any) => {
 
 const { Option } = Select;
 
-export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls = true }: any) => {
+export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls = true , selected}: any) => {
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
@@ -112,6 +112,10 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
       setSelectedData(sData);
     }
   }, [minIndex, maxIndex]);
+  useEffect(() => {
+    setMinIndex(data.findIndex( (d:any) => d.min == selected[0]) );
+    setMaxIndex(data.findIndex( (d:any) => d.min == selected[1]) );
+  }, [selected]);
   return (
     <>
       {showControls ? (
