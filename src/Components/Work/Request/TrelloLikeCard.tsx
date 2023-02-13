@@ -98,28 +98,28 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const content = () => {
     const items: MenuProps['items'] = [{
       key: '0',
-      label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+      label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Project
       </span>,
       onClick: (() => getCompleteProjectData())
     }, {
       key: '1',
-      label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+      label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-90.svg" alt="" width="8px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '8.8px' }} />
         Edit Amount
       </span>,
       onClick: (() => setShowAmountModal(true))
     }, {
       key: '2',
-      label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+      label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px', marginRight: '4.6px' }} />
         Zoom to
       </span>,
       onClick: (() => { setZoomProject(project.projectData);})
     }, {
       key: '3',
-      label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+      label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px', marginRight: '6.8px' }} />
         Delete
       </span>,
@@ -132,7 +132,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     if (type === 'WORK_PLAN' && year != 2023) {
       items.splice(2, 0, {
         key: '4',
-        label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+        label: <span style={{borderBottom: '1px solid transparent'}}>
           <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
           Copy to Current Year
         </span>,
@@ -303,11 +303,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
             <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
             {
               !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
-              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px'}}>
+              <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
                 <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                  <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px'}}>
+                  <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px', cursor: 'pointer'}}>
                   <defs>
-                    <clipPath id="clip-path">
+                    <clipPath id="clip-path" style={{cursor: 'pointer'}}>
                       <path id="Trazado_296" data-name="Trazado 296" d="M1.5-3A1.5,1.5,0,0,1,3-1.5,1.5,1.5,0,0,1,1.5,0,1.5,1.5,0,0,1,0-1.5,1.5,1.5,0,0,1,1.5-3Zm0-5A1.5,1.5,0,0,1,3-6.5,1.5,1.5,0,0,1,1.5-5,1.5,1.5,0,0,1,0-6.5,1.5,1.5,0,0,1,1.5-8Zm0-5A1.5,1.5,0,0,1,3-11.5,1.5,1.5,0,0,1,1.5-10,1.5,1.5,0,0,1,0-11.5,1.5,1.5,0,0,1,1.5-13Z" fill="none" clipRule="evenodd"/>
                     </clipPath>
                   </defs>

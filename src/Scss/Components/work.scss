@@ -560,7 +560,28 @@
     border-right: none;
   }
   .ant-popover-inner-content {
-    padding: 0px 16px;
+    padding: 4px 4px;
+  }
+  .ant-menu-item:active, .ant-menu-submenu-title:active {
+    background: #f7f7f9;
+    border-radius: 10px;
+    padding: 5px 10px;
+  }
+  .ant-menu-item:hover, .ant-menu-submenu-title:hover {
+    background: #f7f7f9;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: #817c98 !important;
+  }
+  .ant-menu-item:focus-visible, .ant-menu-submenu-title:focus-visible {
+    box-shadow: none;
+  }
+  .js-mm-00 span:hover {
+    color: #817c98 !important;
+    font-weight: 500;
+  }
+  .menu-item-custom .js-mm-00 span:hover {
+    color: #817c98 !important;
   }
   .ant-popover-content{
     width: 165px;

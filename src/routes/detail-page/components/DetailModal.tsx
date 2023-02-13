@@ -59,7 +59,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
   let pageWidth  = document.documentElement.scrollWidth;
-
   useEffect(() => {
     resetDetailed();
     if (type === FILTER_PROBLEMS_TRIGGER) {
@@ -87,7 +86,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     } else {
       const project_id = data.project_id ? data.project_id : ( data.id ? data.id : 0);
       getDetailedPageProject(project_id);
-      getComponentsByProblemId({id: data.on_base || data.id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      getComponentsByProblemId({id: data.on_base || data.id  || data.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
   }, []);
@@ -198,7 +197,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         <Row
           className="detailed-b"
         >
-          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
+          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
             onScrollCapture={(e)=>{
               let numberSecction = 0;
               if(pageWidth < 1900){

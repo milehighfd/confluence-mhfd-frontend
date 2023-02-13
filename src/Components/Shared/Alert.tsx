@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal} from 'antd';
+import { Button, Col, Modal, Row} from 'antd';
 
 const Alert = ({ save, visible, setVisible, message }: { save: Function, visible: { visible: boolean }, setVisible: Function, message: string }) => {
   const handleCancel = () => {
@@ -7,21 +7,50 @@ const Alert = ({ save, visible, setVisible, message }: { save: Function, visible
     auxState.visible = false;
     setVisible(auxState);
   };
-  return <Modal
-    centered
-    visible={visible.visible}
-    onCancel={handleCancel}
-    className="modal-confirm"
-    width="400px"
-  >
-    <h2>{message}</h2>
-    <Button className="btn-cancel" onClick={() => {
-      handleCancel();
-    }}>Cancel</Button>
-    <Button className="btn-submit" onClick={() => {
-      save();
-    }}>Update</Button>
-  </Modal>
+  return (
+  //   <Modal
+  //   centered
+  //   visible={visible.visible}
+  //   onCancel={handleCancel}
+  //   className="modal-confirm"
+  //   width="400px"
+  // >
+  //   <h2>{message}</h2>
+  //   <Button className="btn-cancel" onClick={() => {
+  //     handleCancel();
+  //   }}>Cancel</Button>
+  //   <Button className="btn-submit" onClick={() => {
+  //     save();
+  //   }}>Update</Button>
+  // </Modal>
+    <Modal
+      className="detailed-version"
+      style={{ top: 60, width: '70%' }}
+      visible={visible.visible}
+      onCancel={handleCancel}
+      forceRender={false}
+      destroyOnClose>
+      <div className="detailed">
+        <Row className="detailed-h" gutter={[16, 8]}>
+          <Col xs={{ span: 12 }} lg={{ span: 13 }}>
+            <h1 style={{marginTop: '15px'}}>{message}
+            </h1>
+          </Col>
+          <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
+            <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+          </Col>
+        </Row>
+        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
+           <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+              <button className="btn-borde" onClick={handleCancel} style={{width: '95%'}}>Cancel</button>
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>
+              <button className="btn-purple"  style={{width: '95%'}} onClick={()=>{save()}}>Update</button>
+            </Col>
+        </Row>
+      </div>
+    </Modal>
+  )
 };
 
 export default Alert;

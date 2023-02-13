@@ -62,12 +62,12 @@ const ImageModal = (
                 }):
                 <>
 
-                    <img style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px' }} className='img-list'/>
-                    <img style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px' }} className='img-list'/>
-                    <img className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px'}}/>
+                    <img src="/picture/no-image.png" alt="" style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent' }} className='img-list'/>
+                    <img src="/picture/no-image.png" alt="" style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent' }} className='img-list'/>
+                    <img src="/picture/no-image.png" alt="" className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px', border:'transparent'}}/>
                     {/* <br></br> */}
-                    <img style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
-                    <img style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
+                    <img src="/picture/no-image.png" alt="" style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent'}} className='img-list'/>
+                    <img src="/picture/no-image.png" alt="" style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent'}} className='img-list'/>
                 </>
                
               }
