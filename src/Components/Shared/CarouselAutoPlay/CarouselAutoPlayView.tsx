@@ -57,7 +57,7 @@ const CarouselAutoPlayView = () => {
         <ul>
           <li><a href="https://mhfd.org/contact-us/" target="_blank">Contact</a></li>
           <span>|</span>
-          <li><a href="/login" >©2022 Mile High Flood District</a></li>
+          <li><a href="/login" >©2023 Mile High Flood District</a></li>
           <span>|</span>
           <li><a href="https://mhfd.org/wp-content/uploads/2019/12/CORA_Policy_Website.pdf" target="_blank">Privacy Policy</a></li>
         </ul>

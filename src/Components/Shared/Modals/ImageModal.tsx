@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { HeartOutlined, LeftOutlined, RightOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { Carousel, MenuProps, Select } from 'antd';
 import { Button, Col, Dropdown, Input, Row } from 'antd';
@@ -59,16 +60,16 @@ const ImageModal = (
                   }
                 }
                 }):
-                <div style={{display:'flex',  background:'#f5f7ff', borderRadius:'15px', width: '100%', height: '100%'}}>
+                <>
 
-                  {/* <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block'}} className='img-list'/>
-                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block' }} className='img-list'/>
-                  <br></br>
-                  <span className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px', display: 'block'}}/>
-                  <br></br>
-                  <span style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block'}} className='img-list'/>
-                  <span style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', display: 'block'}} className='img-list'/> */}
-                </div>
+                    <img style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px' }} className='img-list'/>
+                    <img style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px' }} className='img-list'/>
+                    <img className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px'}}/>
+                    {/* <br></br> */}
+                    <img style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
+                    <img style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px'}} className='img-list'/>
+                </>
+               
               }
               </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
