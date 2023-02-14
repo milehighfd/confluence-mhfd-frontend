@@ -59,7 +59,6 @@ const GenericTabView = ({
 
     useEffect(() => {
         if (favorites && cardInformation) {
-            console.log('new favorites size ', favorites.length);
             setData(
                 cardInformation.map((ci: any) => {
                     return {

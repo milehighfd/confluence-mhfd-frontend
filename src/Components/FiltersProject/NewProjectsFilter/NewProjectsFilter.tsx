@@ -43,7 +43,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
       console.log('paramProjects', paramProjects, filterProjectOptions);
     }, [paramProjects, filterProjectOptions]);
     const apply = (values: any, field: string) => {
-      console.log('values ', values, field);
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
         || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
@@ -76,7 +75,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         options.servicearea = options.servicearea;
         options.county = options.county;
         getParamFilterProjects(boundsMap, options);
-        getProjectCounter(boundsMap, options);
+        // getProjectCounter(boundsMap, options);
     }
 
     ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {

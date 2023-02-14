@@ -1,11 +1,12 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useCallback } from "react";
+import { getGroupList } from "routes/portfolio-view/components/ListUtils";
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
 import { useLocation } from "react-router-dom";
 
 import GenericTabView from "../../../Components/Shared/GenericTab/GenericTabView";
 import FiltersProjectView from "../../../Components/FiltersProject/FiltersProjectView";
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS } from '../../../constants/constants';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS, PROJECT_TYPE } from '../../../constants/constants';
 import DetailedModal from "../../../Components/Shared/Modals/DetailedModal";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
@@ -14,6 +15,9 @@ import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 import MapAutoComplete from "./MapAutoComplete";
 
+const STATUS = 'status', JURISDICTION = 'jurisdiction',
+COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
+CONTRACTOR = 'contractor', STREAMS = 'streams', PROJECTTYPE = 'projecttype';
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
@@ -46,7 +50,17 @@ const MapView = () => {
     filterComponentOptions,
     applyFilter,
     spinFilters: spinFilter,
-    spinMapLoaded
+    spinMapLoaded,
+    tabCards,
+    labelsFiltersProjects,
+    labelsFiltersProblems,
+    labelsFiltersComponents,
+    spinCardProblems,
+    spinCardProjects,
+    boundsMap,
+    toggleModalFilter,
+    filterTabNumber,
+    tutorialStatus
   } = useMapState();
   const {
     detailed,
@@ -72,23 +86,31 @@ const MapView = () => {
   const {getGroupOrganization} = useProfileDispatch();
   const { userInformation, groupOrganization } = useProfileState();
   const { zoomarea } = userInformation;
-  const {
-    tabCards,
-    labelsFiltersProjects,
-    labelsFiltersProblems,
-    labelsFiltersComponents,
-    spinCardProblems,
-    spinCardProjects,
-    boundsMap,
-    toggleModalFilter,
-    filterTabNumber,
-    tutorialStatus
-  } = useMapState();
-
+  useEffect(() => {
+    console.log('filterpeojrct', filterProjectOptions);
+  }, [filterProjectOptions]);
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
-
+  const [tabActive, setTabActive] = useState('1');
+  const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
+  const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword ? filterProjectOptions.keyword : '');
+  const [visible, setVisible] = useState(useLocation().search ? true : false);
+  const location = useLocation().search;
+  const [data, setData] = useState({
+    problemid: '',
+    projectid: '',
+    id: '',
+    objectid: '',
+    value: '',
+    type: ''
+  });
+  const gray = 'rgba(17, 9, 60, 0.5)';
+  const green = '#28C499';
+  const purple = '#11093c';
+  const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
+  const [textStyle, setTextStyle] = useState<string>(purple);
+  const [groupsLabels, setGroupsLabels] = useState<any>({"projecttype": [], "totalcost": [], "status": [], "year": [], "mhfddollarsallocated": [], "workplanyear": [], "problemtype": [], "consultant": [], "contractor": [], "jurisdiction": [], "county": [], "lgmanager": [], "streamname": [], "creator": [], "mhfdmanager": [], "servicearea": []});
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
@@ -101,6 +123,28 @@ const MapView = () => {
           getMapTables(layer);
       }
     });
+    if (location.includes('problemid=')) {
+      const id = location.replace('?problemid=', '');
+      existDetailedPageProblem(id);
+      const auxData = { ...data };
+      auxData.problemid = id;
+      setData(auxData);
+    }
+    if (location.includes('projectid=')) {
+      const params = location.split('&');
+      if(params.length === 2) {
+        const type = params[0].replace('?type=', '');
+        const projectid = params[1].replace('projectid=', '');
+        const url = 'projectid=' + projectid;
+        existDetailedPageProject(url);
+        const auxData = {...data};
+        auxData.type = type;
+        auxData.projectid = projectid;
+        setData(auxData);
+      }
+    }
+    setNameZoomArea(zoomarea); 
+    getFilterLabels();
     return () => {
       const user = userInformation;
       user.isSelect = false;
@@ -204,29 +248,30 @@ const MapView = () => {
     getParamFilterProblems(boundsMap, auxFilterProblems)
   }
 
-  const deleteTagProjects = (tag: string, value: string) => {
+  const deleteTagProjects =  useCallback((tag: string, value: string) => {
     const auxFilterProjects = { ...filterProjectOptions };
-    const valueTag = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? filterProjectOptions[tag] : filterProjectOptions[tag].split(',');
+    const valueTag = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? filterProjectOptions[tag] : filterProjectOptions[tag];
     const auxValueTag = [] as Array<string>;
-    for (let index = 0; index < valueTag.length; index++) {
+    for (let index = 0; index < valueTag?.length; index++) {
       const element = valueTag[index];
       if (element !== value) {
         auxValueTag.push(element);
       }
     }
-    let newValue = '';
-    for (let index = 0; index < auxValueTag.length; index++) {
-      const element = auxValueTag[index];
-      if (element !== '') {
-        newValue = newValue ? (newValue + ',' + element) : element;
-      }
-    }
-    auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
+    // let newValue = '';
+    // for (let index = 0; index < auxValueTag.length; index++) {
+    //   const element = auxValueTag[index];
+    //   if (element !== '') {
+    //     newValue = newValue ? (newValue + ',' + element) : element;
+    //   }
+    // }
+    //  = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
+    auxFilterProjects[tag] = auxValueTag;
     setFilterProjectOptions(auxFilterProjects);
     getGalleryProjects();
     getParamFilterProjects(boundsMap, auxFilterProjects)
 
-  }
+  }, [filterProjectOptions]);
 
   const getFiltersPopoverContent = () => {
     let body = null;
@@ -242,7 +287,7 @@ const MapView = () => {
         break;
     }
     return body;
-  }
+  };
   const generateLabelsFilterComponents = () => {
     const filterComponents = { ...filterComponentOptions } as any;
     const labelsProblems = [...labelsFiltersComponents];
@@ -396,7 +441,11 @@ const MapView = () => {
       </div>
     )
   }
-  const generateLabelsFilterProjects = () => {
+  const getLabel = useCallback((key: any, value: any) => {
+    const valueGroup = groupsLabels[key]?.filter((g:any) => g.id === value);
+    return valueGroup[0]?.value;
+  }, [groupsLabels]);
+  const generateLabelsFilterProjects =  useCallback(() => {
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
@@ -405,39 +454,46 @@ const MapView = () => {
         const tag = filterProjects[key];
         const elements = [];
         for (let index = 0; index < tag.length; index++) {
-          if (key === 'mhfddollarsallocated' || key === 'totalcost') {
+          
+          if (key === 'mhfddollarsallocated') {
             const cost = tag[index].split(',');
             elements.push({
               tag: key,
               display: elementCost(cost[0], cost[1]),
               value: tag[index]
             });
+          } else if (key === 'totalcost') {
+            elements.push({
+              tag: key,
+              display: elementCost(tag[index][0], tag[index][1]),
+              value: tag[index]
+            });
           } else {
-            if (tag[index].length > 0) {
+            if (tag[index]) {
+              // console.log('ACCESS HERE', tag[index], key);
               elements.push({
                 tag: key,
                 value: tag[index],
-                display: tag[index]
+                display: getLabel(key, tag[index])
               });
             }
           }
         }
-        if (elements.length > 0) {
-          labelsFiltersProjects[position]['detail'] = elements as any;
-        }
+        // if (elements.length > 0) {
+          labelsFiltersProjects[position]['detail'] = elements as any; 
+        // }
       }
     }
     let mappedLabelsFiltersProjects = labelsFiltersProjects.map((lfp: any) => {
       let d = lfp.detail.filter((dt: any) => dt !== '');
       let mlfp = { ...lfp, detail: d };
       return mlfp;
-    })
+    }).filter((x: any) => x.detail.length > 0);
     return (
       <div className='tag-filters'>
         <div className='tag-body'>
           {
             mappedLabelsFiltersProjects
-              .filter((x: any) => x.detail.length > 0)
               .map((element: any, index: number) => {
                 return (
                   showFilterLabels(element, index)
@@ -446,12 +502,12 @@ const MapView = () => {
           }
         </div>
         <div className="btn-footer-02">
-          {mappedLabelsFiltersProjects.filter((x: any) => x.detail.length > 0).length > 0 ? <Button className="btn-borde"
+          {mappedLabelsFiltersProjects.length > 0 ? <Button className="btn-borde"
             onClick={() => resetFilterProjects(false)}>Clear</Button> : <p style={{textAlign: 'right'}}>No filters are applied</p>}
         </div>
       </div>
     );
-  }
+  }, [groupsLabels, filterProjectOptions]);
 
   const showFilterLabels = (element: any, index: number) => {
     if (element.detail[0].length === 0) {
@@ -548,24 +604,32 @@ const MapView = () => {
     setCountFilterProjects(countTagProjets);
 
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions])
-  const [tabActive, setTabActive] = useState('1');
-  const [keywordProblem, setKeywordProblem] = useState(filterProblemOptions.keyword ? filterProblemOptions.keyword : '');
-  const [keywordProject, setKeywordProject] = useState(filterProjectOptions.keyword ? filterProjectOptions.keyword : '');
-  const [visible, setVisible] = useState(useLocation().search ? true : false);
-  const location = useLocation().search;
-  const [data, setData] = useState({
-    problemid: '',
-    projectid: '',
-    id: '',
-    objectid: '',
-    value: '',
-    type: ''
-  });
-  const gray = 'rgba(17, 9, 60, 0.5)';
-  const green = '#28C499';
-  const purple = '#11093c';
-  const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
-  const [textStyle, setTextStyle] = useState<string>(purple);
+
+  const getFilterLabels = () => {
+    const promises = [
+      getGroupList(SERVICE_AREA),
+      getGroupList(COUNTY),
+      getGroupList(JURISDICTION),
+      getGroupList(CONSULTANT),
+      getGroupList(CONTRACTOR),
+      getGroupList(STATUS),
+      getGroupList(STREAMS),
+      getGroupList(PROJECTTYPE)
+    ];
+    Promise.all(promises).then((values) => {
+      setGroupsLabels({
+        ...groupsLabels,
+        "servicearea": values[0]?.groups,
+        "county": values[1]?.groups,
+        "jurisdiction": values[2]?.groups,
+        "consultant": values[3]?.groups,
+        "contractor": values[4]?.groups,
+        "status": values[5]?.groups,
+        "streamname": values[6]?.groups,
+        "projecttype": values[7]?.groups
+      });
+    });
+  };
 
   useEffect(() => {
     if(counterZoomArea >= 2) {
@@ -573,30 +637,6 @@ const MapView = () => {
     }
     counterZoomArea++;
   }, [zoomarea, groupOrganization])
-
-  useEffect(() => {
-    if (location.includes('problemid=')) {
-      const id = location.replace('?problemid=', '');
-      existDetailedPageProblem(id);
-      const auxData = { ...data };
-      auxData.problemid = id;
-      setData(auxData);
-    }
-    if (location.includes('projectid=')) {
-      const params = location.split('&');
-      if(params.length === 2) {
-        const type = params[0].replace('?type=', '');
-        const projectid = params[1].replace('projectid=', '');
-        const url = 'projectid=' + projectid;
-        existDetailedPageProject(url);
-        const auxData = {...data};
-        auxData.type = type;
-        auxData.projectid = projectid;
-        setData(auxData);
-      }
-    }
-    setNameZoomArea(zoomarea); 
-  }, []);
 
   const handleToggle = () => {
     if (tabPosition === '2') {
@@ -636,13 +676,11 @@ const MapView = () => {
   }
 
   const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
-    console.log('change Center', name, coordinates, isSelect);
     const user = userInformation;
     user.polygon = coordinates;
     user.isSelect = isSelect;
     saveUserInformation(user);
     setNameZoomArea(name);
-    console.log('changing center');
     const zoomareaSelected = groupOrganization.filter((x: any) => x.name === name).map((element: any) => {
       return {
         aoi: element.name,

@@ -598,7 +598,6 @@ const Map = ({
     //     }
     // }, [filterProjects, componentDetailIds]);
     useEffect(() => {
-      console.log('projectsids', projectsids, projectsids.length);
       if(projectsids.length) {
         applyFilters(MHFD_PROJECTS, filterProjects);
       }
@@ -1462,9 +1461,6 @@ const Map = ({
             }
             if (map.getLayer(key + '_' + index)) {
                 map.setFilter(key + '_' + index, allFilters);
-            }
-            if (key === MHFD_PROJECTS) {
-              console.log('allFilters', allFilters);
             }
         });
     }, [problemClusterGeojson, projectsids]);
