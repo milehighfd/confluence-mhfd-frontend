@@ -1932,13 +1932,21 @@ body{
     margin-left: -24px;
   }
   .image-modal-body{
+    .tag-div{
+      position: absolute;
+      width: 100%;
+      top: 460px;
+      height: auto;
+      text-align: -webkit-center;
+    }
     .tag-carousel{
       background-color: #251863;
       padding: 3px 11px;
       color: white;
-      position: absolute;
-      left: 440px;
-      top: 460px;
+      width: fit-content;
+      // position: absolute;
+      // left: 440px;
+      // top: 460px;
       border-radius: 12px;
       font-size: 14px;
     }
@@ -3068,6 +3076,9 @@ body{
     }
     .image-modal-body{
       height: 650px !important;
+      .tag-div{
+        top: 577px;
+      }
       .tag-carousel{
         font-size: 19px;
         left: 564px;
@@ -3422,6 +3433,9 @@ body{
       img{
         border-radius: 20px !important;
       }
+      .tag-div{
+        top: 710px;
+      }
       .tag-carousel{
         font-size: 23px;
         left: 687px;
@@ -3774,6 +3788,9 @@ body{
     }
     .image-modal-body{
       height: 1107px !important;
+      .tag-div{
+        top: 989px;
+      }
       .tag-carousel{
         font-size: 28px;
         left: 905px;

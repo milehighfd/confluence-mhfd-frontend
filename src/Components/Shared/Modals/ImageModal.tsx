@@ -72,7 +72,7 @@ const ImageModal = (
                
               }
               </Col>
-            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body'>
+            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden'}}>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
                 {detailed?.problemid ? (
                   <div className="detailed-c" > <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
@@ -89,12 +89,14 @@ const ImageModal = (
                 </div>
                 )}
               </Carousel>
-              <div className='tag-carousel'>
-                {detailed?.attachments?.length !== 0 && detailed?.attachments ?
-                `${numberCarousel} of ${numberElementCarousel}`
-                :
-                'No Image Available'
-                }
+              <div className='tag-div'>
+                <div className={detailed?.attachments?.length !== 0 && detailed?.attachments ? 'tag-carousel' : 'tag-carousel no-image'}>
+                  {detailed?.attachments?.length !== 0 && detailed?.attachments ?
+                  `${numberCarousel} of ${numberElementCarousel}`
+                  :
+                  'No Image Available'
+                  }
+                </div>
               </div>
               <div className='btn-left-carousel'>
                 <LeftOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}}/>

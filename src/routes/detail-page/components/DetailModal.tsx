@@ -102,14 +102,13 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       setIsLoading(true)
     }
   }, [detailed])
-  useEffect(() => {
-    if(type === PROBLEMS_MODAL){
-      existDetailedPageProblem(data.problemid);
-    }else{
-      existDetailedPageProject(data.project_id);
-    }
-    
-  },[])
+  // useEffect(() => {
+  //   if(type === PROBLEMS_MODAL){
+  //     existDetailedPageProblem(data.problemid);
+  //   }else{
+  //     existDetailedPageProject(data.project_id);
+  //   }
+  // },[])
   return (
     <>
     {isLoading && <LoadingViewOverall />}
@@ -125,7 +124,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
-              <div>
+              <div style={{width:'78%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (detailed?.sponsor && detailed?.sponsor.length > 0 && detailed?.sponsor[0].business_associate?.business_associate_name ? detailed?.sponsor[0].business_associate.business_associate_name:'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
