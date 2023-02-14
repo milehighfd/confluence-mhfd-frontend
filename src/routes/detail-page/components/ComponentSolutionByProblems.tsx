@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_SOLUTIONS } from "../constants";
@@ -11,10 +11,8 @@ const ComponentSolucionsByProblems = () => {
   const {
     componentsByProblemId: componentsOfProblems
   } = useMapState();
-  let totalCost = 0;
   const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
   const componentSolutionData = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {
-    totalCost = totalCost + data.estimated_cost? data.estimated_cost : 0;
     return {
       key: index,
       type: data.type,
@@ -68,7 +66,7 @@ const ComponentSolucionsByProblems = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           <Table dataSource={componentsOfProblems ?  componentSolutionData : {}} columns={columns} pagination={false}/>
           {componentsOfProblems.length > 0 && <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(totalCost)}</p>
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(total)}</p>
           </div>}
         </Col>
       </Row>
