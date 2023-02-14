@@ -277,10 +277,10 @@ const addLayer = () => {
     applyNearMapLayer();
 
     if(activeTab === 1){
-      showComponents()
+      setTimeout(() => {
+        showComponents()        
+      }, 2000);
 
-
-     
     }else{
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
