@@ -165,23 +165,7 @@ const addLayer = () => {
   if(map) {
     let i = 0;
     const styles = {...tileStyles as any};
-    for (const key in layers.components) {
-      map.addVectorSource(key, layers.components[key]);
-      i = 0;
-      if((detailed?.problemid && type === PROBLEMS_MODAL) ||(detailed?.project_id && type === PROJECTS_MODAL)) {
-        for (const component of styles[key] ) {
-          map.addLayer(key + i, key, component);
-          let fieldComparator = type === PROBLEMS_MODAL ? 'problemid': 'projectid';
-          if (STREAM_IMPROVEMENT_MEASURE === key) { 
-            fieldComparator = type === PROBLEMS_MODAL ? 'problem_id': 'project_id';
-          }
-          map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailed?.problemid : detailed?.project_id]);
-          i++;
-        }
-        addMapListeners(key, key );
-      }
 
-  }
   if(type === PROBLEMS_MODAL) {
     i = 0;
     map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
@@ -242,6 +226,23 @@ const addLayer = () => {
     i = 0;
     addMapListeners(MHFD_PROJECTS, 'projects-line_');
     }
+    for (const key in layers.components) {
+      map.addVectorSource(key, layers.components[key]);
+      i = 0;
+      if((detailed?.problemid && type === PROBLEMS_MODAL) ||(detailed?.project_id && type === PROJECTS_MODAL)) {
+        for (const component of styles[key] ) {
+          map.addLayer(key + i, key, component);
+          let fieldComparator = type === PROBLEMS_MODAL ? 'problemid': 'projectid';
+          if (STREAM_IMPROVEMENT_MEASURE === key) { 
+            fieldComparator = type === PROBLEMS_MODAL ? 'problem_id': 'project_id';
+          }
+          map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailed?.problemid : detailed?.project_id]);
+          i++;
+        }
+        addMapListeners(key, key );
+      }
+
+  }
     if (detailed?.coordinates) {
       map.fitBounds([
         detailed?.coordinates[0][0],
@@ -503,11 +504,11 @@ const addLayer = () => {
         div.innerHTML = `${counterPopup.componentes}`;
     }
 }, [counterPopup]);
-useEffect(() => {
-  if (map) {
-    map.isStyleLoaded(addLayer);
-  }
-}, [detailed]);
+// useEffect(() => {
+//   if (map) {
+//     map.isStyleLoaded(addLayer);
+//   }
+// }, [detailed]);
   return (
     <>
       <div id="map3" style={{height:'100%', width:'100%', borderRadius:'15px', paddingBottom:'10px'}}></div>

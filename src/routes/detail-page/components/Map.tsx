@@ -60,12 +60,9 @@ const addLayer = () => {
   if(map) {
     let i = 0;
     const styles = {...tileStyles as any};
-    console.log(layers, "LAYERS")
     for (const key in layers.components) {
-      console.log(key, 'KEY')
       map.addVectorSource(key, layers.components[key]);
       i = 0;
-      console.log('detailedpage data', detailed);
       if((detailed?.problemid && type === PROBLEMS_MODAL) ||(detailed?.project_id && type === PROJECTS_MODAL)) {
         for (const component of styles[key] ) {
           map.addLayer(key + i, key, component);
