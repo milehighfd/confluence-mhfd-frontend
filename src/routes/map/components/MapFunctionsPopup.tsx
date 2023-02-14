@@ -286,14 +286,18 @@ export const addPopupsOnClick = async (
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         }
         const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
+        console.log("DATAFROMDB")
+        console.log(dataFromDB)
         const sponsors = dataFromDB?.sponsor.map((el:any) => el.business_associate.business_name);
-        const estimatedcost = dataFromDB?.estimatedCost[0].cost;
-        const componentcost = dataFromDB?.componentCost[0].cost;
+        const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
+        const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
+        console.log(estimatedcost)
+        console.log(componentcost)
           const filtered = galleryProjects.filter((item: any) =>
               item.cartodb_id === feature.properties.cartodb_id
           );
           const projecttypename = dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name;
-
+         
           const item = {
             type: 'project',
                         title:
@@ -310,7 +314,7 @@ export const addPopupsOnClick = async (
                         projecctype: dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name,
                         status: dataFromDB?.project_status?.code_phase_type?.code_status_type?.status_name,
                         objectid: dataFromDB?.codeStateCounty?.objectid,
-                        component_count: 0 , // TODO component_count
+                        component_count: dataFromDB?.totalComponents, // TODO component_count
                         valueid: feature.properties.cartodb_id,
                         id: dataFromDB.project_id,
                         streamname: feature.properties.streamname, // TODO streamname
