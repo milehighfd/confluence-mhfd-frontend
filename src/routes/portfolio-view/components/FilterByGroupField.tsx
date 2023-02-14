@@ -32,8 +32,8 @@ export const FilterByGroupName = ({
         label: <div onClick={(e) => {
           setFilterby(filterby);
           setFiltervalue(element.id);
-          setFiltername(element.name);
-        }} className="menu-drop-sub">{element.name +" "+ post}</div>,
+          setFiltername(element.value);
+        }} className="menu-drop-sub">{element.value +" "+ post}</div>,
         filterby: filterby,
         id: element.id,
       };
