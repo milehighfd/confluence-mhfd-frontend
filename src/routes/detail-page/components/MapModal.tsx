@@ -24,12 +24,7 @@ const MapModal = ({type, activeTab}: {type: any, activeTab:any}) => {
   const {
     detailed,
   } = useDetailedState();
-  const {
-    getBBOXComponents
-  } = useMapDispatch();
-  const {
-    bboxComponents,
-  } = useMapState();
+
   const [, setZoomValue] = useState(0);
   const [counterPopup, setCounterPopup] = useState({componentes: 0});
   const layers = store.getState().map.layers;
@@ -52,16 +47,89 @@ const MapModal = ({type, activeTab}: {type: any, activeTab:any}) => {
     }
   }, []);
   const showComponents = () => {
-    console.log('data', detailed)
     let typeForComponents:any;
     if(detailed.project_id){
-      typeForComponents = 'mhfd_projects'
+      typeForComponents = MHFD_PROJECTS
     }else {
-      typeForComponents ='problem_boundary'
+      typeForComponents =MENU_OPTIONS.PROBLEMS_BOUNDARY
     }
-    const id = typeForComponents === 'mhfd_projects'? detailed.project_id : detailed.problem_id;
+    const id = typeForComponents === MHFD_PROJECTS? detailed.project_id : detailed.problem_id;
     // TODO: See endpoint to draw arcs in 3d detail page
     // getBBOXComponents(typeForComponents, id);
+    datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + typeForComponents + '&id=' + id).then(bboxComp => {
+      if (bboxComp) {
+        console.log('bboxCompon', bboxComp)
+        if (map.getLayer('mapboxArcs2')) {
+          map.removeLayer('mapboxArcs2');
+        }
+        if (map.getLayer('arcs2')) {
+          map.removeLayer('arcs2');
+        }
+        if (bboxComp.centroids && bboxComp.centroids.length === 0) {
+          console.log('bboxComp', bboxComp)
+          setTimeout(() => {
+            map.setPitch(0, {duration: 2000});
+          }, 3000);
+        } else {
+          const SOURCE_COLOR = [189, 56, 68];
+          const TARGET_COLOR = [13, 87, 73];
+          const CIAN_SOLID = [118, 239, 213];
+          const RED_SOLID = [255, 60, 60];
+          let scatterData: any[] = bboxComp.centroids.map((c: any) => {
+            return {
+              position: c.centroid,
+              name: c.component,
+              total: 1,
+              color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR,
+            };
+          });
+          let arcs: any[] = [];
+    
+          for (let i = 1; i < bboxComp.centroids.length; i++) {
+            arcs.push({
+              source: bboxComp.centroids[0].centroid,
+              target: bboxComp.centroids[i].centroid,
+              value: bboxComp.centroids[i].arcWidth,
+              colorArc: bboxComp.centroids[i].component == 'detention_facilities' ? RED_SOLID : CIAN_SOLID,
+            });
+          }
+          let mapboxArcsLayer = new MapboxLayer({
+            type: ScatterplotLayer,
+            id: 'mapboxArcs2',
+            data: scatterData,
+            opacity: 1,
+            pickable: true,
+            getRadius: (d: any) => {
+              if (d.name === 'self') {
+                return 2;
+              } else {
+                return 1;
+              }
+            },
+            getColor: (d: any) => d.color,
+          });
+    
+          let arcsLayer = new MapboxLayer({
+            type: ArcLayer,
+            id: 'arcs2',
+            data: arcs,
+            brushRadius: 100000,
+            getStrokeWidth: (d: any) => 4,
+            opacity: 1,
+            getSourcePosition: (d: any) => d.source,
+            getTargetPosition: (d: any) => d.target,
+            getWidth: (d: any) => d.value * 2,
+            getHeight: 0.7,
+            getSourceColor: (d: any) => d.colorArc,
+            getTargetColor: (d: any) => d.colorArc,
+          });
+          map.map.setPitch(70, {duration: 5000});
+          map.map.addLayer(mapboxArcsLayer);
+          map.map.addLayer(arcsLayer);
+
+        }
+      }
+  })
   }
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -97,12 +165,9 @@ const addLayer = () => {
   if(map) {
     let i = 0;
     const styles = {...tileStyles as any};
-    console.log(layers, "LAYERS")
     for (const key in layers.components) {
-      console.log(key, 'KEY')
       map.addVectorSource(key, layers.components[key]);
       i = 0;
-      console.log('detailedpage data', detailed);
       if((detailed?.problemid && type === PROBLEMS_MODAL) ||(detailed?.project_id && type === PROJECTS_MODAL)) {
         for (const component of styles[key] ) {
           map.addLayer(key + i, key, component);
@@ -213,78 +278,8 @@ const addLayer = () => {
     if(activeTab === 1){
       showComponents()
 
-      console.log('bboxComponents 222222222', bboxComponents)
 
-      if (map.getLayer('mapboxArcs2')) {
-        map.removeLayer('mapboxArcs2');
-      }
-      if (map.getLayer('arcs2')) {
-        map.removeLayer('arcs2');
-      }
-      if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
-        console.log('bboxComponents', bboxComponents)
-        setTimeout(() => {
-          map.setPitch(0, {duration: 2000});
-        }, 3000);
-      } else {
-        const SOURCE_COLOR = [189, 56, 68];
-        const TARGET_COLOR = [13, 87, 73];
-        const CIAN_SOLID = [118, 239, 213];
-        const RED_SOLID = [255, 60, 60];
-        let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
-          return {
-            position: c.centroid,
-            name: c.component,
-            total: 1,
-            color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR,
-          };
-        });
-        let arcs: any[] = [];
-  
-        for (let i = 1; i < bboxComponents.centroids.length; i++) {
-          arcs.push({
-            source: bboxComponents.centroids[0].centroid,
-            target: bboxComponents.centroids[i].centroid,
-            value: bboxComponents.centroids[i].arcWidth,
-            colorArc: bboxComponents.centroids[i].component == 'detention_facilities' ? RED_SOLID : CIAN_SOLID,
-          });
-        }
-        let mapboxArcsLayer = new MapboxLayer({
-          type: ScatterplotLayer,
-          id: 'mapboxArcs2',
-          data: scatterData,
-          opacity: 1,
-          pickable: true,
-          getRadius: (d: any) => {
-            if (d.name === 'self') {
-              return 2;
-            } else {
-              return 1;
-            }
-          },
-          getColor: (d: any) => d.color,
-        });
-  
-        let arcsLayer = new MapboxLayer({
-          type: ArcLayer,
-          id: 'arcs2',
-          data: arcs,
-          brushRadius: 100000,
-          getStrokeWidth: (d: any) => 4,
-          opacity: 1,
-          getSourcePosition: (d: any) => d.source,
-          getTargetPosition: (d: any) => d.target,
-          getWidth: (d: any) => d.value * 2,
-          getHeight: 0.7,
-          getSourceColor: (d: any) => d.colorArc,
-          getTargetColor: (d: any) => d.colorArc,
-        });
-        // map.setPitch(70);
-
-        map.addLayer(mapboxArcsLayer);
-        map.addLayer(arcsLayer);
-        map.setPitch(80, {duration: 2000});
-      }
+     
     }else{
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
@@ -501,75 +496,6 @@ const addLayer = () => {
         });
     }
 }
-  useEffect(() => {
-    // if (map.getLayer('mapboxArcs')) {
-    //   map.removeLayer('mapboxArcs');
-    // }
-    // if (map.getLayer('arcs')) {
-    //   map.removeLayer('arcs');
-    // }
-    // if (bboxComponents.centroids && bboxComponents.centroids.length === 0) {
-    //   setTimeout(() => {
-    //     map.setPitch(0);
-    //   }, 3000);
-    // } else {
-    //   const SOURCE_COLOR = [189, 56, 68];
-    //   const TARGET_COLOR = [13, 87, 73];
-    //   const CIAN_SOLID = [118, 239, 213];
-    //   const RED_SOLID = [255, 60, 60];
-    //   let scatterData: any[] = bboxComponents.centroids.map((c: any) => {
-    //     return {
-    //       position: c.centroid,
-    //       name: c.component,
-    //       total: 1,
-    //       color: c.component === 'self' ? SOURCE_COLOR : TARGET_COLOR,
-    //     };
-    //   });
-    //   let arcs: any[] = [];
-
-    //   for (let i = 1; i < bboxComponents.centroids.length; i++) {
-    //     arcs.push({
-    //       source: bboxComponents.centroids[0].centroid,
-    //       target: bboxComponents.centroids[i].centroid,
-    //       value: bboxComponents.centroids[i].arcWidth,
-    //       colorArc: bboxComponents.centroids[i].component == 'detention_facilities' ? RED_SOLID : CIAN_SOLID,
-    //     });
-    //   }
-    //   let mapboxArcsLayer = new MapboxLayer({
-    //     type: ScatterplotLayer,
-    //     id: 'mapboxArcs',
-    //     data: scatterData,
-    //     opacity: 1,
-    //     pickable: true,
-    //     getRadius: (d: any) => {
-    //       if (d.name === 'self') {
-    //         return 2;
-    //       } else {
-    //         return 1;
-    //       }
-    //     },
-    //     getColor: (d: any) => d.color,
-    //   });
-
-    //   let arcsLayer = new MapboxLayer({
-    //     type: ArcLayer,
-    //     id: 'arcs',
-    //     data: arcs,
-    //     brushRadius: 100000,
-    //     getStrokeWidth: (d: any) => 4,
-    //     opacity: 1,
-    //     getSourcePosition: (d: any) => d.source,
-    //     getTargetPosition: (d: any) => d.target,
-    //     getWidth: (d: any) => d.value * 2,
-    //     getHeight: 0.7,
-    //     getSourceColor: (d: any) => d.colorArc,
-    //     getTargetColor: (d: any) => d.colorArc,
-    //   });
-    //   map.setPitch(70);
-    //   map.addLayer(mapboxArcsLayer);
-    //   map.addLayer(arcsLayer);
-    // }
-  }, [bboxComponents]);
 
   useEffect(() => {
     const div = document.getElementById('popup-detailed-page');

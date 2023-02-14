@@ -6,7 +6,7 @@ import { numberWithCommas } from 'utils/utils';
 import { Detailed } from 'store/types/detailedTypes';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import store from 'store';
-import { COMPONENT_LAYERS, MENU_OPTIONS } from 'constants/constants';
+import { COMPONENT_LAYERS, MENU_OPTIONS, MHFD_PROJECTS } from 'constants/constants';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 import DetailModal from 'routes/detail-page/components/DetailModal';
@@ -44,8 +44,9 @@ const CardInformationView = ({
   } = useMapDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const showComponents = () => {
-    const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.id;
-    getBBOXComponents(data.type, id);
+    console.log('data',data)
+    const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.project_id;
+    getBBOXComponents(data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? MENU_OPTIONS.PROBLEMS_BOUNDARY : MHFD_PROJECTS, id);
   }
   const user = store.getState().profile.userInformation;
  
