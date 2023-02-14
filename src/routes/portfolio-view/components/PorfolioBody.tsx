@@ -71,6 +71,7 @@ const PortafolioBody = () => {
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
   const [completeData, setCompleteData] = useState<any>([]);
+  const [defaultData, setDefaultData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
@@ -186,6 +187,9 @@ const PortafolioBody = () => {
     }
   }, [searchWord]);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
+    console.log("SORT")
+
+    console.log(sortValue)
     const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);
     //console.log("Filter")
     //console.log(optionsfilters)
@@ -423,6 +427,7 @@ const PortafolioBody = () => {
         });
         setNewData(updatedGroups);
         setCompleteData(updatedGroups);
+        setDefaultData(updatedGroups);
         setTimeout(() => {
           setIsLoading(false);
         }, 1500);
@@ -432,8 +437,48 @@ const PortafolioBody = () => {
     });
   }
   useEffect(() => {
-    callGetGroupList(sortValue, openFavorites);
-  }, [sortValue, openFavorites, filterValue, filterby, applyFilter]);
+    callGetGroupList(sortValue, openFavorites);  
+  }, [ openFavorites, filterValue, filterby, applyFilter]);
+
+
+  const parseDataToString = (data: any) => {
+    if (data == null) return '';
+    return data;
+  }
+
+  function sort(order: any, columnKey: any) {    
+    let numAscending = [];
+    let col = ''+columnKey;
+    if (columnKey+'' === 'on_base') {
+      if(order+'' === 'ascend'){      
+        numAscending = [...newData].sort((a, b) => a[columnKey] - b[columnKey]);       
+      }else if (order+'' === 'descend')     {
+        numAscending = [...newData].sort((a, b) => b[columnKey] - a[columnKey]);
+      }else{
+        numAscending = defaultData;
+      }
+    } else {
+      if(order+'' === 'ascend'){
+        numAscending = [...newData].sort((a: any, b: any) =>parseDataToString(a[columnKey]).localeCompare(parseDataToString(b[columnKey]))
+    );
+      }else if (order+'' === 'descend')     {
+        numAscending = [...newData].sort((a: any, b: any) =>parseDataToString(b[columnKey]).localeCompare(parseDataToString(a[columnKey]))
+    );
+      }else{
+        numAscending = defaultData;
+      }
+    }    
+    return numAscending
+  }
+
+  useEffect(()=>{
+    console.log('SORTEFECT')
+    let numAscending = [];
+    numAscending = (sort(sortValue.order,sortValue.columnKey));
+    setNewData(numAscending)
+    setCompleteData(numAscending)
+    console.log(numAscending)
+  },[sortValue])
   useEffect(() => {
     setSortValue({columnKey: null, order: undefined});
   }, [currentGroup, tabKey]);
