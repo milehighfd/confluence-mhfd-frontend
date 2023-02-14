@@ -278,65 +278,102 @@ export const addPopupsOnClick = async (
         feature.source === MHFD_PROJECTS ||
         feature.source === PROJECTS_DRAFT
       ) {
+        const projectidfeature = feature.properties.projectid;
         if(feature.source === PROJECTS_DRAFT) {
           isEditPopup =true;
         }
         if (mapType !== MAPTYPES.WORKREQUEST) {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         }
-          
+        const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
+        const sponsors = dataFromDB?.sponsor.map((el:any) => el.business_associate.business_name);
+        const estimatedcost = dataFromDB?.estimatedCost[0].cost;
+        const componentcost = dataFromDB?.componentCost[0].cost;
           const filtered = galleryProjects.filter((item: any) =>
               item.cartodb_id === feature.properties.cartodb_id
           );
+          const projecttypename = dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+
           const item = {
-              type: 'project',
-              title:
-                feature.source === PROJECTS_DRAFT
-                  ? feature.properties.projecttype + ' ' + MENU_OPTIONS.PROJECT
-                  : MENU_OPTIONS.PROJECT,
-              name: feature.properties.projectname
-                ? feature.properties.projectname
-                : feature.properties.requestedname
-                ? feature.properties.requestedname
-                : '-',
-              organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-              value:
-                feature.source === PROJECTS_DRAFT
-                  ? feature.properties.projecttype.toLowerCase() === 'capital'
-                    ? feature.properties.estimatedcost
-                    : getTotalAmount(feature.properties.cartodb_id)
-                  : feature.properties.estimatedcost
-                  ? feature.properties.estimatedcost
-                  : feature.properties.component_cost
-                  ? feature.properties.component_cost
-                  : '-1',
-              projecctype:
-                feature.source === PROJECTS_DRAFT
-                  ? feature.properties.projecttype
-                  : feature.properties.projectsubtype
-                  ? feature.properties.projectsubtype
-                  : feature.properties.projecttype
-                  ? feature.properties.projecttype
-                  : '-',
-              status: feature.properties.status ? feature.properties.status : '-',
-              objectid: feature.properties.objectid,
-              component_count: feature.properties.component_count,
-              valueid: feature.properties.cartodb_id,
-              id: feature.properties.projectid,
-              streamname: feature.properties.streamname,
-              isEditPopup: feature.source === PROJECTS_DRAFT,
-              popupId: 'popup',
-              mapType: mapType ? mapType : 'MAINMAP',
-              image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
-                  feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
-                    feature.properties.projecttype === 'Maintenance' ?
-                      (feature.properties.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                        feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                          feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
-                            feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
-                              '/projectImages/debris_management.png') : '/Icons/eje.png')
-          };
+            type: 'project',
+                        title:
+                            (
+                              dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name
+                              ? dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name
+                              : MENU_OPTIONS.PROJECT
+                            ),
+                        name: (dataFromDB.project_name
+                          ? dataFromDB.project_name
+                          : '-'),
+                        organization: sponsors.join(','),
+                        value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : 0),
+                        projecctype: dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name,
+                        status: dataFromDB?.project_status?.code_phase_type?.code_status_type?.status_name,
+                        objectid: dataFromDB?.codeStateCounty?.objectid,
+                        component_count: 0 , // TODO component_count
+                        valueid: feature.properties.cartodb_id,
+                        id: dataFromDB.project_id,
+                        streamname: feature.properties.streamname, // TODO streamname
+                        isEditPopup: feature.source === PROJECTS_DRAFT,
+                        popupId: 'popup',
+                        image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
+                          projecttypename === 'Capital (CIP)' ? '/projectImages/capital.png' :
+                            projecttypename === 'Planning Study (Study)' ? '/projectImages/study.png' :
+                              projecttypename === 'Special' ? '/projectImages/special.png' :
+                                projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                                  projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+                                    projecttypename === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
+                                      projecttypename === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+                                        projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
+                    };
+              // type: 'project',
+              // title:
+              //   feature.source === PROJECTS_DRAFT
+              //     ? feature.properties.projecttype + ' ' + MENU_OPTIONS.PROJECT
+              //     : MENU_OPTIONS.PROJECT,
+              // name: feature.properties.projectname
+              //   ? feature.properties.projectname
+              //   : feature.properties.requestedname
+              //   ? feature.properties.requestedname
+              //   : '-',
+              // organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
+              // value:
+              //   feature.source === PROJECTS_DRAFT
+              //     ? feature.properties.projecttype.toLowerCase() === 'capital'
+              //       ? feature.properties.estimatedcost
+              //       : getTotalAmount(feature.properties.cartodb_id)
+              //     : feature.properties.estimatedcost
+              //     ? feature.properties.estimatedcost
+              //     : feature.properties.component_cost
+              //     ? feature.properties.component_cost
+              //     : '-1',
+              // projecctype:
+              //   feature.source === PROJECTS_DRAFT
+              //     ? feature.properties.projecttype
+              //     : feature.properties.projectsubtype
+              //     ? feature.properties.projectsubtype
+              //     : feature.properties.projecttype
+              //     ? feature.properties.projecttype
+              //     : '-',
+              // status: feature.properties.status ? feature.properties.status : '-',
+              // objectid: feature.properties.objectid,
+              // component_count: feature.properties.component_count,
+              // valueid: feature.properties.cartodb_id,
+              // id: feature.properties.projectid,
+              // streamname: feature.properties.streamname,
+              // isEditPopup: feature.source === PROJECTS_DRAFT,
+              // popupId: 'popup',
+              // mapType: mapType ? mapType : 'MAINMAP',
+              // image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
+              //   feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
+              //     feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
+              //       feature.properties.projecttype === 'Maintenance' ?
+              //         (feature.properties.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+              //           feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+              //             feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
+              //               feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+              //                 '/projectImages/debris_management.png') : '/Icons/eje.png')
+              // };
           mobile.push({
               type: 'project',
               name: item.name,
@@ -817,15 +854,17 @@ export const addPopupsOnClick = async (
           ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
       if(feature.source === 'streams') {
+        const objectidstream = feature.properties.objectid;
+        const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
           const item = {
               type: 'streams-reaches',
               layer: 'Streams',
-              title: feature.properties.str_name ? feature.properties.str_name : 'Unnamed Stream',
-              streamname: feature.properties.str_name,
-              mhfd_code: feature.properties.mhfd_code,
-              catch_sum: feature.properties.catch_sum,
-              str_ft: feature.properties.str_ft,
-              slope: feature.properties.slope 
+              title: dataFromDBforStreams[0].stream_name ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
+              streamname: dataFromDBforStreams[0].stream_name,
+              mhfd_code: dataFromDBforStreams[0].MHFD_Code,
+              catch_sum: dataFromDBforStreams[0].catchment_sum,
+              str_ft: dataFromDBforStreams[0].stream_length_feet,
+              slope: dataFromDBforStreams[0].Slope 
           };
           menuOptions.push('Stream');
           mobile.push({...item});
