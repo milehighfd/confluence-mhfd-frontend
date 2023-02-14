@@ -2514,6 +2514,342 @@ export const PROJECTS_STYLES = {
     },
   ]
 }
+export const PROJECTS_STYLES_DETAIL_PAGE = {
+  [PROJECTS_POLYGONS]: [  
+    {
+      type: 'fill',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "fill-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "hsla(52, 100%, 50%, 0.1)",
+            "hsla(0, 0%, 0%, 0)"
+        ]
+      }
+    },{
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      layout: {},
+      "paint": {
+        "line-width": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            0,
+            1,
+            10.37,
+            8,
+            22,
+            24
+        ],
+        "line-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "hsl(52, 100%, 50%)",
+            "hsla(52, 100%, 50%, 0)"
+        ],
+        "line-blur": 22
+      }
+    }
+],
+  [MHFD_PROJECTS]: [
+    {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+      "layout": {
+        "text-field": [
+            "match",
+            ["get", "status"],
+            ["Requested"],
+            [
+                "concat",
+                ["to-string", ["get", "projectname"]],
+                "      Requested"
+            ],
+            ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+          "text-color": "hsl(52, 0%, 100%)",
+          "text-halo-color": "hsl(52, 100%, 31%)",
+          "text-halo-width": 5
+      }
+    }, {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+      "layout": {
+        "text-field": [
+            "match",
+            ["get", "status"],
+            ["Preliminary Design"],
+            [
+                "concat",
+                ["to-string", ["get", "projectname"]],
+                "       Preliminary Design"
+            ],
+            ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+          "text-color": "hsl(52, 0%, 100%)",
+          "text-halo-color": "hsl(52, 100%, 31%)",
+          "text-halo-width": 5
+      }
+    },
+     {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+      "layout": {
+        "line-miter-limit": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            9,
+            0,
+            22,
+            2
+        ]
+      },
+      "paint": {
+          "line-color": "hsl(52, 100%, 50%)",
+          "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              8,
+              4,
+              22,
+              6
+          ],
+          "line-gap-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              9,
+              1,
+              22,
+              6
+          ],
+          "line-opacity": [
+              "interpolate",
+              ["exponential", 1],
+              ["zoom"],
+              0,
+              0,
+              12,
+              0,
+              13,
+              0.62,
+              14.22,
+              1,
+              22,
+              1
+          ]
+      }
+    }, {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+      "paint": {
+          "line-color": "hsl(60, 100%, 50%)",
+          "line-width": 10,
+          "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              1,
+              12,
+              1,
+              14,
+              0
+          ]
+      }
+    }, {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      "layout": {"line-join": "round"},
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+      "paint": {
+          "line-color": "hsl(65, 100%, 50%)",
+          "line-blur": 1,
+          "line-gap-width": 6,
+          "line-opacity": [
+              "interpolate",
+              ["exponential", 1],
+              ["zoom"],
+              0,
+              0,
+              11,
+              0,
+              13,
+              0.22,
+              14.22,
+              1,
+              22,
+              1
+          ],
+          "line-width": 0.5
+      }
+  }, {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
+      "paint": {
+        "line-color": "hsl(69, 100%, 50%)",
+        "line-blur": 1,
+        "line-gap-width": 6,
+        "line-opacity": [
+            "interpolate",
+            ["exponential", 1],
+            ["zoom"],
+            0,
+            0,
+            11,
+            0,
+            13,
+            0.22,
+            14.22,
+            1,
+            22,
+            1
+        ],
+        "line-width": 0.5
+      }
+    },
+    {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"],["==",['get','projecttype'], "Study"]],
+      "layout": {
+        "text-field": ["to-string", ["get", "projectname"]],
+        "text-justify": "auto",
+        "text-anchor": "top-left",
+        "text-radial-offset": 1,
+        "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
+      },
+      "paint": {
+          "text-color": 
+              // "interpolate",
+              // ["exponential", 1],
+              // ["zoom"],
+              // 0,
+              // "hsla(0, 0%, 100%, 0)",
+              // 12.66,
+              // "hsla(0, 0%, 100%, 0)",
+              // 13,
+              "hsla(0, 0%, 100%, 1)"
+              // 22,
+              // "hsl(0, 0%, 100%)"
+          ,
+          "text-halo-color": 
+              // "step",
+              // ["zoom"],
+              // "hsla(0, 0%, 0%, 0)",
+              // 13,
+              // "hsla(0, 0%, 0%, 0.25)",
+              // 15,
+              // "hsl(0, 0%, 0%)",
+              // 22,
+              "hsla(0, 0%, 0%, 0.61)"
+          ,
+          "text-halo-width": 0.25,
+          "text-halo-blur": 35,
+          "text-opacity": 1 // ["step", ["zoom"], 0, 14, 1, 22, 1]
+      }
+    }, {
+      'source-layer': 'pluto15v1',
+      "filter": ["all",["==", ["get","projecttype"], "Study"],["==", ["get","projectsubtype"], "Master Plan"]],
+      "type": "line",
+      "layout": {"line-join": "round"},
+      "paint": {
+          "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              12,
+              1,
+              22,
+              3
+          ],
+          "line-color": [
+              "match",
+              ["get", "projectsubtype"],
+              ["Master Plan"],
+              "hsl(41, 86%, 59%)",
+              "hsla(0, 0%, 0%, 0)"
+          ],
+          "line-gap-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              11,
+              9,
+              22,
+              66
+          ],
+          "line-dasharray": [5, 3]
+      }
+    }, 
+    {
+      'source-layer': 'pluto15v1',
+      "filter": ["all",["==", ["get","projecttype"], "Study"],["==", ["get","projectsubtype"], "FHAD"]],
+      "type": "line",
+      "layout": {"line-join": "round"},
+      "paint": {
+          "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              10,
+              1,
+              22,
+              3
+          ],
+          "line-color": [
+              "match",
+              ["get", "projectsubtype"],
+              ["FHAD"],
+              "hsl(160, 73%, 67%)",
+              "hsla(0, 0%, 0%, 0)"
+          ],
+          "line-dasharray": [5, 3],
+          "line-gap-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              11,
+              11,
+              22,
+              88
+          ]
+      }
+    },
+  ]
+}
 export const PROJECTS_STYLES_WR = {
   [PROJECTS_POLYGONS]: [  
     {
@@ -8424,33 +8760,33 @@ export const tileStylesDetailPage = {
         // "symbol-placement": "line"
       },
       "paint": {
-          "text-color": [
-              "interpolate",
-              ["exponential", 1],
-              ["zoom"],
-              0,
-              "hsla(0, 0%, 100%, 0)",
-              12.66,
-              "hsla(0, 0%, 100%, 0)",
-              13,
-              "hsla(0, 0%, 100%, 0.74)",
-              22,
-              "hsl(0, 0%, 100%)"
-          ],
-          "text-halo-color": [
-              "step",
-              ["zoom"],
-              "hsla(0, 0%, 0%, 0)",
-              13,
-              "hsla(0, 0%, 0%, 0.25)",
-              15,
-              "hsl(0, 0%, 0%)",
-              22,
+          "text-color": 
+              // "interpolate",
+              // ["exponential", 1],
+              // ["zoom"],
+              // 0,
+              // "hsla(0, 0%, 100%, 0)",
+              // 12.66,
+              // "hsla(0, 0%, 100%, 0)",
+              // 13,
+              "hsla(0, 0%, 100%, 1)"
+              // 22,
+              // "hsl(0, 0%, 100%)"
+          ,
+          "text-halo-color": 
+              // "step",
+              // ["zoom"],
+              // "hsla(0, 0%, 0%, 0)",
+              // 13,
+              // "hsla(0, 0%, 0%, 0.25)",
+              // 15,
+              // "hsl(0, 0%, 0%)",
+              // 22,
               "hsla(0, 0%, 0%, 0.61)"
-          ],
+          ,
           "text-halo-width": 0.25,
           "text-halo-blur": 35,
-          "text-opacity": ["step", ["zoom"], 0, 9, 1, 22, 1]
+          "text-opacity": 1 //["step", ["zoom"], 0, 9, 1, 22, 1]
       }
     },
     //Flood Hazard
@@ -9971,10 +10307,11 @@ export const tileStylesDetailPage = {
         "text-halo-color": "hsla(0, 4%, 20%, 0.88)"
     }
   }],
+ ...PROJECTS_STYLES_DETAIL_PAGE,
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,
-  ...PROJECTS_STYLES,
+
 }
 export const tileStyles_WR = {
   ...LAND_OBJECT,

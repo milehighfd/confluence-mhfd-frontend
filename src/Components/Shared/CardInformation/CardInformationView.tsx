@@ -237,7 +237,7 @@ const CardInformationView = ({
               data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
               } 
               {/* <Popover content={total}> */}
-                <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Components</b></span>
+                <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
               {/* </Popover>  */}
             </h5>
           {/* </Popover> */}
