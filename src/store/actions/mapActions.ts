@@ -182,6 +182,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         servicearea: filters.servicearea,
         keyword
     }
+    console.log('About to set project options', auxFilter);
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });
         const params = '?problemtype=' + filters.problemtype;
@@ -193,6 +194,7 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
                 }
             });
         } else {
+          
             dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilter });
         }
 

@@ -283,6 +283,12 @@ const initState = {
             'popover': ''
         },
         {
+          'name': 'constractor',
+          'display': 'CONTRACTOR',
+          'detail': [],
+          'popover': ''
+        },
+        {
             'name': 'jurisdiction',
             'display': 'JURISDICTION',
             'detail': [],
