@@ -14,7 +14,7 @@ const { TabPane } = Tabs;
 let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
 contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
-contents.push((<div className="popoveer-00"><b>Components:</b> Components are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
+contents.push((<div className="popoveer-00"><b>Actions:</b> Actions are specific elements of a problem (i.e. master planned improvements or stream assessment data points) that are the building blocks for projects to solve those problems.</div>));
 
 const FiltersProjectView = ({
     tabActive,
@@ -108,9 +108,9 @@ const FiltersProjectView = ({
                 if (`${index}` === tabActive) {
                     let total = (index === 0) ? totals.problems : (index === 1 ? totals.projects : totals.components);
                     let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                    tabLabel = `${value} (${totalLabel})`;
+                    tabLabel = `${value === 'Components' ? 'Actions' : value} (${totalLabel})`;
                 } else {
-                    tabLabel = `${value}`;
+                    tabLabel = `${value === 'Components' ? 'Actions' : value}`;
                 }
                 return (
                     <TabPane key={'' + index} style={{ height: window.innerHeight - 240, overflow: 'auto' }} tab={<span><Popover content={contents[index]} placement="rightBottom">{tabLabel} </Popover> </span>}>

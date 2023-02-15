@@ -9,6 +9,15 @@
 .mapboxgl-popup-content {
   padding: 0px;
 }
+.mapboxgl-popup-content {
+  background: #fff0;
+}
+.mapboxgl-popup-close-button {
+  margin-top: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    font-size: 25px;
+}
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   color: rgba(0,0,0,.85);
   font-weight: 600;
@@ -768,9 +777,11 @@
   }
   h4{
     font-size: 14px;
-    color: $purple;
+    color: $purple !important;
     margin-bottom: 6px;
     line-height: 18px;
+    font-weight: 600;
+    opacity: 1 !important;
   }
   h6{
      font-size: 12px;
@@ -781,6 +792,7 @@
   h5{
     font-size: 16px;
     color: $purple;
+    font-weight: 600;
   }
   h5 span{
     color: $opacity;
@@ -993,7 +1005,10 @@
     border-radius: 4px;
   }
   .ant-menu-item, .ant-menu-submenu-title, .ant-menu-item-disabled {
-    border-top: 1px solid $opacity01 !important;
+    border-top: none!important;
+  }
+  .ant-menu-item:active, .ant-menu-submenu-title:active {
+    background: #f7f7f9;
   }
   .ant-menu-vertical .ant-menu-item, .ant-menu-vertical-left .ant-menu-item,
   .ant-menu-vertical-right .ant-menu-item, .ant-menu-inline .ant-menu-item,
@@ -1010,7 +1025,7 @@
   .ant-menu, .ant-menu-item:hover, .ant-menu-item-active,
   .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
   .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
-    color: $purple;
+    color: #706b8a;
   }
 }
 // MAP
