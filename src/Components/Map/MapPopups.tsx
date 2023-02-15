@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'antd';
 import { MAPTYPES, MENU_OPTIONS } from '../../constants/constants';
+import Item from 'antd/lib/list/Item';
 const problemStyle: any = {
     status: {
         'Low': {
@@ -75,7 +76,7 @@ export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: 
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
-          <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
+          <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Actions</span></h5>
         </div>}
           <hr/>
         {(mapType === MAPTYPES.MAINMAP || item.isEditPopup !== true) && <div>
@@ -124,7 +125,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
               (<><h6>{item.organization} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.organization} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
-          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b >{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Components</span></h5>
+          <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b >{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Actions</span></h5>
           <hr/>
           <div style={{display: 'flex', width:'100%', marginTop: '12px'}}>
             <p style={item.type === MENU_OPTIONS.PROBLEMS ? problemStyle.status[priorityType] : projectStyle.status}>{item.type === MENU_OPTIONS.PROBLEMS ? item.priority : capitalize(item.projecctype)}</p>
@@ -246,7 +247,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
         <Card hoverable
         >
         <div className="headmap">
-            {item.layer}
+            {item.layer === 'Components' ? 'Actions': item.layer}
         </div>
         <div className={!(item?.layer?.includes('Effective') || item?.layer?.includes('LOMC')) ? "bodymap" : 'bodymap listofelements'}>
             {item.type ? <h4>{item.type} </h4> : ''}
@@ -371,7 +372,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
     return <div id={'popup-' + id} className="map-pop-01">
       <Card hoverable>
       <div className="headmap">
-          {item.layer}
+        {item.layer === 'Components' ? 'Actions': item.layer}
       </div>
       <div className="bodymap">
           {item.type ? <h4><i>{item.type}</i> </h4> : ''}
