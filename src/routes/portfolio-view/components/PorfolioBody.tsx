@@ -231,26 +231,73 @@ const PortafolioBody = () => {
                 headerLabel: element.value,
                 rowLabel: elem.description, //description
                 date: moment('2022/08/11'),
-                key: elem.project_id+element.id,
+                key: elem.project_id + element.id,
                 phase: elem?.project_status?.code_phase_type?.phase_name,
-                mhfd: 'Jon Villines',
-                mhfd_support:'Jane Smith',
-                lg_lead:'Jane Smith',
-                developer:'Robert Croquette',
-                consultant: 'elem?.consultants[0]?.consultant[0]?.business_name',
-                civil_contractor: 'elem?.civilContractor[0]?.business[0]?.business_name',
-                landscape_contractor:'elem?.landscapeContractor[0]?.business[0]?.business_name',
-                construction_start_date: elem?.construction_start_date,
-                local_government: elem?.localGovernment?.codeLocalGovernment?.local_government_name,
+                mhfd: null,
+                mhfd_support: null,
+                lg_lead: null,
+                developer: null,
+                consultant: null, //'elem?.consultants[0]?.consultant[0]?.business_name',
+                civil_contractor: null, // 'elem?.civilContractor[0]?.business[0]?.business_name',
+                landscape_contractor: null, // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
+                construction_start_date: null, //elem?.construction_start_date,
+                local_government: elem?.project_local_governments.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
+                  let value = accumulator;
+                  if (sa) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  }  
+                  return value;
+                }, ''),
                 on_base: elem?.onbase_project_number,
-                total_funding:'1,350,000',
-                project_sponsor:elem?.sponsor,
+                total_funding: null,
+                project_sponsor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.business_associate?.business_name || '';
+                  let value = accumulator;
+                  if (sa) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  }  
+                  return value;
+                }, ''),
                 project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
-                service_area: elem?.serviceArea?.codeServiceArea?.service_area_name,
-                county: elem?.county?.codeStateCounty?.county_name,
-                estimated_cost: elem?.estimatedCost?.cost || 0 ,
-                stream: elem?.streams?.stream[0]?.stream_name,
+                service_area: elem?.project_service_areas.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.CODE_SERVICE_AREA?.service_area_name || '';
+                  let value = accumulator;
+                  if (sa) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  } 
+                  return value;
+                }, ''),
+                county: elem?.project_counties?.reduce((accumulator: string, pl: any) => {
+                  const county = pl?.CODE_STATE_COUNTY?.county_name || '';
+                  let value = accumulator;
+                  if (county) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += county;
+                  } 
+                  return value;
+                }, ''),
+                estimated_cost: elem?.project_costs?.reduce((accumulator: number, pl: any) => {
+                  // TODO: 1 is ESTIMATED_COST variable
+                  let sum = accumulator;
+                  if (pl.code_cost_type_id === 1) {
+                    sum += pl.cost;
+                  }
+                  return sum;
+                }, 0) ,
+                stream: null,
                 contact: 'ICON',
                 view: 'id',
                 options:'red',
