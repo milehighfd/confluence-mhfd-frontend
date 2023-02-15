@@ -599,7 +599,7 @@ const Map = ({
     // }, [filterProjects, componentDetailIds]);
     useEffect(() => {
       if(projectsids.length) {
-        applyFilters(MHFD_PROJECTS, filterProjects);
+        applyFilters(MHFD_PROJECTS, filterProjectOptions);
       }
     }, [projectsids]);
 
@@ -608,7 +608,7 @@ const Map = ({
             for (const component of COMPONENT_LAYERS.tiles) {
                 applyFilters(component, filterComponents);
             }
-            applyFilters(MHFD_PROJECTS, filterProjects);
+            applyFilters(MHFD_PROJECTS, filterProjectOptions);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterComponents, componentDetailIds]);
@@ -1148,7 +1148,7 @@ const Map = ({
             }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
-        applyFilters(MHFD_PROJECTS, filterProjects);
+        applyFilters(MHFD_PROJECTS, filterProjectOptions);
         setTimeout(()=>{
             topStreams()
             topEffectiveReaches();
@@ -1313,6 +1313,8 @@ const Map = ({
       return key;
     }
     const applyFilters = useCallback((key: string, toFilter: any) => {
+      // console.log('toFilter',toFilter)
+      // console.log('filterpro', filterProjectOptions);
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map?.getLayer(key + '_' + index)) {
@@ -1447,6 +1449,7 @@ const Map = ({
                 } 
               }
             } else {
+              //console.log('projectsids', projectsids)
               allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
             }
             
@@ -1463,15 +1466,18 @@ const Map = ({
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
-    }, [problemClusterGeojson, projectsids]);
+    }, [problemClusterGeojson, projectsids,filterProjectOptions]);
 
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
+        // console.log('keyyy',key)
         if(key.includes('mhfd_projects')){
+          // console.log('hereee', projectid,styles[key])
           if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
+                  // console.log('and hereee', projectid)
                     if(map.getLayer(key + '_highlight_' + index)) { 
                         map.setFilter(key + '_highlight_' + index, ['in', 'projectid', projectid])
                     }
