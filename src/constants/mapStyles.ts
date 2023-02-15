@@ -6726,6 +6726,307 @@ export const tileStyles = {
         "text-halo-color": "hsla(0, 4%, 20%, 0.88)"
     }
   }],
+  [PROJECTS_DRAFT]: [
+    {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": [
+            "match",
+            ["get", "status"],
+            ["Requested"],
+            [
+                "concat",
+                ["to-string", ["get", "projectname"]],
+                "      Requested"
+            ],
+            ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+          "text-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
+          "text-halo-color": "#fff",
+          "text-halo-width": 5,
+          "text-halo-blur": 5
+      }
+    }, {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": [
+            "match",
+            ["get", "status"],
+            ["Preliminary Design"],
+            [
+                "concat",
+                ["to-string", ["get", "projectname"]],
+                "       Preliminary Design"
+            ],
+            ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      },
+      "paint": {
+          "text-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
+          "text-halo-color": "#fff",
+          "text-halo-width": 5,
+          "text-halo-blur": 5
+      }
+    }, {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "line-miter-limit": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            9,
+            0,
+            22,
+            2
+        ]
+      },
+      "paint": {
+          "line-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "hsl(40, 100%, 50%)"
+          ],
+          "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              8,
+              4,
+              22,
+              6
+          ],
+          "line-gap-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              9,
+              1,
+              22,
+              6
+          ],
+          "line-opacity": [
+              "interpolate",
+              ["exponential", 1],
+              ["zoom"],
+              0,
+              0,
+              12,
+              0,
+              13,
+              0.62,
+              14.22,
+              1,
+              22,
+              1
+          ]
+      }
+    }, {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          "#139660",
+          ["Requested"],
+          "#9309EA",
+          ["Approved"],
+          "#497BF3",
+          ["Cancelled"],
+          "#FF0000",
+          ["Complete"],
+          "#06242D",
+          "hsl(40, 100%, 50%)"
+        ],
+          "line-width": 10,
+          "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
+          "line-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              1,
+              12,
+              1,
+              14,
+              0
+          ]
+      }
+    }, {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      "layout": {"line-join": "round"},
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          "#139660",
+          ["Requested"],
+          "#9309EA",
+          ["Approved"],
+          "#497BF3",
+          ["Cancelled"],
+          "#FF0000",
+          ["Complete"],
+          "#06242D",
+          "hsl(40, 100%, 50%)"
+        ],
+          "line-blur": 1,
+          "line-gap-width": 6,
+          "line-opacity": [
+              "interpolate",
+              ["exponential", 1],
+              ["zoom"],
+              0,
+              0,
+              11,
+              0,
+              13,
+              0.22,
+              14.22,
+              1,
+              22,
+              1
+          ],
+          "line-width": 0.5
+      }
+    }, {
+      type: 'line',
+      'source-layer': 'pluto15v1',
+      "paint": {
+        "line-color": [
+          "match",
+          ["get", "status"],
+          ["Initiated"],
+          "#139660",
+          ["Requested"],
+          "#9309EA",
+          ["Approved"],
+          "#497BF3",
+          ["Cancelled"],
+          "#FF0000",
+          ["Complete"],
+          "#06242D",
+          "hsl(40, 100%, 50%)"
+        ],
+        "line-blur": 1,
+        "line-gap-width": 6,
+        "line-opacity": [
+            "interpolate",
+            ["exponential", 1],
+            ["zoom"],
+            0,
+            0,
+            11,
+            0,
+            13,
+            0.22,
+            14.22,
+            1,
+            22,
+            1
+        ],
+        "line-width": 0.5
+      }
+    }, 
+    {
+      type: 'symbol',
+      'source-layer': 'pluto15v1',
+      "layout": {
+        "text-field": ["to-string", ["get", "projectname"]],
+        "text-justify": "auto",
+        "text-anchor": "top-left",
+        "text-radial-offset": 1,
+        "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
+      },
+      "paint": {
+          "text-color": [
+            "match",
+            ["get", "status"],
+            ["Initiated"],
+            "#139660",
+            ["Requested"],
+            "#9309EA",
+            ["Approved"],
+            "#497BF3",
+            ["Cancelled"],
+            "#FF0000",
+            ["Complete"],
+            "#06242D",
+            "#b36304"
+          ],
+          // "text-halo-color": "hsl(0, 0%, 45%)",
+          // "text-halo-width": 0.5,
+          // "text-halo-blur": 5,
+
+          'text-halo-color': "#ffffff",
+          'text-halo-width': 1,
+          'text-halo-blur': 0,
+
+          "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
+      }
+    }
+  ],
   ...COMPONENT_LAYERS_STYLE,
   ...MEP_PROJECTS_STYLES,
   ...ROUTINE_MAINTENANCE_STYLES,

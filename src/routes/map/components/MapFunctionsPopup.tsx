@@ -279,12 +279,55 @@ export const addPopupsOnClick = async (
         feature.source === PROJECTS_DRAFT
       ) {
         const projectidfeature = feature.properties.projectid;
-        if(feature.source === PROJECTS_DRAFT) {
-          isEditPopup =true;
-        }
         if (mapType !== MAPTYPES.WORKREQUEST) {
           getComponentsByProjid(feature.properties.projectid, setCounterPopup);
         }
+        //TO DO: create endpoint to get data for project draft from db if necessary
+        let item;
+        if(feature.source === PROJECTS_DRAFT) {
+          isEditPopup =true;
+         
+          item = {
+          type: 'project',
+              title:
+                feature.source === PROJECTS_DRAFT
+                  ? feature.properties.projecttype + ' ' + MENU_OPTIONS.PROJECT
+                  : MENU_OPTIONS.PROJECT,
+              name: feature.properties.projectname
+                ? feature.properties.projectname
+                : feature.properties.requestedname
+                ? feature.properties.requestedname
+                : '-',
+              organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
+              value:
+                feature.source === PROJECTS_DRAFT
+                  ? feature.properties.projecttype.toLowerCase() === 'capital'
+                    ? feature.properties.estimatedcost
+                    : getTotalAmount(feature.properties.cartodb_id)
+                  : feature.properties.estimatedcost
+                  ? feature.properties.estimatedcost
+                  : feature.properties.component_cost
+                  ? feature.properties.component_cost
+                  : '-1',
+              projecctype:
+                feature.source === PROJECTS_DRAFT
+                  ? feature.properties.projecttype
+                  : feature.properties.projectsubtype
+                  ? feature.properties.projectsubtype
+                  : feature.properties.projecttype
+                  ? feature.properties.projecttype
+                  : '-',
+              status: feature.properties.status ? feature.properties.status : '-',
+              objectid: feature.properties.objectid,
+              component_count: feature.properties.component_count,
+              valueid: feature.properties.cartodb_id,
+              id: feature.properties.projectid,
+              streamname: feature.properties.streamname,
+              isEditPopup: feature.source === PROJECTS_DRAFT,
+              popupId: 'popup',
+              mapType: mapType ? mapType : 'MAINMAP',
+          }
+        }else{
         const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
         console.log("DATAFROMDB")
         console.log(dataFromDB)
@@ -298,7 +341,7 @@ export const addPopupsOnClick = async (
           );
           const projecttypename = dataFromDB?.project_status?.code_phase_type?.code_project_type?.project_type_name;
          
-          const item = {
+          item = {
             type: 'project',
                         title:
                             (
@@ -378,6 +421,7 @@ export const addPopupsOnClick = async (
               //               feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
               //                 '/projectImages/debris_management.png') : '/Icons/eje.png')
               // };
+            }
           mobile.push({
               type: 'project',
               name: item.name,

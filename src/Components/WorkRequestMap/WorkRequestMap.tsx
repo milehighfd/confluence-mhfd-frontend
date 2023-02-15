@@ -56,6 +56,7 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
+  TEST_LINE,
   NEARMAP_TOKEN,
   EFFECTIVE_REACHES,
   SERVICE_AREA_FILTERS,
@@ -64,12 +65,13 @@ import {
   MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
   MAPTYPES,
+  templateGeomRandom,
   PROJECTS_MAP_STYLES
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button, Popover } from 'antd';
-import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
+import { tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useDetailedState } from '../../hook/detailedHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
@@ -123,7 +125,6 @@ const WorkRequestMap = (type: any) => {
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
   const user = store.getState().profile.userInformation;
-  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const {
     layers,
     mapSearch,
@@ -723,11 +724,9 @@ const applyProblemClusterLayer = () => {
         return;
       }
       if (typeof layer === 'object') {
-        if(layer.name !== 'projects'){
           layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
           });
-        }
       } else {
         showLayers(layer);
       }
@@ -751,13 +750,6 @@ const applyProblemClusterLayer = () => {
     if (type.type === 'CAPITAL') {
       applyComponentFilter();
     }
-    selectedLayersWR.forEach((layer: LayersType) => {
-      if (typeof layer === 'object') {
-        if(layer.name === 'projects'){
-          showLayers(PROJECTS_DRAFT);
-      }
-      } 
-    });
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
@@ -1383,7 +1375,7 @@ const applyProblemClusterLayer = () => {
         ];
         updateSelectedLayersWR(selectedLayersMaintenance);
       } else {
-        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS, PROJECTS_MAP_STYLES];
+        const selectedLayersOthers = [MHFD_BOUNDARY_FILTERS, STREAMS_FILTERS];
         updateSelectedLayersWR(selectedLayersOthers);
       }
     }
@@ -1494,8 +1486,9 @@ const applyProblemClusterLayer = () => {
       if (popups && popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
+        console.log('what is inside', type)
         addPopupAndListeners(
-          MAPTYPES.WORKREQUEST,
+          (type.mapType, type.mapType, MAPTYPES.WORKREQUEST),
           menuOptions,
           popups,
           user,
