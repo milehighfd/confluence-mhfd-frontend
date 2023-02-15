@@ -20,7 +20,7 @@ const ComponentSolucionsByProblems = () => {
       estimated_cost: data.estimated_cost,
       percen: data.percen,
       complete_cost: data.complete_cost,
-      completepercen: (data.component_count_complete/data.component_count_total)*100,
+      completepercen: Math.round((data.component_count_complete/data.component_count_total)*100),
     }
   }) : {};
  

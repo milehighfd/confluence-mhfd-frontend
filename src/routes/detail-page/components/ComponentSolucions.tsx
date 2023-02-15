@@ -18,7 +18,7 @@ const ComponentSolucions = () => {
       cost: data.estimated_cost? data.estimated_cost : '',
       complete: data.complete_cost ? data.complete_cost : '',
       total_cost: data.percen? data.percen : '',
-      completepercen: (data.component_count_complete/data.component_count_total)*100,
+      completepercen: Math.round((data.component_count_complete/data.component_count_total)*100),
     }
   }) : {};
   const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
