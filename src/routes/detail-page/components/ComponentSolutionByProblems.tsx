@@ -12,15 +12,18 @@ const ComponentSolucionsByProblems = () => {
     componentsByProblemId: componentsOfProblems
   } = useMapState();
   const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
-  const componentSolutionData = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {
+  let totalCount = 0;
+  const componentSolutionData = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {    
     return {
       key: index,
       type: data.type,
       estimated_cost: data.estimated_cost,
       percen: data.percen,
       complete_cost: data.complete_cost,
+      completepercen: (data.component_count_complete/data.component_count_total)*100,
     }
   }) : {};
+ 
   const columns = [
     {
       title: <>Actions</>,
@@ -39,10 +42,10 @@ const ComponentSolucionsByProblems = () => {
     },
     {
       title: <>% Complete</>,
-      dataIndex: 'complete_cost',
-      key: 'complete_cost',
+      dataIndex: 'completepercen',
+      key: 'completepercen',
       width:'20%',
-      render: (complete_cost: number) => `${complete_cost ? Math.round((complete_cost/total)*100) : 0}%`,
+      render: (completepercen: number) => `${completepercen ? completepercen : 0}%`,
       sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
