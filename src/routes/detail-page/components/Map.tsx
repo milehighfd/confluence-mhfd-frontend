@@ -227,6 +227,7 @@ const addLayer = () => {
                       value: e.features[0].properties.finalcost ? e.features[0].properties.finalcost : e.features[0].properties.estimatedcost ? e.features[0].properties.estimatedcost : '0',
                       projecctype: e.features[0].properties.projectsubtype ? e.features[0].properties.projectsubtype :  e.features[0].properties.projecttype ? e.features[0].properties.projecttype : '-',
                       status: e.features[0].properties.status ? e.features[0].properties.status : '-',
+                      component_count: detailed.totalComponents,
                       popupId: 'popup-detailed-page'
                   };
                   html = loadMainPopup(item);
