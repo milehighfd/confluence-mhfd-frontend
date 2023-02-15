@@ -485,7 +485,7 @@ const PortafolioBody = () => {
   }
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);  
-  }, [ openFavorites, filterValue, filterby, applyFilter]);
+  }, [ openFavorites, filterValue, filterby, applyFilter, currentGroup]);
 
 
   const parseDataToString = (data: any) => {
