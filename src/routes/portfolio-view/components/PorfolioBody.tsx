@@ -187,16 +187,19 @@ const PortafolioBody = () => {
     }
   }, [searchWord]);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
-    console.log("SORT")
 
-    console.log(sortValue)
+
     const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);
+    console.log("optionsfilters")
+    console.log(optionsfilters)
     //console.log("Filter")
     //console.log(optionsfilters)
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
+      console.log("curid")
+     console.log(currentId)
       // setNewData(updatedGroups);
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
         const updatedGroups: any = [];
@@ -228,6 +231,7 @@ const PortafolioBody = () => {
               updatedGroups.push({
                 id: `${element.value}${idx}`,
                 project_id: elem.project_id,
+                code_project_type_id:elem.code_project_type_id,
                 headerLabel: element.value,
                 rowLabel: elem.description, //description
                 date: moment('2022/08/11'),
@@ -485,7 +489,7 @@ const PortafolioBody = () => {
   }
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);  
-  }, [ openFavorites, filterValue, filterby, applyFilter, currentGroup]);
+  }, [ openFavorites, filterValue, filterby, applyFilter,currentGroup]);
 
 
   const parseDataToString = (data: any) => {
@@ -493,42 +497,45 @@ const PortafolioBody = () => {
     return data;
   }
 
-  function sort(order: any, columnKey: any) {    
+  function sort(order: any, columnKey: any, tabkey: any) {    
     let numAscending = [];
-    let col = ''+columnKey;
+    let filteredData = [];
+    if (tabkey!==0) {
+      filteredData = [...defaultData].filter(name => name.id.includes('Title') 
+        || name.code_project_type_id===tabkey);  
+    } else{
+      filteredData = [...defaultData]
+    }
     if (columnKey+'' === 'on_base') {
       if(order+'' === 'ascend'){      
-        numAscending = [...newData].sort((a, b) => a[columnKey] - b[columnKey]);       
+        numAscending = filteredData.sort((a: any, b: any) => a[columnKey] - b[columnKey]);       
       }else if (order+'' === 'descend')     {
-        numAscending = [...newData].sort((a, b) => b[columnKey] - a[columnKey]);
+        numAscending = filteredData.sort((a: any, b: any) => b[columnKey] - a[columnKey]);
       }else{
-        numAscending = defaultData;
+        numAscending = filteredData;
       }
     } else {
       if(order+'' === 'ascend'){
-        numAscending = [...newData].sort((a: any, b: any) =>parseDataToString(a[columnKey]).localeCompare(parseDataToString(b[columnKey]))
+        numAscending = filteredData.sort((a: any, b: any) =>parseDataToString(a[columnKey]).localeCompare(parseDataToString(b[columnKey]))
     );
       }else if (order+'' === 'descend')     {
-        numAscending = [...newData].sort((a: any, b: any) =>parseDataToString(b[columnKey]).localeCompare(parseDataToString(a[columnKey]))
+        numAscending = filteredData.sort((a: any, b: any) =>parseDataToString(b[columnKey]).localeCompare(parseDataToString(a[columnKey]))
     );
       }else{
-        numAscending = defaultData;
+        numAscending = filteredData;
       }
     }    
     return numAscending
   }
 
-  useEffect(()=>{
-    console.log('SORTEFECT')
+  useEffect(()=>{   
+    let tabkey1 = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;    
     let numAscending = [];
-    numAscending = (sort(sortValue.order,sortValue.columnKey));
+    numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1));
     setNewData(numAscending)
     setCompleteData(numAscending)
-    console.log(numAscending)
-  },[sortValue])
-  useEffect(() => {
-    setSortValue({columnKey: null, order: undefined});
-  }, [currentGroup, tabKey]);
+  },[sortValue,tabKey])
+  
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
