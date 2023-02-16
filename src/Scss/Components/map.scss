@@ -1124,6 +1124,9 @@
     color: #e6f7ff !important;
     font-weight: bold;
   }
+  .ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
+    color: #706b8a !important;
+}
   .ant-input-affix-wrapper .ant-input:not(:first-child) {
     padding-left: 0px !important;
   }
