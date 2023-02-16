@@ -35,6 +35,7 @@ const CardInformationView = ({
   isProfile?: boolean
 }) => {
   const [visible, setVisible] = useState(false);
+  const [itHasComponents, setItHasComponents] = useState(false);
   const {
     getBBOXComponents,
     updateSelectedLayers,
@@ -43,6 +44,15 @@ const CardInformationView = ({
     setHighlighted
   } = useMapDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  useEffect(() => {
+    if(dropdownIsOpen){
+      if (data.totalComponents === 0){
+        setItHasComponents(false)
+      } else{
+        setItHasComponents(true)
+      }
+    }
+  }, [dropdownIsOpen]);
   const showComponents = () => {
     console.log('data',data)
     const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.project_id;
@@ -94,7 +104,9 @@ const CardInformationView = ({
       stopModal(e);
       switch (e.key) {
         case 'popup-show-components':
-          showComponents();
+          if(itHasComponents){
+            showComponents();
+          }
           break;
         case 'popup-zoom':
           changeCenter();
@@ -117,7 +129,7 @@ const CardInformationView = ({
       },
       {
         key: 'popup-show-components',
-        label: <span className="menu-item-text" >Show Actions</span>
+        label: <span className="menu-item-text" style={{ opacity: itHasComponents?1:0.5 }} >Show Actions</span>
       },
       {
         key: 'popup-zoom',
