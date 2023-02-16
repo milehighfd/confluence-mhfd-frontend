@@ -150,30 +150,30 @@ const TablePortafolio = (
               dataSource={elem.values}
               pagination={{ pageSize: 1000 }}
               className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: event => {}, // click row
-                  onDoubleClick: event => {}, // double click row
-                  onContextMenu: event => {}, // right button click row
-                  onMouseEnter: event => {setHoverTable([1,index,rowIndex? rowIndex:0]);}, // mouse enter row
-                  onMouseLeave: event => {}, // mouse leave row
-                };
-              }}
-              onHeaderRow={(record, rowIndex) => {
-                return {
-                  onClick: event => {}, // click row
-                  onDoubleClick: event => {}, // double click row
-                  onContextMenu: event => {}, // right button click row
-                  onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
-                  onMouseLeave: event => {}, // mouse leave row
-                };
-              }}
-              rowClassName={(record:any) => {
-                if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === index){
-                  return 'active-table-row'
-                }
-                return ''
-              }}
+              // onRow={(record, rowIndex) => {
+              //   return {
+              //     onClick: event => {}, // click row
+              //     onDoubleClick: event => {}, // double click row
+              //     onContextMenu: event => {}, // right button click row
+              //     onMouseEnter: event => {setHoverTable([1,index,rowIndex? rowIndex:0]);}, // mouse enter row
+              //     onMouseLeave: event => {}, // mouse leave row
+              //   };
+              // }}
+              // onHeaderRow={(record, rowIndex) => {
+              //   return {
+              //     onClick: event => {}, // click row
+              //     onDoubleClick: event => {}, // double click row
+              //     onContextMenu: event => {}, // right button click row
+              //     onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
+              //     onMouseLeave: event => {}, // mouse leave row
+              //   };
+              // }}
+              // rowClassName={(record:any) => {
+              //   if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === index){
+              //     return 'active-table-row'
+              //   }
+              //   return ''
+              // }}
             />
           )
         })
