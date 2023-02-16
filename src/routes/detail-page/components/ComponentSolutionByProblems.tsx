@@ -12,6 +12,7 @@ const ComponentSolucionsByProblems = () => {
     componentsByProblemId: componentsOfProblems
   } = useMapState();
   const total = componentsOfProblems.reduce((prev: any, next: any) => prev + next.estimated_cost, 0);
+  
   let totalCount = 0;
   const componentSolutionData = componentsOfProblems ? componentsOfProblems.map((data:any, index: number)=> {    
     return {
@@ -23,6 +24,7 @@ const ComponentSolucionsByProblems = () => {
       completepercen: Math.round((data.component_count_complete/data.component_count_total)*100),
     }
   }) : {};
+  const totalComponents = componentsOfProblems.reduce((prev: any, next: any) => prev + next.component_count_total, 0);
  
   const columns = [
     {
@@ -69,7 +71,7 @@ const ComponentSolucionsByProblems = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           <Table dataSource={componentsOfProblems ?  componentSolutionData : {}} columns={columns} pagination={false}/>
           {componentsOfProblems.length > 0 && <div className="value-total">
-            <p className="table-total" style={{width:'calc(30% + 0px)'}}>Total Proposed Cost</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(total)}</p>
+            <p className="table-total" style={{width:'calc(30% + 0px)'}}>{`Total Proposed Cost (${totalComponents})`}</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(total)}</p>
           </div>}
         </Col>
       </Row>
