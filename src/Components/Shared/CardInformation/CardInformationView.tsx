@@ -220,9 +220,9 @@ const CardInformationView = ({
         >
 
           {!isProfile && 
-          // <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
+          <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
-          // </Popover>
+          </Popover>
         }
           <div className="card-title-s">
             <h4>{data.requestName}</h4>
