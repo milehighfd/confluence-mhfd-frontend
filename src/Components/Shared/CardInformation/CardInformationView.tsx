@@ -153,10 +153,11 @@ const CardInformationView = ({
   }
 
   const deleteFunction = (email: string, id: number, table: string) => {
-    deleteFavorite(email, id, table);
-    if (deleteCallback) {
-      deleteCallback(id);
-    }
+    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
+      if (deleteCallback) {
+        deleteCallback(id);
+      }
+   });    
   }
   const xs: any = isProfile ? { span: 24 } : 24
   const lg: any = isProfile ? { span: 8 } : 12

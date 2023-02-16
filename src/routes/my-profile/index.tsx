@@ -21,6 +21,7 @@ const MyProfile = () => {
     datasets.getData(`${SERVER.COUNT_FAVORITES}`, datasets.getToken())
       .then((rows) => {
         setCounterProjects(rows.count)
+        console.log(rows.count)
       })
       
   }
