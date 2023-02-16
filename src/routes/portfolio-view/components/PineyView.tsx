@@ -68,7 +68,7 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                 <p>MHFD Lead/PM</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                {editView ?
+                {/* {editView ?
                   <>
                     <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
                       <Space style={{border:'1px solid #eae8f0', borderRadius:'17.5px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
@@ -77,21 +77,23 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
                       </Space>
                     </Dropdown>
                   </>
-                  :<>
+                  : */}
+                  <>
                     <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span  style={{opacity:'0.5'}}>Jon Villines</span>
                   </>
-                }
+                {/* } */}
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 10 }}>
-                <p>Total Estimated Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
+                <p>Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 14 }}>
-                {editView ?
+                {/* {editView ?
                   <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}} className='input-focus'></input>
-                  :<p>$3,708,000</p>
-                }
+                  : */}
+                  <p>$3,708,000</p>
+                {/* } */}
               </Col>
             </Row>
             <Row>

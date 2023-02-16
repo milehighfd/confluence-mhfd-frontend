@@ -134,6 +134,26 @@ export const saveMaintenance = (data: any) => {
     })
   };
 };
+export const saveOverheadCost = (data: any) => {
+  return ( dispatch: Function) => {
+    const formData = new FormData();
+    let covername = '';
+    Object.keys(data).forEach((key: string) => {
+        formData.append(key, data[key]);
+    })
+    console.log(formData, 'FORMDATA')
+    // datasets.postDataMultipart(SERVER.PROJECT_COST_OVERHEAD, formData, datasets.getToken()).then(res => {
+    //   let status ; 
+    //   if(res && res.total_rows && res.total_rows > 0 ){
+    //     status = 1;
+    //   }else{
+    //     status = 0;
+    //   }
+    //   WsService.sendEdit();
+    //   dispatch({ type: types.SET_SAVE, status });
+    // })
+  };
+};
 export const saveStudy = (data: any) => {
   return ( dispatch: Function) => {
     const formData = new FormData();

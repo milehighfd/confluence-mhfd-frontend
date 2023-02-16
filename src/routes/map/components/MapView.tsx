@@ -1019,12 +1019,13 @@ const MapView = () => {
               });
               totalElements = cardInformation.length;
             }
+            console.log(value, 'VALUE')
             return (
               <TabPane
                 tab={
                   <span>
                     <Popover content={contents[index]} placement="rightBottom" style={{width: '100%'}}>
-                      {value + getCounter(index, tabActive, totalElements)}
+                      {value === 'Components' ? ('Actions' + getCounter(index, tabActive, totalElements)):(value + getCounter(index, tabActive, totalElements)) }
                     </Popover>
                   </span>
                 }

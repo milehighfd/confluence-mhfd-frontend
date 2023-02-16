@@ -117,7 +117,7 @@ const CardInformationView = ({
       },
       {
         key: 'popup-show-components',
-        label: <span className="menu-item-text" >Show Components</span>
+        label: <span className="menu-item-text" >Show Actions</span>
       },
       {
         key: 'popup-zoom',

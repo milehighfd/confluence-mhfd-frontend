@@ -755,6 +755,7 @@
   }
 }
 .map-pop-00{
+  font-family: "Ubuntu";
   width: 280px;
   padding: 0px;
   min-height: 100px;
@@ -826,6 +827,7 @@
   max-width: none !important;
 }
 .map-pop-01{
+  font-family: "Ubuntu";
   min-width: 125px;
   width: 280px;
   max-width: 330px;
@@ -873,17 +875,20 @@
     line-height: 20px;
   }
   p{
-    font-size: 12px;
-    color: $purple;
+    font-size: 12px !important;
+    color: #86829b;
     margin-bottom: 0px;
     margin-top: 5px;
+    color: $opacity;
   }
   i{
     color: $opacity;
+    font-size: 12px !important;
   }
 }
 // NEW POPUP
 .map-pop-02{
+  font-family: "Ubuntu";
   width: 258px;
   border-radius: 7px;
   box-shadow: $shadow;
@@ -941,6 +946,7 @@
     display: none;
   }
   .map-pop-03{
+    font-family: "Ubuntu";
     display: inline-grid  !important;
     position: absolute;
     top: 43px;
@@ -1026,6 +1032,7 @@
   .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
   .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
     color: #706b8a;
+    background: #f7f7f9;
   }
 }
 // MAP
@@ -1606,6 +1613,7 @@
 .infinite-scroll-component {
   overflow-y: auto !important;
   overflow-x: hidden !important;
+  padding-right: 10px;
   // padding-bottom: 15px;
 }
 .list-h{

@@ -65,7 +65,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
     <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
       <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col>
-      <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus}%</Col>
+      <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus ? problem.solutionstatus + '%' : ''}</Col>
       <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
   )
@@ -73,7 +73,7 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
  
-  const {saveProjectCapital, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
+  const {saveProjectCapital,saveOverheadCost, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -300,6 +300,17 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         editProjectCapital(capital);
       }
       else{
+        const costOverhead={
+          "6":overheadCosts[1],
+          "7":overheadCosts[2],
+          "8":overheadCosts[3],
+          "9":overheadCosts[4],
+          "10":overheadCosts[5],
+          "12":overheadCosts[6],
+          "11":overheadCosts[7],
+          "13":overheadCosts[8],
+        }
+        // saveOverheadCost(costOverhead);
         saveProjectCapital(capital);
       }
       setVisibleCapital(false);
@@ -580,7 +591,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 </label>
                 <p>{serviceArea?(serviceArea?.length > 1? 'Multiple Service Area': (serviceArea[0])):''} { (serviceArea?.length > 0 && county?.length > 0)?'·':''} {county?(county?.length > 1? 'Multiple Counties': (county[0])):''} </p>
               </Col>
-
               <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'right'}}>
                 <label className="tag-name" style={{padding:'10px'}}>Capital Project</label>
                 <Popover content={content}>
@@ -604,14 +614,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             />
             <br/>
             <h5 style={{marginTop:'15px'}}>
-              2. SELECT COMPONENTS
+              2. SELECT ACTIONS
               <span className="requiered">&nbsp;*&nbsp;</span>
               <img src="/Icons/icon-08.svg" />
             </h5>
 
             <div className={"draw "+(isDrawState?'active':'')} onClick={onClickDraw}>
               <img src="" className="icon-draw active" style={{WebkitMask: 'url("/Icons/icon-08.svg") center center no-repeat'}}/>
-              <p>Click on the icon above and draw a polygon to select components</p>
+              <p>Click on the icon above and draw a polygon to select actions</p>
             </div>
             {((keys && keys!==0 && keys.length && groups && Object.keys(groups).length > 0)  || visibleUnnamedComponent) &&
             <div className="tab-titles">
@@ -724,7 +734,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 </Panel>
               }
             </Collapse>
-            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Component</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover>
+            <Button className="btn-transparent-green" onClick={()=>{applyIndependentComponent()}}><PlusCircleFilled /> Independent Actions</Button> <Popover content={contentIndComp}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom:'2px'}}/></Popover>
             <h5 style={{marginTop:'10px'}}>3. PROJECT GEOMETRY<span className="requiered">&nbsp;*</span></h5>
 
             <div className={"draw "+(isDrawStateCapital?'active':'')}  onClick={onClickDrawCapital}>
@@ -990,7 +1000,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Timeline.Item color="purple">
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contingency</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }} style={{marginTop:'-7.5px'}}>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
                     <Select placeholder="25%" dropdownClassName="menu-medium" value={overheadValues[8] + '%'} onSelect={(e:any)=>changeValue(e, 8)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>

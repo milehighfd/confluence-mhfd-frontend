@@ -114,7 +114,6 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
           </>
         )}
       </Row>
-      <br />
       <label className="sub-title">Description <Popover content={content00}><img src="../Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
       <TextArea rows={4} placeholder="Add description" onChange={(description)=>apllyDescription(description)} value={description}/>
     </>

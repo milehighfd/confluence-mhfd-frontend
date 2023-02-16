@@ -56,7 +56,8 @@ import {
   setHighlightedProblem,
   setComponentGeom,
   setHighlightedStream,
-  setHighlightedStreams
+  setHighlightedStreams,
+  saveOverheadCost
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -77,6 +78,9 @@ export const useProjectDispatch = () => {
     },
     saveProjectMaintenance: (maintenance: any) => {
       dispatch(saveMaintenance(maintenance));
+    },
+    saveOverheadCost: (cost: any) => {
+      dispatch(saveOverheadCost(cost));
     },
     saveProjectStudy: (study: any) => {
       dispatch(saveStudy(study));

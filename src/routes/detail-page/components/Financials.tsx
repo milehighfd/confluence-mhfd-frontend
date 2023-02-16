@@ -15,19 +15,16 @@ const Financials = () => {
       render: (agreement:string[]) => (
         <p className={"table-" + agreement[1]}>{agreement[0]}</p>
       ),
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
     },
     {
       title: 'Amendment',
       dataIndex: 'amendment',
       key: 'amendment',
-      sorter: (a:any, b:any) => a.amendment.length - b.amendment.length,
     },
     {
       title: 'Partner',
       dataIndex: 'partner',
       key: 'partner',
-      sorter: (a:any, b:any) => a.amendment.length - b.amendment.length,
     },
     {
       title: 'Phase',
@@ -38,7 +35,6 @@ const Financials = () => {
           {phase}
         </span>
       ),
-      sorter: (a:any, b:any) => a.phase.length - b.phase.length,
     },
     {
       title: 'Projected',
@@ -47,7 +43,6 @@ const Financials = () => {
       render: (projected:string[]) => (
         <p className={"table-" + projected[1]}>{projected[0]}</p>
       ),
-      sorter: (a:any, b:any) => a.projected.length - b.projected.length,
     },
     {
       title: 'Encumbered',
@@ -56,7 +51,6 @@ const Financials = () => {
       render: (encumbered:string[]) => (
         <p className={"table-" + encumbered[1]}>{encumbered[0]}</p>
       ),
-      sorter: (a:any, b:any) => a.encumbered.length - b.encumbered.length,
     },
     {
       title: 'Tyler Encumbered',
@@ -65,7 +59,6 @@ const Financials = () => {
       render: (tyler:string[]) => (
         <p className={"table-" + tyler[1]}>{tyler[0]}</p>
       ),
-      sorter: (a:any, b:any) => a.tyler.length - b.tyler.length,
     },
     {
       title: 'Available',
@@ -74,14 +67,13 @@ const Financials = () => {
       render: (available:string[]) => (
         <p className={"table-" + available[1]}>{available[0]}</p>
       ),
-      sorter: (a:any, b:any) => a.available.length - b.available.length,
     },
   ];
   return (
     <>
       <AddAmountModal visible={openModalAmount} setVisible={setOpenModalAmount}/>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
           <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="project-financials">PROJECT FINANCIALS</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'73%'}}></div>
         </Col>

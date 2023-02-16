@@ -61,6 +61,7 @@ export const SERVER = (function () {
     const TOGGLE_PUT = 'toggleput'
     const PROBLEM_BY_ID = 'problem-by-id';
     const PROJECT_BY_ID = 'project-by-id';
+    const PROJECT_COST = 'projectCost';
     const DETAILED_PAGE_PROJECT = 'project-by-ids';
     const GROUP_COLUMNS = 'group-by';
     const PARAM_FILTERS = 'params-filters';
@@ -303,6 +304,9 @@ export const SERVER = (function () {
         GET_BBOX_PROJECTID: (projectId: any) => {
             return `${URL_BASE.BASE}/${PROJECT}/${BBOX}/${projectId}`
           },
+        PROJECT_COST_OVERHEAD: (projectId: any) => {
+            return `${URL_BASE.BASE}/${PROJECT}/${PROJECT_COST}/${projectId}`
+        },
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
           },

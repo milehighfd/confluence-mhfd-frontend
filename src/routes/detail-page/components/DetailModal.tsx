@@ -124,7 +124,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
-              <div style={{width:'78%'}}>
+              <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (detailed?.sponsor && detailed?.sponsor.length > 0 && detailed?.sponsor[0].business_associate?.business_associate_name ? detailed?.sponsor[0].business_associate.business_associate_name:'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
@@ -299,7 +299,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             }}
             ref={divRef}
           >
-            <div style={{background:'#f5f7ff', position:'absolute', zIndex:'1', height:'266px', width:'100%'}}>
+            <div style={{background:'#f5f7ff', zIndex:'1', height:'266px', width:'100%'}}>
             {/* <div className="detailed-c"></div> */}
             </div>
             <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3', height:'266px'}}>

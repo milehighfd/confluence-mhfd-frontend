@@ -791,6 +791,10 @@ body{
       // height: 100%;
       object-fit: cover;
     }
+    .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan, .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
+      touch-action: none;
+      height: -webkit-fill-available;
+    }
   }
   .body-modal-data{
     overflow-y: scroll;
@@ -1923,6 +1927,9 @@ body{
   }
 }
 .detailed-h{
+  .mapboxgl-popup-close-button:hover {
+    background-color: rgb(0 0 0 / 0%);
+}
   // height: 80px !important;
   min-height: 30px;
   background: #f5f7ff;
@@ -2209,6 +2216,8 @@ body{
   }
   .ant-carousel{
     padding: 0px !important;
+    position: absolute;
+    top: 0px;
     // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
@@ -2418,6 +2427,9 @@ body{
   }
 }
 .table-financials-modal{
+  .mapboxgl-popup-close-button:hover {
+    background-color: rgb(0 0 0 / 0%);
+}
   .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
     padding: 4px !important;
   }
@@ -2755,7 +2767,7 @@ body{
   background-size: cover;
    img{
     position: relative !important;
-    // margin-top: -20%;
+    // margin-top: -20%;dsxxxxxxx
   }
   .img-modal{
     width: 710px;
@@ -2766,6 +2778,12 @@ body{
 .detailed-info{
   padding: 20px 40px 0px 40px;
   font-size: 14px;
+  .subtitle-detail{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   label{
     color: $opacity;
   }

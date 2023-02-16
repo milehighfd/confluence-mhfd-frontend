@@ -416,7 +416,7 @@ useEffect(() => {
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} className='subtitle-detail'>
           <h3 style={{marginBottom:'15px', marginTop:'20px'}}>MAP</h3>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{alignSelf: 'center'}}>
