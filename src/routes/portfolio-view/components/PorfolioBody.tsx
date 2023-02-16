@@ -21,6 +21,9 @@ import { FilterByGroupName } from './FilterByGroupField';
 import { optionsProjects } from "./ListUtils";
 import { useProfileDispatch } from "hook/profileHook";
 import { SELECT_ALL_FILTERS } from "constants/constants";
+import { useProfileState } from '../../../hook/profileHook';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -87,6 +90,7 @@ const PortafolioBody = () => {
     {label: 'Status', value: 'status'},
     {label: 'County', value: 'county'}
   ];
+  const [favorites, setFavorites] = useState<any>([]);
   useEffect(()=>{
     if(Object.keys(layers).length === 0){
       //console.log('ESTA VACIO', layers)
@@ -119,9 +123,6 @@ const PortafolioBody = () => {
     }
   }, [appUser]);
 
-  useEffect(() => {
-    console.log('#########################', filterby, filterValue);
-  }, [filterby, filterValue]);
   const groupsBy = [
     'Status',
     'Jurisdiction',
@@ -189,9 +190,7 @@ const PortafolioBody = () => {
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
 
 
-    const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);
-    console.log("optionsfilters")
-    console.log(optionsfilters)
+    const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);    
     //console.log("Filter")
     //console.log(optionsfilters)
     setIsLoading(true);
@@ -199,9 +198,10 @@ const PortafolioBody = () => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       console.log("curid")
-     console.log(currentId)
+     console.log(filterValue,filterby)
       // setNewData(updatedGroups);
-      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
+      //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
+      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
         const updatedGroups: any = [];
         //console.log("valuesList")
         //console.log(valuesList)
@@ -225,7 +225,7 @@ const PortafolioBody = () => {
               }
             ],
           });
-          
+          console.log(valuesList)
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;
               updatedGroups.push({
@@ -241,10 +241,91 @@ const PortafolioBody = () => {
                 mhfd_support: null,
                 lg_lead: null,
                 developer: null,
-                consultant: null, //'elem?.consultants[0]?.consultant[0]?.business_name',
-                civil_contractor: null, // 'elem?.civilContractor[0]?.business[0]?.business_name',
-                landscape_contractor: null, // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
-                construction_start_date: null, //elem?.construction_start_date,
+                consultant:  elem?.project_partners.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.business_associate?.business_name || '';
+                  const sa1 = pl?.code_partner_type_id || '';
+                  let value = accumulator;
+                  if (sa && sa1 === 3) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  }  
+                  return value;
+                }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
+                civil_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.business_associate?.business_name || '';
+                  const sa1 = pl?.code_partner_type_id || '';
+                  let value = accumulator;
+                  if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  }  
+                  return value;
+                }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
+                landscape_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.business_associate?.business_name || '';
+                  const sa1 = pl?.code_partner_type_id || '';
+                  let value = accumulator;
+                  if (sa && sa1 === 9) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  }  
+                  return value;
+                }, ''), // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
+                construction_start_date: elem?.project_status?.code_phase_type?.code_phase_type_id === 125 ? elem?.project_status?.planned_start_date : elem?.project_status?.actual_start_date, //elem?.construction_start_date,
+                jurisdiction_id: elem?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
+                  const sa = pl?.CODE_LOCAL_GOVERNMENT?.code_local_government_id || '';
+                  let value = accumulator;
+                  if (sa) {
+                    value = [...value,sa];
+                  }  
+                  return value;
+                }, ''), 
+                county_id: elem?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
+                  const county = pl?.CODE_STATE_COUNTY?.state_county_id || '';
+                  let value = accumulator;
+                  if (county) {
+                    value = [...value,county];
+                  }  
+                  return value;
+                }, ''),
+                servicearea_id: elem?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
+                  const sa = pl?.CODE_SERVICE_AREA?.code_service_area_id || '';
+                  let value = accumulator;
+                  if (sa) {
+                    value = [...value,sa];
+                  }  
+                  return value;
+                }, ''),
+                consultant_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+                  const sa = pl?.business_associate?.business_associates_id || '';
+                  const sa1 = pl?.code_partner_type_id || '';
+                  let value = accumulator;
+                  if (sa && sa1 === 3) {
+                    value = [...value,sa];
+                  }  
+                  return value;
+                }, ''),
+                contractor_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+                  const sa = pl?.business_associate?.business_associates_id || '';
+                  const sa1 = pl?.code_partner_type_id || '';
+                  let value = accumulator;
+                  if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+                    value = [...value,sa];
+                  }  
+                  return value;
+                }, ''),
+                isFavorite : favorites.some((element: { project_id: number; }) => {
+                  if (element.project_id === elem.project_id) {
+                    return true;
+                  }              
+                  return false;
+                }),
                 local_government: elem?.project_local_governments.reduce((accumulator: string, pl: any) => {
                   const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
                   let value = accumulator;
@@ -489,7 +570,7 @@ const PortafolioBody = () => {
   }
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);  
-  }, [ openFavorites, filterValue, filterby, applyFilter,currentGroup]);
+  }, [ openFavorites,applyFilter,currentGroup]);
 
 
   const parseDataToString = (data: any) => {
@@ -497,14 +578,25 @@ const PortafolioBody = () => {
     return data;
   }
 
-  function sort(order: any, columnKey: any, tabkey: any) {    
-    let numAscending = [];
+  function sort(order: any, columnKey: any, tabkey: any , filterby: any, filterValue: any, filtername: any) {    
+    let numAscending: any[] = [];
     let filteredData = [];
+    let filteredData2: any[] = [];
+    let filteredTitles = [];    
+      filterby = filterby+"_id"
+      console.log("FILTROS")
+    console.log(filterby,filterValue)
+    if (filterValue!==-1) {      
+        filteredData2 = [...defaultData].filter(name => name.id.includes('Title') 
+        || name[filterby].includes(filterValue));               
+    } else{
+      filteredData2 = [...defaultData]
+    }
     if (tabkey!==0) {
-      filteredData = [...defaultData].filter(name => name.id.includes('Title') 
+      filteredData = [...filteredData2].filter(name => name.id.includes('Title') 
         || name.code_project_type_id===tabkey);  
     } else{
-      filteredData = [...defaultData]
+      filteredData = [...filteredData2]
     }
     if (columnKey+'' === 'on_base') {
       if(order+'' === 'ascend'){      
@@ -525,16 +617,33 @@ const PortafolioBody = () => {
         numAscending = filteredData;
       }
     }    
-    return numAscending
+    filteredTitles = [...numAscending].filter(name => {
+      const countTitles = [...numAscending].filter(item  => item.headerLabel === name.headerLabel);
+      const count = countTitles.length;
+      if(name.id.includes('Title')&& count <= 1){
+        return false
+      }else{
+        return true
+      }
+    });
+    return filteredTitles
   }
+  useEffect(() => {
+    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
+      setFavorites(result)
+    })
+  }, []);
 
-  useEffect(()=>{   
+  useEffect(()=>{     
+    console.log(filterby,filtername,filterValue)
+    console.log(newData)
     let tabkey1 = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;    
     let numAscending = [];
-    numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1));
+    numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
+    console.log(numAscending)
     setNewData(numAscending)
     setCompleteData(numAscending)
-  },[sortValue,tabKey])
+  },[sortValue,tabKey,filterby,filterValue,filtername,defaultData])
   
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
