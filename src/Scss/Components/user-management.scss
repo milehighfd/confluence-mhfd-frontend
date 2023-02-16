@@ -169,7 +169,7 @@
     border-color: #251863;
   }
   .ant-btn:focus, .ant-btn:hover {
-    border-color: #251863;
+    border-color: #251863 !important;
   }
   .head-list{
     box-sizing: border-box;
@@ -924,7 +924,7 @@
         justify-content: space-between;
         display: flex;
         padding: 6.5px 10px;
-        border-radius: 3px !important;
+        border-radius: 5px !important;
         span{
           display: inline-block;
           white-space: nowrap;
