@@ -1110,7 +1110,7 @@ const Map = ({
       });
     }
     const applyMapLayers = async () => {
-        await SELECT_ALL_FILTERS.forEach(async (layer) => {
+        await SELECT_ALL_FILTERS.forEach(async (layer) => {          
             if (typeof layer === 'object') {
               if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
                 await selectedLayers.forEach((layer: LayersType) => {
@@ -1148,6 +1148,7 @@ const Map = ({
             }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
+        getProjectsFilteredIds();
         applyFilters(MHFD_PROJECTS, filterProjectOptions);
         setTimeout(()=>{
             topStreams()

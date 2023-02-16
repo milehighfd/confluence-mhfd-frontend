@@ -172,14 +172,17 @@ const MapView = () => {
   }
 
   const resetFilterProjects = (withDefaults: boolean, withCoords?: any) => {
+
     const options = { ...filterProjectOptions };
     if (withDefaults) {
-      options.projecttype = ['Maintenance','Capital'];
-      options.status = ['Active'];
+      options.projecttype = [5,7];
+      options.status = [5];
     } else {
-      options.projecttype = '';
-      options.status = '';
+      options.projecttype = [];
+      options.status = [];
     }
+    options.column = 'projectname';
+    options.order = 'asc';
     options.mhfddollarsallocated = [];
     options.workplanyear = '';
     options.startyear = '';
@@ -1019,7 +1022,7 @@ const MapView = () => {
               });
               totalElements = cardInformation.length;
             }
-            console.log(value, 'VALUE')
+            // console.log(value, 'VALUE')
             return (
               <TabPane
                 tab={
