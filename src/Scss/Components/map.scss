@@ -1027,13 +1027,18 @@
   .ant-menu-vertical .ant-menu-submenu-title, .ant-menu-vertical-left .ant-menu-submenu-title,
   .ant-menu-vertical-right .ant-menu-submenu-title, .ant-menu-inline .ant-menu-submenu-title{
     margin-bottom: 0px !important;
+    margin: 0px 5px;
   }
   .ant-menu, .ant-menu-item:hover, .ant-menu-item-active,
   .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
   .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
     color: #706b8a;
     background: #f7f7f9;
+    border-radius: 9px;
   }
+  .ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
+    color: #706b8a;
+}
 }
 // MAP
 .head-m{

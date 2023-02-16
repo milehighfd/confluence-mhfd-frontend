@@ -383,6 +383,7 @@
       }
       .third{
         color: $opacity;
+        padding-left: 15px;
 
         .ant-input{
           border: none;
@@ -434,7 +435,7 @@
       margin-bottom: 5px;
     }
     .ant-collapse-content > .ant-collapse-content-box {
-      padding: 15px 20px;
+      padding: 15px 20px 0px 20px;
     }
     .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
       border: 1px solid $opacity;
@@ -762,6 +763,7 @@
         }
         .third{
           color: $purple00;
+          padding-left: 0px !important;
 
           .ant-input {
             font-size: 16px;
@@ -786,6 +788,7 @@
               font-size: 16px;
               width: 300px;
               padding: 8px 0px;
+              color:#11093c;
             }
         }
         .ant-timeline-item-content {
@@ -1009,6 +1012,7 @@
           }
         }
         .third{
+          padding-left: 0px !important;
           .ant-input {
             font-size: 21px;
             padding: 8px 0px;

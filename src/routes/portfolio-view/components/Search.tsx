@@ -130,7 +130,7 @@ const Search = (
           value={keyword}
           style={{width:'100%'}}
         >
-          <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'85%'}}/>
+          <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'95%'}}/>
         </AutoComplete>
         <Dropdown overlay={menu} trigger={['click']} >
           <div className="select-area">

@@ -110,7 +110,7 @@ const CardInformationView = ({
     let menuPopupItem: MenuProps['items'] = [
       {
         key: 'popup-title',
-        style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)'},
+        style: {cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)', background: 'rgba(61, 46, 138, 0.07)', margin:'0px'},
         label: <label style={{ cursor: 'auto', color: 'rgba(17, 9, 60, 0.5)' }}>
           LIST ACTIONS
         </label>
@@ -219,16 +219,20 @@ const CardInformationView = ({
          }
         >
 
-          {!isProfile && <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
+          {!isProfile && 
+          // <Popover overlayClassName="pop-card-map" content={menu} placement="bottomLeft" trigger="click" visible={dropdownIsOpen} onVisibleChange={()=>(setDropdownIsOpen(!dropdownIsOpen))}>
             <Button className="btn-card" onClick={(e: any) => e.stopPropagation()}><label>...</label></Button>
-          </Popover>}
+          // </Popover>
+        }
           <div className="card-title-s">
             <h4>{data.requestName}</h4>
           </div>
           {
             type === 'Problems' 
             ? 
-            <Popover placement="topLeft" content={content}><h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6></Popover> 
+            // <Popover placement="topLeft" content={content}>
+              <h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6>
+            // </Popover> 
             : 
             <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
           }
