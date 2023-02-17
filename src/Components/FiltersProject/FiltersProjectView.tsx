@@ -41,8 +41,12 @@ const FiltersProjectView = ({
         filterProjectOptions,
         filterComponentOptions,
         applyFilter,
-        spinFilters: spinFilter
+        spinFilters: spinFilter,
+        galleryProjectsV2
       } = useMapState();
+      useEffect(() => {
+        console.log('galleryProjectsV2', galleryProjectsV2, galleryProjectsV2.length);
+      }, [galleryProjectsV2]);
     const genExtra = () => (
         <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>
@@ -61,7 +65,6 @@ const FiltersProjectView = ({
             </Col>
         </Row>
     );
-
     const { setFilterTabNumber, getParamFilterComponents,
         getParamFilterProblems, getParamFilterProjects, getTabCounters } = useMapDispatch();
     const getFilterBody = (trigger: string) => {

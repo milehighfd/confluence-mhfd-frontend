@@ -70,7 +70,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         if(originpage === 'portfolio' && setApplyFilter) {
           setApplyFilter(Math.random());
         } else {
-          getGalleryProjects();;
+          getGalleryProjects();
         }
         options.servicearea = options.servicearea;
         options.county = options.county;

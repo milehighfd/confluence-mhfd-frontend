@@ -1,10 +1,10 @@
 import React from 'react';
 import { Row, Col, Select, Button, Popover } from 'antd';
-import PieChart from './PieChart';
-import TreeMap from './TreeMap';
+import PieChartProblem from './PieChartProblem';
+import TreeMapProblem from './TreeMapProblem';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
-import { CheckBoxFilters } from '../CheckboxFilters';
-import { DropdownFilters } from '../DropdownFilters';
+import { CheckBoxFilters } from '../CheckboxFiltersProblem';
+import { DropdownFilters } from '../DropdownFiltersProblem';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -81,7 +81,7 @@ export const NewProblemsFilter = () => {
                     <h5 className="filter-title chart-filter-title">Service Area <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.servicearea &&
-                        <TreeMap data={paramProblems.servicearea} type={'servicearea'} tab={'problem'}
+                        <TreeMapProblem data={paramProblems.servicearea} type={'servicearea'} tab={'problem'}
                             selected={filterProblemOptions.servicearea} defaultValue={''}
                             onSelect={(e: string) => apply(e, 'servicearea')} />
                     }
@@ -90,7 +90,7 @@ export const NewProblemsFilter = () => {
                     <h5 className="filter-title chart-filter-title">County <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.county &&
-                        <TreeMap data={paramProblems.county} type={'county'} tab={'problem'}
+                        <TreeMapProblem data={paramProblems.county} type={'county'} tab={'problem'}
                             selected={filterProblemOptions.county} defaultValue={''}
                             onSelect={(items: any) => apply(items, 'county')} />
                     }
@@ -103,7 +103,7 @@ export const NewProblemsFilter = () => {
                     <h5 className="filter-title chart-filter-title">Problem Type <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.problemtype &&
-                        <PieChart type={'problemtype'} defaultValue={''}
+                        <PieChartProblem type={'problemtype'} defaultValue={''}
                             data={paramProblems.problemtype}
                             selected={filterProblemOptions.problemtype}
                             onSelect={(e: string) => apply(e, 'problemtype')} />

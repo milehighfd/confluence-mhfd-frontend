@@ -2,9 +2,9 @@ import React from "react";
 import { Row, Col, Popover } from 'antd';
 
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import TreeMap from "../NewProblemsFilter/TreeMap";
-import { CheckBoxFilters } from '../CheckboxFilters';
-import { DropdownFilters } from "../DropdownFilters";
+import TreeMapProblem from "../NewProblemsFilter/TreeMapProblem";
+import { CheckBoxFilters } from '../CheckboxFiltersProblem';
+import { DropdownFilters } from "../DropdownFiltersProblem";
 import { DropdownFiltersYearsMax } from "../DropdownFilterMax";
 
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the action is located.</div>);
@@ -82,7 +82,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.servicearea &&
-                    <TreeMap data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
+                    <TreeMapProblem data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
                         selected={filterComponentOptions.servicearea} defaultValue={''}
                         onSelect={(items: any) => apply(items, 'servicearea')} />
                 }
@@ -91,7 +91,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.county &&
-                    <TreeMap data={paramComponents.county} type={'county'} tab={'component'}
+                    <TreeMapProblem data={paramComponents.county} type={'county'} tab={'component'}
                         selected={filterComponentOptions.county} defaultValue={''}
                         onSelect={(items: any) => apply(items, 'county')} />
                 }

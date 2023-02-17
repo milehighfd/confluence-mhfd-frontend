@@ -86,7 +86,6 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   }
 
   useEffect(() => {
-console.log('selecteed', selectedData);
     const svg = d3.select(svgRef.current)
       .attr("viewBox", `0 0 ${width} ${height}`)
 

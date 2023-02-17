@@ -336,10 +336,10 @@ export const getGalleryProjects = (origin?: any) => {
             optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
             datasets.getToken()
         ).then(galleryProjects => {
-            if (galleryProjects?.length >= 0) {
-              dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
-            }
-            dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
+          if (galleryProjects?.length >= 0) {
+            dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
+          }
+          dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
        if (origin != 'bounds') {
          dispatch(getProjectsFilteredIds());
@@ -451,7 +451,8 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
               console.log('reaches herer', projectsCounters);
               dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
             }
-        })
+        });
+        dispatch(getGalleryProjects('paramfilter'))
     }
 }
 export const getProblemCounter = (bounds: string, options: any) => {
