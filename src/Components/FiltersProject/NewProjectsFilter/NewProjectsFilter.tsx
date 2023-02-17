@@ -58,7 +58,11 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 options['status'] = [...options['status'], 'Complete'];
                 options[field] = values;
             } else if ('streamname' === field) {
-              options[field] = [values];
+              if (values === '') {
+                options[field] = values;
+              } else {
+                options[field] = [values];
+              }
             } else if ('totalcost' === field) {
               options[field] = [values[0], values[values.length - 1]];
             } else {
@@ -208,7 +212,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.consultant &&
-                    <CheckBoxFilters defaultValue={null}
+                    <CheckBoxFilters defaultValue={""}
                     data={paramProjects.consultant.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.consultant}
                     onSelect={(items: any) => apply(items, 'consultant')} />
@@ -218,7 +222,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.contractor &&
-                    <CheckBoxFilters defaultValue={null}
+                    <CheckBoxFilters defaultValue={""}
                     data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.contractor}
                     onSelect={(items: any) => apply(items, 'contractor')} />

@@ -336,9 +336,9 @@ export const getGalleryProjects = (origin?: any) => {
             optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
             datasets.getToken()
         ).then(galleryProjects => {
-          if (galleryProjects?.length >= 0) {
+          // if (galleryProjects?.length >= 0) {
             dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
-          }
+          // }
           dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
         });
        if (origin != 'bounds') {
@@ -360,9 +360,9 @@ export const getProjectsFilteredIds = () => {
       optionsProjects(filterOptions, filterComponent, coordinates, false),
       datasets.getToken()
     ).then(projectsids => {
-        if (projectsids?.length >= 0) {
+        // if (projectsids?.length >= 0) {
             dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
-        }
+        // }
     });
   };
 }

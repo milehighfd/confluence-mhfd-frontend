@@ -31,8 +31,14 @@ export const CheckBoxFilters = ({
   }
 
   const reset = () => {
-    onSelect([defaultValue]);
-    setSelectedData([defaultValue]);
+    if (defaultValue) {
+      onSelect([defaultValue]);
+      setSelectedData([defaultValue]);
+    } else {
+      onSelect(defaultValue);
+      setSelectedData(defaultValue);
+    }
+    
   }
 
   const showLabel = (label: string) => {

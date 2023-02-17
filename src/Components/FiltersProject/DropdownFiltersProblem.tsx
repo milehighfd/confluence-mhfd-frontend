@@ -12,18 +12,22 @@ export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showCont
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
 
+  useEffect(() => {
+    console.log('data df', data);
+  }, [data]);
   const moneyFormat = (money: any) => {
+    console.log('Money format', money);
     if (isNaN(+money)) {
       return money;
     }
     let million = false;
     let amount = money;
     if (+money >= 1_000_000) {
-      amount = (+money / 1_000_000);
+      amount = +money / 1_000_000;
       million = true;
     }
-    return `$${amount.toFixed(0)}${million ? 'M' : ''}`;
-  }
+    return `$${amount?.toFixed(0)}${million ? 'M' : ''}`;
+  };
 
   const apply = () => {
     onSelect(transformSelectedData(selectedData));
@@ -39,10 +43,10 @@ export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showCont
   useEffect(() => {
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
-      for(let i = minIndex; i <= maxIndex; i++ ) {
+      for (let i = minIndex; i <= maxIndex; i++) {
         let value = `${data[i].min},${data[i].max}`;
         sData.push(value);
-      }    
+      }
       setSelectedData(sData);
     }
   }, [minIndex, maxIndex]);
@@ -61,8 +65,8 @@ export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showCont
       ) : (
         <div style={{ marginBottom: 10 }}></div>
       )}
-      <div className='dropdown-container-filter'>
-        <Col xs={{ span: 45 }} lg={{ span: 23 }}  style={{ paddingLeft: '0px' }}>
+      <div className="dropdown-container-filter">
+        <Col xs={{ span: 45 }} lg={{ span: 23 }} style={{ paddingLeft: '0px' }}>
           <Select
             placeholder="No min"
             value={minIndex === -1 ? 'No min' : data[minIndex]?.min}
@@ -76,22 +80,20 @@ export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showCont
             }}
           >
             {(data || []).map((element: any, index: number) => {
-              return (
-                element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
-              );
+              return element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>;
             })}
           </Select>
         </Col>
-        <Col xs={{ span: 6 }} lg={{ span: 3 }} style={{ paddingRight: '0px', paddingLeft: '0px' }} >
-          <hr className='linedropdown'></hr>
+        <Col xs={{ span: 6 }} lg={{ span: 3 }} style={{ paddingRight: '0px', paddingLeft: '0px' }}>
+          <hr className="linedropdown"></hr>
         </Col>
-        <Col xs={{ span: 45 }} lg={{ span: 23 }} style={{ paddingRight: '0px' }} >
+        <Col xs={{ span: 45 }} lg={{ span: 23 }} style={{ paddingRight: '0px' }}>
           <Select
             placeholder="No max"
             value={maxIndex === -1 ? 'No max' : data[maxIndex]?.min}
             style={{ width: '100%', fontSize: '12px' }}
             onChange={(e: number) => {
-              if ( e > minIndex ) {
+              if (e > minIndex) {
                 setMaxIndex(e);
               } else {
                 setMaxIndex(minIndex + 1);
@@ -99,9 +101,7 @@ export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showCont
             }}
           >
             {(data || []).map((element: any, index: number) => {
-              return (
-                element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>
-              );
+              return element && <Option key={index} value={index}>{`${moneyFormat(element?.min)} `}</Option>;
             })}
           </Select>
         </Col>

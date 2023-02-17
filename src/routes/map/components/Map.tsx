@@ -598,9 +598,9 @@ const Map = ({
     //     }
     // }, [filterProjects, componentDetailIds]);
     useEffect(() => {
-      if(projectsids.length) {
+      // if(projectsids.length) {
         applyFilters(MHFD_PROJECTS, filterProjectOptions);
-      }
+      // }
     }, [projectsids]);
 
     useEffect(() => {
