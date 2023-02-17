@@ -24,6 +24,7 @@ import { SELECT_ALL_FILTERS } from "constants/constants";
 import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
+import { SPONSOR_ID } from '../../../constants/databaseConstants';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -342,7 +343,7 @@ const PortafolioBody = () => {
                 project_sponsor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
                   const sa = pl?.business_associate?.business_name || '';
                   let value = accumulator;
-                  if (sa) {
+                  if (sa && pl.code_partner_type_id === SPONSOR_ID) {
                     if (value) {
                       value += ',';
                     }
