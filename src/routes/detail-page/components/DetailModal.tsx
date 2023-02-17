@@ -24,6 +24,7 @@ import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
+import { getCounties, getServiceAreas, getSponsors } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -127,9 +128,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (detailed?.sponsor && detailed?.sponsor.length > 0 && detailed?.sponsor[0].business_associate?.business_associate_name ? detailed?.sponsor[0].business_associate.business_associate_name:'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.problemtype ? (detailed?.county + ' County') : (detailed?.codeStateCounty?.county_name + ' County' )}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.problemtype ? (detailed?.servicearea + ' Service Area'):(detailed?.codeServiceArea?.service_area_name + ' Service Area')} </span></p>
+                <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (getSponsors(detailed?.project_partners || []))} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <span> {detailed?.problemtype ? (detailed?.county + ' County') : (getCounties(detailed?.project_counties || []))}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <span> {detailed?.problemtype ? (detailed?.servicearea + ' Service Area'):(getServiceAreas(detailed?.project_service_areas || []))} </span></p>
               </div>
               {detailed?.problemtype ? 
                 <></>:
