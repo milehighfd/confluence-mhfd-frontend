@@ -218,12 +218,13 @@
   }
 }
 .menu-mhfd-dis{
-  margin: 0px;
+  margin: 0px !important;
   color: #11093c !important;
-  opacity: 1;
-  margin-top: -4px;
-  background-color: #2518631c !important;
-  border-radius: 5px 5px 0px 0px;
+  opacity: 1 !important;
+  margin-top: -4px !important;
+  background-color: rgba(37, 24, 99, 0.08) !important;
+  border-radius: 5px 5px 0px 0px !important;
+  padding: 7px 11px;
 }
 // .menu-drop-sub-sub{
 //   .ant-dropdown-menu-submenu-popup {

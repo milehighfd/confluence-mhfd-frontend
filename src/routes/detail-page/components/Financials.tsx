@@ -193,7 +193,7 @@ const Financials = () => {
               {/* <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
               <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p> */}
             </div>
-            <div style={{display:'flex', paddingTop:'5px', borderBottom: '1px solid #d7d3e2',marginBottom: '5px'}} >
+            <div style={{display:'flex', paddingTop:'5px', borderBottom: '1px solid #d7d3e2',paddingBottom: '5px'}} >
               <p style={{color:'#11093c', fontWeight:'bolder', width:'50%'}}>Total</p>
               <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
               <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>

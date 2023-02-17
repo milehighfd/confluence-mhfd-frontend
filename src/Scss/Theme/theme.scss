@@ -194,6 +194,7 @@ body{
   .ant-dropdown-menu {
     min-width: 150px !important;
   }
+  
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     background-color: #ffffff !important;
     color: #11093C;
@@ -220,6 +221,22 @@ body{
       opacity: 1 !important;
       font-weight: 500 !important;
     }
+  }
+  .menu-mhfd-dis{
+    margin: 0px !important;
+    color: #11093c !important;
+    opacity: 1 !important;
+    margin-top: -4px !important;
+    background-color: rgb(37 24 99 / 8%) !important;
+    border-radius: 5px 5px 0px 0px !important;
+  }
+  .menu-mhfd-dis:hover{
+    margin: 0px !important;
+    color: #11093c !important;
+    opacity: 1 !important;
+    margin-top: -4px !important;
+    background-color: rgb(37 24 99 / 8%) !important;
+    border-radius: 5px 5px 0px 0px !important;
   }
 }
 .upload{
@@ -2219,7 +2236,8 @@ body{
     position: absolute;
     display: flex;
     top: 0px;
-    z-index: 10;
+    z-index: 8;
+    width: 100%;
     // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
