@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { useDetailedState } from "hook/detailedHook";
+import { getStreams } from '../../../utils/parsers';
 
 const DetailInformationProject = () => {
   const {detailed,} = useDetailedState();
@@ -24,7 +25,7 @@ const DetailInformationProject = () => {
           <label><i>Stream</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.streams?.length > 0 && detailed?.streams[0]?.stream?.length > 0 && detailed?.streams[0]?.stream[0]?.stream_name ? detailed?.streams[0]?.stream[0]?.stream_name : 'N/A'}</p>
+          <p>{getStreams(detailed?.project_streams || []) || 'N/A'}</p>
         </Col>
       </Row>
       <Row>
