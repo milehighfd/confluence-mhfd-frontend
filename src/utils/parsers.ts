@@ -45,7 +45,7 @@ export const getCounties = (projectsCounties: any) => {
 
 export const getStreams = (projectStreams: any) => {
   return projectStreams?.reduce((accumulator: string, st: any) => {
-    const stream = st.stream.stream_name || '';
+    const stream = st?.stream?.stream_name || '';
     let value = accumulator;
     if (stream) {
       if (value) {
