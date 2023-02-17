@@ -194,6 +194,7 @@ body{
   .ant-dropdown-menu {
     min-width: 150px !important;
   }
+  
   .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
     background-color: #ffffff !important;
     color: #11093C;
@@ -220,6 +221,22 @@ body{
       opacity: 1 !important;
       font-weight: 500 !important;
     }
+  }
+  .menu-mhfd-dis{
+    margin: 0px !important;
+    color: #11093c !important;
+    opacity: 1 !important;
+    margin-top: -4px !important;
+    background-color: rgb(37 24 99 / 8%) !important;
+    border-radius: 5px 5px 0px 0px !important;
+  }
+  .menu-mhfd-dis:hover{
+    margin: 0px !important;
+    color: #11093c !important;
+    opacity: 1 !important;
+    margin-top: -4px !important;
+    background-color: rgb(37 24 99 / 8%) !important;
+    border-radius: 5px 5px 0px 0px !important;
   }
 }
 .upload{
@@ -2217,7 +2234,10 @@ body{
   .ant-carousel{
     padding: 0px !important;
     position: absolute;
+    display: flex;
     top: 0px;
+    z-index: 8;
+    width: 100%;
     // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
@@ -2783,6 +2803,29 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+  .dropdown-view{
+    width: 17%;
+    margin-right: 8px;
+    justify-content: space-between;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid rgba(37, 24, 99, 0.1);
+    border-radius: 3px;
+    color: #251863;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    padding: 8px 12px;
+  }
+  .btn-clear{
+    background: #f5f7ff;
+    border: none;
+    color: #8d88b1;
+    padding: 5px 6px;
+    /* height: max-content; */
+    border-radius: 3px
   }
   label{
     color: $opacity;
