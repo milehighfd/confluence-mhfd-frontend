@@ -25,7 +25,7 @@ import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
-import { getCounties, getServiceAreas, getSponsors } from '../../../utils/parsers';
+import { getCounties, getServiceAreas, getSponsors, getStreams } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -354,7 +354,7 @@ const PortafolioBody = () => {
                   }
                   return sum;
                 }, 0) ,
-                stream: null,
+                stream: getStreams(elem?.project_streams || []),
                 contact: 'ICON',
                 view: 'id',
                 options:'red',
