@@ -44,9 +44,6 @@ const FiltersProjectView = ({
         spinFilters: spinFilter,
         galleryProjectsV2
       } = useMapState();
-      useEffect(() => {
-        console.log('galleryProjectsV2', galleryProjectsV2, galleryProjectsV2.length);
-      }, [galleryProjectsV2]);
     const genExtra = () => (
         <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
             <Col>
@@ -109,7 +106,7 @@ const FiltersProjectView = ({
             {tabs.map((value: string, index: number) => {
                 let tabLabel;
                 if (`${index}` === tabActive) {
-                    let total = (index === 0) ? totals.problems : (index === 1 ? totals.projects : totals.components);
+                    let total = (index === 0) ? totals.problems : (index === 1 ? galleryProjectsV2.length : totals.components);
                     let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     tabLabel = `${value === 'Components' ? 'Actions' : value} (${totalLabel})`;
                 } else {
