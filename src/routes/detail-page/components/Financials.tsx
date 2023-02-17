@@ -183,22 +183,22 @@ const Financials = () => {
               <p style={{color:'#11093c', fontWeight:'500', width:'50%'}}>Subtotal Income</p>
               <p style={{color:'#11093c', fontWeight:'500', width:'12.5%'}}>$600,320</p>
               <p style={{color:'#11093c', fontWeight:'500', width:'12.5%'}}>$600,320</p>
-              {/* <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
-              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p> */}
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
+              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p>
             </div>
             <div style={{display:'flex', paddingTop:'5px'}}>
               <p style={{color:'#11093c', fontWeight:'500', width:'50%'}}>Subtotal Expense</p>
               <p style={{color:'#11093c', fontWeight:'500', width:'12.5%'}}>$200,000</p>
               <p style={{color:'#11093c', fontWeight:'500', width:'12.5%'}}>$200,000</p>
-              {/* <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
-              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p> */}
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
+              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p>
             </div>
             <div style={{display:'flex', paddingTop:'5px', borderBottom: '1px solid #d7d3e2',paddingBottom: '5px'}} >
               <p style={{color:'#11093c', fontWeight:'bolder', width:'50%'}}>Total</p>
               <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
               <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
-              {/* <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
-              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p> */}
+              <p style={{color:'#11093c', fontWeight:'bolder', width:'12.5%'}}>$400,320</p>
+              <p style={{color:'#11093c', fontWeight:'bolder'}}>$400,320</p>
             </div>
           </div>
           

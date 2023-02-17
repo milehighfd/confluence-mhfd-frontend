@@ -299,15 +299,28 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             }}
             ref={divRef}
           >
-            <div style={{background:'#f5f7ff', zIndex:'1', height:'266px', width:'100%'}}>
+            <div className="placeholder-carousel">
+
+            </div>
+            <div style={{background:'#f5f7ff', zIndex:'1', height:'266px', width:'100%', position:'absolute', top:'0'}} className='placeholder-carousel'>
             {/* <div className="detailed-c"></div> */}
             </div>
             <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3', height:'266px'}}>
               {detailed?.problemid ? (
                     <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (
-                    detailed?.attachments?.length == 0 ? (
-                        <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img  src={
+                    detailed?.attachments ? (detailed?.attachments.map((image: string, index: number) => {
+                    return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true);setActive(0)}}>
+                      <img width="100%" height="100%" src={image} alt=""/>
+                    </div>
+                  })
+                      ) : (
+                        // detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
+                        //    return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true);setActive(0)}}>
+                        //      <img width="100%" height="100%" src={image} alt=""/>
+                        //    </div>
+                        //  })
+                         <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img  src={
                           projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
                             projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
                             projectType === 'Special' ? '/detailed/special.png' :
@@ -317,12 +330,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                                     projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
                                       projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
                         }/> </div>
-                      ) : (
-                        detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
-                           return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true);setActive(0)}}>
-                             <img width="100%" height="100%" src={image} alt=""/>
-                           </div>
-                         })
                        )
                     )}
             </Carousel>

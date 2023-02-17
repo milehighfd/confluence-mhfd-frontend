@@ -2234,7 +2234,7 @@ body{
   .ant-carousel{
     padding: 0px !important;
     position: absolute;
-    display: flex;
+    // display: contents;
     top: 0px;
     z-index: 8;
     width: 100%;
@@ -2780,6 +2780,9 @@ body{
     padding: 20px 25px;
   }
 }
+.placeholder-carousel{
+  height:266px;
+}
 .detailed-c{
   // height: 450px;
   // background-image: url('../../Icons/bg-00.png');
@@ -3125,6 +3128,9 @@ body{
     width: 1731px !important;
     top:75px !important;
   }
+  .placeholder-carousel{
+    height:319px !important;
+  }
   .detailed-c{
     .img-modal{
       width: 975px;
@@ -3452,6 +3458,9 @@ body{
     .header-body-modal{
       font-size: 20px !important;
     }
+  }
+  .placeholder-carousel{
+    height:366px !important;
   }
   .detailed-c{
     .img-modal{
@@ -3823,6 +3832,9 @@ body{
   .detailed-image{
     width: 2955px !important;
     top:260px !important;
+  }
+  .placeholder-carousel{
+    height:406px !important;
   }
   .detailed-c{
     .img-modal{
