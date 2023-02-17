@@ -5,6 +5,8 @@ import { Option } from "antd/lib/mentions";
 import ButtonGroup from "antd/lib/button/button-group";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from 'Config/Server.config';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -27,11 +29,14 @@ const Search = (
     phaseRef,
     scheduleRef,
     rawData,
+    setCompleteData,
+    setNewData,
     index,
     groupsBy,
     setCurrentGroup,
     setSearchWord,
-    fullData
+    fullData,
+    email
   }
   :{
     searchRef: React.MutableRefObject<any>,
@@ -43,11 +48,14 @@ const Search = (
     setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     rawData: any,
+    setCompleteData: Function,
+    setNewData: Function,
     index: number,
     groupsBy: any[],
     setCurrentGroup: Function,
     setSearchWord: Function,
-    fullData: any
+    fullData: any,
+    email: string
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
@@ -56,6 +64,7 @@ const Search = (
   const [likeActive, setLikeActive] = useState([1,0,2]);
   const [keyword, setKeyword] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+
   let displayedTabKey = tabKeys;
   const content = (
     <div style={{width:'137px'}}>
@@ -106,13 +115,32 @@ const Search = (
   }
   const handleSearch = (value: string) => {
     if (value) {
-      setFilteredData(fullData.filter((item: any) => !item.id.includes('Title') && item.rowLabel.toLowerCase().includes(value.toLowerCase())));
+      setFilteredData(fullData.filter((item: any) => !item.id.includes('Title') && item.rowLabel.toLowerCase().includes(value.toLowerCase())));     
     } else {
       setFilteredData([]);
     }
     setSearchWord(value);
     setKeyword(value);
   }
+  const deleteFunction = (id: number, email: string, table: string) => {
+    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
+      const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+      const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+      setCompleteData(z)
+      setNewData(z1)
+    });
+
+  }
+  const addFunction = (id: number, email: string, table: string) => {
+    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
+      const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+      const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+      setCompleteData(z)
+      setNewData(z1)
+    });
+  }
+
+  
   return <>
       {detailOpen && <DetailModal
         visible={detailOpen}
@@ -191,7 +219,7 @@ const Search = (
                         <div className="text-search" key={d.id} id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} >
                           {/*onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}*/}
                           <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
-                          {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([1, index , index_elem]))} />}
+                          {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction( d.project_id ,email, '')} />}
                           {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>
                       ))

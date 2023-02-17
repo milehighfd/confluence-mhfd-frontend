@@ -20,7 +20,7 @@ import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
 import { optionsProjects } from "./ListUtils";
 import { useProfileDispatch } from "hook/profileHook";
-import { SELECT_ALL_FILTERS } from "constants/constants";
+import { list, SELECT_ALL_FILTERS } from "constants/constants";
 import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -76,12 +76,13 @@ const PortafolioBody = () => {
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
   const [completeData, setCompleteData] = useState<any>([]);
-  const [defaultData, setDefaultData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
   const [currentUserId, setCurrentUserId] = useState(null);
+  const [listLoaded, setListLoaded] = useState(false);
+
   const mainFilters = [
     // {label: 'MHFD Lead/PM', value: 'MHFD' },
     // {label: 'Service Area', value: 'Service' },
@@ -93,6 +94,8 @@ const PortafolioBody = () => {
     {label: 'County', value: 'county'}
   ];
   const [favorites, setFavorites] = useState<any>([]);
+  
+
   useEffect(()=>{
     if(Object.keys(layers).length === 0){
       //console.log('ESTA VACIO', layers)
@@ -119,10 +122,10 @@ const PortafolioBody = () => {
 
 
 
-  useEffect(() => {
+  useEffect(() => {    
     if (appUser.userInformation?._id) {
-      setCurrentUserId(appUser.userInformation?._id);
-    }
+      setCurrentUserId(appUser.userInformation?._id);      
+    }   
   }, [appUser]);
 
   const groupsBy = [
@@ -178,17 +181,17 @@ const PortafolioBody = () => {
   }, [optionSelect, tabKey]);
   useEffect(() => {
     if (searchWord) {
-      let currentNewData = completeData.filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
+      let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
       currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
       setNewData(currentNewData);
       const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
     } else {
       setNewData(completeData);
-      const sortedData = completeData.filter((elem: any) => elem.id.includes('Title'));
+      const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
     }
-  }, [searchWord]);
+  }, []);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
 
 
@@ -531,7 +534,7 @@ const PortafolioBody = () => {
         });
         setNewData(updatedGroups);
         setCompleteData(updatedGroups);
-        setDefaultData(updatedGroups);
+        setListLoaded(!listLoaded);
         setTimeout(() => {
           setIsLoading(false);
         }, 1500);
@@ -540,10 +543,23 @@ const PortafolioBody = () => {
       });
     });
   }
+
+
+
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);  
-  }, [ openFavorites,applyFilter,currentGroup]);
-
+  }, [ applyFilter,currentGroup]);
+  
+  useEffect(() => {
+    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
+      setFavorites(result);    
+    })    
+  }, [listLoaded]);
+  useEffect(() => {
+    const z = [...newData].map((x: any)  => {  return {...x, isFavorite : favorites.some((element: { project_id: number; }) => (element.project_id === x.project_id))}})     
+    setNewData(z)
+    setCompleteData(z)
+  }, [favorites]);
 
   const parseDataToString = (data: any) => {
     if (data == null) return '';
@@ -558,11 +574,21 @@ const PortafolioBody = () => {
       filterby = filterby+"_id"
       console.log("FILTROS")
     console.log(filterby,filterValue)
+    let filterWord : any[] = []; 
+    let filterHeart : any[] = [];     
+    
+    if (searchWord) {
+      let currentNewData = [...completeData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
+      currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
+      filterWord = currentNewData;
+    } else {
+      filterWord = completeData;
+    }
     if (filterValue!==-1) {      
-        filteredData2 = [...defaultData].filter(name => name.id.includes('Title') 
+        filteredData2 = [...filterWord].filter(name => name.id.includes('Title') 
         || name[filterby].includes(filterValue));               
     } else{
-      filteredData2 = [...defaultData]
+      filteredData2 = [...filterWord]
     }
     if (tabkey!==0) {
       filteredData = [...filteredData2].filter(name => name.id.includes('Title') 
@@ -598,13 +624,17 @@ const PortafolioBody = () => {
         return true
       }
     });
-    return filteredTitles
+    if(openFavorites){
+      filterHeart = [...filteredTitles].filter((x: any) => x.isFavorite || x.id.includes('Title'))
+    }else{
+      filterHeart = filteredTitles;
+    }
+    console.log("filterheart")
+    console.log(filterHeart)
+
+    return filterHeart
   }
-  useEffect(() => {
-    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
-      setFavorites(result)
-    })
-  }, []);
+  
 
   useEffect(()=>{     
     console.log(filterby,filtername,filterValue)
@@ -614,8 +644,9 @@ const PortafolioBody = () => {
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     console.log(numAscending)
     setNewData(numAscending)
-    setCompleteData(numAscending)
-  },[sortValue,tabKey,filterby,filterValue,filtername,defaultData])
+    console.log('completeData')
+    console.log(numAscending)
+  },[sortValue,tabKey,filterby,filterValue,filtername,listLoaded,searchWord,openFavorites])
   
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
@@ -722,11 +753,14 @@ const PortafolioBody = () => {
                       phaseRef={phaseRef}
                       scheduleRef={scheduleRef}
                       rawData={newData}
+                      setCompleteData = {setCompleteData}
+                      setNewData = {setNewData}
                       index={idx}
                       groupsBy={groupsBy}
                       setCurrentGroup={setCurrentGroup}
                       setSearchWord={setSearchWord}
                       fullData={completeData}
+                      email = {appUser.userInformation?.email}
                     />
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
