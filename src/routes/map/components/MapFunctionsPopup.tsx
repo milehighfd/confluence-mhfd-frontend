@@ -36,6 +36,7 @@ import {
 } from './MapFunctionsUtilities';
 import { numberWithCommas } from '../../../utils/utils';
 import { SERVER } from "../../../Config/Server.config";
+import { SPONSOR_ID } from '../../../constants/databaseConstants';
 
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
@@ -329,9 +330,9 @@ export const addPopupsOnClick = async (
           }
         }else{
         const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
-        console.log("DATAFROMDB")
-        console.log(dataFromDB)
-        const sponsors = dataFromDB?.sponsor.map((el:any) => el.business_associate.business_name);
+        const sponsors = dataFromDB?.project_partners.filter((pp: any) => {
+          return (pp.code_partner_type_id === SPONSOR_ID);
+        });
         const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
         const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
         console.log(estimatedcost)
