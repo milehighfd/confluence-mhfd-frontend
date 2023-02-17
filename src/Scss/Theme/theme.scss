@@ -2217,7 +2217,9 @@ body{
   .ant-carousel{
     padding: 0px !important;
     position: absolute;
+    display: flex;
     top: 0px;
+    z-index: 10;
     // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
@@ -2783,6 +2785,29 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+  .dropdown-view{
+    width: 17%;
+    margin-right: 8px;
+    justify-content: space-between;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid rgba(37, 24, 99, 0.1);
+    border-radius: 3px;
+    color: #251863;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    padding: 8px 12px;
+  }
+  .btn-clear{
+    background: #f5f7ff;
+    border: none;
+    color: #8d88b1;
+    padding: 5px 6px;
+    /* height: max-content; */
+    border-radius: 3px
   }
   label{
     color: $opacity;
