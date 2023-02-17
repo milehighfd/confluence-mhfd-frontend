@@ -25,6 +25,7 @@ import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
+import { getCounties, getServiceAreas, getSponsors } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -340,41 +341,11 @@ const PortafolioBody = () => {
                 }, ''),
                 on_base: elem?.onbase_project_number,
                 total_funding: null,
-                project_sponsor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.business_associate?.business_name || '';
-                  let value = accumulator;
-                  if (sa && pl.code_partner_type_id === SPONSOR_ID) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  }  
-                  return value;
-                }, ''),
+                project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
-                service_area: elem?.project_service_areas.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.CODE_SERVICE_AREA?.service_area_name || '';
-                  let value = accumulator;
-                  if (sa) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  } 
-                  return value;
-                }, ''),
-                county: elem?.project_counties?.reduce((accumulator: string, pl: any) => {
-                  const county = pl?.CODE_STATE_COUNTY?.county_name || '';
-                  let value = accumulator;
-                  if (county) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += county;
-                  } 
-                  return value;
-                }, ''),
+                service_area: getServiceAreas(elem?.project_service_areas || []),
+                county: getCounties(elem?.project_counties || []),
                 estimated_cost: elem?.project_costs?.reduce((accumulator: number, pl: any) => {
                   // TODO: 1 is ESTIMATED_COST variable
                   let sum = accumulator;
