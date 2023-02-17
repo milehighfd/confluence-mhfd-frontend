@@ -42,3 +42,17 @@ export const getCounties = (projectsCounties: any) => {
     return value;
   }, '');
 };
+
+export const getStreams = (projectStreams: any) => {
+  return projectStreams?.reduce((accumulator: string, st: any) => {
+    const stream = st.stream.stream_name || '';
+    let value = accumulator;
+    if (stream) {
+      if (value) {
+        value += ',';
+      }
+      value += stream;
+    } 
+    return value;
+  }, '');
+};
