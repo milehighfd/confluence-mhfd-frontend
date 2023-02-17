@@ -332,7 +332,8 @@ export const addPopupsOnClick = async (
         const dataFromDB = await datasets.getData(SERVER.V2_DETAILED_PAGE(projectidfeature), datasets.getToken());
         const sponsors = dataFromDB?.project_partners.filter((pp: any) => {
           return (pp.code_partner_type_id === SPONSOR_ID);
-        });
+        })?.map((sps: any) => sps.business_associate?.business_name);
+        console.log('sponsors', sponsors);
         const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
         const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
         console.log(estimatedcost)
