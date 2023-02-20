@@ -368,7 +368,7 @@ const RequestView = ({ type, isFirstRendering }: {
               return proj.projectData?.cartodb_id;
             });
             let idsProjects = projects.map((proj:any)=> {
-              return proj.projectData?.projectid;
+              return proj.projectData?.project_id;
             });
             let projectAmounts = projects.map((proj:any)=> {
               return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
