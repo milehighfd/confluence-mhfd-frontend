@@ -95,7 +95,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   useEffect(()=>{
     if(data!== 'no data' ) {
-      getAttachmentByProject(data.projectid);
+      //getAttachmentByProject(data.projectid);
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.projectname);

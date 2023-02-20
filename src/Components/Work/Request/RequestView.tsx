@@ -23,7 +23,7 @@ import CostTableBody from 'Components/Work/Request/CostTableBody';
 import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ProjectEditService from 'Components/Work/Request/ProjectEditService';
 import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
-import { compareArrays, compareColumns, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getTotalsByProperty, hasPriority, onDropFn, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
+import { compareArrays, compareColumns, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getTotalsByProperty, getTotalsByPropertyV2, onDropFn, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
@@ -600,9 +600,9 @@ const RequestView = ({ type, isFirstRendering }: {
   }, [namespaceId, callBoard]);
 
   useEffect(() => {
-    let [rows, totals] = getTotalsByProperty(columns, 'county');
-    let [a] = getTotalsByProperty(columns, 'servicearea');
-    let [c] = getTotalsByProperty(columns, 'jurisdiction');
+    let [rows, totals] = getTotalsByPropertyV2(columns, 'project_counties');
+    let [a] = getTotalsByPropertyV2(columns, 'project_service_areas');
+    let [c] = getTotalsByPropertyV2(columns, 'project_local_governments');
     let uniqueServiceArea = a.map((p: any) => p.locality);
     let uniqueJurisdictions = c.map((p: any) => p.locality).filter((p: any) => p.length > 0);
     let uniqueCounties = rows.map((p: any) => p.locality);

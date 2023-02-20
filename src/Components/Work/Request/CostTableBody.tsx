@@ -10,7 +10,6 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
   isFiltered: boolean,
   tabKey: any
 }) => {
- 
   const getLabel = ()=>{
     if(tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
@@ -28,6 +27,7 @@ const CostTableBody = ({ type, countySum, isFiltered, tabKey }: {
     return '';
   }
   const localityName = (name: string) => {
+
     return name.includes('County') || name.includes('county') || name.includes('Service Area') 
       ? name : name + ` ${getSuffix(name)}`;
   }

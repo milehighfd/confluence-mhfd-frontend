@@ -592,7 +592,6 @@ export const getComponentsByProjectId = (projectId: any) => {
 export const getIndependentComponentsByProjectId = (projectId: any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_INDEPENDENTCOMPONENTS_BY_PROJECT(projectId), datasets.getToken()).then( res => {
-
       dispatch(setIndComponents(res));
     })
   }

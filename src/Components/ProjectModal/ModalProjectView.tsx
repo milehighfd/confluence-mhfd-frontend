@@ -33,6 +33,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   currentData?: any,
   year?: number
 }) => {
+  console.log(visible, data, showDefaultTab, locality, editable );
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setBoardProjectsCreate} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
@@ -145,29 +146,34 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         setVisibleCapital(true);
         setNameProject('Ex: Stream Name @ Location 202X');
       } else {
-        getAttachmentByProject(data.projectid);
-        if( data.projecttype == 'Study'){
+        //getAttachmentByProject(data.projectid);
+        if( data.project_status.code_phase_type.code_project_type.code_project_type_id === 1){
           getStreamsByProjectId(data.projectid);
-        } else if( data.projecttype == 'Capital') {
-          getIndependentComponentsByProjectId(data.projectid);
-          getComponentsByProjectId(data.projectid);
+        } else if( data.project_status.code_phase_type.code_project_type.code_project_type_id === 5) {
+          getIndependentComponentsByProjectId(data.project_id);
+          getComponentsByProjectId(data.project_id);
         }
           
       }
-      if(data.projecttype === "Capital"){
+      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 5){
         setVisibleCapital(true);
       }
-      if(data.projecttype === "Study"){
+      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 1){
         setVisibleStudy(true);
       }
-      if(data.projecttype === "Maintenance"){
+      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 7 || 
+        data.project_status.code_phase_type.code_project_type.code_project_type_id === 8 || 
+        data.project_status.code_phase_type.code_project_type.code_project_type_id === 9 || 
+        data.project_status.code_phase_type.code_project_type.code_project_type_id === 10 || 
+        data.project_status.code_phase_type.code_project_type.code_project_type_id === 11 
+        ){
         setSubType(data.projectsubtype);
         setVisibleMaintenance(true);
       }
-      if(data.projecttype === "Acquisition"){
+      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 13){
         setVisibleAcquisition(true);
       }
-      if(data.projecttype === "Special"){
+      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 15){
         setVisibleSpecial(true);
       }
     }

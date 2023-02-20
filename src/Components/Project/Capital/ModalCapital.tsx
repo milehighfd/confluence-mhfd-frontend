@@ -75,6 +75,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
  
   const {saveProjectCapital,saveOverheadCost, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
+  console.log(useProjectState());
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -140,23 +141,35 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setIndependentComponents([]);
     }
   },[]);
-  const parseStringToArray = (list:string) => {
-    if( list ){
-      return list.split(',');
-    }
- }
+
   useEffect(()=>{
     if(data!== 'no data' ) {
+      const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
+      const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
+      const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
+      const coEsponsor = data.project_partners.map((e:any) => {
+        if (e.code_partner_type_id === 12) {
+          return e.business_associate.business_name
+        }
+        return undefined;
+      }).filter((e:any)=> !!e);
+      const sponsor = data.project_partners.map((e:any) => {
+        if (e.code_partner_type_id === 11) {
+          return e.business_associate.business_name
+        }
+        return undefined;
+      }).filter((e:any)=> !!e).join("");
+      setComponentIntersected(data.project_components || []);
       setSwSave(true);
-      setCounty(parseStringToArray(data.county));
-      setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdiction(parseStringToArray(data.jurisdiction));
-      setCosponsor(parseStringToArray(data.cosponsor));
+      setCounty(counties);
+      setServiceArea(serviceAreas);
+      setjurisdiction(localJurisdiction);
+      setCosponsor(coEsponsor);
       setDescription(data.description);
-      setNameProject(data.projectname);
-      setProjectId(data.projectid);
-      setEditsetprojectid(data.projectid);
-      setAdditionalCost(parseInt(data.additionalcost || '0'));
+      setNameProject(data.project_name);
+      setProjectId(data.project_id);
+      setEditsetprojectid(data.project_id);
+      setAdditionalCost(parseInt(data.project_costs.filter((e:any) => e.code_cost_type_id === 14) || '0'));
       let newOV = (data.overheadcost || '').split(',').map((x:any)=>{
         return parseInt(x);
       })
@@ -175,9 +188,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       else{
         setOverheadDescription(data.overheadcostdescription);
       }
-      setSponsor(data.sponsor);
+      setSponsor(sponsor);
       setTimeout(()=>{
-        getGEOMByProjectId(data.projectid)
+        getGEOMByProjectId(data.project_id)
       },2200);
     } else {
       setStreamIntersected([]);
@@ -205,6 +218,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     setGeom(userPolygon);
   },[userPolygon]);
+  
   useEffect(()=>{
     if(listComponents && listComponents.groups && listComponents.result.length > 0){
       const myset = new Set(keys);

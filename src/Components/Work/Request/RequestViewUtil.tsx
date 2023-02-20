@@ -513,9 +513,9 @@ export const getCsv = (
         if (!project.projectData) {
           continue;
         }
-        dataByYear[i].push([project.projectData.projectname,
-          project.projectData.jurisdiction,
-          project.projectData.status,
+        dataByYear[i].push([project.projectData.project_name,
+          project?.projectData?.project_local_governments?.map(( e :any )=> e?.CODE_LOCAL_GOVERNMENT?.local_government_name).join(""),
+          project?.projectData?.project_status?.code_phase_type?.code_status_type?.status_name,
           formatter.format(project['req' + i])]);
       }
     }
@@ -603,7 +603,7 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
     let arr = (p.projectData[property] || '').split(',');
     for (let j = 0 ; j < arr.length ; j++) {
       let locality = arr[j];
-
+      
       if (!localityMap[locality]) {
         localityMap[locality] = {
           req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
@@ -640,4 +640,78 @@ export const getTotalsByProperty = (columns: any[], property: string) => {
 
 export const compareArrays = (a: string[], b: string[]) => {
   return JSON.stringify(a) == JSON.stringify(b);
+}
+
+export const getTotalsByPropertyV2 = (columns: any[], property: string) => {
+  let allProjects = columns.reduce((acc: any[], cv: any) => {
+    return [...acc, ...cv.projects]
+  }, [])
+  let ht: any = {};
+  allProjects = allProjects.filter((p: any) => {
+    if (!ht[p.project_id]) {
+      ht[p.project_id] = p;
+      return true;
+    }
+    return false;
+  })
+  let localityMap: any = Object.create({});
+  allProjects = allProjects.filter(projects => {
+    return (projects.position1 !== null || projects.position2 !== null || projects.position3 !== null || projects.position4 !== null || projects.position5 !== null);
+  });
+  allProjects.forEach((p: any) => {
+    let arr;
+    switch (property) {
+      case 'project_counties':
+         arr = p.projectData.project_counties.map( (element: any) => {
+          return element && element.CODE_STATE_COUNTY.county_name;
+        });
+      break;
+      case 'project_local_governments':
+         arr = p.projectData.project_local_governments.map( (element: any) => {
+          return element && element.CODE_LOCAL_GOVERNMENT.local_government_name;
+        });
+      break;
+      case 'project_service_areas':
+        arr = p.projectData.project_service_areas.map( (element: any) => {
+         return element && element.CODE_SERVICE_AREA.service_area_name;
+       });
+     break;
+      default:
+        arr = [];
+      break;
+    }
+     for (let j = 0 ; j < arr.length ; j++) {
+      let locality = arr[j];
+      if (!localityMap[locality]) {
+        localityMap[locality] = {
+          req1: 0, req2: 0, req3: 0, req4: 0, req5: 0,
+          cnt1: 0, cnt2: 0, cnt3: 0, cnt4: 0, cnt5: 0,
+          projects: [],
+        };
+      }
+      localityMap[locality].projects.push(p);
+      for(var i = 1; i <= 5 ; i++) {
+        if (p[`position${i}`] != null) {
+          localityMap[locality][`req${i}`] += (p[`req${i}`] / arr.length);
+          localityMap[locality][`cnt${i}`]++;
+        }
+      }
+    }
+  });
+  let rows: any = [];
+  let totals: any = { req1: 0, req2: 0, req3: 0, req4: 0, req5: 0 };
+  Object.keys(localityMap).forEach((locality: string) => {
+    let obj: any = {
+      locality
+    }
+    for(var i = 1; i <= 5 ; i++) {
+      let amount = localityMap[locality][`req${i}`];
+      obj[`req${i}`]= amount;
+      obj[`cnt${i}`]= localityMap[locality][`cnt${i}`];
+      totals[`req${i}`] += amount;
+    }
+    rows.push(obj);
+  });
+  rows.sort((a: any, b: any) => a.locality.localeCompare(b.locality))
+  return [rows, totals];
 }

@@ -4,7 +4,7 @@ import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
 import { useProjectDispatch } from '../../../hook/projectHook';
 import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
-import { deleteData, getToken, postData } from '../../../Config/datasets';
+import { deleteData, getToken, postData, getData } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
 
 import CardStatService from './CardService';
@@ -39,11 +39,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
 }) => {
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {
-    projectid,
-    projectname,
+    project_id,
+    project_name,
     projectsubtype,
-    status
   } = project.projectData;
+  const status = project?.projectData?.project_status?.code_phase_type?.code_status_type?.status_name
   const {id} = project
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])
@@ -55,9 +55,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const pageWidth  = document.documentElement.scrollWidth;
   const deleteProject = () => {
-    delProject(projectid)
+    delProject(project_id)
     setLoading(true);
-    deleteData(`${SERVER.URL_BASE}/board/project/${projectid}/${namespaceId}`, getToken())
+    deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
         setLoading(false)
@@ -69,16 +69,17 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
-    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard);
-    setCompleteProjectData(newDataComplete); 
+    const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
+    setCompleteProjectData(dataFromDB); 
   }
+
   const copyProjectToCurrent = () => {
     setLoading(true);
     postData(
       `${SERVER.URL_BASE}/create/copy`,
       {
         id: project.id,
-        projectid,
+        project_id,
         locality,
         projecttype: tabKey
       },
@@ -147,7 +148,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
 
-  let displayName = projectname || '';
+  let displayName = project_name || '';
   if (displayName.length > 35) {
     displayName = displayName.substr(0,35) + '...';
   }
@@ -228,7 +229,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         visibleAlert={showDeleteAlert}
         setVisibleAlert={setShowDeleteAlert}
         action={deleteProject}
-        name={projectname}
+        name={project_name}
         />
     }
     {
@@ -251,7 +252,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     }
     <AmountModal
       project={project}
-      projectId={projectid}
+      projectId={project_id}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
       startYear={year}
@@ -261,7 +262,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       />
     <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {
-        onDragStart(e, projectid);
+        onDragStart(e, project_id);
       }}
       onDrop={(e: any) => {
         let dr: any = divRef.current;
@@ -277,9 +278,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       }}>
         <div style={{marginRight:'-10px', width:'100%'}}>
           <Popover placement="top" content={<>
-            <b>{projectname}</b>
+            <b>{project_name}</b>
             <br />
-            <b>Project: </b> {projectid}
+            <b>Project: </b> {project_id}
             <br />
             <b>Board: </b> {namespaceId}
             <br />
