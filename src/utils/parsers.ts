@@ -1,4 +1,4 @@
-import { SPONSOR_ID } from '../constants/databaseConstants';
+import { ESTIMATED_COST, SPONSOR_ID } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
   const sponsors = projectPartners.reduce((accumulator: string, current: any) => {
@@ -55,4 +55,14 @@ export const getStreams = (projectStreams: any) => {
     } 
     return value;
   }, '');
+};
+
+export const getTotalEstimatedCost = (projectCosts: any) => {
+  return projectCosts?.reduce((accumulator: number, pl: any) => {
+    let sum = accumulator;
+    if (pl.code_cost_type_id === ESTIMATED_COST) {
+      sum += pl.cost;
+    }
+    return sum;
+  }, 0);
 };

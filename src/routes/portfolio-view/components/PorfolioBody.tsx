@@ -25,7 +25,7 @@ import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
-import { getCounties, getServiceAreas, getSponsors, getStreams } from '../../../utils/parsers';
+import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -349,14 +349,7 @@ const PortafolioBody = () => {
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
-                estimated_cost: elem?.project_costs?.reduce((accumulator: number, pl: any) => {
-                  // TODO: 1 is ESTIMATED_COST variable
-                  let sum = accumulator;
-                  if (pl.code_cost_type_id === 1) {
-                    sum += pl.cost;
-                  }
-                  return sum;
-                }, 0) ,
+                estimated_cost: getTotalEstimatedCost(elem?.project_costs),
                 stream: getStreams(elem?.project_streams || []),
                 contact: 'ICON',
                 view: 'id',

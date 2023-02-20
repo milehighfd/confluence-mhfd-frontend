@@ -24,7 +24,7 @@ import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
-import { getCounties, getServiceAreas, getSponsors } from '../../../utils/parsers';
+import { getCounties, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -160,7 +160,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <div className="detailed-mmm">
                     <p style={{marginTop:'-10px'}}>Estimated Cost</p>
                     <b>{ 
-                      (detailed?.sumCost != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailed?.sumCost)): 'No Cost Data')}</b>
+    
+                        (getTotalEstimatedCost(detailed?.project_costs || []) != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(detailed?.project_costs || []))): 'No Cost Data')}
+                    </b>
                   </div>
                 )
               }
