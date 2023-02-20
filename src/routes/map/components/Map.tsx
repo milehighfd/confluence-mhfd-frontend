@@ -37,7 +37,6 @@ import {
 } from '../../../constants/mapStyles';
 import { addMapGeocoder } from '../../../utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
-import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
 import { useMapState, useMapDispatch } from '../../../hook/mapHook';
 import { useColorListDispatch, useColorListState } from '../../../hook/colorListHook';
 import { useProjectDispatch } from '../../../hook/projectHook';
@@ -2387,13 +2386,6 @@ const Map = ({
           }
           
           <span className="zoomvaluemap"><b>Nearmap: September 4, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
-            {/* {visible && <DetailedModal
-                detailed={detailed}
-                type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-                data={data}
-                visible={visible}
-                setVisible={setVisible}
-            />} */}
             {visible && <DetailModal
               visible={visible}
               setVisible={setVisible}

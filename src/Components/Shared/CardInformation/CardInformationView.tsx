@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Card, Popover, Menu, Button, MenuProps } from 'antd';
-import DetailedModal from 'Components/Shared/Modals/DetailedModal';
 import { numberWithCommas } from 'utils/utils';
 import { Detailed } from 'store/types/detailedTypes';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
@@ -177,13 +176,6 @@ const CardInformationView = ({
   const style : any = isProfile ? { width: '100%', display: 'inline-flex', alignSelf: 'stretch', paddingBottom: '15px', paddingLeft:'0px', paddingRight:'0px' } : {display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}
   return (
     <>
-      {/* {visible && <DetailedModal
-        detailed={detailed}
-        type={type}
-        data={data}
-        visible={visible}
-        setVisible={setVisible}
-      />} */}
       {visible && <DetailModal
         visible={visible}
         setVisible={setVisible}

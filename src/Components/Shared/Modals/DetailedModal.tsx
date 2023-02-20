@@ -11,6 +11,7 @@ import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
+import { getTotalEstimatedCost } from '../../../utils/parsers';
 
 const DetailedModal = ({
   type,
@@ -200,7 +201,7 @@ const DetailedModal = ({
                 ) : (
                   <div className="detailed-mm">
                     <b>{ 
-                      (detailedPage?.sumCost != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(detailedPage?.sumCost)): 'No Cost Data')}
+                      (getTotalEstimatedCost(detailedPage?.project_costs || []) != null ?('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(detailedPage?.project_costs || []))): 'No Cost Data')}
                     </b>
                   </div>
                 )
