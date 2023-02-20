@@ -46,17 +46,7 @@ const MapModal = ({type, activeTab}: {type: any, activeTab:any}) => {
       map = undefined;
     }
   }, []);
-  const showComponents = () => {
-    let typeForComponents:any;
-    if(detailed.project_id){
-      typeForComponents = MHFD_PROJECTS
-    }else {
-      typeForComponents =MENU_OPTIONS.PROBLEMS_BOUNDARY
-    }
-    const id = typeForComponents === MHFD_PROJECTS? detailed.project_id : detailed.problem_id;
-    // TODO: See endpoint to draw arcs in 3d detail page
-    // getBBOXComponents(typeForComponents, id);
-    datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + typeForComponents + '&id=' + id).then(bboxComp => {
+  const showComponents = (bboxComp: any) => {
       if (bboxComp) {
         console.log('bboxCompon', bboxComp)
         if (map.getLayer('mapboxArcs2')) {
@@ -129,7 +119,6 @@ const MapModal = ({type, activeTab}: {type: any, activeTab:any}) => {
 
         }
       }
-  })
   }
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -167,64 +156,64 @@ const addLayer = () => {
     const styles = {...tileStyles as any};
 
   if(type === PROBLEMS_MODAL) {
-    i = 0;
-    map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
-    for (const problem of tileStyles.problem_boundary) {
-      map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
-      map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
-      i++;
-    }
-    addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
+      i = 0;
+      map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
+      for (const problem of tileStyles.problem_boundary) {
+        map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, MENU_OPTIONS.PROBLEMS, problem);
+        map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
+        i++;
+      }
+      addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
     FLOOD_HAZARDS.tiles.forEach((tiles:any) => {
-      map.addVectorSource(tiles, layers.floodhazards[tiles]);
-      styles[tiles].forEach((element: any, index: number) => {
-        map.addLayer(`${tiles}-layer_${index}`, tiles, element);
-        map.setFilter(`${tiles}-layer_${index}`, ['in', 'problem_id', detailed?.problemid]);
-      }); 
-      addMapListeners(tiles, `${tiles}-layer_`);
-      // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
-    });
-    let idProjectLine = 0;
-    detailed?.components?.forEach((element: any) => {
+        map.addVectorSource(tiles, layers.floodhazards[tiles]);
+        styles[tiles].forEach((element: any, index: number) => {
+          map.addLayer(`${tiles}-layer_${index}`, tiles, element);
+          map.setFilter(`${tiles}-layer_${index}`, ['in', 'problem_id', detailed?.problemid]);
+        });
+        addMapListeners(tiles, `${tiles}-layer_`);
+        // console.log('should have added layer', `${tiles}-layer_`, styles[tiles], tiles , layers.floodhazards[tiles]);
+      });
+      let idProjectLine = 0;
+      detailed?.components?.forEach((element: any) => {
       if(element.projectid) {
-        map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
-        for (const project of tileStyles[MHFD_PROJECTS]) {
-          map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-          map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
-          idProjectLine++;
-        }       
-      }
-    });
-    addMapListeners(MHFD_PROJECTS, 'projects-line_');
-  } else if(type === PROJECTS_MODAL) {
-    detailed?.problems?.forEach((element: any) => {
-      if(element.problemid) {
-        i = 0;
-        map.addVectorSource(PROBLEMS_TRIGGER, layers.problem_boundary);
-        for (const problem of tileStyles.problem_boundary) {
-          map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, PROBLEMS_TRIGGER, problem);
-          map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'problem_id', element.problemid]);
-          i++;
+          map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
+          for (const project of tileStyles[MHFD_PROJECTS]) {
+            map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
+            map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', element.projectid]);
+            idProjectLine++;
+          }
         }
+      });
+      addMapListeners(MHFD_PROJECTS, 'projects-line_');
+  } else if(type === PROJECTS_MODAL) {
+      detailed?.problems?.forEach((element: any) => {
+      if(element.problemid) {
+          i = 0;
+          map.addVectorSource(PROBLEMS_TRIGGER, layers.problem_boundary);
+          for (const problem of tileStyles.problem_boundary) {
+            map.addLayer(`${PROBLEMS_TRIGGER}-layer_` + i, PROBLEMS_TRIGGER, problem);
+            map.setFilter(`${PROBLEMS_TRIGGER}-layer_` + i, ['in', 'problem_id', element.problemid]);
+            i++;
+          }
+        }
+      });
+      addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
+      map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
+      let idProjectLine = 0;
+      for (const project of tileStyles[MHFD_PROJECTS]) {
+        map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
+        // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
+        // if (detailedPage?.cartodb_id) {
+        //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
+        // }
+        if (detailed?.project_id) {
+          map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.project_id]);
+        }
+
+        idProjectLine++;
       }
-    });
-    addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}-layer_`);
-    map.addVectorSource('projects-line', layers.projects[MHFD_PROJECTS]);
-    let idProjectLine = 0;
-    for (const project of tileStyles[MHFD_PROJECTS]) {
-      map.addLayer('projects-line_' + idProjectLine, 'projects-line', project);
-      // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
-      // if (detailedPage?.cartodb_id) {
-      //   map.setFilter('projects-line_' + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
-      // }
-      if (detailed?.project_id) {
-        map.setFilter('projects-line_' + idProjectLine, ['in', 'projectid', detailed?.project_id]);
-      }
-      
-      idProjectLine++;
-    }
-    i = 0;
-    addMapListeners(MHFD_PROJECTS, 'projects-line_');
+      i = 0;
+      addMapListeners(MHFD_PROJECTS, 'projects-line_');
     }
     for (const key in layers.components) {
       map.addVectorSource(key, layers.components[key]);
@@ -233,7 +222,7 @@ const addLayer = () => {
         for (const component of styles[key] ) {
           map.addLayer(key + i, key, component);
           let fieldComparator = type === PROBLEMS_MODAL ? 'problemid': 'projectid';
-          if (STREAM_IMPROVEMENT_MEASURE === key) { 
+          if (STREAM_IMPROVEMENT_MEASURE === key) {
             fieldComparator = type === PROBLEMS_MODAL ? 'problem_id': 'project_id';
           }
           map.setFilter(key + i, ['in', fieldComparator,type === PROBLEMS_MODAL ? detailed?.problemid : detailed?.project_id]);
@@ -242,49 +231,49 @@ const addLayer = () => {
         addMapListeners(key, key );
       }
 
-  }
+    }
     if (detailed?.coordinates) {
-      map.fitBounds([
-        detailed?.coordinates[0][0],
-        detailed?.coordinates[0][2]
-      ],
-        {
-          duration: 10
-        });
-    }else{
-      console.log(detailed)
-      if(detailed?.project_id){
-        datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
-          .then(
-            (cordinates: any) => {
-              // let coordinates = coor.coordinates[0];
-              // setGeom(coordinates);
-              // setEditLocation(coordinates);
-              const log =cordinates[0][0];
-              const lat = cordinates[0][1]
-              map.fitBounds(
-                [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
-                {
-                  duration: 10
-                })
-            },
-            (e) => {
-              console.log('e', e);
+      map.fitBounds([detailed?.coordinates[0][0], detailed?.coordinates[0][2]], {
+        duration: 10,
+      });
+    } else {
+      console.log(detailed);
+      let typeForComponents;
+      if (detailed.project_id) {
+        typeForComponents = MHFD_PROJECTS;
+      } else {
+        typeForComponents = MENU_OPTIONS.PROBLEMS_BOUNDARY;
+      }
+      const id = typeForComponents === MHFD_PROJECTS ? detailed.project_id : detailed.problem_id;
+      if (detailed?.project_id) {
+        datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + typeForComponents + '&id=' + id).then(
+          cordinates => {
+            // datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken()).then((cordinates: any) => {
+            map.fitBounds(
+              [
+                [cordinates.bbox[0][0][0], cordinates.bbox[0][0][1]],
+                [cordinates.bbox[0][2][0], cordinates.bbox[0][2][1]],
+              ],
+              {
+                duration: 10,
+              },
+            );
+            if (activeTab === 1) {
+              setTimeout(() => {
+                showComponents(cordinates);
+              }, 2000);
             }
-          )
+          },
+          e => {
+            console.log('e', e);
+          },
+        );
       }
     }
     applyNearMapLayer();
 
-    if(activeTab === 1){
-      setTimeout(() => {
-        showComponents()        
-      }, 2000);
-
-    }else{
-      map.getLoadZoom(updateZoom);
-      map.getMoveZoom(updateZoom);
-    }
+    map.getLoadZoom(updateZoom);
+    map.getMoveZoom(updateZoom);
   }
 }
   const addMapListeners = (key: string, value: string) => {
