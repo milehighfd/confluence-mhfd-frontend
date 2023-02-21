@@ -47,9 +47,9 @@ export const commentPopup = (note?:any ) => {
         </Button>
       </div>
       <div className="bodymap">
-          <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.content:''} />
+          <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />
           <div style={{display:'flex'}} className="footer">
-              <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note._id:''} className="light b-red">Delete</Button>
+              <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note.newnotes_id:''} className="light b-red">Delete</Button>
               { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
           </div>
       </div>

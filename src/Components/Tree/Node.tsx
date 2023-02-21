@@ -18,7 +18,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
         mapFunctions.openEditNote({
           longitude: note.data.longitude,
           latitude: note.data.latitude,
-          content: note.data.content,
+          note_text: note.data.note_text,
           color: note.data.color,
           id: note.id
         });
@@ -82,13 +82,12 @@ export const Node = ({
   const checkEnter = (e: any) => {
     if (e.key === 'Enter') {
       setEditMode(false);
-      console.log(item);
-      editGroup({_id: item.id, name: item.label, user_id: item.user_id});
+      editGroup({ groupnotes_id: item.id, group_notes_name: item.label, user_id: item.user_id, position: item.data.position });
     }
   }
   const unfocus = () => {
     setEditMode(false);
-    editGroup({_id: item.id, name: item.label, user_id: item.user_id});
+    editGroup({ groupnotes_id: item.id, group_notes_name: item.label, user_id: item.user_id, position: item.data.position });
   }
   const showCutText = (text: string) => {
     const TEXT_LENGTH = 30;
@@ -118,6 +117,7 @@ export const Node = ({
   return (
     <div
       onDragOver={(e: any) => {
+        console.log('moooving');
         setShowBorder(true);
         e.preventDefault();
       }}
@@ -125,6 +125,7 @@ export const Node = ({
         setShowBorder(false);
       }}
       onDrop={(e: any) => {
+        console.log('droping');
         setShowBorder(false);
         const completeId = e.dataTransfer.getData('id');
         if (completeId.includes('|folder')) {
@@ -135,10 +136,12 @@ export const Node = ({
         }
         if (isFolder) 
         {
+          console.log('is folder');
           const id = e.dataTransfer.getData('id');
           onDragAndDrop(id, item.id, null);
           e.stopPropagation();
         } else {
+          console.log('my id is ', item);
           const id = e.dataTransfer.getData('id');
           onDragAndDrop(id, item.data.group_id, item.id);
           e.stopPropagation();

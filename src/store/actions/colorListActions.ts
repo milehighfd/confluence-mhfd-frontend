@@ -33,7 +33,7 @@ export const createColorList = () => {
 
 export const updateColorList = (colorList: any) => {
   return (dispatch: Function) => {
-    putData(SERVER.EDIT_NOTE_LIST(colorList._id),colorList, getToken()).then(
+    putData(SERVER.EDIT_NOTE_LIST(colorList.color_id),colorList, getToken()).then(
       (r:any)=>{
         if(r) {
           dispatch(getColorsList());

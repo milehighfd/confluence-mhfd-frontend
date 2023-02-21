@@ -5,17 +5,18 @@ export const clickingColorElement = (listOfElements: any, currentElement: any) =
   });
 }
 export const changeContentTitleClick = (_el: any, _index: any, listOfElements: any) => {
-  const colorElem = document.getElementById(`color${_index}`);
+  const colorElem = document.getElementById(`color${_index}`);  
     if(colorElem != null) {
       colorElem.addEventListener('click', (e:any) => {
         const colorable = document.getElementById('colorable');
+        console.log(colorElem)
         if(colorable != null) {
           colorable.style.color = _el.color
         }
         const contentTitle:any = document.getElementById('color-text');
         if(contentTitle != null) {
           contentTitle.textContent = _el.label;
-          contentTitle.setAttribute('current_id', _el._id);
+          contentTitle.setAttribute('current_id', _el.color_id);
         }
         listOfElements.forEach((elem:any, index_:any) => {
           const inputCheck = document.getElementById(`input${index_}`);
@@ -27,7 +28,7 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
             circleCheck.classList.remove('selected');
           }
         });
-        const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
+        const indexElem = listOfElements.findIndex((elem:any) => elem.color_id == _el.color_id );
         const inputCheck = document.getElementById(`input${indexElem}`);
         if(inputCheck != null) {
           inputCheck.classList.add('underlined');
@@ -39,12 +40,14 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
       });
     }
 }
-export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => {
+export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => {  
   const colorable = document.getElementById('colorable');
   if(colorable != null) {
     colorable.style.color = _el.color
   }
   const contentTitle:any = document.getElementById('color-text');
+  console.log('CHANGECONTENT')
+  console.log(contentTitle)
   if(contentTitle != null) {
     contentTitle.textContent = _el.label;
     contentTitle.setAttribute('current_id', _el._id);
@@ -69,8 +72,8 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
     circleCheck.classList.add('selected');
   } 
 }
-export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?: any) => {
-  listOfElements.forEach((_el:any, index: any) => {
+export const clickingCircleColor = (listOfElements:any, updateColorList: Function, noteClicked?: any, openMarkerOfNote?: any, changeContentWithListUpdates?: any) => {  
+  listOfElements.forEach((_el:any, index: any) => {   
     const circlex = document.getElementById(`circle${index}`);
     const divcolorsx = document.createElement('div');
           divcolorsx.style.display = 'none';
@@ -82,7 +85,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
 
     const listCircles = [
       {
-      label: 'A',
+        label: 'A',
         color: "#FFE120"
       },
       {
@@ -102,12 +105,11 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
         color: "#66D4FF"
       },
     ];
-    let innerColors = ``;
-    
+    let innerColors = ``;    
     listCircles.forEach((el:any, _index:any) => {
       innerColors += `
       <li id="selectablecolor${el.label}${index}" value="${el.color}">
-        <img id="circle${el.label}" class="img-circle ${el.color == _el.color ? 'selected':''}" style="background:${el.color}" />
+        <img id="circle${el.label}" class="img-circle ${el.color === _el.color ? 'selected':''}" style="background:${el.color}" />
       </li>`
     });
     divcolorsx.innerHTML = innerColors;
@@ -438,7 +440,7 @@ export const divListOfelements = (listOfElements: any, changeValueOfElement: any
     <div className="listofelements" id="currentItemsinList">
             {listOfElements.map((el:any, index:any)=> 
               el && 
-              <li key={index+"List"} id={index+"List"} onClick={()=>changeValueOfElement(el._id)}>
+              <li key={index+"List"} id={index+"List"} onClick={()=>changeValueOfElement(el.color_id)}>
                 <img id={index+"circles"} className={"img-circle " + (el?.selected ? 'selected':'')} style={{background:el.color}}/> 
                 <input id="input${index}" className="inputlabel" value={el.label} readOnly={true}  />
               </li>

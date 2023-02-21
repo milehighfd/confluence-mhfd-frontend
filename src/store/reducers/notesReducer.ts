@@ -31,7 +31,7 @@ const notesReducer = (state = initState, action : any) => {
         ...state,
         notes: state.notes.filter((note: any) => note.group_id !== action.id),
         groups: state.groups.filter(group => {
-          return group['_id'] !== action.id;
+          return group['groupnotes_id'] !== action.id;
         })
       }
     case types.GET_GROUPS:
@@ -43,7 +43,7 @@ const notesReducer = (state = initState, action : any) => {
       return {
         ...state,
         groups: state.groups.map(group => {
-          if (group['_id'] === action.group['_id']) {
+          if (group['groupnotes_id'] === action.group['groupnotes_id']) {
             return action.group;
           }
           return group;
@@ -53,7 +53,7 @@ const notesReducer = (state = initState, action : any) => {
       return {
         ...state,
         notes: state.notes.filter(note => {
-          return note['_id'] !== action.id
+          return note['newnotes_id'] !== action.id
         })
       }
     case types.LIST_NOTES: 
@@ -65,7 +65,7 @@ const notesReducer = (state = initState, action : any) => {
       return {
         ...state,
         notes: state.notes.map(note => {
-          if (note['_id'] === action.note['_id']) {
+          if (note['newnotes_id'] === action.note['newnotes_id']) {
             return action.note;
           }
           return note;
