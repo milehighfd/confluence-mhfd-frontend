@@ -16,7 +16,7 @@ export const Tree = ({ data, onDragAndDrop, setTree, mapFunctions, swapPositions
     >
     <div className="main-node">
       {data.map((item: any) => <Branch
-        key={item.id}
+        key={item.id + (item.children? 'folder' : '')}
         item={item}
         level={0}
         onDragAndDrop={onDragAndDrop}
