@@ -261,6 +261,13 @@ export const widthOnBase = ():string =>{
 //     ellipsis: true,
 //   }
 // ];
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
+
 export const AllHeaderTable:ColumnsType<DataType | DataTypeAll | any> = [
   {
     title: <>OnBase</>,
@@ -586,7 +593,7 @@ export const DIPValueTable:ColumnsType<DataTypeDIP | any> = [
   {
     title: '',
     dataIndex: 'estimated_cost',
-    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
+    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>{formatter.format(+data)}</span>;},
     key: 'estimated_cost',
     className:'table-text-body',
     // width:"6.666666666666667",
@@ -773,7 +780,7 @@ export const RDValueTable:ColumnsType<DataTypeRD | any> = [
     dataIndex: 'estimated_cost',
     key: 'estimated_cost',
     className:'rd-table',
-    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
+    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>{formatter.format(+data)}</span>;},
     // width:"16.66666666666667",
     ellipsis: true,
   },
@@ -980,7 +987,7 @@ export const RestorationValueTable:ColumnsType<DataTypeRestoration | any> = [
     dataIndex: 'estimated_cost',
     key: 'estimated_cost',
     className:'table-text-body',
-    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
+    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>{formatter.format(+data)}</span>;},
     // width:"7.142857142857143",
     ellipsis: true,
   },
@@ -1109,6 +1116,7 @@ export const CIPHeaderTable:ColumnsType<DataTypeCIP | any> = [
     dataIndex: 'estimated_cost',
     className:'table-text-body',
     key: 'estimated_cost',
+    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>asdf</span>;},
     // width:"7.142857142857143",
     ellipsis: true,
     sorter: (a, b) => a.age - b.age, //TODO: funcition sort in table ant-design
@@ -1242,7 +1250,7 @@ export const CIPValueTable:ColumnsType<DataTypeCIP | any> = [
     dataIndex: 'estimated_cost',
     key: 'estimated_cost',
     className:'table-text-body',
-    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
+    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>{formatter.format(+data)}</span>;},
     // width:"7.142857142857143",
     ellipsis: true,
   },
@@ -1443,7 +1451,7 @@ export const PlanningValueTable:ColumnsType<DataTypePlanning | any> = [
     dataIndex: 'total_funding',
     className:'table-text-body',
     key: 'total_funding',
-    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
+    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>{formatter.format(+data)}</span>;},
     // width:"11.11111111111111%",
     ellipsis: true,
   },
@@ -1625,7 +1633,7 @@ export const PropertyAcquisitionValueTable:ColumnsType<DataTypePropertyAcquisiti
     dataIndex: 'estimated_cost',
     key: 'estimated_cost',
     className:'table-text-body',
-    render: text => {return text === '0' ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>${text}</span>;},
+    render: (data) => {return data === 0 ? <span className="tag">No Cost</span> : <span style={{color:'#11093C', fontWeight:'500'}}>{formatter.format(+data)}</span>;},
     // width:"7.142857142857143",
     ellipsis: true,
   },
