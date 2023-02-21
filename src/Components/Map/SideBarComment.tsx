@@ -7,31 +7,7 @@ import { divListOfelements } from './../Map/commetsFunctions';
 
 const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, changeFilter, setSwSave}:
   {visible: boolean, setVisible: Function, flyTo: Function, openEditNote: Function, addToMap: Function, changeFilter: Function, setSwSave:Function }) => {
-    const onClose = () => {
-      setVisible(false);
-    };
-    return (
-    <>
-      <Drawer
-      title={<div className="comment-title">
-          <h5>MAP NOTES</h5>
-          <Button onClick={onClose}>
-            <span className="arrow-left"></span>
-          </Button>
-        </div>}
-      placement="left"
-      maskClosable={false}
-      mask={false}
-      closable={false}
-      onClose={() => setVisible(false)}
-      visible={visible}
-      className="comment-drawer"
-      style={{ marginLeft: '58px', width: '0px'}}
-      >
-      </Drawer>
-    </>
-  )
-    /*
+    
   const DEFAULT_COLOR = '#FFE121';
   const { notes, groups, availableColors, isnewnote } = useNotesState();
   const { colorsList } = useColorListState();
@@ -55,7 +31,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   }, [isnewnote]);
   useEffect(() => {
     getGroups();
-    console.log('console.log();');
     getNotes();
     getAvailableColors();
   }, []);
@@ -65,17 +40,17 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   useEffect(()=>{
     setIdsFilter('');
     let auxColorList = [{
-      _id: null,
+      color_id: null,
       label: 'Map Note',
       color: DEFAULT_COLOR,
       opacity: 1,
     },...colorsList];
     auxColorList = auxColorList.filter((color: any)=> {
-      const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color._id);
+      const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color.color_id);
       return findColor;
     })
     auxColorList.forEach((color: any) => {
-      const findColor = currentSelected.find((selected: any) => selected._id === color._id);
+      const findColor = currentSelected.find((selected: any) => selected.color_id === color.color_id);
       if (findColor) {
         color.selected = findColor.selected;
       } else {
@@ -85,27 +60,28 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     setCurrentSelected(auxColorList);
   },[colorsList, availableColors]);
 
-  useEffect(() => {
+  useEffect(() => {    
+    console.log("ACTUALIZA")
     let newTree = groups?.map((group: any) => {
       return {
-        id: group._id,
+        id: group.groupnotes_id,
         data: group,
-        label: group.name,
+        label: group.group_notes_name,
         children: []
       } as any;
     });
     notes?.forEach((note: any) => {
-      const index = newTree.findIndex((item: any) => item.id === note.group_id);
+      const index = newTree.findIndex((item: any) => item.id === note.groupnotes_id);
       if (index !== -1) {
         newTree[index].children.push({
-          id: note._id,
-          label: note.content,
+          id: note.newnotes_id,
+          label: note.note_text,
           data: note
         })
       } else {
         newTree.push({
-          id: note._id,
-          label: note.content,
+          id: note.newnotes_id,
+          label: note.note_text,
           data: note
         });
       }
@@ -122,8 +98,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     });
     if(counterFilters > 0) {
       newTree = newTree.filter(((element: any) => element.children? element.children.length != 0 :true))
-    }
-    
+    }    
     setTree(newTree);
   }, [notes, groups]);
 
@@ -140,6 +115,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     getNotes();
   }
   const changeValueOfElement = (_id:any) => {
+    console.log("CHANGEVALUES")
+    console.log(_id)
     const newValues = currentSelected.map((elem:any) => {
       if(elem._id == _id) {
         elem.selected = !elem.selected;
@@ -202,13 +179,13 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   };
 
   const onDragAndDrop = (element: any, destination: any, below: any) => {
-    let selectedNote = tree.find((note: any) => note.id === element);
+    let selectedNote = tree.find((note: any) => note.id === +element);
     if (!selectedNote) {
       tree.forEach((note: any) => {
         if (note.children) {
-          const selectedChild = note.children.find((child: any) => child.id === element);
+          const selectedChild = note.children.find((child: any) => child.id === +element);
           if (selectedChild) {
-            selectedNote = selectedChild; 
+            selectedNote = selectedChild;
           }
         }
       });
@@ -221,7 +198,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
       return item.id !== element;
     });
-    const newDestination = tree.find((note: any) => note.id === destination);
+    const newDestination = tree.find((note: any) => note.id === destination);   
     const index = newTree.indexOf(newDestination);
     if (index !== -1) {
       const indexOfBelow = newTree[index].children.findIndex((note: any) => note.id === below);
@@ -237,7 +214,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         let position = 0;
         for (const note of newTree[index].children) {
           position = Math.max(position, note.data['position']);
-        }
+        }        
         selectedNote.data['position'] = position + 15000;
         newTree[index].children.push(selectedNote);
       }
@@ -258,10 +235,11 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         selectedNote.data['position'] = position + 15000;
         newTree.push(selectedNote);
       }
-    }
+    }   
+    console.log("EDIT NOTE")    
     editNote({
       ...selectedNote.data,
-      group_id: destination,
+      groupnotes_id: destination,
     });
   }
 
@@ -308,7 +286,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       </Drawer>
   </>
   )
-  */
 
 }
 
