@@ -550,7 +550,7 @@ const PortafolioBody = () => {
     })    
   }, [listLoaded]);
   useEffect(() => {
-    const z = [...newData].map((x: any)  => {  return {...x, isFavorite : favorites.some((element: { project_id: number; }) => (element.project_id === x.project_id))}})     
+    const z = [...completeData].map((x: any)  => {  return {...x, isFavorite : favorites.some((element: { project_id: number; }) => (element.project_id === x.project_id))}})     
     setNewData(z)
     setCompleteData(z)
   }, [favorites]);
@@ -607,7 +607,7 @@ const PortafolioBody = () => {
       }else{
         numAscending = filteredData;
       }
-    }    
+    }
     if(openFavorites){
       filterHeart = [...numAscending].filter((x: any) => x.isFavorite || x.id.includes('Title'))
     }else{
@@ -616,7 +616,7 @@ const PortafolioBody = () => {
     filteredTitles = [...filterHeart].filter(name => {
       const countTitles = [...filterHeart].filter(item  => item.headerLabel === name.headerLabel);
       const count = countTitles.length;
-      if (name.id.includes('Title') && count <= 1) {
+      if (name.id.includes('Title') && count === 1) {
         return false
       } else{
         return true
@@ -625,21 +625,17 @@ const PortafolioBody = () => {
     console.log("filterheart")
     console.log(filterHeart)
 
-    return filterHeart
+    return filteredTitles;
   }
   
 
   useEffect(()=>{     
-    console.log(filterby,filtername,filterValue)
-    console.log(newData)
     let tabkey1 = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;    
     let numAscending = [];
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     console.log(numAscending)
     setNewData(numAscending)
-    console.log('completeData')
-    console.log(numAscending)
-  }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites]);
+  }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
   
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
