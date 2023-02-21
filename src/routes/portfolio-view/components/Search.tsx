@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
 import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
-import ButtonGroup from "antd/lib/button/button-group";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
@@ -36,7 +34,8 @@ const Search = (
     setCurrentGroup,
     setSearchWord,
     fullData,
-    email
+    email,
+    searchWord
   }
   :{
     searchRef: React.MutableRefObject<any>,
@@ -55,7 +54,8 @@ const Search = (
     setCurrentGroup: Function,
     setSearchWord: Function,
     fullData: any,
-    email: string
+    email: string,
+    searchWord: string
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
@@ -113,12 +113,17 @@ const Search = (
     </div>
     }
   }
-  const handleSearch = (value: string) => {
-    if (value) {
-      setFilteredData(fullData.filter((item: any) => !item.id.includes('Title') && item.rowLabel.toLowerCase().includes(value.toLowerCase())));     
+
+  useEffect(() => {
+    if (searchWord) {
+      setFilteredData(fullData.filter((item: any) => !item.id.includes('Title') && item.rowLabel.toLowerCase().includes(searchWord.toLowerCase())));     
     } else {
       setFilteredData([]);
     }
+  }, [searchWord, fullData]);
+  const handleSearch = (value: string) => { 
+    console.log('handle search ', value);
+    
     setSearchWord(value);
     setKeyword(value);
   }
@@ -153,7 +158,9 @@ const Search = (
         <AutoComplete
           dropdownMatchSelectWidth={true}
           options={filteredData.map(renderOption)}
-          onSelect={(word: string) => {setSearchWord(word); setKeyword(word)}}
+          onSelect={(word: string) => {
+            setSearchWord(word);
+          }}
           onSearch={handleSearch}
           value={keyword}
           style={{width:'100%'}}

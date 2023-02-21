@@ -733,6 +733,7 @@ const PortafolioBody = () => {
                 <Row>
                   <Col xs={{ span: 10 }} lg={{ span: 5 }}>
                     <Search
+                      searchWord={searchWord}
                       searchRef={searchRef}
                       tableRef={tableRef}
                       setOpenTable={setOpenTable}
