@@ -138,9 +138,9 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     getNotes();
   }
 
-  const swapPositions = (id:any, id2:any) => {
-    const index = tree.findIndex((item:any) => item.id === id);
-    const index2 = tree.findIndex((item:any) => item.id === id2);
+  const swapPositions = (id:any, id2:any, isGroup: boolean, isGroup2: boolean) => {   
+    const index = tree.findIndex((item:any) => item.id === +id && isGroup === !!item.children);
+    const index2 = tree.findIndex((item:any) => item.id === +id2 && isGroup2 === !!item.children);
     if (index === -1 || index2 === -1) {
       return;
     }
@@ -178,12 +178,14 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     deleteNote: deleteNote,
   };
 
-  const onDragAndDrop = (element: any, destination: any, below: any) => {
-    let selectedNote = tree.find((note: any) => note.id === +element);
+  const onDragAndDrop = (element: any, destination: any, below: any, isGroup: boolean, isGroup2: boolean) => {
+    let selectedNote = tree.find((note: any) => note.id === +element && isGroup === !!note.children);
     if (!selectedNote) {
       tree.forEach((note: any) => {
         if (note.children) {
-          const selectedChild = note.children.find((child: any) => child.id === +element);
+          const selectedChild = note.children.find((child: any) =>{
+            return child.id === +element && isGroup === !!child.children;
+          } )
           if (selectedChild) {
             selectedNote = selectedChild;
           }
@@ -198,7 +200,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       }
       return item.id !== element;
     });
-    const newDestination = tree.find((note: any) => note.id === destination);   
+    const newDestination = tree.find((note: any) => note.id === destination && isGroup2 === !!note.children);   
     const index = newTree.indexOf(newDestination);
     if (index !== -1) {
       const indexOfBelow = newTree[index].children.findIndex((note: any) => note.id === below);
@@ -236,7 +238,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         newTree.push(selectedNote);
       }
     }   
-    console.log("EDIT NOTE")    
     editNote({
       ...selectedNote.data,
       groupnotes_id: destination,

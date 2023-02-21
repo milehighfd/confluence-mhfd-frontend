@@ -113,11 +113,9 @@ export const Node = ({
       }
   },[componentRef.current]);
   const [showBorder, setShowBorder] = useState(false);
-  
   return (
     <div
       onDragOver={(e: any) => {
-        console.log('moooving');
         setShowBorder(true);
         e.preventDefault();
       }}
@@ -125,25 +123,22 @@ export const Node = ({
         setShowBorder(false);
       }}
       onDrop={(e: any) => {
-        console.log('droping');
         setShowBorder(false);
-        const completeId = e.dataTransfer.getData('id');
+        const completeId = e.dataTransfer.getData('id');        
         if (completeId.includes('|folder')) {
           const idFolder = completeId.split('|folder')[0];
-          swapPositions(idFolder, item.id);
+          swapPositions(idFolder, item.id, true, !!item.children);
           e.stopPropagation();
           return;
         }
         if (isFolder) 
         {
-          console.log('is folder');
           const id = e.dataTransfer.getData('id');
-          onDragAndDrop(id, item.id, null);
+          onDragAndDrop(id, item.id, null, false, !!item.children);
           e.stopPropagation();
         } else {
-          console.log('my id is ', item);
           const id = e.dataTransfer.getData('id');
-          onDragAndDrop(id, item.data.group_id, item.id);
+          onDragAndDrop(id, item.data.groupnotes_id, item.id, false, !!item.children);
           e.stopPropagation();
         }
       }}

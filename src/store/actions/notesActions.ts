@@ -41,7 +41,6 @@ export const deleteNote = (id: any) => {
   return (dispatch: Function) => {
     datasets.deleteData(SERVER.DELETE_NOTE(id), datasets.getToken()).then(note => {
       dispatch({type: types.DELETE_NOTE, id});
-      dispatch(getNotes());
     });
   };
 };
@@ -93,7 +92,6 @@ export const deleteGroup = (id: any) => {
   return (dispatch: Function) => {
     datasets.deleteData(SERVER.DELETE_GROUP(id), datasets.getToken()).then(group => {
       dispatch({type: types.DELETE_GROUP, id});
-      dispatch(getGroups());
     });
   }  
 }
