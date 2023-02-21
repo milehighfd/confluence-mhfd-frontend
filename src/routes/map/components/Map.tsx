@@ -184,8 +184,8 @@ const Map = ({
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     // uncomment on NOTES ready
-    // const { notes } = useNotesState();
-    // const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
+    const { notes } = useNotesState();
+    const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [mobilePopups, setMobilePopups] = useState<any>([]);
@@ -315,8 +315,6 @@ const Map = ({
         mapService.autocomplete = autocomplete;
     }, [autocomplete]);
 
-    /*
-    uncomment when NOTES is ready
     useEffect(() => {
         commentAvailable = commentVisible;
         setOpen(commentVisible);
@@ -330,7 +328,7 @@ const Map = ({
           popup.remove();
         }
     }, [commentVisible]);
-    */
+ 
 
     useEffect(() => {
         if (map) {
@@ -356,8 +354,6 @@ const Map = ({
         }
     }, [data]);
 
-    /*
-    uncomment when NOTES is ready
     useEffect(() => {
         let totalmarkers:any = [];
         if (map) {
@@ -396,7 +392,7 @@ const Map = ({
           setMarkerNotes(totalmarkers);
         }
     }, [notes, notesFilter]);
-    */
+ 
     const eventsOnClickNotes = (noteClicked:any) => {
       const div = document.getElementById('color-list');
         if (div != null) {
@@ -442,12 +438,14 @@ const Map = ({
                         }
                         const note = {
                             color: color,
-                            content: textarea.value,
+                            note_text: textarea.value,
                             latitude: noteClicked.latitude,
                             longitude: noteClicked.longitude
                         };
                         // UN COMMENT FOR NOTES
-                        // createNoteWithElem(note, createNote);
+                        console.log("ACA ES")
+                        createNoteWithElem(note, createNote);
+                        
                         popup.remove();
                         marker.remove();
                         markerNote.remove();
@@ -472,14 +470,14 @@ const Map = ({
                         }
                     }
                     const note = {
-                        _id: noteClicked._id,
+                        newnotes_id: noteClicked.newnotes_id,
                         color: color,
-                        content: textarea.value,
+                        note_text: textarea.value,
                         latitude: noteClicked.latitude,
                         longitude: noteClicked.longitude
                     };
                     // UNCOMMENT WHEN NOTES IS READY
-                    // editNoteWithElem(note, editNote);
+                    editNoteWithElem(note, editNote);
 
                   }
               });
@@ -489,7 +487,7 @@ const Map = ({
               del.addEventListener('click', () => {
                 let noteId = del.getAttribute('value');
                 // UN COMMENT WHEN NOTES IS READY 
-                // deleteNote(noteId);
+                deleteNote(noteId);
               });
             }
         }
@@ -614,7 +612,7 @@ const Map = ({
 
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
-      //getNotes();
+      getNotes();
         (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
         map = new mapboxgl.Map({
             container: 'map',
@@ -759,7 +757,7 @@ const Map = ({
       listOfElements = colorsList;
       updateColorsList();
       // uncomment when notes is ready
-      // getNotes();
+      getNotes();
     },[colorsList]);
     useEffect(() => {
         const bounds = map.getBounds();
@@ -1802,8 +1800,8 @@ const Map = ({
         listOfElements.forEach((el:any , index: any) => {
           inner += ` 
           <li id="color${index}" value=${JSON.stringify(el._id)}>
-            <img id="circle${index}" class="img-circle${noteClicked?.color_id == el._id?' selected':''}" style="background:${el.color}"/> 
-              <input id="input${index}" class="inputlabel${noteClicked?.color_id == el._id?' underlined':''}" value="${el.label}" readonly>
+            <img id="circle${index}" class="img-circle${noteClicked?.color_id == el.color_id?' selected':''}" style="background:${el.color}"/> 
+              <input id="input${index}" class="inputlabel${noteClicked?.color_id == el.color_id?' underlined':''}" value="${el.label}" readonly>
             <img id="editopt${index}" class="img-edit" />
             <img id="saveopt${index}" class="img-check" />
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
@@ -1899,9 +1897,8 @@ const Map = ({
                     listOfElements,
                     colors,
                     colorsCodes,
-                    // un comment when notes is ready
-                    () => {},
-                    // createNote,
+                    // un comment when notes is ready                    
+                    createNote,
                     rotateIcon, 
                     addListToPopupNotes,
                     popup,
@@ -2314,7 +2311,7 @@ const Map = ({
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
         // un comment when notes is ready
-        // setOpen(status);
+        setOpen(status);
     }
     const [measuringState, setMeasuringState] = useState(isMeasuring);
     const [measuringState2, setMeasuringState2] = useState(isMeasuring);
