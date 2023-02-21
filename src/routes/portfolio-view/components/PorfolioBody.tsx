@@ -82,6 +82,7 @@ const PortafolioBody = () => {
   const appUser = store.getState().profile;
   const [currentUserId, setCurrentUserId] = useState(null);
   const [listLoaded, setListLoaded] = useState(false);
+  
 
   const mainFilters = [
     // {label: 'MHFD Lead/PM', value: 'MHFD' },
@@ -589,39 +590,38 @@ const PortafolioBody = () => {
     } else{
       filteredData = [...filteredData2]
     }
-    if (columnKey+'' === 'on_base') {
-      if(order+'' === 'ascend'){      
+    if (columnKey + '' === 'on_base' || columnKey + '' === 'estimated_cost') {
+      if (order + '' === 'ascend'){      
         numAscending = filteredData.sort((a: any, b: any) => a[columnKey] - b[columnKey]);       
-      }else if (order+'' === 'descend')     {
+      }else if (order + '' === 'descend')     {
         numAscending = filteredData.sort((a: any, b: any) => b[columnKey] - a[columnKey]);
       }else{
         numAscending = filteredData;
       }
     } else {
-      if(order+'' === 'ascend'){
-        numAscending = filteredData.sort((a: any, b: any) =>parseDataToString(a[columnKey]).localeCompare(parseDataToString(b[columnKey]))
-    );
-      }else if (order+'' === 'descend')     {
-        numAscending = filteredData.sort((a: any, b: any) =>parseDataToString(b[columnKey]).localeCompare(parseDataToString(a[columnKey]))
+      if(order + '' === 'ascend'){
+        numAscending = filteredData.sort((a: any, b: any) => parseDataToString(a[columnKey]).localeCompare(parseDataToString(b[columnKey])));
+      } else if (order+'' === 'descend')     {
+        numAscending = filteredData.sort((a: any, b: any) => parseDataToString(b[columnKey]).localeCompare(parseDataToString(a[columnKey]))
     );
       }else{
         numAscending = filteredData;
       }
     }    
-    filteredTitles = [...numAscending].filter(name => {
-      const countTitles = [...numAscending].filter(item  => item.headerLabel === name.headerLabel);
+    if(openFavorites){
+      filterHeart = [...numAscending].filter((x: any) => x.isFavorite || x.id.includes('Title'))
+    }else{
+      filterHeart = numAscending;
+    }
+    filteredTitles = [...filterHeart].filter(name => {
+      const countTitles = [...filterHeart].filter(item  => item.headerLabel === name.headerLabel);
       const count = countTitles.length;
-      if(name.id.includes('Title')&& count <= 1){
+      if (name.id.includes('Title') && count <= 1) {
         return false
-      }else{
+      } else{
         return true
       }
     });
-    if(openFavorites){
-      filterHeart = [...filteredTitles].filter((x: any) => x.isFavorite || x.id.includes('Title'))
-    }else{
-      filterHeart = filteredTitles;
-    }
     console.log("filterheart")
     console.log(filterHeart)
 
@@ -639,7 +639,7 @@ const PortafolioBody = () => {
     setNewData(numAscending)
     console.log('completeData')
     console.log(numAscending)
-  },[sortValue,tabKey,filterby,filterValue,filtername,listLoaded,searchWord,openFavorites])
+  }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites]);
   
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
@@ -746,14 +746,14 @@ const PortafolioBody = () => {
                       phaseRef={phaseRef}
                       scheduleRef={scheduleRef}
                       rawData={newData}
-                      setCompleteData = {setCompleteData}
-                      setNewData = {setNewData}
+                      setCompleteData={setCompleteData}
+                      setNewData={setNewData}
                       index={idx}
                       groupsBy={groupsBy}
                       setCurrentGroup={setCurrentGroup}
                       setSearchWord={setSearchWord}
                       fullData={newData}
-                      email = {appUser.userInformation?.email}
+                      email={appUser.userInformation?.email}
                     />
                   </Col>
                   <Col xs={{span:34}} lg={{span:19}}>
