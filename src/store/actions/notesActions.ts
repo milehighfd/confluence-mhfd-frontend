@@ -41,13 +41,14 @@ export const deleteNote = (id: any) => {
   return (dispatch: Function) => {
     datasets.deleteData(SERVER.DELETE_NOTE(id), datasets.getToken()).then(note => {
       dispatch({type: types.DELETE_NOTE, id});
+      dispatch(getNotes());
     });
   };
 };
 
-export const editNote = (note: any) => {
+export const editNote = (note: any) => {  
   return (dispatch: Function) => {
-    datasets.putData(SERVER.EDIT_NOTE(note['_id']), note, datasets.getToken()).then(newNote => {
+    datasets.putData(SERVER.EDIT_NOTE(note['newnotes_id']), note, datasets.getToken()).then(newNote => {
       newNote.color = note.color
       dispatch({type: types.EDIT_NOTES, note: newNote});
       dispatch(getNotes());
@@ -63,7 +64,7 @@ export const setOpen = (open: boolean) => {
 
 export const createGroup = (name: string) => {
   return (dispatch: Function) => {
-    datasets.postData(SERVER.CREATE_GROUP, {name: name}, datasets.getToken()).then(group => {
+    datasets.postData(SERVER.CREATE_GROUP, {group_notes_name: name}, datasets.getToken()).then(group => {
       dispatch({type: types.CREATE_GROUP, group});
       dispatch(getGroups());
     });
@@ -72,7 +73,8 @@ export const createGroup = (name: string) => {
 
 export const editGroup = (toEditGroup: any) => {
   return (dispatch: Function) => {
-    datasets.putData(SERVER.EDIT_GROUP(toEditGroup['_id']), toEditGroup, datasets.getToken()).then(group => {
+    console.log(toEditGroup)
+    datasets.putData(SERVER.EDIT_GROUP(toEditGroup['groupnotes_id']), toEditGroup, datasets.getToken()).then(group => {
       dispatch({type: types.EDIT_GROUP, group});
       dispatch(getGroups());
     });
@@ -91,6 +93,7 @@ export const deleteGroup = (id: any) => {
   return (dispatch: Function) => {
     datasets.deleteData(SERVER.DELETE_GROUP(id), datasets.getToken()).then(group => {
       dispatch({type: types.DELETE_GROUP, id});
+      dispatch(getGroups());
     });
   }  
 }
