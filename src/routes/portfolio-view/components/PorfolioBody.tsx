@@ -752,7 +752,7 @@ const PortafolioBody = () => {
                       groupsBy={groupsBy}
                       setCurrentGroup={setCurrentGroup}
                       setSearchWord={setSearchWord}
-                      fullData={completeData}
+                      fullData={newData}
                       email = {appUser.userInformation?.email}
                     />
                   </Col>
