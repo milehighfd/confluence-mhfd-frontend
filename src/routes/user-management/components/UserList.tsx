@@ -98,7 +98,7 @@ const UserList = () => {
       title: <>Name</>,
       dataIndex: 'name',
       key: 'name',
-      sorter: (a, b) => a.name - b.name,
+      sorter: (a, b) => (a.name.join(' ')).localeCompare((b.name.join(' '))),
       render: (name) => (
         <div className="user-tab">
           <div style={{marginRight:'5px'}}>
@@ -115,7 +115,7 @@ const UserList = () => {
       title: <>Role</>,
       dataIndex: 'designation',
       key: 'designation',
-      sorter: (a, b) => a.designation - b.designation,
+      sorter: (a, b) => (a.designation).localeCompare((b.designation)),
       render: (designation) => (
         <span className={'span-' + roleSpan(designation)}>
           {designation === 'admin' ? 'MHFD Senior Manager':
@@ -126,14 +126,14 @@ const UserList = () => {
         </span> 
       ),
     },
-    { title: <>Service Area</>, dataIndex: 'serviceArea', key: 'serviceArea',sorter: (a, b) => a.serviceArea - b.serviceArea, },
-    { title: <>County</>, dataIndex: 'county', key: 'county', sorter: (a, b) => a.county - b.county, },
-    { title: <>City</>, dataIndex: 'city', key: 'city', sorter: (a, b) => a.city - b.city, },
+    { title: <>Service Area</>, dataIndex: 'serviceArea', key: 'serviceArea',sorter: (a, b) => (a.serviceArea).localeCompare((b.serviceArea)), },
+    { title: <>County</>, dataIndex: 'county', key: 'county', sorter: (a, b) => (a.county).localeCompare((b.county)), },
+    { title: <>City</>, dataIndex: 'city', key: 'city', sorter: (a, b) => (a.city).localeCompare((b.city)), },
     {
       title: <>Status</>,
       dataIndex: 'statusAccount',
       key: 'statusAccount',
-      sorter: (a, b) => a.statusAccount - b.statusAccount,
+      sorter: (a, b) => (a.statusAccount).localeCompare((b.statusAccount)),
       render: (statusAccount) => (
         <span className={'span-'+statusAccount}>
           <div className="circulo"/>{statusAccount}
@@ -368,8 +368,8 @@ const UserList = () => {
             {/* <Option value="User Activity">User Activity</Option> */}
         </Select>
         </div>
-        <div  className='filter-user-management'>
-          <UserMngFilters option={optionUserActivated} setOption={setOptionUserActivated} search={searchUserActivated}
+        <div className='filter-user-management'>
+          <UserMngFilters option={optionSelect === 'Approved Users' ? optionUserActivated : (optionSelect === 'Pending User Requests' ? optionUserPending : optionUserDeleted)} setOption={optionSelect === 'Approved Users' ? setOptionUserActivated : (optionSelect === 'Pending User Requests' ? setOptionUserPending : setOptionUserDeteled)} search={optionSelect === 'Approved Users' ? searchUserActivated : (optionSelect === 'Pending User Requests' ? searchUserPending : searchUserDelete)}
           reset={resetActivated} title={'activated'}/>
           {/* <Input
             style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
