@@ -137,18 +137,82 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       return list.split(',');
     }
   }
+  function titleCase(str:any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+ }
+
+  const parseCountiesToArray = (list: any) => {
+    let counties:any = [];
+    if (list) {
+    list.forEach((county : any) => {
+      counties.push(county.CODE_STATE_COUNTY.county_name +' County')
+    });
+      console.log('counties',counties)
+    }
+    return counties;
+  }
+  const parseServiceAreaToArray = (list: any) => {
+    let serviceAreas:any = [];
+    if (list) {
+    list.forEach((serviceArea : any) => {
+      serviceAreas.push(serviceArea.CODE_SERVICE_AREA.service_area_name +' Service Area')
+    });
+      console.log('serviceAreas',serviceAreas)
+    }
+    return serviceAreas;
+  }
+
+  const parseJurisdictionToArray = (list: any) => {
+    let jurisdictions:any = [];
+    if (list) {
+    list.forEach((jurisdiction : any) => {
+      jurisdictions.push(jurisdiction.CODE_LOCAL_GOVERNMENT.local_government_name)
+    });
+      console.log('jurisdictions',jurisdictions)
+    }
+    return jurisdictions;
+  }
+  const parseSponsorCosponsorToArray = (list: any, type:string) => {
+    let sponsors:any = [];
+    let cosponsors:any = [];
+    if (list) {
+    list.forEach((sponsorCosponsor : any) => {
+      if(sponsorCosponsor.code_partner_type_id === 11){
+        sponsors.push(titleCase(sponsorCosponsor.business_associate.business_name))
+      }
+      if(sponsorCosponsor.code_partner_type_id === 12){
+        cosponsors.push(titleCase(sponsorCosponsor.business_associate.business_name))
+      }
+    });
+      console.log('sponsors',sponsors)
+      console.log('cosponsors',cosponsors)
+    }
+    if(type === 'sponsor'){
+      return sponsors;
+    }
+    if(type === 'cosponsor'){
+      return cosponsors;
+    }
+  }
+
   useEffect(() => {
+    console.log('dataaaaa',data)
     if (data !== 'no data') {
       setSwSave(true);
       setDescription(data.description);
-      setCounty(parseStringToArray(data.county));
-      setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdiction(parseStringToArray(data.jurisdiction));
-      setCosponsor(parseStringToArray(data.cosponsor));
-      setNameProject(data.projectname);
-      setProjectId(data.projectid);
-      setEditsetprojectid(data.projectid);
-      setSponsor(data.sponsor);
+      setCounty(parseCountiesToArray(data.project_counties));
+      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
+      setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
+      setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
+      setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
+      setNameProject(data.project_name);
+      setProjectId(data.project_id);
+      setEditsetprojectid(data.project_id);
+      
       setStudyReason(data.studyreason);
       setStudySubReason(data.studysubreason);
     }
