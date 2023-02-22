@@ -192,6 +192,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         }
       });
     }
+    if (!selectedNote) return;
     const newTree = tree.filter((item: any) => {
       if (item.children) {
         item.children = item.children.filter((child: any) => {
