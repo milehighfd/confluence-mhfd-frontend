@@ -77,7 +77,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
   const fontSizePercentage = '9px';
 
   let clickFn = (d: any) => {
-    let index = selectedData.indexOf(d.data.id);
+    let index = selectedData?.indexOf(d.data.id);
     if (index !== -1) {
       setSelectedData(selectedData.filter((_, ind) => ind !== index))
     } else {
@@ -108,7 +108,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     rects
       .style("fill", function (d: any) {
-        let index = selectedData.indexOf(d.data.id);
+        let index = selectedData?.indexOf(d.data.id);
         if (index !== -1) {
           return color;
         } else {
@@ -152,7 +152,7 @@ const TreeMap = ({ data, type, tab, selected, onSelect, defaultValue }: any) => 
 
     newRects
       .style("fill", function (d: any) {
-        let index = selectedData.indexOf(d.data.id);
+        let index = selectedData?.indexOf(d.data.id);
         if (index !== -1) {
           return color;
         } else {

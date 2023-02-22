@@ -2180,7 +2180,10 @@ hr.filters-line {
     left: 79px;
   }
 }
-
+.disabledchart {
+  pointer-events: none;
+  opacity: 0.4;
+}
 .filter-title {
   margin-bottom: -5px !important;
 }

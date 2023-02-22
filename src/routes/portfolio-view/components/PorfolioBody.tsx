@@ -42,7 +42,8 @@ const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 const PortafolioBody = () => {
   const {
     setSpinMapLoaded,
-    getMapTables
+    getMapTables,
+    setFilterProjectOptions
   } = useMapDispatch();
   const layers = store.getState().map.layers;
   const {getGroupOrganization} = useProfileDispatch();
@@ -95,7 +96,9 @@ const PortafolioBody = () => {
     {label: 'County', value: 'county'}
   ];
   const [favorites, setFavorites] = useState<any>([]);
-  
+  useEffect(() => {
+    console.log('filters', filterby, filtername, filterValue);
+  } ,[ filterby, filtername, filterValue]);
 
   useEffect(()=>{
     if(Object.keys(layers).length === 0){
@@ -104,7 +107,6 @@ const PortafolioBody = () => {
     getGroupOrganization();
     //console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
       SELECT_ALL_FILTERS.forEach((layer) => {
-        console.log('layer:', layer)
         if (typeof layer === 'object') {
           console.log(layer.tiles, 'TILES')
           layer.tiles.forEach((subKey: string) => {
@@ -167,6 +169,50 @@ const PortafolioBody = () => {
       // searchRef.current = null;
     }
   }, []);
+  const apply = (values: any, field: string) => {
+    const options = { ...filterProjectOptions };
+    if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
+    || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
+    || 'mhfdmanager' === field) {
+        let newValue = '';
+        if ('workplanyear' === field) {
+            options['status'] = [...options['status'], 'Complete'];
+        }
+        newValue = values;
+        options[field] = newValue;
+    } else {
+        if ('completedyear' === field) {
+            options['status'] = [...options['status'], 'Complete'];
+            options[field] = values;
+        } else if ('streamname' === field) {
+          if (values === '') {
+            options[field] = values;
+          } else {
+            options[field] = [values];
+          }
+        } else if ('totalcost' === field) {
+          options[field] = [values[0], values[values.length - 1]];
+        } else {
+            options[field] = values;
+        }
+    }
+
+    setFilterProjectOptions(options);
+    // if(originpage === 'portfolio' && setApplyFilter) {
+    //   setApplyFilter(Math.random());
+    // } else {
+    //   getGalleryProjects();
+    // }
+    options.servicearea = options.servicearea;
+    options.county = options.county;
+    getParamFilterProjects(boundsMap, options);
+    // getProjectCounter(boundsMap, options);
+}
+useEffect(() => {
+  if (filterValue != -1) {
+    apply([filterValue], filterby);
+  }
+} ,[filterby, filterValue]);
   useEffect(() => {
     if (boundsMap !== '') {
       getParamFilterProjects(boundsMap);
@@ -622,8 +668,6 @@ const PortafolioBody = () => {
         return true
       }
     });
-    console.log("filterheart")
-    console.log(filterHeart)
 
     return filteredTitles;
   }
@@ -633,7 +677,6 @@ const PortafolioBody = () => {
     let tabkey1 = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;    
     let numAscending = [];
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
-    console.log(numAscending)
     setNewData(numAscending)
   }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
   
@@ -729,7 +772,7 @@ const PortafolioBody = () => {
             displayedTabKey.map((tk: string, idx: number) => { return (
               <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
                 <div className="protafolio-body">
-                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter}/>}
+                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue}}/>}
                 <Row>
                   <Col xs={{ span: 10 }} lg={{ span: 5 }}>
                     <Search

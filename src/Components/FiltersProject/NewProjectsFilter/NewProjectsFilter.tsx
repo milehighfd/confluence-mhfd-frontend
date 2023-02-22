@@ -24,7 +24,7 @@ const content12 = (<div className="popoveer-00"><b>Local Government Manager</b> 
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 
-export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:string, setApplyFilter?:Function}) => {
+export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {originpage?:string, setApplyFilter?:Function, filtersObject?:any}) => {
     const {
         filterProjectOptions,
         paramFilters: {
@@ -42,6 +42,11 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
     useEffect(() => {
       console.log('paramProjects', paramProjects, filterProjectOptions);
     }, [paramProjects, filterProjectOptions]);
+    // useEffect(() => {
+    //   if (filtersObject.filterValue !== -1) {
+    //     apply(filtersObject.filterValue, filtersObject.filterby);
+    //   }
+    // } ,[filtersObject]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
@@ -103,7 +108,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
 
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00">
-            <Col span={12}>
+            <Col span={12} className={filtersObject?.filterby === 'servicearea' ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects?.servicearea &&
@@ -112,7 +117,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                         onSelect={(e: string) => apply(e, 'servicearea')} />
                 }
             </Col>
-            <Col span={12}>
+            <Col span={12} className={filtersObject?.filterby === 'county' ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.county &&
@@ -208,7 +213,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
-            <Col span={12} style={{paddingLeft:'0px'}}>
+            <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === 'consultant' ? 'disabledchart': ''}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.consultant &&
@@ -218,7 +223,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
                     onSelect={(items: any) => apply(items, 'consultant')} />
                 }
             </Col>
-            <Col span={12}  style={{paddingLeft:'6px'}}>
+            <Col span={12}  style={{paddingLeft:'6px'}} className={filtersObject?.filterby === 'contractor' ? 'disabledchart': ''}>
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.contractor &&
@@ -231,7 +236,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter}: {originpage?:str
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
-            <Col span={12}>
+            <Col span={12} className={filtersObject?.filterby === 'jurisdiction' ? 'disabledchart': ''}>
                 <h5 className="filter-title">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.jurisdiction &&

@@ -4,19 +4,19 @@ import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProject
 
 
 const { Step } = Steps;
-const Filters = ({openFilters, setOpenFilters, setApplyFilter}:{openFilters:boolean, setOpenFilters:any, setApplyFilter: any}) => {
+const Filters = ({openFilters, setOpenFilters, setApplyFilter, filtersObject}:{openFilters:boolean, setOpenFilters:any, setApplyFilter: any, filtersObject: any}) => {
   return <div className="filters">
     <div className="filters-body">
-      <NewProjectsFilter originpage="portfolio" setApplyFilter={setApplyFilter}/>
+      <NewProjectsFilter originpage="portfolio" setApplyFilter={setApplyFilter} filtersObject={filtersObject}/>
     </div>
-    <div className="filters-foot">
+    {/* <div className="filters-foot">
       <Button style={{marginRight:'20px', border:'1px solid #251863', color:'#251863', borderRadius:'5px'}} onClick={()=>{setOpenFilters(false)}}>
         Cancel
       </Button>
       <Button className="btn-purple" onClick={()=>{setOpenFilters(false)}}>
         Apply
       </Button>
-    </div>
+    </div> */}
 
   </div>
 };
