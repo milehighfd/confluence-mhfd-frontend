@@ -25,7 +25,7 @@ const Searches = ({
   const [filter, setFilter] = useState('');
   const { favoriteProblemCards, favoriteProjectCards, favoritesLoader } = useMapState();
   const { favoriteCards } = useMapDispatch();
-  const tabKeys = [`Projects`, 'Problems 30', 'Teams', 'Account Settings'];
+  const tabKeys = [`Projects`, 'Problems', 'Teams', 'Account Settings'];
   let displayedTabKey = tabKeys;
   useEffect(() => {
     favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc" });
@@ -58,7 +58,7 @@ const Searches = ({
                 </div>
               </div>
             </TabPane>     
-            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf('Problems 30')]} placement="rightBottom">{'Problems 30'} </Popover> </span>} key={'Problems 30'}>
+            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf('Problems')]} placement="rightBottom">{'Problems'} </Popover> </span>} key={'Problems'}>
               <div className="user-management-body">
                 <div className="avatar-group">
                   <h2 style={{marginLeft:'25px'}}>Problems</h2>
