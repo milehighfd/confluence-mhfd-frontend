@@ -16,7 +16,7 @@ import {
   getComponentsByProjid, replaceFilterCoordinates, resetMap,
   setFilterCoordinates, setProblemKeyword,
   setProjectKeyword, getParamsFilter, getMapWithSublayers, getMapLayers,
-  getComponentsCounter, getProjectCounter, getProblemCounter,
+  getComponentsCounter, getProjectCounter, getProblemCounter, resetFilterProjectOptionsEmpty
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
@@ -202,6 +202,9 @@ export const useMapDispatch = () => {
     },
     getMapLayers: (trigger: any, tiles: any) => {
       dispatch(getMapLayers(trigger, tiles));
+    },
+    resetFilterProjectOptionsEmpty: () => {
+      dispatch(resetFilterProjectOptionsEmpty());
     }
   }
 }

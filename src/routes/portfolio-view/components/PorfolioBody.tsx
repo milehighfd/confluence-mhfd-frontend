@@ -30,6 +30,7 @@ import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimate
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
+let isInit = true;
 // const popovers: any = [
 //   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -43,14 +44,15 @@ const PortafolioBody = () => {
   const {
     setSpinMapLoaded,
     getMapTables,
-    setFilterProjectOptions
+    setFilterProjectOptions,
+    resetFilterProjectOptionsEmpty
   } = useMapDispatch();
   const layers = store.getState().map.layers;
   const {getGroupOrganization} = useProfileDispatch();
   const [filterby, setFilterby] = useState('');
   const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
-  const [filtername, setFiltername] = useState('Mile High District Flood');
+  const [filtername, setFiltername] = useState('Mile High Flood District');
   const [page, setPage] = useState(1);
   const pageSize = 25;
   const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -96,10 +98,7 @@ const PortafolioBody = () => {
     {label: 'County', value: 'county'}
   ];
   const [favorites, setFavorites] = useState<any>([]);
-  useEffect(() => {
-    console.log('filters', filterby, filtername, filterValue);
-  } ,[ filterby, filtername, filterValue]);
-
+  
   useEffect(()=>{
     if(Object.keys(layers).length === 0){
       //console.log('ESTA VACIO', layers)
@@ -108,7 +107,6 @@ const PortafolioBody = () => {
     //console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
       SELECT_ALL_FILTERS.forEach((layer) => {
         if (typeof layer === 'object') {
-          console.log(layer.tiles, 'TILES')
           layer.tiles.forEach((subKey: string) => {
             getMapTables(subKey, layer.name);
           });
@@ -120,6 +118,9 @@ const PortafolioBody = () => {
     }else{
       //console.log('ESTA LLENI', layers)
     }
+    setTimeout(()=>{
+      isInit = false;
+    }, 1000);
   },[])
 
 
@@ -146,6 +147,7 @@ const PortafolioBody = () => {
   const {
     boundsMap,
     filterProjectOptions,
+    filterProjectOptionsNoFilter,
     filterComponentOptions,
   } = useMapState();
   const {
@@ -208,11 +210,25 @@ const PortafolioBody = () => {
     getParamFilterProjects(boundsMap, options);
     // getProjectCounter(boundsMap, options);
 }
-useEffect(() => {
-  if (filterValue != -1) {
-    apply([filterValue], filterby);
-  }
-} ,[filterby, filterValue]);
+
+  useEffect(() => {
+    console.log('filters', filterby, filtername, filterValue);
+  } ,[ filterby, filtername, filterValue]);
+  useEffect(() => {
+    console.log('filerby', filterby, filterValue);
+    if (filterValue != -1) {
+      apply([filterValue], filterby);
+    }
+  } ,[filterby, filterValue, tabKey ]);
+  useEffect(() => {
+    const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
+    console.log('currentid', tabKey, currentId);
+    if (currentId == 0) {
+      apply([5,7,1], 'projecttype');
+    } else {
+      apply([currentId], 'projecttype');
+    }
+  } ,[ tabKey ]);
   useEffect(() => {
     if (boundsMap !== '') {
       getParamFilterProjects(boundsMap);
@@ -241,16 +257,14 @@ useEffect(() => {
   }, []);
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
 
-
-    const optionsfilters = optionsProjects(filterProjectOptions, filterComponentOptions, '' , false);    
+    let optionsfiltersoptions = isInit ? filterProjectOptionsNoFilter : filterProjectOptions;
+    const optionsfilters = optionsProjects( optionsfiltersoptions, filterComponentOptions, '' , false);    
     //console.log("Filter")
     //console.log(optionsfilters)
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-      console.log("curid")
-     console.log(filterValue,filterby)
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {

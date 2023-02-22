@@ -113,27 +113,49 @@ const initState = {
         components: '',
         servicearea: ''
     },
+    filterProjectOptionsNoFilter: {
+      keyword: '',
+      column: 'projectname',
+      order: 'asc',
+      projecttype: [],
+      status: [],
+      startyear: '',
+      completedyear: '',
+      mhfddollarsallocated: [],
+      lgmanager: '',
+      streamname: '',
+      creator: '',
+      totalcost: [],
+      workplanyear: '',
+      problemtype: '',
+      mhfdmanager: '',
+      jurisdiction: '',
+      county: '',
+      consultant: '',
+      constractor: '',
+      servicearea: ''
+    },
     filterProjectOptions: {
-        keyword: '',
-        column: 'projectname',
-        order: 'asc',
-        projecttype: [5,7],
-        status: [5],
-        startyear: '',
-        completedyear: '',
-        mhfddollarsallocated: [],
-        lgmanager: '',
-        streamname: '',
-        creator: '',
-        totalcost: [],
-        workplanyear: '',
-        problemtype: '',
-        mhfdmanager: '',
-        jurisdiction: '',
-        county: '',
-        consultant: '',
-        constractor: '',
-        servicearea: ''
+      keyword: '',
+      column: 'projectname',
+      order: 'asc',
+      projecttype: [5,7],
+      status: [5],
+      startyear: '',
+      completedyear: '',
+      mhfddollarsallocated: [],
+      lgmanager: '',
+      streamname: '',
+      creator: '',
+      totalcost: [],
+      workplanyear: '',
+      problemtype: '',
+      mhfdmanager: '',
+      jurisdiction: '',
+      county: '',
+      consultant: '',
+      constractor: '',
+      servicearea: ''
     },
     filterComponentOptions: {
         component_type: '',
@@ -547,6 +569,12 @@ const mapReducer = (state = initState, action: any) => {
           return {
             ...state,
             filterProjectOptions: initState.filterProjectOptions
+          }
+        }
+        case types.RESET_FILTER_PROJECT_OPTIONS_EMPTY: {
+          return {
+            ...state,
+            filterProjectOptions: initState.filterProjectOptionsNoFilter
           }
         }
         case types.SET_FILTER_COORDINATES: {

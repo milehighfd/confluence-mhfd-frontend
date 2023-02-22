@@ -253,7 +253,11 @@ export const setProjectKeyword = (keyword: string) => {
         // }
     }
 }
-
+export const resetFilterProjectOptionsEmpty = () => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.RESET_FILTER_PROJECT_OPTIONS_EMPTY});
+  }
+}
 export const resetFiltercomponentOptions = () => {
   return (dispatch: Function) => {
     dispatch({ type: types.RESET_FILTER_PROJECT_OPTIONS });

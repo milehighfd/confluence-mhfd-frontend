@@ -73,7 +73,7 @@ export const FilterByGroupName = ({
           onClick: () => {
             setFilterby('');
             setFiltervalue(-1);
-            setFiltername('Mile High District Flood');
+            setFiltername('Mile High Flood District');
           },
           className:'menu-mhfd-dis menu-drop-sub-sub',
         },
