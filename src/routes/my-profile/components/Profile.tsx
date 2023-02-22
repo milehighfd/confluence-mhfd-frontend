@@ -192,7 +192,7 @@ const Profile = ({
       <div style={{margin:'0px'}} className="line-01"></div>
       <Row>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
-          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>82</h2>
+          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>-</h2>
           <p className="color-sub">Action Items</p>
         </Col>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
@@ -200,7 +200,7 @@ const Profile = ({
           <p className="color-sub">Projects</p>
         </Col>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
-          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>20</h2>
+          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>-</h2>
           <p className="color-sub">Problems</p>
         </Col>
       </Row>
