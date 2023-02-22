@@ -106,7 +106,7 @@ const Search = (
   }
   const renderOption = (item: any) => {
     return {
-      key: `${item.rowLabel}${item.on_base}`,
+      key: `${item.key}`,
       value: `${item.rowLabel}`,
       label: <div className="global-search-item">
       <h6>{item.rowLabel}</h6>
@@ -122,8 +122,6 @@ const Search = (
     }
   }, [searchWord, fullData]);
   const handleSearch = (value: string) => { 
-    console.log('handle search ', value);
-    
     setSearchWord(value);
     setKeyword(value);
   }
@@ -201,7 +199,7 @@ const Search = (
         </div> */}
         {
           completeData.map((elem: any, index: number) => {
-            const id = 'collapse' + index;           
+            const id = 'collapse' + index;               
             return (
               <div id={id} key={elem.id}>
                 <Collapse
