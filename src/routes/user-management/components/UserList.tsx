@@ -188,7 +188,7 @@ const UserList = () => {
       case 'deleted':
         items = [
           { key: 'change-status', label: 'Approve User' },
-          { key: 'delete-user-entry', label: 'Delete User' },
+          //{ key: 'delete-user-entry', label: 'Delete User' },
         ];
         break;
       case 'pending':
@@ -219,7 +219,7 @@ const UserList = () => {
             changeStatus(record.user_id)
             break;
           case 'delete-user-entry':
-            deleteEntry(record.user_id)
+            //deleteEntry(record.user_id)
             break;
         }
       }}
