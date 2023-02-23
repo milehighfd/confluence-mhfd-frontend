@@ -38,6 +38,10 @@ let previousFilterBy = '';
 const PortafolioBody = () => {
   const {
     setFilterProjectOptions,
+    resetFiltercomponentOptions,
+    getParamFilterProjects,
+    setBoundMap,
+    resetFilterProjectOptionsEmpty
   } = useMapDispatch();
   const {getGroupOrganization} = useProfileDispatch();
   const [filterby, setFilterby] = useState('');
@@ -77,6 +81,21 @@ const PortafolioBody = () => {
   
   useEffect(()=>{
     getGroupOrganization();
+    if (searchWord) {
+      let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
+      currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
+      setNewData(currentNewData);
+      const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
+      setOpenTable(new Array(sortedData.length).fill(true));
+    } else {
+      setNewData(completeData);
+      const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
+      setOpenTable(new Array(sortedData.length).fill(true));
+    }
+    setTimeout(()=>{
+      isInit = false;
+      resetFilterProjectOptionsEmpty();
+    }, 1000);
   }, []);
 
 
@@ -105,11 +124,6 @@ const PortafolioBody = () => {
     filterProjectOptionsNoFilter,
     filterComponentOptions,
   } = useMapState();
-  const {
-    resetFiltercomponentOptions,
-    getParamFilterProjects,
-    setBoundMap
-  } = useMapDispatch();
   const menu = (
     <FilterByGroupName 
       setFilterby={setFilterby}
@@ -183,11 +197,12 @@ const PortafolioBody = () => {
     }
     previousFilterBy = 'projecttype';
   } ,[ tabKey ]);
-  // useEffect(() => {
-  //   if (boundsMap !== '') {
-  //     getParamFilterProjects(boundsMap);
-  //   }
-  // }, [boundsMap]);
+  useEffect(() => {
+    console.log('boundsmap', boundsMap);
+    if (boundsMap !== '') {
+      getParamFilterProjects(boundsMap);
+    }
+  }, [boundsMap]);
   useEffect(() => {
     if(searchRef.current.length) {
       searchRef.current.forEach(element => {
@@ -196,19 +211,7 @@ const PortafolioBody = () => {
       });
     }
   }, [optionSelect, tabKey]);
-  useEffect(() => {
-    if (searchWord) {
-      let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
-      currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
-      setNewData(currentNewData);
-      const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
-      setOpenTable(new Array(sortedData.length).fill(true));
-    } else {
-      setNewData(completeData);
-      const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
-      setOpenTable(new Array(sortedData.length).fill(true));
-    }
-  }, []);
+
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
 
     let optionsfiltersoptions = isInit ? filterProjectOptionsNoFilter : filterProjectOptions;
