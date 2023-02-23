@@ -1,4 +1,4 @@
-import { CIVIL_CONTRACTOR, DEVELOPER, ESTIMATED_COST, LANDSCAPE_CONTRACTOR, PARTNER_MAP, SPONSOR_ID } from '../constants/databaseConstants';
+import { ADMIN_STAFF, CIVIL_CONTRACTOR, DEVELOPER, ESTIMATED_COST, LANDSCAPE_CONTRACTOR, MHFD_LEAD, MHFD_SUPPORT, PARTNER_MAP, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
   const sponsors = projectPartners.reduce((accumulator: string, current: any) => {
@@ -69,9 +69,8 @@ export const getTotalEstimatedCost = (projectCosts: any) => {
 
 export const getVendors = (projectPartners: any) => {
   const validIds = [DEVELOPER, CIVIL_CONTRACTOR, LANDSCAPE_CONTRACTOR];
-  return projectPartners.filter((pp: any) => {
-    return validIds.includes(pp.code_partner_type_id);
-  }).map((pp: any) => {
+  return projectPartners.filter((pp: any) => validIds.includes(pp.code_partner_type_id))
+    .map((pp: any) => {
     return {
       type: PARTNER_MAP[pp.code_partner_type_id] || '',
       name: pp?.business_associate?.business_name || '',
@@ -79,3 +78,15 @@ export const getVendors = (projectPartners: any) => {
     }
   });
 };;
+
+
+export const getTeam = (projectStaffs: any) => {
+  const validIds = [MHFD_LEAD, MHFD_SUPPORT, ADMIN_STAFF];
+  return projectStaffs.filter((ps: any) => validIds.includes(ps.code_project_staff_role_type_id) && ps.is_active)
+    .map((ps: any) => {
+      return {
+        fullName: ps?.mhfd_staff?.full_name || 'N/A',
+        roleType: STAFF_ROL_MAP[ps.code_project_staff_role_type_id]
+      }
+    });
+};
