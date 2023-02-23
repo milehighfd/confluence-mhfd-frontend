@@ -24,6 +24,7 @@ import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimate
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
+const BOUNDSMAP = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
 let isInit = true;
 let previousFilterBy = '';
 // const popovers: any = [
@@ -81,6 +82,7 @@ const PortafolioBody = () => {
   
   useEffect(()=>{
     getGroupOrganization();
+    getParamFilterProjects(BOUNDSMAP);
     if (searchWord) {
       let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
       currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
@@ -119,7 +121,6 @@ const PortafolioBody = () => {
   ];
   // console.log('zoom',zoomTimeline);
   const {
-    boundsMap,
     filterProjectOptions,
     filterProjectOptionsNoFilter,
     filterComponentOptions,
@@ -176,7 +177,7 @@ const PortafolioBody = () => {
     // }
     options.servicearea = options.servicearea;
     options.county = options.county;
-    getParamFilterProjects(boundsMap, options);
+    getParamFilterProjects(BOUNDSMAP, options);
 }, [filterProjectOptions]);
 
   useEffect(() => {
@@ -197,12 +198,7 @@ const PortafolioBody = () => {
     }
     previousFilterBy = 'projecttype';
   } ,[ tabKey ]);
-  useEffect(() => {
-    console.log('boundsmap', boundsMap);
-    if (boundsMap !== '') {
-      getParamFilterProjects(boundsMap);
-    }
-  }, [boundsMap]);
+  
   useEffect(() => {
     if(searchRef.current.length) {
       searchRef.current.forEach(element => {
