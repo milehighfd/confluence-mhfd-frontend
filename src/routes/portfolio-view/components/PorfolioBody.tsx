@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Input, Layout, AutoComplete, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
 import { CalendarOutlined, CheckCircleFilled, CheckCircleOutlined, CheckCircleTwoTone, DownOutlined, HeartFilled, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
@@ -31,6 +31,7 @@ const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 let isInit = true;
+let previousFilterBy = '';
 // const popovers: any = [
 //   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -118,8 +119,10 @@ const PortafolioBody = () => {
     }else{
       //console.log('ESTA LLENI', layers)
     }
+    
     setTimeout(()=>{
       isInit = false;
+      resetFilterProjectOptionsEmpty();
     }, 1000);
   },[])
 
@@ -171,8 +174,11 @@ const PortafolioBody = () => {
       // searchRef.current = null;
     }
   }, []);
-  const apply = (values: any, field: string) => {
+  
+  const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
     const options = { ...filterProjectOptions };
+    
+    options[resetFilterBy] = '';
     if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
     || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
     || 'mhfdmanager' === field) {
@@ -194,11 +200,10 @@ const PortafolioBody = () => {
           }
         } else if ('totalcost' === field) {
           options[field] = [values[0], values[values.length - 1]];
-        } else {
+        } else if (field) {
             options[field] = values;
         }
     }
-
     setFilterProjectOptions(options);
     // if(originpage === 'portfolio' && setApplyFilter) {
     //   setApplyFilter(Math.random());
@@ -208,26 +213,25 @@ const PortafolioBody = () => {
     options.servicearea = options.servicearea;
     options.county = options.county;
     getParamFilterProjects(boundsMap, options);
-    // getProjectCounter(boundsMap, options);
-}
+}, [filterProjectOptions]);
 
   useEffect(() => {
-    console.log('filters', filterby, filtername, filterValue);
-  } ,[ filterby, filtername, filterValue]);
-  useEffect(() => {
-    console.log('filerby', filterby, filterValue);
     if (filterValue != -1) {
-      apply([filterValue], filterby);
+      apply([filterValue], filterby, previousFilterBy);
+      previousFilterBy = filterby;
+    } else {
+      apply([], filterby, previousFilterBy);
+      previousFilterBy = filterby;
     }
-  } ,[filterby, filterValue, tabKey ]);
+  } ,[filterby, filterValue]);
   useEffect(() => {
     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-    console.log('currentid', tabKey, currentId);
     if (currentId == 0) {
-      apply([5,7,1], 'projecttype');
+      apply([], 'projecttype', previousFilterBy);
     } else {
-      apply([currentId], 'projecttype');
+      apply([currentId], 'projecttype', previousFilterBy);
     }
+    previousFilterBy = 'projecttype';
   } ,[ tabKey ]);
   useEffect(() => {
     if (boundsMap !== '') {
@@ -291,7 +295,6 @@ const PortafolioBody = () => {
               }
             ],
           });
-          console.log(valuesList)
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;
               updatedGroups.push({
@@ -626,8 +629,7 @@ const PortafolioBody = () => {
     let filteredData2: any[] = [];
     let filteredTitles = [];    
       filterby = filterby+"_id"
-      console.log("FILTROS")
-    console.log(filterby,filterValue)
+    
     let filterWord : any[] = []; 
     let filterHeart : any[] = [];     
     
