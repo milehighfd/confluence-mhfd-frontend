@@ -61,7 +61,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
   },[colorsList, availableColors]);
 
   useEffect(() => {    
-    console.log("ACTUALIZA")
     let newTree = groups?.map((group: any) => {
       return {
         id: group.groupnotes_id,
@@ -115,8 +114,6 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     getNotes();
   }
   const changeValueOfElement = (_id:any) => {
-    console.log("CHANGEVALUES")
-    console.log(_id)
     const newValues = currentSelected.map((elem:any) => {
       if(elem._id == _id) {
         elem.selected = !elem.selected;

@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Dropdown, Input, Layout, AutoComplete, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CalendarOutlined, CheckCircleFilled, CheckCircleOutlined, CheckCircleTwoTone, DownOutlined, HeartFilled, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
-import ButtonGroup from "antd/lib/button/button-group";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Col, Dropdown, Row, Tabs } from 'antd';
+import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, HeartOutlined,  UpOutlined } from "@ant-design/icons";
 import Search from "./Search";
 import TablePortafolio from "./TablePortfolio";
 import PhaseView from "./PhaseView";
@@ -13,24 +11,21 @@ import ModalFields from "routes/list-view/components/ModalFields";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
 import { rawData } from "../constants/PhaseViewData";
 import ModalGraphic from "./ModalGraphic";
-import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
+import { getListProjects, getGroupList, DEFAULT_GROUP, optionsProjects } from "./ListUtils";
 import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
-import { optionsProjects } from "./ListUtils";
 import { useProfileDispatch } from "hook/profileHook";
-import { list, SELECT_ALL_FILTERS } from "constants/constants";
-import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { SPONSOR_ID } from '../../../constants/databaseConstants';
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
 let isInit = true;
+let previousFilterBy = '';
 // const popovers: any = [
 //   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -42,24 +37,16 @@ let isInit = true;
 // ]
 const PortafolioBody = () => {
   const {
-    setSpinMapLoaded,
-    getMapTables,
     setFilterProjectOptions,
-    resetFilterProjectOptionsEmpty
   } = useMapDispatch();
-  const layers = store.getState().map.layers;
   const {getGroupOrganization} = useProfileDispatch();
   const [filterby, setFilterby] = useState('');
   const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
-  const [page, setPage] = useState(1);
-  const pageSize = 25;
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
-  const [currentIdTab, setCurrentIdTab] = useState(null);
-  const [openAction, setOpenAction] = useState(true);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
@@ -73,8 +60,7 @@ const PortafolioBody = () => {
   const searchRef = useRef([]); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
   const scheduleRef = useRef<null | HTMLDivElement>(null);
-  const [moveSchedule, setMoveSchedule] = useState('null'); 
-  const [zoomTimeline, setZoomTimeline] = useState(0);
+  const [zoomTimeline] = useState(0);
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
@@ -87,48 +73,18 @@ const PortafolioBody = () => {
   const [listLoaded, setListLoaded] = useState(false);
   
 
-  const mainFilters = [
-    // {label: 'MHFD Lead/PM', value: 'MHFD' },
-    // {label: 'Service Area', value: 'Service' },
-    // {label: 'County', value: 'County' },
-    // {label: 'Consultant', value: 'Consultant' },
-    // {label: 'Contractor', value: 'Contractor' },
-    {label: 'Jurisdiction', value: 'jurisdiction'},
-    {label: 'Status', value: 'status'},
-    {label: 'County', value: 'county'}
-  ];
   const [favorites, setFavorites] = useState<any>([]);
   
   useEffect(()=>{
-    if(Object.keys(layers).length === 0){
-      //console.log('ESTA VACIO', layers)
-      setSpinMapLoaded(true);
     getGroupOrganization();
-    //console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
-      SELECT_ALL_FILTERS.forEach((layer) => {
-        if (typeof layer === 'object') {
-          layer.tiles.forEach((subKey: string) => {
-            getMapTables(subKey, layer.name);
-          });
-        } else {
-
-            getMapTables(layer);
-        }
-      });
-    }else{
-      //console.log('ESTA LLENI', layers)
-    }
-    setTimeout(()=>{
-      isInit = false;
-    }, 1000);
-  },[])
+  }, []);
 
 
 
 
   useEffect(() => {    
-    if (appUser.userInformation?._id) {
-      setCurrentUserId(appUser.userInformation?._id);      
+    if (appUser.userInformation?.user_id) {
+      setCurrentUserId(appUser.userInformation?.user_id);      
     }   
   }, [appUser]);
 
@@ -143,7 +99,6 @@ const PortafolioBody = () => {
     'Contractor'
   ];
   // console.log('zoom',zoomTimeline);
-  const [filtersGroups, setFiltersGroup] = useState({});
   const {
     boundsMap,
     filterProjectOptions,
@@ -163,16 +118,17 @@ const PortafolioBody = () => {
     />
   );
 
-  useEffect( () => {  
-    setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
-    return () => {
-      resetFiltercomponentOptions();
-      // tableRef.current = null;
-      // searchRef.current = null;
-    }
-  }, []);
-  const apply = (values: any, field: string) => {
+  // useEffect( () => {  
+  //   setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
+  //   return () => {
+  //     resetFiltercomponentOptions();
+  //   }
+  // }, []);
+  
+  const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
     const options = { ...filterProjectOptions };
+    
+    options[resetFilterBy] = '';
     if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
     || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
     || 'mhfdmanager' === field) {
@@ -194,11 +150,10 @@ const PortafolioBody = () => {
           }
         } else if ('totalcost' === field) {
           options[field] = [values[0], values[values.length - 1]];
-        } else {
+        } else if (field) {
             options[field] = values;
         }
     }
-
     setFilterProjectOptions(options);
     // if(originpage === 'portfolio' && setApplyFilter) {
     //   setApplyFilter(Math.random());
@@ -208,32 +163,31 @@ const PortafolioBody = () => {
     options.servicearea = options.servicearea;
     options.county = options.county;
     getParamFilterProjects(boundsMap, options);
-    // getProjectCounter(boundsMap, options);
-}
+}, [filterProjectOptions]);
 
   useEffect(() => {
-    console.log('filters', filterby, filtername, filterValue);
-  } ,[ filterby, filtername, filterValue]);
-  useEffect(() => {
-    console.log('filerby', filterby, filterValue);
     if (filterValue != -1) {
-      apply([filterValue], filterby);
+      apply([filterValue], filterby, previousFilterBy);
+      previousFilterBy = filterby;
+    } else {
+      apply([], filterby, previousFilterBy);
+      previousFilterBy = filterby;
     }
-  } ,[filterby, filterValue, tabKey ]);
+  } ,[filterby, filterValue]);
   useEffect(() => {
     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-    console.log('currentid', tabKey, currentId);
     if (currentId == 0) {
-      apply([5,7,1], 'projecttype');
+      apply([], 'projecttype', previousFilterBy);
     } else {
-      apply([currentId], 'projecttype');
+      apply([currentId], 'projecttype', previousFilterBy);
     }
+    previousFilterBy = 'projecttype';
   } ,[ tabKey ]);
-  useEffect(() => {
-    if (boundsMap !== '') {
-      getParamFilterProjects(boundsMap);
-    }
-  }, [boundsMap]);
+  // useEffect(() => {
+  //   if (boundsMap !== '') {
+  //     getParamFilterProjects(boundsMap);
+  //   }
+  // }, [boundsMap]);
   useEffect(() => {
     if(searchRef.current.length) {
       searchRef.current.forEach(element => {
@@ -291,7 +245,6 @@ const PortafolioBody = () => {
               }
             ],
           });
-          console.log(valuesList)
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;
               updatedGroups.push({
@@ -626,8 +579,7 @@ const PortafolioBody = () => {
     let filteredData2: any[] = [];
     let filteredTitles = [];    
       filterby = filterby+"_id"
-      console.log("FILTROS")
-    console.log(filterby,filterValue)
+    
     let filterWord : any[] = []; 
     let filterHeart : any[] = [];     
     

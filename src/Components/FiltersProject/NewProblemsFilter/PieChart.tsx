@@ -15,6 +15,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const isProb = type === 'problemtype';
   const labelValues = isProb ? '' : 'Projects';
   useEffect(() => {
+    console.log('Selected Data', selectedData);
     let total: any;
     let pieChartData: any;
     let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 7));
@@ -60,12 +61,25 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .selectAll('slices')
       .data(data_ready)
     let clickFn = (d: any) => {
+      console.log('Click fn', d);
       let index = selectedData.indexOf(d.data.id);
-      if (index !== -1) {
-        setSelectedData(selectedData.filter((_, ind) => ind !== index))
+      if (d.data.id != 7) {
+        if (index !== -1) {
+          console.log('datsssssa.data', d.data.id)
+          setSelectedData(selectedData.filter((_, ind) => ind !== index))
+        } else {
+          console.log('data.data', d.data.id);
+          setSelectedData([...selectedData, d.data.id])
+        }
       } else {
-        setSelectedData([...selectedData, d.data.id])
+        if ( index !== -1) {
+          setSelectedData(selectedData.filter((sd) => !(sd >= 7 && sd <= 12)));
+        } else {
+          const allMaintenance = [7,8,9,10,11,12];
+          setSelectedData([...selectedData, ...allMaintenance]);
+        }
       }
+      
     }
 
     slicesSelected

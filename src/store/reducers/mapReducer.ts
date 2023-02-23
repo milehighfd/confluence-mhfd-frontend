@@ -574,7 +574,8 @@ const mapReducer = (state = initState, action: any) => {
         case types.RESET_FILTER_PROJECT_OPTIONS_EMPTY: {
           return {
             ...state,
-            filterProjectOptions: initState.filterProjectOptionsNoFilter
+            filterProjectOptions: initState.filterProjectOptionsNoFilter,
+            filterProjects: initState.filterProjectOptionsNoFilter
           }
         }
         case types.SET_FILTER_COORDINATES: {

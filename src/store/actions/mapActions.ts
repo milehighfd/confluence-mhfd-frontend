@@ -182,7 +182,6 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         servicearea: filters.servicearea,
         keyword
     }
-    console.log('About to set project options', auxFilter);
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });
         const params = '?problemtype=' + filters.problemtype;
@@ -400,7 +399,6 @@ export const getDetailedPageProblem = (id: string) => {
     return (dispatch: Function) => {
         dispatch({ type: detailedTypes.REPLACE_VALUE_SPIN })
         datasets.getData(SERVER.PROBLEM_BY_ID + '/' + id, datasets.getToken()).then(detailed => {
-          console.log('problem by id ', detailed, id);
             dispatch({ type: detailedTypes.REPLACE_DETAILED_PAGE, detailed });
         });
     }
@@ -452,7 +450,6 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {
             if (params) {
               const projectsCounters = params['data'];
-              console.log('reaches herer', projectsCounters);
               dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
             }
         });
