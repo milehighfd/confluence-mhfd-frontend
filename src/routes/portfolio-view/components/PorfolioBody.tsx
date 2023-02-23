@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Col, Dropdown, Input, Layout, AutoComplete, Menu, Popover, Row, Select, Space, Tabs } from 'antd';
-import { CalendarOutlined, CheckCircleFilled, CheckCircleOutlined, CheckCircleTwoTone, DownOutlined, HeartFilled, HeartOutlined, SettingFilled, ToTopOutlined, UpOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
-import ButtonGroup from "antd/lib/button/button-group";
+import { Button, Col, Dropdown, Row, Tabs } from 'antd';
+import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, HeartOutlined,  UpOutlined } from "@ant-design/icons";
 import Search from "./Search";
 import TablePortafolio from "./TablePortfolio";
 import PhaseView from "./PhaseView";
@@ -13,18 +11,14 @@ import ModalFields from "routes/list-view/components/ModalFields";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
 import { rawData } from "../constants/PhaseViewData";
 import ModalGraphic from "./ModalGraphic";
-import { getListProjects, getGroupList, DEFAULT_GROUP } from "./ListUtils";
+import { getListProjects, getGroupList, DEFAULT_GROUP, optionsProjects } from "./ListUtils";
 import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
-import { optionsProjects } from "./ListUtils";
 import { useProfileDispatch } from "hook/profileHook";
-import { list, SELECT_ALL_FILTERS } from "constants/constants";
-import { useProfileState } from '../../../hook/profileHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { SPONSOR_ID } from '../../../constants/databaseConstants';
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
@@ -43,24 +37,16 @@ let previousFilterBy = '';
 // ]
 const PortafolioBody = () => {
   const {
-    setSpinMapLoaded,
-    getMapTables,
     setFilterProjectOptions,
-    resetFilterProjectOptionsEmpty
   } = useMapDispatch();
-  const layers = store.getState().map.layers;
   const {getGroupOrganization} = useProfileDispatch();
   const [filterby, setFilterby] = useState('');
   const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
-  const [page, setPage] = useState(1);
-  const pageSize = 25;
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
-  const [currentIdTab, setCurrentIdTab] = useState(null);
-  const [openAction, setOpenAction] = useState(true);
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
@@ -74,8 +60,7 @@ const PortafolioBody = () => {
   const searchRef = useRef([]); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
   const scheduleRef = useRef<null | HTMLDivElement>(null);
-  const [moveSchedule, setMoveSchedule] = useState('null'); 
-  const [zoomTimeline, setZoomTimeline] = useState(0);
+  const [zoomTimeline] = useState(0);
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
@@ -88,43 +73,11 @@ const PortafolioBody = () => {
   const [listLoaded, setListLoaded] = useState(false);
   
 
-  const mainFilters = [
-    // {label: 'MHFD Lead/PM', value: 'MHFD' },
-    // {label: 'Service Area', value: 'Service' },
-    // {label: 'County', value: 'County' },
-    // {label: 'Consultant', value: 'Consultant' },
-    // {label: 'Contractor', value: 'Contractor' },
-    {label: 'Jurisdiction', value: 'jurisdiction'},
-    {label: 'Status', value: 'status'},
-    {label: 'County', value: 'county'}
-  ];
   const [favorites, setFavorites] = useState<any>([]);
   
   useEffect(()=>{
-    if(Object.keys(layers).length === 0){
-      //console.log('ESTA VACIO', layers)
-      setSpinMapLoaded(true);
     getGroupOrganization();
-    //console.log('SELECT_ALL_FILTERS', SELECT_ALL_FILTERS)
-      SELECT_ALL_FILTERS.forEach((layer) => {
-        if (typeof layer === 'object') {
-          layer.tiles.forEach((subKey: string) => {
-            getMapTables(subKey, layer.name);
-          });
-        } else {
-
-            getMapTables(layer);
-        }
-      });
-    }else{
-      //console.log('ESTA LLENI', layers)
-    }
-    
-    setTimeout(()=>{
-      isInit = false;
-      resetFilterProjectOptionsEmpty();
-    }, 1000);
-  },[])
+  }, []);
 
 
 
@@ -146,7 +99,6 @@ const PortafolioBody = () => {
     'Contractor'
   ];
   // console.log('zoom',zoomTimeline);
-  const [filtersGroups, setFiltersGroup] = useState({});
   const {
     boundsMap,
     filterProjectOptions,
@@ -170,8 +122,6 @@ const PortafolioBody = () => {
     setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
     return () => {
       resetFiltercomponentOptions();
-      // tableRef.current = null;
-      // searchRef.current = null;
     }
   }, []);
   
