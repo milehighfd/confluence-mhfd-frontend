@@ -148,7 +148,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       } else {
         //getAttachmentByProject(data.projectid);
         if( data.project_status.code_phase_type.code_project_type.code_project_type_id === 1){
-          getStreamsByProjectId(data.projectid);
+          getStreamsByProjectId(data.project_id);
         } else if( data.project_status.code_phase_type.code_project_type.code_project_type_id === 5) {
           getIndependentComponentsByProjectId(data.project_id);
           getComponentsByProjectId(data.project_id);

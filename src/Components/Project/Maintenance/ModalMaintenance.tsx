@@ -107,16 +107,80 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       setSponsor(locality);
     }
   }, [organization]);
+
+  function titleCase(str:any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+ }
+
+  const parseCountiesToArray = (list: any) => {
+    let counties:any = [];
+    if (list) {
+    list.forEach((county : any) => {
+      counties.push(county.CODE_STATE_COUNTY.county_name +' County')
+    });
+      console.log('counties',counties)
+    }
+    return counties;
+  }
+  const parseServiceAreaToArray = (list: any) => {
+    let serviceAreas:any = [];
+    if (list) {
+    list.forEach((serviceArea : any) => {
+      serviceAreas.push(serviceArea.CODE_SERVICE_AREA.service_area_name +' Service Area')
+    });
+      console.log('serviceAreas',serviceAreas)
+    }
+    return serviceAreas;
+  }
+
+  const parseJurisdictionToArray = (list: any) => {
+    let jurisdictions:any = [];
+    if (list) {
+    list.forEach((jurisdiction : any) => {
+      jurisdictions.push(jurisdiction.CODE_LOCAL_GOVERNMENT.local_government_name)
+    });
+      console.log('jurisdictions',jurisdictions)
+    }
+    return jurisdictions;
+  }
+  const parseSponsorCosponsorToArray = (list: any, type:string) => {
+    let sponsors:any = [];
+    let cosponsors:any = [];
+    if (list) {
+    list.forEach((sponsorCosponsor : any) => {
+      if(sponsorCosponsor.code_partner_type_id === 11){
+        sponsors.push(titleCase(sponsorCosponsor.business_associate.business_name))
+      }
+      if(sponsorCosponsor.code_partner_type_id === 12){
+        cosponsors.push(titleCase(sponsorCosponsor.business_associate.business_name))
+      }
+    });
+      console.log('sponsors',sponsors)
+      console.log('cosponsors',cosponsors)
+    }
+    if(type === 'sponsor'){
+      return sponsors;
+    }
+    if(type === 'cosponsor'){
+      return cosponsors;
+    }
+  }
+
   useEffect(() => {
     if (data !== 'no data') {
       setSwSave(true);
       setDescription(data.description);
-      setNameProject(data.projectname);
-      setCounty(parseStringToArray(data.county));
-      setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdiction(parseStringToArray(data.jurisdiction));
-      setCosponsor(parseStringToArray(data.cosponsor));
-      setProjectId(data.projectid);
+      setNameProject(data.project_name);
+      setCounty(parseCountiesToArray(data.project_counties));
+      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
+      setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
+      setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
+      setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
+      setProjectId(data.project_id);
       if (data.maintenanceeligibility === null) {
         setEligibility('');
       } else {
@@ -127,15 +191,15 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       } else {
         setFrequency(data.frequency);
       }
-      setEditsetprojectid(data.projectid);
-      setSponsor(data.sponsor);
+      setEditsetprojectid(data.project_id);
+      // setSponsor(data.sponsor);
       if (data.ownership === "true") {
         setOwnership(true);
       } else {
         setOwnership(false);
       }
       setTimeout(() => {
-        getGEOMByProjectId(data.projectid);
+        getGEOMByProjectId(data.project_id);
       }, 2200);
 
     } else {

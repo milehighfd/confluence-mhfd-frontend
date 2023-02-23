@@ -665,7 +665,10 @@ const RequestView = ({ type, isFirstRendering }: {
     let dataForBoard = {...data};
     const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard).then((value:any)=> {
       console.log('value',value)
-      setCompleteProjectData(value); 
+
+      // next line was commented cause endpoint returns 404, it should be a comparison between data gotten from endpoint and the data currently received
+      // setCompleteProjectData(value); 
+      setCompleteProjectData(data); 
       setTimeout(()=>{
       setShowModalProject(true);
     },200);});
