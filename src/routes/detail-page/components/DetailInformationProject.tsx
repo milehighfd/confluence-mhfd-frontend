@@ -27,8 +27,14 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{getStreams(detailed?.project_streams || []) || 'N/A'}</p>
         </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
+          <label><i>OnBase ID</i></label>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
+          <p>{(detailed?.onbase_project_number || []) || 'N/A'}</p>
+        </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Start Year</i></label>
         </Col>
@@ -41,7 +47,7 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{detailed?.end_date ? (dateComplete.getFullYear() ? `${dateComplete.getFullYear()} (Projected)` : 'N/A') : 'N/A'}</p>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>LG Manager</i></label>
