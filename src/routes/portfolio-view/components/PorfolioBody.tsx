@@ -142,8 +142,10 @@ const PortafolioBody = () => {
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
     const options = { ...filterProjectOptions };
+    if (!(resetFilterBy === 'projecttype' && tabKey !== 'All')) {
+      options[resetFilterBy] = '';
+    }
     
-    options[resetFilterBy] = '';
     if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
     || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
     || 'mhfdmanager' === field) {
