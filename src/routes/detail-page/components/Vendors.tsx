@@ -1,29 +1,28 @@
-import React from "react";
-import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
+import React, { useEffect, useState } from "react";
+import { Col, Row, Table } from "antd";
 import { useDetailedState } from "hook/detailedHook";
+import { getVendors } from '../../../utils/parsers';
 
 const Vendors = () => {
-  const {detailed} = useDetailedState();
-  // const problemPartsData = detailed?.contractors.length ? detailed?.contractors?.map((data:any, index: any)=> {
-  //   return {
-  //     key: index,
-  //     type: data.business_associate.business_associate_name? data.business_associate.business_associate_name: 'N/A',
-  //     name: 'N/A',
-  //   }
-  // }) : {};
+  const { detailed } = useDetailedState();
+  const [data, setData] = useState<any>([]);
+
+  useEffect(() => {
+    setData(getVendors(detailed?.project_partners || []));
+  }, [detailed]);
+  
   const columns = [
     {
-      title: <>Typs</>,
+      title: <>Type</>,
       dataIndex: 'type',
       key: 'type',
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a.type.localeCompare(b.type),
     },
     {
       title: <>Name</>,
       dataIndex: 'name',
       key: 'name',
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a.name.localeCompare(b.name),
     },
   ];
   return (
@@ -38,7 +37,7 @@ const Vendors = () => {
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
           {/* <Table dataSource={detailed?.contractors.length &&  detailed?.consultants.length ?  problemPartsData : {}} columns={columns} pagination={false}/> */}
 
-          <Table dataSource={[]} columns={columns} pagination={false}/>
+          <Table dataSource={data} columns={columns} pagination={false}  rowKey={(record) => record.key} />
         </Col>
       </Row>
     </>

@@ -1,4 +1,4 @@
-import { ESTIMATED_COST, SPONSOR_ID } from '../constants/databaseConstants';
+import { CIVIL_CONTRACTOR, DEVELOPER, ESTIMATED_COST, LANDSCAPE_CONTRACTOR, PARTNER_MAP, SPONSOR_ID } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
   const sponsors = projectPartners.reduce((accumulator: string, current: any) => {
@@ -66,3 +66,16 @@ export const getTotalEstimatedCost = (projectCosts: any) => {
     return sum;
   }, 0);
 };
+
+export const getVendors = (projectPartners: any) => {
+  const validIds = [DEVELOPER, CIVIL_CONTRACTOR, LANDSCAPE_CONTRACTOR];
+  return projectPartners.filter((pp: any) => {
+    return validIds.includes(pp.code_partner_type_id);
+  }).map((pp: any) => {
+    return {
+      type: PARTNER_MAP[pp.code_partner_type_id] || '',
+      name: pp?.business_associate?.business_name || '',
+      key: pp?.project_partner_id || -1
+    }
+  });
+};;
