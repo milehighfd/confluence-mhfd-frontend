@@ -118,12 +118,12 @@ const PortafolioBody = () => {
     />
   );
 
-  useEffect( () => {  
-    setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
-    return () => {
-      resetFiltercomponentOptions();
-    }
-  }, []);
+  // useEffect( () => {  
+  //   setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
+  //   return () => {
+  //     resetFiltercomponentOptions();
+  //   }
+  // }, []);
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
     const options = { ...filterProjectOptions };
