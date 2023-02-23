@@ -739,7 +739,7 @@ const PortafolioBody = () => {
             displayedTabKey.map((tk: string, idx: number) => { return (
               <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
                 <div className="protafolio-body">
-                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue}}/>}
+                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
                 <Row>
                   <Col xs={{ span: 10 }} lg={{ span: 5 }}>
                     <Search
