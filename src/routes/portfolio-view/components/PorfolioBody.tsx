@@ -130,8 +130,8 @@ const PortafolioBody = () => {
 
 
   useEffect(() => {    
-    if (appUser.userInformation?._id) {
-      setCurrentUserId(appUser.userInformation?._id);      
+    if (appUser.userInformation?.user_id) {
+      setCurrentUserId(appUser.userInformation?.user_id);      
     }   
   }, [appUser]);
 
@@ -233,11 +233,11 @@ const PortafolioBody = () => {
     }
     previousFilterBy = 'projecttype';
   } ,[ tabKey ]);
-  useEffect(() => {
-    if (boundsMap !== '') {
-      getParamFilterProjects(boundsMap);
-    }
-  }, [boundsMap]);
+  // useEffect(() => {
+  //   if (boundsMap !== '') {
+  //     getParamFilterProjects(boundsMap);
+  //   }
+  // }, [boundsMap]);
   useEffect(() => {
     if(searchRef.current.length) {
       searchRef.current.forEach(element => {
