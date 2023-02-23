@@ -86,7 +86,9 @@ export const getTeam = (projectStaffs: any) => {
     .map((ps: any) => {
       return {
         fullName: ps?.mhfd_staff?.full_name || 'N/A',
-        roleType: STAFF_ROL_MAP[ps.code_project_staff_role_type_id]
+        roleType: STAFF_ROL_MAP[ps.code_project_staff_role_type_id],
+        key: ps?.project_staff_id,
+        organization: ps?.mhfd_staff?.user?.organization || 'N/A',
       }
     });
 };
