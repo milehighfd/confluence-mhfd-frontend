@@ -294,23 +294,24 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
         if(optx != null) {
           optx.appendChild(divoptionsx);
           const deleteButton = document.getElementById(`deleteopt${index}`);
-          if(deleteButton != null){
-            deleteButton.addEventListener('click', (e:any) => {
-              e.stopPropagation();
-              deleteColorList(el._id);
-              let timeCheck = noteClicked? 1200:0;
-              let draftText = '';
-              const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                if (textarea != null) {
-                    draftText = textarea.value;
-                }
-              setTimeout(()=>{
-                if(noteClicked) {
-                  openMarkerOfNote(noteClicked, draftText); 
-                }
-              },timeCheck);
-            })
-          }
+          // TO DO: Change Delete function to soft-delete 
+          // if(deleteButton != null){
+          //   deleteButton.addEventListener('click', (e:any) => {
+          //     e.stopPropagation();
+          //     deleteColorList(el._id);
+          //     let timeCheck = noteClicked? 1200:0;
+          //     let draftText = '';
+          //     const textarea = (document.getElementById('textarea') as HTMLInputElement);
+          //       if (textarea != null) {
+          //           draftText = textarea.value;
+          //       }
+          //     setTimeout(()=>{
+          //       if(noteClicked) {
+          //         openMarkerOfNote(noteClicked, draftText); 
+          //       }
+          //     },timeCheck);
+          //   })
+          // }
       
         }
       })
