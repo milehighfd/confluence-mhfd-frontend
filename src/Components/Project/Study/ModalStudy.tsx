@@ -151,7 +151,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     list.forEach((county : any) => {
       counties.push(county.CODE_STATE_COUNTY.county_name +' County')
     });
-      console.log('counties',counties)
     }
     return counties;
   }
@@ -161,7 +160,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     list.forEach((serviceArea : any) => {
       serviceAreas.push(serviceArea.CODE_SERVICE_AREA.service_area_name +' Service Area')
     });
-      console.log('serviceAreas',serviceAreas)
     }
     return serviceAreas;
   }
@@ -172,7 +170,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     list.forEach((jurisdiction : any) => {
       jurisdictions.push(jurisdiction.CODE_LOCAL_GOVERNMENT.local_government_name)
     });
-      console.log('jurisdictions',jurisdictions)
     }
     return jurisdictions;
   }
@@ -188,8 +185,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         cosponsors.push(titleCase(sponsorCosponsor.business_associate.business_name))
       }
     });
-      console.log('sponsors',sponsors)
-      console.log('cosponsors',cosponsors)
     }
     if(type === 'sponsor'){
       return sponsors;
@@ -200,7 +195,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   }
 
   useEffect(() => {
-    console.log('dataaaaa',data)
     if (data !== 'no data') {
       setSwSave(true);
       setDescription(data.description);
@@ -335,7 +329,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     if (streamsList) {
       for (let stream in streamsList) {
         for (let s of streamsList[stream]) {
-          total += s.length_in_mile;
+          total += s.stream.length_in_mile;
         }
       }
     }
@@ -348,7 +342,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     if (streamsList) {
       for (let stream in streamsList) {
         for (let s of streamsList[stream]) {
-          total += +s.drainage_area_in_sq_miles;
+          total += +s.stream.drainage_area_in_sq_miles;
         }
       }
     }
@@ -503,10 +497,10 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                     return (
                                       <Timeline.Item color="green">
                                         <Row style={{ marginLeft: '-18px' }}>
-                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream.local_government_id}</label></Col>
+                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream.code_local_goverment[0].local_government_name}</label></Col>
                                           {/* <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length * 0.000621371)}</Col> */}
-                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length_in_mile)}</Col>
-                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{formatterDec.format(stream.drainage_area_in_sq_miles? stream.drainage_area_in_sq_miles: 0)}</Col>
+                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.stream.length_in_mile)}</Col>
+                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{formatterDec.format(stream.stream.drainage_area_in_sq_miles? stream.stream.drainage_area_in_sq_miles: 0)}</Col>
                                           <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                         </Row>
                                       </Timeline.Item>
