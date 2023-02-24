@@ -213,8 +213,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
       
-      setStudyReason(data.project_studies[0].study.code_study_sub_reason.code_study_reasons[0].reason_name);
-      setStudySubReason(data.project_studies[0].study.code_study_sub_reason.sub_reason_name);
+      setStudyReason(data?.project_studies[0]?.study?.code_study_sub_reason?.code_study_reasons[0]?.reason_name ? data?.project_studies[0]?.study?.code_study_sub_reason?.code_study_reasons[0]?.reason_name : '');
+      setStudySubReason(data?.project_studies[0]?.study?.code_study_sub_reason?.sub_reason_name ? data?.project_studies[0]?.study?.code_study_sub_reason?.sub_reason_name : '');
     }
   }, [data]);
   useEffect(() => {
