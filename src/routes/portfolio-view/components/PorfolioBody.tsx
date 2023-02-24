@@ -16,7 +16,6 @@ import moment from 'moment';
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
-import { useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
@@ -44,7 +43,6 @@ const PortafolioBody = () => {
     setBoundMap,
     resetFilterProjectOptionsEmpty
   } = useMapDispatch();
-  const {getGroupOrganization} = useProfileDispatch();
   const [filterby, setFilterby] = useState('');
   const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
@@ -81,7 +79,6 @@ const PortafolioBody = () => {
   const [favorites, setFavorites] = useState<any>([]);
   
   useEffect(()=>{
-    getGroupOrganization();
     // getParamFilterProjectsNoBounds();
     if (searchWord) {
       let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
