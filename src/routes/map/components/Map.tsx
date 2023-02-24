@@ -2263,8 +2263,8 @@ const Map = ({
         popupC.remove();
       });
       setTimeout(()=>{
-        const noteid = note.id?note.id:note._id; 
-        const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
+        const noteid = note.id?note.id:note.newnotes_id; 
+        const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note.newnotes_id == noteid  );
         console.log('FilterMaker', filterMarker);
         if(filterMarker.length > 0) {
           console.log('filterMarker[0].marker', filterMarker[0].marker);
@@ -2286,10 +2286,10 @@ const Map = ({
                   },600);
                 }
               }
-            },140);
-          },250);
+            },240);
+          },350);
         }
-      },400);
+      },600);
       
     }
     const changeContentWithListUpdates = (changeContentTitleData: any) => {
