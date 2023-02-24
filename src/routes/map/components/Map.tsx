@@ -2254,18 +2254,21 @@ const Map = ({
             });
     }
     const openMarkerOfNote = (note:any, draftText: any, changeContentTitleData?: any) => {
+      console.log('Open Marker Note', note);
       markerNotes_global.forEach((marker:any) => {
-        marker.marker.addTo(map)
+        marker.marker.addTo(map);
       });
       markerNotes_global.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();
         popupC.remove();
       });
       setTimeout(()=>{
-        const noteid = note.id?note.id:note._id; 
-        const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
+        const noteid = note.id?note.id:note.newnotes_id; 
+        const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note.newnotes_id == noteid  );
+        console.log('FilterMaker', filterMarker);
         if(filterMarker.length > 0) {
-          filterMarker[0].marker.addTo(map).togglePopup();
+          console.log('filterMarker[0].marker', filterMarker[0].marker);
+          filterMarker[0].marker.togglePopup();
           setTimeout(()=>{
             const textarea = (document.getElementById('textarea') as HTMLInputElement);
               if (textarea != null) {
@@ -2283,10 +2286,10 @@ const Map = ({
                   },600);
                 }
               }
-            },140);
-          },250);
+            },240);
+          },350);
         }
-      },400);
+      },600);
       
     }
     const changeContentWithListUpdates = (changeContentTitleData: any) => {
