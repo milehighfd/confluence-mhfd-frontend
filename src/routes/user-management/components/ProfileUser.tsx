@@ -7,7 +7,7 @@ import * as datasets from "../../../Config/datasets";
 // import RadioItemsView from './RadioItemsView';
 // import MenuAreaView from './MenuAreaView';
 import { User } from '../../../Classes/TypeList';
-// import Alert from '../../Shared/Alert';
+import Alert from '../../../Components/Shared/Alert';
 import moment from 'moment';
 import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
 import { SERVER } from "Config/Server.config";
@@ -26,6 +26,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [zoomArea,setZoomArea] = useState('');
   const [serviceArea,setServiceArea] = useState('');
   const { groupOrganization } = useProfileState();
+  const [saveAlert, setSaveAlert] = useState(false);
   const validationSchema = VALIDATION_USER;
   const { Panel } = Collapse;
   
@@ -238,6 +239,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         }
       }
     });
+    setSaveAlert(false)
   }
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
   const handleSwitchButton = (checked: boolean) => {
@@ -271,6 +273,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
 
   return (
     <>
+    <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
       <div className="profile-user">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 2 }} style={{ paddingRight: '20px' }}>
@@ -444,7 +447,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Button className="btn-profile-list" style={{ marginRight: '20px', borderColor: 'transparent' }}>
             Cancel
           </Button>
-          <Button onClick={result} className="btn-purple btn-profile-list">Save</Button>
+          <Button onClick={()=>{setSaveAlert(true)}} className="btn-purple btn-profile-list">Save</Button>
         </div>
       </div>
     </>
