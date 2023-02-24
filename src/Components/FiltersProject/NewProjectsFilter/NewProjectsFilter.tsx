@@ -129,7 +129,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ marginTop: '10px' }}>
-            <Col span={12} className={filtersObject?.tabKey != 'All' ? 'disabledchart': ''}>
+            <Col span={12} className={(filtersObject?.tabKey != 'All' && filtersObject) ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects?.projecttype &&
