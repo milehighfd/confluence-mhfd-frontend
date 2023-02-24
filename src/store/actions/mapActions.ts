@@ -456,6 +456,20 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         dispatch(getGalleryProjects('paramfilter'))
     }
 }
+export const getParamFilterProjectsNoBounds = (data?: any) => {
+  if (data) {
+      data.county = data.county;
+      data.servicearea = data.servicearea
+  }
+  return (dispatch: Function) => {
+      datasets.postData(SERVER.PARAM_FILTER_PROJECTS, data || {}).then((params:any) => {
+          if (params) {
+            const projectsCounters = params['data'];
+            dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
+          }
+      });
+  }
+}
 export const getProblemCounter = (bounds: string, options: any) => {
   return (dispatch: Function) => {
       datasets.postData(SERVER.COUNTER_PROBLEMS + '?bounds=' + bounds, options).then(params => {

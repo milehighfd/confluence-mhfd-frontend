@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  setToggleModalFilter, getParamFilterProjects, getParamFilterProblems,
+  setToggleModalFilter, getParamFilterProjects, getParamFilterProblems, getParamFilterProjectsNoBounds,
   getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
   setOpacityLayer, setCoordinatesJurisdiction,
   setFilterProblemOptions, setFilterProjectOptions, resetFiltercomponentOptions, setNameZoomArea,
@@ -34,6 +34,9 @@ export const useMapDispatch = () => {
     getParamFilterProjects: (bounds: string, data?: any) => {
       if (!bounds) return;
       dispatch(getParamFilterProjects(bounds, data));
+    },
+    getParamFilterProjectsNoBounds: (data?: any) => {
+      dispatch(getParamFilterProjectsNoBounds(data));
     },
     getTabCounters: (bounds: string, problemsOpts: any, projectsOpts: any, componentOpts: any) => {
       dispatch(getProblemCounter(bounds, problemsOpts));

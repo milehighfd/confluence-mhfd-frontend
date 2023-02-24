@@ -40,7 +40,7 @@ const PortafolioBody = () => {
   const {
     setFilterProjectOptions,
     resetFiltercomponentOptions,
-    getParamFilterProjects,
+    getParamFilterProjectsNoBounds,
     setBoundMap,
     resetFilterProjectOptionsEmpty
   } = useMapDispatch();
@@ -82,7 +82,7 @@ const PortafolioBody = () => {
   
   useEffect(()=>{
     getGroupOrganization();
-    getParamFilterProjects(BOUNDSMAP);
+    // getParamFilterProjectsNoBounds();
     if (searchWord) {
       let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
       currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
@@ -141,8 +141,9 @@ const PortafolioBody = () => {
   // }, []);
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
-    const options = { ...filterProjectOptions };
-    if (!(resetFilterBy === 'projecttype' && tabKey !== 'All')) {
+    let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};
+    console.log('resetfilterby', resetFilterBy, tabKey);
+    if (!(resetFilterBy === 'projecttype' && tabKey !== 'All') && resetFilterBy !== '') {
       options[resetFilterBy] = '';
     }
     
@@ -179,7 +180,7 @@ const PortafolioBody = () => {
     // }
     options.servicearea = options.servicearea;
     options.county = options.county;
-    getParamFilterProjects(BOUNDSMAP, options);
+    getParamFilterProjectsNoBounds(options);
 }, [filterProjectOptions]);
 
   useEffect(() => {
@@ -194,11 +195,10 @@ const PortafolioBody = () => {
   useEffect(() => {
     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
     if (currentId == 0) {
-      apply([], 'projecttype', previousFilterBy);
+      apply([], 'projecttype', '');
     } else {
-      apply([currentId], 'projecttype', previousFilterBy);
+      apply([currentId], 'projecttype', '');
     }
-    previousFilterBy = 'projecttype';
   } ,[ tabKey ]);
   
   useEffect(() => {
