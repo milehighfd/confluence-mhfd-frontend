@@ -93,9 +93,12 @@ const TablePortafolio = (
   //console.log("SORTED DATA")
   //console.log(sortedData)
   const completeData = sortedData.map((elem: any) => {
+    const filtered = rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel);
     return {
       ...elem,
-      values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+      values: filtered.filter((v: any, index: any) => {
+        return filtered.findIndex((v2: any) => v.project_id === v2.project_id ) === index;
+      })
     }
   });
   //console.log("COMPLETE DATA")
