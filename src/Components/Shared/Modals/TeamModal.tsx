@@ -15,7 +15,7 @@ const TeamModal = () => {
     {data.map((item: any)=>(
       <Row key={item.key}>
         <Col span={4}>
-          <img src="/picture/user.png" alt="" height="35px" />
+          <img src="/picture/user-default.svg" alt="" height="35px" />
         </Col>
         <Col span={13}>
           <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
