@@ -44,7 +44,7 @@ const Search = (
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: any[],
     hoverTable:number[],
-    setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
+    setHoverTable?:React.Dispatch<React.SetStateAction<number[]>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     rawData: any,
     setCompleteData: Function,
@@ -190,16 +190,16 @@ const Search = (
             scheduleRef.current.scrollTo(0, e.target.scrollTop)
           }
         }}
-        onMouseEnter={()=>{
-          setHoverTable([0,0,0] );
-        }}
+        // onMouseEnter={()=>{
+        //   setHoverTable([0,0,0] );
+        // }}
       >
         {/* <div className='line-search'>
           <span><DownOutlined className="icon-line"/></span><span>{titleCollaps[1]}</span>
         </div> */}
         {
           completeData.map((elem: any, index: number) => {
-            const id = 'collapse' + index;               
+            const id = 'collapse' + index;      
             return (
               <div id={id} key={elem.id}>
                 <Collapse
@@ -213,7 +213,7 @@ const Search = (
                       // },70)
                     }
                   } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/>
-                  <Panel header={elem.headerLabel} key={index} id={elem.id}>
+                  <Panel header={elem.headerLabel} key={index}>
                     {/* {
                       index === 0 && <div className="text-search text-first" id="headerCentennial">
                         <p></p>
@@ -221,7 +221,7 @@ const Search = (
                     } */}
                     {
                       elem.values.map((d:any, index_elem: number) => (
-                        <div className="text-search" key={d.id} id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} >
+                        <div className="text-search" key={d.key} id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} >
                           {/*onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}*/}
                           <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
                           {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction( d.project_id ,email, '')} />}
