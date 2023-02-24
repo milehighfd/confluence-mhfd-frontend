@@ -16,6 +16,7 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
         const contentTitle:any = document.getElementById('color-text');
         if(contentTitle != null) {
           contentTitle.textContent = _el.label;
+          console.log('current_id', _el);
           contentTitle.setAttribute('current_id', _el.color_id);
         }
         listOfElements.forEach((elem:any, index_:any) => {
@@ -46,8 +47,8 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
     colorable.style.color = _el.color
   }
   const contentTitle:any = document.getElementById('color-text');
-  console.log('CHANGECONTENT')
-  console.log(contentTitle)
+  console.log('CHANGECONTENT 1111')
+  console.log(contentTitle, _el);
   if(contentTitle != null) {
     contentTitle.textContent = _el.label;
     contentTitle.setAttribute('current_id', _el._id);
@@ -250,7 +251,6 @@ const removeEditOptAll = (listofelements: any) => {
     }
     const editButton = document.getElementById(`editopt${index}`);
     if(editButton != null){
-      console.log("edit button stye", editButton.style.display);
       editButton.style.removeProperty('display');
     }
     const liElem: any = document.getElementById(`color${index}`);
@@ -443,7 +443,7 @@ export const divListOfelements = (listOfElements: any, changeValueOfElement: any
               el && 
               <li key={index+"List"} id={index+"List"} onClick={()=>changeValueOfElement(el.color_id)}>
                 <img id={index+"circles"} className={"img-circle " + (el?.selected ? 'selected':'')} style={{background:el.color}}/> 
-                <input id="input${index}" className="inputlabel" value={el.label} readOnly={true}  />
+                <input id={`input${index}`} className="inputlabel" value={el.label} readOnly={true}  />
               </li>
             ) } 
     </div>

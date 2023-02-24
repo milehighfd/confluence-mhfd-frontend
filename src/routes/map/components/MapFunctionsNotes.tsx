@@ -1,9 +1,10 @@
 export const createNoteWithElem = (note: any, createNote: Function) => {
 
   const contentTitle:any = document.getElementById('color-text');
+  console.log('content title', contentTitle);
   if(contentTitle != null) {
     const comment_id = contentTitle.getAttribute('current_id');
-    if(comment_id) {
+    if(comment_id && comment_id !== 'undefined') {
       note.color_id = comment_id;
     }
   }

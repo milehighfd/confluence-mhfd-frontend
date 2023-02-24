@@ -69,22 +69,25 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         children: []
       } as any;
     });
-    notes?.forEach((note: any) => {
-      const index = newTree.findIndex((item: any) => item.id === note.groupnotes_id);
-      if (index !== -1) {
-        newTree[index].children.push({
-          id: note.newnotes_id,
-          label: note.note_text,
-          data: note
-        })
-      } else {
-        newTree.push({
-          id: note.newnotes_id,
-          label: note.note_text,
-          data: note
-        });
-      }
-    });
+    if (notes) {
+      notes?.forEach((note: any) => {
+        const index = newTree.findIndex((item: any) => item.id === note.groupnotes_id);
+        if (index !== -1) {
+          newTree[index].children.push({
+            id: note.newnotes_id,
+            label: note.note_text,
+            data: note
+          })
+        } else {
+          newTree.push({
+            id: note.newnotes_id,
+            label: note.note_text,
+            data: note
+          });
+        }
+      });
+    }
+    
     newTree.sort((a: any, b: any) => {
       return a.data.position - b.data.position;
     });

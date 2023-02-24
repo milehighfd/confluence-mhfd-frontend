@@ -2254,8 +2254,9 @@ const Map = ({
             });
     }
     const openMarkerOfNote = (note:any, draftText: any, changeContentTitleData?: any) => {
+      console.log('Open Marker Note', note);
       markerNotes_global.forEach((marker:any) => {
-        marker.marker.addTo(map)
+        marker.marker.addTo(map);
       });
       markerNotes_global.forEach((marker:any) => {
         let popupC = marker.marker.getPopup();
@@ -2264,8 +2265,10 @@ const Map = ({
       setTimeout(()=>{
         const noteid = note.id?note.id:note._id; 
         const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note._id == noteid  );
+        console.log('FilterMaker', filterMarker);
         if(filterMarker.length > 0) {
-          filterMarker[0].marker.addTo(map).togglePopup();
+          console.log('filterMarker[0].marker', filterMarker[0].marker);
+          filterMarker[0].marker.togglePopup();
           setTimeout(()=>{
             const textarea = (document.getElementById('textarea') as HTMLInputElement);
               if (textarea != null) {
