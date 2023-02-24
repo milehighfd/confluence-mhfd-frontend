@@ -335,11 +335,12 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     if (streamsList) {
       for (let stream in streamsList) {
         for (let s of streamsList[stream]) {
-          total += s.length;
+          total += s.length_in_mile;
         }
       }
     }
-    total = total * 0.000621371;
+    // commented cause new data of lenght comes in miles
+    // total = total * 0.000621371;
     return formatterDec.format(total);
   }
   const getTotalDreinage = () => {
@@ -347,7 +348,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     if (streamsList) {
       for (let stream in streamsList) {
         for (let s of streamsList[stream]) {
-          total += +s.drainage;
+          total += +s.drainage_area_in_sq_miles;
         }
       }
     }
@@ -502,9 +503,10 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                     return (
                                       <Timeline.Item color="green">
                                         <Row style={{ marginLeft: '-18px' }}>
-                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream.jurisdiction}</label></Col>
-                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length * 0.000621371)}</Col>
-                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{formatterDec.format(stream.drainage)}</Col>
+                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream.local_government_id}</label></Col>
+                                          {/* <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length * 0.000621371)}</Col> */}
+                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length_in_mile)}</Col>
+                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{formatterDec.format(stream.drainage_area_in_sq_miles? stream.drainage_area_in_sq_miles: 0)}</Col>
                                           <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                         </Row>
                                       </Timeline.Item>
