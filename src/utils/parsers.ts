@@ -82,13 +82,21 @@ export const getVendors = (projectPartners: any) => {
 
 export const getTeam = (projectStaffs: any) => {
   const validIds = [MHFD_LEAD, MHFD_SUPPORT, ADMIN_STAFF];
-  return projectStaffs.filter((ps: any) => validIds.includes(ps.code_project_staff_role_type_id) && ps.is_active)
+  const sortStaffs = projectStaffs.filter((ps: any) => validIds.includes(ps.code_project_staff_role_type_id) && ps.is_active)
     .map((ps: any) => {
       return {
         fullName: ps?.mhfd_staff?.full_name || 'N/A',
         roleType: STAFF_ROL_MAP[ps.code_project_staff_role_type_id],
         key: ps?.project_staff_id,
         organization: ps?.mhfd_staff?.user?.organization || 'N/A',
+        roleId: ps?.code_project_staff_role_type_id
       }
     });
+  return sortStaffs.sort((a: any, b: any) => {
+    if (a.roleId === b.roleId) {
+      return a.fullName.localeCompare(b.fullName)
+    } else {
+      return a.roleId - b.roleId
+    }
+  })
 };
