@@ -75,7 +75,7 @@ export const FilterByGroupName = ({
             setFiltervalue(-1);
             setFiltername('Mile High Flood District');
           },
-          className:'menu-mhfd-dis menu-drop-sub-sub',
+          className:'menu-drop-sub-sub',
         },
         {
           key: '1',

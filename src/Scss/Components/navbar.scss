@@ -731,6 +731,26 @@
   }
 }
 @media(min-width: 2550px) and (max-width: 3799px){
+  .tutorial{
+    .ant-tabs-tab {
+      font-size: 22px;
+    }
+    .ant-modal-body {
+      height: 816px;
+    }
+    .ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane, .ant-tabs-left>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane {
+      text-align: center;
+      img{
+        width: 724px;
+      }
+    }
+    .content{
+      text-align: initial;
+    }
+    .btn-purple {
+      left: 308px;
+    }
+  }
   .menu-drop-sub{
     font-size: 20px !important;
     padding: 4.5px 10px !important;
@@ -786,6 +806,26 @@
   }
 }
 @media(min-width: 3800px) and (max-width: 5999px){
+  .tutorial{
+    .ant-tabs-tab {
+      font-size: 37px;
+    }
+    .ant-modal-body {
+      height: 1375px;
+    }
+    .ant-tabs-left>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane, .ant-tabs-left>div>.ant-tabs-content-holder>.ant-tabs-content>.ant-tabs-tabpane {
+      text-align: center;
+      img{
+        width: 1043px;
+      }
+    }
+    .content{
+      text-align: initial;
+    }
+    .btn-purple {
+      left: 511px;
+    }
+  }
   .popoveer-notification-box{
     .ant-popover-inner{
       margin-top: 6px !important;
