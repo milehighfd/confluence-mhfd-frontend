@@ -11,7 +11,7 @@ const TablePortafolio = (
     divRef:React.MutableRefObject<any>,
     searchRef:React.MutableRefObject<any>,
     openTable: boolean[],
-    setHoverTable:React.Dispatch<React.SetStateAction<number[]>>,
+    setHoverTable?:React.Dispatch<React.SetStateAction<number[]>>,
     hoverTable:number[],
     rawData: any,
     tabKey:any,
@@ -138,7 +138,7 @@ const TablePortafolio = (
       <div
         className="scroll-table"
       >
-      <div className="line-table" onMouseEnter={()=>{setHoverTable([0,0,0]);}}></div>
+      <div className="line-table"></div>
       {
         completeData.map((elem: any, index: number) => {
           //console.log("ELEM")

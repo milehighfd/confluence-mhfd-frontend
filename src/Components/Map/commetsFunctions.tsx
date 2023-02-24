@@ -51,7 +51,7 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
   console.log(contentTitle, _el);
   if(contentTitle != null) {
     contentTitle.textContent = _el.label;
-    contentTitle.setAttribute('current_id', _el._id);
+    contentTitle.setAttribute('current_id', _el.color_id);
   }
   listOfElements.forEach((elem:any, index_:any) => {
     const inputCheck = document.getElementById(`input${index_}`);
@@ -63,7 +63,7 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
       circleCheck.classList.remove('selected');
     }   
   });
-  const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el._id );
+  const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el.color_id );
   const inputCheck = document.getElementById(`input${indexElem}`);
   if(inputCheck != null) {
     inputCheck.classList.add('underlined');

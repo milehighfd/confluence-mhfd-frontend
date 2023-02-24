@@ -746,7 +746,7 @@ const PortafolioBody = () => {
                       setOpenTable={setOpenTable}
                       openTable={openTable}
                       hoverTable={hoverTable}
-                      setHoverTable={setHoverTable}
+                      //setHoverTable={setHoverTable}
                       phaseRef={phaseRef}
                       scheduleRef={scheduleRef}
                       rawData={newData}
@@ -767,7 +767,7 @@ const PortafolioBody = () => {
                       searchRef={searchRef}
                       openTable={openTable}
                       hoverTable={hoverTable}
-                      setHoverTable={setHoverTable}
+                      //setHoverTable={setHoverTable}
                       tabKey={tabKey}
                       index={idx}
                       setSortValue={setSortValue}
