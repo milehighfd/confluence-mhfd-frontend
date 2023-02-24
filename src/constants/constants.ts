@@ -1202,13 +1202,13 @@ export const PROJECT_INFORMATION = {
 }
 
 export const STUDY_REASON = [
-  'Not previously studied',
+  'Not Previously Studied',
   'Flood hazard mapping is outdated',
   'Master plan recommendations are outdated',
   'Other'
 ]
 export const STUDY_SUB_REASON = [
-  'Changed watershed conditions (land-use, topo, regional detention, etc.)',
+  'Changed watershed conditions (land-use, topo, regional, detention, etc.)',
   'Not aligned with current stream management practices',
   'New opportunity available'
 ]
