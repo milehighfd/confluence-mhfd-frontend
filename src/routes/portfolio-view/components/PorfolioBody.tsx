@@ -95,6 +95,9 @@ const PortafolioBody = () => {
       isInit = false;
       resetFilterProjectOptionsEmpty();
     }, 1000);
+    return () => {
+      resetFiltercomponentOptions();
+    }
   }, []);
 
 

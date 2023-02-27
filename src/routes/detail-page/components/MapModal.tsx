@@ -232,11 +232,11 @@ const addLayer = () => {
       }
 
     }
-    if (detailed?.coordinates) {
-      map.fitBounds([detailed?.coordinates[0][0], detailed?.coordinates[0][2]], {
-        duration: 10,
-      });
-    } else {
+    // if (detailed?.coordinates) {
+    //   map.fitBounds([detailed?.coordinates[0][0], detailed?.coordinates[0][2]], {
+    //     duration: 10,
+    //   });
+    // } else {
       console.log(detailed);
       let typeForComponents;
       if (detailed.project_id) {
@@ -246,7 +246,7 @@ const addLayer = () => {
       }
       const id = typeForComponents === MHFD_PROJECTS ? detailed.project_id : detailed.problem_id;
       if (detailed?.project_id) {
-        datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + typeForComponents + '&id=' + id).then(
+        datasets.getData(SERVER.BBOX_COMPONENTS + '?table=' + typeForComponents + '&id=' + id + '&activetab='+activeTab).then(
           cordinates => {
             // datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken()).then((cordinates: any) => {
             map.fitBounds(
@@ -269,7 +269,7 @@ const addLayer = () => {
           },
         );
       }
-    }
+    // }
     applyNearMapLayer();
 
     map.getLoadZoom(updateZoom);

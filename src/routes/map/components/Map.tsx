@@ -2265,9 +2265,7 @@ const Map = ({
       setTimeout(()=>{
         const noteid = note.id?note.id:note.newnotes_id; 
         const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note.newnotes_id == noteid  );
-        console.log('FilterMaker', filterMarker);
         if(filterMarker.length > 0) {
-          console.log('filterMarker[0].marker', filterMarker[0].marker);
           filterMarker[0].marker.togglePopup();
           setTimeout(()=>{
             const textarea = (document.getElementById('textarea') as HTMLInputElement);
