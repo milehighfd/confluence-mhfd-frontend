@@ -139,7 +139,7 @@ const PortafolioBody = () => {
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
     let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};
-    console.log('resetfilterby', resetFilterBy, tabKey);
+    
     if (!(resetFilterBy === 'projecttype' && tabKey !== 'All') && resetFilterBy !== '') {
       options[resetFilterBy] = '';
     }
@@ -553,6 +553,7 @@ const PortafolioBody = () => {
 
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);  
+    apply(null, '', '');
   }, [ applyFilter,currentGroup]);
   
   useEffect(() => {
