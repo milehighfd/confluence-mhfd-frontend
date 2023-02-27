@@ -160,6 +160,7 @@ const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userIn
   </>
 );
 export const loadIconsPopup = (menu: any, popups: any, index: any) => {
+  console.log(menu,'menu', popups,'popups', index,'index')
   let icon
   ICON_POPUPS.forEach((element) => {
     if (element[0] === menu) {
@@ -170,21 +171,25 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
     return <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_problems.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>;
   }
   if (menu.includes('roject') && popups.projecctype !== undefined && (popups.mapType==='WORKREQUEST' && (popups.status === 'Active' || popups.status === 'Approved' || popups.status === 'Requested' || popups.status === 'Submitted'))) {
+    console.log('AQUI')
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={`/Icons/icon-projects-${popups.status.toLowerCase()}.png`} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
   if (menu.includes('roject') && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration || popups.projecctype.includes(NEW_PROJECT_TYPES.Maintenance) || popups.projecctype.includes('Capital') || popups.projecctype === "Fee in Lieu")) {
+    console.log('AQUIx2')
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_projects@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
   if (menu === "Project" && popups.projecctype !== undefined && (popups.name.includes('FHAD'))) {
+    console.log('AQUIx3')
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_FHAD@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype === 'Study')) {
+  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype.includes('Study'))) {
+    console.log('AQUIx4')
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_MasterPlan@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
