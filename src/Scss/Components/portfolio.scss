@@ -891,6 +891,9 @@
       justify-content: space-between;
       margin-bottom: 10px;
       margin-top: 3px;
+      .ant-input-clear-icon {
+        right: 10px !important;
+      }
       .ic-dots{
         margin-top: 2px;
         content: url("../../../public/Icons/ico-dots.svg")

@@ -805,6 +805,9 @@ body{
   .body-modal-team{
     color: #11093c;
     overflow-y: hidden;
+    .ant-carousel {
+      padding-top: 0px !important;
+    }
     // height: 400px;
     img{
       border-radius: 20px !important;

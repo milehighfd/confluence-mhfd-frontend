@@ -365,7 +365,7 @@ const PortafolioBody = () => {
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
-                stream: getStreams(elem?.project_streams || []),
+                stream: getStreams(elem?.project_streams || []).join(' , '),
                 contact: 'ICON',
                 view: 'id',
                 options:'red',

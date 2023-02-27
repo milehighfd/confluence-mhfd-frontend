@@ -44,17 +44,11 @@ export const getCounties = (projectsCounties: any) => {
 };
 
 export const getStreams = (projectStreams: any) => {
-  return projectStreams?.reduce((accumulator: string, st: any) => {
+  const streams = projectStreams?.map((st: any) => {
     const stream = st?.stream?.stream_name || '';
-    let value = accumulator;
-    if (stream) {
-      if (value) {
-        value += ',';
-      }
-      value += stream;
-    } 
-    return value;
-  }, '');
+    return stream;
+  })
+  return streams.filter((str1: any, str2: any) => streams.indexOf(str1) === str2);
 };
 
 export const getTotalEstimatedCost = (projectCosts: any) => {

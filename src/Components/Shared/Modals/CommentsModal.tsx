@@ -7,7 +7,7 @@ import { useDetailedState } from "hook/detailedHook";
 const CommentsModal = () => {
   const [openChat, setOpenChat] = useState(true);  
   return <>   
-    <Row style={{paddingBottom: '15px'}}>
+    {/* <Row style={{paddingBottom: '15px'}}>
       <Col span={14}>
         <h5 style={{textDecoration: 'none'}}>
           Comments
@@ -18,7 +18,7 @@ const CommentsModal = () => {
         {openChat && <UpOutlined onClick={() => (setOpenChat(false))}/>}
         {!openChat && <DownOutlined onClick={() => (setOpenChat(true))}/>}
       </Col>
-      </Row>
+      </Row> */}
     <div className="chat-00" style={!openChat ? {height: '90px'} : {}}>
       <div className='chat-body-text'  style={!openChat ? {height: '0px'} : {}}>
         <Row>

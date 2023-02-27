@@ -29,7 +29,7 @@ const TeamCollaborator = () => {
             <h5 className={!selected ? 'active-title': ''}>Comments</h5>
           </div>
         </Col>
-        <Col span={2} style={{textAlign:'end'}}>
+        <Col span={3} style={{textAlign:'end'}}>
           <PlusOutlined />
         </Col>
       </Row>

@@ -17,6 +17,7 @@ const DetailInformationProject = () => {
   const lgManager = detailed?.managers ? detailed?.managers.find((obj:any) => obj.mhfd_staff_id === 10) : null;
   const date = detailed?.start_date ? new Date(detailed?.start_date) : new Date();
   const dateComplete = detailed?.end_date ? new Date(detailed?.end_date) : new Date();  
+  const streamList = getStreams(detailed?.project_streams || []).join(' , ');
   return (
     <>
       <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
@@ -25,7 +26,7 @@ const DetailInformationProject = () => {
           <label><i>Stream</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{getStreams(detailed?.project_streams || []) || 'N/A'}</p>
+          <p>{streamList || 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>OnBase ID</i></label>
