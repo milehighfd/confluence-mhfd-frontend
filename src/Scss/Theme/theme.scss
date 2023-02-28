@@ -187,6 +187,13 @@ body{
 .ant-modal-content {
   border-radius: 10px;
 }
+.menu-active-active{
+  .ant-dropdown-menu-submenu-title {
+    background-color: rgb(247, 247, 249) !important;
+    color: rgb(17, 9, 60) !important;
+    opacity: 1 !important;
+  }
+}
 .menu-drop{
   min-width: 130px !important;
   width: 150px !important;
@@ -202,6 +209,13 @@ body{
     margin: 0px 5px;
     padding-left: 7px;
     border-radius: 5px;
+  }
+  .menu-active-active{
+    .ant-dropdown-menu-submenu-title {
+      background-color: rgb(247, 247, 249) !important;
+      color: rgb(17, 9, 60) !important;
+      opacity: 1 !important;
+    }
   }
   .menu-active{
     background-color: rgb(247, 247, 249) !important;
@@ -225,6 +239,13 @@ body{
       color: #11093C !important;
       opacity: 1 !important;
       font-weight: 500 !important;
+    }
+    .menu-active-active{
+      .ant-dropdown-menu-submenu-title {
+        background-color: rgb(247, 247, 249) !important;
+        color: rgb(17, 9, 60) !important;
+        opacity: 1 !important;
+      }
     }
   }
   .menu-mhfd-dis{
@@ -723,6 +744,13 @@ body{
         font-size: 12px;
         color: #11093C !important;
         border-bottom: transparent !important;
+      }
+    }
+    .menu-active-active{
+      .ant-dropdown-menu-submenu-title {
+        background-color: rgb(247, 247, 249) !important;
+        color: rgb(17, 9, 60) !important;
+        opacity: 1 !important;
       }
     }
 

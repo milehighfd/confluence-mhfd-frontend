@@ -34,12 +34,11 @@ export const FilterByGroupName = ({
           setFilterby(filterby);
           setFiltervalue(element.id);
           setFiltername(element.value);
-          setActiveDrop(element.value);
-          // console.log(element.value, 'IDDDDD', element);
+          setActiveDrop(filterby);
         }} className="menu-drop-sub">{element.value +" "+ post}</div>,
         filterby: filterby,
         id: element.id,
-        className: activeDrop === element.value ? 'menu-active ':'',
+        // className: activeDrop === element.value ? 'menu-active ':'',
       };
     });
   }
@@ -88,7 +87,7 @@ export const FilterByGroupName = ({
         {
           key: '1',
           label: 'MHFD Lead/PM',
-          className:'menu-drop-sub-sub',
+          className: activeDrop === 'MHFD Lead/PM' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
           children: [
             {
               key: 'nodata',
@@ -100,27 +99,32 @@ export const FilterByGroupName = ({
         {
           key: '2',
           label: 'Service Area',
-          children: serviceAreaList
+          children: serviceAreaList,
+          className: activeDrop === 'servicearea' ? 'menu-active-active' :'',
         },
         {
           key: '3',
           label: 'County',
           children: countyList,
+          className: activeDrop === 'county' ? 'menu-active-active ' :'',
         },
         {
           key: '4',
           label: 'Jurisdiction',
           children: jurisdictionList,
+          className: activeDrop === 'jurisdiction' ? 'menu-active-active' :'',
         },
         {
           key: '5',
           label: 'Consultant',
           children: consultantList,
+          className: activeDrop === 'consultant' ? 'menu-active-active' :'',
         },
         {
           key: '6',
-          label: 'Contractor ',
+          label: 'Contractor',
           children: contractorList,
+          className: activeDrop === 'contractor' ? 'menu-active-active' :'',
         },
       ]}
     />
