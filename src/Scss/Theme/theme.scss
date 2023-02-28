@@ -203,6 +203,11 @@ body{
     padding-left: 7px;
     border-radius: 5px;
   }
+  .menu-active{
+    background-color: rgb(247, 247, 249) !important;
+    color: rgb(17, 9, 60) !important;
+    opacity: 1 !important;
+  }
   .ant-dropdown-menu-item .ant-dropdown-menu-submenu-expand-icon .ant-dropdown-menu-submenu-arrow-icon, .ant-dropdown-menu-submenu-title .ant-dropdown-menu-submenu-expand-icon .ant-dropdown-menu-submenu-arrow-icon {
     color: rgb(0 0 0 / 0%);
   }
@@ -399,7 +404,7 @@ body{
       width: 80px;
       height: 70px;
       img:hover{
-        border: 5px solid white;
+        border: 3.5px solid white;
       }
       img{
         border: 2px solid white;

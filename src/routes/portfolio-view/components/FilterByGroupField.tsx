@@ -17,6 +17,7 @@ export const FilterByGroupName = ({
   const [jurisdictionList, setJurisdictionList] = useState([]);
   const [consultantList, setConsultantList] = useState([]);
   const [contractorList, setContractorList] = useState([]);
+  const [activeDrop, setActiveDrop] = useState('MHFD District Plan');
 
   const parseToMenuItem = (list: any, filterby: string) => {
     let post = '';
@@ -33,9 +34,12 @@ export const FilterByGroupName = ({
           setFilterby(filterby);
           setFiltervalue(element.id);
           setFiltername(element.value);
+          setActiveDrop(element.value);
+          // console.log(element.value, 'IDDDDD', element);
         }} className="menu-drop-sub">{element.value +" "+ post}</div>,
         filterby: filterby,
         id: element.id,
+        className: activeDrop === element.value ? 'menu-active ':'',
       };
     });
   }
@@ -63,19 +67,23 @@ export const FilterByGroupName = ({
     });
   }, []);
 
+  // useEffect(()=>{
+  //   console.log(activeDrop, 'ACTIVEDROP')
+  // }, [activeDrop])
+
   return (
     <Menu
       className="menu-drop"
       items={[
         {
           key: '-1',
-          label: 'MHFD District Plan',
+          label: <span onClick={()=>{setActiveDrop('MHFD District Plan');}}>MHFD District Plan</span>,
           onClick: () => {
             setFilterby('');
             setFiltervalue(-1);
             setFiltername('Mile High Flood District');
           },
-          className:'menu-drop-sub-sub',
+          className: activeDrop === 'MHFD District Plan' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
         },
         {
           key: '1',
