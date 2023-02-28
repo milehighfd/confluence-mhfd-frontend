@@ -560,6 +560,11 @@
   }
   .menu-drop{
     min-width: 200px !important;
+    .menu-active{
+      background-color: rgb(247, 247, 249) !important;
+      color: rgb(17, 9, 60) !important;
+      opacity: 1 !important;
+    }
   }
   .select-area{
     a{

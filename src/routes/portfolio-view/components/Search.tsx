@@ -64,6 +64,7 @@ const Search = (
   const [likeActive, setLikeActive] = useState([1,0,2]);
   const [keyword, setKeyword] = useState('');
   const [filteredData, setFilteredData] = useState([]);
+  const [activeDrop, setActiveDrop] = useState(0);
 
   let displayedTabKey = tabKeys;
   const content = (
@@ -82,7 +83,8 @@ const Search = (
           children: groupsBy.map((gb, index) => {
             return {
               key: `1-${index + 1}`,
-              label: <div className="menu-drop-sub menu-sub-drop" onClick={() => setCurrentGroup(gb.toLowerCase().replace(' ', ''))}>{gb}</div>
+              label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active":"menu-drop-sub menu-sub-drop"} onClick={() => {setCurrentGroup(gb.toLowerCase().replace(' ', '')); setActiveDrop(index); console.log(index, 'JJJJJJ')}}>{gb}</div>,
+              className : index === activeDrop ? " menu-active": ""
             }
           })
         },

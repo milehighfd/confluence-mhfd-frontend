@@ -298,6 +298,11 @@
   opacity: 1 !important;
   padding: 4.5px 10px !important;
 }
+.menu-active{
+  background-color: rgb(247, 247, 249) !important;
+  color: rgb(17, 9, 60) !important;
+  opacity: 1 !important;
+}
 .tutorial{
   .btn-question{
     -webkit-mask: url('../../Icons/icon-27.svg') no-repeat center;
