@@ -65,6 +65,7 @@ const Search = (
   const [keyword, setKeyword] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [activeDrop, setActiveDrop] = useState(0);
+  const [openDrop, setOpenDrop] = useState<boolean>(false)
 
   let displayedTabKey = tabKeys;
   const content = (
@@ -83,7 +84,7 @@ const Search = (
           children: groupsBy.map((gb, index) => {
             return {
               key: `1-${index + 1}`,
-              label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active":"menu-drop-sub menu-sub-drop"} onClick={() => {setCurrentGroup(gb.toLowerCase().replace(' ', '')); setActiveDrop(index); console.log(index, 'JJJJJJ')}}>{gb}</div>,
+              label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active":"menu-drop-sub menu-sub-drop"} onClick={() => {setCurrentGroup(gb.toLowerCase().replace(' ', '')); setActiveDrop(index);setOpenDrop(false)}}>{gb}</div>,
               className : index === activeDrop ? " menu-active": ""
             }
           })
@@ -170,9 +171,9 @@ const Search = (
         >
           <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'95%'}}/>
         </AutoComplete>
-        <Dropdown overlay={menu} trigger={['click']} >
+        <Dropdown overlay={menu} trigger={['click']} visible={openDrop} >
           <div className="select-area">
-            <a onClick={e => e.preventDefault()} style={{marginLeft:'2%'}}>
+            <a onClick={(e) => {e.preventDefault();setOpenDrop(!openDrop)}} style={{marginLeft:'2%'}}>
               <span className="ic-dots"/>
             </a>
           </div>
