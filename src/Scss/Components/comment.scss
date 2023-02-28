@@ -1081,9 +1081,10 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            color: rgb(136 132 157);
           }
           .s-item:hover {
-            background-color: #CFEBFE;
+            background-color: #f8f8fa;
           }
           .s-item.folder {
             display: flex;
