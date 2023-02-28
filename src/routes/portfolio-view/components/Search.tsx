@@ -171,9 +171,9 @@ const Search = (
         >
           <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'95%'}}/>
         </AutoComplete>
-        <Dropdown overlay={menu} trigger={['click']} visible={openDrop} >
+        <Dropdown overlay={menu} trigger={['click']} placement="bottomLeft" visible={openDrop}>
           <div className="select-area">
-            <a onClick={(e) => {e.preventDefault();setOpenDrop(!openDrop)}} style={{marginLeft:'2%'}}>
+            <a onClick={(e) => {e.preventDefault();setOpenDrop(!openDrop)}} style={{marginLeft:'2%'}} >
               <span className="ic-dots"/>
             </a>
           </div>
