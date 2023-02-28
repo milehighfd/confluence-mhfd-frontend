@@ -399,7 +399,10 @@ body{
       width: 80px;
       height: 70px;
       img:hover{
-        border: 1px solid white;
+        border: 5px solid white;
+      }
+      img{
+        border: 2px solid white;
       }
     }
     .detail-left{

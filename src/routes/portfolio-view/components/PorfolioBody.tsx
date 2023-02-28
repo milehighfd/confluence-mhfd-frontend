@@ -361,7 +361,7 @@ const PortafolioBody = () => {
                 total_funding: null,
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
-                status: elem?.project_status?.code_phase_type?.code_status_type?.status_name,
+                status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || null,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
