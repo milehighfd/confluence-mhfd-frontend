@@ -65,6 +65,11 @@ export const LocationInformation = ({
   const [disable] = useState(!editable);
   const user = store.getState().profile.userInformation;
 
+  //Variables for use in the dropdowns
+  const [countyList, setCountyList] = useState<any[]>([]);
+  const [serviceAreaList, setServiceAreaList] = useState<any[]>([]);
+  const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
+
 
   const officialS_A = SERVICE_AREA.map((elem: any) => {
     if (elem == 'Boulder Service Area') {
@@ -82,6 +87,25 @@ export const LocationInformation = ({
     setCounty(e);
     setSCounty(e);
   };
+
+  //fill jurisdiction,service area and county list with db
+  useEffect(() => {
+    datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
+      .then((rows) => {
+        setCountyList(rows.county.map((item: any) => {
+          return { key: item.state_county_id, value: item.county_name, label: item.county_name }
+        }).filter((data: any) => !!data.value));
+        setJurisdictionList(rows.jurisdiction.map((item: any) => {
+          return { key: item.code_local_government_id, value: item.local_government_name, label: item.local_government_name }
+        }).filter((data: any) => !!data.value));
+        setServiceAreaList(rows.servicearea.map((item: any) => {
+          return { key: item.code_service_area_id, value: item.service_area_name, label: item.service_area_name }
+        }).filter((data: any) => !!data.value));
+      })
+      .catch((e) => {
+        console.log(e);
+      })             
+  }, []);
 
   useEffect(() => {
     datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
