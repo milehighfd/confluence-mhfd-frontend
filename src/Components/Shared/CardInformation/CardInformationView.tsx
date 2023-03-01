@@ -193,7 +193,7 @@ const CardInformationView = ({
           let typeInData:any 
           let valueInData:any  
           if(data.project_id){
-              typeInData = 'mhfd_projects_dev';
+              typeInData = MHFD_PROJECTS;
               valueInData = data.project_id;
             }
             e.stopPropagation()
