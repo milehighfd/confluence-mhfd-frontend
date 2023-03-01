@@ -276,6 +276,7 @@ const Map = ({
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
+        
         coorBounds.push([bottomLongitude, bottomLatitude]);
         coorBounds.push([topLongitude, topLatitude]);
     }
@@ -799,14 +800,16 @@ const Map = ({
     }, [zoom]);
 
     useEffect(() => {
-      flytoBoundsCoor(getCurrent, 
+      // console.log(userInformation, 'userInformation', groupOrganization, 'groupOrganization', coorBounds, 'coorBounds')
+      if(coorBounds && (coorBounds.length === 0 || coorBounds[0][0])){
+        flytoBoundsCoor(getCurrent, 
         userInformation,
         globalMapId,
         coorBounds,
         map,
         groupOrganization,
         setCoordinatesJurisdiction);
-
+        }
     }, [userInformation.polygon, groupOrganization])
 
     useEffect(() => {
