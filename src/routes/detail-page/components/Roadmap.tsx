@@ -358,7 +358,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Active</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
