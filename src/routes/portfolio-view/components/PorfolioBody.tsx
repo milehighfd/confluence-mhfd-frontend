@@ -361,7 +361,7 @@ const PortafolioBody = () => {
                 total_funding: null,
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
-                status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || null,
+                status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || '',
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
@@ -528,6 +528,39 @@ const PortafolioBody = () => {
                     objectId: 15,
                     type: 'rect',
                     categoryNo: 15,
+                    from: moment('2023/11/21 00:00:00'),
+                    to: moment('2023/12/30 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Closed',
+                    phase: 'Closed', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 16,
+                    type: 'rect',
+                    categoryNo: 16,
+                    from: moment('2023/11/21 00:00:00'),
+                    to: moment('2023/12/30 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Closed',
+                    phase: 'Closed', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 17,
+                    type: 'rect',
+                    categoryNo: 17,
+                    from: moment('2023/11/21 00:00:00'),
+                    to: moment('2023/12/30 00:00:00'),
+                    status: 'notStarted',
+                    name: 'Closed',
+                    phase: 'Closed', 
+                    tasks: 10
+                  },
+                  {
+                    objectId: 18,
+                    type: 'rect',
+                    categoryNo: 18,
                     from: moment('2023/11/21 00:00:00'),
                     to: moment('2023/12/30 00:00:00'),
                     status: 'notStarted',
@@ -764,21 +797,33 @@ const PortafolioBody = () => {
                       email={appUser.userInformation?.email}
                     />
                   </Col>
-                  <Col xs={{span:34}} lg={{span:19}}>
-                    {optionSelect === 'List' && <TablePortafolio
-                      rawData={newData}
-                      divRef={tableRef}
-                      searchRef={searchRef}
-                      openTable={openTable}
-                      hoverTable={hoverTable}
-                      //setHoverTable={setHoverTable}
-                      tabKey={tabKey}
-                      index={idx}
-                      setSortValue={setSortValue}
+                    <Col xs={{ span: 34 }} lg={{ span: 19 }}>
+                      {optionSelect === 'List' && <TablePortafolio
+                        rawData={newData}
+                        divRef={tableRef}
+                        searchRef={searchRef}
+                        openTable={openTable}
+                        hoverTable={hoverTable}
+                        //setHoverTable={setHoverTable}
+                        tabKey={tabKey}
+                        index={idx}
+                        setSortValue={setSortValue}
                       />
-                    }
-                    {optionSelect === 'Phase'  && <PhaseView rawData={rawData} openTable={openTable} phaseRef={phaseRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} indexParent={idx}/>}
-                    {optionSelect === 'Schedule'  && <CalendarView rawData={rawData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
+                      }
+                      {optionSelect === 'Phase' && <PhaseView
+                        rawData={newData}
+                        openTable={openTable}
+                        phaseRef={phaseRef}
+                        searchRef={searchRef}
+                        graphicOpen={graphicOpen}
+                        setGrapphicOpen={setGrapphicOpen}
+                        positionModalGraphic={positionModalGraphic}
+                        setPositionModalGraphic={setPositionModalGraphic}                        
+                        indexParent={idx}
+                        tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
+                      />
+                      }
+                    {optionSelect === 'Schedule'  && <CalendarView rawData={newData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
                   </Col>
                 </Row>
                 </div>

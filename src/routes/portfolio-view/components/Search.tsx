@@ -112,7 +112,7 @@ const Search = (
   }
   const renderOption = (item: any) => {
     return {
-      key: `${item.key}`,
+      key: `${item.id}`,
       value: `${item.rowLabel}`,
       label: <div className="global-search-item">
       <h6>{item.rowLabel}</h6>
@@ -205,9 +205,9 @@ const Search = (
         </div> */}
         {
           completeData.map((elem: any, index: number) => {
-            const id = 'collapse' + index;   
+            const id = 'collapse' + index;          
             return (
-              <div id={id} key={elem.id}>
+              <div id={elem.id} key={elem.id}>
                 <Collapse
                   activeKey={getActiveKeys()}
                   onChange={
