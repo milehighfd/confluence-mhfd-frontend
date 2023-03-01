@@ -2085,7 +2085,7 @@ const Map = ({
                       }
                       if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                           map.getCanvas().style.cursor = 'pointer';
-                          setSelectedOnMap(e.features[0].properties.cartodb_id, key);
+                          setSelectedOnMap(e.features[0].properties.projectid, key);
                       } else {
                           setSelectedOnMap(-1, '');
                       }
