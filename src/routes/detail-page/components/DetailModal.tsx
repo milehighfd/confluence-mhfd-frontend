@@ -87,7 +87,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     } else {
       const project_id = data.project_id ? data.project_id : ( data.id ? data.id : 0);
       getDetailedPageProject(project_id);
-      getComponentsByProblemId({id: data.on_base || data.id  || data.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      getComponentsByProblemId({id: data.on_base || data.project_id || data.id  || data.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
       setTypeDetail(type);
     }
   }, []);

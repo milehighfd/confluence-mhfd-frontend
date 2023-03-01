@@ -124,7 +124,7 @@ const typeStatus = (status:string) => {
     case "Delayed" :{
       text = 'span-delayed';
       break;}
-    case null: {
+    case '': {
       text = 'span-null';
       break;
     }
