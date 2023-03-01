@@ -30,7 +30,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
   const {getAttachmentByProject} = useAttachmentDispatch();
-  const {organization} = useProfileState();
+  const {organization, groupOrganization} = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -125,6 +125,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   },[data]);
   useEffect(()=>{
     if (save === true){
+
+      let serviceAreaIds:any=[];
+      let countyIds:any=[];
+      let jurisdictionIds:any=[];
+      serviceAreaIds = groupOrganization.filter((service:any) => serviceArea.includes(service.name)).map((service:any) => service.id);
+      countyIds = groupOrganization.filter((countylist:any) => county.includes(countylist.name)).map((countylist:any) => countylist.id);
+      jurisdictionIds = groupOrganization.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
+
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
@@ -132,9 +140,9 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.locality = _locality;
       special.isWorkPlan = isWorkPlan;
       special.year = _year ?? special.year;
-      special.servicearea = serviceArea+ "";
-      special.county = county+"";
-      special.jurisdiction= jurisdiction+"";
+      special.servicearea = serviceAreaIds+ "";
+      special.county = countyIds+"";
+      special.jurisdiction= jurisdictionIds+"";
       special.sponsor = sponsor;
       special.cosponsor = cosponsor + "";
       special.geom =  geom;

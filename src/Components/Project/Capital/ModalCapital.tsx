@@ -115,6 +115,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
+  const { groupOrganization } = useProfileState();
 
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
@@ -141,7 +142,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setIndependentComponents([]);
     }
   },[]);
-
+  
   useEffect(()=>{
     if(data!== 'no data' ) {
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
@@ -244,6 +245,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
 
     if (save === true){
+      let serviceAreaIds:any=[];
+    let countyIds:any=[];
+    let jurisdictionIds:any=[];
+    serviceAreaIds = groupOrganization.filter((service:any) => serviceArea.includes(service.name)).map((service:any) => service.id);
+    countyIds = groupOrganization.filter((countylist:any) => county.includes(countylist.name)).map((countylist:any) => countylist.id);
+    jurisdictionIds = groupOrganization.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
@@ -251,27 +258,27 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.locality = _locality;
       capital.isWorkPlan = isWorkPlan;
       capital.year = _year ?? capital.year;
-      let cservice = "";
-      serviceArea.forEach((element:any) => {
-        cservice= cservice + element + ",";
-      })
-      if(cservice.length != 0 ){
-        cservice = cservice.substring(0, cservice.length-1)
-      }
-      let ccounty = "";
-      county.forEach((element:any) => {
-        ccounty= ccounty + element + ",";
-      })
-      if(ccounty.length != 0 ){
-        ccounty = ccounty.substring(0, ccounty.length-1)
-      }
-      let cjurisdiction = "";
-      jurisdiction.forEach((element:any) => {
-        cjurisdiction= cjurisdiction + element + ",";
-      })
-      if(cjurisdiction.length != 0 ){
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
-      }
+      // let cservice = "";
+      // serviceArea.forEach((element:any) => {
+      //   cservice= cservice + element + ",";
+      // })
+      // if(cservice.length != 0 ){
+      //   cservice = cservice.substring(0, cservice.length-1)
+      // }
+      // let ccounty = "";
+      // county.forEach((element:any) => {
+      //   ccounty= ccounty + element + ",";
+      // })
+      // if(ccounty.length != 0 ){
+      //   ccounty = ccounty.substring(0, ccounty.length-1)
+      // }
+      // let cjurisdiction = "";
+      // jurisdiction.forEach((element:any) => {
+      //   cjurisdiction= cjurisdiction + element + ",";
+      // })
+      // if(cjurisdiction.length != 0 ){
+      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
+      // }
 
       let csponsor = "";
       if(cosponsor){
@@ -283,9 +290,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         }
       }
       
-      capital.servicearea = cservice;
-      capital.county = ccounty;
-      capital.jurisdiction= cjurisdiction;
+      capital.servicearea = serviceAreaIds;
+      capital.county = countyIds;
+      capital.jurisdiction= jurisdictionIds;
       capital.sponsor = sponsor;
       capital.cosponsor = csponsor;
       capital.projectname = nameProject;

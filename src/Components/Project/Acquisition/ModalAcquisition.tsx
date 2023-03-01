@@ -44,7 +44,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   }) => {
 
   const { saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor } = useProjectDispatch();
-  const { organization } = useProfileState();
+  const { organization, groupOrganization } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] = useState('');
@@ -84,6 +84,14 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
 
   useEffect(() => {
     if (save === true) {
+
+      let serviceAreaIds:any=[];
+      let countyIds:any=[];
+      let jurisdictionIds:any=[];
+      serviceAreaIds = groupOrganization.filter((service:any) => serviceArea.includes(service.name)).map((service:any) => service.id);
+      countyIds = groupOrganization.filter((countylist:any) => county.includes(countylist.name)).map((countylist:any) => countylist.id);
+      jurisdictionIds = groupOrganization.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
+
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
@@ -91,27 +99,27 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.locality = _locality;
       acquisition.isWorkPlan = isWorkPlan;
       acquisition.year = _year ?? acquisition.year;
-      let cservice = "";
-      serviceArea.forEach((element: any) => {
-        cservice = cservice + element + ",";
-      });
-      if (cservice.length != 0) {
-        cservice = cservice.substring(0, cservice.length - 1);
-      }
-      let ccounty = "";
-      county.forEach((element: any) => {
-        ccounty = ccounty + element + ",";
-      });
-      if (ccounty.length != 0) {
-        ccounty = ccounty.substring(0, ccounty.length - 1);
-      }
-      let cjurisdiction = "";
-      jurisdiction.forEach((element: any) => {
-        cjurisdiction = cjurisdiction + element + ",";
-      })
-      if (cjurisdiction.length != 0) {
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
-      }
+      // let cservice = "";
+      // serviceArea.forEach((element: any) => {
+      //   cservice = cservice + element + ",";
+      // });
+      // if (cservice.length != 0) {
+      //   cservice = cservice.substring(0, cservice.length - 1);
+      // }
+      // let ccounty = "";
+      // county.forEach((element: any) => {
+      //   ccounty = ccounty + element + ",";
+      // });
+      // if (ccounty.length != 0) {
+      //   ccounty = ccounty.substring(0, ccounty.length - 1);
+      // }
+      // let cjurisdiction = "";
+      // jurisdiction.forEach((element: any) => {
+      //   cjurisdiction = cjurisdiction + element + ",";
+      // })
+      // if (cjurisdiction.length != 0) {
+      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
+      // }
 
       let csponsor = "";
       if (cosponsor) {
@@ -122,9 +130,9 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
           csponsor = csponsor.substring(0, csponsor.length - 1);
         }
       }
-      acquisition.servicearea = cservice;
-      acquisition.county = ccounty;
-      acquisition.jurisdiction = cjurisdiction;
+      acquisition.servicearea = serviceAreaIds;
+      acquisition.county = countyIds;
+      acquisition.jurisdiction = jurisdictionIds;
       acquisition.sponsor = sponsor;
       acquisition.cosponsor = csponsor;
       acquisition.projectname = nameProject;
