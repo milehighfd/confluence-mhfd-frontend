@@ -5,11 +5,13 @@ import { Button, Col, Input, Layout, message, Popover, Progress, Checkbox, Row, 
 import { CalendarOutlined, ClockCircleOutlined, CloseOutlined, FormOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
 import PineyView from "./PineyView";
 import ModalGraphic from "./ModalGraphic";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const { Step } = Steps;
 
 const PhaseView = (
-  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic, indexParent}
+  {rawData,openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic, indexParent, tabKey}
   :{
     rawData:any,
     openTable:boolean[],
@@ -26,6 +28,7 @@ const PhaseView = (
       top: number;
   }>>, 
   indexParent: number;
+  tabKey:any,
       }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -45,7 +48,6 @@ const PhaseView = (
   let heightDiv3  = document.getElementById(`testing3`)?.offsetHeight;
   let svg:any;
 
-    // console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 49:(windowWidth>=2550 && windowWidth<=3000 ? 32.5:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 24 :(windowWidth>=1199 && windowWidth<=1449 ? 18 :20)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 41 : (windowWidth>=2550 && windowWidth<=3000 ? 50: (windowWidth>=3001 && windowWidth<=3999 ? 85:30) ))
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41.2:(windowWidth>=1900 && windowWidth<=2549 ? -27 : (windowWidth>=2550 && windowWidth<=3000 ? -31: -22)))
@@ -62,7 +64,7 @@ const PhaseView = (
         ...elem,
         values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
       }
-    });
+    });    
     const lengthData = completeData.length;
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
@@ -136,15 +138,17 @@ const PhaseView = (
         .attr("stop-color", '#D4D2D9')  
     }
     
-   const phaseChart = (dataDotchart: any, index:number) => {
-    
-
+   const phaseChart = (dataDotchart: any, index:number) => {        
+    console.log('sorteddata');
+    console.log(dataDotchart);
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
       heightDiv  = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 0:0);
     let height: any  = factorHeight + heightDiv +3;
+    console.log(factorHeight+","+heightDiv)
+    console.log(document.getElementById('Title5'))
   // append the svg object to the body of the page
    svg = d3
     .select(`#dotchart_${dataDotchart[index].id}`)
@@ -357,6 +361,35 @@ const PhaseView = (
 
 }, [openTable, windowWidth]);
 
+  const [phaseList, setPhaseList] = useState<any>([])
+  const [statusList, setStatusList] = useState<any>([])
+  const [availableStatusList, setAvailableStatusList] = useState<any>([])
+  useEffect(() => {
+    if (tabKey === 0) {
+      tabKey = 5;
+    }
+    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
+      .then((rows) => {
+        setPhaseList(rows)
+        rows.map((x: any)=>{
+          setStatusList((current: any)=> [...current, x.code_status_type])
+        })        
+      })
+      .catch((e) => {
+        console.log(e);
+      })           
+  }, [])
+  useEffect(() => {  
+    const z:any= [];
+    statusList.map((img: any) => {
+      if (z.indexOf(img.code_status_type_id) === -1) {
+        z.push(img.code_status_type_id,img.status_name)
+      }
+    });
+    setAvailableStatusList(z)
+    console.log(z)
+    console.log(phaseList)
+  }, [statusList])
   
   return (
     <div className="phaseview-body">
@@ -385,39 +418,9 @@ const PhaseView = (
             <br />
             (WR)
           </p> */}
-          <p>
-            Work Plan
-            <br />
-            (WP)
-          </p>
-          <p>Startup</p>
-          <p>Funding</p>
-          <p>Consultant Procurement</p>
-          <p>Conceptual Design</p>
-          <p>
-            Preliminary
-            <br />
-            Design
-          </p>
-          <p>
-            Final
-            <br />
-            Design
-          </p>
-          <p>Construction Contracting</p>
-          <p>Construction</p>
-          {windowWidth >= 1199 && windowWidth <= 1449 ? (
-            <p>
-              Documen-
-              <br />
-              tation
-            </p>
-          ) : (
-            <p>Documentation</p>
-          )}
-          <p>Establishment</p>
-          <p>Closeout</p>
-          <p>Closed</p>
+          {phaseList.map((item : any)=>{
+            return <p>{item.code_status_type.status_name + "-" + item.phase_name }</p>
+          })}       
         </div>
         <div className="header-timeline"></div>
         <div
