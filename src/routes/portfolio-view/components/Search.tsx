@@ -43,8 +43,8 @@ const Search = (
     scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: any[],
-    hoverTable:number[],
-    setHoverTable?:React.Dispatch<React.SetStateAction<number[]>>,
+    hoverTable: any,
+    setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     rawData: any,
     setCompleteData: Function,
@@ -219,7 +219,7 @@ const Search = (
                       // },70)
                     }
                   } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/>
-                  <Panel header={elem.headerLabel} key={index}>
+                  <Panel header={<div onMouseEnter={(e:any)=>{setHoverTable(-1)}}>{elem.headerLabel}</div>} key={index}>
                     {/* {
                       index === 0 && <div className="text-search text-first" id="headerCentennial">
                         <p></p>
@@ -227,8 +227,8 @@ const Search = (
                     } */}
                     {
                       elem.values.map((d:any, index_elem: number) => (
-                        <div className="text-search" key={d.key} id={d.id} style={hoverTable[1] === index && hoverTable[0] && hoverTable[2] === index_elem ? {background:'#fafafa'}:{}} >
-                          {/*onMouseEnter={()=>{setHoverTable([1,index,index_elem]);}}*/}
+                        <div className="text-search" key={d.key} id={d.id} style={hoverTable === elem.values[index_elem].project_id ? {background:'#fafafa'}:{}} 
+                          onMouseEnter={(e:any)=>{setHoverTable(elem.values[index_elem].project_id)}}>
                           <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
                           {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction( d.project_id ,email, '')} />}
                           {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}

@@ -11,8 +11,8 @@ const TablePortafolio = (
     divRef:React.MutableRefObject<any>,
     searchRef:React.MutableRefObject<any>,
     openTable: boolean[],
-    setHoverTable?:React.Dispatch<React.SetStateAction<number[]>>,
-    hoverTable:number[],
+    setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
+    hoverTable:any,
     rawData: any,
     tabKey:any,
     index: number,
@@ -126,6 +126,11 @@ const TablePortafolio = (
               order: sorters.order
             });
           }}
+          onHeaderRow={(record, rowIndex) => {
+            return {
+              onMouseEnter: event => {setHoverTable(-1);}, // mouse enter row
+            };
+          }}
         />
       </div>
     <div className="table-body-body"
@@ -141,7 +146,7 @@ const TablePortafolio = (
       <div
         className="scroll-table"
       >
-      <div className="line-table"></div>
+      <div className="line-table" onMouseEnter={(e)=>{setHoverTable(-1)}}></div>
       {
         completeData.map((elem: any, index: number) => {
           //console.log("ELEM")
@@ -153,30 +158,23 @@ const TablePortafolio = (
               dataSource={elem.values}
               pagination={{ pageSize: 1000 }}
               className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
-              // onRow={(record, rowIndex) => {
-              //   return {
-              //     onClick: event => {}, // click row
-              //     onDoubleClick: event => {}, // double click row
-              //     onContextMenu: event => {}, // right button click row
-              //     onMouseEnter: event => {setHoverTable([1,index,rowIndex? rowIndex:0]);}, // mouse enter row
-              //     onMouseLeave: event => {}, // mouse leave row
-              //   };
-              // }}
-              // onHeaderRow={(record, rowIndex) => {
-              //   return {
-              //     onClick: event => {}, // click row
-              //     onDoubleClick: event => {}, // double click row
-              //     onContextMenu: event => {}, // right button click row
-              //     onMouseEnter: event => {setHoverTable([0,1,rowIndex? rowIndex:0]);}, // mouse enter row
-              //     onMouseLeave: event => {}, // mouse leave row
-              //   };
-              // }}
-              // rowClassName={(record:any) => {
-              //   if((hoverTable[2]+1)+'' === record.key && hoverTable[0] && hoverTable[1] === index){
-              //     return 'active-table-row'
-              //   }
-              //   return ''
-              // }}
+              onRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: event => {setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id);}, // mouse enter row
+                };
+              }}
+              onHeaderRow={(record, rowIndex) => {
+                return {
+                  onMouseEnter: event => {setHoverTable(-1);}, // mouse enter row
+                };
+              }}
+              rowClassName={(record:any, rowIndex:number) => {
+                if( hoverTable === (elem.values[rowIndex ? rowIndex : 0].project_id))
+                {
+                  return 'active-table-row'
+                }
+                return ''
+              }}
             />
           )
         })

@@ -58,7 +58,7 @@ const PortafolioBody = () => {
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List');
   const [openTable, setOpenTable] = useState<any>([]);
-  const [hoverTable, setHoverTable] = useState([0, 0, 0])
+  const [hoverTable, setHoverTable] = useState<number>()
   const tableRef = useRef([]); 
   const searchRef = useRef([]); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
@@ -783,7 +783,7 @@ const PortafolioBody = () => {
                       setOpenTable={setOpenTable}
                       openTable={openTable}
                       hoverTable={hoverTable}
-                      //setHoverTable={setHoverTable}
+                      setHoverTable={setHoverTable}
                       phaseRef={phaseRef}
                       scheduleRef={scheduleRef}
                       rawData={newData}
@@ -804,7 +804,7 @@ const PortafolioBody = () => {
                         searchRef={searchRef}
                         openTable={openTable}
                         hoverTable={hoverTable}
-                        //setHoverTable={setHoverTable}
+                        setHoverTable={setHoverTable}
                         tabKey={tabKey}
                         index={idx}
                         setSortValue={setSortValue}
