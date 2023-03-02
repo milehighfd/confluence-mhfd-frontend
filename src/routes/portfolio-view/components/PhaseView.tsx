@@ -139,16 +139,14 @@ const PhaseView = (
     }
     
    const phaseChart = (dataDotchart: any, index:number) => {        
-    console.log('sorteddata');
-    console.log(dataDotchart);
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
     let heightDiv: any;
       heightDiv  = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 0:0);
     let height: any  = factorHeight + heightDiv +3;
-    console.log(factorHeight+","+heightDiv)
-    console.log(document.getElementById('Title5'))
+    //console.log(factorHeight+","+heightDiv)
+    //console.log(document.getElementById('Title5'))
   // append the svg object to the body of the page
    svg = d3
     .select(`#dotchart_${dataDotchart[index].id}`)
@@ -364,6 +362,7 @@ const PhaseView = (
   const [phaseList, setPhaseList] = useState<any>([])
   const [statusList, setStatusList] = useState<any>([])
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
+  const [updatePhaseList, setUpdatePhaseList] = useState(false);
   useEffect(() => {
     if (tabKey === 0) {
       tabKey = 5;
@@ -373,7 +372,8 @@ const PhaseView = (
         setPhaseList(rows)
         rows.map((x: any)=>{
           setStatusList((current: any)=> [...current, x.code_status_type])
-        })        
+        })   
+        setUpdatePhaseList(!updatePhaseList)     
       })
       .catch((e) => {
         console.log(e);
@@ -382,14 +382,20 @@ const PhaseView = (
   useEffect(() => {  
     const z:any= [];
     statusList.map((img: any) => {
-      if (z.indexOf(img.code_status_type_id) === -1) {
-        z.push(img.code_status_type_id,img.status_name)
+      if (z.indexOf(img.status_name) === -1) {      
+        z.push(img.status_name)
       }
     });
-    setAvailableStatusList(z)
-    console.log(z)
-    console.log(phaseList)
-  }, [statusList])
+    const counts = z.map((item1:any) => ([
+         item1,
+         (statusList.filter((item:any) => item.status_name === item1).length)*100/phaseList.length
+    ]));
+    console.log(counts)
+    setAvailableStatusList(counts)    
+  }, [updatePhaseList])
+
+  
+
   
   return (
     <div className="phaseview-body">
@@ -402,14 +408,20 @@ const PhaseView = (
         <div className="phaseview-title-label" id="phaseviewTitlleWidth">
           {/* <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
           <p>Requested</p> */}
-          <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
+          {/* <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
           <p style={{ display: 'flex', width: '46.15384615384615%' }}>
             <hr className="hr2"></hr>Active<hr className="hr2"></hr>
           </p>
           <p style={{ display: 'flex', width: '38.46153846153846%' }}>
             <hr></hr>Closeout<hr></hr>
           </p>
-          <p>Closed</p>
+          <p>Closed</p> */}
+          {/*TO DO: Dotty*/}
+          {availableStatusList.map((item : any)=>{
+            return <p style={{ display: 'flex', width: item[1]+'%'}}>
+            <hr className="hr2"></hr>{item[0]}<hr className="hr2"></hr>
+          </p>
+          })} 
         </div>
         <div className="phaseview-title" id="phaseviewTitlleWidth">
           {/* <p>Draft</p>
@@ -419,7 +431,7 @@ const PhaseView = (
             (WR)
           </p> */}
           {phaseList.map((item : any)=>{
-            return <p>{item.code_status_type.status_name + "-" + item.phase_name }</p>
+            return <p>{item.phase_name }</p>
           })}       
         </div>
         <div className="header-timeline"></div>
