@@ -181,7 +181,7 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
       </div>
     </div>
 }
-export const ComponentPopup = ({ id, item, isComponent } : any) => {
+export const ComponentPopup = ({ id, item, isComponent, maptype } : any) => {
   if (!item.layer) {
     isComponent = false;
   } else if(item.layer == 'County') {
@@ -355,7 +355,7 @@ export const ComponentPopup = ({ id, item, isComponent } : any) => {
             {item.service_area ? <p><i>Service Area:</i>  {item.service_area}</p> : ''}
             {item.notes_floodplains ? <p><i>Notes:</i>  {item.notes_floodplains}</p> : ''}
             {item.volume ? <p><i>Volume:</i>  {item.volume} acre-ft</p> : ''}
-            {isComponent && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
+            {(isComponent && maptype !== 'detail_map') && item.projectid === undefined && <Button id={"buttonCreate-" + id} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
             {item.layer == MENU_OPTIONS.MEASURES && 
               <div style={{ padding: '10px', marginTop: '15px', color: '#28C499', display:'flex'}}>
                 <Button id={"buttonzoom-" + id} style={{ width: '50%', height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', marginRight: '10px'}} className="btn-purple" >Center to this area</Button>

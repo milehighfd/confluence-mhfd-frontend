@@ -80,7 +80,7 @@ export const loadMenuPopupWithData = (
             (
               menuOptions[0] == MENU_OPTIONS.MEASURES ?
                 loadMeasurePopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation)
-                : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation)
+                : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation, maptype)
             )
           )
           :(maptype === MAPTYPES.CREATEPROJECTMAP ?
@@ -108,7 +108,7 @@ export const loadMenuPopupWithData = (
                               loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation) :
                               (maptype === MAPTYPES.CREATEPROJECTMAP ?
                               loadComponentPopupCreate(index, popups[index],!notComponentOptions.includes(menuOptions[index]))  :
-                              loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation)
+                              loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation, maptype)
                               )
                           )
                       )
@@ -116,7 +116,7 @@ export const loadMenuPopupWithData = (
                         loadMainPopupCreateMap(index, popups[index], test,undefined ,userInformation) :
                       (menu === 'Project' ? 
                       loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup, maptype) : 
-                      loadMainPopup(index, popups[index], test, userInformation)))
+                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup, maptype)))
                       }
                   </div>
                 )
@@ -149,9 +149,9 @@ const loadStreamPopup = (index: number, item: any) => (
     <StreamPopupFull id={index} item={item} ></StreamPopupFull>
   </>
 );
-const loadComponentPopup = (index: number, item: any, isComponent: boolean, userInformation: any) => (
+const loadComponentPopup = (index: number, item: any, isComponent: boolean, userInformation: any, maptype: any) => (
   <>
-    <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></ComponentPopup>
+    <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} maptype={maptype} ></ComponentPopup>
   </>
 );
 const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userInformation: any) => (
