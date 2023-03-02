@@ -144,17 +144,26 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 {
                     paramProjects?.status &&
                     <CheckBoxFilters defaultValue={5}
-                        data={paramProjects.status.sort((a: any, b: any) => {
-                            // const getValue = (d: string) => {
-                            //     if (d === 'Approved') return 0;
-                            //     if (d === 'Active') return 1;
-                            //     if (d === 'Closed') return 2;
-                            //     if (d === 'Inactive') return 3;
-                            //     if (d === 'Canceled')return 4;
-                            //     return -1;
-                            // }
-                            // return getValue(a.value) - getValue(b.value);
-                            return a.value.localeCompare(b.value);
+                        data={(paramProjects.status.filter((a: any) => {
+                            if (a.value === 'Approved') return 1;
+                            if (a.value === 'Active') return 1;
+                            if (a.value === 'Closeout') return 1;
+                            if (a.value === 'Closed') return 1;
+                            if (a.value === 'Inactive') return 1;
+                            if (a.value === 'Cancelled') return 1;
+                            return false;
+                            //return a.value.localeCompare(b.value);
+                        })).sort((a: any, b: any) => {
+                            const getValue = (d: string) => {
+                                if (d === 'Approved') return 0;
+                                if (d === 'Active') return 1;
+                                if (d === 'Closeout') return 2;
+                                if (d === 'Closed') return 3;
+                                if (d === 'Inactive') return 4;
+                                if (d === 'Cancelled')return 5;
+                                return -1;
+                            }
+                            return getValue(a.value) - getValue(b.value);
                         })}
                         selected={filterProjectOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
