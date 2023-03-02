@@ -21,8 +21,8 @@ import { SERVER } from "../../../Config/Server.config";
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
-const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
-const tabKeysIds = [null, 5, 7, 1, 6, 15, 13];
+const tabKeys = ['CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
+const tabKeysIds = [ 5, 7, 1, 6, 15, 13];
 const BOUNDSMAP = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
 let isInit = true;
 let previousFilterBy = '';
@@ -49,7 +49,7 @@ const PortafolioBody = () => {
   const [filtername, setFiltername] = useState('Mile High Flood District');
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
-  const [tabKey, setTabKey] = useState<any>('All');
+  const [tabKey, setTabKey] = useState<any>('CIP');
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
