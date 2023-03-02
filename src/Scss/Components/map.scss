@@ -777,7 +777,7 @@
     padding: 0px;
   }
   h4{
-    font-size: 14px;
+    font-size: 16px;
     color: $purple !important;
     margin-bottom: 6px;
     line-height: 18px;
@@ -2484,7 +2484,22 @@ hr.filters-line {
 }
 @media(min-width: 2550px) and (max-width: 3799px){
   .map-pop-00{
+    // width: 370px !important;
+    .headmap{
+      font-size: 16px !important;
+      // padding: 17px 15px !important;
+    }
+    h4{
+      font-size: 17px !important;
+      line-height: 17px !important;
+    }
     h6{
+      font-size: 16px !important;
+    }
+    h5{
+      font-size: 18px !important;
+    }
+    span{
       font-size: 16px !important;
     }
   }
