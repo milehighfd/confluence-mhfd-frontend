@@ -7,6 +7,7 @@ import PineyView from "./PineyView";
 import ModalGraphic from "./ModalGraphic";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
+import moment from 'moment';
 
 const { Step } = Steps;
 
@@ -34,6 +35,14 @@ const PhaseView = (
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
   const [openPiney, setOpenPiney] = useState(false);
+
+  const [phaseList, setPhaseList] = useState<any>([])
+  const [statusList, setStatusList] = useState<any>([])
+  const [availableStatusList, setAvailableStatusList] = useState<any>([])
+  const [updatePhaseList, setUpdatePhaseList] = useState(false);
+  const [scheduleList,setScheduleList] = useState<any>({})
+
+
   const windowWidth: any = window.innerWidth;
   const next = () => {
     setCurrent(current + 1);
@@ -65,7 +74,7 @@ const PhaseView = (
         values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
       }
     });    
-    const lengthData = completeData.length;
+    const lengthData = completeData.length;    
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
       completedtoActive
@@ -160,9 +169,15 @@ const PhaseView = (
     setSvgStatePhase(svg);
     //dataDotchart =dataDotchart[0].values
   let datas = dataDotchart[index].values;
-  let arrayForCirclesAndLines = [];
-  for (var i = 0; i < datas[0].schedule.length; i++) {
-    arrayForCirclesAndLines.push(i);
+  let arrayForCirclesAndLines = [];  
+  if(Object.keys(scheduleList).length > 0){
+    for (var i = 0; i < scheduleList.length; i++) {
+      arrayForCirclesAndLines.push(i);
+    }
+  }else{
+    for (var i = 0; i < datas[0].schedule.length; i++) {
+      arrayForCirclesAndLines.push(i);
+    }
   }
 
   let svgDefinitions = svg.append("defs");
@@ -278,12 +293,22 @@ const PhaseView = (
       .attr('fill', '#ffffff')
       .attr('font-size',(windowWidth>=3001 && windowWidth<=3999 ? 23 :(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3000 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11))))))
       .text(function (d: any) {
-        return d.schedule[r].tasks;
+        if (Object.keys(scheduleList).length>0) {        
+          return scheduleList[r].tasks
+        } else {
+          return d.schedule[r].tasks
+        }          
       })
       .attr("x", function (d: any) {
         const factorCenter:any = (windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3999 ? 1.65: (windowWidth>=1450 && windowWidth<=2000 ? 1.7 :(windowWidth>=1199 && windowWidth<=1449 ? 2 :2))))
-        const offset =
+        let offset = 0;
+        if (Object.keys(scheduleList).length>0) {
+          offset =
+          +scheduleList[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
+        } else {
+          offset =
           +d.schedule[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
+        }        
         return offset;
       })
       .attr("y", (d: any) => {
@@ -333,12 +358,7 @@ const PhaseView = (
       })
       ;
   });
-  }
-  useEffect(() => {
-    for (let index = 0; index < completeData.length; index++) {
-      phaseChart(completeData,index);
-    }
-  }, []);
+  }  
 
   useEffect(() => {
       const removeAllChildNodes = (parent: any) => {
@@ -357,28 +377,42 @@ const PhaseView = (
         }        
       }, 210);
 
-}, [openTable, windowWidth]);
+}, [openTable, windowWidth,scheduleList]);
 
-  const [phaseList, setPhaseList] = useState<any>([])
-  const [statusList, setStatusList] = useState<any>([])
-  const [availableStatusList, setAvailableStatusList] = useState<any>([])
-  const [updatePhaseList, setUpdatePhaseList] = useState(false);
-  useEffect(() => {
-    if (tabKey === 0) {
-      tabKey = 5;
-    }
+  
+  useEffect(() => {   
+    let z = []
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
       .then((rows) => {
         setPhaseList(rows)
-        rows.map((x: any)=>{
-          setStatusList((current: any)=> [...current, x.code_status_type])
-        })   
-        setUpdatePhaseList(!updatePhaseList)     
+        let counter = 0;
+        z = rows.map((x: any) => {
+          counter++;
+          return (
+            {
+              categoryNo: counter,
+              from: moment('2023/11/21 00:00:00'),
+              to: moment('2023/12/30 00:00:00'),
+              status: x?.code_status_type?.status_name,
+              name: x.phase_name,
+              phase: x.phase_name,
+              tasks: x.code_rule_action_items.length
+            })
+        })        
+        setScheduleList(z);
+        console.log(Object.keys(z).length);
+        rows.map((x: any) => {
+          setStatusList((current: any) => [...current, x.code_status_type])
+        })
+        setUpdatePhaseList(!updatePhaseList)
+        return rows
       })
       .catch((e) => {
         console.log(e);
-      })           
+      })
+      
   }, [])
+
   useEffect(() => {  
     const z:any= [];
     statusList.map((img: any) => {
@@ -394,7 +428,11 @@ const PhaseView = (
     setAvailableStatusList(counts)    
   }, [updatePhaseList])
 
-  
+  // useEffect(() => {
+  //   for (let index = 0; index < completeData.length; index++) {
+  //     phaseChart(completeData,index);
+  //   }    
+  // }, [scheduleList]);
 
   
   return (

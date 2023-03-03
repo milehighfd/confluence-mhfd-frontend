@@ -21,8 +21,8 @@ import { SERVER } from "../../../Config/Server.config";
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
-const tabKeys = ['CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
-const tabKeysIds = [ 5, 7, 1, 6, 15, 13];
+//const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
+//const tabKeysIds = [ 0, 5, 7, 1, 6, 15, 13];
 const BOUNDSMAP = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
 let isInit = true;
 let previousFilterBy = '';
@@ -43,13 +43,15 @@ const PortafolioBody = () => {
     setBoundMap,
     resetFilterProjectOptionsEmpty
   } = useMapDispatch();
+  const [tabKeys, setTabKeys] = useState<any>(['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
+  const [tabKeysIds, setTabKeysIds] = useState<any>([ 0, 5, 7, 1, 6, 15, 13]);
   const [filterby, setFilterby] = useState('');
   const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
-  const [tabKey, setTabKey] = useState<any>('CIP');
+  const [tabKey, setTabKey] = useState<any>('All');
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
@@ -201,14 +203,14 @@ const PortafolioBody = () => {
     }
   } ,[ tabKey ]);
   
-  useEffect(() => {
-    if(searchRef.current.length) {
-      searchRef.current.forEach(element => {
-        let div: any = element;
-        div.scrollTop = 0;  
-      });
-    }
-  }, [optionSelect, tabKey]);
+  // useEffect(() => {
+  //   if(searchRef.current.length) {
+  //     searchRef.current.forEach(element => {
+  //       let div: any = element;
+  //       div.scrollTop = 0;  
+  //     });
+  //   }
+  // }, [optionSelect, tabKey]);
 
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
 
@@ -680,6 +682,18 @@ const PortafolioBody = () => {
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     setNewData(numAscending)
   }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
+
+  function enterPhase (){
+    setOptionSelect('Phase')
+    setTabKeys(['CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
+    setTabKeysIds([5, 7, 1, 6, 15, 13]);
+    setTabKey('CIP');
+  }
+  function enterList (){
+    setOptionSelect('List')
+    setTabKeys(['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
+    setTabKeysIds([0, 5, 7, 1, 6, 15, 13]);
+  }
   
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
@@ -702,10 +716,10 @@ const PortafolioBody = () => {
             </h2>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'center'}}>
-            <Button className={optionSelect=== 'List' ? "btn-view btn-view-active": "btn-view"} onClick={()=>{setOptionSelect('List')}}>
+            <Button className={optionSelect=== 'List' ? "btn-view btn-view-active": "btn-view"} onClick={()=>{enterList()}}>
               List
             </Button>
-            <Button className={optionSelect=== 'Phase' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{setOptionSelect('Phase')}}>
+            <Button className={optionSelect=== 'Phase' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterPhase()}}>
               Phase
             </Button>
             <Button className={optionSelect=== 'Schedule' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{setOptionSelect('Schedule')}}>
