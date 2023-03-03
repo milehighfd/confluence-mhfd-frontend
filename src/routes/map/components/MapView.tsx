@@ -1007,6 +1007,7 @@ const MapView = () => {
                   ),
                   requestName: project.project_name,
                   sponsor: project.sponsor,
+                  project_costs: project.project_costs,
                   estimatedCost: project.estimatedcost ?  project.estimatedcost: project.finalcost,
                   componentCost: project.component_cost ? project.component_cost: 0,
                   status: project?.project_status?.code_phase_type?.code_status_type?.status_name,

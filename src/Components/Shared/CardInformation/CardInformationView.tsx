@@ -9,6 +9,7 @@ import { COMPONENT_LAYERS, MENU_OPTIONS, MHFD_PROJECTS } from 'constants/constan
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { getTotalEstimatedCost } from 'utils/parsers';
 
 const content = (<div className="popoveer-00">Project Sponsor</div>);
 const status = (<div className="popoveer-00">Status</div>);
@@ -243,7 +244,8 @@ const CardInformationView = ({
           }
           {/* <Popover placement="topLeft" content={cost}> */}
             <h5>{
-              data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
+              // data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
+              (getTotalEstimatedCost(data?.project_costs || []) != null ?(new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])) === '0' ? 'No Cost Data' : ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])))): 'No Cost Data')
               } 
               {/* <Popover content={total}> */}
                 <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
