@@ -41,7 +41,8 @@ const PhaseView = (
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [scheduleList,setScheduleList] = useState<any>({})
-
+  const [completeData1,setCompleteData1] = useState<any>({})
+  const [popUpData, setPopUpData] = useState<any>({})
 
   const windowWidth: any = window.innerWidth;
   const next = () => {
@@ -153,9 +154,7 @@ const PhaseView = (
     let heightDiv: any;
       heightDiv  = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 0:0);
-    let height: any  = factorHeight + heightDiv +3;
-    //console.log(factorHeight+","+heightDiv)
-    //console.log(document.getElementById('Title5'))
+    let height: any  = factorHeight + heightDiv +3;  
   // append the svg object to the body of the page
    svg = d3
     .select(`#dotchart_${dataDotchart[index].id}`)
@@ -188,7 +187,7 @@ const PhaseView = (
       gradientLinesClass(svgDefinitions)
 
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right]);
+  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right-300]);
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;
@@ -214,7 +213,7 @@ const PhaseView = (
 
   // Lines
   arrayForCirclesAndLines.forEach((r) => {
-    if (r < arrayForCirclesAndLines.length - 1) {
+    if (r < arrayForCirclesAndLines.length - 1) {      
       svg
         .selectAll("myline")
         .data(datas)
@@ -328,7 +327,10 @@ const PhaseView = (
       .attr("r", radius+0.5)
       .style("fill", 'white')
       .style('opacity', 0)
-      .on("click", (d: any) => setOpenPiney(true))
+      .on("click", (d: any) => {
+        setPopUpData({project_name:d.rowLabel,phase:scheduleList[r].phase,project_type:d.project_type,phase_id:scheduleList[r].phase_id})
+        setOpenPiney(true)
+      })
       .on("mousemove", (d: any) =>{
         let popupVisible:any =document.getElementById('popup-phaseview');
         setGrapphicOpen(true);
@@ -372,12 +374,16 @@ const PhaseView = (
       setTimeout(() => {
         for (let index = 0; index < completeData.length; index++) {
           if(openTable[index]){
-            phaseChart(completeData,index);
+            if (Object.keys(completeData1).length>0) {
+              phaseChart(completeData1,index);
+            } else {
+              phaseChart(completeData,index);
+            }
           }
         }        
       }, 210);
 
-}, [openTable, windowWidth,scheduleList]);
+}, [openTable, windowWidth,scheduleList, completeData1]);
 
   
   useEffect(() => {   
@@ -396,11 +402,11 @@ const PhaseView = (
               status: x?.code_status_type?.status_name,
               name: x.phase_name,
               phase: x.phase_name,
-              tasks: x.code_rule_action_items.length
+              tasks: x.code_rule_action_items.length,
+              phase_id: x.code_phase_type_id
             })
         })        
-        setScheduleList(z);
-        console.log(Object.keys(z).length);
+        setScheduleList(z);        
         rows.map((x: any) => {
           setStatusList((current: any) => [...current, x.code_status_type])
         })
@@ -412,6 +418,7 @@ const PhaseView = (
       })
       
   }, [])
+  
 
   useEffect(() => {  
     const z:any= [];
@@ -428,18 +435,29 @@ const PhaseView = (
     setAvailableStatusList(counts)    
   }, [updatePhaseList])
 
-  // useEffect(() => {
-  //   for (let index = 0; index < completeData.length; index++) {
-  //     phaseChart(completeData,index);
-  //   }    
-  // }, [scheduleList]);
+  useEffect(() => {
+    const prevData = rawData.map((elem: any) => {
+      return {
+        ...elem,
+        schedule: elem.schedule.filter((val: any) => val.phase !== 'Draft' && val.phase !== 'WorkRequest')
+      }
+    });
+    const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
+    const completeData = sortedData.map((elem: any) => {
+      return {
+        ...elem,
+        values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+      }
+    });    
+    setCompleteData1(completeData)
+  }, [rawData]);
 
   
   return (
     <div className="phaseview-body">
       {openPiney && (
         <div className="piney-text">
-          <PineyView setOpenPiney={setOpenPiney} />
+          <PineyView setOpenPiney={setOpenPiney} data = {popUpData}/>
         </div>
       )}
       <div className="phaseview-content">

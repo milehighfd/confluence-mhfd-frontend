@@ -5,9 +5,11 @@ import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, InfoCir
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 import { drag } from "d3";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const { Step } = Steps;
-const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
+const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
@@ -46,6 +48,19 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
       ]}
     />
   );
+  const [actionList, setActionList] = useState<any>([])
+
+  useEffect(() => {   
+    datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id })
+      .then((rows) => {
+        setActionList(rows.map((x:any) =>{          
+          return x.action_item_name
+        }))
+      })
+      .catch((e) => {
+        console.log(e);
+      })      
+  }, [data])
   return (
     <>
       <div className="header-piney" style={{marginBottom:'20px'}}>
@@ -53,9 +68,12 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
         <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setEditView(!editView)}}/>
       </div>
       <div className="body-piney">
-        <h1 style={{color:'#000000', fontSize:'16px', marginBottom:'15px'}}>Piney Creek Channel Restore</h1>
-        <div style={{marginBottom:'25px'}}>
-          <span className="tag-blue">Funding Phase</span><span className="tag-blue">Capital</span>
+        <h1 style={{ color: '#000000', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
+        <div style={{ marginBottom: '25px' }}>
+          <span className="tag-blue">{data.phase}</span>
+        </div>
+        <div style={{ marginBottom: '25px' }}>
+          <span className="tag-blue">{data.project_type}</span>
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
@@ -143,27 +161,13 @@ const PineyView = ({setOpenPiney}:{setOpenPiney:any}) => {
               <Col xs={{ span: 10 }} lg={{ span: 20 }}>
                 <Progress percent={20} />
               </Col>
-            </Row>
-          <div className={checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}>
-            <p>Draft IGA</p>
-            <Checkbox checked={checkboxValue.draft} onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}></Checkbox>
-          </div>
-          <div className={checkboxValue.sign ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, sign: !checkboxValue.sign })}}>
-            <p>Sign IGA</p>
-            <Checkbox checked={checkboxValue.sign} onChange={(e)=>{setCheckboxValue({...checkboxValue, sign: !checkboxValue.sign })}}></Checkbox>
-          </div>
-          <div className={checkboxValue.request ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, request: !checkboxValue.request })}}>
-            <p>Request Funding</p>
-            <Checkbox checked={checkboxValue.request} onChange={(e)=>{setCheckboxValue({...checkboxValue, request: !checkboxValue.request })}}></Checkbox>
-          </div>
-          <div className={checkboxValue.send ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, send: !checkboxValue.send })}}>
-            <p>Send Invoice</p>
-            <Checkbox checked={checkboxValue.send} onChange={(e)=>{setCheckboxValue({...checkboxValue, send: !checkboxValue.send })}}></Checkbox>
-          </div>
-          <div className={checkboxValue.pay ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, pay: !checkboxValue.pay })}}>
-            <p>Pay Invoice</p>
-            <Checkbox checked={checkboxValue.pay} onChange={(e)=>{setCheckboxValue({...checkboxValue, pay: !checkboxValue.pay })}}></Checkbox>
-          </div>
+            </Row>                       
+            {actionList.map((x:any) =>{
+              return (<div className={checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}>
+              <p>{x}</p>
+              <Checkbox checked={checkboxValue.draft} onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}></Checkbox>
+            </div>)
+            })}            
         </div>
       </div>
     </>
