@@ -93,6 +93,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   }, []);
   useEffect(() => {
     const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+    console.log(projectType, 'Project Type NAME')
     setProjecttype(projectType);
   }, [detailed]);
 
@@ -183,90 +184,134 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         {!detailed?.problemtype && <div
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
-          <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(0)}}>Project Basics</a>
-          <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(1)}}>Problem</a>
-          <a href="#vendors" className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(2)}}>Vendors</a>
-          <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(3)}}>Proposed Actions</a>
-          <a href="#project-roadmap" className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(4)}}>Project Roadmap</a>
-          <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(5)}}>Graphical View</a>
-          <a href="#project-financials" className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(6)}}>Project Financials</a>
-          <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(7)}}>Project Management</a>
-          <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(8)}}>Maps</a>
-          <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(9)}}>Attachments</a>
-
-          <a href="#history" className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} onClick={()=>{setOpenSecction(10)}}>History</a>
+          <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
+          <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
+          <a href="#vendors" className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
+          <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
+          <a href="#project-roadmap" className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
+          {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
+          <a href="" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a>
+          <a href="#project-financials" className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
+          {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
+          <a href="" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
+          <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
+          <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
+          <a href="#history" className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
         </div>}
         <Row
           className="detailed-b"
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
             onScrollCapture={(e)=>{
+              console.log(divRef.current?.scrollTop, 'POSITIONs')
               let numberSecction = 0;
-              if(pageWidth < 1900){
-                if(divRef.current &&  divRef.current?.scrollTop > 450){
-                  numberSecction= 1;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 550){
-                  numberSecction= 2;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 650){
-                  numberSecction= 3;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 900){
-                  numberSecction= 4;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1200){
-                  numberSecction= 5;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1650){
-                  numberSecction= 6;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 2050){
-                  numberSecction= 7;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 3000){
-                  numberSecction= 8;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 3700){
-                  numberSecction= 9;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 4000){
-                  numberSecction= 10;
-                }
-              }
-              if(pageWidth < 2550 && pageWidth >= 1900){
-                if(divRef.current &&  divRef.current?.scrollTop > 550){
-                  numberSecction= 1;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 650){
-                  numberSecction= 2;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 750){
-                  numberSecction= 3;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1100){
-                  numberSecction= 4;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1440){
-                  numberSecction= 5;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1888){
-                  numberSecction= 6;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 2440){
-                  numberSecction= 7;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 3555){
-                  numberSecction= 8;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 3767){
-                  numberSecction= 9;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 3870){
-                  numberSecction= 10;
+              if(pageWidth < 1900 && divRef.current){
+                switch(true) {
+                  case divRef.current?.scrollTop < 444:
+                    numberSecction= 0;
+                    break;
+                  case divRef.current?.scrollTop > 444 &&  divRef.current?.scrollTop < 700:
+                    numberSecction= 1;
+                    break;
+                  case divRef.current?.scrollTop > 700 &&  divRef.current?.scrollTop < 957:
+                    numberSecction= 2;
+                    break;
+                  case divRef.current?.scrollTop > 957 &&  divRef.current?.scrollTop < 1214:
+                    numberSecction= 3;
+                    break;
+                  case divRef.current?.scrollTop > 1214 &&  divRef.current?.scrollTop < 1442:
+                    numberSecction= 4;
+                    break;
+                    case divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1908:
+                    numberSecction= 5;
+                    break;
+                  case divRef.current?.scrollTop > 1908 &&  divRef.current?.scrollTop < 2497:
+                    numberSecction= 6;
+                    break;
+                  case divRef.current?.scrollTop > 2497 &&  divRef.current?.scrollTop < 3616:
+                    numberSecction= 7;
+                    break;
+                  case divRef.current?.scrollTop > 3616 &&  divRef.current?.scrollTop < 3695:
+                    numberSecction= 8;
+                    break;
+                  case divRef.current?.scrollTop > 3695 &&  divRef.current?.scrollTop < 4000:
+                    numberSecction= 9;
+                    break;
+                  default:
+                    numberSecction= 10;
+                    break;
                 }
               }
-              if(pageWidth >= 2550){
+              if(pageWidth < 2550 && pageWidth >= 1900 && divRef.current){
+                console.log('DOS')
+                switch(true) {
+                  case divRef.current?.scrollTop < 444:
+                    numberSecction= 0;
+                    break;
+                  case divRef.current?.scrollTop > 444 &&  divRef.current?.scrollTop < 700:
+                    numberSecction= 1;
+                    break;
+                  case divRef.current?.scrollTop > 700 &&  divRef.current?.scrollTop < 957:
+                    numberSecction= 2;
+                    break;
+                  case divRef.current?.scrollTop > 957 &&  divRef.current?.scrollTop < 1214:
+                    numberSecction= 3;
+                    break;
+                  case divRef.current?.scrollTop > 1214 &&  divRef.current?.scrollTop < 1442:
+                    numberSecction= 4;
+                    break;
+                    case divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1908:
+                    numberSecction= 5;
+                    break;
+                  case divRef.current?.scrollTop > 1908 &&  divRef.current?.scrollTop < 2497:
+                    numberSecction= 6;
+                    break;
+                  case divRef.current?.scrollTop > 2497 &&  divRef.current?.scrollTop < 3616:
+                    numberSecction= 7;
+                    break;
+                  case divRef.current?.scrollTop > 3616 &&  divRef.current?.scrollTop < 3695:
+                    numberSecction= 8;
+                    break;
+                  case divRef.current?.scrollTop > 3695 &&  divRef.current?.scrollTop < 4000:
+                    numberSecction= 9;
+                    break;
+                  default:
+                    numberSecction= 10;
+                    break;
+                }
+                // if(divRef.current &&  divRef.current?.scrollTop > 550){
+                //   numberSecction= 1;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 650){
+                //   numberSecction= 2;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 750){
+                //   numberSecction= 3;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 1100){
+                //   numberSecction= 4;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 1440){
+                //   numberSecction= 5;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 1888){
+                //   numberSecction= 6;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 2440){
+                //   numberSecction= 7;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 3555){
+                //   numberSecction= 8;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 3767){
+                //   numberSecction= 9;
+                // }
+                // if(divRef.current &&  divRef.current?.scrollTop > 3870){
+                //   numberSecction= 10;
+                // }
+              }
+              if(pageWidth >= 2550 && divRef.current){
+                console.log('TRES')
                 if(divRef.current &&  divRef.current?.scrollTop > 600){
                   numberSecction= 1;
                 }
@@ -318,23 +363,24 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                     </div>
                   })
                       ) : (
-                        // detailed?.attachments && detailed?.attachments.map((image: string, index: number) => {
-                        //    return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true);setActive(0)}}>
-                        //      <img width="100%" height="100%" src={image} alt=""/>
-                        //    </div>
-                        //  })
-                         <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img  src={
-                          projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
-                            projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
-                            projectType === 'Special' ? '/detailed/special.png' :
-                              projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
-                                projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
-                                  projectType === 'Maintenance Restoration' ? '/detailed/restoration.png' :
-                                    projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
-                                      projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
-                        }/> </div>
+                        projectType ?
+                          (
+                            <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img  src={
+                              projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
+                                projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
+                                projectType === 'Special' ? '/detailed/special.png' :
+                                  projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
+                                    projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
+                                      projectType === 'Maintenance Restoration' ? '/detailed/restoration.png' :
+                                        projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
+                                          projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
+                            }/> </div>
+                          )
+                          :
+                          (<></>)
+                        )
                        )
-                    )}
+                  } 
             </Carousel>
             {type === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} onClick={()=>{setOpenImage(true);setActive(2)}} />
