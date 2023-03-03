@@ -792,6 +792,7 @@ const Map = ({
         } else {
           setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
+        applyProblemClusterLayer();
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
         if (zoom?.length > 0) {
