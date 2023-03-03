@@ -190,10 +190,10 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
           <a href="#project-roadmap" className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
           {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
-          <a href="" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a>
+          <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a>
           <a href="#project-financials" className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
           {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
-          <a href="" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
+          <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
           <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
           <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
           <a href="#history" className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
@@ -203,7 +203,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
             onScrollCapture={(e)=>{
-              console.log(divRef.current?.scrollTop, 'POSITIONs')
               let numberSecction = 0;
               if(pageWidth < 1900 && divRef.current){
                 switch(true) {
@@ -243,104 +242,77 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                 }
               }
               if(pageWidth < 2550 && pageWidth >= 1900 && divRef.current){
-                // console.log('DOS')
                 switch(true) {
-                  case divRef.current?.scrollTop < 444:
+                  case divRef.current?.scrollTop < 514:
                     numberSecction= 0;
                     break;
-                  case divRef.current?.scrollTop > 444 &&  divRef.current?.scrollTop < 700:
+                  case divRef.current?.scrollTop > 514 &&  divRef.current?.scrollTop < 777:
                     numberSecction= 1;
                     break;
-                  case divRef.current?.scrollTop > 700 &&  divRef.current?.scrollTop < 957:
+                  case divRef.current?.scrollTop > 777 &&  divRef.current?.scrollTop < 1042:
                     numberSecction= 2;
                     break;
-                  case divRef.current?.scrollTop > 957 &&  divRef.current?.scrollTop < 1214:
+                  case divRef.current?.scrollTop > 1042 &&  divRef.current?.scrollTop < 1306:
                     numberSecction= 3;
                     break;
-                  case divRef.current?.scrollTop > 1214 &&  divRef.current?.scrollTop < 1442:
+                  case divRef.current?.scrollTop > 1306 &&  divRef.current?.scrollTop < 1442:
                     numberSecction= 4;
                     break;
-                    case divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1908:
+                    case divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1549 :
                     numberSecction= 5;
                     break;
-                  case divRef.current?.scrollTop > 1908 &&  divRef.current?.scrollTop < 2497:
+                  case divRef.current?.scrollTop > 1549  &&  divRef.current?.scrollTop < 2120 :
                     numberSecction= 6;
                     break;
-                  case divRef.current?.scrollTop > 2497 &&  divRef.current?.scrollTop < 3616:
+                  case divRef.current?.scrollTop > 2120  &&  divRef.current?.scrollTop < 2725:
                     numberSecction= 7;
                     break;
-                  case divRef.current?.scrollTop > 3616 &&  divRef.current?.scrollTop < 3695:
+                  case divRef.current?.scrollTop > 2725 &&  divRef.current?.scrollTop < 3880:
                     numberSecction= 8;
                     break;
-                  case divRef.current?.scrollTop > 3695 &&  divRef.current?.scrollTop < 4000:
+                  case divRef.current?.scrollTop > 3880 &&  divRef.current?.scrollTop < 3977:
                     numberSecction= 9;
                     break;
                   default:
                     numberSecction= 10;
                     break;
                 }
-                // if(divRef.current &&  divRef.current?.scrollTop > 550){
-                //   numberSecction= 1;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 650){
-                //   numberSecction= 2;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 750){
-                //   numberSecction= 3;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 1100){
-                //   numberSecction= 4;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 1440){
-                //   numberSecction= 5;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 1888){
-                //   numberSecction= 6;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 2440){
-                //   numberSecction= 7;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 3555){
-                //   numberSecction= 8;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 3767){
-                //   numberSecction= 9;
-                // }
-                // if(divRef.current &&  divRef.current?.scrollTop > 3870){
-                //   numberSecction= 10;
-                // }
               }
               if(pageWidth >= 2550 && divRef.current){
-                console.log('TRES')
-                if(divRef.current &&  divRef.current?.scrollTop > 600){
-                  numberSecction= 1;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 750){
-                  numberSecction= 2;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 900){
-                  numberSecction= 3;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1257){
-                  numberSecction= 4;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 1650){
-                  numberSecction= 5;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 2250){
-                  numberSecction= 6;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 2850){
-                  numberSecction= 7;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 4179){
-                  numberSecction= 8;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 4400){
-                  numberSecction= 9;
-                }
-                if(divRef.current &&  divRef.current?.scrollTop > 4560){
-                  numberSecction= 10;
+                switch(true) {
+                  case divRef.current?.scrollTop < 600:
+                    numberSecction= 0;
+                    break;
+                  case divRef.current?.scrollTop > 600 &&  divRef.current?.scrollTop < 880:
+                    numberSecction= 1;
+                    break;
+                  case divRef.current?.scrollTop > 880 &&  divRef.current?.scrollTop < 1168:
+                    numberSecction= 2;
+                    break;
+                  case divRef.current?.scrollTop > 1168 &&  divRef.current?.scrollTop < 1433:
+                    numberSecction= 3;
+                    break;
+                  case divRef.current?.scrollTop > 1433 &&  divRef.current?.scrollTop < 1730 :
+                    numberSecction= 4;
+                    break;
+                    case divRef.current?.scrollTop > 1730  &&  divRef.current?.scrollTop < 2400 :
+                    numberSecction= 5;
+                    break;
+                  case divRef.current?.scrollTop > 2400  &&  divRef.current?.scrollTop < 3027 :
+                    numberSecction= 6;
+                    break;
+                  case divRef.current?.scrollTop > 3027  &&  divRef.current?.scrollTop < 4285:
+                    numberSecction= 7;
+                    break;
+                  case divRef.current?.scrollTop > 4285 &&  divRef.current?.scrollTop < 4319:
+                    numberSecction= 8;
+                    break;
+                  case divRef.current?.scrollTop > 4319 &&  divRef.current?.scrollTop < 4419 :
+                    numberSecction= 9;
+                    break;
+                  default:
+                    numberSecction= 10;
+                    break;
                 }
               }
               setOpenSecction(numberSecction);

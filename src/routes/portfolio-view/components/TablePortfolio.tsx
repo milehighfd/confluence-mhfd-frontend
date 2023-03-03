@@ -112,7 +112,17 @@ const TablePortafolio = (
   return <div className="table-body">
     {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
     <div className="table-table-body" style={{width:'min-content'}} >
-      <div ref={tableRef} className="scroll-scroll-table">
+      <div
+        ref={tableRef}
+        className="scroll-scroll-table"
+        onScrollCapture={(e:any) => {
+          let dr: any = divRef.current[index];
+          let dr1: any = tableRef.current;
+          if(searchRef.current[index] && divRef.current[index]){
+              divRef.current[index].scrollTo(dr1.scrollLeft, dr.scrollTop);
+          }
+        }}
+      >
         <Table
           columns={
           ValueTabsHeader()}
