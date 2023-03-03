@@ -243,7 +243,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                 }
               }
               if(pageWidth < 2550 && pageWidth >= 1900 && divRef.current){
-                console.log('DOS')
+                // console.log('DOS')
                 switch(true) {
                   case divRef.current?.scrollTop < 444:
                     numberSecction= 0;
