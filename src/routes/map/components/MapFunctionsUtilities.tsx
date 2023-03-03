@@ -22,7 +22,7 @@ export const flytoBoundsCoor = (
        return {
          aoi: element.aoi,
          filter: element.filter,
-         coordinates: element.coordinates
+         coordinates: element.coordinates.coordinates
        }
      });
      if(zoomareaSelected[0]){
