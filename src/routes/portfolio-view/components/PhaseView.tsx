@@ -148,7 +148,10 @@ const PhaseView = (
         .attr("stop-color", '#D4D2D9')  
     }
     
-   const phaseChart = (dataDotchart: any, index:number) => {        
+
+   const phaseChart = (dataDotchart: any, index:number) => {    
+    
+    console.log(dataDotchart)
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
     let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right, id primer item offset multiply qty
     let heightDiv: any;
@@ -368,12 +371,11 @@ const PhaseView = (
         parent.removeChild(parent.firstChild);
       }
     };
-    if (Object.keys(completeData1).length > 0) {
-      completeData1.map((elem: any, index: number) => (
+    if (Object.keys(rawData).length > 0) {
+      rawData.map((elem: any, index: number) => (
         removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
       ));
-    }
-    
+    }    
     // setTimeout(() => {
     //   for (let index = 0; index < completeData.length; index++) {
     //     if (openTable[index]) {
@@ -385,10 +387,10 @@ const PhaseView = (
     //     }
     //   }
     // }, 210);
-      for (let index = 0; index < completeData1.length; index++) {
-        phaseChart(completeData1, index);
+      for (let index = 0; index < rawData.length; index++) {        
+          phaseChart(rawData, index);        
       }    
-}, [updatePhaseList,completeData1]);
+}, [updatePhaseList,rawData]);
 
   
   useEffect(() => {   
@@ -422,7 +424,7 @@ const PhaseView = (
         console.log(e);
       })
       
-  }, [])
+  }, [tabKey])
   
 
   useEffect(() => {  
@@ -436,26 +438,9 @@ const PhaseView = (
          item1,
          (statusList.filter((item:any) => item.status_name === item1).length)*100/phaseList.length
     ]));
-    console.log(counts)
     setAvailableStatusList(counts)    
   }, [updatePhaseList])
-
-  useEffect(() => {
-    const prevData = rawData.map((elem: any) => {
-      return {
-        ...elem,
-        schedule: elem.schedule.filter((val: any) => val.phase !== 'Draft' && val.phase !== 'WorkRequest')
-      }
-    });
-    const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
-    const completeData = sortedData.map((elem: any) => {
-      return {
-        ...elem,
-        values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
-      }
-    });    
-    setCompleteData1(completeData)
-  }, [rawData]);
+  
 
   
   return (
@@ -479,7 +464,7 @@ const PhaseView = (
           <p>Closed</p> */}
           {/*TO DO: Dotty*/}
           {availableStatusList.map((item : any)=>{
-            return <p style={{ display: 'flex', width: item[1]+'%'}}>
+            return <p style={{ display: 'flex'}}>
             <hr className="hr2"></hr>{item[0]}<hr className="hr2"></hr>
           </p>
           })} 
