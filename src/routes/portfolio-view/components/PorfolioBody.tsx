@@ -70,6 +70,7 @@ const PortafolioBody = () => {
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
   const [completeData, setCompleteData] = useState<any>([]);
+  const [phaseData, setPhaseData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
@@ -672,6 +673,21 @@ const PortafolioBody = () => {
       }
     });
 
+    const prevData = filteredTitles.map((elem: any) => {
+      return {
+        ...elem,
+        schedule: elem.schedule.filter((val: any) => val.phase !== 'Draft' && val.phase !== 'WorkRequest')
+      }
+    });
+    const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
+    const phaseD = sortedData.map((elem: any) => {
+      return {
+        ...elem,
+        values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+      }
+    });    
+    setPhaseData(phaseD)
+
     return filteredTitles;
   }
   
@@ -825,7 +841,7 @@ const PortafolioBody = () => {
                       />
                       }
                       {optionSelect === 'Phase' && <PhaseView
-                        rawData={newData}
+                        rawData={phaseData}
                         openTable={openTable}
                         phaseRef={phaseRef}
                         searchRef={searchRef}
