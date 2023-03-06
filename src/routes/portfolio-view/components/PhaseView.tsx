@@ -150,7 +150,7 @@ const PhaseView = (
     
    const phaseChart = (dataDotchart: any, index:number) => {        
     let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
-    let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
+    let width: any = document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right, id primer item offset multiply qty
     let heightDiv: any;
       heightDiv  = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 0:0);
@@ -159,7 +159,7 @@ const PhaseView = (
    svg = d3
     .select(`#dotchart_${dataDotchart[index].id}`)
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
+    .attr("width", width + margin.left + margin.right)//
     .attr("height", height + margin.top + margin.bottom)
     //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
     .append("g")
@@ -187,7 +187,7 @@ const PhaseView = (
       gradientLinesClass(svgDefinitions)
 
   // Add X axis
-  var x = d3.scaleLinear().domain([0, 13]).range([margin.left, width +margin.right-300]);
+  var x = d3.scaleLinear().domain([0, 16]).range([margin.left, width +margin.right]);//13 tiene q ser variable cantidad 
   let xdr: any = (r: any) => {
     let offset: any = x(r);
     return offset;
@@ -363,27 +363,32 @@ const PhaseView = (
   }  
 
   useEffect(() => {
-      const removeAllChildNodes = (parent: any) => {
-        while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
-        }
-      };
-      completeData.map((elem: any, index: number) => (
+    const removeAllChildNodes = (parent: any) => {
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+    };
+    if (Object.keys(completeData1).length > 0) {
+      completeData1.map((elem: any, index: number) => (
         removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
       ));
-      setTimeout(() => {
-        for (let index = 0; index < completeData.length; index++) {
-          if(openTable[index]){
-            if (Object.keys(completeData1).length>0) {
-              phaseChart(completeData1,index);
-            } else {
-              phaseChart(completeData,index);
-            }
-          }
-        }        
-      }, 210);
-
-}, [openTable, windowWidth,scheduleList, completeData1]);
+    }
+    
+    // setTimeout(() => {
+    //   for (let index = 0; index < completeData.length; index++) {
+    //     if (openTable[index]) {
+    //       if (Object.keys(completeData1).length > 0) {
+    //         phaseChart(completeData1, index);
+    //       } else {
+    //         phaseChart(completeData, index);
+    //       }
+    //     }
+    //   }
+    // }, 210);
+      for (let index = 0; index < completeData1.length; index++) {
+        phaseChart(completeData1, index);
+      }    
+}, [updatePhaseList,completeData1]);
 
   
   useEffect(() => {   
@@ -487,7 +492,7 @@ const PhaseView = (
             (WR)
           </p> */}
           {phaseList.map((item : any)=>{
-            return <p>{item.phase_name }</p>
+            return <p>{item.phase_name }</p>//aregar id
           })}       
         </div>
         <div className="header-timeline"></div>
