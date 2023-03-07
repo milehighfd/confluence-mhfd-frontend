@@ -18,7 +18,7 @@ const History = () => {
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
         </Col>
       </Row>
-      <Row style={{marginBottom:'70px'}}>
+      <Row style={{marginBottom:'150px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className='history-body'>
         <ul className="list-history">
           {
