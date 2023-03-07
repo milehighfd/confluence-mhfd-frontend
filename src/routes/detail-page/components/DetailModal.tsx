@@ -204,7 +204,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
             onScrollCapture={(e)=>{
-              console.log(divRef.current?.scrollTop, 'AQUIIIIII', scrollOpen)
               let numberSecction = 0;
               if(pageWidth < 1900 && divRef.current){
                 switch(true) {
@@ -366,7 +365,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div></>}
             <div className="detailed-info">
-              {detailed?.problemtype ?
+              {type === 'Problems' ?
                 <>
                   <DetailInformationProblem />
                   <ProblemParts problemParts={problemPart}/>
