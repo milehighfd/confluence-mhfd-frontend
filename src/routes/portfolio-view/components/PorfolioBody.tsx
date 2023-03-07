@@ -796,7 +796,7 @@ const PortafolioBody = () => {
                   <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/></>} */}
               </div>}
         </div>
-        <Tabs defaultActiveKey={displayedTabKey[1]}
+        <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[1]}
           activeKey={tabKey}
           onChange={(key) => setTabKey(key)} className="tabs-map">
           {

@@ -161,9 +161,9 @@ const PhaseView = (
       let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 0:0);
     let height: any  = factorHeight + heightDiv +3;  
   // append the svg object to the body of the page
-  removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}`))
+  removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}_${tabKey}`))
    svg = d3
-    .select(`#dotchart_${dataDotchart[index].id}`)
+    .select(`#dotchart_${dataDotchart[index].id}_${tabKey}`)
     .append("svg")
     .attr("width", width + margin.left + margin.right)//
     .attr("height", height + margin.top + margin.bottom)
@@ -376,7 +376,7 @@ const PhaseView = (
     
     if (Object.keys(rawData).length > 0) {
       rawData.map((elem: any, index: number) => (
-        removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
+        removeAllChildNodes(document.getElementById(`dotchart_${elem.id}_${tabKey}`))
       ));
     }    
     // setTimeout(() => {
@@ -393,7 +393,7 @@ const PhaseView = (
       for (let index = 0; index < rawData.length; index++) {        
           phaseChart(rawData, index);        
       }    
-}, [updatePhaseList,rawData]);
+}, [updatePhaseList,rawData, indexParent]);
 
   
   useEffect(() => {   
@@ -500,7 +500,7 @@ const PhaseView = (
         {completeData.map((elem: any, index: number) => (
           <div>
             <div className="phaseview-timeline">
-              <div id={`dotchart_${elem.id}`}></div>
+              <div id={`dotchart_${elem.id}_${tabKey}`}></div>
             </div>
             {lengthData-1 ===index ?'': <div className="header-timeline"></div>}
           </div>
