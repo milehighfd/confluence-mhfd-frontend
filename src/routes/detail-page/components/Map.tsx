@@ -101,7 +101,9 @@ const addLayer = () => {
     map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
     for (const problem of tileStyles.problem_boundary) {
       map.addLayer(`${PROBLEMS_TRIGGER}` + i, MENU_OPTIONS.PROBLEMS, problem);
-      map.setFilter(`${PROBLEMS_TRIGGER}` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
+      if (detailed?.cartodb_id) {
+        map.setFilter(`${PROBLEMS_TRIGGER}` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
+      }
       i++;
     }
     addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}`);
@@ -109,7 +111,9 @@ const addLayer = () => {
       map.addVectorSource(tiles, layers.floodhazards[tiles]);
       styles[tiles].forEach((element: any, index: number) => {
         map.addLayer(`${tiles}${index}`, tiles, element);
-        map.setFilter(`${tiles}${index}`, ['in', 'problem_id', detailed?.problemid]);
+        if (detailed?.problemid) {
+            map.setFilter(`${tiles}${index}`, ['in', 'problem_id', detailed?.problemid]);
+        }
       }); 
       addMapListeners(tiles, `${tiles}`);
       // console.log('should have added layer', `${tiles}`, styles[tiles], tiles , layers.floodhazards[tiles]);
