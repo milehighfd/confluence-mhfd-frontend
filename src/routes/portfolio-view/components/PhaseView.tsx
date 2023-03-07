@@ -416,10 +416,11 @@ const PhaseView = (
               phase_id: x.code_phase_type_id
             })
         })        
-        setScheduleList(z);        
-        rows.map((x: any) => {
-          setStatusList((current: any) => [...current, x.code_status_type])
+        setScheduleList(z);                
+        const y = rows.map((x: any) => {
+          return x.code_status_type;         
         })
+        setStatusList(y)
         setUpdatePhaseList(!updatePhaseList)
         return rows
       })
@@ -439,7 +440,7 @@ const PhaseView = (
     });
     const counts = z.map((item1:any) => ([
          item1,
-         (statusList.filter((item:any) => item.status_name === item1).length)*100/phaseList.length
+         (statusList.filter((item:any) => item.status_name === item1).length)*labelWidth
     ]));
     setAvailableStatusList(counts)    
   }, [updatePhaseList])
@@ -468,7 +469,7 @@ const PhaseView = (
           {/*TO DO: Dotty*/}
           {availableStatusList.map((item : any)=>{
             // console.log('item', item)
-            return <p style={{ display: 'flex', width: item[1]+'%'}}>
+            return <p style={{ display: 'flex', width: item[1]}}>
             <hr className="hr2"></hr>{item[0]}<hr className="hr2"></hr>
           </p>
           })} 
