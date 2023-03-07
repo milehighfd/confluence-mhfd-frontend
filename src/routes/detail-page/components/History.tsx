@@ -23,9 +23,8 @@ const History = () => {
         <ul className="list-history">
           {
             editedDates.map((element: string) => {
-              const names = element.split(" ");
               return(
-                <li><p>{element}</p></li>
+                <li key={element}><p>{element}</p></li>
               )
             })
           }
