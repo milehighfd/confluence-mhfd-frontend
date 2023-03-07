@@ -181,19 +181,19 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
       setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
       setProjectId(data.project_id);
-      if (data.maintenanceeligibility === null) {
+      if (data.project_details[0].code_maintenance_eligibility_type_id === null) {
         setEligibility('');
       } else {
-        setEligibility(data.maintenanceeligibility);
+        setEligibility(data.project_details[0].code_maintenance_eligibility_type_id);
       }
-      if (data.frequency === null) {
+      if (data.project_details[0].maintenance_frequency === null) {
         setFrequency('');
       } else {
-        setFrequency(data.frequency);
+        setFrequency(data.project_details[0].maintenance_frequency);
       }
       setEditsetprojectid(data.project_id);
       // setSponsor(data.sponsor);
-      if (data.ownership === "true") {
+      if (data.project_details[0].is_public_ownership === true) {
         setOwnership(true);
       } else {
         setOwnership(false);
@@ -446,7 +446,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <div id="elegid">
-                    <Select placeholder={eligibility != '' ? eligibility + "" : "Select a Eligibility"} style={{ width: '100%' }} onChange={(eligibilit) => apllyEligibility(eligibilit)} getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
+                    <Select placeholder={eligibility != '' ? MAINTENANCE_ELIGIBILITY.find((el: any) => parseInt(el.id) === parseInt(eligibility))?.name + "" : "Select a Eligibility"} style={{ width: '100%' }} onChange={(eligibilit) => apllyEligibility(eligibilit)} getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
                       {MAINTENANCE_ELIGIBILITY.map((element) => {
                         return <Option key={element.id} value={element.id}>{element.name}</Option>
                       })}

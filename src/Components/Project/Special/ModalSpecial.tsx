@@ -95,17 +95,32 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 
   useEffect(()=>{
     if(data!== 'no data' ) {
-      //getAttachmentByProject(data.projectid);
+      const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
+      const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
+      const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
+      const coEsponsor = data.project_partners.map((e:any) => {
+        if (e.code_partner_type_id === 12) {
+          return e.business_associate.business_name
+        }
+        return undefined;
+      }).filter((e:any)=> !!e);
+      const sponsor = data.project_partners.map((e:any) => {
+        if (e.code_partner_type_id === 11) {
+          return e.business_associate.business_name
+        }
+        return undefined;
+      }).filter((e:any)=> !!e).join("");
+
       setSwSave(true);
       setDescription(data.description);
-      setNameProject(data.projectname);
-      setCounty(parseStringToArray(data.county));
-      setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdiction(parseStringToArray(data.jurisdiction));
-      setCosponsor(parseStringToArray(data.cosponsor));
-      setSponsor(data.sponsor);
+      setNameProject(data.project_name);
+      setCounty(counties);
+      setServiceArea(serviceAreas);
+      setjurisdiction(localJurisdiction);
+      setCosponsor(coEsponsor);
+      setSponsor(sponsor);
       setTimeout(()=>{
-        getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
+        getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
         .then(
           (r: any) => {
             let coor = JSON.parse(r.createdCoordinates);

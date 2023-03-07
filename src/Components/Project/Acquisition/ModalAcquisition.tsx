@@ -193,7 +193,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       }).filter((e:any)=> !!e).join("");
       setSwSave(true);
       setDescription(data.description);
-      setNameProject(data.projectname);
+      setNameProject(data.project_name);
       if (data.project_details[0].code_acquisition_progress_status_id == null) {
         setProgress('');
       } else {
