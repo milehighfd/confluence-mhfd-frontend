@@ -77,6 +77,7 @@ const PortafolioBody = () => {
   const appUser = store.getState().profile;
   const [currentUserId, setCurrentUserId] = useState(null);
   const [listLoaded, setListLoaded] = useState(false);
+  const [collapsePhase, setCollapsePhase] = useState('');
   
 
   const [favorites, setFavorites] = useState<any>([]);
@@ -701,14 +702,10 @@ const PortafolioBody = () => {
 
   function enterPhase (){
     setOptionSelect('Phase')
-    setTabKeys(['CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
-    setTabKeysIds([5, 7, 1, 6, 15, 13]);
     setTabKey('CIP');
   }
   function enterList (){
     setOptionSelect('List')
-    setTabKeys(['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
-    setTabKeysIds([0, 5, 7, 1, 6, 15, 13]);
   }
   
   return <>
@@ -801,7 +798,7 @@ const PortafolioBody = () => {
           onChange={(key) => setTabKey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string, idx: number) => { return (
-              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk}>
+              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk} disabled = {optionSelect === 'Phase' && tk === 'All'?true:false}>
                 <div className="protafolio-body">
                   {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
                 <Row>
@@ -825,6 +822,7 @@ const PortafolioBody = () => {
                       setSearchWord={setSearchWord}
                       fullData={newData}
                       email={appUser.userInformation?.email}
+                      setCollapsePhase={setCollapsePhase}
                     />
                   </Col>
                     <Col xs={{ span: 34 }} lg={{ span: 19 }}>
