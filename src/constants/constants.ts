@@ -761,19 +761,38 @@ export const GOAL = [
 export const MAINTENANCE_ELIGIBILITY = [
   {
     name: "Capital Project",
-    id: "capitalProject"
+    id: "1"
   }, {
     name: "MEP",
-    id: "MEP"
+    id: "2"
   }, {
     name: "Grandfathered",
-    id: "grandfathered"
+    id: "3"
   }, {
     name: "Not Eligible",
-    id: "notEligible"
+    id: "4"
   }, {
-    name: "I don't know",
-    id: "iDontKnow"
+    name: "Unknown",
+    id: "5"
+  }
+];
+
+export const PROGRESS_ACQUISITION = [
+  {
+    name: "Not Initiated",
+    id: "1"
+  }, {
+    name: "Appraisal In Process",
+    id: "2"
+  }, {
+    name: "Appraisal Complete",
+    id: "3"
+  }, {
+    name: "Appraisal accepted by all parties",
+    id: "4"
+  }, {
+    name: "Remaining funding secured",
+    id: "5"
   }
 ];
 
@@ -1167,11 +1186,11 @@ export const NEW_PROJECT_TYPES = {
   Special: "Special",
   Study: "Study",
   MAINTENANCE_SUBTYPES: {
-    Debris_Management: "Debris Management",
+    Debris_Management: "Routine Trash and Debris",
     Vegetation_Management: "Vegetation Management",
     Sediment_Removal: "Sediment Removal",
-    Minor_Repairs: "Minor Repairs",
-    Restoration: "Restoration"
+    Minor_Repairs: "General Maintenance",
+    Restoration: "Maintenance Restoration"
   }
 }
 

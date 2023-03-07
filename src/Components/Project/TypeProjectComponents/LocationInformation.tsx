@@ -110,6 +110,7 @@ export const LocationInformation = ({
   useEffect(() => {
     datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
       .then((rows) => {
+        console.log(rows);
         const localitiesData = rows.localities.map((l: any) => l.name);
         localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
         setLocalities(localitiesData);

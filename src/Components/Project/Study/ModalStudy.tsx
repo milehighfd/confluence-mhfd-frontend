@@ -35,7 +35,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   { visibleStudy: boolean, setVisibleStudy: Function, nameProject: string, setNameProject: Function, typeProject: string, setVisible: Function, locality?: any, data: any, editable: boolean }) => {
   const { saveProjectStudy, setStreamsList, setStreamIntersected, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream, setHighlightedStreams } = useProjectDispatch();
   const { streamsIntersectedIds, isDraw } = useProjectState();
-  const { organization } = useProfileState();
+  const { organization, groupOrganization } = useProfileState();
   const { listStreams } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -213,6 +213,14 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   }, [data]);
   useEffect(() => {
     if (save === true) {
+
+      let serviceAreaIds:any=[];
+      let countyIds:any=[];
+      let jurisdictionIds:any=[];
+      serviceAreaIds = groupOrganization.filter((service:any) => serviceArea.includes(service.name)).map((service:any) => service.id);
+      countyIds = groupOrganization.filter((countylist:any) => county.includes(countylist.name)).map((countylist:any) => countylist.id);
+      jurisdictionIds = groupOrganization.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
+
       let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
@@ -223,27 +231,27 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       study.year = _year ?? study.year;
       study.projectname = nameProject;
       study.description = description;
-      let cservice = "";
-      serviceArea.forEach((element: any) => {
-        cservice = cservice + element + ",";
-      });
-      if (cservice.length != 0) {
-        cservice = cservice.substring(0, cservice.length - 1);
-      }
-      let ccounty = "";
-      county.forEach((element: any) => {
-        ccounty = ccounty + element + ",";
-      });
-      if (ccounty.length != 0) {
-        ccounty = ccounty.substring(0, ccounty.length - 1);
-      }
-      let cjurisdiction = "";
-      jurisdiction.forEach((element: any) => {
-        cjurisdiction = cjurisdiction + element + ",";
-      });
-      if (cjurisdiction.length != 0) {
-        cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
-      }
+      // let cservice = "";
+      // serviceArea.forEach((element: any) => {
+      //   cservice = cservice + element + ",";
+      // });
+      // if (cservice.length != 0) {
+      //   cservice = cservice.substring(0, cservice.length - 1);
+      // }
+      // let ccounty = "";
+      // county.forEach((element: any) => {
+      //   ccounty = ccounty + element + ",";
+      // });
+      // if (ccounty.length != 0) {
+      //   ccounty = ccounty.substring(0, ccounty.length - 1);
+      // }
+      // let cjurisdiction = "";
+      // jurisdiction.forEach((element: any) => {
+      //   cjurisdiction = cjurisdiction + element + ",";
+      // });
+      // if (cjurisdiction.length != 0) {
+      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
+      // }
 
       let csponsor = "";
       if (cosponsor) {
@@ -254,9 +262,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
           csponsor = csponsor.substring(0, csponsor.length - 1)
         }
       }
-      study.servicearea = cservice;
-      study.county = ccounty;
-      study.jurisdiction = cjurisdiction;
+      study.servicearea = serviceAreaIds;
+      study.county = countyIds;
+      study.jurisdiction = jurisdictionIds;
       study.sponsor = sponsor;
       study.cosponsor = csponsor;
       study.ids = mhfd_codes;
