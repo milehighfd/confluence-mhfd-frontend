@@ -69,9 +69,9 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
       </div>
       <div className="body-piney">
         <h1 style={{ color: '#000000', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
-        <div style={{ marginBottom: '25px' }}>
+        <div style={{ marginBottom: '8px' }}>
           <span className="tag-blue">{data.phase}</span>
-        </div>
+          </div>
         <div style={{ marginBottom: '25px' }}>
           <span className="tag-blue">{data.project_type}</span>
         </div>
