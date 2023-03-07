@@ -244,7 +244,9 @@ const Map = ({
       const user = userInformation;
       if (user?.polygon[0]) {
         let myPolygon: any = [];
-        for (let index = 0; index < userInformation.polygon.length; index++) {
+        if (userInformation.polygon.length > 1) {
+          // MULTIPOLYGON
+          for (let index = 0; index < userInformation.polygon.length; index++) {
             const geo = userInformation.polygon[index];
             if (geo[0].hasOwnProperty('length')) {
                 for (let index2 = 0; index2 < geo.length; index2++) {
@@ -255,6 +257,11 @@ const Map = ({
                 myPolygon.push([...geo]);
             }
         }
+        } else {
+          // POLYGON
+            myPolygon = userInformation.polygon[0];
+        }
+
         let bottomLongitude = myPolygon[0][0];
         let bottomLatitude = myPolygon[0][1];
         let topLongitude = myPolygon[0][0];
@@ -276,7 +283,7 @@ const Map = ({
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
-        
+        console.log('Porque el mundo ', bottomLongitude, bottomLatitude, 'SUS HUEVADAS', userInformation.polygon);
         coorBounds.push([bottomLongitude, bottomLatitude]);
         coorBounds.push([topLongitude, topLatitude]);
     }
@@ -519,12 +526,18 @@ const Map = ({
       }
     },[markersNotes, commentVisible]);
     useEffect(() => {
-      console.log('changing ', coordinatesJurisdiction);
       let mask;
       if (coordinatesJurisdiction?.length > 0 && map && map.isStyleLoaded()) {
-        mask = turf.multiPolygon(coordinatesJurisdiction);
-        console.log('my mask is ', mask);
-        let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+        if (coordinatesJurisdiction.length > 1) {
+          mask = turf.multiPolygon(coordinatesJurisdiction);
+        } else {
+          mask = turf.polygon(coordinatesJurisdiction);
+        }
+        
+        // PREVIOUS SQUARE OF MHFD 
+        // let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+        // LARGER BECAUSE SOME COUNTIES AND SERVICE AREAS ARE BIGGER 
+        let misbounds = -106.10771487514684 + ',' + 39.094858978187546 + ',' + -103.58537218284262 + ',' + 40.470609601267824;
         var arrayBounds = misbounds.split(',');
         let poly = polyMask(mask, arrayBounds);
         setOpacityLayer(true);
@@ -650,6 +663,7 @@ const Map = ({
         });
 
         mapService.map = map;  
+        console.log('HEHEHEHEHE', coorBounds);
         flytoBoundsCoor(
           getCurrent, 
           userInformation,
@@ -801,7 +815,6 @@ const Map = ({
     }, [zoom]);
 
     useEffect(() => {
-      // console.log(userInformation, 'userInformation', groupOrganization, 'groupOrganization', coorBounds, 'coorBounds')
       if(coorBounds && (coorBounds.length === 0 || coorBounds[0][0])){
         flytoBoundsCoor(getCurrent, 
         userInformation,
@@ -2081,7 +2094,6 @@ const Map = ({
                       if (hovereableLayers.includes(key)) {
 
                           if(e.features[0].source.includes('mhfd_projects')){
-                            console.log('highlight', key, e.features[0])
                             showHighlighted(key, e.features[0].properties.projectid);
                           }else{
                             showHighlighted(key, e.features[0].properties.cartodb_id);

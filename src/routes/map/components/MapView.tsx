@@ -729,7 +729,7 @@ const MapView = () => {
     });
     // TODO addis parse el bbox to coordinates jurisdiction
     if(zoomareaSelected[0]){
-      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+      // setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       changeCenter(value, zoomareaSelected[0].coordinates, isSelect == 'noselect' ? undefined : "isSelect");
     }
     setBBOXComponents({ bbox: [], centroids: [] })
