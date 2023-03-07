@@ -4,7 +4,7 @@ import { Modal, Button, Row, Col, Popover, Select, Switch, Checkbox } from 'antd
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { NEW_PROJECT_TYPES, PROJECT_INFORMATION } from "../../../constants/constants";
+import { NEW_PROJECT_TYPES, MAINTENANCE_ELIGIBILITY } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Project } from "../../../Classes/Project";
@@ -447,8 +447,8 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                   <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <div id="elegid">
                     <Select placeholder={eligibility != '' ? eligibility + "" : "Select a Eligibility"} style={{ width: '100%' }} onChange={(eligibilit) => apllyEligibility(eligibilit)} getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
-                      {PROJECT_INFORMATION.MAINTENANCE_ELIGIBILITY.map((element) => {
-                        return <Option key={element} value={element}>{element}</Option>
+                      {MAINTENANCE_ELIGIBILITY.map((element) => {
+                        return <Option key={element.id} value={element.id}>{element.name}</Option>
                       })}
                     </Select>
                   </div>

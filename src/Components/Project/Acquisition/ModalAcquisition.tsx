@@ -5,7 +5,7 @@ import { AlertView } from "../../Alerts/AlertView";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { DropPin } from "../TypeProjectComponents/DropPin";
-import { PROJECT_INFORMATION } from "../../../constants/constants";
+import { PROJECT_INFORMATION, PROGRESS_ACQUISITION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { getData, getToken } from "../../../Config/datasets";
 import { useProjectDispatch } from "../../../hook/projectHook";
@@ -176,27 +176,42 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   }, [organization]);
   useEffect(() => {
     if (data !== 'no data') {
+      const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
+      const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
+      const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
+      const coEsponsor = data.project_partners.map((e:any) => {
+        if (e.code_partner_type_id === 12) {
+          return e.business_associate.business_name
+        }
+        return undefined;
+      }).filter((e:any)=> !!e);
+      const sponsor = data.project_partners.map((e:any) => {
+        if (e.code_partner_type_id === 11) {
+          return e.business_associate.business_name
+        }
+        return undefined;
+      }).filter((e:any)=> !!e).join("");
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.projectname);
-      if (data.acquisitionprogress == null) {
+      if (data.project_details[0].code_acquisition_progress_status_id == null) {
         setProgress('');
       } else {
-        setProgress(data.acquisitionprogress);
+        setProgress(data.project_details[0].code_acquisition_progress_status_id);
       }
-      if (data.acquisitionanticipateddate == null) {
+      if (data.project_details[0].acquisition_anticipated_year == null) {
         setPurchaseDate('');
       } else {
-        setPurchaseDate(data.acquisitionanticipateddate);
+        setPurchaseDate(data.project_details[0].acquisition_anticipated_year);
       }
-      setEditsetprojectid(data.projectid);
-      setCounty(parseStringToArray(data.county));
-      setServiceArea(parseStringToArray(data.servicearea));
-      setjurisdiction(parseStringToArray(data.jurisdiction));
-      setCosponsor(parseStringToArray(data.cosponsor));
-      setSponsor(data.sponsor);
+      setEditsetprojectid(data.project_id);
+      setCounty(counties);
+      setServiceArea(serviceAreas);
+      setjurisdiction(localJurisdiction);
+      setCosponsor(coEsponsor);
+      setSponsor(sponsor);
       setTimeout(() => {
-        getData(SERVER.GET_GEOM_BY_PROJECTID(data.projectid), getToken())
+        getData(SERVER.GET_GEOM_BY_PROJECTID(data.project_id), getToken())
           .then(
             (r: any) => {
               let coor = JSON.parse(r.createdCoordinates);
@@ -353,9 +368,9 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <div id="progreid"><Select placeholder={progress != '' ? progress + "" : "Select a Status"} style={{ width: '100%' }} onChange={(progress) => apllyProgress(progress)} getPopupContainer={() => (document.getElementById("progreid") as HTMLElement)}>
-                    {PROJECT_INFORMATION.PROGRESS.map((element) => {
-                      return <Option key={element} value={element}>{element}</Option>
+                  <div id="progreid"><Select placeholder={progress != '' ? PROGRESS_ACQUISITION.find((el: any) => parseInt(el.id) === parseInt(progress))?.name + "" : "Select a Status"} style={{ width: '100%' }} onChange={(progress) => apllyProgress(progress)} getPopupContainer={() => (document.getElementById("progreid") as HTMLElement)}>
+                    {PROGRESS_ACQUISITION.map((element) => {
+                      return <Option key={element.id} value={element.id}>{element.name}</Option>
                     })}
                   </Select></div>
                 </Col>
