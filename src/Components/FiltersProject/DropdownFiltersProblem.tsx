@@ -12,11 +12,8 @@ export const DropdownFilters = ({ data, onSelect, defaultValue, labels, showCont
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
 
-  useEffect(() => {
-    console.log('data df', data);
-  }, [data]);
   const moneyFormat = (money: any) => {
-    console.log('Money format', money);
+    
     if (isNaN(+money)) {
       return money;
     }

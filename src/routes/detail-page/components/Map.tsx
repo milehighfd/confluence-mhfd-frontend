@@ -157,6 +157,7 @@ const addLayer = () => {
     addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
     }
     if (detailed?.coordinates) {
+      console.log('Should not exist');
       map.fitBounds([
         detailed?.coordinates[0][0],
         detailed?.coordinates[0][2]
@@ -167,24 +168,38 @@ const addLayer = () => {
     }else{
       console.log(detailed)
       if(detailed?.project_id){
-        datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
-          .then(
-            (cordinates: any) => {
-              // let coordinates = coor.coordinates[0];
-              // setGeom(coordinates);
-              // setEditLocation(coordinates);
-              const log =cordinates[0][0];
-              const lat = cordinates[0][1]
-              map.fitBounds(
-                [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
-                {
-                  duration: 10
-                })
-            },
-            (e) => {
-              console.log('e', e);
-            }
-          )
+        datasets.getData(`${SERVER.BBOX_COMPONENTS}?table=${MHFD_PROJECTS}&id=${detailed?.project_id}&activetab=1`).then((coordinates: any) => {
+          if( coordinates.bbox ) {
+            map.fitBounds(
+              [
+                [coordinates.bbox[0][0][0], coordinates.bbox[0][0][1]],
+                [coordinates.bbox[0][2][0], coordinates.bbox[0][2][1]],
+              ],
+              {
+                padding: 0,
+                duration: 10
+              }
+            );
+          }
+        });
+        // datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
+        //   .then(
+        //     (cordinates: any) => {
+        //       // let coordinates = coor.coordinates[0];
+        //       // setGeom(coordinates);
+        //       // setEditLocation(coordinates);
+        //       const log =cordinates[0][0];
+        //       const lat = cordinates[0][1]
+        //       map.fitBounds(
+        //         [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
+        //         {
+        //           duration: 10
+        //         })
+        //     },
+        //     (e) => {
+        //       console.log('e', e);
+        //     }
+        //   )
       }
     }
     map.getLoadZoom(updateZoom);
