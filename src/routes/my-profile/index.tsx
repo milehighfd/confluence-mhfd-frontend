@@ -11,7 +11,8 @@ import * as datasets from "../../Config/datasets";
 
 const MyProfile = () => {
 
-  const [counterProjects, setCounterProjects] = useState(0);  
+  const [counterProjects, setCounterProjects] = useState(0);
+  const [counterProblems, setCounterProblems] = useState(0);
 
   useEffect(() => {
     getCount();
@@ -20,8 +21,11 @@ const MyProfile = () => {
   const getCount = () => {
     datasets.getData(`${SERVER.COUNT_FAVORITES}`, datasets.getToken())
       .then((rows) => {
-        setCounterProjects(rows.count)
-        console.log(rows.count)
+        setCounterProjects(rows.count);
+      });
+    datasets.getData(`${SERVER.COUNT_FAVORITES}?isProblem=1`, datasets.getToken())
+      .then((rows) => {
+        setCounterProblems(rows.count);
       })
       
   }
@@ -37,10 +41,10 @@ const MyProfile = () => {
           </div> */}
           <Row>
             <Col xs={{ span: 10 }} lg={{ span: 6 }}>
-              <Profile counterProjects={counterProjects}/>
+              <Profile counterProjects={counterProjects} counterProblems={counterProblems} />
             </Col>
             <Col xs= {{span: 23}} lg={{ span: 13}}>
-              <Searches counterProjects={counterProjects} getCount={getCount}/>
+              <Searches counterProjects={counterProjects} counterProblems={counterProblems} getCount={getCount}/>
             </Col>
             <Col xs={{span: 11 }}lg={{ span: 5 }}>
               <Actions />
