@@ -61,10 +61,9 @@ const GenericTabView = ({
         if (favorites && cardInformation) {
             setData(
                 cardInformation.map((ci: any) => {
-                    // console.log('the ci ', ci);
                     return {
                         ...ci,
-                        isFavorite: favorites.some((f: any) => f.project_id === ci.project_id || f.problem_id === ci.problemid)
+                        isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
                     }
 
                 })
