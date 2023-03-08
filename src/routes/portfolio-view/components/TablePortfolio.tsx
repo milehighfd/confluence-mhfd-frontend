@@ -6,49 +6,49 @@ import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/c
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 const TablePortafolio = (
-  {divRef, searchRef, openTable, setHoverTable,hoverTable, rawData, tabKey, index, setSortValue}
-  :{
-    divRef:React.MutableRefObject<any>,
-    searchRef:React.MutableRefObject<any>,
-    openTable: boolean[],
-    setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
-    hoverTable:any,
-    rawData: any,
-    tabKey:any,
-    index: number,
-    setSortValue: Function | any
-  }) => {
+  { divRef, searchRef, openTable, setHoverTable, hoverTable, rawData, tabKey, index, setSortValue }
+    : {
+      divRef: React.MutableRefObject<any>,
+      searchRef: React.MutableRefObject<any>,
+      openTable: boolean[],
+      setHoverTable: React.Dispatch<React.SetStateAction<number | undefined>>,
+      hoverTable: any,
+      rawData: any,
+      tabKey: any,
+      index: number,
+      setSortValue: Function | any
+    }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
   const tableRef = useRef<null | HTMLDivElement>(null);
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
-    switch(tabKey){
-      case "All" :{
+    switch (tabKey) {
+      case "All": {
         header = AllHeaderTable;
         break;
       }
-      case "DIP" :{
+      case "DIP": {
         header = DIPHeaderTable;
         break;
       }
-      case "R&D" :{
+      case "R&D": {
         header = RDHeaderTable;
         break;
       }
-      case "Restoration" :{
+      case "Restoration": {
         header = RestorationHeaderTable;
         break;
       }
-      case "CIP" :{
+      case "CIP": {
         header = CIPHeaderTable;
         break;
       }
-      case "Planning" :{
+      case "Planning": {
         header = PlanningHeaderTable;
         break;
       }
-      case "Acquisition" :{
+      case "Acquisition": {
         header = PropertyAcquisitionHeaderTable;
         break;
       }
@@ -59,28 +59,28 @@ const TablePortafolio = (
     }
     return header;
   }
-  
+
   const ValueTabsValue = () => {
-    switch(tabKey){
-      case "All" :{
+    switch (tabKey) {
+      case "All": {
         return AllValueTable;
       }
-      case "DIP" :{
+      case "DIP": {
         return DIPValueTable;
       }
-      case "R&D" :{
+      case "R&D": {
         return RDValueTable;
       }
-      case "Restoration" :{
+      case "Restoration": {
         return RestorationValueTable;
       }
-      case "CIP" :{
+      case "CIP": {
         return CIPValueTable;
       }
-      case "Acquisition" :{
+      case "Acquisition": {
         return PropertyAcquisitionValueTable;
       }
-      case "Planning" :{
+      case "Planning": {
         return PlanningValueTable;
       }
       default: {
@@ -97,40 +97,40 @@ const TablePortafolio = (
     return {
       ...elem,
       values: filtered.filter((v: any, index: any) => {
-        return filtered.findIndex((v2: any) => v.project_id === v2.project_id ) === index;
+        return filtered.findIndex((v2: any) => v.project_id === v2.project_id) === index;
       })
     }
   });
   //console.log("COMPLETE DATA")
   //console.log(dataTable00)
-  const scrollDiv = useCallback((e:any) =>{
+  const scrollDiv = useCallback((e: any) => {
     let dr: any = divRef.current;
-    if(searchRef.current){
+    if (searchRef.current) {
       searchRef.current.scrollTo(0, e.target.scrollTop);
     }
-  },[divRef.current, searchRef.current])
+  }, [divRef.current, searchRef.current])
   return <div className="table-body">
     {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
-    <div className="table-table-body" style={{width:'min-content'}} >
+    <div className="table-table-body" style={{ width: 'min-content' }} >
       <div
         ref={tableRef}
         className="scroll-scroll-table"
-        onScrollCapture={(e:any) => {
+        onScrollCapture={(e: any) => {
           let dr: any = divRef.current[index];
           let dr1: any = tableRef.current;
-          if(searchRef.current[index] && divRef.current[index]){
-              divRef.current[index].scrollTo(dr1.scrollLeft, dr.scrollTop);
+          if (searchRef.current[index] && divRef.current[index]) {
+            divRef.current[index].scrollTo(dr1.scrollLeft, dr.scrollTop);
           }
         }}
       >
         <Table
           columns={
-          ValueTabsHeader()}
+            ValueTabsHeader()}
           dataSource={dataTable00}
           className="table-portafolio
           header-table"
-          style={{marginBottom:'21px'}}
-          onChange={(pagination, filters, sorters:any) => {
+          style={{ marginBottom: '21px' }}
+          onChange={(pagination, filters, sorters: any) => {
             setSortValue({
               columnKey: sorters.columnKey,
               order: sorters.order
@@ -138,60 +138,59 @@ const TablePortafolio = (
           }}
           onHeaderRow={(record, rowIndex) => {
             return {
-              onMouseEnter: event => {setHoverTable(-1);}, // mouse enter row
+              onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
             };
           }}
         />
       </div>
-    <div className="table-body-body"
-      ref={el => divRef.current[index] = el}
-      onScrollCapture={(e:any) => {
-        let dr: any = divRef.current[index];
-        if(searchRef.current[index] && tableRef.current){
+      <div className="table-body-body"
+        ref={el => divRef.current[index] = el}
+        onScrollCapture={(e: any) => {
+          let dr: any = divRef.current[index];
+          if (searchRef.current[index] && tableRef.current) {
             searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
             tableRef.current.scrollTo(dr.scrollLeft, 0);
-        }
-      }}
-    >
-      <div
-        className="scroll-table"
+          }
+        }}
       >
-      <div className="line-table" onMouseEnter={(e)=>{setHoverTable(-1)}}></div>
-      {
-        completeData.map((elem: any, index: number) => {
-          //console.log("ELEM")
-          //console.log(elem) 
-          return(
-            <Table
-              key={elem.id}
-              columns={ValueTabsValue()}
-              dataSource={elem.values}
-              pagination={{ pageSize: 1000 }}
-              className={openTable[index] ? (index === 0 ? "table-portafolio table-first": 'table-portafolio'): (index === 0 ?"table-portafolio table-close table-first table-clouse-first":"table-portafolio table-close")}
-              onRow={(record, rowIndex) => {
-                return {
-                  onMouseEnter: event => {setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id);}, // mouse enter row
-                };
-              }}
-              onHeaderRow={(record, rowIndex) => {
-                return {
-                  onMouseEnter: event => {setHoverTable(-1);}, // mouse enter row
-                };
-              }}
-              rowClassName={(record:any, rowIndex:number) => {
-                if( hoverTable === (elem.values[rowIndex ? rowIndex : 0].project_id))
-                {
-                  return 'active-table-row'
-                }
-                return ''
-              }}
-            />
-          )
-        })
-      }
+        <div
+          className="scroll-table"
+        >
+          <div className="line-table" onMouseEnter={(e) => { setHoverTable(-1) }}></div>
+          {
+            completeData.map((elem: any, index: number) => {
+              //console.log("ELEM")
+              //console.log(elem) 
+              return (
+                <Table
+                  key={elem.id}
+                  columns={ValueTabsValue()}
+                  dataSource={elem.values}
+                  pagination={{ pageSize: 1000 }}
+                  className={openTable[index] ? (index === 0 ? "table-portafolio table-first" : 'table-portafolio') : (index === 0 ? "table-portafolio table-close table-first table-clouse-first" : "table-portafolio table-close")}
+                  onRow={(record, rowIndex) => {
+                    return {
+                      onMouseEnter: event => { setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id); }, // mouse enter row
+                    };
+                  }}
+                  onHeaderRow={(record, rowIndex) => {
+                    return {
+                      onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
+                    };
+                  }}
+                  rowClassName={(record: any, rowIndex: number) => {
+                    if (hoverTable === (elem.values[rowIndex ? rowIndex : 0].project_id)) {
+                      return 'active-table-row'
+                    }
+                    return ''
+                  }}
+                />
+              )
+            })
+          }
+        </div>
       </div>
-    </div>
-    
+
       {/* <Table
         columns={columns}
         dataSource={dataTable}
@@ -281,7 +280,7 @@ const TablePortafolio = (
         }}
       /> */}
     </div>
-    
+
   </div>
 };
 

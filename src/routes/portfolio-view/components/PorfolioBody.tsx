@@ -849,6 +849,7 @@ const PortafolioBody = () => {
                         setPositionModalGraphic={setPositionModalGraphic}                        
                         indexParent={idx}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
+                        userName={appUser.userInformation?.name}
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView rawData={newData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}

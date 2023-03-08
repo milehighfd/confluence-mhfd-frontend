@@ -9,13 +9,16 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 
 const { Step } = Steps;
-const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
+const PineyView = ({ setOpenPiney, data, userName }: 
+  { setOpenPiney: any, 
+    data?: any, 
+    userName?: string }) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
   const [checkboxValue, setCheckboxValue] = useState({
-    draft:true,
-    sign:false,
+    draft: true,
+    sign: false,
     request: false,
     send: false,
     pay: false,
@@ -49,18 +52,59 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
     />
   );
   const [actionList, setActionList] = useState<any>([])
-
+  const [updateList, setupdateList] = useState(true)
+  const [percent, setPercent] = useState(0)
+   
   useEffect(() => {   
-    datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id })
-      .then((rows) => {
-        setActionList(rows.map((x:any) =>{          
-          return x.action_item_name
-        }))
+    let counter = 0;
+    let lengthActions = 0;
+    console.log("UPDATE")
+    datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id, project_id: data.project_id})
+      .then((rows) => {       
+        setActionList(rows.map((x: any) => {          
+          let isChecked = false;         
+          if (Object.keys(x.project_action_items)?.length > 0) {
+            isChecked = true;
+            counter = counter+1;
+          }   
+          lengthActions = rows.length;
+          //setPercent(counter/rows.length*100)
+          return {action_item_name:x.action_item_name,code_phase_type_id:x.code_phase_type_id,code_rule_action_item_id:x.code_rule_action_item_id,isChecked}
+        }
+        ))
+        setPercent(Math.floor(counter/lengthActions*100))
       })
       .catch((e) => {
         console.log(e);
       })      
-  }, [data])
+     
+  }, [data,updateList])
+  const saveData = (item: any) => {
+    console.log("SAVE")
+    const formatTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    datasets.postData(`${SERVER.PROJECT_ACTION_ITEM}`, {
+      code_rule_action_item_id: item.code_rule_action_item_id,
+      project_id: data.project_id,
+      created_by: userName,
+      last_modified_by: userName,
+      last_modified_date: formatTime,
+      completed_date: formatTime,
+      created_date: formatTime
+    }).catch((e) => {
+      console.log(e);
+    })
+    setupdateList(!updateList)
+  };
+  const deleteData = (item: any) => {
+    console.log("DELETE")
+    datasets.deleteDataWithBody(`${SERVER.PROJECT_ACTION_ITEM}`, {
+      code_rule_action_item_id: item.code_rule_action_item_id,
+      project_id: data.project_id
+    }).catch((e) => {
+      console.log(e);
+    })
+    setupdateList(!updateList)
+  };
   return (
     <>
       <div className="header-piney" style={{marginBottom:'20px'}}>
@@ -119,7 +163,7 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
                 <p>Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-                <span style={{opacity:'0.5'}}>Funding</span> &nbsp;<span className="tag-blue">20%</span>
+                <span style={{opacity:'0.5'}}>{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
               </Col>
             </Row>
             <Row>
@@ -164,16 +208,25 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
           <p style={{marginTop:'10px', marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Action Items</p>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 4 }}>
-                <p style={{fontSize:'12px', fontWeight:'700', paddingTop:'2px'}}>20%</p>
+                <p style={{fontSize:'12px', fontWeight:'700', paddingTop:'2px'}}>{percent+'%'}</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 20 }}>
-                <Progress percent={20} />
+                <Progress percent={percent} />
               </Col>
             </Row>                       
             {actionList.map((x:any) =>{
-              return (<div className={checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"} onClick={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}>
-              <p>{x}</p>
-              <Checkbox checked={checkboxValue.draft} onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}></Checkbox>
+              //{checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"}
+              //onClick={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}
+              //onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}
+              return (<div className={x.isChecked ? "checkbox-select-active checkbox-select":"checkbox-select"} 
+              onClick={(e)=>{
+                if(x.isChecked)
+                {deleteData(x)                  
+                }else{
+                  saveData(x)                  
+                }}}>
+              <p>{x.action_item_name}</p>
+              <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
             })}            
         </div>

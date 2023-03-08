@@ -12,7 +12,7 @@ import moment from 'moment';
 const { Step } = Steps;
 
 const PhaseView = (
-  { rawData, openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic, setPositionModalGraphic, indexParent, tabKey }
+  { rawData, openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic, setPositionModalGraphic, indexParent, tabKey,userName }
     : {
       rawData: any,
       openTable: boolean[],
@@ -30,6 +30,7 @@ const PhaseView = (
       }>>,
       indexParent: number;
       tabKey: any,
+      userName: string,
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -333,7 +334,12 @@ const PhaseView = (
           .style("fill", 'white')
           .style('opacity', 0)
           .on("click", (d: any) => {
-            setPopUpData({ project_name: d.rowLabel, phase: scheduleList[r].phase, project_type: d.project_type, phase_id: scheduleList[r].phase_id })
+            console.log(d)
+            setPopUpData({ project_name: d.rowLabel, 
+              phase: scheduleList[r].phase, 
+              project_type: d.project_type, 
+              phase_id: scheduleList[r].phase_id, 
+              project_id: d.project_id })
             setOpenPiney(true)
           })
           .on("mousemove", (d: any) => {
@@ -451,7 +457,7 @@ const PhaseView = (
     <div className="phaseview-body">
       {openPiney && (
         <div className="piney-text">
-          <PineyView setOpenPiney={setOpenPiney} data={popUpData} />
+          <PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={userName}/>
         </div>
       )}
       <div className="phaseview-content">
@@ -487,25 +493,29 @@ const PhaseView = (
         </div>
         <div className="header-timeline"></div>
         <div
-          style={{ width: totalLabelWidth }}
-          className="container-timeline"
-          ref={phaseRef}
-          onScroll={(e: any) => {
-            let dr: any = phaseRef.current;
-            if (searchRef.current[indexParent]) {
-              searchRef.current[indexParent].scrollTo(0, dr.scrollTop);
-            }
-          }}
+          className="scroll-table"      
         >
-          {completeData.map((elem: any, index: number) => (
-            <div>
-              <div className="phaseview-timeline">
-                <div id={`dotchart_${elem.id}_${tabKey}`}></div>
+          <div
+            style={{ width: totalLabelWidth }}
+            className="container-timeline"
+            ref={phaseRef}
+            onScroll={(e: any) => {
+              let dr: any = phaseRef.current;
+              if (searchRef.current[indexParent]) {
+                searchRef.current[indexParent].scrollTo(0, dr.scrollTop);
+              }
+            }}
+          >
+            {completeData.map((elem: any, index: number) => (
+              <div>
+                <div className="phaseview-timeline">
+                  <div id={`dotchart_${elem.id}_${tabKey}`}></div>
+                </div>
+                {lengthData - 1 === index ? '' : <div className="header-timeline"></div>}
               </div>
-              {lengthData - 1 === index ? '' : <div className="header-timeline"></div>}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+          </div>
       </div>
     </div>
   );
