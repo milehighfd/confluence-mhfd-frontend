@@ -492,9 +492,7 @@ const PhaseView = (
           })}
         </div>
         <div className="header-timeline"></div>
-        <div
-          className="scroll-table"      
-        >
+       
           <div
             style={{ width: totalLabelWidth }}
             className="container-timeline"
@@ -516,7 +514,7 @@ const PhaseView = (
             ))}
           </div>
           </div>
-      </div>
+     
     </div>
   );
 };
