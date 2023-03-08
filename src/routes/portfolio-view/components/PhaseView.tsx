@@ -478,7 +478,7 @@ const PhaseView = (
           {availableStatusList.map((item: any, index: number) => {
             // console.log('item', item)
             return <p style={index === 0 ? { display: 'flex', width: item[1] , border: 'transparent'}:{ display: 'flex', width: item[1] }}>
-              <hr className="hr2"></hr>{item[0]}<hr className="hr2"></hr>
+              <hr className="hr2" style={{width:item[1]/2 - 48}}></hr>{item[0]}<hr className="hr2" style={{width:item[1]/2 - 48}}></hr>
             </p>
           })}
         </div>

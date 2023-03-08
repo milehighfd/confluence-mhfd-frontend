@@ -72,7 +72,6 @@ const Search = (
   const [openDrop, setOpenDrop] = useState<boolean>(false)
 
   let displayedTabKey = tabKeys;
-  console.log('optionSelect', optionSelect)
   const content = (
     <div style={{width:'137px'}}>
       <p style={{marginBottom:'0px'}}>This is a sample blurb describing the project. Alternatively we can open the detail page.</p>

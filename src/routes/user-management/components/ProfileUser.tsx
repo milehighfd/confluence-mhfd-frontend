@@ -390,15 +390,15 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <div className="gutter-row" id={("city" + values.user_id)}>
               <p>LOCAL GOVERNMENT</p>
-              <TextArea rows={2} />
+              <Input placeholder="Local Government" />
             </div>
             <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
               <p>BUSINESS ASSOCIATE</p>
-              <TextArea rows={2} />
+              <Input placeholder="Business Associate" />
             </div>
             <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
               <p>OTHER ORGANIZATION</p>
-              <TextArea rows={2} />
+              <Input placeholder="Othe Organization" />
             </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>

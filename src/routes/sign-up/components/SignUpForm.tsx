@@ -202,8 +202,12 @@ const SignUpForm = () => {
               <img src="/Icons/icon-12.svg" alt="" />
             </Button>
           </Dropdown> */}
-          <TextArea placeholder={values.designation === 'consultant' ? "Vendors":"Local Government"} name="vendors" rows={2}
-          style={ { paddingLeft: '10px' }} />
+          <input placeholder={values.designation === 'consultant' ? "Vendors":"Local Government"} type="text" name="firstName"
+            style={{ paddingLeft: '10px' }} />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          {/* <TextArea placeholder={values.designation === 'consultant' ? "Vendors":"Local Government"} name="vendors" rows={2} */}
+          {/* style={ { paddingLeft: '10px' }} /> */}
         </div>
         {other.visible && <input placeholder="Organization" type="text" onChange={(e) => {
           const auxOther = { ...other };
