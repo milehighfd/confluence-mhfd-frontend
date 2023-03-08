@@ -525,15 +525,18 @@ const Map = ({
         });
       }
     },[markersNotes, commentVisible]);
+    const depth = (arr: any) => arr.reduce((count: any,v: any) => !Array.isArray(v) ? count : 1 + depth(v),1);
     useEffect(() => {
       let mask;
+      console.log('Coordinates jurisdiction', coordinatesJurisdiction);
       if (coordinatesJurisdiction?.length > 0 && map && map.isStyleLoaded()) {
-        if (coordinatesJurisdiction.length > 1) {
+        // console.log('DEPTH', depth(coordinatesJurisdiction), 'Coordinates Jurisdiction', coordinatesJurisdiction, "STREING", JSON.stringify(coordinatesJurisdiction));
+        const DEPTH = depth(coordinatesJurisdiction);
+        if (DEPTH == 4) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
         } else {
           mask = turf.polygon(coordinatesJurisdiction);
         }
-        
         // PREVIOUS SQUARE OF MHFD 
         // let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
         // LARGER BECAUSE SOME COUNTIES AND SERVICE AREAS ARE BIGGER 
@@ -816,13 +819,15 @@ const Map = ({
 
     useEffect(() => {
       if(coorBounds && (coorBounds.length === 0 || coorBounds[0][0])){
-        flytoBoundsCoor(getCurrent, 
-        userInformation,
-        globalMapId,
-        coorBounds,
-        map,
-        groupOrganization,
-        setCoordinatesJurisdiction);
+        flytoBoundsCoor(
+          getCurrent, 
+          userInformation,
+          globalMapId,
+          coorBounds,
+          map,
+          groupOrganization,
+          setCoordinatesJurisdiction
+        );
         }
     }, [userInformation.polygon, groupOrganization])
 
