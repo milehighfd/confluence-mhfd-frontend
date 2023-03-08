@@ -164,8 +164,9 @@ const CardInformationView = ({
     setHighlighted({type: type, value: value});
   }
 
-  const deleteFunction = (email: string, id: number, table: string) => {
-    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
+  const deleteFunction = (email: string, id: number, type: string) => {
+    const suffix = type === 'Problems' ? '?isProblem=1' : '';
+    datasets.deleteDataWithBody(`${SERVER.DELETE_FAVORITE}${suffix}`, { email: email, id: id }, datasets.getToken()).then(favorite => {
       if (deleteCallback) {
         deleteCallback(id);
       }
@@ -214,7 +215,7 @@ const CardInformationView = ({
                <Button onClick={(event) => {
                   event.stopPropagation();
 
-                  data.isFavorite ?  deleteFunction(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE)) : addFavorite(user.email, (data.project_id || data.problemid), (data.type || PROJECT_TABLE));
+                  data.isFavorite ?  deleteFunction(user.email, (data.project_id || data.problemid), type) : addFavorite(user.email, (data.project_id || data.problemid), type === 'Problems' );
                 }
                }
                 >

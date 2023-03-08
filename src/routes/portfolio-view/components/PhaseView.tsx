@@ -467,9 +467,9 @@ const PhaseView = (
           </p>
           <p>Closed</p> */}
           {/*TO DO: Dotty*/}
-          {availableStatusList.map((item: any) => {
+          {availableStatusList.map((item: any, index: number) => {
             // console.log('item', item)
-            return <p style={{ display: 'flex', width: item[1] }}>
+            return <p style={index === 0 ? { display: 'flex', width: item[1] , border: 'transparent'}:{ display: 'flex', width: item[1] }}>
               <hr className="hr2"></hr>{item[0]}<hr className="hr2"></hr>
             </p>
           })}

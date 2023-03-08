@@ -15,9 +15,11 @@ COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor', STREAMS = 'streams';
 const { Option } = Select;
 const Profile = ({
-  counterProjects
+  counterProjects,
+  counterProblems
 }: {
-  counterProjects: number
+  counterProjects: number,
+  counterProblems: number,
 }) => {
   const [editProfile, setEditProfile] = useState(false);
   
@@ -200,7 +202,7 @@ const Profile = ({
           <p className="color-sub">Projects</p>
         </Col>
         <Col xs={{ span: 24}} lg={{ span: 8 }}>
-          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>-</h2>
+          <h2 style={{marginBottom:'0px', marginTop:'10px'}}>{counterProblems}</h2>
           <p className="color-sub">Problems</p>
         </Col>
       </Row>

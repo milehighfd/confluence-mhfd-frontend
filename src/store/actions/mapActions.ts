@@ -667,9 +667,10 @@ export const getBBOXComponents = (table: string, id: number) => {
 }
 
 
-export const addFavorite = (email: string, id: number, table: string) => {
+export const addFavorite = (email: string, id: number, isProblem: boolean) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
+        const suffix = isProblem ? '&isProblem=1' : '';
+        datasets.getData(SERVER.ADD_FAVORITE + '?id=' + id + suffix, datasets.getToken()).then(favorite => {
             favorite.id = +favorite.id;
             dispatch({ type: types.ADD_FAVORITE, favorite });
         });
@@ -684,9 +685,10 @@ export const deleteFavorite = (email: string, id: number, table: string) => {
     }
 }
 
-export const favoriteList = (email: string) => {
+export const favoriteList = (email: string, isProblem: boolean) => {
+    const suffix = isProblem ? '?isProblem=1' : '';
     return (dispatch: Function) => {
-        datasets.getData(SERVER.FAVORITES + '?email=' + email, datasets.getToken()).then(favorites => {
+        datasets.getData(SERVER.FAVORITES + suffix, datasets.getToken()).then(favorites => {
             dispatch({ type: types.FAVORITE_LIST, favorites });
         });
     }

@@ -14,9 +14,11 @@ const { Option } = Select;
 
 const Searches = ({
   counterProjects,
+  counterProblems,
   getCount
 }: {
   counterProjects: number,
+  counterProblems: number,
   getCount: Function,
 }) => {
   const { userInformation: user } = useProfileState();
@@ -58,7 +60,7 @@ const Searches = ({
                 </div>
               </div>
             </TabPane>     
-            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf('Problems')]} placement="rightBottom">{'Problems'} </Popover> </span>} key={'Problems'}>
+            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf(`Problems ${counterProblems}`)]} placement="rightBottom">{`Problems ${counterProblems}`} </Popover> </span>} key={'Problems'}>
               <div className="user-management-body">
                 <div className="avatar-group">
                   <h2 style={{marginLeft:'25px'}}>Problems</h2>
