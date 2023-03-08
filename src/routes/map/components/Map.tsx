@@ -50,7 +50,7 @@ import SideBarComment from '../../../Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
 import { useProfileState } from '../../../hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
-import { flytoBoundsCoor, getTitle, polyMask} from './MapFunctionsUtilities';
+import { flytoBoundsCoor, getTitle, polyMask, depth} from './MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
@@ -525,7 +525,7 @@ const Map = ({
         });
       }
     },[markersNotes, commentVisible]);
-    const depth = (arr: any) => arr.reduce((count: any,v: any) => !Array.isArray(v) ? count : 1 + depth(v),1);
+    
     useEffect(() => {
       let mask;
       console.log('Coordinates jurisdiction', coordinatesJurisdiction);

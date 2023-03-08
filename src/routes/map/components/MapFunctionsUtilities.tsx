@@ -32,6 +32,7 @@ export const flytoBoundsCoor = (
   }
 }
 
+export const depth = (arr: any) => arr.reduce((count: any,v: any) => !Array.isArray(v) ? count : 1 + depth(v),1);
 export const getTitleOfStreamImprovements = (properties: any) => {
   let title = '';
   if (properties.component_part_category) {

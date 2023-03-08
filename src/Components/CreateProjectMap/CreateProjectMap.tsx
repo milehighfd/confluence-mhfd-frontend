@@ -13,6 +13,9 @@ import {
   addPopupAndListeners, 
   addPopupsOnClick
 } from "../../routes/map/components/MapFunctionsPopup";
+import {
+  depth 
+} from "../../routes/map/components/MapFunctionsUtilities";
 import EventService from '../../services/EventService';
 import {
   PROBLEMS_TRIGGER,
@@ -247,7 +250,12 @@ const CreateProjectMap = (type: any) => {
     setTimeout(() => {
       map.isStyleLoaded(() => {
         if (coordinatesJurisdiction.length > 0) {
-          mask = turf.multiPolygon(coordinatesJurisdiction);
+          const DEPTH = depth(coordinatesJurisdiction);
+          if (DEPTH == 4) {
+            mask = turf.multiPolygon(coordinatesJurisdiction);
+          } else {
+            mask = turf.polygon(coordinatesJurisdiction);
+          }
           let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
           var arrayBounds = misbounds.split(',');
           let poly = polyMask(mask, arrayBounds);
