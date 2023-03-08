@@ -823,6 +823,7 @@ const PortafolioBody = () => {
                       fullData={newData}
                       email={appUser.userInformation?.email}
                       setCollapsePhase={setCollapsePhase}
+                      optionSelect={optionSelect}
                     />
                   </Col>
                     <Col xs={{ span: 34 }} lg={{ span: 19 }}>

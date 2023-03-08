@@ -16,6 +16,10 @@
   box-shadow: none !important;
 }
 // BUTTON BORDE
+.ant-input:hover {
+  border-color: #251863 !important;
+  border-right-width: 1px;
+}
 .btn-borde{
   border-radius: 7px !important;
   border: solid 1.3px rgba(37, 24, 99, 0.1) !important;

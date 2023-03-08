@@ -18,6 +18,7 @@ import MenuAreaView from "Components/User/UserComponents/MenuAreaView";
 import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectZoomArea from "routes/Utils/SelectZoomArea";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
+import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
@@ -315,13 +316,13 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             />
             <h1>TITLE</h1>
             <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} style={{marginBottom: '15px'}} />
-            <h1>ORGANIZATIONS</h1>
+            {/* <h1>ORGANIZATIONS</h1> */}
             {/* TODO: change data dropdown */}            
-            <SelectOrganization
+            {/* <SelectOrganization
               organization={organization}
               setOrganization={setOrganization}
               defaultValue={organization}
-              value={organization}/>
+              value={organization}/> */}
           </Col>
         </Row>
         <br />
@@ -376,6 +377,51 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           </Row>
           </Col>
           </Row>
+        <br />
+        <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{ paddingRight: '20px' }}>
+            <h3>ORGANIZATION</h3>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{ paddingRight: '20px' }}>
+            <div className="line-01"></div>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+            <div className="gutter-row" id={("city" + values.user_id)}>
+              <p>LOCAL GOVERNMENT</p>
+              <TextArea rows={2} />
+            </div>
+            <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
+              <p>BUSINESS ASSOCIATE</p>
+              <TextArea rows={2} />
+            </div>
+            <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
+              <p>OTHER ORGANIZATION</p>
+              <TextArea rows={2} />
+            </div>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            <div className="gutter-row"  id={("county" + values.user_id)}>
+              <p>LOCAL GOVERNMENT (VALIDATED)</p>
+              <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
+                getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
+                <Button className="btn-borde-management">
+                  {values.county ? values.county : 'County'}  <DownOutlined />
+                </Button>
+              </Dropdown>
+            </div>
+            <div className="gutter-row"  id={("county" + values.user_id)}>
+              <p>BUSINESS ASSOCIATE (VALIDATED)</p>
+              <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
+                getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
+                <Button className="btn-borde-management">
+                  {values.county ? values.county : 'County'}  <DownOutlined />
+                </Button>
+              </Dropdown>
+            </div>
+          </Col>
+        </Row>
         <br />
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 2 }} style={{ paddingRight: '20px' }}>

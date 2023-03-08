@@ -1503,7 +1503,7 @@
         overflow-x: hidden;
         height: 100%;
         overflow-y: auto;
-        height: calc(100vh - 275px);
+        height: calc(100vh - 289px);
         width: 100%;
       }
       .container-timeline::-webkit-scrollbar {
@@ -1627,7 +1627,7 @@
         /* padding: 23.5px; */
         height: 39px;
         margin-bottom: 0px;
-        border-top: 1px solid #d4d2d9;
+        // border-top: 1px solid #d4d2d9;
       }
       .phaseview-timeline{
         //padding: 0px 40px;

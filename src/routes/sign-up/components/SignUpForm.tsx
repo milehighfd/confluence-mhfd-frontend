@@ -9,6 +9,7 @@ import { VALIDATION_SIGN_UP } from "../../../constants/validation";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
+import TextArea from "antd/lib/input/TextArea";
 
 const SignUpForm = () => {
   const {
@@ -195,12 +196,14 @@ const SignUpForm = () => {
       </div>
       {(values.designation !== OTHER && values.designation !== STAFF) ? <div className="group btn-up">
         <div id="sign-up-organization">
-          <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
+          {/* <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
             <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} >
               {values.organization ? values.organization : 'Organization'}
               <img src="/Icons/icon-12.svg" alt="" />
             </Button>
-          </Dropdown>
+          </Dropdown> */}
+          <TextArea placeholder={values.designation === 'consultant' ? "Vendors":"Local Government"} name="vendors" rows={2}
+          style={ { paddingLeft: '10px' }} />
         </div>
         {other.visible && <input placeholder="Organization" type="text" onChange={(e) => {
           const auxOther = { ...other };

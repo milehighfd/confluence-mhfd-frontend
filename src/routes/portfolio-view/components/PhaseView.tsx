@@ -491,8 +491,7 @@ const PhaseView = (
             return <p style={{ width: labelWidth }}>{item.phase_name}</p>
           })}
         </div>
-        <div className="header-timeline"></div>
-       
+        <div className="header-timeline" style={{borderTop: '1px solid #d4d2d9', width: totalLabelWidth}}></div>
           <div
             style={{ width: totalLabelWidth }}
             className="container-timeline"
@@ -509,12 +508,11 @@ const PhaseView = (
                 <div className="phaseview-timeline">
                   <div id={`dotchart_${elem.id}_${tabKey}`}></div>
                 </div>
-                {lengthData - 1 === index ? '' : <div className="header-timeline"></div>}
+                {lengthData - 1 === index ? '' : <div className="header-timeline" style={{ width: totalLabelWidth}}></div>}
               </div>
             ))}
           </div>
-          </div>
-     
+        </div>
     </div>
   );
 };

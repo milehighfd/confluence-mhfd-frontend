@@ -483,6 +483,22 @@
   input::placeholder{
     color: $opacity;
   }
+  textarea.ant-input{
+    font-size:14px;
+    padding:10px 10px 10px 0;
+    display:block;
+    width:100%;
+    border:none;
+    // opacity: 15%;
+    border-bottom:1px solid $opacity01;
+    color: $purple00;
+  }
+  textarea.ant-input:focus{
+    outline:none;
+  }
+  textarea.ant-input::placeholder{
+    color: $opacity;
+  }
 }
 /* material bar bottom */
 .bar 	{ position:relative; display:block; width:100%; }

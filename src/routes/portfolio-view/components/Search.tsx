@@ -36,7 +36,8 @@ const Search = (
     fullData,
     email,
     searchWord,
-    setCollapsePhase
+    setCollapsePhase,
+    optionSelect
   }
   :{
     searchRef: React.MutableRefObject<any>,
@@ -57,7 +58,8 @@ const Search = (
     fullData: any,
     email: string,
     searchWord: string,
-    setCollapsePhase: Function
+    setCollapsePhase: Function,
+    optionSelect:any
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
@@ -70,6 +72,7 @@ const Search = (
   const [openDrop, setOpenDrop] = useState<boolean>(false)
 
   let displayedTabKey = tabKeys;
+  console.log('optionSelect', optionSelect)
   const content = (
     <div style={{width:'137px'}}>
       <p style={{marginBottom:'0px'}}>This is a sample blurb describing the project. Alternatively we can open the detail page.</p>
@@ -231,9 +234,9 @@ const Search = (
                     } */}
                     {
                       elem.values.map((d:any, index_elem: number) => (
-                        <div className="text-search" key={d.key} id={d.id} style={hoverTable === elem.values[index_elem].project_id ? {background:'#fafafa'}:{}} 
+                        <div className="text-search" key={d.key} id={d.id} style={hoverTable === elem.values[index_elem].project_id ? (optionSelect === 'Phase' ?{background:'#fafaf', textDecoration: 'underline'}: {background:'#fafaf'}):{}} 
                           onMouseEnter={(e:any)=>{setHoverTable(elem.values[index_elem].project_id)}}>
-                          <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project">{d.rowLabel}</p>
+                          <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project" >{d.rowLabel}</p>
                           {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction( d.project_id ,email, '')} />}
                           {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>
