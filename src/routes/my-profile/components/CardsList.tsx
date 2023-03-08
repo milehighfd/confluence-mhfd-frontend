@@ -31,6 +31,11 @@ const CardsList = ({
         return data.filter((d: any) => d.project_id !== id)
       })
       getCount();     
+    } else {
+      setData((data: Array<Object>) => {
+        return data.filter((d: any) => d.problemid !== id)
+      })
+      getCount(); 
     }
   }
 
@@ -79,7 +84,29 @@ const CardsList = ({
         }));
       });
     } else {
-      console.log("NADA")
+      datasets.getData(SERVER.FAVORITE_PROBLEMS, datasets.getToken()).then(result => {
+        setData(result.map((problem: any) => {
+          return {
+            cartodb_id: problem.cartodb_id,
+            image: `gallery/${problem.problemtype}.png`,
+            requestName: problem.problemname,
+            jurisdiction: problem.jurisdiction,
+            estimatedCost: problem.estimatedcost,
+            componentCost: problem.component_cost ? problem.component_cost: 0,
+            field4: 'X',
+            field5: 'Components',
+            priority: problem.problempriority,
+            percentage: problem.solutionstatus ? problem.solutionstatus : 0,
+            problemid: problem.problemid,
+            id: problem.problem_id,
+            type: problem.type,
+            value: problem.cartodb_id,
+            totalComponents: problem.totalComponents,
+            coordinates: problem.coordinates[0],
+            isFavorite: true
+          }
+        }));
+      })
     }
 
   }
@@ -87,9 +114,6 @@ const CardsList = ({
     getProjectCards();
   }, []);
 
-  const {
-    favoriteCards: search,
-  } = useMapDispatch();
   let totalElement = data.length;
   const size = 8;
   let sw = false;

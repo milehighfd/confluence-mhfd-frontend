@@ -45,6 +45,7 @@ const Searches = ({
     {openModal && <ModalEditSearch visible={openModal} setVisible={setOpenModal}/>}
     <div className="searches-myprofile">
       <Tabs defaultActiveKey={displayedTabKey[0]}
+        destroyInactiveTabPane={true}
         activeKey={tabKey}
           onChange={(key) => setTabKey(key)} className="tabs-map">
             <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf(`Projects ${counterProjects}`)]} placement="rightBottom">{`Projects ${counterProjects}`} </Popover> </span>} key={`Projects`}>
