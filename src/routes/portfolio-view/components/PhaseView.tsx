@@ -358,6 +358,7 @@ const PhaseView = (
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
               let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
               d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
+              d3.select(`#${searchTextId}`).style('text-decoration','underline');
             }
           })
           .on("mouseout", (d: any) => {
@@ -368,6 +369,7 @@ const PhaseView = (
             });
             let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
             d3.select(`#${searchTextId}`).style('background-color', 'white');
+            d3.select(`#${searchTextId}`).style('text-decoration','none');
           })
           ;
       });
