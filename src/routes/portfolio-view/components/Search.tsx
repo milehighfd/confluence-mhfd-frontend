@@ -35,7 +35,8 @@ const Search = (
     setSearchWord,
     fullData,
     email,
-    searchWord
+    searchWord,
+    setCollapsePhase
   }
   :{
     searchRef: React.MutableRefObject<any>,
@@ -55,7 +56,8 @@ const Search = (
     setSearchWord: Function,
     fullData: any,
     email: string,
-    searchWord: string
+    searchWord: string,
+    setCollapsePhase: Function
   }) => {
 
   const [tabKey, setTabKey] = useState<any>('Capital(67)');
@@ -212,6 +214,8 @@ const Search = (
                   activeKey={getActiveKeys()}
                   onChange={
                     ()=>{
+                      console.log(elem.id)
+                      setCollapsePhase(elem.id)
                       // setTimeout(()=>{
                         const newOpenTable = [...openTable];
                         newOpenTable[index] = !openTable[index] as any;

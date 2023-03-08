@@ -54,6 +54,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const [active, setActive] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [openImage, setOpenImage] = useState(false);
+  const [scrollOpen, setscrollOpen] = useState(0)
   const [typeDetail, setTypeDetail] = useState('');
   const [problemPart, setProblemPart] = useState<any[]>([]);
   let divRef = useRef<null | HTMLDivElement>(null); 
@@ -184,19 +185,19 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         {!detailed?.problemtype && <div
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
-          <a href="#project-basics" className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
-          <a href="#problem" className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
-          <a href="#vendors" className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
-          <a href="#component-solutions" className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
-          <a href="#project-roadmap" className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
+          <a href="#project-basics" onClick={()=>{setscrollOpen(0)}} className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
+          <a href="#problem" onClick={()=>{setscrollOpen(1)}} className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
+          <a href="#vendors" onClick={()=>{setscrollOpen(2)}} className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
+          <a href="#component-solutions" onClick={()=>{setscrollOpen(3)}} className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
+          <a href="#project-roadmap" onClick={()=>{setscrollOpen(4)}} className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
           {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a>
-          <a href="#project-financials" className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
+          <a href="#project-financials" onClick={()=>{setscrollOpen(6)}} className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
           {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
-          <a href="#maps" className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
-          <a href="#attachments" className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
-          <a href="#history" className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
+          <a href="#maps" onClick={()=>{setscrollOpen(8)}} className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
+          <a href="#attachments" onClick={()=>{setscrollOpen(9)}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
+          <a href="#history" onClick={()=>{setscrollOpen(10)}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
         </div>}
         <Row
           className="detailed-b"
@@ -206,34 +207,34 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               let numberSecction = 0;
               if(pageWidth < 1900 && divRef.current){
                 switch(true) {
-                  case divRef.current?.scrollTop < 444:
+                  case divRef.current?.scrollTop < 444 || scrollOpen === 0:
                     numberSecction= 0;
                     break;
-                  case divRef.current?.scrollTop > 444 &&  divRef.current?.scrollTop < 700:
+                  case (divRef.current?.scrollTop > 444 &&  divRef.current?.scrollTop < 700) || scrollOpen === 1:
                     numberSecction= 1;
                     break;
-                  case divRef.current?.scrollTop > 700 &&  divRef.current?.scrollTop < 957:
+                  case (divRef.current?.scrollTop > 700 &&  divRef.current?.scrollTop < 957) || scrollOpen === 2:
                     numberSecction= 2;
                     break;
-                  case divRef.current?.scrollTop > 957 &&  divRef.current?.scrollTop < 1214:
+                  case (divRef.current?.scrollTop > 957 &&  divRef.current?.scrollTop < 1214) || scrollOpen === 3:
                     numberSecction= 3;
                     break;
-                  case divRef.current?.scrollTop > 1214 &&  divRef.current?.scrollTop < 1442:
+                  case (divRef.current?.scrollTop > 1214 &&  divRef.current?.scrollTop < 1442) || scrollOpen === 4:
                     numberSecction= 4;
                     break;
-                    case divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1908:
+                    case (divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1908) || scrollOpen === 5:
                     numberSecction= 5;
                     break;
-                  case divRef.current?.scrollTop > 1908 &&  divRef.current?.scrollTop < 2497:
+                  case (divRef.current?.scrollTop > 1908 &&  divRef.current?.scrollTop < 2497) || scrollOpen === 6:
                     numberSecction= 6;
                     break;
-                  case divRef.current?.scrollTop > 2497 &&  divRef.current?.scrollTop < 3616:
+                  case (divRef.current?.scrollTop > 2497 &&  divRef.current?.scrollTop < 3616) || scrollOpen === 7:
                     numberSecction= 7;
                     break;
-                  case divRef.current?.scrollTop > 3616 &&  divRef.current?.scrollTop < 3695:
+                  case (divRef.current?.scrollTop > 3616 &&  divRef.current?.scrollTop < 3695) || scrollOpen === 8:
                     numberSecction= 8;
                     break;
-                  case divRef.current?.scrollTop > 3695 &&  divRef.current?.scrollTop < 4000:
+                  case (divRef.current?.scrollTop > 3695 &&  divRef.current?.scrollTop < 4000) || scrollOpen === 9:
                     numberSecction= 9;
                     break;
                   default:
@@ -364,7 +365,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div></>}
             <div className="detailed-info">
-              {detailed?.problemtype ?
+              {type === 'Problems' ?
                 <>
                   <DetailInformationProblem />
                   <ProblemParts problemParts={problemPart}/>

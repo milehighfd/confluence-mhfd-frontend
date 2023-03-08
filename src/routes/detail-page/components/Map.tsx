@@ -101,7 +101,9 @@ const addLayer = () => {
     map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
     for (const problem of tileStyles.problem_boundary) {
       map.addLayer(`${PROBLEMS_TRIGGER}` + i, MENU_OPTIONS.PROBLEMS, problem);
-      map.setFilter(`${PROBLEMS_TRIGGER}` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
+      if (detailed?.cartodb_id) {
+        map.setFilter(`${PROBLEMS_TRIGGER}` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
+      }
       i++;
     }
     addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}`);
@@ -109,7 +111,9 @@ const addLayer = () => {
       map.addVectorSource(tiles, layers.floodhazards[tiles]);
       styles[tiles].forEach((element: any, index: number) => {
         map.addLayer(`${tiles}${index}`, tiles, element);
-        map.setFilter(`${tiles}${index}`, ['in', 'problem_id', detailed?.problemid]);
+        if (detailed?.problemid) {
+            map.setFilter(`${tiles}${index}`, ['in', 'problem_id', detailed?.problemid]);
+        }
       }); 
       addMapListeners(tiles, `${tiles}`);
       // console.log('should have added layer', `${tiles}`, styles[tiles], tiles , layers.floodhazards[tiles]);
@@ -157,6 +161,7 @@ const addLayer = () => {
     addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
     }
     if (detailed?.coordinates) {
+      console.log('Should not exist');
       map.fitBounds([
         detailed?.coordinates[0][0],
         detailed?.coordinates[0][2]
@@ -167,24 +172,38 @@ const addLayer = () => {
     }else{
       console.log(detailed)
       if(detailed?.project_id){
-        datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
-          .then(
-            (cordinates: any) => {
-              // let coordinates = coor.coordinates[0];
-              // setGeom(coordinates);
-              // setEditLocation(coordinates);
-              const log =cordinates[0][0];
-              const lat = cordinates[0][1]
-              map.fitBounds(
-                [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
-                {
-                  duration: 10
-                })
-            },
-            (e) => {
-              console.log('e', e);
-            }
-          )
+        datasets.getData(`${SERVER.BBOX_COMPONENTS}?table=${MHFD_PROJECTS}&id=${detailed?.project_id}&activetab=1`).then((coordinates: any) => {
+          if( coordinates.bbox ) {
+            map.fitBounds(
+              [
+                [coordinates.bbox[0][0][0], coordinates.bbox[0][0][1]],
+                [coordinates.bbox[0][2][0], coordinates.bbox[0][2][1]],
+              ],
+              {
+                padding: 0,
+                duration: 10
+              }
+            );
+          }
+        });
+        // datasets.getData(SERVER.GET_BBOX_PROJECTID(detailed.project_id), datasets.getToken())
+        //   .then(
+        //     (cordinates: any) => {
+        //       // let coordinates = coor.coordinates[0];
+        //       // setGeom(coordinates);
+        //       // setEditLocation(coordinates);
+        //       const log =cordinates[0][0];
+        //       const lat = cordinates[0][1]
+        //       map.fitBounds(
+        //         [[cordinates[0][0] ,cordinates[0][1]],[cordinates[2][0] ,cordinates[2][1]]],
+        //         {
+        //           duration: 10
+        //         })
+        //     },
+        //     (e) => {
+        //       console.log('e', e);
+        //     }
+        //   )
       }
     }
     map.getLoadZoom(updateZoom);

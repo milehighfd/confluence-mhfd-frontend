@@ -324,12 +324,12 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
           {/* <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
           <p>REQUESTED</p> */}
           <p style={{ border: 'transparent' }}  className='border-transparent'>APPROVED</p>
-          <p style={{ display: 'flex', width: '46.15384615384615%' }}>
+          <span style={{ display: 'flex', width: '46.15384615384615%' }}>
             <hr className="hr2"></hr>ACTIVE<hr className="hr2"></hr>
-          </p>
-          <p style={{ display: 'flex', width: '38.46153846153846%' }}>
+          </span>
+          <span style={{ display: 'flex', width: '38.46153846153846%' }}>
             <hr></hr>CLOSEOUT<hr></hr>
-          </p>
+          </span>
           <p>CLOSED</p>
         </div>
           <div id="dotchart_1_detailPage" ></div>

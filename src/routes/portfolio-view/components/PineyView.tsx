@@ -69,9 +69,9 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
       </div>
       <div className="body-piney">
         <h1 style={{ color: '#000000', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
-        <div style={{ marginBottom: '25px' }}>
+        <div style={{ marginBottom: '7px' }}>
           <span className="tag-blue">{data.phase}</span>
-        </div>
+          </div>
         <div style={{ marginBottom: '25px' }}>
           <span className="tag-blue">{data.project_type}</span>
         </div>
@@ -82,10 +82,10 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
           }
           <div className="form-text-calendar">
             <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>MHFD Lead/PM</p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {/* {editView ?
                   <>
                     <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
