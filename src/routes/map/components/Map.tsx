@@ -258,6 +258,8 @@ const Map = ({
                 myPolygon.push([...geo]);
             }
         }
+        } else if (depthPolygon == 2) {
+          myPolygon = userInformation.polygon;
         } else {
           // POLYGON
             myPolygon = userInformation.polygon[0];
