@@ -944,7 +944,9 @@ const MapView = () => {
       </div>
       {!toggleFilters ?
         <div style={{ marginRight: '-9px' }}>
-          <Tabs onTabClick={(e: string) => {
+          <Tabs
+            destroyInactiveTabPane={true}
+            onTabClick={(e: string) => {
           if (e === '0') {
             setTabActive('0');
             setTabCards(PROBLEMS_TRIGGER);
