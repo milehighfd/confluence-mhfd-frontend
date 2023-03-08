@@ -244,7 +244,8 @@ const Map = ({
       const user = userInformation;
       if (user?.polygon[0]) {
         let myPolygon: any = [];
-        if (userInformation.polygon.length > 1) {
+        const depthPolygon = depth(userInformation.polygon);
+        if (depthPolygon == 4) {
           // MULTIPOLYGON
           for (let index = 0; index < userInformation.polygon.length; index++) {
             const geo = userInformation.polygon[index];
@@ -283,7 +284,6 @@ const Map = ({
         }
         bottomLongitude -= 0.125;
         topLongitude += 0.125;
-        console.log('Porque el mundo ', bottomLongitude, bottomLatitude, 'SUS HUEVADAS', userInformation.polygon);
         coorBounds.push([bottomLongitude, bottomLatitude]);
         coorBounds.push([topLongitude, topLatitude]);
     }
