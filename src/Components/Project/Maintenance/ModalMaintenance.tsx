@@ -181,10 +181,10 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
       setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
       setProjectId(data.project_id);
-      if (data.project_details[0].code_maintenance_eligibility_type_id === null) {
+      if (data.code_maintenance_eligibility_type_id === null) {
         setEligibility('');
       } else {
-        setEligibility(data.project_details[0].code_maintenance_eligibility_type_id);
+        setEligibility(data.code_maintenance_eligibility_type_id);
       }
       if (data.project_details[0].maintenance_frequency === null) {
         setFrequency('');

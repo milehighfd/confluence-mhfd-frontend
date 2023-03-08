@@ -1221,16 +1221,33 @@ export const PROJECT_INFORMATION = {
 }
 
 export const STUDY_REASON = [
-  'Not Previously Studied',
-  'Flood hazard mapping is outdated',
-  'Master plan recommendations are outdated',
-  'Other'
-]
+  {
+    name: "Not Previously Studied",
+    id: 1
+  }, {
+    name: "Fload Hazard mapping is outdated",
+    id: 2
+  }, {
+    name: "Master plan recomendations are outdated/yr",
+    id: 3
+  }, {
+    name: "Other",
+    id: 4
+  }
+];
+
 export const STUDY_SUB_REASON = [
-  'Changed watershed conditions (land-use, topo, regional, detention, etc.)',
-  'Not aligned with current stream management practices',
-  'New opportunity available'
-]
+  {
+    name: "Changed watershed conditions (land-use, topo, regional, detention, etc.)",
+    id: 1
+  }, {
+    name: "Not aligned with current stream management practices",
+    id: 2
+  }, {
+    name: "New Oppurtuinity Available",
+    id: 3
+  }
+];
 
 export const ICON_POPUPS = [
   ['Problem', "/Icons/ic_problems@2x.png"],

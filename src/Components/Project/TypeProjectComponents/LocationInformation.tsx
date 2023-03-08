@@ -131,7 +131,7 @@ export const LocationInformation = ({
         currentServiceAreaCounty['Service Area'].forEach((element: any) => {
           let service = true;
           if (SA) {
-            SA.forEach((data: any) => {
+            SA?.forEach((data: any) => {
               if (element.includes(data)) { service = false; }
             });
           }
