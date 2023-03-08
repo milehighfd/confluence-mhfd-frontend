@@ -103,10 +103,10 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
               </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {/* {editView ?
                   <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}} className='input-focus'></input>
                   : */}
@@ -115,18 +115,18 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
               </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>Phase</p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <span style={{opacity:'0.5'}}>Funding</span> &nbsp;<span className="tag-blue">20%</span>
               </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>Start Date</p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList}/>
                   :<p>July 1, 2021</p>
@@ -134,10 +134,10 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
               </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>End Date</p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} />
                   :<p>December 6, 2021</p>
@@ -145,10 +145,18 @@ const PineyView = ({setOpenPiney,data}:{setOpenPiney:any,data?:any}) => {
               </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 10 }} lg={{ span: 10 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>Duration</p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 14 }}>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
+              <ClockCircleOutlined style={{opacity:'0.5'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5'}}>5 months  5 days</span>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={{ span: 10 }} lg={{ span: 11 }}>
+                <p>Remaining Time</p>
+              </Col>
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
               <ClockCircleOutlined style={{opacity:'0.5'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5'}}>5 months  5 days</span>
               </Col>
             </Row>
