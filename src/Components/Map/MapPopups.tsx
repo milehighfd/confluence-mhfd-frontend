@@ -337,7 +337,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype } : any) => {
             {item.notes && !item.layer.includes('LOMC') && !item.layer.includes('Effective')? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
             {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
             {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
-            {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
+            {/* {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''} */}
             {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
             {item.email? <p><i>Contact Us: </i><a href={`mailto:${item.email}`}> {item.email}</a></p>:''}
             {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
@@ -428,7 +428,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.notes  ? <p><i>Notes/Comments:</i>  {item.notes}</p> : ''}
           {item.mep_summarynotes ? <p><i>Notes/Comments:</i>  {item.mep_summarynotes}</p> : ''}
           {item.servicearea ? <p><i>Service Area:</i>  {item.servicearea}</p> : ''}
-          {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''}
+          {/* {item.mhfd_servicearea ? <p><i>Service Area:</i>  {item.mhfd_servicearea}</p> : ''} */}
           {item.watershedmanager ? <p><i>Watershed Manager:</i>  {item.watershedmanager}</p> : ''}
           {item.constructionmanagers ? <p><i>Construction Manager:</i>  {item.constructionmanagers}</p> : ''}
           {item.city ? <p><i>City:</i>  {item.city}</p> : ''}
