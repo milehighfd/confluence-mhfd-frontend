@@ -106,14 +106,14 @@ export const useMapDispatch = () => {
     updateSelectedLayers: (selectedLayer: any) => {
       dispatch(updateSelectedLayers(selectedLayer))
     },
-    addFavorite: (email: string, id: number, table: string) => {
-      dispatch(addFavorite(email, id, table));
+    addFavorite: (email: string, id: number, isProblem: boolean) => {
+      dispatch(addFavorite(email, id, isProblem));
     },
     deleteFavorite: (email: string, id: number, table: string) => {
       dispatch(deleteFavorite(email, id, table));
     },
-    favoriteList: (email: string) => {
-      dispatch(favoriteList(email));
+    favoriteList: (email: string, isProblem: boolean) => {
+      dispatch(favoriteList(email, isProblem));
     },
     changeTutorialStatus: (status: boolean) => {
       dispatch(changeTutorialStatus(status));

@@ -45,7 +45,7 @@ const GenericTabView = ({
     }
     
     useEffect(() => {
-        favoriteList(user.email);    
+        favoriteList(user.email, type === 'Problems');    
     }, [user]);
 
     const deleteFavorite = (id: number) => {
@@ -53,7 +53,7 @@ const GenericTabView = ({
         // TODO: fix the logic of this , dont get again the list of favorites
         // only update the variable with a favorites.filter 
         setTimeout(() => {
-            favoriteList(user.email);
+            favoriteList(user.email, type === 'Problems');
         }, 1000);
     }
 
@@ -61,9 +61,10 @@ const GenericTabView = ({
         if (favorites && cardInformation) {
             setData(
                 cardInformation.map((ci: any) => {
+                    // console.log('the ci ', ci);
                     return {
                         ...ci,
-                        isFavorite: favorites.some((f: any) => f.project_table_name === (ci.type || PROJECT_TABLE) && f.project_id === (ci.problemid || ci.project_id))
+                        isFavorite: favorites.some((f: any) => f.project_id === ci.project_id || f.problem_id === ci.problemid)
                     }
 
                 })
