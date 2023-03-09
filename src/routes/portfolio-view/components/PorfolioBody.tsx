@@ -78,6 +78,7 @@ const PortafolioBody = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
   const [listLoaded, setListLoaded] = useState(false);
   const [collapsePhase, setCollapsePhase] = useState('');
+  const [dataModal,setDataModal] = useState<any>([]);
   
 
   const [favorites, setFavorites] = useState<any>([]);
@@ -698,6 +699,7 @@ const PortafolioBody = () => {
     let numAscending = [];
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     setNewData(numAscending)
+    console.log(tabKey)
   }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
 
   function enterPhase (){
@@ -709,7 +711,7 @@ const PortafolioBody = () => {
   }
   
   return <>
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     <div>
@@ -851,6 +853,7 @@ const PortafolioBody = () => {
                         indexParent={idx}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         userName={appUser.userInformation?.name}
+                        setDataModal={setDataModal}
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView rawData={newData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
