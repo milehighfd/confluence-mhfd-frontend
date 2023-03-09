@@ -90,20 +90,22 @@ const PineyView = ({ setOpenPiney, data, userName }:
       last_modified_date: formatTime,
       completed_date: formatTime,
       created_date: formatTime
+    }).then((e) => { 
+      setupdateList(!updateList) 
     }).catch((e) => {
       console.log(e);
     })
-    setupdateList(!updateList)
   };
   const deleteData = (item: any) => {
     console.log("DELETE")
     datasets.deleteDataWithBody(`${SERVER.PROJECT_ACTION_ITEM}`, {
       code_rule_action_item_id: item.code_rule_action_item_id,
       project_id: data.project_id
+    }).then((e) => { 
+      setupdateList(!updateList) 
     }).catch((e) => {
       console.log(e);
-    })
-    setupdateList(!updateList)
+    }) 
   };
   return (
     <>
