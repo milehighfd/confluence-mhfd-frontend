@@ -314,9 +314,9 @@ const CreateProjectMap = (type: any) => {
   }, [highlightedStreams]);
   
   const setBounds = (value: any) => {
-    const zoomareaSelected = groupOrganization.filter((x: any) => (x.aoi.includes(value)|| value.includes(x.aoi))).map((element: any) => {
+    const zoomareaSelected = groupOrganization.filter((x: any) => (x.name.includes(value)|| value.includes(x.name))).map((element: any) => {
       return {
-        aoi: element.aoi,
+        aoi: element.name,
         filter: element.filter,
         coordinates: element.coordinates
       }
@@ -324,7 +324,13 @@ const CreateProjectMap = (type: any) => {
     if (zoomareaSelected[0]) {
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, { name: 'zoomarea' });
+      const DEPTH = depth(zoomareaSelected[0].coordinates?.coordinates);
+      let poly;
+      if (DEPTH == 4) {
+        poly = turf.multiPolygon(zoomareaSelected[0].coordinates?.coordinates, { name: 'zoomarea' });
+      } else {
+        poly = turf.polygon(zoomareaSelected[0].coordinates?.coordinates, { name: 'zoomarea' });
+      }
       let bboxBounds = turf.bbox(poly);
       if (map.map) {
         map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
@@ -366,6 +372,7 @@ const CreateProjectMap = (type: any) => {
         value = type.locality;
       }
       if (groupOrganization.length > 0) {
+        console.log('SET BOUNDSS?', value, groupOrganization);
         wait(() => setBounds(value));
       }
     }, 500);

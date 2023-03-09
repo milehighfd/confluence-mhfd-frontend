@@ -510,7 +510,15 @@ const WorkRequestMap = (type: any) => {
       });
     if (zoomareaSelected[0]) {
       setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      let poly = turf.multiPolygon(zoomareaSelected[0].coordinates, { name: 'zoomarea' });
+
+      const DEPTH = depth(zoomareaSelected[0].coordinates);
+      let poly;
+      if (DEPTH == 4) {
+        poly = turf.multiPolygon(zoomareaSelected[0].coordinates, { name: 'zoomarea' });
+      } else {
+        poly = turf.polygon(zoomareaSelected[0].coordinates, { name: 'zoomarea' });
+      }
+      
       let bboxBounds = turf.bbox(poly);
       if (map.map) {
         map.map.fitBounds(bboxBounds, { padding: 20, maxZoom: 14 });
