@@ -7,11 +7,17 @@ import TextArea from "antd/lib/input/TextArea";
 import { drag } from "d3";
 
 const { Step } = Steps;
-const ModalGraphic = ({positionModalGraphic}:{positionModalGraphic:any}) => {
-  return(
-    <div className='modal-graphic' id='popup-phaseview' style={{left:positionModalGraphic.left, top:positionModalGraphic.top}}>
+const ModalGraphic = ({ positionModalGraphic,
+  dataProject}
+  : {
+    positionModalGraphic?: any,
+    dataProject?:any,
+  }) => {
+   
+  return (
+    <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
       <p className="title">Work Request</p>
-      <p style={{color:'white'}}>Niver Creek Upstream of Zuni Ave and Thompson Ct</p>
+      <p style={{ color: 'white' }}>{dataProject.rowLabel}</p>
       <hr></hr>
       <p>1 Action Item of 5 Closed</p>
       <hr></hr>
