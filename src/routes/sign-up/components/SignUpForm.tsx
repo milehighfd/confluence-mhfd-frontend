@@ -202,7 +202,7 @@ const SignUpForm = () => {
               <img src="/Icons/icon-12.svg" alt="" />
             </Button>
           </Dropdown> */}
-          <input placeholder={values.designation === 'consultant' ? "Vendors":"Local Government"} type="text" name="firstName"
+          <input placeholder={values.designation === 'consultant' ? "Business Associate ":"Local Government"} type="text" name="firstName"
             style={{ paddingLeft: '10px' }} />
           <span className="highlight"></span>
           <span className="bar"></span>

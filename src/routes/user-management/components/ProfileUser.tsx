@@ -39,7 +39,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
  
   //console.log('itemsZoomtoarea', itemsZoomtoarea)  
   
-
+  const menu3 = (
+    <Menu>
+      {}
+    </Menu>
+  );
   const menu2 = () => {
     const itemMenu: MenuProps['items'] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -359,7 +363,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                   //console.log('indexx', index);
                   if (index < 3) {
                   }
-                  return <RadioDesignation key={index} index={index} value={item.value} name={item.name}/>;
+                  return <RadioDesignation key={index} index={index} value={item.value === 'MHFD Senior Manager'? 'MHFD Admin': item.value} name={item.value === 'MHFD Senior Manager'? 'MHFD Admin': item.value}/>;
                 })}
               </Col>
             </Radio.Group>
@@ -390,21 +394,21 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <div className="gutter-row" id={("city" + values.user_id)}>
               <p>LOCAL GOVERNMENT</p>
-              <Input placeholder="Local Government" />
+              <Input placeholder="Local Government" style={{marginBottom:'15px'}}/>
             </div>
             <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
               <p>BUSINESS ASSOCIATE</p>
-              <Input placeholder="Business Associate" />
+              <Input placeholder="Business Associate" style={{marginBottom:'15px'}} />
             </div>
             <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
               <p>OTHER ORGANIZATION</p>
-              <Input placeholder="Othe Organization" />
+              <Input placeholder="Othe Organization" style={{marginBottom:'15px'}} />
             </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
             <div className="gutter-row"  id={("county" + values.user_id)}>
               <p>LOCAL GOVERNMENT (VALIDATED)</p>
-              <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
+              <Dropdown trigger={['click']} overlay={menu3}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
                   {values.county ? values.county : 'County'}  <DownOutlined />
@@ -413,7 +417,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             </div>
             <div className="gutter-row"  id={("county" + values.user_id)}>
               <p>BUSINESS ASSOCIATE (VALIDATED)</p>
-              <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
+              <Dropdown trigger={['click']} overlay={menu3}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
                   {values.county ? values.county : 'County'}  <DownOutlined />
