@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { cloneElement, useEffect, useRef, useState } from "react";
 import * as d3 from 'd3';
 import { dataDot1, dataDot2, dataDot3, colorScale } from "../constants/PhaseViewData";
 import { Button, Col, Input, Layout, message, Popover, Progress, Checkbox, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
@@ -12,11 +12,11 @@ import moment from 'moment';
 const { Step } = Steps;
 
 const PhaseView = (
-  { rawData, openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic, setPositionModalGraphic, indexParent, tabKey,userName }
+  { rawData, openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic, setPositionModalGraphic, indexParent, tabKey,userName, setDataModal }
     : {
       rawData: any,
       openTable: boolean[],
-      phaseRef: React.MutableRefObject<HTMLDivElement | null>,
+      phaseRef: React.MutableRefObject<HTMLDivElement | null>;
       searchRef: React.MutableRefObject<any>,
       graphicOpen: boolean,
       setGrapphicOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -31,6 +31,7 @@ const PhaseView = (
       indexParent: number;
       tabKey: any,
       userName: string,
+      setDataModal:any,
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -44,6 +45,9 @@ const PhaseView = (
   const [scheduleList, setScheduleList] = useState<any>({})
   const [completeData1, setCompleteData1] = useState<any>({})
   const [popUpData, setPopUpData] = useState<any>({})
+  const [actionsDone,setActionsDone] = useState<any>({})
+  const [updateAction,setUpdateAction] = useState(false);
+  const phaseRef1 = useRef<null | HTMLDivElement>(null);
 
   const windowWidth: any = window.innerWidth;
   const next = () => {
@@ -161,9 +165,9 @@ const PhaseView = (
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
       // append the svg object to the body of the page
-      removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}_${tabKey}`))
+      removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}`))
       svg = d3
-        .select(`#dotchart_${dataDotchart[index].id}_${tabKey}`)
+        .select(`#dotchart_${dataDotchart[index].id}`)
         .append("svg")
         .attr("width", width + margin.left + margin.right)//
         .attr("height", height + margin.top + margin.bottom)
@@ -174,15 +178,11 @@ const PhaseView = (
       setSvgStatePhase(svg);
       //dataDotchart =dataDotchart[0].values
       let datas = dataDotchart[index].values;
-      let arrayForCirclesAndLines = [];
-      if (Object.keys(scheduleList).length > 0) {
-        for (var i = 0; i < scheduleList.length; i++) {
-          arrayForCirclesAndLines.push(i);
-        }
-      } else {
-        for (var i = 0; i < datas[0].schedule.length; i++) {
-          arrayForCirclesAndLines.push(i);
-        }
+      let arrayForCirclesAndLines = [];    
+      
+
+      for (var i = 0; i < scheduleList.length; i++) {
+        arrayForCirclesAndLines.push(i);
       }
 
       let svgDefinitions = svg.append("defs");
@@ -297,23 +297,41 @@ const PhaseView = (
           .attr("class", "circletext")
           .attr('fill', '#ffffff')
           .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
-          .text(function (d: any) {
-            if (Object.keys(scheduleList).length > 0) {
-              return scheduleList[r].tasks
-            } else {
-              return d.schedule[r].tasks
+          .attr('Counter',(function (d: any) {         
+            let counterdown = 0;           
+            for (let i = 0; i < Object.keys(actionsDone).length ; i++){
+              if (d.project_id === actionsDone[i].project_id){
+                // for (let j = 0; j < Object.keys(scheduleList[r].tasksData).length ; j++){
+                //   if(scheduleList[r].tasksData[j].code_rule_action_item_id === actionsDone[i].code_rule_action_item_id){                    
+                //     counterdown = counterdown + 1;
+                //     break;
+                //   }                 
+                // }    
+                counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
+              }              
             }
+            return scheduleList[r].tasks-counterdown
+          }))
+          .text(function (d: any) {         
+            let counterdown = 0;           
+            for (let i = 0; i < Object.keys(actionsDone).length ; i++){
+              if (d.project_id === actionsDone[i].project_id){
+                // for (let j = 0; j < Object.keys(scheduleList[r].tasksData).length ; j++){
+                //   if(scheduleList[r].tasksData[j].code_rule_action_item_id === actionsDone[i].code_rule_action_item_id){                    
+                //     counterdown = counterdown + 1;
+                //     break;
+                //   }                 
+                // }    
+                counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
+              }              
+            }
+            return scheduleList[r].tasks-counterdown
           })
           .attr("x", function (d: any) {
             const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3999 ? 1.65 : (windowWidth >= 1450 && windowWidth <= 2000 ? 1.7 : (windowWidth >= 1199 && windowWidth <= 1449 ? 2 : 2))))
             let offset = 0;
-            if (Object.keys(scheduleList).length > 0) {
               offset =
-                +scheduleList[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
-            } else {
-              offset =
-                +d.schedule[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
-            }
+                +scheduleList[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;            
             return offset;
           })
           .attr("y", (d: any) => {
@@ -334,7 +352,6 @@ const PhaseView = (
           .style("fill", 'white')
           .style('opacity', 0)
           .on("click", (d: any) => {
-            console.log(d)
             setPopUpData({ project_name: d.rowLabel, 
               phase: scheduleList[r].phase, 
               project_type: d.project_type, 
@@ -345,6 +362,7 @@ const PhaseView = (
           .on("mousemove", (d: any) => {
             let popupVisible: any = document.getElementById('popup-phaseview');
             setGrapphicOpen(true);
+            setDataModal(d);
             if (popupVisible !== null) {
               let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 : (windowWidth >= 2550 && windowWidth <= 3000 ? 165 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 150 : (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
               let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
@@ -384,7 +402,7 @@ const PhaseView = (
 
     if (Object.keys(rawData).length > 0) {
       rawData.map((elem: any, index: number) => (
-        removeAllChildNodes(document.getElementById(`dotchart_${elem.id}_${tabKey}`))
+        removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
       ));
     }
     // setTimeout(() => {
@@ -407,8 +425,8 @@ const PhaseView = (
   useEffect(() => {
     let z = []
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
-      .then((rows) => {
-        setPhaseList(rows)
+      .then((rows) => {  
+        setPhaseList(rows)  
         let counter = 0;
         z = rows.map((x: any) => {
           counter++;
@@ -421,7 +439,8 @@ const PhaseView = (
               name: x.phase_name,
               phase: x.phase_name,
               tasks: x.code_rule_action_items.length,
-              phase_id: x.code_phase_type_id
+              phase_id: x.code_phase_type_id,             
+              tasksData: x.code_rule_action_items
             })
         })
         setScheduleList(z);
@@ -429,14 +448,23 @@ const PhaseView = (
           return x.code_status_type;
         })
         setStatusList(y)
-        setUpdatePhaseList(!updatePhaseList)
+        setUpdatePhaseList(!updatePhaseList) 
         return rows
       })
       .catch((e) => {
         console.log(e);
       })
+  }, [actionsDone])
 
-  }, [tabKey])
+  useEffect(() => {   
+    console.log(tabKey)
+    datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {   
+    }).then((e) => {     
+      setActionsDone(e);
+    }).catch((e) => {
+      console.log(e);
+    })  
+  }, [tabKey,updateAction])
 
 
   useEffect(() => {
@@ -459,7 +487,7 @@ const PhaseView = (
     <div className="phaseview-body">
       {openPiney && (
         <div className="piney-text">
-          <PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={userName}/>
+          <PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={userName} setUpdateAction={setUpdateAction} updateAction={updateAction}/>
         </div>
       )}
       <div className="phaseview-content">
@@ -493,22 +521,22 @@ const PhaseView = (
             return <p style={{ width: labelWidth }}>{item.phase_name}</p>
           })}
         </div>
-        <div className="header-timeline" style={{borderTop: '1px solid #d4d2d9', width: totalLabelWidth}}></div>
+        <div className="header-timeline" style={{borderTop: '1px solid #d4d2d9', width: '100%'}}></div>
           <div
             style={{ width: totalLabelWidth }}
-            className="container-timeline"
+            className="container-timeline"           
             ref={el => phaseRef.current = el}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
               if (searchRef.current[indexParent]) {
                 searchRef.current[indexParent].scrollTo(0, dr.scrollTop);
               }
-            }}
+            }}            
           >
             {completeData.map((elem: any, index: number) => (
               <div>
                 <div className="phaseview-timeline">
-                  <div id={`dotchart_${elem.id}_${tabKey}`}></div>
+                  <div id={`dotchart_${elem.id}`}></div>
                 </div>
                 {lengthData - 1 === index ? '' : <div className="header-timeline" style={{ width: totalLabelWidth}}></div>}
               </div>
