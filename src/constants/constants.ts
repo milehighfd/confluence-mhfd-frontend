@@ -911,7 +911,7 @@ export const USER = {
 }
 export const RADIO_ITEMS = [
   {
-    value: 'admin', name: 'MHFD Senior Manager'
+    value: 'admin', name: 'MHFD Admin'
   }, {
     value: 'staff', name: 'MHFD Staff'
   }, {

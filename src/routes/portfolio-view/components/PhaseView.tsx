@@ -497,7 +497,7 @@ const PhaseView = (
           <div
             style={{ width: totalLabelWidth }}
             className="container-timeline"
-            ref={phaseRef}
+            ref={el => phaseRef.current = el}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
               if (searchRef.current[indexParent]) {

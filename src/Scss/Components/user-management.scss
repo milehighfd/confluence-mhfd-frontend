@@ -364,7 +364,8 @@
         font-size: 16px;
       }
       input{
-        border-radius: 5px;
+        border-radius: 3px;
+        height: 36px;
       }
       .line-01{
         margin-top: 13px;
@@ -1029,6 +1030,9 @@
       }
     }
     .profile-user{
+      .btn-borde-management{
+        height: 40px;
+      }
       h3 {
         font-size: 22px !important;
       }
