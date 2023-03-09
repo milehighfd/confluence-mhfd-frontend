@@ -363,7 +363,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                   //console.log('indexx', index);
                   if (index < 3) {
                   }
-                  return <RadioDesignation key={index} index={index} value={item.value === 'MHFD Senior Manager'? 'MHFD Admin': item.value} name={item.value === 'MHFD Senior Manager'? 'MHFD Admin': item.value}/>;
+                  return <RadioDesignation key={index} index={index} value={item.value} name={item.value}/>;
                 })}
               </Col>
             </Radio.Group>
