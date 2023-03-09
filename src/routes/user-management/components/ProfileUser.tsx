@@ -306,8 +306,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               onChange={handleChange}
               style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
             />
-            <h1>PHONE NUMBER</h1>
-            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
+            {/* <h1>PHONE NUMBER</h1>
+            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
             <h1>LAST NAME</h1>
@@ -327,6 +327,43 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               setOrganization={setOrganization}
               defaultValue={organization}
               value={organization}/> */}
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
+            <h1>ADDRESS LINE 1</h1>
+            <Input
+              placeholder="Address Line 1"
+              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            <h1>ADDRESS LINE 2</h1>
+            <Input
+              placeholder="Address Line 2"
+              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            {/* <h1>PHONE NUMBER</h1>
+            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+            <h1>CITY</h1>
+            <Input
+              placeholder="City"
+              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            <h1>ZIP CODE</h1>
+            <Input
+              placeholder="Zip Code"
+              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            {/* <h1>PHONE NUMBER</h1>
+            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            <h1>STATE</h1>
+            <Input
+              placeholder="State"
+              style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            <h1>PHONE NUMBER</h1>
+            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
           </Col>
         </Row>
         <br />
@@ -393,21 +430,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <div className="gutter-row" id={("city" + values.user_id)}>
-              <p>LOCAL GOVERNMENT</p>
-              <Input placeholder="Local Government" style={{marginBottom:'15px'}}/>
+              <p>ORGANIZATION</p>
+              <Input placeholder="Enter Organization" style={{marginBottom:'15px'}}/>
             </div>
             <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
-              <p>BUSINESS ASSOCIATE</p>
-              <Input placeholder="Business Associate" style={{marginBottom:'15px'}} />
-            </div>
-            <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
-              <p>OTHER ORGANIZATION</p>
-              <Input placeholder="Othe Organization" style={{marginBottom:'15px'}} />
-            </div>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-            <div className="gutter-row"  id={("county" + values.user_id)}>
-              <p>LOCAL GOVERNMENT (VALIDATED)</p>
+              <p>BUSINESS ASSOCIATE ID</p>
               <Dropdown trigger={['click']} overlay={menu3}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
@@ -415,8 +442,14 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 </Button>
               </Dropdown>
             </div>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            <div className="gutter-row" id={("city" + values.user_id)} style={{opacity:'0'}}>
+              <p>ORGANIZATION</p>
+              <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
+            </div>
             <div className="gutter-row"  id={("county" + values.user_id)}>
-              <p>BUSINESS ASSOCIATE (VALIDATED)</p>
+              <p>POINT OF CONTACT</p>
               <Dropdown trigger={['click']} overlay={menu3}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">

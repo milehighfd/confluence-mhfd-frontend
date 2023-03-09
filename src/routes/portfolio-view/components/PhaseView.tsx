@@ -44,10 +44,12 @@ const PhaseView = (
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [scheduleList, setScheduleList] = useState<any>({})
   const [completeData1, setCompleteData1] = useState<any>({})
-  const [popUpData, setPopUpData] = useState<any>({})
   const [actionsDone,setActionsDone] = useState<any>({})
   const [updateAction,setUpdateAction] = useState(false);
   const phaseRef1 = useRef<null | HTMLDivElement>(null);
+  const [popUpData, setPopUpData] = useState<any>({});
+
+  const headerRef = useRef<null | HTMLDivElement>(null);
 
   const windowWidth: any = window.innerWidth;
   const next = () => {
@@ -491,35 +493,49 @@ const PhaseView = (
         </div>
       )}
       <div className="phaseview-content">
-        <div className="phaseview-title-label" style={{ width: totalLabelWidth }} id="phaseviewTitlleWidth">
-          {/* <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
-          <p>Requested</p> */}
-          {/* <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
-          <p style={{ display: 'flex', width: '46.15384615384615%' }}>
-            <hr className="hr2"></hr>Active<hr className="hr2"></hr>
-          </p>
-          <p style={{ display: 'flex', width: '38.46153846153846%' }}>
-            <hr></hr>Closeout<hr></hr>
-          </p>
-          <p>Closed</p> */}
-          {/*TO DO: Dotty*/}
-          {availableStatusList.map((item: any, index: number) => {
-            // console.log('item', item)
-            return <p style={index === 0 ? { display: 'flex', width: item[1] , border: 'transparent'}:{ display: 'flex', width: item[1] }}>
-              <hr className="hr2" style={{width:item[1]/2 - 48}}></hr>{item[0]}<hr className="hr2" style={{width:item[1]/2 - 48}}></hr>
+        <div
+          className="header-title"
+          ref={headerRef}
+          onScrollCapture={(e: any) => {
+            if(phaseRef.current && indexParent && phaseRef.current){
+              let dr: any = phaseRef.current;
+              let dr1: any = headerRef.current;
+              if (searchRef.current[indexParent] && phaseRef.current) {
+                phaseRef.current.scrollTo(dr1.scrollLeft, dr.scrollTop);
+              }
+            }
+          }}
+        >
+          <div className="phaseview-title-label" style={{ width: totalLabelWidth }} id="phaseviewTitlleWidth">
+            {/* <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
+            <p>Requested</p> */}
+            {/* <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
+            <p style={{ display: 'flex', width: '46.15384615384615%' }}>
+              <hr className="hr2"></hr>Active<hr className="hr2"></hr>
             </p>
-          })}
-        </div>
-        <div style={{ width: totalLabelWidth }} className="phaseview-title" id="phaseviewTitlleWidth">
-          {/* <p>Draft</p>
-          <p>
-            Work Request
-            <br />
-            (WR)
-          </p> */}
-          {phaseList.map((item: any) => {
-            return <p style={{ width: labelWidth }}>{item.phase_name}</p>
-          })}
+            <p style={{ display: 'flex', width: '38.46153846153846%' }}>
+              <hr></hr>Closeout<hr></hr>
+            </p>
+            <p>Closed</p> */}
+            {/*TO DO: Dotty*/}
+            {availableStatusList.map((item: any, index: number) => {
+              // console.log('item', item)
+              return <p style={index === 0 ? { display: 'flex', width: item[1] , border: 'transparent'}:{ display: 'flex', width: item[1] }}>
+                <hr className="hr2" style={{width:item[1]/2 - 48}}></hr>{item[0]}<hr className="hr2" style={{width:item[1]/2 - 48}}></hr>
+              </p>
+            })}
+          </div>
+          <div style={{ width: totalLabelWidth }} className="phaseview-title" id="phaseviewTitlleWidth">
+            {/* <p>Draft</p>
+            <p>
+              Work Request
+              <br />
+              (WR)
+            </p> */}
+            {phaseList.map((item: any) => {
+              return <p style={{ width: labelWidth }}>{item.phase_name}</p>
+            })}
+          </div>
         </div>
         <div className="header-timeline" style={{borderTop: '1px solid #d4d2d9', width: '100%'}}></div>
           <div
@@ -528,8 +544,9 @@ const PhaseView = (
             ref={el => phaseRef.current = el}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
-              if (searchRef.current[indexParent]) {
+              if (searchRef.current[indexParent] && headerRef.current) {
                 searchRef.current[indexParent].scrollTo(0, dr.scrollTop);
+                headerRef.current?.scrollTo(dr.scrollLeft, 0)
               }
             }}            
           >

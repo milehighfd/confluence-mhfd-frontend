@@ -202,7 +202,7 @@ const SignUpForm = () => {
               <img src="/Icons/icon-12.svg" alt="" />
             </Button>
           </Dropdown> */}
-          <input placeholder={values.designation === 'consultant' ? "Business Associate ":"Local Government"} type="text" name="firstName"
+          <input placeholder={"Enter Organization"} type="text" name="firstName"
             style={{ paddingLeft: '10px' }} />
           <span className="highlight"></span>
           <span className="bar"></span>
@@ -216,7 +216,7 @@ const SignUpForm = () => {
         }}
           style={(!other.value) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />}
       </div> : values.designation !== STAFF ? <div className="group">
-        <input placeholder="Organization" type="text" name="organization" onChange={handleChange}
+        <input placeholder="Enter Organization" type="text" name="organization" onChange={handleChange}
           style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
         <span className="highlight"></span>
         <span className="bar"></span>
