@@ -7,6 +7,7 @@ import TextArea from "antd/lib/input/TextArea";
 import { drag } from "d3";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
+import * as d3 from 'd3';
 
 const { Step } = Steps;
 const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction }: 
@@ -14,10 +15,12 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     data?: any, 
     userName?: string
     setUpdateAction?: any, 
-    updateAction?: any,  }) => {
+    updateAction?: any,
+    }) => {     
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
+  const [counterD, setCounterD]= useState(+data.d3_text)
   const [checkboxValue, setCheckboxValue] = useState({
     draft: true,
     sign: false,
@@ -56,31 +59,83 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [actionList, setActionList] = useState<any>([])
   const [updateList, setupdateList] = useState(true)
   const [percent, setPercent] = useState(0)
-   
-  useEffect(() => {   
+  const [note,setNote] =useState('')
+  const [newNote,setNewNote] =useState('')
+  const [actualStartDate,setActualStartDate] = useState<any>()
+  const [actualEndDate,setActualEndDate] = useState<any>()
+  const [newStartDate,setNewStartDate] = useState<any>()
+  const [newEndDate,setNewEndDate] = useState<any>()
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+
+  useEffect(() => {    
+    console.log(counterD)
     let counter = 0;
     let lengthActions = 0;
-    console.log("UPDATE")
-    datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id, project_id: data.project_id})
-      .then((rows) => {       
-        setActionList(rows.map((x: any) => {          
-          let isChecked = false;         
+    datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
+      .then((rows) => {
+        setActionList(rows.map((x: any) => {
+          let isChecked = false;
           if (Object.keys(x.project_action_items)?.length > 0) {
             isChecked = true;
-            counter = counter+1;
-          }   
+            counter = counter + 1;
+          }
           lengthActions = rows.length;
-          //setPercent(counter/rows.length*100)
-          return {action_item_name:x.action_item_name,code_phase_type_id:x.code_phase_type_id,code_rule_action_item_id:x.code_rule_action_item_id,isChecked}
+          return { action_item_name: x.action_item_name, code_phase_type_id: x.code_phase_type_id, code_rule_action_item_id: x.code_rule_action_item_id, isChecked }
         }
         ))
-        setPercent(Math.floor(counter/lengthActions*100))
+        setPercent(Math.floor(counter / lengthActions * 100))
       })
       .catch((e) => {
         console.log(e);
-      })      
-     
-  }, [data,updateList])
+      })
+   
+  }, [updateList,newNote])
+
+  useEffect(() => {
+    setNote('')
+    setNewNote('')
+    datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
+      .then((rows) => {
+        if (Object.keys(rows).length > 0) {
+          setNote(rows[0].comments)
+          setNewNote(rows[0].comments)
+          let check = moment(rows[0].actual_start_date, 'YYYY-MM-DD');
+          let month = check.format('MM');
+          month = monthNames[+month - 1];
+          let day = check.format('DD');
+          let year = check.format('YYYY');
+          let check1 = moment(rows[0].actual_end_date, 'YYYY-MM-DD');
+          let monthEnd = check1.format('MM');
+          monthEnd = monthNames[+monthEnd - 1];
+          let dayEnd = check1.format('DD');
+          let yearEnd = check1.format('YYYY');
+          setActualStartDate(`${month} ${day}, ${year}`)
+          setActualEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
+          setNewStartDate(`${month} ${day}, ${year}`)
+          setNewEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }, [data, updateList])
+
+  useEffect(() => {
+    if (newNote !== note || newStartDate !== actualStartDate || newEndDate !== actualEndDate) {
+      datasets.putData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id, comments: newNote })
+        .then((rows) => {
+          setNote(newNote)
+          setActualStartDate(newStartDate)
+          setActualEndDate(newEndDate)
+          console.log(rows)
+        })
+        .catch((e) => {
+          console.log(e);
+        })      
+    }
+  }, [editView])
+
   const saveData = (item: any) => {   
     const formatTime = moment().format('YYYY-MM-DD HH:mm:ss');
     datasets.postData(`${SERVER.PROJECT_ACTION_ITEM}`, {
@@ -93,23 +148,38 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
       created_date: formatTime
     }).then((e) => { 
       setupdateList(!updateList) 
-      setUpdateAction(!updateAction)
+      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD-1);
+      setCounterD(counterD-1);
     }).catch((e) => {
       console.log(e);
     })
   };
   const deleteData = (item: any) => {
-    console.log("DELETE")
     datasets.deleteDataWithBody(`${SERVER.PROJECT_ACTION_ITEM}`, {
       code_rule_action_item_id: item.code_rule_action_item_id,
       project_id: data.project_id
     }).then((e) => { 
       setupdateList(!updateList) 
-      setUpdateAction(!updateAction)
+      d3.selectAll(`#${data.d3_pos}_text`).text(+counterD+1);
+      setCounterD(counterD+1);
     }).catch((e) => {
       console.log(e);
     }) 
   };
+  function onSelectDateStart(date: any, dateString: any) { 
+    const newDate = new Date(dateString);      
+    const month = newDate.toLocaleString('default', { month: 'long' });
+    const day=(newDate.toLocaleString("default", { day: "2-digit" }));
+    const year=(newDate.getFullYear());
+    setNewStartDate(`${month} ${day}, ${year}`)
+  }
+  function onSelectDateEnd(date: any, dateString: any) { 
+    const newDate = new Date(dateString);      
+    const month = newDate.toLocaleString('default', { month: 'long' });
+    const day=(newDate.toLocaleString("default", { day: "2-digit" }));
+    const year=(newDate.getFullYear());
+    setNewEndDate(`${month} ${day}, ${year}`)
+  }
   return (
     <>
       <div className="header-piney" style={{marginBottom:'20px'}}>
@@ -125,9 +195,9 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
           <span className="tag-blue">{data.project_type}</span>
         </div>
         <div className="body-piney-body">
-          <p style={{ marginBottom:'5px', fontWeight:'700'}}>Notes</p>
-          {editView? <><TextArea rows={4} style={{marginBottom:'15px', opacity:'0.5'}}/></>:
-            <p>The same screen can be built in a lot of different ways, but only a few of them will get your message accross correctly and result in an easy-to-use software or...<span style={{fontWeight:'700'}}>more</span></p>
+          <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
+          {editView? <><TextArea rows={4} style={{marginBottom:'15px'}} onChange={e => setNewNote(e.target.value)} defaultValue={newNote}/></>:
+            <p>{newNote}<span style={{fontWeight:'700'}}></span></p>
           }
           <div className="form-text-calendar">
             <Row>
@@ -177,8 +247,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
-                  <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList}/>
-                  :<p>July 1, 2021</p>
+                  <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
+                  : <p>{actualStartDate === '' ? 'January 1, 2023' : actualStartDate}</p>
                 }
               </Col>
             </Row>
@@ -188,8 +258,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
-                  <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} />
-                  :<p>December 6, 2021</p>
+                  <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
+                  :<p>{actualEndDate === '' ? 'December 6, 2023' : actualEndDate}</p>
                 }
               </Col>
             </Row>
