@@ -10,10 +10,10 @@ const content01 = (<div className="popver-info"></div>);
 export const ProjectInformation = ({type, description, setDescription, reason, setReason, otherReason, setOtherReason}:
   {type?: string, description: string, setDescription: Function, reason?: number, setReason?: any, otherReason?: any, setOtherReason?: any}) => {
   useEffect(() => {
-    if(reason === STUDY_REASON[3].id){
+    if(reason && reason === STUDY_REASON[3].id){
       setOtherReason('');
     } else {
-      setReason(reason)
+      if (reason) setReason(reason)
     }
     if(otherReason) setOtherReason(otherReason);
   }, [reason]);
