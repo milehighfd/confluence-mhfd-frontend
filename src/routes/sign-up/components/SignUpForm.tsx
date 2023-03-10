@@ -23,93 +23,7 @@ const SignUpForm = () => {
   const [redirect, setRedirect] = useState(false);
   const [targetButton, setTargetButton] = useState(STAFF_CONSTANT);
   const [other, setOther] = useState({ value: '', visible: false });
-  const [organizationList, setOrganizationList] = useState<any[]>([]);
-  const [consultantList, setConsultantList] = useState<any[]>([]);
-  const [localities, setLocalities] = useState<any[]>([]);
 
-  useEffect(() => {
-    datasets.getData(SERVER.GET_ORGANIZATIONS)
-      .then((rows) => {
-        const organizations = rows
-          .filter((row: any) => row.type === 'JURISDICTION')
-          .map(({id, name}: { id: number, name: string }) => (name));
-        setOrganizationList(organizations.sort());
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-    datasets.getData(SERVER.GET_CONSULTANTS)
-      .then((rows) => {
-        const consultants = rows
-          .map(({_id, name}: { _id: number, name: string }) => (name)).filter((value: string, index: number, self: any) => {
-            return self.indexOf(value) === index;
-          }
-          );
-        setConsultantList(consultants.sort());
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-    datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
-      .then((rows) => {
-        const localitiesData = rows.localities.map((l: any) => l.name);
-        localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
-        setLocalities(localitiesData);
-      }).catch((e) => {
-        console.log(e);
-      })
-  }, []);
-
-  const menu = () => {
-    const itemMenu: MenuProps['items'] = [];
-    const generateItemMenu = (content: Array<any>) => {
-      content.forEach((element, index: number) => {
-        itemMenu.push({
-          key: `${index}|${element}`,
-          label: <span style={{border:'transparent'}}>{element}</span>
-        });
-      });
-    };
-    const generateItemMenuConsultant = (content: Array<any>) => {
-      content.forEach((element, index: number) => {
-        itemMenu.push({
-          key: `${index}|${element}`,
-          label: <span style={{border:'transparent'}}>{element}</span>,
-          onClick: (() => {
-            const auxOther = { ...other };
-            auxOther.value = '';
-            auxOther.visible = false;
-            setOther(auxOther);
-          })
-        });
-      });
-    };
-    if (values.designation === ADMIN || values.designation === STAFF || values.designation === GOVERNMENT_STAFF) {
-      generateItemMenu(organizationList);
-    } else if (values.designation === CONSULTANT) {
-      generateItemMenuConsultant(consultantList);
-      itemMenu.push({
-        key: '999|other',
-        label: <span style={{border:'transparent'}}>Other</span>,
-        onClick: (() => {
-          const auxOther = { ...other };
-          auxOther.visible = true;
-          setOther(auxOther);
-        })
-      });
-    } else {
-      generateItemMenuConsultant(localities);
-    }
-    return <Menu
-      key={'organization'}
-      className="js-mm-00 sign-menu-organization"
-      items={itemMenu}
-      onClick={(event) => {
-        values.organization = event.key.split('|')[1];
-        setTitle(values.organization);
-      }}>
-    </Menu>
-  };
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
       designation: STAFF_CONSTANT,
@@ -194,33 +108,17 @@ const SignUpForm = () => {
         <span className="highlight"></span>
         <span className="bar"></span>
       </div>
-      {(values.designation !== OTHER && values.designation !== STAFF) ? <div className="group btn-up">
-        <div id="sign-up-organization">
-          {/* <Dropdown overlay={menu} getPopupContainer={() => document.getElementById("sign-up-organization") as HTMLElement}>
-            <Button className={values.organization ? 'text-button-dropdown' : ''} style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} >
-              {values.organization ? values.organization : 'Organization'}
-              <img src="/Icons/icon-12.svg" alt="" />
-            </Button>
-          </Dropdown> */}
-          <input placeholder={"Enter Organization"} type="text" name="firstName"
-            style={{ paddingLeft: '10px' }} />
-          <span className="highlight"></span>
-          <span className="bar"></span>
-          {/* <TextArea placeholder={values.designation === 'consultant' ? "Vendors":"Local Government"} name="vendors" rows={2} */}
-          {/* style={ { paddingLeft: '10px' }} /> */}
+      {(values.designation !== STAFF) && 
+        <div className="group btn-up">
+          <div id="sign-up-organization">
+            <input placeholder={"Enter Organization"} type="text" name="organization"
+              onChange={handleChange}
+              style={{ paddingLeft: '10px' }} />
+            <span className="highlight"></span>
+            <span className="bar"></span>
+          </div>
         </div>
-        {other.visible && <input placeholder="Organization" type="text" onChange={(e) => {
-          const auxOther = { ...other };
-          auxOther.value = e.target.value;
-          setOther(auxOther);
-        }}
-          style={(!other.value) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />}
-      </div> : values.designation !== STAFF ? <div className="group">
-        <input placeholder="Enter Organization" type="text" name="organization" onChange={handleChange}
-          style={(errors.organization && touched.organization) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
-        <span className="highlight"></span>
-        <span className="bar"></span>
-      </div> : ''}
+      }
       <div className="group">
         <input type="password" placeholder="Password" name="password" onChange={handleChange}
           style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
