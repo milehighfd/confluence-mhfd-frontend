@@ -117,7 +117,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setEditView(!editView)}}/>
       </div>
       <div className="body-piney">
-        <h1 style={{ color: '#000000', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
+        <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
         <div style={{ marginBottom: '7px' }}>
           <span className="tag-blue">{data.phase}</span>
           </div>
@@ -125,8 +125,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
           <span className="tag-blue">{data.project_type}</span>
         </div>
         <div className="body-piney-body">
-          <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-          {editView? <><TextArea rows={4} style={{marginBottom:'15px'}}/></>:
+          <p style={{ marginBottom:'5px', fontWeight:'700'}}>Notes</p>
+          {editView? <><TextArea rows={4} style={{marginBottom:'15px', opacity:'0.5'}}/></>:
             <p>The same screen can be built in a lot of different ways, but only a few of them will get your message accross correctly and result in an easy-to-use software or...<span style={{fontWeight:'700'}}>more</span></p>
           }
           <div className="form-text-calendar">
@@ -146,7 +146,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                   </>
                   : */}
                   <>
-                    <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span  style={{opacity:'0.5'}}>Jon Villines</span>
+                    <img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span  style={{opacity:'0.5', color: '#11093C'}}>Jon Villines</span>
                   </>
                 {/* } */}
               </Col>
@@ -168,7 +168,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p>Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-                <span style={{opacity:'0.5'}}>{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
+                <span style={{opacity:'0.5', color: '#11093C'}}>{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
               </Col>
             </Row>
             <Row>
@@ -198,7 +198,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p>Duration</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined style={{opacity:'0.5'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5'}}>5 months  5 days</span>
+              <ClockCircleOutlined style={{opacity:'0.5', color: '#11093C'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5', color: '#11093C'}}>5 months  5 days</span>
               </Col>
             </Row>
             <Row>
@@ -206,11 +206,11 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p>Remaining Time</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined style={{opacity:'0.5'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5'}}>5 months  5 days</span>
+              <ClockCircleOutlined style={{opacity:'0.5', color: '#11093C'}}/>&nbsp; &nbsp;<span  style={{opacity:'0.5', color: '#11093C'}}>5 months  5 days</span>
               </Col>
             </Row>
           </div>
-          <p style={{marginTop:'10px', marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Action Items</p>
+          <p style={{marginTop:'10px', marginBottom:'5px', fontWeight:'700'}}>Action Items</p>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 4 }}>
                 <p style={{fontSize:'12px', fontWeight:'700', paddingTop:'2px'}}>{percent+'%'}</p>

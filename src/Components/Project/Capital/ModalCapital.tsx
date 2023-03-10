@@ -737,7 +737,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                           <Timeline>
                             <Timeline.Item color="green">
                               <Row style={{marginLeft:'-18px'}}>
-                                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Unnamed Component"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
+                                <Col className="first" xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 15 }}  ><label><Input placeholder="Proposed Actions"  onChange={(e) => changeValueIndComp(e, 'name',indComp)} value={indComp.name} /></label></Col>
                                 <Col className="second" xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 5 }}><Input className='ant-input-color' placeholder="Proposed"  defaultValue="Proposed"  onChange={(e) => changeValueIndComp(e,'status', indComp)} value={indComp.status} disabled={true} /></Col>
                                 <Col className="third cost-third" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 3 }} >
                                   <Tooltip placement="topLeft" title="Only numeric values are accepted.">

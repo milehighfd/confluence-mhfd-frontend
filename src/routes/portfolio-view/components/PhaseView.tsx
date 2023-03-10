@@ -552,7 +552,7 @@ const PhaseView = (
           >
             {completeData.map((elem: any, index: number) => (
               <div>
-                <div className="phaseview-timeline">
+                <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
                   <div id={`dotchart_${elem.id}`}></div>
                 </div>
                 {lengthData - 1 === index ? '' : <div className="header-timeline" style={{ width: totalLabelWidth}}></div>}
