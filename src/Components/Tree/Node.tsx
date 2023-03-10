@@ -8,7 +8,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
   if (!isFolder) {
     items = [{
       key: '0',
-      label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+      label: <span style={{}}>
         <img src="/Icons/icon-04.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Edit Comment
       </span>,
@@ -25,7 +25,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
       })
     }, {
       key: '1',
-      label: <span style={{borderBottom: '1px solid rgb(255 255 255)'}}>
+      label: <span style={{}}>
         <img src="/Icons/icon-13.svg" alt="" width="10px" style={{ opacity: '0.5', marginTop: '-2px' }} />
         Zoom to
       </span>,
@@ -35,7 +35,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
       })
     }, {
       key: '2',
-      label: <span style={{ color: '#FF0000', borderBottom: '1px solid rgb(255 255 255)' }}>
+      label: <span style={{ color: '#FF0000' }}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
         Delete
       </span>,
@@ -47,7 +47,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
   } else {
     items = [{
       key: '3',
-      label: <span style={{ color: '#FF0000', borderBottom: '1px solid rgb(255 255 255)' }}>
+      label: <span style={{ color: '#FF0000' }}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
         Delete
       </span>,

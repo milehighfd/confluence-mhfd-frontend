@@ -269,7 +269,7 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       <h3>
       </h3>
       <div className="a-layers">
-        <span className="title"></span>  
+        <span className="title">Feature Layers</span>  
         <Dropdown overlay={divListOfelements(currentSelected, changeValueOfElement)} trigger={['click']}>
           <div className="hoverfilter"><a className="img-filter" onClick={e => e.preventDefault()} style={{right: counterFilters > 0?'53px':'35px'}}></a></div>
         </Dropdown>

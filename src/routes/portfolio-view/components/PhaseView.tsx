@@ -539,7 +539,7 @@ const PhaseView = (
         </div>
         <div className="header-timeline" style={{borderTop: '1px solid #d4d2d9', width: '100%'}}></div>
           <div
-            style={{ width: totalLabelWidth }}
+            // style={{ width: totalLabelWidth }}
             className="container-timeline"           
             ref={el => phaseRef.current = el}
             onScroll={(e: any) => {

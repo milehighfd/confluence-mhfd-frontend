@@ -286,6 +286,11 @@
     padding-left: 7px;
     background: #CFEBFE;
     border-radius: 0.2em 0.2em 0.2em 0.2em;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #11093C;
     &:focus {
       background:#CFEBFE;
       cursor: text;
@@ -311,10 +316,23 @@
       display: inline;
     }
     &:hover > .inputlabel {
-      background-color: #CFEBFE;
+      background-color: #f5f5f5;
+      font-weight: 600;
+      color: #11093C;
     }
     &:hover {
-      background-color: #CFEBFE; 
+      background-color: #f5f5f5;
+      font-family: 'Ubuntu';
+      font-style: normal;
+      // font-weight: 700;
+      font-size: 14px;
+      line-height: 16px;
+      /* identical to box height */
+
+      display: flex;
+      align-items: center;
+
+      // color: #11093C;
     }
     
     &:first-child {
