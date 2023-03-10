@@ -1233,19 +1233,15 @@ export const STUDY_REASON = [
   }, {
     name: "Other",
     id: 4
-  }
-];
-
-export const STUDY_SUB_REASON = [
-  {
+  }, {
     name: "Changed watershed conditions (land-use, topo, regional, detention, etc.)",
-    id: 1
+    id: 5
   }, {
     name: "Not aligned with current stream management practices",
-    id: 2
+    id: 6
   }, {
     name: "New Oppurtuinity Available",
-    id: 3
+    id: 7
   }
 ];
 

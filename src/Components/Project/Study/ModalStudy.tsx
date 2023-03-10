@@ -39,6 +39,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const { listStreams } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [otherReason, setOtherReason] = useState('');
   const [description, setDescription] = useState('');
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
@@ -58,8 +59,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [editprojectid, setEditsetprojectid] = useState("");
   const [jurisdiction, setjurisdiction] = useState<any>([]);
   const [lengthName, setlengthName] = useState(0);
-  const [studyreason, setStudyReason] = useState();
-  const [studysubReason, setStudySubReason] = useState();
+  const [studyreason, setStudyReason] = useState<any>();
   const history = useHistory();
   const location = useLocation();
   const { toggleAttachmentCover} = useAttachmentDispatch();
@@ -108,10 +108,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setIsDraw(isDraw);
     }
   }, [isDraw]);
-
-  useEffect(() => {
-    console.log(' par ', studyreason, 'par 2' , studysubReason);
-  }, [studyreason, studysubReason]);
   useEffect(() => {
     if (listStreams) {
       const idKey: any = [];
@@ -206,9 +202,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setNameProject(data.project_name);
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
-      
-      setStudyReason(data?.project_studies[0]?.study?.code_study_sub_reason?.code_study_reasons[0]?.reason_name ? data?.project_studies[0]?.study?.code_study_sub_reason?.code_study_reasons[0]?.reason_name : '');
-      setStudySubReason(data?.project_studies[0]?.study?.code_study_sub_reason?.sub_reason_name ? data?.project_studies[0]?.study?.code_study_sub_reason?.sub_reason_name : '');
+      setStudyReason(data?.project_studies[0]?.study?.code_study_reason?.code_study_reason_id);
+      setOtherReason(data?.project_details[0]?.comments);
     }
   }, [data]);
   useEffect(() => {
@@ -225,34 +220,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
-      var study = new Project();
+
+      let study = new Project();
       study.locality = _locality;
       study.isWorkPlan = isWorkPlan;
       study.year = _year ?? study.year;
       study.projectname = nameProject;
       study.description = description;
-      // let cservice = "";
-      // serviceArea.forEach((element: any) => {
-      //   cservice = cservice + element + ",";
-      // });
-      // if (cservice.length != 0) {
-      //   cservice = cservice.substring(0, cservice.length - 1);
-      // }
-      // let ccounty = "";
-      // county.forEach((element: any) => {
-      //   ccounty = ccounty + element + ",";
-      // });
-      // if (ccounty.length != 0) {
-      //   ccounty = ccounty.substring(0, ccounty.length - 1);
-      // }
-      // let cjurisdiction = "";
-      // jurisdiction.forEach((element: any) => {
-      //   cjurisdiction = cjurisdiction + element + ",";
-      // });
-      // if (cjurisdiction.length != 0) {
-      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
-      // }
-
       let csponsor = "";
       if (cosponsor) {
         cosponsor.forEach((element: any) => {
@@ -273,9 +247,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       study.locality = locality ? locality : '';
       study.editProject = editprojectid;
       study.cover = '';
-      study.studyreason = studyreason ?? '';
-      study.studysubreason = studysubReason || '';
+      study.studyreason = studyreason ?? 1;
       study.sendToWR = sendToWR;
+      study.otherReason = otherReason;
       let newStreamsArray: any = [];
       for (let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
@@ -291,7 +265,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       } else {
         saveProjectStudy(study);
       }
-      console.log(study, "+++STUDY+++");
       setVisibleStudy(false);
       setVisible(false);
     }
@@ -465,8 +438,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                 setDescription={setDescription}
                 reason={studyreason}
                 setReason={setStudyReason}
-                subReason={studysubReason}
-                setSubReason={setStudySubReason}
+                otherReason={otherReason}
+                setOtherReason={setOtherReason}
               />
               <br />
               <h5 style={{marginTop:'5px'}}>
@@ -503,7 +476,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                     return (
                                       <Timeline.Item color="green">
                                         <Row style={{ marginLeft: '-18px' }}>
-                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream.code_local_goverment ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
+                                          <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
                                           <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length)}</Col>
                                           <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{formatterDec.format(stream.drainage)}</Col>
                                           <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>

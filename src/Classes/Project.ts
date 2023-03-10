@@ -36,11 +36,11 @@ export class Project {
     jurisdiction: any;
     cover: any;
     estimatedcost?: any;
-    studyreason: string;
-    studysubreason: string; 
+    studyreason: number;
     sendToWR: boolean;
     componentcost?: any;
     componentcount?: any;
+    otherReason? : any;
     isWorkPlan: boolean;
     constructor() {
         this.year = '2023';
@@ -69,8 +69,8 @@ export class Project {
         this.ids = [];
         this.streams = [];
         this.estimatedcost = 0;
-        this.studyreason = "";
-        this.studysubreason = "";
+        this.otherReason = '';
+        this.studyreason = 1;
         this.sendToWR = false;
         this.isWorkPlan = false;
     }
