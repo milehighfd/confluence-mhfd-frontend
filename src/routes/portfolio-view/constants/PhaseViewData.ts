@@ -288,10 +288,14 @@ export const dataDot3 = [
 ];
 
 export const colorScale: any = {
-  completed: '#5E5FE2',
-  active: '#047CD7',
+  Completed: '#5E5FE2',
+  Active: '#047CD7',
   notStarted: '#D4D2D9',
   delayed: '#F5575C',
+  Inactive: '#D4D2D9',
+  Cancelled: '#D4D2D9',
+  Closed: '#D4D2D9',
+  Closeout: '#D4D2D9',
 };
 
 

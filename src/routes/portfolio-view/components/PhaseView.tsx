@@ -88,7 +88,7 @@ const PhaseView = (
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
     completedtoActive
-      .attr("id", "completed_active")
+      .attr("id", "Completed_Active")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
@@ -102,7 +102,7 @@ const PhaseView = (
 
     let completedtoDelayed = svgDefinitions.append("linearGradient");
     completedtoDelayed
-      .attr("id", "completed_delayed")
+      .attr("id", "Completed_delayed")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
@@ -116,43 +116,111 @@ const PhaseView = (
 
     let ActivetoNotStarted = svgDefinitions.append("linearGradient");
     ActivetoNotStarted
-      .attr("id", "active_notStarted")
+      .attr("id", "Completed_Inactive")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
       .attr("y2", "0");
     ActivetoNotStarted.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#047CD7')
+      .attr("stop-color", '#5E5FE2')
     ActivetoNotStarted.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", '#D4D2D9')
+
+    let Cancelled = svgDefinitions.append("linearGradient");
+    Cancelled
+      .attr("id", "Active_Completed")
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0")
+      .attr("y2", "0");
+    Cancelled.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", '#047CD7')
+    Cancelled.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", '#D4D2D9')
 
     let ActivetoDelayed = svgDefinitions.append("linearGradient");
     ActivetoDelayed
-      .attr("id", "active_delayed")
+      .attr("id", "Inactive_Cancelled")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
       .attr("y2", "0");
     ActivetoDelayed.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#047CD7')
+      .attr("stop-color", '#D4D2D9')
     ActivetoDelayed.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", '#F5575C')
+      .attr("stop-color", '#D4D2D9')
 
-    let delayedtoNotStarted = svgDefinitions.append("linearGradient");
-    delayedtoNotStarted
-      .attr("id", "delayed_notStarted")
+    let CancelledtoClosed = svgDefinitions.append("linearGradient");
+    CancelledtoClosed
+      .attr("id", "Cancelled_Closed")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
       .attr("y2", "0");
-    delayedtoNotStarted.append("stop")
+    CancelledtoClosed.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#F5575C')
-    delayedtoNotStarted.append("stop")
+      .attr("stop-color", '#D4D2D9')
+    CancelledtoClosed.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", '#D4D2D9')
+
+    let ClosedtoCloseout = svgDefinitions.append("linearGradient");
+    ClosedtoCloseout
+      .attr("id", "Closed_Closeout")
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0")
+      .attr("y2", "0");
+    ClosedtoCloseout.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", '#D4D2D9')
+    ClosedtoCloseout.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", '#D4D2D9')
+
+    let ActivetoInactive = svgDefinitions.append("linearGradient");
+    ActivetoInactive
+      .attr("id", "Active_Inactive")
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0")
+      .attr("y2", "0");
+    ActivetoInactive.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", '#5E5FE2')
+    ActivetoInactive.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", '#D4D2D9')
+    let ActivetoCancelled = svgDefinitions.append("linearGradient");
+    ActivetoCancelled
+      .attr("id", "Active_Cancelled")
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0")
+      .attr("y2", "0");
+    ActivetoCancelled.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", '#5E5FE2')
+    ActivetoCancelled.append("stop")
+      .attr("offset", "100%")
+      .attr("stop-color", '#D4D2D9')
+    let CancelledtoCloseout = svgDefinitions.append("linearGradient");
+    CancelledtoCloseout
+      .attr("id", "Cancelled_Closeout")
+      .attr("x1", "0%")
+      .attr("x2", "100%")
+      .attr("y1", "0")
+      .attr("y2", "0");
+    CancelledtoCloseout.append("stop")
+      .attr("offset", "0%")
+      .attr("stop-color", '#D4D2D9')
+    CancelledtoCloseout.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", '#D4D2D9')
   }
@@ -235,7 +303,7 @@ const PhaseView = (
             })
             .attr("height", 2)
             .attr("stroke", (d: any) => {
-              let colorstroke: any = colorScale[(scheduleList[r].status).toLowerCase()];
+              let colorstroke: any = colorScale[(scheduleList[r].status)];
               return colorstroke;
             })
             .attr("stroke", function (d: any) {
@@ -243,7 +311,7 @@ const PhaseView = (
               let nextStatus = scheduleList[r+1].status.replace(/\s+/g, '');
               return (
                 (currentStatus === nextStatus) ?
-                  colorScale[(scheduleList[r].status).toLowerCase()]
+                  colorScale[(scheduleList[r].status)]
                   : (`url(#${currentStatus}_${nextStatus})`))
             })
             // .attr("stroke", "url(#textBg)")
@@ -256,7 +324,7 @@ const PhaseView = (
         circles
           .append("circle")
           .attr('id', (d: any) => {
-            return `${d.id}_${(scheduleList[r].phase).toLowerCase()}`;
+            return `${d.id}_${(scheduleList[r].phase)}`;
           })
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
@@ -265,7 +333,7 @@ const PhaseView = (
           })
           .attr("r", radius)
           .style("fill", function (d: any) {
-            return colorScale[(scheduleList[r].status).toLowerCase()];
+            return colorScale[(scheduleList[r].status)];
           })
         circles
           .append("circle")
@@ -288,7 +356,7 @@ const PhaseView = (
           })
           .attr("r", radius - 3)
           .style("fill", function (d: any) {
-            return colorScale[(scheduleList[r].status).toLowerCase()];
+            return colorScale[(scheduleList[r].status)];
           })
 
         svg
@@ -296,24 +364,13 @@ const PhaseView = (
           .data(datas)
           .enter()
           .append("text")
+          .attr('id', (d: any) => { 
+            return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_text` })
+            .attr('id2', (d: any) => { 
+              return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_text` })
           .attr("class", "circletext")
           .attr('fill', '#ffffff')
           .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
-          .attr('Counter',(function (d: any) {         
-            let counterdown = 0;           
-            for (let i = 0; i < Object.keys(actionsDone).length ; i++){
-              if (d.project_id === actionsDone[i].project_id){
-                // for (let j = 0; j < Object.keys(scheduleList[r].tasksData).length ; j++){
-                //   if(scheduleList[r].tasksData[j].code_rule_action_item_id === actionsDone[i].code_rule_action_item_id){                    
-                //     counterdown = counterdown + 1;
-                //     break;
-                //   }                 
-                // }    
-                counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
-              }              
-            }
-            return scheduleList[r].tasks-counterdown
-          }))
           .text(function (d: any) {         
             let counterdown = 0;           
             for (let i = 0; i < Object.keys(actionsDone).length ; i++){
@@ -344,7 +401,7 @@ const PhaseView = (
           ;
         circles
           .append("circle")
-          .attr('id', (d: any) => { return `${d.id}_${scheduleList[r].phase}_outer` })
+          .attr('id', (d: any) => { return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_outer` })
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
             let ydname: any = y(d.id);
@@ -354,17 +411,30 @@ const PhaseView = (
           .style("fill", 'white')
           .style('opacity', 0)
           .on("click", (d: any) => {
-            setPopUpData({ project_name: d.rowLabel, 
-              phase: scheduleList[r].phase, 
-              project_type: d.project_type, 
-              phase_id: scheduleList[r].phase_id, 
-              project_id: d.project_id })
+            setOpenPiney(false)
+            let searchTextId2 = d3.event.target.id.slice(0, -6);
+            console.log(searchTextId2)
+            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
+            setPopUpData({
+              project_name: d.rowLabel,
+              phase: scheduleList[r].phase,
+              project_type: d.project_type,
+              phase_id: scheduleList[r].phase_id,
+              project_id: d.project_id,
+              d3_pos: searchTextId2,
+              d3_text: actualNumber
+            })
             setOpenPiney(true)
           })
           .on("mousemove", (d: any) => {
             let popupVisible: any = document.getElementById('popup-phaseview');
             setGrapphicOpen(true);
-            setDataModal(d);
+            let searchTextId2 = d3.event.target.id.slice(0, -6);
+            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
+            const lenghtSc = Object.keys(scheduleList[r].tasksData).length
+            const phaseSc = (scheduleList[r].phase)           
+            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc }
+            setDataModal(sendModal);            
             if (popupVisible !== null) {
               let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 : (windowWidth >= 2550 && windowWidth <= 3000 ? 165 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 150 : (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
               let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
