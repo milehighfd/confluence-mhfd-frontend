@@ -199,6 +199,7 @@ export const SERVER = (function () {
         GROUP_ORGANIZATION_NO_GEOM: `${URL_BASE.BASE}/v2/locality/all-localities?nogeom=1`,
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         PHASE_TYPE: `${URL_BASE.BASE}/phasetype`,
+        STATUS: `${URL_BASE.BASE}/status`,
         PROJECT_ACTION_ITEM:`${URL_BASE.BASE}/actionitem`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
