@@ -563,12 +563,15 @@ export const getStreamsByProjectId = (projectId: any) => {
       for(let str in listStreams) {
         independentStreams = [...independentStreams, ...listStreams[str]];
       }
-      independentStreams = independentStreams.map((indStr:any) => indStr.mhfd_code);
+      independentStreams = independentStreams.map((indStr:any) => {
+        const arrayValues = indStr.stream.stream.MHFD_Code.split('.');
+        arrayValues.shift();
+        return arrayValues.join('.');
+      });
       const setMHFD:any = new Set();
       for(let i = 0; i < independentStreams.length; ++i) {
         setMHFD.add(independentStreams[i])
       }
-      
       dispatch({type: types.SET_LIST_STREAMS, listStreams});
       let setArray = [...setMHFD];
       let streamsIntersectedIds: any = [];

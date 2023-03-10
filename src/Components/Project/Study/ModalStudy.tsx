@@ -19,9 +19,13 @@ const content = (<div className="popver-info">Master plans that set goals for th
 const stateValue = {
   visibleStudy: false
 }
-
+const deletefirstnumbersmhfdcode = (value: any) => {
+  const arrayValues = value.stream.stream.MHFD_Code.split('.');
+  arrayValues.shift();
+  return arrayValues.join('.');
+}
 const genTitle = (streamName: any, streamData: any, setHighlightedStream: Function) => (
-  <div className="tab-head-project" onMouseEnter={() => setHighlightedStream(streamData[0].mhfd_code)} onMouseLeave={() => setHighlightedStream(undefined)}>
+  <div className="tab-head-project" onMouseEnter={() => { const valueHighlight = !(streamData[0].mhfd_code) ? deletefirstnumbersmhfdcode(streamData[0]) : streamData[0].mhfd_code;  setHighlightedStream(valueHighlight)}} onMouseLeave={() => setHighlightedStream(undefined)}>
     <div>{streamName} </div>
   </div>
 )
@@ -335,10 +339,12 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   });
 
   const removeStream = (stream: any) => {
-    let cartodbIdToRemove = stream.mhfd_code;
+    console.log('Stream to remove', stream);
+    let mhfd_codeIdToRemove = stream?.stream?.stream?.MHFD_Code;
     let copyList = { ...streamsList };
+    console.log('Current list', streamsList, mhfd_codeIdToRemove);
     for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.mhfd_code != cartodbIdToRemove);
+      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.stream?.stream?.MHFD_Code != mhfd_codeIdToRemove);
       copyList[jurisdiction] = newArray;
     }
     let newCopyList: any = {};
@@ -350,7 +356,15 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
 
     setStreamsList(newCopyList);
     if (ids.length > 0) {
-      let newIds = [...ids].filter((id: any) => id.mhfd_code != cartodbIdToRemove);
+      let newIds = [...ids].filter((id: any) => {
+        const arrayValues = mhfd_codeIdToRemove.split('.');
+        arrayValues.shift();
+        console.log('THIS IS TRHUE', id.mhfd_code,  arrayValues.join('.'), id.mhfd_code == arrayValues.join('.'));
+        return id.mhfd_code !== arrayValues.join('.');
+      });
+      
+      
+      console.log('Ids before', ids, 'After', newIds);
       setStreamsIds(newIds);
     }
 
