@@ -246,6 +246,51 @@ const Profile = ({
             }
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Address Line 1</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+            {editProfile ?
+              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              :<p style={{paddingBottom:'10px' }}>-</p>
+            }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Address Line 2</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+            {editProfile ?
+              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              :<p style={{paddingBottom:'10px' }}>-</p>
+            }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>City</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+            {editProfile ?
+              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              :<p style={{paddingBottom:'10px' }}>-</p>
+            }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>State</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+            {editProfile ?
+              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              :<p style={{paddingBottom:'10px' }}>-</p>
+            }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+            <p className="color-sub" style={{paddingBottom:'10px' }}>Zip Code</p>
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+            {editProfile ?
+              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              :<p style={{paddingBottom:'10px' }}>-</p>
+            }
+          </Col>
+          <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Organization</p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 15 }}>

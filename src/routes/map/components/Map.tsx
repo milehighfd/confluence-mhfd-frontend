@@ -9,6 +9,7 @@ import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button, Popover } from 'antd';
 import { MapProps, ObjectLayerType, LayerStylesType } from '../../../Classes/MapTypes';
 import {
+    SWITCHES_MAP,
     MAP_DROPDOWN_ITEMS,
     MAPBOX_TOKEN,
     PROBLEMS_TRIGGER,
@@ -865,6 +866,16 @@ const Map = ({
             applyNearMapLayer();
             //applyTileSetLayer();
             applyMeasuresLayer();
+            const removedLayers = SWITCHES_MAP.filter((layerElement:any) => !selectedLayers.includes(layerElement))
+            removedLayers.forEach((layerExcluded: any) => {
+              if (typeof layerExcluded === 'object') {
+                layerExcluded.tiles.forEach((subKey: string) => {
+                  hideLayerAfterRender(subKey);
+                });
+              } else {
+                hideLayerAfterRender(layerExcluded);
+              }
+            });
         }
     };
     waiting();
@@ -1188,7 +1199,7 @@ const Map = ({
               map.moveLayer('borderMASK');
             }
             
-        },800);
+        },300);
     }
     const topHovereableLayers = () => {
       const styles = { ...tileStyles as any };
@@ -1490,6 +1501,16 @@ const Map = ({
         });
     }, [problemClusterGeojson, projectsids,filterProjectOptions]);
 
+    const hideLayerAfterRender = async (key: string,) => {
+      const styles = { ...(tileStyles as any) };
+      if (styles[key]) {
+        styles[key].forEach((style: LayerStylesType, index: number) => {
+            if (map.getLayer(key + '_' + index)) {
+              map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+            }
+        });
+      }
+    };
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }

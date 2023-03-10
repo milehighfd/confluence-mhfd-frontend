@@ -1499,15 +1499,35 @@
       width: 100%;//110%
       overflow-y: auto;
       overflow-x: scroll;
+      .header-title{
+        width: 100%;
+        overflow: auto;
+      }
+      .header-title::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+      }
+      
+      /* Track */
+      .header-title::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
+       
+      /* Handle */
+      .header-title::-webkit-scrollbar-thumb {
+        background: #11093c00;
+        border-radius: 10px;
+      }
       .container-timeline{
-        overflow-x: hidden;
+        overflow-x: auto;
         height: 100%;
         overflow-y: auto;
-        height: calc(100vh - 289px);
+        height: calc(100vh - 287px);
         width: 100%;
       }
       .container-timeline::-webkit-scrollbar {
         width: 5px;
+        height: 5px;
       }
       
       /* Track */

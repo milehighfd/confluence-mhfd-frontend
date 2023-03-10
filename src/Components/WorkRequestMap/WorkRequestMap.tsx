@@ -1065,7 +1065,8 @@ const applyProblemClusterLayer = () => {
                 }
                 if (typeof filters === 'object') {
                     for (const range of filters) {
-                        const [lower, upper] = range.split(',');
+                        console.error('generating error with split', range);
+                        const [lower, upper] = range?.split(',');
                         const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
                         const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
                         const allFilter = ['all', lowerArray, upperArray];

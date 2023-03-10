@@ -9,10 +9,12 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 
 const { Step } = Steps;
-const PineyView = ({ setOpenPiney, data, userName }: 
+const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction }: 
   { setOpenPiney: any, 
     data?: any, 
-    userName?: string }) => {
+    userName?: string
+    setUpdateAction?: any, 
+    updateAction?: any,  }) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
@@ -79,8 +81,7 @@ const PineyView = ({ setOpenPiney, data, userName }:
       })      
      
   }, [data,updateList])
-  const saveData = (item: any) => {
-    console.log("SAVE")
+  const saveData = (item: any) => {   
     const formatTime = moment().format('YYYY-MM-DD HH:mm:ss');
     datasets.postData(`${SERVER.PROJECT_ACTION_ITEM}`, {
       code_rule_action_item_id: item.code_rule_action_item_id,
@@ -92,6 +93,7 @@ const PineyView = ({ setOpenPiney, data, userName }:
       created_date: formatTime
     }).then((e) => { 
       setupdateList(!updateList) 
+      setUpdateAction(!updateAction)
     }).catch((e) => {
       console.log(e);
     })
@@ -103,6 +105,7 @@ const PineyView = ({ setOpenPiney, data, userName }:
       project_id: data.project_id
     }).then((e) => { 
       setupdateList(!updateList) 
+      setUpdateAction(!updateAction)
     }).catch((e) => {
       console.log(e);
     }) 

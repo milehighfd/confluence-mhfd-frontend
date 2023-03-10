@@ -349,7 +349,7 @@ const CreateProjectMap = (type: any) => {
       getData(`${SERVER.URL_BASE}/board/bbox/${type.projectid}`)
         .then(
           (r: any) => {
-            if (r.bbox) {
+            if (r?.bbox) {
               let BBoxPolygon = JSON.parse(r.bbox);
               let bboxBounds = turf.bbox(BBoxPolygon);
               if (map.map) {
@@ -574,8 +574,9 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
+    console.log('Stream IntersectedIds', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
-      let streamsCodes: any = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+      let streamsCodes: any = streamsIntersectedIds.filter((fstr:any)=> fstr.mhfd_code).map((str: any) => str.mhfd_code);
       map.isStyleLoaded(() => {
         let filter = ['in', ['get', 'unique_mhfd_code'], ['literal', [...streamsCodes]]];
 
