@@ -202,7 +202,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                       title={
                         <h6>
                           { item.status !== 'Approved' ? setpending(true) : pending }
-                          <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00'}}>
+                          <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00' , background:'transparent'}}>
                           </i>
                           &nbsp; {item.locality}
                         </h6>
