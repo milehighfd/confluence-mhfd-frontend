@@ -13,17 +13,30 @@ const ModalGraphic = ({ positionModalGraphic,
     positionModalGraphic?: any,
     dataProject?:any,
   }) => {
-   
-  return (
-    <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
-      <p className="title">Work Request</p>
-      <p style={{ color: 'white' }}>{dataProject.rowLabel}</p>
-      <hr></hr>
-      <p>1 Action Item of 5 Closed</p>
-      <hr></hr>
-      <p>Due on November 26, 2022.</p>
-    </div>
-  )
+    if (Object.keys(dataProject).length > 0) {
+      return (
+        <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
+          <p className="title">{dataProject.schedulePhase}</p>
+          <p style={{ color: 'white' }}>{dataProject.d.rowLabel}</p>
+          <hr></hr>
+          <p>{`${dataProject.scheduleList-dataProject.actualNumber} Action Item of ${dataProject.scheduleList} Closed`}</p>
+          <hr></hr>
+          <p>Due on November 26, 2022.</p>
+        </div>
+      )
+    }else{
+      return (
+        <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
+          <p className="title">-</p>
+          <p style={{ color: 'white' }}>-</p>
+          <hr></hr>
+          <p>{`- Action Item of - Closed`}</p>
+          <hr></hr>
+          <p>Due on November 26, 2022.</p>
+        </div>
+      )
+    }
+  
 }
 
 export default ModalGraphic;
