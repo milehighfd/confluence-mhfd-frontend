@@ -33,7 +33,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   currentData?: any,
   year?: number
 }) => {
-  console.log(visible, data, showDefaultTab, locality, editable );
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setBoardProjectsCreate} = useProjectDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');

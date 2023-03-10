@@ -122,7 +122,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     list.forEach((county : any) => {
       counties.push(county.CODE_STATE_COUNTY.county_name +' County')
     });
-      console.log('counties',counties)
     }
     return counties;
   }
@@ -132,7 +131,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     list.forEach((serviceArea : any) => {
       serviceAreas.push(serviceArea.CODE_SERVICE_AREA.service_area_name +' Service Area')
     });
-      console.log('serviceAreas',serviceAreas)
     }
     return serviceAreas;
   }
@@ -143,7 +141,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     list.forEach((jurisdiction : any) => {
       jurisdictions.push(jurisdiction.CODE_LOCAL_GOVERNMENT.local_government_name)
     });
-      console.log('jurisdictions',jurisdictions)
     }
     return jurisdictions;
   }
@@ -159,8 +156,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         cosponsors.push(titleCase(sponsorCosponsor.business_associate.business_name))
       }
     });
-      console.log('sponsors',sponsors)
-      console.log('cosponsors',cosponsors)
     }
     if(type === 'sponsor'){
       return sponsors;
@@ -173,31 +168,33 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   useEffect(() => {
     if (data !== 'no data') {
       setSwSave(true);
-      setDescription(data.description);
-      setNameProject(data.project_name);
-      setCounty(parseCountiesToArray(data.project_counties));
-      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
-      setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
-      setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
-      setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
-      setProjectId(data.project_id);
-      if (data.code_maintenance_eligibility_type_id === null) {
+      setDescription(data?.description);
+      setNameProject(data?.project_name);
+      setCounty(parseCountiesToArray(data?.project_counties));
+      setServiceArea(parseServiceAreaToArray(data?.project_service_areas));
+      setjurisdiction(parseJurisdictionToArray(data?.project_local_governments));
+      setCosponsor(parseSponsorCosponsorToArray(data?.project_partners, 'cosponsor'));
+      setSponsor(parseSponsorCosponsorToArray(data?.project_partners, 'sponsor'));
+      setProjectId(data?.project_id);
+      setEditsetprojectid(data?.project_id);
+      if (data?.code_maintenance_eligibility_type_id === null) {
         setEligibility('');
       } else {
-        setEligibility(data.code_maintenance_eligibility_type_id);
+        setEligibility(data?.code_maintenance_eligibility_type_id);
       }
-      if (data.project_details[0].maintenance_frequency === null) {
+      if (data?.project_details[0]?.maintenance_frequency === null) {
         setFrequency('');
       } else {
-        setFrequency(data.project_details[0].maintenance_frequency);
+        setFrequency(data?.project_details[0]?.maintenance_frequency);
       }
-      setEditsetprojectid(data.project_id);
-      // setSponsor(data.sponsor);
-      if (data.project_details[0].is_public_ownership === true) {
+      if (data?.project_details[0]?.is_public_ownership === true) {
+        console.log(data?.project_details[0]?.is_public_ownership === true);
         setOwnership(true);
       } else {
+        console.log(data?.project_details[0]?.is_public_ownership === true);
         setOwnership(false);
       }
+
       setTimeout(() => {
         getGEOMByProjectId(data.project_id);
       }, 2200);
@@ -337,7 +334,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   };
 
   const handleCancel = (e: any) => {
-    console.log(e);
     const auxState = { ...state };
     setVisibleMaintenance(false);
     setState(auxState);
@@ -438,7 +434,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Access Control <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <p className="switch-option" style={{fontSize:'14px'}}>Public Access / Ownership <span>
-                    <Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked={ownership} onChange={(ownership) => apllyOwnership(ownership)} />
+                    <Switch checkedChildren="Yes" unCheckedChildren="No" checked={ownership} onChange={(ownership) => apllyOwnership(ownership)} />
                   </span></p>
                 </Col>
               </Row>
