@@ -133,7 +133,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           }
         )
       },1200);
-      setEditsetprojectid(data.projectid);
+      setEditsetprojectid(data.project_id);
     } else {
       setEditLocation(undefined);
     }
