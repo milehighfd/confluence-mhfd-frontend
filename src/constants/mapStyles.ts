@@ -608,7 +608,7 @@ export const COMPONENT_LAYERS_STYLE = {
           22,
           12
       ],
-      "line-opacity": ["step", ["zoom"], 0, 12, 0, 13, 1, 22, 1],
+      "line-opacity": ["step", ["zoom"], 0, 10, 0.3, 13, 1, 22, 1],
       "line-translate": [0.5, 0.5],
       "line-color": "hsl(0, 0%, 0%)"
     }
