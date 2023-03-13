@@ -82,6 +82,7 @@ const PhaseView = (
 
   const labelWidth = 95;
   let totalLabelWidth = phaseList.length * labelWidth;
+  
   const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 49 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 24 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 20)))))
   const marginRight = (windowWidth >= 1900 && windowWidth <= 2549 ? 41 : (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : (windowWidth >= 3001 && windowWidth <= 3999 ? 85 : 30)))
   const marginTop = (windowWidth >= 3001 && windowWidth <= 3999 ? -41.2 : (windowWidth >= 1900 && windowWidth <= 2549 ? -27 : (windowWidth >= 2550 && windowWidth <= 3000 ? -31 : -22)))
@@ -99,6 +100,7 @@ const PhaseView = (
       values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
+  console.log('totalLabelWidth', totalLabelWidth)
   const lengthData = completeData.length;
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
@@ -249,12 +251,13 @@ const PhaseView = (
       heightDiv = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
+      console.log(width + margin.left + margin.right, 'WIDTH=------')
       // append the svg object to the body of the page
       removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}`))
       svg = d3
         .select(`#dotchart_${dataDotchart[index].id}`)
         .append("svg")
-        .attr("width", width + margin.left + margin.right)//
+        .attr("width", totalLabelWidth)//
         .attr("height", height + margin.top + margin.bottom)
         //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
         .append("g")
@@ -591,7 +594,7 @@ const PhaseView = (
             }
           }}
         >
-          <div className="phaseview-title-label" style={{ width: totalLabelWidth }} id="phaseviewTitlleWidth">
+          <div className="phaseview-title-label" style={{ width: totalLabelWidth, paddingRight:'13px' }} id="phaseviewTitlleWidth">
             {/* <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
             <p>Requested</p> */}
             {/* <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
@@ -610,7 +613,7 @@ const PhaseView = (
               </p>
             })}
           </div>
-          <div style={{ width: totalLabelWidth }} className="phaseview-title" id="phaseviewTitlleWidth">
+          <div style={{ width: totalLabelWidth, paddingRight:'13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
             {/* <p>Draft</p>
             <p>
               Work Request
@@ -627,6 +630,7 @@ const PhaseView = (
             // style={{ width: totalLabelWidth }}
             className="container-timeline"           
             ref={el => phaseRef.current = el}
+            style={{marginLeft:'5px'}}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
               if (searchRef.current[indexParent] && headerRef.current) {
