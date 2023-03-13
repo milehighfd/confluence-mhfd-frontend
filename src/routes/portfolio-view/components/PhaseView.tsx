@@ -12,7 +12,20 @@ import moment from 'moment';
 const { Step } = Steps;
 
 const PhaseView = (
-  { rawData, openTable, phaseRef, searchRef, graphicOpen, setGrapphicOpen, positionModalGraphic, setPositionModalGraphic, indexParent, tabKey,userName, setDataModal }
+  { rawData,
+    openTable,
+    phaseRef,
+    searchRef,
+    graphicOpen,
+    setGrapphicOpen,
+    positionModalGraphic,
+    setPositionModalGraphic,
+    indexParent,
+    tabKey,
+    userName,
+    setDataModal,
+    openPiney,
+    setOpenPiney }
     : {
       rawData: any,
       openTable: boolean[],
@@ -31,12 +44,14 @@ const PhaseView = (
       indexParent: number;
       tabKey: any,
       userName: string,
-      setDataModal:any,
+      setDataModal: any,
+      openPiney: boolean,
+      setOpenPiney: any    
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
-  const [openPiney, setOpenPiney] = useState(false);
+  
 
   const [phaseList, setPhaseList] = useState<any>([])
   const [statusList, setStatusList] = useState<any>([])
@@ -410,10 +425,9 @@ const PhaseView = (
           .attr("r", radius + 0.5)
           .style("fill", 'white')
           .style('opacity', 0)
-          .on("click", (d: any) => {
+          .on("click", (d: any) => {            
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            console.log(searchTextId2)
             let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
             setPopUpData({
               project_name: d.rowLabel,

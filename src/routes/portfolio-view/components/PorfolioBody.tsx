@@ -79,7 +79,7 @@ const PortafolioBody = () => {
   const [listLoaded, setListLoaded] = useState(false);
   const [collapsePhase, setCollapsePhase] = useState('');
   const [dataModal,setDataModal] = useState<any>([]);
-  
+  const [openPiney, setOpenPiney] = useState(false);
 
   const [favorites, setFavorites] = useState<any>([]);
   
@@ -709,7 +709,16 @@ const PortafolioBody = () => {
   function enterList (){
     setOptionSelect('List')
   }
-  
+  function changeTabkey (key : any){
+    setOpenPiney(false)
+    setTabKey(key)
+  }
+  function openFavs (){
+    console.log("ASDASd")
+    setOpenPiney(false)    
+    console.log(openPiney)
+    setOpenFavorites(!openFavorites)   
+  }
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
@@ -747,7 +756,7 @@ const PortafolioBody = () => {
               {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Projects
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
-            <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFavorites(!openFavorites)}}>
+            <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{openFavs()}}>
               {openFavorites? <HeartFilled style={{color: '#f5575c', fontSize: '16px'}}/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
@@ -797,7 +806,7 @@ const PortafolioBody = () => {
         </div>
         <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[1]}
           activeKey={tabKey}
-          onChange={(key) => setTabKey(key)} className="tabs-map">
+          onChange={(key) => changeTabkey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string, idx: number) => { return (
               <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk} disabled = {optionSelect === 'Phase' && tk === 'All'?true:false}>
@@ -854,6 +863,8 @@ const PortafolioBody = () => {
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         userName={appUser.userInformation?.name}
                         setDataModal={setDataModal}
+                        openPiney = {openPiney}
+                        setOpenPiney = {setOpenPiney}
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView rawData={newData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}

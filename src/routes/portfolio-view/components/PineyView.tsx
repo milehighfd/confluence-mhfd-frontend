@@ -67,7 +67,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [newEndDate,setNewEndDate] = useState<any>()
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
-
+   
   useEffect(() => {    
     console.log(counterD)
     let counter = 0;
@@ -97,23 +97,28 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     setNewNote('')
     datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
+        console.log(rows)
         if (Object.keys(rows).length > 0) {
+          if(rows[0].actual_start_date !== null){
+            let check = moment(rows[0].actual_start_date, 'YYYY-MM-DD');
+            let month = check.format('MM');
+            month = monthNames[+month - 1];
+            let day = check.format('DD');
+            let year = check.format('YYYY');
+            setActualStartDate(`${month} ${day}, ${year}`)
+            setNewStartDate(`${month} ${day}, ${year}`)
+          }
+          if(rows[0].actual_end_date !== null){
+            let check1 = moment(rows[0].actual_end_date, 'YYYY-MM-DD');
+            let monthEnd = check1.format('MM');
+            monthEnd = monthNames[+monthEnd - 1];
+            let dayEnd = check1.format('DD');
+            let yearEnd = check1.format('YYYY');          
+            setActualEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)          
+            setNewEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
+          }
           setNote(rows[0].comments)
-          setNewNote(rows[0].comments)
-          let check = moment(rows[0].actual_start_date, 'YYYY-MM-DD');
-          let month = check.format('MM');
-          month = monthNames[+month - 1];
-          let day = check.format('DD');
-          let year = check.format('YYYY');
-          let check1 = moment(rows[0].actual_end_date, 'YYYY-MM-DD');
-          let monthEnd = check1.format('MM');
-          monthEnd = monthNames[+monthEnd - 1];
-          let dayEnd = check1.format('DD');
-          let yearEnd = check1.format('YYYY');
-          setActualStartDate(`${month} ${day}, ${year}`)
-          setActualEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
-          setNewStartDate(`${month} ${day}, ${year}`)
-          setNewEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
+          setNewNote(rows[0].comments)     
         }
       })
       .catch((e) => {
@@ -248,7 +253,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p>{actualStartDate === '' ? 'January 1, 2023' : actualStartDate}</p>
+                  : <p>{!actualStartDate ? 'January 1, 2023' : actualStartDate}</p>
                 }
               </Col>
             </Row>
@@ -259,7 +264,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p>{actualEndDate === '' ? 'December 6, 2023' : actualEndDate}</p>
+                  :<p>{!actualEndDate ? 'December 6, 2023' : actualEndDate}</p>
                 }
               </Col>
             </Row>
