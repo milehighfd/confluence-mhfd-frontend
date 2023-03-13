@@ -374,9 +374,9 @@ let toData = datas
         .append('g')
         .attr('class', 'jurisdiction')
         .selectAll()
-        .data((d: any) => {
-          return d.schedule;
-        });
+        .data((d: any) => {        
+          return d.schedule;         
+        });        
         let scheduleGaxis = svgAxis
         .append('g')
         .selectAll('g')
@@ -387,9 +387,9 @@ let toData = datas
         .selectAll()
         .data((d: any) => {
           return d.schedule;
-        });
+        });        
       let todayline = scheduleG
-        .join('line')
+        .enter().append('line')
         .attr('x1', function() {
           return xScale(today);
         })
@@ -403,7 +403,7 @@ let toData = datas
         .style('stroke', '#047CD7')
         .style('fill', 'none');
 
-        let todayCircle = scheduleGaxis.join("circle")
+        let todayCircle = scheduleGaxis.enter().append("circle")
       .attr("cx", function() {
         return xScale(today);
       })
@@ -411,7 +411,7 @@ let toData = datas
       .attr("r", 6)
       .style("fill", '#047CD7')
       let todaylineaxis = scheduleGaxis
-        .join('line')
+        .enter().append('line')
         .attr('x1', function() {
           return xScale(today);
         })
@@ -426,7 +426,7 @@ let toData = datas
         .style('fill', 'none');
 
       let scheduleRects = scheduleG
-        .join('rect')
+        .enter().append('rect')
         .attr('id', function(d: any) {
           return `${d.id}_${d.categoryNo}`;
         })
@@ -481,7 +481,7 @@ let toData = datas
         // .attr('fill', '#C9C5D8');
 
       let scheduleRectsCenter = scheduleG
-        .join('rect')
+        .enter().append('rect')
         .attr('id', function(d: any) {
           return `${d.id}_${d.categoryNo}_center`;
         })
@@ -504,7 +504,7 @@ let toData = datas
         });
 
       let rectNames = scheduleG
-        .join('text')
+        .enter().append('text')
         //.attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
         .attr('id', function(d: any) {
           return `${d.id}_${d.categoryNo}_text`;
@@ -559,13 +559,13 @@ let toData = datas
         // .text((d: any) => d.name);
 
       let dragableLineLeft = scheduleG
-        .join('g')
+        .enter().append('g')
         .attr('class', dragablesLines)
         .attr('id', (d: any) => {
           return `${d.id}_${d.categoryNo}_left`;
         });
       let dragableLineRight = scheduleG
-        .join('g')
+        .enter().append('g')
         .attr('class', dragablesLines)
         .attr('id', (d: any) => `${d.id}_${d.categoryNo}_right`);
 
