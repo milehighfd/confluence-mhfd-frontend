@@ -436,7 +436,8 @@ const PhaseView = (
               phase_id: scheduleList[r].phase_id,
               project_id: d.project_id,
               d3_pos: searchTextId2,
-              d3_text: actualNumber
+              d3_text: actualNumber,
+              mhfd: d.mhfd,
             })
             setOpenPiney(true)
           })

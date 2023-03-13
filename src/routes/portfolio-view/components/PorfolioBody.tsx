@@ -18,7 +18,7 @@ import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { getCounties, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCounties, getServiceAreas, getSponsors, getStreams, getTeam, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 //const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -252,7 +252,7 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
-              // if(idx > 20) return;
+              // if(idx > 20) return;            
               updatedGroups.push({
                 id: `${element.value}${idx}`,
                 project_id: elem.project_id,
@@ -262,7 +262,18 @@ const PortafolioBody = () => {
                 date: moment('2022/08/11'),
                 key: elem.project_id + element.id,
                 phase: elem?.project_status?.code_phase_type?.phase_name,
-                mhfd: null,
+                mhfd:  elem?.project_staffs.reduce((accumulator: string, pl: any) => {
+                  const sa = pl?.mhfd_staff?.full_name || '';
+                  const sa1 = pl?.code_project_staff_role_type_id || '';
+                  let value = accumulator;
+                  if (sa && sa1 === 1) {
+                    if (value) {
+                      value += ',';
+                    }
+                    value += sa;
+                  }  
+                  return value;
+                }, ''),
                 mhfd_support: null,
                 lg_lead: null,
                 developer: null,
@@ -689,7 +700,7 @@ const PortafolioBody = () => {
       }
     });    
     setPhaseData(phaseD)
-
+    
     return filteredTitles;
   }
   
