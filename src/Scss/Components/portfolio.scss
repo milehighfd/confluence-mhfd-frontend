@@ -888,22 +888,6 @@
     border-top: 1px solid transparent;
     // border-radius: 5px;
     padding: 15px 0px;
-    .search-head{
-      padding: 0px 10px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      margin-top: 3px;
-      .ant-input-clear-icon {
-        right: 10px !important;
-      }
-      .ic-dots{
-        margin-top: 2px;
-        content: url("../../../public/Icons/ico-dots.svg")
-      }
-    }
     
     .search-body{
       overflow-y: auto;
@@ -921,6 +905,22 @@
     .search-body::-webkit-scrollbar {
       background: transparent;
       width: 1.5px;
+    }
+    .search-head{
+      padding: 0px 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      margin-top: 3px;
+      .ant-input-clear-icon {
+        right: 10px !important;
+      }
+      .ic-dots{
+        margin-top: 2px;
+        content: url("../../../public/Icons/ico-dots.svg")
+      }
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 5px 10px;
@@ -2096,6 +2096,17 @@
   display: none; 
 }
 @media (min-width: 1900px) and (max-width: 2549px){
+  .modal-graphic{
+    width: 253px;
+    p{
+      font-size: 14px;
+    }
+    .title{
+      font-size: 12px;
+    }
+    hr{
+    }
+  }
   .protafolio-body{
     .filters {
       
@@ -2110,17 +2121,6 @@
       .filters-body::-webkit-scrollbar {
         width: 5px;
       }
-    }
-  }
-  .modal-graphic{
-    width: 253px;
-    p{
-      font-size: 14px;
-    }
-    .title{
-      font-size: 12px;
-    }
-    hr{
     }
   }
   .phaseview-body{
@@ -3761,24 +3761,6 @@
     }
   }
     
-    .body-piney{
-      .body-piney-body{
-        height: calc(100vh - 382px) !important;
-      }
-      .checkbox-select{
-        .ant-checkbox-inner {
-          border-radius: 50%;
-          width: 38px;
-          height: 38px;
-          margin-bottom: -10px;
-          margin-top: 4.5px;
-        }
-        .ant-checkbox-inner:after {
-          width: 12.714286px;
-          height: 21.142857px;
-        }
-      }
-    }
     .phaseview-content{
       .phaseview-title{
         height: 73px !important;
@@ -3862,6 +3844,24 @@
         }
         .ant-steps-horizontal:not(.ant-steps-label-vertical) .ant-steps-item {
           padding-left: 0px;
+        }
+      }
+    }
+    .body-piney{
+      .body-piney-body{
+        height: calc(100vh - 382px) !important;
+      }
+      .checkbox-select{
+        .ant-checkbox-inner {
+          border-radius: 50%;
+          width: 38px;
+          height: 38px;
+          margin-bottom: -10px;
+          margin-top: 4.5px;
+        }
+        .ant-checkbox-inner:after {
+          width: 12.714286px;
+          height: 21.142857px;
         }
       }
     }
