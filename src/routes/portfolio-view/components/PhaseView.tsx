@@ -80,7 +80,7 @@ const PhaseView = (
   let heightDiv3 = document.getElementById(`testing3`)?.offsetHeight;
   let svg: any;
 
-  const labelWidth = 95;
+  const labelWidth = windowWidth > 2000 ? 150 : 95;
   let totalLabelWidth = phaseList.length * labelWidth;
   
   const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 49 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 24 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 20)))))
@@ -630,11 +630,11 @@ const PhaseView = (
             // style={{ width: totalLabelWidth }}
             className="container-timeline"           
             ref={el => phaseRef.current = el}
-            style={{marginLeft:'5px'}}
+            style={{paddingLeft:'5px'}}
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
               if (searchRef.current[indexParent] && headerRef.current) {
-                searchRef.current[indexParent].scrollTo(0, dr.scrollTop);
+                searchRef.current[indexParent].scrollTo(dr.scrollLeft, dr.scrollTop);
                 headerRef.current?.scrollTo(dr.scrollLeft, 0)
               }
             }}            

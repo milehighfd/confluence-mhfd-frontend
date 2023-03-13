@@ -129,7 +129,7 @@ const TablePortafolio = (
           dataSource={dataTable00}
           className="table-portafolio
           header-table"
-          style={{ marginBottom: '21px' }}
+          style={{ marginBottom: '31px' }}
           onChange={(pagination, filters, sorters: any) => {
             setSortValue({
               columnKey: sorters.columnKey,

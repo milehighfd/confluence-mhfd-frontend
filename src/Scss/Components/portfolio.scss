@@ -893,6 +893,8 @@
       overflow-y: auto;
       height: calc(100vh - 249px);
       margin-top: 19.5px;
+      scrollbar-color: transparent transparent;
+      scrollbar-width: thin;
       .tabs-map{
         .ant-collapse{
           padding-right: 4px;
@@ -1066,6 +1068,8 @@
     .scroll-scroll-table{
       width: calc(100vw - 348px);
       overflow: auto;
+      scrollbar-color: transparent transparent;
+      scrollbar-width: thin;
     }
     .scroll-scroll-table::-webkit-scrollbar {
       display: none;
@@ -1088,6 +1092,7 @@
         width: 99.3%;
         top:70px;
       }
+      scrollbar-color:  $purple00 transparent;
     }
     .table-body-body::-webkit-scrollbar-thumb {
       background: transparent; 
@@ -1502,6 +1507,8 @@
       .header-title{
         width: 100%;
         overflow: auto;
+        scrollbar-color: transparent transparent;
+        scrollbar-width: thin;
       }
       .header-title::-webkit-scrollbar {
         width: 0px;
@@ -1524,6 +1531,8 @@
         overflow-y: auto;
         height: calc(100vh - 287px);
         width: 100%;
+        scrollbar-color: $purple00 transparent;
+        scrollbar-width: thin;
       }
       .container-timeline::-webkit-scrollbar {
         width: 9px;
@@ -2171,7 +2180,7 @@
     }
     .body-piney{
       .body-piney-body{
-        height: calc(100vh - 338px) !important;
+        height: calc(100vh - 405px) !important;
       }
       .checkbox-select{
         .ant-checkbox-inner {
@@ -2863,6 +2872,7 @@
       }
       h1{
         font-size: 24px !important;
+        line-height: 24px !important;
       }
       .tag-blue{
         font-size: 20px !important;
@@ -2902,7 +2912,7 @@
   }
     .body-piney{
       .body-piney-body{
-        height: calc(100vh - 400px) !important;
+        height: calc(100vh - 450px) !important;
       }
       .checkbox-select{
         .ant-checkbox-inner {
@@ -3164,7 +3174,7 @@
     }
     .select-area{
       a{
-        max-width: 342px;
+        max-width: 551px;
       }
     }
     h2{
@@ -3323,6 +3333,7 @@
         p{
           font-size: 20px !important;
           line-height: 20px !important;
+          height: 43px !important;
         }
       }
       .phaseview-title-label{
