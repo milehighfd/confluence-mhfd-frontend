@@ -69,7 +69,12 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [sendEndDate,setSendEndDate] = useState<any>()
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
-   
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
   useEffect(() => {    
     console.log(counterD)
     let counter = 0;
@@ -99,7 +104,6 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     setNewNote('')
     datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
-        console.log(rows)
         if (Object.keys(rows).length > 0) {
           if(rows[0].actual_start_date !== null){
             let check = moment(rows[0].actual_start_date, 'YYYY-MM-DD');
@@ -240,7 +244,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 {/* {editView ?
                   <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}} className='input-focus'></input>
                   : */}
-                  <p>$3,708,000</p>
+                  <p>{!data.estimated_cost?'N/A':formatter.format(data.estimated_cost)}</p>
                 {/* } */}
               </Col>
             </Row>

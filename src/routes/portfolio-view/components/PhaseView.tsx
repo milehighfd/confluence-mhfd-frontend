@@ -100,7 +100,6 @@ const PhaseView = (
       values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
-  console.log('totalLabelWidth', totalLabelWidth)
   const lengthData = completeData.length;
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
@@ -251,7 +250,6 @@ const PhaseView = (
       heightDiv = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
-      console.log(width + margin.left + margin.right, 'WIDTH=------')
       // append the svg object to the body of the page
       removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}`))
       svg = d3
@@ -432,6 +430,7 @@ const PhaseView = (
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
             let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
+            console.log(d)
             setPopUpData({
               project_name: d.rowLabel,
               phase: scheduleList[r].phase,
@@ -441,6 +440,7 @@ const PhaseView = (
               d3_pos: searchTextId2,
               d3_text: actualNumber,
               mhfd: d.mhfd,
+              estimated_cost: d.estimated_cost
             })
             setOpenPiney(true)
           })
@@ -450,8 +450,9 @@ const PhaseView = (
             let searchTextId2 = d3.event.target.id.slice(0, -6);
             let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
-            const phaseSc = (scheduleList[r].phase)           
-            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc }
+            const phaseSc = (scheduleList[r].phase)   
+            const phaseId = (scheduleList[r].phase_id)              
+            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
             setDataModal(sendModal);            
             if (popupVisible !== null) {
               let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 : (windowWidth >= 2550 && windowWidth <= 3000 ? 165 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 150 : (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))

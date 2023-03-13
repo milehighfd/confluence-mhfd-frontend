@@ -5,6 +5,8 @@ import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, PlusOut
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
 import { drag } from "d3";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const { Step } = Steps;
 const ModalGraphic = ({ positionModalGraphic,
@@ -13,6 +15,29 @@ const ModalGraphic = ({ positionModalGraphic,
     positionModalGraphic?: any,
     dataProject?:any,
   }) => {
+    const [actualEndDate,setActualEndDate] = useState<any>()
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+  useEffect(() => {
+    if (Object.keys(dataProject).length > 0) {
+      datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: dataProject.phase_id, project_id: dataProject.d.project_id })
+        .then((rows) => {
+          if (Object.keys(rows).length > 0) {
+            if (rows[0].actual_end_date !== null) {
+              let check1 = moment(rows[0].actual_end_date, 'YYYY-MM-DD');
+              let monthEnd = check1.format('MM');
+              monthEnd = monthNames[+monthEnd - 1];
+              let dayEnd = check1.format('DD');
+              let yearEnd = check1.format('YYYY');
+              setActualEndDate(`Due on ${monthEnd} ${dayEnd}, ${yearEnd}.`)
+            }
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    }
+  }, [])
     if (Object.keys(dataProject).length > 0) {
       return (
         <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
@@ -21,7 +46,7 @@ const ModalGraphic = ({ positionModalGraphic,
           <hr></hr>
           <p>{`${dataProject.scheduleList-dataProject.actualNumber} Action Item of ${dataProject.scheduleList} Closed`}</p>
           <hr></hr>
-          <p>Due on November 26, 2022.</p>
+          <p>{!actualEndDate?'Due on November 26, 2022.':actualEndDate}</p>
         </div>
       )
     }else{
