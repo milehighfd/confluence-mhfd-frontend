@@ -624,7 +624,8 @@ const PortafolioBody = () => {
     return data;
   }
 
-  function sort(order: any, columnKey: any, tabkey: any , filterby: any, filterValue: any, filtername: any) {    
+  function sort(order: any, columnKey: any, tabkey: any , filterby: any, filterValue: any, filtername: any) {  
+
     let numAscending: any[] = [];
     let filteredData = [];
     let filteredData2: any[] = [];
@@ -714,6 +715,9 @@ const PortafolioBody = () => {
   }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
 
   function enterPhase (){
+    setSortValue({
+      columnKey: null, order: undefined
+    });
     setOptionSelect('Phase')
     setTabKey('CIP');
   }
@@ -878,7 +882,18 @@ const PortafolioBody = () => {
                         setOpenPiney = {setOpenPiney}
                       />
                       }
-                    {optionSelect === 'Schedule'  && <CalendarView rawData={newData} openTable={openTable} moveSchedule={zoomTimeline} scheduleRef={scheduleRef} searchRef={searchRef} graphicOpen={graphicOpen} setGrapphicOpen={setGrapphicOpen} positionModalGraphic={positionModalGraphic} setPositionModalGraphic={setPositionModalGraphic} index={idx}/>}
+                    {optionSelect === 'Schedule'  && <CalendarView 
+                    rawData={newData} 
+                    openTable={openTable} 
+                    moveSchedule={zoomTimeline} 
+                    scheduleRef={scheduleRef} 
+                    searchRef={searchRef} 
+                    graphicOpen={graphicOpen} 
+                    setGrapphicOpen={setGrapphicOpen} 
+                    positionModalGraphic={positionModalGraphic} 
+                    setPositionModalGraphic={setPositionModalGraphic} 
+                    index={idx}
+                    />}
                   </Col>
                 </Row>
                 </div>
