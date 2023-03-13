@@ -65,6 +65,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [actualEndDate,setActualEndDate] = useState<any>()
   const [newStartDate,setNewStartDate] = useState<any>()
   const [newEndDate,setNewEndDate] = useState<any>()
+  const [sendStartDate,setSendStartDate] = useState<any>()
+  const [sendEndDate,setSendEndDate] = useState<any>()
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
    
@@ -107,6 +109,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             let year = check.format('YYYY');
             setActualStartDate(`${month} ${day}, ${year}`)
             setNewStartDate(`${month} ${day}, ${year}`)
+            setSendStartDate(rows[0].actual_start_date)
           }
           if(rows[0].actual_end_date !== null){
             let check1 = moment(rows[0].actual_end_date, 'YYYY-MM-DD');
@@ -116,6 +119,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             let yearEnd = check1.format('YYYY');          
             setActualEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)          
             setNewEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
+            setSendEndDate(rows[0].actual_end_date)
           }
           setNote(rows[0].comments)
           setNewNote(rows[0].comments)     
@@ -128,7 +132,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
 
   useEffect(() => {
     if (newNote !== note || newStartDate !== actualStartDate || newEndDate !== actualEndDate) {
-      datasets.putData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id, comments: newNote })
+      datasets.putData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id, comments: newNote, actual_start_date: sendStartDate, actual_end_date: sendEndDate })
         .then((rows) => {
           setNote(newNote)
           setActualStartDate(newStartDate)
@@ -137,7 +141,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         })
         .catch((e) => {
           console.log(e);
-        })      
+        })
     }
   }, [editView])
 
@@ -171,7 +175,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
       console.log(e);
     }) 
   };
-  function onSelectDateStart(date: any, dateString: any) { 
+  function onSelectDateStart(date: any, dateString: any) {   
+    setSendStartDate(moment(date))  
     const newDate = new Date(dateString);      
     const month = newDate.toLocaleString('default', { month: 'long' });
     const day=(newDate.toLocaleString("default", { day: "2-digit" }));
@@ -179,6 +184,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     setNewStartDate(`${month} ${day}, ${year}`)
   }
   function onSelectDateEnd(date: any, dateString: any) { 
+    setSendEndDate(moment(date)) 
     const newDate = new Date(dateString);      
     const month = newDate.toLocaleString('default', { month: 'long' });
     const day=(newDate.toLocaleString("default", { day: "2-digit" }));
