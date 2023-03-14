@@ -29,7 +29,13 @@ const MapAutoComplete = ({
   }, [groupOrganization]);
 
   useEffect(() => {
-    setvalueA(nameZoomArea);
+    console.log('name zoom area', nameZoomArea);
+    if (nameZoomArea) {
+      setvalueA(nameZoomArea);
+    } else {
+      setvalueA('Mile High Flood District');
+    }
+    
   }, [nameZoomArea]);
   return (
     <Row className="head-m mobile-display">
