@@ -88,7 +88,6 @@ const Profile = ({
     }
   }, [editProfile]);
   const [ fileImage, setFileImage ] = useState({ uid: ''});
-  console.log(contactInfo)
   const getMe = () =>{
     datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
       replaceAppUser(result);

@@ -36,14 +36,95 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   };
   const [organizationList, setOrganizationList] = useState<any[]>([]);
   const [consultantList, setConsultantList] = useState<any[]>([]);
+  const [disabled, setDisabled] = useState(true);
+  const [selectAssociate, setSelectAssociate] = useState(-1);
+  const [selectContact, setSelectContact] = useState(-1);
+  const [associateLabel, setAssociateLabel] = useState ('');
+  const [contactData, setContactData] = useState<any> ({});
+  const [primary, setPrimary] = useState(-1);
  
   //console.log('itemsZoomtoarea', itemsZoomtoarea)  
   
-  const menu3 = (
-    <Menu>
-      {}
+  const menuBusinessAssociate = () => {
+    const itemMenu: MenuProps['items'] = [];
+    let dataMenu: any[] = [];
+    const generateItemMenu = (content: Array<any>) => {
+         content.forEach((element, index: number) => {
+        itemMenu.push({
+          key: element.key,
+          label: <span style={{border:'transparent'}}>{element.label}</span>
+        });
+        dataMenu.push({
+          ...element
+        });
+      });
+    };   
+      generateItemMenu(businessAssociate);    
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event:any) => {
+        console.log('click') 
+        setSelectAssociate(event.key)
+        setAssociateLabel((dataMenu.find((elm) => +elm.key === +event.key))?.label)  
+        setPrimary((dataMenu.find((elm) => +elm.key === +event.key))?.primary_business_associate_contact_id)
+        // if(event.key.split('|')[1] === 'Create contact'){
+        //   setDisabled(false)
+        // }else{
+        //   setDisabled(true)
+        // }
+      }}>
     </Menu>
-  );
+  };
+  const menuContactAssociate = () => {
+    const itemMenu: MenuProps['items'] = [];
+    let dataMenu: any[] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        if (element.key === primary) {          
+          itemMenu.push({
+            key: element.key,
+            label: <span style={{ border: 'transparent' }}>{element.label + ' primary'}</span>
+          });
+          dataMenu.push({
+            ...element
+          });
+
+        }
+      });
+      content.forEach((element, index: number) => {
+        if (element.key !== primary) {
+          itemMenu.push({
+            key: element.key,
+            label: <span style={{ border: 'transparent' }}>{element.label}</span>
+          });
+          dataMenu.push({
+            ...element
+          });
+        }
+      });
+      itemMenu.push({
+        key: 'Create_1',
+        label: <span style={{ border: 'transparent' }}>{'Create Contact'}</span>
+      });
+    };
+    generateItemMenu(listContacts);
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event:any) => {   
+        setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))        
+        if(event.key === 'Create_1'){          
+          setDisabled(false)
+          setContactData({})
+        }else{
+          setDisabled(true)
+        }
+      }}>
+    </Menu>
+  };
   const menu2 = () => {
     const itemMenu: MenuProps['items'] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -147,6 +228,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [initialValues, setInitialValues] = useState<any>(record);
   const [activated, setActivated] = useState(false);
   const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
+  const [businessAssociate, setBusinessAssociate] = useState<any>([]); 
+  const [listAssociates, setListAssociates] = useState<any>([]); 
+  const [listContacts, setListContacts] = useState<any>([]); 
 
   useEffect(() => {   
     
@@ -167,13 +251,41 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     values.title = record.title;
     values.status = record.status;
     values.createdAt = record.createdAt; 
-    console.log(record)
     setOrganization (record.organization);
     setZoomArea(record.zoomarea);
     setServiceArea(record.serviceArea);
-    console.log(record)
-    console.log("INITIAL VALUE")
   }, [record]);
+
+  useEffect(() => {
+    datasets.getData(SERVER.BUSINESS_ASSOCIATES).then(res => {
+      const businessAssociates = res.map((x: any) => {
+        return ({ label: x.business_name, key: x.business_associates_id, primary_business_associate_contact_id: x.primary_business_associate_contact_id })
+      })
+      setBusinessAssociate(businessAssociates)
+      setListAssociates(res)
+    });
+  }, []);
+  useEffect(() => {
+    if (Object.keys(listAssociates).length > 0) {
+      const associates = listAssociates.find((f:any)=> +f.business_associates_id === +selectAssociate)
+      let aux: any[] = [];
+      associates?.business_addresses?.forEach((ba: any) => {
+        aux = [...aux, ...ba.business_associate_contacts.map((contact: any) => {
+          return {
+            business_address_id: ba.business_address_id,
+            business_address_line_1: ba.business_address_line_1,
+            business_address_line_2: ba.business_address_line_2,
+            city: ba.city,
+            state: ba.state,
+            zip: ba.zip,
+            key: contact.business_associate_contact_id,
+            label: contact.contact_name
+          }
+        })];
+      });
+      setListContacts(aux);
+    }
+  }, [selectAssociate]);
 
   useEffect(() => {      
     const auxUser = { ...record };
@@ -181,8 +293,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     values.zoomarea = zoomArea;    
     values.serviceArea = serviceArea;
     values.organization = organization;
-    console.log(record)
-    console.log("INITIAL VALUE")
   }, [organization,zoomArea,serviceArea]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
@@ -197,9 +307,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     }
   });
 
-  console.log(values);
   const updateSuccessful = () => {
-    console.log("EXITO")
     const auxMessageError = { ...messageError };
     auxMessageError.message = 'Updating record data was successful';
     auxMessageError.color = '#28C499';
@@ -231,8 +339,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     auxState.visible = false;
     setModal(auxState);
     
-    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {    
-      console.log(res)  
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {   
       if (res.message === 'SUCCESS') {        
         saveUser();
         updateSuccessful();
@@ -276,7 +383,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   );
 
   //console.log(MenuAreaView(CITIES, 'city', values, setTitle));
-
   return (
     <>
     <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
@@ -402,11 +508,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               <Input placeholder="Enter Organization" value={values.organization} name="phone" onChange={handleChange} style={{marginBottom:'15px'}}/>
             </div>
             <div className="gutter-row"  id={("ba" + values.user_id)}>
-              <p>BUSINESS ASSOCIATE ID</p>
-              <Dropdown trigger={['click']} overlay={menu3}
+              <p>BUSINESS ASSOCIATE</p>
+              <Dropdown trigger={['click']} overlay={menuBusinessAssociate}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
-                  {values.county ? values.county : 'County'}  <DownOutlined />
+                  {associateLabel === '' ? 'Select Business Associate' : associateLabel}  <DownOutlined />
                 </Button>
               </Dropdown>
             </div>
@@ -418,10 +524,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             </div>
             <div className="gutter-row"  id={("poc" + values.user_id)}>
               <p>POINT OF CONTACT</p>
-              <Dropdown trigger={['click']} overlay={menu3}
+              <Dropdown trigger={['click']} overlay={menuContactAssociate}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
-                  {values.county ? values.county : 'County'}  <DownOutlined />
+                  {Object.keys(contactData).length > 0? contactData.label : 'Select Contact'}  <DownOutlined />
                 </Button>
               </Dropdown>
             </div>
@@ -429,14 +535,19 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
             <h1>ADDRESS LINE 1</h1>
             <Input
-              placeholder="Address Line 1" value={values.business_address_line_1} 
-              name="address_line_1" onChange={handleChange}
+              placeholder="Address Line 1"
+              value={Object.keys(contactData).length > 0 ? contactData.business_address_line_1 : values.business_associate_contact?.business_address?.business_address_line_1}
+              name="address_line_1"
+              onChange={handleChange}
+              disabled={disabled}
             />
             <h1>ADDRESS LINE 2</h1>
             <Input
               placeholder="Address Line 2"
-              value={values.business_address_line_2} 
-              name="address_line_1" onChange={handleChange} 
+              value={Object.keys(contactData).length > 0 ? contactData.business_address_line_2 : values.business_associate_contact?.business_address?.business_address_line_2} 
+              name="address_line_1" 
+              onChange={handleChange} 
+              disabled = {disabled}
             />
             {/* <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
@@ -445,12 +556,16 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>CITY</h1>
             <Input
               placeholder="City"
+              value={Object.keys(contactData).length > 0?  contactData.city : values.business_associate_contact?.business_address?.city } 
               style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+              disabled = {disabled}
             />
             <h1>ZIP CODE</h1>
             <Input
               placeholder="Zip Code"
+              value={Object.keys(contactData).length > 0?  contactData.zip : values.business_associate_contact?.business_address?.zip } 
               style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+              disabled = {disabled}
             />
             {/* <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
@@ -459,7 +574,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>STATE</h1>
             <Input
               placeholder="State"
+              value={Object.keys(contactData).length > 0?  contactData.state : values.business_associate_contact?.business_address?.state } 
               style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+              disabled = {disabled}
             />
           </Col>
         </Row>
