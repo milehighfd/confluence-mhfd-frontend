@@ -144,7 +144,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [, setSwitchTo] = useState<boolean>(record.activated);
   const [designation, setDesignation] = useState<string>(record.designation);
   const [, setTitle] = useState<string>('');
-  const [initialValues, setInitialValues] = useState(record);
+  const [initialValues, setInitialValues] = useState<any>(record);
   const [activated, setActivated] = useState(false);
   const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
 
@@ -185,11 +185,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     console.log("INITIAL VALUE")
   }, [organization,zoomArea,serviceArea]);
 
-
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit(values: User) {
+    onSubmit(values: any) {
+      
       values.designation = designation;
       const auxState = { ...visible };
       auxState.visible = true;
@@ -197,6 +197,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     }
   });
 
+  console.log(values);
   const updateSuccessful = () => {
     console.log("EXITO")
     const auxMessageError = { ...messageError };
@@ -328,40 +329,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               defaultValue={organization}
               value={organization}/> */}
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
-            <h1>ADDRESS LINE 1</h1>
-            <Input
-              placeholder="Address Line 1"
-              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-            />
-            <h1>ADDRESS LINE 2</h1>
-            <Input
-              placeholder="Address Line 2"
-              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-            />
-            {/* <h1>PHONE NUMBER</h1>
-            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-            <h1>CITY</h1>
-            <Input
-              placeholder="City"
-              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-            />
-            <h1>ZIP CODE</h1>
-            <Input
-              placeholder="Zip Code"
-              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-            />
-            {/* <h1>PHONE NUMBER</h1>
-            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-            <h1>STATE</h1>
-            <Input
-              placeholder="State"
-              style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-            />
+          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingLeft: '20px' }}>
             <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
           </Col>
@@ -431,9 +399,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <div className="gutter-row" id={("city" + values.user_id)}>
               <p>ORGANIZATION</p>
-              <Input placeholder="Enter Organization" style={{marginBottom:'15px'}}/>
+              <Input placeholder="Enter Organization" value={values.organization} name="phone" onChange={handleChange} style={{marginBottom:'15px'}}/>
             </div>
-            <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
+            <div className="gutter-row"  id={("ba" + values.user_id)}>
               <p>BUSINESS ASSOCIATE ID</p>
               <Dropdown trigger={['click']} overlay={menu3}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
@@ -444,11 +412,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-            <div className="gutter-row" id={("city" + values.user_id)} style={{opacity:'0'}}>
-              <p>ORGANIZATION</p>
+            <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0'}}>
+              <p>FIELD FOR DESIGN</p>
               <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
             </div>
-            <div className="gutter-row"  id={("county" + values.user_id)}>
+            <div className="gutter-row"  id={("poc" + values.user_id)}>
               <p>POINT OF CONTACT</p>
               <Dropdown trigger={['click']} overlay={menu3}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
@@ -457,6 +425,42 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 </Button>
               </Dropdown>
             </div>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
+            <h1>ADDRESS LINE 1</h1>
+            <Input
+              placeholder="Address Line 1" value={values.business_address_line_1} 
+              name="address_line_1" onChange={handleChange}
+            />
+            <h1>ADDRESS LINE 2</h1>
+            <Input
+              placeholder="Address Line 2"
+              value={values.business_address_line_2} 
+              name="address_line_1" onChange={handleChange} 
+            />
+            {/* <h1>PHONE NUMBER</h1>
+            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+            <h1>CITY</h1>
+            <Input
+              placeholder="City"
+              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            <h1>ZIP CODE</h1>
+            <Input
+              placeholder="Zip Code"
+              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
+            {/* <h1>PHONE NUMBER</h1>
+            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            <h1>STATE</h1>
+            <Input
+              placeholder="State"
+              style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+            />
           </Col>
         </Row>
         <br />
