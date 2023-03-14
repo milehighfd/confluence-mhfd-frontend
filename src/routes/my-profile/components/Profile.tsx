@@ -38,6 +38,7 @@ const Profile = ({
   const [county,setCounty] = useState('');
   const [serviceArea,setServiceArea] = useState('');
   const [zoomarea,setZoomArea] = useState('');
+  const [contactInfo,setContactInfo] =useState<any>({});
   const [disable,setDisable] = useState(false);
   const [save,setsave] = useState(false);
   const {
@@ -49,6 +50,7 @@ const Profile = ({
     getMe();
   }, []); 
   useEffect(() => {
+    setContactInfo(user.business_associate_contact)
     if (user.organization) {
       setOrganization(user.organization);
     }    
@@ -76,7 +78,7 @@ const Profile = ({
     if (user.county) {
       setCounty(user.county);
     }
-  }, [user]);
+  }, [user,save]);
 
   useEffect(() => {   
     if (editProfile) {
@@ -86,7 +88,7 @@ const Profile = ({
     }
   }, [editProfile]);
   const [ fileImage, setFileImage ] = useState({ uid: ''});
-
+  console.log(contactInfo)
   const getMe = () =>{
     datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
       replaceAppUser(result);
@@ -245,61 +247,47 @@ const Profile = ({
               :<p style={{paddingBottom:'10px' }}>{isNull(phone)}</p>
             }
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Address Line 1</p>
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>-</p>
-            }
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Address Line 2</p>
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>-</p>
-            }
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>City</p>
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>-</p>
-            }
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>State</p>
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>-</p>
-            }
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Zip Code</p>
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
-            {editProfile ?
-              <input className="input-profile" type="text" placeholder={'-'} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
-              :<p style={{paddingBottom:'10px' }}>-</p>
-            }
-          </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
-            <p className="color-sub" style={{paddingBottom:'10px' }}>Organization</p>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>Address Line 1</p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 15 }}>
-            <SelectOrganization
+            <p style={{ paddingBottom: '10px' }}>{contactInfo.business_address?.business_address_line_1 || 'N/A'}</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>Address Line 2</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+            <p style={{ paddingBottom: '10px' }}>{contactInfo.business_address?.business_address_line_2 || 'N/A'}</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>City</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+            <p style={{ paddingBottom: '10px' }}>{contactInfo.business_address?.city || 'N/A'}</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>State</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+            <p style={{ paddingBottom: '10px' }}>{contactInfo.business_address?.state || 'N/A'}</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>Zip Code</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+            <p style={{ paddingBottom: '10px' }}>{contactInfo.business_address?.zip || 'N/A'}</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>Organization</p>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+            {/* <SelectOrganization
               organization={organization}
               setOrganization={setOrganization}
-              disable={disable}
+              disable={true}
               defaultValue={organization}
-              value={organization}/>
+              value={organization}/> */}
+              <p style={{ paddingBottom: '10px' }}>{contactInfo.business_address?.business_associate?.business_associate_name || 'N/A'}</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>

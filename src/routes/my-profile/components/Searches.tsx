@@ -28,10 +28,7 @@ const Searches = ({
   const { favoriteProblemCards, favoriteProjectCards, favoritesLoader } = useMapState();
   const { favoriteCards } = useMapDispatch();
   const tabKeys = [`Projects`, 'Problems', 'Teams', 'Account Settings'];
-  let displayedTabKey = tabKeys;
-  useEffect(() => {
-    favoriteCards(user.email, false, { keyword: "", column: 'projectname', order: "asc" });
-  }, [user]);
+  let displayedTabKey = tabKeys;  
   useEffect(() => {
     getUserInformation();
   }, []);

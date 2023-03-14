@@ -44,7 +44,8 @@ const ModalGraphic = ({ positionModalGraphic,
           <p className="title">{dataProject.schedulePhase}</p>
           <p style={{ color: 'white' }}>{dataProject.d.rowLabel}</p>
           <hr></hr>
-          <p>{`${dataProject.scheduleList-dataProject.actualNumber} Action Item of ${dataProject.scheduleList} Closed`}</p>
+          <p>{dataProject.scheduleList-dataProject.actualNumber<=1?`${dataProject.scheduleList-dataProject.actualNumber} Action Item of ${dataProject.scheduleList} Closed`:
+          `${dataProject.scheduleList-dataProject.actualNumber} Action Items of ${dataProject.scheduleList} Closed`}</p>
           <hr></hr>
           <p>{!actualEndDate?'Due on November 26, 2022.':actualEndDate}</p>
         </div>
