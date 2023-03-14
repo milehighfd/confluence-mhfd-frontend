@@ -111,7 +111,7 @@ export const DETENTION_FACILITIES = 'detention_facilities';
 export const MAINTENANCE_TRAILS = 'maintenance_trails';
 export const LAND_ACQUISITION = 'land_acquisition';
 export const LANDSCAPING_AREA = 'landscaping_area';
-export const STREAM_IMPROVEMENT_MEASURE = 'stream_improvement_measure';
+export const STREAM_IMPROVEMENT_MEASURE = 'stream_improvement_measure_copy';
 
 export const FLOOD_HAZARD_POLYGON = 'flood_hazard_polygon_';
 export const FLOOD_HAZARD_LINE = 'flood_hazard_line_';

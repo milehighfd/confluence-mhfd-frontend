@@ -755,7 +755,7 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('pipe_appurtenances');
         map.map.moveLayer('grade_control_structure');
-        map.map.moveLayer('stream_improvement_measure');
+        map.map.moveLayer('stream_improvement_measure_copy');
         map.map.moveLayer('removal_line');
         map.map.moveLayer('removal_area');
         map.map.moveLayer('measuresSaved');
