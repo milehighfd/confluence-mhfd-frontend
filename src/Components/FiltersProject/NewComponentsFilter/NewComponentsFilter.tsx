@@ -4,6 +4,7 @@ import { Row, Col, Popover } from 'antd';
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import TreeMapComponent from "../NewProblemsFilter/TreeMapComponent";
 import { CheckBoxFilters } from '../CheckboxFiltersComponent';
+import { CheckBoxFilters as CheckBoxFiltersProblem } from "../CheckboxFiltersProblem";
 import { DropdownFilters } from "../DropdownFiltersComponent";
 import { DropdownFiltersYearsMax } from "../DropdownFilterMax";
 
@@ -118,7 +119,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Action Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.status &&
-                    <CheckBoxFilters defaultValue={''}
+                    <CheckBoxFiltersProblem defaultValue={''}
                         data={paramComponents.status}
                         selected={filterComponentOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
@@ -158,7 +159,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title ">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.jurisdiction &&
-                    <CheckBoxFilters defaultValue={''}
+                    <CheckBoxFiltersProblem defaultValue={''}
                         data={paramComponents.jurisdiction}
                         selected={filterComponentOptions.jurisdiction}
                         onSelect={(items: any) => apply(items, 'jurisdiction')}/>
@@ -168,7 +169,7 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title ">MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.watershed &&
-                    <CheckBoxFilters defaultValue={''}
+                    <CheckBoxFiltersProblem defaultValue={''}
                         data={paramComponents.watershed}
                         selected={filterComponentOptions.mhfdmanager}
                         onSelect={(items: any) => apply(items, 'mhfdmanager')}/>
