@@ -63,7 +63,7 @@ const PhaseView = (
   const [updateAction,setUpdateAction] = useState(false);
   const phaseRef1 = useRef<null | HTMLDivElement>(null);
   const [popUpData, setPopUpData] = useState<any>({});
-
+  const [userBrowser, setUserBrowser] = useState<any>()
   const headerRef = useRef<null | HTMLDivElement>(null);
 
   const windowWidth: any = window.innerWidth;
@@ -80,11 +80,11 @@ const PhaseView = (
   let heightDiv3 = document.getElementById(`testing3`)?.offsetHeight;
   let svg: any;
 
-  const labelWidth = windowWidth > 2000 ? 150 : 95;
+  const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   let totalLabelWidth = phaseList.length * labelWidth;
   
-  const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 49 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 24 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 20)))))
-  const marginRight = (windowWidth >= 1900 && windowWidth <= 2549 ? 41 : (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : (windowWidth >= 3001 && windowWidth <= 3999 ? 85 : 30)))
+  const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 22 : 20)))))
+  const marginRight = (windowWidth >= 1900 && windowWidth <= 2549 ? 30 : (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : 30)))
   const marginTop = (windowWidth >= 3001 && windowWidth <= 3999 ? -41.2 : (windowWidth >= 1900 && windowWidth <= 2549 ? -27 : (windowWidth >= 2550 && windowWidth <= 3000 ? -31 : -22)))
   const marginBottom = (windowWidth >= 3001 && windowWidth <= 3999 ? -40.5 : (windowWidth >= 2550 && windowWidth <= 3000 ? -43 : (windowWidth >= 1900 && windowWidth <= 2549 ? -35 : -26)))
   const prevData = rawData.map((elem: any) => {
@@ -403,7 +403,7 @@ const PhaseView = (
             return scheduleList[r].tasks-counterdown
           })
           .attr("x", function (d: any) {
-            const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3999 ? 1.65 : (windowWidth >= 1450 && windowWidth <= 2000 ? 1.7 : (windowWidth >= 1199 && windowWidth <= 1449 ? 2 : 2))))
+            const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 :(windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2)))))
             let offset = 0;
               offset =
                 +scheduleList[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;            
@@ -453,9 +453,27 @@ const PhaseView = (
             const phaseSc = (scheduleList[r].phase)   
             const phaseId = (scheduleList[r].phase_id)              
             const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
-            setDataModal(sendModal);            
+            setDataModal(sendModal);      
             if (popupVisible !== null) {
-              let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 : (windowWidth >= 2550 && windowWidth <= 3000 ? 165 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 150 : (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
+              let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 : 
+                (windowWidth >= 2550 && windowWidth <= 3000 ? 165 : 
+                  (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                    (windowWidth >= 1450 && windowWidth <= 2000 ? 160 : 
+                      (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
+              if(userBrowser=== 'Safari'){
+                popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 400 : 
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 335 : 
+                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 285 : 
+                        (windowWidth >= 1199 && windowWidth <= 1449 ? 250 : 140)))))
+              }
+              if(userBrowser=== 'Edge'){
+                popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 245 : 
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 180 : 
+                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 170 : 
+                        (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
+              }
               let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
               let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
               let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
@@ -547,7 +565,36 @@ const PhaseView = (
       })
   }, [actionsDone])
 
-  useEffect(() => {   
+  useEffect(() => {
+    let browser;
+    function getUserBrowser() { 
+      if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
+     {
+         browser ='Opera'
+     }
+     else if(navigator.userAgent.indexOf("Edg") != -1 )
+     {
+         browser ='Edge'
+     }
+     else if(navigator.userAgent.indexOf("Chrome") != -1 )
+     {
+         browser ='Chrome'
+     }
+     else if(navigator.userAgent.indexOf("Safari") != -1)
+     {
+         browser ='Safari'
+     }
+     else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+     {
+          browser ='Firefox'
+     }
+     else 
+     {
+        browser ='unknown'
+     }
+     }
+     getUserBrowser()
+    setUserBrowser(browser)
     console.log(tabKey)
     datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {   
     }).then((e) => {     
