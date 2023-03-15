@@ -345,7 +345,7 @@ const RequestView = ({ type, isFirstRendering }: {
       type,
       year: `${year}`,
       locality,
-      projecttype: tabKey
+      projecttype: tabKey ? tabKey : tabKeys[0]
     }
     setCurrentDataForBoard(data);
     setColumns(defaultColumns);
@@ -522,7 +522,7 @@ const RequestView = ({ type, isFirstRendering }: {
         year: `${year}`,
         locality,
         // the next condition should be removed once all Special element would have been replace by R&D in DB
-        projecttype: (tabKey === 'R&D' ? 'Special' : tabKey)
+        projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0]
       })
           .then(
             (r: any) => {
