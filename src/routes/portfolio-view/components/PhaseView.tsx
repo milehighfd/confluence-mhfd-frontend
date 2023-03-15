@@ -682,9 +682,12 @@ const PhaseView = (
             onScroll={(e: any) => {
               let dr: any = phaseRef.current;
               if (searchRef.current[indexParent] && headerRef.current) {
+                console.log(headerRef.current?.scrollLeft, headerRef.current?.scrollTop, dr.scrollLeft, dr.scrollTop, 'INI')
                 searchRef.current[indexParent].scrollTo(dr.scrollLeft, dr.scrollTop);
                 headerRef.current?.scrollTo(dr.scrollLeft, 0)
-                dr.scroll(dr.scrollLeft, headerRef.current.scrollTop)
+                console.log(headerRef.current?.scrollLeft, headerRef.current?.scrollTop, dr.scrollLeft, dr.scrollTop, "FIN")
+                // dr.scrollTo(headerRef.current?.scrollLeft , dr.scrollTop)
+               
               }
             }}            
           >
