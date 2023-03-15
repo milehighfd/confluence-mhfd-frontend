@@ -8,13 +8,15 @@ const BusinessAssociatesDropdown = ({
   setSelectAssociate,
   setAssociateLabel,
   associateLabel,
-  setPrimary
+  setPrimary,
+  values
 }: {
   businessAssociate: any,
   setSelectAssociate: any,
   setAssociateLabel: any,
   associateLabel: any,
-  setPrimary: any
+  setPrimary: any,
+  values:any
 }) => {
 
   const [menu, setMenu] = useState<any>([]);
@@ -35,7 +37,7 @@ const BusinessAssociatesDropdown = ({
     setDataMenu(dm);
   }, [businessAssociate]);
   const menuBusinessAssociate = () => {
-   console.log('sentido 0');
+    console.log('sentido 0');
     return <Menu
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
@@ -50,7 +52,7 @@ const BusinessAssociatesDropdown = ({
   };
   return <>
     <Dropdown trigger={['click']} overlay={menuBusinessAssociate}
-      getPopupContainer={() => document.getElementById(("baba")) as HTMLElement}>
+      getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
       <Button className="btn-borde-management">
         {associateLabel === '' ? 'Select Business Associate' : associateLabel}  <DownOutlined />
       </Button>

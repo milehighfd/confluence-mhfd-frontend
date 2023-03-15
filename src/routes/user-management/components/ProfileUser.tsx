@@ -537,6 +537,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 setPrimary={setPrimary}
                 setSelectAssociate={setSelectAssociate}
                 associateLabel={associateLabel}
+                values={values}
               />
             </div>
           </Col>
