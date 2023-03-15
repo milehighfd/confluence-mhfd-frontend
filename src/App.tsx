@@ -24,6 +24,7 @@ const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
 const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
 const UserView = lazy(() => import('./Components/User/UserView'));
 const maptest = lazy(() => import('./routes/maptest'));
+const DetailedModal = lazy(() => import('./routes/detail-page/components/DetailModal'));
 
 const App = () => {
   console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
@@ -44,6 +45,7 @@ const App = () => {
         <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
         <Route path={'/404'} component={Unauthorized} />
         <Route path={`/detailed-page`} component={DetailedPageView} />
+        <Route path={`/detailed-modal`} component={DetailedModal} />
         <Route path={`/maptest`} component={maptest} />
         <Route path={`/user-settings`} component={UserManagement} />
         <Route path={`/my-profile-edit-search`} component={MyProfile} />

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button, Carousel, Col, Modal, Popover, Progress, Row, Tabs, Tooltip } from "antd";
+import { Button, Carousel, Col, message, Modal, Popover, Progress, Row, Tabs, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import DetailInformationProject from "./DetailInformationProject";
 import ComponentSolucions from "./ComponentSolucions";
@@ -25,6 +25,7 @@ import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
 import { getCounties, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
+import { useLocation } from "react-router";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -35,7 +36,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
-const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVisible: Function, data: any, type:string}) => {
+const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVisible: Function, data: any, type:string}) => { 
   const {
     getDetailedPageProblem,
     getDetailedPageProject,
@@ -47,6 +48,11 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const {
     detailed,
   } = useDetailedState();
+  const useQuery = () => new URLSearchParams(useLocation().search);
+  const query = useQuery();
+  const project_idS = query.get('project_id') || data?.project_id;
+  const problem_idS = query.get('problem_id') || data?.problemid;
+  const typeS = query.get('type') || type;   
   const [isLoading, setIsLoading] = useState(true);
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
@@ -61,13 +67,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
   let pageWidth  = document.documentElement.scrollWidth;
-  useEffect(() => {
-    resetDetailed();
-    if (type === FILTER_PROBLEMS_TRIGGER) {
-      getDetailedPageProblem(data.problemid);
-      getComponentsByProblemId({id: data.problemid, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
-      setTypeDetail(type);
-      datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + data.problemid, datasets.getToken()).then(data => {
+  useEffect(() => { 
+    resetDetailed();  
+    if (typeS === FILTER_PROBLEMS_TRIGGER) {
+      console.log('PROBLEM')
+      getDetailedPageProblem(problem_idS);
+      getComponentsByProblemId({id: problem_idS, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
+      setTypeDetail(typeS);
+      datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + problem_idS, datasets.getToken()).then(data => {
         const t: any[] = [];
         data.data.forEach((element: any) => {
           element.forEach((d: any, idnex: number) => {
@@ -86,10 +93,11 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         setProblemPart(t);
       });
     } else {
-      const project_id = data.project_id ? data.project_id : ( data.id ? data.id : 0);
+      console.log('PROJECT')
+      const project_id = project_idS ? +project_idS : ( +problem_idS ? +problem_idS : 0) ;
       getDetailedPageProject(project_id);
-      getComponentsByProblemId({id: data.on_base || data.project_id || data.id  || data.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
-      setTypeDetail(type);
+      getComponentsByProblemId({id: data?.on_base || project_id || data?.id  || data?.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
+      setTypeDetail(typeS);
     }
   }, []);
   useEffect(() => {
@@ -98,6 +106,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     setProjecttype(projectType);
   }, [detailed]);
 
+ 
+
   useEffect(()=>{
     if(detailed?.problemname || detailed?.project_name){
       setIsLoading(false)
@@ -105,6 +115,25 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       setIsLoading(true)
     }
   }, [detailed])
+
+  const copyUrl = () => {   
+    function handler (event: any){
+      let url = '';
+      if (typeS === FILTER_PROBLEMS_TRIGGER) {
+        console.log('problem')
+        url = `problemid=${problem_idS}`;
+      } else {
+        console.log('project')
+        url = `type=${typeS}&projectid=${project_idS}`;
+      }
+      event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
+      event.preventDefault();
+      document.removeEventListener('copy', handler, true);
+    }
+    document.addEventListener('copy', handler, true);
+    document.execCommand('copy');
+    message.success('Copied to Clipboard!');
+  }
   // useEffect(() => {
   //   if(type === PROBLEMS_MODAL){
   //     existDetailedPageProblem(data.problemid);
@@ -115,17 +144,17 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   return (
     <>
     {isLoading && <LoadingViewOverall />}
-    <ImageModal visible={openImage} setVisible={setOpenImage} type={type} active={active} setActive={setActive}/>
+    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive}/>
     <Modal
       className="detailed-modal"
       style={{ top: 30 }}
-      visible={visible}
+      visible={visible || !!query.get('type')}
       onCancel={() => setVisible(false)}
       forceRender={false}
       destroyOnClose>
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
-          <Col xs={{ span: 24 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
+          <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
               <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
@@ -143,7 +172,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               }
             </div>
           </Col>
-          <Col xs={{ span: 10 }} lg={type === FILTER_PROBLEMS_TRIGGER ? { span: 10}:{ span: 5}}>
+          <Col xs={{ span: 10 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 10}:{ span: 5}}>
             <div className="header-button">{
                 detailed?.problemtype ? (<>
                   <div className="progress">
@@ -171,7 +200,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               <Button className="btn-circle">
                 <img src="/Icons/icon-01.svg" alt="" />
               </Button>
-              <Button style={{marginLeft:'10px'}}  className="btn-circle">
+              <Button style={{marginLeft:'10px'}}  className="btn-circle" onClick={() => copyUrl()}>
                 <img src="/Icons/icon-06.svg" alt="" />
               </Button>
             </div>
@@ -355,7 +384,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                        )
                   } 
             </Carousel>
-            {type === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
+            {typeS === FILTER_PROJECTS_TRIGGER && <><div className="img-carousel-detail">
               <img src="/picture/map-denver.png" alt="" style={{width:'100%', height:'100%', borderRadius:'10px'}} onClick={()=>{setOpenImage(true);setActive(2)}} />
             </div>
             <div className="detail-left">
@@ -365,12 +394,12 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               <RightOutlined className="button-next" onClick={()=>{carouselRef.current.next() }}/>
             </div></>}
             <div className="detailed-info">
-              {type === 'Problems' ?
+              {typeS === 'Problems' ?
                 <>
                   <DetailInformationProblem />
                   <ProblemParts problemParts={problemPart}/>
                   <ComponentSolucionsByProblems />
-                  <Map type={type}/>
+                  <Map type={typeS}/>
                   <br></br>
                   <br></br>
                 </>:
@@ -382,7 +411,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
                   <Financials />
                   <Management />
-                  <Map type={type}/>
+                  <Map type={typeS}/>
                   <Documents />
                   <History />
                 </>
