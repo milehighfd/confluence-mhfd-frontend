@@ -42,10 +42,16 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [associateLabel, setAssociateLabel] = useState ('');
   const [contactData, setContactData] = useState<any> ({});
   const [primary, setPrimary] = useState(-1);
- 
-  //console.log('itemsZoomtoarea', itemsZoomtoarea)  
+  const [addressLine1, setAdressLine1] = useState('');
+  const [addressLine2, setAdressLine2] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+
+  //console.log('itemsZoomtoarea', itemsZoomtoarea)
   
   const menuBusinessAssociate = () => {
+    console.log("NOTIENESENTIDO")
     const itemMenu: MenuProps['items'] = [];
     let dataMenu: any[] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -78,6 +84,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     </Menu>
   };
   const menuContactAssociate = () => {
+    console.log("NOTIENESENTIDO")
     const itemMenu: MenuProps['items'] = [];
     let dataMenu: any[] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -85,7 +92,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         if (element.key === primary) {          
           itemMenu.push({
             key: element.key,
-            label: <span style={{ border: 'transparent' }}>{element.label + ' primary'}</span>
+            label: <span style={{ border: 'transparent' }}>{element.label + ' (primary)'}</span>
           });
           dataMenu.push({
             ...element
@@ -114,12 +121,22 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
-      onClick={(event:any) => {   
-        setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))        
-        if(event.key === 'Create_1'){          
+      onClick={(event:any) => {               
+        if (event.key === 'Create_1') {
           setDisabled(false)
           setContactData({})
-        }else{
+          setZip('')
+          setCity('')
+          setAdressLine1('')
+          setAdressLine2('')
+          setState('')
+        } else {
+          setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
+          setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
+          setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
+          setAdressLine1((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_1)
+          setAdressLine2((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_2)
+          setState((dataMenu.find((elm) => +elm.key === +event.key)).state)
           setDisabled(true)
         }
       }}>
@@ -250,7 +267,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     values.phone = record.phone;
     values.title = record.title;
     values.status = record.status;
-    values.createdAt = record.createdAt; 
+    values.createdAt = record.createdAt;     
     setOrganization (record.organization);
     setZoomArea(record.zoomarea);
     setServiceArea(record.serviceArea);
@@ -306,6 +323,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       setModal(auxState);
     }
   });
+  const handleChangeData = (value : any, setValue?: any) => {
+    setValue(value)
+  }
+
 
   const updateSuccessful = () => {
     const auxMessageError = { ...messageError };
@@ -536,17 +557,17 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>ADDRESS LINE 1</h1>
             <Input
               placeholder="Address Line 1"
-              value={Object.keys(contactData).length > 0 ? contactData.business_address_line_1 : values.business_associate_contact?.business_address?.business_address_line_1}
+              value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
               name="address_line_1"
-              onChange={handleChange}
+              onChange = {(e) => {handleChangeData(e.target.value, setAdressLine1)}}
               disabled={disabled}
             />
             <h1>ADDRESS LINE 2</h1>
             <Input
               placeholder="Address Line 2"
-              value={Object.keys(contactData).length > 0 ? contactData.business_address_line_2 : values.business_associate_contact?.business_address?.business_address_line_2} 
+              value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
               name="address_line_1" 
-              onChange={handleChange} 
+              onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
               disabled = {disabled}
             />
             {/* <h1>PHONE NUMBER</h1>
@@ -556,16 +577,18 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>CITY</h1>
             <Input
               placeholder="City"
-              value={Object.keys(contactData).length > 0?  contactData.city : values.business_associate_contact?.business_address?.city } 
-              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-              disabled = {disabled}
+              value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
+              onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+              style={errors.firstName && touched.firstName ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+              disabled={disabled}
             />
             <h1>ZIP CODE</h1>
             <Input
               placeholder="Zip Code"
-              value={Object.keys(contactData).length > 0?  contactData.zip : values.business_associate_contact?.business_address?.zip } 
-              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-              disabled = {disabled}
+              value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
+              onChange= {(e) => {handleChangeData(e.target.value, setZip)}}
+              style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+              disabled={disabled}
             />
             {/* <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
@@ -574,9 +597,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>STATE</h1>
             <Input
               placeholder="State"
-              value={Object.keys(contactData).length > 0?  contactData.state : values.business_associate_contact?.business_address?.state } 
-              style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
-              disabled = {disabled}
+              value={(state === '' && disabled ? (state !== '' ? state : values.business_associate_contact?.business_address?.state) : state)}
+              onChange= {(e) => {handleChangeData(e.target.value, setState)}}
+              style={errors.lastName && touched.lastName ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+              disabled={disabled}
             />
           </Col>
         </Row>
