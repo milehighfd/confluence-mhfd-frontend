@@ -454,7 +454,6 @@ const Map = ({
                             longitude: noteClicked.longitude
                         };
                         // UN COMMENT FOR NOTES
-                        console.log("ACA ES")
                         createNoteWithElem(note, createNote);
                         
                         popup.remove();
@@ -531,7 +530,6 @@ const Map = ({
     
     useEffect(() => {
       let mask;
-      console.log('Coordinates jurisdiction', coordinatesJurisdiction);
       if (coordinatesJurisdiction?.length > 0 && map && map.isStyleLoaded()) {
         // console.log('DEPTH', depth(coordinatesJurisdiction), 'Coordinates Jurisdiction', coordinatesJurisdiction, "STREING", JSON.stringify(coordinatesJurisdiction));
         const DEPTH = depth(coordinatesJurisdiction);
@@ -669,7 +667,6 @@ const Map = ({
         });
 
         mapService.map = map;  
-        console.log('HEHEHEHEHE', coorBounds);
         flytoBoundsCoor(
           getCurrent, 
           userInformation,
@@ -1455,8 +1452,8 @@ const Map = ({
                             const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
                             const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
                             const allFilter = ['all', lowerArray, upperArray];
-                            if (searchEquivalentinProblemBoundary(filterField) === 'component_status') {
-                              allFilter.push(['has', 'component_status']); 
+                            if (searchEquivalentinProblemBoundary(filterField) === 'component_status' || searchEquivalentinProblemBoundary(filterField) === 'estimated_cost') {
+                              allFilter.push(['has', searchEquivalentinProblemBoundary(filterField)]); 
                             }
                             options.push(allFilter);
                         }
@@ -2050,7 +2047,6 @@ const Map = ({
                 problemid: details.problemid
             });
         } else {
-          console.log('details', details.id, details);
             setData({
                 id: details.id !== '-'? details.id: undefined,
                 objectid: details.objectid,
