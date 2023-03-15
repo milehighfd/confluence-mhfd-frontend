@@ -684,6 +684,7 @@ const PhaseView = (
               if (searchRef.current[indexParent] && headerRef.current) {
                 searchRef.current[indexParent].scrollTo(dr.scrollLeft, dr.scrollTop);
                 headerRef.current?.scrollTo(dr.scrollLeft, 0)
+                dr.scroll(dr.scrollLeft, headerRef.current.scrollTop)
               }
             }}            
           >
