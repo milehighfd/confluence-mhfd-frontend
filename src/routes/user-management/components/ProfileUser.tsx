@@ -456,7 +456,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               defaultValue={organization}
               value={organization}/> */}
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingLeft: '20px' }}>
+          <Col xs={{ span: 24 }} lg={{ span: 18 }}>
             <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
           </Col>

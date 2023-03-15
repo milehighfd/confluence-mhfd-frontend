@@ -2503,6 +2503,12 @@ hr.filters-line {
       font-size: 16px !important;
     }
   }
+  .map .m-head{
+    .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child {
+      // margin-top: -43px;
+      // margin-left: 14px;
+    }
+  }
   .notification-popoveer{
     width: 610px !important;
     padding: 10px !important;
@@ -2553,6 +2559,12 @@ hr.filters-line {
     }
     span{
       font-size: 20px !important;
+    }
+  }
+  .map .m-head{
+    .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child {
+      margin-top: -43px;
+      margin-left: 14px;
     }
   }
   .notification-popoveer{

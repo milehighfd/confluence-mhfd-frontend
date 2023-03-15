@@ -106,6 +106,10 @@
     justify-content: space-between;
     width: 940px;
     z-index: 20;
+    .ant-select-item-option-active {
+      margin: 0px 3px;
+      padding: 5px 12px;
+    }
     .ant-select-arrow {
       height: 16px !important;
     }
@@ -354,6 +358,18 @@
       padding: 30px 40px;
       border-radius: 3px;
       color: #11093C;
+      .ant-dropdown-menu-item {
+        opacity: 0.6;
+      }
+      .ant-dropdown-menu-item:active {
+        opacity: 1;
+      }
+      .ant-dropdown-menu-item:hover {
+        opacity: 1;
+      }
+      .ant-select-item-option {
+        margin: 0px 3px;
+      }
       h1, h2, h3, h4, h5, h6 {
         color: rgb(29 22 70);
       }
@@ -879,6 +895,7 @@
       .ant-select-single.ant-select-show-arrow .ant-select-selection-item, .user-management-body .list-view-head .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
         font-size: 28px !important;
         padding-right: 25px !important;
+        height: 29px;
       }
     }
     .filter-user-management {
@@ -1171,8 +1188,8 @@
         width: 46px;
       }
       .btn-borde .anticon {
-        margin-top: 11px;
-        font-size: 18px;
+        margin-top: 4px;
+        font-size: 20px;
       }
       .ant-input{
         height: 55px !important;
@@ -1195,7 +1212,7 @@
       .ant-select-arrow {
         height: 30px !important;
         font-size: 20px !important;
-        margin-top: -11px;
+        margin-top: -14px;
       }
     }
     .button-space {
@@ -1306,7 +1323,7 @@
       .ant-radio-inner:after {
         width: 23px !important;
         height: 23px !important;
-        margin-top: -12px !important;
+        margin-top: -11.5px !important;
         margin-left: -12px !important;
       }
       .line-01{

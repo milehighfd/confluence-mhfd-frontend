@@ -490,6 +490,12 @@
       width: 400px;
       font-size: 24px;
     }
+    .m-head {
+      .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child {
+        margin-top: -48px;
+        margin-left: 14px;
+      }
+    }
     .m-head .ant-input-search-icon {
       font-size: 24px;
     }
