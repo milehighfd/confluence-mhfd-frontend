@@ -19,6 +19,7 @@ import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectZoomArea from "routes/Utils/SelectZoomArea";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
 import TextArea from "antd/lib/input/TextArea";
+import { BusinessAssociatesDropdownMemoized } from './BusinessAssociateDropdown';
 
 const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
@@ -83,8 +84,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       }}>
     </Menu>
   };
+
   const menuContactAssociate = () => {
-    console.log("NOTIENESENTIDO")
     const itemMenu: MenuProps['items'] = [];
     let dataMenu: any[] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -526,16 +527,17 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
             <div className="gutter-row" id={("city" + values.user_id)}>
               <p>ORGANIZATION</p>
-              <Input placeholder="Enter Organization" value={values.organization} name="phone" onChange={handleChange} style={{marginBottom:'15px'}}/>
+              <Input placeholder="Enter Organization" value={values.organization} name="organization" onChange={handleChange} style={{marginBottom:'15px'}}/>
             </div>
             <div className="gutter-row"  id={("ba" + values.user_id)}>
               <p>BUSINESS ASSOCIATE</p>
-              <Dropdown trigger={['click']} overlay={menuBusinessAssociate}
-                getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
-                <Button className="btn-borde-management">
-                  {associateLabel === '' ? 'Select Business Associate' : associateLabel}  <DownOutlined />
-                </Button>
-              </Dropdown>
+              <BusinessAssociatesDropdownMemoized 
+                businessAssociate={businessAssociate}
+                setAssociateLabel={setAssociateLabel}
+                setPrimary={setPrimary}
+                setSelectAssociate={setSelectAssociate}
+                associateLabel={associateLabel}
+              />
             </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
