@@ -1829,6 +1829,9 @@
             opacity: 1 !important;
           }
         }
+        .span-option{
+          opacity: 1 !important;
+        }
       }
       .input-focus:focus{
         box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
@@ -2793,6 +2796,9 @@
     font-size: 16px !important;
     font-weight: 400 !important;
   }
+  .ant-select-item-group{
+    font-size: 14px !important;
+  }
   .protafolio-body{
     hr.filters-line {
       opacity: 0.1;
@@ -2882,6 +2888,7 @@
       }
       p{
         font-size: 20px !important;
+        line-height: 20px !important;
       }
       span{
         font-size: 20px !important;
@@ -3464,8 +3471,13 @@
     font-size: 21px!important;
   }
   .ant-select-item-option{
-    font-size: 21px !important;
+    font-size: 24px !important;
     font-weight: 400 !important;
+    padding: 15px 7px !important;
+    margin: 0px 3px !important;
+  }
+  .ant-select-item-group{
+    font-size: 20px !important;
   }
   .protafolio-body{
     hr.filters-line {

@@ -253,7 +253,9 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p>Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-                <span style={{opacity:'0.5', color: '#11093C'}}>{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
+                <p className="span-option">
+                  <span style={{opacity:'0.5', color: '#11093C'}}>{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
+                </p>
               </Col>
             </Row>
             <Row>
