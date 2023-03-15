@@ -72,12 +72,12 @@ export const LocationInformation = ({
 
 
   const officialS_A = SERVICE_AREA.map((elem: any) => {
-    if (elem == 'Boulder Service Area') {
+    if (elem === 'Boulder Service Area') {
       return 'Boulder Creek Service Area';
     } else {
       return elem;
     }
-  }).filter((elem: any) => elem != 'South Platte River Service Area');
+  }).filter((elem: any) => elem !== 'South Platte River Service Area');
   const [localities, setLocalities] = useState<any[]>([]);
 
 
@@ -170,6 +170,16 @@ export const LocationInformation = ({
     }
   }, [currentServiceAreaCounty]);
 
+  const filterName = (name: string) => {
+    if (name.includes('County')) {
+      return name.replace('County', '');
+    }
+    if (name.includes('Service Area')) {
+      return name.replace('Service Area', '');
+    }
+    return name;
+  }
+
   return (
     <>
       <h5>{isCapital ? '5.' : '3.'} Location Information <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
@@ -182,7 +192,7 @@ export const LocationInformation = ({
           <div className="sponsor-select" id="serviceid">
             <Select mode="multiple" placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a Service Area"} style={{ width: '100%' }} onChange={(serviceArea: any) => setServiceArea(serviceArea)} value={serviceArea} disabled={disable} getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
               {officialS_A.map((element) => 
-                element != 'None' && element != 'Boulder Service Area' && <Option key={element} value={element}>{element}</Option>
+                element != 'None' && element != 'Boulder Service Area' && <Option key={element} value={element}>{filterName(element)}</Option>
               )}
             </Select>
           </div>
@@ -195,7 +205,7 @@ export const LocationInformation = ({
           <div className="sponsor-select" id="countyid">
             <Select mode="multiple" placeholder={county?.length !== 0 ? county : "Select a County"} style={{ width: '100%' }} value={county} onChange={(county: any) => apllyCounty(county)} disabled={disable} getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
               {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) => {
-                return <Option key={element} value={element}>{element}</Option>
+                return <Option key={element} value={element}>{filterName(element)}</Option>
               })}
             </Select>
           </div>
@@ -210,7 +220,7 @@ export const LocationInformation = ({
           <div className="sponsor-select" id="jurisdictionid">
             <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Jurisdiction"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
               {JURISDICTION.map((element: string) => {
-                return <Option key={element} value={element}>{element}</Option>
+                return <Option key={element} value={element}>{filterName(element)}</Option>
               })}
             </Select>
           </div>

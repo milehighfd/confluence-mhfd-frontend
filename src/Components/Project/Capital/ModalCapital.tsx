@@ -75,7 +75,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
  
   const {saveProjectCapital,saveOverheadCost, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
   const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
-  console.log(useProjectState());
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -160,7 +159,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         }
         return undefined;
       }).filter((e:any)=> !!e).join("");
-      setComponentIntersected(data.project_components || []);
+      setComponentIntersected(data.project_proposed_actions || []);
       setSwSave(true);
       setCounty(counties);
       setServiceArea(serviceAreas);
@@ -661,7 +660,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             onChange={(event: any)=> {setKeys(event)}}
           >
               {groups && Object.keys(groups).map((key: any) => {
-                if(key.toString() == '-1') {
+                if(key.toString() === '-1') {
                   if(groups[key].components.length > 0){
                     return (
                       <Panel header="" key={key + '-collapse1'} extra={genTitleNoAvailable(groups[key], setKeyOpenClose)}>
