@@ -206,7 +206,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setNameProject(data.project_name);
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
-      setStudyReason(data?.project_studies[0]?.study?.code_study_reason?.code_study_reason_id);
+      setStudyReason(data?.project_details[0]?.code_study_reason_id);
       setOtherReason(data?.project_details[0]?.comments);
     }
   }, [data]);
@@ -318,6 +318,10 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         }
       }
     }
+    if (swSave ) {
+      return total
+    }
+    total = total * 0.000621371;
     return formatterDec.format(total);
   }
   const getTotalDreinage = () => {
@@ -328,6 +332,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
           total += +s.drainage;
         }
       }
+    }
+    if (swSave ) {
+      return total
     }
     return formatterDec.format(total);
   }
@@ -491,8 +498,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                       <Timeline.Item color="green">
                                         <Row style={{ marginLeft: '-18px' }}>
                                           <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
-                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatterDec.format(stream.length)}</Col>
-                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{formatterDec.format(stream.drainage)}</Col>
+                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>
+                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
                                           <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                         </Row>
                                       </Timeline.Item>
