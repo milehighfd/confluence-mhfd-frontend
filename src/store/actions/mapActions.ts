@@ -138,7 +138,7 @@ export const setFilterProblemOptions = (filters: OptionProblems) => {
     const auxSolutionStatus = []
     for (let index = 0; index < solutionstatus.length && filters.solutionstatus.length; index++) {
         const element = solutionstatus[index];
-        auxSolutionStatus.push(element === '10' ? '10,25' : element === '25' ? '25,50' : element === '50' ? '50,75' : '75,100');
+        auxSolutionStatus.push(element === '0' ? '0,25' : element === '25' ? '25,50' : element === '50' ? '50,75' : '75,100');
     }
     auxFilter.solutionstatus = auxSolutionStatus;
     return (dispatch: Function) => {

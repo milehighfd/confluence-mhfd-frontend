@@ -1455,6 +1455,9 @@ const Map = ({
                             const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
                             const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
                             const allFilter = ['all', lowerArray, upperArray];
+                            if (searchEquivalentinProblemBoundary(filterField) === 'component_status') {
+                              allFilter.push(['has', 'component_status']); 
+                            }
                             options.push(allFilter);
                         }
                     } else {                        
