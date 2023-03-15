@@ -39,7 +39,7 @@ export const NewProblemsFilter = () => {
     || 'mhfdmanager' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
-                const element = values[index];
+                const element = 'solutionstatus' === field ? `${values[index]}`: values[index];
                 newValue = (newValue || newValue == '0') ? (newValue + ',' + element) : element;
             }
             options[field] = newValue;
