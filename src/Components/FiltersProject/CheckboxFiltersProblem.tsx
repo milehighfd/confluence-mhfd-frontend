@@ -8,7 +8,7 @@ export const CheckBoxFilters = ({
   labels,
   showControls=true,
 }: any) => {
-  const [selectedData, setSelectedData] = useState<string[]>([]);
+  const [selectedData, setSelectedData] = useState<any[]>([]);
 
 
   useEffect(() => {
@@ -60,10 +60,15 @@ export const CheckBoxFilters = ({
         defaultValue={['Active']}
         value={selectedData}
         options={data ? data.map((element: any) => {
-          return {label: showLabel(element.value), value: element.value ? element.value : ''};
+          return {label: showLabel(element.value), value: (element.value || element.value === 0) ? element.value : ''};
         }) : []}
         onChange={(e) => {
-        setSelectedData(e.map(lol => `${lol}`));
+          if (type === solutionstatus) {
+            setSelectedData(e.map(lol => +lol));
+          } else {
+            setSelectedData(e.map(lol => `${lol}`));
+          }
+        
       }} />
     </>
   )
