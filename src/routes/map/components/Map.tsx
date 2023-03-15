@@ -607,7 +607,7 @@ const Map = ({
         if (map) {
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
-    }, [filterProblems]);
+    }, [filterProblems,zoomEndCounter, dragEndCounter]);
 
     // useEffect(() => {
     //     if (map) {
@@ -812,7 +812,6 @@ const Map = ({
         } else {
           setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
-        applyProblemClusterLayer();
     }, [applyFilter, zoomEndCounter, dragEndCounter]);
     useEffect(() => {
         if (zoom?.length > 0) {
