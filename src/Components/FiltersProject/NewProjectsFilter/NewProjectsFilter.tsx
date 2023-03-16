@@ -69,7 +69,11 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 options[field] = [values];
               }
             } else if ('totalcost' === field) {
-              options[field] = [values[0], values[values.length - 1]];
+                if(values.length === 0 || values === ''){
+                    options[field] = []
+                }else {
+                    options[field] = [values[0], values[values.length - 1]];
+                }
             } else {
                 options[field] = values;
             }

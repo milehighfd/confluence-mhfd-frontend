@@ -468,7 +468,7 @@ const MapView = () => {
           } else if (key === 'totalcost') {
             elements.push({
               tag: key,
-              display: elementCost(tag[index][0], tag[index][1]),
+              display: elementCost(tag[0], tag[1]),
               value: tag[index]
             });
           } else {
