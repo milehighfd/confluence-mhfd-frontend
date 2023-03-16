@@ -48,42 +48,15 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [email, setEmail] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [title, setTitle] = useState('');
+  const [phone, setPhone] = useState('');
+  const [county, setCounty] = useState('');
 
   //console.log('itemsZoomtoarea', itemsZoomtoarea)
   
-  const menuBusinessAssociate = () => {
-    console.log("NOTIENESENTIDO")
-    const itemMenu: MenuProps['items'] = [];
-    let dataMenu: any[] = [];
-    const generateItemMenu = (content: Array<any>) => {
-         content.forEach((element, index: number) => {
-        itemMenu.push({
-          key: element.key,
-          label: <span style={{border:'transparent'}}>{element.label}</span>
-        });
-        dataMenu.push({
-          ...element
-        });
-      });
-    };   
-      generateItemMenu(businessAssociate);    
-    return <Menu
-      key={'organization'}
-      className="js-mm-00 sign-menu-organization"
-      items={itemMenu}
-      onClick={(event:any) => {
-        console.log('click') 
-        setSelectAssociate(event.key)
-        setAssociateLabel((dataMenu.find((elm) => +elm.key === +event.key))?.label)  
-        setPrimary((dataMenu.find((elm) => +elm.key === +event.key))?.primary_business_associate_contact_id)
-        // if(event.key.split('|')[1] === 'Create contact'){
-        //   setDisabled(false)
-        // }else{
-        //   setDisabled(true)
-        // }
-      }}>
-    </Menu>
-  };
 
   const menuContactAssociate = () => {
     const itemMenu: MenuProps['items'] = [];
@@ -143,115 +116,18 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       }}>
     </Menu>
   };
-  const menu2 = () => {
-    const itemMenu: MenuProps['items'] = [];
-    const generateItemMenu = (content: Array<any>) => {
-      content.forEach((element, index: number) => {
-        itemMenu.push({
-          key: `${index}|${element}`,
-          label: <span style={{border:'transparent'}}>{element}</span>
-        });
-      });
-    };
-    if (values.designation === ADMIN || values.designation === STAFF) {
-      generateItemMenu(['Mile High Flood Control District Boundary']);
-    } else if (values.designation === CONSULTANT) {
-      generateItemMenu(consultantList);
-    } else if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
-      generateItemMenu(organizationList);
-    } else {
-      generateItemMenu(['-']);
-    }
-    return <Menu
-      key={'organization'}
-      className="js-mm-00 sign-menu-organization"
-      items={itemMenu}
-      onClick={(event:any) => {
-        values.organization = event.key.split('|')[1];
-        setTitle(values.organization);
-      }}>
-    </Menu>
-  };
-
-  const menu = () => {
-    let itemMenu: MenuProps['items']
-    let regional: any = [];
-    let city: any = [];
-    let county: any = [];
-    let unincorporated: any = [];
-    const genetareMenuItem = (list: Array<any>): Array<any> => {
-      let items: Array<any> = [];
-      list.forEach((element: string, index: number) => {
-        items.push({
-          key: `${index}|${element}`,
-          label: <span style={{ marginLeft: '12px' }}>{element}</span>
-        });
-      });
-      return items;
-    };
-    if (values.designation === GOVERNMENT_ADMIN || values.designation === GOVERNMENT_STAFF) {
-      regional = genetareMenuItem(DROPDOWN_ORGANIZATION.REGIONAL_AGENCY);
-      city = genetareMenuItem(DROPDOWN_ORGANIZATION.CITY);
-      county = genetareMenuItem(DROPDOWN_ORGANIZATION.CITY_AND_COUNTY);
-      unincorporated = genetareMenuItem(DROPDOWN_ORGANIZATION.UNINCORPORATED_COUNTY);
-      itemMenu = [
-        {
-          key: 'regional-items',
-          type: 'group',
-          label: <label className="label-sg">{'Regional Agency'}</label>,
-          children: regional
-        },
-        {
-          key: 'city-items',
-          type: 'group',
-          label: <label className="label-sg">{'City'}</label>,
-          children: city
-        },
-        {
-          key: 'county-items',
-          type: 'group',
-          label: <label className="label-sg">{'City and County'}</label>,
-          children: county
-        },
-        {
-          key: 'unincorporated-items',
-          type: 'group',
-          label: <label className="label-sg">{'Unincorporated County'}</label>,
-          children: unincorporated
-        },
-      ];
-    } else {
-      itemMenu = groupOrganization.map((item: any, index: number) => {
-        return {
-          key: `${index}|${item.aoi}`,
-          label: <span>{item.aoi}</span>
-        }
-      });
-    }
-    //console.log('itemMenu', itemMenu)
-    return <Menu
-      className="js-mm-00 sign-menu-organization"
-      items={itemMenu}
-      onClick={(event) => {
-        values.zoomarea = event.key.split('|')[1];
-        setTitle(values.zoomarea);
-      }}>
-    </Menu>
-  };
 
   const [modal, setModal] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(record.activated);
   const [designation, setDesignation] = useState<string>(record.designation);
-  const [, setTitle] = useState<string>('');
   const [initialValues, setInitialValues] = useState<any>(record);
-  const [activated, setActivated] = useState(false);
   const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
   const [businessAssociate, setBusinessAssociate] = useState<any>([]); 
   const [listAssociates, setListAssociates] = useState<any>([]); 
   const [listContacts, setListContacts] = useState<any>([]); 
 
   useEffect(() => {   
-    
+    console.log('entrando');
     const auxUser = { ...record };
     setInitialValues(auxUser);
     values.user_id = record.user_id;
@@ -268,10 +144,19 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     values.phone = record.phone;
     values.title = record.title;
     values.status = record.status;
-    values.createdAt = record.createdAt;     
+    values.createdAt = record.createdAt;   
+    setFirstName(record.firstName);
+    setLastName(record.lastName);
+    setDesignation(record.designation);
+    setEmail(record.email);
+    setCity(record.city);
+    setCounty(record.county);
+    setPhone(record.phone);
+    setTitle(record.title);
     setOrganization (record.organization);
     setZoomArea(record.zoomarea);
     setServiceArea(record.serviceArea);
+    // setAdressLine1(record?.business_associate_contact?.business_address?.business_address_line_1);
   }, [record]);
 
   useEffect(() => {
@@ -325,6 +210,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     }
   });
   const handleChangeData = (value : any, setValue?: any) => {
+    console.log('here');
     setValue(value)
   }
 
@@ -360,8 +246,20 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
-    
-    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {values}, datasets.getToken()).then(res => {   
+    const newUser = {
+      firstName,
+      lastName,
+      email,
+      title,
+      phone,
+      designation,
+      organization,
+      serviceArea,
+      county,
+      city,
+      zoomArea
+    };
+    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
       if (res.message === 'SUCCESS') {        
         saveUser();
         updateSuccessful();
@@ -383,27 +281,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     deleteUser(record.user_id + type);
   }
 
-  const genExtra = () => (
-    <Row className="record-head" justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col xs={{ span: 19 }} lg={{ span: 19 }} onClick={() => {
-        //console.log('click click');
-        setActivated(!activated);
-      }}>
-        <h6>{'. ' + record.firstName + ' ' + record.lastName}</h6>
-      </Col>
-      <Col xs={{ span: 3 }} lg={{ span: 3 }} style={{ textAlign: 'right' }}>
-        <div>
-          <Switch className={'switch-options'} checked={record.status === 'approved' ? true: false} onChange={handleSwitchButton} />
-        </div>
-      </Col>
-      <Col xs={{ span: 1 }} lg={{ span: 1 }} style={{ textAlign: 'right' }} onClick={() => {
-        setActivated(!activated);
-      }} >
-        <img src={activated ? "/Icons/icon-21.svg" : "/Icons/icon-20.svg"} alt="" />
-      </Col>
-    </Row>
-  );
-
   //console.log(MenuAreaView(CITIES, 'city', values, setTitle));
   return (
     <>
@@ -422,18 +299,18 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>FIRST NAME</h1>
             <Input
               placeholder="First Name"
-              value={values.firstName}
+              value={firstName}
               name="firstName"
-              onChange={handleChange}
-              style={errors.firstName && touched.firstName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+              onChange={(e) => {handleChangeData(e.target.value, setFirstName)}}
+              style={{marginBottom: '15px'}}
             />
             <h1>EMAIL</h1>
             <Input
               placeholder="Email"
-              value={values.email}
+              value={email}
               name="email"
-              onChange={handleChange}
-              style={errors.email && touched.email ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+              onChange={(e) => {handleChangeData(e.target.value, setEmail)}}
+              style={{marginBottom: '15px'}}
             />
             {/* <h1>PHONE NUMBER</h1>
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
@@ -442,13 +319,19 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <h1>LAST NAME</h1>
             <Input
               placeholder="Last Name"
-              value={values.lastName}
+              value={lastName}
               name="lastName"
-              onChange={handleChange}
-              style={errors.lastName && touched.lastName ? { border: 'solid red',marginBottom: '15px' } : {marginBottom: '15px'}}
+              onChange={(e) => {handleChangeData(e.target.value, setLastName)}}
+              style={{marginBottom: '15px'}}
             />
             <h1>TITLE</h1>
-            <Input placeholder="Title" value={values.title} name="title" onChange={handleChange} style={{marginBottom: '15px'}} />
+            <Input
+              placeholder="Title"
+              value={title}
+              name="title"
+              onChange={(e) => {handleChangeData(e.target.value, setTitle)}}
+              style={{marginBottom: '15px'}}
+            />
             {/* <h1>ORGANIZATIONS</h1> */}
             {/* TODO: change data dropdown */}            
             {/* <SelectOrganization
@@ -457,9 +340,14 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               defaultValue={organization}
               value={organization}/> */}
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 18 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
             <h1>PHONE NUMBER</h1>
-            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} />
+            <Input
+              placeholder="Phone"
+              value={phone}
+              name="phone"
+              onChange={(e) => {handleChangeData(e.target.value, setPhone)}}
+            />
           </Col>
         </Row>
         <br />
@@ -479,14 +367,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               value={designation}
               onChange={event => {
                 values.designation = event.target.value;
-                if (values.designation === ADMIN || values.designation === STAFF) {
-                  values.organization = 'Mile High Flood Control District Boundary';
-                } else if (values.designation === OTHER) {
-                  values.organization = '-';
-                } else {
-                  values.organization = 'Please select one';
-                }
-                setTitle(values.organization);
                 setDesignation(event.target.value);
               }}
               // style={{ display: 'inline-flex', width: '100%', alignSelf: 'stretch' }}
@@ -496,7 +376,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                   //console.log('indexx', index);
                   if (index < 3) {
                   }
-                  return <RadioDesignation key={index} index={index} value={item.value} name={item.name}/>;
+                  return <RadioDesignation key={item.name} index={index} value={item.value} name={item.name}/>;
                 })}
               </Col>
             </Radio.Group>
@@ -537,7 +417,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 setPrimary={setPrimary}
                 setSelectAssociate={setSelectAssociate}
                 associateLabel={associateLabel}
-                values={values}
               />
             </div>
           </Col>
@@ -556,7 +435,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               </Dropdown>
             </div>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
+          {
+            !disabled &&
+            <>
+            <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
             <h1>ADDRESS LINE 1</h1>
             <Input
               placeholder="Address Line 1"
@@ -582,7 +464,6 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               placeholder="City"
               value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
               onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
-              style={errors.firstName && touched.firstName ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
               disabled={disabled}
             />
             <h1>ZIP CODE</h1>
@@ -606,6 +487,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               disabled={disabled}
             />
           </Col>
+          </>
+          }
         </Row>
         <br />
         <Row>
@@ -620,7 +503,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
           <div className="gutter-row" id={("city" + values.user_id)}>
                   <p>AREAS</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle, setCity)}
                     getPopupContainer={() => document.getElementById(("city" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.city ? values.city : 'City'} <DownOutlined />
@@ -639,7 +522,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
           <div className="gutter-row"  id={("county" + values.user_id)}>
                   <p>COUNTY</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle, setCounty)}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.county ? values.county : 'County'}  <DownOutlined />
