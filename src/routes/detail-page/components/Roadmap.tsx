@@ -264,27 +264,27 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
       .style('opacity', 0)
       .on("click", (d: any) => setOpenPiney(true))
       .on("mousemove", (d: any) =>{
-        let popupVisible:any =document.getElementById('popup-phaseview');
-        setGrapphicOpen(true);
-        if (popupVisible !== null){
-        let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 50:(windowWidth>=2550 && windowWidth<=3000 ? 42:(windowWidth>=2001 && windowWidth<=2549 ? 33:(windowWidth>=1450 && windowWidth<=2000 ?31:(windowWidth>=1199 && windowWidth<=1449?20:20)))))
-        let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?600:600)))))
-        let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
-        let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-        //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-        let positionTop: any=d3.event.pageY-heightOfPopup -popupfactorTop;
-        let positionLeft: any=d3.event.pageX - widthOfPopup/2 ;
-        setPositionModalGraphic({left: positionLeft,top:positionTop})
-        //d3.selectAll('.text-search:hover').attr('text-search');
-        d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
-       }
+      //   let popupVisible:any =document.getElementById('popup-phaseview');
+      //   setGrapphicOpen(true);
+      //   if (popupVisible !== null){
+      //   let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 50:(windowWidth>=2550 && windowWidth<=3000 ? 42:(windowWidth>=2001 && windowWidth<=2549 ? 33:(windowWidth>=1450 && windowWidth<=2000 ?31:(windowWidth>=1199 && windowWidth<=1449?20:20)))))
+      //   let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?600:600)))))
+      //   let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
+      //   let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+      //   //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+      //   let positionTop: any=d3.event.pageY-heightOfPopup -popupfactorTop;
+      //   let positionLeft: any=d3.event.pageX - widthOfPopup/2 ;
+      //   setPositionModalGraphic({left: positionLeft,top:positionTop})
+      //   //d3.selectAll('.text-search:hover').attr('text-search');
+      //   d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
+      //  }
       })
       .on("mouseout",(d: any) =>{
-        setGrapphicOpen(false);
-        setPositionModalGraphic({left: 10000,top:10000})
-        d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-          return colorScale[d.data[r].status];
-        });
+        // setGrapphicOpen(false);
+        // setPositionModalGraphic({left: 10000,top:10000})
+        // d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
+        //   return colorScale[d.data[r].status];
+        // });
       })
       ;
   });
