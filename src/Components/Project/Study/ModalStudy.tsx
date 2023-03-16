@@ -448,7 +448,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
             <div className="body-project">
               {
                 (showCheckBox && !swSave) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-                  <div style={{paddingBottom: '15px'}}>
+                  <div style={{paddingBottom: '15px'}} className='span-project-text'>
                     <Checkbox style={{paddingRight:'10px', paddingTop:'10px'}} checked={sendToWR} onChange={() => setsendToWR(!sendToWR)}></Checkbox>Submit this project also as a Work Request
                   </div>
                 </Col>

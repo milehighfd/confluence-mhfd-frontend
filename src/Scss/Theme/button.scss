@@ -325,6 +325,9 @@
   .ant-select{
     font-size: 19px !important;
   }
+  .btn-red, .btn-red:hover {
+    font-size: 18px !important;
+  }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .btn-circle {
@@ -354,6 +357,9 @@
     min-height: 70px;
   }
   .work-head .ant-select-2 {
-    min-width: 184px !important;
+    min-width: 215px !important;
+  }
+  .not-approved .mdi-circle::before {
+    font-size: 28px;
   }
 }

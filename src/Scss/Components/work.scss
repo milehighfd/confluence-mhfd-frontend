@@ -430,7 +430,7 @@
     div{
       width: 160px;
       min-width: 160px;
-      padding: 0px 13px;
+      padding: 0px 11.5px;
       margin-right: 10px;
     }
   }
@@ -1186,6 +1186,10 @@
       div{
         width: 215px;
         min-width: 215px;
+        padding: 0px 11px;
+        img{
+          height: 14px;
+        }
       }
     }
     h5{
@@ -1607,23 +1611,39 @@
     .ant-collapse-icon-position-left > .ant-collapse-item > .ant-collapse-header {
       height: 70px !important;
     }
+    .ant-collapse-header{
+      a{
+        font-size: 17px !important;
+      }
+    }
     .tab-head-project{
       font-size: 21px !important;
       line-height: 48px !important;
-
+      .ant-select-arrow{
+        font-size: 20px !important;
+      }
       div{
         width: 285px !important;
         min-width: 285px !important;
+        padding-left: 20px;
+        font-size: 24px;
       }
     }
 
     .tab-body-line {
       font-size: 21px !important;
-      line-height: 18px !important;
+      line-height: 17px !important;
 
       div{
-        width: 285px !important;
-        min-width: 285px !important;
+        width: 385px !important;
+        min-width: 385px !important;
+        font-size: 24px;
+        padding: 7px 24px !important;
+        line-height: 26px !important;
+        img{
+          margin-left: 10px;
+          height: 18px;
+        }
       }
     }
     h5{
@@ -1739,8 +1759,11 @@
       font-size: 24px !important;
     }
     p{
-      font-size: 18px !important;
+      font-size: 20px !important;
       margin-bottom: 10px !important;
+      img{
+        height: 18px !important;
+      }
     }
     .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
       margin-bottom: 25px !important;
@@ -1918,6 +1941,25 @@
   }
 }
 @media (min-width: 3000px) and (max-width: 4999px){
+  .const-wr{
+    .tab-body-line {
+      font-size: 21px !important;
+      line-height: 18px !important;
+
+      div{
+        width: 285px !important;
+        min-width: 285px !important;
+        padding: 0px 11px !important;
+        img{
+          margin-left: 10px;
+          height: 18px;
+        }
+      }
+    }
+    .ant-timeline-item{
+      padding: 0px 0 16px;
+    }
+  }
   .work-table{
     h3 {
     font-size: 21px !important;
@@ -1929,6 +1971,20 @@
       height: calc(100vh - 330px);
       // min-height: 685px;
       margin-top: 15px;
+      .tab-head-project{
+        div{
+          width: 406px !important;
+          min-width: 406px !important;
+          font-size: 20px;
+        }
+      }
+      .tab-body-line{
+        div{
+          width: 406px !important;
+          min-width: 406px !important;
+          font-size: 20px;
+        }
+      }
     }
     .btn-transparent {
       font-size: 16px;
@@ -1979,7 +2035,7 @@
   .work-table .col-wr {
       min-width: 400px !important;
       width: 285px !important;
-      height: calc(100vh - 360px) !important;
+      height: calc(100vh - 403px) !important;
       margin-right: 15px !important;
       padding: 20px 15px !important;
       margin-top: 10px !important;

@@ -1677,7 +1677,8 @@
 
 // NEW TAG Filter
 .tag-filters{
-  width: 230px;
+  // width: 230px;
+  width: auto;
 
   .tag-body{
     max-height: calc(100vh - 260px);
@@ -2545,6 +2546,12 @@ hr.filters-line {
           margin-top: 8px !important;
         }
       }
+    }
+  }
+  .head-filter button {
+    font-size: 18px;
+    .img-filter{
+      height: 18px;
     }
   }
 }
