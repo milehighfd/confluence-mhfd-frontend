@@ -1942,14 +1942,28 @@
 }
 @media (min-width: 3000px) and (max-width: 4999px){
   .cost-wr{
+    .tab-head-project {
+      font-size: 21px !important;
+      line-height: 18px !important;
+
+      div{
+        width: 413px !important;
+        min-width: 413px !important;
+        padding: 0px 11px !important;
+        img{
+          margin-left: 10px;
+          height: 18px;
+        }
+      }
+    }
     .tab-body-line {
       font-size: 21px !important;
       line-height: 18px !important;
 
       div{
-        width: 285px !important;
-        min-width: 285px !important;
-        padding: 0px 11px !important;
+        width: 413px !important;
+        min-width: 413px !important;
+        padding: 0px 16px !important;
         img{
           margin-left: 10px;
           height: 18px;
