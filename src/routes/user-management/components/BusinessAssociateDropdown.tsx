@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, Layout, Menu, MenuProps, Popover, Radio, Row, Select, Switch, Table, Tabs } from 'antd';
+import { AutoComplete } from 'antd';
 
-import { DownOutlined } from "@ant-design/icons";
 
 const BusinessAssociatesDropdown = ({
   businessAssociate,
@@ -9,25 +8,38 @@ const BusinessAssociatesDropdown = ({
   setAssociateLabel,
   associateLabel,
   setPrimary,
-  values
 }: {
   businessAssociate: any,
   setSelectAssociate: any,
   setAssociateLabel: any,
   associateLabel: any,
   setPrimary: any,
-  values:any
 }) => {
 
   const [menu, setMenu] = useState<any>([]);
+  const [keyword, setKeyword] = useState(associateLabel);
   const [dataMenu, setDataMenu] = useState<any>([]);
+
+  const onSelect = (value: any) => {
+    console.log(value);
+    setSelectAssociate(value);
+    setAssociateLabel((dataMenu.find((elm: any) => +elm.key === +value))?.label);
+    setKeyword((dataMenu.find((elm: any) => +elm.key === +value))?.label);  
+    setPrimary((dataMenu.find((elm: any) => +elm.key === +value))?.primary_business_associate_contact_id);
+  }
+
+  const onSearch = (value: string) => {
+    console.log(value);
+    setKeyword(value);
+  }
 
   useEffect(() => {
     const m: any[] = [], dm: any[] = [];
     businessAssociate.forEach((element: any) => {
       m.push({
         key: element.key,
-        label: <span style={{border:'transparent'}}>{element.label}</span>
+        label: <span style={{border:'transparent'}}>{element.label}</span>,
+        value: element.key
       });
       dm.push({
         ...element
@@ -36,27 +48,22 @@ const BusinessAssociatesDropdown = ({
     setMenu(m);
     setDataMenu(dm);
   }, [businessAssociate]);
-  const menuBusinessAssociate = () => {
-    console.log('sentido 0');
-    return <Menu
-      key={'organization'}
-      className="js-mm-00 sign-menu-organization"
-      items={menu}
-      onClick={(event:any) => {
-        console.log('click') 
-        setSelectAssociate(event.key)
-        setAssociateLabel((dataMenu.find((elm: any) => +elm.key === +event.key))?.label)  
-        setPrimary((dataMenu.find((elm: any) => +elm.key === +event.key))?.primary_business_associate_contact_id)
-      }}>
-    </Menu>
-  };
+
   return <>
-    <Dropdown trigger={['click']} overlay={menuBusinessAssociate}
-      getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
-      <Button className="btn-borde-management">
-        {associateLabel === '' ? 'Select Business Associate' : associateLabel}  <DownOutlined />
-      </Button>
-    </Dropdown>
+    <AutoComplete
+      dropdownMatchSelectWidth={true}
+      style={{ width: 240 }}
+      options={menu}
+      onSelect={onSelect}
+      onSearch={onSearch}
+      value={keyword}
+      filterOption={(inputValue: any, option: any) => {
+          const element = dataMenu.find((el: any) => +el.key === option.key)?.label || '';
+          return element.toUpperCase().includes(inputValue.toUpperCase());;
+        }
+      }
+      placeholder="Select Business Associates"
+    />
   </>
 };
 
