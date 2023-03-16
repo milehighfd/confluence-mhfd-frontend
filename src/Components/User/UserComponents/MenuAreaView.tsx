@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, MenuProps } from 'antd';
 import { User } from '../../../Classes/TypeList';
 
-const MenuAreaView = (items: Array<string> = [], fieldName: string, values: User, setTitle: Function) => {
+const MenuAreaView = (items: Array<string> = [], fieldName: string, values: User, setTitle: Function, set?: Function) => {
   const itemMenu: MenuProps['items'] = [];
   items.forEach((item: string, index: number) => {
     itemMenu.push({
@@ -11,8 +11,14 @@ const MenuAreaView = (items: Array<string> = [], fieldName: string, values: User
       onClick: (() => {
         if (fieldName === 'city') {
           values.city = item;
+          if (set) {
+            set(item);
+          }
         } else if (fieldName === 'county') {
           values.county = item;
+          if (set) {
+            set(item);
+          }
         } else if (fieldName === 'serviceArea') {
           values.serviceArea = item;
         }
