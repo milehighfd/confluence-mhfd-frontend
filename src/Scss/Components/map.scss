@@ -1191,6 +1191,9 @@
   right: 0px;
 }
 .head-filter {
+  .tag-filters {
+    width: auto !important;
+  }
   .ant-input {
     width: 246px;
     height: 28px;
@@ -1276,6 +1279,11 @@
 @media (min-width: 1900px) and (max-width: 2799px){ 
   .ant-select-item-option{
     font-size: 16px;
+  }
+  .head-filter{
+    .ant-select-single.ant-select-customize-input .ant-select-selector .ant-select-selection-placeholder {
+      font-size: 16px;
+    }
   }
 }
 

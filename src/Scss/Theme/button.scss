@@ -1,4 +1,8 @@
 @use  'styles';
+
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border-color: #251863 !important;
+}
 // BUTTON PURPLE
 .btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active{
   background-color: $purple !important;

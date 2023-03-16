@@ -987,7 +987,7 @@ const RequestView = ({ type, isFirstRendering }: {
                       className={'ant-select-2'} >
                       {
                         years.map((y, i) => (
-                          <Option key={i} value={y} style={{marginRight: '10px', marginLeft: '10px'}}>Year {y}</Option>
+                          <Option key={i} value={y} >Year {y}</Option>
                         ))
                       }
                     </Select>
