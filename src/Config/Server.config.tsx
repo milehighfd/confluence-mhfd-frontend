@@ -309,13 +309,14 @@ export const SERVER = (function () {
         },
         GET_BBOX_PROJECTID: (projectId: any) => {
             return `${URL_BASE.BASE}/${PROJECT}/${BBOX}/${projectId}`
-          },
+        },
         PROJECT_COST_OVERHEAD: (projectId: any) => {
             return `${URL_BASE.BASE}/${PROJECT}/${PROJECT_COST}/${projectId}`
         },
+        SAVE_BUSINESS_ADRESS_AND_CONTACT: (id: string | number) =>`${URL_BASE.BASE}/${BUSINESS}/business-address-and-contact/${id}`,
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
           },
-        GET_BBOX_PROJECTS: `${URL_BASE.BASE}/board/${PROJECTS_BBOX}`
-    }
-})();
+          GET_BBOX_PROJECTS: `${URL_BASE.BASE}/board/${PROJECTS_BBOX}`
+        }
+    })();
