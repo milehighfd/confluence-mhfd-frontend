@@ -249,7 +249,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     const auxState = { ...visible };
     auxState.visible = false;
     setModal(auxState);
-    const newUser = {
+    const newUser: any = {
       firstName,
       lastName,
       email,
@@ -261,23 +261,50 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       county,
       city,
       zoomarea,
-      business_associate_contact_id: contactId
+      business_associate_contact_id: +contactId
     };
-    console.log("USER")
-    console.log(newUser)
-    datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
-      if (res.message === 'SUCCESS') {        
-        saveUser();
-        updateSuccessful();
-      } else {
-        if (res?.error) {
-          updateError(res.error);
+    if (!disabled) {
+      datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociate), {
+        business_address_line_1: addressLine1,
+        business_address_line_2: addressLine2,
+        full_address: addressLine1,
+        state,
+        city,
+        zip,
+        name: firstName + ' ' + lastName,
+        email: email
+      }, datasets.getToken()).then(res => {
+        newUser.business_associate_contact_id = +res?.businessContact?.businessContact?.business_associate_contact_id;
+        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
+          console.log('my res ', res);  
+          if (res.message === 'SUCCESS') {        
+            saveUser();
+            updateSuccessful();
+          } else {
+            if (res?.error) {
+              updateError(res.error);
+            }
+            else {
+              updateError(res);
+            }
+          }
+        });
+      });
+    } else {
+      datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
+        if (res.message === 'SUCCESS') {        
+          saveUser();
+          updateSuccessful();
+        } else {
+          if (res?.error) {
+            updateError(res.error);
+          }
+          else {
+            updateError(res);
+          }
         }
-        else {
-          updateError(res);
-        }
-      }
-    });
+      });
+    }
     setSaveAlert(false)
   }
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
