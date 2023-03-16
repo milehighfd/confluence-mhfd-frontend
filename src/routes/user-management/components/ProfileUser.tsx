@@ -25,7 +25,7 @@ const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
   
   const [organization,setOrganization] = useState('');
-  const [zoomArea,setZoomArea] = useState('');
+  const [zoomarea,setZoomArea] = useState('');
   const [serviceArea,setServiceArea] = useState('');
   const { groupOrganization } = useProfileState();
   const [saveAlert, setSaveAlert] = useState(false);
@@ -54,6 +54,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [title, setTitle] = useState('');
   const [phone, setPhone] = useState('');
   const [county, setCounty] = useState('');
+  const [contactId,setContactId] = useState('');
 
   //console.log('itemsZoomtoarea', itemsZoomtoarea)
   
@@ -95,7 +96,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
-      onClick={(event:any) => {               
+      onClick={(event:any) => {     
+        console.log((dataMenu.find((elm) => +elm.key === +event.key)))         
         if (event.key === 'Create_1') {
           setDisabled(false)
           setContactData({})
@@ -105,6 +107,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           setAdressLine2('')
           setState('')
         } else {
+          setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
           setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
           setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
@@ -193,10 +196,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   useEffect(() => {      
     const auxUser = { ...record };
     setInitialValues(auxUser);    
-    values.zoomarea = zoomArea;    
+    values.zoomarea = zoomarea;    
     values.serviceArea = serviceArea;
     values.organization = organization;
-  }, [organization,zoomArea,serviceArea]);
+  }, [organization,zoomarea,serviceArea]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
@@ -257,8 +260,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       serviceArea,
       county,
       city,
-      zoomArea
+      zoomarea,
+      business_associate_contact_id: contactId
     };
+    console.log("USER")
+    console.log(newUser)
     datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
       if (res.message === 'SUCCESS') {        
         saveUser();
@@ -503,7 +509,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
           <div className="gutter-row" id={("city" + values.user_id)}>
                   <p>AREAS</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values, setTitle, setCity)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values,  setCity)}
                     getPopupContainer={() => document.getElementById(("city" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.city ? values.city : 'City'} <DownOutlined />
@@ -522,7 +528,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
           <div className="gutter-row"  id={("county" + values.user_id)}>
                   <p>COUNTY</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values, setTitle, setCounty)}
+                  <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values,  setCounty)}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
                       {values.county ? values.county : 'County'}  <DownOutlined />
@@ -537,10 +543,10 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <Row>
               <div className="gutter-row" id={'zoomarea' + values.user_id} style={{ width: '100%' }}>
                 <SelectZoomArea
-                  zoomArea={zoomArea}
+                  zoomArea={zoomarea}
                   setZoomArea={setZoomArea}                  
-                  defaultValue={zoomArea}
-                  value={zoomArea} />
+                  defaultValue={zoomarea}
+                  value={zoomarea} />
               </div>
             </Row>
             <h1 style={{ fontStyle: 'italic' }}>
