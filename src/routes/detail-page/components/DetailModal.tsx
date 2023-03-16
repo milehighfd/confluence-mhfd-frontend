@@ -53,6 +53,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const project_idS = query.get('project_id') || data?.project_id;
   const problem_idS = query.get('problem_id') || data?.problemid;
   const typeS = query.get('type') || type;   
+  console.log(project_idS,problem_idS,typeS)
   const [isLoading, setIsLoading] = useState(true);
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
@@ -69,6 +70,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   let pageWidth  = document.documentElement.scrollWidth;
   useEffect(() => { 
     resetDetailed();  
+    console.log(data)
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
       console.log('PROBLEM')
       getDetailedPageProblem(problem_idS);
@@ -118,15 +120,16 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
 
   const copyUrl = () => {   
     function handler (event: any){
+      let origin = `${window.location.origin.toString()}/detailed-modal`;
       let url = '';
       if (typeS === FILTER_PROBLEMS_TRIGGER) {
         console.log('problem')
-        url = `problemid=${problem_idS}`;
+        url = `type=Problems&problem_id=${problem_idS}`;
       } else {
         console.log('project')
-        url = `type=${typeS}&projectid=${project_idS}`;
+        url = `type=Projects&project_id=${project_idS}`;
       }
-      event.clipboardData.setData('text/plain', SERVER.SHARE_MAP_PROJECT + '?' + url);
+      event.clipboardData.setData('text/plain', origin + '?' + url);   
       event.preventDefault();
       document.removeEventListener('copy', handler, true);
     }
