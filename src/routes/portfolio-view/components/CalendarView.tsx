@@ -866,34 +866,34 @@ let toData = datas
           d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbarHover')
         }
       })
-      scheduleRects.on('mouseout', function() {
-        if (d3.event.target.className.animVal === 'agrupationbarHover'){
+      scheduleRects.on('mouseout', function () {
+        if (d3.event.target.className.animVal === 'agrupationbarHover') {
           d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbar')
         }
       })
-            scheduleRectsCenter.on('mousemove', function() {
-              if (d3.event.target.className.animVal === 'agrupationbar'){
-    
-                d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
-              }
-              setGrapphicOpen(true); 
-              let popupfactorTop = (windowWidth>=3001 && windowWidth<=3999 ? 374:(windowWidth>=2550 && windowWidth<=3000 ? 275:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?240:(windowWidth>=1199 && windowWidth<=1449?205:205)))))
-              let popupfactorLeft = (windowWidth>=3001 && windowWidth<=3999 ? 875:(windowWidth>=2550 && windowWidth<=3000 ? 575:(windowWidth>=2001 && windowWidth<=2549 ? 60:(windowWidth>=1450 && windowWidth<=2000 ?445:(windowWidth>=1199 && windowWidth<=1449?345:345)))))
-              let widthOfPopup: any =document.getElementById('popup-phaseview')?.offsetWidth;
-              let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-              let positionTop: any=d3.event.layerY-heightOfPopup+popupfactorTop;
-              let positionLeft: any=d3.event.layerX - widthOfPopup/2 + popupfactorLeft;
-              setPositionModalGraphic({left: positionLeft,top:positionTop})
-              d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar:hover');
-              if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
-                d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
-                d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
-                d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
-              }
-              let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
-              d3.select(`#${searchTextId}`).style('background-color','#fafafa');
+      scheduleRectsCenter.on('mousemove', function () {
+        if (d3.event.target.className.animVal === 'agrupationbar') {
+
+          d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
+        }
+        setGrapphicOpen(true);
+        let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 374 : (windowWidth >= 2550 && windowWidth <= 3000 ? 275 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 240 : (windowWidth >= 1199 && windowWidth <= 1449 ? 205 : 205)))))
+        let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
+        let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
+        let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
+        let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
+        let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
+        setPositionModalGraphic({ left: positionLeft, top: positionTop })
+        d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar:hover');
+        if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
+          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
+          d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+          d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
+        }
+        let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+        d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
       });
-      scheduleRectsCenter.on("mouseout",(d: any) =>{
+      scheduleRectsCenter.on("mouseout", (d: any) => {
         setGrapphicOpen(false);
         if (d3.event.target.className.animVal === 'stackedbarCenterClicked'){
           d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
@@ -1387,7 +1387,7 @@ let toData = datas
   return (
     <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
+    {/* {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>} */}
     <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
     {/* <div className='lines-calendar' id='line-calendar'></div> */}
     <div className="calendar-body" id="widthDivforChart">
