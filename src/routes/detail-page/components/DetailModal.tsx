@@ -53,7 +53,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const project_idS = query.get('project_id') || data?.project_id;
   const problem_idS = query.get('problem_id') || data?.problemid;
   const typeS = query.get('type') || type;   
-  console.log(project_idS,problem_idS,typeS)
   const [isLoading, setIsLoading] = useState(true);
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
@@ -70,7 +69,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   let pageWidth  = document.documentElement.scrollWidth;
   useEffect(() => { 
     resetDetailed();  
-    console.log(data)
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
       console.log('PROBLEM')
       getDetailedPageProblem(problem_idS);
