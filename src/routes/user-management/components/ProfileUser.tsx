@@ -40,7 +40,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [disabled, setDisabled] = useState(true);
   const [selectAssociate, setSelectAssociate] = useState(-1);
   const [selectContact, setSelectContact] = useState(-1);
-  const [associateLabel, setAssociateLabel] = useState ('');
+  const [associateLabel, setAssociateLabel] = useState<any> ('');
   const [contactData, setContactData] = useState<any> ({});
   const [primary, setPrimary] = useState(-1);
   const [addressLine1, setAdressLine1] = useState('');
@@ -131,7 +131,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
 
   useEffect(() => {   
     console.log('entrando');
-    const auxUser = { ...record };
+    const auxUser:any = { ...record };
     setInitialValues(auxUser);
     values.user_id = record.user_id;
     values.firstName = record.firstName;
@@ -159,6 +159,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     setOrganization (record.organization);
     setZoomArea(record.zoomarea);
     setServiceArea(record.serviceArea);
+    setAssociateLabel(auxUser?.business_associate_contact.business_address.business_associate.business_name)
+    console.log('RECORD')
+    console.log(auxUser?.business_associate_contact.business_address.business_associate.business_name)
     // setAdressLine1(record?.business_associate_contact?.business_address?.business_address_line_1);
   }, [record]);
 

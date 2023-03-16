@@ -47,8 +47,11 @@ const BusinessAssociatesDropdown = ({
     });
     setMenu(m);
     setDataMenu(dm);
+    setKeyword(associateLabel)
   }, [businessAssociate]);
-
+  useEffect(() => {   
+    setKeyword(associateLabel)
+  }, [associateLabel]);
   return <>
     <AutoComplete
       dropdownMatchSelectWidth={true}
