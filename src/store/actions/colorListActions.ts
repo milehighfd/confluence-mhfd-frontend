@@ -1,6 +1,7 @@
 import * as types from '../types/colorListTypes';
 import { SERVER } from "../../Config/Server.config";
 import { getData, postData, deleteData, getToken, putData } from "../../Config/datasets";
+import moment, { now } from 'moment';
 
 export const getColorsList = () => {
   return (dispatch: Function) => {
@@ -14,7 +15,7 @@ export const getColorsList = () => {
 
 export const createColorList = () => {
         const colorsList: any = {
-          label: 'Map Note', 
+          label: moment().format('MMMM Do, YYYY [at] h:mm:ss a'), 
           color: "#FFE121",
           opacity: 1
         };

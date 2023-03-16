@@ -2326,10 +2326,10 @@ const Map = ({
                   },600);
                 }
               }
-            },240);
-          },350);
+            },440);
+          },450);
         }
-      },600);
+      },780);
       
     }
     const changeContentWithListUpdates = (changeContentTitleData: any) => {

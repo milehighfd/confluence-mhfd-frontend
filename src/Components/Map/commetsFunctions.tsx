@@ -299,7 +299,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
             deleteButton.addEventListener('click', (e:any) => {
               e.stopPropagation();
               deleteColorList(el.color_id);
-              let timeCheck = noteClicked? 1200:0;
+              let timeCheck = noteClicked? 1800:0;
               let draftText = '';
               const textarea = (document.getElementById('textarea') as HTMLInputElement);
                 if (textarea != null) {
@@ -400,7 +400,7 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
     buttonAdd.addEventListener('click', (e:any) => {
       e.stopPropagation();
       createColorList();
-      let timeCheck = 1200;
+      let timeCheck = 2000;
       let draftText = '';
       const textarea = (document.getElementById('textarea') as HTMLInputElement);
         if (textarea != null) {
@@ -418,7 +418,7 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
             doc.select();
             setTimeout(()=>{
               doc.setSelectionRange(15,15);
-            },10);
+            },20);
           }
         })
       },timeCheck);
@@ -437,6 +437,7 @@ export const rotateIcon = (direction: string) => {
 } 
 
 export const divListOfelements = (listOfElements: any, changeValueOfElement: any) => {
+  console.log('listOfElements', listOfElements);
   return  <div id='list-popup-comment'>
     <div className="listofelements" id="currentItemsinList">
             {listOfElements.map((el:any, index:any)=> 
