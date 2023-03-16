@@ -25,7 +25,8 @@ const PhaseView = (
     userName,
     setDataModal,
     openPiney,
-    setOpenPiney }
+    setOpenPiney,
+    collapsePhase }
     : {
       rawData: any,
       openTable: boolean[],
@@ -46,7 +47,8 @@ const PhaseView = (
       userName: string,
       setDataModal: any,
       openPiney: boolean,
-      setOpenPiney: any    
+      setOpenPiney: any,
+      collapsePhase: any
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -111,10 +113,10 @@ const PhaseView = (
       .attr("y2", "0");
     completedtoActive.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
+      .attr("stop-color", '#047CD7')
     completedtoActive.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", '#047CD7')
+      .attr("stop-color", '#5E5FE2')
 
     let completedtoDelayed = svgDefinitions.append("linearGradient");
     completedtoDelayed
@@ -139,7 +141,7 @@ const PhaseView = (
       .attr("y2", "0");
     ActivetoNotStarted.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
+      .attr("stop-color", '#047CD7')
     ActivetoNotStarted.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", '#D4D2D9')
@@ -153,10 +155,10 @@ const PhaseView = (
       .attr("y2", "0");
     Cancelled.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#047CD7')
+      .attr("stop-color", '#5E5FE2')
     Cancelled.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
+      .attr("stop-color", '#047CD7')
 
     let ActivetoDelayed = svgDefinitions.append("linearGradient");
     ActivetoDelayed
@@ -250,13 +252,15 @@ const PhaseView = (
       heightDiv = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
+      let heightContainer: any = height + margin.top + margin.bottom;
+      if (heightContainer>0){              
       // append the svg object to the body of the page
       removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}`))
       svg = d3
         .select(`#dotchart_${dataDotchart[index].id}`)
         .append("svg")
         .attr("width", totalLabelWidth)//
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("height", heightContainer)
         //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -500,7 +504,7 @@ const PhaseView = (
           })
           ;
       });
-    }
+    }}
   }
   const removeAllChildNodes = (parent: any) => {
     while (parent.firstChild) {
@@ -508,27 +512,18 @@ const PhaseView = (
     }
   };
   useEffect(() => {
-
     if (Object.keys(rawData).length > 0) {
       rawData.map((elem: any, index: number) => (
         removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
       ));
     }
-    // setTimeout(() => {
-    //   for (let index = 0; index < completeData.length; index++) {
-    //     if (openTable[index]) {
-    //       if (Object.keys(completeData1).length > 0) {
-    //         phaseChart(completeData1, index);
-    //       } else {
-    //         phaseChart(completeData, index);
-    //       }
-    //     }
-    //   }
-    // }, 210);
-    for (let index = 0; index < rawData.length; index++) {
-      phaseChart(rawData, index);
-    }
-  }, [updatePhaseList, rawData, indexParent, windowWidth]);
+    setTimeout(() => {
+      for (let index = 0; index < rawData.length; index++) {
+        phaseChart(rawData, index);
+      }
+    }, 500);
+    
+  }, [updatePhaseList, rawData, indexParent, windowWidth,collapsePhase]);
 
 
   useEffect(() => {
@@ -595,7 +590,6 @@ const PhaseView = (
      }
      getUserBrowser()
     setUserBrowser(browser)
-    console.log(tabKey)
     datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {   
     }).then((e) => {     
       setActionsDone(e);

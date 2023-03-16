@@ -77,7 +77,7 @@ const PortafolioBody = () => {
   const appUser = store.getState().profile;
   const [currentUserId, setCurrentUserId] = useState(null);
   const [listLoaded, setListLoaded] = useState(false);
-  const [collapsePhase, setCollapsePhase] = useState('');
+  const [collapsePhase, setCollapsePhase] = useState(false);
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
 
@@ -850,6 +850,7 @@ const PortafolioBody = () => {
                       email={appUser.userInformation?.email}
                       setCollapsePhase={setCollapsePhase}
                       optionSelect={optionSelect}
+                      collapsePhase={collapsePhase}
                     />
                   </Col>
                     <Col xs={{ span: 34 }} lg={{ span: 19 }}>
@@ -880,6 +881,7 @@ const PortafolioBody = () => {
                         setDataModal={setDataModal}
                         openPiney = {openPiney}
                         setOpenPiney = {setOpenPiney}
+                        collapsePhase = {collapsePhase}
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 
