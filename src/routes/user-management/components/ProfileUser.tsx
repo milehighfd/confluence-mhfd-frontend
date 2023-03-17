@@ -478,7 +478,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               <Dropdown trigger={['click']} overlay={menuContactAssociate}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
-                  {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:'Select Contact')}  <DownOutlined />
+                  {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Create Contact':'Select Contact'))}  <DownOutlined />
                 </Button>
               </Dropdown>
             </div>
