@@ -56,7 +56,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
     <Modal
       className="detailed-version modal-tollgate"
       style={{ top: 123, width: '322px', height:'551px' }}
-      visible={true}
+      visible={visible}
       onCancel={() => setVisible(false)}
       forceRender={false}
       destroyOnClose>
