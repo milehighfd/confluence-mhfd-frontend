@@ -21,7 +21,7 @@ import EventService from "services/EventService";
 import { addPopupAndListeners, addPopupsOnClick } from "routes/map/components/MapFunctionsPopup";
 import mapboxgl from "mapbox-gl";
 import { useProfileState } from "hook/profileHook";
-import { getMapLayers, getMapTables, getMapWithSublayers } from "store/actions/mapActions";
+import { getMapLayers, getMapWithSublayers } from "store/actions/mapActions";
 import { getToken, postData } from "../../../Config/datasets";
 
 var map: any;
@@ -34,7 +34,8 @@ const Map = ({type}: {type: any}) => {
   } = useDetailedState();
   const {
     resetDetailed,
-    setSelectedPopup
+    setSelectedPopup,
+    getMapTables
   } = useMapDispatch();
   const {
     galleryProjectsV2,
