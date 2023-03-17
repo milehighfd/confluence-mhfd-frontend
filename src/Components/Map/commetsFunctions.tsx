@@ -59,7 +59,7 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
       circleCheck.classList.remove('selected');
     }   
   });
-  const indexElem = listOfElements.findIndex((elem:any) => elem._id == _el.color_id );
+  const indexElem = listOfElements.findIndex((elem:any) => elem.color_id == _el.color_id );
   const inputCheck = document.getElementById(`input${indexElem}`);
   if(inputCheck != null) {
     inputCheck.classList.add('underlined');
@@ -170,9 +170,10 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
                 }
               });
               const imgColor:any = document.getElementById(`circle${el.label}`);
-                if(imgColor != null) {
-                  imgColor.classList.add('selected');
-                }
+              if(imgColor != null) {
+                imgColor.classList.add('selected');
+              }
+              
             })
           }
         });

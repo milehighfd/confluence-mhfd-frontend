@@ -1850,7 +1850,7 @@ const Map = ({
         listOfElements.forEach((el:any , index: any) => {
           inner += ` 
           <li id="color${index}" value=${JSON.stringify(el.color_id)}>
-            <img id="circle${index}" class="img-circle${noteClicked?.color_id == el.color_id?' selected':''}" style="background:${el.color}"/> 
+            <img id="circle${index}" class="img-circle ${noteClicked?.color_id == el.color_id?' selected':''}" style="background:${el.color}"/> 
               <input id="input${index}" class="inputlabel${noteClicked?.color_id == el.color_id?' underlined':''} ${latestValue.color_id === el.color_id ? 'toeditinput': ''}" value="${el.label}" readonly>
             <img id="editopt${index}" class="img-edit" />
             <img id="saveopt${index}" class="img-check" />
@@ -2301,8 +2301,8 @@ const Map = ({
             zoom: zoom ?? 12 
             });
     }
+
     const openMarkerOfNote = (note:any, draftText: any, changeContentTitleData?: any) => {
-      console.log('Open Marker Note', note);
       markerNotes_global.forEach((marker:any) => {
         marker.marker.addTo(map);
       });
