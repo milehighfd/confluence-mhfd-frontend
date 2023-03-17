@@ -51,6 +51,8 @@ export const editNote = (note: any) => {
       newNote.color = note.color
       dispatch({type: types.EDIT_NOTES, note: newNote});
       dispatch(getNotes());
+    }).catch((error: any) => {
+      console.log('Error on edit note?', error);
     });
   };
 }

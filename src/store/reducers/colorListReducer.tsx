@@ -1,7 +1,8 @@
 import * as types from '../types/colorListTypes';
 const initState = {
   colorsList: [],
-  idsToFilter: ''
+  idsToFilter: '',
+  updated: false
 }
 
 const colorListReducer = (state = initState, action: any) => {
@@ -15,6 +16,11 @@ const colorListReducer = (state = initState, action: any) => {
       return {
         ...state,
         idsToFilter: action.idsToFilter
+      }
+    case types.SET_UPDATED_VALUE:
+      return {
+        ...state, 
+        updated: action.updated
       }
     default: 
       return state

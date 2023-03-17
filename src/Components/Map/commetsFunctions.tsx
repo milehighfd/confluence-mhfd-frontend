@@ -9,14 +9,12 @@ export const changeContentTitleClick = (_el: any, _index: any, listOfElements: a
     if(colorElem != null) {
       colorElem.addEventListener('click', (e:any) => {
         const colorable = document.getElementById('colorable');
-        console.log(colorElem)
         if(colorable != null) {
           colorable.style.color = _el.color
         }
         const contentTitle:any = document.getElementById('color-text');
         if(contentTitle != null) {
           contentTitle.textContent = _el.label;
-          console.log('current_id', _el);
           contentTitle.setAttribute('current_id', _el.color_id);
         }
         listOfElements.forEach((elem:any, index_:any) => {
@@ -47,8 +45,6 @@ export const changeContentTitle = (_el:any, _index:any, listOfElements: any) => 
     colorable.style.color = _el.color
   }
   const contentTitle:any = document.getElementById('color-text');
-  console.log('CHANGECONTENT 1111')
-  console.log(contentTitle, _el);
   if(contentTitle != null) {
     contentTitle.textContent = _el.label;
     contentTitle.setAttribute('current_id', _el.color_id);
@@ -141,7 +137,7 @@ export const clickingCircleColor = (listOfElements:any, updateColorList: Functio
               const colorValue = colorsx.getAttribute('value');
               if(colorValue){
                 updateColorList({..._el, color: colorValue});
-                let timeCheck = noteClicked? 1200:0;
+                let timeCheck = noteClicked? 2500:0;
                 let draftText = '';
                 const textarea = (document.getElementById('textarea') as HTMLInputElement);
                   if (textarea != null) {
@@ -202,9 +198,8 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
         if(!inputX.readOnly && e.keyCode == 13) {
           e.stopPropagation();
           const newValue = inputX.value;
-          
             updateColorList({...el, label: newValue});
-            let timeCheck = noteClicked? 1200:0;
+            let timeCheck = noteClicked? 2200:0;
             let draftText = '';
             const textarea = (document.getElementById('textarea') as HTMLInputElement);
               if (textarea != null) {
@@ -221,7 +216,7 @@ export const clickingUnFocusInput = (listOfElements: any, updateColorList: Funct
                 setTimeout(()=>{
                   let cctData = [
                     {...el, label: newValue},index, changeContentTitle
-                  ]
+                  ];
                   changeContentWithListUpdates(cctData);
                 },1500);
                 
@@ -260,7 +255,6 @@ const removeEditOptAll = (listofelements: any) => {
   });
 }
 export const clickingOptions = (listOfElements: any, deleteColorList: Function, noteClicked?: any, updateColorList?: Function, openMarkerOfNote?: any, changeContentWithListUpdates?:any) => {
-
   listOfElements.forEach((el:any, index:any) => {
     const optionsx = document.getElementById(`options${index}`);
     const divoptionsx = document.createElement('div');
@@ -299,7 +293,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
             deleteButton.addEventListener('click', (e:any) => {
               e.stopPropagation();
               deleteColorList(el.color_id);
-              let timeCheck = noteClicked? 1800:0;
+              let timeCheck = noteClicked? 2400:0;
               let draftText = '';
               const textarea = (document.getElementById('textarea') as HTMLInputElement);
                 if (textarea != null) {
@@ -343,7 +337,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
             if(updateColorList){
               updateColorList({...el, label: newValue});
             }
-            let timeCheck = noteClicked? 1400:400;
+            let timeCheck = noteClicked? 2400:400;
             let draftText = '';
             const textarea = (document.getElementById('textarea') as HTMLInputElement);
               if (textarea != null) {

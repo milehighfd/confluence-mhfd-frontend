@@ -70,6 +70,7 @@ import {
 import DetailModal from 'routes/detail-page/components/DetailModal';
 
 let map: any = null;
+let hasBeenUpdated = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
 let searchPopup = new mapboxgl.Popup({closeButton: true,});
 let popup = new mapboxgl.Popup({closeButton: true,});
@@ -195,7 +196,7 @@ const Map = ({
     const [problemid, setProblemId ] = useState<any>(undefined);
     const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
     const [notesFilter, setNotesFilter] = useState('all');
-    const { colorsList } = useColorListState();
+    const { colorsList, updated } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
     const { addHistoric, getCurrent } = GlobalMapHook();
@@ -241,6 +242,9 @@ const Map = ({
     });
     const [ showDefault, setShowDefault ] = useState(false);
 
+    useEffect(() => {
+      hasBeenUpdated = updated;
+    }, [updated]);
     useEffect(()=>{
       const user = userInformation;
       if (user?.polygon[0]) {
@@ -1841,6 +1845,7 @@ const Map = ({
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
+          console.log('Note clicked??', noteClicked);
         const latestValue = listOfElements?.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b, 0);  
         listOfElements.forEach((el:any , index: any) => {
           inner += ` 
@@ -2321,7 +2326,8 @@ const Map = ({
               if(isList != null) {
                 isList.style.display = 'block';
                 clickoutsideList(listOfElements, rotateIcon);
-                if(changeContentTitleData) {
+                console.log('Change Content title data', changeContentTitleData, hasBeenUpdated);
+                if(changeContentTitleData && hasBeenUpdated) {
                   setTimeout(()=>{
                     changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
                   },600);

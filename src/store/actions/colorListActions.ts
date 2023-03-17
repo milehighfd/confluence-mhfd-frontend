@@ -37,7 +37,15 @@ export const updateColorList = (colorList: any) => {
     putData(SERVER.EDIT_NOTE_LIST(colorList.color_id),colorList, getToken()).then(
       (r:any)=>{
         if(r) {
-          dispatch(getColorsList());
+          if (r.error) {
+            dispatch({ type: types.SET_UPDATED_VALUE, updated: false});
+            alert('The proposed label already exists in your map. Please label your note with the original label or create a new label.' );
+            
+          } else {
+            dispatch({ type: types.SET_UPDATED_VALUE, updated: true});
+            dispatch(getColorsList());
+          }
+          
         }
       }
     )
