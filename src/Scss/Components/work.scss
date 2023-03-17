@@ -1291,10 +1291,11 @@
     }
     h6{
       font-size: 18px;
+      margin: 5px 0px !important;
     }
     p{
       font-size: 14px;
-      margin-bottom: 5px;
+      margin-bottom: 5px !important;
     }
     .ant-dropdown-link, .ant-dropdown-link:hover, .ant-dropdown-link:focus{
       margin-bottom: 25px;
@@ -1523,8 +1524,9 @@
       div{
         min-width: 285px !important;
         width: 285px !important;
-        padding: 0px 11px !important;
+        padding: 0px 0px !important;
         font-size: 24px !important;
+        margin-right: 26px;
       }
     }
     .btn-filter-d {
