@@ -1552,6 +1552,8 @@
       }
       .sign-menu-organization {
         width: 465px;
+        height: 415px;
+        max-height: 415px;
       }
       button{
         height: 75px !important;
@@ -1577,6 +1579,14 @@
         input{
           font-size: 32px !important;
         }
+      }
+      // .rc-virtual-list{
+      //   height: 415px !important;
+      //   max-height: 415px !important;
+      // }
+      .rc-virtual-list-holder{
+        height: 415px !important;
+        max-height: 415px !important;
       }
       .ant-select-selector{
         height: 75px !important;
@@ -1694,6 +1704,14 @@
     }
     .profile-user{
       padding: 45px 55px !important;
+      .rc-virtual-list-holder{
+        height: 400px !important;
+        max-height: 400px !important;
+      }
+      .sign-menu {
+        overflow-y: auto;
+        max-height: 485px;
+      }
       .ant-select-item-option {
         font-size: 35px !important;
         line-height: 40px;
