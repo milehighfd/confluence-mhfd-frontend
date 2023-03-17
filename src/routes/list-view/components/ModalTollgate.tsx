@@ -1,4 +1,4 @@
-import { ArrowDownOutlined, CalendarOutlined, InfoCircleOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, CalendarOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React from 'react';
@@ -9,7 +9,7 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
     <Modal
       className="detailed-version modal-tollgate"
       style={{ top: 123, width: '322px', height:'551px' }}
-      visible={visible}
+      visible={true}
       onCancel={() => setVisible(false)}
       forceRender={false}
       destroyOnClose>
@@ -27,19 +27,19 @@ const ModalTollgate = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                <p style={{marginBottom:'25px'}}>Draft </p>
-                <p style={{marginBottom:'25px'}}>Work Request (WR) </p>
-                <p style={{marginBottom:'25px'}}>Work Plan (WP) </p>
-                <p style={{marginBottom:'25px'}}>Startup </p>
-                <p style={{marginBottom:'25px'}}>Initial Funding </p>
-                <p style={{marginBottom:'25px'}}>Consultant Procurement </p>
-                <p style={{marginBottom:'25px'}}>Conceptual Design </p>
-                <p style={{marginBottom:'25px'}}>Preliminary Design </p>
-                <p style={{marginBottom:'25px'}}>Final Design </p>
-                <p style={{marginBottom:'25px'}}>Construction Contracting </p>
-                <p style={{marginBottom:'25px'}}>Construction </p>
-                <p style={{marginBottom:'25px'}}>Substantial Completion </p>
-                <p style={{marginBottom:'25px'}}>Closed </p>
+                <p style={{marginBottom:'25px'}}>Draft <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Work Request (WR) <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Work Plan (WP) <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Startup <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Initial Funding <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Consultant Procurement <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Conceptual Design <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Preliminary Design <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Final Design <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Construction Contracting <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Construction <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Substantial Completion <MoreOutlined /></p>
+                <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 13}}>
                 <p className='calendar-toollgate'>
