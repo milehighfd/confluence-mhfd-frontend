@@ -1841,11 +1841,12 @@ const Map = ({
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
+        const latestValue = listOfElements?.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b, 0);  
         listOfElements.forEach((el:any , index: any) => {
           inner += ` 
-          <li id="color${index}" value=${JSON.stringify(el._id)}>
+          <li id="color${index}" value=${JSON.stringify(el.color_id)}>
             <img id="circle${index}" class="img-circle${noteClicked?.color_id == el.color_id?' selected':''}" style="background:${el.color}"/> 
-              <input id="input${index}" class="inputlabel${noteClicked?.color_id == el.color_id?' underlined':''}" value="${el.label}" readonly>
+              <input id="input${index}" class="inputlabel${noteClicked?.color_id == el.color_id?' underlined':''} ${latestValue.color_id === el.color_id ? 'toeditinput': ''}" value="${el.label}" readonly>
             <img id="editopt${index}" class="img-edit" />
             <img id="saveopt${index}" class="img-check" />
             <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 

@@ -380,7 +380,7 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
 }
 let counterWaiter = 0;
 const wait = (idDoc:any, cb: any) => {  
-  const doc = document.getElementById(idDoc)
+  const doc = document.getElementsByClassName(idDoc)[0];
   counterWaiter++;
   if(counterWaiter > 200) {
     return;
@@ -411,16 +411,18 @@ export const clickingAddLabelButton = (createColorList: Function, noteClicked?: 
           openMarkerOfNote(noteClicked, draftText);
         }
         counterWaiter = 0;
-        wait('input0', (doc: any) => {
-          if(doc != null){
-            doc.readOnly = false;
-            doc.focus();
-            doc.select();
-            setTimeout(()=>{
-              doc.setSelectionRange(15,15);
-            },20);
-          }
-        })
+        setTimeout(() => {
+          wait('toeditinput', (doc: any) => {
+            if(doc != null){
+              doc.readOnly = false;
+              doc.focus();
+              doc.select();
+              setTimeout(()=>{
+                doc.setSelectionRange(15,15);
+              },20);
+            }
+          })
+        }, 2000);
       },timeCheck);
     })
   }
@@ -437,12 +439,11 @@ export const rotateIcon = (direction: string) => {
 } 
 
 export const divListOfelements = (listOfElements: any, changeValueOfElement: any) => {
-  console.log('listOfElements', listOfElements);
   return  <div id='list-popup-comment'>
     <div className="listofelements" id="currentItemsinList">
             {listOfElements.map((el:any, index:any)=> 
               el && 
-              <li key={index+"List"} id={index+"List"} onClick={()=>changeValueOfElement(el.color_id)}>
+              <li key={index+"List"} id={index+"List"} value={el.isLatest} onClick={()=>changeValueOfElement(el.color_id)}>
                 <img id={index+"circles"} className={"img-circle " + (el?.selected ? 'selected':'')} style={{background:el.color}}/> 
                 <input id={`input${index}`} className="inputlabel" value={el.label} readOnly={true}  />
               </li>

@@ -46,25 +46,23 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       opacity: 1,
     },...colorsList];
     
-    
     auxColorList = auxColorList.filter((color: any)=> {
       const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color.color_id);
       return findColor;
     })
     auxColorList.forEach((color: any) => {
       const findColor = currentSelected?.find((selected: any) => selected.color_id === color.color_id);
-      const value = currentSelected?.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b, 0);
-      console.log('value', value);
+      
       if (findColor) {
         color.selected = findColor.selected;
       } else {
         color.selected = false;
       }
-      if (value.color_id === color.color_id) {
-        color.isLatest = true;
-      } else {
-        color.isLatest = false;
-      }
+      // if (value.color_id === color.color_id) {
+      //   color.isLatest = true;
+      // } else {
+      //   color.isLatest = false;
+      // }
     }); 
     setCurrentSelected(auxColorList);
   },[colorsList, availableColors]);
