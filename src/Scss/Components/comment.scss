@@ -4,6 +4,18 @@
 .ant-menu-item-selected {
   background-color: transparent !important;
 }
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+  align-self: flex-start;
+  border-top: none;
+  border-left: none;
+  border-bottom-color: #fff0;
+  /* display: none; */
+}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  align-self: center;
+  border-bottom: none;
+  border-top-color: #fff0;
+}
 
 .ll-00{
   color: $white;
@@ -785,7 +797,7 @@
           width: 16px;
         }
       }
-    }
+    
   }
   // GENERAL
   .comment-title{
@@ -926,7 +938,11 @@
   // POPUP MAP
   .popup-comment{
     width: 490px;
-
+    .list-popup-comment .inputlabel {
+      line-height: 16px;
+      font-size: 19px !important;
+      width: 82%;
+  }
     .headmap{
      min-height: 34px;
      font-size: 14px;
@@ -935,7 +951,7 @@
 
      .testheader { 
         padding-left: 17px;
-        width: max-content;
+        // width: max-content;
       }
        button, button:hover, button:focus{
          font-size: 21px !important;
@@ -970,13 +986,20 @@
   // .padding-comment{
   //   padding-left: 572px !important;
   // }
-// }
+}
 
 .ant-drawer-content-wrapper {
   .ant-drawer-content {
     overflow: hidden;
     .ant-drawer-wrapper-body {
       overflow: hidden;
+      .title{
+        font-size: 18px !important;
+      }
+      .a-layers a.ant-dropdown-link.ant-dropdown-trigger span {
+        width: 20px;
+        height: 20px;
+      }
       .ant-drawer-header {
         .ant-drawer-title {
           .comment-title {

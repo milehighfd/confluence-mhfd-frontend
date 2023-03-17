@@ -645,7 +645,20 @@ body{
 
 .detailed-version {
   width: 800px !important;
-
+  .scroll-version::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .scroll-version::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .scroll-version::-webkit-scrollbar-thumb {
+    background: $purple00;
+    border-radius: 10px;
+  }
   /* Default close button */
   .ant-modal-close {
     display: none;
@@ -3239,9 +3252,11 @@ body{
     font-size: 18px;
     p{
       font-size: 16px !important;
+      line-height: 19px !important;
     }
     span{
       font-size: 16px !important;
+      line-height: 21px !important;
     }
   }
   .modal-graphic{

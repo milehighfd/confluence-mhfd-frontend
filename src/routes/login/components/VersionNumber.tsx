@@ -22,7 +22,16 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
-          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}}>
+          <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.0 - March 17, 2023</p>
+            <ul>
+                <li>First beta release with the following views sourced from the new Confluence Data Hub: Sign-Up, Main Map, My Confluence, User Settings, Project Detail Page, Problem Detail Page, Create Project (Capital, Maintenance, Studies, Acquisition, R&D), Work Request, Work Plan and List View (PM Tools)</li>
+                <li>Browser Review based on Chrome, Firefox, Edge, and Safari</li>
+                <li>Screen Resolution Review based on 1920x1080, 1440x700, 1440x900, 2560x1080, 2560x1440, 3840x2160</li>
+                <li>The following views remain under development: the Phase View and the Calendar View</li>
+                <li>The following features remain under development: Share URL, Export Detail Pages, the Financial Section (Detail Pages), Attachments, and Notifications</li>
+                <li>Notable issues to be addressed include project routing between the Work Request and Work Plan; project status update when approving the Work Request and Work Plan; password reset; year completed filter for projects; group by stream in the List View</li>
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.5 - January 12, 2023</p>
             <ul>
                 <li>Improved usability and project card movement within the Work Request and Work Plan boards</li>

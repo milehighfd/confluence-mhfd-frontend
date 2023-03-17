@@ -21,6 +21,8 @@ import EventService from "services/EventService";
 import { addPopupAndListeners, addPopupsOnClick } from "routes/map/components/MapFunctionsPopup";
 import mapboxgl from "mapbox-gl";
 import { useProfileState } from "hook/profileHook";
+import { getMapLayers, getMapTables, getMapWithSublayers } from "store/actions/mapActions";
+import { getToken, postData } from "../../../Config/datasets";
 
 var map: any;
 let coordX = -1;
@@ -36,11 +38,13 @@ const Map = ({type}: {type: any}) => {
   } = useMapDispatch();
   const {
     galleryProjectsV2,
+    layers: layerFilters
   } = useMapState();
   const [, setZoomValue] = useState(0);
   const [counterPopup, setCounterPopup] = useState({componentes: 0});
   const { userInformation } = useProfileState();
   const [allLayers, setAllLayers] = useState<any[]>([]);
+  const [layersMap, setLayersMap] = useState<any[]>([]);
   const [mobilePopups, setMobilePopups] = useState<any>([]);
   const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const layers = store.getState().map.layers;
@@ -65,6 +69,19 @@ const Map = ({type}: {type: any}) => {
     const zoom = map.getZoom().toFixed(2);
     setZoomValue(zoom);
 }
+
+const loadData = async (trigger: any, name?: string) => {
+  return new Promise(resolve => {
+    const requestData = { table: trigger };
+    postData(SERVER.MAP_TABLES, requestData, getToken()).then(tiles => {
+      resolve(tiles);
+      if (name) getMapWithSublayers(trigger, tiles, name);
+      else getMapLayers(trigger, tiles);
+    });
+  });
+  
+};
+
 const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
   <>
       <MainPopup id={-1} item={item} test={() => {}  } mapType={'detail_map'} ></MainPopup>
@@ -143,6 +160,7 @@ const addLayer = () => {
       }
     });
     addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}`);
+    console.log('layeeeeeer', layers)
     map.addVectorSource(MHFD_PROJECTS, layers.projects[MHFD_PROJECTS]);
     let idProjectLine = 0;
     for (const project of tileStyles[MHFD_PROJECTS]) {
@@ -526,6 +544,47 @@ const showPopup = (index: any, size: number, id: any, event: any) => {
       resetDetailed();
     }
   }, []);
+
+useEffect(() => {
+  if (Object.keys(layers).length === 0){
+     SELECT_ALL_FILTERS.forEach(async layer => {
+      console.log('prints',layer)
+      if(layer !== 'area_based_mask' && layer !== 'border'){
+        if (typeof layer === 'object') {
+          if(layer.name !== 'use_land_cover'){
+            layer.tiles.forEach(async (subKey: string) => {
+              console.log('before1')
+              getMapTables(subKey, layer.name)
+              
+            });
+          }
+        } else {
+          console.log('before2')
+          getMapTables(layer)
+        }
+      }
+      });
+
+    // const promises: Promise<any>[] = [];
+    // SELECT_ALL_FILTERS.forEach(layer => {
+    //   if (typeof layer === 'object') {
+    //     layer.tiles.forEach((subKey: string) => {
+    //       if(layer.name !== 'use_land_cover'){
+    //       promises.push(loadData(subKey, layer.name));
+    //       }
+    //     });
+    //   } else {
+    //     promises.push(loadData(layer));
+    //   }
+    // });
+    // Promise.all(promises).then((e) => {
+    //   console.log('fin',e)
+    // });
+  }
+console.log('what is stored',layers,layerFilters)
+}, [layerFilters, layers]);
+
+
   useEffect(() => {
     const div = document.getElementById('popup-detailed-page');
     if (div != null) {

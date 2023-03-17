@@ -6,6 +6,14 @@
   bottom: 0;
   width: 100%;
 }
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: transparent !important;
+  display: none !important;
+}
+.mapboxgl-popup-tip {
+  border-top-color: transparent !important;
+  display: none !important;
+}
 .mapboxgl-popup-content {
   padding: 0px;
 }
