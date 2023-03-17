@@ -20,6 +20,7 @@ import SelectZoomArea from "routes/Utils/SelectZoomArea";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
 import TextArea from "antd/lib/input/TextArea";
 import { BusinessAssociatesDropdownMemoized } from './BusinessAssociateDropdown';
+import SelectJurisdiction from '../../Utils/SelectJurisdiction';
 
 const { Option } = Select;
 const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }: { record: User, saveUser: Function, deleteUser: Function, type: string, deleteUserDatabase: Function }) => {
@@ -54,6 +55,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [contactId,setContactId] = useState('');
   const [contactLabel,setContactLabel] = useState('');
   const [update, setUpdate] = useState(false);
+  const [jurisdiction, setJurisdiction] = useState('');
 
   //console.log('itemsZoomtoarea', itemsZoomtoarea)
   
@@ -161,6 +163,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     setOrganization (record.organization);
     setZoomArea(record.zoomarea);
     setServiceArea(record.serviceArea);
+    setJurisdiction(record.city);
     setAssociateLabel(auxUser?.business_associate_contact?.business_address?.business_associate.business_name)
     setSelectAssociate(auxUser?.business_associate_contact?.business_address?.business_associate.business_associates_id)
     setContactLabel(auxUser?.business_associate_contact?.contact_name)    
@@ -268,7 +271,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       organization,
       serviceArea,
       county,
-      city,
+      city: jurisdiction,
       zoomarea,
       business_associate_contact_id: +contactId
     };
@@ -550,33 +553,33 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
           <div className="gutter-row" id={("city" + values.user_id)}>
-                  <p>AREAS</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(CITIES, 'city', values,  setCity)}
-                    getPopupContainer={() => document.getElementById(("city" + values.user_id)) as HTMLElement}>
-                    <Button className="btn-borde-management">
-                      {values.city ? values.city : 'City'} <DownOutlined />
-                    </Button>
-                  </Dropdown>
-                </div>
+            <p>JURISDICTION</p>
+            <SelectJurisdiction
+              setJurisdiction={setJurisdiction}
+              defaultValue={jurisdiction}
+              value={jurisdiction}
+            />
+          </div> 
             <div className="gutter-row"  id={("serviceArea" + values.user_id)}>
-                  <p>SERVICE AREA</p>
-                    <SelectServiceArea
-                       serviceArea={serviceArea}
-                       setServiceArea={setServiceArea}                  
-                       defaultValue={serviceArea}
-                       value={serviceArea}/>
-                </div>
+              <p>SERVICE AREA</p>
+                <SelectServiceArea
+                  serviceArea={serviceArea}
+                  setServiceArea={setServiceArea}                  
+                  defaultValue={serviceArea}
+                  value={serviceArea}
+                />
+            </div>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
           <div className="gutter-row"  id={("county" + values.user_id)}>
-                  <p>COUNTY</p>
-                  <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values,  setCounty)}
-                    getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
-                    <Button className="btn-borde-management">
-                      {values.county ? values.county : 'County'}  <DownOutlined />
-                    </Button>
-                  </Dropdown>
-                </div>
+            <p>COUNTY</p>
+            <Dropdown trigger={['click']} overlay={MenuAreaView(COUNTIES, 'county', values,  setCounty)}
+              getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
+              <Button className="btn-borde-management">
+                {values.county ? values.county : 'County'}  <DownOutlined />
+              </Button>
+            </Dropdown>
+          </div>
           </Col>
         </Row>
         <h3>DEFAULT MAP ZOOM AREA</h3>
