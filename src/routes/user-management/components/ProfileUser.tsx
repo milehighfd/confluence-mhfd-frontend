@@ -55,6 +55,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [phone, setPhone] = useState('');
   const [county, setCounty] = useState('');
   const [contactId,setContactId] = useState('');
+  const [contactLabel,setContactLabel] = useState('');
 
   //console.log('itemsZoomtoarea', itemsZoomtoarea)
   
@@ -98,6 +99,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
       items={itemMenu}
       onClick={(event:any) => {     
         console.log((dataMenu.find((elm) => +elm.key === +event.key)))         
+        console.log(itemMenu)
         if (event.key === 'Create_1') {
           setDisabled(false)
           setContactData({})
@@ -106,7 +108,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           setAdressLine1('')
           setAdressLine2('')
           setState('')
+          setContactLabel('')
         } else {
+          setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
           setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
@@ -159,9 +163,9 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     setOrganization (record.organization);
     setZoomArea(record.zoomarea);
     setServiceArea(record.serviceArea);
-    setAssociateLabel(auxUser?.business_associate_contact.business_address.business_associate.business_name)
-    console.log('RECORD')
-    console.log(auxUser?.business_associate_contact.business_address.business_associate.business_name)
+    setAssociateLabel(auxUser?.business_associate_contact?.business_address?.business_associate.business_name)
+    setSelectAssociate(auxUser?.business_associate_contact?.business_address?.business_associate.business_associates_id)
+    setContactLabel(auxUser?.business_associate_contact?.contact_name)    
     // setAdressLine1(record?.business_associate_contact?.business_address?.business_address_line_1);
   }, [record]);
 
@@ -193,8 +197,11 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         })];
       });
       setListContacts(aux);
+      console.log("AUX")
+      console.log(associates)
     }
-  }, [selectAssociate]);
+    console.log("entra")
+  }, [selectAssociate,listAssociates]);
 
   useEffect(() => {      
     const auxUser = { ...record };
@@ -203,6 +210,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     values.serviceArea = serviceArea;
     values.organization = organization;
   }, [organization,zoomarea,serviceArea]);
+
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
@@ -466,7 +474,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               <Dropdown trigger={['click']} overlay={menuContactAssociate}
                 getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                 <Button className="btn-borde-management">
-                  {Object.keys(contactData).length > 0? contactData.label : 'Select Contact'}  <DownOutlined />
+                  {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:'Select Contact')}  <DownOutlined />
                 </Button>
               </Dropdown>
             </div>
