@@ -1438,7 +1438,7 @@
   //   display: inline-block !important;
   // }
   .differential {
-    padding-left: 20px !important;
+    padding-left: 14px !important;
   }
   .button-createProject {
     padding-top: 15px !important;
@@ -1524,7 +1524,7 @@
       div{
         min-width: 285px !important;
         width: 285px !important;
-        padding: 0px 0px !important;
+        padding: 0px 0px ;
         font-size: 24px !important;
         margin-right: 26px;
       }
@@ -1639,11 +1639,11 @@
       line-height: 17px !important;
 
       div{
-        width: 285px !important;
         min-width: 285px !important;
-        font-size: 24px;
-        padding: 7px 24px !important;
-        line-height: 26px !important;
+        width: 285px !important;
+        padding: 0px 0px !important;
+        font-size: 24px !important;
+        margin: 0px 8px;
         img{
           margin-left: 10px;
           height: 18px;
@@ -1761,6 +1761,8 @@
     }
     h6{
       font-size: 24px !important;
+      margin-bottom: 10px !important;
+      margin-top: 10px !important;
     }
     p{
       font-size: 20px !important;

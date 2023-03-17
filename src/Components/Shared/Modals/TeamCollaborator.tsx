@@ -26,7 +26,7 @@ const TeamCollaborator = () => {
             role="button"
             tabIndex={1}
           >
-            <h5 className={!selected ? 'active-title': ''}>Comments</h5>
+            <h5 className={!selected ? 'active-title': ''}>DISCUSSION</h5>
           </div>
         </Col>
         <Col span={3} style={{textAlign:'end'}}>
