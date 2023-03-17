@@ -228,9 +228,9 @@ const PortafolioBody = () => {
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
-        const updatedGroups: any = [];
-        //console.log("valuesList")
-        //console.log(valuesList)
+       const updatedGroups: any = [];         
+       //console.log("valuesList")
+       //console.log(valuesList)
         groups.forEach((element: any, index: number) => {
           //console.log("ELEMENT")
           //console.log(element);
@@ -378,6 +378,7 @@ const PortafolioBody = () => {
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || '',
+                project_status: null,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
