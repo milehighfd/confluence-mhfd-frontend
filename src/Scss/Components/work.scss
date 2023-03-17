@@ -1438,7 +1438,7 @@
   //   display: inline-block !important;
   // }
   .differential {
-    padding-left: 14px !important;
+    padding-left: 0px !important;
   }
   .button-createProject {
     padding-top: 15px !important;
@@ -1643,7 +1643,8 @@
         width: 285px !important;
         padding: 0px 0px !important;
         font-size: 24px !important;
-        margin: 0px 8px;
+        // margin: 0px 8px;
+        padding-left: 22px !important;
         img{
           margin-left: 10px;
           height: 18px;
