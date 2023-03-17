@@ -285,7 +285,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
         name: firstName + ' ' + lastName,
         email: email
       }, datasets.getToken()).then(res => {
-        newUser.business_associate_contact_id = +res?.businessContact?.businessContact?.business_associate_contact_id;
+        newUser.business_associate_contact_id = +res?.businessContact?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
           console.log('my res ', res);  
           if (res.message === 'SUCCESS') {        
