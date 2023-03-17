@@ -30,6 +30,7 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
                 <li>Screen Resolution Review based on 1920x1080, 1440x700, 1440x900, 2560x1080, 2560x1440, 3840x2160</li>
                 <li>The following views remain under development: the Phase View and the Calendar View</li>
                 <li>The following features remain under development: Share URL, Export Detail Pages, the Financial Section (Detail Pages), Attachments, and Notifications</li>
+                <li>Notable issues to be addressed include project routing between the Work Request and Work Plan; project status update when approving the Work Request and Work Plan; password reset; year completed filter for projects; group by stream in the List View</li>
             </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.5 - January 12, 2023</p>
             <ul>
