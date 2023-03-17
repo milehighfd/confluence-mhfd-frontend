@@ -194,15 +194,15 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.project_name);
-      if (data.project_details[0].code_acquisition_progress_status_id == null) {
+      if (data?.project_details[0]?.code_acquisition_progress_status_id == null) {
         setProgress('');
       } else {
-        setProgress(data.project_details[0].code_acquisition_progress_status_id);
+        setProgress(data?.project_details[0]?.code_acquisition_progress_status_id);
       }
-      if (data.project_details[0].acquisition_anticipated_year == null) {
+      if (data?.project_details[0]?.acquisition_anticipated_year == null) {
         setPurchaseDate('');
       } else {
-        setPurchaseDate(data.project_details[0].acquisition_anticipated_year);
+        setPurchaseDate(data?.project_details[0]?.acquisition_anticipated_year);
       }
       setEditsetprojectid(data.project_id);
       setCounty(counties);

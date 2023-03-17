@@ -207,7 +207,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
       setStudyReason(data?.project_details[0]?.code_study_reason_id);
-      setOtherReason(data?.project_details[0]?.comments);
+      setOtherReason(data?.project_details[0]?.comment);
     }
   }, [data]);
   useEffect(() => {
