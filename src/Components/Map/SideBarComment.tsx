@@ -52,8 +52,8 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
       return findColor;
     })
     auxColorList.forEach((color: any) => {
-      const findColor = currentSelected.find((selected: any) => selected.color_id === color.color_id);
-      const value = currentSelected.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b);
+      const findColor = currentSelected?.find((selected: any) => selected.color_id === color.color_id);
+      const value = currentSelected?.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b, 0);
       console.log('value', value);
       if (findColor) {
         color.selected = findColor.selected;
