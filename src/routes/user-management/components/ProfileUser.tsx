@@ -35,11 +35,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const visible = {
     visible: false
   };
-  const [organizationList, setOrganizationList] = useState<any[]>([]);
-  const [consultantList, setConsultantList] = useState<any[]>([]);
   const [disabled, setDisabled] = useState(true);
   const [selectAssociate, setSelectAssociate] = useState(-1);
-  const [selectContact, setSelectContact] = useState(-1);
   const [associateLabel, setAssociateLabel] = useState<any> ('');
   const [contactData, setContactData] = useState<any> ({});
   const [primary, setPrimary] = useState(-1);
@@ -56,6 +53,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const [county, setCounty] = useState('');
   const [contactId,setContactId] = useState('');
   const [contactLabel,setContactLabel] = useState('');
+  const [update, setUpdate] = useState(false);
 
   //console.log('itemsZoomtoarea', itemsZoomtoarea)
   
@@ -291,6 +289,8 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           if (res.message === 'SUCCESS') {        
             saveUser();
             updateSuccessful();
+            setDisabled(true);
+            setUpdate(!update);
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -461,6 +461,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
                 setPrimary={setPrimary}
                 setSelectAssociate={setSelectAssociate}
                 associateLabel={associateLabel}
+                setContactLabel = {setContactLabel}
               />
             </div>
           </Col>
@@ -483,16 +484,18 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             !disabled &&
             <>
             <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
-            <h1>ADDRESS LINE 1</h1>
+            <p>ADDRESS LINE 1</p>
             <Input
+              style={{marginBottom:'15px'}}
               placeholder="Address Line 1"
               value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
               name="address_line_1"
               onChange = {(e) => {handleChangeData(e.target.value, setAdressLine1)}}
               disabled={disabled}
             />
-            <h1>ADDRESS LINE 2</h1>
+            <p>ADDRESS LINE 2</p>
             <Input
+              style={{marginBottom:'15px'}}
               placeholder="Address Line 2"
               value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
               name="address_line_1" 
@@ -503,14 +506,15 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-            <h1>CITY</h1>
+            <p>CITY</p>
             <Input
+              style={{marginBottom:'15px'}}
               placeholder="City"
               value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
               onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
               disabled={disabled}
             />
-            <h1>ZIP CODE</h1>
+            <p>ZIP CODE</p>
             <Input
               placeholder="Zip Code"
               value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
@@ -522,7 +526,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-            <h1>STATE</h1>
+            <p>STATE</p>
             <Input
               placeholder="State"
               value={(state === '' && disabled ? (state !== '' ? state : values.business_associate_contact?.business_address?.state) : state)}

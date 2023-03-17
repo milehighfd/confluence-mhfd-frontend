@@ -8,12 +8,14 @@ const BusinessAssociatesDropdown = ({
   setAssociateLabel,
   associateLabel,
   setPrimary,
+  setContactLabel,
 }: {
   businessAssociate: any,
   setSelectAssociate: any,
   setAssociateLabel: any,
   associateLabel: any,
   setPrimary: any,
+  setContactLabel: any
 }) => {
 
   const [menu, setMenu] = useState<any>([]);
@@ -24,6 +26,7 @@ const BusinessAssociatesDropdown = ({
     console.log(value);
     setSelectAssociate(value);
     setAssociateLabel((dataMenu.find((elm: any) => +elm.key === +value))?.label);
+    setContactLabel('')
     setKeyword((dataMenu.find((elm: any) => +elm.key === +value))?.label);  
     setPrimary((dataMenu.find((elm: any) => +elm.key === +value))?.primary_business_associate_contact_id);
   }
@@ -55,7 +58,7 @@ const BusinessAssociatesDropdown = ({
   return <>
     <AutoComplete
       dropdownMatchSelectWidth={true}
-      style={{ width: 240 }}
+      style={{ width: '100%' }}
       options={menu}
       onSelect={onSelect}
       onSearch={onSearch}
