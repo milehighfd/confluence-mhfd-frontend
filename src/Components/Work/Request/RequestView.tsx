@@ -993,9 +993,9 @@ const RequestView = ({ type, isFirstRendering }: {
                     </Select>
 
                      <ButtonGroup>
-                     <Button className="btn-opacity" onClick={() => setShowBoardStatus(true) }>
+                     {(locality === 'Mile High Flood District' || type === 'WORK_REQUEST') && <Button className="btn-opacity" onClick={() => setShowBoardStatus(true) }>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
-                      </Button>
+                      </Button>}
                       <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
                         <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }} src="" />
                       </Button>
