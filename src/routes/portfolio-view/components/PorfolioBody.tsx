@@ -122,6 +122,14 @@ const PortafolioBody = () => {
   useEffect(() => {
     getParamFilterProjectsNoBounds(filterProjectOptions);
   }, [filterProjectOptions]);
+  
+  useEffect(() => {
+    filterProjectOptions.name = searchWord;
+    filterProjectOptions.keyword = searchWord
+    setFilterProjectOptions(filterProjectOptions)
+    getParamFilterProjectsNoBounds(filterProjectOptions);
+  }, [searchWord]);
+
   const groupsBy = [
     'Status',
     'Jurisdiction',

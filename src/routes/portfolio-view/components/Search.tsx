@@ -170,7 +170,9 @@ const Search = (
       />}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
-        <AutoComplete
+
+        {/* commented cause the search was responsive letter by letter and filters request trigger everytime, now is change to a input search */}
+        {/* <AutoComplete
           dropdownMatchSelectWidth={true}
           options={filteredData.map(renderOption)}
           onSelect={(word: string) => {
@@ -181,7 +183,17 @@ const Search = (
           style={{width:'100%'}}
         >
           <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'95%'}}/>
-        </AutoComplete>
+        </AutoComplete> */}
+         <Input.Search
+              id="search-input-listview"
+              allowClear
+              placeholder="Search"
+              onChange={(e) => {
+                setKeyword(e.target.value)
+              }}
+              onSearch={handleSearch}
+              value={keyword}
+            />
         <Dropdown overlay={menu} trigger={['click']} placement="bottomLeft" onVisibleChange={(e:boolean)=>{setOpenDrop(e)}} visible={openDrop}>
           <div className="select-area">
             <a onClick={(e) => {e.preventDefault();setOpenDrop(!openDrop)}} style={{marginLeft:'2%'}} >

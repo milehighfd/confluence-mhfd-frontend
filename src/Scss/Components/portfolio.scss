@@ -916,6 +916,9 @@
       justify-content: space-between;
       margin-bottom: 10px;
       margin-top: 3px;
+      .ant-input{
+        width: 90%;
+      }
       .ant-input-clear-icon {
         right: 10px !important;
       }
