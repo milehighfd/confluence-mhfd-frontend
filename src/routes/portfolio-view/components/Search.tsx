@@ -4,6 +4,7 @@ import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutli
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
+import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
 
 const { TabPane } = Tabs;
@@ -72,6 +73,9 @@ const Search = (
   const [filteredData, setFilteredData] = useState([]);
   const [activeDrop, setActiveDrop] = useState(0);
   const [openDrop, setOpenDrop] = useState<boolean>(false)
+  const {
+    setProjectKeyword
+  } = useMapDispatch();
 
   let displayedTabKey = tabKeys;
   const content = (
@@ -136,6 +140,7 @@ const Search = (
   const handleSearch = (value: string) => { 
     setSearchWord(value);
     setKeyword(value);
+    setProjectKeyword(value);
   }
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

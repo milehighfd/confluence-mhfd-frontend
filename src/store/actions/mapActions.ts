@@ -215,7 +215,7 @@ export const setProblemKeyword = (keyword: string) => {
         const params = '?field=' + keyword;
         if (keyword) {
             datasets.getData(SERVER.SEARCH_KEYWORD_PROBLEMS + params, datasets.getToken()).then(tables => {
-                if (tables?.problems.length >= 0) {
+                if (tables?.problem_boundary?.length >= 0) {
                     auxFilterProblems.keyword = tables;
                     auxFilterProblems.problemname = keyword;
                     dispatch({ type: types.SET_FILTER_PROBLEMS, filters: auxFilterProblems });
@@ -466,7 +466,6 @@ export const getParamFilterProjectsNoBounds = (data?: any) => {
       data.county = data.county;
       data.servicearea = data.servicearea
   }
-  console.trace('in param filter projects 2', data);
   return (dispatch: Function) => {
       datasets.postData(SERVER.PARAM_FILTER_PROJECTS, data || {}).then((params:any) => {
           if (params) {
