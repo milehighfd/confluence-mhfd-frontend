@@ -653,7 +653,7 @@
         }
       }
     }
-  }
+  
   // GENERAL
   .comment-title{
     h5{
@@ -784,7 +784,7 @@
   }
   // .padding-comment{
   //   padding-left: 427px !important;
-  // }
+  }
 
 
 // 2560x1440 DISPLAY
@@ -938,11 +938,11 @@
   // POPUP MAP
   .popup-comment{
     width: 490px;
-    .list-popup-comment .inputlabel {
-      line-height: 16px;
-      font-size: 19px !important;
-      width: 82%;
-  }
+    // .list-popup-comment .inputlabel {
+    //   line-height: 16px;
+    //   font-size: 19px !important;
+    //   width: 82%;
+  // }
     .headmap{
      min-height: 34px;
      font-size: 14px;
@@ -994,12 +994,12 @@
     .ant-drawer-wrapper-body {
       overflow: hidden;
       .title{
-        font-size: 18px !important;
+        // font-size: 18px !important;
       }
-      .a-layers a.ant-dropdown-link.ant-dropdown-trigger span {
-        width: 20px;
-        height: 20px;
-      }
+      // .a-layers a.ant-dropdown-link.ant-dropdown-trigger span {
+      //   width: 20px;
+      //   height: 20px;
+      // }
       .ant-drawer-header {
         .ant-drawer-title {
           .comment-title {
