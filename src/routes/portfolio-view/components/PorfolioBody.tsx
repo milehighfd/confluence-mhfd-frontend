@@ -41,8 +41,13 @@ const PortafolioBody = () => {
     resetFiltercomponentOptions,
     getParamFilterProjectsNoBounds,
     setBoundMap,
-    resetFilterProjectOptionsEmpty
+    resetFilterProjectOptionsEmpty,
   } = useMapDispatch();
+  const {
+    filterProjectOptions,
+    filterProjectOptionsNoFilter,
+    filterComponentOptions,
+  } = useMapState();
   const [tabKeys, setTabKeys] = useState<any>(['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
   const [tabKeysIds, setTabKeysIds] = useState<any>([ 0, 5, 7, 1, 6, 15, 13]);
   const [filterby, setFilterby] = useState('');
@@ -82,7 +87,6 @@ const PortafolioBody = () => {
   const [openPiney, setOpenPiney] = useState(false);
 
   const [favorites, setFavorites] = useState<any>([]);
-  
   useEffect(()=>{
     // getParamFilterProjectsNoBounds();
     if (searchWord) {
@@ -113,7 +117,9 @@ const PortafolioBody = () => {
       setCurrentUserId(appUser.userInformation?.user_id);      
     }   
   }, [appUser]);
-
+  useEffect(() => {
+    getParamFilterProjectsNoBounds(filterProjectOptions);
+  }, [filterProjectOptions]);
   const groupsBy = [
     'Status',
     'Jurisdiction',
@@ -125,11 +131,6 @@ const PortafolioBody = () => {
     'Contractor'
   ];
   // console.log('zoom',zoomTimeline);
-  const {
-    filterProjectOptions,
-    filterProjectOptionsNoFilter,
-    filterComponentOptions,
-  } = useMapState();
   const menu = (
     <FilterByGroupName 
       setFilterby={setFilterby}
