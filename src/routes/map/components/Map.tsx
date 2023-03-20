@@ -1517,13 +1517,11 @@ const Map = ({
     // showHighlighted, hideOneHighlighted, hideHighlighted functions dont use anymore cartodb_id as a parameter to filter, now they use projectid 
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
-        // console.log('keyyy',key)
         if(key.includes('mhfd_projects')){
           // console.log('hereee', projectid,styles[key])
           if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
-                  // console.log('and hereee', projectid)
                     if(map.getLayer(key + '_highlight_' + index)) { 
                         map.setFilter(key + '_highlight_' + index, ['in', 'projectid', projectid])
                     }

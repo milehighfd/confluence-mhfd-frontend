@@ -192,11 +192,14 @@ const CardInformationView = ({
           style={{ width: '100%', padding: '0px' }}
           onClick={() => setVisible(true)}
           onMouseEnter={(e) =>  {
-          let typeInData:any 
-          let valueInData:any  
-          if(data.project_id){
+            let typeInData:any 
+            let valueInData:any  
+            if(data.project_id){
               typeInData = MHFD_PROJECTS;
               valueInData = data.project_id;
+            } else if(data.problemid){
+              typeInData = data.type;
+              valueInData = data.cartodb_id;
             }
             e.stopPropagation()
             return setValuesMap(typeInData, valueInData)}}
