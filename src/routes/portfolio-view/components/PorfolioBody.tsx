@@ -87,6 +87,8 @@ const PortafolioBody = () => {
   const [openPiney, setOpenPiney] = useState(false);
 
   const [favorites, setFavorites] = useState<any>([]);
+  const [tollData,setTollData] = useState<any>([]);
+  
   useEffect(()=>{
     // getParamFilterProjectsNoBounds();
     if (searchWord) {
@@ -739,7 +741,7 @@ const PortafolioBody = () => {
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
-    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
+    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate} dataProject={tollData}/>
     <div>
       {isLoading && <LoadingViewOverall />}
       <div className="portafolio-head">
@@ -881,9 +883,11 @@ const PortafolioBody = () => {
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         userName={appUser.userInformation?.name}
                         setDataModal={setDataModal}
+                        setTollData = {setTollData}
                         openPiney = {openPiney}
                         setOpenPiney = {setOpenPiney}
                         collapsePhase = {collapsePhase}
+                        setOpenModalTollgate = {setOpenModalTollgate}
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 

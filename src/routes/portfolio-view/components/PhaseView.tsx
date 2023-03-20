@@ -24,9 +24,11 @@ const PhaseView = (
     tabKey,
     userName,
     setDataModal,
+    setTollData,
     openPiney,
     setOpenPiney,
-    collapsePhase }
+    collapsePhase,
+    setOpenModalTollgate }
     : {
       rawData: any,
       openTable: boolean[],
@@ -46,9 +48,11 @@ const PhaseView = (
       tabKey: any,
       userName: string,
       setDataModal: any,
+      setTollData: any,
       openPiney: boolean,
       setOpenPiney: any,
-      collapsePhase: any
+      collapsePhase: any,
+      setOpenModalTollgate: Function
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -309,29 +313,24 @@ const PhaseView = (
           let button = svg.selectAll("button").data(datas).enter().append("g");
           button
             .append("rect")
-            .attr("x", xdr(0)-10)
-            .attr("width", xdr(0 + 1) - xdr(0) +20)
-            .attr("y", (d: any) => {     
+            .attr("x", xdr(0) - 10)
+            .attr("width", xdr(0 + 1) - xdr(0) + 20)
+            .attr("y", (d: any) => {
               let ydname: any = y(d.id);
-              console.log(ydname+10)
-              return ydname-15;
+              console.log(ydname + 10)
+              return ydname - 15;
             })
             .attr("height", 25)
             .style("fill", function (d: any) {
               return "white";
             })
             .attr('stroke', '#2378ae')
-          button
-            .append("button")
-            .attr("x", xdr(0)-10)
-            .attr("width", xdr(0 + 1) - xdr(0) +20)
-            .attr("y", (d: any) => {     
-              let ydname: any = y(d.id);
-              console.log(ydname+10)
-              return ydname-15;
+            .on("click", function (d: any) {
+              const sendTollgate = { d, scheduleList }
+              setTollData(sendTollgate);    
+              setOpenModalTollgate(true);
             })
-            .attr("height", '25px')
-
+       
         } else {
           let arrayForCirclesAndLines = [];
           for (var i = 0; i < scheduleList.length; i++) {
@@ -495,8 +494,7 @@ const PhaseView = (
           .on("click", (d: any) => {            
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
-            console.log(d)
+            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();           
             setPopUpData({
               project_name: d.rowLabel,
               phase: scheduleList[r].phase,
@@ -606,7 +604,9 @@ const PhaseView = (
               phase: x.phase_name,
               tasks: x.code_rule_action_items.length,
               phase_id: x.code_phase_type_id,             
-              tasksData: x.code_rule_action_items
+              tasksData: x.code_rule_action_items,
+              duration: x.duration,
+              duration_type: x.duration_type
             })
         })
         setScheduleList(z);
