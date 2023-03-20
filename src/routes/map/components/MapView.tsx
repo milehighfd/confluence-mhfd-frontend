@@ -112,6 +112,9 @@ const MapView = () => {
     getParamFilterProjects(boundsMap, filterProjectOptions);
   }, [filterProjectOptions]);
   useEffect(() => {
+    getParamFilterProblems(boundsMap, filterProblemOptions);
+  } ,[filterProblemOptions]);
+  useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
     SELECT_ALL_FILTERS.forEach((layer) => {
