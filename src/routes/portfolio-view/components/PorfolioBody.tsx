@@ -228,6 +228,7 @@ const PortafolioBody = () => {
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
+        console.log(valuesList)
        const updatedGroups: any = [];         
        //console.log("valuesList")
        //console.log(valuesList)
@@ -376,7 +377,7 @@ const PortafolioBody = () => {
                 on_base: elem?.onbase_project_number,
                 total_funding: null,
                 project_sponsor: getSponsors(elem.project_partners),
-                project_type:elem?.project_status?.code_phase_type?.code_project_type?.project_type_name,
+                project_type:elem?.code_project_type?.project_type_name,
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || '',
                 project_status: null,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
