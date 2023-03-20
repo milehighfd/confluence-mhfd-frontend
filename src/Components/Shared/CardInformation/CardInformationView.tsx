@@ -186,7 +186,7 @@ const CardInformationView = ({
       />}
       
        <Col xs={xs} lg={lg} md={md} style={style}>
-      <div className="border-line-green" style={{border: (selectedOnMap?.id === data.cartodb_id && selectedOnMap?.tab.includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
+      <div className="border-line-green" style={{border: (selectedOnMap?.id === data.cartodb_id && selectedOnMap?.tab.toLocaleLowerCase().includes(type.toLocaleLowerCase())) ? 'solid 4px #28c499' : '', width: '100%'}}>
         <Card
           // hoverable
           style={{ width: '100%', padding: '0px' }}

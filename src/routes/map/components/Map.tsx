@@ -2131,9 +2131,15 @@ const Map = ({
                       }
                       if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
                           map.getCanvas().style.cursor = 'pointer';
-                          setSelectedOnMap(e.features[0].properties.projectid, key);
+                          let idtosearch = e.features[0].properties.projectid;
+                          let keytoSend = key;
+                          if (key === PROBLEMS_TRIGGER) {
+                            idtosearch = e.features[0].properties.cartodb_id;
+                            keytoSend = FILTER_PROBLEMS_TRIGGER;
+                          }
+                          setSelectedOnMap(idtosearch, keytoSend);
                       } else {
-                          setSelectedOnMap(-1, '');
+                          setSelectedOnMap(-1, key);
                       }
                   });
                   map.on('mouseleave', key + '_' + index, (e: any) => {
