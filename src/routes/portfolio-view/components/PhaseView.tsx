@@ -244,7 +244,7 @@ const PhaseView = (
   }
 
 
-  const phaseChart = (dataDotchart: any, index: number) => {
+  const phaseChart = (dataDotchart: any, index: number) => {   
     if (Object.keys(scheduleList).length > 0) {
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;//document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
@@ -265,79 +265,141 @@ const PhaseView = (
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      setSvgStatePhase(svg);
-      //dataDotchart =dataDotchart[0].values
-      let datas = dataDotchart[index].values;
-      let arrayForCirclesAndLines = [];    
-      
-
-      for (var i = 0; i < scheduleList.length; i++) {
-        arrayForCirclesAndLines.push(i);
-      }
-
-      let svgDefinitions = svg.append("defs");
-      svg.selectAll("defs")
-        .data(datas)
-        .enter()
-
-      gradientLinesClass(svgDefinitions)
-
-      // Add X axis
-      var x = d3.scaleLinear().domain([0, phaseList.length]).range([margin.left, width + margin.right]);
-      let xdr: any = (r: any) => {
-        let offset: any = x(r);
-        return offset;
-      }
-      svg
-        .append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .style('visibility', 'hidden')
-        .call(d3.axisBottom(x));
-
-      // Y axis
-
-      var y = d3
-        .scaleBand()
-        .range([0, height])
-        .domain(
-          datas.map((d: any) => {
-            return d.id;
-          })
-        )
-        .padding(1);
-      svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));
-
-      // Lines
-      arrayForCirclesAndLines.forEach((r) => {
-        if (r < arrayForCirclesAndLines.length - 1) {
-          svg
-            .selectAll("myline")
+        setSvgStatePhase(svg);
+        //dataDotchart =dataDotchart[0].values
+        let datas = dataDotchart[index].values;
+        if (dataDotchart[index].id === 'Title-1') {
+          let arrayForCirclesAndLines = [];
+          for (var i = 0; i < scheduleList.length; i++) {
+            arrayForCirclesAndLines.push(i);
+          }
+          let svgDefinitions = svg.append("defs");
+          svg.selectAll("defs")
             .data(datas)
             .enter()
+
+          gradientLinesClass(svgDefinitions)
+
+          // Add X axis
+          var x = d3.scaleLinear().domain([0, phaseList.length]).range([margin.left, width + margin.right]);
+          let xdr: any = (r: any) => {
+            let offset: any = x(r);
+            return offset;
+          }
+          svg
+            .append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .style('visibility', 'hidden')
+            .call(d3.axisBottom(x));
+
+          // Y axis
+          var y = d3
+            .scaleBand()
+            .range([0, height])
+            .domain(
+              datas.map((d: any) => {
+                return d.id;
+              })
+            )
+            .padding(1);
+          svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));
+          var nodes = svg.selectAll("g")
+            .data(datas).enter()
+            .append("g");
+          let button = svg.selectAll("button").data(datas).enter().append("g");
+          button
             .append("rect")
-            .attr("x", xdr(r))
-            .attr("width", xdr(r + 1) - xdr(r))
-            .attr("y", (d: any) => {
+            .attr("x", xdr(0)-10)
+            .attr("width", xdr(0 + 1) - xdr(0) +20)
+            .attr("y", (d: any) => {     
               let ydname: any = y(d.id);
-              return ydname;
+              console.log(ydname+10)
+              return ydname-15;
             })
-            .attr("height", 2)
-            .attr("stroke", (d: any) => {
-              let colorstroke: any = colorScale[(scheduleList[r].status)];
-              return colorstroke;
+            .attr("height", 25)
+            .style("fill", function (d: any) {
+              return "white";
             })
-            .attr("stroke", function (d: any) {
-              let currentStatus = scheduleList[r].status.replace(/\s+/g, '');
-              let nextStatus = scheduleList[r+1].status.replace(/\s+/g, '');
-              return (
-                (currentStatus === nextStatus) ?
-                  colorScale[(scheduleList[r].status)]
-                  : (`url(#${currentStatus}_${nextStatus})`))
+            .attr('stroke', '#2378ae')
+          button
+            .append("button")
+            .attr("x", xdr(0)-10)
+            .attr("width", xdr(0 + 1) - xdr(0) +20)
+            .attr("y", (d: any) => {     
+              let ydname: any = y(d.id);
+              console.log(ydname+10)
+              return ydname-15;
             })
-            // .attr("stroke", "url(#textBg)")
-            .attr("stroke-width", "2.5px");
-        }
-      });
+            .attr("height", '25px')
+
+        } else {
+          let arrayForCirclesAndLines = [];
+          for (var i = 0; i < scheduleList.length; i++) {
+            arrayForCirclesAndLines.push(i);
+          }
+          let svgDefinitions = svg.append("defs");
+          svg.selectAll("defs")
+            .data(datas)
+            .enter()
+
+          gradientLinesClass(svgDefinitions)
+
+          // Add X axis
+          var x = d3.scaleLinear().domain([0, phaseList.length]).range([margin.left, width + margin.right]);
+          let xdr: any = (r: any) => {
+            let offset: any = x(r);
+            return offset;
+          }
+          svg
+            .append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .style('visibility', 'hidden')
+            .call(d3.axisBottom(x));
+
+          // Y axis
+
+          var y = d3
+            .scaleBand()
+            .range([0, height])
+            .domain(
+              datas.map((d: any) => {
+                return d.id;
+              })
+            )
+            .padding(1);
+          svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));
+
+          // Lines
+          arrayForCirclesAndLines.forEach((r) => {
+            if (r < arrayForCirclesAndLines.length - 1) {
+              svg
+                .selectAll("myline")
+                .data(datas)
+                .enter()
+                .append("rect")
+                .attr("x", xdr(r))
+                .attr("width", xdr(r + 1) - xdr(r))
+                .attr("y", (d: any) => {
+                  let ydname: any = y(d.id);
+                  return ydname;
+                })
+                .attr("height", 2)
+                .attr("stroke", (d: any) => {
+                  let colorstroke: any = colorScale[(scheduleList[r].status)];
+                  return colorstroke;
+                })
+                .attr("stroke", function (d: any) {
+                  let currentStatus = scheduleList[r].status.replace(/\s+/g, '');
+                  let nextStatus = scheduleList[r + 1].status.replace(/\s+/g, '');
+                  return (
+                    (currentStatus === nextStatus) ?
+                      colorScale[(scheduleList[r].status)]
+                      : (`url(#${currentStatus}_${nextStatus})`))
+                })
+                // .attr("stroke", "url(#textBg)")
+                .attr("stroke-width", "2.5px");
+            }
+          });
       const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
       let circles = svg.selectAll("mycircle").data(datas).enter();
       arrayForCirclesAndLines.forEach((r) => {
@@ -504,7 +566,7 @@ const PhaseView = (
           })
           ;
       });
-    }}
+    }}}
   }
   const removeAllChildNodes = (parent: any) => {
     while (parent.firstChild) {
