@@ -87,7 +87,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
           <>
             <Col xs={{ span: 24 }} lg={{ span: 12 }}>
               <label className="sub-title">Other reason<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-              <TextArea rows={4} placeholder="Add another reason" onChange={(text)=>apllyOtherReason(text)} value={otherReason}/>
+              <TextArea rows={1} placeholder="Add another reason" onChange={(text)=>apllyOtherReason(text)} value={otherReason}/>
             </Col>
           </>
         )}
