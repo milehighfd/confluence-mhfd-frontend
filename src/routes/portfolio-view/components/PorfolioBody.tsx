@@ -228,7 +228,6 @@ const PortafolioBody = () => {
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
-        console.log(valuesList)
        const updatedGroups: any = [];         
        //console.log("valuesList")
        //console.log(valuesList)
