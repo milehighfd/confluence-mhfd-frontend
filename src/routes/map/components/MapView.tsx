@@ -86,9 +86,6 @@ const MapView = () => {
   const {getGroupOrganization} = useProfileDispatch();
   const { userInformation, groupOrganization } = useProfileState();
   const { zoomarea } = userInformation;
-  useEffect(() => {
-    console.log('filterpeojrct', filterProjectOptions);
-  }, [filterProjectOptions]);
   const [countFilterProblems, setCountFilterProblems] = useState(0);
   const [countFilterComponents, setCountFilterComponents] = useState(0);
   const [countFilterProjects, setCountFilterProjects] = useState(0);
@@ -111,6 +108,9 @@ const MapView = () => {
   const [backgroundStyle, setBackgroundStyle] = useState<string>(gray);
   const [textStyle, setTextStyle] = useState<string>(purple);
   const [groupsLabels, setGroupsLabels] = useState<any>({"projecttype": [], "totalcost": [], "status": [], "year": [], "mhfddollarsallocated": [], "workplanyear": [], "problemtype": [], "consultant": [], "contractor": [], "jurisdiction": [], "county": [], "lgmanager": [], "streamname": [], "creator": [], "mhfdmanager": [], "servicearea": []});
+  useEffect(() => {
+    getParamFilterProjects(boundsMap, filterProjectOptions);
+  }, [filterProjectOptions]);
   useEffect(() => {
     setSpinMapLoaded(true);
     getGroupOrganization();
@@ -202,8 +202,7 @@ const MapView = () => {
     options.contractor = '';
     options.servicearea = '';
     setFilterProjectOptions(options);
-                         console.log('get gallery'); 
-                      getGalleryProjects();;
+    getGalleryProjects();;
     if (toggleModalFilter) {
       getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
     }
@@ -220,8 +219,7 @@ const MapView = () => {
     options.mhfdmanager = '';
     options.servicearea = '';
     setFilterComponentOptions(options);
-                         console.log('get gallery'); 
-                      getGalleryProjects();;
+    getGalleryProjects();
     getGalleryProblems();
     if (toggleModalFilter) {
       getParamFilterComponents(withCoords ? withCoords : boundsMap, options);
@@ -385,8 +383,7 @@ const MapView = () => {
     }
     auxFilterComponents[tag] = (tag === 'estimatedcost') ? auxValueTag : newValue;
     setFilterComponentOptions(auxFilterComponents);
-                         console.log('get gallery'); 
-                      getGalleryProjects();;
+    getGalleryProjects();;
     getParamFilterComponents(boundsMap, auxFilterComponents)
   }
   const generateLabelsFilterProblems = () => {
@@ -665,8 +662,7 @@ const MapView = () => {
       if (tabActive === '0') {
         getGalleryProblems();
       } else {
-                             console.log('get gallery'); 
-                      getGalleryProjects();;
+        getGalleryProjects();
       }
     }
     if (backgroundStyle === gray) {
@@ -696,7 +692,6 @@ const MapView = () => {
       switch (zoomareaSelected[0].filter) {
         case 'County':
         case 'CODE_STATE_COUNTY':
-          console.log('enter here ');
           setOpacityLayer(true);
           setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
           break;
@@ -907,8 +902,7 @@ const MapView = () => {
                   } else {
                     setProjectKeyword(keywordProject);
                   }
-                                       console.log('get gallery'); 
-                      getGalleryProjects();;
+                  getGalleryProjects();
                 }
               }}
             />

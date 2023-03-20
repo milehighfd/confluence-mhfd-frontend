@@ -237,6 +237,7 @@ export const setProjectKeyword = (keyword: string) => {
     const filterProjects = store.getState().map.filterProjects;
     const auxFilterProjects = { ...filterProjects };
     auxFilter.keyword = keyword;
+    auxFilter.name = keyword;
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter });
         // const params = '?field=' + keyword;
@@ -449,6 +450,7 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         // data.servicearea = data.servicearea.replace("Service Area", "");
         data.servicearea = data.servicearea
     }
+    console.trace('in param filter projects', data);
     return (dispatch: Function) => {
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {
             if (params) {
@@ -464,6 +466,7 @@ export const getParamFilterProjectsNoBounds = (data?: any) => {
       data.county = data.county;
       data.servicearea = data.servicearea
   }
+  console.trace('in param filter projects 2', data);
   return (dispatch: Function) => {
       datasets.postData(SERVER.PARAM_FILTER_PROJECTS, data || {}).then((params:any) => {
           if (params) {
