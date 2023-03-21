@@ -240,11 +240,11 @@ const PortafolioBody = () => {
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
        const updatedGroups: any = [];         
-       //console.log("valuesList")
-       //console.log(valuesList)
+       console.log("valuesList")
+       console.log(valuesList)
         groups.forEach((element: any, index: number) => {
-          //console.log("ELEMENT")
-          //console.log(element);
+          console.log("ELEMENT")
+          console.log(element);
           if (valuesList[element.id]) {
           updatedGroups.push({
             id: `Title${element.id}`,
@@ -263,7 +263,8 @@ const PortafolioBody = () => {
             ],
           });
             valuesList[element.id].forEach((elem: any, idx: number) => {
-              // if(idx > 20) return;            
+              // if(idx > 20) return;      
+                    
               updatedGroups.push({
                 id: `${element.value}${idx}`,
                 project_id: elem.project_id,
@@ -389,7 +390,7 @@ const PortafolioBody = () => {
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.code_project_type?.project_type_name,
                 status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || '',
-                project_status: null,
+                project_status: elem?.project_status,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
@@ -905,7 +906,8 @@ const PortafolioBody = () => {
                     scheduleRef={scheduleRef} 
                     searchRef={searchRef} 
                     graphicOpen={graphicOpen} 
-                    setGrapphicOpen={setGrapphicOpen} 
+                    setGrapphicOpen={setGrapphicOpen}
+                    tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0} 
                     positionModalGraphic={positionModalGraphic} 
                     setPositionModalGraphic={setPositionModalGraphic} 
                     index={idx}

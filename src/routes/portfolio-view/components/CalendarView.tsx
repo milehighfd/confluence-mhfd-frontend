@@ -15,6 +15,8 @@ import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalFields from "routes/list-view/components/ModalFields";
 import PineyView from './PineyView';
 import ModalGraphic from "./ModalGraphic";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from "../../../Config/Server.config";
 
 const CalendarView = ({
   rawData,
@@ -23,7 +25,8 @@ const CalendarView = ({
   scheduleRef,
   searchRef,
   graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic,
-  index
+  index,
+  tabKey,
 }: {
   rawData: any,
   openTable: boolean[];
@@ -41,9 +44,15 @@ const CalendarView = ({
       top: number;
   }>>,
   index: number;
+  tabKey: any,
 }) => {
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
+  const [phaseList, setPhaseList] = useState<any>([])
+  const [statusList, setStatusList] = useState<any>([])
+  const [updatePhaseList, setUpdatePhaseList] = useState(false);
+  const [scheduleList, setScheduleList] = useState<any>({})
+
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
@@ -92,6 +101,8 @@ const CalendarView = ({
 
 
   const locations: any = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
+  console.log("LOCATIONS")
+  console.log(locations)
   let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
     return {
@@ -120,6 +131,7 @@ const CalendarView = ({
   let chartheaderHeight: any = document.getElementById('timeline-chart-axis')?.offsetHeight;
   let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
  let heightt =heightOfList - 47 - 32- 10;
+
   let fromData: any = datas
   .map((ds: any) => ds.schedule)
   .flat()
@@ -142,7 +154,6 @@ let toData = datas
     let isTheFirst = 0; 
     fromData.forEach((elem: any) => {
       if (elem.id.includes(location) && isTheFirst === 0){
-
         agrupationData.push({
           objectId: 10,
           type: 'title',
@@ -210,7 +221,45 @@ let toData = datas
     // let heightChart = heightDivLeft * 1.14;
     // let barHeight = heightChart * 0.04173;
     // let factorHeight = heightChart * 0.03555; 
+
+    useEffect(() => {
+      let z = []
+      datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
+        .then((rows) => {  
+          setPhaseList(rows)  
+          let counter = 0;
+          z = rows.map((x: any) => {
+            counter++;
+            return (
+              {
+                categoryNo: counter,
+                from: moment('2023/11/21 00:00:00'),
+                to: moment('2023/12/30 00:00:00'),
+                status: x?.code_status_type?.status_name,
+                name: x.phase_name,
+                phase: x.phase_name,
+                tasks: x.code_rule_action_items.length,
+                phase_id: x.code_phase_type_id,             
+                tasksData: x.code_rule_action_items,
+                duration: x.duration,
+                duration_type: x.duration_type
+              })
+          })
+          setScheduleList(z);
+          const y = rows.map((x: any) => {
+            return x.code_status_type;
+          })
+          setStatusList(y)
+          setUpdatePhaseList(!updatePhaseList) 
+          return rows
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    }, [])
+
   const timelineChart = (datasets: any) => {
+    console.log(datasets)
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
     let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8): barHeightDefault;
     let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight): 12;

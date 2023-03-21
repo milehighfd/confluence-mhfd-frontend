@@ -71,6 +71,7 @@ const PhaseView = (
   const [popUpData, setPopUpData] = useState<any>({});
   const [userBrowser, setUserBrowser] = useState<any>()
   const headerRef = useRef<null | HTMLDivElement>(null);
+  const [statusCounter,setStatusCounter] = useState(0);
 
   const windowWidth: any = window.innerWidth;
   const next = () => {
@@ -249,6 +250,7 @@ const PhaseView = (
 
 
   const phaseChart = (dataDotchart: any, index: number) => {   
+    console.log(dataDotchart)
     if (Object.keys(scheduleList).length > 0) {
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;//document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
@@ -271,8 +273,8 @@ const PhaseView = (
 
         setSvgStatePhase(svg);
         //dataDotchart =dataDotchart[0].values
-        let datas = dataDotchart[index].values;
-        if (dataDotchart[index].id === 'Title-1') {
+        let datas = dataDotchart[index].values;       
+        if (dataDotchart[index].id !== 'Title-1') {          
           let arrayForCirclesAndLines = [];
           for (var i = 0; i < scheduleList.length; i++) {
             arrayForCirclesAndLines.push(i);
@@ -306,10 +308,7 @@ const PhaseView = (
               })
             )
             .padding(1);
-          svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));
-          var nodes = svg.selectAll("g")
-            .data(datas).enter()
-            .append("g");
+          svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));          
           let button = svg.selectAll("button").data(datas).enter().append("g");
           button
             .append("rect")
@@ -369,7 +368,7 @@ const PhaseView = (
           svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));
 
           // Lines
-          arrayForCirclesAndLines.forEach((r) => {
+          arrayForCirclesAndLines.forEach((r) => {            
             if (r < arrayForCirclesAndLines.length - 1) {
               svg
                 .selectAll("myline")
@@ -672,6 +671,8 @@ const PhaseView = (
       item1,
       (statusList.filter((item: any) => item.status_name === item1).length) * labelWidth
     ]));
+    console.log(counts.length)
+    setStatusCounter(counts.length)
     setAvailableStatusList(counts)
   }, [updatePhaseList])
 
