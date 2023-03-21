@@ -568,8 +568,8 @@ const PortafolioBody = () => {
                     objectId: 16,
                     type: 'rect',
                     categoryNo: 16,
-                    from: moment('2023/11/21 00:00:00'),
-                    to: moment('2023/12/30 00:00:00'),
+                    from: moment('2024/01/01 00:00:00'),
+                    to: moment('2024/01/15 00:00:00'),
                     status: 'notStarted',
                     name: 'Closed',
                     phase: 'Closed', 
@@ -579,8 +579,8 @@ const PortafolioBody = () => {
                     objectId: 17,
                     type: 'rect',
                     categoryNo: 17,
-                    from: moment('2023/11/21 00:00:00'),
-                    to: moment('2023/12/30 00:00:00'),
+                    from: moment('2024/01/16 00:00:00'),
+                    to: moment('2024/02/15 00:00:00'),
                     status: 'notStarted',
                     name: 'Closed',
                     phase: 'Closed', 
@@ -590,8 +590,8 @@ const PortafolioBody = () => {
                     objectId: 18,
                     type: 'rect',
                     categoryNo: 18,
-                    from: moment('2023/11/21 00:00:00'),
-                    to: moment('2023/12/30 00:00:00'),
+                    from: moment('2024/02/16 00:00:00'),
+                    to: moment('2024/03/15 00:00:00'),
                     status: 'notStarted',
                     name: 'Closed',
                     phase: 'Closed', 
@@ -734,6 +734,13 @@ const PortafolioBody = () => {
     setOptionSelect('Phase')
     setTabKey('CIP');
   }
+  function enterSchedule (){
+    setSortValue({
+      columnKey: null, order: undefined
+    });
+    setOptionSelect('Schedule')
+    setTabKey('CIP');
+  }
   function enterList (){
     setOptionSelect('List')
   }
@@ -774,7 +781,7 @@ const PortafolioBody = () => {
             <Button className={optionSelect=== 'Phase' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterPhase()}}>
               Phase
             </Button>
-            <Button className={optionSelect=== 'Schedule' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{setOptionSelect('Schedule')}}>
+            <Button className={optionSelect=== 'Schedule' ? "btn-view btn-view-active": "btn-view"}  onClick={()=>{enterSchedule()}}>
               Schedule
             </Button>
 
