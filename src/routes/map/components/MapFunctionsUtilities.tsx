@@ -9,20 +9,20 @@ export const flytoBoundsCoor = (
   groupOrganization : any,
   setCoordinatesJurisdiction : any
   ) => {
-  let historicBounds = getCurrent();
-  if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
-    globalMapId = historicBounds.id;
-    map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
-  } else if (coorBounds[0] && coorBounds[1]) {
-    map.fitBounds(coorBounds);
-  }
+    let historicBounds = getCurrent();
+    if(historicBounds && historicBounds.bbox && userInformation.isSelect != 'isSelect') {
+      globalMapId = historicBounds.id;
+      map.fitBounds([[historicBounds.bbox[0],historicBounds.bbox[1]],[historicBounds.bbox[2],historicBounds.bbox[3]]]);
+    } else if (coorBounds[0] && coorBounds[1]) {
+      map.fitBounds(coorBounds);
+    }
   if(userInformation.isSelect != 'isSelect') {
     setTimeout(()=>{
-     const zoomareaSelected = groupOrganization.filter((x: any) => x.name === userInformation.zoomarea).map((element: any) => {
-       return {
-         aoi: element.aoi,
-         filter: element.filter,
-         coordinates: element.coordinates.coordinates
+      const zoomareaSelected = groupOrganization.filter((x: any) => x.name === userInformation.zoomarea).map((element: any) => {
+        return {
+          aoi: element.name,
+          filter: element?.filter,
+          coordinates: element?.coordinates?.coordinates
        }
      });
      if(zoomareaSelected[0]){

@@ -2313,7 +2313,7 @@ const Map = ({
     const flyTo = (longitude: number, latitude: number, zoom?: number) => {
         map.flyTo({
             center: [longitude, latitude],
-            zoom: zoom ?? 12 
+            zoom: zoom ?? 15 
             });
     }
 
