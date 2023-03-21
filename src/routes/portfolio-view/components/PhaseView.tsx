@@ -273,8 +273,8 @@ const PhaseView = (
 
         setSvgStatePhase(svg);
         //dataDotchart =dataDotchart[0].values
-        let datas = dataDotchart[index].values;       
-        if (dataDotchart[index].id !== 'Title-1') {          
+        let datas = dataDotchart[index].values;
+
           let arrayForCirclesAndLines = [];
           for (var i = 0; i < scheduleList.length; i++) {
             arrayForCirclesAndLines.push(i);
@@ -309,6 +309,8 @@ const PhaseView = (
             )
             .padding(1);
           svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));          
+          
+          if (dataDotchart[index].id === 'Title-1') {                   
           let button = svg.selectAll("button").data(datas).enter().append("g");
           button
             .append("rect")
@@ -316,7 +318,7 @@ const PhaseView = (
             .attr("width", xdr(0 + 1) - xdr(0) + 20)
             .attr("y", (d: any) => {
               let ydname: any = y(d.id);
-              console.log(ydname + 10)
+
               return ydname - 15;
             })
             .attr("height", 25)
@@ -331,44 +333,36 @@ const PhaseView = (
             })
        
         } else {
-          let arrayForCirclesAndLines = [];
-          for (var i = 0; i < scheduleList.length; i++) {
-            arrayForCirclesAndLines.push(i);
-          }
-          let svgDefinitions = svg.append("defs");
-          svg.selectAll("defs")
-            .data(datas)
-            .enter()
-
-          gradientLinesClass(svgDefinitions)
-
-          // Add X axis
-          var x = d3.scaleLinear().domain([0, phaseList.length]).range([margin.left, width + margin.right]);
-          let xdr: any = (r: any) => {
-            let offset: any = x(r);
-            return offset;
-          }
-          svg
-            .append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .style('visibility', 'hidden')
-            .call(d3.axisBottom(x));
-
-          // Y axis
-
-          var y = d3
-            .scaleBand()
-            .range([0, height])
-            .domain(
-              datas.map((d: any) => {
-                return d.id;
-              })
-            )
-            .padding(1);
-          svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));
-
+          let hasDateData = true;
+          let button = svg.selectAll("button").data(datas).enter().append("g");
+          button
+            .append("rect")
+            .attr("x",  xdr(0) - 10)
+            .attr("width", xdr(0 + 1) - xdr(0) + 20)
+            .attr("y", (d: any) => {
+              let ydname: any = y(d.id);
+              // console.log('ydname', ydname, ydname + 10)
+              return ydname - 15;
+            })
+            .attr("height", 25)
+            .style("fill", function (d: any) {
+              return "white";
+            })
+            .style('visibility', (d: any) => {
+              if(d.project_status?.actual_start_date === null){
+                hasDateData = false;
+              }
+              return hasDateData ? 'visible':'hidden'})
+            .attr('stroke', '#2378ae')
+            .on("click", function (d: any) {
+              const sendTollgate = { d, scheduleList }
+              setTollData(sendTollgate);    
+              setOpenModalTollgate(true);
+            })
+         
           // Lines
-          arrayForCirclesAndLines.forEach((r) => {            
+          arrayForCirclesAndLines.forEach((r) => {  
+            hasDateData = true        
             if (r < arrayForCirclesAndLines.length - 1) {
               svg
                 .selectAll("myline")
@@ -395,12 +389,18 @@ const PhaseView = (
                       : (`url(#${currentStatus}_${nextStatus})`))
                 })
                 // .attr("stroke", "url(#textBg)")
-                .attr("stroke-width", "2.5px");
+                .attr("stroke-width", "2.5px")
+                .style('visibility', (d: any) => {
+                  if(d.project_status?.actual_start_date === null){
+                    hasDateData = false;
+                  }
+                  return hasDateData ? 'hidden':'visible'})
             }
           });
       const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
       let circles = svg.selectAll("mycircle").data(datas).enter();
       arrayForCirclesAndLines.forEach((r) => {
+        hasDateData = true
         circles
           .append("circle")
           .attr('id', (d: any) => {
@@ -415,6 +415,12 @@ const PhaseView = (
           .style("fill", function (d: any) {
             return colorScale[(scheduleList[r].status)];
           })
+          .style('visibility', (d: any) => {
+            if(d.project_status?.actual_start_date === null){
+              hasDateData = false;
+            }
+            return hasDateData ? 'hidden':'visible'})
+            hasDateData = true
         circles
           .append("circle")
           .attr("cx", xdr(r))
@@ -426,7 +432,12 @@ const PhaseView = (
           .style("fill", function (d: any) {
             return "white";
           })
-
+          .style('visibility', (d: any) => {
+            if(d.project_status?.actual_start_date === null){
+              hasDateData = false;
+            }
+            return hasDateData ? 'hidden':'visible'})
+            hasDateData = true
         circles
           .append("circle")
           .attr("cx", xdr(r))
@@ -438,7 +449,12 @@ const PhaseView = (
           .style("fill", function (d: any) {
             return colorScale[(scheduleList[r].status)];
           })
-
+          .style('visibility', (d: any) => {
+            if(d.project_status?.actual_start_date === null){
+              hasDateData = false;
+            }
+            return hasDateData ? 'hidden':'visible'})
+            hasDateData = true
         svg
           .selectAll("myText")
           .data(datas)
@@ -477,8 +493,13 @@ const PhaseView = (
             let ydname: any = y(d.id);
             return ydname + radius / 3;
           })
-
+          .style('visibility', (d: any) => {
+            if(d.project_status?.actual_start_date === null){
+              hasDateData = false;
+            }
+            return hasDateData ? 'hidden':'visible'})
           ;
+          hasDateData = true
         circles
           .append("circle")
           .attr('id', (d: any) => { return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_outer` })
@@ -490,6 +511,11 @@ const PhaseView = (
           .attr("r", radius + 0.5)
           .style("fill", 'white')
           .style('opacity', 0)
+          .style('visibility', (d: any) => {
+            if(d.project_status?.actual_start_date === null){
+              hasDateData = false;
+            }
+            return hasDateData ? 'hidden':'visible'})
           .on("click", (d: any) => {            
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
