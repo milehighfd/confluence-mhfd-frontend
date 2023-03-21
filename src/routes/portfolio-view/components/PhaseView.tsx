@@ -337,29 +337,72 @@ const PhaseView = (
           let button = svg.selectAll("button").data(datas).enter().append("g");
           button
             .append("rect")
-            .attr("x",  xdr(0) - 10)
-            .attr("width", xdr(0 + 1) - xdr(0) + 20)
+            .attr('rx', 3)
+            .attr('ry', 3)
+            .attr("x", () => {
+              let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10))))); 
+             return xdr(0) + xAddButton})
+            .attr("width", () => {
+              let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 25 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10)))));
+              // console.log('ydname', ydname, ydname + 10)
+              return xdr(0 + 1) - xdr(0) + widthAddButton;
+            })
+            // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
+            
             .attr("y", (d: any) => {
               let ydname: any = y(d.id);
               // console.log('ydname', ydname, ydname + 10)
-              return ydname - 15;
+              let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
+              return ydname + yAddButton;
             })
-            .attr("height", 25)
-            .style("fill", function (d: any) {
-              return "white";
+            .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 25))))))
+            .style("fill", "#251863")
+            .style('visibility', (d: any) => {
+              if(d.project_status?.actual_start_date === null){
+                hasDateData = false;
+              }
+              return hasDateData ? 'visible':'hidden'})
+            .attr('stroke', '#251863')
+            .style('stroke-linecap', 'round')
+            .on("click", function (d: any) {
+              const sendTollgate = { d, scheduleList }
+              setTollData(sendTollgate);    
+              setOpenModalTollgate(true);
+            })
+            hasDateData = true;
+            svg
+            .selectAll("editText")
+            .data(datas)
+            .enter()
+            .append("text")
+            .attr("class", "circletext")
+            .attr('fill', '#ffffff')
+            .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
+            .attr('font-weight', 600)
+            .text('Add Dates')
+            .attr("x", () => {
+              let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 14 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 4 : 2)))));
+              // console.log('ydname', ydname, ydname + 10)
+              return xdr(0) + xAddButton
+            })
+            .attr("y", (d: any) => {
+              let ydname: any = y(d.id);
+              // console.log('ydname', ydname, ydname + 10)
+              let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 13 : (windowWidth >= 2550 && windowWidth <= 3000 ? 9 : (windowWidth >= 1450 && windowWidth <= 2000 ? 7 : (windowWidth >= 1199 && windowWidth <= 1449 ? 7 : 2)))));
+              return ydname + yAddButton;
             })
             .style('visibility', (d: any) => {
               if(d.project_status?.actual_start_date === null){
                 hasDateData = false;
               }
               return hasDateData ? 'visible':'hidden'})
-            .attr('stroke', '#2378ae')
-            .on("click", function (d: any) {
-              const sendTollgate = { d, scheduleList }
-              setTollData(sendTollgate);    
-              setOpenModalTollgate(true);
-            })
-         
+              .on("click", function (d: any) {
+                const sendTollgate = { d, scheduleList }
+                setTollData(sendTollgate);    
+                setOpenModalTollgate(true);
+              })
+            ;
+
           // Lines
           arrayForCirclesAndLines.forEach((r) => {  
             hasDateData = true        
