@@ -11,7 +11,7 @@ const content01 = (<div className="popver-info">This is an internal QA/QC worksp
 const content02 = (<div className="popver-info">This is a place to add notes on a Local Government work request. Notes will be visible to any user from the same Local Government as well as MHFD staff.</div>);
 const content00WP = (<div className="popver-info">This field indicates the status of the Work Plan shown. Changing the status to Approved will finalize the Work Plan for approval by the MHFD Board.</div>);
 const content01WP = (<div className="popver-info">This section indicates all of the applicable jurisdictions within this Work Plan, and whether they have submitted their finalized Work Requests (green dot) or not (yellow dot). All jurisdictions must be green before the Work Plan can be approved.</div>);
-const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert }: {
+const Status = ({ locality, boardId, visible, setVisible, status, comment, type, substatus, setAlertStatus, setShowAlert, onUpdateHandler}: {
   locality: string,
   boardId: any,
   visible: boolean,
@@ -21,7 +21,8 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   type: boardType,
   substatus: any,
   setAlertStatus: Function,
-  setShowAlert: Function
+  setShowAlert: Function,
+  onUpdateHandler: Function
 }) => {
   const [boardStatus, setBoardStatus] = useState(status);//from backend
   const [boardComment, setBoardComment] = useState(comment);
@@ -52,7 +53,8 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
           setAlertStatus(alertStatus);
           setShowAlert(true);
           setTimeout(() => {
-            setShowAlert(false)
+            setShowAlert(false);
+            onUpdateHandler();
           }, 4000);
         })
         .catch((e) => {

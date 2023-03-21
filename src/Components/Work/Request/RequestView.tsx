@@ -67,6 +67,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
   const [callBoard, setCallBoard] = useState(0);
+  const [callProjects, setCallProjects] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [sumByCounty, setSumByCounty] = useState<any[]>([]);
@@ -400,7 +401,7 @@ const RequestView = ({ type, isFirstRendering }: {
         search: `?${params.map(p => p.join('=')).join('&')}`
       })
 
-  }, [year, locality, tabKey]);
+  }, [year, locality, tabKey, callProjects]);
 
   useEffect(() => {
     if (!namespaceId) {
@@ -822,6 +823,10 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
+  
+  const onUpdateBoard = () =>{
+    setCallProjects(Math.random());
+  }
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -880,6 +885,7 @@ const RequestView = ({ type, isFirstRendering }: {
         type={type}
         setAlertStatus={setAlertStatus}
         setShowAlert={setShowAlert}
+        onUpdateHandler={onUpdateBoard}
         />
     }
     {
