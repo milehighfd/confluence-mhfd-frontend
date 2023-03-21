@@ -29,7 +29,6 @@ const MapAutoComplete = ({
   }, [groupOrganization]);
 
   useEffect(() => {
-    console.log('name zoom area', nameZoomArea);
     if (nameZoomArea) {
       setvalueA(nameZoomArea);
     } else {

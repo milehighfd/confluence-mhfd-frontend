@@ -297,6 +297,7 @@ const Map = ({
     },[userInformation.polygon]);
  
     const addLayerMask = (id: any) => {
+      console.trace('zxc shouldbehere', id, map.getSource('mask'));
       if (map.getSource('mask')) {
         if (id == 'border' &&  !map.getLayer(id+"MASK")) {
           map.addLayer({
@@ -532,9 +533,16 @@ const Map = ({
       }
     },[markersNotes, commentVisible]);
     
-    useEffect(() => {
-      let mask;
-      if (coordinatesJurisdiction?.length > 0 && map && map.isStyleLoaded()) {
+    const waitForMap = () => {
+      if (!map || !map.isStyleLoaded()) {
+        setTimeout(waitForMap, 200);
+      } else {
+        addFunction();
+      }
+    };
+    const addFunction = () => {
+      let mask;   
+      if (coordinatesJurisdiction?.length > 0) {
         // console.log('DEPTH', depth(coordinatesJurisdiction), 'Coordinates Jurisdiction', coordinatesJurisdiction, "STREING", JSON.stringify(coordinatesJurisdiction));
         const DEPTH = depth(coordinatesJurisdiction);
         if (DEPTH == 4) {
@@ -603,6 +611,9 @@ const Map = ({
           }
 
       }
+    }
+    useEffect(() => {   
+        waitForMap();
   }, [coordinatesJurisdiction]);
 
     useEffect(() => {

@@ -9,12 +9,9 @@ import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
 import store from '..';
 
 export const getMapTables = (trigger: string, name?: string) => {
-    console.log('getting into function', trigger)
     return (dispatch: Function, getState: Function) => {
-        console.log('in return getting')
         const state = getState();
         const layers = { ...state.map.layers };
-        console.log('state and layer', state, layers)
         if (!layers[trigger] && !trigger.includes('milehighfd')) {
             const requestData = { table: trigger };
             datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken()).then(tiles => {
@@ -111,7 +108,6 @@ export const setFilterCoordinates = (coordinates: string, tab: string) => {
         if (tab === constants.PROBLEMS_TRIGGER) {
             dispatch(getGalleryProblems());
         } else {
-          console.log('getgalleryprojectsssssss herer');
             dispatch(getGalleryProjects('bounds'));
         }
     }
@@ -450,7 +446,6 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         // data.servicearea = data.servicearea.replace("Service Area", "");
         data.servicearea = data.servicearea
     }
-    console.trace('in param filter projects', data);
     return (dispatch: Function) => {
         datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {
             if (params) {
