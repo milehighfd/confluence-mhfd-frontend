@@ -3,6 +3,7 @@ import { Button, Checkbox, Col, Collapse, Popover, Row, Tabs } from 'antd';
 import GenericTabView from '../../../Components/Shared/GenericTab/GenericTabView';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_TRIGGER, PROJECTS_TRIGGER } from '../constants/tabs.constants';
+import { getCurrentProjectStatus } from 'utils/parsers';
 
 let contents: any = [];
 contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
@@ -120,7 +121,7 @@ const MobileMenu = () => {
                         requestName: project.projectname ? project.projectname : project.requestedname,
                         sponsor: project.sponsor,
                         estimatedCost: project.finalcost ? project.finalcost : project.estimatedcost,
-                        status: project.status,
+                        status: getCurrentProjectStatus(project)?.code_phase_type?.code_status_type?.status_name,
                         projecttype: project.projecttype,
                         objectid: project.objectid,
                         type: project.type,

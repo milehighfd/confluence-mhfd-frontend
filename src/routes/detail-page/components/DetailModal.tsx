@@ -24,7 +24,7 @@ import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
-import { getCounties, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
 import { useLocation } from "react-router";
 
 const { TabPane } = Tabs;
@@ -167,8 +167,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               {detailed?.problemtype ? 
                 <></>:
                 <div className="status-d" style={{display:'flex'}}>
-                  <p>Status<br></br><span className="status-active" style={{marginRight:'20px'}}>{detailed?.project_status?.code_phase_type?.code_status_type?.status_name}</span></p>
-                  <p style={{}}>Phase<br></br><span className="status-final">{detailed?.project_status?.code_phase_type?.phase_name}</span></p>
+                  <p>Status<br></br><span className="status-active" style={{marginRight:'20px'}}>{getCurrentProjectStatus(detailed)?.code_phase_type?.code_status_type?.status_name}</span></p>
+                  <p style={{}}>Phase<br></br><span className="status-final">{ getCurrentProjectStatus(detailed)?.code_phase_type?.phase_name}</span></p>
                 </div>
               }
             </div>
