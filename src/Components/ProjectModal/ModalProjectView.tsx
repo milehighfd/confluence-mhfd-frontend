@@ -12,6 +12,7 @@ import { getAllowedBasedOnLocality } from "../Work/Request/RequestViewUtil";
 import { postData } from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import { useBoardDispatch } from "../../hook/boardHook";
+import { getCurrentProjectStatus } from '../../utils/parsers';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -146,33 +147,33 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         setNameProject('Ex: Stream Name @ Location 202X');
       } else {
         //getAttachmentByProject(data.projectid);
-        if( data.project_status.code_phase_type.code_project_type.code_project_type_id === 1){
+        if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type.code_project_type_id === 1){
           getStreamsByProjectId(data.project_id);
-        } else if( data.project_status.code_phase_type.code_project_type.code_project_type_id === 5) {
+        } else if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5) {
           getIndependentComponentsByProjectId(data.project_id);
           getComponentsByProjectId(data.project_id);
         }
           
       }
-      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 5){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5){
         setVisibleCapital(true);
       }
-      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 1){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 1){
         setVisibleStudy(true);
       }
-      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 7 || 
-        data.project_status.code_phase_type.code_project_type.code_project_type_id === 8 || 
-        data.project_status.code_phase_type.code_project_type.code_project_type_id === 9 || 
-        data.project_status.code_phase_type.code_project_type.code_project_type_id === 10 || 
-        data.project_status.code_phase_type.code_project_type.code_project_type_id === 11 
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 7 || 
+        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 8 || 
+        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 9 || 
+        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 10 || 
+        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type.code_project_type_id === 11 
         ){
         setSubType(data.projectsubtype);
         setVisibleMaintenance(true);
       }
-      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 13){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 13){
         setVisibleAcquisition(true);
       }
-      if(data.project_status.code_phase_type.code_project_type.code_project_type_id === 15){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15){
         setVisibleSpecial(true);
       }
     }

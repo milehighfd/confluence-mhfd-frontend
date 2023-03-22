@@ -37,6 +37,7 @@ import {
 import { numberWithCommas } from '../../../utils/utils';
 import { SERVER } from "../../../Config/Server.config";
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
+import { getCurrentProjectStatus } from '../../../utils/parsers';
 
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
@@ -357,7 +358,7 @@ export const addPopupsOnClick = async (
                         organization: sponsors.join(','),
                         value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : 0),
                         projecctype: dataFromDB?.code_project_type?.project_type_name,
-                        status: dataFromDB?.project_status?.code_phase_type?.code_status_type?.status_name,
+                        status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
                         objectid: dataFromDB?.codeStateCounty?.objectid,
                         component_count: dataFromDB?.totalComponents, // TODO component_count
                         valueid: feature.properties.cartodb_id,

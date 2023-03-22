@@ -11,7 +11,7 @@ import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
-import { getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCurrentProjectStatus, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const DetailedModal = ({
   type,
@@ -180,8 +180,8 @@ const DetailedModal = ({
                 <Progress percent={detailedPage?.solutionstatus ? detailedPage?.solutionstatus : 0} size="small" status="active" />
               </div>
               ) : (
-                <div className="btn-opacity">{detailedPage?.project_status?.code_phase_type?.code_status_type?.status_name ?
-                  detailedPage?.project_status?.code_phase_type?.code_status_type?.status_name: 'N/A'}</div>
+                <div className="btn-opacity">{ getCurrentProjectStatus(detailedPage)?.code_phase_type?.code_status_type?.status_name ?
+                  getCurrentProjectStatus(detailedPage)?.code_phase_type?.code_status_type?.status_name: 'N/A'}</div>
               )
               }
 

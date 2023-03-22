@@ -1,6 +1,7 @@
 import { boardProject, boardType, columnProject } from 'Components/Work/Request/RequestTypes';
 import CardStatService from 'Components/Work/Request/CardService';
 import { NEW_PROJECT_TYPES, list } from 'constants/constants';
+import { getCurrentProjectStatus } from '../../../utils/parsers';
 
 let fields = ['project_id', 'req1', 'req2', 'req3', 'req4', 'req5', 'positon0', 'positon1', 'positon2', 'positon3', 'positon4', 'positon5'];
 let fields2 = ['description', 'projectname', 'jurisdiction','county','servicearea','sponsor','cosponsor','components', 'estimatedcost','the_geom','streams','overheadcostdescription','additionalcostdescription'];
@@ -515,7 +516,7 @@ export const getCsv = (
         }
         dataByYear[i].push([project.projectData.project_name,
           project?.projectData?.project_local_governments?.map(( e :any )=> e?.CODE_LOCAL_GOVERNMENT?.local_government_name).join(""),
-          project?.projectData?.project_status?.code_phase_type?.code_status_type?.status_name,
+          getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name,
           formatter.format(project['req' + i])]);
       }
     }
