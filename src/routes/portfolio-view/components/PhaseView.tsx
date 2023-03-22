@@ -392,8 +392,6 @@ const PhaseView = (
               return ydname + yAddButton;
             })
             .style('visibility', (d: any) => {
-              console.log("LENGTH")
-              console.log(d)
               if(d.project_status?.actual_start_date === null){
                 hasDateData = false;
               }
