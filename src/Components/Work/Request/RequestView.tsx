@@ -186,19 +186,19 @@ const RequestView = ({ type, isFirstRendering }: {
       return p.name === value;
     })
     if (l) {
-      setLocalityType(l.type);
+      setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
         if (year < 2022) {
-          if (l.type === 'COUNTY') {
+          if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
-          } else if (l.type === 'SERVICE_AREA') {
+          } else if (l.table === 'CODE_SERVICE_AREA') {
             displayedTabKey = ['Study', 'Acquisition', 'R&D'];
           }
         } else {
-          if (l.type === 'COUNTY') {
+          if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
-          } else if (l.type === 'SERVICE_AREA') {
+          } else if (l.table === 'CODE_SERVICE_AREA') {
             displayedTabKey = ['Study'];
           }
         }
@@ -255,9 +255,9 @@ const RequestView = ({ type, isFirstRendering }: {
           (r: any) => {
             setLocalities(r.localities);
             let localitiesData = r.localities.map((l: any) => l.name);
-            localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+ /*            localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
             localitiesData.push('月');
-            
+             */
             
             setDataAutocomplete(localitiesData);
               if (_year) {
@@ -281,7 +281,7 @@ const RequestView = ({ type, isFirstRendering }: {
                 return p.name === _locality;
               })
               if (l) {
-                setLocalityType(l.type);
+                setLocalityType(l.table);
               }
               if (_tabKey) {
                 let displayedTabKey: string[] = [];
@@ -289,9 +289,9 @@ const RequestView = ({ type, isFirstRendering }: {
                   displayedTabKey = tabKeys;
                 } else {
                   if (l) {
-                    if (l.type === 'COUNTY') {
+                    if (l.table === 'CODE_STATE_COUNTY') {
                       displayedTabKey = ['Capital', 'Maintenance']
-                    } else if (l.type === 'SERVICE_AREA') {
+                    } else if (l.table === 'CODE_SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
                     if (l.name === 'MHFD District Work Plan') {
@@ -792,9 +792,9 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
-    if (localityType === 'COUNTY') {
+    if (localityType === 'CODE_STATE_COUNTY') {
       displayedTabKey = ['Capital', 'Maintenance']
-    } else if (localityType === 'SERVICE_AREA') {
+    } else if (localityType === 'CODE_SERVICE_AREA') {
       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
     }
     if (locality === 'MHFD District Work Plan') {
@@ -803,23 +803,6 @@ const RequestView = ({ type, isFirstRendering }: {
     if (locality.includes('South Platte River County')) {
       displayedTabKey = tabKeys;
     }
-      /*
-    if (year < 2022) {
-      if (localityType === 'COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance']
-      } else if (localityType === 'SERVICE_AREA') {
-        displayedTabKey = ['Study', 'Acquisition', 'Special'];
-      }
-    } else {
-      if (localityType === 'COUNTY') {
-        displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'Special']
-      } else if (localityType === 'SERVICE_AREA') {
-        displayedTabKey = ['Study'];
-      }
-    }
-    if (locality === 'MHFD District Work Plan') {
-      displayedTabKey = tabKeys;
-    }*/
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
@@ -963,7 +946,7 @@ const RequestView = ({ type, isFirstRendering }: {
                               return p.name === locality;
                             })
                             if (l) {
-                              setLocalityType(l.type);
+                              setLocalityType(l.table);
                             }
                           }
                         }}

@@ -68,9 +68,9 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
     setPS(priorityFilterList);
   }
   let label;
-  if (l === 'COUNTY') {
+  if (l === 'CODE_STATE_COUNTY') {
     label = 'COUNTY';
-  } else if (l === 'SERVICE_AREA') {
+  } else if (l === 'CODE_SERVICE_AREA') {
     label = 'SERVICE AREA';
   }
 
