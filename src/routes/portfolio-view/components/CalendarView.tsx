@@ -1381,7 +1381,7 @@ let toData = datas
     timelineChart(datas);
     setSvgState(svg);
     setSvgAxisState(svgAxis);
-  }, []);
+  }, [rawData]);
 
   useEffect(() => {
     if (svgState) {
@@ -1397,7 +1397,7 @@ let toData = datas
       collapseItemStatus();
       timelineChart(datas);
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,rawData]);
 
   // useEffect(()=> {
   //   if(zoom && svg){
