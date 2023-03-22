@@ -28,7 +28,9 @@ const Profile = ({
   
   const [countyList, setCountyList] = useState<any[]>([]);
   const [jurisdictionList, setJurisdictionList] = useState<any[]>([]);
-  
+  const {
+    setCoordinatesJurisdiction
+  } = useMapDispatch();
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -48,6 +50,9 @@ const Profile = ({
   //console.log(useProfileState()) 
   useEffect(() => {
     getMe();
+    return () => {
+      setCoordinatesJurisdiction([]);
+    }
   }, []); 
   useEffect(() => {
     setContactInfo(user.business_associate_contact)
