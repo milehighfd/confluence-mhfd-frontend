@@ -97,7 +97,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         console.log(e);
       })
    
-  }, [updateList,newNote])
+  }, [updateList,note])
 
   useEffect(() => {
     setNote('')
@@ -125,8 +125,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             setNewEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
             setSendEndDate(rows[0].actual_end_date)
           }
-          setNote(rows[0].comments)
-          setNewNote(rows[0].comments)     
+          setNote(rows[0].comment)
+          setNewNote(rows[0].comment)     
         }
       })
       .catch((e) => {
@@ -136,7 +136,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
 
   useEffect(() => {
     if (newNote !== note || newStartDate !== actualStartDate || newEndDate !== actualEndDate) {
-      datasets.putData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id, comments: newNote, actual_start_date: sendStartDate, actual_end_date: sendEndDate })
+      datasets.putData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id, comment: newNote, actual_start_date: sendStartDate, actual_end_date: sendEndDate })
         .then((rows) => {
           setNote(newNote)
           setActualStartDate(newStartDate)
@@ -211,8 +211,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-          {editView? <><TextArea rows={4} style={{marginBottom:'15px'}} onChange={e => setNewNote(e.target.value)} defaultValue={newNote}/></>:
-            <p>{newNote}<span style={{fontWeight:'700'}}></span></p>
+          {editView? <><TextArea rows={4} style={{marginBottom:'15px'}} onChange={e => setNewNote(e.target.value)} defaultValue={!!newNote?newNote:'Add note here'}/></>:
+            <p>{!!newNote?newNote:'Add note here'}<span style={{fontWeight:'700'}}></span></p>
           }
           <div className="form-text-calendar">
             <Row>
