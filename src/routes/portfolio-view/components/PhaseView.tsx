@@ -249,8 +249,7 @@ const PhaseView = (
   }
 
 
-  const phaseChart = (dataDotchart: any, index: number) => {   
-    console.log(dataDotchart)
+  const phaseChart = (dataDotchart: any, index: number) => {      
     if (Object.keys(scheduleList).length > 0) {
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;//document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
@@ -273,7 +272,7 @@ const PhaseView = (
 
         setSvgStatePhase(svg);
         //dataDotchart =dataDotchart[0].values
-        let datas = dataDotchart[index].values;
+        let datas = dataDotchart[index].values;        
 
           let arrayForCirclesAndLines = [];
           for (var i = 0; i < scheduleList.length; i++) {
@@ -310,29 +309,9 @@ const PhaseView = (
             .padding(1);
           svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));          
           
-          if (dataDotchart[index].id === 'Title-1') {                   
-          let button = svg.selectAll("button").data(datas).enter().append("g");
-          button
-            .append("rect")
-            .attr("x", xdr(0) - 10)
-            .attr("width", xdr(0 + 1) - xdr(0) + 20)
-            .attr("y", (d: any) => {
-              let ydname: any = y(d.id);
-
-              return ydname - 15;
-            })
-            .attr("height", 25)
-            .style("fill", function (d: any) {
-              return "white";
-            })
-            .attr('stroke', '#2378ae')
-            .on("click", function (d: any) {
-              const sendTollgate = { d, scheduleList }
-              setTollData(sendTollgate);    
-              setOpenModalTollgate(true);
-            })
+                        
        
-        } else {
+     
           let hasDateData = true;
           let button = svg.selectAll("button").data(datas).enter().append("g");
           button
@@ -357,8 +336,8 @@ const PhaseView = (
             })
             .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 25))))))
             .style("fill", "#251863")
-            .style('visibility', (d: any) => {
-              if(d.project_status?.actual_start_date === null){
+            .style('visibility', (d: any) => {        
+              if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
                 hasDateData = false;
               }
               return hasDateData ? 'visible':'hidden'})
@@ -392,7 +371,7 @@ const PhaseView = (
               return ydname + yAddButton;
             })
             .style('visibility', (d: any) => {
-              if(d.project_status?.actual_start_date === null){
+              if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
                 hasDateData = false;
               }
               return hasDateData ? 'visible':'hidden'})
@@ -404,6 +383,7 @@ const PhaseView = (
             ;
 
           // Lines
+          let z1 = true;
           arrayForCirclesAndLines.forEach((r) => {  
             hasDateData = true        
             if (r < arrayForCirclesAndLines.length - 1) {
@@ -421,6 +401,15 @@ const PhaseView = (
                 .attr("height", 2)
                 .attr("stroke", (d: any) => {
                   let colorstroke: any = colorScale[(scheduleList[r].status)];
+                  console.log(colorstroke)
+                  if(d.phaseId === scheduleList[r].code_phase_type_id){
+                    z1 = false;
+                    colorstroke = colorScale['Current'];
+                  }else if(z1){
+                    colorstroke = colorScale['Done'];
+                  }else{
+                    colorstroke = colorScale['NotStarted'];
+                  }           
                   return colorstroke;
                 })
                 .attr("stroke", function (d: any) {
@@ -434,7 +423,7 @@ const PhaseView = (
                 // .attr("stroke", "url(#textBg)")
                 .attr("stroke-width", "2.5px")
                 .style('visibility', (d: any) => {
-                  if(d.project_status?.actual_start_date === null){
+                  if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
                     hasDateData = false;
                   }
                   return hasDateData ? 'hidden':'visible'})
@@ -442,7 +431,8 @@ const PhaseView = (
           });
       const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
       let circles = svg.selectAll("mycircle").data(datas).enter();
-      arrayForCirclesAndLines.forEach((r) => {
+      let z = true;
+      arrayForCirclesAndLines.forEach((r) => {        
         hasDateData = true
         circles
           .append("circle")
@@ -455,11 +445,18 @@ const PhaseView = (
             return ydname;
           })
           .attr("r", radius)
-          .style("fill", function (d: any) {
-            return colorScale[(scheduleList[r].status)];
+          .style("fill", function (d: any) {       
+            if(d.phaseId === scheduleList[r].code_phase_type_id){
+              z = false;
+              return colorScale['Current'];
+            }else if(z){
+              return colorScale['Done'];
+            }else{
+              return colorScale['NotStarted'];
+            }            
           })
           .style('visibility', (d: any) => {
-            if(d.project_status?.actual_start_date === null){
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }
             return hasDateData ? 'hidden':'visible'})
@@ -476,7 +473,7 @@ const PhaseView = (
             return "white";
           })
           .style('visibility', (d: any) => {
-            if(d.project_status?.actual_start_date === null){
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }
             return hasDateData ? 'hidden':'visible'})
@@ -490,10 +487,17 @@ const PhaseView = (
           })
           .attr("r", radius - 3)
           .style("fill", function (d: any) {
-            return colorScale[(scheduleList[r].status)];
+            if(d.phaseId === scheduleList[r].code_phase_type_id){
+              z = false;
+              return colorScale['Current'];
+            }else if(z){
+              return colorScale['Done'];
+            }else{
+              return colorScale['NotStarted'];
+            }          
           })
           .style('visibility', (d: any) => {
-            if(d.project_status?.actual_start_date === null){
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }
             return hasDateData ? 'hidden':'visible'})
@@ -504,9 +508,9 @@ const PhaseView = (
           .enter()
           .append("text")
           .attr('id', (d: any) => { 
-            return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_text` })
+            return `${(d.id).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_text` })
             .attr('id2', (d: any) => { 
-              return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_text` })
+              return `${(d.id).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_text` })
           .attr("class", "circletext")
           .attr('fill', '#ffffff')
           .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
@@ -537,7 +541,7 @@ const PhaseView = (
             return ydname + radius / 3;
           })
           .style('visibility', (d: any) => {
-            if(d.project_status?.actual_start_date === null){
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }
             return hasDateData ? 'hidden':'visible'})
@@ -555,7 +559,7 @@ const PhaseView = (
           .style("fill", 'white')
           .style('opacity', 0)
           .style('visibility', (d: any) => {
-            if(d.project_status?.actual_start_date === null){
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }
             return hasDateData ? 'hidden':'visible'})
@@ -580,7 +584,8 @@ const PhaseView = (
             let popupVisible: any = document.getElementById('popup-phaseview');
             setGrapphicOpen(true);
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
+            console.log(searchTextId2.replaceAll(' ',''))
+            let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')  }_text`).text();
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
             const phaseSc = (scheduleList[r].phase)   
             const phaseId = (scheduleList[r].phase_id)              
@@ -632,7 +637,7 @@ const PhaseView = (
           })
           ;
       });
-    }}}
+    }}
   }
   const removeAllChildNodes = (parent: any) => {
     while (parent.firstChild) {
@@ -659,8 +664,7 @@ const PhaseView = (
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
       .then((rows) => {  
         setPhaseList(rows)  
-        setStatusCounter(rows)
-        console.log(rows.length)
+        setStatusCounter(rows.length)
         let counter = 0;
         z = rows.map((x: any) => {
           counter++;
@@ -676,7 +680,8 @@ const PhaseView = (
               phase_id: x.code_phase_type_id,             
               tasksData: x.code_rule_action_items,
               duration: x.duration,
-              duration_type: x.duration_type
+              duration_type: x.duration_type,
+              code_phase_type_id: x.code_phase_type_id
             })
         })
         setScheduleList(z);

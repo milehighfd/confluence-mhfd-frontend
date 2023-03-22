@@ -100,9 +100,7 @@ const CalendarView = ({
   });
 
 
-  const locations: any = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
-  console.log("LOCATIONS")
-  console.log(locations)
+  const locations: any = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));  
   let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
     return {
