@@ -1319,6 +1319,9 @@ const applyProblemClusterLayer = () => {
   const test = (item: any) => {};
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...(tileStyles as any) };
+    if(key == 'stream_improvement_measure') {
+      key += '_copy'; 
+    }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id]);

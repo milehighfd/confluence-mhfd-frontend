@@ -1189,6 +1189,10 @@ const CreateProjectMap = (type: any) => {
   }
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...tileStyles as any }
+    // TODO REMOVE ONCE TABLES OF COMPONENTS ARE THE SAME
+    if(key == 'stream_improvement_measure') {
+      key += '_copy'; 
+    }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
@@ -1197,6 +1201,9 @@ const CreateProjectMap = (type: any) => {
   };
   const showHighlightedArray = (key: string, cartodb_ids: any) => {
     const styles = { ...tileStyles as any }
+    if(key == 'stream_improvement_measure') {
+      key += '_copy'; 
+    }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
         let filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
