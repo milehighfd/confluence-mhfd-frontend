@@ -14,6 +14,7 @@ import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilte
 import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 import MapAutoComplete from "./MapAutoComplete";
+import { getCurrentProjectStatus } from "utils/parsers";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
@@ -1009,7 +1010,7 @@ const MapView = () => {
                   project_costs: project.project_costs,
                   estimatedCost: project.estimatedcost ?  project.estimatedcost: project.finalcost,
                   componentCost: project.component_cost ? project.component_cost: 0,
-                  status: project?.project_status?.code_phase_type?.code_status_type?.status_name,
+                  status: getCurrentProjectStatus(project)?.code_phase_type?.code_status_type?.status_name,
                   projecttype: projectType,
                   objectid: project.objectid,
                   type: project.type,
