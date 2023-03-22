@@ -101,7 +101,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     }
   }, []);
   useEffect(() => {
-    const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+    const projectType = detailed?.code_project_type?.project_type_name;
     console.log(projectType, 'Project Type NAME')
     setProjecttype(projectType);
   }, [detailed]);
@@ -159,7 +159,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             <div className="header-detail" style={{alignItems: 'normal'}}>
               <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
-                <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (getSponsors(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? (detailed?.county + ' County') : (getCounties(detailed?.project_counties || []) || 'N/A')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? (detailed?.servicearea + ' Service Area'):(getServiceAreas(detailed?.project_service_areas || []) || 'N/A')} </span></p>

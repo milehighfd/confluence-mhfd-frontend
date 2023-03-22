@@ -981,7 +981,7 @@ const MapView = () => {
               totalElements = cardInformation.length;
             } else {
               cardInformation = galleryProjectsV2?.map((project: any) => {
-                const projectType = project?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+                const projectType = project?.code_project_type?.project_type_name;
                 const x = {
                   cartodb_id: project.project_id,
                   project_id: project.project_id,

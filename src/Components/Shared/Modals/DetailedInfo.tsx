@@ -47,7 +47,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
         </Col>
       </Row>
     </>}
-    {detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name && <>
+    {detailedPage?.code_project_type?.project_type_name && <>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Stream</i></label>
@@ -55,7 +55,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{'N/A'}</p>
         </Col>
-        { detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name.includes('Capital') ? <>
+        { detailedPage?.code_project_type?.project_type_name.includes('Capital') ? <>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Start Year</i></label>
         </Col>
@@ -67,8 +67,8 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
           <label><i>Subtype</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name ? 
-            detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name : 'N/A'
+          <p>{detailedPage?.code_project_type?.project_type_name ? 
+            detailedPage?.code_project_type?.project_type_name : 'N/A'
             }</p>
         </Col>
         </>}
@@ -97,7 +97,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
         </Col>
       </Row>
       }
-      { detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name.includes('Capital') && <Row>
+      { detailedPage?.code_project_type?.project_type_name.includes('Capital') && <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Completed Year</i></label>
         </Col>
@@ -111,7 +111,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
           <p>{'N/A'}</p>
         </Col>
       </Row>}
-      {detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name.includes('Capital') && <Row>
+      {detailedPage?.code_project_type?.project_type_name.includes('Capital') && <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>MHFD Lead/PM</i></label>
         </Col>
@@ -126,7 +126,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
         </Col>
       </Row>}
       {(detailed?.problemtype || (
-        detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name.includes('Capital')
+        detailedPage?.code_project_type?.project_type_name.includes('Capital')
       )) && <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>Description</i></label>
