@@ -133,7 +133,7 @@ export type ObjectLayerType = {
 
 export type LayerStylesType = {
     type: string,
-    layout: {},
+    layout: any,
     'source-layer'?: string,
     paint: {
         [key : string]: string | number
