@@ -53,12 +53,9 @@ useEffect(() => {
   setDateValue(dataProject?.scheduleList?.map((x:any)=>{
     startDate = endDate;  
     endDate = startDate.add(x.duration,'M')  
-    console.log(startDate)
-    console.log({key:x.categoryNo,name:x.name,startDate:startDate,endDate:endDate})   
     return {key:x.categoryNo,name:x.name,startDate:startDate,endDate:endDate}
   }))
 },[dataProject])
-console.log(dateValue)
 let items = [
   { key: 'lock-phase', label: 'Lock Phase' },
   { key: 'current-phase', label: 'Set Current Phase' },

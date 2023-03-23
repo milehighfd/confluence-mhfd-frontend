@@ -11,7 +11,7 @@ import CollapseItems from './CollapseItems';
 import TeamCollaborator from './TeamCollaborator';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { useDetailedState } from '../../../hook/detailedHook';
-import { getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCurrentProjectStatus, getTotalEstimatedCost } from '../../../utils/parsers';
 
 const DetailedModal = ({
   type,
@@ -149,7 +149,7 @@ const DetailedModal = ({
 
   useEffect(() => {
     console.log('detailedPage', detailedPage);
-    const projectType = detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+    const projectType = detailedPage?.code_project_type?.project_type_name;
     console.log('project tyep', projectType);
     setProjecttype(projectType);
   }, [detailedPage]);
@@ -166,7 +166,7 @@ const DetailedModal = ({
           <Row className="detailed-h" gutter={[16, 8]}>
             <Col xs={{ span: 24 }} lg={{ span: 13 }}>
               <h1> {detailedPage?.problemname ? detailedPage?.problemname : detailedPage?.project_name} </h1>
-              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+              <p><span>{detailedPage?.problemtype ? (detailedPage?.problemtype + ' Problem') : (detailedPage?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span>{detailedPage?.problemtype ? ( detailedPage?.jurisdiction + ', CO' ) : ('TODO ADD SPONSOR ON BACKEND')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage?.codeStateCounty?.county_name + ' County'} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
               <span> {detailedPage?.codeServiceArea?.service_area_name + ' Service Area'} </span></p>
@@ -180,8 +180,8 @@ const DetailedModal = ({
                 <Progress percent={detailedPage?.solutionstatus ? detailedPage?.solutionstatus : 0} size="small" status="active" />
               </div>
               ) : (
-                <div className="btn-opacity">{detailedPage?.project_status?.code_phase_type?.code_status_type?.status_name ?
-                  detailedPage?.project_status?.code_phase_type?.code_status_type?.status_name: 'N/A'}</div>
+                <div className="btn-opacity">{ getCurrentProjectStatus(detailedPage)?.code_phase_type?.code_status_type?.status_name ?
+                  getCurrentProjectStatus(detailedPage)?.code_phase_type?.code_status_type?.status_name: 'N/A'}</div>
               )
               }
 

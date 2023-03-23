@@ -12,6 +12,7 @@ import { DeleteAlert } from './DeleteAlert';
 import { boardType } from './RequestTypes';
 import { EllipsisOutlined, MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
+import { getCurrentProjectStatus } from '../../../utils/parsers';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -43,7 +44,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     project_name,
     projectsubtype,
   } = project.projectData;
-  const status = project?.projectData?.project_status?.code_phase_type?.code_status_type?.status_name
+  const status = getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name
   const {id} = project
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])

@@ -12,6 +12,7 @@ import CardsViewProfile from './CardViewProfile';
 import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
+import { getCurrentProjectStatus } from 'utils/parsers';
 
 const { Search } = Input;
 
@@ -43,7 +44,7 @@ const CardsList = ({
     if (type === 'Projects') {
       datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
         setData(result.map((project: any) => {
-          const projectType = project?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+          const projectType = project?.code_project_type?.project_type_name;
           const x = {
             cartodb_id: project.project_id,
             project_id: project.project_id,
@@ -70,7 +71,7 @@ const CardsList = ({
             sponsor: project.sponsor,
             estimatedCost: project.estimatedcost ? project.estimatedcost : project.finalcost,
             componentCost: project.component_cost ? project.component_cost : 0,
-            status: project?.project_status?.code_phase_type?.code_status_type?.status_name,
+            status: getCurrentProjectStatus(project)?.code_phase_type?.code_status_type?.status_name,
             projecttype: projectType,
             objectid: project.objectid,
             type: project.type,

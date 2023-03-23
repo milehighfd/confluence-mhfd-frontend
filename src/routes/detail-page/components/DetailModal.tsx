@@ -24,7 +24,7 @@ import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
-import { getCounties, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
 import { useLocation } from "react-router";
 
 const { TabPane } = Tabs;
@@ -101,7 +101,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     }
   }, []);
   useEffect(() => {
-    const projectType = detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name;
+    const projectType = detailed?.code_project_type?.project_type_name;
     console.log(projectType, 'Project Type NAME')
     setProjecttype(projectType);
   }, [detailed]);
@@ -159,7 +159,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             <div className="header-detail" style={{alignItems: 'normal'}}>
               <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
-                <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.project_status?.code_phase_type?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (getSponsors(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? (detailed?.county + ' County') : (getCounties(detailed?.project_counties || []) || 'N/A')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? (detailed?.servicearea + ' Service Area'):(getServiceAreas(detailed?.project_service_areas || []) || 'N/A')} </span></p>
@@ -167,8 +167,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
               {detailed?.problemtype ? 
                 <></>:
                 <div className="status-d" style={{display:'flex'}}>
-                  <p>Status<br></br><span className="status-active" style={{marginRight:'20px'}}>{detailed?.project_status?.code_phase_type?.code_status_type?.status_name}</span></p>
-                  <p style={{}}>Phase<br></br><span className="status-final">{detailed?.project_status?.code_phase_type?.phase_name}</span></p>
+                  <p>Status<br></br><span className="status-active" style={{marginRight:'20px'}}>{getCurrentProjectStatus(detailed)?.code_phase_type?.code_status_type?.status_name}</span></p>
+                  <p style={{}}>Phase<br></br><span className="status-final">{ getCurrentProjectStatus(detailed)?.code_phase_type?.phase_name}</span></p>
                 </div>
               }
             </div>

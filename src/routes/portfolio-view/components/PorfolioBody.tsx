@@ -18,7 +18,7 @@ import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { getCounties, getServiceAreas, getSponsors, getStreams, getTeam, getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCounties, getServiceAreas, getSponsors, getStreams, getTeam, getTotalEstimatedCost,getCurrentProjectStatus } from '../../../utils/parsers';
 
 const { TabPane } = Tabs;
 //const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -236,6 +236,8 @@ const PortafolioBody = () => {
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
+      console.log(valuesGroups)
+      console.log(currentGroup)
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
@@ -243,8 +245,8 @@ const PortafolioBody = () => {
        console.log("valuesList")
        console.log(valuesList)
         groups.forEach((element: any, index: number) => {
-          console.log("ELEMENT")
-          console.log(element);
+          // console.log("ELEMENT")
+          // console.log(element);
           if (valuesList[element.id]) {
           updatedGroups.push({
             id: `Title${element.id}`,
@@ -262,9 +264,11 @@ const PortafolioBody = () => {
               }
             ],
           });
+          console.log("VALUES")
+          console.log(valuesList)
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;      
-                    
+              
               updatedGroups.push({
                 id: `${element.value}${idx}`,
                 project_id: elem.project_id,
@@ -273,7 +277,7 @@ const PortafolioBody = () => {
                 rowLabel: elem.description, //description
                 date: moment('2022/08/11'),
                 key: elem.project_id + element.id,
-                phase: elem?.project_status?.code_phase_type?.phase_name,
+                phase: getCurrentProjectStatus(elem)?.code_phase_type?.phase_name,
                 mhfd:  elem?.project_staffs.reduce((accumulator: string, pl: any) => {
                   const sa = pl?.mhfd_staff?.full_name || '';
                   const sa1 = pl?.code_project_staff_role_type_id || '';
@@ -389,7 +393,7 @@ const PortafolioBody = () => {
                 total_funding: null,
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.code_project_type?.project_type_name,
-                status: elem?.project_status?.code_phase_type?.code_status_type?.status_name || '',
+                status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
                 project_status: elem?.project_status,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
@@ -638,7 +642,7 @@ const PortafolioBody = () => {
   }
 
   function sort(order: any, columnKey: any, tabkey: any , filterby: any, filterValue: any, filtername: any) {  
-
+    console.log(completeData)
     let numAscending: any[] = [];
     let filteredData = [];
     let filteredData2: any[] = [];

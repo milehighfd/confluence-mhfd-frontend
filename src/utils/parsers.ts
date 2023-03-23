@@ -94,3 +94,8 @@ export const getTeam = (projectStaffs: any) => {
     }
   })
 };
+
+export const getCurrentProjectStatus = (project:any) => {
+  const current = project?.project_statuses?.find((ps:any) => ps.project_status_id === project.current_project_status_id); 
+  return current;
+}

@@ -659,6 +659,8 @@ const PhaseView = (
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
       .then((rows) => {  
         setPhaseList(rows)  
+        setStatusCounter(rows)
+        console.log(rows.length)
         let counter = 0;
         z = rows.map((x: any) => {
           counter++;
@@ -740,8 +742,6 @@ const PhaseView = (
       item1,
       (statusList.filter((item: any) => item.status_name === item1).length) * labelWidth
     ]));
-    console.log(counts.length)
-    setStatusCounter(counts.length)
     setAvailableStatusList(counts)
   }, [updatePhaseList])
 
