@@ -26,6 +26,7 @@ const CalendarView = ({
   searchRef,
   graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic,
   index,
+  setTollData,
   tabKey,
 }: {
   rawData: any,
@@ -44,6 +45,7 @@ const CalendarView = ({
       top: number;
   }>>,
   index: number;
+  setTollData: any;
   tabKey: any,
 }) => {
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -67,7 +69,9 @@ const CalendarView = ({
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   const [zoomTimeline, setZoomTimeline] = useState(0);
+  const [statusCounter,setStatusCounter] = useState(0);
   let pageWidth  = document.documentElement.scrollWidth;
+  let hasDateData = true;
   const [actionItemsState, setActionItemsState] = useState({
     draft: true,
     sign: false,
@@ -225,6 +229,7 @@ let toData = datas
       datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
         .then((rows) => {  
           setPhaseList(rows)  
+          setStatusCounter(rows.length)
           let counter = 0;
           z = rows.map((x: any) => {
             counter++;
@@ -258,6 +263,7 @@ let toData = datas
 
   const timelineChart = (datasets: any) => {
     console.log(datasets)
+
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
     let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8): barHeightDefault;
     let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight): 12;
@@ -471,6 +477,79 @@ let toData = datas
         .style('stroke-width', 2)
         .style('stroke', '#047CD7')
         .style('fill', 'none');
+      
+        let button = svg.selectAll("button").data(datasets).enter().append("g");
+        button
+          .append("rect")
+          .attr('rx', 3)
+          .attr('ry', 3)
+          .attr("x", (d: any) => {
+            // let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10))))); 
+            return xScale(d['from']);
+          })
+          .attr("width", () => {
+            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 25 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10)))));
+            // console.log('ydname', ydname, ydname + 10)
+            return widthAddButton;
+          })
+          // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
+          
+          .attr("y", (d: any) => {
+            // let ydname: any = y(d.id);
+            // console.log('ydname', ydname, ydname + 10)
+            // let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
+            let yScaleRect: any = yScale(d['id']);
+          return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
+          })
+          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 25))))))
+          .style("fill", "#251863")
+          .style('visibility', (d: any) => {        
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+              hasDateData = false;
+            }
+            return hasDateData ? 'visible':'hidden'})
+          .attr('stroke', '#251863')
+          .style('stroke-linecap', 'round')
+          .on("click", function (d: any) {
+            const sendTollgate = { d, scheduleList }
+            setTollData(sendTollgate);    
+            setOpenModalTollgate(true);
+          })
+          hasDateData = true;
+          svg
+          .selectAll("editText")
+          .data(datasets)
+          .enter()
+          .append("text")
+          .attr("class", "circletext")
+          .attr('fill', '#ffffff')
+          .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
+          .attr('font-weight', 600)
+          .text('Add Dates')
+          .attr("x", (d: any) => {
+            // let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10))))); 
+            return xScale(d['from']);
+          })
+          .attr("y", (d: any) => {
+            // let ydname: any = y(d.id);
+            // console.log('ydname', ydname, ydname + 10)
+            // let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
+            let yScaleRect: any = yScale(d['id']);
+          return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
+          })
+          .style('visibility', (d: any) => {
+            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+              hasDateData = false;
+            }
+            return hasDateData ? 'visible':'hidden'})
+            .on("click", function (d: any) {
+              const sendTollgate = { d, scheduleList }
+              setTollData(sendTollgate);    
+              setOpenModalTollgate(true);
+            })
+          ;
+
+      hasDateData = true 
 
       let scheduleRects = scheduleG
         .enter().append('rect')
@@ -503,7 +582,12 @@ let toData = datas
         })
         .attr('fill', function(d: any) {
           return (d.type === 'title'? '#C9C5D8':colorScale[d.status]);
-        });
+        })
+        .style('visibility', (d: any) => {
+        if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          hasDateData = false;
+        }
+        return hasDateData ? 'hidden':'visible'})
 
         // let agrupationTitles = scheduleG
         // .join('rect')
@@ -527,6 +611,8 @@ let toData = datas
         // .attr('height', barHeight -20 )
         // .attr('fill', '#C9C5D8');
 
+      hasDateData = true
+
       let scheduleRectsCenter = scheduleG
         .enter().append('rect')
         .attr('id', function(d: any) {
@@ -548,7 +634,14 @@ let toData = datas
         .attr('height', barHeight - 2)
         .attr('fill', function(d: any) {
           return colorScale[d.status];
-        });
+        })
+        .style('visibility', (d: any) => {
+          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+            hasDateData = false;
+          }
+          return hasDateData ? 'hidden':'visible'});
+
+      hasDateData = true
 
       let rectNames = scheduleG
         .enter().append('text')
@@ -574,7 +667,12 @@ let toData = datas
           let xScaleFrom: any = xScale(d['from']);
           return (d.type === 'title'? 100: xScaleTo - xScaleFrom);
         })
-        .text((d: any) => d.name);
+        .text((d: any) => d.name)
+        .style('visibility', (d: any) => {
+          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+            hasDateData = false;
+          }
+          return hasDateData ? 'hidden':'visible'});
 
         // let rectNamesAgrupation = scheduleG
         // .join('text')
@@ -616,6 +714,8 @@ let toData = datas
         .attr('class', dragablesLines)
         .attr('id', (d: any) => `${d.id}_${d.categoryNo}_right`);
 
+      hasDateData = true
+
       let h = yScale.bandwidth();
       leftLine = dragableLineLeft
         .append('line')
@@ -638,7 +738,14 @@ let toData = datas
         .attr('y2', function(d: any) {
           let yScaleId: any = yScale(d['id']);
           return yScaleId + h + 8;
-        });
+        })
+        .style('visibility', (d: any) => {
+          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+            hasDateData = false;
+          }
+          return hasDateData ? 'hidden':'visible'});
+
+      hasDateData = true
 
       rightLine = dragableLineRight
         .append('line')
@@ -661,7 +768,12 @@ let toData = datas
         .attr('y2', function(d: any) {
           let yScaleId: any = yScale(d['id']);
           return yScaleId + h + 8;
-        });
+        })
+        .style('visibility', (d: any) => {
+          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+            hasDateData = false;
+          }
+          return hasDateData ? 'hidden':'visible'});
 
       zoomedXScale = xScale;
       let calctodayX = function(d: any) {
@@ -1194,7 +1306,9 @@ let toData = datas
     //
     zoomfortoday = d3.event.transform.k;
    // console.log(zoomfortoday)
-    nameEnter
+   
+   
+   nameEnter
         .append('text')
         .attr('class', 'name')
         

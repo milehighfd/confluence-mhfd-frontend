@@ -915,6 +915,7 @@ const PortafolioBody = () => {
                     searchRef={searchRef} 
                     graphicOpen={graphicOpen} 
                     setGrapphicOpen={setGrapphicOpen}
+                    setTollData = {setTollData}
                     tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0} 
                     positionModalGraphic={positionModalGraphic} 
                     setPositionModalGraphic={setPositionModalGraphic} 
