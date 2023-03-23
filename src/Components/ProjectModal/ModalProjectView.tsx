@@ -147,7 +147,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         setNameProject('Ex: Stream Name @ Location 202X');
       } else {
         //getAttachmentByProject(data.projectid);
-        if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type.code_project_type_id === 1){
+        if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 1){
           getStreamsByProjectId(data.project_id);
         } else if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5) {
           getIndependentComponentsByProjectId(data.project_id);
@@ -165,7 +165,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 8 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 9 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 10 || 
-        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type.code_project_type_id === 11 
+        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 11 
         ){
         setSubType(data.projectsubtype);
         setVisibleMaintenance(true);

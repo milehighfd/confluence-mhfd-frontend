@@ -143,7 +143,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   
   useEffect(()=>{
     if(data !== 'no data' ) {
-      console.log(data);
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
@@ -191,9 +190,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               }
               return element.cost
             }
-        }).filter((e:any)=> !!e);
-        setOverheadCosts(filtered);
-        console.log();
+        }).filter((e:any)=> e >= 0);
+        setOverheadValues(filtered);
       }
       setSponsor(sponsor);
       setTimeout(()=>{
@@ -365,7 +363,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && sponsor !== '' && sponsor !== undefined  && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0){
+    console.log(streamValidation);
+    console.log(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0);
+    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0){
         setDisable(false);
     }
     else{setDisable(true);}
