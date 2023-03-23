@@ -115,7 +115,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
   const { groupOrganization } = useProfileState();
-
   useEffect(() => {
     if (userInformation?.designation === GOVERNMENT_STAFF) {
       if (userInformation?.organization) {
@@ -143,10 +142,12 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[]);
   
   useEffect(()=>{
-    if(data!== 'no data' ) {
+    if(data !== 'no data' ) {
+      console.log(data);
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
+      const aditionalCostObject = data.project_costs.filter((e:any) => e.code_cost_type_id === 4)[0];
       const coEsponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 12) {
           return e.business_associate.business_name
@@ -169,24 +170,30 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.project_name);
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
-      setAdditionalCost(parseInt(data.project_costs.filter((e:any) => e.code_cost_type_id === 14) || '0'));
-      let newOV = (data.overheadcost || '').split(',').map((x:any)=>{
-        return parseInt(x);
-      })
-      setTimeout(()=>{
-        setOverheadValues(newOV);
-      },1000);
-      if(data.additionalcostdescription == null){
-        setAdditionalDescription("");
-      }
-      else{
-        setAdditionalDescription(data.additionalcostdescription);
-      }
-      if(data.overheadcostdescription == null){
-        setOverheadDescription("");
-      }
-      else{
-        setOverheadDescription(data.overheadcostdescription);
+      setAdditionalCost(parseInt(aditionalCostObject.cost || '0'));
+      setAdditionalDescription(aditionalCostObject.cost_description);
+      if (data.project_costs.length > 0) {
+        const filtered = data.project_costs.map((element: any) => {
+          if (
+            element.code_cost_type_id === 2 ||
+            element.code_cost_type_id === 6 ||
+            element.code_cost_type_id === 7 ||
+            element.code_cost_type_id === 8 ||
+            element.code_cost_type_id === 9 ||
+            element.code_cost_type_id === 10 ||
+            element.code_cost_type_id === 12 ||
+            element.code_cost_type_id === 11 ||
+            element.code_cost_type_id === 13
+            ) 
+            {
+              if(element.code_cost_type_id === 2) {
+                setOverheadDescription(element.cost_description);
+              }
+              return element.cost
+            }
+        }).filter((e:any)=> !!e);
+        setOverheadCosts(filtered);
+        console.log();
       }
       setSponsor(sponsor);
       setTimeout(()=>{
