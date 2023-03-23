@@ -488,11 +488,11 @@ const CreateProjectMap = (type: any) => {
     if (thisStreamIntersected && thisStreamIntersected.geom) {
       geom = JSON.parse(thisStreamIntersected.geom);
       let cg = componentGeom ? JSON.parse(componentGeom.geom) : undefined;
-      if (geom.coordinates.length == 0 && cg) {
+      if (geom.coordinates?.length == 0 && cg) {
         geom = cg;
         thisStreamIntersected.geom = componentGeom.geom;
         drawStream = false;
-      } else if (geom.coordinates.length == 0) {
+      } else if (geom.coordinates?.length == 0) {
         setShowIntersectionError(true);
         setLoading(false);
         return;
