@@ -16,7 +16,7 @@ export const PROJECTS_MAP_STYLES = {
 };
 
 export const PROJECTS_POLYGONS = 'projects_polygon_';
-export const PROJECTS_DRAFT = 'mhfd_projects_created' + process.env.REACT_APP_NODE_ENV ? ('_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV)) : '_dev';
+export const PROJECTS_DRAFT = 'mhfd_projects' + process.env.REACT_APP_NODE_ENV ? ('_' + ((process.env.REACT_APP_NODE_ENV === 'production' || process.env.REACT_APP_NODE_ENV === 'prod' ) ? 'prod' :  process.env.REACT_APP_NODE_ENV)) : '_dev';
 
 export const MEP_PROJECTS_TEMP_LOCATIONS = 'mep_projects_temp_locations';
 export const MEP_PROJECTS_DETENTION_BASINS = 'mep_detentionbasins';

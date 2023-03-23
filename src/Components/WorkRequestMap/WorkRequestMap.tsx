@@ -73,7 +73,7 @@ import {
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
 import { Dropdown, Button, Popover } from 'antd';
-import { tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
+import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useDetailedState } from '../../hook/detailedHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
@@ -161,6 +161,7 @@ const WorkRequestMap = (type: any) => {
   const { groupOrganization } = useProfileState();
   const { getGroupOrganization } = useProfileDispatch();
   const [idsBoardProjects, setIdsBoardProjects] = useState<any>([]);
+  const [groupedIdsBoardProjects, setGroupedIdsBoardProjects] = useState<any>([]);
   const [layerFilters, setLayerFilters] = useState(layers);
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -437,12 +438,12 @@ const WorkRequestMap = (type: any) => {
           const promises: Promise<any>[] = [];
           promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
           Promise.all(promises).then(tiles => {
-            updateLayerSource(PROJECTS_DRAFT, tiles[0]);
-            showLayers(PROJECTS_DRAFT);
+            updateLayerSource(PROJECTS_DRAFT+'draft', tiles[0]);
+            showLayers(PROJECTS_DRAFT+'draft');
           });
           map.isRendered(() => {
             setTimeout(() => {
-              applyFiltersIDs(PROJECTS_DRAFT, filterProjectsDraft);
+              applyFiltersIDs(PROJECTS_DRAFT+'draft', filterProjectsDraft);
             }, 700);
           });
         });
@@ -486,6 +487,8 @@ const WorkRequestMap = (type: any) => {
     if (boardProjects && boardProjects.ids) {
       if (!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
+        console.log('Boardprojects', boardProjects);
+        setGroupedIdsBoardProjects(boardProjects.groupedIds);
       }
     }
   }, [boardProjects]);
@@ -861,8 +864,8 @@ const applyProblemClusterLayer = () => {
       }
     });
     styles[PROJECTS_DRAFT].forEach((style: LayerStylesType, index: number) => {
-      if (map.map.getLayer(`${PROJECTS_DRAFT}_${index}`)) {
-        map.map.moveLayer(`${PROJECTS_DRAFT}_${index}`);
+      if (map.map.getLayer(`${PROJECTS_DRAFT+'draft'}_${index}`)) {
+        map.map.moveLayer(`${PROJECTS_DRAFT+'draft'}_${index}`);
       }
     });
   };
@@ -914,7 +917,7 @@ const applyProblemClusterLayer = () => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(key + '_' + index)) {
-        if (key === PROJECTS_DRAFT) {
+        if (key === PROJECTS_DRAFT+'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           if (idsBoardProjects && idsBoardProjects.length > 0) {
             let boardids = idsBoardProjects;
@@ -1117,7 +1120,7 @@ const applyProblemClusterLayer = () => {
         return;
       }
       const allFilters: any[] = ['all'];
-      if (key === PROJECTS_DRAFT) {
+      if (key === PROJECTS_DRAFT+'draft') {
         if (idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
           let boardids = idsBoardProjects;
           allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
@@ -1201,7 +1204,7 @@ const applyProblemClusterLayer = () => {
   const addTilesLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes(PROJECTS_DRAFT)) {
+      if (key.includes(PROJECTS_DRAFT+'draft')) {
         if (map.map.getLayer(key + '_' + index)) {
           return;
         }
