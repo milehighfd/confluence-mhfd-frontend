@@ -236,14 +236,14 @@ const PortafolioBody = () => {
     getGroupList(currentGroup).then((valuesGroups) => {
       const groups = valuesGroups.groups;
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-      console.log(valuesGroups)
-      console.log(currentGroup)
+      //console.log(valuesGroups)
+      //console.log(currentGroup)
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
        const updatedGroups: any = [];         
-       console.log("valuesList")
-       console.log(valuesList)
+      //  console.log("valuesList")
+      //  console.log(valuesList)
         groups.forEach((element: any, index: number) => {
           // console.log("ELEMENT")
           // console.log(element);
@@ -264,8 +264,8 @@ const PortafolioBody = () => {
               }
             ],
           });
-          console.log("VALUES")
-          console.log(valuesList)
+          // console.log("VALUES")
+          // console.log(valuesList)
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;      
               
@@ -278,6 +278,7 @@ const PortafolioBody = () => {
                 date: moment('2022/08/11'),
                 key: elem.project_id + element.id,
                 phase: getCurrentProjectStatus(elem)?.code_phase_type?.phase_name,
+                phaseId: getCurrentProjectStatus(elem)?.code_phase_type_id,
                 mhfd:  elem?.project_staffs.reduce((accumulator: string, pl: any) => {
                   const sa = pl?.mhfd_staff?.full_name || '';
                   const sa1 = pl?.code_project_staff_role_type_id || '';
@@ -394,7 +395,7 @@ const PortafolioBody = () => {
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.code_project_type?.project_type_name,
                 status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
-                project_status: elem?.project_status,
+                project_status: elem?.project_statuses,
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
@@ -642,7 +643,6 @@ const PortafolioBody = () => {
   }
 
   function sort(order: any, columnKey: any, tabkey: any , filterby: any, filterValue: any, filtername: any) {  
-    console.log(completeData)
     let numAscending: any[] = [];
     let filteredData = [];
     let filteredData2: any[] = [];
@@ -728,7 +728,6 @@ const PortafolioBody = () => {
     let numAscending = [];
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     setNewData(numAscending)
-    console.log(tabKey)
   }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
 
   function enterPhase (){
@@ -753,9 +752,7 @@ const PortafolioBody = () => {
     setTabKey(key)
   }
   function openFavs (){
-    console.log("ASDASd")
     setOpenPiney(false)    
-    console.log(openPiney)
     setOpenFavorites(!openFavorites)   
   }
   return <>
