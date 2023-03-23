@@ -338,6 +338,50 @@ const RequestView = ({ type, isFirstRendering }: {
     setZoomProject(undefined);
   }, []);
 
+  // 1	Draft
+  // 2	Requested
+  // 3	Approved
+  // 4	Initiated
+  // 5	Active
+  // 6	Completed
+  // 7	Inactive
+  // 8	Cancelled
+  // 9	Closed
+  // 10	Closeout
+  const groupBy = (arr: any, keyGetter: any) => {
+    const out: any = {};
+    for (let item of arr) {
+      const key = keyGetter(item);
+      if (!out[key]) {
+        out[key] = [];
+      }
+      out[key].push(item);
+    }
+    return out;
+  };
+  
+  const splitProjectsIdsByStatuses = (projects: any) => {
+    const projectsRelevantData = projects.map((p: any) => {
+      return {
+        // current_project_status_id: p.projectData?.current_project_status_id, 
+        statuses: p.projectData?.project_statuses,
+        current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
+          if (p.projectData?.current_project_status_id) {
+            return ps?.project_status_id == p.projectData?.current_project_status_id
+          } else {
+            // IF NO CURRENT STATUS PICK FIRST ONE 
+            return index === 0;
+          }
+        })[0]?.code_phase_type?.code_status_type,
+        project_id: p.projectData?.project_id
+      }
+    });
+    const grouped = groupBy(projectsRelevantData, (item:any) => item.current_project_status ? item.current_project_status?.code_status_type_id : item.statuses[0]?.code_phase_type?.code_status_type?.code_status_type_id);
+    for(let key in grouped) {
+      grouped[key] = grouped[key].map((values: any) => values.project_id)
+    }
+    return grouped;
+  } 
   useEffect(() => {
     if (!locality) {
       return;
@@ -376,9 +420,10 @@ const RequestView = ({ type, isFirstRendering }: {
               cartodb_id: proj.projectData?.cartodb_id
               }
             });
+            const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
             setProjectAmounts(projectAmounts);
             if(projects.length>0){
-              setBoardProjects({cartoids:justProjects, ids: idsProjects});
+              setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId});
             } else {
               setBoardProjects(['-8885']);
             }
