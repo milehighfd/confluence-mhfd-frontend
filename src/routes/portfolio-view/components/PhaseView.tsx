@@ -111,21 +111,21 @@ const PhaseView = (
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
     completedtoActive
-      .attr("id", "Completed_Active")
+      .attr("id", "Done_Current")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
       .attr("y2", "0");
     completedtoActive.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#047CD7')
+      .attr("stop-color", '#5E5FE2')
     completedtoActive.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", '#5E5FE2')
+      .attr("stop-color", '#047CD7')
 
     let completedtoDelayed = svgDefinitions.append("linearGradient");
     completedtoDelayed
-      .attr("id", "Completed_delayed")
+      .attr("id", "Current_NotStarted")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
@@ -384,6 +384,7 @@ const PhaseView = (
 
           // Lines
           let z1 = true;
+          let colorChange = true;
           arrayForCirclesAndLines.forEach((r) => {  
             hasDateData = true        
             if (r < arrayForCirclesAndLines.length - 1) {
@@ -413,6 +414,24 @@ const PhaseView = (
                   return colorstroke;
                 })
                 .attr("stroke", function (d: any) {
+                  if(d.phaseId === scheduleList[r].code_phase_type_id){
+                    colorChange = false;
+                    return colorScale['Current'];
+                  }else if(d.phaseId === scheduleList[r+1].code_phase_type_id){
+                    return `url(#Done_Current)`
+                  }                  
+                  else if(colorChange){
+                    if(scheduleList[r-1]){
+                      if(d.phaseId === scheduleList[r-1].code_phase_type_id){
+                        return `url(#Current_NotStarted)`
+                      }  
+                    }else{
+                      return colorScale['Done'];
+                    }                    
+                  }
+                  else{
+                    return colorScale['NotStarted'];
+                  }   
                   let currentStatus = scheduleList[r].status.replace(/\s+/g, '');
                   let nextStatus = scheduleList[r + 1].status.replace(/\s+/g, '');
                   return (
