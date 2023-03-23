@@ -47,20 +47,24 @@ const ModalTollgate = ({
 })
 
 useEffect(() => {
-  let today = moment();
-  let startDate = moment();
-  let endDate = moment();  
-  setDateValue(dataProject?.scheduleList?.map((x:any)=>{
-    startDate = endDate;  
-    endDate = startDate.add(x.duration,'M')  
-    return {key:x.categoryNo,name:x.name,startDate:startDate,endDate:endDate}
-  }))
-},[dataProject])
+  const current = moment();
+  setDateValue(dataProject?.scheduleList?.map((x:any, index: number)=>{
+    const now = moment(current);
+    current.add(x.duration, 'M');
+    return { 
+      key: x.categoryNo,
+      name:x.name,
+      startDate: now.clone(),
+      endDate: index !== dataProject?.scheduleList?.length - 1 ? moment(current).subtract(1, 'd') : moment(current) 
+    };
+  }));
+},[dataProject]);
+
 let items = [
   { key: 'lock-phase', label: 'Lock Phase' },
   { key: 'current-phase', label: 'Set Current Phase' },
 ];
-  const menu = () => {
+  const menu = (element: any) => {
     items = [
       { key: 'lock-phase', label: 'Lock Phase' },
       { key: 'current-phase', label: 'Set Current Phase' },
@@ -74,8 +78,9 @@ let items = [
           case 'lock-phase':
             console.log('lock')
             break;
-          case 'current-phase':
-            console.log('current')
+            case 'current-phase':
+            console.log(element);
+            console.log('current', key)
             break;         
         }
       }}
@@ -150,7 +155,7 @@ let items = [
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
                 {dataProject?.scheduleList?.map((x:any)=>{
-                  return <p key={x.categoryNo} style={{marginBottom:'25px'}}>{x.name} <Dropdown overlay={menu()} placement="bottomRight" >
+                  return <p key={x.categoryNo} style={{marginBottom:'25px'}}>{x.name} <Dropdown overlay={menu(x)} placement="bottomRight" >
                   <MoreOutlined />
                 </Dropdown></p>
                 })}
@@ -185,7 +190,7 @@ let items = [
                       return r.startDate;
                     }))
                 }                  
-                  return <p className='calendar-toollgate'>
+                  return <p className='calendar-toollgate' key={x.phase_id}>
                   <RangePicker
                     bordered={false}
                     onCalendarChange={(e:any)=>{console.log(e);}}
@@ -205,7 +210,7 @@ let items = [
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
                 {dataProject?.scheduleList?.map((x: any) => {
-                  return <Row>
+                  return <Row key={x.phase_id}>
                     <Col xs={{ span: 12 }} lg={{ span: 24 }}>
                       <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={48} defaultValue={x.duration} onChange={(e) => { setValueInput({ ...valueInput, twoL: e }) }} />
                     </Col>
