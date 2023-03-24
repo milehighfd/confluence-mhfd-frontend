@@ -375,7 +375,7 @@ const RequestView = ({ type, isFirstRendering }: {
             // IF NO CURRENT STATUS PICK FIRST ONE 
             return index === 0;
           }
-        })[0]?.code_phase_type?.code_status_type?.status_name,
+        })[0]?.code_phase_type?.code_status_type?.code_status_type_id,
         project_name: p?.projectData?.project_name,
         centroid: p?.projectData?.centroid[0]?.centroid
       };
@@ -657,10 +657,11 @@ const RequestView = ({ type, isFirstRendering }: {
                       }
                     });
                     const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
+                    const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
                     buildGeojsonForLabelsProjectsInBoards(projects);
                     setProjectAmounts(projectAmounts);
                     if(projects.length>0){
-                      setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId});
+                      setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
                     } else {
                       setBoardProjects(['-8887']);
                     }

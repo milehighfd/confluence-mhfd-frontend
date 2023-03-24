@@ -474,6 +474,106 @@ const WorkRequestMap = (type: any) => {
       });
     }, 1200);
   }, [coordinatesJurisdiction]);
+  const addGeojsonLayer = (geojsonData: any) => {
+    if (map.map.getLayer('project_board_layer')) {
+      map.map.removeLayer('project_board_layer');
+    }
+    if (map.map.getSource('project_board')) {
+      map.map.removeSource('project_board');
+    }
+    map.map.addSource('project_board', {
+      type: 'geojson',
+      // Use a URL for the value for the `data` property.
+      data: geojsonData
+    });
+       
+    map.map.addLayer({
+      'id': 'project_board_layer',
+      'type': 'symbol',
+      'source': 'project_board',
+      'layout': {
+        "text-field": ["to-string", ["get", "project_name"]],
+        // "text-rotation-alignment": "map",
+        // "text-offset": [3, 3],
+        // "text-font": [
+        //     "Open Sans SemiBold Italic",
+        //     "Arial Unicode MS Regular"
+        // ],
+        // "symbol-placement": "line"
+      },
+      "paint": {
+        "text-color": [
+          "match",
+          ["get", "project_status"],
+          [4],
+          "#139660",
+          [2],
+          "#9309EA",
+          [3],
+          "#497BF3",
+          [8],
+          "#FF0000",
+          [6],
+          "#06242D",
+          [5],
+          '#416EDA',
+          [7],
+          '#A4BCF8',
+          [9],
+          '#DAE4FC',
+          [10],
+          '#ECF1FD',
+          "#b36304"
+        ],
+        'text-halo-color': "#ffffff",
+        'text-halo-width': 1,
+        'text-halo-blur': 0,
+
+        "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
+      }
+    });
+    // map.map.addLayer({
+    //     id: "projectDraftLayer",
+    //     type: "symbol",
+    //     source: "projectDraftSource",
+    //     layout: {
+    //       "text-field": ["to-string", ["get", "project_name"]],
+    //       "text-rotation-alignment": "map",
+    //       "text-offset": [3, 3],
+    //       "text-font": [
+    //           "Open Sans SemiBold Italic",
+    //           "Arial Unicode MS Regular"
+    //       ],
+    //       "symbol-placement": "line"
+    //     },
+    //     "paint": {
+    //       "text-color": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Initiated"],
+    //         "#139660",
+    //         ["Requested"],
+    //         "#9309EA",
+    //         ["Approved"],
+    //         "#497BF3",
+    //         ["Cancelled"],
+    //         "#FF0000",
+    //         ["Complete"],
+    //         "#06242D",
+    //         "#b36304"
+    //       ],
+    //       // "text-halo-color": "hsl(0, 0%, 45%)",
+    //       // "text-halo-width": 0.5,
+    //       // "text-halo-blur": 5,
+
+    //       'text-halo-color': "#ffffff",
+    //       'text-halo-width': 1,
+    //       'text-halo-blur': 0,
+
+    //       "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
+    //     }
+    //   });
+  }
   useEffect(() => {
     popup.remove();
     const equals = (a: any, b: any) => a.length === b.length && a.every((v: any, i: any) => v === b[i]);
@@ -491,45 +591,71 @@ const WorkRequestMap = (type: any) => {
         setGroupedIdsBoardProjects(boardProjects.groupedIds);
       // }
     }
+    addGeojsonLayer(boardProjects.geojsonData);
+    // if (map.map.getLayer('projectDraftLayer')) {
+    //   map.map.removeLayer('projectDraftLayer');
+    // }
+    // if (map.map.getSource('projectDraftSource')) {
+    //   map.map.removeSource('projectDraftSource');
+    // }
 
-    if (!map.map.getSource('projectDraftSource')) {
-      map.map.addSource("projectDraftSource",
-      {
-      type: "geojson",
-      data: ''
-      })
-      }
-      if (!map.map.getLayer('projectDraftLayer')) {
-      map.map.addLayer({
-      id: "projectDraftLayer",
-      type: "symbol",
-      source: "projectDraftSource",
-      layout: {
-        "text-field": [
-            "match",
-            ["get", "status"],
-            ["Requested"],
-            [
-                "concat",
-                ["to-string", ["get", "project_name"]],
-                "      Requested"
-            ],
-            ""
-        ],
-        "text-rotation-alignment": "map",
-        "text-offset": [3, 3],
-        "text-font": [
-            "Open Sans SemiBold Italic",
-            "Arial Unicode MS Regular"
-        ],
-        "symbol-placement": "line"
-      }
-      });
-      }
-      function showFsLayer () {
-      map.map.setLayoutProperty("projectDraftLayer", 'visibility', 'visible')
-      }
-      showFsLayer();
+    // if (!map.map.getSource('projectDraftSource')) {
+    //   console.log('ADDING SOURCe', boardProjects.geojsonData);
+    //   map.map.addSource("projectDraftSource",
+    //     {
+    //       type: "geojson",
+    //       data: boardProjects.geojsonData
+    //     }
+    //   )
+    // }
+    // if (!map.map.getLayer('projectDraftLayer')) {
+    //   console.log('Adding Layer');
+    //   map.map.addLayer({
+    //     id: "projectDraftLayer",
+    //     type: "symbol",
+    //     source: "projectDraftSource",
+    //     layout: {
+    //       "text-field": ["to-string", ["get", "project_name"]],
+    //       "text-rotation-alignment": "map",
+    //       "text-offset": [3, 3],
+    //       "text-font": [
+    //           "Open Sans SemiBold Italic",
+    //           "Arial Unicode MS Regular"
+    //       ],
+    //       "symbol-placement": "line"
+    //     },
+    //     "paint": {
+    //       "text-color": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Initiated"],
+    //         "#139660",
+    //         ["Requested"],
+    //         "#9309EA",
+    //         ["Approved"],
+    //         "#497BF3",
+    //         ["Cancelled"],
+    //         "#FF0000",
+    //         ["Complete"],
+    //         "#06242D",
+    //         "#b36304"
+    //       ],
+    //       // "text-halo-color": "hsl(0, 0%, 45%)",
+    //       // "text-halo-width": 0.5,
+    //       // "text-halo-blur": 5,
+
+    //       'text-halo-color': "#ffffff",
+    //       'text-halo-width': 1,
+    //       'text-halo-blur': 0,
+
+    //       "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
+    //     }
+    //   });
+    // }
+      // function showFsLayer () {
+      // map.map.setLayoutProperty("projectDraftLayer", 'visibility', 'visible')
+      // }
+      // showFsLayer();
   }, [boardProjects]);
 
   const polyMask = (mask: any, bounds: any) => {

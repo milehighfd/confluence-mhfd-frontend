@@ -483,7 +483,6 @@ export class MapService {
   // 9	Closed #DAE4FC
   // 10	Closeout  #ECF1FD
   changePaintPropertyColors (layerid: string, groupedIds: any) {
-    console.log('gorupedids', groupedIds);
     const expressionByIds = [
       "match",
       ["get", "projectid"]
