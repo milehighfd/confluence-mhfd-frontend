@@ -401,8 +401,7 @@ const PhaseView = (
                 })
                 .attr("height", 2)
                 .attr("stroke", (d: any) => {
-                  let colorstroke: any = colorScale[(scheduleList[r].status)];
-                  console.log(colorstroke)
+                  let colorstroke: any = colorScale[(scheduleList[r].status)];           
                   if(d.phaseId === scheduleList[r].code_phase_type_id){
                     z1 = false;
                     colorstroke = colorScale['Current'];

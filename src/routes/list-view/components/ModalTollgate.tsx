@@ -17,6 +17,12 @@ const ModalTollgate = ({
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
   const [dateValue, setDateValue] = useState<any[]>([])
+  const [currentPhase,setCurrentPhase] = useState(-1);
+  const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1)
+  const [calendarValue,setCalendarValue] =useState([])
+  const [calendarPhase,setCalendarPhase] =useState(0)
+
+  
   const [valueInput, setValueInput] = useState({
     oneL: '0',
     oneR:'0',
@@ -46,19 +52,40 @@ const ModalTollgate = ({
     thirteenR:'12',
 })
 
-useEffect(() => {
-  const current = moment();
-  setDateValue(dataProject?.scheduleList?.map((x:any, index: number)=>{
-    const now = moment(current);
-    current.add(x.duration, 'M');
-    return { 
-      key: x.categoryNo,
-      name:x.name,
-      startDate: now.clone(),
-      endDate: index !== dataProject?.scheduleList?.length - 1 ? moment(current).subtract(1, 'd') : moment(current) 
-    };
-  }));
-},[dataProject]);
+  useEffect(() => {
+    console.log(codePhaseTypeId)
+    console.log(calendarPhase)
+    if (codePhaseTypeId === calendarPhase){
+      if (Object.keys(dataProject).length > 0){
+        const current = moment(calendarValue);
+        const currentPast = moment(calendarValue);
+        const indexPhase = (dataProject?.scheduleList?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
+        const reverseData = ([].concat( dataProject?.scheduleList?.slice(0, indexPhase).reverse(), dataProject?.scheduleList?.slice(indexPhase)))
+        const dateValues:any = (reverseData.map((x: any, index: number) => {      
+          if(index>=indexPhase){
+            const now = moment(current);
+            current.add(x.duration, 'M');          
+            return {
+              key: x.categoryNo,
+              name: x.name,
+              startDate: now.clone(),
+              endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current)
+            };
+          }else{       
+            const now1 = moment(currentPast);
+            currentPast.subtract(x.duration, 'M');          
+            return {
+              key: x.categoryNo,
+              name: x.name,
+              endDate: now1.clone().subtract(1, 'd'),
+              startDate:  moment(currentPast)
+            };
+          }            
+        }));  
+        setDateValue(([].concat( dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
+      }
+    }   
+  }, [calendarPhase]);
 
 let items = [
   { key: 'lock-phase', label: 'Lock Phase' },
@@ -79,13 +106,20 @@ let items = [
             console.log('lock')
             break;
             case 'current-phase':
-            console.log(element);
-            console.log('current', key)
+            setCodePhaseTypeId(element.code_phase_type_id)
             break;         
         }
       }}
     />
   };
+
+  function resetData() {
+    setDateValue([])
+    setCurrentPhase(-1);
+    setCodePhaseTypeId(-1)
+    setCalendarValue([])
+    setCalendarPhase(0)
+  }
 
   return (
     <Modal
@@ -189,13 +223,16 @@ let items = [
                     .map((r: any) => {
                       return r.startDate;
                     }))
-                }                  
+                }          
                   return <p className='calendar-toollgate' key={x.phase_id}>
                   <RangePicker
                     bordered={false}
-                    onCalendarChange={(e:any)=>{console.log(e);}}
+                    onCalendarChange={(e:any)=>{
+                      setCalendarValue(e[0]);
+                      setCalendarPhase(x.phase_id)
+                    }}
                     format={dateFormatList}
-                    value={[endDateS[0], startDateS[0]]}
+                    value={[ startDateS[0],endDateS[0]]}
                   />
                 </p>
                 })}                
@@ -227,7 +264,7 @@ let items = [
               <Col xs={{ span: 12 }} lg={{ span: 12}}>
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
-                <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate">Clear</Button>
+                <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
                 <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate'>Save</Button>
               </Col>
             </Row>
