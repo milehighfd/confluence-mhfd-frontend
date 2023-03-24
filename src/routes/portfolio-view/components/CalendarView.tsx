@@ -480,27 +480,24 @@ let toData = datas
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
-          .attr('rx', 3)
-          .attr('ry', 3)
           .attr("x", (d: any) => {
             // let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10))))); 
             return xScale(d['from']);
           })
           .attr("width", () => {
-            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 25 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10)))));
-            // console.log('ydname', ydname, ydname + 10)
+            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 100 : (windowWidth >= 2001 && windowWidth <= 2549 ? 100 : (windowWidth >= 2550 && windowWidth <= 3000 ? 100 : (windowWidth >= 1450 && windowWidth <= 2000 ? 100 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 100)))));
+             console.log('ydname', widthAddButton + 10)
             return widthAddButton;
           })
           // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
           
           .attr("y", (d: any) => {
-            // let ydname: any = y(d.id);
             // console.log('ydname', ydname, ydname + 10)
             // let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
             let yScaleRect: any = yScale(d['id']);
-          return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
+            return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
           })
-          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 25))))))
+          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
           .style('visibility', (d: any) => {      
             if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
@@ -523,7 +520,7 @@ let toData = datas
           .enter()
           .append("text")
           .attr("class", "circletext")
-          .attr('fill', '#ffffff')
+          .attr('fill', '#2CF691')
           .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
           .attr('font-weight', 600)
           .text('Add Dates')
@@ -538,8 +535,13 @@ let toData = datas
             let yScaleRect: any = yScale(d['id']);
           return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
           })
-          .style('visibility', (d: any) => {          
-            if(statusCounter === d?.project_status?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          .style('visibility', (d: any) => { 
+            hasDateData= true;
+            console.log((d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length)      
+            console.log(statusCounter)         
+            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length ){
+              hasDateData = false;
+            }else if (d?.id.includes('Title')){
               hasDateData = false;
             }
             return hasDateData ? 'visible':'hidden'})
