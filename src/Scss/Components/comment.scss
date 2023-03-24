@@ -1,9 +1,16 @@
 @use  '../Theme/styles';
 @import "../Theme/styles.scss";
 // GENERAL
+.ant-menu-item-selected, .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
+  color: rgba(17, 9, 60, 0.5)
+}
 .ant-menu-item-selected {
   background-color: transparent !important;
+  .ant-menu-item-selected a, .ant-menu-item-selected a:hover {
+    color: rgba(17, 9, 60, 0.5)
+  }
 }
+
 .mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
   align-self: flex-start;
   border-top: none;
