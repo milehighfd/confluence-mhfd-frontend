@@ -81,13 +81,13 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
         const index = newTree.findIndex((item: any) => item.id === note.groupnotes_id);
         if (index !== -1 && newTree[index].children) {
           console.log('new tree', newTree, index);
-          newTree[index].children.push({
+          newTree[index]?.children?.push({
             id: note.newnotes_id,
             label: note.note_text,
             data: note
           })
         } else {
-          newTree.push({
+          newTree?.push({
             id: note.newnotes_id,
             label: note.note_text,
             data: note
