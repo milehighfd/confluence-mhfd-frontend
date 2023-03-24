@@ -133,6 +133,8 @@
     }
     textarea.ant-input{
       margin-bottom: 20px;
+      min-height: 36px;
+      padding: 6px 11px;
     }
     .ant-input{
       border: solid 1px $opacity04;
@@ -345,7 +347,10 @@
         padding-left: 15px;
       }
       .tab-cost-independent{
-        padding-left: 47px;
+        padding-left: 38px;
+      }
+      .cost-position{
+        padding-left: 29px; 
       }
     }
     .tab-body-project{
@@ -636,10 +641,10 @@
 }
 @media (min-width: 1500px) and (max-width: 1599px){
   .tab-cost{
-    padding-left: 24px !important;
+    padding-left: 29px !important;
   }
   .tab-cost-independent{
-    padding-left: 47px !important;
+    padding-left: 38px !important;
   }
 }
 @media (min-width: 1600px) and (max-width: 1699px){

@@ -26,17 +26,17 @@ export const DeleteAlert = ({ visibleAlert, setVisibleAlert, action, name }: {
       width="400px"
     >
       <Row className="detailed-h" gutter={[16, 8]}>
-          <Col xs={{ span: 12 }} lg={{ span: 13 }}>
-            <h1 style={{marginTop: '15px'}}>Confirm Project Copy
+          <Col xs={{ span: 12 }} lg={{ span: 18 }}>
+            <h1 style={{marginTop: '15px'}}>Confirm Project Deletion
             </h1>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 6 }} style={{textAlign: 'end'}}>
             <Button className="btn-transparent" onClick={() => setVisibleAlert (false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
           </Col>
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
-            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>Please confirm that the project will be copied to current year boarddeleted.</p>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>Please confirm that all instances of this project on this board will be removed.</p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 {/* <h2>Saving will create a draft project within {sponsor}'s Work Request. Do you want to continue?</h2> */}

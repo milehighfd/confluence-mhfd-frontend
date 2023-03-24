@@ -35,7 +35,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
       })
     }, {
       key: '2',
-      label: <span style={{ color: '#FF0000' }}>
+      label: <span style={{ /*color: '#FF0000' */}}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
         Delete
       </span>,
@@ -47,7 +47,7 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
   } else {
     items = [{
       key: '3',
-      label: <span style={{ color: '#FF0000' }}>
+      label: <span style={{  /*color: '#FF0000' */}}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px' }} />
         Delete
       </span>,
