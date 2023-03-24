@@ -27,7 +27,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     const gradientLinesClass = (svgDefinitions:any)=>{
       let completedtoActive = svgDefinitions.append("linearGradient");
       completedtoActive
-        .attr("id", "completed_active")
+        .attr("id", "Completed_Active")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -41,7 +41,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let completedtoDelayed = svgDefinitions.append("linearGradient");
       completedtoDelayed
-        .attr("id", "completed_delayed")
+        .attr("id", "Completed_delayed")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -55,7 +55,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let ActivetoNotStarted = svgDefinitions.append("linearGradient");
       ActivetoNotStarted
-        .attr("id", "active_notStarted")
+        .attr("id", "Active_notStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -69,7 +69,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
     
       let ActivetoDelayed = svgDefinitions.append("linearGradient");
       ActivetoDelayed
-        .attr("id", "active_delayed")
+        .attr("id", "Active_delayed")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -358,7 +358,7 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Active</span>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
