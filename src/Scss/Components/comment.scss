@@ -239,8 +239,11 @@
     width: max-content;
     li{
       padding: 5px 10px;
+      opacity: 0.5;
+      font-size: 13px;
       &:hover{ 
-        background-color: #f5f7ff;
+        background-color: #f7f7f9;
+        opacity: 0.6;
       }
     }
   }
@@ -389,7 +392,7 @@
     }
   }
   #currentItemsinList { 
-    padding-bottom: 0 !important;
+    padding-bottom: 8px !important;
   }
   #currentItemsinList > li:hover{
     &:first-child {
@@ -613,7 +616,7 @@
           border-radius: 8px;
           padding: 9px 32px;
           margin: 0;
-          font-size: 18px;
+          font-size: 14px;
           line-height: 14px;
       }
       button.light.b-red {
@@ -776,7 +779,7 @@
       button{
         height: 45px;
         margin-top: 10px;
-        font-size: 16px;
+        font-size: 18px !important;
       }
     }
   }

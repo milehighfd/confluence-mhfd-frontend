@@ -442,106 +442,111 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
           </Col>
           </Row>
         <br />
-        <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{ paddingRight: '20px' }}>
-            <h3>ORGANIZATION</h3>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{ paddingRight: '20px' }}>
-            <div className="line-01"></div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-            <div className="gutter-row" id={("city" + values.user_id)}>
-              <p>ORGANIZATION</p>
-              <Input placeholder="Enter Organization" value={values.organization} name="organization" onChange={handleChange} style={{marginBottom:'15px'}}/>
-            </div>
-            <div className="gutter-row"  id={("ba" + values.user_id)}>
-              <p>BUSINESS ASSOCIATE</p>
-              <BusinessAssociatesDropdownMemoized 
-                businessAssociate={businessAssociate}
-                setAssociateLabel={setAssociateLabel}
-                setPrimary={setPrimary}
-                setSelectAssociate={setSelectAssociate}
-                associateLabel={associateLabel}
-                setContactLabel = {setContactLabel}
+        
+        {designation !== 'other' &&
+        <>
+          <Row>
+            <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{ paddingRight: '20px' }}>
+              <h3>ORGANIZATION</h3>
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{ paddingRight: '20px' }}>
+              <div className="line-01"></div>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+              <div className="gutter-row" id={("city" + values.user_id)}>
+                <p>ORGANIZATION</p>
+                <Input placeholder="Enter Organization" value={values.organization} name="organization" onChange={handleChange} style={{marginBottom:'15px'}}/>
+              </div>
+              <div className="gutter-row"  id={("ba" + values.user_id)}>
+                <p>BUSINESS ASSOCIATE</p>
+                <BusinessAssociatesDropdownMemoized 
+                  businessAssociate={businessAssociate}
+                  setAssociateLabel={setAssociateLabel}
+                  setPrimary={setPrimary}
+                  setSelectAssociate={setSelectAssociate}
+                  associateLabel={associateLabel}
+                  setContactLabel = {setContactLabel}
+                />
+              </div>
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+              <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0'}}>
+                <p>FIELD FOR DESIGN</p>
+                <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
+              </div>
+              <div className="gutter-row"  id={("poc" + values.user_id)}>
+                <p>POINT OF CONTACT</p>
+                <Dropdown trigger={['click']} overlay={menuContactAssociate}
+                  getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
+                  <Button className="btn-borde-management">
+                    {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Create Contact':'Select Contact'))}  <DownOutlined />
+                  </Button>
+                </Dropdown>
+              </div>
+            </Col>
+            {
+              !disabled &&
+              <>
+              <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
+              <p>ADDRESS LINE 1</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="Address Line 1"
+                value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
+                name="address_line_1"
+                onChange = {(e) => {handleChangeData(e.target.value, setAdressLine1)}}
+                disabled={disabled}
               />
-            </div>
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-            <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0'}}>
-              <p>FIELD FOR DESIGN</p>
-              <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
-            </div>
-            <div className="gutter-row"  id={("poc" + values.user_id)}>
-              <p>POINT OF CONTACT</p>
-              <Dropdown trigger={['click']} overlay={menuContactAssociate}
-                getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
-                <Button className="btn-borde-management">
-                  {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Create Contact':'Select Contact'))}  <DownOutlined />
-                </Button>
-              </Dropdown>
-            </div>
-          </Col>
-          {
-            !disabled &&
-            <>
-            <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
-            <p>ADDRESS LINE 1</p>
-            <Input
-              style={{marginBottom:'15px'}}
-              placeholder="Address Line 1"
-              value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
-              name="address_line_1"
-              onChange = {(e) => {handleChangeData(e.target.value, setAdressLine1)}}
-              disabled={disabled}
-            />
-            <p>ADDRESS LINE 2</p>
-            <Input
-              style={{marginBottom:'15px'}}
-              placeholder="Address Line 2"
-              value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
-              name="address_line_1" 
-              onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
-              disabled = {disabled}
-            />
-            {/* <h1>PHONE NUMBER</h1>
-            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-            <p>CITY</p>
-            <Input
-              style={{marginBottom:'15px'}}
-              placeholder="City"
-              value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
-              onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
-              disabled={disabled}
-            />
-            <p>ZIP CODE</p>
-            <Input
-              placeholder="Zip Code"
-              value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
-              onChange= {(e) => {handleChangeData(e.target.value, setZip)}}
-              style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
-              disabled={disabled}
-            />
-            {/* <h1>PHONE NUMBER</h1>
-            <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
-          </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-            <p>STATE</p>
-            <Input
-              placeholder="State"
-              value={(state === '' && disabled ? (state !== '' ? state : values.business_associate_contact?.business_address?.state) : state)}
-              onChange= {(e) => {handleChangeData(e.target.value, setState)}}
-              style={errors.lastName && touched.lastName ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
-              disabled={disabled}
-            />
-          </Col>
+              <p>ADDRESS LINE 2</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="Address Line 2"
+                value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
+                name="address_line_1" 
+                onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
+                disabled = {disabled}
+              />
+              {/* <h1>PHONE NUMBER</h1>
+              <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+              <p>CITY</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="City"
+                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
+                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+                disabled={disabled}
+              />
+              <p>ZIP CODE</p>
+              <Input
+                placeholder="Zip Code"
+                value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
+                onChange= {(e) => {handleChangeData(e.target.value, setZip)}}
+                style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+                disabled={disabled}
+              />
+              {/* <h1>PHONE NUMBER</h1>
+              <Input placeholder="Phone" value={values.phone} name="phone" onChange={handleChange} /> */}
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+              <p>STATE</p>
+              <Input
+                placeholder="State"
+                value={(state === '' && disabled ? (state !== '' ? state : values.business_associate_contact?.business_address?.state) : state)}
+                onChange= {(e) => {handleChangeData(e.target.value, setState)}}
+                style={errors.lastName && touched.lastName ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+                disabled={disabled}
+              />
+            </Col>
+            </>
+            }
+          </Row>
+          <br />
           </>
-          }
-        </Row>
-        <br />
+        }
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 2 }} style={{ paddingRight: '20px' }}>
             <h3>AREAS</h3>

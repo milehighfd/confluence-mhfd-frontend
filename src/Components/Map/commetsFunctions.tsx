@@ -266,8 +266,14 @@ export const clickingOptions = (listOfElements: any, deleteColorList: Function, 
     }
     divoptionsx.setAttribute('id',`divoptions${index}`);
     let innerOptions = `
+      <li id="apply${index}" value="${el._id}">
+        <span><img src="/Icons/icon-72.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Apply Label</span>
+      </li>
+      <li id="edit${index}" value="${el._id}">
+        <span ><img src="/Icons/icon-04.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Edit Label</span>
+      </li>
       <li id="deleteopt${index}" value="${el._id}">
-        <span style="color:#FF0000"><img src="/Icons/icon-16.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Delete</span>
+        <span ><img src="/Icons/icon-16.svg" alt="" width="10px" style="margin-top: -3px; margin-right: 5px;" /> Delete</span>
       </li>
     `;
     divoptionsx.innerHTML = innerOptions;

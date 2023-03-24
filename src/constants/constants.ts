@@ -946,7 +946,7 @@ export const RADIO_ITEMS = [
   }, {
     value: 'consultant', name: 'Consultant / Contractor'
   }, {
-    value: 'other', name: 'Other'
+    value: 'other', name: 'Public'
   }
 ]
 
