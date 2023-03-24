@@ -73,7 +73,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
             <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{padding: '0px 8px'}}>
               <label className="sub-title">Sub-Reason for Study</label>
               <div id="subReason">
-                <Select style={{width:'100%'}} placeholder={"Select a Sub-Reason"} value={reason} onChange={handleChange}>
+                <Select style={{width:'100%'}} placeholder={"Select a Sub-Reason"} value={reason === 3 ? 'Select a Sub-Reason': reason} onChange={handleChange}>
                   <Option key={STUDY_REASON[4].id} value={STUDY_REASON[4].id}>{STUDY_REASON[4].name}</Option>
                   <Option key={STUDY_REASON[5].id} value={STUDY_REASON[5].id}>{STUDY_REASON[5].name}</Option>
                   <Option key={STUDY_REASON[6].id} value={STUDY_REASON[6].id}>{STUDY_REASON[6].name}</Option>
