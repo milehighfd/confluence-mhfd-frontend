@@ -70,7 +70,7 @@ const Filter = ({ visible, setVisible, jurisdictionFilterList, csaFilterList,
   let label;
   if (l === 'CODE_STATE_COUNTY') {
     label = 'COUNTY';
-  } else if (l === 'CODE_SERVICE_AREA') {
+  } else if (l === 'CODE_SERVICE_AREA' || l === 'MHFD_BOUNDARY') {
     label = 'SERVICE AREA';
   }
 
