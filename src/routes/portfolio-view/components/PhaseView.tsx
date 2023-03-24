@@ -132,10 +132,10 @@ const PhaseView = (
       .attr("y2", "0");
     completedtoDelayed.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
+      .attr("stop-color", '#047CD7')
     completedtoDelayed.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", '#F5575C')
+      .attr("stop-color", '#D4D2D9x')
 
     let ActivetoNotStarted = svgDefinitions.append("linearGradient");
     ActivetoNotStarted
@@ -401,7 +401,7 @@ const PhaseView = (
                 })
                 .attr("height", 2)
                 .attr("stroke", (d: any) => {
-                  let colorstroke: any = colorScale[(scheduleList[r].status)];           
+                  let colorstroke: any = colorScale[(scheduleList[r].status)];
                   if(d.phaseId === scheduleList[r].code_phase_type_id){
                     z1 = false;
                     colorstroke = colorScale['Current'];
@@ -415,28 +415,15 @@ const PhaseView = (
                 .attr("stroke", function (d: any) {
                   if(d.phaseId === scheduleList[r].code_phase_type_id){
                     colorChange = false;
-                    return colorScale['Current'];
+                    return `url(#Current_NotStarted)`;
                   }else if(d.phaseId === scheduleList[r+1].code_phase_type_id){
                     return `url(#Done_Current)`
-                  }                  
-                  else if(colorChange){
-                    if(scheduleList[r-1]){
-                      if(d.phaseId === scheduleList[r-1].code_phase_type_id){
-                        return `url(#Current_NotStarted)`
-                      }  
-                    }else{
-                      return colorScale['Done'];
-                    }                    
+                  } else if(colorChange){
+                    return colorScale['Done'];                  
                   }
                   else{
                     return colorScale['NotStarted'];
-                  }   
-                  let currentStatus = scheduleList[r].status.replace(/\s+/g, '');
-                  let nextStatus = scheduleList[r + 1].status.replace(/\s+/g, '');
-                  return (
-                    (currentStatus === nextStatus) ?
-                      colorScale[(scheduleList[r].status)]
-                      : (`url(#${currentStatus}_${nextStatus})`))
+                  }
                 })
                 // .attr("stroke", "url(#textBg)")
                 .attr("stroke-width", "2.5px")
