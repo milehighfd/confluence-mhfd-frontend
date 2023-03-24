@@ -491,6 +491,45 @@ const WorkRequestMap = (type: any) => {
         setGroupedIdsBoardProjects(boardProjects.groupedIds);
       // }
     }
+
+    if (!map.map.getSource('projectDraftSource')) {
+      map.map.addSource("projectDraftSource",
+      {
+      type: "geojson",
+      data: ''
+      })
+      }
+      if (!map.map.getLayer('projectDraftLayer')) {
+      map.map.addLayer({
+      id: "projectDraftLayer",
+      type: "symbol",
+      source: "projectDraftSource",
+      layout: {
+        "text-field": [
+            "match",
+            ["get", "status"],
+            ["Requested"],
+            [
+                "concat",
+                ["to-string", ["get", "project_name"]],
+                "      Requested"
+            ],
+            ""
+        ],
+        "text-rotation-alignment": "map",
+        "text-offset": [3, 3],
+        "text-font": [
+            "Open Sans SemiBold Italic",
+            "Arial Unicode MS Regular"
+        ],
+        "symbol-placement": "line"
+      }
+      });
+      }
+      function showFsLayer () {
+      map.map.setLayoutProperty("projectDraftLayer", 'visibility', 'visible')
+      }
+      showFsLayer();
   }, [boardProjects]);
 
   const polyMask = (mask: any, bounds: any) => {
