@@ -53,8 +53,6 @@ const ModalTollgate = ({
 })
 
   useEffect(() => {
-    console.log(codePhaseTypeId)
-    console.log(calendarPhase)
     if (codePhaseTypeId === calendarPhase){
       if (Object.keys(dataProject).length > 0){
         const current = moment(calendarValue);
@@ -66,8 +64,11 @@ const ModalTollgate = ({
             const now = moment(current);
             current.add(x.duration, 'M');          
             return {
+              project_id: dataProject?.d?.project_id,
+              current : index===indexPhase?1:0,
               key: x.categoryNo,
               name: x.name,
+              phase_id: x.phase_id,
               startDate: now.clone(),
               endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current)
             };
@@ -75,8 +76,11 @@ const ModalTollgate = ({
             const now1 = moment(currentPast);
             currentPast.subtract(x.duration, 'M');          
             return {
+              project_id: dataProject?.d?.project_id,
+              current : 0,
               key: x.categoryNo,
               name: x.name,
+              code_phase_type_id: x.phase_id,
               endDate: now1.clone().subtract(1, 'd'),
               startDate:  moment(currentPast)
             };
@@ -119,6 +123,10 @@ let items = [
     setCodePhaseTypeId(-1)
     setCalendarValue([])
     setCalendarPhase(0)
+  }
+  function sendData() {
+    let phases = dataProject;
+    console.log(phases)
   }
 
   return (
@@ -265,7 +273,7 @@ let items = [
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
                 <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
-                <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate'>Save</Button>
+                <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate' onClick={()=>sendData()}>Save</Button>
               </Col>
             </Row>
           </Col>

@@ -108,7 +108,7 @@ const SignUpForm = () => {
         <span className="highlight"></span>
         <span className="bar"></span>
       </div>
-      {(values.designation !== STAFF) && 
+      {(values.designation !== STAFF && values.designation !== OTHER) && 
         <div className="group btn-up">
           <div id="sign-up-organization">
             <input placeholder={"Enter Organization"} type="text" name="organization"
