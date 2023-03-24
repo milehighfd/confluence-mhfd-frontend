@@ -1,4 +1,4 @@
-import { ArrowDownOutlined, CalendarOutlined, EyeInvisibleOutlined, EyeOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
+import { LockOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, DatePicker, InputNumber, Row, Menu,Dropdown } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
@@ -103,13 +103,13 @@ const ModalTollgate = ({
   }, [calendarPhase]);
 
 let items = [
-  { key: 'lock-phase', label: 'Lock Phase' },
   { key: 'current-phase', label: 'Set Current Phase' },
+  { key: 'lock-phase', label: 'Lock Phase' },
 ];
   const menu = (element: any) => {
     items = [
-      { key: 'lock-phase', label: 'Lock Phase' },
       { key: 'current-phase', label: 'Set Current Phase' },
+      { key: 'lock-phase', label: 'Lock Phase' },
     ];
     return <Menu
       className="menu-login-dropdown"
@@ -158,11 +158,31 @@ let items = [
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 20 }}>
-            <h1 style={{marginTop: '15px'}}>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
+            <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>Capital Project</p>
+            <h1>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
             <p>Define the time period for each phase.</p>
+            <div style={{display:'flex', paddingTop:'10px'}}>
+              <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
+                </span>
+                <span className="span-dots-heder">
+                  <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
+                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
+                </span>
+            </div>
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
-            <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
+            <Button className="btn-transparent"  style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>
+            <Button className="btn-transparent" onClick={() => setVisible(false)} style={{padding: '0px 8px'}}><img src="/Icons/ic_close.svg" alt="" height="15px" /></Button>
           </Col>
         </Row>
         <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
@@ -214,10 +234,17 @@ let items = [
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
-                {dataProject?.scheduleList?.map((x:any)=>{
-                  return <p key={x.categoryNo} style={{marginBottom:'25px'}}>{x.name} <Dropdown overlay={menu(x)} placement="bottomRight" >
+                {dataProject?.scheduleList?.map((x:any, index:number)=>{
+                  return <div className='text-tollgate-title'>
+                    <p key={x.categoryNo} style={{marginBottom:'25px'}}>
+                      <span className="span-dots-heder">
+                        <div className="circulo" style={index % 4 === 0 ? {backgroundColor:'#5E5FE2'}:index % 3 === 0 ? {backgroundColor:'#047CD7'}:index % 2 === 0 ? {backgroundColor:'#D4D2D9'}:{backgroundColor:'#F5575C'}}/>
+                      </span>
+                      {x.name} 
+                    </p>
+                  <p>{index % 3 === 0 &&<LockOutlined />} <Dropdown overlay={menu(x)} placement="bottomRight" >
                   <MoreOutlined />
-                </Dropdown></p>
+                </Dropdown></p></div>
                 })}
                 {/* <p style={{marginBottom:'25px'}}>Draft <MoreOutlined /></p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR) <MoreOutlined /></p>

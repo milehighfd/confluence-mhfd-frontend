@@ -1059,6 +1059,14 @@ body{
 .modal-tollgate{
   width: 700px !important;
   top:115px !important;
+  .menu-login-dropdown {
+    border-radius: 9px !important;
+    opacity: 0.6;
+  }
+  .ant-dropdown-menu-item {
+    opacity: 0.6;
+  }
+  
   .ant-picker-range .ant-picker-active-bar {
     background: #11093c;
   }
@@ -2227,6 +2235,16 @@ body{
   .tollgate-body{
     height: calc(100vh - 432px) !important;
     padding-top: 2px;
+    .menu-login-dropdown {
+      border-radius: 9px !important;
+    }
+    .text-tollgate-title{
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
   }
 }
 .ant-picker {
