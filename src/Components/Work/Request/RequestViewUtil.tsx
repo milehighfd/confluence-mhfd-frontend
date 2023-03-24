@@ -68,19 +68,19 @@ export const filterByJurisdictionAndCsaSelected = (jurisdictionSelected: string[
   }
   
   let found = false;
-  if (p.projectData.county) {
-    p.projectData.county.split(',').forEach((county: string) => {
-      if (csaSelected.includes(county)) {
-        found = true;
+  if ( p.projectData.project_counties.length > 0 ) {
+    p.projectData.project_counties.map((element:any)=>{
+      if(csaSelected.includes(element.CODE_STATE_COUNTY.county_name)){
+        found=true;
       }
-    })
+    });
   }
-  if (p.projectData.jurisdiction) {
-    p.projectData.jurisdiction.split(',').forEach((jurisdiction: string) => {
-      if (jurisdictionSelected.includes(jurisdiction)) {
-        found = true;
+  if ( p.projectData.project_local_governments.length > 0 ) {
+      p.projectData.project_local_governments.map((element:any)=>{
+      if(jurisdictionSelected.includes(element.CODE_LOCAL_GOVERNMENT.local_government_name)){
+        found=true;
       }
-    })
+    });
   }
   return found ;
   
