@@ -55,19 +55,22 @@ const ModalTollgate = ({
 })
 
   useEffect(() => {
-    if (codePhaseTypeId === calendarPhase){
-      if (Object.keys(dataProject).length > 0){
+    resetData()
+  }, [visible])
+  useEffect(() => {
+    if (codePhaseTypeId === calendarPhase) {
+      if (Object.keys(dataProject).length > 0) {
         const current = moment(calendarValue);
         const currentPast = moment(calendarValue);
         const indexPhase = (dataProject?.scheduleList?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
-        const reverseData = ([].concat( dataProject?.scheduleList?.slice(0, indexPhase).reverse(), dataProject?.scheduleList?.slice(indexPhase)))
-        const dateValues:any = (reverseData.map((x: any, index: number) => {      
-          if(index>=indexPhase){
+        const reverseData = ([].concat(dataProject?.scheduleList?.slice(0, indexPhase).reverse(), dataProject?.scheduleList?.slice(indexPhase)))
+        const dateValues: any = (reverseData.map((x: any, index: number) => {
+          if (index >= indexPhase) {
             const now = moment(current);
-            current.add(x.duration, 'M');          
+            current.add(x.duration, 'M');
             return {
               project_id: dataProject?.d?.project_id,
-              current : index===indexPhase?1:0,
+              current: index === indexPhase ? 1 : 0,
               key: x.categoryNo,
               name: x.name,
               phase_id: x.phase_id,
@@ -76,12 +79,12 @@ const ModalTollgate = ({
               duration: x.duration,
               endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current)
             };
-          }else{       
+          } else {
             const now1 = moment(currentPast);
-            currentPast.subtract(x.duration, 'M');          
+            currentPast.subtract(x.duration, 'M');
             return {
               project_id: dataProject?.d?.project_id,
-              current : 0,
+              current: 0,
               key: x.categoryNo,
               name: x.name,
               code_phase_type_id: x.phase_id,
@@ -89,11 +92,11 @@ const ModalTollgate = ({
               duration: x.duration,
               startDate:  moment(currentPast)
             };
-          }            
-        }));  
-        setDateValue(([].concat( dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
+          }
+        }));
+        setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
       }
-    }   
+    }
   }, [calendarPhase]);
 
 let items = [
