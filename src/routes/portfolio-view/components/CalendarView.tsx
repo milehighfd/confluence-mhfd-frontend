@@ -236,7 +236,7 @@ let toData = datas
             return (
               {
                 categoryNo: counter,
-                from: moment('2023/11/21 00:00:00'),
+                from: moment('2022/11/21 00:00:00'),
                 to: moment('2023/12/30 00:00:00'),
                 status: x?.code_status_type?.status_name,
                 name: x.phase_name,
@@ -262,8 +262,7 @@ let toData = datas
     }, [])
 
   const timelineChart = (datasets: any) => {
-    console.log(datasets)
-
+    if (Object.keys(scheduleList).length > 0) {
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
     let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8): barHeightDefault;
     let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight): 12;
@@ -298,7 +297,7 @@ let toData = datas
     let rightLine: any;
     let counterDataForChart: number = 0;
     datasets.forEach((sch: any) => {
-      if (sch.schedule.length !== 0) {
+      if (scheduleList.length !== 0) {
         counterDataForChart++;
       }
     });
@@ -503,8 +502,10 @@ let toData = datas
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 25))))))
           .style("fill", "#251863")
-          .style('visibility', (d: any) => {        
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          .style('visibility', (d: any) => {      
+            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+              hasDateData = false;
+            }else if(!(d?.id).includes('Title')){           
               hasDateData = false;
             }
             return hasDateData ? 'visible':'hidden'})
@@ -537,8 +538,8 @@ let toData = datas
             let yScaleRect: any = yScale(d['id']);
           return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
           })
-          .style('visibility', (d: any) => {
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          .style('visibility', (d: any) => {          
+            if(statusCounter === d?.project_status?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }
             return hasDateData ? 'visible':'hidden'})
@@ -583,11 +584,11 @@ let toData = datas
         .attr('fill', function(d: any) {
           return (d.type === 'title'? '#C9C5D8':colorScale[d.status]);
         })
-        .style('visibility', (d: any) => {
-        if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+        .style('visibility', (d: any) => {    
+        if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
           hasDateData = false;
         }
-        return hasDateData ? 'hidden':'visible'})
+        return hasDateData ? 'visible':'hidden'})
 
         // let agrupationTitles = scheduleG
         // .join('rect')
@@ -636,7 +637,7 @@ let toData = datas
           return colorScale[d.status];
         })
         .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
             hasDateData = false;
           }
           return hasDateData ? 'hidden':'visible'});
@@ -669,7 +670,7 @@ let toData = datas
         })
         .text((d: any) => d.name)
         .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
             hasDateData = false;
           }
           return hasDateData ? 'hidden':'visible'});
@@ -740,7 +741,7 @@ let toData = datas
           return yScaleId + h + 8;
         })
         .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
             hasDateData = false;
           }
           return hasDateData ? 'hidden':'visible'});
@@ -769,8 +770,8 @@ let toData = datas
           let yScaleId: any = yScale(d['id']);
           return yScaleId + h + 8;
         })
-        .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+        .style('visibility', (d: any) => {          
+          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
             hasDateData = false;
           }
           return hasDateData ? 'hidden':'visible'});
@@ -1485,7 +1486,7 @@ let toData = datas
       }
 
     }
-
+  }
   };
 
   useEffect(() => {
@@ -1493,7 +1494,7 @@ let toData = datas
     timelineChart(datas);
     setSvgState(svg);
     setSvgAxisState(svgAxis);
-  }, [rawData]);
+  }, [rawData,scheduleList]);
 
   useEffect(() => {
     if (svgState) {
@@ -1509,7 +1510,7 @@ let toData = datas
       collapseItemStatus();
       timelineChart(datas);
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,rawData]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,rawData,scheduleList]);
 
   // useEffect(()=> {
   //   if(zoom && svg){
