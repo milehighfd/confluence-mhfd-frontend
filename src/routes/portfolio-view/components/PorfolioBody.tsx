@@ -274,7 +274,7 @@ const PortafolioBody = () => {
                 project_id: elem.project_id,
                 code_project_type_id:elem.code_project_type_id,
                 headerLabel: element.value,
-                rowLabel: elem.description, //description
+                rowLabel: elem.project_name, //description
                 date: moment('2022/08/11'),
                 key: elem.project_id + element.id,
                 phase: getCurrentProjectStatus(elem)?.code_phase_type?.phase_name,
@@ -650,7 +650,7 @@ const PortafolioBody = () => {
       filterby = filterby+"_id"
     
     let filterWord : any[] = []; 
-    let filterHeart : any[] = [];     
+    let filterHeart : any[] = [];   
     
     if (searchWord) {
       let currentNewData = [...completeData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
