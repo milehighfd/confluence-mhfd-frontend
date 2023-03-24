@@ -319,7 +319,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       }
     }
     if (swSave ) {
-      return total
+      return formatterDec.format(total);
     }
     total = total * 0.000621371;
     return formatterDec.format(total);
@@ -334,7 +334,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       }
     }
     if (swSave ) {
-      return total
+      return formatterDec.format(total);
     }
     return formatterDec.format(total);
   }
