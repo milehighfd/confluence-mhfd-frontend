@@ -472,6 +472,85 @@ export class MapService {
       }
     }
   };
+  // 1	Draft hsl(40, 100%, 50%)
+  // 2	Requested #9309EA
+  // 3	Approved #497BF3
+  // 4	Initiated #139660
+  // 5	Active #416EDA
+  // 6	Completed #06242D
+  // 7	Inactive #A4BCF8
+  // 8	Cancelled #FF0000
+  // 9	Closed #DAE4FC
+  // 10	Closeout  #ECF1FD
+  changePaintPropertyColors (layerid: string, groupedIds: any) {
+    console.log('gorupedids', groupedIds);
+    const expressionByIds = [
+      "match",
+      ["get", "projectid"]
+    ];
+    if(groupedIds[4]) {
+      expressionByIds.push(
+        groupedIds[4], //INITIATED
+      "#139660");
+    }
+     
+    if(groupedIds[2]) {
+      expressionByIds.push(
+        groupedIds[2], //INITIATED
+        "#9309EA");
+    }
+    if(groupedIds[3]) {
+      expressionByIds.push(
+        groupedIds[3], //INITIATED
+        "#497BF3"
+      );
+    }
+    if(groupedIds[8]) {
+      expressionByIds.push(
+        groupedIds[8], //INITIATED
+        "#FF0000");
+    }
+    if(groupedIds[6]) {
+      expressionByIds.push(
+        groupedIds[6], //INITIATED
+        "#06242D");
+    }
+    if(groupedIds[5]) {
+      expressionByIds.push(
+        groupedIds[5], //INITIATED
+        "#416EDA");
+    }
+    if(groupedIds[7]) {
+      expressionByIds.push(
+        groupedIds[7], //INITIATED
+        "#A4BCF8");
+    }
+    if(groupedIds[7]) {
+      expressionByIds.push(
+        groupedIds[7], //INITIATED
+        "#A4BCF8");
+    }
+    if(groupedIds[9]) {
+      expressionByIds.push(
+        groupedIds[9], //INITIATED
+        "#ECF1FD");
+    }
+    if(groupedIds[1]) {
+      expressionByIds.push(
+        groupedIds[1], //INITIATED
+        "hsl(40, 100%, 50%)");
+    }
+    expressionByIds.push("hsl(40, 100%, 50%)");
+    const currentLayer = this.map.getLayer(layerid);
+    if(currentLayer){
+      // const currentLayer = this.map.getPaintProperty(layerid, "line-color");
+      if (currentLayer.type !== 'symbol') {
+        // console.log('CurrentLayer', currentLayer);
+        this.map.setPaintProperty(layerid, "line-color", expressionByIds);
+      }
+      
+    }
+  }
   addLayerMask(id: any) {
     this.waiting(id);
   }

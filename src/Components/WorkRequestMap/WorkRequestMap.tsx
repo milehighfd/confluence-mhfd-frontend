@@ -443,7 +443,8 @@ const WorkRequestMap = (type: any) => {
           });
           map.isRendered(() => {
             setTimeout(() => {
-              applyFiltersIDs(PROJECTS_DRAFT+'draft', filterProjectsDraft);
+              // TODO: WHY DOES THIS IS IN HERE??? SEEMS TO WORK aNYWAY
+              // applyFiltersIDs(PROJECTS_DRAFT+'draft', filterProjectsDraft);
             }, 700);
           });
         });
@@ -923,6 +924,10 @@ const applyProblemClusterLayer = () => {
             allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           }
           map.map.setFilter(key + '_' + index, allFilters);
+          
+          if (groupedIdsBoardProjects) {
+            map.changePaintPropertyColors(key + '_' + index, groupedIdsBoardProjects );
+          }
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
@@ -1113,8 +1118,9 @@ const applyProblemClusterLayer = () => {
 }, [problemClusterGeojson]);
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...(tileStyles as any) };
-
+    console.log('styles', styles[key], key, map.map.getStyle().layers);
     styles[key].forEach((style: LayerStylesType, index: number) => {
+      console.log('map.getLayer(keindex)',key + '_' + index,  map.getLayer(key + '_' + index), index);
       if (!map.getLayer(key + '_' + index)) {
         return;
       }
@@ -1126,7 +1132,10 @@ const applyProblemClusterLayer = () => {
         } else {
           allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111']]]);
         }
-        console.log('ALL FILTERS FRADT', allFilters);
+        if (groupedIdsBoardProjects) {
+          console.log('map.map.getLayer()', map.map.getLayer(key+"_"+index));
+          map.changePaintPropertyColors(key+"_"+index, groupedIdsBoardProjects );
+        }
       }
 
       if (map.getLayer(key + '_' + index)) {
