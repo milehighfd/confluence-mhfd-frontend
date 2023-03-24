@@ -50,6 +50,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   const {getAttachmentByProject} = useAttachmentDispatch();
   const { setIsOpenModal } = useBoardDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
+  const RandD = 'R&D';
 
   const handleOk = (e: any) => {  
     let dataForBoard = {...currentData};
@@ -83,7 +84,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     if(typeProject === NEW_PROJECT_TYPES.Maintenance && subType !== '' ){
       setVisibleMaintenance(true);
     }
-    if(typeProject ===  NEW_PROJECT_TYPES.Special ){
+    if(typeProject ===  NEW_PROJECT_TYPES.Special || typeProject === RandD ){
       setVisibleSpecial(true);
     }
     if(typeProject === NEW_PROJECT_TYPES.Study ){
@@ -334,9 +335,9 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         </Col>
         }
         {
-          allowed.includes(NEW_PROJECT_TYPES.Special) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
+          allowed.includes(NEW_PROJECT_TYPES.Special || RandD) &&  !allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
-          <Button className={typeProject===NEW_PROJECT_TYPES.Special?"button-project button-project-active" : "button-project" }>
+          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?"button-project button-project-active" : "button-project" }>
             <div className="project-img">
               <img src="/Icons/project/special.svg" alt="" height="30px" />
             </div>
@@ -350,9 +351,9 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
       </Row>
       <Row gutter={[16, 16]}>
         {
-          allowed.includes(NEW_PROJECT_TYPES.Special) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
+          allowed.includes(NEW_PROJECT_TYPES.Special || RandD) && allowed.includes(NEW_PROJECT_TYPES.Study) &&
           <Col xs={{ span: 24 }} lg={{ span: 12 }} onClick={()=> chooseSubtypes(NEW_PROJECT_TYPES.Special) } style={{padding: '8px'}}>
-          <Button className={typeProject===NEW_PROJECT_TYPES.Special?"button-project button-project-active" : "button-project" }>
+          <Button className={typeProject===NEW_PROJECT_TYPES.Special || typeProject === RandD?"button-project button-project-active" : "button-project" }>
             <div className="project-img">
               <img src="/Icons/project/special.svg" alt="" height="30px" />
             </div>
