@@ -237,10 +237,12 @@
     color: #11093c;
     font-family: "Ubuntu", sans-serif !important;
     width: max-content;
+    padding: 5px;
     li{
       padding: 5px 10px;
       opacity: 0.5;
       font-size: 13px;
+      border-radius: 5px;
       &:hover{ 
         background-color: #f7f7f9;
         opacity: 0.6;
