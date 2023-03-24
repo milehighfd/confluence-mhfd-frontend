@@ -739,7 +739,7 @@ export const ROLES = [
   { title: 'MHFD Staff', style: '80px', value: 'staff', options: CITIES },
   { title: 'Consultant / Contractor', style: '115px', value: 'consultant', options: CONSULTANT_CONTRACTOR },
   { title: 'Local Government', style: '117px', value: 'government_staff', options: ORGANIZATION },
-  { title: 'Other', style: '80px', value: 'other', options: [] }
+  { title: 'Public', style: '80px', value: 'other', options: [] }
 ]
 
 export const SERVICE_AREA = [
