@@ -607,28 +607,27 @@ const RequestView = ({ type, isFirstRendering }: {
                   let cols = generateColumns(projects, year, tabKey);
                   let areEqual: boolean = compareColumns(columns, cols);
                   setFlagforScroll(Math.random());
-                  if (!areEqual) {
-                    
-
+                  // if (!areEqual) {
                     setColumns(cols);
                     let justProjects = projects.map((proj:any)=> {
-                      return proj.projectData.cartodb_id;
+                      return proj.projectData?.cartodb_id;
                     });
                     let idsProjects = projects.map((proj:any)=> {
-                      return proj.projectData?.projectid;
+                      return proj.projectData?.project_id;
                     });
                     let projectAmounts = projects.map((proj:any)=> {
                       return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
                       cartodb_id: proj.projectData?.cartodb_id
                       }
                     });
+                    const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
                     setProjectAmounts(projectAmounts);
                     if(projects.length>0){
-                      setBoardProjects({cartoids:justProjects, ids: idsProjects});
+                      setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId});
                     } else {
                       setBoardProjects(['-8887']);
                     }
-                  }
+                  // }
                 }
               }
               setLoading(false);

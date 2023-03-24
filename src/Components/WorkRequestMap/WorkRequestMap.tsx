@@ -485,11 +485,10 @@ const WorkRequestMap = (type: any) => {
       setIdsBoardProjects(boardProjects);
     }
     if (boardProjects && boardProjects.ids) {
-      if (!equals(boardProjects.ids, idsBoardProjects)) {
+      // if (!equals(boardProjects.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjects.ids);
-        console.log('Boardprojects', boardProjects);
         setGroupedIdsBoardProjects(boardProjects.groupedIds);
-      }
+      // }
     }
   }, [boardProjects]);
 
@@ -1127,6 +1126,7 @@ const applyProblemClusterLayer = () => {
         } else {
           allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111']]]);
         }
+        console.log('ALL FILTERS FRADT', allFilters);
       }
 
       if (map.getLayer(key + '_' + index)) {
@@ -1190,7 +1190,7 @@ const applyProblemClusterLayer = () => {
       map.addVectorSource(key, tiles);
       addTilesLayers(key);
     } else if (map.getSource(key)) {
-    
+      // map.removeLayer(key);
       map.getSource(key).setTiles(tiles);
       addTilesLayers(key);
     }
