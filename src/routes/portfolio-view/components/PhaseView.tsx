@@ -135,7 +135,7 @@ const PhaseView = (
       .attr("stop-color", '#047CD7')
     completedtoDelayed.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9x')
+      .attr("stop-color", '#D4D2D9')
 
     let ActivetoNotStarted = svgDefinitions.append("linearGradient");
     ActivetoNotStarted

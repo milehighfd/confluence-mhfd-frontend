@@ -54,6 +54,7 @@ const CalendarView = ({
   const [statusList, setStatusList] = useState<any>([])
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [scheduleList, setScheduleList] = useState<any>({})
+  const [dataWithDate, setDataWithDate] = useState<any>(rawData)
 
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
@@ -154,8 +155,8 @@ let toData = datas
     .startOf('month');
   locations.forEach((location: any) => {
     let isTheFirst = 0; 
-    fromData.forEach((elem: any) => {
-      if (elem.id.includes(location) && isTheFirst === 0){
+    fromData.forEach((elem: any) => {      
+      if ((elem.id).replaceAll(' ','').includes(location) && isTheFirst === 0){
         agrupationData.push({
           objectId: 10,
           type: 'title',
@@ -175,6 +176,9 @@ let toData = datas
         theLast= elem;
       }
     })
+    if (agrupationData[index]['to']){
+      console.log(agrupationData)
+    }
     agrupationData[index]['to'] = theLast?.to;
     agrupationData[index].id = `Title${index}`
     agrupationData[index].objectId = index
@@ -226,6 +230,27 @@ let toData = datas
 
     useEffect(() => {
       let z = []
+      let counter2 = 0;
+      setDataWithDate(dataWithDate?.map((x:any)=>{
+        return {
+          ...x,
+          schedule: x?.project_status?.map((z: any, index: number) => {
+            return {
+              categoryNo: index,
+              from: z?.planned_start_date,
+              to: z?.planned_end_date,
+              status: z?.code_phase_type?.code_status_type?.status_name,
+              name: z?.code_phase_type?.phase_name,
+              phase: z?.code_phase_type?.phase_name,
+              tasks: [],
+              phase_id: z?.code_phase_type_id,            
+              tasksData: [],
+              duration: 0,
+              duration_type: ''
+            };
+          }) || []
+        }
+      }))
       datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
         .then((rows) => {  
           setPhaseList(rows)  
@@ -486,7 +511,6 @@ let toData = datas
           })
           .attr("width", () => {
             let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 100 : (windowWidth >= 2001 && windowWidth <= 2549 ? 100 : (windowWidth >= 2550 && windowWidth <= 3000 ? 100 : (windowWidth >= 1450 && windowWidth <= 2000 ? 100 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 100)))));
-             console.log('ydname', widthAddButton + 10)
             return widthAddButton;
           })
           // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
@@ -500,12 +524,14 @@ let toData = datas
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
           .style('visibility', (d: any) => {      
-            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+            hasDateData= true;            
+            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length ){
               hasDateData = false;
-            }else if(!(d?.id).includes('Title')){           
+            }else if (d?.id.includes('Title')){
               hasDateData = false;
             }
-            return hasDateData ? 'visible':'hidden'})
+            return hasDateData ? 'visible':'hidden'
+          })
           .attr('stroke', '#251863')
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
@@ -536,15 +562,14 @@ let toData = datas
           return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
           })
           .style('visibility', (d: any) => { 
-            hasDateData= true;
-            console.log((d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length)      
-            console.log(statusCounter)         
+            hasDateData= true;            
             if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length ){
               hasDateData = false;
             }else if (d?.id.includes('Title')){
               hasDateData = false;
             }
-            return hasDateData ? 'visible':'hidden'})
+            return hasDateData ? 'visible':'hidden'
+          })
             .on("click", function (d: any) {
               const sendTollgate = { d, scheduleList }
               setTollData(sendTollgate);    
@@ -557,7 +582,7 @@ let toData = datas
       let scheduleRects = scheduleG
         .enter().append('rect')
         .attr('id', function(d: any) {
-          return `${d.id}_${d.categoryNo}`;
+          return `${d.id.replaceAll(' ','')}_${d.categoryNo}`;
         })
         .attr('class', function(d: any) {
           return (d.type === 'title'? 'agrupationbar':'stackedbar')
@@ -619,7 +644,7 @@ let toData = datas
       let scheduleRectsCenter = scheduleG
         .enter().append('rect')
         .attr('id', function(d: any) {
-          return `${d.id}_${d.categoryNo}_center`;
+          return `${d.id.replaceAll(' ','')}_${d.categoryNo}_center`;
         })
         .attr('class', 'stackedbarCenter')
         .attr('x', function(d: any) {
@@ -650,7 +675,7 @@ let toData = datas
         .enter().append('text')
         //.attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
         .attr('id', function(d: any) {
-          return `${d.id}_${d.categoryNo}_text`;
+          return `${d.id.replaceAll(' ','')}_${d.categoryNo}_text`;
         })
         .attr('class', (d: any) =>(d.type === 'title'? 'labelsAgrupation':'labels'))
         .style('fill', (d: any) =>(d.type === 'title'? '#11093C':'white'))
@@ -710,12 +735,12 @@ let toData = datas
         .enter().append('g')
         .attr('class', dragablesLines)
         .attr('id', (d: any) => {
-          return `${d.id}_${d.categoryNo}_left`;
+          return `${d.id.replaceAll(' ','')}_${d.categoryNo}_left`;
         });
       let dragableLineRight = scheduleG
         .enter().append('g')
         .attr('class', dragablesLines)
-        .attr('id', (d: any) => `${d.id}_${d.categoryNo}_right`);
+        .attr('id', (d: any) => `${d.id.replaceAll(' ','')}_${d.categoryNo}_right`);
 
       hasDateData = true
 
@@ -723,7 +748,7 @@ let toData = datas
       leftLine = dragableLineLeft
         .append('line')
         .attr('id', function(d: any) {
-          return `${d.id}_${d.categoryNo}_left`;
+          return `${d.id.replaceAll(' ','')}_${d.categoryNo}_left`;
         })
         .attr('class', 'dragginglines')
         .attr('x1', function(d: any) {
@@ -753,7 +778,7 @@ let toData = datas
       rightLine = dragableLineRight
         .append('line')
         .attr('id', function(d: any) {
-          return `${d.id}_${d.categoryNo}_right`;
+          return `${d.id.replaceAll(' ','')}_${d.categoryNo}_right`;
         })
         .attr('class', 'dragginglines')
         .attr('x1', function(d: any) {
@@ -966,9 +991,9 @@ let toData = datas
       const dotme = (text: any) => {
         text.each((d: any) => {
           const completeLabel = `${d['name']}`;
-          const idText = `${d.id}_${d.categoryNo}_text`;
+          const idText = `${d.id.replaceAll(' ','')}_${d.categoryNo}_text`;
           const textElem: any = d3.select(`#${idText}`);
-          const rectElem = d3.select(`#${d.id}_${d.categoryNo}`);
+          const rectElem = d3.select(`#${d.id.replaceAll(' ','')}_${d.categoryNo}`);
           const padding = 15;
           const rectElemWidth: any = rectElem.attr('width');
           const totalWidth = rectElemWidth - padding;
