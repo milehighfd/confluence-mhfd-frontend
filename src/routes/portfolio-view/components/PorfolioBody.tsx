@@ -620,7 +620,9 @@ const PortafolioBody = () => {
   }
 
 
-
+  const createProjectStatusesCb = () => {
+    callGetGroupList(sortValue, openFavorites);
+  }
   useEffect(() => {
     callGetGroupList(sortValue, openFavorites);  
     apply(null, '', '');
@@ -758,7 +760,12 @@ const PortafolioBody = () => {
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
-    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate} dataProject={tollData}/>
+    <ModalTollgate
+      visible={openModalTollgate}
+      setVisible={setOpenModalTollgate}
+      dataProject={tollData}
+      saveCB={createProjectStatusesCb}
+    />
     <div>
       {isLoading && <LoadingViewOverall />}
       <div className="portafolio-head">

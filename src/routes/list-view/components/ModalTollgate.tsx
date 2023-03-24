@@ -11,11 +11,14 @@ const { RangePicker }:any = DatePicker;
 const ModalTollgate = ({
   visible, 
   setVisible, 
-  dataProject
+  dataProject,
+  saveCB
 }: {
   visible: boolean, 
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
-  dataProject?:any,}) => {
+  dataProject?:any,
+  saveCB?: any
+}) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
   const [dateValue, setDateValue] = useState<any[]>([])
@@ -139,6 +142,7 @@ let items = [
         phases: dateValue
       }, datasets.getToken()).then(async res => {
         console.log(res);
+        saveCB();
         setVisible(false);
       });
   }
