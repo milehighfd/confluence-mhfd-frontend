@@ -128,7 +128,8 @@ export const SERVER = (function () {
     const ALL_ORGANIZATION = 'get-list?servicearea=1&county=1&jurisdiction=1';
     const PMTOOLS = 'pm-tools';
     const STREAMS = 'streams';
-    const BUSINESS = 'business'
+    const BUSINESS = 'business';
+    const STATUS = 'status';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -200,7 +201,8 @@ export const SERVER = (function () {
         GROUP_ORGANIZATION_NO_GEOM: `${URL_BASE.BASE}/v2/locality/all-localities?nogeom=1`,
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         PHASE_TYPE: `${URL_BASE.BASE}/phasetype`,
-        STATUS: `${URL_BASE.BASE}/status`,
+        STATUS: `${URL_BASE.BASE}/${STATUS}`,
+        CREATE_STATUS_GROUP: `${URL_BASE.BASE}/${STATUS}/create-group`,
         PROJECT_ACTION_ITEM:`${URL_BASE.BASE}/actionitem`,
         BUSINESS_ASSOCIATES:`${URL_BASE.BASE}/${BUSINESS}/business-associates`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,

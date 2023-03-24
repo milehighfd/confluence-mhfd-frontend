@@ -3,6 +3,8 @@ import { Button, Checkbox, Col, DatePicker, InputNumber, Row, Menu,Dropdown } fr
 import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from '../../../Config/Server.config';
 
 const { RangePicker }:any = DatePicker;
 
@@ -69,7 +71,9 @@ const ModalTollgate = ({
               key: x.categoryNo,
               name: x.name,
               phase_id: x.phase_id,
+              code_phase_type_id: x.phase_id,
               startDate: now.clone(),
+              duration: x.duration,
               endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current)
             };
           }else{       
@@ -82,6 +86,7 @@ const ModalTollgate = ({
               name: x.name,
               code_phase_type_id: x.phase_id,
               endDate: now1.clone().subtract(1, 'd'),
+              duration: x.duration,
               startDate:  moment(currentPast)
             };
           }            
@@ -125,8 +130,14 @@ let items = [
     setCalendarPhase(0)
   }
   function sendData() {
-    let phases = dataProject;
-    console.log(phases)
+    datasets.postData(SERVER.CREATE_STATUS_GROUP, 
+      {
+        project_id: dataProject.d.project_id,
+        phases: dateValue
+      }, datasets.getToken()).then(async res => {
+        console.log(res);
+        setVisible(false);
+      });
   }
 
   return (
