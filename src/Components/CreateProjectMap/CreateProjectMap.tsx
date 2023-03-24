@@ -86,7 +86,7 @@ const CreateProjectMap = (type: any) => {
     getComponentsByProjid,
   } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getServiceAreaPoint,
-    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, setStreamsIds, setStreamIntersected, updateSelectedLayersCP, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom } = useProjectDispatch();
+    getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, setStreamsIds, setStreamIntersected, updateSelectedLayersCP, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, setEditLocation } = useProjectDispatch();
   const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayersCP, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
   const { groupOrganization } = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
@@ -172,6 +172,7 @@ const CreateProjectMap = (type: any) => {
       setComponentIntersected([]);
       setComponentGeom(undefined);
       updateSelectedLayersCP([]);
+      setEditLocation([]);
       marker.remove();
     }
   }, []);
@@ -200,7 +201,7 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (editLocation && editLocation[0]) {
       setTimeout(() => {
-        map.isStyleLoaded(() => { AddMarkerEdit({ lat: editLocation[0][1], lng: editLocation[0][0] + 0.00003 }); })
+        map.isStyleLoaded(() => { AddMarkerEdit({ lat: editLocation[1], lng: editLocation[0] + 0.00003 }); })
       }, 1300);
     }
   }, [editLocation]);
