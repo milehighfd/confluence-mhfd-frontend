@@ -360,6 +360,41 @@ const RequestView = ({ type, isFirstRendering }: {
     return out;
   };
   
+  const buildGeojsonForLabelsProjectsInBoards = (projects: any) => {
+    const geojsonData = {
+      "type": "FeatureCollection",
+      "features": []
+    };
+    const projectsRData = projects.map((p:any) => {
+      return {
+        project_id: p.projectData?.project_id,
+        current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
+          if (p.projectData?.current_project_status_id) {
+            return ps?.project_status_id == p.projectData?.current_project_status_id
+          } else {
+            // IF NO CURRENT STATUS PICK FIRST ONE 
+            return index === 0;
+          }
+        })[0]?.code_phase_type?.code_status_type?.status_name,
+        project_name: p?.projectData?.project_name,
+        centroid: p?.projectData?.centroid[0]?.centroid
+      };
+    });
+    geojsonData.features = projectsRData.map((p:any) => {
+      return {
+        "type": "Feature",
+        "properties": {
+          "project_name": p.project_name,
+          "project_status": p.current_project_status,
+          "project_id": p.project_id
+        },
+        "geometry": p.centroid ? JSON.parse(p.centroid) : ''
+
+      };
+    });
+    return geojsonData;
+  }
+
   const splitProjectsIdsByStatuses = (projects: any) => {
     const projectsRelevantData = projects.map((p: any) => {
       return {
@@ -421,9 +456,10 @@ const RequestView = ({ type, isFirstRendering }: {
               }
             });
             const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
+            const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
             setProjectAmounts(projectAmounts);
             if(projects.length>0){
-              setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId});
+              setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
             } else {
               setBoardProjects(['-8885']);
             }
@@ -621,6 +657,7 @@ const RequestView = ({ type, isFirstRendering }: {
                       }
                     });
                     const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
+                    buildGeojsonForLabelsProjectsInBoards(projects);
                     setProjectAmounts(projectAmounts);
                     if(projects.length>0){
                       setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId});
