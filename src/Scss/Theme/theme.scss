@@ -1057,14 +1057,14 @@ body{
 }
 
 .modal-tollgate{
-  width: 700px !important;
+  width: 750px !important;
   top:115px !important;
   .menu-login-dropdown {
     border-radius: 9px !important;
-    opacity: 0.6;
+    // opacity: 0.6;
   }
   .ant-dropdown-menu-item {
-    opacity: 0.6;
+    opacity: 0.6 !important;
   }
   
   .ant-picker-range .ant-picker-active-bar {
@@ -3493,7 +3493,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 716px !important;
+    width: 7116px !important;
   }
 }
 @media (min-width: 2550px) and (max-width: 3799px){
@@ -3515,7 +3515,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 900px !important;
+    width: 1000px !important;
       font-size: 18px !important;
       top:159px !important;
       .ant-picker-input>input {
@@ -3882,7 +3882,7 @@ body{
     }
   }
   .modal-tollgate{
-    width: 1170px !important;
+    width: 1370px !important;
       font-size: 18px !important;
       top: 260px !important;
       .ant-picker-input>input {

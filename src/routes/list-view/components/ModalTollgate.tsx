@@ -156,7 +156,7 @@ let items = [
       forceRender={false}
       destroyOnClose>
       <div className="detailed">
-        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px'}}>
+        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px', paddingTop:'10px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 20 }}>
             <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>Capital Project</p>
             <h1>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
