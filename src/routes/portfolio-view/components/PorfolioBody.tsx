@@ -85,6 +85,8 @@ const PortafolioBody = () => {
   const [collapsePhase, setCollapsePhase] = useState(false);
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
+  const [dataWithDate, setDataWithDate] = useState<any>([]);
+  const [statusCounter,setStatusCounter] = useState(0);
 
   const [favorites, setFavorites] = useState<any>([]);
   const [tollData,setTollData] = useState<any>([]);
@@ -414,6 +416,8 @@ const PortafolioBody = () => {
                     name: 'Draft',
                     phase: 'Draft', 
                     tasks: 6,
+                    show: false,
+                    current:false
                   },
                   {
                     objectId: 2,
@@ -424,7 +428,9 @@ const PortafolioBody = () => {
                     status: 'completed',
                     name: 'Work Request',
                     phase: 'WorkRequest', 
-                    tasks: 8
+                    tasks: 8,
+                    show: false,
+                    current:false
                   },
                   {
                     objectId: 3,
@@ -435,7 +441,9 @@ const PortafolioBody = () => {
                     status: 'completed',
                     name: 'Work Plan',
                     phase: 'WorkPlan', 
-                    tasks: 12
+                    tasks: 12,
+                    show: false,
+                    current:false
                   },
                   {
                     objectId: 4,
@@ -446,161 +454,9 @@ const PortafolioBody = () => {
                     status: 'active',
                     name: 'Start Up',
                     phase: 'StartUp', 
-                    tasks: 32
-                  },
-                  {
-                    objectId: 5,
-                    type: 'rect',
-                    categoryNo: 5,
-                    from: moment('2022/09/11 08:30:00'),
-                    to: moment('2022/10/11 10:00:00'),
-                    status: 'active',
-                    name: 'Funding',
-                    phase: 'Funding', 
-                    tasks: 6
-                  },
-                  {
-                    objectId: 6,
-                    type: 'rect',
-                    categoryNo: 6,
-                    from: moment('2022/10/12 08:30:00'),
-                    to: moment('2022/12/10 10:00:00'),
-                    status: 'active',
-                    name: 'Consultant Procurement',
-                    phase: 'ConsultantProcurement', 
-                    tasks: 12
-                  },
-                  {
-                    objectId: 7,
-                    type: 'rect',
-                    categoryNo: 7,
-                    from: moment('2022/12/11 00:00:00'),
-                    to: moment('2023/01/20 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Conceptual Design',
-                    phase: 'ConceptualDesign', 
-                    tasks: 15
-                  },
-                  {
-                    objectId: 8,
-                    type: 'rect',
-                    categoryNo: 8,
-                    from: moment('2023/01/21 00:00:00'),
-                    to: moment('2023/03/01 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Preliminary Design',
-                    phase: 'PreliminaryDesign', 
-                    tasks: 9
-                  },
-                  {
-                    objectId: 9,
-                    type: 'rect',
-                    categoryNo: 9,
-                    from: moment('2023/03/02 00:00:00'),
-                    to: moment('2023/05/03 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Final Design',
-                    phase: 'FinalDesign', 
-                    tasks: 2
-                  },
-                  {
-                    objectId: 10,
-                    type: 'rect',
-                    categoryNo: 10,
-                    from: moment('2023/05/04 00:00:00'),
-                    to: moment('2023/06/15 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Construction Contracting',
-                    phase: 'ConstructionContracting', 
-                    tasks: 7
-                  },
-                  {
-                    objectId: 11,
-                    type: 'rect',
-                    categoryNo: 11,
-                    from: moment('2023/06/16 00:00:00'),
-                    to: moment('2023/07/29 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Construction',
-                    phase: 'Construction', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 12,
-                    type: 'rect',
-                    categoryNo: 12,
-                    from: moment('2023/07/30 00:00:00'),
-                    to: moment('2023/09/20 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Documentation',
-                    phase: 'Documentation', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 13,
-                    type: 'rect',
-                    categoryNo: 13,
-                    from: moment('2023/09/21 00:00:00'),
-                    to: moment('2023/10/20 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Establishment',
-                    phase: 'Establishment', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 14,
-                    type: 'rect',
-                    categoryNo: 14,
-                    from: moment('2023/10/21 00:00:00'),
-                    to: moment('2023/11/20 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Close Out',
-                    phase: 'CloseOut', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 15,
-                    type: 'rect',
-                    categoryNo: 15,
-                    from: moment('2023/11/21 00:00:00'),
-                    to: moment('2023/12/30 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Closed',
-                    phase: 'Closed', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 16,
-                    type: 'rect',
-                    categoryNo: 16,
-                    from: moment('2024/01/01 00:00:00'),
-                    to: moment('2024/01/15 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Closed',
-                    phase: 'Closed', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 17,
-                    type: 'rect',
-                    categoryNo: 17,
-                    from: moment('2024/01/16 00:00:00'),
-                    to: moment('2024/02/15 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Closed',
-                    phase: 'Closed', 
-                    tasks: 10
-                  },
-                  {
-                    objectId: 18,
-                    type: 'rect',
-                    categoryNo: 18,
-                    from: moment('2024/02/16 00:00:00'),
-                    to: moment('2024/03/15 00:00:00'),
-                    status: 'notStarted',
-                    name: 'Closed',
-                    phase: 'Closed', 
-                    tasks: 10
+                    tasks: 32,
+                    show: false,
+                    current:false
                   },
                 ],
               })
@@ -731,19 +587,70 @@ const PortafolioBody = () => {
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     setNewData(numAscending)
   }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
+ 
+  useEffect(() => {
+    let z = []      
+    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKeysIds[tabKeys.indexOf(tabKey)] || 0 })
+      .then((rows) => {        
+        setStatusCounter(rows.length)      
+      })
+  }, [tabKey])
 
-  function enterPhase (){
-    setSortValue({
-      columnKey: null, order: undefined
-    });
+  function enterPhase() {
     setOptionSelect('Phase')
     setTabKey('CIP');
   }
-  function enterSchedule (){
+  function enterSchedule() {
+    setDataWithDate(newData?.map((x: any) => {
+      if (x.project_status) {
+        return {
+          ...x,
+          schedule: x?.project_status?.map((z: any, index: number) => {
+            console.log(x)
+            if (!z.planned_start_date || !z.planned_end_date) {
+              return {
+                objectId: index + 1,
+                type: 'rect',
+                categoryNo: index + 1,
+                from: moment('2022/07/22 08:30:00'),
+                to: moment('2024/07/22 08:30:00'),
+                status: z?.code_phase_type?.code_status_type?.status_name,
+                name: z?.code_phase_type?.phase_name,
+                phase: z?.code_phase_type?.phase_name,
+                tasks: 10,
+                show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
+                current : x?.phaseId === z?.code_phase_type_id
+              };
+            } else {
+              return {
+                objectId: index + 1,
+                type: 'rect',
+                categoryNo: index + 1,
+                from: moment(z?.planned_start_date),
+                to: moment(z?.planned_end_date),
+                status: z?.code_phase_type?.code_status_type?.status_name,
+                name: z?.code_phase_type?.phase_name,
+                phase: z?.code_phase_type?.phase_name,
+                tasks: 10,
+                show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
+                current : x?.phaseId === z?.code_phase_type_id
+              };
+            }
+          })
+        }
+      } else {
+        return {
+          ...x
+        }
+      }
+
+    }))    
+    setTimeout(()=>{
+      setOptionSelect('Schedule')
+    }, 100);
     setSortValue({
       columnKey: null, order: undefined
     });
-    setOptionSelect('Schedule')
     setTabKey('CIP');
   }
   function enterList (){
@@ -915,7 +822,7 @@ const PortafolioBody = () => {
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 
-                    rawData={newData} 
+                    rawData={dataWithDate} 
                     openTable={openTable} 
                     moveSchedule={zoomTimeline} 
                     scheduleRef={scheduleRef} 
