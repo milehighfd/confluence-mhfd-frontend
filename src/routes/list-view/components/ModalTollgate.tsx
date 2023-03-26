@@ -26,7 +26,7 @@ const ModalTollgate = ({
   const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1)
   const [calendarValue,setCalendarValue] =useState([])
   const [calendarPhase,setCalendarPhase] =useState(0)
-
+  const [phasesData,setPhasesData] =useState([])
   
   const [valueInput, setValueInput] = useState({
     oneL: '0',
@@ -54,23 +54,59 @@ const ModalTollgate = ({
     twelveL:'11',
     twelveR:'11',
     thirteenL:'12',
-    thirteenR:'12',
-})
-
+    thirteenR: '12',
+  })
+  const colorScale: any = {
+    Done: '#5E5FE2',
+    Active: '#047CD7',
+    NotStarted: '#D4D2D9',
+    Current: '#047CD7',
+  };
+  
   useEffect(() => {
     resetData()
   }, [visible])
+
+  useEffect(() => {
+    setPhasesData(dataProject?.scheduleList?.map((x:any, index:number)=>{
+      return {...x,locked : false, current: 'NotStarted'};
+    }))
+  }, [visible])
+
+  useEffect(() => {
+    if (Object.keys(phasesData).length > 0) {
+      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));     
+      const phaseDatas : any = (phasesData.map((x: any, index: number) => {
+        if (index === indexPhase) {          
+          return {
+            ...x, current: 'Current'
+          };
+        } 
+        else if (index < indexPhase) {
+          return {
+            ...x, current: 'Done'
+          };
+        }else{
+          return {
+            ...x, current: 'NotStarted'
+          };
+        }
+      }))
+      setPhasesData(phaseDatas)
+    }
+  }, [codePhaseTypeId])
+
   useEffect(() => {
     if (codePhaseTypeId === calendarPhase) {
       if (Object.keys(dataProject).length > 0) {
         const current = moment(calendarValue);
         const currentPast = moment(calendarValue);
-        const indexPhase = (dataProject?.scheduleList?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
-        const reverseData = ([].concat(dataProject?.scheduleList?.slice(0, indexPhase).reverse(), dataProject?.scheduleList?.slice(indexPhase)))
-        const dateValues: any = (reverseData.map((x: any, index: number) => {
+        const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
+        const reverseData = ([].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase)))
+        const dateValues: any = (reverseData.map((x: any, index: number) => {          
           if (index >= indexPhase) {
             const now = moment(current);
-            current.add(x.duration, 'M');
+            current.add(x.duration, 'M');            
             return {
               project_id: dataProject?.d?.project_id,
               current: index === indexPhase ? 1 : 0,
@@ -80,7 +116,8 @@ const ModalTollgate = ({
               code_phase_type_id: x.phase_id,
               startDate: now.clone(),
               duration: x.duration,
-              endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current)
+              endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
+              locked: index === indexPhase ? true : false,
             };
           } else {
             const now1 = moment(currentPast);
@@ -93,12 +130,27 @@ const ModalTollgate = ({
               code_phase_type_id: x.phase_id,
               endDate: now1.clone().subtract(1, 'd'),
               duration: x.duration,
-              startDate:  moment(currentPast)
+              startDate:  moment(currentPast),
+              locked: index === indexPhase ? true : false,
             };
           }
         }));
         setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
       }
+    }
+    if (Object.keys(phasesData).length > 0) {
+      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));   
+      const phaseDatas : any = (phasesData.map((x: any, index: number) => {
+        if (index === indexPhase) {          
+          return {
+            ...x, locked: true
+          };
+        } else{
+          return {
+            ...x}
+        }        
+      }))
+      setPhasesData(phaseDatas)
     }
   }, [calendarPhase]);
 
@@ -118,7 +170,7 @@ let items = [
       onClick={({ key }) => {
         switch (key) {
           case 'lock-phase':
-            console.log('lock')
+            lockData(element.code_phase_type_id)
             break;
             case 'current-phase':
             setCodePhaseTypeId(element.code_phase_type_id)
@@ -147,6 +199,22 @@ let items = [
       });
   }
 
+  function lockData(z:any) {
+    if (Object.keys(phasesData).length > 0) {
+      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === z));   
+      const phaseDatas : any = (phasesData.map((x: any, index: number) => {
+        if (index === indexPhase) {          
+          return {
+            ...x, locked: true
+          };
+        } else{
+          return {
+            ...x}
+        }        
+      }))
+      setPhasesData(phaseDatas)
+    }
+  }
   return (
     <Modal
       className="detailed-version modal-tollgate"
@@ -234,15 +302,15 @@ let items = [
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
-                {dataProject?.scheduleList?.map((x:any, index:number)=>{
+                {phasesData?.map((x:any, index:number)=>{
                   return <div className='text-tollgate-title'>
                     <p key={x.categoryNo} style={{marginBottom:'25px'}}>
                       <span className="span-dots-heder">
-                        <div className="circulo" style={index % 4 === 0 ? {backgroundColor:'#5E5FE2'}:index % 3 === 0 ? {backgroundColor:'#047CD7'}:index % 2 === 0 ? {backgroundColor:'#D4D2D9'}:{backgroundColor:'#F5575C'}}/>
+                        <div className="circulo" style={{backgroundColor:colorScale[x.current]}}/>
                       </span>
                       {x.name} 
                     </p>
-                  <p>{index % 3 === 0 &&<LockOutlined />} <Dropdown overlay={menu(x)} placement="bottomRight" >
+                  <p>{x.locked &&<LockOutlined />} <Dropdown overlay={menu(x)} placement="bottomRight" >
                   <MoreOutlined />
                 </Dropdown></p></div>
                 })}
