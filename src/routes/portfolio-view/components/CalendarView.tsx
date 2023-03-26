@@ -53,9 +53,7 @@ const CalendarView = ({
   const [phaseList, setPhaseList] = useState<any>([])
   const [statusList, setStatusList] = useState<any>([])
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
-  const [scheduleList, setScheduleList] = useState<any>({})
-  const [dataWithDate, setDataWithDate] = useState<any>(rawData)
-
+  const [scheduleList, setScheduleList] = useState<any>({}) 
   const [current, setCurrent] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [svgState, setSvgState] = useState<any>();
@@ -87,12 +85,11 @@ const CalendarView = ({
   const prev = () => {
     setCurrent(current - 1);
   };
-
   const colorScale: any = {
-    completed: '#5E5FE2',
-    active: '#047CD7',
-    notStarted: '#D4D2D9',
-    delayed: '#F5575C',
+    Done: '#5E5FE2',
+    Active: '#047CD7',
+    NotStarted: '#D4D2D9',
+    Current: '#047CD7',
   };
  
   //const sortedData = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
@@ -103,8 +100,6 @@ const CalendarView = ({
       values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
-
-
   const locations: any = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));  
   let agrupationData: any= [];
   let datas = rawData.map((el: any) => {
@@ -119,6 +114,7 @@ const CalendarView = ({
         }),
     };
   });
+
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
   let zoom: any;
@@ -135,24 +131,21 @@ const CalendarView = ({
   let zoomButtonsHeight: any = document.getElementById('zoomButtons')?.offsetHeight;
  let heightt =heightOfList - 47 - 32- 10;
 
-  let fromData: any = datas
-  .map((ds: any) => ds.schedule)
+  let fromData: any = datas?.map((ds: any) => ds.schedule)
   .flat()
   .sort(function(a: any, b: any) {
     return a.from - b.from;
   });
-let toData = datas
-  .map((ds: any) => ds.schedule)
+let toData = datas?.map((ds: any) => ds.schedule)
   .flat()
   .sort(function(a: any, b: any) {
     return a.to - b.to;
   });
   
-
-  let StartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
-  let EndTime = moment(toData[toData.length - 1].to)
-    .add(12, 'months')
-    .startOf('month');
+  // let StartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
+  // let EndTime = moment(toData[toData.length - 1].to)
+  //   .add(12, 'months')
+  //   .startOf('month');
   locations.forEach((location: any) => {
     let isTheFirst = 0; 
     fromData.forEach((elem: any) => {      
@@ -175,10 +168,7 @@ let toData = datas
       if (elem.id.includes(location)){
         theLast= elem;
       }
-    })
-    if (agrupationData[index]['to']){
-      console.log(agrupationData)
-    }
+    })  
     agrupationData[index]['to'] = theLast?.to;
     agrupationData[index].id = `Title${index}`
     agrupationData[index].objectId = index
@@ -187,7 +177,7 @@ let toData = datas
   });
 
   let positions =0;
-  datas.forEach((element:any) => {
+  datas?.forEach((element:any) => {
       if(element.id.includes('Title')){
         element.schedule[0] = agrupationData[positions];
         positions++
@@ -227,30 +217,9 @@ let toData = datas
     // let heightChart = heightDivLeft * 1.14;
     // let barHeight = heightChart * 0.04173;
     // let factorHeight = heightChart * 0.03555; 
-
+  
     useEffect(() => {
-      let z = []
-      let counter2 = 0;
-      setDataWithDate(dataWithDate?.map((x:any)=>{
-        return {
-          ...x,
-          schedule: x?.project_status?.map((z: any, index: number) => {
-            return {
-              categoryNo: index,
-              from: z?.planned_start_date,
-              to: z?.planned_end_date,
-              status: z?.code_phase_type?.code_status_type?.status_name,
-              name: z?.code_phase_type?.phase_name,
-              phase: z?.code_phase_type?.phase_name,
-              tasks: [],
-              phase_id: z?.code_phase_type_id,            
-              tasksData: [],
-              duration: 0,
-              duration_type: ''
-            };
-          }) || []
-        }
-      }))
+      let z = []      
       datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
         .then((rows) => {  
           setPhaseList(rows)  
@@ -285,7 +254,7 @@ let toData = datas
           console.log(e);
         })
     }, [])
-
+    
   const timelineChart = (datasets: any) => {
     if (Object.keys(scheduleList).length > 0) {
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
@@ -326,12 +295,11 @@ let toData = datas
         counterDataForChart++;
       }
     });
-    if (counterDataForChart !== 0) {
-      
-      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
+    if (counterDataForChart !== 0) {     
+      let timelineStartTime = moment(fromData[index].from.startOf('month')).subtract(12, 'months');
       let timelineEndTime = moment(toData[toData.length - 1].to)
         .add(12, 'months')
-        .startOf('month');
+        .startOf('month');     
       // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
       // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
       let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
@@ -523,7 +491,7 @@ let toData = datas
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
-          .style('visibility', (d: any) => {      
+          .style('visibility', (d: any) => {
             hasDateData= true;            
             if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length ){
               hasDateData = false;
@@ -577,8 +545,8 @@ let toData = datas
             })
           ;
 
-      hasDateData = true 
-
+      hasDateData = true ;
+      let done = true;
       let scheduleRects = scheduleG
         .enter().append('rect')
         .attr('id', function(d: any) {
@@ -608,14 +576,22 @@ let toData = datas
         .attr('height', function(d: any) {
           return (d.type === 'title'? barHeight/4:barHeight);
         })
-        .attr('fill', function(d: any) {
-          return (d.type === 'title'? '#C9C5D8':colorScale[d.status]);
+        .attr('fill', function(d: any) { 
+          let color = '';    
+          console.log(d)             
+          if(done){
+            color = 'Done'
+          }else{
+            color = 'NotStarted'
+          }
+          if(d.current){
+            color = 'Current'
+            done = false
+          }
+          return (d.type === 'title'? '#C9C5D8':colorScale[color]);
         })
-        .style('visibility', (d: any) => {    
-        if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-          hasDateData = false;
-        }
-        return hasDateData ? 'visible':'hidden'})
+        .style('visibility', (d: any) => {              
+        return d.show ? 'visible':'hidden'})
 
         // let agrupationTitles = scheduleG
         // .join('rect')
@@ -639,8 +615,8 @@ let toData = datas
         // .attr('height', barHeight -20 )
         // .attr('fill', '#C9C5D8');
 
-      hasDateData = true
-
+      hasDateData = true;
+      done = true;
       let scheduleRectsCenter = scheduleG
         .enter().append('rect')
         .attr('id', function(d: any) {
@@ -661,13 +637,20 @@ let toData = datas
         })
         .attr('height', barHeight - 2)
         .attr('fill', function(d: any) {
-          return colorScale[d.status];
+          let color = '';          
+          if(done){
+            color = 'Done'
+          }else{
+            color = 'NotStarted'
+          }
+          if(d.current){
+            color = 'Current'
+            done = false
+          }
+          return (colorScale[color]);
         })
         .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-            hasDateData = false;
-          }
-          return hasDateData ? 'hidden':'visible'});
+          return d.show ? 'visible':'hidden'});
 
       hasDateData = true
 
@@ -697,10 +680,7 @@ let toData = datas
         })
         .text((d: any) => d.name)
         .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-            hasDateData = false;
-          }
-          return hasDateData ? 'hidden':'visible'});
+          return d.show ? 'visible':'hidden'});
 
         // let rectNamesAgrupation = scheduleG
         // .join('text')
@@ -768,10 +748,7 @@ let toData = datas
           return yScaleId + h + 8;
         })
         .style('visibility', (d: any) => {
-          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-            hasDateData = false;
-          }
-          return hasDateData ? 'hidden':'visible'});
+          return d.show ? 'visible':'hidden'});
 
       hasDateData = true
 
@@ -797,11 +774,8 @@ let toData = datas
           let yScaleId: any = yScale(d['id']);
           return yScaleId + h + 8;
         })
-        .style('visibility', (d: any) => {          
-          if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-            hasDateData = false;
-          }
-          return hasDateData ? 'hidden':'visible'});
+        .style('visibility', (d: any) => {    
+          return d.show ? 'visible':'hidden'});
 
       zoomedXScale = xScale;
       let calctodayX = function(d: any) {
