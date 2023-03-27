@@ -192,6 +192,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   },[showModalProject]);
 
   let color = null, backgroundColor = null;
+  
   switch(status) {
     case 'Requested':
       backgroundColor = 'rgba(94, 61, 255, 0.15)';
@@ -212,6 +213,14 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     case 'Complete':
       backgroundColor = 'rgba(41, 196, 153, 0.08)';
       color = '#06242D';
+      break;
+    case 'Active': 
+      backgroundColor = 'rgba(65, 110, 218, 0.08)';
+      color = '#416EDA';
+      break;
+    case 'Inactive':
+      backgroundColor = 'rgba(164, 1688, 248, 0.08)';
+      color = '#A4BCF8';
       break;
     default:
       color= '#FF8938';

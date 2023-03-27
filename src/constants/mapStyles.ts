@@ -2897,17 +2897,6 @@ export const PROJECTS_STYLES_WR = {
       type: 'symbol',
       'source-layer': 'pluto15v1',
       "layout": {
-        "text-field": [
-            "match",
-            ["get", "status"],
-            ["Requested"],
-            [
-                "concat",
-                ["to-string", ["get", "projectname"]],
-                "      Requested"
-            ],
-            ""
-        ],
         "text-rotation-alignment": "map",
         "text-offset": [3, 3],
         "text-font": [
@@ -2917,21 +2906,6 @@ export const PROJECTS_STYLES_WR = {
         "symbol-placement": "line"
       },
       "paint": {
-          "text-color": [
-            "match",
-            ["get", "status"],
-            ["Initiated"],
-            "#139660",
-            ["Requested"],
-            "#9309EA",
-            ["Approved"],
-            "#497BF3",
-            ["Cancelled"],
-            "#FF0000",
-            ["Complete"],
-            "#06242D",
-            "hsl(40, 100%, 50%)"
-          ],
           "text-halo-color": "#fff",
           "text-halo-width": 5,
           "text-halo-blur": 5
@@ -2940,17 +2914,6 @@ export const PROJECTS_STYLES_WR = {
       type: 'symbol',
       'source-layer': 'pluto15v1',
       "layout": {
-        "text-field": [
-            "match",
-            ["get", "status"],
-            ["Preliminary Design"],
-            [
-                "concat",
-                ["to-string", ["get", "projectname"]],
-                "       Preliminary Design"
-            ],
-            ""
-        ],
         "text-rotation-alignment": "map",
         "text-offset": [3, 3],
         "text-font": [
@@ -2960,21 +2923,6 @@ export const PROJECTS_STYLES_WR = {
         "symbol-placement": "line"
       },
       "paint": {
-          "text-color": [
-            "match",
-            ["get", "status"],
-            ["Initiated"],
-            "#139660",
-            ["Requested"],
-            "#9309EA",
-            ["Approved"],
-            "#497BF3",
-            ["Cancelled"],
-            "#FF0000",
-            ["Complete"],
-            "#06242D",
-            "hsl(40, 100%, 50%)"
-          ],
           "text-halo-color": "#fff",
           "text-halo-width": 5,
           "text-halo-blur": 5
@@ -2994,7 +2942,7 @@ export const PROJECTS_STYLES_WR = {
         ]
       },
       "paint": {
-          "line-color": ["match",["get","projectid"],[[20001116,20001120]],"#497BF3",[[20001119,20001132]],"hsl(40, 100%, 50%)","hsl(40, 100%, 50%)"],
+          "line-color": "#00ff00",
           "line-width": [
               "interpolate",
               ["linear"],
@@ -3034,7 +2982,7 @@ export const PROJECTS_STYLES_WR = {
       "source-layer": "pluto15v1",
       "layout": {"line-cap": "round", "line-join": "round"},
       "paint": {
-        "line-color":  ["match",["get","projectid"],[20001116,20001120],"#497BF3",[20001119,20001132],"hsl(40, 100%, 50%)","hsl(40, 100%, 50%)"],
+        "line-color":  "#00ff00",
           "line-width": 10,
           "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
           "line-opacity": [
@@ -3054,7 +3002,7 @@ export const PROJECTS_STYLES_WR = {
       'source-layer': 'pluto15v1',
       "layout": {"line-join": "round"},
       "paint": {
-        "line-color":  ["match",["get","projectid"],[20001116,20001120],"#497BF3",[20001119,20001132],"hsl(40, 100%, 50%)","hsl(40, 100%, 50%)"],
+        "line-color":  "#00ff00",
           "line-blur": 1,
           "line-gap-width": 6,
           "line-opacity": [
@@ -3078,7 +3026,7 @@ export const PROJECTS_STYLES_WR = {
       type: 'line',
       'source-layer': 'pluto15v1',
       "paint": {
-        "line-color":  ["match",["get","projectid"],[20001116,20001120],"#497BF3",[20001119,20001132],"hsl(40, 100%, 50%)","hsl(40, 100%, 50%)"],
+        "line-color":  "#00ff00",
         "line-blur": 1,
         "line-gap-width": 6,
         "line-opacity": [

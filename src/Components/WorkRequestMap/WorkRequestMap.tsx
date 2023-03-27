@@ -506,23 +506,23 @@ const WorkRequestMap = (type: any) => {
           "match",
           ["get", "project_status"],
           [4],
-          "#139660",
+          "#139660",   //INITIATED  verde
           [2],
-          "#9309EA",
+          "#9309EA",   //REQUESTED violeta
           [3],
-          "#497BF3",
+          "#497BF3",   // APPROVED azul
           [8],
-          "#FF0000",
+          "#FF0000",     // CANCELLED   rojo
           [6],
-          "#06242D",
+          "#06242D",    //COMPLETED  casi negro
           [5],
-          '#416EDA',
+          '#416EDA',      // ACTIVE   AZUL
           [7],
-          '#A4BCF8',
+          '#A4BCF8',      //INACTIVE   celeste 
           [9],
-          '#DAE4FC',
+          '#DAE4FC',     //CLOSED  casi blanco
           [10],
-          '#ECF1FD',
+          '#ECF1FD',     //CLOSED OUT casi blanco
           "#b36304"
         ],
         'text-halo-color': "#ffffff",
@@ -936,8 +936,7 @@ const applyProblemClusterLayer = () => {
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
-        topEffectiveReaches();
-        topProjects();
+        topEffectiveReaches();        
         topServiceArea();
         topComponents();
         topStreamLabels();
@@ -947,6 +946,7 @@ const applyProblemClusterLayer = () => {
         if (map.getLayer('borderMASK')) {
           map.map.moveLayer('borderMASK');
         }
+        topProjects();
       });
     }, 500);
     applyMeasuresLayer();
@@ -1029,6 +1029,11 @@ const applyProblemClusterLayer = () => {
       }
     });
     styles[PROJECTS_DRAFT].forEach((style: LayerStylesType, index: number) => {
+      if (map.map.getLayer(`${PROJECTS_DRAFT+'draft'}_${index}`)) {
+        map.map.moveLayer(`${PROJECTS_DRAFT+'draft'}_${index}`);
+      }
+    });
+    styles[`${PROJECTS_DRAFT+'draft'}`].forEach((style: LayerStylesType, index: number) => {
       if (map.map.getLayer(`${PROJECTS_DRAFT+'draft'}_${index}`)) {
         map.map.moveLayer(`${PROJECTS_DRAFT+'draft'}_${index}`);
       }
@@ -1237,12 +1242,12 @@ const applyProblemClusterLayer = () => {
                 }
                 if (typeof filters === 'object') {
                     for (const range of filters) {
-                        console.error('generating error with split', range);
-                        const [lower, upper] = range?.split(',');
-                        const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
-                        const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
-                        const allFilter = ['all', lowerArray, upperArray];
-                        options.push(allFilter);
+                        console.error('TODO: Give a check for this filter on map ', range);
+                        // const [lower, upper] = range?.split(',');
+                        // const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
+                        // const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
+                        // const allFilter = ['all', lowerArray, upperArray];
+                        // options.push(allFilter);
                     }
                 } else {                        
                     for (const filter of filters.split(',')) {
@@ -1283,9 +1288,7 @@ const applyProblemClusterLayer = () => {
 }, [problemClusterGeojson]);
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...(tileStyles as any) };
-    console.log('styles', styles[key], key, map.map.getStyle().layers);
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      console.log('map.getLayer(keindex)',key + '_' + index,  map.getLayer(key + '_' + index), index);
       if (!map.getLayer(key + '_' + index)) {
         return;
       }
@@ -1682,7 +1685,6 @@ const applyProblemClusterLayer = () => {
       if (popups && popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
-        console.log('what is inside', type)
         addPopupAndListeners(
           (type.mapType, type.mapType, MAPTYPES.WORKREQUEST),
           menuOptions,
