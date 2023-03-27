@@ -27,6 +27,7 @@ const ModalTollgate = ({
   const [calendarValue,setCalendarValue] =useState([])
   const [calendarPhase,setCalendarPhase] =useState(0)
   const [phasesData,setPhasesData] =useState([])
+  const [phaseIsSet, setPhaseIsSet] = useState(false)
   
   const [valueInput, setValueInput] = useState({
     oneL: '0',
@@ -75,18 +76,18 @@ const ModalTollgate = ({
 
   useEffect(() => {
     if (Object.keys(phasesData).length > 0) {
-      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));     
-      const phaseDatas : any = (phasesData.map((x: any, index: number) => {
-        if (index === indexPhase) {          
+      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
+      const phaseDatas: any = (phasesData.map((x: any, index: number) => {
+        if (index === indexPhase) {
           return {
             ...x, current: 'Current'
           };
-        } 
+        }
         else if (index < indexPhase) {
           return {
             ...x, current: 'Done'
           };
-        }else{
+        } else {
           return {
             ...x, current: 'NotStarted'
           };
@@ -94,66 +95,137 @@ const ModalTollgate = ({
       }))
       setPhasesData(phaseDatas)
     }
+    if(phaseIsSet){
+      setPhaseIsSet(false)
+    }
   }, [codePhaseTypeId])
 
   useEffect(() => {
-    if (codePhaseTypeId === calendarPhase) {
-      if (Object.keys(dataProject).length > 0) {
+    let lockedUp = false;
+    let lockedDown = false;
+    if (!phaseIsSet) {
+      if (codePhaseTypeId === calendarPhase) {
+        if (Object.keys(dataProject).length > 0) {
+          const current = moment(calendarValue);
+          const currentPast = moment(calendarValue);
+          const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
+          const reverseData = ([].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase)))
+          const dateValues: any = (reverseData.map((x: any, index: number) => {
+            if (index >= indexPhase) {
+              const now = moment(current);
+              current.add(x.duration, 'M');
+              return {
+                project_id: dataProject?.d?.project_id,
+                current: index === indexPhase ? 1 : 0,
+                key: x.categoryNo,
+                name: x.name,
+                phase_id: x.phase_id,
+                code_phase_type_id: x.phase_id,
+                startDate: now.clone(),
+                duration: x.duration,
+                endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
+                locked: index === indexPhase ? true : false,
+              };
+            } else {
+              const now1 = moment(currentPast);
+              currentPast.subtract(x.duration, 'M');
+              return {
+                project_id: dataProject?.d?.project_id,
+                current: 0,
+                key: x.categoryNo,
+                name: x.name,
+                code_phase_type_id: x.phase_id,
+                endDate: now1.clone().subtract(1, 'd'),
+                duration: x.duration,
+                startDate: moment(currentPast),
+                locked: index === indexPhase ? true : false,
+              };
+            }
+          }));
+          setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
+        }
+        if (Object.keys(phasesData).length > 0) {
+          const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
+          const phaseDatas: any = (phasesData.map((x: any, index: number) => {
+            if (index === indexPhase) {
+              return {
+                ...x, locked: true
+              };
+            } else {
+              return {
+                ...x, locked: false
+              }
+            }
+          }))
+          setPhasesData(phaseDatas)
+          setPhaseIsSet(true)
+        }
+      }
+    }else{
+      if (Object.keys(dateValue).length > 0) {      
         const current = moment(calendarValue);
         const currentPast = moment(calendarValue);
-        const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
-        const reverseData = ([].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase)))
-        const dateValues: any = (reverseData.map((x: any, index: number) => {          
+        const currentDates: any = dateValue;       
+        const indexPhase = (currentDates?.findIndex((x: any) => x.code_phase_type_id === calendarPhase));
+        const reverseData = ([].concat(currentDates?.slice(0, indexPhase).reverse(), currentDates?.slice(indexPhase)))
+        const dateValues: any = (reverseData.map((x: any, index: number) => {
           if (index >= indexPhase) {
-            const now = moment(current);
-            current.add(x.duration, 'M');            
-            return {
-              project_id: dataProject?.d?.project_id,
-              current: index === indexPhase ? 1 : 0,
-              key: x.categoryNo,
-              name: x.name,
-              phase_id: x.phase_id,
-              code_phase_type_id: x.phase_id,
-              startDate: now.clone(),
-              duration: x.duration,
-              endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
-              locked: index === indexPhase ? true : false,
-            };
-          } else {
-            const now1 = moment(currentPast);
-            currentPast.subtract(x.duration, 'M');
-            return {
-              project_id: dataProject?.d?.project_id,
-              current: 0,
-              key: x.categoryNo,
-              name: x.name,
-              code_phase_type_id: x.phase_id,
-              endDate: now1.clone().subtract(1, 'd'),
-              duration: x.duration,
-              startDate:  moment(currentPast),
-              locked: index === indexPhase ? true : false,
-            };
-          }
-        }));
+            if (x.locked) {
+              lockedDown = true;          
+            }
+            if (!lockedDown){            
+              const now = moment(current);
+              current.add(x.duration, 'M');
+              return {
+                project_id: x.project_id,
+                current: index === indexPhase ? 1 : 0,
+                key: x.key,
+                name: x.name,
+                phase_id: x.phase_id,
+                code_phase_type_id: x.code_phase_type_id,
+                startDate: now.clone(),
+                duration: x.duration,
+                endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
+                locked: x.locked,
+              };
+            }else{
+              return {
+                ...x
+              };
+            }           
+          } 
+          else {
+            if (x.locked) {
+              lockedUp = true;              
+            }
+            if (!lockedUp){
+              const now1 = moment(currentPast);
+              currentPast.subtract(x.duration, 'M');
+              return {
+                project_id: dataProject?.d?.project_id,
+                current: 0,
+                key: x.key,
+                name: x.name,
+                code_phase_type_id: x.code_phase_type_id,
+                endDate: now1.clone().subtract(1, 'd'),
+                duration: x.duration,
+                startDate: moment(currentPast),
+                locked: x.locked,
+              };
+            }else{
+              return {
+                ...x
+              }
+            }            
+          }        
+        }
+        ));
         setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
       }
     }
-    if (Object.keys(phasesData).length > 0) {
-      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));   
-      const phaseDatas : any = (phasesData.map((x: any, index: number) => {
-        if (index === indexPhase) {          
-          return {
-            ...x, locked: true
-          };
-        } else{
-          return {
-            ...x}
-        }        
-      }))
-      setPhasesData(phaseDatas)
-    }
-  }, [calendarPhase]);
 
+  }, [calendarPhase]);
+console.log(dateValue)
 let items = [
   { key: 'current-phase', label: 'Set Current Phase' },
   { key: 'lock-phase', label: 'Lock Phase' },
@@ -193,7 +265,6 @@ let items = [
         project_id: dataProject.d.project_id,
         phases: dateValue
       }, datasets.getToken()).then(async res => {
-        console.log(res);
         saveCB();
         setVisible(false);
       });
@@ -213,6 +284,20 @@ let items = [
         }        
       }))
       setPhasesData(phaseDatas)
+    }
+    if (Object.keys(dateValue).length > 0) {
+      const indexPhase = (dateValue?.findIndex((x: any) => x.phase_id === z));   
+      const phaseDatas : any = (dateValue.map((x: any, index: number) => {
+        if (index === indexPhase) {          
+          return {
+            ...x, locked: true
+          };
+        } else{
+          return {
+            ...x}
+        }        
+      }))
+      setDateValue(phaseDatas)
     }
   }
   return (
