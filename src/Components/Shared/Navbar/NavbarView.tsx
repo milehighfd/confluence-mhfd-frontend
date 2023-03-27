@@ -214,7 +214,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
       defaultSelectedKeys={['0']}
     >
     </Menu> */}
-    <div style={{textAlign:'end', marginRight:'15px'}}>
+    <div style={{textAlign:'end'}}>
       <Popover content={content}>
         <button className="notification-icon"></button>
       </Popover>
