@@ -441,7 +441,7 @@
   }
   .form-text-calendar{
     p{
-      opacity: 0.5 !important;
+      // opacity: 0.5 !important;
     }
     .ant-space-align-center {
       opacity: 1 !important;
@@ -1141,7 +1141,7 @@
       display: none;  /* Oculta las flechas */
     }
     .scroll-table{
-      width: min-content;
+      // width: min-content;
     }
     .scroll-table::-webkit-scrollbar-thumb {
       background: transparent; 
@@ -1829,7 +1829,7 @@
       }
       .form-text-calendar{
         p{
-          opacity: 0.5 !important;
+          // opacity: 0.5 !important;
         }
         .ant-space-align-center {
           opacity: 1 !important;
