@@ -3105,7 +3105,6 @@ export const PROJECTS_STYLES_WR = {
     //   type: 'symbol',
     //   'source-layer': 'pluto15v1',
     //   "layout": {
-    //     "text-field": ["to-string", ["get", "projectname"]],
     //     "text-justify": "auto",
     //     "text-anchor": "top-left",
     //     "text-radial-offset": 1,
@@ -3115,22 +3114,7 @@ export const PROJECTS_STYLES_WR = {
     //       "text-color": [
     //         "match",
     //         ["get", "status"],
-    //         ["Initiated"],
-    //         "#139660",
-    //         ["Requested"],
-    //         "#9309EA",
-    //         ["Approved"],
-    //         "#497BF3",
-    //         ["Cancelled"],
-    //         "#FF0000",
-    //         ["Complete"],
-    //         "#06242D",
-    //         "#b36304"
-    //       ],
-    //       // "text-halo-color": "hsl(0, 0%, 45%)",
-    //       // "text-halo-width": 0.5,
     //       // "text-halo-blur": 5,
-
     //       'text-halo-color': "#ffffff",
     //       'text-halo-width': 1,
     //       'text-halo-blur': 0,

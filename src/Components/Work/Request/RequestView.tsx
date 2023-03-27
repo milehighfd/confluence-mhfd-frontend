@@ -418,7 +418,7 @@ const RequestView = ({ type, isFirstRendering }: {
     return grouped;
   } 
   useEffect(() => {
-    if (!locality) {
+    if (!locality || !tabKey) {
       return;
     }
     let data: BoardDataRequest = {
@@ -598,7 +598,10 @@ const RequestView = ({ type, isFirstRendering }: {
     // const interval = setInterval(() => {
     // if ( counterBoardsCalls < 2) {
     // counterBoardsCalls++;
-    console.log('Get Board now...');
+    console.log('Get Board now...', tabKey);
+    if (!locality || !tabKey) {
+      return;
+    }
       getBoardData({
         type,
         year: `${year}`,

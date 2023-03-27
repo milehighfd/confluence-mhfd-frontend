@@ -169,7 +169,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setNameProject(data.project_name);
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
-      setAdditionalCost(parseInt(aditionalCostObject.cost || '0'));
+      setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
       setAdditionalDescription(aditionalCostObject.cost_description);
 
       if (data.project_costs.length > 0) {
