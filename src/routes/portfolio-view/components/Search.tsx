@@ -196,7 +196,7 @@ const Search = (
             />
         <Dropdown overlay={menu} trigger={['click']} placement="bottomLeft" onVisibleChange={(e:boolean)=>{setOpenDrop(e)}} visible={openDrop}>
           <div className="select-area">
-            <a onClick={(e) => {e.preventDefault();setOpenDrop(!openDrop)}} style={{marginLeft:'2%'}} >
+            <a onClick={(e) => {e.preventDefault();setOpenDrop(!openDrop)}} style={{marginLeft:'0.5vw'}} >
               <span className="ic-dots"/>
             </a>
           </div>
