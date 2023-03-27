@@ -8,6 +8,8 @@ import { drag } from "d3";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as d3 from 'd3';
+import DetailModal from "routes/detail-page/components/DetailModal";
+import ModalTollgate from "routes/list-view/components/ModalTollgate";
 
 const { Step } = Steps;
 const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction }: 
@@ -21,6 +23,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
   const [counterD, setCounterD]= useState(+data.d3_text)
+  const [visibleDetail, setVisibleDetail] = useState(false);
+  const [tollgate, setTollgate] = useState(false);
   const [checkboxValue, setCheckboxValue] = useState({
     draft: true,
     sign: false,
@@ -195,19 +199,20 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     const year=(newDate.getFullYear());
     setNewEndDate(`${month} ${day}, ${year}`)
   }
+  console.log(data, 'DAATAAAAA')
   return (
     <>
+      {visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
+      }
+      {tollgate && <ModalTollgate visible={tollgate} setVisible={setTollgate} />}
       <div className="header-piney" style={{marginBottom:'20px'}}>
         <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
-        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setEditView(!editView)}}/>
+        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setVisibleDetail(true)}}/>
       </div>
       <div className="body-piney">
         <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
         <div style={{ marginBottom: '7px' }}>
-          <span className="tag-blue">{data.phase}</span>
-          </div>
-        <div style={{ marginBottom: '25px' }}>
-          <span className="tag-blue">{data.project_type}</span>
+          <span className="tag-blue">{data.phase} {data.project_type}</span>
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
@@ -265,7 +270,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p>{!actualStartDate ? 'January 1, 2023' : actualStartDate}</p>
+                  : <p>{!actualStartDate ? 'January 1, 2023' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
                 }
               </Col>
             </Row>
@@ -276,7 +281,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p>{!actualEndDate ? 'December 6, 2023' : actualEndDate}</p>
+                  :<p>{!actualEndDate ? 'December 6, 2023' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
                 }
               </Col>
             </Row>

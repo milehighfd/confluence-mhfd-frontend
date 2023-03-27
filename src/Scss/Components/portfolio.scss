@@ -449,6 +449,11 @@
         opacity: 1 !important;
       }
     }
+    .span-tollgate:hover{
+      color: #11093C !important;
+      opacity: 0.6 !important;
+      cursor: pointer;
+    }
   }
   .active-btn-piney{
     color:#047cd7;
@@ -1464,8 +1469,8 @@
         color:#11093C !important;
       }
       .tag-blue{
-        background-color: #047cd7;
-        color: white;
+        background-color: #e6f2fb;
+        color: #047cd7;
         margin-right: 10px;
         border-radius: 10px;
         padding: 3px 10px;
@@ -1813,8 +1818,8 @@
         color:#11093C !important;
       }
       .tag-blue{
-        background-color: #047cd7;
-        color: white;
+        background-color: #e6f2fb;
+        color: #047cd7;
         margin-right: 10px;
         border-radius: 10px;
         padding: 3px 10px;
@@ -1859,7 +1864,7 @@
           text-overflow:ellipsis;
           display:-webkit-box; 
           -webkit-box-orient:vertical;
-          -webkit-line-clamp:2;
+          // -webkit-line-clamp:2;
     }
   }
   .phaseview-body::-webkit-scrollbar {
@@ -2154,6 +2159,7 @@
       width: 385px !important;
       h1{
         font-size: 20px !important;
+        line-height: 25px !important;
       }
       .tag-blue{
         font-size: 16px !important;
