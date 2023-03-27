@@ -155,7 +155,7 @@
   .ant-menu-dark.ant-menu-horizontal {
     float: right;
     width: 22vw;
-    margin-right: -20px !important;
+    margin-right: -10px !important;
   }
   .ant-menu-dark.ant-menu-horizontal>.ant-menu-item:hover {
     background-color: transparent;
@@ -308,7 +308,7 @@
     -webkit-mask: url('../../Icons/icon-27.svg') no-repeat center;
     height: 24px;
     background: $white;
-    padding: 30px 4px;
+    padding: 0px 12px; 
   }
   .btn-question:hover{
     opacity: 1;
@@ -707,6 +707,7 @@
   .header{
     .ant-menu-dark.ant-menu-horizontal {
       width: 11vw;
+      margin-right: 30px !important;
     }
   }
 }

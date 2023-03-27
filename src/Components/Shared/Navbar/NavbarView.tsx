@@ -207,13 +207,36 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
     { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
-    <Menu
+    {/* <Menu
       theme="dark"
       mode="horizontal"
       items={itemMenuRight}
       defaultSelectedKeys={['0']}
     >
-    </Menu>
+    </Menu> */}
+    <div style={{textAlign:'end', marginRight:'15px'}}>
+      <Popover content={content}>
+        <button className="notification-icon"></button>
+      </Popover>
+      <label className="ll-0" style={{marginTop: '-1px' }}></label>
+      <Dropdown overlay={menu}>
+          <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()} >
+            {user.photo ?
+              <img src={user.photo} className="ll-img" alt="profile" />
+              :
+              <label className="ll-00">
+                {initialName}
+              </label>
+            }
+            {name} <CaretDownOutlined />
+          </a>
+        </Dropdown>
+        <span className="tutorial">  
+          <Button className="btn-question" onClick={showModal1}>
+            <QuestionCircleOutlined />
+          </Button>
+        </span>
+    </div>
 
     <Modal
       centered
