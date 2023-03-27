@@ -156,7 +156,7 @@ const CardsList = ({
     }, 500);
   };
   return(
-    <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', marginLeft: '-20px' }} className="card-map profile-mobile" gutter={[16, 16]}>
+    <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', marginLeft: '-20px', width:'100%' }} className="card-map profile-mobile" gutter={[16, 16]}>
       {/* <div style={{ width: '100%', marginBottom: '-38px' }}></div> */}
       <div style={{ width: '100%', marginBottom: '-38px' }}>
         <InfiniteScroll
