@@ -2893,41 +2893,95 @@ export const PROJECTS_STYLES_WR = {
     }
 ],
   [`${PROJECTS_DRAFT}draft`]: [
+    // {
+    //   type: 'symbol',
+    //   'source-layer': 'pluto15v1',
+    //   "layout": {
+    //     "text-field": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Requested"],
+    //         [
+    //             "concat",
+    //             ["to-string", ["get", "projectname"]],
+    //             "      Requested"
+    //         ],
+    //         ""
+    //     ],
+    //     "text-rotation-alignment": "map",
+    //     "text-offset": [3, 3],
+    //     "text-font": [
+    //         "Open Sans SemiBold Italic",
+    //         "Arial Unicode MS Regular"
+    //     ],
+    //     "symbol-placement": "line"
+    //   },
+    //   "paint": {
+    //       "text-color": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Initiated"],
+    //         "#139660",
+    //         ["Requested"],
+    //         "#9309EA",
+    //         ["Approved"],
+    //         "#497BF3",
+    //         ["Cancelled"],
+    //         "#FF0000",
+    //         ["Complete"],
+    //         "#06242D",
+    //         "hsl(40, 100%, 50%)"
+    //       ],
+    //       "text-halo-color": "#fff",
+    //       "text-halo-width": 5,
+    //       "text-halo-blur": 5
+    //   }
+    // },
+    //  {
+    //   type: 'symbol',
+    //   'source-layer': 'pluto15v1',
+    //   "layout": {
+    //     "text-field": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Preliminary Design"],
+    //         [
+    //             "concat",
+    //             ["to-string", ["get", "projectname"]],
+    //             "       Preliminary Design"
+    //         ],
+    //         ""
+    //     ],
+    //     "text-rotation-alignment": "map",
+    //     "text-offset": [3, 3],
+    //     "text-font": [
+    //         "Open Sans SemiBold Italic",
+    //         "Arial Unicode MS Regular"
+    //     ],
+    //     "symbol-placement": "line"
+    //   },
+    //   "paint": {
+    //       "text-color": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Initiated"],
+    //         "#139660",
+    //         ["Requested"],
+    //         "#9309EA",
+    //         ["Approved"],
+    //         "#497BF3",
+    //         ["Cancelled"],
+    //         "#FF0000",
+    //         ["Complete"],
+    //         "#06242D",
+    //         "hsl(40, 100%, 50%)"
+    //       ],
+    //       "text-halo-color": "#fff",
+    //       "text-halo-width": 5,
+    //       "text-halo-blur": 5
+    //   }
+    // }, 
     {
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "layout": {
-        "text-rotation-alignment": "map",
-        "text-offset": [3, 3],
-        "text-font": [
-            "Open Sans SemiBold Italic",
-            "Arial Unicode MS Regular"
-        ],
-        "symbol-placement": "line"
-      },
-      "paint": {
-          "text-halo-color": "#fff",
-          "text-halo-width": 5,
-          "text-halo-blur": 5
-      }
-    }, {
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "layout": {
-        "text-rotation-alignment": "map",
-        "text-offset": [3, 3],
-        "text-font": [
-            "Open Sans SemiBold Italic",
-            "Arial Unicode MS Regular"
-        ],
-        "symbol-placement": "line"
-      },
-      "paint": {
-          "text-halo-color": "#fff",
-          "text-halo-width": 5,
-          "text-halo-blur": 5
-      }
-    }, {
       type: 'line',
       'source-layer': 'pluto15v1',
       "layout": {
@@ -3047,43 +3101,43 @@ export const PROJECTS_STYLES_WR = {
         "line-width": 0.5
       }
     }, 
-    {
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "layout": {
-        "text-field": ["to-string", ["get", "projectname"]],
-        "text-justify": "auto",
-        "text-anchor": "top-left",
-        "text-radial-offset": 1,
-        "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
-      },
-      "paint": {
-          "text-color": [
-            "match",
-            ["get", "status"],
-            ["Initiated"],
-            "#139660",
-            ["Requested"],
-            "#9309EA",
-            ["Approved"],
-            "#497BF3",
-            ["Cancelled"],
-            "#FF0000",
-            ["Complete"],
-            "#06242D",
-            "#b36304"
-          ],
-          // "text-halo-color": "hsl(0, 0%, 45%)",
-          // "text-halo-width": 0.5,
-          // "text-halo-blur": 5,
+    // {
+    //   type: 'symbol',
+    //   'source-layer': 'pluto15v1',
+    //   "layout": {
+    //     "text-field": ["to-string", ["get", "projectname"]],
+    //     "text-justify": "auto",
+    //     "text-anchor": "top-left",
+    //     "text-radial-offset": 1,
+    //     "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
+    //   },
+    //   "paint": {
+    //       "text-color": [
+    //         "match",
+    //         ["get", "status"],
+    //         ["Initiated"],
+    //         "#139660",
+    //         ["Requested"],
+    //         "#9309EA",
+    //         ["Approved"],
+    //         "#497BF3",
+    //         ["Cancelled"],
+    //         "#FF0000",
+    //         ["Complete"],
+    //         "#06242D",
+    //         "#b36304"
+    //       ],
+    //       // "text-halo-color": "hsl(0, 0%, 45%)",
+    //       // "text-halo-width": 0.5,
+    //       // "text-halo-blur": 5,
 
-          'text-halo-color': "#ffffff",
-          'text-halo-width': 1,
-          'text-halo-blur': 0,
+    //       'text-halo-color': "#ffffff",
+    //       'text-halo-width': 1,
+    //       'text-halo-blur': 0,
 
-          "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
-      }
-    }
+    //       "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
+    //   }
+    // }
   ]
 }
 
