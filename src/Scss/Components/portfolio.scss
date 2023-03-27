@@ -2874,6 +2874,9 @@
   .ant-input{
     font-size: 20px !important;
   }
+  .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+    height: 41.42px;
+  }
   .ant-input-affix-wrapper {
     font-size: 18px !important;
   }

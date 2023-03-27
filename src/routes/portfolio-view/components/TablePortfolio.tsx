@@ -170,7 +170,7 @@ const TablePortafolio = (
                   className={openTable[index] ? (index === 0 ? "table-portafolio table-first" : 'table-portafolio') : (index === 0 ? "table-portafolio table-close table-first table-clouse-first" : "table-portafolio table-close")}
                   onRow={(record, rowIndex) => {
                     return {
-                      onMouseEnter: event => { setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id); }, // mouse enter row
+                      onMouseEnter: event => {console.log(elem.values[rowIndex ? rowIndex : 0].project_id, 'VERQUEPASA', elem.values); setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id); }, // mouse enter row
                     };
                   }}
                   onHeaderRow={(record, rowIndex) => {

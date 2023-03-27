@@ -251,7 +251,7 @@ const Search = (
                     } */}
                     {
                       elem.values.map((d:any, index_elem: number) => (
-                        <div className="text-search" key={d.key} id={d.id} style={hoverTable === elem.values[index_elem].project_id ? {background:'#fafaf'}:{}} 
+                        <div className="text-search" key={d.key} id={d.id} style={hoverTable === elem.values[index_elem].project_id ? {background:'#fafafa'}:{}} 
                           onMouseEnter={(e:any)=>{setHoverTable(elem.values[index_elem].project_id)}}>
                           <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project" >{d.rowLabel}</p>
                           {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction( d.project_id ,email, '')} />}
