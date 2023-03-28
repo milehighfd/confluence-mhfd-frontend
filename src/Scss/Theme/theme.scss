@@ -2662,6 +2662,8 @@ body{
     background: #ffffff;
     width: 99%;
     align-items: center;
+    font-size: 11px;
+    letter-spacing: -1px;
     hr{
       border: none;
       border-top: 3px dashed #eae8f0;
@@ -2669,8 +2671,10 @@ body{
       background-color: #fff;
       height: 1px;
       width: 39%;
+      border-left: 2px solid #eae8f0;
     }
     .hr2{
+      border-left: 2px solid #eae8f0;
       width: 44%;
     }
     p{
