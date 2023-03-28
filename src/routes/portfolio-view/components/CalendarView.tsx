@@ -109,7 +109,8 @@ const CalendarView = ({
               phase: z?.code_phase_type?.phase_name,
               tasks: 10,
               show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
-              current : x?.phaseId === z?.code_phase_type_id
+              current : x?.phaseId === z?.code_phase_type_id,
+              isDone : z.is_done,
             };
           } else {
             return {
@@ -123,7 +124,8 @@ const CalendarView = ({
               phase: z?.code_phase_type?.phase_name,
               tasks: 10,
               show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
-              current : x?.phaseId === z?.code_phase_type_id
+              current : x?.phaseId === z?.code_phase_type_id,
+              isDone : z.is_done,
             };
           }
         })
@@ -204,9 +206,11 @@ let toData = datas?.map((ds: any) => ds.schedule)
       }
     })
   });
+  console.log(fromData)
+  console.log(toData)
   locations.forEach((location: any, index: any) => {
     let theLast:any; 
-    toData.forEach((elem: any) => {
+    toData?.forEach((elem: any) => {
       if (elem.id.includes(location)){
         theLast= elem;
       }
@@ -337,8 +341,9 @@ let toData = datas?.map((ds: any) => ds.schedule)
         counterDataForChart++;
       }
     });
+
     if (counterDataForChart !== 0) {     
-      let timelineStartTime = moment(fromData[index].from.startOf('month')).subtract(12, 'months');
+      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
       let timelineEndTime = moment(toData[toData.length - 1].to)
         .add(12, 'months')
         .startOf('month');     
@@ -533,9 +538,10 @@ let toData = datas?.map((ds: any) => ds.schedule)
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
-          .style('visibility', (d: any) => {
+          .style('visibility', (d: any) => {            
+            let flag = ((d?.project_status?.find((ps: any) => ps?.actual_end_date === null || ps?.actual_start_date === null)))
             hasDateData= true;            
-            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length ){
+            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
               hasDateData = false;
             }else if (d?.id.includes('Title')){
               hasDateData = false;
@@ -618,9 +624,9 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .attr('height', function(d: any) {
           return (d.type === 'title'? barHeight/4:barHeight);
         })
-        .attr('fill', function(d: any) { 
+        .attr('fill', function(d: any) {          
           let color = '';         
-          if(done){
+          if(d.isDone){
             color = 'Done'
           }else{
             color = 'NotStarted'
@@ -679,7 +685,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .attr('height', barHeight - 2)
         .attr('fill', function(d: any) {
           let color = '';          
-          if(done){
+          if(d.isDone){
             color = 'Done'
           }else{
             color = 'NotStarted'
