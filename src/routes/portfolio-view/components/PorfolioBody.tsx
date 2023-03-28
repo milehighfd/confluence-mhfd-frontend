@@ -236,7 +236,8 @@ const PortafolioBody = () => {
     //console.log(optionsfilters)
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
-      const groups = valuesGroups.groups;
+      //const groups = valuesGroups.groups;
+      const groups = valuesGroups.groups.filter((x:any)=>x.value !== 'Draft' && x.value !== 'Requested');      
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
       //console.log(valuesGroups)
       //console.log(currentGroup)
