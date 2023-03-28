@@ -190,6 +190,7 @@ const RequestView = ({ type, isFirstRendering }: {
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
         let displayedTabKey: string[] = [];
+
         if (year < 2022) {
           if (l.table === 'CODE_STATE_COUNTY') {
             displayedTabKey = ['Capital', 'Maintenance']
@@ -223,6 +224,7 @@ const RequestView = ({ type, isFirstRendering }: {
   };
   const [changes, setChanges] = useState(0);
   useEffect(()=>{
+    console.trace('AV ER', locality, tabKey, year);
     setChanges(Math.random());
   },[locality, tabKey,year]);
 
@@ -319,7 +321,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     } else if (l.type === 'SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
-                    if (l.name === 'MHFD District Work Plan') {
+                    if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
                       displayedTabKey = tabKeys;
                     }
                     if (l.name.includes('South Platte River County')) {
