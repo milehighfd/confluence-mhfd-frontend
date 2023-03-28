@@ -26,6 +26,7 @@ import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
 import { useLocation } from "react-router";
+import GalleryDetail from "./GalleryDetail";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -221,13 +222,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           <a href="#component-solutions" onClick={()=>{setscrollOpen(3)}} className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
           <a href="#project-roadmap" onClick={()=>{setscrollOpen(4)}} className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
           {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
-          <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a>
+          <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
           <a href="#project-financials" onClick={()=>{setscrollOpen(6)}} className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
           {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
           <a href="#maps" onClick={()=>{setscrollOpen(8)}} className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
-          <a href="#attachments" onClick={()=>{setscrollOpen(9)}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
-          <a href="#history" onClick={()=>{setscrollOpen(10)}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
+          <a href="#gallery" onClick={()=>{setscrollOpen(8)}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Gallery</a>
+          <a href="#attachments" onClick={()=>{setscrollOpen(9)}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
+          <a href="#history" onClick={()=>{setscrollOpen(10)}} className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
         </div>}
         <Row
           className="detailed-b"
@@ -413,6 +415,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <Financials />
                   <Management />
                   <Map type={typeS}/>
+                  <GalleryDetail/>
                   <Documents />
                   <History />
                 </>

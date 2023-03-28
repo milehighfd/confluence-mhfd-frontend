@@ -323,11 +323,11 @@ const Roadmap = ({setOpenPiney, openPiney}:{setOpenPiney: React.Dispatch<React.S
         <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage'>
           {/* <p style={{border:'transparent'}} className='border-transparent'>DRAFT</p>
           <p>REQUESTED</p> */}
-          <p style={{ border: 'transparent' }}  className='border-transparent'>APPROVED</p>
-          <span style={{ display: 'flex', width: '46.15384615384615%' }}>
+          <p style={{ border: 'transparent' }}  className='border-transparent'>APPROVED</p>   
+          <span style={{ display: 'flex', width: '46.15384615384615%',color: '#251863', fontSize:'11px' }}>
             <hr className="hr2"></hr>ACTIVE<hr className="hr2"></hr>
           </span>
-          <span style={{ display: 'flex', width: '38.46153846153846%',borderLeft: '2px solid #eae8f0', borderRight: '2px solid #eae8f0' }}>
+          <span style={{ display: 'flex', width: '38.46153846153846%',borderLeft: '2px solid #eae8f0', borderRight: '2px solid #eae8f0',color: '#251863', fontSize:'11px' }}>
             <hr></hr>CLOSEOUT<hr></hr>
           </span>
           <p>CLOSED</p>
