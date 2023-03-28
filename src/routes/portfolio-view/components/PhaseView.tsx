@@ -588,7 +588,7 @@ const PhaseView = (
           .attr("class", "circletext")
           .attr('fill', '#ffffff')
           .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
-          .text(function (d: any) {         
+          .text(function (d: any) {                 
             let counterdown = 0;           
             for (let i = 0; i < Object.keys(actionsDone).length ; i++){
               if (d.project_id === actionsDone[i].project_id){
@@ -601,6 +601,7 @@ const PhaseView = (
                 counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
               }              
             }
+            //console.log(scheduleList[r].tasks)
             return scheduleList[r].tasks-counterdown
           })
           .attr("x", function (d: any) {
@@ -614,12 +615,12 @@ const PhaseView = (
             let ydname: any = y(d.id);
             return ydname + radius / 3;
           })
-          .style('visibility', (d: any) => {
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-              hasDateData = false;
-            }
-            return hasDateData ? 'hidden':'visible'})
-          ;
+          // .style('visibility', (d: any) => {
+          //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          //     hasDateData = false;
+          //   }
+          //   return hasDateData ? 'hidden':'visible'})
+          // ;
           hasDateData = true
         circles
           .append("circle")
@@ -632,11 +633,11 @@ const PhaseView = (
           .attr("r", radius + 0.5)
           .style("fill", 'white')
           .style('opacity', 0)
-          .style('visibility', (d: any) => {
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-              hasDateData = false;
-            }
-            return hasDateData ? 'hidden':'visible'})
+          // .style('visibility', (d: any) => {
+          //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          //     hasDateData = false;
+          //   }
+          //   return hasDateData ? 'hidden':'visible'})
           .on("click", (d: any) => {            
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
