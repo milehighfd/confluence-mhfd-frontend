@@ -3903,6 +3903,9 @@
       }
     }
     .body-piney{
+      .ant-progress-show-info .ant-progress-outer {
+        margin-top: 10px;
+      }
       .body-piney-body{
         height: calc(100vh - 382px) !important;
       }
