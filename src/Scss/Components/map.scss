@@ -2041,7 +2041,8 @@ hr.filters-line {
   }
   .notification-body{
     display: flex;
-    padding: 4px;
+    padding: 7px;
+    margin: 0px -7px;
     .text-notification{
       margin-left: 5px;
       p{
@@ -2486,7 +2487,7 @@ hr.filters-line {
       }
     }
     .notification-body{
-      padding: 7.5px 0px !important;
+      padding: 9px 7px !important;
       .text-notification{
         p{
           font-size: 15px !important;
@@ -2541,7 +2542,7 @@ hr.filters-line {
       }
     }
     .notification-body{
-      padding: 15.5px 0px !important;
+      padding: 15.5px 15px !important;
       .text-notification{
         p{
           font-size: 21px !important;
@@ -2610,7 +2611,7 @@ hr.filters-line {
       }
     }
     .notification-body{
-      padding: 17.5px 0px !important;
+      padding: 17.5px 16px !important;
       img{
         height: 45px !important;
         margin-right: 10px !important;

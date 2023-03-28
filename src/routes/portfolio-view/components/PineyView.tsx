@@ -212,7 +212,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
           onClick={()=>{setOpenPiney(false)}}
           style={{padding:'0px 0px'}}
         >
-          <img src="/Icons/ic-close-piney.svg" alt="" height="16px" />
+          <img src="/Icons/ic-close-piney.svg" alt="" height="20px" />
         </Button>
         <Button
           className="btn-transparent"
@@ -236,7 +236,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{fontWeight:'500', opacity:0.6}}>MHFD Lead/PM</p>
+                <p style={{opacity:0.6}}>MHFD Lead/PM</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {/* {editView ?
@@ -257,7 +257,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p  style={{fontWeight:'500', opacity:0.6}}>Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
+                <p  style={{opacity:0.6}}>Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {/* {editView ?
@@ -269,7 +269,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{fontWeight:'500', opacity:0.6}}>Phase</p>
+                <p style={{ opacity:0.6}}>Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <p className="span-option">
@@ -279,7 +279,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{fontWeight:'500', opacity:0.6}}>Start Date</p>
+                <p style={{opacity:0.6}}>Start Date</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
@@ -290,7 +290,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{fontWeight:'500', opacity:0.6}}>End Date</p>
+                <p style={{ opacity:0.6}}>End Date</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
@@ -301,7 +301,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{fontWeight:'500', opacity:0.6}}>Duration</p>
+                <p style={{opacity:0.6}}>Duration</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
               <ClockCircleOutlined style={{color: '#11093C'}}/>&nbsp; &nbsp;<span  style={{color: '#11093C'}}>5 months  5 days</span>
@@ -309,7 +309,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{fontWeight:'500', opacity:0.6}}>Remaining Time</p>
+                <p style={{opacity:0.6}}>Remaining Time</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
               <ClockCircleOutlined style={{color: '#11093C'}}/>&nbsp; &nbsp;<span  style={{color: '#11093C'}}>5 months  5 days</span>
