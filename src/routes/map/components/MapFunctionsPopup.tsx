@@ -359,7 +359,7 @@ export const addPopupsOnClick = async (
               // streamname: feature.properties.streamname,
               // isEditPopup: feature.source === PROJECTS_DRAFT,
               valueid: feature.properties.cartodb_id,
-              id: dataFromDB.project_id,
+              project_id: dataFromDB.project_id,
               streamname: feature.properties.streamname, // TODO streamname
               isEditPopup: feature.source === PROJECTS_DRAFT+'draft',
               popupId: 'popupWR',
@@ -396,7 +396,7 @@ export const addPopupsOnClick = async (
                         objectid: dataFromDB?.codeStateCounty?.objectid,
                         component_count: dataFromDB?.totalComponents, // TODO component_count
                         valueid: feature.properties.cartodb_id,
-                        id: dataFromDB.project_id,
+                        project_id: dataFromDB.project_id,
                         streamname: feature.properties.streamname, // TODO streamname
                         isEditPopup: feature.source === PROJECTS_DRAFT,
                         popupId: 'popup',
@@ -465,7 +465,7 @@ export const addPopupsOnClick = async (
               value: item.value,
               projecttype: item.projecctype,
               image: item.image,
-              id: item.id,
+              id: item.project_id,
               objectid: item.objectid,
               valueid: item.valueid,
               streamname: item.streamname

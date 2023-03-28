@@ -152,7 +152,8 @@ const Map = ({
     setCoordinatesJurisdiction,
     setSpinMapLoaded,
     setSelectedPopup,
-    getProjectsFilteredIds
+    getProjectsFilteredIds,
+    getDetailedPageProject
   } = useMapDispatch();
   const {
     toggleModalFilter,
@@ -1757,7 +1758,8 @@ const Map = ({
             existDetailedPageProblem(item.problemid);
         } else {
             const url = 'projectid=' + (item.projectid || item.id);
-            existDetailedPageProject(url);
+            // existDetailedPageProject(url);
+            getDetailedPageProject(item.projectid || item.iditem.projectid || item.project_id)
         }
 
 
