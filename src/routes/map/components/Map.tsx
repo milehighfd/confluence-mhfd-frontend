@@ -2021,7 +2021,8 @@ const Map = ({
                 () => {},
                 () => {},
                 () => {},
-                []
+                [],
+                MAPTYPES.MAINMAP
               );
            }
             if (popups.length) { 
