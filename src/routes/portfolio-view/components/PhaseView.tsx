@@ -422,16 +422,36 @@ const PhaseView = (
                   // return colorstroke;
                 })
                 .attr("stroke", function (d: any) {
-                  if (d.phaseId === scheduleList[r].code_phase_type_id) {
+
+                  let indexStatus;
+                  scheduleList.forEach((element:any, index:number) => {
+                    if(d.phaseId === element.code_phase_type_id){
+                      indexStatus = index;
+                    }
+                  });
+                  if(indexStatus === r){             
                     return `url(#Current_NotStarted)`;
-                  } else if (d.project_status[r]?.is_done && d.phaseId === scheduleList[r+1].code_phase_type_id) {
-                    return `url(#Done_Current)`
-                  } else if (d.project_status[r]?.is_done) {
+                  } 
+                  if( indexStatus && r < indexStatus-1){
                     return colorScale['Done'];
                   }
-                  else {
-                    return colorScale['NotStarted'];
+                  if(indexStatus&& r === indexStatus-1){
+                    return `url(#Done_Current)`
                   }
+                  else{
+                    return colorScale['NotStarted'];
+                  } 
+
+                  // if (d.phaseId === scheduleList[r].code_phase_type_id) {
+                  //   return `url(#Current_NotStarted)`;
+                  // } else if (d.project_status[r]?.is_done && d.phaseId === scheduleList[r+1].code_phase_type_id) {
+                  //   return `url(#Done_Current)`
+                  // } else if (d.project_status[r]?.is_done) {
+                  //   return colorScale['Done'];
+                  // }
+                  // else {
+                  //   return colorScale['NotStarted'];
+                  // }
                   // if (d.phaseId === scheduleList[r].code_phase_type_id){
                   //   colorChange = false;
                   //   return `url(#Current_NotStarted)`;
@@ -470,13 +490,28 @@ const PhaseView = (
           })
           .attr("r", radius)
           .style("fill", function (d: any) {  
-            if(d.phaseId === scheduleList[r].code_phase_type_id){             
+            let indexStatus;
+            scheduleList.forEach((element:any, index:number) => {
+              if(d.phaseId === element.code_phase_type_id){
+                indexStatus = index;
+              }
+            });
+            if(indexStatus === r){             
               return colorScale['Current'];
-            }else if(d.project_status[r]?.is_done){
+            } 
+            if( indexStatus && r < indexStatus){
               return colorScale['Done'];
             }else{
               return colorScale['NotStarted'];
-            }            
+            } 
+
+            // if(d.phaseId === scheduleList[r].code_phase_type_id){             
+            //   return colorScale['Current'];
+            // }else if(d.project_status[r]?.is_done){
+            //   return colorScale['Done'];
+            // }else{
+            //   return colorScale['NotStarted'];
+            // }            
           })
           // .style('visibility', (d: any) => {
           //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
@@ -510,13 +545,30 @@ const PhaseView = (
           })
           .attr("r", radius - 3)
           .style("fill", function (d: any) {
-            if(d.phaseId === scheduleList[r].code_phase_type_id){             
+            let indexStatus;
+            console.log(d)
+            console.log(scheduleList)
+            scheduleList.forEach((element:any, index:number) => {
+              if(d.phaseId === element.code_phase_type_id){
+                indexStatus = index;
+              }
+            });
+            if(indexStatus === r){             
               return colorScale['Current'];
-            }else if(d.project_status[r]?.is_done){
+            } 
+            if( indexStatus && r < indexStatus){
               return colorScale['Done'];
             }else{
               return colorScale['NotStarted'];
             }      
+
+            // if(d.phaseId === scheduleList[r].code_phase_type_id){             
+            //   return colorScale['Current'];
+            // }else if(d.project_status[r]?.is_done){
+            //   return colorScale['Done'];
+            // }else{
+            //   return colorScale['NotStarted'];
+            // }      
           })
           // .style('visibility', (d: any) => {
           //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
