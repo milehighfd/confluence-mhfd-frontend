@@ -85,7 +85,6 @@ const PortafolioBody = () => {
   const [collapsePhase, setCollapsePhase] = useState(false);
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
-  const [dataWithDate, setDataWithDate] = useState<any>([]);
   const [statusCounter,setStatusCounter] = useState(0);
 
   const [favorites, setFavorites] = useState<any>([]);
@@ -398,7 +397,7 @@ const PortafolioBody = () => {
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.code_project_type?.project_type_name,
                 status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
-                project_status: elem?.project_statuses,
+                project_status: elem?.project_statuses.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4),
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
@@ -597,65 +596,15 @@ const PortafolioBody = () => {
       })
   }, [tabKey])
 
-  useEffect(() => {    
-      updateCalendarData()
-  }, [newData])
-
   function enterPhase() {
     setOptionSelect('Phase')
     setTabKey('CIP');
-  }
-  function updateCalendarData(){
-    setDataWithDate(newData?.map((x: any) => {
-      if (x.project_status) {
-        return {
-          ...x,
-          schedule: x?.project_status?.map((z: any, index: number) => {           
-            if (!z.planned_start_date || !z.planned_end_date) {
-              return {
-                objectId: index + 1,
-                type: 'rect',
-                categoryNo: index + 1,
-                from: moment('2022/07/22 08:30:00'),
-                to: moment('2024/07/22 08:30:00'),
-                status: z?.code_phase_type?.code_status_type?.status_name,
-                name: z?.code_phase_type?.phase_name,
-                phase: z?.code_phase_type?.phase_name,
-                tasks: 10,
-                show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
-                current : x?.phaseId === z?.code_phase_type_id
-              };
-            } else {
-              return {
-                objectId: index + 1,
-                type: 'rect',
-                categoryNo: index + 1,
-                from: moment(z?.planned_start_date),
-                to: moment(z?.planned_end_date),
-                status: z?.code_phase_type?.code_status_type?.status_name,
-                name: z?.code_phase_type?.phase_name,
-                phase: z?.code_phase_type?.phase_name,
-                tasks: 10,
-                show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
-                current : x?.phaseId === z?.code_phase_type_id
-              };
-            }
-          })
-        }
-      } else {
-        return {
-          ...x
-        }
-      }
-
-    }))    
-  }
+  }  
   function enterSchedule() {   
     setTabKey('CIP');   
     setSortValue({
       columnKey: null, order: undefined
     });
-    updateCalendarData();
     setOptionSelect('Schedule')       
   }
   function enterList (){
