@@ -519,7 +519,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               <hr />
               <Row className="cost-project">
                 <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>{getTotalLength()}mi</b></Col>
+                <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>{getTotalLength()} mi</b></Col>
                 <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}><b>{getTotalDreinage()} sq mi</b></Col>
               </Row>
               <br></br>
