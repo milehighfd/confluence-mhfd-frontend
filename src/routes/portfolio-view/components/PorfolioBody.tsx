@@ -736,19 +736,19 @@ const PortafolioBody = () => {
           {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
+                  <span style={{marginLeft:'1px', marginRight:'12px'}}>Done</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
+                  <span style={{marginLeft:'1px', marginRight:'12px'}}>Current</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
+                  <span style={{marginLeft:'1px', marginRight:'12px'}}>Not Started</span>
                 </span>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
+                  <span style={{marginLeft:'1px', marginRight:'12px'}}>Overdue</span>
                 </span>
                   {/* <Button style={{paddingLeft:'0px',border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
                     <CalendarOutlined /> Edit Dates

@@ -230,13 +230,11 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-          {!editView? <><TextArea rows={4} style={{marginBottom:'15px'}} onChange={e => setNewNote(e.target.value)} defaultValue={!!newNote?newNote:'Add note here'}/></>:
-            <p>{!!newNote?newNote:'Add note here'}<span style={{fontWeight:'700'}}></span></p>
-          }
+            <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={e => setNewNote(e.target.value)} defaultValue={!!newNote?newNote:''} placeholder="Add note here"/>
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{opacity:0.6}}>MHFD Lead/PM</p>
+                <p>MHFD Lead/PM</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {/* {editView ?
@@ -250,69 +248,69 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                   </>
                   : */}
                   <>
-                    <img src="/picture/user-default.svg" alt="" height="24px" style={{borderRadius: '50%'}}/> <span  style={{ color: '#11093C'}}>{!data.mhfd?'N/A':data.mhfd}</span>
+                    <img src="/picture/user-default.svg" alt="" height="24px" style={{borderRadius: '50%'}}/> <span   className="text-piney-body">{!data.mhfd?'N/A':data.mhfd}</span>
                   </>
                 {/* } */}
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p  style={{opacity:0.6}}>Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
+                <p >Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {/* {editView ?
                   <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}} className='input-focus'></input>
                   : */}
-                  <p>{!data.estimated_cost?'N/A':formatter.format(data.estimated_cost)}</p>
+                  <p  className="text-piney-body">{!data.estimated_cost?'N/A':formatter.format(data.estimated_cost)}</p>
                 {/* } */}
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{ opacity:0.6}}>Phase</p>
+                <p >Phase</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 <p className="span-option">
-                  <span style={{color: '#11093C'}}>{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
+                  <span  className="text-piney-body">{data.phase}</span> &nbsp;<span className="tag-blue">{percent+'%'}</span>
                 </p>
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{opacity:0.6}}>Start Date</p>
+                <p >Start Date</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p>{!actualStartDate ? 'January 1, 2023' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
+                  : <p className="text-piney-body">{!actualStartDate ? 'January 1, 2023' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
                 }
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{ opacity:0.6}}>End Date</p>
+                <p >End Date</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p>{!actualEndDate ? 'December 6, 2023' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
+                  :<p className="text-piney-body">{!actualEndDate ? 'December 6, 2023' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
                 }
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{opacity:0.6}}>Duration</p>
+                <p >Duration</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined style={{color: '#11093C'}}/>&nbsp; &nbsp;<span  style={{color: '#11093C'}}>5 months  5 days</span>
+              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span   className="text-piney-body">5 months  5 days</span>
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p style={{opacity:0.6}}>Remaining Time</p>
+                <p >Remaining Time</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined style={{color: '#11093C'}}/>&nbsp; &nbsp;<span  style={{color: '#11093C'}}>5 months  5 days</span>
+              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span  className="text-piney-body">5 months  5 days</span>
               </Col>
             </Row>
           </div>
