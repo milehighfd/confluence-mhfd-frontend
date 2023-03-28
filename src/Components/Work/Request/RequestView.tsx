@@ -297,7 +297,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     } else if (l.table === 'CODE_SERVICE_AREA') {
                       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
                     }
-                    if (l.name === 'MHFD District Work Plan') {
+                    if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
                       displayedTabKey = tabKeys;
                     }
                     if (l.name.includes('South Platte River County')) {
@@ -885,7 +885,7 @@ const RequestView = ({ type, isFirstRendering }: {
     } else if (localityType === 'CODE_SERVICE_AREA') {
       displayedTabKey = ['Study', 'Acquisition', 'R&D'];
     }
-    if (locality === 'MHFD District Work Plan') {
+    if (locality === 'MHFD District Work Plan' || locality === 'Mile High Flood District') {
       displayedTabKey = tabKeys;
     }
     if (locality.includes('South Platte River County')) {
