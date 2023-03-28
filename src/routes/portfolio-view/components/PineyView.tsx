@@ -230,7 +230,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-          {editView? <><TextArea rows={4} style={{marginBottom:'15px'}} onChange={e => setNewNote(e.target.value)} defaultValue={!!newNote?newNote:'Add note here'}/></>:
+          {!editView? <><TextArea rows={4} style={{marginBottom:'15px'}} onChange={e => setNewNote(e.target.value)} defaultValue={!!newNote?newNote:'Add note here'}/></>:
             <p>{!!newNote?newNote:'Add note here'}<span style={{fontWeight:'700'}}></span></p>
           }
           <div className="form-text-calendar">
