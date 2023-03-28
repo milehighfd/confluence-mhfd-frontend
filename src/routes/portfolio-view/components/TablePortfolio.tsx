@@ -6,13 +6,21 @@ import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/c
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 const TablePortafolio = (
-  { divRef, searchRef, openTable, setHoverTable, hoverTable, rawData, tabKey, index, setSortValue }
+  { divRef, 
+    searchRef, 
+    openTable, 
+    //setHoverTable, 
+    //hoverTable, 
+    rawData, 
+    tabKey, 
+    index, 
+    setSortValue }
     : {
       divRef: React.MutableRefObject<any>,
       searchRef: React.MutableRefObject<any>,
       openTable: boolean[],
-      setHoverTable: React.Dispatch<React.SetStateAction<number | undefined>>,
-      hoverTable: any,
+      //setHoverTable: React.Dispatch<React.SetStateAction<number | undefined>>,
+      //hoverTable: any,
       rawData: any,
       tabKey: any,
       index: number,
@@ -136,11 +144,11 @@ const TablePortafolio = (
               order: sorters.order
             });
           }}
-          onHeaderRow={(record, rowIndex) => {
-            return {
-              onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
-            };
-          }}
+          // onHeaderRow={(record, rowIndex) => {
+          //   return {
+          //     onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
+          //   };
+          // }}
         />
       </div>
       <div className="table-body-body"
@@ -156,7 +164,9 @@ const TablePortafolio = (
         <div
           className="scroll-table"
         >
-          <div className="line-table" onMouseEnter={(e) => { setHoverTable(-1) }}></div>
+          <div className="line-table" onMouseEnter={(e) => { 
+            //setHoverTable(-1)
+            }}></div>
           {
             completeData.map((elem: any, index: number) => {
               //console.log("ELEM")
@@ -168,22 +178,22 @@ const TablePortafolio = (
                   dataSource={elem.values}
                   pagination={{ pageSize: 1000 }}
                   className={openTable[index] ? (index === 0 ? "table-portafolio table-first" : 'table-portafolio') : (index === 0 ? "table-portafolio table-close table-first table-clouse-first" : "table-portafolio table-close")}
-                  onRow={(record, rowIndex) => {
-                    return {
-                      onMouseEnter: event => {console.log(elem.values[rowIndex ? rowIndex : 0].project_id, 'VERQUEPASA', elem.values); setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id); }, // mouse enter row
-                    };
-                  }}
-                  onHeaderRow={(record, rowIndex) => {
-                    return {
-                      onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
-                    };
-                  }}
-                  rowClassName={(record: any, rowIndex: number) => {
-                    if (hoverTable === (elem.values[rowIndex ? rowIndex : 0].project_id)) {
-                      return 'active-table-row'
-                    }
-                    return ''
-                  }}
+                  // onRow={(record, rowIndex) => {
+                  //   return {
+                  //     onMouseEnter: event => { setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id); }, // mouse enter row
+                  //   };
+                  // }}
+                  // onHeaderRow={(record, rowIndex) => {
+                  //   return {
+                  //     onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
+                  //   };
+                  // }}
+                  // rowClassName={(record: any, rowIndex: number) => {
+                  //   if (hoverTable === (elem.values[rowIndex ? rowIndex : 0].project_id)) {
+                  //     return 'active-table-row'
+                  //   }
+                  //   return ''
+                  // }}
                 />
               )
             })
