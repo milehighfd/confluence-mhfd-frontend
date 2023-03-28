@@ -44,6 +44,13 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
       <div className="notification-header">
         <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2> <a>Mark all as read</a>
       </div>
+      <div style={{position: 'absolute', right: '1px', marginTop: '10px'}}>
+        <Button
+          className="btn-transparent"
+        >
+          <img src="/Icons/ic-settings.svg" alt="" height="90%" />
+        </Button>
+      </div>
       <Tabs defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
         onChange={(key) => setTabKey(key)} className="tabs-map">
