@@ -340,7 +340,8 @@ const PhaseView = (
               if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
                 hasDateData = false;
               }
-              return hasDateData ? 'visible':'hidden'})
+              //return hasDateData ? 'visible':'hidden'})
+              return 'hidden'})
             .attr('stroke', '#251863')
             .style('stroke-linecap', 'round')
             .on("click", function (d: any) {
@@ -374,7 +375,8 @@ const PhaseView = (
               if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
                 hasDateData = false;
               }
-              return hasDateData ? 'visible':'hidden'})
+              //return hasDateData ? 'visible':'hidden'})
+              return 'hidden'})
               .on("click", function (d: any) {
                 const sendTollgate = { d, scheduleList }
                 setTollData(sendTollgate);    
@@ -427,11 +429,11 @@ const PhaseView = (
                 })
                 // .attr("stroke", "url(#textBg)")
                 .attr("stroke-width", "2.5px")
-                .style('visibility', (d: any) => {
-                  if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-                    hasDateData = false;
-                  }
-                  return hasDateData ? 'hidden':'visible'})
+                // .style('visibility', (d: any) => {
+                //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+                //     hasDateData = false;
+                //   }
+                //   return hasDateData ? 'hidden':'visible'})
             }
           });
       const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
@@ -460,12 +462,12 @@ const PhaseView = (
               return colorScale['NotStarted'];
             }            
           })
-          .style('visibility', (d: any) => {
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-              hasDateData = false;
-            }
-            return hasDateData ? 'hidden':'visible'})
-            hasDateData = true
+          // .style('visibility', (d: any) => {
+          //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          //     hasDateData = false;
+          //   }
+          //   return hasDateData ? 'hidden':'visible'})
+          //   hasDateData = true
         circles
           .append("circle")
           .attr("cx", xdr(r))
@@ -477,12 +479,12 @@ const PhaseView = (
           .style("fill", function (d: any) {
             return "white";
           })
-          .style('visibility', (d: any) => {
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-              hasDateData = false;
-            }
-            return hasDateData ? 'hidden':'visible'})
-            hasDateData = true
+          // .style('visibility', (d: any) => {
+          //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          //     hasDateData = false;
+          //   }
+          //   return hasDateData ? 'hidden':'visible'})
+          //   hasDateData = true
         circles
           .append("circle")
           .attr("cx", xdr(r))
@@ -501,11 +503,11 @@ const PhaseView = (
               return colorScale['NotStarted'];
             }          
           })
-          .style('visibility', (d: any) => {
-            if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-              hasDateData = false;
-            }
-            return hasDateData ? 'hidden':'visible'})
+          // .style('visibility', (d: any) => {
+          //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
+          //     hasDateData = false;
+          //   }
+          //   return hasDateData ? 'hidden':'visible'})
             hasDateData = true
         svg
           .selectAll("myText")
