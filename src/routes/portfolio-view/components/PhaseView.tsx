@@ -403,29 +403,46 @@ const PhaseView = (
                 })
                 .attr("height", 2)
                 .attr("stroke", (d: any) => {
-                  let colorstroke: any = colorScale[(scheduleList[r].status)];
-                  if(d.phaseId === scheduleList[r].code_phase_type_id){
-                    z1 = false;
-                    colorstroke = colorScale['Current'];
-                  }else if(z1){
-                    colorstroke = colorScale['Done'];
+                  if(d.phaseId === scheduleList[r].code_phase_type_id){             
+                    return colorScale['Current'];
+                  }else if(d.project_status[r]?.is_done){
+                    return colorScale['Done'];
                   }else{
-                    colorstroke = colorScale['NotStarted'];
-                  }           
-                  return colorstroke;
-                })
-                .attr("stroke", function (d: any) {
-                  if(d.phaseId === scheduleList[r].code_phase_type_id){
-                    colorChange = false;
-                    return `url(#Current_NotStarted)`;
-                  }else if(d.phaseId === scheduleList[r+1].code_phase_type_id){
-                    return `url(#Done_Current)`
-                  } else if(colorChange){
-                    return colorScale['Done'];                  
-                  }
-                  else{
                     return colorScale['NotStarted'];
                   }
+                  // let colorstroke: any = colorScale[(scheduleList[r].status)];
+                  // if(d.phaseId === scheduleList[r].code_phase_type_id){
+                  //   z1 = false;
+                  //   colorstroke = colorScale['Current'];
+                  // }else if(z1){
+                  //   colorstroke = colorScale['Done'];
+                  // }else{
+                  //   colorstroke = colorScale['NotStarted'];
+                  // }           
+                  // return colorstroke;
+                })
+                .attr("stroke", function (d: any) {
+                  if (d.phaseId === scheduleList[r].code_phase_type_id) {
+                    return `url(#Current_NotStarted)`;
+                  } else if (d.project_status[r]?.is_done && d.phaseId === scheduleList[r+1].code_phase_type_id) {
+                    return `url(#Done_Current)`
+                  } else if (d.project_status[r]?.is_done) {
+                    return colorScale['Done'];
+                  }
+                  else {
+                    return colorScale['NotStarted'];
+                  }
+                  // if (d.phaseId === scheduleList[r].code_phase_type_id){
+                  //   colorChange = false;
+                  //   return `url(#Current_NotStarted)`;
+                  // }else if(d.phaseId === scheduleList[r+1].code_phase_type_id){
+                  //   return `url(#Done_Current)`
+                  // } else if(colorChange){
+                  //   return colorScale['Done'];                  
+                  // }
+                  // else{
+                  //   return colorScale['NotStarted'];
+                  // }
                 })
                 // .attr("stroke", "url(#textBg)")
                 .attr("stroke-width", "2.5px")
@@ -452,11 +469,10 @@ const PhaseView = (
             return ydname;
           })
           .attr("r", radius)
-          .style("fill", function (d: any) {       
-            if(d.phaseId === scheduleList[r].code_phase_type_id){
-              z = false;
+          .style("fill", function (d: any) {  
+            if(d.phaseId === scheduleList[r].code_phase_type_id){             
               return colorScale['Current'];
-            }else if(z){
+            }else if(d.project_status[r]?.is_done){
               return colorScale['Done'];
             }else{
               return colorScale['NotStarted'];
@@ -494,14 +510,13 @@ const PhaseView = (
           })
           .attr("r", radius - 3)
           .style("fill", function (d: any) {
-            if(d.phaseId === scheduleList[r].code_phase_type_id){
-              z = false;
+            if(d.phaseId === scheduleList[r].code_phase_type_id){             
               return colorScale['Current'];
-            }else if(z){
+            }else if(d.project_status[r]?.is_done){
               return colorScale['Done'];
             }else{
               return colorScale['NotStarted'];
-            }          
+            }      
           })
           // .style('visibility', (d: any) => {
           //   if(statusCounter === (d?.project_status).filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
