@@ -225,7 +225,6 @@ const ModalTollgate = ({
     }
 
   }, [calendarPhase]);
-console.log(dateValue)
 let items = [
   { key: 'current-phase', label: 'Set Current Phase' },
   { key: 'lock-phase', label: 'Lock Phase' },

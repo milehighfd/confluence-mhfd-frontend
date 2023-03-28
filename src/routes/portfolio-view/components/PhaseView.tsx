@@ -606,7 +606,6 @@ const PhaseView = (
             let popupVisible: any = document.getElementById('popup-phaseview');
             setGrapphicOpen(true);
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            console.log(searchTextId2.replaceAll(' ',''))
             let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')  }_text`).text();
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
             const phaseSc = (scheduleList[r].phase)   
