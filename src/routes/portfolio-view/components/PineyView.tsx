@@ -205,13 +205,27 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
       }
       {tollgate && <ModalTollgate visible={tollgate} setVisible={setTollgate} />}
       <div className="header-piney" style={{marginBottom:'20px'}}>
-        <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
-        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setVisibleDetail(true)}}/>
+        {/* <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
+        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setVisibleDetail(true)}}/> */}
+        <Button
+          className="btn-transparent"
+          onClick={()=>{setOpenPiney(false)}}
+          style={{padding:'0px 0px'}}
+        >
+          <img src="/Icons/ic-close-piney.svg" alt="" height="16px" />
+        </Button>
+        <Button
+          className="btn-transparent"
+          onClick={()=>{setVisibleDetail(true)}}
+          style={{padding:'0px 0px'}}
+        >
+          <img src="/Icons/ic_send.svg" alt="" height="16px" />
+        </Button>
       </div>
       <div className="body-piney">
         <p style={{marginBottom:'0px'}}>Capital Project</p>
-        <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '15px' }}>{data.project_name}</h1>
-        <div style={{ marginBottom: '7px' }}>
+        <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '7px' }}>{data.project_name}</h1>
+        <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>
         </div>
         <div className="body-piney-body">

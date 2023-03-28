@@ -991,7 +991,7 @@
       }
     }
     .text-search:hover {
-      background-color: #fafafa;
+      // background-color: #fafafa;
     }
   }
   .search::-webkit-scrollbar {
@@ -1741,10 +1741,10 @@
     .body-piney{
       .body-piney-body{
         overflow-x: auto;
-        height: calc(100vh - 375px);
+        height: calc(100vh - 331px);
         margin-right: -15px;
         padding-right: 20px;
-        padding-bottom: 25px;
+        padding-bottom: 100px;
       }
       .body-piney-body::-webkit-scrollbar {
         width: 5px;
@@ -2544,6 +2544,9 @@
     }
   }
   .table-body{
+    .ant-table-tbody>tr.ant-table-row:hover>td, .ant-table-tbody>tr>td.ant-table-cell-row-hover {
+      background: #fafafa00 !important;
+    }
     .scroll-scroll-table{
       width: calc(100vw - 448px) !important;
     }
