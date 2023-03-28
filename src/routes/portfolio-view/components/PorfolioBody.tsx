@@ -65,7 +65,7 @@ const PortafolioBody = () => {
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('List');
   const [openTable, setOpenTable] = useState<any>([]);
-  const [hoverTable, setHoverTable] = useState<number>()
+  //const [hoverTable, setHoverTable] = useState<number>()
   const tableRef = useRef([]); 
   const searchRef = useRef([]); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
@@ -596,17 +596,20 @@ const PortafolioBody = () => {
       })
   }, [tabKey])
 
+  useEffect(() => {    
+      updateCalendarData()
+  }, [newData])
+
   function enterPhase() {
     setOptionSelect('Phase')
     setTabKey('CIP');
   }
-  function enterSchedule() {
+  function updateCalendarData(){
     setDataWithDate(newData?.map((x: any) => {
       if (x.project_status) {
         return {
           ...x,
-          schedule: x?.project_status?.map((z: any, index: number) => {
-            console.log(x)
+          schedule: x?.project_status?.map((z: any, index: number) => {           
             if (!z.planned_start_date || !z.planned_end_date) {
               return {
                 objectId: index + 1,
@@ -645,13 +648,14 @@ const PortafolioBody = () => {
       }
 
     }))    
-    setTimeout(()=>{
-      setOptionSelect('Schedule')
-    }, 100);
+  }
+  function enterSchedule() {   
+    setTabKey('CIP');   
     setSortValue({
       columnKey: null, order: undefined
     });
-    setTabKey('CIP');
+    updateCalendarData();
+    setOptionSelect('Schedule')       
   }
   function enterList (){
     setOptionSelect('List')
@@ -770,8 +774,8 @@ const PortafolioBody = () => {
                       tableRef={tableRef}
                       setOpenTable={setOpenTable}
                       openTable={openTable}
-                      hoverTable={hoverTable}
-                      setHoverTable={setHoverTable}
+                      //hoverTable={hoverTable}
+                      //setHoverTable={setHoverTable}
                       phaseRef={phaseRef}
                       scheduleRef={scheduleRef}
                       rawData={newData}
@@ -794,8 +798,8 @@ const PortafolioBody = () => {
                         divRef={tableRef}
                         searchRef={searchRef}
                         openTable={openTable}
-                        hoverTable={hoverTable}
-                        setHoverTable={setHoverTable}
+                        //hoverTable={hoverTable}
+                        //setHoverTable={setHoverTable}
                         tabKey={tabKey}
                         index={idx}
                         setSortValue={setSortValue}
@@ -822,7 +826,7 @@ const PortafolioBody = () => {
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 
-                    rawData={dataWithDate} 
+                    rawData={newData} 
                     openTable={openTable} 
                     moveSchedule={zoomTimeline} 
                     scheduleRef={scheduleRef} 

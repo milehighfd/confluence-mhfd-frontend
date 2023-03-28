@@ -91,18 +91,60 @@ const CalendarView = ({
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
   };
+
+  let rawData2 = rawData?.map((x: any) => {
+    if (x.project_status) {
+      return {
+        ...x,
+        schedule: x?.project_status?.map((z: any, index: number) => {           
+          if (!z.planned_start_date || !z.planned_end_date) {
+            return {
+              objectId: index + 1,
+              type: 'rect',
+              categoryNo: index + 1,
+              from: moment('2022/07/22 08:30:00'),
+              to: moment('2024/07/22 08:30:00'),
+              status: z?.code_phase_type?.code_status_type?.status_name,
+              name: z?.code_phase_type?.phase_name,
+              phase: z?.code_phase_type?.phase_name,
+              tasks: 10,
+              show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
+              current : x?.phaseId === z?.code_phase_type_id
+            };
+          } else {
+            return {
+              objectId: index + 1,
+              type: 'rect',
+              categoryNo: index + 1,
+              from: moment(z?.planned_start_date),
+              to: moment(z?.planned_end_date),
+              status: z?.code_phase_type?.code_status_type?.status_name,
+              name: z?.code_phase_type?.phase_name,
+              phase: z?.code_phase_type?.phase_name,
+              tasks: 10,
+              show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
+              current : x?.phaseId === z?.code_phase_type_id
+            };
+          }
+        })
+      }
+    } else {
+      return {
+        ...x
+      }
+    }})
  
   //const sortedData = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
-  const sortedData = rawData.filter((elem: any) => elem.id.includes('Title'));
+  const sortedData = rawData2.filter((elem: any) => elem.id.includes('Title'));
   const completeData = sortedData.map((elem: any) => {
     return {
       ...elem,
-      values: rawData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
+      values: rawData2.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
     }
   });
-  const locations: any = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));  
+  const locations: any = [...rawData2].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));  
   let agrupationData: any= [];
-  let datas = rawData.map((el: any) => {
+  let datas = rawData2.map((el: any) => {
     return {
       ...el,
       schedule: el.schedule
@@ -218,7 +260,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
     // let barHeight = heightChart * 0.04173;
     // let factorHeight = heightChart * 0.03555; 
   
-    useEffect(() => {
+    useEffect(() => {      
       let z = []      
       datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
         .then((rows) => {  
@@ -254,9 +296,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
           console.log(e);
         })
     }, [])
-    
   const timelineChart = (datasets: any) => {
-    if (Object.keys(scheduleList).length > 0) {
+    if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
     let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8): barHeightDefault;
     let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight): 12;
@@ -264,6 +305,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
     // console.log('VALUES ', barHeight, paddingBars, "CALC",  heightDiv[0].offsetHeight, '*', datasets.length, '+', padding.top, padding.bottom);
     let height =  (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
     // console.log('HEIGHT ', height);
+   
       if (svg){
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
@@ -577,8 +619,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           return (d.type === 'title'? barHeight/4:barHeight);
         })
         .attr('fill', function(d: any) { 
-          let color = '';    
-          console.log(d)             
+          let color = '';         
           if(done){
             color = 'Done'
           }else{
@@ -1491,14 +1532,15 @@ let toData = datas?.map((ds: any) => ds.schedule)
   };
 
   useEffect(() => {
+    console.log(rawData2)
     collapseItemStatus();
     timelineChart(datas);
     setSvgState(svg);
     setSvgAxisState(svgAxis);
-  }, [rawData,scheduleList]);
+  }, [rawData,scheduleList,windowWidth]);
 
   useEffect(() => {
-    if (svgState) {
+    if (svgState) {     
       const removeAllChildNodes = (parent: any) => {
         while (parent.firstChild) {
           parent.removeChild(parent.firstChild);
@@ -1511,7 +1553,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
       collapseItemStatus();
       timelineChart(datas);
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,rawData,scheduleList]);
+  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,rawData,scheduleList,windowWidth]);
 
   // useEffect(()=> {
   //   if(zoom && svg){
@@ -1602,7 +1644,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
       <div
         id="chartContainer"
         style={{ overflowY: 'auto' }}
-        ref={scheduleRef}
+        ref={el => scheduleRef.current = el}
         className='chart-container'
         onScroll={(e: any) => {
           let dr: any = scheduleRef.current;
