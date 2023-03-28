@@ -47,7 +47,7 @@ const ModalGraphic = ({ positionModalGraphic,
           <p>{dataProject.actualNumber<=1?`${dataProject.actualNumber} Action Item of ${dataProject.scheduleList} Remaining`:
           `${dataProject.actualNumber} Action Items of ${dataProject.scheduleList} Remaining`}</p>
           <hr></hr>
-          <p>{!actualEndDate?'Due on November 26, 2022.':actualEndDate}</p>
+          <p>{!actualEndDate?'No data available.':actualEndDate}</p>
         </div>
       )
     }else{
