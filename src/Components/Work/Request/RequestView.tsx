@@ -185,6 +185,7 @@ const RequestView = ({ type, isFirstRendering }: {
     let l = localities.find((p: any) => {
       return p.name === value;
     })
+    console.log('Locality', l);
     if (l) {
       setLocalityType(l.table);
       if (type === 'WORK_PLAN') {
@@ -202,7 +203,7 @@ const RequestView = ({ type, isFirstRendering }: {
             displayedTabKey = ['Study'];
           }
         }
-        if (l.name === 'MHFD District Work Plan') {
+        if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
           displayedTabKey = tabKeys;
         }
         if (l.name.includes('South Platte River County')) {
