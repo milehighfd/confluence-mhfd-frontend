@@ -351,7 +351,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
-              <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
+              <div style={detailed?.problemtype ? {width:'100%'} : {width:'76%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (getSponsors(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
