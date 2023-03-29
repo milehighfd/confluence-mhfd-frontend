@@ -579,6 +579,12 @@ let toData = datas?.map((ds: any) => ds.schedule)
             }
             return hasDateData ? 'visible':'hidden'
           })
+          .on("click", function (d: any) {
+            console.log(d,scheduleList)
+            const sendTollgate = { d, scheduleList }
+            setTollData(sendTollgate);    
+            setOpenModalTollgate(true);
+          })
           ;
 
       hasDateData = true ;
