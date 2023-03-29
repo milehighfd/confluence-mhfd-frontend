@@ -124,12 +124,12 @@
   }
   .ll-0{
     width: 2px;
-    background: $white;
+    background: #ffffff;
     margin-top: 14px;
-    margin-bottom: 24px;
-    padding: 8px 0.5px;
+    margin-bottom: 6px;
+    padding: 11px 0.5px;
     opacity: 0.5;
-    margin-left: 18px;
+    margin-left: 20px;
     cursor: auto;
   }
   a{
@@ -812,6 +812,19 @@
   }
 }
 @media(min-width: 3800px) and (max-width: 5999px){
+  .new-style-drop-navbar {
+    margin-top: 0px !important; 
+    padding: 12px 0px !important;
+    .ant-dropdown-menu-title-content {
+      padding: 4px 0px !important;
+      font-size: 28px !important;
+      margin: 0px 9px;
+    }
+    .ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+      margin: 0px 8px !important;
+      border-radius: 13px !important;
+    }
+  }
   .tutorial{
     .ant-tabs-tab {
       font-size: 37px;
@@ -889,8 +902,10 @@
   }
   .header{
     .ll-00 {
-      padding: 6px 5.23px;
-      margin-right: 5px;
+      padding: 8px 8.23px;
+      margin-right: 14px;
+      font-size: 18px;
+      margin-left: 13px;
     }
   }
 }
