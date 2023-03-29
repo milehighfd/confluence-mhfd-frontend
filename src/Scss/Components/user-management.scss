@@ -1766,7 +1766,8 @@
   }
   .user-management-body{
     .infinite-scroll-component {
-      height: 100% !important;
+      // height: 100% !important;
+      padding-bottom: 75px !important;
     }
   }
 }

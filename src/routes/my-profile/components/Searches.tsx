@@ -45,7 +45,7 @@ const Searches = ({
         destroyInactiveTabPane={true}
         activeKey={tabKey}
           onChange={(key) => setTabKey(key)} className="tabs-map">
-            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf(`Projects ${counterProjects}`)]} placement="rightBottom">{`Projects ${counterProjects}`} </Popover> </span>} key={`Projects`}>
+            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflow:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf(`Projects ${counterProjects}`)]} placement="rightBottom">{`Projects ${counterProjects}`} </Popover> </span>} key={`Projects`}>
               <div className="user-management-body">
                 <div className="avatar-group">
                   <h2 style={{marginLeft:'25px'}}>Projects</h2>
@@ -58,7 +58,7 @@ const Searches = ({
                 </div>
               </div>
             </TabPane>     
-            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflowX:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf(`Problems ${counterProblems}`)]} placement="rightBottom">{`Problems ${counterProblems}`} </Popover> </span>} key={'Problems'}>
+            <TabPane style={{marginBottom:'0px', overflowY:'auto', height:'calc(100vh - 140px)', overflow:'hidden'}} tab={<span><Popover content={popovers[tabKeys.indexOf(`Problems ${counterProblems}`)]} placement="rightBottom">{`Problems ${counterProblems}`} </Popover> </span>} key={'Problems'}>
               <div className="user-management-body">
                 <div className="avatar-group">
                   <h2 style={{marginLeft:'25px'}}>Problems</h2>
