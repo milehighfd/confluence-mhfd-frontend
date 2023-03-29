@@ -718,7 +718,7 @@ const PortafolioBody = () => {
           onChange={(key) => changeTabkey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string, idx: number) => { return (
-              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk} disabled = {optionSelect === 'Phase' && tk === 'All'?true:false}>
+              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
                 <div className="protafolio-body">
                   {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
                 <Row>
@@ -789,6 +789,7 @@ const PortafolioBody = () => {
                     graphicOpen={graphicOpen} 
                     setGrapphicOpen={setGrapphicOpen}
                     setTollData = {setTollData}
+                    setOpenModalTollgate = {setOpenModalTollgate}
                     tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0} 
                     positionModalGraphic={positionModalGraphic} 
                     setPositionModalGraphic={setPositionModalGraphic} 
