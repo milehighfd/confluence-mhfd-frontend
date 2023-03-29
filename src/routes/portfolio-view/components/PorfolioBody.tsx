@@ -236,9 +236,14 @@ const PortafolioBody = () => {
     setIsLoading(true);
     getGroupList(currentGroup).then((valuesGroups) => {
       //const groups = valuesGroups.groups;
-      const groups = valuesGroups.groups.filter((x:any)=>x.value !== 'Draft' && x.value !== 'Requested');      
+      let groups = valuesGroups.groups.filter((x:any)=>x.value !== 'Draft' && x.value !== 'Requested');      
+      if(valuesGroups.table === 'CODE_STATE_COUNTY_4326'){
+        groups = valuesGroups.groups.map((x:any)=>{
+          return {...x, value : (x.value+' County')}
+        } );     
+      }
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-      //console.log(valuesGroups)
+      console.log(valuesGroups)
       //console.log(currentGroup)
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       

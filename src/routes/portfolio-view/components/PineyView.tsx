@@ -282,7 +282,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p className="text-piney-body">{!actualStartDate ? 'January 1, 2023' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
+                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
                 }
               </Col>
             </Row>
@@ -293,7 +293,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p className="text-piney-body">{!actualEndDate ? 'December 6, 2023' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
+                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
                 }
               </Col>
             </Row>
@@ -302,7 +302,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p >Duration</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span   className="text-piney-body">5 months  5 days</span>
+              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span   className="text-piney-body">No Data Available</span>
               </Col>
             </Row>
             <Row>
@@ -310,7 +310,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p >Remaining Time</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span  className="text-piney-body">5 months  5 days</span>
+              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span  className="text-piney-body">No Data Available</span>
               </Col>
             </Row>
           </div>
