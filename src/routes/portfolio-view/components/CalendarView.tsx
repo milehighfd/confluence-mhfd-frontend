@@ -509,22 +509,22 @@ let toData = datas?.map((ds: any) => ds.schedule)
         button
           .append("rect")
           .attr("x", (d: any) => {
-            // let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10))))); 
-            return xScale(d['from']);
+            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 28 : (windowWidth >= 2001 && windowWidth <= 2549 ? 25 : (windowWidth >= 2550 && windowWidth <= 3000 ? 28 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20: (windowWidth >= 1199 && windowWidth <= 1449 ? 12: 10))))); 
+            return xAddButton;
           })
           .attr("width", () => {
-            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 100 : (windowWidth >= 2001 && windowWidth <= 2549 ? 100 : (windowWidth >= 2550 && windowWidth <= 3000 ? 100 : (windowWidth >= 1450 && windowWidth <= 2000 ? 100 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 100)))));
+            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 190 : (windowWidth >= 2001 && windowWidth <= 2549 ? 130 : (windowWidth >= 2550 && windowWidth <= 3000 ? 140 : (windowWidth >= 1450 && windowWidth <= 2000 ? 120 : (windowWidth >= 1199 && windowWidth <= 1449 ? 100: 100)))));
             return widthAddButton;
           })
           // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
           
           .attr("y", (d: any) => {
             // console.log('ydname', ydname, ydname + 10)
-            // let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
+            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 11 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 1450 && windowWidth <= 2000 ? 9 : (windowWidth >= 1199 && windowWidth <= 1449 ? 2 : 2))))); 
             let yScaleRect: any = yScale(d['id']);
-            return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
+            return (d.type === 'title'? yScaleRect+12:yScaleRect+yAddButton);
           })
-          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
+          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
           .style('visibility', (d: any) => {         
             let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
@@ -552,20 +552,21 @@ let toData = datas?.map((ds: any) => ds.schedule)
           .enter()
           .append("text")
           .attr("class", "circletext")
-          .attr('fill', '#2CF691')
-          .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
+          .attr('fill', 'white')
+          .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 26 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : (windowWidth >= 1199 && windowWidth <= 1449 ? 13 : 11))))))
           .attr('font-weight', 600)
           .text('Add Dates')
           .attr("x", (d: any) => {
-            // let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10))))); 
-            return xScale(d['from']);
+            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 55 : (windowWidth >= 2001 && windowWidth <= 2549 ? 50 : (windowWidth >= 2550 && windowWidth <= 3000 ? 45 : (windowWidth >= 1450 && windowWidth <= 2000 ? 37 : (windowWidth >= 1199 && windowWidth <= 1449 ? 31 : 10))))); 
+            return xAddButton;
           })
           .attr("y", (d: any) => {
             // let ydname: any = y(d.id);
             // console.log('ydname', ydname, ydname + 10)
-            // let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
+            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 18))))); 
             let yScaleRect: any = yScale(d['id']);
-          return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
+
+          return (d.type === 'title'? yScaleRect+12:yScaleRect+yAddButton);
           })
           .style('visibility', (d: any) => { 
             let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
