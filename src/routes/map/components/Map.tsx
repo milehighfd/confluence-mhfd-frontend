@@ -2450,7 +2450,7 @@ const Map = ({
             </div> : ''
           }
           
-          <span className="zoomvaluemap"><b>Nearmap: September 4, 2022</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
+          <span className="zoomvaluemap"><b>Nearmap: March 19, 2023</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
             {visible && <DetailModal
               visible={visible}
               setVisible={setVisible}
