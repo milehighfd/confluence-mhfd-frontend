@@ -77,21 +77,7 @@ const CardsList = ({
             type: project.type,
             value: project.cartodb_id,
             id: project.projectId,
-            totalComponents:
-            project.GRADE_CONTROL_STRUCTURE +
-            project.PIPE_APPURTENANCES +
-            project.SPECIAL_ITEM_POINT +
-            project.SPECIAL_ITEM_LINEAR +
-            project.SPECIAL_ITEM_AREA +
-            project.CHANNEL_IMPROVEMENTS_LINEAR +
-            project.CHANNEL_IMPROVEMENTS_AREA +
-            project.REMOVAL_LINE +
-            project.REMOVAL_AREA +
-            project.STORM_DRAIN +
-            project.DETENTION_FACILITIES +
-            project.MAINTENANCE_TRAILS +
-            project.LAND_ACQUISITION +
-            project.LANDSCAPING_AREA,
+            totalComponents:0,
             isFavorite: true
             // coordinates: project.coordinates[0]
           }
