@@ -986,15 +986,6 @@ const MapView = () => {
                 const x = {
                   cartodb_id: project.project_id,
                   project_id: project.project_id,
-                  // TODO: MISSING IMAGES
-                  // FEMA Grant Management
-                  // Letter of Map Change
-                  // FHAD to PMR (PMR)
-                  // Development Improvement Project (DIP)
-                  // General Maintenance
-                  // Permitting
-                  // Maintenance Eligibiity Project (MEP)
-                  // Research and Development (RD)
                   image: (
                     projectType === 'Capital (CIP)' ? '/projectImages/capital.png' :
                       projectType === 'Planning Study (Study)' ? '/projectImages/study.png' :
@@ -1016,7 +1007,21 @@ const MapView = () => {
                   type: project.type,
                   value: project.cartodb_id,
                   id: project.projectId,
-                  totalComponents: project.totalComponents,
+                  totalComponents:
+                  project.GRADE_CONTROL_STRUCTURE +
+                  project.PIPE_APPURTENANCES +
+                  project.SPECIAL_ITEM_POINT +
+                  project.SPECIAL_ITEM_LINEAR +
+                  project.SPECIAL_ITEM_AREA +
+                  project.CHANNEL_IMPROVEMENTS_LINEAR +
+                  project.CHANNEL_IMPROVEMENTS_AREA +
+                  project.REMOVAL_LINE +
+                  project.REMOVAL_AREA +
+                  project.STORM_DRAIN +
+                  project.DETENTION_FACILITIES +
+                  project.MAINTENANCE_TRAILS +
+                  project.LAND_ACQUISITION +
+                  project.LANDSCAPING_AREA,
                   // coordinates: project.coordinates[0]
                 }
                 return x;
