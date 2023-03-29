@@ -680,7 +680,7 @@ const PortafolioBody = () => {
         </Row>
       </div>
       <div className="work-body portafolio">
-        <div style={{position: 'absolute',right: '5px', zIndex:'3', marginTop:'15px'}}>
+        <div className="legends-porfolio">
           {/* {optionSelect === 'List' &&
             <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{setOpenModalTable(true)}}>
               <SettingFilled />
