@@ -148,13 +148,13 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     {isLoading && <LoadingViewOverall />}
     <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive}/>
     <Modal
-      className="detailed-modal"
+      className="detailed-modal modal-detailed-modal"
       style={{ top: 30 }}
       visible={visible || !!query.get('type')}
       onCancel={() => setVisible(false)}
       forceRender={false}
       destroyOnClose>
-      <div className="detailed">
+      <div className="detailed" style={{overflowY:'hidden', maxHeight:"calc(100vh - 8vh)"}}>
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
@@ -234,7 +234,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         <Row
           className="detailed-b"
         >
-          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail"
+          <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail body-detail-modal"
             onScrollCapture={(e)=>{
               let numberSecction = 0;
               if(pageWidth < 1900 && divRef.current){
