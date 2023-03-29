@@ -524,11 +524,6 @@ export class MapService {
         groupedIds[7], //INITIATED
         "#A4BCF8");
     }
-    if(groupedIds[7]) {
-      expressionByIds.push(
-        groupedIds[7], //INITIATED
-        "#A4BCF8");
-    }
     if(groupedIds[9]) {
       expressionByIds.push(
         groupedIds[9], //INITIATED
@@ -544,7 +539,6 @@ export class MapService {
     if(currentLayer){
       // const currentLayer = this.map.getPaintProperty(layerid, "line-color");
       if (currentLayer.type !== 'symbol') {
-        // console.log('CurrentLayer', currentLayer);
         this.map.setPaintProperty(layerid, "line-color", expressionByIds);
       }
       

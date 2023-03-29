@@ -418,7 +418,13 @@ const RequestView = ({ type, isFirstRendering }: {
     });
     const grouped = groupBy(projectsRelevantData, (item:any) => item.current_project_status ? item.current_project_status?.code_status_type_id : item.statuses[0]?.code_phase_type?.code_status_type?.code_status_type_id);
     for(let key in grouped) {
-      grouped[key] = grouped[key].map((values: any) => values.project_id)
+      let uniqueIds: any = [];
+      grouped[key].map((values: any) => values.project_id).forEach((element: any) => {
+          if (!uniqueIds.includes(element)) {
+              uniqueIds.push(element);
+          }
+      });
+      grouped[key] = uniqueIds;
     }
     return grouped;
   } 

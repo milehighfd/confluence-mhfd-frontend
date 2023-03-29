@@ -475,6 +475,7 @@ const WorkRequestMap = (type: any) => {
     }, 1200);
   }, [coordinatesJurisdiction]);
   const addGeojsonLayer = (geojsonData: any) => {
+    console.log('geojsonData', geojsonData);
     if (map.map.getLayer('project_board_layer')) {
       map.map.removeLayer('project_board_layer');
     }
@@ -500,6 +501,7 @@ const WorkRequestMap = (type: any) => {
         //     "Arial Unicode MS Regular"
         // ],
         // "symbol-placement": "line"
+        'icon-ignore-placement': true
       },
       "paint": {
         "text-color": [
@@ -1094,7 +1096,6 @@ const applyProblemClusterLayer = () => {
             allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           }
           map.map.setFilter(key + '_' + index, allFilters);
-          
           if (groupedIdsBoardProjects) {
             map.changePaintPropertyColors(key + '_' + index, groupedIdsBoardProjects );
           }
