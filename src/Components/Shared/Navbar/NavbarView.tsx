@@ -205,8 +205,8 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
   ];
   const menu = (
     <Menu
-      className="menu-login-dropdown"
-      style={{ marginTop: '12px'}}
+      className="menu-login-dropdown new-style-drop-navbar"
+      style={{ marginTop: '-12px'}}
       items={items}
       onClick={({ key }) => {
         switch(key) {
@@ -242,7 +242,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
       defaultSelectedKeys={['0']}
     >
     </Menu> */}
-    <div style={{textAlign:'end'}}>
+    <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={locationPage.pathname === '/pm-tools' ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
         (<span className="avatar-item">
@@ -252,7 +252,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
         </span>):
         (<button className="notification-icon"></button>)}
       </Popover>
-      <label className="ll-0" style={{marginTop: '-1px' }}></label>
+      <label className="ll-0" style={{marginTop: '7px' }}></label>
       <Dropdown overlay={menu}>
           <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()} >
             {user.photo ?
@@ -265,11 +265,12 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
             {name} <CaretDownOutlined />
           </a>
         </Dropdown>
-        <span className="tutorial">  
-          <Button className="btn-question" onClick={showModal1}>
+        <div className="tutorial">
+           <Button className="btn-question" onClick={showModal1}>
             <QuestionCircleOutlined />
           </Button>
-        </span>
+        </div>
+         
     </div>
 
     <Modal

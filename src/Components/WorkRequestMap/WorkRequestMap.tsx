@@ -475,6 +475,7 @@ const WorkRequestMap = (type: any) => {
     }, 1200);
   }, [coordinatesJurisdiction]);
   const addGeojsonLayer = (geojsonData: any) => {
+    console.log('geojsonData', geojsonData);
     if (map.map.getLayer('project_board_layer')) {
       map.map.removeLayer('project_board_layer');
     }
@@ -500,6 +501,7 @@ const WorkRequestMap = (type: any) => {
         //     "Arial Unicode MS Regular"
         // ],
         // "symbol-placement": "line"
+        'icon-ignore-placement': true
       },
       "paint": {
         "text-color": [
@@ -1094,7 +1096,6 @@ const applyProblemClusterLayer = () => {
             allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
           }
           map.map.setFilter(key + '_' + index, allFilters);
-          
           if (groupedIdsBoardProjects) {
             map.changePaintPropertyColors(key + '_' + index, groupedIdsBoardProjects );
           }
@@ -1851,7 +1852,7 @@ const applyProblemClusterLayer = () => {
             </div> : ''
           }
         <span className="zoomvaluemap">
-          <b>Nearmap: September 4, 2022</b>
+          <b>Nearmap: March 19, 2023</b>
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
         </span>
         <div id={mapid} style={{ height: '100%', width: '100%' }}></div>

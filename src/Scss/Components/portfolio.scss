@@ -6,6 +6,12 @@
 }
 .portafolio {
   height: calc(100vh - 117px) !important;
+  .legends-porfolio{
+    position: absolute;
+    right: 5px;
+    z-index: 3;
+    margin-top:11.5px;
+  }
   .ant-tabs-bottom>.ant-tabs-nav, .ant-tabs-bottom>div>.ant-tabs-nav, .ant-tabs-top>.ant-tabs-nav, .ant-tabs-top>div>.ant-tabs-nav {
     margin: 0;
   }
@@ -1780,6 +1786,7 @@
         padding: 5px 10px;
         height: auto;
         margin-bottom: 10px;
+        align-items: center;
         p{
           margin: 0px;
           padding-left: 5px;
@@ -2480,6 +2487,11 @@
         width: 6.714286px;
         height: 13.142857px;
       }
+    }
+  }
+  .portafolio {
+    .legends-porfolio{
+      margin-top:15.5px;
     }
   }
   .portafolio-head{
@@ -3387,11 +3399,21 @@
       }
     }
   }
+  .portafolio{
+    .legends-porfolio{
+      margin-top: 13px !important ;
+    }
+  }
   .span-dots-heder {
-    font-size: 20px;
+    font-size: 21px;
+    margin-left: 15px !important;
+    span{
+      margin-left: 6px !important;
+    }
     .circulo{
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
+      margin-top: 7px !important;
     }
   }
   // .ant-btn {
@@ -3798,6 +3820,7 @@
       }    
       p{
         font-size: 25px !important;
+        line-height: 25px !important;
       }
       span{
         font-size: 25px !important;
@@ -4222,10 +4245,13 @@
     }
   }
   .span-dots-heder {
-    font-size: 25px;
+    font-size: 28px;
     .circulo{
-      width: 20px;
-      height: 20px;
+      width: 23px;
+      height: 23px;
+      margin-right: 8px;
+      margin-left: 16px;
+      margin-top: 9px;
     }
   }
   // .ant-btn {

@@ -2262,6 +2262,7 @@ body{
     background: #e4f4f0;
     border-radius: 3px;
     color: #28c499;
+    display: block;
   }
   .status-final{
     // margin-left: 5px;
@@ -2269,6 +2270,7 @@ body{
     background: #e4eef5;
     border-radius: 3px;
     color: #288cc4;
+    display: block;
   }
   .btn-circle{
     border-radius: 50%;
@@ -3490,6 +3492,9 @@ body{
   }
   .detailed-modal{
     .detailed-b{
+      .body-detail-modal{
+        height:calc(100vh - 261px) !important;
+      }
       .img-carousel-detail{
         top: 200px ;
         width: 90px;
@@ -3503,6 +3508,9 @@ body{
 }
 @media (min-width: 2550px) and (max-width: 3799px){
   .detailed-b{
+    .body-detail-modal{
+      height:calc(100vh - 283px) !important;
+    }
     .img-carousel-detail{
       width: 116px !important;
       top: 278px !important;
@@ -3852,6 +3860,9 @@ body{
     padding: 0px 70px !important;
   }
   .detailed-b{
+    .body-detail-modal{
+      height:calc(100vh - 400px) !important;
+    }
     .img-carousel-detail{
       right: 30px !important;
     top: 340px !important;
@@ -3903,6 +3914,9 @@ body{
     .header-body-modal{
       font-size: 24px !important;
     }
+  }
+  .modal-detailed-modal{
+    top: 99px !important;
   }
   .detailed-modal {
     width: 2350px !important;

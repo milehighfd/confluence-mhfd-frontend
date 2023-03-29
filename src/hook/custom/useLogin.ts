@@ -18,7 +18,8 @@ const useLogin = () => {
       datasets.getData(SERVER.ME, datasets.getToken()).then(async res => {
         if (res?.user_id) {
           saveUserInformation(res);
-          if (res.polygon) {
+          if (res.polygon && res.polygon.length) {
+            console.log(res.polygon);
             let bottomLongitude = res.polygon[0][0];
             let bottomLatitude = res.polygon[0][1];
             let topLongitude = res.polygon[0][0];

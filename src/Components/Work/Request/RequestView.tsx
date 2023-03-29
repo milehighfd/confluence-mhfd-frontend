@@ -224,7 +224,6 @@ const RequestView = ({ type, isFirstRendering }: {
   };
   const [changes, setChanges] = useState(0);
   useEffect(()=>{
-    console.trace('AV ER', locality, tabKey, year);
     setChanges(Math.random());
   },[locality, tabKey,year]);
 
@@ -368,19 +367,22 @@ const RequestView = ({ type, isFirstRendering }: {
       "type": "FeatureCollection",
       "features": []
     };
+    console.log('Projects in labels ', projects);
     const projectsRData = projects.map((p:any) => {
+      const currentPS = p.projectData?.project_statuses?.filter((ps: any, index: number) => {
+        if (p.projectData?.current_project_status_id) {
+          return ps?.project_status_id == p.projectData?.current_project_status_id
+        } else {
+          // IF NO CURRENT STATUS PICK FIRST ONE 
+          return index === 0;
+        }
+      });
+      const centroid = p?.projectData?.centroid;
       return {
         project_id: p.projectData?.project_id,
-        current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
-          if (p.projectData?.current_project_status_id) {
-            return ps?.project_status_id == p.projectData?.current_project_status_id
-          } else {
-            // IF NO CURRENT STATUS PICK FIRST ONE 
-            return index === 0;
-          }
-        })[0]?.code_phase_type?.code_status_type?.code_status_type_id,
+        current_project_status: currentPS ? currentPS[0]?.code_phase_type?.code_status_type?.code_status_type_id : null,
         project_name: p?.projectData?.project_name,
-        centroid: p?.projectData?.centroid[0]?.centroid
+        centroid: centroid? centroid[0]?.centroid : null
       };
     });
     geojsonData.features = projectsRData.map((p:any) => {
@@ -416,7 +418,13 @@ const RequestView = ({ type, isFirstRendering }: {
     });
     const grouped = groupBy(projectsRelevantData, (item:any) => item.current_project_status ? item.current_project_status?.code_status_type_id : item.statuses[0]?.code_phase_type?.code_status_type?.code_status_type_id);
     for(let key in grouped) {
-      grouped[key] = grouped[key].map((values: any) => values.project_id)
+      let uniqueIds: any = [];
+      grouped[key].map((values: any) => values.project_id).forEach((element: any) => {
+          if (!uniqueIds.includes(element)) {
+              uniqueIds.push(element);
+          }
+      });
+      grouped[key] = uniqueIds;
     }
     return grouped;
   } 

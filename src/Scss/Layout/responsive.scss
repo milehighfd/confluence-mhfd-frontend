@@ -365,7 +365,9 @@
   }
   .header{
     height: 96px !important;
-
+    .ll-0 {
+      padding: 15px 0.5px;
+    }
     h6 {
       font-size: 32px !important;
       line-height: 100px;
@@ -389,13 +391,14 @@
   .notification-icon, .notification-icon:hover {
     padding: 18px 25px !important;
     mask-size: 35px 35px !important;
-    top: -5px;
+    // top: -5px;
     position: relative;
   }
   .tutorial{
     .btn-question {
-      padding: 49px 22px !important;
+      padding: 36px 22px !important;
       mask-size: 35px 35px !important;
+      height: auto !important;
     }
   }
   .tutorial-000{

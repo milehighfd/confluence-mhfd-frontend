@@ -662,7 +662,7 @@ const PortafolioBody = () => {
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{textAlign:'right'}}>
             <Button className={openProjects ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenProjects(!openProjects)}}>
-              {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Projects
+              {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Teams
             </Button>
             {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{openFavs()}}>
@@ -680,7 +680,7 @@ const PortafolioBody = () => {
         </Row>
       </div>
       <div className="work-body portafolio">
-        <div style={{position: 'absolute',right: '5px', zIndex:'3', marginTop:'15px'}}>
+        <div className="legends-porfolio">
           {/* {optionSelect === 'List' &&
             <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{setOpenModalTable(true)}}>
               <SettingFilled />
