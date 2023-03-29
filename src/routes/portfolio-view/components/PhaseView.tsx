@@ -546,8 +546,6 @@ const PhaseView = (
           .attr("r", radius - 3)
           .style("fill", function (d: any) {
             let indexStatus;
-            console.log(d)
-            console.log(scheduleList)
             scheduleList.forEach((element:any, index:number) => {
               if(d.phaseId === element.code_phase_type_id){
                 indexStatus = index;
