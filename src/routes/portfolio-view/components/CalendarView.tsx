@@ -28,6 +28,7 @@ const CalendarView = ({
   index,
   setTollData,
   tabKey,
+  setOpenModalTollgate
 }: {
   rawData: any,
   openTable: boolean[];
@@ -46,7 +47,8 @@ const CalendarView = ({
   }>>,
   index: number;
   setTollData: any;
-  tabKey: any,
+  tabKey: any,  
+  setOpenModalTollgate: Function
 }) => {
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
@@ -65,7 +67,6 @@ const CalendarView = ({
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [zoomSelected, setZoomSelected] = useState('Monthly');
-  const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   const [zoomTimeline, setZoomTimeline] = useState(0);
   const [statusCounter,setStatusCounter] = useState(0);
@@ -92,44 +93,35 @@ const CalendarView = ({
     Current: '#047CD7',
   };
 
-  let rawData2 = rawData?.map((x: any) => {
-    if (x.project_status) {
-      return {
-        ...x,
-        schedule: x?.project_status?.map((z: any, index: number) => {           
-          if (!z.planned_start_date || !z.planned_end_date) {
-            return {
-              objectId: index + 1,
-              type: 'rect',
-              categoryNo: index + 1,
-              from: moment('2022/07/22 08:30:00'),
-              to: moment('2024/07/22 08:30:00'),
-              status: z?.code_phase_type?.code_status_type?.status_name,
-              name: z?.code_phase_type?.phase_name,
-              phase: z?.code_phase_type?.phase_name,
-              tasks: 10,
-              show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
-              current : x?.phaseId === z?.code_phase_type_id,
-              isDone : z.is_done,
-            };
-          } else {
-            return {
-              objectId: index + 1,
-              type: 'rect',
-              categoryNo: index + 1,
-              from: moment(z?.planned_start_date),
-              to: moment(z?.planned_end_date),
-              status: z?.code_phase_type?.code_status_type?.status_name,
-              name: z?.code_phase_type?.phase_name,
-              phase: z?.code_phase_type?.phase_name,
-              tasks: 10,
-              show: statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length,
-              current : x?.phaseId === z?.code_phase_type_id,
-              isDone : z.is_done,
-            };
-          }
-        })
-      }
+  let rawData2 = rawData?.map((x: any) => {   
+    if (x?.project_status?.length) {
+      let flag = ((x?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
+      if(x?.project_status?.length>0){        
+        return {
+          ...x,
+          schedule: x?.project_status?.map((z: any, index: number) => {   
+              return {                
+                project_data: x,
+                objectId: index + 1,
+                type: 'rect',
+                categoryNo: index + 1,
+                from: moment(z?.planned_start_date),
+                to: moment(z?.planned_end_date),
+                status: z?.code_phase_type?.code_status_type?.status_name,
+                name: z?.code_phase_type?.phase_name.replaceAll(' ',''),
+                phase: z?.code_phase_type?.phase_name.replaceAll(' ',''),
+                tasks: 10,
+                show: (statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
+                current : x?.phaseId === z?.code_phase_type_id,
+                isDone : z.is_done,
+              };          
+          })
+        }     
+      }else {
+        return {
+          ...x
+        }
+      }           
     } else {
       return {
         ...x
@@ -145,7 +137,7 @@ const CalendarView = ({
     }
   });
   const locations: any = [...rawData2].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));  
-  let agrupationData: any= [];
+  let agrupationData: any= []; 
   let datas = rawData2.map((el: any) => {
     return {
       ...el,
@@ -185,7 +177,6 @@ let toData = datas?.map((ds: any) => ds.schedule)
   .sort(function(a: any, b: any) {
     return a.to - b.to;
   });
-  
   // let StartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
   // let EndTime = moment(toData[toData.length - 1].to)
   //   .add(12, 'months')
@@ -206,12 +197,10 @@ let toData = datas?.map((ds: any) => ds.schedule)
       }
     })
   });
-  console.log(fromData)
-  console.log(toData)
   locations.forEach((location: any, index: any) => {
     let theLast:any; 
     toData?.forEach((elem: any) => {
-      if (elem.id.includes(location)){
+      if (elem.id.replaceAll(' ','').includes(location)){
         theLast= elem;
       }
     })  
@@ -516,7 +505,6 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .style('stroke-width', 2)
         .style('stroke', '#047CD7')
         .style('fill', 'none');
-      
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
@@ -538,11 +526,12 @@ let toData = datas?.map((ds: any) => ds.schedule)
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
-          .style('visibility', (d: any) => {            
-            let flag = ((d?.project_status?.find((ps: any) => ps?.actual_end_date === null || ps?.actual_start_date === null)))
+          .style('visibility', (d: any) => {         
+            let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData= true;            
-            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length){
-              hasDateData = false;
+            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag){
+              console.log('entra')
+              hasDateData = false;             
             }else if (d?.id.includes('Title')){
               hasDateData = false;
             }
@@ -551,6 +540,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           .attr('stroke', '#251863')
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
+            console.log(d,scheduleList)
             const sendTollgate = { d, scheduleList }
             setTollData(sendTollgate);    
             setOpenModalTollgate(true);
@@ -578,19 +568,16 @@ let toData = datas?.map((ds: any) => ds.schedule)
           return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
           })
           .style('visibility', (d: any) => { 
+            let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData= true;            
-            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length ){
-              hasDateData = false;
+            if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag){
+              console.log('entra')
+              hasDateData = false;             
             }else if (d?.id.includes('Title')){
               hasDateData = false;
             }
             return hasDateData ? 'visible':'hidden'
           })
-            .on("click", function (d: any) {
-              const sendTollgate = { d, scheduleList }
-              setTollData(sendTollgate);    
-              setOpenModalTollgate(true);
-            })
           ;
 
       hasDateData = true ;
@@ -637,7 +624,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           }
           return (d.type === 'title'? '#C9C5D8':colorScale[color]);
         })
-        .style('visibility', (d: any) => {              
+        .style('visibility', (d: any) => {  
         return d.show ? 'visible':'hidden'})
 
         // let agrupationTitles = scheduleG
@@ -1079,9 +1066,9 @@ let toData = datas?.map((ds: any) => ds.schedule)
           d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbar')
         }
       })
-      scheduleRectsCenter.on('mousemove', function () {
+      scheduleRectsCenter.on('mousemove', function (d: any) {
+        console.log(d)
         if (d3.event.target.className.animVal === 'agrupationbar') {
-
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
         }
         setGrapphicOpen(true);
@@ -1158,8 +1145,20 @@ let toData = datas?.map((ds: any) => ds.schedule)
 
 
 
-      scheduleRectsCenter.on('click', function() {
-        setOpenPiney(true);
+      scheduleRectsCenter.on('click', function(d:any) {
+        console.log(d)
+        // console.log({
+        //   project_name: d.rowLabel,
+        //   phase: d.phase,
+        //   project_type: d.project_type,
+        //   phase_id: null,
+        //   project_id: d.project_id,
+        //   d3_pos: searchTextId2,
+        //   d3_text: actualNumber,
+        //   mhfd: d.mhfd,
+        //   estimated_cost: d.estimated_cost
+        // })
+        //setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
 
@@ -1176,7 +1175,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         d3.event.stopPropagation();
       });
       rectNames.on('click', function() {
-        setOpenPiney(true);
+        //setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
 
@@ -1194,7 +1193,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
       });
       scheduleRects.on('click', function() {
         if(!d3.event.target.id.includes('Title')){
-        setOpenPiney(true);
+        //setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
 
@@ -1207,7 +1206,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         d3.event.stopPropagation();
       });
       svg.on('click', function() {
-        setOpenPiney(false);
+        //setOpenPiney(false);
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
         d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden');
         d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
@@ -1538,7 +1537,6 @@ let toData = datas?.map((ds: any) => ds.schedule)
   };
 
   useEffect(() => {
-    console.log(rawData2)
     collapseItemStatus();
     timelineChart(datas);
     setSvgState(svg);
@@ -1599,7 +1597,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
     <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     {/* {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>} */}
-    <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/>
+    {/* <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/> */}
     {/* <div className='lines-calendar' id='line-calendar'></div> */}
     <div className="calendar-body" id="widthDivforChart">
       {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} /></div>}
