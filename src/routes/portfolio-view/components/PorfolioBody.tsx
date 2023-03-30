@@ -243,7 +243,7 @@ const PortafolioBody = () => {
         } );     
       }
       const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-      console.log(valuesGroups)
+      //console.log(valuesGroups)
       //console.log(currentGroup)
       // setNewData(updatedGroups);
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
@@ -467,7 +467,7 @@ const PortafolioBody = () => {
               })
             });
           }
-        });
+        });        
         setNewData(updatedGroups);
         setCompleteData(updatedGroups);
         setListLoaded(!listLoaded);
@@ -574,12 +574,27 @@ const PortafolioBody = () => {
       }
     });
     const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
-    const phaseD = sortedData.map((elem: any) => {
+    let phaseD = sortedData.map((elem: any) => {
       return {
         ...elem,
         values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
       }
-    });    
+    });
+    const counterGroup = ((phaseD.map((x: any) => {
+      let counter = Object.keys(x.values).length
+      return x.headerLabel + ' (' + counter + ')'
+    })))
+    filteredTitles = ( filteredTitles.map((x:any)=>{
+      if (x.id.includes('Title')){        
+        for (var i=0; i < counterGroup.length; i++) {      
+          if(counterGroup[i].includes(x.headerLabel)){                  
+            return {...x,counter: counterGroup[i]}         
+          }          
+        } 
+      }else{
+        return {...x}
+      }
+    }))
     setPhaseData(phaseD)
     
     return filteredTitles;
@@ -794,6 +809,8 @@ const PortafolioBody = () => {
                     positionModalGraphic={positionModalGraphic} 
                     setPositionModalGraphic={setPositionModalGraphic} 
                     index={idx}
+                    userName={appUser.userInformation?.name}
+                    setDataModal={setDataModal}
                     />}
                   </Col>
                 </Row>
