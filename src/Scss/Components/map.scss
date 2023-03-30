@@ -2565,6 +2565,10 @@ hr.filters-line {
   }
 }
 @media(min-width: 3800px) and (max-width: 5999px){
+  .filter-map {
+    max-height: calc(100vh - 379px);
+    margin-top: 18px;
+  }
   .map-pop-00{
     width: 370px !important;
     .headmap{

@@ -614,6 +614,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <br></br>
                   <Management />
                   <Map type={typeS}/>
+                  <br></br>
                   <GalleryDetail/>
                   <br></br>
                   <Documents />

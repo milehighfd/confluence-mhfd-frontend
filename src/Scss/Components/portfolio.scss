@@ -2986,6 +2986,7 @@
       h1{
         font-size: 24px !important;
         line-height: 24px !important;
+        margin: 14px 0px 10px 0px !important;
       }
       .tag-blue{
         font-size: 20px !important;
@@ -2995,6 +2996,7 @@
       p{
         font-size: 20px !important;
         line-height: 20px !important;
+        margin-bottom: 27px;
       }
       span{
         font-size: 20px !important;
@@ -3439,6 +3441,9 @@
     }
   }
   .phaseview-body{
+    .checkbox-select{
+      margin-bottom: 10px !important;
+    }
     .phaseview-content{
       .container-timeline{
         height: calc(100vh - 366.5px) !important;
@@ -3824,6 +3829,9 @@
     }
   }
   .phaseview-body{
+    .checkbox-select{
+      margin-bottom: 15px !important;
+    }
     .chart-container{
       height: calc(100vh - 277px) !important;
     }
@@ -3858,6 +3866,8 @@
       }
       h1{
         font-size: 26px !important;
+        margin: 14px 0px 14px 0px !important;
+        line-height: 26px;
       }
       .tag-blue{
         font-size: 25px !important;
@@ -3884,6 +3894,7 @@
       p{
         font-size: 25px !important;
         line-height: 25px !important;
+        margin-bottom: 33px;
       }
       span{
         font-size: 25px !important;

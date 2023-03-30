@@ -375,7 +375,7 @@ let items = [
               <Col xs={{ span: 12 }} lg={{ span: 5}}>
                 <Row style={{height: '30px'}}>
                   <Col xs={{ span: 12 }} lg={{ span: 24}} style={{textAlign:'center'}}>
-                    <h5>Months</h5>
+                    <h5>Duration (Months)</h5>
                   </Col>
                 </Row>
               </Col>

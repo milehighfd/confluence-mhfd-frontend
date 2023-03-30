@@ -905,9 +905,18 @@
       padding: 7px 12px;
       height: 50px;
       line-height: 36px;
+      padding-right: 26px;
     }
+    .ant-switch-small .ant-switch-handle {
+      width: 24px;
+      height: 24px;
+      top: 4px;
+    }
+    .ant-switch-small.ant-switch-checked .ant-switch-handle {
+      left: calc(100% - 26px);
+  }
     .ant-collapse-content > .ant-collapse-content-box {
-      padding: 20px 20px 0px 20px;
+      padding: 20px 20px 0px 26px;
     }
     .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
       left: 26px;
@@ -921,6 +930,7 @@
       img{
         height: 28px;
         margin-top: -3px;
+        width: 30px;
       }
     }
     .info-pop{
