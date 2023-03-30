@@ -1058,7 +1058,7 @@ body{
 
 .modal-tollgate{
   width: 750px !important;
-  top:115px !important;
+  top:33px !important;
   .menu-login-dropdown {
     border-radius: 9px !important;
     // opacity: 0.6;
@@ -2233,7 +2233,7 @@ body{
     border-radius: 10px;
   }
   .tollgate-body{
-    height: calc(100vh - 432px) !important;
+    height: calc(100vh - 319px) !important;
     padding-top: 2px;
     .menu-login-dropdown {
       border-radius: 9px !important;
@@ -3503,6 +3503,7 @@ body{
     }
   }
   .modal-tollgate{
+    top:115px !important;
     width: 830px !important;
   }
 }
@@ -3528,6 +3529,7 @@ body{
     }
   }
   .modal-tollgate{
+    top:115px !important;
     width: 1065px !important;
       font-size: 18px !important;
       top:159px !important;
@@ -3898,6 +3900,7 @@ body{
     }
   }
   .modal-tollgate{
+    top:115px !important;
     width: 1370px !important;
       font-size: 18px !important;
       top: 260px !important;

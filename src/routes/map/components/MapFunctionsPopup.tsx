@@ -352,7 +352,22 @@ export const addPopupsOnClick = async (
               // component_count: feature.properties.component_count,
               status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
               objectid: dataFromDB?.codeStateCounty?.objectid,
-              component_count: dataFromDB?.totalComponents, // TODO component_count
+              // TODO component_count
+              component_count:
+                  dataFromDB?.GRADE_CONTROL_STRUCTURE +
+                  dataFromDB?.PIPE_APPURTENANCES +
+                  dataFromDB?.SPECIAL_ITEM_POINT +
+                  dataFromDB?.SPECIAL_ITEM_LINEAR +
+                  dataFromDB?.SPECIAL_ITEM_AREA +
+                  dataFromDB?.CHANNEL_IMPROVEMENTS_LINEAR +
+                  dataFromDB?.CHANNEL_IMPROVEMENTS_AREA +
+                  dataFromDB?.REMOVAL_LINE +
+                  dataFromDB?.REMOVAL_AREA +
+                  dataFromDB?.STORM_DRAIN +
+                  dataFromDB?.DETENTION_FACILITIES +
+                  dataFromDB?.MAINTENANCE_TRAILS +
+                  dataFromDB?.LAND_ACQUISITION +
+                  dataFromDB?.LANDSCAPING_AREA,
 
               // valueid: feature.properties.cartodb_id,
               // id: feature.properties.projectid,
@@ -394,7 +409,22 @@ export const addPopupsOnClick = async (
                         projecctype: dataFromDB?.code_project_type?.project_type_name,
                         status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
                         objectid: dataFromDB?.codeStateCounty?.objectid,
-                        component_count: dataFromDB?.totalComponents, // TODO component_count
+                      // TODO component_count
+                        component_count:
+                        dataFromDB?.GRADE_CONTROL_STRUCTURE +
+                        dataFromDB?.PIPE_APPURTENANCES +
+                        dataFromDB?.SPECIAL_ITEM_POINT +
+                        dataFromDB?.SPECIAL_ITEM_LINEAR +
+                        dataFromDB?.SPECIAL_ITEM_AREA +
+                        dataFromDB?.CHANNEL_IMPROVEMENTS_LINEAR +
+                        dataFromDB?.CHANNEL_IMPROVEMENTS_AREA +
+                        dataFromDB?.REMOVAL_LINE +
+                        dataFromDB?.REMOVAL_AREA +
+                        dataFromDB?.STORM_DRAIN +
+                        dataFromDB?.DETENTION_FACILITIES +
+                        dataFromDB?.MAINTENANCE_TRAILS +
+                        dataFromDB?.LAND_ACQUISITION +
+                        dataFromDB?.LANDSCAPING_AREA,
                         valueid: feature.properties.cartodb_id,
                         project_id: dataFromDB.project_id,
                         streamname: feature.properties.streamname, // TODO streamname

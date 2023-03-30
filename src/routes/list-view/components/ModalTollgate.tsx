@@ -244,7 +244,7 @@ let items = [
             lockData(element.code_phase_type_id)
             break;
             case 'current-phase':
-            setCodePhaseTypeId(element.code_phase_type_id)
+            setCodePhaseTypeId(element.phase_id)
             break;         
         }
       }}
@@ -338,7 +338,7 @@ let items = [
           </Col>
         </Row>
         <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
-          <Col xs={{ span: 12 }} lg={{ span: 24}}>
+          {/* <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row>
               <Col xs={{ span: 12 }} lg={{ span: 9}}>
               </Col>
@@ -349,7 +349,7 @@ let items = [
                 <h3 style={{marginBottom:'0px', color: '#11093C'}}>Duration</h3>
               </Col>
             </Row>
-          </Col>
+          </Col> */}
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
               <Col xs={{ span: 12 }} lg={{ span: 9}}>

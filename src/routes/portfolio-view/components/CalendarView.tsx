@@ -27,8 +27,10 @@ const CalendarView = ({
   graphicOpen, setGrapphicOpen, positionModalGraphic,setPositionModalGraphic,
   index,
   setTollData,
-  tabKey,
-  setOpenModalTollgate
+  tabKey,  
+  setOpenModalTollgate,
+  userName,
+  setDataModal,
 }: {
   rawData: any,
   openTable: boolean[];
@@ -48,7 +50,9 @@ const CalendarView = ({
   index: number;
   setTollData: any;
   tabKey: any,  
-  setOpenModalTollgate: Function
+  setOpenModalTollgate: Function,
+  userName: string,
+  setDataModal: any,
 }) => {
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
@@ -70,6 +74,9 @@ const CalendarView = ({
   const [openModalTable, setOpenModalTable] = useState(false);
   const [zoomTimeline, setZoomTimeline] = useState(0);
   const [statusCounter,setStatusCounter] = useState(0);
+  const [popUpData, setPopUpData] = useState<any>({});
+  const [updateAction,setUpdateAction] = useState(false);
+  const [actionsDone,setActionsDone] = useState<any>({})
   let pageWidth  = document.documentElement.scrollWidth;
   let hasDateData = true;
   const [actionItemsState, setActionItemsState] = useState({
@@ -99,7 +106,7 @@ const CalendarView = ({
       if(x?.project_status?.length>0){        
         return {
           ...x,
-          schedule: x?.project_status?.map((z: any, index: number) => {   
+          schedule: x?.project_status?.map((z: any, index: number) => {  
               return {                
                 project_data: x,
                 objectId: index + 1,
@@ -110,6 +117,7 @@ const CalendarView = ({
                 status: z?.code_phase_type?.code_status_type?.status_name,
                 name: z?.code_phase_type?.phase_name.replaceAll(' ',''),
                 phase: z?.code_phase_type?.phase_name.replaceAll(' ',''),
+                phaseId: z.code_phase_type_id,
                 tasks: 10,
                 show: (statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
                 current : x?.phaseId === z?.code_phase_type_id,
@@ -252,43 +260,53 @@ let toData = datas?.map((ds: any) => ds.schedule)
     // let heightChart = heightDivLeft * 1.14;
     // let barHeight = heightChart * 0.04173;
     // let factorHeight = heightChart * 0.03555; 
-  
-    useEffect(() => {      
-      let z = []      
-      datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
-        .then((rows) => {  
-          setPhaseList(rows)  
-          setStatusCounter(rows.length)
-          let counter = 0;
-          z = rows.map((x: any) => {
-            counter++;
-            return (
-              {
-                categoryNo: counter,
-                from: moment('2022/11/21 00:00:00'),
-                to: moment('2023/12/30 00:00:00'),
-                status: x?.code_status_type?.status_name,
-                name: x.phase_name,
-                phase: x.phase_name,
-                tasks: x.code_rule_action_items.length,
-                phase_id: x.code_phase_type_id,             
-                tasksData: x.code_rule_action_items,
-                duration: x.duration,
-                duration_type: x.duration_type
-              })
-          })
-          setScheduleList(z);
-          const y = rows.map((x: any) => {
-            return x.code_status_type;
-          })
-          setStatusList(y)
-          setUpdatePhaseList(!updatePhaseList) 
-          return rows
+
+  useEffect(() => {
+    let z = []
+    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
+      .then((rows) => {
+        setPhaseList(rows)
+        setStatusCounter(rows.length)
+        let counter = 0;
+        z = rows.map((x: any) => {
+          counter++;
+          return (
+            {
+              categoryNo: counter,
+              from: moment('2022/11/21 00:00:00'),
+              to: moment('2023/12/30 00:00:00'),
+              status: x?.code_status_type?.status_name,
+              name: x.phase_name,
+              phase: x.phase_name,
+              tasks: x.code_rule_action_items.length,
+              phase_id: x.code_phase_type_id,
+              tasksData: x.code_rule_action_items,
+              duration: x.duration,
+              duration_type: x.duration_type
+            })
         })
-        .catch((e) => {
-          console.log(e);
+        setScheduleList(z);
+        const y = rows.map((x: any) => {
+          return x.code_status_type;
         })
-    }, [])
+        setStatusList(y)
+        setUpdatePhaseList(!updatePhaseList)
+        return rows
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  }, [])
+
+  useEffect(() => {
+    datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {
+    }).then((e) => {
+      setActionsDone(e);
+    }).catch((e) => {
+      console.log(e);
+    })
+  }, [tabKey, updateAction])
+
   const timelineChart = (datasets: any) => {
     if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
     let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
@@ -530,7 +548,6 @@ let toData = datas?.map((ds: any) => ds.schedule)
             let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData= true;            
             if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag){
-              console.log('entra')
               hasDateData = false;             
             }else if (d?.id.includes('Title')){
               hasDateData = false;
@@ -572,7 +589,6 @@ let toData = datas?.map((ds: any) => ds.schedule)
             let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData= true;            
             if(statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag){
-              console.log('entra')
               hasDateData = false;             
             }else if (d?.id.includes('Title')){
               hasDateData = false;
@@ -580,7 +596,6 @@ let toData = datas?.map((ds: any) => ds.schedule)
             return hasDateData ? 'visible':'hidden'
           })
           .on("click", function (d: any) {
-            console.log(d,scheduleList)
             const sendTollgate = { d, scheduleList }
             setTollData(sendTollgate);    
             setOpenModalTollgate(true);
@@ -1074,7 +1089,21 @@ let toData = datas?.map((ds: any) => ds.schedule)
         }
       })
       scheduleRectsCenter.on('mousemove', function (d: any) {
-        console.log(d)
+        let scheduleData = (scheduleList.find((x: any) =>
+          d.phaseId === x.phase_id
+        ))
+        let counterdown = 0;
+        for (let i = 0; i < Object.keys(actionsDone).length; i++) {
+          if (d.project_data.project_id === actionsDone[i].project_id) {
+            counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);
+          }
+        }
+        const lenghtSc = Object.keys(scheduleData.tasksData).length
+        const phaseSc = scheduleData.phase
+        const phaseId = scheduleData.phase_id
+        const dataProject = d.project_data;
+        const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
+        setDataModal(sendModal);
         if (d3.event.target.className.animVal === 'agrupationbar') {
           d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
         }
@@ -1152,20 +1181,19 @@ let toData = datas?.map((ds: any) => ds.schedule)
 
 
 
-      scheduleRectsCenter.on('click', function(d:any) {
-        console.log(d)
-        // console.log({
-        //   project_name: d.rowLabel,
-        //   phase: d.phase,
-        //   project_type: d.project_type,
-        //   phase_id: null,
-        //   project_id: d.project_id,
-        //   d3_pos: searchTextId2,
-        //   d3_text: actualNumber,
-        //   mhfd: d.mhfd,
-        //   estimated_cost: d.estimated_cost
-        // })
-        //setOpenPiney(true);
+      scheduleRectsCenter.on('click', function(d:any) {       
+        setPopUpData({
+          project_name: d.project_data.rowLabel,
+          phase: d.phase,
+          project_type: d.project_data.project_type,
+          phase_id: d.phaseId,
+          project_id: d.project_data.project_id,
+          d3_pos: 0,
+          d3_text: 0,
+          mhfd: d.mhfd,
+          estimated_cost: d.project_data.estimated_cost
+        })
+        setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
 
@@ -1607,7 +1635,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
     {/* <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/> */}
     {/* <div className='lines-calendar' id='line-calendar'></div> */}
     <div className="calendar-body" id="widthDivforChart">
-      {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} /></div>}
+      {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={userName} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>}
 
       <Row id='zoomButtons' style={{margin:'9px 10px', marginBottom:'-6px'}} className='zoom-buttons'>
       <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>

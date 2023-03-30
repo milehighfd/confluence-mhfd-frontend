@@ -12,6 +12,7 @@ import { useProfileDispatch } from "../../../hook/profileHook";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { useMapDispatch } from "../../../hook/mapHook";
 import { REQUIRED } from "./constantsLogin";
+import { GlobalMapHook } from "utils/globalMapHook";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -38,6 +39,7 @@ const LoginView = () => {
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({ message: '', color: '#28C499' });
   const { getGroupOrganization, resetTimesLogin } = useProfileDispatch();
+  const { callMaps } = GlobalMapHook();
   useEffect(() => {
     resetAppUser();
     resetProfile();
@@ -56,6 +58,7 @@ const LoginView = () => {
       datasets.postData(SERVER.LOGIN, values).then(async res => {
         resetTimesLogin();
         if (res?.token) {
+          callMaps();
           setMessage({
             message: 'Successful Connection',
             color: '#28C499'

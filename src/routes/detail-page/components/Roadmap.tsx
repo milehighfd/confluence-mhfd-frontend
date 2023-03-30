@@ -642,6 +642,7 @@ const Roadmap = ({setOpenPiney,
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'77%'}}></div>
         </Col>
       </Row>
+      <br/>
       <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="roadmap-detail-modal">
           <div style={{color: '#11093C'}}>

@@ -609,10 +609,13 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <Vendors/>
                   <ComponentSolucions />
                   <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} setPopUpData={setPopUpData} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
+                  <br></br>
                   <Financials />
+                  <br></br>
                   <Management />
                   <Map type={typeS}/>
                   <GalleryDetail/>
+                  <br></br>
                   <Documents />
                   <History />
                 </>
