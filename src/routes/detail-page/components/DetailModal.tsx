@@ -28,6 +28,7 @@ import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, get
 import { useLocation } from "react-router";
 import GalleryDetail from "./GalleryDetail";
 import moment from "moment";
+import store from "store/index";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -67,6 +68,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const [typeDetail, setTypeDetail] = useState('');
   const [problemPart, setProblemPart] = useState<any[]>([]);
   const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
+  const [popUpData, setPopUpData] = useState<any>({});
+  const [updateAction,setUpdateAction] = useState(false);
+  const appUser = store.getState().profile;
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
@@ -604,7 +608,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <ProblemsProjects/>
                   <Vendors/>
                   <ComponentSolucions />
-                  <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney}/>
+                  <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} setPopUpData={setPopUpData} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
                   <Financials />
                   <Management />
                   <Map type={typeS}/>
@@ -616,7 +620,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
             </div>
           </Col>
           <Col span={7} className="mobile-display" style={{height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}}>
-            {openPiney? <div className="piney-modal-detail"><PineyView setOpenPiney={setOpenPiney} /></div>
+            {openPiney? <div className="piney-modal-detail"><PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={appUser.userInformation?.name} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
             :<TeamCollaborator />} 
           </Col>
         </Row>

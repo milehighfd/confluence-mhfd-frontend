@@ -9,7 +9,20 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "Config/Server.config";
 import moment from "moment";
 
-const Roadmap = ({setOpenPiney, openPiney, data}:{setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>, openPiney:boolean, data:any}) => {
+const Roadmap = ({setOpenPiney,
+   openPiney, 
+   data, 
+   setPopUpData,
+   updateAction,
+   setUpdateAction
+  }:
+  {setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>,
+     openPiney:boolean, 
+     data:any, 
+     setPopUpData: any
+     updateAction:any,
+     setUpdateAction: any
+    }) => {
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
   const [statusCounter,setStatusCounter] = useState(0);
@@ -18,9 +31,8 @@ const Roadmap = ({setOpenPiney, openPiney, data}:{setOpenPiney: React.Dispatch<R
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [actionsDone,setActionsDone] = useState<any>({})
   const [userBrowser, setUserBrowser] = useState<any>()
-  const [popUpData, setPopUpData] = useState<any>({});
-
-  const [updateAction,setUpdateAction] = useState(false);
+  
+  const [dataModal,setDataModal] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
 
   const windowWidth: any = window.innerWidth;
@@ -324,9 +336,9 @@ const Roadmap = ({setOpenPiney, openPiney, data}:{setOpenPiney: React.Dispatch<R
       .enter()
       .append("text")
       .attr('id', (d: any) => { 
-        return `${(d.id).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_text` })
+        return `${(d.view).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_text` })
         .attr('id2', (d: any) => { 
-          return `${(d.id).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_text` })
+          return `${(d.view).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_text` })
       .attr("class", "circletext")
       .attr('fill', '#ffffff')
       .attr('font-size',(windowWidth>=3001 && windowWidth<=3999 ? 23 :(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3000 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11))))))
@@ -360,7 +372,7 @@ const Roadmap = ({setOpenPiney, openPiney, data}:{setOpenPiney: React.Dispatch<R
 
       circles
           .append("circle")
-          .attr('id', (d: any) => { return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_outer` })
+          .attr('id', (d: any) => { console.log('qweqwe', d); return `${(d.view).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_outer` })
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
             let ydname: any = y(d.id);
@@ -387,48 +399,55 @@ const Roadmap = ({setOpenPiney, openPiney, data}:{setOpenPiney: React.Dispatch<R
             setOpenPiney(true)
           })
           .on("mousemove", (d: any) => {
-            // let popupVisible: any = document.getElementById('popup-phaseview');
-            // setGrapphicOpen(true);
-            // let searchTextId2 = d3.event.target.id.slice(0, -6);
-            // let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')  }_text`).text();
-            // const lenghtSc = Object.keys(scheduleList[r].tasksData).length
-            // const phaseSc = (scheduleList[r].phase)   
-            // const phaseId = (scheduleList[r].phase_id)              
-            // const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
-            // // setDataModal(sendModal);      
-            // if (popupVisible !== null) {
-            //   let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 : 
-            //     (windowWidth >= 2550 && windowWidth <= 3000 ? 165 : 
-            //       (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
-            //         (windowWidth >= 1450 && windowWidth <= 2000 ? 160 : 
-            //           (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
-            //   if(userBrowser=== 'Safari'){
-            //     popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 400 : 
-            //       (windowWidth >= 2550 && windowWidth <= 3000 ? 335 : 
-            //         (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
-            //           (windowWidth >= 1450 && windowWidth <= 2000 ? 285 : 
-            //             (windowWidth >= 1199 && windowWidth <= 1449 ? 250 : 140)))))
-            //   }
-            //   if(userBrowser=== 'Edge'){
-            //     popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 245 : 
-            //       (windowWidth >= 2550 && windowWidth <= 3000 ? 180 : 
-            //         (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
-            //           (windowWidth >= 1450 && windowWidth <= 2000 ? 170 : 
-            //             (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
-            //   }
-            //   let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
-            //   let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
-            //   let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
-            //   //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-            //   let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
-            //   let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
-            //   setPositionModalGraphic({ left: positionLeft, top: positionTop })
-            //   //d3.selectAll('.text-search:hover').attr('text-search');
-            //   d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
-            //   let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
-            //   d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
-            //   d3.select(`#${searchTextId}`).style('text-decoration','underline');
-            // }
+            let popupVisible: any = document.getElementById('popup-phaseview');
+            setGrapphicOpen(true);
+            let searchTextId2 = d3.event.target.id.slice(0, -6);
+            console.log('qqqqqqqqqqqq',searchTextId2, d3.event.target)
+            console.log(d3.select(`#${searchTextId2.replaceAll(' ','')}_text`))
+            let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')}_text`).text();
+            console.log('wwwwwwwwwww', actualNumber)
+            const lenghtSc = Object.keys(scheduleList[r].tasksData).length
+            const phaseSc = (scheduleList[r].phase)   
+            const phaseId = (scheduleList[r].phase_id)              
+            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
+            setDataModal(sendModal);      
+            if (popupVisible !== null) {
+              let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 225 : 
+                (windowWidth >= 2550 && windowWidth <= 3000 ? 185 : 
+                  (windowWidth >= 2001 && windowWidth <= 2549 ? 160 : 
+                    (windowWidth >= 1450 && windowWidth <= 2000 ? 170 : 
+                      (windowWidth >= 1199 && windowWidth <= 1449 ? 160 : 140)))))
+              if(userBrowser=== 'Safari'){
+                popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 400 : 
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 335 : 
+                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 285 : 
+                        (windowWidth >= 1199 && windowWidth <= 1449 ? 250 : 140)))))
+              }
+              if(userBrowser=== 'Edge'){
+                popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 245 : 
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 180 : 
+                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 170 : 
+                        (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
+              }
+              let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : 
+                (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : 
+                  (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                    (windowWidth >= 1450 && windowWidth <= 2000 ? 185 : 
+                      (windowWidth >= 1199 && windowWidth <= 1449 ? 70 : 345)))))
+              let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
+              let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
+              //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
+              let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
+              let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
+              setPositionModalGraphic({ left: positionLeft, top: positionTop })
+              //d3.selectAll('.text-search:hover').attr('text-search');
+              d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
+              let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+              d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
+              d3.select(`#${searchTextId}`).style('text-decoration','underline');
+            }
           })
           .on("mouseout", (d: any) => {
             // setGrapphicOpen(false);
@@ -565,7 +584,7 @@ const Roadmap = ({setOpenPiney, openPiney, data}:{setOpenPiney: React.Dispatch<R
 
   return (
     <>
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>}
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
       <Row id='ProjectRoadmapHeader'>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
           <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="project-roadmap">PROJECT ROADMAP</h3>
