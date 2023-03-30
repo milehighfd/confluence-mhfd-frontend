@@ -126,7 +126,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       key: detailed.project_id,
       phase: getCurrentProjectStatus(detailed)?.code_phase_type?.phase_name,
       phaseId: getCurrentProjectStatus(detailed)?.code_phase_type_id,
-      mhfd:  detailed?.project_staffs.reduce((accumulator: string, pl: any) => {
+      mhfd: detailed?.project_staffs.length>0 ? detailed?.project_staffs.reduce((accumulator: string, pl: any) => {
         const sa = pl?.mhfd_staff?.full_name || '';
         const sa1 = pl?.code_project_staff_role_type_id || '';
         let value = accumulator;
@@ -137,11 +137,11 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value += sa;
         }  
         return value;
-      }, ''),
+      }, '') : [],
       mhfd_support: null,
       lg_lead: null,
       developer: null,
-      consultant:  detailed?.project_partners.reduce((accumulator: string, pl: any) => {
+      consultant: detailed?.project_partners.length>0 ? detailed?.project_partners.reduce((accumulator: string, pl: any) => {
         const sa = pl?.business_associate?.business_name || '';
         const sa1 = pl?.code_partner_type_id || '';
         let value = accumulator;
@@ -152,8 +152,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value += sa;
         }  
         return value;
-      }, ''), //'detailed?.consultants[0]?.consultant[0]?.business_name',
-      civil_contractor: detailed?.project_partners.reduce((accumulator: string, pl: any) => {
+      }, '') : [], //'detailed?.consultants[0]?.consultant[0]?.business_name',
+      civil_contractor: detailed?.project_partners.length>0 ? detailed?.project_partners.reduce((accumulator: string, pl: any) => {
         const sa = pl?.business_associate?.business_name || '';
         const sa1 = pl?.code_partner_type_id || '';
         let value = accumulator;
@@ -164,8 +164,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value += sa;
         }  
         return value;
-      }, ''), // 'detailed?.civilContractor[0]?.business[0]?.business_name',
-      landscape_contractor: detailed?.project_partners.reduce((accumulator: string, pl: any) => {
+      }, '') : [], // 'detailed?.civilContractor[0]?.business[0]?.business_name',
+      landscape_contractor:detailed?.project_partners.length>0 ? detailed?.project_partners.reduce((accumulator: string, pl: any) => {
         const sa = pl?.business_associate?.business_name || '';
         const sa1 = pl?.code_partner_type_id || '';
         let value = accumulator;
@@ -176,33 +176,33 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value += sa;
         }  
         return value;
-      }, ''), // 'detailed?.landscapeContractor[0]?.business[0]?.business_name',
+      }, ''): [], // 'detailed?.landscapeContractor[0]?.business[0]?.business_name',
       construction_start_date: detailed?.project_status?.code_phase_type?.code_phase_type_id === 125 ? detailed?.project_status?.planned_start_date : detailed?.project_status?.actual_start_date, //detailed?.construction_start_date,
-      jurisdiction_id: detailed?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
+      jurisdiction_id: detailed?.project_local_governments.length>0 ? detailed?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
         const sa = pl?.CODE_LOCAL_GOVERNMENT?.code_local_government_id || '';
         let value = accumulator;
         if (sa) {
           value = [...value,sa];
         }  
         return value;
-      }, ''), 
-      county_id: detailed?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
+      }, ''):[], 
+      county_id: detailed?.project_counties.length>0  ? detailed?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
         const county = pl?.CODE_STATE_COUNTY?.state_county_id || '';
         let value = accumulator;
         if (county) {
           value = [...value,county];
         }  
         return value;
-      }, ''),
-      servicearea_id: detailed?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
+      }, ''):[],
+      servicearea_id:detailed?.project_service_areas.length>0 ? detailed?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
         const sa = pl?.CODE_SERVICE_AREA?.code_service_area_id || '';
         let value = accumulator;
         if (sa) {
           value = [...value,sa];
         }  
         return value;
-      }, ''),
-      consultant_id: detailed?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+      }, ''): [],
+      consultant_id: detailed?.project_partners.length>0 ? detailed?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
         const sa = pl?.business_associate?.business_associates_id || '';
         const sa1 = pl?.code_partner_type_id || '';
         let value = accumulator;
@@ -210,8 +210,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value = [...value,sa];
         }  
         return value;
-      }, ''),
-      contractor_id: detailed?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+      }, ''): [],
+      contractor_id: detailed?.project_partners.length>0 ? detailed?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
         const sa = pl?.business_associate?.business_associates_id || '';
         const sa1 = pl?.code_partner_type_id || '';
         let value = accumulator;
@@ -219,8 +219,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value = [...value,sa];
         }  
         return value;
-      }, ''),
-      local_government: detailed?.project_local_governments.reduce((accumulator: string, pl: any) => {
+      }, ''): [],
+      local_government: detailed?.project_local_governments.length>0 ? detailed?.project_local_governments.reduce((accumulator: string, pl: any) => {
         const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
         let value = accumulator;
         if (sa) {
@@ -230,7 +230,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
           value += sa;
         }  
         return value;
-      }, ''),
+      }, ''): [],
       on_base: detailed?.onbase_project_number,
       total_funding: null,
       project_sponsor: getSponsors(detailed.project_partners),

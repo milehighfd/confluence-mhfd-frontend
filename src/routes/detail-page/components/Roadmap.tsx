@@ -450,14 +450,14 @@ const Roadmap = ({setOpenPiney,
             }
           })
           .on("mouseout", (d: any) => {
-            // setGrapphicOpen(false);
-            // setPositionModalGraphic({ left: 10000, top: 10000 })
-            // d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-            //   return colorScale[d.schedule[r].status];
-            // });
-            // let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
-            // d3.select(`#${searchTextId}`).style('background-color', 'white');
-            // d3.select(`#${searchTextId}`).style('text-decoration','none');
+            setGrapphicOpen(false);
+            setPositionModalGraphic({ left: 10000, top: 10000 })
+            d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
+              return colorScale[d.schedule[r].status];
+            });
+            let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
+            d3.select(`#${searchTextId}`).style('background-color', 'white');
+            d3.select(`#${searchTextId}`).style('text-decoration','none');
           })
       ;
   })
