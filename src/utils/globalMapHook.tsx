@@ -85,7 +85,11 @@ export const GlobalMapHook = () => {
     lastMaps = [];
     currentPosition = -1;
   }
-
+  const callMaps = () => {
+    console.log('Calling Maps');
+    lastMaps = JSON.parse(sessionStorage.getItem('globalMap') || '[]') as any;
+    currentPosition = JSON.parse(sessionStorage.getItem('globalMap') || '[]').length -1;
+  }
   const hasNext = () => {
     return currentPosition < lastMaps.length - 1;
   }
@@ -100,5 +104,5 @@ export const GlobalMapHook = () => {
     return percentage;
   }
 
-  return {hasNext, hasPrevious, getCurrent, getNext, getPrevious, getHistoric, addHistoric, getPercentage, deleteMaps};
+  return {hasNext, hasPrevious, getCurrent, getNext, getPrevious, getHistoric, addHistoric, getPercentage, deleteMaps, callMaps};
 };
