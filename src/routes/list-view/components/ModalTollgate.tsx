@@ -24,7 +24,7 @@ const ModalTollgate = ({
   const [dateValue, setDateValue] = useState<any[]>([])
   const [currentPhase,setCurrentPhase] = useState(-1);
   const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1)
-  const [calendarValue,setCalendarValue] =useState([])
+  const [calendarValue,setCalendarValue] =useState('')
   const [calendarPhase,setCalendarPhase] =useState(0)
   const [phasesData,setPhasesData] =useState([])
   const [phaseIsSet, setPhaseIsSet] = useState(false)
@@ -80,7 +80,8 @@ const ModalTollgate = ({
       const phaseDatas: any = (phasesData.map((x: any, index: number) => {
         if (index === indexPhase) {
           return {
-            ...x, current: 'Current'
+            ...x, current: 'Current',
+            locked: true,
           };
         }
         else if (index < indexPhase) {
@@ -100,6 +101,40 @@ const ModalTollgate = ({
     }
   }, [codePhaseTypeId])
 
+  // useEffect(() => {
+  //   console.log(calendarPhase)
+  //   const current = moment(calendarValueEnd);
+  //         const currentPast = moment(calendarValueEnd);
+  //         const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === calendarPhase));
+  //         const reverseData = ([].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase)))
+  //         const dateValues: any = (reverseData.map((x: any, index: number) => {
+  //           console.log(index + ' : '+ indexPhase)
+  //           if (index >= indexPhase) {
+  //             const now = moment(current);
+  //             current.add(x.duration, 'M');
+  //             return {
+  //               project_id: dataProject?.d?.project_id,
+  //               current: index === indexPhase ? 1 : 0,
+  //               key: x.categoryNo,
+  //               name: x.name,
+  //               phase_id: x.phase_id,
+  //               code_phase_type_id: x.phase_id,
+  //               startDate: now.clone(),
+  //               duration: x.duration,
+  //               endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
+  //               locked: index === indexPhase ? true : false,
+  //             };
+  //           } else {
+  //             return {
+  //               ...x
+  //             };
+  //           }
+  //         }));
+  //         setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
+  // },[calendarValueEnd])
+  useEffect(() => {
+    console.log(dateValue)
+  },[dateValue])
   useEffect(() => {
     let lockedUp = false;
     let lockedDown = false;
@@ -123,8 +158,8 @@ const ModalTollgate = ({
                 code_phase_type_id: x.phase_id,
                 startDate: now.clone(),
                 duration: x.duration,
-                endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
-                locked: index === indexPhase ? true : false,
+                endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),     
+                locked: index === indexPhase ? true : false,           
               };
             } else {
               const now1 = moment(currentPast);
@@ -153,7 +188,7 @@ const ModalTollgate = ({
               };
             } else {
               return {
-                ...x, locked: false
+                ...x
               }
             }
           }))
@@ -241,7 +276,7 @@ let items = [
       onClick={({ key }) => {
         switch (key) {
           case 'lock-phase':
-            lockData(element.code_phase_type_id)
+            lockData(element.phase_id)
             break;
             case 'current-phase':
             setCodePhaseTypeId(element.phase_id)
@@ -255,7 +290,7 @@ let items = [
     setDateValue([])
     setCurrentPhase(-1);
     setCodePhaseTypeId(-1)
-    setCalendarValue([])
+    setCalendarValue('')
     setCalendarPhase(0)
   }
   function sendData() {
