@@ -15,22 +15,24 @@ const GalleryDetail = () => {
       </Row>
       <Row style={{marginBottom:'40px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{display:'flex', justifyContent: 'space-between'}}>
-          <div style={{background: '#f5f7ff', height: '38vh', borderRadius: '10px', width: '49%'}}>
-
-          </div>
-          <div style={{width:'49%', height: '38vh'}}>
-            <div style={{display:'flex', justifyContent: 'space-between', marginBottom: '2vh'}}>
-              <div style={{background: '#f5f7ff', height: '18vh', borderRadius: '10px', width: '48%'}}></div>
-              <div style={{background: '#f5f7ff', height: '18vh', borderRadius: '10px', width: '48%'}}></div>
-            </div>
-            <div style={{display:'flex', justifyContent: 'space-between'}}>
-              <div style={{background: '#f5f7ff', height: '18vh', borderRadius: '10px', width: '48%'}}></div>
-              <div style={{background: '#f5f7ff', height: '18vh', borderRadius: '10px', width: '48%'}}></div>
-            </div>
-          </div>
-          {/* <Button className="btn-purple"><PlusOutlined /> Add Documents</Button> */}
-          {/* <br/>
           <div className="grid">
+            {/* //Example Use grid  */}
+            {/* <div><img src="/picture/img-1.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-2.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-3.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-4.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-5.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-6.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-1.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-2.png" alt="" height="100%" /></div>
+            <div><img src="/picture/img-3.png" alt="" height="100%" /></div> */}
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+            {/* <div></div>
             <div></div>
             <div></div>
             <div></div>
@@ -43,7 +45,19 @@ const GalleryDetail = () => {
             <div></div>
             <div></div>
             <div></div>
-          </div> */}
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div> */}
+          </div> 
         </Col>
       </Row>
     </>
