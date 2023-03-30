@@ -526,8 +526,10 @@ let toData = datas?.map((ds: any) => ds.schedule)
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
+          .attr('rx', 3)
+          .attr('ry', 3)
           .attr("x", (d: any) => {
-            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 28 : (windowWidth >= 2001 && windowWidth <= 2549 ? 25 : (windowWidth >= 2550 && windowWidth <= 3000 ? 28 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20: (windowWidth >= 1199 && windowWidth <= 1449 ? 12: 10))))); 
+            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 28 : (windowWidth >= 2001 && windowWidth <= 2549 ? 25 : (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : (windowWidth >= 1450 && windowWidth <= 2000 ? 18: (windowWidth >= 1199 && windowWidth <= 1449 ? 16: 10))))); 
             return xAddButton;
           })
           .attr("width", () => {
@@ -574,13 +576,13 @@ let toData = datas?.map((ds: any) => ds.schedule)
           .attr('font-weight', 600)
           .text('Add Dates')
           .attr("x", (d: any) => {
-            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 55 : (windowWidth >= 2001 && windowWidth <= 2549 ? 50 : (windowWidth >= 2550 && windowWidth <= 3000 ? 45 : (windowWidth >= 1450 && windowWidth <= 2000 ? 37 : (windowWidth >= 1199 && windowWidth <= 1449 ? 31 : 10))))); 
+            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 55 : (windowWidth >= 2001 && windowWidth <= 2549 ? 50 : (windowWidth >= 2550 && windowWidth <= 3000 ? 45 : (windowWidth >= 1450 && windowWidth <= 2000 ? 35 : (windowWidth >= 1199 && windowWidth <= 1449 ? 35 : 10))))); 
             return xAddButton;
           })
           .attr("y", (d: any) => {
             // let ydname: any = y(d.id);
             // console.log('ydname', ydname, ydname + 10)
-            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 18))))); 
+            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 18))))); 
             let yScaleRect: any = yScale(d['id']);
 
           return (d.type === 'title'? yScaleRect+12:yScaleRect+yAddButton);

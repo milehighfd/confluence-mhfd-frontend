@@ -36,7 +36,7 @@ const Roadmap = ({setOpenPiney,
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
 
   const windowWidth: any = window.innerWidth;
-  const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 65;
+  const labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
   let totalLabelWidth = phaseList.length * labelWidth;
 
   const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -48,8 +48,8 @@ const Roadmap = ({setOpenPiney,
   let svg:any;
 
     // console.log(windowWidth);
-    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 26:(windowWidth>=2550 && windowWidth<=3000 ? 20:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 17 :14)))))
-    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 30 : (windowWidth>=2550 && windowWidth<=3000 ? 32: (windowWidth>=3001 && windowWidth<=3999? 40:15)))
+    const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 30:(windowWidth>=2550 && windowWidth<=3000 ? 24:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 19 :(windowWidth>=1199 && windowWidth<=1449 ? 17 :14)))))
+    const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 15 : (windowWidth>=2550 && windowWidth<=3000 ? 18: (windowWidth>=3001 && windowWidth<=3999? 25:15)))
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -20 : (windowWidth>=2550 && windowWidth<=3000 ? -35: -15.8)))
   
     const gradientLinesClass = (svgDefinitions:any)=>{
@@ -412,7 +412,7 @@ const Roadmap = ({setOpenPiney,
             const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
             setDataModal(sendModal);      
             if (popupVisible !== null) {
-              let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 225 : 
+              let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 270 : 
                 (windowWidth >= 2550 && windowWidth <= 3000 ? 185 : 
                   (windowWidth >= 2001 && windowWidth <= 2549 ? 160 : 
                     (windowWidth >= 1450 && windowWidth <= 2000 ? 170 : 
@@ -431,10 +431,10 @@ const Roadmap = ({setOpenPiney,
                       (windowWidth >= 1450 && windowWidth <= 2000 ? 170 : 
                         (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
               }
-              let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : 
-                (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : 
-                  (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
-                    (windowWidth >= 1450 && windowWidth <= 2000 ? 185 : 
+              let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 745 : 
+                (windowWidth >= 2550 && windowWidth <= 3000 ? 355 : 
+                  (windowWidth >= 2001 && windowWidth <= 2549 ? 200 : 
+                    (windowWidth >= 1450 && windowWidth <= 2000 ? 180 : 
                       (windowWidth >= 1199 && windowWidth <= 1449 ? 70 : 345)))))
               let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
               let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
