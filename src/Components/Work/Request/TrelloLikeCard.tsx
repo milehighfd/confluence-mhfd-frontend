@@ -13,6 +13,7 @@ import { boardType } from './RequestTypes';
 import { EllipsisOutlined, MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 import { getCurrentProjectStatus } from '../../../utils/parsers';
+import WsService from './WsService';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -61,7 +62,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
-        setLoading(false)
+        setLoading(false);
+        WsService.sendEdit();
       })
       .catch((e) => {
         console.log('e', e)
@@ -88,7 +90,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     )
       .then((r) => {
         console.log('r', r)
-        setLoading(false)
+        setLoading(false);
       })
       .catch((e) => {
         console.log('e', e)
