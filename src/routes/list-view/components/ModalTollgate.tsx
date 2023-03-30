@@ -244,7 +244,7 @@ let items = [
             lockData(element.code_phase_type_id)
             break;
             case 'current-phase':
-            setCodePhaseTypeId(element.code_phase_type_id)
+            setCodePhaseTypeId(element.phase_id)
             break;         
         }
       }}
