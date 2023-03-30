@@ -245,7 +245,7 @@ const Search = (
                   } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/>
                   <Panel header={<div onMouseEnter={(e:any)=>{
                     //setHoverTable(-1)
-                    }}>{elem.headerLabel}</div>} key={index}>
+                    }}>{elem?.counter}</div>} key={index}>
                     {/* {
                       index === 0 && <div className="text-search text-first" id="headerCentennial">
                         <p></p>
