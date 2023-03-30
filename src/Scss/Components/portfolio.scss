@@ -561,14 +561,14 @@
     color:#11093C !important;
   }
   .tag-blue{
-    background-color: #047cd7;
-    color: white;
+    background-color: #e6f2fb;
+    color: #047cd7;
     margin-right: 10px;
     border-radius: 10px;
     padding: 3px 10px;
   }
   p{
-    color: #11093C !important;
+    color: #706b8a !important;
     margin-bottom: 21px;
   }
   .active-btn-piney{
@@ -583,6 +583,10 @@
     background-color: #f8f7f9;
   }
   .body-piney-body{
+    .text-piney-body{
+      color: #706b8a !important;
+      opacity: 0.8;
+    }
     .text-area-piney{
       resize: none !important;
     }
@@ -598,7 +602,7 @@
         box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
       }
       p{
-        opacity: 0.5 !important;
+        // opacity: 1 !important;
       }
       .ant-space-align-center {
         opacity: 1 !important;

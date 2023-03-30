@@ -688,7 +688,14 @@
   .head-filter {
     height: 100px;
     padding: 15px 15px;
-
+    .ant-input-search-button{
+      height: 34px !important;
+    width: 22px !important;
+    margin-left: -105px !important;
+    }
+    .ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+      align-items: center;
+  }
     .ant-input-affix-wrapper .ant-input {
        width: 350px;
        font-size: 24px;
@@ -764,6 +771,12 @@
   }
   .head-m {
     margin-bottom: 30px;
+    .anticon-down{
+      font-size: 26px;
+    }
+    .anticon{
+      font-size: 26px;
+    }
   }
   .btn-coll {
     top: calc(50% - 54px);
