@@ -58,7 +58,7 @@ const ModalGraphic = ({ positionModalGraphic,
           <hr></hr>
           <p>{`- Action Item of - Closed`}</p>
           <hr></hr>
-          <p>Due on November 26, 2022.</p>
+          <p>No data available.</p>
         </div>
       )
     }

@@ -24,9 +24,10 @@ import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
 import Vendors from "./Vendors";
-import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getTotalEstimatedCost } from '../../../utils/parsers';
+import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
 import { useLocation } from "react-router";
 import GalleryDetail from "./GalleryDetail";
+import moment from "moment";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -58,12 +59,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
   const [projectType, setProjecttype] = useState('');
+  const [projectTypeId, setProjecttypeId] = useState('');
   const [active, setActive] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   const [scrollOpen, setscrollOpen] = useState(0)
   const [typeDetail, setTypeDetail] = useState('');
   const [problemPart, setProblemPart] = useState<any[]>([]);
+  const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
@@ -103,8 +106,198 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   }, []);
   useEffect(() => {
     const projectType = detailed?.code_project_type?.project_type_name;
+    setProjecttypeId(detailed?.code_project_type_id)
     console.log(projectType, 'Project Type NAME')
+    console.log('detailed', detailed, projectTypeId)
     setProjecttype(projectType);
+    const roadmapData = [];
+    if(Object.keys(detailed).length !== 0){
+    roadmapData.push({
+      id: `${detailed.project_id}`,
+      project_id: detailed.project_id,
+      code_project_type_id:detailed.code_project_type_id,
+      headerLabel: detailed.project_name,
+      rowLabel: detailed.project_name, //description
+      date: moment('2022/08/11'),
+      key: detailed.project_id,
+      phase: getCurrentProjectStatus(detailed)?.code_phase_type?.phase_name,
+      phaseId: getCurrentProjectStatus(detailed)?.code_phase_type_id,
+      mhfd:  detailed?.project_staffs.reduce((accumulator: string, pl: any) => {
+        const sa = pl?.mhfd_staff?.full_name || '';
+        const sa1 = pl?.code_project_staff_role_type_id || '';
+        let value = accumulator;
+        if (sa && sa1 === 1) {
+          if (value) {
+            value += ',';
+          }
+          value += sa;
+        }  
+        return value;
+      }, ''),
+      mhfd_support: null,
+      lg_lead: null,
+      developer: null,
+      consultant:  detailed?.project_partners.reduce((accumulator: string, pl: any) => {
+        const sa = pl?.business_associate?.business_name || '';
+        const sa1 = pl?.code_partner_type_id || '';
+        let value = accumulator;
+        if (sa && sa1 === 3) {
+          if (value) {
+            value += ',';
+          }
+          value += sa;
+        }  
+        return value;
+      }, ''), //'detailed?.consultants[0]?.consultant[0]?.business_name',
+      civil_contractor: detailed?.project_partners.reduce((accumulator: string, pl: any) => {
+        const sa = pl?.business_associate?.business_name || '';
+        const sa1 = pl?.code_partner_type_id || '';
+        let value = accumulator;
+        if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+          if (value) {
+            value += ',';
+          }
+          value += sa;
+        }  
+        return value;
+      }, ''), // 'detailed?.civilContractor[0]?.business[0]?.business_name',
+      landscape_contractor: detailed?.project_partners.reduce((accumulator: string, pl: any) => {
+        const sa = pl?.business_associate?.business_name || '';
+        const sa1 = pl?.code_partner_type_id || '';
+        let value = accumulator;
+        if (sa && sa1 === 9) {
+          if (value) {
+            value += ',';
+          }
+          value += sa;
+        }  
+        return value;
+      }, ''), // 'detailed?.landscapeContractor[0]?.business[0]?.business_name',
+      construction_start_date: detailed?.project_status?.code_phase_type?.code_phase_type_id === 125 ? detailed?.project_status?.planned_start_date : detailed?.project_status?.actual_start_date, //detailed?.construction_start_date,
+      jurisdiction_id: detailed?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
+        const sa = pl?.CODE_LOCAL_GOVERNMENT?.code_local_government_id || '';
+        let value = accumulator;
+        if (sa) {
+          value = [...value,sa];
+        }  
+        return value;
+      }, ''), 
+      county_id: detailed?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
+        const county = pl?.CODE_STATE_COUNTY?.state_county_id || '';
+        let value = accumulator;
+        if (county) {
+          value = [...value,county];
+        }  
+        return value;
+      }, ''),
+      servicearea_id: detailed?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
+        const sa = pl?.CODE_SERVICE_AREA?.code_service_area_id || '';
+        let value = accumulator;
+        if (sa) {
+          value = [...value,sa];
+        }  
+        return value;
+      }, ''),
+      consultant_id: detailed?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+        const sa = pl?.business_associate?.business_associates_id || '';
+        const sa1 = pl?.code_partner_type_id || '';
+        let value = accumulator;
+        if (sa && sa1 === 3) {
+          value = [...value,sa];
+        }  
+        return value;
+      }, ''),
+      contractor_id: detailed?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+        const sa = pl?.business_associate?.business_associates_id || '';
+        const sa1 = pl?.code_partner_type_id || '';
+        let value = accumulator;
+        if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+          value = [...value,sa];
+        }  
+        return value;
+      }, ''),
+      local_government: detailed?.project_local_governments.reduce((accumulator: string, pl: any) => {
+        const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
+        let value = accumulator;
+        if (sa) {
+          if (value) {
+            value += ',';
+          }
+          value += sa;
+        }  
+        return value;
+      }, ''),
+      on_base: detailed?.onbase_project_number,
+      total_funding: null,
+      project_sponsor: getSponsors(detailed.project_partners),
+      project_type:detailed?.code_project_type?.project_type_name,
+      status: getCurrentProjectStatus(detailed)?.code_phase_type?.code_status_type?.status_name || '',
+      project_status: detailed?.project_statuses.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4),
+      service_area: getServiceAreas(detailed?.project_service_areas || []),
+      county: getCounties(detailed?.project_counties || []),
+      estimated_cost: getTotalEstimatedCost(detailed?.project_costs),
+      stream: getStreams(detailed?.project_streams || []).join(' , '),
+      contact: 'ICON',
+      view: 'id',
+      options:'red',
+      schedule: [
+        {
+          objectId: 1,
+          type: 'rect',
+          categoryNo: 1,
+          from: moment('2022/06/22 07:30:00'),
+          to: moment('2022/07/01 08:30:00'),
+          status: 'completed',
+          name: 'Draft',
+          phase: 'Draft', 
+          tasks: 6,
+          show: false,
+          current:false
+        },
+        {
+          objectId: 2,
+          type: 'rect',
+          categoryNo: 2,
+          from: moment('2022/07/02 00:00:00'),
+          to: moment('2022/07/21 07:00:00'),
+          status: 'completed',
+          name: 'Work Request',
+          phase: 'WorkRequest', 
+          tasks: 8,
+          show: false,
+          current:false
+        },
+        {
+          objectId: 3,
+          type: 'rect',
+          categoryNo: 3,
+          from: moment('2022/07/22 08:30:00'),
+          to: moment('2022/08/17 10:00:00'),
+          status: 'completed',
+          name: 'Work Plan',
+          phase: 'WorkPlan', 
+          tasks: 12,
+          show: false,
+          current:false
+        },
+        {
+          objectId: 4,
+          type: 'rect',
+          categoryNo: 4,
+          from: moment('2022/08/18 08:30:00'),
+          to: moment('2022/09/10 10:00:00'),
+          status: 'active',
+          name: 'Start Up',
+          phase: 'StartUp', 
+          tasks: 32,
+          show: false,
+          current:false
+        },
+      ],
+    })
+  }
+    console.log('updated', roadmapData)
+    setDataRoadmap(roadmapData)
   }, [detailed]);
 
  
@@ -158,7 +351,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
-              <div style={detailed?.problemtype ? {width:'100%'} : {width:'78%'}}>
+              <div style={detailed?.problemtype ? {width:'100%'} : {width:'76%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (getSponsors(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
@@ -411,7 +604,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <ProblemsProjects/>
                   <Vendors/>
                   <ComponentSolucions />
-                  <Roadmap setOpenPiney={setOpenPiney} openPiney={openPiney}/>
+                  <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney}/>
                   <Financials />
                   <Management />
                   <Map type={typeS}/>
