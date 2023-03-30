@@ -10,6 +10,7 @@ import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView
 import { useMapDispatch } from '../../../hook/mapHook';
 import { useProfileDispatch } from '../../../hook/profileHook';
 import { useUsersState } from '../../../hook/usersHook';
+import { GlobalMapHook } from "utils/globalMapHook";
 import '../../../Scss/Components/navbar.scss';
 
 const { TabPane } = Tabs;
@@ -38,6 +39,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
   const { changeTutorialStatus } = useMapDispatch();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
+  const { deleteMaps } = GlobalMapHook();
   let displayedTabKey = tabKeys;
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
@@ -191,6 +193,7 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
   const logout = () => {
     datasets.logout();
     setRedirect(true);
+    deleteMaps();
   }
   const showProfile = () => {
     setOpenProfile(true);

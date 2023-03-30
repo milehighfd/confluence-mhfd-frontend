@@ -74,11 +74,16 @@ export const GlobalMapHook = () => {
     if (currentPosition === -1) {
       return null;
     }
+    console.log('Current Position', currentPosition, lastMaps);
     return lastMaps[currentPosition];
   }
 
   const hasPrevious = () => {
     return currentPosition > 0;
+  }
+  const deleteMaps = () => {
+    lastMaps = [];
+    currentPosition = -1;
   }
 
   const hasNext = () => {
@@ -95,5 +100,5 @@ export const GlobalMapHook = () => {
     return percentage;
   }
 
-  return {hasNext, hasPrevious, getCurrent, getNext, getPrevious, getHistoric, addHistoric, getPercentage};
+  return {hasNext, hasPrevious, getCurrent, getNext, getPrevious, getHistoric, addHistoric, getPercentage, deleteMaps};
 };
