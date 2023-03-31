@@ -63,38 +63,27 @@ const ModalTollgate = ({
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
   };
-  
+  const [dates, setDates]: any[] = useState([]);
   useEffect(() => {
     resetData()
   }, [visible])
 
   useEffect(() => {
-    console.log(dataProject?.scheduleList?.map((x:any, index:number)=>{
-      let z = dataProject?.d?.schedule?.find((z:any) =>z.phaseId === x.phase_id)
-      if(z){
-        return {         
-          from: z.from === moment(null) ? z.from : undefined ,
-          to: z.to === moment(null) ? z.from : undefined ,          
-          name:z.name,
-          duration: x.duration,
-          duration_type:x.duration_type,
-          phase_id: z.phaseId,          
-          current: z.current,
-          locked : z.current ? true : z.isLocked 
-        }
-      }else{
-        return {
-          from:  undefined,
-          to: undefined,          
-          name: x.name,
-          duration: x.duration,
-          duration_type: x.duration_type,
-          phase_id: x.phase_id,          
-          current: false,
-          locked : false };
-      }
-    }))
-  }, [visible])
+    setDates(dataProject?.scheduleList?.map((x:any)=>{
+      const date = dataProject?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);
+      return {
+        from: date?.from && moment(date?.from).isValid() ? moment(date?.from) : undefined,
+        to: date?.to && moment(date?.to).isValid() ? moment(date?.to) : undefined,
+        name: date?.name ?? x.name,
+        duration: x.duration,
+        duration_type: x.duration_type,
+        phase_id: date?.phase_id ?? x.phase_id,
+        current: date?.current ?? false,
+        locked : date?.current ? true : date?.isLocked ?? false
+      };
+    }));
+  }, [visible]);
+
   useEffect(() => {
     if (Object.keys(phasesData).length > 0) {
       const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
@@ -442,17 +431,23 @@ let items = [
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
-                {phasesData?.map((x:any, index:number)=>{
-                  return <div className='text-tollgate-title'>
-                    <p key={x.categoryNo} style={{marginBottom:'25px'}}>
-                      <span className="span-dots-heder">
-                        <div className="circulo" style={{backgroundColor:colorScale[x.current]}}/>
+                {dates?.map((x:any) => {
+                  return (
+                    <div key={x.phase_id} className='text-tollgate-title'>
+                      <span style={{marginBottom:'25px'}}>
+                        <span className="span-dots-heder">
+                          <div className="circulo" style={{backgroundColor:colorScale[x.current]}}/>
+                        </span>
+                        {x.name}
                       </span>
-                      {x.name} 
-                    </p>
-                  <p>{x.locked &&<LockOutlined />} <Dropdown overlay={menu(x)} placement="bottomRight" >
-                  <MoreOutlined />
-                </Dropdown></p></div>
+                      <span>
+                        { x.locked && <LockOutlined /> }
+                        <Dropdown overlay={menu(x)} placement="bottomRight" >
+                          <MoreOutlined />
+                        </Dropdown>
+                      </span>
+                    </div>
+                )
                 })}
                 {/* <p style={{marginBottom:'25px'}}>Draft <MoreOutlined /></p>
                 <p style={{marginBottom:'25px'}}>Work Request (WR) <MoreOutlined /></p>
@@ -469,20 +464,24 @@ let items = [
                 <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p> */}
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 10}}>
-              {phasesData?.map((x: any) => {
-                  let endDateS = x.to || undefined;
-                  let startDateS = x.from || undefined;                   
-                  return <p className='calendar-toollgate' key={x.phase_id}>
-                  <RangePicker
-                    bordered={false}
-                    onCalendarChange={(e:any)=>{
-                      setCalendarValue(e[0]);
-                      setCalendarPhase(x.phase_id)
-                    }}
-                    format={dateFormatList}
-                    value={[ startDateS,endDateS]}
-                  />
-                </p>
+              {dates?.map((x: any, index: number) => {
+                let endDateS = x.to || undefined;
+                let startDateS = x.from || undefined;                
+                return (
+                  <div className='calendar-toollgate' key={x.phase_id}>
+                    <RangePicker
+                      bordered={false}
+                      
+                      onCalendarChange={(e:any)=>{
+                        console.log(x, e);
+                        setCalendarValue(e[0]);
+                        setCalendarPhase(x.phase_id)
+                      }}
+                      format={dateFormatList}
+                      value={[ x.from, x.to ]}
+                    />
+                  </div>
+                )
                 })}                
                 {/* <p className='calendar-toollgate'>
                   <RangePicker
