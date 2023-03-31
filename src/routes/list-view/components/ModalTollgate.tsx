@@ -69,11 +69,32 @@ const ModalTollgate = ({
   }, [visible])
 
   useEffect(() => {
-    setPhasesData(dataProject?.scheduleList?.map((x:any, index:number)=>{
-      return {...x,locked : false, current: 'NotStarted'};
+    console.log(dataProject?.scheduleList?.map((x:any, index:number)=>{
+      let z = dataProject?.d?.schedule?.find((z:any) =>z.phaseId === x.phase_id)
+      if(z){
+        return {         
+          from: z.from === moment(null) ? z.from : undefined ,
+          to: z.to === moment(null) ? z.from : undefined ,          
+          name:z.name,
+          duration: x.duration,
+          duration_type:x.duration_type,
+          phase_id: z.phaseId,          
+          current: z.current,
+          locked : z.current ? true : z.isLocked 
+        }
+      }else{
+        return {
+          from:  undefined,
+          to: undefined,          
+          name: x.name,
+          duration: x.duration,
+          duration_type: x.duration_type,
+          phase_id: x.phase_id,          
+          current: false,
+          locked : false };
+      }
     }))
   }, [visible])
-
   useEffect(() => {
     if (Object.keys(phasesData).length > 0) {
       const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
@@ -448,22 +469,9 @@ let items = [
                 <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p> */}
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 10}}>
-              {dataProject?.scheduleList?.map((x: any) => {
-                  const name = x.name;
-                  let endDateS =[];
-                  let startDateS = [];
-                if (dateValue) {
-                  endDateS = (dateValue
-                    .filter((r: any) => r.key === x.categoryNo)
-                    .map((r: any) => {
-                      return r.endDate;
-                    }))
-                  startDateS = (dateValue
-                    .filter((r: any) => r.key === x.categoryNo)
-                    .map((r: any) => {
-                      return r.startDate;
-                    }))
-                }          
+              {phasesData?.map((x: any) => {
+                  let endDateS = x.to || undefined;
+                  let startDateS = x.from || undefined;                   
                   return <p className='calendar-toollgate' key={x.phase_id}>
                   <RangePicker
                     bordered={false}
@@ -472,7 +480,7 @@ let items = [
                       setCalendarPhase(x.phase_id)
                     }}
                     format={dateFormatList}
-                    value={[ startDateS[0],endDateS[0]]}
+                    value={[ startDateS,endDateS]}
                   />
                 </p>
                 })}                

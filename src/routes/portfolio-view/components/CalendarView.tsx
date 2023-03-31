@@ -122,6 +122,7 @@ const CalendarView = ({
                 show: (statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
                 current : x?.phaseId === z?.code_phase_type_id,
                 isDone : z.is_done,
+                isLocked : z.is_locked
               };          
           })
         }     
@@ -273,8 +274,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
           return (
             {
               categoryNo: counter,
-              from: moment('2022/11/21 00:00:00'),
-              to: moment('2023/12/30 00:00:00'),
+              from: moment(null),
+              to: moment(null),
               status: x?.code_status_type?.status_name,
               name: x.phase_name,
               phase: x.phase_name,
