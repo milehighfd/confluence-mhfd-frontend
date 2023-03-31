@@ -202,6 +202,7 @@ export const SERVER = (function () {
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         PHASE_TYPE: `${URL_BASE.BASE}/phasetype`,
         STATUS: `${URL_BASE.BASE}/${STATUS}`,
+        STATUSCOMMENT: `${URL_BASE.BASE}/${STATUS}/comment`,
         CREATE_STATUS_GROUP: `${URL_BASE.BASE}/${STATUS}/create-group`,
         PROJECT_ACTION_ITEM:`${URL_BASE.BASE}/actionitem`,
         BUSINESS_ASSOCIATES:`${URL_BASE.BASE}/${BUSINESS}/business-associates`,

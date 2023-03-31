@@ -10,6 +10,7 @@ import { SERVER } from "../../../Config/Server.config";
 import * as d3 from 'd3';
 import DetailModal from "routes/detail-page/components/DetailModal";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
+import debounce from "lodash/debounce";
 
 const { Step } = Steps;
 const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction }: 
@@ -92,7 +93,12 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             counter = counter + 1;
           }
           lengthActions = rows.length;
-          return { action_item_name: x.action_item_name, code_phase_type_id: x.code_phase_type_id, code_rule_action_item_id: x.code_rule_action_item_id, isChecked }
+          return { 
+            action_item_name: x.action_item_name, 
+            code_phase_type_id: x.code_phase_type_id, 
+            code_rule_action_item_id: x.code_rule_action_item_id, 
+            isChecked 
+          }
         }
         ))
         setPercent(Math.floor(counter / lengthActions * 100))
@@ -199,6 +205,24 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     const year=(newDate.getFullYear());
     setNewEndDate(`${month} ${day}, ${year}`)
   }
+
+  const InputWithDebouncedOnchange = () => {
+    const onChange = (e: any) => {
+      datasets.putData(`${SERVER.STATUSCOMMENT}`, { 
+        code_phase_type_id: data.phase_id, 
+        project_id: data.project_id, 
+        comment: e.target.value,
+      })
+        .catch((e) => {
+          console.log(e);
+        })
+    };
+  
+    const debouncedOnChange = debounce(onChange, 1000);
+  
+    return <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={debouncedOnChange} defaultValue={!!newNote?newNote:''} placeholder="Add note here"/>;
+  };
+
   return (
     <>
       {visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
@@ -230,7 +254,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-            <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={e => setNewNote(e.target.value)} defaultValue={!!newNote?newNote:''} placeholder="Add note here"/>
+            <InputWithDebouncedOnchange />
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
