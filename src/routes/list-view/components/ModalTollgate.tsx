@@ -28,7 +28,7 @@ const ModalTollgate = ({
   const [calendarPhase,setCalendarPhase] =useState(0);
   const [phasesData,setPhasesData] =useState([]);
   const [phaseIsSet, setPhaseIsSet] = useState(false);
-  
+  const [invalidDateIndex, setInvalidDateIndex] = useState(-1);
   const [valueInput, setValueInput] = useState({
     oneL: '0',
     oneR:'0',
@@ -104,6 +104,20 @@ const ModalTollgate = ({
     setDates(newDates);
   }
 
+  useEffect(() => {
+    setInvalidDateIndex(-1);
+    dates.forEach((x: any, i: number) => {
+      if (x.from && x.to && x.from.isValid() && x.to.isValid()) {
+        if (i + 1 < dates.length) {
+          if (x.to.isAfter(dates[i + 1].from)) {
+            setInvalidDateIndex(i);
+            alert('Overlapping dates');
+          }
+        }
+      }
+    });
+  }, [dates]);
+
   const updateDate = (index: number, date: any) => {
     const newDates = [...dates];
     newDates[index].from = date;
@@ -133,6 +147,38 @@ const ModalTollgate = ({
     newDates[index].duration = Math.round(date.diff(newDates[index].from, type));
     propagateDates(newDates, index);
   }
+
+  const setCurrent = (index: number) => {
+    const newDates = [...dates];
+    newDates.forEach((x: any) => x.current = false);
+    newDates[index].current = true;
+    if (newDates[index].from && newDates[index].to && newDates[index].from.isValid() && newDates[index].to.isValid()) {
+      newDates[index].locked = true;
+    }
+    setDates(newDates);
+  }
+
+  const updateDuration = (index: number, duration: any) => {
+    const newDates = [...dates];
+    newDates[index].duration = +duration;
+    let type = parseDuration(newDates[index].duration_type);
+    newDates[index].to = newDates[index].from.clone().add(duration, type);
+    propagateDates(newDates, index);
+  };
+
+  const paintCircle = (index: number) => {
+    const currentIndex = dates.findIndex((x: any) => x.current);
+    if (currentIndex === -1) {
+      return 'NotStarted';
+    }
+    if (index < currentIndex) {
+      return 'Done';
+    }
+    if (index === currentIndex) {
+      return 'Current';
+    }
+    return 'NotStarted';
+  };
 
   useEffect(() => {
     setDates(dataProject?.scheduleList?.map((x:any)=>{
@@ -177,37 +223,6 @@ const ModalTollgate = ({
     }
   }, [codePhaseTypeId])
 
-  // useEffect(() => {
-  //   console.log(calendarPhase)
-  //   const current = moment(calendarValueEnd);
-  //         const currentPast = moment(calendarValueEnd);
-  //         const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === calendarPhase));
-  //         const reverseData = ([].concat(phasesData?.slice(0, indexPhase).reverse(), phasesData?.slice(indexPhase)))
-  //         const dateValues: any = (reverseData.map((x: any, index: number) => {
-  //           console.log(index + ' : '+ indexPhase)
-  //           if (index >= indexPhase) {
-  //             const now = moment(current);
-  //             current.add(x.duration, 'M');
-  //             return {
-  //               project_id: dataProject?.d?.project_id,
-  //               current: index === indexPhase ? 1 : 0,
-  //               key: x.categoryNo,
-  //               name: x.name,
-  //               phase_id: x.phase_id,
-  //               code_phase_type_id: x.phase_id,
-  //               startDate: now.clone(),
-  //               duration: x.duration,
-  //               endDate: index !== reverseData.length - 1 ? moment(current).subtract(1, 'd') : moment(current),
-  //               locked: index === indexPhase ? true : false,
-  //             };
-  //           } else {
-  //             return {
-  //               ...x
-  //             };
-  //           }
-  //         }));
-  //         setDateValue(([].concat(dateValues.slice(0, indexPhase).reverse(), dateValues.slice(indexPhase))))
-  // },[calendarValueEnd])
   useEffect(() => {
     console.log(dateValue)
   },[dateValue])
@@ -355,7 +370,7 @@ let items = [
             lockData(index)
             break;
             case 'current-phase':
-            setCodePhaseTypeId(element.phase_id)
+            setCurrent(index)
             break;         
         }
       }}
@@ -476,9 +491,9 @@ let items = [
                 {dates?.map((x:any, index: number) => {
                   return (
                     <div key={x.phase_id} className='text-tollgate-title'>
-                      <span style={{marginBottom:'25px'}}>
+                      <span style={{marginBottom:'25px', color: invalidDateIndex === index ? 'red' : undefined }}>
                         <span className="span-dots-heder">
-                          <div className="circulo" style={{backgroundColor:colorScale[x.current]}}/>
+                          <div className="circulo" style={{backgroundColor: colorScale[paintCircle(index)] }}/>
                         </span>
                         {x.name}
                       </span>
@@ -514,12 +529,14 @@ let items = [
                       
                       onCalendarChange={(e:any)=>{
                         console.log(x, e);
-                        // I want to compare e[0] DD/MM/YYYY with x.from DD/MM/YYYY and if they are different then I want to update the date
                         if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
                           updateDate(index, e[0]);
                         }
                         if (e[1]) {
                           updateEndDate(index, e[1]);
+                        }
+                        if (x.current) {
+                          x.locked = true;
                         }
                         setCalendarValue(e[0]);
                         setCalendarPhase(x.phase_id)
@@ -529,29 +546,23 @@ let items = [
                     />
                   </div>
                 )
-                })}                
-                {/* <p className='calendar-toollgate'>
-                  <RangePicker
-                    bordered={false}
-                    onCalendarChange={(e:any)=>{setDateValue({...dateValue, work_request:[e? e[0]:null, e? (e[1]? e[1]:e[0]):null]})}}
-                    format={dateFormatList}
-                    value={[dateValue.work_request[0], dateValue.work_request[1]]}
-                  />
-                </p>                 */}
+                })}
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
-                {dates?.map((x: any) => {
+                {dates?.map((x: any, index: number) => {
                   return <Row key={x.phase_id}>
                     <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                      <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={48} defaultValue={x.duration} value={x.duration} onChange={(e) => { setValueInput({ ...valueInput, twoL: e }) }} />
+                      <InputNumber 
+                        className='duration-toollgate duration-toollgate-l'
+                        min={1}
+                        max={48}
+                        defaultValue={x.duration}
+                        value={x.duration}
+                        onChange={(e) => { updateDuration(index, e) }} 
+                      />
                     </Col>
                   </Row>
                 })}
-                {/* <Row>
-                  <Col xs={{ span: 12 }} lg={{ span: 24}}>
-                    <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={10} defaultValue={3} onChange={(e)=>{setValueInput({...valueInput, twoL:e})}} />
-                  </Col>
-                </Row>                 */}
               </Col>
             </Row>
             <Row>
