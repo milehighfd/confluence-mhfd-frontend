@@ -94,8 +94,6 @@ const ModalTollgate = ({
         if (!locked && !x.locked) {
           x.from = newDates[i - 1].to;
           let type = parseDuration(x.duration_type);
-          console.log(x.duration, type);
-          console.log(x.from.clone().add(x.duration, type));
           x.to = x.from.clone().add(x.duration, type);
         }
         locked |= x.locked;
@@ -106,7 +104,7 @@ const ModalTollgate = ({
 
   useEffect(() => {
     setInvalidDateIndex(-1);
-    dates.forEach((x: any, i: number) => {
+    dates?.forEach((x: any, i: number) => {
       if (x.from && x.to && x.from.isValid() && x.to.isValid()) {
         if (i + 1 < dates.length) {
           if (x.to.isAfter(dates[i + 1].from)) {
@@ -129,7 +127,6 @@ const ModalTollgate = ({
       type = 'Y';
     }
     newDates[index].to = date.clone().add(newDates[index].duration, type);
-    console.log(newDates[index].to.format('DD/MM/YYYY'));
     newDates[index].duration = Math.round(Math.abs(newDates[index].from.diff(newDates[index].to, type)));
     propagateDates(newDates, index);
   };
@@ -528,7 +525,6 @@ let items = [
                       bordered={false}
                       
                       onCalendarChange={(e:any)=>{
-                        console.log(x, e);
                         if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
                           updateDate(index, e[0]);
                         }
