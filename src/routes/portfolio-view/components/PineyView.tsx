@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, Calendar, Checkbox, Col, DatePicker, Dropdown, Input, Layout, Menu, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
-import { NewProjectsFilter } from "../../../Components/FiltersProject/NewProjectsFilter/NewProjectsFilter";
-import { ClockCircleOutlined, CloseOutlined, DownOutlined, FormOutlined, InfoCircleOutlined, PlusOutlined, UpOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Col, DatePicker, Dropdown, Input, Layout, Menu, message, Popover, Progress, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
+import { ClockCircleOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import moment from 'moment';
 import TextArea from "antd/lib/input/TextArea";
-import { drag } from "d3";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as d3 from 'd3';
 import DetailModal from "routes/detail-page/components/DetailModal";
-import ModalTollgate from "routes/list-view/components/ModalTollgate";
-import debounce from "lodash/debounce";
+
+import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
 const { Step } = Steps;
 const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData }: 
@@ -208,26 +206,15 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     setNewEndDate(`${month} ${day}, ${year}`)
   }
 
-  const InputWithDebouncedOnchange = () => {
-    const onChange = (e: any) => {
-      datasets.putData(`${SERVER.STATUSCOMMENT}`, { 
-        code_phase_type_id: data.phase_id, 
-        project_id: data.project_id, 
-        comment: e.target.value,
-      })
-        .catch((e) => {
-          console.log(e);
-        })
-    };  
-    const debouncedOnChange = debounce(onChange, 1000);  
-    return <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={debouncedOnChange} defaultValue={!!newNote?newNote:''} placeholder="Add note here"/>;
-  };
+  const handleOnchange = (e: any) => {
+    UseDebouncedEffect(() => console.log(e.target.value), [e.target.value], 1000);
+  }
+
   const openTollModal = () => {
     setOpenModalTollgate(true);
     const sendTollgate = { d: data.data, scheduleList: data.scheduleList }
     setTollData(sendTollgate);
   }
-
   return (
     <>
       {visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
@@ -259,7 +246,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         </div>
         <div className="body-piney-body">
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-            <InputWithDebouncedOnchange />
+          <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={handleOnchange} defaultValue={!!newNote?newNote:''} placeholder="Add note here"/>
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
