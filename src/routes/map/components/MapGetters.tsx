@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'antd';
-import { DownOutlined, RightOutlined } from '@ant-design/icons';
+import { DownOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull, MainPopupCreateMap, ComponentPopupCreate } from '../../../Components/Map/MapPopups';
 import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, MAPTYPES } from '../../../constants/constants';
@@ -41,17 +41,17 @@ export const commentPopup = (note?:any ) => {
               <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
             </div>
             <div id="icon-downlined" className="light">
-              <DownOutlined />
+              <MoreOutlined />
             </div>
           </div>
         </Button>
       </div>
       <div className="bodymap">
           <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />
-          <div style={{display:'flex'}} className="footer">
+          {/* <div style={{display:'flex'}} className="footer">
               <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note.newnotes_id:''} className="light b-red">Delete</Button>
               { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
-          </div>
+          </div> */}
       </div>
     </div>,
     popupNode

@@ -23,11 +23,17 @@
 .grid :nth-child(10n + 5) {
   grid-column: 4;
 }
+.grid :nth-child(10n + 6) {
+  grid-column: 1;
+}
+.grid :nth-child(10n + 7) {
+  grid-column: 2;
+}
 .grid :nth-child(10n + 8) {
-  grid-column: 4;
+  grid-column: 1;
 }
 .grid :nth-child(10n + 9) {
-  grid-column: 4;
+  grid-column: 2;
 }
 .grid :nth-child(10n + 10) {
   grid-row-start: span 2;
