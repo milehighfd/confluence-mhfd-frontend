@@ -21,13 +21,13 @@ const ModalTollgate = ({
 }) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
-  const [dateValue, setDateValue] = useState<any[]>([])
+  const [dateValue, setDateValue] = useState<any[]>([]);
   const [currentPhase,setCurrentPhase] = useState(-1);
-  const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1)
-  const [calendarValue,setCalendarValue] =useState('')
-  const [calendarPhase,setCalendarPhase] =useState(0)
-  const [phasesData,setPhasesData] =useState([])
-  const [phaseIsSet, setPhaseIsSet] = useState(false)
+  const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1);
+  const [calendarValue,setCalendarValue] =useState('');
+  const [calendarPhase,setCalendarPhase] =useState(0);
+  const [phasesData,setPhasesData] =useState([]);
+  const [phaseIsSet, setPhaseIsSet] = useState(false);
   
   const [valueInput, setValueInput] = useState({
     oneL: '0',
@@ -65,8 +65,74 @@ const ModalTollgate = ({
   };
   const [dates, setDates]: any[] = useState([]);
   useEffect(() => {
-    resetData()
-  }, [visible])
+    resetData();
+  }, [visible]);
+
+  const parseDuration = (duration: string) => { 
+    const type = duration.trim()[0];
+    return type;
+  };
+
+  const propagateDates = (array: any, index: number) => {
+    let newDates: any = [...array];
+    const reversed = newDates.slice(0, index + 1).reverse();
+    let reverseLocked: number = 0;
+    let locked: number = 0;
+    reversed.forEach((x: any, i: number) => {
+      if (i > 0) {
+        if (!reverseLocked && !x.locked) {
+          x.to = reversed[i - 1].from;
+          let type = parseDuration(x.duration_type);
+          x.from = x.to.clone().subtract(x.duration, type);
+        }
+        reverseLocked |= x.locked;
+      }
+    });
+    newDates = [...reversed.reverse(), ...newDates.slice(index + 1)];
+    newDates.forEach((x: any, i: number) => {
+      if (i > index && i > 0) {
+        if (!locked && !x.locked) {
+          x.from = newDates[i - 1].to;
+          let type = parseDuration(x.duration_type);
+          console.log(x.duration, type);
+          console.log(x.from.clone().add(x.duration, type));
+          x.to = x.from.clone().add(x.duration, type);
+        }
+        locked |= x.locked;
+      }
+    });
+    setDates(newDates);
+  }
+
+  const updateDate = (index: number, date: any) => {
+    const newDates = [...dates];
+    newDates[index].from = date;
+    let type = '';
+    if (newDates[index].duration_type.trim() === 'MONTH') {
+      type = 'M';
+    }
+    else if (newDates[index].duration_type.trim() === 'YEAR') {
+      type = 'Y';
+    }
+    newDates[index].to = date.clone().add(newDates[index].duration, type);
+    console.log(newDates[index].to.format('DD/MM/YYYY'));
+    newDates[index].duration = Math.round(Math.abs(newDates[index].from.diff(newDates[index].to, type)));
+    propagateDates(newDates, index);
+  };
+
+  const updateEndDate = (index: number, date: any) => {
+    const newDates = [...dates];
+    newDates[index].to = date;
+    let type = '';
+    if (newDates[index].duration_type.trim() === 'MONTH') {
+      type = 'M';
+    }
+    else if (newDates[index].duration_type.trim() === 'YEAR') {
+      type = 'Y';
+    }
+    newDates[index].duration = Math.round(date.diff(newDates[index].from, type));
+    propagateDates(newDates, index);
+  }
 
   useEffect(() => {
     setDates(dataProject?.scheduleList?.map((x:any)=>{
@@ -79,7 +145,7 @@ const ModalTollgate = ({
         duration_type: x.duration_type,
         phase_id: date?.phase_id ?? x.phase_id,
         current: date?.current ?? false,
-        locked : date?.current ? true : date?.isLocked ?? false
+        locked : date?.isLocked ?? false
       };
     }));
   }, [visible]);
@@ -274,7 +340,7 @@ let items = [
   { key: 'current-phase', label: 'Set Current Phase' },
   { key: 'lock-phase', label: 'Lock Phase' },
 ];
-  const menu = (element: any) => {
+  const menu = (element: any, index: number) => {
     items = [
       { key: 'current-phase', label: 'Set Current Phase' },
       { key: 'lock-phase', label: 'Lock Phase' },
@@ -286,7 +352,7 @@ let items = [
       onClick={({ key }) => {
         switch (key) {
           case 'lock-phase':
-            lockData(element.phase_id)
+            lockData(index)
             break;
             case 'current-phase':
             setCodePhaseTypeId(element.phase_id)
@@ -314,36 +380,12 @@ let items = [
       });
   }
 
-  function lockData(z:any) {
-    if (Object.keys(phasesData).length > 0) {
-      const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === z));   
-      const phaseDatas : any = (phasesData.map((x: any, index: number) => {
-        if (index === indexPhase) {          
-          return {
-            ...x, locked: true
-          };
-        } else{
-          return {
-            ...x}
-        }        
-      }))
-      setPhasesData(phaseDatas)
-    }
-    if (Object.keys(dateValue).length > 0) {
-      const indexPhase = (dateValue?.findIndex((x: any) => x.phase_id === z));   
-      const phaseDatas : any = (dateValue.map((x: any, index: number) => {
-        if (index === indexPhase) {          
-          return {
-            ...x, locked: true
-          };
-        } else{
-          return {
-            ...x}
-        }        
-      }))
-      setDateValue(phaseDatas)
-    }
+  function lockData(index: any) {
+    const newDates: any = [...dates];
+    newDates[index].locked = !newDates[index].locked;
+    setDates(newDates);
   }
+
   return (
     <Modal
       className="detailed-version modal-tollgate"
@@ -431,7 +473,7 @@ let items = [
           <Col xs={{ span: 12 }} lg={{ span: 24}}>
             <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
               <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
-                {dates?.map((x:any) => {
+                {dates?.map((x:any, index: number) => {
                   return (
                     <div key={x.phase_id} className='text-tollgate-title'>
                       <span style={{marginBottom:'25px'}}>
@@ -442,7 +484,7 @@ let items = [
                       </span>
                       <span>
                         { x.locked && <LockOutlined /> }
-                        <Dropdown overlay={menu(x)} placement="bottomRight" >
+                        <Dropdown overlay={menu(x, index)} placement="bottomRight" >
                           <MoreOutlined />
                         </Dropdown>
                       </span>
@@ -464,9 +506,7 @@ let items = [
                 <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p> */}
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 10}}>
-              {dates?.map((x: any, index: number) => {
-                let endDateS = x.to || undefined;
-                let startDateS = x.from || undefined;                
+              {dates?.map((x: any, index: number) => {         
                 return (
                   <div className='calendar-toollgate' key={x.phase_id}>
                     <RangePicker
@@ -474,6 +514,13 @@ let items = [
                       
                       onCalendarChange={(e:any)=>{
                         console.log(x, e);
+                        // I want to compare e[0] DD/MM/YYYY with x.from DD/MM/YYYY and if they are different then I want to update the date
+                        if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
+                          updateDate(index, e[0]);
+                        }
+                        if (e[1]) {
+                          updateEndDate(index, e[1]);
+                        }
                         setCalendarValue(e[0]);
                         setCalendarPhase(x.phase_id)
                       }}
@@ -493,10 +540,10 @@ let items = [
                 </p>                 */}
               </Col>
               <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
-                {dataProject?.scheduleList?.map((x: any) => {
+                {dates?.map((x: any) => {
                   return <Row key={x.phase_id}>
                     <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                      <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={48} defaultValue={x.duration} onChange={(e) => { setValueInput({ ...valueInput, twoL: e }) }} />
+                      <InputNumber className='duration-toollgate duration-toollgate-l' min={1} max={48} defaultValue={x.duration} value={x.duration} onChange={(e) => { setValueInput({ ...valueInput, twoL: e }) }} />
                     </Col>
                   </Row>
                 })}
