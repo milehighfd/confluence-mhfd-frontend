@@ -13,12 +13,14 @@ import ModalTollgate from "routes/list-view/components/ModalTollgate";
 import debounce from "lodash/debounce";
 
 const { Step } = Steps;
-const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction }: 
+const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData }: 
   { setOpenPiney: any, 
     data?: any, 
     userName?: string
     setUpdateAction?: any, 
     updateAction?: any,
+    setOpenModalTollgate?: any,
+    setTollData? : any
     }) => {     
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
@@ -216,18 +218,21 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         .catch((e) => {
           console.log(e);
         })
-    };
-  
-    const debouncedOnChange = debounce(onChange, 1000);
-  
+    };  
+    const debouncedOnChange = debounce(onChange, 1000);  
     return <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={debouncedOnChange} defaultValue={!!newNote?newNote:''} placeholder="Add note here"/>;
   };
+  const openTollModal = () => {
+    setOpenModalTollgate(true);
+    const sendTollgate = { d: data.data, scheduleList: data.scheduleList }
+    setTollData(sendTollgate);
+  }
 
   return (
     <>
       {visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
       }
-      {tollgate && <ModalTollgate visible={tollgate} setVisible={setTollgate} />}
+      {/* {tollgate && <ModalTollgate visible={tollgate} setVisible={setTollgate} />} */}
       <div className="header-piney" style={{marginBottom:'20px'}}>
         {/* <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
         <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setVisibleDetail(true)}}/> */}
@@ -306,7 +311,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
+                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span></p>
                 }
               </Col>
             </Row>
@@ -317,7 +322,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{setTollgate(true)}}>Edit</span></p>
+                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span></p>
                 }
               </Col>
             </Row>
