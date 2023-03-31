@@ -424,45 +424,6 @@ const PortafolioBody = () => {
                     show: false,
                     current:false
                   },
-                  {
-                    objectId: 2,
-                    type: 'rect',
-                    categoryNo: 2,
-                    from: moment('2022/07/02 00:00:00'),
-                    to: moment('2022/07/21 07:00:00'),
-                    status: 'completed',
-                    name: 'Work Request',
-                    phase: 'WorkRequest', 
-                    tasks: 8,
-                    show: false,
-                    current:false
-                  },
-                  {
-                    objectId: 3,
-                    type: 'rect',
-                    categoryNo: 3,
-                    from: moment('2022/07/22 08:30:00'),
-                    to: moment('2022/08/17 10:00:00'),
-                    status: 'completed',
-                    name: 'Work Plan',
-                    phase: 'WorkPlan', 
-                    tasks: 12,
-                    show: false,
-                    current:false
-                  },
-                  {
-                    objectId: 4,
-                    type: 'rect',
-                    categoryNo: 4,
-                    from: moment('2022/08/18 08:30:00'),
-                    to: moment('2022/09/10 10:00:00'),
-                    status: 'active',
-                    name: 'Start Up',
-                    phase: 'StartUp', 
-                    tasks: 32,
-                    show: false,
-                    current:false
-                  },
                 ],
               })
             });
