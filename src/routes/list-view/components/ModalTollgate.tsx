@@ -385,7 +385,7 @@ let items = [
     datasets.postData(SERVER.CREATE_STATUS_GROUP, 
       {
         project_id: dataProject.d.project_id,
-        phases: dateValue
+        phases: dates
       }, datasets.getToken()).then(async res => {
         saveCB();
         setVisible(false);
