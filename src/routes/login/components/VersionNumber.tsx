@@ -23,6 +23,11 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>V2.1 - March 31, 2023</p>
+            <ul>
+                <li>The following views are open for review: Main Map, My Confluence, Problem Detail Page, Project Detail Page, User Settings, Work Request, Work Plan, Create Project (x5), List View (PM Tools), Phase View, Schedule View</li>
+                <li>Functionality under development include: Map Notes, Project map style, and the Schedule View (Editing dates), Detail Page Exports, the Attachments, and Notifications</li>
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.0 - March 17, 2023</p>
             <ul>
                 <li>First beta release with the following views sourced from the new Confluence Data Hub: Sign-Up, Main Map, My Confluence, User Settings, Project Detail Page, Problem Detail Page, Create Project (Capital, Maintenance, Studies, Acquisition, R&D), Work Request, Work Plan and List View (PM Tools)</li>
