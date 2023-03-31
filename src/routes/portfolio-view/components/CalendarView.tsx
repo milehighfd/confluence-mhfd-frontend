@@ -606,6 +606,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           ;
 
       hasDateData = true ;
+      let countColor = 0;
       let done = true;
       let scheduleRects = scheduleG
         .enter().append('rect')
@@ -636,9 +637,14 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .attr('height', function(d: any) {
           return (d.type === 'title'? barHeight/4:barHeight);
         })
-        .attr('fill', function(d: any) {          
+        .attr('fill', function(d: any) {  
+          countColor ++;      
+          if (countColor> statusCounter){
+            countColor=0;
+            done =true
+          }
           let color = '';         
-          if(d.isDone){
+          if(done){
             color = 'Done'
           }else{
             color = 'NotStarted'
@@ -676,6 +682,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
 
       hasDateData = true;
       done = true;
+      countColor=0;
       let scheduleRectsCenter = scheduleG
         .enter().append('rect')
         .attr('id', function(d: any) {
@@ -696,8 +703,13 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('height', barHeight - 2)
         .attr('fill', function(d: any) {
-          let color = '';          
-          if(d.isDone){
+          countColor ++;      
+          if (countColor> statusCounter){
+            countColor=0;
+            done =true;
+          }
+          let color = '';         
+          if(done){
             color = 'Done'
           }else{
             color = 'NotStarted'
@@ -706,7 +718,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
             color = 'Current'
             done = false
           }
-          return (colorScale[color]);
+          return (d.type === 'title'? '#C9C5D8':colorScale[color]);
         })
         .style('visibility', (d: any) => {
           return d.show ? 'visible':'hidden'});
@@ -1637,11 +1649,18 @@ let toData = datas?.map((ds: any) => ds.schedule)
     {/* {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>} */}
     {/* <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/> */}
     {/* <div className='lines-calendar' id='line-calendar'></div> */}
-    <div className="calendar-body" id="widthDivforChart">
-      {openPiney && <div className="piney-text piney-calendar"><PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={userName} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>}
-
-      <Row id='zoomButtons' style={{margin:'9px 10px', marginBottom:'-6px'}} className='zoom-buttons'>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
+      <div className="calendar-body" id="widthDivforChart">
+        {openPiney && <div className="piney-text piney-calendar">
+          <PineyView
+            setOpenPiney={setOpenPiney}
+            data={popUpData}
+            userName={userName}
+            setUpdateAction={setUpdateAction}
+            updateAction={updateAction}
+            setTollData={setTollData} />
+        </div>}
+        <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
+          <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
         <div className='calendar-text-header'>
         <Button
             className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
