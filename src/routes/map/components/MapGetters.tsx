@@ -40,18 +40,17 @@ export const commentPopup = (note?:any ) => {
             <div className="legend-selected">
               <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
             </div>
-            <div id="icon-downlined" className="light">
-              <MoreOutlined />
-            </div>
           </div>
         </Button>
+        <div>
+          <button className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121', width: '100px'}}></button>
+        </div>
+        <div id="icon-downlined" className="light">
+          <MoreOutlined />
+        </div>
       </div>
       <div className="bodymap">
           <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />
-          {/* <div style={{display:'flex'}} className="footer">
-              <Button id="delete-comment" style={{color:'red', marginRight:'5px'}} value={note?note.newnotes_id:''} className="light b-red">Delete</Button>
-              { note? (<Button id="edit-comment" className='light b-green'>Save</Button>): (<Button id="save-comment" className='light b-green'>Save</Button>) }
-          </div> */}
       </div>
     </div>,
     popupNode
