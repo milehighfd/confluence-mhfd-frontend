@@ -29,6 +29,7 @@ import { useLocation } from "react-router";
 import GalleryDetail from "./GalleryDetail";
 import moment from "moment";
 import store from "store/index";
+import { saveAs } from 'file-saver';
 
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
@@ -333,6 +334,39 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     document.execCommand('copy');
     message.success('Copied to Clipboard!');
   }
+
+  const downloadPdf = () => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+    let url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${detailed.project_id}`;
+    let fileName = 'project.pdf';
+   /*  if (type === FILTER_PROBLEMS_TRIGGER) {
+      url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${data.problemid}/pdf`;
+      fileName = 'problem.pdf';
+    } else {
+      let params = `projectid=${data.id ? data.id : data.projectid}`;
+      url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
+      fileName = 'project.pdf';
+    } */
+    let body: any = { };
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body)
+    })
+    .then( res => res.blob() )
+    .then((r) => {
+      var blob = new Blob([r], {type: 'application/pdf'});
+      saveAs(blob, fileName)
+    })
+    .finally(() => {
+      setIsLoading(false);
+    })
+  }
   // useEffect(() => {
   //   if(type === PROBLEMS_MODAL){
   //     existDetailedPageProblem(data.problemid);
@@ -397,9 +431,9 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                 )
               }
               <Button className="btn-circle">
-                <img src="/Icons/icon-01.svg" alt="" />
+                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf}/>
               </Button>
-              <Button style={{marginLeft:'10px'}}  className="btn-circle" onClick={() => copyUrl()}>
+              <Button style={{marginLeft:'10px'}}  className="btn-circle" onClick={copyUrl}>
                 <img src="/Icons/icon-06.svg" alt="" />
               </Button>
             </div>
