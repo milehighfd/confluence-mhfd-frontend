@@ -340,16 +340,15 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       return;
     }
     setIsLoading(true);
-    let url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${detailed.project_id}`;
-    let fileName = 'project.pdf';
-   /*  if (type === FILTER_PROBLEMS_TRIGGER) {
-      url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${data.problemid}/pdf`;
+    let url: string;
+    let fileName: string;
+   if (typeS === FILTER_PROBLEMS_TRIGGER) {
+      url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${problem_idS}/pdf`;
       fileName = 'problem.pdf';
     } else {
-      let params = `projectid=${data.id ? data.id : data.projectid}`;
-      url = `${process.env.REACT_APP_API_URI}/gallery/project-by-ids/pdf?${params}`;
+      url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${data.project_id}`;
       fileName = 'project.pdf';
-    } */
+    } 
     let body: any = { };
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
