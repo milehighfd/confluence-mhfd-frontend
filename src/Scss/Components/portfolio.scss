@@ -1458,8 +1458,8 @@
         opacity: 0.5 !important;
       }
       span{
-        color: #11093C !important;
-        opacity: 0.5 !important;
+        color: #706b8a !important;
+        opacity: 0.8;
       }
       .tag-blue{
         background-color: #eaf4fa !important;
@@ -1476,7 +1476,7 @@
     .body-piney{
       .body-piney-body{
         overflow-x: auto;
-        height: calc(100vh - 309px);
+        height: calc(100vh - 364px);
         margin-right: -15px;
         padding-right: 20px;
       }
@@ -1510,6 +1510,7 @@
         padding: 5px 10px;
         height: auto;
         margin-bottom: 10px;
+        align-items: baseline;
         p{margin: 0px; padding-left: 5px;}
         .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
           border-color: 1.5px solid rgba(37, 24, 99, 0.1) !important;
@@ -1559,11 +1560,11 @@
         padding: 3px 10px;
       }
       p{
-        color: #11093C !important;
+        color: #706b8a !important;
       }
       .form-text-calendar{
         p{
-          opacity: 0.5 !important;
+          opacity: 1 !important;
         }
         .ant-space-align-center {
           opacity: 1 !important;
@@ -1571,9 +1572,17 @@
             opacity: 1 !important;
           }
         }
+        .text-piney-body{
+          color: #706b8a !important;
+          opacity: 0.8 !important;
+        }
       }
       .ant-space-align-center {
         opacity: 1 !important;
+      }
+      .text-piney-body{
+        color: #706b8a !important;
+        opacity: 0.8 !important;
       }
     }
     h1{
@@ -2431,21 +2440,26 @@
       .header-piney{
         span{
           font-size: 18px !important;
+          line-height: 19px !important;
         }
       }
       padding: 15px 18px;
       width: 385px !important;
       h1{
         font-size: 20px !important;
+        line-height: 22px !important;
       }
       .tag-blue{
         font-size: 16px !important;
+        line-height: 16px !important;
       }
       p{
         font-size: 16px !important;
+        line-height: 16px !important;
       }
       span{
         font-size: 16px !important;
+        line-height: 16px !important;
       }
     }
     .body-piney-body{
@@ -2464,7 +2478,7 @@
     }
     .body-piney{
       .body-piney-body{
-        height: calc(100vh - 338px) !important;
+        height: calc(100vh - 400px) !important;
         .ant-space-align-center {
           margin-top: -6px;
         }
