@@ -350,11 +350,35 @@ let toData = datas?.map((ds: any) => ds.schedule)
       }
     });
 
-    if (counterDataForChart !== 0) {     
-      let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
-      let timelineEndTime = moment(toData[toData.length - 1].to)
-        .add(12, 'months')
-        .startOf('month');     
+    if (counterDataForChart !== 0) {  
+      //Remove Null Values from Dates
+      let endDates: any[] = []
+      toData?.forEach((x:any) => {
+        if(x.to){
+          if((x.to).isValid()){
+            endDates.push(x.to)
+          } 
+        }   
+      });      
+      let monthsBehind = (moment(today).diff(moment(fromData[0].from.startOf('month')), 'M'))
+      let monthsAhead = (moment.max(endDates).diff(moment(today), 'M'))
+      let timelineStartTime:any;
+      let timelineEndTime:any;      
+      if(monthsAhead>monthsBehind){        
+        timelineStartTime = moment(today).subtract(monthsAhead, 'months');
+        timelineEndTime = moment(today)
+          .add(monthsAhead, 'months')
+          .startOf('month');     
+      }else{
+        timelineStartTime = moment(today).subtract(monthsBehind, 'months');
+        timelineEndTime = moment(today)
+          .add(monthsBehind, 'months')
+          .startOf('month');
+      }
+      // let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
+      // let timelineEndTime = moment(toData[toData.length - 1].to)
+      //   .add(12, 'months')
+      //   .startOf('month');     
       // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
       // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
       let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
@@ -622,16 +646,16 @@ let toData = datas?.map((ds: any) => ds.schedule)
           return (d.type === 'title'? 3:12)
         })
         .attr('x', function(d: any) {          
-          return (xScale(d['from'])||10);
+          return (xScale(d['from'])||0);
         })
         .attr('y', function(d: any) {
-          let yScaleRect: any = (yScale(d['id'])||10);
+          let yScaleRect: any = (yScale(d['id'])||0);
           return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
         })
         .attr('width', function(d: any) {
-          let xScaleTo: any = (xScale(d['to'])||10);
-          let xScaleFrom: any = (xScale(d['from'])||10); 
-          return xScaleTo - xScaleFrom;
+          let xScaleTo: any = (xScale(d['to'])||0);
+          let xScaleFrom: any = (xScale(d['from'])||0); 
+          return (xScaleTo - xScaleFrom) < 0 ? 0 : (xScaleTo - xScaleFrom);
         })
         .attr('height', function(d: any) {
           return (d.type === 'title'? barHeight/4:barHeight);
@@ -684,16 +708,16 @@ let toData = datas?.map((ds: any) => ds.schedule)
           return `${d.id.replaceAll(' ','')}_${d.categoryNo}_center`;
         })
         .attr('class', 'stackedbarCenter')
-        .attr('x', function(d: any) {
-          return (xScale(d['from'])||10);
+        .attr('x', function (d: any) {
+          return (xScale(d['from']) || 0);
         })
-        .attr('y', function(d: any) {
-          let yScaleId: any = (yScale(d['id'])||10);
+        .attr('y', function (d: any) {
+          let yScaleId: any = (yScale(d['id']) || 0);
           return yScaleId + 1;
         })
-        .attr('width', function(d: any) {
-          let xScaleTo: any = (xScale(d['to'])||10);
-          let xScaleFrom: any = (xScale(d['from'])||10);
+        .attr('width', function (d: any) {
+          let xScaleTo: any = (xScale(d['to']) || 0);
+          let xScaleFrom: any = (xScale(d['from']) || 0);
           return (d.type === 'title'? 0:xScaleTo - xScaleFrom);
         })
         .attr('height', barHeight - 2)
@@ -727,17 +751,17 @@ let toData = datas?.map((ds: any) => ds.schedule)
         // .style('font-size', (d: any) =>(d.type === 'title'? 13:12))
         // .style('font-weight', (d: any) =>(d.type === 'title'? 500:400))
         .attr('x', function(d: any) {
-          return (d.type === 'title'? (xScale(d['to'])||10):(xScale(d['from'])||10));
+          return (d.type === 'title' ? (xScale(d['to']) || 0) : (xScale(d['from']) || 0));
         })
         .attr('y', function(d: any) {
-          let yScaleId: any = (yScale(d['id'])||10);
+          let yScaleId: any = (yScale(d['id']) || 0);
           let yfactor: any = (windowWidth>=2001 && windowWidth<=2549 ? -14 : (windowWidth>=2550 && windowWidth<=3999 ? -3: (windowWidth>=1450 && windowWidth<=2000 ?-7:(windowWidth>=1199 && windowWidth<=1449 ?-2:-2))));
           let forTitle:any = (windowWidth>=2550 && windowWidth<=3999 &&d.type === 'title' ? -9:0);
           return yScaleId + yScale.bandwidth() / 2;
         })
         .attr('width', function(d: any) {
-          let xScaleTo: any = (xScale(d['to'])||10);
-          let xScaleFrom: any = (xScale(d['from'])||10);
+          let xScaleTo: any = (xScale(d['to']) || 0);
+          let xScaleFrom: any = (xScale(d['from']) || 0);
           return (d.type === 'title'? 100: xScaleTo - xScaleFrom);
         })
         .text((d: any) => d.name)
@@ -794,19 +818,19 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('class', 'dragginglines')
         .attr('x1', function(d: any) {          
-          let xScaleFrom: any = (xScale(d['from']) || 10);
+          let xScaleFrom: any = (xScale(d['from']) || 0);
           return xScaleFrom - dragableLineHalf + 3;
         })
         .attr('x2', function(d: any) {
-          let xScaleFrom: any = (xScale(d['from']) || 10);
+          let xScaleFrom: any = (xScale(d['from']) || 0);
           return xScaleFrom - dragableLineHalf + 3;
         })
         .attr('y1', function(d: any) {   
-          let yScaleId: any = (yScale(d['id'])||10);
+          let yScaleId: any = (yScale(d['id']) || 0);
           return yScaleId + h;
         })
         .attr('y2', function(d: any) {
-          let yScaleId: any = (yScale(d['id'])||10);
+          let yScaleId: any = (yScale(d['id']) || 0);
           return yScaleId + h + 8;
         })
         .style('visibility', (d: any) => {
@@ -821,19 +845,19 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('class', 'dragginglines')
         .attr('x1', function(d: any) {
-          let xScaleTo: any = (xScale(d['to'])||10);
+          let xScaleTo: any = (xScale(d['to']) || 0);
           return xScaleTo - dragableLineHalf - 3;
         })
         .attr('x2', function(d: any) {
-          let xScaleTo: any = (xScale(d['to'])||10);
+          let xScaleTo: any = (xScale(d['to']) || 0);
           return xScaleTo + dragableLineHalf - 3;
         })
         .attr('y1', function(d: any) {
-          let yScaleId: any = (yScale(d['id'])||10);
+          let yScaleId: any = (yScale(d['id']) || 0);
           return yScaleId + h - 2;
         })
         .attr('y2', function(d: any) {
-          let yScaleId: any = (yScale(d['id'])||10);
+          let yScaleId: any = (yScale(d['id']) || 0);
           return yScaleId + h + 8;
         })
         .style('visibility', (d: any) => {    
@@ -845,21 +869,21 @@ let toData = datas?.map((ds: any) => ds.schedule)
       };
       let calcScheduleX = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale((d['from']));
-        return zoomedXScaleFrom||10;
+        return zoomedXScaleFrom || 0;
       };
       let calcScheduleXInner = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale((d['from']));
-        return (zoomedXScaleFrom||10) + 12;
+        return (zoomedXScaleFrom || 0) + 12;
       };
       let calcScheduleXCenter = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale((d['from']));
         let zoomedXScaleTo: any = zoomedXScale(d['to']);
-        return (d.type === 'title'? (zoomedXScaleTo||10) +5 :(zoomedXScaleFrom||10) + offsetBar);
+        return (d.type === 'title' ? (zoomedXScaleTo || 0) + 5 : (zoomedXScaleFrom || 0) + offsetBar);
       };
       let calcScheduleWidth = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
         let zoomedXScaleTo: any = zoomedXScale(d['to']);
-        return (zoomedXScaleTo||10) - (zoomedXScaleFrom||10);
+        return ((zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0)) > 0 ? (zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0) : 0;
       };
       let calcScheduleWidthInner = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
@@ -869,16 +893,16 @@ let toData = datas?.map((ds: any) => ds.schedule)
       };
       let calcLeftXLine = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
-        return (zoomedXScaleFrom||10) - dragableLineHalf + 8;
+        return (zoomedXScaleFrom || 0) - dragableLineHalf + 8;
       };
       let calcScheduleWidthText = function(d: any) {
         let zoomedXScaleFrom: any = zoomedXScale(d['from']);
         let zoomedXScaleTo: any = zoomedXScale(d['to']);
-        return (zoomedXScaleTo||10) - (zoomedXScaleFrom||10) - 1;
+        return (zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0) - 1;
       };
       let calcRightXLine = function(d: any) {
         let zoomedXScaleTo: any = zoomedXScale(d['to']);
-        return (zoomedXScaleTo||10) - dragableLineHalf - 6;
+        return (zoomedXScaleTo || 0) - dragableLineHalf - 6;
       };
 
       let makeRoundTime = function(time: any) {
@@ -1065,22 +1089,22 @@ let toData = datas?.map((ds: any) => ds.schedule)
           .attr('x1', calcLeftXLine)
           .attr('x2', calcLeftXLine)
           .attr('y1', (d: any) => {
-            let yScaleId: any = (yScale(d['id'])||10);
+            let yScaleId: any = (yScale(d['id']) || 0);
             return yScaleId + h;
           })
           .attr('y2', (d: any) => {
-            let yScaleId: any = (yScale(d['id'])||10);
+            let yScaleId: any = (yScale(d['id']) || 0);
             return yScaleId + h + 13;
           });
         rightLine
           .attr('x1', calcRightXLine)
           .attr('x2', calcRightXLine)
           .attr('y1', (d: any) => {
-            let yScaleId: any = (yScale(d['id'])||10);
+            let yScaleId: any = (yScale(d['id']) || 0);
             return yScaleId + h;
           })
           .attr('y2', (d: any) => {
-            let yScaleId: any = (yScale(d['id'])||10);
+            let yScaleId: any = (yScale(d['id']) || 0);
             return yScaleId + h + 13;
           });
       };
@@ -1308,7 +1332,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           times = [ time ];
       while(time < end) {
           time = d3.timeYear.offset(time, 1);
-          times.push(time);
+          times.push(time); 
   }
       return times;
   } 
