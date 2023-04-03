@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
+import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
 
 const { RangePicker }:any = DatePicker;
 
@@ -64,6 +65,10 @@ const ModalTollgate = ({
     Current: '#047CD7',
   };
   const [dates, setDates]: any[] = useState([]);
+  const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
+  useEffect(() => {
+    console.log(viewOverlappingAlert);
+  }, [viewOverlappingAlert]);
   useEffect(() => {
     resetData();
   }, [visible]);
@@ -109,7 +114,7 @@ const ModalTollgate = ({
         if (i + 1 < dates.length) {
           if (x.to.isAfter(dates[i + 1].from)) {
             setInvalidDateIndex(i);
-            alert('Overlapping dates');
+            setViewOverlappingAlert(true);
           }
         }
       }
@@ -399,180 +404,190 @@ let items = [
   }
 
   return (
-    <Modal
-      className="detailed-version modal-tollgate"
-      style={{ top: 123, width: '322px', height:'551px' }}
-      visible={visible}
-      onCancel={() => setVisible(false)}
-      forceRender={false}
-      destroyOnClose>
-      <div className="detailed">
-        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px', paddingTop:'10px'}}>
-          <Col xs={{ span: 12 }} lg={{ span: 20 }}>
-            <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>Capital Project</p>
-            <h1>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
-            <p>Define the time period for each phase.</p>
-            <div style={{display:'flex', paddingTop:'10px'}}>
-              <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
-                </span>
+    <>
+      {
+        viewOverlappingAlert && (
+          <OverlappingDatesAlert
+            visibleAlert={viewOverlappingAlert}
+            setVisibleAlert={setViewOverlappingAlert}
+          />
+          )
+      }
+      <Modal
+        className="detailed-version modal-tollgate"
+        style={{ top: 123, width: '322px', height:'551px' }}
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        forceRender={false}
+        destroyOnClose>
+        <div className="detailed">
+          <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px', paddingTop:'10px'}}>
+            <Col xs={{ span: 12 }} lg={{ span: 20 }}>
+              <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>Capital Project</p>
+              <h1>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
+              <p>Define the time period for each phase.</p>
+              <div style={{display:'flex', paddingTop:'10px'}}>
                 <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
-                </span>
-                <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
-                </span>
-                <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
-                </span>
-            </div>
-          </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
-            <Button className="btn-transparent"  style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>
-            <Button className="btn-transparent" onClick={() => setVisible(false)} style={{padding: '0px 8px'}}><img src="/Icons/ic_close.svg" alt="" height="15px" /></Button>
-          </Col>
-        </Row>
-        <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
-          {/* <Col xs={{ span: 12 }} lg={{ span: 24}}>
-            <Row>
-              <Col xs={{ span: 12 }} lg={{ span: 9}}>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
-                <h3 style={{marginBottom:'0px', color: '#11093C'}} className='dates-title'>Dates</h3>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 5}} style={{textAlign:'center'}}>
-                <h3 style={{marginBottom:'0px', color: '#11093C'}}>Duration</h3>
-              </Col>
-            </Row>
-          </Col> */}
-          <Col xs={{ span: 12 }} lg={{ span: 24}}>
-            <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
-              <Col xs={{ span: 12 }} lg={{ span: 9}}>
-                <Row style={{height: '30px'}} >
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}}>
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 10}}>
-                <Row style={{height: '30px'}}>
-                  <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
-                    <h5>Start Date</h5>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 11}} style={{textAlign:'center'}}>
-                    <h5>End Date</h5>
-                  </Col>
-                  <Col xs={{ span: 12 }} lg={{ span: 3}} style={{textAlign:'center'}}>
-                  </Col>
-                </Row>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 5}}>
-                <Row style={{height: '30px'}}>
-                  <Col xs={{ span: 12 }} lg={{ span: 24}} style={{textAlign:'center'}}>
-                    <h5>Duration (Months)</h5>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <Row className="detailed-h list-tollgate" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
-          <Col xs={{ span: 12 }} lg={{ span: 24}}>
-            <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
-              <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
-                {dates?.map((x:any, index: number) => {
-                  return (
-                    <div key={x.phase_id} className='text-tollgate-title'>
-                      <span style={{marginBottom:'25px', color: invalidDateIndex === index ? 'red' : undefined }}>
-                        <span className="span-dots-heder">
-                          <div className="circulo" style={{backgroundColor: colorScale[paintCircle(index)] }}/>
-                        </span>
-                        {x.name}
-                      </span>
-                      <span>
-                        { x.locked && <LockOutlined /> }
-                        <Dropdown overlay={menu(x, index)} placement="bottomRight" >
-                          <MoreOutlined />
-                        </Dropdown>
-                      </span>
-                    </div>
-                )
-                })}
-                {/* <p style={{marginBottom:'25px'}}>Draft <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Work Request (WR) <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Work Plan (WP) <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Startup <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Initial Funding <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Consultant Procurement <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Conceptual Design <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Preliminary Design <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Final Design <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Construction Contracting <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Construction <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Substantial Completion <MoreOutlined /></p>
-                <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p> */}
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 10}}>
-              {dates?.map((x: any, index: number) => {         
-                return (
-                  <div className='calendar-toollgate' key={x.phase_id}>
-                    <RangePicker
-                      bordered={false}
-                      
-                      onCalendarChange={(e:any)=>{
-                        if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
-                          updateDate(index, e[0]);
-                        }
-                        if (e[1]) {
-                          updateEndDate(index, e[1]);
-                        }
-                        if (x.current) {
-                          x.locked = true;
-                        }
-                        setCalendarValue(e[0]);
-                        setCalendarPhase(x.phase_id)
-                      }}
-                      format={dateFormatList}
-                      value={[ x.from, x.to ]}
-                    />
-                  </div>
-                )
-                })}
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
-                {dates?.map((x: any, index: number) => {
-                  return <Row key={x.phase_id}>
-                    <Col xs={{ span: 12 }} lg={{ span: 24 }}>
-                      <InputNumber 
-                        className='duration-toollgate duration-toollgate-l'
-                        min={1}
-                        max={48}
-                        defaultValue={x.duration}
-                        value={x.duration}
-                        onChange={(e) => { updateDuration(index, e) }} 
-                      />
+                    <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
+                  </span>
+                  <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
+                  </span>
+                  <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
+                  </span>
+                  <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
+                  </span>
+              </div>
+            </Col>
+            <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
+              <Button className="btn-transparent"  style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>
+              <Button className="btn-transparent" onClick={() => setVisible(false)} style={{padding: '0px 8px'}}><img src="/Icons/ic_close.svg" alt="" height="15px" /></Button>
+            </Col>
+          </Row>
+          <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
+            {/* <Col xs={{ span: 12 }} lg={{ span: 24}}>
+              <Row>
+                <Col xs={{ span: 12 }} lg={{ span: 9}}>
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
+                  <h3 style={{marginBottom:'0px', color: '#11093C'}} className='dates-title'>Dates</h3>
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 5}} style={{textAlign:'center'}}>
+                  <h3 style={{marginBottom:'0px', color: '#11093C'}}>Duration</h3>
+                </Col>
+              </Row>
+            </Col> */}
+            <Col xs={{ span: 12 }} lg={{ span: 24}}>
+              <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
+                <Col xs={{ span: 12 }} lg={{ span: 9}}>
+                  <Row style={{height: '30px'}} >
+                    <Col xs={{ span: 12 }} lg={{ span: 11}}>
+                    </Col>
+                    <Col xs={{ span: 12 }} lg={{ span: 11}}>
                     </Col>
                   </Row>
-                })}
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={{ span: 12 }} lg={{ span: 12}}>
-              </Col>
-              <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
-                <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
-                <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate' onClick={()=>sendData()}>Save</Button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </div>
-    </Modal>
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 10}}>
+                  <Row style={{height: '30px'}}>
+                    <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
+                      <h5>Start Date</h5>
+                    </Col>
+                    <Col xs={{ span: 12 }} lg={{ span: 11}} style={{textAlign:'center'}}>
+                      <h5>End Date</h5>
+                    </Col>
+                    <Col xs={{ span: 12 }} lg={{ span: 3}} style={{textAlign:'center'}}>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 5}}>
+                  <Row style={{height: '30px'}}>
+                    <Col xs={{ span: 12 }} lg={{ span: 24}} style={{textAlign:'center'}}>
+                      <h5>Duration (Months)</h5>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          <Row className="detailed-h list-tollgate" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px'}}>
+            <Col xs={{ span: 12 }} lg={{ span: 24}}>
+              <Row style={{height: '357px', overflowY: 'auto'}} className="row-modal-list-view tollgate-body">
+                <Col xs={{ span: 12 }} lg={{ span: 9}} style={{paddingRight:'10px'}} className='left-tollgate'>
+                  {dates?.map((x:any, index: number) => {
+                    return (
+                      <div key={x.phase_id} className='text-tollgate-title'>
+                        <span style={{marginBottom:'25px', color: invalidDateIndex === index ? 'red' : undefined }}>
+                          <span className="span-dots-heder">
+                            <div className="circulo" style={{backgroundColor: colorScale[paintCircle(index)] }}/>
+                          </span>
+                          {x.name}
+                        </span>
+                        <span>
+                          { x.locked && <LockOutlined /> }
+                          <Dropdown overlay={menu(x, index)} placement="bottomRight" >
+                            <MoreOutlined />
+                          </Dropdown>
+                        </span>
+                      </div>
+                  )
+                  })}
+                  {/* <p style={{marginBottom:'25px'}}>Draft <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Work Request (WR) <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Work Plan (WP) <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Startup <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Initial Funding <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Consultant Procurement <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Conceptual Design <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Preliminary Design <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Final Design <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Construction Contracting <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Construction <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Substantial Completion <MoreOutlined /></p>
+                  <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p> */}
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 10}}>
+                {dates?.map((x: any, index: number) => {         
+                  return (
+                    <div className='calendar-toollgate' key={x.phase_id}>
+                      <RangePicker
+                        bordered={false}
+                        
+                        onCalendarChange={(e:any)=>{
+                          if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
+                            updateDate(index, e[0]);
+                          }
+                          if (e[1]) {
+                            updateEndDate(index, e[1]);
+                          }
+                          if (x.current) {
+                            x.locked = true;
+                          }
+                          setCalendarValue(e[0]);
+                          setCalendarPhase(x.phase_id)
+                        }}
+                        format={dateFormatList}
+                        value={[ x.from, x.to ]}
+                      />
+                    </div>
+                  )
+                  })}
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 5}} style={{paddingLeft:'10px'}}>
+                  {dates?.map((x: any, index: number) => {
+                    return <Row key={x.phase_id}>
+                      <Col xs={{ span: 12 }} lg={{ span: 24 }}>
+                        <InputNumber 
+                          className='duration-toollgate duration-toollgate-l'
+                          min={1}
+                          max={48}
+                          defaultValue={x.duration}
+                          value={x.duration}
+                          onChange={(e) => { updateDuration(index, e) }} 
+                        />
+                      </Col>
+                    </Row>
+                  })}
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={{ span: 12 }} lg={{ span: 12}}>
+                </Col>
+                <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
+                  <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
+                  <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate' onClick={()=>sendData()}>Save</Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
+    </>
   )
 };
 
