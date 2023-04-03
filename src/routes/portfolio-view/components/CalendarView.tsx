@@ -244,11 +244,23 @@ let toData = datas?.map((ds: any) => ds.schedule)
   //   heightDivLeft: any = document.getElementById(`testing${dataDotchart[0].id}`)?.offsetHeight,
   // let heightofFloatdiv: any = document.getElementById('line-calendar')?.offsetHeight;
   // console.log( 'heightofFloatdiv', heightofFloatdiv);
-  let marginReducerHeaderAxis = (windowWidth>=3001 && windowWidth<=3999 ? '-5.3px':(windowWidth>=2550 && windowWidth<=3000 ?'-5.9px': (windowWidth>=1450 && windowWidth<=2000 ?'-5.9px':(windowWidth>=2001 && windowWidth<=2549 ?'-5.9px':(windowWidth>=1199 && windowWidth<=1449 ?'-5.9px':'-5.9px')))));
+  let marginReducerHeaderAxis = 
+  (windowWidth>=3001 && windowWidth<=3999 ? '-5.3px':
+  (windowWidth>=2550 && windowWidth<=3000 ?'-5.9px': 
+  (windowWidth>=1450 && windowWidth<=1500 ?'-5.9px':
+  (windowWidth>=1501 && windowWidth<=1700 ?'-5.9px':
+  (windowWidth>=2001 && windowWidth<=2549 ?'-5.9px':
+  (windowWidth>=1199 && windowWidth<=1449 ?'-5.9px':'-5.9px'))))));
   let factortransformSVG = (windowWidth>=3001 && windowWidth<=3999 ? -75:(windowWidth>=2550 && windowWidth<=3000 ?-65: (windowWidth>=1450 && windowWidth<=2000 ?-50:(windowWidth>=2001 && windowWidth<=2549 ?-50:(windowWidth>=1199 && windowWidth<=1449 ?-30:-30)))));
 
 
-  let heigthOfHeaderAxis= (windowWidth>=3001 && windowWidth<=3999 ? 123.02:(windowWidth>=2550 && windowWidth<=3000 ?120.77: (windowWidth>=1450 && windowWidth<=2000 ?93.06:(windowWidth>=2001 && windowWidth<=2549 ?100:(windowWidth>=1199 && windowWidth<=1449 ?79:79)))));
+  let heigthOfHeaderAxis= 
+  (windowWidth>=3001 && windowWidth<=3999 ? 123.02:
+    (windowWidth>=2550 && windowWidth<=3000 ?120.77:
+      (windowWidth>=1450 && windowWidth<=1500 ?93.06:
+        (windowWidth>=1501 && windowWidth<=1700 ?82.06:
+        (windowWidth>=2001 && windowWidth<=2549 ?100:
+          (windowWidth>=1199 && windowWidth<=1449 ?79:79))))));
   let separationHeaderAxisYear= (windowWidth>=3001 && windowWidth<=3999 ? 3:(windowWidth>=2550 && windowWidth<=3000 ?6: (windowWidth>=1450 && windowWidth<=2000 ?0:(windowWidth>=2001 && windowWidth<=2549 ?0:(windowWidth>=1199 && windowWidth<=1449 ?0:0)))));
   let separationHeaderAxisMonth= (windowWidth>=3001 && windowWidth<=3999 ? 10:(windowWidth>=2550 && windowWidth<=3000 ?13: (windowWidth>=1450 && windowWidth<=2000 ?0:(windowWidth>=2001 && windowWidth<=2549 ?0:(windowWidth>=1199 && windowWidth<=1449 ?0:0)))));
   let separationHeaderAxisInFunction= (windowWidth>=3001 && windowWidth<=3999 ? 20:(windowWidth>=2550 && windowWidth<=3000 ?25: (windowWidth>=1450 && windowWidth<=2000 ?20:(windowWidth>=2001 && windowWidth<=2549 ?20:(windowWidth>=1199 && windowWidth<=1449 ?20:20)))));
@@ -650,7 +662,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('y', function(d: any) {
           let yScaleRect: any = (yScale(d['id'])||0);
-          return (d.type === 'title'? yScaleRect+12:yScale(d['id']));
+          let yScaleParam = (windowWidth >1501 && windowWidth<1700 ? 9: 0)
+          return (d.type === 'title'? yScaleRect+12:yScaleRect+yScaleParam);
         })
         .attr('width', function(d: any) {
           let xScaleTo: any = (xScale(d['to'])||0);
@@ -713,7 +726,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('y', function (d: any) {
           let yScaleId: any = (yScale(d['id']) || 0);
-          return yScaleId + 1;
+          let yScaleParam = (windowWidth >1501 && windowWidth<1700 ? 9: 0)
+          return yScaleId + 1+yScaleParam;
         })
         .attr('width', function (d: any) {
           let xScaleTo: any = (xScale(d['to']) || 0);
@@ -755,9 +769,9 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('y', function(d: any) {
           let yScaleId: any = (yScale(d['id']) || 0);
-          let yfactor: any = (windowWidth>=2001 && windowWidth<=2549 ? -14 : (windowWidth>=2550 && windowWidth<=3999 ? -3: (windowWidth>=1450 && windowWidth<=2000 ?-7:(windowWidth>=1199 && windowWidth<=1449 ?-2:-2))));
+          let yfactor: any = (windowWidth >1501 && windowWidth<1700 ? 9: 0)
           let forTitle:any = (windowWidth>=2550 && windowWidth<=3999 &&d.type === 'title' ? -9:0);
-          return yScaleId + yScale.bandwidth() / 2;
+          return yScaleId + yScale.bandwidth() / 2 + yfactor;
         })
         .attr('width', function(d: any) {
           let xScaleTo: any = (xScale(d['to']) || 0);
@@ -827,11 +841,13 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('y1', function(d: any) {   
           let yScaleId: any = (yScale(d['id']) || 0);
-          return yScaleId + h;
+          let yScaleFactor =(windowWidth >1501 && windowWidth<1700 ? 100: 0)
+          return yScaleId +h+ yScaleFactor;
         })
         .attr('y2', function(d: any) {
           let yScaleId: any = (yScale(d['id']) || 0);
-          return yScaleId + h + 8;
+          let yScaleFactor =(windowWidth >1501 && windowWidth<1700 ? 9: 0)
+          return yScaleId + h + 8+ yScaleFactor;
         })
         .style('visibility', (d: any) => {
           return d.show ? 'visible':'hidden'});
@@ -1090,22 +1106,26 @@ let toData = datas?.map((ds: any) => ds.schedule)
           .attr('x2', calcLeftXLine)
           .attr('y1', (d: any) => {
             let yScaleId: any = (yScale(d['id']) || 0);
-            return yScaleId + h;
+            let yScaleFactor =(windowWidth >1501 && windowWidth<1700 ? 11: 0)
+            return yScaleId + h+yScaleFactor;
           })
           .attr('y2', (d: any) => {
             let yScaleId: any = (yScale(d['id']) || 0);
-            return yScaleId + h + 13;
+            let yScaleFactor =(windowWidth >1501 && windowWidth<1700 ? 11: 0)
+            return yScaleId + h + 13+yScaleFactor;
           });
         rightLine
           .attr('x1', calcRightXLine)
           .attr('x2', calcRightXLine)
           .attr('y1', (d: any) => {
             let yScaleId: any = (yScale(d['id']) || 0);
-            return yScaleId + h;
+            let yScaleFactor =(windowWidth >1501 && windowWidth<1700 ? 11: 0)
+            return yScaleId + h+yScaleFactor;
           })
           .attr('y2', (d: any) => {
             let yScaleId: any = (yScale(d['id']) || 0);
-            return yScaleId + h + 13;
+            let yScaleFactor =(windowWidth >1501 && windowWidth<1700 ? 11: 0)
+            return yScaleId + h + 13+yScaleFactor;
           });
       };
       scheduleRects.on('mousemove', function() {
@@ -1425,7 +1445,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .append('text')
         .attr('class', 'name')
         
-        .text(function(d: any) {return (d3.event.transform.k > 10 ? d3.timeFormat('%B')(d): (d.getMonth() ===8?d3.timeFormat('%bt')(d):d3.timeFormat('%b')(d))) })
+        .text(function(d: any) {return (d3.event.transform.k > 30 ? d3.timeFormat('%B')(d): (d.getMonth() ===8?d3.timeFormat('%bt')(d):d3.timeFormat('%b')(d))) })
         
         .call(setTextPositionMonth, zoomedXScale);
             // set text position in the other thread
@@ -1433,7 +1453,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
              setTimeout(function() {
             d3.select('.topHeaderYear').selectAll('.name').call(setTextPositionMonth, zoomedXScale);
              }, 100);
-             name.attr('transform', function(d: any) { return (d3.event.transform.k < 14 ? 'translate(0,' +separationHeaderAxisInFunction+ ')' : 'translate(0,' +0+ ')')})
+             name.attr('transform', function(d: any) { return (d3.event.transform.k < 35 ? 'translate(0,' +separationHeaderAxisInFunction+ ')' : 'translate(0,' +0+ ')')})
               nameUpdate = nameUpdate.transition().duration(300);
               nameExit = nameExit.transition().duration(300);
 
@@ -1476,7 +1496,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
   nameEnter
       .append('text')
       .attr('class', 'nameYear')
-      .attr('transform', function(d: any) { return (d3.event.transform.k < 14 ? 'translate(0,' +0+ ')' : 'translate(0,' +0+ ')')})
+      .attr('transform', function(d: any) { return (d3.event.transform.k < 35 ? 'translate(0,' +0+ ')' : 'translate(0,' +0+ ')')})
       .text(function(d: any) { return d3.timeFormat('%Y')(d); })
       
       .call(setTextPositionYear, zoomedXScale);
@@ -1506,7 +1526,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         //console.log(d3.event.transform);
         setCurrentZScale(d3.event.transform.k);
         zoomedXScale = d3.event.transform.rescaleX(xScale);
-        if (d3.event.transform.k < 14) {
+        if (d3.event.transform.k < 35) {
           renderMonthNames();
           renderYearNames();
           gX.call(xAxisMonth.scale(zoomedXScale));
@@ -1539,7 +1559,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
 
       zoom = d3
         .zoom()
-        .scaleExtent([0.5, 30])
+        .scaleExtent([0.5, 300])
         .translateExtent([
           [0, 0],
           [width, 0],
@@ -1570,29 +1590,29 @@ let toData = datas?.map((ds: any) => ds.schedule)
       moveZoom(zoomTimeline);
       if (zoomSelected === 'Today') {
         zoom.translateTo(svg, xScale(today), 0);
-        zoom.scaleTo(svg, 18);
+        zoom.scaleTo(svg, 7.5);
         zoom.translateTo(svgAxis, xScale(today), 0);
-        zoom.scaleTo(svgAxis, 18);
+        zoom.scaleTo(svgAxis, 7.5);
         //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
         //setIsZoomToday(false);
         moveZoom(zoomTimeline);
-        d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
+        d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
       }
       if (isZoomWeekly) {
         // svg
-        // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 18);
+        // .transition().call(zoom.scaleBy, 80);
+        zoom.scaleTo(svg, 80);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-        zoom.scaleTo(svgAxis, 18);
+        zoom.scaleTo(svgAxis, 80);
         zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomWeekly(false);
       }
       if (isZoomMonthly) {
         // svg
         // .transition().call(zoom.scaleBy, 18);
-        zoom.scaleTo(svg, 6);
+        zoom.scaleTo(svg, 7.5);
         zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-        zoom.scaleTo(svgAxis, 6);
+        zoom.scaleTo(svgAxis, 7.5);
         zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         setIsZoomMonthly(false);
       }
@@ -1709,8 +1729,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
           <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
           </>:''}  
           
-          <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
-          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/>
+          {/* <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
+          <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/> */}
         </div>
       </Col>
     </Row>
