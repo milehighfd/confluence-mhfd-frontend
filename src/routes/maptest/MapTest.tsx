@@ -11,6 +11,7 @@ const MapTest = () => {
       style: 'mapbox://styles/milehighfd/ckxhudjgf1er514o9wbyvi6nw',
       center: [	-104.988853, 39.739433],
       zoom: 4.2,
+      preserveDrawingBuffer: true
     });
     map.on('style.load', () => {
       map.addSource('airports', {

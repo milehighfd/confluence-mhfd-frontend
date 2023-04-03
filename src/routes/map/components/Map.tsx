@@ -655,7 +655,8 @@ const Map = ({
             style: dropdownItems.items[dropdownItems.default].style,
             center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
             zoom: 8,
-            attributionControl: false
+            attributionControl: false,
+            preserveDrawingBuffer: true
         });
         const imagesPaths = [
           'custom-sprite/30x30px.png',

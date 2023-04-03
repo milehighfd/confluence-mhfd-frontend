@@ -72,6 +72,18 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const [popUpData, setPopUpData] = useState<any>({});
   const [updateAction,setUpdateAction] = useState(false);
   const appUser = store.getState().profile;
+  const [mapImage, setMapImage] = useState<any>();
+
+
+setTimeout(() => {
+  let img = new Image();
+  let mapCanvas: any;
+  mapCanvas = document.querySelector('.mapboxgl-canvas');
+  const urlOfMap = img.src = mapCanvas.toDataURL();
+  const imageOfMap = window.document.body.appendChild(img);
+  setMapImage(urlOfMap);
+}, 2000);
+
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
@@ -349,7 +361,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${data.project_id}`;
       fileName = 'project.pdf';
     } 
-    let body: any = { };
+    let body: any = { mapImage };
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch(url, {
