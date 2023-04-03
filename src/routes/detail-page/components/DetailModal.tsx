@@ -74,16 +74,6 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const appUser = store.getState().profile;
   const [mapImage, setMapImage] = useState<any>();
 
-
-setTimeout(() => {
-  let img = new Image();
-  let mapCanvas: any;
-  mapCanvas = document.querySelector('.mapboxgl-canvas');
-  const urlOfMap = img.src = mapCanvas.toDataURL();
-  const imageOfMap = window.document.body.appendChild(img);
-  setMapImage(urlOfMap);
-}, 2000);
-
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
@@ -320,6 +310,12 @@ setTimeout(() => {
  
 
   useEffect(()=>{
+    let img = new Image();
+    let mapCanvas: any;
+    mapCanvas = document.querySelector('.mapboxgl-canvas');
+    const urlOfMap = img.src = mapCanvas.toDataURL();
+    const imageOfMap = window.document.body.appendChild(img);
+    setMapImage(urlOfMap);
     if(detailed?.problemname || detailed?.project_name){
       setIsLoading(false)
     }else{
