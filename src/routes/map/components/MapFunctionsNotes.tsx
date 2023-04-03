@@ -104,7 +104,7 @@ export  const addListonPopupNotes = (
                         rotateIcon('down');
                     }
                 });
-                addListToPopupNotes(ul, div)
+                // addListToPopupNotes(ul, div)
                 // div.appendChild(ul);
                 const colorable = document.getElementById('colorable');
                 const red = document.getElementById('red');

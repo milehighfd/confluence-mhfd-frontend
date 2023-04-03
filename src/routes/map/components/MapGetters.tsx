@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'antd';
+import { Button, Dropdown } from 'antd';
 import { DownOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull, MainPopupCreateMap, ComponentPopupCreate } from '../../../Components/Map/MapPopups';
 import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, MAPTYPES } from '../../../constants/constants';
+import { divListOfColors } from 'Components/Map/commetsFunctions';
 
 const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
 MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
@@ -34,20 +35,21 @@ export const commentPopup = (note?:any ) => {
   ReactDOM.render(
     <div className="popup-comment">
       <div className="headmap">
-        <Button id="color-list" className="testheader">
+        <Button
+          // id="color-list"
+          className="testheader">
           <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
           <div className='dr'>
             <div className="legend-selected">
-              <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
+              <Dropdown overlay={divListOfColors} trigger={['click']}>
+                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
+              </Dropdown>
+              <MoreOutlined />
             </div>
           </div>
         </Button>
-        <div>
-          <button className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121', width: '100px'}}></button>
-        </div>
-        <div id="icon-downlined" className="light">
-          <MoreOutlined />
-        </div>
+        {/* <div id="icon-downlined" className="light"> */}
+        {/* </div> */}
       </div>
       <div className="bodymap">
           <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />

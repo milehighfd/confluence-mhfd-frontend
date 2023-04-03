@@ -1970,7 +1970,7 @@ const Map = ({
                     markerNote
                   );
                 }, 200);
-                
+                canAdd.value = false;
                 return;
               }
             if (commentAvailable) {

@@ -198,7 +198,44 @@
   }
 }
 // POPUP MAP
-
+.divcolors{
+  position: absolute;
+  // top: 40px;
+  // height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 12px 10px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 222;
+  max-width: 150px;
+  top: -25px;
+  left: 11px;
+  li{
+    display: flex;
+    padding: 0px;
+    &:hover{ 
+      background-color: transparent;
+    }
+  }
+  .img-circle {
+    opacity: 1;
+    -webkit-mask: url('../../Icons/circlecomment.svg') no-repeat center;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-bottom: 3px;
+    &:hover {
+      height: 17px;
+      // width: 17px;
+      // padding-bottom: 10px;
+    }
+  }
+}
 #list-popup-comment, .list-popup-comment{
   position: absolute;
   background: white;
@@ -584,7 +621,7 @@
       font-size: 50px;
       font-weight: bold;
       position: absolute;
-      top: -27px;
+      top: -30px;
       right: 14px;
       //  line-height: 5px;
      }

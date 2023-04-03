@@ -446,3 +446,50 @@ export const divListOfelements = (listOfElements: any, changeValueOfElement: any
     </div>
   </div>;
 }
+
+export const divListOfColors = () => {
+  // const circlex = document.getElementById(`circle${index}`);
+  // const divcolorsx = document.createElement('div');
+  //       divcolorsx.style.display = 'none';
+  //       divcolorsx.classList.add('divcolors');
+  //       if(index == listOfElements.length - 1 && index >= 1) {
+  //         divcolorsx.classList.add('divcolors-last');
+  //       }
+  //       divcolorsx.setAttribute('id',`divcolor${index}`);
+
+  const listCircles = [
+    {
+      label: 'A',
+      color: "#FFE120"
+    },
+    {
+      label: 'B',
+      color: "#E45360"
+    },
+    {
+      label: 'C',
+      color: "#282363"
+    },
+    {
+      label: 'D',
+      color: "#6FC699"
+    },
+    {
+      label: 'E',
+      color: "#66D4FF"
+    },
+  ];
+  // let innerColors = ``;    
+  // listCircles.forEach((el:any, _index:any) => {
+  //   innerColors += `
+  // });
+  // divcolorsx.innerHTML = innerColors;
+  return <div className='divcolors'>
+    {
+      listCircles.map((color) => <li value={color.color}>
+        <img id={`circle${color.label}`} className='img-circle' style={{background:color.color}} />
+      </li>)
+    }
+  </div>
+}
+
