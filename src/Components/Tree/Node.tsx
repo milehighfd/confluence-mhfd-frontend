@@ -91,7 +91,7 @@ export const Node = ({
   }
   const showCutText = (text: string) => {
     const TEXT_LENGTH = 30;
-    if (text.length > TEXT_LENGTH) {
+    if (text && text?.length > TEXT_LENGTH) {
       return text.substring(0, TEXT_LENGTH) + '...';
     }
     return text;

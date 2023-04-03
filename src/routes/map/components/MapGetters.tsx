@@ -30,7 +30,7 @@ export const getBeautifulTitle = (title: any) => {
   );
 };
 
-export const commentPopup = (note?:any ) => {
+export const commentPopup = (handleComments: any, note?:any ) => {
   const popupNode = document.createElement("div");
   ReactDOM.render(
     <div className="popup-comment">
@@ -44,15 +44,12 @@ export const commentPopup = (note?:any ) => {
               <Dropdown overlay={divListOfColors} trigger={['click']}>
                 <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
               </Dropdown>
-              <MoreOutlined />
             </div>
           </div>
         </Button>
-        {/* <div id="icon-downlined" className="light"> */}
-        {/* </div> */}
       </div>
-      <div className="bodymap">
-          <TextArea style={{resize:'none'}} id="textarea" rows={7} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />
+      <div className="bodymap containerComment">
+          <TextArea style={{resize:'none'}} id="textarea" rows={7} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} onChange={handleComments}/>
       </div>
     </div>,
     popupNode

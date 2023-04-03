@@ -68,6 +68,7 @@ import {
   openMarkerOfNoteWithoutAdd
 } from './MapFunctionsNotes';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { UseDebouncedEffect } from 'routes/Utils/useDebouncedEffect';
 
 let map: any = null;
 let hasBeenUpdated = false;
@@ -224,6 +225,10 @@ const Map = ({
     const [commentVisible, setCommentVisible] = useState(false);
     const [, setSwSave] = useState(false);
     const coorBounds: any[][] = [];
+    const [newNote, setNewNote] = useState<any>();
+    const [currentNote, setCurrentNote] = useState<any>();
+    const [isEdit, setIsEdit] = useState(false);
+
     const [data, setData] = useState({
         problemid: '',
         id: '',
@@ -242,6 +247,74 @@ const Map = ({
         cartoid: ''
     });
     const [ showDefault, setShowDefault ] = useState(false);
+
+    UseDebouncedEffect(() => {
+      if (newNote !== void(0) && isEdit === false) {
+        createNoteWithElem(newNote, createNote);
+      }
+    }, [newNote], 1000);
+
+    UseDebouncedEffect(() => {
+      if (isEdit) {
+        editNoteWithElem(currentNote, editNote);
+        setIsEdit(false);
+      }
+    }, [currentNote], 1000);
+
+    const handleComments = (event: any) => {
+      if (popup?.getLngLat()?.lat !== undefined && currentNote === void(0)) {
+        let color = '';
+        const colorable = document.getElementById('colorable');
+        if (colorable != null) {
+            if (colorable.style.color === colorsCodes.RED) {
+                color = 'red';
+            } else if (colorable.style.color === colorsCodes.ORANGE) {
+                color = 'orange';
+            } else if (colorable.style.color === colorsCodes.GREY) {
+                color = 'grey';
+            } else {
+                color = 'yellow';
+            }
+        }
+      const note = {
+        color: color,
+        note_text: event.target.value,
+        latitude: popup.getLngLat().lat,
+        longitude: popup.getLngLat().lng
+      }; 
+      console.log(note);
+        setNewNote(note);
+        return;
+      }
+
+      if (currentNote) {
+        let color = '';
+        const colorable = document.getElementById('colorable');
+        if (colorable != null) {
+            if (colorable.style.color === colorsCodes.RED) {
+                color = 'red';
+            } else if (colorable.style.color === colorsCodes.ORANGE) {
+                color = 'orange';
+            } else if (colorable.style.color === colorsCodes.GREY) {
+                color = 'grey';
+            } else {
+                color = 'yellow';
+            }
+        }
+        const noteEdit = {
+          newnotes_id: currentNote.newnotes_id,
+          color: color,
+          note_text: event.target.value,
+          latitude: currentNote.latitude,
+          longitude: currentNote.longitude
+      };
+      console.log(noteEdit);
+        setCurrentNote(noteEdit);
+        setIsEdit(true);
+        return;
+      }
+    }
+
 
     useEffect(() => {
       hasBeenUpdated = updated;
@@ -383,8 +456,8 @@ const Map = ({
               const doc = document.createElement('div');
               doc.className = 'marker-note';
               doc.style.backgroundColor = colorOfMarker;
-              const newmarker = new mapboxgl.Marker(doc);
-              const html = commentPopup(note);
+              const newmarker = new mapboxgl.Marker(doc);     
+              const html = commentPopup(handleComments, note);
                   let newpopup = new mapboxgl.Popup({
                     closeButton: false,
                     offset: { 
@@ -411,6 +484,8 @@ const Map = ({
     }, [notes, notesFilter]);
  
     const eventsOnClickNotes = (noteClicked:any) => {
+      console.log(noteClicked);
+      setCurrentNote(noteClicked);
       const div = document.getElementById('color-list');
         if (div != null) {
             momentaryMarker.remove(); 
@@ -1939,7 +2014,7 @@ const Map = ({
                 });
               }
               if (commentAvailable && canAdd.value) {
-                const html = commentPopup();
+                const html = commentPopup(handleComments);
                 popup.remove();
                 popup = new mapboxgl.Popup({
                   closeButton: false, 
