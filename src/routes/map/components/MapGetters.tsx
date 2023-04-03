@@ -52,7 +52,7 @@ export const commentPopup = (note?:any ) => {
         {/* </div> */}
       </div>
       <div className="bodymap">
-          <TextArea style={{resize:'none'}} id="textarea" rows={5} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />
+          <TextArea style={{resize:'none'}} id="textarea" rows={7} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} />
       </div>
     </div>,
     popupNode
