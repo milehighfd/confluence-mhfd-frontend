@@ -262,8 +262,8 @@ const Map = ({
       }
     }, [currentNote], 1000);
 
-    const handleComments = (event: any) => {
-      if (popup?.getLngLat()?.lat !== undefined && currentNote === void(0)) {
+    const handleComments = (event: any, note? :any) => {
+      if (!note) {
         let color = '';
         const colorable = document.getElementById('colorable');
         if (colorable != null) {
@@ -283,12 +283,9 @@ const Map = ({
         latitude: popup.getLngLat().lat,
         longitude: popup.getLngLat().lng
       }; 
-      console.log(note);
         setNewNote(note);
         return;
-      }
-
-      if (currentNote) {
+      }else {
         let color = '';
         const colorable = document.getElementById('colorable');
         if (colorable != null) {
@@ -303,11 +300,11 @@ const Map = ({
             }
         }
         const noteEdit = {
-          newnotes_id: currentNote.newnotes_id,
+          newnotes_id: note.newnotes_id,
           color: color,
           note_text: event.target.value,
-          latitude: currentNote.latitude,
-          longitude: currentNote.longitude
+          latitude: note.latitude,
+          longitude: note.longitude
       };
       console.log(noteEdit);
         setCurrentNote(noteEdit);
@@ -485,8 +482,6 @@ const Map = ({
     }, [notes, notesFilter]);
  
     const eventsOnClickNotes = (noteClicked:any) => {
-      console.log(noteClicked);
-      setCurrentNote(noteClicked);
       const div = document.getElementById('color-list');
         if (div != null) {
             momentaryMarker.remove(); 
