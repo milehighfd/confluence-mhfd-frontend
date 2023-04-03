@@ -5,7 +5,7 @@ import { DownOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull, MainPopupCreateMap, ComponentPopupCreate } from '../../../Components/Map/MapPopups';
 import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, MAPTYPES } from '../../../constants/constants';
-import { divListOfColors } from 'Components/Map/commetsFunctions';
+import { divListOfColors, divDelete} from 'Components/Map/commetsFunctions';
 
 const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
 MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
@@ -42,7 +42,10 @@ export const commentPopup = (handleComments: any, note?:any ) => {
           <div className='dr'>
             <div className="legend-selected">
               <Dropdown overlay={divListOfColors} trigger={['click']}>
-                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121'}}></i> 
+                <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121', width: '40px'}}></i> 
+              </Dropdown>
+              <Dropdown overlay={divDelete} trigger={['click']}>
+                <MoreOutlined className='test'/>
               </Dropdown>
             </div>
           </div>

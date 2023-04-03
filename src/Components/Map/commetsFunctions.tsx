@@ -447,6 +447,13 @@ export const divListOfelements = (listOfElements: any, changeValueOfElement: any
   </div>;
 }
 
+export const divDelete = () => {
+  return <div className='divoptions'>
+    <li id="deleteopt0" value={0}>
+      <span ><img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop: '-3px', marginRight: '5px'}} /> Delete</span>
+    </li>
+  </div>
+}
 export const divListOfColors = () => {
   // const circlex = document.getElementById(`circle${index}`);
   // const divcolorsx = document.createElement('div');

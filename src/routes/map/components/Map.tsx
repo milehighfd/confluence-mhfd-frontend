@@ -201,6 +201,7 @@ const Map = ({
     const { colorsList, updated } = useColorListState();
     const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
     const [zoomValue, setZoomValue] = useState(0);
+    const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
     const colors = {
         RED: '#FF0000',
@@ -964,6 +965,7 @@ const Map = ({
                 hideLayerAfterRender(layerExcluded);
               }
             });
+            console.log('ordeeeeeeer',map.getStyle().layers);
         }
     };
     waiting();
@@ -1433,6 +1435,36 @@ const Map = ({
       }
       return key;
     }
+
+    const getIdByProjectType = (() => {
+
+      const capitalProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
+      const maintenanceProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
+      const studyProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
+      const acquisitionProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
+      const developementImprProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
+      const uniqueIds = galleryProjectsV2.reduce((ids:any, project:any) => {
+        if (!ids.includes(project.code_project_type_id)) {
+          ids.push(project.code_project_type_id);
+        }
+        return ids;
+      }, []);
+      const groupedProjectsByType ={
+        CAPITAL: capitalProjects,
+        MAINTENANCE: maintenanceProjects,
+        STUDY: studyProjects,
+        ACQUISITION: acquisitionProjects,
+        DEVELOPEMENT_IMPROVEMENT: developementImprProjects
+      };
+      setGroupedProjectIdsType(groupedProjectsByType)
+  
+
+    })
+
+    useEffect(() => {
+      getIdByProjectType()
+    }, [galleryProjectsV2]);
+
     const applyFilters = useCallback((key: string, toFilter: any) => {
       // console.log('toFilter',toFilter)
       // console.log('filterpro', filterProjectOptions);
@@ -1574,7 +1606,23 @@ const Map = ({
               }
             } else {
               //console.log('projectsids', projectsids)
-              allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
+              // allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
+              const currentLayer = map.getLayer(key + '_' + index)
+              let projecttypes = currentLayer.metadata.projecttype;
+              console.log('projecttypes', projecttypes)
+              let combinedProjects:any=[];
+              for (let type in groupedProjectIdsType){
+                if(projecttypes.includes(type)){
+                  combinedProjects.push(...groupedProjectIdsType[type]);
+                    // console.log('combinedProjects', combinedProjects)
+                  }
+                // console.log('here',type, groupedProjectIdsType[type]);
+              }
+              if(combinedProjects.length === 0){
+                allFilters.push(['in', ['get','projectid'], ['literal', [-1]]]);
+              }else{
+                allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
+              }
             }
             
             // if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
@@ -1587,6 +1635,9 @@ const Map = ({
               addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             }
             if (map.getLayer(key + '_' + index)) {
+              if(key === MHFD_PROJECTS){
+                console.log('layeeeer',key + '_' + index, allFilters)
+              }
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
