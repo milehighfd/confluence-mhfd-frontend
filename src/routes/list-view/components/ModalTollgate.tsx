@@ -66,13 +66,7 @@ const ModalTollgate = ({
   };
   const [dates, setDates]: any[] = useState([]);
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
-  useEffect(() => {
-    console.log(viewOverlappingAlert);
-  }, [viewOverlappingAlert]);
-  useEffect(() => {
-    resetData();
-  }, [visible]);
-
+  
   const parseDuration = (duration: string) => { 
     const type = duration.trim()[0];
     return type;
@@ -376,7 +370,7 @@ let items = [
   };
 
   function resetData() {
-    const copy = dates.map((x: any) => {
+    const copy = dates?.map((x: any) => {
       if (x.locked) {
         return {
           ...x
