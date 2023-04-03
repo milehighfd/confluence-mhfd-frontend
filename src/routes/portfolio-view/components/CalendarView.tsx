@@ -99,8 +99,8 @@ const CalendarView = ({
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
   };
-
-  let rawData2 = rawData?.map((x: any) => {   
+ 
+   let rawData2 = rawData?.map((x: any) => {   
     if (x?.project_status?.length) {
       let flag = ((x?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
       if(x?.project_status?.length>0){        
@@ -136,7 +136,7 @@ const CalendarView = ({
         ...x
       }
     }})
- 
+    
   //const sortedData = [...rawData].filter((elem: any) => elem.id.includes('Title')).map((elem: any) => elem.headerLabel.replace(/\s/g, ''));
   const sortedData = rawData2.filter((elem: any) => elem.id.includes('Title'));
   const completeData = sortedData.map((elem: any) => {
@@ -159,7 +159,6 @@ const CalendarView = ({
         }),
     };
   });
-
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
   let zoom: any;
@@ -1228,10 +1227,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
         let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
         d3.select(`#${searchTextId}`).style('background-color','white');
       })
-
-
-
       scheduleRectsCenter.on('click', function(d:any) {       
+        let dataProject = (rawData2.find((x:any)=> x.project_id === d.project_data.project_id))      
         setPopUpData({
           project_name: d.project_data.rowLabel,
           phase: d.phase,
@@ -1241,7 +1238,9 @@ let toData = datas?.map((ds: any) => ds.schedule)
           d3_pos: 0,
           d3_text: 0,
           mhfd: d.mhfd,
-          estimated_cost: d.project_data.estimated_cost
+          estimated_cost: d.project_data.estimated_cost,
+          data: dataProject,
+          scheduleList: scheduleList
         })
         setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
@@ -1692,7 +1691,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
             userName={userName}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
-            setTollData={setTollData} />
+            setTollData={setTollData}
+            setOpenModalTollgate = {setOpenModalTollgate} />
         </div>}
         <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
           <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
