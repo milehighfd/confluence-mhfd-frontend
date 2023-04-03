@@ -1709,7 +1709,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
             
             onClick={() => {setIsZoomWeekly(true); setZoomSelected('Weekly')}}
           >
-            Weekly
+            Daily
           </Button>
           <span style={{marginRight:'0px', color:'#11093c', opacity:0.6}}> |</span>
           <Button
