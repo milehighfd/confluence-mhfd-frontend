@@ -72,6 +72,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [newEndDate,setNewEndDate] = useState<any>()
   const [sendStartDate,setSendStartDate] = useState<any>()
   const [sendEndDate,setSendEndDate] = useState<any>()
+  const [duration,setDuration] = useState<any>()
+  const [remaining,setRemaining] = useState<any>()
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
   const formatter = new Intl.NumberFormat('en-US', {
@@ -81,7 +83,6 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     maximumFractionDigits: 0
   });
   useEffect(() => {    
-    console.log(counterD)
     let counter = 0;
     let lengthActions = 0;
     datasets.postData(`${SERVER.PHASE_TYPE}/phases`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
@@ -133,6 +134,13 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
             setNewEndDate(`${monthEnd} ${dayEnd}, ${yearEnd}`)
             setSendEndDate(rows[0].actual_end_date)
           }
+          if (rows[0].actual_end_date !== null && rows[0].actual_start_date !== null) {
+            let today = moment()
+            let start = moment(rows[0].actual_start_date)
+            let end = moment(rows[0].actual_end_date)
+            setDuration((end.diff(start, 'M', true)).toFixed(1))
+            setRemaining((end.diff(today, 'M', true)).toFixed(1))
+          }          
           setNote(rows[0].comment);
           setNewNote(rows[0].comment);
         } else{    
@@ -334,7 +342,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p >Duration</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span   className="text-piney-body">No Data Available</span>
+              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span   className="text-piney-body">{duration?`${duration} Months`: 'No data available'}</span>
               </Col>
             </Row>
             <Row>
@@ -342,7 +350,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
                 <p >Remaining Time</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span  className="text-piney-body">No Data Available</span>
+              <ClockCircleOutlined  className="text-piney-body"/>&nbsp; &nbsp;<span  className="text-piney-body">{remaining?`${remaining} Months`:'No data available'}</span>
               </Col>
             </Row>
           </div>
