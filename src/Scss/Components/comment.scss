@@ -236,6 +236,38 @@
     }
   }
 }
+.divoptions{
+  position: relative;
+  float:right;
+  right: 9px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 222;
+  font-variant: tabular-nums;
+  font-weight: normal;
+  white-space: normal;
+  font-feature-settings: 'tnum', "tnum";
+  font-size: 12px;
+  color: #11093c;
+  font-family: "Ubuntu", sans-serif !important;
+  width: max-content;
+  padding: 5px;
+  li{
+    padding: 5px 10px;
+    opacity: 0.5;
+    font-size: 13px;
+    border-radius: 5px;
+    &:hover{ 
+      background-color: #f7f7f9;
+      opacity: 0.6;
+    }
+  }
+}
+.divoptions-last{
+  position: absolute;
+  top: -12px;
+}
 #list-popup-comment, .list-popup-comment{
   position: absolute;
   background: white;
@@ -551,6 +583,15 @@
 .legend.close {
   display: none;
 }
+.mdi-circle-medium::before {
+  width: 100% !important;
+}
+.test {
+  margin: 8px !important;
+  right: -3px !important;
+  position: absolute !important;
+  top: -6px !important;
+}
 .popup-comment{
   width: 280px;
   padding: 0px;
@@ -622,7 +663,7 @@
       font-weight: bold;
       position: absolute;
       top: -30px;
-      right: 14px;
+      right: 24px;
       //  line-height: 5px;
      }
   }
@@ -692,7 +733,12 @@
 
 // 1920x1080 DISPLAY
 @media (min-width: 1900px) and (max-width: 2499px){
-  
+  .divoptions {
+    font-size: 15px !important;
+    img{
+      width: 13px;
+    }
+  }
   #list-popup-comment, .list-popup-comment{
     // width: ;
     .divoptions {
@@ -838,6 +884,12 @@
 
 // 2560x1440 DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px){
+  .divoptions {
+    font-size: 18px !important;
+    img{
+      width: 16px;
+    }
+  }
   #list-popup-comment, .list-popup-comment{
     width: 356px;
     .divoptions {

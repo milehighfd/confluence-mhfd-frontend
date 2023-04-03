@@ -1362,8 +1362,6 @@ const Map = ({
     }
 
     const getIdByProjectType = (() => {
-      console.log('projectsids', projectsids)
-      console.log('projectsids gallery',galleryProjectsV2)
 
       const capitalProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
       const maintenanceProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
@@ -1376,12 +1374,6 @@ const Map = ({
         }
         return ids;
       }, []);
-      console.log('exising ids', uniqueIds)
-      console.log('capitalProjects', capitalProjects)
-      console.log('maintenanceProjects', maintenanceProjects)
-      console.log('studyProjects', studyProjects)
-      console.log('AcquisitionProjects', acquisitionProjects)
-      console.log('developProjects', developementImprProjects)
       const groupedProjectsByType ={
         CAPITAL: capitalProjects,
         MAINTENANCE: maintenanceProjects,
