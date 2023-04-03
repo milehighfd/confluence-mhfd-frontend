@@ -638,19 +638,15 @@ let toData = datas?.map((ds: any) => ds.schedule)
           return (d.type === 'title'? barHeight/4:barHeight);
         })
         .attr('fill', function(d: any) {  
-          countColor ++;      
-          if (countColor> statusCounter){
-            countColor=0;
-            done =true
-          }
+          let currentIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.project_data?.phaseId))
+          let phaseIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.phaseId))          
           let color = '';         
-          if(done){
+          if(currentIndex> phaseIndex){
             color = 'Done'
+          }else if (currentIndex === phaseIndex){
+            color = 'Current'
           }else{
             color = 'NotStarted'
-          }
-          if(d.current){
-            color = 'Current'
             done = false
           }
           return (d.type === 'title'? '#C9C5D8':colorScale[color]);
@@ -703,19 +699,15 @@ let toData = datas?.map((ds: any) => ds.schedule)
         })
         .attr('height', barHeight - 2)
         .attr('fill', function(d: any) {
-          countColor ++;      
-          if (countColor> statusCounter){
-            countColor=0;
-            done =true;
-          }
+          let currentIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.project_data?.phaseId))
+          let phaseIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.phaseId))          
           let color = '';         
-          if(done){
+          if(currentIndex> phaseIndex){
             color = 'Done'
+          }else if (currentIndex === phaseIndex){
+            color = 'Current'
           }else{
             color = 'NotStarted'
-          }
-          if(d.current){
-            color = 'Current'
             done = false
           }
           return (d.type === 'title'? '#C9C5D8':colorScale[color]);
