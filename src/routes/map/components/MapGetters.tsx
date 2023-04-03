@@ -41,7 +41,7 @@ export const commentPopup = (handleComments: any, note?:any ) => {
           <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
           <div className='dr'>
             <div className="legend-selected">
-              <Dropdown overlay={divListOfColors} trigger={['click']}>
+              <Dropdown overlay={divListOfColors} trigger={['click']} >
                 <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121', width: '40px'}}></i> 
               </Dropdown>
               <Dropdown overlay={divDelete} trigger={['click']}>
@@ -52,7 +52,7 @@ export const commentPopup = (handleComments: any, note?:any ) => {
         </Button>
       </div>
       <div className="bodymap containerComment">
-          <TextArea style={{resize:'none'}} id="textarea" rows={7} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} onChange={handleComments}/>
+          <TextArea style={{resize:'none'}} id="textarea" rows={7} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} onChange={(e)=> handleComments(e, note)}/>
       </div>
     </div>,
     popupNode
