@@ -438,7 +438,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                 )
               }
               <Button className="btn-circle">
-                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf}/>
+                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} style={{margin:'-0.5'}}/>
               </Button>
               <Button style={{marginLeft:'10px'}}  className="btn-circle" onClick={copyUrl}>
                 <img src="/Icons/icon-06.svg" alt="" />
