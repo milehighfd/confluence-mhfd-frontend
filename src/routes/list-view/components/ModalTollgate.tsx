@@ -380,6 +380,20 @@ let items = [
   };
 
   function resetData() {
+    const copy = dates.map((x: any) => {
+      if (x.locked) {
+        return {
+          ...x
+        }
+      }
+      return {
+        ...x,
+        from: undefined,
+        to: undefined,
+      }
+    });
+    setDates(copy);
+
     setDateValue([])
     setCurrentPhase(-1);
     setCodePhaseTypeId(-1)
