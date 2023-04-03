@@ -87,43 +87,7 @@ const PhaseView = (
   let heightDiv3 = document.getElementById(`testing3`)?.offsetHeight;
   let svg: any;
 
-  let rawData2 = rawData?.map((x: any) => {   
-    if (x?.project_status?.length) {
-      let flag = ((x?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))
-      if(x?.project_status?.length>0){        
-        return {
-          ...x,
-          schedule: x?.project_status?.map((z: any, index: number) => {  
-              return {                
-                project_data: x,
-                objectId: index + 1,
-                type: 'rect',
-                categoryNo: index + 1,
-                from: moment(z?.planned_start_date),
-                to: moment(z?.planned_end_date),
-                status: z?.code_phase_type?.code_status_type?.status_name,
-                name: z?.code_phase_type?.phase_name.replaceAll(' ',''),
-                phase: z?.code_phase_type?.phase_name.replaceAll(' ',''),
-                phaseId: z.code_phase_type_id,
-                tasks: 10,
-                show: (statusCounter === (x?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
-                current : x?.phaseId === z?.code_phase_type_id,
-                isDone : z.is_done,
-                isLocked : z.is_locked
-              };          
-          })
-        }     
-      }else {
-        return {
-          ...x
-        }
-      }           
-    } else {
-      return {
-        ...x
-      }
-    }})
-
+  
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   let totalLabelWidth = phaseList.length * labelWidth;
   
@@ -131,7 +95,7 @@ const PhaseView = (
   const marginRight = (windowWidth >= 1900 && windowWidth <= 2549 ? 30 : (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : 30)))
   const marginTop = (windowWidth >= 3001 && windowWidth <= 3999 ? -41.2 : (windowWidth >= 1900 && windowWidth <= 2549 ? -27 : (windowWidth >= 2550 && windowWidth <= 3000 ? -31 : -22)))
   const marginBottom = (windowWidth >= 3001 && windowWidth <= 3999 ? -40.5 : (windowWidth >= 2550 && windowWidth <= 3000 ? -43 : (windowWidth >= 1900 && windowWidth <= 2549 ? -35 : -26)))
-  const prevData = rawData2.map((elem: any) => {
+  const prevData = rawData.map((elem: any) => {
     return {
       ...elem,
       schedule: elem.schedule.filter((val: any) => val.phase !== 'Draft' && val.phase !== 'WorkRequest')
@@ -673,10 +637,32 @@ const PhaseView = (
           //     hasDateData = false;
           //   }
           //   return hasDateData ? 'hidden':'visible'})
-          .on("click", (d: any) => {      
-            setOpenPiney(false)
+          .on("click", (d: any) => {  
+            setOpenPiney(false)            
+            console.log(d)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();           
+            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();  
+            let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))  
+            let dataParsed = d?.project_status?.map((z: any, index: number) => {  
+              return {    
+                project_data: d,
+                objectId: index + 1,
+                type: 'rect',
+                categoryNo: index + 1,
+                from: moment(z?.planned_start_date),
+                to: moment(z?.planned_end_date),
+                status: z?.code_phase_type?.code_status_type?.status_name,
+                name: z?.code_phase_type?.phase_name.replaceAll(' ',''),
+                phase: z?.code_phase_type?.phase_name.replaceAll(' ',''),
+                phaseId: z.code_phase_type_id,
+                tasks: 10,
+                show: (statusCounter === (d?.project_status)?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
+                current : d?.phaseId === z?.code_phase_type_id,
+                isDone : z.is_done,
+                isLocked : z.is_locked
+              };          
+             })
+             let scheduleParsed = {...d,schedule : dataParsed}
             setPopUpData({
               project_name: d.rowLabel,
               phase: scheduleList[r].phase,
@@ -687,9 +673,9 @@ const PhaseView = (
               d3_text: actualNumber,
               mhfd: d.mhfd,
               estimated_cost: d.estimated_cost,
-              data: d,
+              data: scheduleParsed,
               scheduleList: scheduleList
-            })
+            })            
             setOpenPiney(true)
           })
           .on("mousemove", (d: any) => {
@@ -756,14 +742,14 @@ const PhaseView = (
     }
   };
   useEffect(() => {
-    if (Object.keys(rawData2).length > 0) {
-      rawData2.map((elem: any, index: number) => (
+    if (Object.keys(rawData).length > 0) {
+      rawData.map((elem: any, index: number) => (
         removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
       ));
     }
     setTimeout(() => {
       for (let index = 0; index < rawData.length; index++) {
-        phaseChart(rawData2, index);
+        phaseChart(rawData, index);
       }
     }, 500);
     

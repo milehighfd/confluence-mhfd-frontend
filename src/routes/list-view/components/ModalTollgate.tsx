@@ -181,8 +181,8 @@ const ModalTollgate = ({
     }
     return 'NotStarted';
   };
-
   useEffect(() => {
+    console.log(dataProject)
     setDates(dataProject?.scheduleList?.map((x:any)=>{
       const date = dataProject?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);
       return {
@@ -195,9 +195,8 @@ const ModalTollgate = ({
         current: date?.current ?? false,
         locked : date?.isLocked ?? false
       };
-    }));
+    }));    
   }, [visible]);
-
   useEffect(() => {
     if (Object.keys(phasesData).length > 0) {
       const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
@@ -224,10 +223,7 @@ const ModalTollgate = ({
       setPhaseIsSet(false)
     }
   }, [codePhaseTypeId])
-
-  useEffect(() => {
-    console.log(dateValue)
-  },[dateValue])
+ 
   useEffect(() => {
     let lockedUp = false;
     let lockedDown = false;
