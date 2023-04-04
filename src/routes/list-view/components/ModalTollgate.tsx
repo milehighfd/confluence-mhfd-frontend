@@ -66,6 +66,7 @@ const ModalTollgate = ({
     Active: '#047CD7',
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
+    Overdue:'#F5575C',
   };
   const [dates, setDates]: any[] = useState([]);
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
@@ -167,6 +168,9 @@ const ModalTollgate = ({
 
   const paintCircle = (index: number) => {
     const currentIndex = dates.findIndex((x: any) => x.current);
+    const dateDiff = dates.find((x: any) => x.current).to;
+    let today = moment()
+    const diffDates = ((moment(dateDiff).diff(today, 'M', true)))
     if (currentIndex === -1) {
       return 'NotStarted';
     }
@@ -174,7 +178,11 @@ const ModalTollgate = ({
       return 'Done';
     }
     if (index === currentIndex) {
-      return 'Current';
+      if (diffDates < 0) {
+        return 'Overdue';
+      } else {
+        return 'Current';
+      }
     }
     return 'NotStarted';
   };
