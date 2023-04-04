@@ -210,8 +210,9 @@ const Map = ({
         YELLOW: '#ffbf00'
     };
     const colorsCodes = {
-      RED: 'rgb(255, 0, 0)',
-      ORANGE:  'rgb(250, 100, 0)',
+      RED: 'rgb(255, 0, 0)',//rgb(228, 83, 96)
+      ORANGE:  'rgb(250, 100, 0)',//rgb(40, 35, 99)
+
       GREY: 'rgb(142, 132, 132)',
       YELLOW: '#ffbf00'
     }
@@ -263,20 +264,21 @@ const Map = ({
     }, [currentNote], 1000);
 
     const handleComments = (event: any, note? :any) => {
-      if (!note) {
-        let color = '';
-        const colorable = document.getElementById('colorable');
-        if (colorable != null) {
-            if (colorable.style.color === colorsCodes.RED) {
-                color = 'red';
-            } else if (colorable.style.color === colorsCodes.ORANGE) {
-                color = 'orange';
-            } else if (colorable.style.color === colorsCodes.GREY) {
-                color = 'grey';
-            } else {
-                color = 'yellow';
-            }
+      let color = '';
+      const colorable = document.getElementById('colorable');
+      if (colorable != null) {
+        console.log(colorable.style.color);
+        if (colorable.style.color === colorsCodes.RED) {
+            color = 'red';
+        } else if (colorable.style.color === colorsCodes.ORANGE) {
+            color = 'orange';
+        } else if (colorable.style.color === colorsCodes.GREY) {
+            color = 'grey';
+        } else {
+            color = 'yellow';
         }
+    }
+      if (!note) {
       const note = {
         color: color,
         note_text: event.target.value,
@@ -286,19 +288,6 @@ const Map = ({
         setNewNote(note);
         return;
       }else {
-        let color = '';
-        const colorable = document.getElementById('colorable');
-        if (colorable != null) {
-            if (colorable.style.color === colorsCodes.RED) {
-                color = 'red';
-            } else if (colorable.style.color === colorsCodes.ORANGE) {
-                color = 'orange';
-            } else if (colorable.style.color === colorsCodes.GREY) {
-                color = 'grey';
-            } else {
-                color = 'yellow';
-            }
-        }
         const noteEdit = {
           newnotes_id: note.newnotes_id,
           color: color,
@@ -726,8 +715,7 @@ const Map = ({
             style: dropdownItems.items[dropdownItems.default].style,
             center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
             zoom: 8,
-            attributionControl: false,
-            preserveDrawingBuffer: true
+            attributionControl: false
         });
         const imagesPaths = [
           'custom-sprite/30x30px.png',
