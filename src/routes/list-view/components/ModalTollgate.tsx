@@ -80,7 +80,7 @@ const ModalTollgate = ({
     reversed.forEach((x: any, i: number) => {
       if (i > 0) {
         if (!reverseLocked && !x.locked) {
-          x.to = reversed[i - 1].from;
+          x.to = reversed[i - 1].from.clone().subtract(1, 'd');
           let type = parseDuration(x.duration_type);
           x.from = x.to.clone().subtract(x.duration, type);
         }
@@ -91,7 +91,7 @@ const ModalTollgate = ({
     newDates.forEach((x: any, i: number) => {
       if (i > index && i > 0) {
         if (!locked && !x.locked) {
-          x.from = newDates[i - 1].to;
+          x.from = newDates[i - 1].to.clone().add(1, 'd');
           let type = parseDuration(x.duration_type);
           x.to = x.from.clone().add(x.duration, type);
         }
@@ -187,7 +187,8 @@ const ModalTollgate = ({
         duration_type: x.duration_type,
         phase_id: date?.phase_id ?? x.phase_id,
         current: date?.current ?? false,
-        locked : date?.isLocked ?? false
+        locked : date?.current && date?.from && moment(date?.from).isValid() 
+         && date?.to && moment(date?.to).isValid() ? true : (date?.isLocked ?? false)
       };
     }));    
   }, [visible]);
