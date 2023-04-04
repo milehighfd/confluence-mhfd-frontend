@@ -2225,7 +2225,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['CAPITAL']},
+      metadata: {projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2255,7 +2255,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['CAPITAL']},
+      metadata: {projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2285,7 +2285,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['MAINTENANCE']},
+      metadata: {projecttype: [7]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2315,7 +2315,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['MAINTENANCE']},
+      metadata: {projecttype: [7]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2345,7 +2345,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2370,7 +2370,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2395,7 +2395,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2420,7 +2420,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2445,7 +2445,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['CAPITAL']},
+      metadata: {projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2474,7 +2474,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['CAPITAL']},
+      metadata: {projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2503,7 +2503,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['MAINTENANCE']},
+      metadata: {projecttype: [7]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2533,7 +2533,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['MAINTENANCE']},
+      metadata: {projecttype: [7]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2563,7 +2563,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2587,7 +2587,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2611,7 +2611,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2636,7 +2636,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2662,7 +2662,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2686,7 +2686,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2710,7 +2710,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: ['CAPITAL', 'MAINTENANCE']},
+      metadata: {projecttype: [5,7]},
       "filter": [
           "all",
           [
@@ -2746,7 +2746,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: ['CAPITAL','MAINTENANCE']},
+      metadata: {projecttype: [5,7]},
       "filter": [
           "all",
           [
@@ -2782,7 +2782,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: ['STUDY']},
+      metadata: {projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2806,7 +2806,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: ['CAPITAL', 'MAINTENANCE']},
+      metadata: {projecttype: [5,7]},
       "filter": [
           "all",
           [

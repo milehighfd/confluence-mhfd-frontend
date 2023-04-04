@@ -1432,8 +1432,10 @@ const Map = ({
       const capitalProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
       const maintenanceProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
       const studyProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
+      const studyProjectsFHAD = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
       const acquisitionProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
       const developementImprProjects = galleryProjectsV2.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
+      
       const uniqueIds = galleryProjectsV2.reduce((ids:any, project:any) => {
         if (!ids.includes(project.code_project_type_id)) {
           ids.push(project.code_project_type_id);
@@ -1441,11 +1443,12 @@ const Map = ({
         return ids;
       }, []);
       const groupedProjectsByType ={
-        CAPITAL: capitalProjects,
-        MAINTENANCE: maintenanceProjects,
-        STUDY: studyProjects,
-        ACQUISITION: acquisitionProjects,
-        DEVELOPEMENT_IMPROVEMENT: developementImprProjects
+        5: capitalProjects,
+        7: maintenanceProjects,
+        1: studyProjects,
+        4: studyProjectsFHAD,
+        13: acquisitionProjects,
+        6: developementImprProjects
       };
       setGroupedProjectIdsType(groupedProjectsByType)
   
@@ -1600,7 +1603,7 @@ const Map = ({
               let projecttypes = currentLayer.metadata.projecttype;
               let combinedProjects:any=[];
               for (let type in groupedProjectIdsType){
-                if(projecttypes.includes(type)){
+                if(projecttypes.includes(+type)){
                   combinedProjects.push(...groupedProjectIdsType[type]);
                   }
               }
