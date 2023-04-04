@@ -219,7 +219,10 @@ const addLayer = () => {
       map.addVectorSource(MHFD_PROJECTS, layers.projects[MHFD_PROJECTS]);
       let idProjectLine = 0;
       for (const project of tileStyles[MHFD_PROJECTS]) {
+        let projecttypes = project.metadata.projecttype;
+      if(projecttypes.includes(+detailed.code_project_type_id)){
         map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
+        }
         // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
         // if (detailedPage?.cartodb_id) {
         //   map.setFilter(MHFD_PROJECTS + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
