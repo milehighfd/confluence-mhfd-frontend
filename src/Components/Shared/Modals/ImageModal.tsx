@@ -1,26 +1,53 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { HeartOutlined, LeftOutlined, RightOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { HeartFilled, HeartOutlined, LeftOutlined, RightOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { Carousel, MenuProps, Select } from 'antd';
 import { Button, Col, Dropdown, Input, Row } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { useDetailedState } from 'hook/detailedHook';
 import React, { useEffect, useRef, useState } from 'react';
 import MapModal from 'routes/detail-page/components/MapModal';
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from 'Config/Server.config';
+import store from "../../../store";
 
 const ImageModal = (
-  {visible, setVisible, type, active, setActive}:
+  {visible, setVisible, type, active, setActive,copyUrl}:
   {
     visible: boolean,
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
     type: any,
     active: any,
-    setActive:React.Dispatch<React.SetStateAction<number>>
+    setActive:React.Dispatch<React.SetStateAction<number>>,
+    copyUrl: any
   }) => {
   const {detailed} = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
   const [numberCarousel, setNumberCarousel] = useState(1);
   const numberElementCarousel = detailed?.attachments?.length;
+  const appUser = store.getState().profile;
+  const email = appUser.userInformation?.email
+  const [favorite,setFavorite] = useState(false);
 
+  const deleteFunction = (id: number, email: string, table: string) => {
+    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {      
+      setFavorite(false)
+    });
+
+  }
+  const addFunction = (id: number, email: string, table: string) => {
+    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {      
+      setFavorite(true)
+    });
+  }
+
+  useEffect(()=>{
+    datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
+      console.log(result.findIndex((x:any)=>x.project_id === detailed?.project_id)>0)
+      if(result.findIndex((x:any)=>x.project_id === detailed?.project_id)>0){
+        setFavorite(true)
+      }
+    });
+  },[visible])
   return (
     <Modal
       className="detailed-image"
@@ -38,9 +65,9 @@ const ImageModal = (
           </Col>
           <Col xs={{ span: 12 }} lg={{ span: 12 }} style={{textAlign: 'end', alignItems: 'center'}}>
             <div style={{color:'#11093C'}}>
-              <Button className='btn-filter-k'><HeartOutlined /> &nbsp; &nbsp;Favorite</Button>
+              <Button className='btn-filter-k' onClick={favorite?() => (deleteFunction(detailed?.project_id, email, '')):() => (addFunction(detailed?.project_id, email, ''))}>{favorite ? <HeartFilled /> : <HeartOutlined />} &nbsp; &nbsp;Favorite</Button>
                &nbsp; &nbsp;
-               <Button className='btn-filter-k'><ShareAltOutlined /> &nbsp; &nbsp;Share</Button>
+               <Button className='btn-filter-k' onClick={copyUrl}><ShareAltOutlined /> &nbsp; &nbsp;Share</Button>
                &nbsp; &nbsp;
               <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
             </div>
