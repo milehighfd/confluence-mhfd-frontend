@@ -28,12 +28,15 @@ export const getBeautifulTitle = (title: any) => {
   );
 };
 
-export const commentPopup = (handleComments: any, note?:any ) => {
+export const commentPopup = (handleComments: any, handleDeleteNote? : any, note?:any) => {
   const handleClick = (e: any) => {
     let colorCurrent = document.getElementById("colorable");
     if (colorCurrent) {
       colorCurrent.style.color = e.color;
     }
+  }
+  const handleDelete = () => {
+    handleDeleteNote(note)
   }
   const popupNode = document.createElement("div");
   ReactDOM.render(
@@ -50,7 +53,9 @@ export const commentPopup = (handleComments: any, note?:any ) => {
                 }} trigger={['click']} >
                 <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121', width: '40px'}}></i> 
               </Dropdown>
-              <Dropdown overlay={divDelete} trigger={['click']}>
+              <Dropdown overlay={()=> {
+                return divDelete(handleDelete)
+              }} trigger={['click']}>
                 <MoreOutlined className='test'/>
               </Dropdown>
             </div>

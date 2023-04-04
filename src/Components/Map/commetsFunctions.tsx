@@ -1,4 +1,6 @@
+import { useNotesState } from 'hook/notesHook';
 import React from 'react';
+
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
   listOfElements.forEach((_el:any, _index: any) => { 
     changeContentTitleClick(_el,_index, listOfElements);
@@ -447,9 +449,9 @@ export const divListOfelements = (listOfElements: any, changeValueOfElement: any
   </div>;
 }
 
-export const divDelete = () => {
+export const divDelete = (handleDelete: any) => {
   return <div className='divoptions'>
-    <li id="deleteopt0" value={0}>
+    <li id="deleteopt0 delete-comment-safe" value={0} onClick={handleDelete}>
       <span ><img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop: '-3px', marginRight: '5px'}} /> Delete</span>
     </li>
   </div>

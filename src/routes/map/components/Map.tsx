@@ -204,17 +204,18 @@ const Map = ({
     const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
     const colors = {
-        RED: '#FF0000',
-        ORANGE: '#FA6400',
-        GREY: 'rgb(142, 132, 132)',
-        YELLOW: '#ffbf00'
+      YELLOW: '#ffbf00', // rgb(255, 225, 32)
+      RED: 'rgb(255, 0, 0)',//rgb(228, 83, 96)
+      BLUE: 'rgb(40, 35, 99)',//rgb(40, 35, 99)
+      GREEN: 'rgb(142, 132, 132)',//rgb(111, 198, 153)
+      SKY:  'rgb(250, 100, 0)',
     };
     const colorsCodes = {
-      RED: 'rgb(255, 0, 0)',//rgb(228, 83, 96)
-      ORANGE:  'rgb(250, 100, 0)',//rgb(40, 35, 99)
-
-      GREY: 'rgb(142, 132, 132)',
-      YELLOW: '#ffbf00'
+      YELLOW: 'rgb(255, 225, 32)', // rgb(255, 225, 32)
+      RED: 'rgb(228, 83, 96)',//rgb(228, 83, 96)
+      BLUE: 'rgb(40, 35, 99)',//rgb(40, 35, 99)
+      GREEN: 'rgb(111, 198, 153)',//rgb(111, 198, 153)
+      SKY:  'rgb(102, 212, 255)',//rgb(102, 212, 255)      
     }
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
@@ -270,15 +271,18 @@ const Map = ({
         console.log(colorable.style.color);
         if (colorable.style.color === colorsCodes.RED) {
             color = 'red';
-        } else if (colorable.style.color === colorsCodes.ORANGE) {
-            color = 'orange';
-        } else if (colorable.style.color === colorsCodes.GREY) {
+        } else if (colorable.style.color === colorsCodes.BLUE) {
+            color = 'blue';
+        } else if (colorable.style.color === colorsCodes.GREEN) {
             color = 'grey';
-        } else {
+        } else if (colorable.style.color === colorsCodes.SKY) {
+          color = 'sky';}
+          else {
             color = 'yellow';
         }
     }
       if (!note) {
+        console.log(popup.getLngLat());
       const note = {
         color: color,
         note_text: event.target.value,
@@ -301,8 +305,10 @@ const Map = ({
         return;
       }
     }
-
-
+    const handleDeleteNote = (note: any) => {
+      let noteId = note.newnotes_id
+      deleteNote(noteId);
+    }
     useEffect(() => {
       hasBeenUpdated = updated;
     }, [updated]);
@@ -444,7 +450,7 @@ const Map = ({
               doc.className = 'marker-note';
               doc.style.backgroundColor = colorOfMarker;
               const newmarker = new mapboxgl.Marker(doc);     
-              const html = commentPopup(handleComments, note);
+              const html = commentPopup(handleComments,handleDeleteNote, note);
                   let newpopup = new mapboxgl.Popup({
                     closeButton: false,
                     offset: { 
@@ -459,7 +465,7 @@ const Map = ({
                   });
                   newmarker.setPopup(newpopup);
                   newpopup.setDOMContent(html);
-                  newmarker.setLngLat([note.longitude, note.latitude]).setPopup(newpopup);
+                  newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
                   newmarker.getElement().addEventListener('click', () => {
                     addEvents(note, [note.longitude, note.latitude]);
                   });
@@ -505,10 +511,10 @@ const Map = ({
                         if (colorable != null) {
                             if (colorable.style.color === colorsCodes.RED) {
                                 color = 'red';
-                            } else if (colorable.style.color === colorsCodes.ORANGE) {
-                                color = 'orange';
-                            } else if (colorable.style.color === colorsCodes.GREY) {
-                                color = 'grey';
+                            } else if (colorable.style.color === colorsCodes.BLUE) {
+                                color = 'blue';
+                            } else if (colorable.style.color === colorsCodes.GREEN) {
+                                color = 'green';
                             } else {
                                 color = 'yellow';
                             }
@@ -537,10 +543,10 @@ const Map = ({
                     if (colorable != null) {
                         if (colorable.style.color === colorsCodes.RED) {
                             color = 'red';
-                        } else if (colorable.style.color === colorsCodes.ORANGE) {
-                            color = 'orange';
-                        } else if (colorable.style.color === colorsCodes.GREY) {
-                            color = 'grey';
+                        } else if (colorable.style.color === colorsCodes.BLUE) {
+                            color = 'blue';
+                        } else if (colorable.style.color === colorsCodes.GREEN) {
+                            color = 'green';
                         } else {
                             color = 'yellow';
                         }
@@ -2052,7 +2058,7 @@ const Map = ({
                 });
               }
               if (commentAvailable && canAdd.value) {
-                const html = commentPopup(handleComments);
+                const html = commentPopup(handleComments,handleDeleteNote);
                 popup.remove();
                 popup = new mapboxgl.Popup({
                   closeButton: false, 
