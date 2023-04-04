@@ -6,14 +6,12 @@ import TextArea from 'antd/lib/input/TextArea';
 import { ComponentPopup, MainPopup, MeasurePopup, StreamPopupFull, MainPopupCreateMap, ComponentPopupCreate } from '../../../Components/Map/MapPopups';
 import { MENU_OPTIONS, ADMIN, ICON_POPUPS, NEW_PROJECT_TYPES, STAFF, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, MAPTYPES } from '../../../constants/constants';
 import { divListOfColors, divDelete} from 'Components/Map/commetsFunctions';
-
 const notComponentOptions: any[] = [MENU_OPTIONS.NCRS_SOILS, MENU_OPTIONS.DWR_DAM_SAFETY, MENU_OPTIONS.STREAM_MANAGEMENT_CORRIDORS,
 MENU_OPTIONS.BCZ_PREBLES_MEADOW_JUMPING_MOUSE, MENU_OPTIONS.BCZ_UTE_LADIES_TRESSES_ORCHID, MENU_OPTIONS.RESEARCH_MONITORING, MENU_OPTIONS.CLIMB_TO_SAFETY, MENU_OPTIONS.SEMSWA_SERVICE_AREA,
 MENU_OPTIONS.DEBRIS_MANAGEMENT_LINEAR, MENU_OPTIONS.DEBRIS_MANAGEMENT_AREA, MENU_OPTIONS.VEGETATION_MANAGEMENT_WEED_CONTROL,
 MENU_OPTIONS.VEGETATION_MANAGEMENT_NATURAL_AREA, MENU_OPTIONS.WATERSHED, MENU_OPTIONS.SERVICE_AREA, MENU_OPTIONS.MEP_STORM_OUTFALL,
 MENU_OPTIONS.MEP_CHANNEL, MENU_OPTIONS.MEP_DETENTION_BASIN, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.MEP_TEMPORARY_LOCATION, MENU_OPTIONS.CLIMB_TO_SAFETY_SIGNS, MENU_OPTIONS.MEASURES
 ];
-
 export const getBeautifulTitle = (title: any) => {
   return (
     <div>
@@ -31,6 +29,12 @@ export const getBeautifulTitle = (title: any) => {
 };
 
 export const commentPopup = (handleComments: any, note?:any ) => {
+  const handleClick = (e: any) => {
+    let colorCurrent = document.getElementById("colorable");
+    if (colorCurrent) {
+      colorCurrent.style.color = e.color;
+    }
+  }
   const popupNode = document.createElement("div");
   ReactDOM.render(
     <div className="popup-comment">
@@ -41,7 +45,9 @@ export const commentPopup = (handleComments: any, note?:any ) => {
           <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
           <div className='dr'>
             <div className="legend-selected">
-              <Dropdown overlay={divListOfColors} trigger={['click']} >
+              <Dropdown overlay={()=> {
+                return divListOfColors(handleClick)
+                }} trigger={['click']} >
                 <i id="colorable" className="mdi mdi-circle-medium" style={{color: note?.color ? note.color.color:'#ffe121', width: '40px'}}></i> 
               </Dropdown>
               <Dropdown overlay={divDelete} trigger={['click']}>

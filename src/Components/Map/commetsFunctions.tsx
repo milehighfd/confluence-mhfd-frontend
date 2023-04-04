@@ -454,7 +454,7 @@ export const divDelete = () => {
     </li>
   </div>
 }
-export const divListOfColors = () => {
+export const divListOfColors = (handleClick: any) => {
   // const circlex = document.getElementById(`circle${index}`);
   // const divcolorsx = document.createElement('div');
   //       divcolorsx.style.display = 'none';
@@ -491,9 +491,10 @@ export const divListOfColors = () => {
   //   innerColors += `
   // });
   // divcolorsx.innerHTML = innerColors;
+
   return <div className='divcolors'>
     {
-      listCircles.map((color) => <li value={color.color}>
+      listCircles.map((color) => <li value={color.color} onClick={() => handleClick(color)}>
         <img id={`circle${color.label}`} className='img-circle' style={{background:color.color}} />
       </li>)
     }
