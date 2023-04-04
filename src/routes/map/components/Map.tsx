@@ -308,6 +308,8 @@ const Map = ({
     const handleDeleteNote = (note: any) => {
       let noteId = note.newnotes_id
       deleteNote(noteId);
+      markerNote.remove();
+      popup.remove();
     }
     useEffect(() => {
       hasBeenUpdated = updated;
