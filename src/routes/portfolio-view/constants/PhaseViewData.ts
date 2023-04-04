@@ -291,7 +291,7 @@ export const colorScale: any = {
   Done: '#5E5FE2',
   Current: '#047CD7',
   NotStarted:'#D4D2D9',
-  Overdue:'#D4D2D9',
+  Overdue:'#F5575C',
   Completed: '#047CD7',
   Active: '#5E5FE2',
   notStarted: '#D4D2D9',

@@ -140,14 +140,14 @@ const PhaseView = (
 
     let ActivetoNotStarted = svgDefinitions.append("linearGradient");
     ActivetoNotStarted
-      .attr("id", "Completed_Inactive")
+      .attr("id", "Overdue_NotStarted")
       .attr("x1", "0%")
       .attr("x2", "100%")
       .attr("y1", "0")
       .attr("y2", "0");
     ActivetoNotStarted.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", '#047CD7')
+      .attr("stop-color", '#F5575C')
     ActivetoNotStarted.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", '#D4D2D9')
@@ -423,15 +423,25 @@ const PhaseView = (
                   // return colorstroke;
                 })
                 .attr("stroke", function (d: any) {
-
+                  const endDate = (d?.project_status?.find((x:any)=>x.code_phase_type_id === d.phaseId)?.actual_end_date)
+                  let today = moment()                
                   let indexStatus;
                   scheduleList.forEach((element:any, index:number) => {
                     if(d.phaseId === element.code_phase_type_id){
                       indexStatus = index;
                     }
                   });
-                  if(indexStatus === r){             
-                    return `url(#Current_NotStarted)`;
+                  if(indexStatus === r){     
+                    if (endDate){
+                      const diffDates = ((moment(endDate).diff(today, 'M', true)))
+                      if(diffDates>0){
+                        return `url(#Current_NotStarted)`;      
+                      }else{
+                        return `url(#Overdue_NotStarted)`;
+                      }
+                    }else{
+                      return `url(#Current_NotStarted)`;      
+                    }       
                   } 
                   if( indexStatus && r < indexStatus-1){
                     return colorScale['Done'];
@@ -492,13 +502,24 @@ const PhaseView = (
           .attr("r", radius)
           .style("fill", function (d: any) {  
             let indexStatus;
+            const endDate = (d?.project_status?.find((x:any)=>x.code_phase_type_id === d.phaseId)?.actual_end_date)
+            let today = moment()                           
             scheduleList.forEach((element:any, index:number) => {
               if(d.phaseId === element.code_phase_type_id){
                 indexStatus = index;
               }
             });
-            if(indexStatus === r){             
-              return colorScale['Current'];
+            if(indexStatus === r){    
+              if (endDate){
+                const diffDates = ((moment(endDate).diff(today, 'M', true)))
+                if(diffDates>0){
+                  return colorScale['Current'];      
+                }else{
+                  return colorScale['Overdue'];
+                }
+              }else{
+                return colorScale['Current'];      
+              }                
             } 
             if( indexStatus && r < indexStatus){
               return colorScale['Done'];
@@ -547,19 +568,30 @@ const PhaseView = (
           .attr("r", radius - 3)
           .style("fill", function (d: any) {
             let indexStatus;
+            const endDate = (d?.project_status?.find((x:any)=>x.code_phase_type_id === d.phaseId)?.actual_end_date)
+            let today = moment()                           
             scheduleList.forEach((element:any, index:number) => {
               if(d.phaseId === element.code_phase_type_id){
                 indexStatus = index;
               }
             });
-            if(indexStatus === r){             
-              return colorScale['Current'];
+            if(indexStatus === r){    
+              if (endDate){
+                const diffDates = ((moment(endDate).diff(today, 'M', true)))
+                if(diffDates>0){
+                  return colorScale['Current'];      
+                }else{
+                  return colorScale['Overdue'];
+                }
+              }else{
+                return colorScale['Current'];      
+              }                
             } 
             if( indexStatus && r < indexStatus){
               return colorScale['Done'];
             }else{
               return colorScale['NotStarted'];
-            }      
+            }    
 
             // if(d.phaseId === scheduleList[r].code_phase_type_id){             
             //   return colorScale['Current'];

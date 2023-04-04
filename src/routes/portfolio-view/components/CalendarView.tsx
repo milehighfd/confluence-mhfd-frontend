@@ -98,6 +98,7 @@ const CalendarView = ({
     Active: '#047CD7',
     NotStarted: '#D4D2D9',
     Current: '#047CD7',
+    Overdue:'#F5575C',
   };
  
    let rawData2 = rawData?.map((x: any) => {   
@@ -675,11 +676,21 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .attr('fill', function(d: any) {  
           let currentIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.project_data?.phaseId))
           let phaseIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.phaseId))          
-          let color = '';         
+          let color = '';     
+          let today = moment()     
           if(currentIndex> phaseIndex){
             color = 'Done'
           }else if (currentIndex === phaseIndex){
-            color = 'Current'
+            if (d?.to){
+              const diffDates = (((d?.to).diff(today, 'M', true)))
+              if(diffDates<0){
+                color = 'Overdue'
+              }else{
+                color = 'Current'
+              }
+            }else{
+              color = 'Current'
+            }            
           }else{
             color = 'NotStarted'
             done = false
@@ -737,11 +748,21 @@ let toData = datas?.map((ds: any) => ds.schedule)
         .attr('fill', function(d: any) {
           let currentIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.project_data?.phaseId))
           let phaseIndex = (scheduleList?.findIndex((x:any)=>x?.phase_id === d?.phaseId))          
-          let color = '';         
+          let color = '';     
+          let today = moment()     
           if(currentIndex> phaseIndex){
             color = 'Done'
           }else if (currentIndex === phaseIndex){
-            color = 'Current'
+            if (d?.to){
+              const diffDates = (((d?.to).diff(today, 'M', true)))           
+              if(diffDates<0){
+                color = 'Overdue'
+              }else{
+                color = 'Current'
+              }
+            }else{
+              color = 'Current'
+            }            
           }else{
             color = 'NotStarted'
             done = false
@@ -1726,7 +1747,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         {openPiney ? <><Button style={{border: '1px solid transparent', background: 'none',color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop:'0px', paddingBottom:'0px'}} onClick={() => {setOpenModalTollgate(true)}}>
             <CalendarOutlined /> Edit Dates
           </Button>
-          <span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
+          <span style={{marginRight:'10px', color:'#DBDBE1'}}></span>
           </>:''}  
           
           {/* <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
