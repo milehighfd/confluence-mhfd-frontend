@@ -56,6 +56,8 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id;
   const problem_idS = query.get('problem_id') || data?.problemid;
+  const ciprRef = useRef(null);
+  const cipjRef = useRef(null);
   const typeS = query.get('type') || type;   
   const [isLoading, setIsLoading] = useState(true);
   const [tabKey, setTabKey] = useState<any>('Project Basics');
@@ -350,21 +352,31 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     message.success('Copied to Clipboard!');
   }
 
-  const downloadPdf = () => {
+  const downloadPdf = async () => {
     if (isLoading) {
       return;
     }
     setIsLoading(true);
     let url: string;
     let fileName: string;
+    let map:any;
    if (typeS === FILTER_PROBLEMS_TRIGGER) {
       url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${problem_idS}/pdf`;
       fileName = 'problem.pdf';
+      let c: any = ciprRef.current;
+      if (c) {
+        map = await c.getCanvasBase64()
+      }
     } else {
       url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${data.project_id}`;
       fileName = 'project.pdf';
+      let c: any = cipjRef.current;
+      if (c) {
+        map = await c.getCanvasBase64();
+      }
     } 
-    let body: any = mapImage ? { mapImage } : {};
+    // let body: any = mapImage ? { mapImage } : {};
+    let body = { mapImage: map };
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch(url, {
@@ -647,7 +659,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <DetailInformationProblem />
                   <ProblemParts problemParts={problemPart}/>
                   <ComponentSolucionsByProblems />
-                  <Map type={typeS}/>
+                  <Map type={typeS} ref={ciprRef}/>
                   <br></br>
                   <br></br>
                 </>:
@@ -661,7 +673,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
                   <Financials />
                   <br></br>
                   <Management />
-                  <Map type={typeS}/>
+                  <Map type={typeS} ref={cipjRef} />
                   <br></br>
                   <GalleryDetail/>
                   <br></br>

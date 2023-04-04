@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import * as turf from '@turf/turf';
@@ -28,7 +28,8 @@ var map: any;
 let coordX = -1;
 let coordY = -1;
 let popup = new mapboxgl.Popup({closeButton: true,});
-const Map = ({type}: {type: any}) => {
+export default forwardRef((
+  {type}: {type: any}, ref) => {
   const {
     detailed,
   } = useDetailedState();
@@ -70,7 +71,33 @@ const Map = ({type}: {type: any}) => {
     const zoom = map.getZoom().toFixed(2);
     setZoomValue(zoom);
 }
-
+const getCanvasBase64 = () => {
+  return new Promise((resolve, reject) => {
+    const w8 = () => {
+      setTimeout(() => {
+        html = document.getElementById('map2');
+        if (!html) {
+          setTimeout(w8, 50);
+        } else {
+          if (!map) {
+            setTimeout(w8, 50);
+          } else {
+            map.isStyleLoaded(() => {
+              resolve(map.getCanvas().toDataURL());
+            });
+          }
+        }
+      }, 10000);
+    }
+    w8();
+  });
+}
+useImperativeHandle(
+  ref,
+  () => ({
+    getCanvasBase64
+  })
+)
 const loadData = async (trigger: any, name?: string) => {
   return new Promise(resolve => {
     const requestData = { table: trigger };
@@ -611,6 +638,6 @@ useEffect(() => {
       </Row>
     </>
   )
-}
+})
 
-export default Map;
+// export default Map;
