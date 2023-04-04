@@ -271,8 +271,8 @@ const PortafolioBody = () => {
               }
             ],
           });
-          // console.log("VALUES")
-          // console.log(valuesList)
+          //console.log("VALUES")
+          //console.log(valuesList)
             valuesList[element.id].forEach((elem: any, idx: number) => {
               // if(idx > 20) return;      
               
@@ -402,7 +402,7 @@ const PortafolioBody = () => {
                 project_sponsor: getSponsors(elem.project_partners),
                 project_type:elem?.code_project_type?.project_type_name,
                 status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
-                project_status: elem?.project_statuses?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4),
+                project_status: elem?.project_statuses?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
                 service_area: getServiceAreas(elem?.project_service_areas || []),
                 county: getCounties(elem?.project_counties || []),
                 estimated_cost: getTotalEstimatedCost(elem?.project_costs),
