@@ -313,13 +313,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     let img = new Image();
     let mapCanvas: any;
     mapCanvas = document.querySelector('.mapboxgl-canvas');
-    const urlOfMap = img.src = mapCanvas.toDataURL();
-    const imageOfMap = window.document.body.appendChild(img);
-    setMapImage(urlOfMap);
-    if(detailed?.problemname || detailed?.project_name){
-      setIsLoading(false)
-    }else{
-      setIsLoading(true)
+    if (mapCanvas instanceof HTMLCanvasElement) {
+      const urlOfMap = img.src = mapCanvas.toDataURL();
+      setMapImage(urlOfMap);
+      if (detailed?.problemname || detailed?.project_name) {
+        setIsLoading(false);
+      }else{
+        setIsLoading(true);
+      }
     }
   }, [detailed])
 
