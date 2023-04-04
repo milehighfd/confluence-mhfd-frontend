@@ -391,7 +391,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   return (
     <>
     {isLoading && <LoadingViewOverall />}
-    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive}/>
+    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl}/>
     <Modal
       className="detailed-modal modal-detailed-modal"
       style={{ top: 30 }}
