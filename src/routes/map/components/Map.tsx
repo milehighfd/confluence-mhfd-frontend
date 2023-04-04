@@ -688,12 +688,21 @@ const Map = ({
     //       applyFilters(MHFD_PROJECTS, filterProjects);
     //     }
     // }, [filterProjects, componentDetailIds]);
+    // useEffect(() => {
+    //   getIdByProjectType()
+    // }, [galleryProjectsV2,filterProjectOptions,projectsids]);
     useEffect(() => {
       // if(projectsids.length) {
         applyFilters(MHFD_PROJECTS, filterProjectOptions);
       // }
-    }, [projectsids]);
+    }, [projectsids,zoomEndCounter, dragEndCounter]);
+    // }, [projectsids]);
 
+    useEffect(() => {
+      // if(projectsids.length) {
+        applyFilters(MHFD_PROJECTS, filterProjectOptions);
+      // }
+    }, [groupedProjectIdsType]);
     useEffect(() => {
         if (map) {
             for (const component of COMPONENT_LAYERS.tiles) {
@@ -948,7 +957,6 @@ const Map = ({
                 hideLayerAfterRender(layerExcluded);
               }
             });
-            console.log('ordeeeeeeer',map.getStyle().layers);
         }
     };
     waiting();
@@ -1449,8 +1457,6 @@ const Map = ({
     }, [galleryProjectsV2]);
 
     const applyFilters = useCallback((key: string, toFilter: any) => {
-      // console.log('toFilter',toFilter)
-      // console.log('filterpro', filterProjectOptions);
         const styles = { ...tileStyles as any };
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map?.getLayer(key + '_' + index)) {
@@ -1592,14 +1598,11 @@ const Map = ({
               // allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
               const currentLayer = map.getLayer(key + '_' + index)
               let projecttypes = currentLayer.metadata.projecttype;
-              console.log('projecttypes', projecttypes)
               let combinedProjects:any=[];
               for (let type in groupedProjectIdsType){
                 if(projecttypes.includes(type)){
                   combinedProjects.push(...groupedProjectIdsType[type]);
-                    // console.log('combinedProjects', combinedProjects)
                   }
-                // console.log('here',type, groupedProjectIdsType[type]);
               }
               if(combinedProjects.length === 0){
                 allFilters.push(['in', ['get','projectid'], ['literal', [-1]]]);
@@ -1619,12 +1622,11 @@ const Map = ({
             }
             if (map.getLayer(key + '_' + index)) {
               if(key === MHFD_PROJECTS){
-                console.log('layeeeer',key + '_' + index, allFilters)
               }
                 map.setFilter(key + '_' + index, allFilters);
             }
         });
-    }, [problemClusterGeojson, projectsids,filterProjectOptions]);
+    }, [problemClusterGeojson, projectsids,filterProjectOptions, groupedProjectIdsType]);
 
     const hideLayerAfterRender = async (key: string,) => {
       const styles = { ...(tileStyles as any) };
@@ -1640,7 +1642,6 @@ const Map = ({
     const showHighlighted = (key: string, projectid: string) => {
         const styles = { ...tileStyles as any }
         if(key.includes('mhfd_projects')){
-          // console.log('hereee', projectid,styles[key])
           if (styles[key]) {
             styles[key].forEach((style: LayerStylesType, index: number) => {
                 if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
@@ -2454,7 +2455,6 @@ const Map = ({
               if(isList != null) {
                 isList.style.display = 'block';
                 clickoutsideList(listOfElements, rotateIcon);
-                console.log('Change Content title data', changeContentTitleData, hasBeenUpdated);
                 if(changeContentTitleData && hasBeenUpdated) {
                   setTimeout(()=>{
                     changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
