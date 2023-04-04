@@ -70,7 +70,7 @@ const CalendarView = ({
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
-  const [zoomSelected, setZoomSelected] = useState('Monthly');
+  const [zoomSelected, setZoomSelected] = useState('Today');
   const [openModalTable, setOpenModalTable] = useState(false);
   const [zoomTimeline, setZoomTimeline] = useState(0);
   const [statusCounter,setStatusCounter] = useState(0);
@@ -1714,7 +1714,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           <span style={{marginRight:'0px', color:'#11093c', opacity:0.6}}> |</span>
           <Button
             className={zoomSelected=== 'Monthly' ? "btn-view btn-view-active": "btn-view"}
-            
+                                    
             onClick={() => {setIsZoomMonthly(true); setZoomSelected('Monthly')}}
           >
             Monthly
