@@ -77,6 +77,7 @@ const CalendarView = ({
   const [popUpData, setPopUpData] = useState<any>({});
   const [updateAction,setUpdateAction] = useState(false);
   const [actionsDone,setActionsDone] = useState<any>({})
+  const [editData,setEditData] = useState<any>({});
   let pageWidth  = document.documentElement.scrollWidth;
   let hasDateData = true;
   const [actionItemsState, setActionItemsState] = useState({
@@ -597,7 +598,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
             const sendTollgate = { d, scheduleList }
-            setTollData(sendTollgate);    
+            setTollData(sendTollgate);   
             setOpenModalTollgate(true);
           })
           hasDateData = true;
@@ -1248,7 +1249,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
         let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
         d3.select(`#${searchTextId}`).style('background-color','white');
       })
-      scheduleRectsCenter.on('click', function(d:any) {       
+      scheduleRectsCenter.on('click', function(d:any) {         
         let dataProject = (rawData2.find((x:any)=> x.project_id === d.project_data.project_id))      
         setPopUpData({
           project_name: d.project_data.rowLabel,
@@ -1263,6 +1264,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
           data: dataProject,
           scheduleList: scheduleList
         })
+        const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
+        setEditData(sendTollgate1)      
         setOpenPiney(true);
         d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
         d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
@@ -1744,7 +1747,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
       </Col>
       <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth>1900 ?(pageWidth>2550 ?((pageWidth>3800 ?{textAlign:'end', paddingRight:'638px'}:{textAlign:'end', paddingRight:'465px'})):{textAlign:'end', paddingRight:'396px'}): {textAlign:'end', paddingRight: '305px'}): {textAlign:'end', paddingRight:'15px'}} className='header-zoom'>
         <div>
-        {openPiney ? <><Button style={{border: '1px solid transparent', background: 'none',color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop:'0px', paddingBottom:'0px'}} onClick={() => {setOpenModalTollgate(true)}}>
+              {openPiney ? <><Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setTollData(editData); setOpenModalTollgate(true); }}>
             <CalendarOutlined /> Edit Dates
           </Button>
           <span style={{marginRight:'10px', color:'#DBDBE1'}}></span>
