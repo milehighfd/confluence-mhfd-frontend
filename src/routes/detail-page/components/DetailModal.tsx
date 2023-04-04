@@ -72,7 +72,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   const [popUpData, setPopUpData] = useState<any>({});
   const [updateAction,setUpdateAction] = useState(false);
   const appUser = store.getState().profile;
-  const [mapImage, setMapImage] = useState<any>();
+  const [mapImage, setMapImage] = useState<any>(undefined);
 
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
@@ -321,6 +321,12 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       }else{
         setIsLoading(true);
       }
+    } else {
+      if (detailed?.problemname || detailed?.project_name) {
+        setIsLoading(false);
+      }else{
+        setIsLoading(true);
+      }
     }
   }, [detailed])
 
@@ -358,7 +364,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
       url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${data.project_id}`;
       fileName = 'project.pdf';
     } 
-    let body: any = { mapImage };
+    let body: any = mapImage ? { mapImage } : {};
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch(url, {
