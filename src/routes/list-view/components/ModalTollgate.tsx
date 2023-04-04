@@ -5,7 +5,9 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
+import DetailModal from 'routes/detail-page/components/DetailModal';
 
 const { RangePicker }:any = DatePicker;
 
@@ -30,6 +32,7 @@ const ModalTollgate = ({
   const [phasesData,setPhasesData] =useState([]);
   const [phaseIsSet, setPhaseIsSet] = useState(false);
   const [invalidDateIndex, setInvalidDateIndex] = useState(-1);
+  const [detailOpen, setDetailOpen] = useState(false);
   const [valueInput, setValueInput] = useState({
     oneL: '0',
     oneR:'0',
@@ -176,7 +179,6 @@ const ModalTollgate = ({
     return 'NotStarted';
   };
   useEffect(() => {
-    console.log(dataProject)
     setDates(dataProject?.scheduleList?.map((x:any)=>{
       const date = dataProject?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);
       return {
@@ -407,9 +409,14 @@ let items = [
     newDates[index].locked = !newDates[index].locked;
     setDates(newDates);
   }
-
   return (
     <>
+      {detailOpen && <DetailModal
+        visible={detailOpen}
+        setVisible={setDetailOpen}
+        data={dataProject?.d}
+        type={FILTER_PROJECTS_TRIGGER}
+      />}
       {
         viewOverlappingAlert && (
           <OverlappingDatesAlert
@@ -451,7 +458,7 @@ let items = [
               </div>
             </Col>
             <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
-              <Button className="btn-transparent"  style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>
+              <Button className="btn-transparent" onClick={() => setDetailOpen(true)} style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>
               <Button className="btn-transparent" onClick={() => setVisible(false)} style={{padding: '0px 8px'}}><img src="/Icons/ic_close.svg" alt="" height="15px" /></Button>
             </Col>
           </Row>
