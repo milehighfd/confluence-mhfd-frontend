@@ -135,6 +135,7 @@ const WorkRequestMap = (type: any) => {
     componentDetailIds,
     filterComponents,
     galleryProjects,
+    projectsids
   } = useMapState();
   const { detailed } = useDetailedState();
   const { clear } = useAttachmentDispatch();
@@ -145,6 +146,8 @@ const WorkRequestMap = (type: any) => {
     getMapWithSublayers,
     getMapLayers,
     getComponentsByProjid,
+    getProjectsFilteredIds,
+    setFilterProjectOptions
   } = useMapDispatch();
   const {
     changeAddLocationState,
@@ -213,6 +216,7 @@ const WorkRequestMap = (type: any) => {
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [displayPrevNext, setDisplayPrevNext] = useState(false);
+  const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -878,7 +882,38 @@ const applyProblemClusterLayer = () => {
 //   }
 //   showFsLayer();
 //   }, [selectedLayersWR]);
+const getIdByProjectType = (() => {
+
+  const capitalProjects = projectsids.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
+  const maintenanceProjects = projectsids.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
+  const studyProjects = projectsids.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
+  const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
+  const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
+  const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
   
+  const uniqueIds = projectsids.reduce((ids:any, project:any) => {
+    if (!ids.includes(project.code_project_type_id)) {
+      ids.push(project.code_project_type_id);
+    }
+    return ids;
+  }, []);
+  const groupedProjectsByType ={
+    5: capitalProjects,
+    7: maintenanceProjects,
+    1: studyProjects,
+    4: studyProjectsFHAD,
+    13: acquisitionProjects,
+    6: developementImprProjects
+  };
+  setGroupedProjectIdsType(groupedProjectsByType)
+
+
+})
+
+useEffect(() => {
+  getIdByProjectType()
+}, [projectsids]);
+
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
@@ -927,6 +962,8 @@ const applyProblemClusterLayer = () => {
     } else {
       filterProjectsNew.projecttype = '';
     }
+    setFilterProjectOptions(filterProjectsNew)
+    getProjectsFilteredIds();
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
 
     filterProjectsDraft.projecttype = '';
@@ -952,7 +989,7 @@ const applyProblemClusterLayer = () => {
       });
     }, 500);
     applyMeasuresLayer();
-  }, [selectedLayersWR]);
+  }, [selectedLayersWR, projectsids]);
   
   const applyMeasuresLayer = () => {
     if (!map.map.getSource('geojsonMeasure')) {
@@ -1147,6 +1184,7 @@ const applyProblemClusterLayer = () => {
             return;
         }
         const allFilters: any[] = ['all'];
+        if (key !== MHFD_PROJECTS) {
         for (const filterField in toFilter) {
             let filters = toFilter[filterField];
             if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
@@ -1276,6 +1314,21 @@ const applyProblemClusterLayer = () => {
         if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
           allFilters.push(style.filter);
         }
+      }else{
+          const currentLayer = map.getLayer(key + '_' + index)
+              let projecttypes = currentLayer.metadata.projecttype;
+              let combinedProjects:any=[];
+              for (let type in groupedProjectIdsType){
+                if(projecttypes.includes(+type)){
+                  combinedProjects.push(...groupedProjectIdsType[type]);
+                  }
+              }
+              if(combinedProjects.length === 0){
+                allFilters.push(['in', ['get','projectid'], ['literal', [-1]]]);
+              }else{
+                allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
+              }
+      }
         if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
             allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
         }
@@ -1286,7 +1339,7 @@ const applyProblemClusterLayer = () => {
             map.setFilter(key + '_' + index, allFilters);
         }
     });
-}, [problemClusterGeojson]);
+}, [problemClusterGeojson, groupedProjectIdsType]);
   const applyFiltersIDs = (key: string, toFilter: any) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
