@@ -3170,296 +3170,617 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
 ],
   [MHFD_PROJECTS]: [
     {
-      type: 'symbol',
+      type: "line",
       'source-layer': 'pluto15v1',
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-      "layout": {
-        "text-field": [
-            "match",
-            ["get", "status"],
-            ["Requested"],
-            [
-                "concat",
-                ["to-string", ["get", "projectname"]],
-                "      Requested"
-            ],
-            ""
-        ],
-        "text-rotation-alignment": "map",
-        "text-offset": [3, 3],
-        "text-font": [
-            "Open Sans SemiBold Italic",
-            "Arial Unicode MS Regular"
-        ],
-        "symbol-placement": "line"
-      },
-      "paint": {
-          "text-color": "hsl(52, 0%, 100%)",
-          "text-halo-color": "hsl(52, 100%, 31%)",
-          "text-halo-width": 5
-      }
-    }, {
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-      "layout": {
-        "text-field": [
-            "match",
-            ["get", "status"],
-            ["Preliminary Design"],
-            [
-                "concat",
-                ["to-string", ["get", "projectname"]],
-                "       Preliminary Design"
-            ],
-            ""
-        ],
-        "text-rotation-alignment": "map",
-        "text-offset": [3, 3],
-        "text-font": [
-            "Open Sans SemiBold Italic",
-            "Arial Unicode MS Regular"
-        ],
-        "symbol-placement": "line"
-      },
-      "paint": {
-          "text-color": "hsl(52, 0%, 100%)",
-          "text-halo-color": "hsl(52, 100%, 31%)",
-          "text-halo-width": 5
-      }
-    },
-     {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-      "layout": {
-        "line-miter-limit": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            9,
-            0,
-            22,
-            2
-        ]
-      },
-      "paint": {
-          "line-color": "hsl(52, 100%, 50%)",
-          "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              8,
-              4,
-              22,
-              6
-          ],
-          "line-gap-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              9,
-              1,
-              22,
-              6
-          ],
-          "line-opacity": [
-              "interpolate",
-              ["exponential", 1],
-              ["zoom"],
-              0,
-              0,
-              12,
-              0,
-              13,
-              0.62,
-              14.22,
-              1,
-              22,
-              1
-          ]
-      }
-    }, {
-      "type": "line",
-      "source-layer": "pluto15v1",
-      "layout": {"line-cap": "round", "line-join": "round"},
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-      "paint": {
-          "line-color": "hsl(60, 100%, 50%)",
-          "line-width": 10,
-          "line-blur": ["interpolate", ["linear"], ["zoom"], 0, 4, 22, 4],
-          "line-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              1,
-              12,
-              1,
-              14,
-              0
-          ]
-      }
-    }, {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      "layout": {"line-join": "round"},
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-      "paint": {
-          "line-color": "hsl(65, 100%, 50%)",
-          "line-blur": 1,
-          "line-gap-width": 6,
-          "line-opacity": [
-              "interpolate",
-              ["exponential", 1],
-              ["zoom"],
-              0,
-              0,
-              11,
-              0,
-              13,
-              0.22,
-              14.22,
-              1,
-              22,
-              1
-          ],
-          "line-width": 0.5
-      }
-  }, {
-      type: 'line',
-      'source-layer': 'pluto15v1',
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"]],
-      "paint": {
-        "line-color": "hsl(69, 100%, 50%)",
-        "line-blur": 1,
-        "line-gap-width": 6,
-        "line-opacity": [
-            "interpolate",
-            ["exponential", 1],
-            ["zoom"],
-            0,
-            0,
-            11,
-            0,
-            13,
-            0.22,
-            14.22,
-            1,
-            22,
-            1
-        ],
-        "line-width": 0.5
-      }
-    },
-    {
-      type: 'symbol',
-      'source-layer': 'pluto15v1',
-      "filter": ["any",["==",['get','projecttype'], "Maintenance"],["==",['get','projecttype'], "Capital"],["==",['get','projecttype'], "Study"]],
-      "layout": {
-        "text-field": ["to-string", ["get", "projectname"]],
-        "text-justify": "auto",
-        "text-anchor": "top-left",
-        "text-radial-offset": 1,
-        "text-font": ["Open Sans Bold", "Arial Unicode MS Regular"]
-      },
-      "paint": {
-          "text-color": 
-              // "interpolate",
-              // ["exponential", 1],
-              // ["zoom"],
-              // 0,
-              // "hsla(0, 0%, 100%, 0)",
-              // 12.66,
-              // "hsla(0, 0%, 100%, 0)",
-              // 13,
-              "hsla(0, 0%, 100%, 1)"
-              // 22,
-              // "hsl(0, 0%, 100%)"
-          ,
-          "text-halo-color": 
-              // "step",
-              // ["zoom"],
-              // "hsla(0, 0%, 0%, 0)",
-              // 13,
-              // "hsla(0, 0%, 0%, 0.25)",
-              // 15,
-              // "hsl(0, 0%, 0%)",
-              // 22,
-              "hsla(0, 0%, 0%, 0.61)"
-          ,
-          "text-halo-width": 0.25,
-          "text-halo-blur": 35,
-          "text-opacity": 1 // ["step", ["zoom"], 0, 14, 1, 22, 1]
-      }
-    }, {
-      'source-layer': 'pluto15v1',
-      "filter": ["all",["==", ["get","projecttype"], "Study"],["==", ["get","projectsubtype"], "Master Plan"]],
-      "type": "line",
-      "layout": {"line-join": "round"},
-      "paint": {
-          "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12,
-              1,
-              22,
-              3
-          ],
-          "line-color": [
+      "minzoom": 14.01,
+      metadata: {projecttype: [5]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Capital"], true, false],
+          [
               "match",
-              ["get", "projectsubtype"],
-              ["Master Plan"],
-              "hsl(41, 86%, 59%)",
-              "hsla(0, 0%, 0%, 0)"
-          ],
-          "line-gap-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              11,
-              9,
-              22,
-              66
-          ],
-          "line-dasharray": [5, 3]
-      }
-    }, 
-    {
-      'source-layer': 'pluto15v1',
-      "filter": ["all",["==", ["get","projecttype"], "Study"],["==", ["get","projectsubtype"], "FHAD"]],
-      "type": "line",
-      "layout": {"line-join": "round"},
-      "paint": {
-          "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              10,
-              1,
-              22,
-              3
-          ],
-          "line-color": [
-              "match",
-              ["get", "projectsubtype"],
-              ["FHAD"],
-              "hsl(160, 73%, 67%)",
-              "hsla(0, 0%, 0%, 0)"
-          ],
-          "line-dasharray": [5, 3],
-          "line-gap-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              11,
-              11,
-              22,
-              88
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
           ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -8,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
       }
-    },
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [5]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Capital"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": 8,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [7]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -4,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [7]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": 4,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [1]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["Master Plan"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -16,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [1]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["Master Plan"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": 16,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["FHAD"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": -12,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["FHAD"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-offset": 12,
+          "line-blur": 5,
+          "line-width": 8,
+          "line-opacity": 0.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [5]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Capital"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ffe83d",
+          "line-offset": -10,
+          "line-width": 2.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [5]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Capital"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ffe83d",
+          "line-width": 2.5,
+          "line-offset": 10
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [7]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ffe83d",
+          "line-offset": -6,
+          "line-width": 2.5,
+          "line-dasharray": [1, 1.5]
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [7]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Maintenance"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ffe83d",
+          "line-offset": 6,
+          "line-width": 2.5,
+          "line-dasharray": [1, 1.5]
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [1]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["Master Plan"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": -18
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [1]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["Master Plan"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": 18
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["FHAD"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": -14,
+          "line-dasharray": [2.5, 1.5]
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 14.01,
+      metadata: {projecttype: [4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          ["match", ["get", "projectsubtype"], ["FHAD"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2.5,
+          "line-offset": 14,
+          "line-dasharray": [2.5, 1.5]
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 12,
+      "maxzoom": 14.01,
+      metadata: {projecttype: [1,4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2,
+          "line-offset": -4.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 12,
+      "maxzoom": 14.01,
+      metadata: {projecttype: [1,4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-width": 2,
+          "line-offset": 4.5
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 12,
+      "maxzoom": 14.01,
+      metadata: {projecttype: [5,7]},
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "projecttype"],
+              ["Capital", "Maintenance"],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Draft",
+                  "Active",
+                  "Permit Monitoring",
+                  "Requested",
+                  "Approved"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ffe83d",
+          "line-width": 2,
+          "line-offset": -2
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 12,
+      "maxzoom": 14.01,
+      metadata: {projecttype: [5,7]},
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "projecttype"],
+              ["Capital", "Maintenance"],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Approved",
+                  "Requested",
+                  "Permit Monitoring",
+                  "Active",
+                  "Draft"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#ffe83d",
+          "line-width": 2,
+          "line-offset": 2
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 0,
+      "maxzoom": 12,
+      metadata: {projecttype: [1,4]},
+      "filter": [
+          "all",
+          ["match", ["get", "projecttype"], ["Study"], true, false],
+          [
+              "match",
+              ["get", "status"],
+              ["Active", "Draft", "Requested", "Approved"],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {
+          "line-color": "#e629ff",
+          "line-offset": -3.6,
+          "line-width": 3
+      }
+  },
+  {
+      type: "line",
+      'source-layer': 'pluto15v1',
+      "minzoom": 0,
+      "maxzoom": 12,
+      metadata: {projecttype: [5,7]},
+      "filter": [
+          "all",
+          [
+              "match",
+              ["get", "projecttype"],
+              ["Capital", "Maintenance"],
+              true,
+              false
+          ],
+          [
+              "match",
+              ["get", "status"],
+              [
+                  "Approved",
+                  "Requested",
+                  "Permit Monitoring",
+                  "Active",
+                  "Draft"
+              ],
+              true,
+              false
+          ]
+      ],
+      "layout": {"line-cap": "round"},
+      "paint": {"line-color": "#ffe83d", "line-width": 3}
+  }
   ]
 }
 export const PROJECTS_STYLES_WR = {

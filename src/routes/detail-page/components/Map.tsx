@@ -161,11 +161,13 @@ const addLayer = () => {
       }
     });
     addMapListeners(PROBLEMS_TRIGGER, `${PROBLEMS_TRIGGER}`);
-    console.log('layeeeeeer', layers)
     map.addVectorSource(MHFD_PROJECTS, layers.projects[MHFD_PROJECTS]);
     let idProjectLine = 0;
     for (const project of tileStyles[MHFD_PROJECTS]) {
-      map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
+      let projecttypes = project.metadata.projecttype;
+      if(projecttypes.includes(+detailed.code_project_type_id)){
+        map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
+        }
       // commented cause there where an in inconsistency with cartodb_id, it was showing a different project.
       // if (detailedPage?.cartodb_id) {
       //   map.setFilter(MHFD_PROJECTS + idProjectLine, ['in', 'cartodb_id', detailedPage?.cartodb_id]);
@@ -180,7 +182,6 @@ const addLayer = () => {
     addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
     }
     if (detailed?.coordinates) {
-      console.log('Should not exist');
       map.fitBounds([
         detailed?.coordinates[0][0],
         detailed?.coordinates[0][2]
@@ -189,7 +190,6 @@ const addLayer = () => {
           duration: 10
         });
     }else{
-      console.log(detailed)
       if(detailed?.project_id){
         datasets.getData(`${SERVER.BBOX_COMPONENTS}?table=${MHFD_PROJECTS}&id=${detailed?.project_id}&activetab=1`).then((coordinates: any) => {
           if( coordinates.bbox ) {
@@ -549,18 +549,15 @@ const showPopup = (index: any, size: number, id: any, event: any) => {
 useEffect(() => {
   if (Object.keys(layers).length === 0){
      SELECT_ALL_FILTERS.forEach(async layer => {
-      console.log('prints',layer)
       if(layer !== 'area_based_mask' && layer !== 'border'){
         if (typeof layer === 'object') {
           if(layer.name !== 'use_land_cover'){
             layer.tiles.forEach(async (subKey: string) => {
-              console.log('before1')
               getMapTables(subKey, layer.name)
               
             });
           }
         } else {
-          console.log('before2')
           getMapTables(layer)
         }
       }
@@ -582,7 +579,6 @@ useEffect(() => {
     //   console.log('fin',e)
     // });
   }
-console.log('what is stored',layers,layerFilters)
 }, [layerFilters, layers]);
 
 
