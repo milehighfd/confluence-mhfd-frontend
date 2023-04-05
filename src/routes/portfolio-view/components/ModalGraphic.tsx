@@ -37,7 +37,7 @@ const ModalGraphic = ({ positionModalGraphic,
           console.log(e);
         })
     }
-  }, [])
+  }, [dataProject])
     if (Object.keys(dataProject).length > 0) {
       return (
         <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
