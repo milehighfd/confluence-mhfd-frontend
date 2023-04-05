@@ -31,9 +31,11 @@ export const getBeautifulTitle = (title: any) => {
 export const commentPopup = (handleComments: any, handleDeleteNote? : any, note?:any) => {
   const handleClick = (e: any) => {
     let colorCurrent = document.getElementById("colorable");
+    let currentText = document.getElementById('textarea');
     if (colorCurrent) {
       colorCurrent.style.color = e.color;
     }
+    handleComments(currentText?.textContent, note)
   }
   const handleDelete = () => {
     handleDeleteNote(note)
@@ -63,7 +65,7 @@ export const commentPopup = (handleComments: any, handleDeleteNote? : any, note?
         </Button>
       </div>
       <div className="bodymap containerComment">
-          <TextArea style={{resize:'none'}} id="textarea" rows={7} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} onChange={(e)=> handleComments(e, note)}/>
+          <TextArea style={{resize:'none'}} id="textarea" rows={2} placeholder={"These are my notes…"} defaultValue={note? note.note_text:''} onChange={(e)=> handleComments(e, note)}/>
       </div>
     </div>,
     popupNode

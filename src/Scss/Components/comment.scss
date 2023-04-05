@@ -595,7 +595,6 @@
 .popup-comment{
   width: 280px;
   padding: 0px;
-  min-height: 210px;
   background-color: $white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 8px;
@@ -1069,7 +1068,7 @@
         font-size: 16px;
       }
       button{
-        height: 60px;
+        height: 40px;
         margin-top: 15px;
         font-size: 21px !important;
       }

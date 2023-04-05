@@ -1,4 +1,3 @@
-import { useNotesState } from 'hook/notesHook';
 import React from 'react';
 
 export const clickingColorElement = (listOfElements: any, currentElement: any) => {
@@ -457,6 +456,7 @@ export const divDelete = (handleDelete: any) => {
   </div>
 }
 export const divListOfColors = (handleClick: any) => {
+
   // const circlex = document.getElementById(`circle${index}`);
   // const divcolorsx = document.createElement('div');
   //       divcolorsx.style.display = 'none';
@@ -469,22 +469,27 @@ export const divListOfColors = (handleClick: any) => {
   const listCircles = [
     {
       label: 'A',
-      color: "#FFE120"
+      labelDB: 'red2',
+      color: "#FFDD00"
     },
     {
       label: 'B',
-      color: "#E45360"
+      labelDB: 'red',
+      color: "#FF5A5F"
     },
     {
       label: 'C',
-      color: "#282363"
+      labelDB: 'blue',
+      color: "#251863"
     },
     {
       label: 'D',
-      color: "#6FC699"
+      labelDB: 'green',
+      color: "#29C499"
     },
     {
       label: 'E',
+      labelDB: 'sky',
       color: "#66D4FF"
     },
   ];
@@ -496,7 +501,7 @@ export const divListOfColors = (handleClick: any) => {
 
   return <div className='divcolors'>
     {
-      listCircles.map((color) => <li value={color.color} onClick={() => handleClick(color)}>
+      listCircles.map((color) => <li value={color.color} onClick={() => handleClick(color)} key={color.labelDB}>
         <img id={`circle${color.label}`} className='img-circle' style={{background:color.color}} />
       </li>)
     }

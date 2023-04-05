@@ -188,7 +188,7 @@ const Map = ({
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     // uncomment on NOTES ready
-    const { notes } = useNotesState();
+    const { notes , availableColors} = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
     const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -204,18 +204,18 @@ const Map = ({
     const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
     const colors = {
-      YELLOW: '#ffbf00', // rgb(255, 225, 32)
-      RED: 'rgb(255, 0, 0)',//rgb(228, 83, 96)
-      BLUE: 'rgb(40, 35, 99)',//rgb(40, 35, 99)
-      GREEN: 'rgb(142, 132, 132)',//rgb(111, 198, 153)
-      SKY:  'rgb(250, 100, 0)',
+      YELLOW: 'rgb(255, 221, 0)', 
+      RED: 'rgb(255, 90, 95)',
+      BLUE: 'rgb(37, 24, 99)',
+      GREEN: 'rgb(41, 196, 153)',
+      SKY:  'rgb(102, 212, 255)',
     };
     const colorsCodes = {
-      YELLOW: 'rgb(255, 225, 32)', // rgb(255, 225, 32)
-      RED: 'rgb(228, 83, 96)',//rgb(228, 83, 96)
-      BLUE: 'rgb(40, 35, 99)',//rgb(40, 35, 99)
-      GREEN: 'rgb(111, 198, 153)',//rgb(111, 198, 153)
-      SKY:  'rgb(102, 212, 255)',//rgb(102, 212, 255)      
+      YELLOW: 'rgb(255, 221, 0)', 
+      RED: 'rgb(255, 90, 95)',
+      BLUE: 'rgb(37, 24, 99)',
+      GREEN: 'rgb(41, 196, 153)',
+      SKY:  'rgb(102, 212, 255)',
     }
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
@@ -264,28 +264,33 @@ const Map = ({
       }
     }, [currentNote], 1000);
 
-    const handleComments = (event: any, note? :any) => {
+    const handleColor = () => {
       let color = '';
       const colorable = document.getElementById('colorable');
       if (colorable != null) {
-        console.log(colorable.style.color);
         if (colorable.style.color === colorsCodes.RED) {
             color = 'red';
         } else if (colorable.style.color === colorsCodes.BLUE) {
             color = 'blue';
         } else if (colorable.style.color === colorsCodes.GREEN) {
-            color = 'grey';
+            color = 'green';
         } else if (colorable.style.color === colorsCodes.SKY) {
-          color = 'sky';}
-          else {
-            color = 'yellow';
+            color = 'sky';
         }
+          else {
+            color = 'red2';
+        }
+      }
+      const currentColor = availableColors.find((element: any) => element.label === color);
+      return currentColor ? currentColor.color_id : null;
     }
-      if (!note) {
-        console.log(popup.getLngLat());
+    const handleComments = (event: any, note? :any) => {
+      const getText = event?.target?.value ? event.target.value : event ;
+      const getColorId = handleColor();
+       if (!note) {
       const note = {
-        color: color,
-        note_text: event.target.value,
+        color_id: getColorId,
+        note_text: getText,
         latitude: popup.getLngLat().lat,
         longitude: popup.getLngLat().lng
       }; 
@@ -294,8 +299,8 @@ const Map = ({
       }else {
         const noteEdit = {
           newnotes_id: note.newnotes_id,
-          color: color,
-          note_text: event.target.value,
+          color_id: getColorId,
+          note_text: getText,
           latitude: note.latitude,
           longitude: note.longitude
       };

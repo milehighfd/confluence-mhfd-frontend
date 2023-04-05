@@ -15,15 +15,12 @@ export const GlobalMapHook = () => {
     if (!location.id) {
       location.id = generateId();
     }
-    // console.log(location);
-    // console.log('my array is ', lastMaps);
     const currentId = cc;
     lastId = cc++;
     const copy = lastMaps;
     setTimeout(() => {
       if (currentId === lastId) {
         const findLocation = copy.find((l: any) => l.id === location.id);
-        // console.log('findLocation', findLocation);
         if (!findLocation) {
           copy.push(location);
         } else {
@@ -56,7 +53,6 @@ export const GlobalMapHook = () => {
       position--;
     }
     currentPosition =(position);
-    // console.log(position, getPercentage());
     return lastMaps[position]; 
   }
 
@@ -66,7 +62,6 @@ export const GlobalMapHook = () => {
       position++;
     }
     currentPosition =(position);
-    // console.log(position, getPercentage());
     return lastMaps[position];
   }
 
@@ -74,7 +69,6 @@ export const GlobalMapHook = () => {
     if (currentPosition === -1) {
       return null;
     }
-    console.log('Current Position', currentPosition, lastMaps);
     return lastMaps[currentPosition];
   }
 
@@ -86,7 +80,6 @@ export const GlobalMapHook = () => {
     currentPosition = -1;
   }
   const callMaps = () => {
-    console.log('Calling Maps');
     lastMaps = JSON.parse(sessionStorage.getItem('globalMap') || '[]') as any;
     currentPosition = JSON.parse(sessionStorage.getItem('globalMap') || '[]').length -1;
   }
