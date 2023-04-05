@@ -161,7 +161,7 @@ export const Node = ({
               </label>}
         {!editMode ? 
           <span className="f-title">{showCutText(item.label)}
-          {<Popover placement="rightTop" overlayClassName="work-popover" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="focus">
+          {<Popover placement="rightTop" overlayClassName="work-popover popover-note-icons" content={contentmenu(item, mapFunctions, isFolder, deleteGroup)} trigger="focus">
             <button className="menu-wr" style={{background: 'transparent', border: 'transparent'}} onClick={(e: any) => {e.stopPropagation(); }}> <img src="/Icons/icon-60.svg" alt=""  className='menu-wr' 
             onClick={(e: any) => {e.stopPropagation();}}/></button>
           </Popover>}

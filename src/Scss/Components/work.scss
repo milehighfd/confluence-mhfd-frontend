@@ -555,6 +555,11 @@
   z-index: 998;
   color: $purple !important;
 }
+.popover-note-icons{
+  .ant-popover-content{
+    margin-top: -15px;
+  }
+}
 .work-popover{
   .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
     border-right: none;
