@@ -1759,11 +1759,11 @@ let toData = datas?.map((ds: any) => ds.schedule)
       </Col>
     </Row>
     <div style={{width:'100%', marginBottom:marginReducerHeaderAxis}}>
-      <div id="timeline-chart-axis"/>
+      <div style={{overflowX: 'hidden',overflowY: 'hidden'}} id="timeline-chart-axis"/>
     </div>
       <div
         id="chartContainer"
-        style={{ overflowY: 'auto' }}
+        style={{ overflowY: 'auto', overflowX: 'hidden'}}
         ref={el => scheduleRef.current = el}
         className='chart-container'
         onScroll={(e: any) => {
