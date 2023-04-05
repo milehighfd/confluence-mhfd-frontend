@@ -152,101 +152,6 @@ const PhaseView = (
       .attr("offset", "100%")
       .attr("stop-color", '#D4D2D9')
 
-    let Cancelled = svgDefinitions.append("linearGradient");
-    Cancelled
-      .attr("id", "Active_Completed")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    Cancelled.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
-    Cancelled.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#047CD7')
-
-    let ActivetoDelayed = svgDefinitions.append("linearGradient");
-    ActivetoDelayed
-      .attr("id", "Inactive_Cancelled")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    ActivetoDelayed.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#D4D2D9')
-    ActivetoDelayed.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
-
-    let CancelledtoClosed = svgDefinitions.append("linearGradient");
-    CancelledtoClosed
-      .attr("id", "Cancelled_Closed")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    CancelledtoClosed.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#D4D2D9')
-    CancelledtoClosed.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
-
-    let ClosedtoCloseout = svgDefinitions.append("linearGradient");
-    ClosedtoCloseout
-      .attr("id", "Closed_Closeout")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    ClosedtoCloseout.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#D4D2D9')
-    ClosedtoCloseout.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
-
-    let ActivetoInactive = svgDefinitions.append("linearGradient");
-    ActivetoInactive
-      .attr("id", "Active_Inactive")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    ActivetoInactive.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
-    ActivetoInactive.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
-    let ActivetoCancelled = svgDefinitions.append("linearGradient");
-    ActivetoCancelled
-      .attr("id", "Active_Cancelled")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    ActivetoCancelled.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#5E5FE2')
-    ActivetoCancelled.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
-    let CancelledtoCloseout = svgDefinitions.append("linearGradient");
-    CancelledtoCloseout
-      .attr("id", "Cancelled_Closeout")
-      .attr("x1", "0%")
-      .attr("x2", "100%")
-      .attr("y1", "0")
-      .attr("y2", "0");
-    CancelledtoCloseout.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", '#D4D2D9')
-    CancelledtoCloseout.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", '#D4D2D9')
   }
 
 
@@ -452,28 +357,6 @@ const PhaseView = (
                   else{
                     return colorScale['NotStarted'];
                   } 
-
-                  // if (d.phaseId === scheduleList[r].code_phase_type_id) {
-                  //   return `url(#Current_NotStarted)`;
-                  // } else if (d.project_status[r]?.is_done && d.phaseId === scheduleList[r+1].code_phase_type_id) {
-                  //   return `url(#Done_Current)`
-                  // } else if (d.project_status[r]?.is_done) {
-                  //   return colorScale['Done'];
-                  // }
-                  // else {
-                  //   return colorScale['NotStarted'];
-                  // }
-                  // if (d.phaseId === scheduleList[r].code_phase_type_id){
-                  //   colorChange = false;
-                  //   return `url(#Current_NotStarted)`;
-                  // }else if(d.phaseId === scheduleList[r+1].code_phase_type_id){
-                  //   return `url(#Done_Current)`
-                  // } else if(colorChange){
-                  //   return colorScale['Done'];                  
-                  // }
-                  // else{
-                  //   return colorScale['NotStarted'];
-                  // }
                 })
                 // .attr("stroke", "url(#textBg)")
                 .attr("stroke-width", "2.5px")
