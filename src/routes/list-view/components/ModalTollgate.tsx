@@ -70,6 +70,7 @@ const ModalTollgate = ({
   };
   const [dates, setDates]: any[] = useState([]);
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
+  const [overlapping, setOverlapping] = useState(false);
   
   const parseDuration = (duration: string) => { 
     const type = duration.trim()[0];
@@ -106,17 +107,26 @@ const ModalTollgate = ({
   }
 
   useEffect(() => {
-    setInvalidDateIndex(-1);
-    dates?.forEach((x: any, i: number) => {
-      if (x.from && x.to && x.from.isValid() && x.to.isValid()) {
-        if (i + 1 < dates.length) {
-          if (x.to.isAfter(dates[i + 1].from)) {
-            setInvalidDateIndex(i);
-            setViewOverlappingAlert(true);
+    if(visible){
+      setInvalidDateIndex(-1);
+      let isOverlap = true;
+      dates?.forEach((x: any, i: number) => {
+        if (x.from && x.to && x.from.isValid() && x.to.isValid()) {
+          if (i + 1 < dates.length) {
+            if (x.to.isAfter(dates[i + 1].from)) {
+              setInvalidDateIndex(i);
+              setViewOverlappingAlert(true);
+              setOverlapping(true);
+              isOverlap = false;
+            } else {
+              if (isOverlap) {
+                setOverlapping(false);              
+              }
+            }
           }
         }
-      }
-    });
+      });
+    }    
   }, [dates]);
 
   const updateDate = (index: number, date: any) => {
@@ -168,7 +178,7 @@ const ModalTollgate = ({
 
   const paintCircle = (index: number) => {
     const currentIndex = dates.findIndex((x: any) => x.current);
-    const dateDiff = dates.find((x: any) => x.current).to;
+    const dateDiff = dates.find((x: any) => x.current)?.to;
     let today = moment()
     const diffDates = ((moment(dateDiff).diff(today, 'M', true)))
     if (currentIndex === -1) {
@@ -189,11 +199,17 @@ const ModalTollgate = ({
   useEffect(() => {
     setDates(dataProject?.scheduleList?.map((x:any)=>{
       const date = dataProject?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);
+      let duration = 0;
+      if (date?.from && moment(date?.from).isValid() && date?.to && moment(date?.to).isValid()){
+        duration =  Math.round(Math.abs(moment(date?.from).diff(moment(date?.to), 'M')));
+      }else{
+        duration = x.duration
+      }
       return {
         from: date?.from && moment(date?.from).isValid() ? moment(date?.from) : undefined,
         to: date?.to && moment(date?.to).isValid() ? moment(date?.to) : undefined,
         name: date?.name ?? x.name,
-        duration: x.duration,
+        duration: duration,
         duration_type: x.duration_type,
         phase_id: date?.phase_id ?? x.phase_id,
         current: date?.current ?? false,
@@ -600,7 +616,7 @@ let items = [
                 </Col>
                 <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
                   <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
-                  <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate' onClick={()=>sendData()}>Save</Button>
+                  <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate' onClick={overlapping?()=>setViewOverlappingAlert(true):()=>sendData()}>Save</Button>
                 </Col>
               </Row>
             </Col>
