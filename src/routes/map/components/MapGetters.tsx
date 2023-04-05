@@ -47,7 +47,7 @@ export const commentPopup = (handleComments: any, handleDeleteNote? : any, note?
         <Button
           // id="color-list"
           className="testheader">
-          <span id="color-text">{ note?.color ? (note.color.label):'Map Note' }</span>
+          <span id="color-text">{ note ? (note.note_text):'Map Note' }</span>
           <div className='dr'>
             <div className="legend-selected">
               <Dropdown overlay={()=> {
