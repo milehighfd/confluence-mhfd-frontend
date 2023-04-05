@@ -592,7 +592,7 @@ const Roadmap = ({setOpenPiney,
         </Col>
       </Row>
       <Row>
-      <div className="phaseview-content">
+      <div className="phaseview-content" id="get-roadmap-content">
         <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage'>
         {availableStatusList.map((item: any, index: number) => {
               // console.log('item', item)

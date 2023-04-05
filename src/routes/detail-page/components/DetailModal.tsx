@@ -30,7 +30,7 @@ import GalleryDetail from "./GalleryDetail";
 import moment from "moment";
 import store from "store/index";
 import { saveAs } from 'file-saver';
-
+import { toPng } from 'html-to-image';
 const { TabPane } = Tabs;
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
 const popovers: any = [
@@ -360,6 +360,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     let url: string;
     let fileName: string;
     let map:any;
+    let roadMap:any;
    if (typeS === FILTER_PROBLEMS_TRIGGER) {
       url = `${process.env.REACT_APP_API_URI}/gallery/problem-by-id/${problem_idS}/pdf`;
       fileName = 'problem.pdf';
@@ -375,8 +376,14 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
         map = await c.getCanvasBase64();
       }
     } 
-    // let body: any = mapImage ? { mapImage } : {};
-    let body = { mapImage: map };
+    const roadMapSelector = document.getElementById('get-roadmap-content');
+    const widthCustom = roadMapSelector?.scrollWidth ? roadMapSelector?.scrollWidth + 50 : 1250;
+    const heightCustom = roadMapSelector?.scrollHeight ? roadMapSelector?.scrollHeight + 50 : 250;
+    if (roadMapSelector) {
+      roadMap = await toPng(roadMapSelector, {width: widthCustom, height: heightCustom, style: {overflow: 'visible'}});
+    }
+    
+    let body = { mapImage: map, roadMap };
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch(url, {
