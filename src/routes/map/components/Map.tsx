@@ -254,6 +254,8 @@ const Map = ({
     UseDebouncedEffect(() => {
       if (newNote !== void(0) && isEdit === false) {
         createNoteWithElem(newNote, createNote);
+        markerNote.remove();
+        popup.remove();
       }
     }, [newNote], 1000);
 
@@ -261,6 +263,7 @@ const Map = ({
       if (isEdit) {
         editNoteWithElem(currentNote, editNote);
         setIsEdit(false);
+        
       }
     }, [currentNote], 1000);
 

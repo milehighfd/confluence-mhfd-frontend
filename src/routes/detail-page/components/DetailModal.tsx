@@ -378,7 +378,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
     } 
     const roadMapSelector = document.getElementById('get-roadmap-content');
     const widthCustom = roadMapSelector?.scrollWidth ? roadMapSelector?.scrollWidth + 50 : 1250;
-    const heightCustom = roadMapSelector?.scrollHeight ? roadMapSelector?.scrollHeight + 50 : 250;
+    const heightCustom = roadMapSelector?.scrollHeight ? roadMapSelector?.scrollHeight - 50: 250;
     if (roadMapSelector) {
       roadMap = await toPng(roadMapSelector, {width: widthCustom, height: heightCustom, style: {overflow: 'visible'}});
     }
