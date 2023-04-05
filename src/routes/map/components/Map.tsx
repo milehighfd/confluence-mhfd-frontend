@@ -304,7 +304,6 @@ const Map = ({
           latitude: note.latitude,
           longitude: note.longitude
       };
-      console.log(noteEdit);
         setCurrentNote(noteEdit);
         setIsEdit(true);
         return;

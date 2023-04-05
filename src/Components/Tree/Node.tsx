@@ -13,8 +13,6 @@ const contentmenu = (note: any, mapFunctions: any, isFolder: boolean, deleteGrou
         Edit Comment
       </span>,
       onClick: ((e: any) => {
-        console.log('my event ', e);
-        console.log(note);
         mapFunctions.openEditNote({
           longitude: note.data.longitude,
           latitude: note.data.latitude,
