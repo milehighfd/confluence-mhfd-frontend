@@ -40,7 +40,20 @@ const popovers: any = [
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
-const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVisible: Function, data: any, type:string}) => { 
+const DetailModal = ({
+  visible, 
+  setVisible, 
+  data, 
+  type,
+  deleteCallback,
+  addCallback
+}:{
+  visible: boolean, 
+  setVisible: Function, 
+  data: any, 
+  type:string,
+  deleteCallback?:any,
+  addCallback?:any}) => { 
   const {
     getDetailedPageProblem,
     getDetailedPageProject,
@@ -410,7 +423,7 @@ const DetailModal = ({visible, setVisible, data, type}:{visible: boolean, setVis
   return (
     <>
     {isLoading && <LoadingViewOverall />}
-    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl}/>
+    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback}/>
     <Modal
       className="detailed-modal modal-detailed-modal"
       style={{ top: 30 }}

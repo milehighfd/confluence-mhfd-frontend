@@ -183,6 +183,7 @@ const CardInformationView = ({
         setVisible={setVisible}
         data={data}
         type={type}
+        deleteCallback={deleteCallback}
       />}
       
        <Col xs={xs} lg={lg} md={md} style={style}>

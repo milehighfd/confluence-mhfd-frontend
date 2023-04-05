@@ -11,14 +11,24 @@ import { SERVER } from 'Config/Server.config';
 import store from "../../../store";
 
 const ImageModal = (
-  {visible, setVisible, type, active, setActive,copyUrl}:
   {
+    visible, 
+    setVisible, 
+    type, 
+    active, 
+    setActive,
+    copyUrl,
+    deleteCallback,
+    addCallback
+  }:{
     visible: boolean,
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
     type: any,
     active: any,
     setActive:React.Dispatch<React.SetStateAction<number>>,
-    copyUrl: any
+    copyUrl: any,
+    deleteCallback?:any
+    addCallback?:any
   }) => {
   const {detailed} = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
@@ -31,19 +41,26 @@ const ImageModal = (
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {      
       setFavorite(false)
+      if(deleteCallback){
+        deleteCallback(id)
+      }      
     });
 
   }
   const addFunction = (id: number, email: string, table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {      
       setFavorite(true)
+      console.log('ADD1'+id)
+      console.log(addCallback)
+      if(addCallback){
+        addCallback(id)
+      } 
     });
   }
 
   useEffect(()=>{
-    datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
-      console.log(result.findIndex((x:any)=>x.project_id === detailed?.project_id)>0)
-      if(result.findIndex((x:any)=>x.project_id === detailed?.project_id)>0){
+    datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {     
+      if(result.findIndex((x:any)=>x.project_id === detailed?.project_id)>=0){
         setFavorite(true)
       }
     });
