@@ -52,10 +52,10 @@ const Roadmap = ({setOpenPiney,
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 15 : (windowWidth>=2550 && windowWidth<=3000 ? 18: (windowWidth>=3001 && windowWidth<=3999? 25:15)))
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -20 : (windowWidth>=2550 && windowWidth<=3000 ? -35: -15.8)))
   
-    const gradientLinesClass = (svgDefinitions:any)=>{
+    const gradientLinesClass = (svgDefinitions: any) => {
       let completedtoActive = svgDefinitions.append("linearGradient");
       completedtoActive
-        .attr("id", "Completed_Active")
+        .attr("id", "Done_Current")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
@@ -66,66 +66,38 @@ const Roadmap = ({setOpenPiney,
       completedtoActive.append("stop")
         .attr("offset", "100%")
         .attr("stop-color", '#047CD7')
-    
+  
       let completedtoDelayed = svgDefinitions.append("linearGradient");
       completedtoDelayed
-        .attr("id", "Completed_delayed")
+        .attr("id", "Current_NotStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
         .attr("y2", "0");
       completedtoDelayed.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", '#5E5FE2')
+        .attr("stop-color", '#047CD7')
       completedtoDelayed.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", '#F5575C')
-    
+        .attr("stop-color", '#D4D2D9')
+  
       let ActivetoNotStarted = svgDefinitions.append("linearGradient");
       ActivetoNotStarted
-        .attr("id", "Active_notStarted")
+        .attr("id", "Overdue_NotStarted")
         .attr("x1", "0%")
         .attr("x2", "100%")
         .attr("y1", "0")
         .attr("y2", "0");
       ActivetoNotStarted.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", '#047CD7')
+        .attr("stop-color", '#F5575C')
       ActivetoNotStarted.append("stop")
         .attr("offset", "100%")
         .attr("stop-color", '#D4D2D9')
-    
-      let ActivetoDelayed = svgDefinitions.append("linearGradient");
-      ActivetoDelayed
-        .attr("id", "Active_delayed")
-        .attr("x1", "0%")
-        .attr("x2", "100%")
-        .attr("y1", "0")
-        .attr("y2", "0");
-      ActivetoDelayed.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", '#047CD7')
-      ActivetoDelayed.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", '#F5575C')
-    
-      let delayedtoNotStarted = svgDefinitions.append("linearGradient");
-      delayedtoNotStarted
-        .attr("id", "delayed_notStarted")
-        .attr("x1", "0%")
-        .attr("x2", "100%")
-        .attr("y1", "0")
-        .attr("y2", "0");
-      delayedtoNotStarted.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", '#F5575C')
-      delayedtoNotStarted.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", '#D4D2D9')  
+  
     }
     
     const phaseChart = (dataDotchart: any) => {
-
      let dataDetailed = dataDotchart.filter((e:any) => e.specificId === 3);
      if (Object.keys(scheduleList).length > 0) {
     let margin = { top: marginTop, right: marginRight, bottom: -30, left: marginLeft };
@@ -222,24 +194,33 @@ const Roadmap = ({setOpenPiney,
         //   // return colorstroke;
         // })
         .attr("stroke", function (d: any) {
-          console.log('inside sche',d)
-          let indexStatus;
-          scheduleList.forEach((element:any, index:number) => {
-            console.log('inside con', element.code_phase_type_id)
-            if(d.phaseId === element.code_phase_type_id){
+          const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
+          let today = moment()
+          let indexStatus;          
+          scheduleList.forEach((element: any, index: number) => {
+            if (d.phaseId === element.code_phase_type_id) {
               indexStatus = index;
             }
           });
-          if(indexStatus === r){             
-            return `url(#Current_NotStarted)`;
-          } 
-          if( indexStatus && r < indexStatus-1){
+          if (indexStatus === r) {
+            if (endDate) {
+              const diffDates = ((moment(endDate).diff(today, 'M', true)))
+              if (diffDates > 0) {
+                return `url(#Current_NotStarted)`;
+              } else {
+                return `url(#Overdue_NotStarted)`;
+              }
+            } else {
+              return `url(#Current_NotStarted)`;
+            }
+          }
+          if (indexStatus && r < indexStatus - 1) {
             return colorScale['Done'];
           }
-          if(indexStatus&& r === indexStatus-1){
+          if (indexStatus && r === indexStatus - 1) {
             return `url(#Done_Current)`
           }
-          else{
+          else {
             return colorScale['NotStarted'];
           } 
         })
@@ -261,15 +242,26 @@ const Roadmap = ({setOpenPiney,
       return ydname;
       })
       .attr("r", radius)
-      .style("fill", function (d: any) {  
+      .style("fill", function (d: any) {         
+        const endDate = (d?.project_status?.find((x:any)=>x.code_phase_type_id === d.phaseId)?.actual_end_date)
+        let today = moment() 
         let indexStatus;
         scheduleList.forEach((element:any, index:number) => {
           if(d.phaseId === element.code_phase_type_id){
             indexStatus = index;
           }
         });
-        if(indexStatus === r){             
-          return colorScale['Current'];
+        if (indexStatus === r) {
+          if (endDate) {
+            const diffDates = ((moment(endDate).diff(today, 'M', true)))
+            if (diffDates > 0) {
+              return colorScale['Current'];
+            } else {
+              return colorScale['Overdue'];
+            }
+          } else {
+            return colorScale['Current'];
+          }
         } 
         if( indexStatus && r < indexStatus){
           return colorScale['Done'];
@@ -306,20 +298,31 @@ const Roadmap = ({setOpenPiney,
       })
       .attr("r", radius - 3)
       .style("fill", function (d: any) {
+        const endDate = (d?.project_status?.find((x:any)=>x.code_phase_type_id === d.phaseId)?.actual_end_date)
+        let today = moment() 
         let indexStatus;
         scheduleList.forEach((element:any, index:number) => {
           if(d.phaseId === element.code_phase_type_id){
             indexStatus = index;
           }
         });
-        if(indexStatus === r){             
-          return colorScale['Current'];
+        if (indexStatus === r) {
+          if (endDate) {
+            const diffDates = ((moment(endDate).diff(today, 'M', true)))
+            if (diffDates > 0) {
+              return colorScale['Current'];
+            } else {
+              return colorScale['Overdue'];
+            }
+          } else {
+            return colorScale['Current'];
+          }
         } 
         if( indexStatus && r < indexStatus){
           return colorScale['Done'];
         }else{
           return colorScale['NotStarted'];
-        }      
+        }  
 
         // if(d.phaseId === scheduleList[r].code_phase_type_id){             
         //   return colorScale['Current'];
@@ -372,7 +375,7 @@ const Roadmap = ({setOpenPiney,
 
       circles
           .append("circle")
-          .attr('id', (d: any) => { console.log('qweqwe', d); return `${(d.view).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_outer` })
+          .attr('id', (d: any) => { return `${(d.view).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}_outer` })
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
             let ydname: any = y(d.id);
@@ -401,11 +404,8 @@ const Roadmap = ({setOpenPiney,
           .on("mousemove", (d: any) => {
             let popupVisible: any = document.getElementById('popup-phaseview');
             setGrapphicOpen(true);
-            let searchTextId2 = d3.event.target.id.slice(0, -6);
-            console.log('qqqqqqqqqqqq',searchTextId2, d3.event.target)
-            console.log(d3.select(`#${searchTextId2.replaceAll(' ','')}_text`))
+            let searchTextId2 = d3.event.target.id.slice(0, -6);           
             let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')}_text`).text();
-            console.log('wwwwwwwwwww', actualNumber)
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
             const phaseSc = (scheduleList[r].phase)   
             const phaseId = (scheduleList[r].phase_id)              

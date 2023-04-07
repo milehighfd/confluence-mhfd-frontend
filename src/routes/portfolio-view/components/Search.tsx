@@ -144,20 +144,34 @@ const Search = (
   }
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
-      const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
-      setCompleteData(z)
-      setNewData(z1)
+      // const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+      // const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+      // setCompleteData(z)
+      // setNewData(z1)
+      deleteUpdate(id)
     });
-
+  }
+  const deleteUpdate = (id: number) => {
+    const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+    const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+    setCompleteData(z)
+    setNewData(z1)
   }
   const addFunction = (id: number, email: string, table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
-      const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
-      setCompleteData(z)
-      setNewData(z1)
+      // const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+      // const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+      // setCompleteData(z)
+      // setNewData(z1)
+      addCallback(id)
     });
+  }
+  const addCallback = (id: number) => {
+    console.log('ADD'+id)
+    const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+    const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
+    setCompleteData(z)
+    setNewData(z1)
   }
 
   
@@ -167,6 +181,8 @@ const Search = (
         setVisible={setDetailOpen}
         data={dataDetail}
         type={FILTER_PROJECTS_TRIGGER}
+        deleteCallback={deleteUpdate}
+        addCallback={addCallback}
       />}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
