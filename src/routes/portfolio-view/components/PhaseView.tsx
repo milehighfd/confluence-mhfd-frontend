@@ -155,20 +155,21 @@ const PhaseView = (
   }
 
 
-  const phaseChart = (dataDotchart: any, index: number) => {      
+  const phaseChart = (dataDotchart: any) => {      
     if (Object.keys(scheduleList).length > 0) {
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;//document.getElementById('phaseviewTitlleWidth')?.offsetWidth;//= 1405 - margin.left - margin.right,
       let heightDiv: any;
-      heightDiv = document.getElementById(`${dataDotchart[index].id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
+      // heightDiv =document.getElementById(`${dataDotchart.id}`)?.offsetHeight; //265 - margin.top - margin.bottom;
+      heightDiv = (windowWidth >= 3001 && windowWidth <= 3999 ? 146.6 : (windowWidth >= 2550 && windowWidth <= 3000 ? 127.56 : (windowWidth >= 2001 && windowWidth <= 2549 ? 117 : (windowWidth >= 1450 && windowWidth <= 2000 ? 106.12 : (windowWidth >= 1199 && windowWidth <= 1449 ? 78 : 78)))))
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
       let heightContainer: any = height + margin.top + margin.bottom;
       if (heightContainer>0){              
       // append the svg object to the body of the page
-      removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart[index].id}`))
+      removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart.id.replace(/\s/g, '')}`))
       svg = d3
-        .select(`#dotchart_${dataDotchart[index].id}`)
+        .select(`#dotchart_${dataDotchart.id.replace(/\s/g, '')}`)
         .append("svg")
         .attr("width", totalLabelWidth)//
         .attr("height", heightContainer)
@@ -178,8 +179,8 @@ const PhaseView = (
 
         setSvgStatePhase(svg);
         //dataDotchart =dataDotchart[0].values
-        let datas = dataDotchart[index].values;        
-
+        // let datas = dataDotchart.values;  
+          let datas = [dataDotchart];   
           let arrayForCirclesAndLines = [];
           for (var i = 0; i < scheduleList.length; i++) {
             arrayForCirclesAndLines.push(i);
@@ -209,11 +210,13 @@ const PhaseView = (
             .range([0, height])
             .domain(
               datas.map((d: any) => {
-                return d.id;
+                return d.id.replace(/\s/g, '')
               })
             )
             .padding(1);
-          svg.append("g").style('visibility', 'hidden').call(d3.axisLeft(y));          
+          svg.append("g")
+          .style('visibility', 'hidden')
+          .call(d3.axisLeft(y));          
           
                         
        
@@ -235,7 +238,7 @@ const PhaseView = (
             // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
             
             .attr("y", (d: any) => {
-              let ydname: any = y(d.id);
+              let ydname: any = y(d.id.replace(/\s/g, ''));
               // console.log('ydname', ydname, ydname + 10)
               let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10))))); 
               return ydname + yAddButton;
@@ -272,7 +275,7 @@ const PhaseView = (
               return xdr(0) + xAddButton
             })
             .attr("y", (d: any) => {
-              let ydname: any = y(d.id);
+              let ydname: any = y(d.id.replace(/\s/g, ''));
               // console.log('ydname', ydname, ydname + 10)
               let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 13 : (windowWidth >= 2550 && windowWidth <= 3000 ? 9 : (windowWidth >= 1450 && windowWidth <= 2000 ? 7 : (windowWidth >= 1199 && windowWidth <= 1449 ? 7 : 2)))));
               return ydname + yAddButton;
@@ -304,7 +307,7 @@ const PhaseView = (
                 .attr("x", xdr(r))
                 .attr("width", xdr(r + 1) - xdr(r))
                 .attr("y", (d: any) => {
-                  let ydname: any = y(d.id);
+                  let ydname: any = y(d.id.replace(/\s/g, ''));
                   return ydname;
                 })
                 .attr("height", 2)
@@ -375,11 +378,11 @@ const PhaseView = (
         circles
           .append("circle")
           .attr('id', (d: any) => {
-            return `${d.id}_${(scheduleList[r].phase)}`;
+            return `${d.id.replace(/\s/g, '')}_${(scheduleList[r].phase)}`;
           })
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
-            let ydname: any = y(d.id);
+            let ydname: any = y(d.id.replace(/\s/g, ''));
             return ydname;
           })
           .attr("r", radius)
@@ -428,7 +431,7 @@ const PhaseView = (
           .append("circle")
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
-            let ydname: any = y(d.id);
+            let ydname: any = y(d.id.replace(/\s/g, ''));
             return ydname;
           })
           .attr("r", radius - 1)
@@ -445,7 +448,7 @@ const PhaseView = (
           .append("circle")
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
-            let ydname: any = y(d.id);
+            let ydname: any = y(d.id.replace(/\s/g, ''));
             return ydname;
           })
           .attr("r", radius - 3)
@@ -526,7 +529,7 @@ const PhaseView = (
             return offset;
           })
           .attr("y", (d: any) => {
-            let ydname: any = y(d.id);
+            let ydname: any = y(d.id.replace(/\s/g, ''));
             return ydname + radius / 3;
           })
           // .style('visibility', (d: any) => {
@@ -538,10 +541,10 @@ const PhaseView = (
           hasDateData = true
         circles
           .append("circle")
-          .attr('id', (d: any) => { return `${d.id}_${scheduleList[r].phase_id}${d.project_id}_outer` })
+          .attr('id', (d: any) => { return `${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}_outer` })
           .attr("cx", xdr(r))
           .attr("cy", (d: any) => {
-            let ydname: any = y(d.id);
+            let ydname: any = y(d.id.replace(/\s/g, ''));
             return ydname;
           })
           .attr("r", radius + 0.5)
@@ -652,23 +655,35 @@ const PhaseView = (
     }}
   }
   const removeAllChildNodes = (parent: any) => {
-    while (parent.firstChild) {
+    while (parent !== null && parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
   };
   useEffect(() => {
     if (Object.keys(rawData).length > 0) {
       rawData.map((elem: any, index: number) => (
-        removeAllChildNodes(document.getElementById(`dotchart_${elem.id}`))
+        elem.values.map((value:any) => (
+          removeAllChildNodes(document.getElementById(`dotchart_${value.id.replace(/\s/g, '')}`))
+        )) 
       ));
     }
-    setTimeout(() => {
+    // setTimeout(() => {
       for (let index = 0; index < rawData.length; index++) {
-        phaseChart(rawData, index);
+        const updatedValues = rawData[index].values.map((obj:any) => ({
+          ...obj,
+          idExt: rawData[index].id
+        }));
+        rawData[index].values = updatedValues;
+        if(openTable[index]){
+        rawData[index].values.forEach((element:any) => {
+          phaseChart(element);
+        }); 
       }
-    }, 500);
+        // phaseChart(rawData[index]);
+      }
+    // }, 500);
     
-  }, [updatePhaseList, rawData, indexParent, windowWidth,collapsePhase]);
+  }, [updatePhaseList, rawData, indexParent, windowWidth,collapsePhase, openTable]);
 
 
   useEffect(() => {
@@ -840,13 +855,16 @@ const PhaseView = (
               }
             }}            
           >
-            {completeData.map((elem: any, index: number) => (
-              <div>
+            {rawData.map((elem: any, index: number) => (
+              elem.values.map((value:any,indexinside:number) => {
+                return <div>
                 <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
-                  <div id={`dotchart_${elem.id}`}></div>
+                  <div id={`dotchart_${value.id.replace(/\s/g, '')}`}></div>
                 </div>
-                {lengthData - 1 === index ? '' : <div className="header-timeline" style={{ width: totalLabelWidth}}></div>}
+                {elem.values.length - 1 === indexinside && rawData.length-1 !==index ? <div className="header-timeline" style={{ width: totalLabelWidth}}></div>:''}
               </div>
+              })
+
             ))}
           </div>
         </div>
