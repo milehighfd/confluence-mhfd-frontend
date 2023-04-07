@@ -184,6 +184,7 @@ const CardInformationView = ({
         data={data}
         type={type}
         deleteCallback={deleteCallback}
+        addFavorite={addFavorite}
       />}
       
        <Col xs={xs} lg={lg} md={md} style={style}>

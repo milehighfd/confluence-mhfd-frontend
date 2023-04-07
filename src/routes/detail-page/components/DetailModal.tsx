@@ -46,14 +46,17 @@ const DetailModal = ({
   data, 
   type,
   deleteCallback,
-  addCallback
+  addCallback,
+  addFavorite
 }:{
   visible: boolean, 
   setVisible: Function, 
   data: any, 
   type:string,
   deleteCallback?:any,
-  addCallback?:any}) => { 
+  addCallback?:any,
+  addFavorite?:any
+}) => { 
   const {
     getDetailedPageProblem,
     getDetailedPageProject,
@@ -423,7 +426,7 @@ const DetailModal = ({
   return (
     <>
     {isLoading && <LoadingViewOverall />}
-    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback}/>
+    <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback} addFavorite={addFavorite}/>
     <Modal
       className="detailed-modal modal-detailed-modal"
       style={{ top: 30 }}

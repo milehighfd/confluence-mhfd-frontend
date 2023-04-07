@@ -157,23 +157,14 @@ const Search = (
     setCompleteData(z)
     setNewData(z1)
   }
-  const addFunction = (id: number, email: string, table: string) => {
+  const addFunction = (email: string, id: number,  table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      // const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
-      // const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
-      // setCompleteData(z)
-      // setNewData(z1)
-      addCallback(id)
+      const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+      const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+      setCompleteData(z)
+      setNewData(z1)     
     });
   }
-  const addCallback = (id: number) => {
-    console.log('ADD'+id)
-    const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
-    const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
-    setCompleteData(z)
-    setNewData(z1)
-  }
-
   
   return <>
       {detailOpen && <DetailModal
@@ -182,7 +173,7 @@ const Search = (
         data={dataDetail}
         type={FILTER_PROJECTS_TRIGGER}
         deleteCallback={deleteUpdate}
-        addCallback={addCallback}
+        addFavorite={addFunction}
       />}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
@@ -277,7 +268,7 @@ const Search = (
                             //setHoverTable(elem.values[index_elem].project_id)
                             }}>
                           <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project" >{d.rowLabel}</p>
-                          {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction( d.project_id ,email, '')} />}
+                          {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction(email,d.project_id , '')} />}
                           {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>
                       ))

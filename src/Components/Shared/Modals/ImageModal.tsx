@@ -9,6 +9,7 @@ import MapModal from 'routes/detail-page/components/MapModal';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 import store from "../../../store";
+import { useMapDispatch } from 'hook/mapHook';
 
 const ImageModal = (
   {
@@ -19,7 +20,8 @@ const ImageModal = (
     setActive,
     copyUrl,
     deleteCallback,
-    addCallback
+    addCallback,
+    addFavorite
   }:{
     visible: boolean,
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,8 +29,9 @@ const ImageModal = (
     active: any,
     setActive:React.Dispatch<React.SetStateAction<number>>,
     copyUrl: any,
-    deleteCallback?:any
-    addCallback?:any
+    deleteCallback?:any,
+    addCallback?:any,
+    addFavorite?:any
   }) => {
   const {detailed} = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
@@ -48,14 +51,13 @@ const ImageModal = (
 
   }
   const addFunction = (id: number, email: string, table: string) => {
-    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {      
-      setFavorite(true)
-      console.log('ADD1'+id)
-      console.log(addCallback)
-      if(addCallback){
-        addCallback(id)
-      } 
-    });
+    if (addFavorite) {
+      addFavorite(email, id, false);
+      setFavorite(true);
+    } else {
+      setFavorite(true);
+      addCallback(id,email, false);
+    }
   }
 
   useEffect(()=>{
