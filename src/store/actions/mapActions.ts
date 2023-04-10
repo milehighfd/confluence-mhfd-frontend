@@ -359,7 +359,7 @@ export const getProjectsFilteredIds = () => {
       }
     } = getState();
     datasets.postData(
-      SERVER.GALLERY_PROJECTS_IDS_V2,
+      SERVER.GALLERY_FILTERED_PROJECTS_ID,
       optionsProjects(filterOptions, filterComponent, coordinates, false),
       datasets.getToken()
     ).then(projectsids => {
