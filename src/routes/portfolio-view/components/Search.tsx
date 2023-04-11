@@ -216,14 +216,20 @@ const Search = (
           // TODO
           let dr: any = searchRef.current[index];
           let drTable: any = tableRef.current[index];
+          // console.log('inside search',tableRef.current, index)
+          let listviewElement = document.getElementById(`listView_${index}`)
+          // console.log('listviewElement', listviewElement)
           if(tableRef.current[index]){
             tableRef.current[index].scrollTo(drTable.scrollLeft, dr.scrollTop);
           }
+          if(listviewElement){
+            listviewElement.scrollTo(listviewElement.scrollLeft, dr.scrollTop)
+          }
           if(phaseRef.current){
-            phaseRef.current.scrollTo(0, e.target.scrollTop)
+            phaseRef.current.scrollTo(phaseRef.current.scrollLeft, e.target.scrollTop)
           }
           if(scheduleRef.current){
-            scheduleRef.current.scrollTo(0, e.target.scrollTop)
+            scheduleRef.current.scrollTo(scheduleRef.current.scrollLeft, e.target.scrollTop)
           }
         }}
         // onMouseEnter={()=>{

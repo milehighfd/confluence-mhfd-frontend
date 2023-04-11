@@ -17,6 +17,7 @@ import PineyView from './PineyView';
 import ModalGraphic from "./ModalGraphic";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
+import Search from './Search';
 
 const CalendarView = ({
   rawData,
@@ -31,6 +32,23 @@ const CalendarView = ({
   setOpenModalTollgate,
   userName,
   setDataModal,
+
+  tableRef,
+  setOpenTable,
+  //hoverTable,
+  //setHoverTable,
+  phaseRef,
+  setCompleteData,
+  setNewData,
+  groupsBy,
+  setCurrentGroup,
+  setSearchWord,
+  fullData,
+  email,
+  searchWord,
+  setCollapsePhase,
+  optionSelect,
+  collapsePhase
 }: {
   rawData: any,
   openTable: boolean[];
@@ -53,6 +71,23 @@ const CalendarView = ({
   setOpenModalTollgate: Function,
   userName: string,
   setDataModal: any,
+
+    tableRef: React.MutableRefObject<any>,
+    setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
+    //hoverTable: any,
+    //setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
+    phaseRef:React.MutableRefObject<HTMLDivElement | null>,
+    setCompleteData: Function,
+    setNewData: Function,
+    groupsBy: any[],
+    setCurrentGroup: Function,
+    setSearchWord: Function,
+    fullData: any,
+    email: string,
+    searchWord: string,
+    setCollapsePhase: Function,
+    optionSelect:any,
+    collapsePhase: any
 }) => {
   // const [graphicOpen, setGrapphicOpen] = useState(false);
   // const [positionModalGraphic, setPositionModalGraphic]= useState({left: 152, top:75})
@@ -1702,6 +1737,33 @@ let toData = datas?.map((ds: any) => ds.schedule)
   //   d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
   // }
   return (
+    <Row>
+      <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+        <Search
+          searchWord={searchWord}
+          searchRef={searchRef}
+          tableRef={tableRef}
+          setOpenTable={setOpenTable}
+          openTable={openTable}
+          //hoverTable={hoverTable}
+          //setHoverTable={setHoverTable}
+          phaseRef={phaseRef}
+          scheduleRef={scheduleRef}
+          rawData={rawData}
+          setCompleteData={setCompleteData}
+          setNewData={setNewData}
+          index={index}
+          groupsBy={groupsBy}
+          setCurrentGroup={setCurrentGroup}
+          setSearchWord={setSearchWord}
+          fullData={rawData}
+          email={email}
+          setCollapsePhase={setCollapsePhase}
+          optionSelect={optionSelect}
+          collapsePhase={collapsePhase}
+        />
+      </Col>
+      <Col xs={{ span: 34 }} lg={{ span: 19 }}>
     <>
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     {/* {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>} */}
@@ -1779,7 +1841,10 @@ let toData = datas?.map((ds: any) => ds.schedule)
         </div>
       </div>
     </div>
-    </>);
+    </>
+    </Col>
+    </Row>
+    );
 };
 
 export default CalendarView;

@@ -8,6 +8,7 @@ import ModalGraphic from "./ModalGraphic";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import moment from 'moment';
+import Search from "./Search";
 
 const { Step } = Steps;
 
@@ -28,7 +29,24 @@ const PhaseView = (
     openPiney,
     setOpenPiney,
     collapsePhase,
-    setOpenModalTollgate }
+    setOpenModalTollgate,
+    tableRef,
+    setOpenTable,
+    //hoverTable,
+    //setHoverTable,
+    scheduleRef,
+    setCompleteData,
+    setNewData,
+    index,
+    groupsBy,
+    setCurrentGroup,
+    setSearchWord,
+    fullData,
+    email,
+    searchWord,
+    setCollapsePhase,
+    optionSelect,
+  }
     : {
       rawData: any,
       openTable: boolean[],
@@ -52,7 +70,23 @@ const PhaseView = (
       openPiney: boolean,
       setOpenPiney: any,
       collapsePhase: any,
-      setOpenModalTollgate: Function
+      setOpenModalTollgate: Function,
+      tableRef: React.MutableRefObject<any>,
+      scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
+      setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
+      //hoverTable: any,
+      //setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
+      setCompleteData: Function,
+      setNewData: Function,
+      index: number,
+      groupsBy: any[],
+      setCurrentGroup: Function,
+      setSearchWord: Function,
+      fullData: any,
+      email: string,
+      searchWord: string,
+      setCollapsePhase: Function,
+      optionSelect:any,
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -780,6 +814,33 @@ const PhaseView = (
 
 
   return (
+    <Row>
+      <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+        <Search
+          searchWord={searchWord}
+          searchRef={searchRef}
+          tableRef={tableRef}
+          setOpenTable={setOpenTable}
+          openTable={openTable}
+          //hoverTable={hoverTable}
+          //setHoverTable={setHoverTable}
+          phaseRef={phaseRef}
+          scheduleRef={scheduleRef}
+          rawData={fullData}
+          setCompleteData={setCompleteData}
+          setNewData={setNewData}
+          index={index}
+          groupsBy={groupsBy}
+          setCurrentGroup={setCurrentGroup}
+          setSearchWord={setSearchWord}
+          fullData={rawData}
+          email={email}
+          setCollapsePhase={setCollapsePhase}
+          optionSelect={optionSelect}
+          collapsePhase={collapsePhase}
+        />
+      </Col>
+      <Col xs={{ span: 34 }} lg={{ span: 19 }}>
     <div className="phaseview-body">
       {openPiney && (
         <div className="piney-text">
@@ -869,6 +930,8 @@ const PhaseView = (
           </div>
         </div>
     </div>
+    </Col>
+    </Row>
   );
 };
 

@@ -697,46 +697,52 @@ const PortafolioBody = () => {
               <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
                 <div className="protafolio-body">
                   {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
-                <Row>
-                  <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-                    <Search
-                      searchWord={searchWord}
-                      searchRef={searchRef}
-                      tableRef={tableRef}
-                      setOpenTable={setOpenTable}
-                      openTable={openTable}
-                      //hoverTable={hoverTable}
-                      //setHoverTable={setHoverTable}
-                      phaseRef={phaseRef}
-                      scheduleRef={scheduleRef}
-                      rawData={newData}
-                      setCompleteData={setCompleteData}
-                      setNewData={setNewData}
-                      index={idx}
-                      groupsBy={groupsBy}
-                      setCurrentGroup={setCurrentGroup}
-                      setSearchWord={setSearchWord}
-                      fullData={newData}
-                      email={appUser.userInformation?.email}
-                      setCollapsePhase={setCollapsePhase}
-                      optionSelect={optionSelect}
-                      collapsePhase={collapsePhase}
-                    />
-                  </Col>
-                    <Col xs={{ span: 34 }} lg={{ span: 19 }}>
+                {/* <Row> */}
                       {optionSelect === 'List' && <TablePortafolio
-                        rawData={newData}
-                        divRef={tableRef}
+                        searchWord={searchWord}
                         searchRef={searchRef}
+                        tableRef={tableRef}
+                        setOpenTable={setOpenTable}
                         openTable={openTable}
                         //hoverTable={hoverTable}
                         //setHoverTable={setHoverTable}
-                        tabKey={tabKey}
+                        phaseRef={phaseRef}
+                        scheduleRef={scheduleRef}
+                        rawData={newData}
+                        setCompleteData={setCompleteData}
+                        setNewData={setNewData}
                         index={idx}
+                        groupsBy={groupsBy}
+                        setCurrentGroup={setCurrentGroup}
+                        setSearchWord={setSearchWord}
+                        fullData={newData}
+                        email={appUser.userInformation?.email}
+                        setCollapsePhase={setCollapsePhase}
+                        optionSelect={optionSelect}
+                        collapsePhase={collapsePhase}
+                        divRef={tableRef}
+                        tabKey={tabKey}
                         setSortValue={setSortValue}
                       />
                       }
                       {optionSelect === 'Phase' && <PhaseView
+                        searchWord={searchWord}
+                        tableRef={tableRef}
+                        setOpenTable={setOpenTable}
+                        //hoverTable={hoverTable}
+                        //setHoverTable={setHoverTable}
+                        scheduleRef={scheduleRef}
+                        setCompleteData={setCompleteData}
+                        setNewData={setNewData}
+                        index={idx}
+                        groupsBy={groupsBy}
+                        setCurrentGroup={setCurrentGroup}
+                        setSearchWord={setSearchWord}
+                        fullData={newData}
+                        email={appUser.userInformation?.email}
+                        setCollapsePhase={setCollapsePhase}
+                        optionSelect={optionSelect}
+                        
                         rawData={phaseData}
                         openTable={openTable}
                         phaseRef={phaseRef}
@@ -757,6 +763,24 @@ const PortafolioBody = () => {
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 
+
+                    searchWord={searchWord}
+                    tableRef={tableRef}
+                    setOpenTable={setOpenTable}
+                    //hoverTable={hoverTable}
+                    //setHoverTable={setHoverTable}
+                    phaseRef={phaseRef}
+                    setCompleteData={setCompleteData}
+                    setNewData={setNewData}
+                    groupsBy={groupsBy}
+                    setCurrentGroup={setCurrentGroup}
+                    setSearchWord={setSearchWord}
+                    fullData={newData}
+                    email={appUser.userInformation?.email}
+                    setCollapsePhase={setCollapsePhase}
+                    optionSelect={optionSelect}
+                    collapsePhase={collapsePhase}
+
                     rawData={newData} 
                     openTable={openTable} 
                     moveSchedule={zoomTimeline} 
@@ -773,8 +797,8 @@ const PortafolioBody = () => {
                     userName={appUser.userInformation?.name}
                     setDataModal={setDataModal}
                     />}
-                  </Col>
-                </Row>
+                  
+                {/* </Row> */}
                 </div>
               </TabPane>
             )})
