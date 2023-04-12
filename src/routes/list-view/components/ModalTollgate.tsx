@@ -15,12 +15,14 @@ const ModalTollgate = ({
   visible, 
   setVisible, 
   dataProject,
-  saveCB
+  saveCB,
+  setOpenPiney
 }: {
   visible: boolean, 
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
   dataProject?:any,
-  saveCB?: any
+  saveCB?: any,
+  setOpenPiney?: any
 }) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
@@ -377,7 +379,7 @@ let items = [
   const menu = (element: any, index: number) => {
     items = [
       { key: 'current-phase', label: 'Set Current Phase' },
-      { key: 'lock-phase', label: 'Lock Phase' },
+      { key: 'lock-phase', label: element.locked ? 'Unlock Phase' : 'Lock Phase' },
     ];
     return <Menu
       className="menu-login-dropdown"
@@ -425,6 +427,10 @@ let items = [
       }, datasets.getToken()).then(async res => {
         saveCB();
         setVisible(false);
+        if(setOpenPiney){
+          setOpenPiney(false);
+          setOpenPiney(true);
+        }
       });
   }
 

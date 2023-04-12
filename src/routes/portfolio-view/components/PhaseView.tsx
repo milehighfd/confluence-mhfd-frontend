@@ -28,7 +28,9 @@ const PhaseView = (
     openPiney,
     setOpenPiney,
     collapsePhase,
-    setOpenModalTollgate }
+    setOpenModalTollgate,
+    openModalTollgate,
+  }
     : {
       rawData: any,
       openTable: boolean[],
@@ -52,7 +54,8 @@ const PhaseView = (
       openPiney: boolean,
       setOpenPiney: any,
       collapsePhase: any,
-      setOpenModalTollgate: Function
+      setOpenModalTollgate: Function,
+      openModalTollgate: boolean
     }) => {
   const [current, setCurrent] = useState(0);
   // const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -553,8 +556,7 @@ const PhaseView = (
           //   }
           //   return hasDateData ? 'hidden':'visible'})
           .on("click", (d: any) => {  
-            setOpenPiney(false)            
-            console.log(d)
+            setOpenPiney(false)   
             let searchTextId2 = d3.event.target.id.slice(0, -6);
             let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();  
             let flag = ((d?.project_status)?.find((ps:any) => !ps?.planned_start_date || !ps?.planned_end_date))  
@@ -775,6 +777,7 @@ const PhaseView = (
           setUpdateAction={setUpdateAction} 
           updateAction={updateAction}
           setOpenModalTollgate = {setOpenModalTollgate}
+          openModalTollgate = {openModalTollgate}
           setTollData={setTollData}
           />
         </div>
