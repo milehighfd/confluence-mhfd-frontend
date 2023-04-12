@@ -44,21 +44,22 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
       <div className="notification-header">
-        <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2> <a>Mark all as read</a>
+        <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2> {/*<a>Mark all as read</a>*/}
       </div>
-      <div style={{position: 'absolute', right: '1px', marginTop: '10px'}}>
+      {/*<div style={{position: 'absolute', right: '1px', marginTop: '10px'}}>
         <Button
           className="btn-transparent"
         >
           <img src="/Icons/ic-settings.svg" alt="" height="90%" />
         </Button>
-      </div>
+  </div>*/}
       <Tabs defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
         onChange={(key) => setTabKey(key)} className="tabs-map">
         {
           displayedTabKey.map((tk: string) => (
-            <TabPane style={{marginBottom:'0px'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+            <TabPane style={{marginBottom:'0px'}} 
+              key={tk}>
               <div className="notification-body">
                 <img src={"/picture/user03.png"} alt="" height="35px" />
                 <div className="text-notification">
