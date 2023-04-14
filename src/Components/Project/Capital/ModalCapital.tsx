@@ -170,7 +170,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setProjectId(data.project_id);
       setEditsetprojectid(data.project_id);
       setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
-      setAdditionalDescription(aditionalCostObject.cost_description);
+      setAdditionalDescription(aditionalCostObject?.cost_description);
 
       if (data.project_costs.length > 0) {
         const filtered = data.project_costs.map((element: any) => {

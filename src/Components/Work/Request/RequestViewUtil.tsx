@@ -142,7 +142,7 @@ export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   }
 }
 
-export const MaintenanceTypes = ['Routine Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'General Maintenance', 'Maintenance Restoration'];
+export const MaintenanceTypes = ['Routine Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'General Maintenance', 'Restoration'];
 
 export const generateColumns = (boardProjects: boardProject[], year: number, tabKey: string) => {
   let columns: any[] = defaultColumns.map((dc: any, index: number) => {
