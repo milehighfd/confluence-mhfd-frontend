@@ -86,6 +86,7 @@ const PortafolioBody = () => {
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
   const [statusCounter,setStatusCounter] = useState(0);
+  const [updateFilter, setUpdateFilter] = useState([]);
 
   const [favorites, setFavorites] = useState<any>([]);
   const [tollData,setTollData] = useState<any>([]);
@@ -120,15 +121,22 @@ const PortafolioBody = () => {
       setCurrentUserId(appUser.userInformation?.user_id);      
     }   
   }, [appUser]);
+
   useEffect(() => {
-    getParamFilterProjectsNoBounds(filterProjectOptions);
+    if(Object.keys(updateFilter).length > 0){
+      //getParamFilterProjectsNoBounds(updateFilter);
+    }
+  }, [updateFilter]);
+
+  useEffect(() => {
+    setUpdateFilter(filterProjectOptions);
   }, [filterProjectOptions]);
   
   useEffect(() => {
     filterProjectOptions.name = searchWord;
     filterProjectOptions.keyword = searchWord
     setFilterProjectOptions(filterProjectOptions)
-    getParamFilterProjectsNoBounds(filterProjectOptions);
+    setUpdateFilter(filterProjectOptions);
   }, [searchWord]);
 
   const groupsBy = [
@@ -197,8 +205,8 @@ const PortafolioBody = () => {
     // }
     options.servicearea = options.servicearea;
     options.county = options.county;
-    getParamFilterProjectsNoBounds(options);
-}, [filterProjectOptions]);
+    setUpdateFilter(options);
+  }, [filterProjectOptions]);
 
   useEffect(() => {
     if (filterValue != -1) {
@@ -228,7 +236,6 @@ const PortafolioBody = () => {
   // }, [optionSelect, tabKey]);
 
   const callGetGroupList = (sortValue: any, withFavorites: any) => {
-
     let optionsfiltersoptions = isInit ? filterProjectOptionsNoFilter : filterProjectOptions;
     const optionsfilters = optionsProjects( optionsfiltersoptions, filterComponentOptions, '' , false);    
     //console.log("Filter")
@@ -249,8 +256,8 @@ const PortafolioBody = () => {
       //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
       getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
        const updatedGroups: any = [];         
-      //  console.log("valuesList")
-      //  console.log(valuesList)
+        console.log("valuesList")
+        console.log(valuesList)
         groups.forEach((element: any, index: number) => {
           // console.log("ELEMENT")
           // console.log(element);
@@ -714,6 +721,7 @@ const PortafolioBody = () => {
                         index={idx}
                         groupsBy={groupsBy}
                         setCurrentGroup={setCurrentGroup}
+                        currentGroup={currentGroup}
                         setSearchWord={setSearchWord}
                         fullData={newData}
                         email={appUser.userInformation?.email}
