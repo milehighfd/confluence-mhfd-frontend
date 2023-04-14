@@ -607,6 +607,7 @@ const PortafolioBody = () => {
       setVisible={setOpenModalTollgate}
       dataProject={tollData}
       saveCB={createProjectStatusesCb}
+      setOpenPiney={setOpenPiney}
     />
     <div>
       {isLoading && <LoadingViewOverall />}
@@ -754,6 +755,7 @@ const PortafolioBody = () => {
                         setOpenPiney = {setOpenPiney}
                         collapsePhase = {collapsePhase}
                         setOpenModalTollgate = {setOpenModalTollgate}
+                        openModalTollgate = {openModalTollgate}
                       />
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 
@@ -772,6 +774,7 @@ const PortafolioBody = () => {
                     index={idx}
                     userName={appUser.userInformation?.name}
                     setDataModal={setDataModal}
+                    openModalTollgate = {openModalTollgate}
                     />}
                   </Col>
                 </Row>

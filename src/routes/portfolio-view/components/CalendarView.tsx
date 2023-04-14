@@ -29,6 +29,7 @@ const CalendarView = ({
   setTollData,
   tabKey,  
   setOpenModalTollgate,
+  openModalTollgate,
   userName,
   setDataModal,
 }: {
@@ -51,6 +52,7 @@ const CalendarView = ({
   setTollData: any;
   tabKey: any,  
   setOpenModalTollgate: Function,
+  openModalTollgate: boolean,
   userName: string,
   setDataModal: any,
 }) => {
