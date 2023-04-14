@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Col, Input, Layout, Popover, Row, Select, Space, Table, Tabs, Tag } from 'antd';
+import { Button, Col, Collapse, Input, Layout, Popover, Row, Select, Space, Table, Tabs, Tag } from 'antd';
 import { ColumnsType } from "antd/lib/table";
 import { ArrowDownOutlined, ConsoleSqlOutlined, MoreOutlined } from "@ant-design/icons";
 import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 import Search from "./Search";
+import SearchDropdown from "./SearchDropdown";
+import { getGroupList } from "./ListUtils";
+import TableBody from "./TableGroups";
 const TablePortafolio = (
   { divRef, 
     //setHoverTable, 
@@ -31,7 +34,8 @@ const TablePortafolio = (
     searchWord,
     setCollapsePhase,
     optionSelect,
-    collapsePhase
+    collapsePhase,
+    currentGroup,
   }
     : {
       divRef: React.MutableRefObject<any>,
@@ -60,9 +64,12 @@ const TablePortafolio = (
       setCollapsePhase: Function,
       optionSelect:any,
       collapsePhase: any
+      currentGroup: any
     }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
+  const [detailGroup, setDetailGroup] = useState<any>(null);
+  const { Panel } = Collapse;
   const tableRef = useRef<null | HTMLDivElement>(null);
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
@@ -152,10 +159,24 @@ const TablePortafolio = (
       searchRef.current.scrollTo(0, e.target.scrollTop);
     }
   }, [divRef.current, searchRef.current])
+
+  useEffect(() => {
+    getGroupList(currentGroup).then((valuesGroups) => {
+      setDetailGroup(valuesGroups.groups)
+    })    
+  },[currentGroup])
+
   return (
+    <div>
     <Row>
-      <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-        <Search
+      <Col xs={{ span: 10 }} lg={{ span: 5 }}>        
+        <SearchDropdown rawData={rawData}
+          groupsBy={groupsBy}
+          setCurrentGroup={setCurrentGroup}
+          setSearchWord={setSearchWord}
+          searchWord={searchWord}
+          fullData={rawData}></SearchDropdown>
+        {/* <Search
           searchWord={searchWord}
           searchRef={searchRef}
           tableRef={tableRef}
@@ -177,12 +198,12 @@ const TablePortafolio = (
           setCollapsePhase={setCollapsePhase}
           optionSelect={optionSelect}
           collapsePhase={collapsePhase}
-        />
+        /> */}
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="table-body">
           {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
-          <div className="table-table-body" style={{ width: 'min-content' }}>
+          <div className="table-table-body" style={{ width: 'min-content'}}>
             <div
               ref={tableRef}
               className="scroll-scroll-table"
@@ -212,7 +233,7 @@ const TablePortafolio = (
                 // }}
               />
             </div>
-            <div
+            {/* <div
               className="table-body-body"
               id={`listView_${index}`}
               ref={el => (divRef.current[index] = el)}
@@ -269,7 +290,7 @@ const TablePortafolio = (
                   );
                 })}
               </div>
-            </div>
+            </div> */}
 
             {/* <Table
         columns={columns}
@@ -359,10 +380,35 @@ const TablePortafolio = (
           return ''
         }}
       /> */}
+            </div>
           </div>
+        </Col>
+      </Row>
+      {
+        <div
+          className="search"
+          ref={el => searchRef.current[index] = el}    
+        >{
+            detailGroup?.map((elem: any, index: number) => {
+              const id = 'collapse' + index;
+              return (
+                <div id={elem.id} key={elem.id}>
+                  <TableBody 
+                  data={elem} 
+                  setCollapsePhase={setCollapsePhase} 
+                  collapsePhase={collapsePhase}
+                  openTable={openTable}
+                  setOpenTable={setOpenTable}
+                  index={index} 
+                  currentGroup={currentGroup}/>                  
+                </div>
+              )
+            })
+          }
+
         </div>
-      </Col>
-    </Row>
+      }
+    </div>
   );
 };
 
