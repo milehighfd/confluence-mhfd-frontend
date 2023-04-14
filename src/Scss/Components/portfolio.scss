@@ -968,9 +968,12 @@
       color: #40cba4 !important;
     }
   }
-  // .ant-collapse-header{
-  //   background-color:rgb(17 9 60)!important;  
-  // }
+   .ant-collapse-header{
+     width: 21.5% !important;  
+   }
+   .ant-collapse-header-text{
+    width: 100% !important;
+   }
   .search{
     overflow-y: hidden;
     overflow-x: hidden;

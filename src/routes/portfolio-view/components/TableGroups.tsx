@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
+import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
@@ -62,9 +62,20 @@ const TableGroups = ({
           }
         } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/
         >
-        <Panel  header={<div  onMouseEnter={(e: any) => {
-          //setHoverTable(-1)
-        }}>{data.value}</div>} key={index}>
+        <Panel  header={
+          <div style={{display: 'flex', width: '100%'}}>
+            {data.value}
+            <div style={{display: 'flex', marginLeft: 'auto', gap: '5px'}}>
+              <LeftOutlined onClick={(e) => {
+                e.stopPropagation();
+              }}/>
+              <RightOutlined onClick={(e) => {
+                e.stopPropagation();
+              }}/>
+              
+            </div>
+          </div>
+        } key={index}>
           <TableBody currentGroup={currentGroup} dataId={data.id} tabKey={tabKey}></TableBody>          
         </Panel>
       </Collapse>
