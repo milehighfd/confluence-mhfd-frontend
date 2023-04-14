@@ -25,7 +25,8 @@ const TableGroups = ({
   setOpenTable,
   openTable,
   index,
-  currentGroup
+  currentGroup,
+  tabKey,
 }: {
   data: any,
   setCollapsePhase: any, 
@@ -33,7 +34,8 @@ const TableGroups = ({
   setOpenTable: any, 
   openTable: any,
   index: any,
-  currentGroup: any
+  currentGroup: any,
+  tabKey: any,
 }) => { 
   
   const getActiveKeys = () => {
@@ -46,7 +48,7 @@ const TableGroups = ({
   
   return <>
     <div id={data.id} key={data.id}>
-      <Collapse
+      <Collapse 
         defaultActiveKey={['0', '1', '2']}
         //activeKey={getActiveKeys()}
         onChange={
@@ -60,10 +62,10 @@ const TableGroups = ({
           }
         } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/
         >
-        <Panel header={<div onMouseEnter={(e: any) => {
+        <Panel  header={<div  onMouseEnter={(e: any) => {
           //setHoverTable(-1)
         }}>{data.value}</div>} key={index}>
-          <TableBody currentGroup={currentGroup} dataId={data.id}></TableBody>          
+          <TableBody currentGroup={currentGroup} dataId={data.id} tabKey={tabKey}></TableBody>          
         </Panel>
       </Collapse>
     </div>

@@ -9,6 +9,7 @@ import Search from "./Search";
 import SearchDropdown from "./SearchDropdown";
 import { getGroupList } from "./ListUtils";
 import TableBody from "./TableGroups";
+import TableGroups from "./TableGroups";
 const TablePortafolio = (
   { divRef, 
     //setHoverTable, 
@@ -393,14 +394,15 @@ const TablePortafolio = (
               const id = 'collapse' + index;
               return (
                 <div id={elem.id} key={elem.id}>
-                  <TableBody 
+                  <TableGroups 
                   data={elem} 
                   setCollapsePhase={setCollapsePhase} 
                   collapsePhase={collapsePhase}
                   openTable={openTable}
                   setOpenTable={setOpenTable}
                   index={index} 
-                  currentGroup={currentGroup}/>                  
+                  currentGroup={currentGroup}
+                  tabKey={tabKey}/>                  
                 </div>
               )
             })
