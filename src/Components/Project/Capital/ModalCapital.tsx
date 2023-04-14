@@ -364,8 +364,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
 
   useEffect(()=>{
     let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    console.log(streamValidation);
-    console.log(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0);
     if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0){
         setDisable(false);
     }
