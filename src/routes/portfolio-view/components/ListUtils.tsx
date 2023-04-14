@@ -21,7 +21,8 @@ export const getListProjects =  async (groupname: string, currentTabId: number, 
   if (filterby && filtervalue && filtervalue !== -1) {
     specialFilter = `&filterby=${filterby}&filtervalue=${filtervalue}`;
   }
-  let projects = await datasets.postData(SERVER.GET_LIST_PMTOOLS(groupname) + filterTab + sortValues + favoritesValue + specialFilter, options ,datasets.getToken());
+  //let projects = await datasets.postData(SERVER.GET_LIST_PMTOOLS(groupname) + filterTab + sortValues + favoritesValue + specialFilter, options ,datasets.getToken());
+  let projects: any[] = [];
   return projects;
 }
 export const getGroupList = async (groupname: string) => {
