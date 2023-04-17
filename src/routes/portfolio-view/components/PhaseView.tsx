@@ -841,81 +841,64 @@ const PhaseView = (
         />
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-    <div className="phaseview-body">
-      {openPiney && (
-        <div className="piney-text">
-          <PineyView 
-          setOpenPiney={setOpenPiney} 
-          data={popUpData} 
-          userName={userName} 
-          setUpdateAction={setUpdateAction} 
-          updateAction={updateAction}
-          setOpenModalTollgate = {setOpenModalTollgate}
-          setTollData={setTollData}
-          />
-        </div>
-      )}
-      <div className="phaseview-content">
-        <div
-          className="header-title"
-          ref={headerRef}
-          onScrollCapture={(e: any) => {
-            if(phaseRef.current && indexParent && phaseRef.current){
-              let dr: any = phaseRef.current;
-              let dr1: any = headerRef.current;
-              if (searchRef.current[indexParent] && phaseRef.current) {
-                phaseRef.current.scrollTo(dr1.scrollLeft, dr.scrollTop);
-              }
-            }
-          }}
-        >
-          <div className="phaseview-title-label" style={{ width: totalLabelWidth, paddingRight:'13px' }} id="phaseviewTitlleWidth">
-            {/* <p style={{ border: 'transparent' }} className='border-transparent'>Draft</p>
-            <p>Requested</p> */}
-            {/* <p style={{ border: 'transparent' }}  className='border-transparent'>Approved</p>
-            <p style={{ display: 'flex', width: '46.15384615384615%' }}>
-              <hr className="hr2"></hr>Active<hr className="hr2"></hr>
-            </p>
-            <p style={{ display: 'flex', width: '38.46153846153846%' }}>
-              <hr></hr>Closeout<hr></hr>
-            </p>
-            <p>Closed</p> */}
-            {/*TO DO: Dotty*/}
-            {availableStatusList.map((item: any, index: number) => {
-              // console.log('item', item)
-              return <p style={index === 0 ? { display: 'flex', width: item[1] , border: 'transparent'}:{ display: 'flex', width: item[1] }}>
-                <hr className="hr2" style={{width:item[1]/2 - 48}}></hr>{item[0]}<hr className="hr2" style={{width:item[1]/2 - 48}}></hr>
-              </p>
-            })}
-          </div>
-          <div style={{ width: totalLabelWidth, paddingRight:'13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
-            {/* <p>Draft</p>
-            <p>
-              Work Request
-              <br />
-              (WR)
-            </p> */}
-            {phaseList.map((item: any) => {
-              return <p style={{ width: labelWidth }}>{item.phase_name}</p>
-            })}
-          </div>
-        </div>
-        <div className="header-timeline" style={{borderTop: '1px solid #d4d2d9', width: '100%'}}></div>
-          <div
-            // style={{ width: totalLabelWidth }}
-            className="container-timeline"           
-            ref={el => phaseRef.current = el}
-            style={{paddingLeft:'5px'}}
-            onScroll={(e: any) => {
-              let dr: any = phaseRef.current;
-              if (searchRef.current[indexParent] && headerRef.current) {
-                // console.log(headerRef.current?.scrollLeft, headerRef.current?.scrollTop, dr.scrollLeft, dr.scrollTop, 'INI',e.target.scrollTop,e.target.scrollLeft)
-                searchRef.current[indexParent].scrollTo(dr.scrollLeft, dr.scrollTop);
-                headerRef.current?.scrollTo(dr.scrollLeft, dr.scrollTop);
-                // console.log(headerRef.current?.scrollLeft, headerRef.current?.scrollTop, dr.scrollLeft, dr.scrollTop, "FIN")
-              }
-            }}            
-          >
+        <div className="phaseview-body">
+          {openPiney && (
+            <div className="piney-text">
+              <PineyView
+                setOpenPiney={setOpenPiney}
+                data={popUpData}
+                userName={userName}
+                setUpdateAction={setUpdateAction}
+                updateAction={updateAction}
+                setOpenModalTollgate={setOpenModalTollgate}
+                setTollData={setTollData}
+              />
+            </div>
+          )}
+          <div className="phaseview-content">
+            <div
+              className="header-title"
+              ref={headerRef}
+              onScrollCapture={(e: any) => {
+                if (phaseRef.current && indexParent && phaseRef.current) {
+                  let dr: any = phaseRef.current;
+                  let dr1: any = headerRef.current;
+                  if (searchRef.current[indexParent] && phaseRef.current) {
+                    phaseRef.current.scrollTo(dr1.scrollLeft, dr.scrollTop);
+                  }
+                }
+              }}
+            >
+              <div className="phaseview-title-label" style={{ width: totalLabelWidth, paddingRight: '13px' }} id="phaseviewTitlleWidth">
+                {availableStatusList.map((item: any, index: number) => {
+                  // console.log('item', item)
+                  return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
+                    <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
+                  </p>
+                })}
+              </div>
+              <div style={{ width: totalLabelWidth, paddingRight: '13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
+                {phaseList.map((item: any) => {
+                  return <p style={{ width: labelWidth }}>{item.phase_name}</p>
+                })}
+              </div>
+            </div>
+            <div className="header-timeline" style={{ borderTop: '1px solid #d4d2d9', width: '100%' }}></div>
+            <div
+              // style={{ width: totalLabelWidth }}
+              className="container-timeline"
+              ref={el => phaseRef.current = el}
+              style={{ paddingLeft: '5px' }}
+              onScroll={(e: any) => {
+                let dr: any = phaseRef.current;
+                if (searchRef.current[indexParent] && headerRef.current) {
+                  // console.log(headerRef.current?.scrollLeft, headerRef.current?.scrollTop, dr.scrollLeft, dr.scrollTop, 'INI',e.target.scrollTop,e.target.scrollLeft)
+                  searchRef.current[indexParent].scrollTo(dr.scrollLeft, dr.scrollTop);
+                  headerRef.current?.scrollTo(dr.scrollLeft, dr.scrollTop);
+                  // console.log(headerRef.current?.scrollLeft, headerRef.current?.scrollTop, dr.scrollLeft, dr.scrollTop, "FIN")
+                }
+              }}
+            >
             {rawData.map((elem: any, index: number) => (
               elem.values.map((value:any,indexinside:number) => {
                 return <div>
@@ -925,7 +908,6 @@ const PhaseView = (
                 {elem.values.length - 1 === indexinside && rawData.length-1 !==index ? <div className="header-timeline" style={{ width: totalLabelWidth}}></div>:''}
               </div>
               })
-
             ))}
           </div>
         </div>
