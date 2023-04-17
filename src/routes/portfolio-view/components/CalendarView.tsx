@@ -407,7 +407,8 @@ let toData = datas?.map((ds: any) => ds.schedule)
             endDates.push(x.to)
           } 
         }   
-      });      
+      });  
+      console.log(endDates)    
       let monthsBehind = (moment(today).diff(moment(fromData[0].from.startOf('month')), 'M'))
       let monthsAhead = (moment.max(endDates).diff(moment(today), 'M'))
       let timelineStartTime:any;
@@ -1764,85 +1765,85 @@ let toData = datas?.map((ds: any) => ds.schedule)
         />
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-    <>
-    {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
-    {/* {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>} */}
-    {/* <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/> */}
-    {/* <div className='lines-calendar' id='line-calendar'></div> */}
-      <div className="calendar-body" id="widthDivforChart">
-        {openPiney && <div className="piney-text piney-calendar">
-          <PineyView
-            setOpenPiney={setOpenPiney}
-            data={popUpData}
-            userName={userName}
-            setUpdateAction={setUpdateAction}
-            updateAction={updateAction}
-            setTollData={setTollData}
-            setOpenModalTollgate = {setOpenModalTollgate} />
-        </div>}
-        <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
-          <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
-        <div className='calendar-text-header'>
-        <Button
-            className={zoomSelected=== 'Today' ? "btn-view btn-view-active": "btn-view"}
-            onClick={() => {setIsZoomToday(true); setZoomSelected('Today')}}
-          >
-            Today
-          </Button>
-          <span style={{marginRight:'0px', color:'#11093c', opacity:0.6}}> |</span>
-          <Button
-            className={zoomSelected=== 'Weekly' ? "btn-view btn-view-active": "btn-view"}
-            
-            onClick={() => {setIsZoomWeekly(true); setZoomSelected('Weekly')}}
-          >
-            Daily
-          </Button>
-          <span style={{marginRight:'0px', color:'#11093c', opacity:0.6}}> |</span>
-          <Button
-            className={zoomSelected=== 'Monthly' ? "btn-view btn-view-active": "btn-view"}
-                                    
-            onClick={() => {setIsZoomMonthly(true); setZoomSelected('Monthly')}}
-          >
-            Monthly
-          </Button>
-        </div>
-      </Col>
-      <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth>1900 ?(pageWidth>2550 ?((pageWidth>3800 ?{textAlign:'end', paddingRight:'638px'}:{textAlign:'end', paddingRight:'465px'})):{textAlign:'end', paddingRight:'396px'}): {textAlign:'end', paddingRight: '305px'}): {textAlign:'end', paddingRight:'15px'}} className='header-zoom'>
-        <div>
-              {openPiney ? <><Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setTollData(editData); setOpenModalTollgate(true); }}>
-            <CalendarOutlined /> Edit Dates
-          </Button>
-          <span style={{marginRight:'10px', color:'#DBDBE1'}}></span>
-          </>:''}  
-          
-          {/* <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
+        <>
+          {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable} />}
+          {/* {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic}/>} */}
+          {/* <ModalTollgate visible={openModalTollgate}setVisible ={setOpenModalTollgate}/> */}
+          {/* <div className='lines-calendar' id='line-calendar'></div> */}
+          <div className="calendar-body" id="widthDivforChart">
+            {openPiney && <div className="piney-text piney-calendar">
+              <PineyView
+                setOpenPiney={setOpenPiney}
+                data={popUpData}
+                userName={userName}
+                setUpdateAction={setUpdateAction}
+                updateAction={updateAction}
+                setTollData={setTollData}
+                setOpenModalTollgate={setOpenModalTollgate} />
+            </div>}
+            <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
+              <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
+                <div className='calendar-text-header'>
+                  <Button
+                    className={zoomSelected === 'Today' ? "btn-view btn-view-active" : "btn-view"}
+                    onClick={() => { setIsZoomToday(true); setZoomSelected('Today') }}
+                  >
+                    Today
+                  </Button>
+                  <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span>
+                  <Button
+                    className={zoomSelected === 'Weekly' ? "btn-view btn-view-active" : "btn-view"}
+
+                    onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly') }}
+                  >
+                    Daily
+                  </Button>
+                  <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span>
+                  <Button
+                    className={zoomSelected === 'Monthly' ? "btn-view btn-view-active" : "btn-view"}
+
+                    onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly') }}
+                  >
+                    Monthly
+                  </Button>
+                </div>
+              </Col>
+              <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth > 1900 ? (pageWidth > 2550 ? ((pageWidth > 3800 ? { textAlign: 'end', paddingRight: '638px' } : { textAlign: 'end', paddingRight: '465px' })) : { textAlign: 'end', paddingRight: '396px' }) : { textAlign: 'end', paddingRight: '305px' }) : { textAlign: 'end', paddingRight: '15px' }} className='header-zoom'>
+                <div>
+                  {openPiney ? <><Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setTollData(editData); setOpenModalTollgate(true); }}>
+                    <CalendarOutlined /> Edit Dates
+                  </Button>
+                    <span style={{ marginRight: '10px', color: '#DBDBE1' }}></span>
+                  </> : ''}
+
+                  {/* <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)} />
           <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/> */}
-        </div>
+                </div>
+              </Col>
+            </Row>
+            <div style={{ width: '100%', marginBottom: marginReducerHeaderAxis }}>
+              <div style={{ overflowX: 'hidden', overflowY: 'hidden' }} id="timeline-chart-axis" />
+            </div>
+            <div
+              id="chartContainer"
+              style={{ overflowY: 'auto', overflowX: 'hidden' }}
+              ref={el => scheduleRef.current = el}
+              className='chart-container'
+              onScroll={(e: any) => {
+                let dr: any = scheduleRef.current;
+                if (searchRef.current[index]) {
+                  searchRef.current[index].scrollTo(0, dr.scrollTop);
+                }
+              }}
+            >
+              <div style={{ marginTop: marginTopFactor }}>
+                <div style={{ height: heightt }} id="timeline-chart" />
+                {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
+              </div>
+            </div>
+          </div>
+        </>
       </Col>
-    </Row>
-    <div style={{width:'100%', marginBottom:marginReducerHeaderAxis}}>
-      <div style={{overflowX: 'hidden',overflowY: 'hidden'}} id="timeline-chart-axis"/>
-    </div>
-      <div
-        id="chartContainer"
-        style={{ overflowY: 'auto', overflowX: 'hidden'}}
-        ref={el => scheduleRef.current = el}
-        className='chart-container'
-        onScroll={(e: any) => {
-          let dr: any = scheduleRef.current;
-          if (searchRef.current[index]) {
-            searchRef.current[index].scrollTo(0, dr.scrollTop);
-          }
-        }}
-      >
-        <div style={{marginTop: marginTopFactor}}>
-          <div style={{height: heightt}} id="timeline-chart" />
-          {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
-        </div>
-      </div>
-    </div>
-    </>
-    </Col>
     </Row>
     );
 };

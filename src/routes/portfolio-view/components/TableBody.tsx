@@ -103,7 +103,7 @@ const TableBody = ({
         service_area: getServiceAreas(x?.project_service_areas || []),
         stream: getStreams(x?.project_streams || []).join(' , '),
         estimated_cost: getTotalEstimatedCost(x?.project_costs),
-        isFavorite: favorites.some((element: { project_id: number; }) => {
+        isFavorite: favorites?.some((element: { project_id: number; }) => {
           if (element.project_id === x.project_id) {
             return true;
           }
