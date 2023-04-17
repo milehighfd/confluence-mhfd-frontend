@@ -144,10 +144,6 @@ const Search = (
   }
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      // const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
-      // const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
-      // setCompleteData(z)
-      // setNewData(z1)
       deleteUpdate(id)
     });
   }
@@ -177,20 +173,6 @@ const Search = (
       />}
     <div className="search" id='searchPortfolio'>
       <div className="search-head">
-
-        {/* commented cause the search was responsive letter by letter and filters request trigger everytime, now is change to a input search */}
-        {/* <AutoComplete
-          dropdownMatchSelectWidth={true}
-          options={filteredData.map(renderOption)}
-          onSelect={(word: string) => {
-            setSearchWord(word);
-          }}
-          onSearch={handleSearch}
-          value={keyword}
-          style={{width:'100%'}}
-        >
-          <Input allowClear placeholder="Search" prefix={<SearchOutlined />} style={{width:'95%'}}/>
-        </AutoComplete> */}
          <Input.Search
               id="search-input-listview"
               allowClear

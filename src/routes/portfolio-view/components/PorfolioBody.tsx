@@ -19,6 +19,7 @@ import { FilterByGroupName } from './FilterByGroupField';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTeam, getTotalEstimatedCost,getCurrentProjectStatus } from '../../../utils/parsers';
+import PhaseViewPag from "./PhaseViewPag";
 
 const { TabPane } = Tabs;
 //const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -731,44 +732,72 @@ const PortafolioBody = () => {
                         divRef={tableRef}
                         tabKey={tabKey}
                         setSortValue={setSortValue}
+                        favorites={favorites}
                       />
                       }
-                      {optionSelect === 'Phase' && <PhaseView
-                        searchWord={searchWord}
-                        tableRef={tableRef}
-                        setOpenTable={setOpenTable}
-                        //hoverTable={hoverTable}
-                        //setHoverTable={setHoverTable}
-                        scheduleRef={scheduleRef}
-                        setCompleteData={setCompleteData}
-                        setNewData={setNewData}
-                        index={idx}
+                      {optionSelect === 'Phase' && 
+                      // <PhaseView
+                      //   searchWord={searchWord}
+                      //   tableRef={tableRef}
+                      //   setOpenTable={setOpenTable}
+                      //   //hoverTable={hoverTable}
+                      //   //setHoverTable={setHoverTable}
+                      //   scheduleRef={scheduleRef}
+                      //   setCompleteData={setCompleteData}
+                      //   setNewData={setNewData}
+                      //   index={idx}
+                      //   groupsBy={groupsBy}
+                      //   setCurrentGroup={setCurrentGroup}
+                      //   setSearchWord={setSearchWord}
+                      //   fullData={newData}
+                      //   email={appUser.userInformation?.email}
+                      //   setCollapsePhase={setCollapsePhase}
+                      //   optionSelect={optionSelect}                        
+                      //   rawData={phaseData}
+                      //   openTable={openTable}
+                      //   phaseRef={phaseRef}
+                      //   searchRef={searchRef}
+                      //   graphicOpen={graphicOpen}
+                      //   setGrapphicOpen={setGrapphicOpen}
+                      //   positionModalGraphic={positionModalGraphic}
+                      //   setPositionModalGraphic={setPositionModalGraphic}                        
+                      //   indexParent={idx}
+                      //   tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
+                      //   userName={appUser.userInformation?.name}
+                      //   setDataModal={setDataModal}
+                      //   setTollData = {setTollData}
+                      //   openPiney = {openPiney}
+                      //   setOpenPiney = {setOpenPiney}
+                      //   collapsePhase = {collapsePhase}
+                      //   setOpenModalTollgate = {setOpenModalTollgate}
+                      // />
+                      <PhaseViewPag                        
+                        rawData={newData}
                         groupsBy={groupsBy}
                         setCurrentGroup={setCurrentGroup}
                         setSearchWord={setSearchWord}
-                        fullData={newData}
-                        email={appUser.userInformation?.email}
-                        setCollapsePhase={setCollapsePhase}
-                        optionSelect={optionSelect}
-                        
-                        rawData={phaseData}
-                        openTable={openTable}
+                        searchWord={searchWord}
+                        indexParent={idx}
                         phaseRef={phaseRef}
                         searchRef={searchRef}
-                        graphicOpen={graphicOpen}
-                        setGrapphicOpen={setGrapphicOpen}
-                        positionModalGraphic={positionModalGraphic}
-                        setPositionModalGraphic={setPositionModalGraphic}                        
-                        indexParent={idx}
+                        divRef={tableRef}
+                        tableRef={tableRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                        userName={appUser.userInformation?.name}
-                        setDataModal={setDataModal}
+                        index={idx}
+                        currentGroup={currentGroup}
+                        collapsePhase={collapsePhase}
+                        setCollapsePhase={setCollapsePhase}
+                        openTable={openTable}
+                        setOpenTable={setOpenTable}
+                        email={appUser.userInformation?.email}
+                        favorites={favorites}
                         setTollData = {setTollData}
-                        openPiney = {openPiney}
-                        setOpenPiney = {setOpenPiney}
-                        collapsePhase = {collapsePhase}
                         setOpenModalTollgate = {setOpenModalTollgate}
-                      />
+                        setOpenPiney = {setOpenPiney}
+                        setGrapphicOpen={setGrapphicOpen}
+                        setPositionModalGraphic={setPositionModalGraphic}
+                        setDataModal={setDataModal}
+                      />                        
                       }
                     {optionSelect === 'Schedule'  && <CalendarView 
 
