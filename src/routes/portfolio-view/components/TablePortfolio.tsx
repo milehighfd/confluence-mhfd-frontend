@@ -11,10 +11,10 @@ import { getGroupList } from "./ListUtils";
 import TableBody from "./TableGroups";
 import TableGroups from "./TableGroups";
 const TablePortafolio = (
-  { divRef, 
+  { divRef,
     //setHoverTable, 
     //hoverTable, 
-    tabKey, 
+    tabKey,
     setSortValue,
     searchRef,
     setOpenTable,
@@ -37,6 +37,7 @@ const TablePortafolio = (
     optionSelect,
     collapsePhase,
     currentGroup,
+    favorites,
   }
     : {
       divRef: React.MutableRefObject<any>,
@@ -47,11 +48,11 @@ const TablePortafolio = (
       searchRef: React.MutableRefObject<any>,
       tableRef: React.MutableRefObject<any>,
       scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
-      setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
+      setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
       openTable: any[],
       //hoverTable: any,
       //setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
-      phaseRef:React.MutableRefObject<HTMLDivElement | null>,
+      phaseRef: React.MutableRefObject<HTMLDivElement | null>,
       rawData: any,
       setCompleteData: Function,
       setNewData: Function,
@@ -63,9 +64,10 @@ const TablePortafolio = (
       email: string,
       searchWord: string,
       setCollapsePhase: Function,
-      optionSelect:any,
-      collapsePhase: any
-      currentGroup: any
+      optionSelect: any,
+      collapsePhase: any,
+      currentGroup: any,
+      favorites: any,
     }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -164,113 +166,90 @@ const TablePortafolio = (
   useEffect(() => {
     getGroupList(currentGroup).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
-    })    
-  },[currentGroup])
+    })
+  }, [currentGroup])
 
   return (
     <div>
-    <Row>
-      <Col xs={{ span: 10 }} lg={{ span: 5 }}>        
-        <SearchDropdown rawData={rawData}
-          groupsBy={groupsBy}
-          setCurrentGroup={setCurrentGroup}
-          setSearchWord={setSearchWord}
-          searchWord={searchWord}
-          fullData={rawData}></SearchDropdown>
-        {/* <Search
-          searchWord={searchWord}
-          searchRef={searchRef}
-          tableRef={tableRef}
-          setOpenTable={setOpenTable}
-          openTable={openTable}
-          //hoverTable={hoverTable}
-          //setHoverTable={setHoverTable}
-          phaseRef={phaseRef}
-          scheduleRef={scheduleRef}
-          rawData={rawData}
-          setCompleteData={setCompleteData}
-          setNewData={setNewData}
-          index={index}
-          groupsBy={groupsBy}
-          setCurrentGroup={setCurrentGroup}
-          setSearchWord={setSearchWord}
-          fullData={rawData}
-          email={email}
-          setCollapsePhase={setCollapsePhase}
-          optionSelect={optionSelect}
-          collapsePhase={collapsePhase}
-        /> */}
-      </Col>
-      <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-        <div className="table-body">
-          {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
-          <div className="table-table-body" style={{ width: 'min-content'}}>
-            <div
-              ref={tableRef}
-              className="scroll-scroll-table"
-              onScrollCapture={(e: any) => {
-                let dr: any = divRef.current[index];
-                let dr1: any = tableRef.current;
-                if (searchRef.current[index] && divRef.current[index]) {
-                  divRef.current[index].scrollTo(dr1.scrollLeft, dr.scrollTop);
-                }
-              }}
-            >
-              <Table
-                columns={ValueTabsHeader()}
-                dataSource={dataTable00}
-                className="table-portafolio header-table"
-                style={{ marginBottom: '20px' }}
-                onChange={(pagination, filters, sorters: any) => {
-                  setSortValue({
-                    columnKey: sorters.columnKey,
-                    order: sorters.order,
-                  });
+      <Row>
+        <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+          <SearchDropdown rawData={rawData}
+            groupsBy={groupsBy}
+            setCurrentGroup={setCurrentGroup}
+            setSearchWord={setSearchWord}
+            searchWord={searchWord}
+            fullData={rawData}></SearchDropdown>
+        </Col>
+        <Col xs={{ span: 34 }} lg={{ span: 19 }}>
+          <div className="table-body">
+            {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
+            <div className="table-table-body" style={{ width: 'min-content' }}>
+              <div
+                ref={tableRef}
+                className="scroll-scroll-table"
+                onScrollCapture={(e: any) => {
+                  let dr: any = divRef.current[index];
+                  let dr1: any = tableRef.current;
+                  if (searchRef.current[index] && divRef.current[index]) {
+                    divRef.current[index].scrollTo(dr1.scrollLeft, dr.scrollTop);
+                  }
                 }}
+              >
+                <Table
+                  columns={ValueTabsHeader()}
+                  dataSource={dataTable00}
+                  className="table-portafolio header-table"
+                  style={{ marginBottom: '20px' }}
+                  onChange={(pagination, filters, sorters: any) => {
+                    setSortValue({
+                      columnKey: sorters.columnKey,
+                      order: sorters.order,
+                    });
+                  }}
                 // onHeaderRow={(record, rowIndex) => {
                 //   return {
                 //     onMouseEnter: event => { setHoverTable(-1); }, // mouse enter row
                 //   };
                 // }}
-              />
-            </div>
-            {/* <div
-              className="table-body-body"
-              id={`listView_${index}`}
-              ref={el => (divRef.current[index] = el)}
-              onScrollCapture={(e: any) => {
-                let dr: any = divRef.current[index];
-                if (searchRef.current[index] && tableRef.current) {
-                  searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
-                  tableRef.current.scrollTo(dr.scrollLeft, 0);
-                }
-              }}
-            >
-              <div className="scroll-table">
-                <div
-                  className="line-table"
-                  onMouseEnter={e => {
-                    //setHoverTable(-1)
-                  }}
-                ></div>
-                {completeData.map((elem: any, index: number) => {
-                  //console.log("ELEM")
-                  //console.log(elem)
-                  return (
-                    <Table
-                      key={elem.id}
-                      columns={ValueTabsValue()}
-                      dataSource={elem.values}
-                      pagination={{ pageSize: 1000 }}
-                      className={
-                        openTable[index]
-                          ? index === 0
-                            ? 'table-portafolio table-first'
-                            : 'table-portafolio'
-                          : index === 0
-                          ? 'table-portafolio table-close table-first table-clouse-first'
-                          : 'table-portafolio table-close'
-                      }
+                />
+              </div>
+              {/* <div
+                className="table-body-body"
+                id={`listView_${index}`}
+                ref={el => (divRef.current[index] = el)}
+                onScrollCapture={(e: any) => {
+                  let dr: any = divRef.current[index];
+                  if (searchRef.current[index] && tableRef.current) {
+                    searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+                    tableRef.current.scrollTo(dr.scrollLeft, 0);
+                  }
+                }}
+              >
+                <div className="scroll-table">
+                  <div
+                    className="line-table"
+                    onMouseEnter={e => {
+                      //setHoverTable(-1)
+                    }}
+                  ></div>
+                  {completeData.map((elem: any, index: number) => {
+                    //console.log("ELEM")
+                    //console.log(elem)
+                    return (
+                      <Table
+                        key={elem.id}
+                        columns={ValueTabsValue()}
+                        dataSource={elem.values}
+                        pagination={{ pageSize: 1000 }}
+                        className={
+                          openTable[index]
+                            ? index === 0
+                              ? 'table-portafolio table-first'
+                              : 'table-portafolio'
+                            : index === 0
+                              ? 'table-portafolio table-close table-first table-clouse-first'
+                              : 'table-portafolio table-close'
+                        }
                       // onRow={(record, rowIndex) => {
                       //   return {
                       //     onMouseEnter: event => { setHoverTable(elem.values[rowIndex ? rowIndex : 0].project_id); }, // mouse enter row
@@ -287,13 +266,13 @@ const TablePortafolio = (
                       //   }
                       //   return ''
                       // }}
-                    />
-                  );
-                })}
-              </div>
-            </div> */}
+                      />
+                    );
+                  })}
+                </div>
+              </div> */}
 
-            {/* <Table
+              {/* <Table
         columns={columns}
         dataSource={dataTable}
         className={openTable[0] ? "table-portafolio table-first": "table-portafolio table-close table-first table-clouse-first"}
@@ -388,21 +367,27 @@ const TablePortafolio = (
       {
         <div
           className="search"
-          ref={el => searchRef.current[index] = el}    
+          ref={el => searchRef.current[index] = el}
         >{
             detailGroup?.map((elem: any, index: number) => {
               const id = 'collapse' + index;
               return (
                 <div id={elem.id} key={elem.id}>
-                  <TableGroups 
-                  data={elem} 
-                  setCollapsePhase={setCollapsePhase} 
-                  collapsePhase={collapsePhase}
-                  openTable={openTable}
-                  setOpenTable={setOpenTable}
-                  index={index} 
-                  currentGroup={currentGroup}
-                  tabKey={tabKey}/>                  
+                  <TableGroups
+                    data={elem}
+                    setCollapsePhase={setCollapsePhase}
+                    collapsePhase={collapsePhase}
+                    openTable={openTable}
+                    setOpenTable={setOpenTable}
+                    index={index}
+                    currentGroup={currentGroup}
+                    tabKey={tabKey} 
+                    favorites={favorites}
+                    email={email}
+                    divRef={divRef}
+                    searchRef={searchRef}
+                    tableRef = {tableRef}
+                    />
                 </div>
               )
             })

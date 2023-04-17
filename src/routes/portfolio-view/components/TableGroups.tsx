@@ -27,56 +27,89 @@ const TableGroups = ({
   index,
   currentGroup,
   tabKey,
+  favorites,
+  email,
+  divRef,
+  searchRef,
+  tableRef
 }: {
   data: any,
-  setCollapsePhase: any, 
+  setCollapsePhase: any,
   collapsePhase: any,
-  setOpenTable: any, 
+  setOpenTable: any,
   openTable: any,
   index: any,
   currentGroup: any,
   tabKey: any,
-}) => { 
-  
+  favorites: any,
+  email: any,
+  divRef: any,
+  searchRef: any,
+  tableRef: any
+}) => {
+  const [next, setNext] = useState(false);
+  const [prev, setPrev] = useState(false);
   const getActiveKeys = () => {
     const indices = openTable.reduce(
-      (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out, 
+      (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
       []
     );
     return indices;
-  }  
-  
+  }
+
   return <>
-    <div id={data.id} key={data.id}>
-      <Collapse 
+    <div  className="table-body2" id={data.id} key={data.id}>
+      <Collapse
         defaultActiveKey={['0', '1', '2']}
         //activeKey={getActiveKeys()}
         onChange={
           () => {
-            setCollapsePhase(!collapsePhase)
-            // setTimeout(()=>{
-            const newOpenTable = [...openTable];            
+            setCollapsePhase(!collapsePhase)            
+            const newOpenTable = [...openTable];
             newOpenTable[index] = !openTable[index] as any;
             setOpenTable(newOpenTable);
-            // },70)
           }
-        } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/
-        >
-        <Panel  header={
-          <div style={{display: 'flex', width: '100%'}}>
+        } className=''
+      >
+   
+        <Panel header={
+          <div style={{ display: 'flex', width: '100%' }}>
+            <div
+              className="line-table"
+              onMouseEnter={e => {
+                //setHoverTable(-1)
+              }}
+            ></div>
             {data.value}
-            <div style={{display: 'flex', marginLeft: 'auto', gap: '5px'}}>
+            <div style={{ display: 'flex', marginLeft: 'auto', gap: '5px' }}>
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
-              }}/>
+                setPrev(true);
+              }} />
               <RightOutlined onClick={(e) => {
                 e.stopPropagation();
-              }}/>
-              
+                setNext(true);
+              }} />
+
             </div>
           </div>
         } key={index}>
-          <TableBody currentGroup={currentGroup} dataId={data.id} tabKey={tabKey}></TableBody>          
+          <TableBody
+            currentGroup={currentGroup}
+            dataId={data.id}
+            tabKey={tabKey}
+            next={next}
+            prev={prev}
+            setNext={setNext}
+            setPrev={setPrev}
+            email={email}
+            openTable={openTable}
+            setOpenTable={setOpenTable}
+            index={index}
+            divRef={divRef}
+            searchRef={searchRef}
+            tableRef={tableRef}
+          ></TableBody>
         </Panel>
       </Collapse>
     </div>
