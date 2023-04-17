@@ -111,7 +111,7 @@ const MapView = () => {
   const [groupsLabels, setGroupsLabels] = useState<any>({"projecttype": [], "totalcost": [], "status": [], "year": [], "mhfddollarsallocated": [], "workplanyear": [], "problemtype": [], "consultant": [], "contractor": [], "jurisdiction": [], "county": [], "lgmanager": [], "streamname": [], "creator": [], "mhfdmanager": [], "servicearea": []});
   useEffect(() => {
     getParamFilterProjects(boundsMap, filterProjectOptions);
-  }, [filterProjectOptions]);
+  }, [filterProjectOptions?.keyword]);
   useEffect(() => {
     getParamFilterProblems(boundsMap, filterProblemOptions);
   } ,[filterProblemOptions]);
