@@ -206,9 +206,10 @@ const MapView = () => {
     options.contractor = '';
     options.servicearea = '';
     setFilterProjectOptions(options);
-    getGalleryProjects();;
     if (toggleModalFilter) {
       getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
+    } else{
+      getGalleryProjects();;
     }
   }
 
@@ -273,7 +274,7 @@ const MapView = () => {
     //  = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
     auxFilterProjects[tag] = auxValueTag;
     setFilterProjectOptions(auxFilterProjects);
-    getGalleryProjects();
+    // getGalleryProjects();
     getParamFilterProjects(boundsMap, auxFilterProjects)
 
   }, [filterProjectOptions]);
@@ -796,16 +797,7 @@ const MapView = () => {
 
   const onResetClick = () => {
     RheoStatService.reset();
-    if (tabActive === '0') {
-      setKeywordProblem('');
-      setProblemKeyword('');
-      getGalleryProblems();
-    } else {
-      setKeywordProject('');
-      setProjectKeyword('');
-                           console.log('get gallery'); 
-                      getGalleryProjects();;
-    }
+    
     if (toggleModalFilter) {
       switch(filterTabNumber) {
         case PROBLEMS_TRIGGER:
@@ -819,6 +811,16 @@ const MapView = () => {
             break;
       }
     } else {
+      if (tabActive === '0') {
+        setKeywordProblem('');
+        setProblemKeyword('');
+        getGalleryProblems();
+      } else {
+        setKeywordProject('');
+        setProjectKeyword('');
+                             console.log('get gallery'); 
+                        getGalleryProjects();;
+      }
       switch(tabCards) {
         case PROBLEMS_TRIGGER:
             resetFilterProblems();
