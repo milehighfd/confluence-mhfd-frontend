@@ -367,36 +367,37 @@ const TablePortafolio = (
         </Col>
       </Row>
       {
-        <div
-          className="search"
-          ref={el => searchRef.current[index] = el}
-        >{
-            detailGroup?.map((elem: any, index: number) => {
-              const id = 'collapse' + index;
-              return (
-                <div id={elem.id} key={elem.id}>
-                  <TableGroups
-                    data={elem}
-                    setCollapsePhase={setCollapsePhase}
-                    collapsePhase={collapsePhase}
-                    openTable={openTable}
-                    setOpenTable={setOpenTable}
-                    index={index}
-                    currentGroup={currentGroup}
-                    tabKey={tabKey} 
-                    favorites={favorites}
-                    email={email}
-                    divRef={divRef}
-                    searchRef={searchRef}
-                    tableRef = {tableRef}
-                    tabKeyId = {tabKeyId}
+        <div className="phase-groups">
+          <div
+            className="search"
+            ref={el => searchRef.current[index] = el}
+          >{
+              detailGroup?.map((elem: any, index: number) => {
+                const id = 'collapse' + index;
+                return (
+                  <div id={elem.id} key={elem.id}>
+                    <TableGroups
+                      data={elem}
+                      setCollapsePhase={setCollapsePhase}
+                      collapsePhase={collapsePhase}
+                      openTable={openTable}
+                      setOpenTable={setOpenTable}
+                      index={index}
+                      currentGroup={currentGroup}
+                      tabKey={tabKey}
+                      favorites={favorites}
+                      email={email}
+                      divRef={divRef}
+                      searchRef={searchRef}
+                      tableRef={tableRef}
+                      tabKeyId={tabKeyId}
                     />
-                </div>
-              )
-            })
-          }
-
-        </div>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>        
       }
     </div>
   );

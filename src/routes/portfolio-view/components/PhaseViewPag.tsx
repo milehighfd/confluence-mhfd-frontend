@@ -28,7 +28,6 @@ const PhaseViewPag = ({
   setSearchWord,
   searchWord,
   indexParent,
-  phaseRef,
   searchRef,
   divRef,
   tableRef,
@@ -55,7 +54,6 @@ const PhaseViewPag = ({
   setSearchWord: any,
   searchWord: any,
   indexParent: any,
-  phaseRef: any,
   searchRef: any,
   divRef: any,
   tableRef: any,
@@ -89,6 +87,7 @@ const PhaseViewPag = ({
   const headerRef = useRef<null | HTMLDivElement>(null);
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
+  const phaseRef = useRef<null | HTMLDivElement>(null);
   let totalLabelWidth = phaseList.length * labelWidth;
 
   useEffect(() => {
@@ -160,7 +159,6 @@ const PhaseViewPag = ({
         console.log(e);
       })
   }, [actionsDone])
-
   useEffect(() => {
     const z: any = [];
     statusList.map((img: any) => {
@@ -226,7 +224,7 @@ const PhaseViewPag = ({
       </Col>
     </Row>
     {
-      <div style={{overflowY:'scroll'}}>
+      <div className="phase-groups">
         <div
           className="search"
           ref={el => searchRef.current[index] = el}

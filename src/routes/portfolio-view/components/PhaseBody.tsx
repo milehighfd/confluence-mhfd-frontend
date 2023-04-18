@@ -692,18 +692,20 @@ const PhaseBody = ({
       type={FILTER_PROJECTS_TRIGGER}
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
-    />}
+    />}    
     {openPiney && (
-      <div className="piney-text">
-        <PineyView
-          setOpenPiney={setOpenPiney}
-          data={popUpData}
-          userName={userName}
-          setUpdateAction={setUpdateAction}
-          updateAction={updateAction}
-          setOpenModalTollgate={setOpenModalTollgate}
-          setTollData={setTollData}
-        />
+      <div className="phaseview-body">
+        <div className="piney-text">
+          <PineyView
+            setOpenPiney={setOpenPiney}
+            data={popUpData}
+            userName={userName}
+            setUpdateAction={setUpdateAction}
+            updateAction={updateAction}
+            setOpenModalTollgate={setOpenModalTollgate}
+            setTollData={setTollData}
+          />
+        </div>
       </div>
     )}
     <div >

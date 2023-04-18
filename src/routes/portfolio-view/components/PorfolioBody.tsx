@@ -780,7 +780,6 @@ const PortafolioBody = () => {
                         setSearchWord={setSearchWord}
                         searchWord={searchWord}
                         indexParent={idx}
-                        phaseRef={phaseRef}
                         searchRef={searchRef}
                         divRef={tableRef}
                         tableRef={tableRef}
