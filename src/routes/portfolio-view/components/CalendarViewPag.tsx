@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
+import { CalendarOutlined, DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import * as datasets from "../../../Config/datasets";
@@ -9,7 +9,7 @@ import { SERVER } from 'Config/Server.config';
 import SearchDropdown from "./SearchDropdown";
 import moment from "moment";
 import { getGroupList } from "./ListUtils";
-import PhaseGroups from "./PhaseGroups";
+import CalendarGroups from "./CalendarGroups";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -21,7 +21,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
-const PhaseViewPag = ({
+const CalendarViewPag = ({
   rawData,
   groupsBy,
   setCurrentGroup,
@@ -44,10 +44,12 @@ const PhaseViewPag = ({
   setTollData,
   setOpenModalTollgate,
   setOpenPiney,
+  openPiney,
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  userName,
+  moveSchedule,
+  scheduleRef,
 }: {
   rawData: any,
   groupsBy: any,
@@ -67,26 +69,34 @@ const PhaseViewPag = ({
   openTable: any,
   setOpenTable: any,
   favorites: any,
-  email: any,  
+  email: any,
   setTollData: any,
   setOpenModalTollgate: any,
   setOpenPiney: any,
+  openPiney:any,
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  userName: any,
+  moveSchedule: any,
+  scheduleRef: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
-  const [statusCounter,setStatusCounter] = useState(0);
+  const [statusCounter, setStatusCounter] = useState(0);
   const [scheduleList, setScheduleList] = useState<any>({});
   const [statusList, setStatusList] = useState<any>([]);
-  const [actionsDone,setActionsDone] = useState<any>({});
+  const [actionsDone, setActionsDone] = useState<any>({});
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [userBrowser, setUserBrowser] = useState<any>()
-  const [updateAction,setUpdateAction] = useState(false);
+  const [updateAction, setUpdateAction] = useState(false);
+  const [isZoomToday, setIsZoomToday] = useState<any>(false);
+  const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
+  const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
+  const [editData,setEditData] = useState<any>({});
+  const [zoomSelected, setZoomSelected] = useState('Today');
   const headerRef = useRef<null | HTMLDivElement>(null);
+  let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   let totalLabelWidth = phaseList.length * labelWidth;
@@ -126,8 +136,8 @@ const PhaseViewPag = ({
   useEffect(() => {
     let z = []
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
-      .then((rows) => {  
-        setPhaseList(rows)  
+      .then((rows) => {
+        setPhaseList(rows)
         setStatusCounter(rows.length)
         let counter = 0;
         z = rows.map((x: any) => {
@@ -141,7 +151,7 @@ const PhaseViewPag = ({
               name: x.phase_name,
               phase: x.phase_name,
               tasks: x.code_rule_action_items.length,
-              phase_id: x.code_phase_type_id,             
+              phase_id: x.code_phase_type_id,
               tasksData: x.code_rule_action_items,
               duration: x.duration,
               duration_type: x.duration_type,
@@ -153,7 +163,7 @@ const PhaseViewPag = ({
           return x.code_status_type;
         })
         setStatusList(y)
-        setUpdatePhaseList(!updatePhaseList) 
+        setUpdatePhaseList(!updatePhaseList)
         return rows
       })
       .catch((e) => {
@@ -192,85 +202,92 @@ const PhaseViewPag = ({
           fullData={rawData}></SearchDropdown>
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-        <div className="phaseview-body">
-          <div className="phaseview-content">
-            <div
-              className="header-title"
-              ref={headerRef}
-              onScrollCapture={(e: any) => {
-                if (phaseRef.current && indexParent && phaseRef.current) {
-                  let dr: any = phaseRef.current;
-                  let dr1: any = headerRef.current;
-                  if (searchRef.current[indexParent] && phaseRef.current) {
-                    phaseRef.current.scrollTo(dr1.scrollLeft, dr.scrollTop);
-                  }
-                }
-              }}
-            >
-              <div className="phaseview-title-label" style={{ width: totalLabelWidth, paddingRight: '13px' }} id="phaseviewTitlleWidth">
-                {availableStatusList.map((item: any, index: number) => {
-                  return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
-                    <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
-                  </p>
-                })}
+        <div className="calendar-body" id="widthDivforChart">
+          <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
+            <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
+              <div className='calendar-text-header'>
+                <Button
+                  className={zoomSelected === 'Today' ? "btn-view btn-view-active" : "btn-view"}
+                  onClick={() => { setIsZoomToday(true); setZoomSelected('Today') }}
+                >
+                  Today
+                </Button>
+                <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span>
+                <Button
+                  className={zoomSelected === 'Weekly' ? "btn-view btn-view-active" : "btn-view"}
+
+                  onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly') }}
+                >
+                  Daily
+                </Button>
+                <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span>
+                <Button
+                  className={zoomSelected === 'Monthly' ? "btn-view btn-view-active" : "btn-view"}
+
+                  onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly') }}
+                >
+                  Monthly
+                </Button>
               </div>
-              <div style={{ width: totalLabelWidth, paddingRight: '13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
-                {phaseList.map((item: any) => {
-                  return <p style={{ width: labelWidth }}>{item.phase_name}</p>
-                })}
+            </Col>
+            <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth > 1900 ? (pageWidth > 2550 ? ((pageWidth > 3800 ? { textAlign: 'end', paddingRight: '638px' } : { textAlign: 'end', paddingRight: '465px' })) : { textAlign: 'end', paddingRight: '396px' }) : { textAlign: 'end', paddingRight: '305px' }) : { textAlign: 'end', paddingRight: '15px' }} className='header-zoom'>
+              <div>
+                {openPiney ? <><Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setTollData(editData); setOpenModalTollgate(true); }}>
+                  <CalendarOutlined /> Edit Dates
+                </Button>
+                  <span style={{ marginRight: '10px', color: '#DBDBE1' }}></span>
+                </> : ''}
               </div>
-            </div>
-          </div>
-          <div className="header-timeline" style={{ borderTop: '1px solid #d4d2d9', width: '100%' }}></div>
+            </Col>
+          </Row>
         </div>
       </Col>
     </Row>
     {
-      <div style={{overflowY:'scroll'}}>
-        <div
-          className="search"
-          ref={el => searchRef.current[index] = el}
-        >{
-            detailGroup?.map((elem: any, index: number) => {
-              const id = 'collapse' + index;
-              return (
-                <div id={elem.id} key={elem.id}>
-                  <PhaseGroups
-                    data={elem}
-                    setCollapsePhase={setCollapsePhase}
-                    collapsePhase={collapsePhase}
-                    openTable={openTable}
-                    setOpenTable={setOpenTable}
-                    index={index}
-                    currentGroup={currentGroup}
-                    tabKey={tabKey}
-                    favorites={favorites}
-                    email={email}
-                    divRef={divRef}
-                    searchRef={searchRef}
-                    tableRef={tableRef}
-                    totalLabelWidth={totalLabelWidth}
-                    scheduleList={scheduleList}
-                    phaseList={phaseList}
-                    statusCounter={statusCounter}
-                    setTollData={setTollData}
-                    setOpenModalTollgate={setOpenModalTollgate}
-                    actionsDone={actionsDone}
-                    userBrowser={userBrowser}
-                    setOpenPiney={setOpenPiney}
-                    setGrapphicOpen={setGrapphicOpen}
-                    setPositionModalGraphic={setPositionModalGraphic}
-                    setDataModal={setDataModal}
-                    userName={userName}
-                  />
-                </div>
-              )
-            })
-          }
-        </div>
+      <div
+        className="search"
+        ref={el => searchRef.current[index] = el}
+      >{
+          detailGroup?.map((elem: any, index: number) => {
+            const id = 'collapse' + index;
+            return (
+              <div id={elem.id} key={elem.id}>
+                <CalendarGroups
+                  data={elem}
+                  setCollapsePhase={setCollapsePhase}
+                  collapsePhase={collapsePhase}
+                  openTable={openTable}
+                  setOpenTable={setOpenTable}
+                  index={index}
+                  currentGroup={currentGroup}
+                  tabKey={tabKey}
+                  favorites={favorites}
+                  email={email}
+                  divRef={divRef}
+                  searchRef={searchRef}
+                  tableRef={tableRef}
+                  totalLabelWidth={totalLabelWidth}
+                  scheduleList={scheduleList}
+                  phaseList={phaseList}
+                  statusCounter={statusCounter}
+                  setTollData={setTollData}
+                  setOpenModalTollgate={setOpenModalTollgate}
+                  actionsDone={actionsDone}
+                  userBrowser={userBrowser}
+                  setOpenPiney={setOpenPiney}
+                  setGrapphicOpen={setGrapphicOpen}
+                  setPositionModalGraphic={setPositionModalGraphic}
+                  setDataModal={setDataModal}
+                  moveSchedule={moveSchedule}
+                  scheduleRef={scheduleRef}
+                />
+              </div>
+            )
+          })
+        }
       </div>
     }
   </>
 };
 
-export default PhaseViewPag;
+export default CalendarViewPag;

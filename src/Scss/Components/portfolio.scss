@@ -1293,7 +1293,7 @@
     }
     .table-close{
       .ant-table-tbody {
-        display: none;
+        // display: none;
       }
     }
     .table-first{
@@ -1306,7 +1306,7 @@
       }
     }
     .table-clouse-first{
-      margin-top: 36px;
+      margin-top: 0px;
     }
     .table-portafolio{
       // overflow: hidden;  
@@ -2696,7 +2696,7 @@
       margin-top: 49px !important;
     }
     .table-clouse-first{
-      margin-top: 50px !important;
+      margin-top: 0px !important;
     }
     .table-portafolio{
       .table-text-body{

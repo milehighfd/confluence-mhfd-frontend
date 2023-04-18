@@ -20,6 +20,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import { getCounties, getServiceAreas, getSponsors, getStreams, getTeam, getTotalEstimatedCost,getCurrentProjectStatus } from '../../../utils/parsers';
 import PhaseViewPag from "./PhaseViewPag";
+import CalendarViewPag from "./CalendarViewPag";
 
 const { TabPane } = Tabs;
 //const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
@@ -731,6 +732,7 @@ const PortafolioBody = () => {
                         collapsePhase={collapsePhase}
                         divRef={tableRef}
                         tabKey={tabKey}
+                        tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
                         favorites={favorites}
                       />
@@ -797,43 +799,75 @@ const PortafolioBody = () => {
                         setGrapphicOpen={setGrapphicOpen}
                         setPositionModalGraphic={setPositionModalGraphic}
                         setDataModal={setDataModal}
+                        userName={appUser.userInformation?.user}
                       />                        
                       }
-                    {optionSelect === 'Schedule'  && <CalendarView 
-
-                    searchWord={searchWord}
-                    tableRef={tableRef}
-                    setOpenTable={setOpenTable}
-                    //hoverTable={hoverTable}
-                    //setHoverTable={setHoverTable}
-                    phaseRef={phaseRef}
-                    setCompleteData={setCompleteData}
-                    setNewData={setNewData}
-                    groupsBy={groupsBy}
-                    setCurrentGroup={setCurrentGroup}
-                    setSearchWord={setSearchWord}
-                    fullData={newData}
-                    email={appUser.userInformation?.email}
-                    setCollapsePhase={setCollapsePhase}
-                    optionSelect={optionSelect}
-                    collapsePhase={collapsePhase}
-
-                    rawData={newData} 
-                    openTable={openTable} 
-                    moveSchedule={zoomTimeline} 
-                    scheduleRef={scheduleRef} 
-                    searchRef={searchRef} 
-                    graphicOpen={graphicOpen} 
-                    setGrapphicOpen={setGrapphicOpen}
-                    setTollData = {setTollData}
-                    setOpenModalTollgate = {setOpenModalTollgate}
-                    tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0} 
-                    positionModalGraphic={positionModalGraphic} 
-                    setPositionModalGraphic={setPositionModalGraphic} 
-                    index={idx}
-                    userName={appUser.userInformation?.name}
-                    setDataModal={setDataModal}
-                    />}
+                    {optionSelect === 'Schedule'  && 
+                    // <CalendarView 
+                    // searchWord={searchWord}
+                    // tableRef={tableRef}
+                    // setOpenTable={setOpenTable}
+                    // //hoverTable={hoverTable}
+                    // //setHoverTable={setHoverTable}
+                    // phaseRef={phaseRef}
+                    // setCompleteData={setCompleteData}
+                    // setNewData={setNewData}
+                    // groupsBy={groupsBy}
+                    // setCurrentGroup={setCurrentGroup}
+                    // setSearchWord={setSearchWord}
+                    // fullData={newData}
+                    // email={appUser.userInformation?.email}
+                    // setCollapsePhase={setCollapsePhase}
+                    // optionSelect={optionSelect}
+                    // collapsePhase={collapsePhase}
+                    // rawData={newData} 
+                    // openTable={openTable} 
+                    // moveSchedule={zoomTimeline} 
+                    // scheduleRef={scheduleRef} 
+                    // searchRef={searchRef} 
+                    // graphicOpen={graphicOpen} 
+                    // setGrapphicOpen={setGrapphicOpen}
+                    // setTollData = {setTollData}
+                    // setOpenModalTollgate = {setOpenModalTollgate}
+                    // tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0} 
+                    // positionModalGraphic={positionModalGraphic} 
+                    // setPositionModalGraphic={setPositionModalGraphic} 
+                    // index={idx}
+                    // userName={appUser.userInformation?.name}
+                    // setDataModal={setDataModal}
+                    // />
+                    <CalendarViewPag
+                      rawData={newData}
+                      groupsBy={groupsBy}
+                      setCurrentGroup={setCurrentGroup}
+                      setSearchWord={setSearchWord}
+                      searchWord={searchWord}
+                      indexParent={idx}
+                      phaseRef={phaseRef}
+                      searchRef={searchRef}
+                      divRef={tableRef}
+                      tableRef={tableRef}
+                      tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
+                      index={idx}
+                      currentGroup={currentGroup}
+                      collapsePhase={collapsePhase}
+                      setCollapsePhase={setCollapsePhase}
+                      openTable={openTable}
+                      setOpenTable={setOpenTable}
+                      email={appUser.userInformation?.email}
+                      favorites={favorites}
+                      setTollData={setTollData}
+                      setOpenModalTollgate={setOpenModalTollgate}
+                      setOpenPiney={setOpenPiney}
+                      openPiney={openPiney}
+                      setGrapphicOpen={setGrapphicOpen}
+                      setPositionModalGraphic={setPositionModalGraphic}
+                      setDataModal={setDataModal}
+                      moveSchedule={zoomTimeline}
+                      scheduleRef={scheduleRef}
+                    />    
+                    
+                    }
                   
                 {/* </Row> */}
                 </div>

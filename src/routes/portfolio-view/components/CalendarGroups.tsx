@@ -6,7 +6,7 @@ import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/cons
 import * as datasets from "../../../Config/datasets";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
-import PhaseBody from "./PhaseBody";
+import CalendarBody from "./CalendarBody";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -18,7 +18,7 @@ const popovers: any = [
   <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
-const PhaseGroups = ({
+const CalendarGroups = ({
   data,
   setCollapsePhase,
   collapsePhase,
@@ -44,7 +44,8 @@ const PhaseGroups = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  userName,
+  moveSchedule,
+  scheduleRef,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -71,7 +72,8 @@ const PhaseGroups = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  userName: any,
+  moveSchedule: any,
+  scheduleRef: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -118,7 +120,7 @@ const PhaseGroups = ({
             </div>
           </div>
         } key={index}>
-          <PhaseBody
+          <CalendarBody
             currentGroup={currentGroup}
             dataId={data.id}
             tabKey={tabKey}
@@ -141,16 +143,18 @@ const PhaseGroups = ({
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
             userBrowser={userBrowser}
+            setOpenPiney={setOpenPiney}
             setGrapphicOpen={setGrapphicOpen}
             setPositionModalGraphic={setPositionModalGraphic}
             setDataModal={setDataModal}
+            moveSchedule={moveSchedule}
+            scheduleRef={scheduleRef}
             groupName={data.value}
-            userName={userName}
-          ></PhaseBody>
+          ></CalendarBody>
         </Panel>
       </Collapse>
     </div>
   </>
 };
 
-export default PhaseGroups;
+export default CalendarGroups;

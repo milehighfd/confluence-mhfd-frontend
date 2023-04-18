@@ -31,7 +31,8 @@ const TableGroups = ({
   email,
   divRef,
   searchRef,
-  tableRef
+  tableRef,
+  tabKeyId,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -45,7 +46,8 @@ const TableGroups = ({
   email: any,
   divRef: any,
   searchRef: any,
-  tableRef: any
+  tableRef: any,
+  tabKeyId: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -109,6 +111,7 @@ const TableGroups = ({
             divRef={divRef}
             searchRef={searchRef}
             tableRef={tableRef}
+            tabKeyId={tabKeyId}
           ></TableBody>
         </Panel>
       </Collapse>

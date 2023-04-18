@@ -11,6 +11,7 @@ import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimated
 import * as d3 from 'd3';
 import moment from "moment";
 import { colorScale } from "../constants/PhaseViewData";
+import PineyView from "./PineyView";
 
 
 const { TabPane } = Tabs;
@@ -46,10 +47,11 @@ const PhaseBody = ({
   setOpenModalTollgate,
   actionsDone,
   userBrowser,
-  setOpenPiney,
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
+  groupName,
+  userName,
 }: {
   currentGroup: any,
   dataId: any,
@@ -73,10 +75,11 @@ const PhaseBody = ({
   setOpenModalTollgate: Function,
   actionsDone: any,
   userBrowser: any,
-  setOpenPiney: Function,
   setGrapphicOpen: Function,
   setPositionModalGraphic: Function,
   setDataModal: Function,
+  groupName: string,
+  userName: string
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -88,6 +91,8 @@ const PhaseBody = ({
   const [phaseData, setPhaseData] = useState<any>([]);
   const [popUpData, setPopUpData] = useState<any>({});
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
+  const [updateAction,setUpdateAction] = useState(false);
+  const [openPiney, setOpenPiney] = useState(false);
 
   let svg: any;
   const windowWidth: any = window.innerWidth;
@@ -160,25 +165,36 @@ const PhaseBody = ({
 
   useEffect(() => {
     if (Object.keys(phaseData).length > 0) {
-      console.log("REMOVING")
       phaseData.map((elem: any, index: number) => (
         elem.values.map((value: any) => (
           removeAllChildNodes(document.getElementById(`dotchart_${value.id.replace(/\s/g, '')}`))          
         ))
       ));
     }
-    for (let index = 0; index < phaseData.length; index++) {
-      const updatedValues = phaseData[index].values.map((obj: any) => ({
-        ...obj,
-        idExt: phaseData[index].id
-      }));
-      phaseData[index].values = updatedValues;
-      if (openTable[index]) {
-        phaseData[index].values.forEach((element: any) => {
-          phaseChart(element);
-        });
-      }
-    }
+    console.log(Object.keys(phaseData).length)
+    console.log(phaseData.length)
+
+
+    if (phaseData.length > 0) {      
+      console.log(phaseData)
+      phaseData.forEach((element:any) => {
+        element.values.forEach((value:any) => {
+          phaseChart(value);
+        })
+      });
+    }    
+    // for (let index = 0; index < phaseData.length; index++) {
+    //   const updatedValues = phaseData[index].values.map((obj: any) => ({
+    //     ...obj,
+    //     idExt: phaseData[index].id
+    //   }));
+    //   phaseData[index].values = updatedValues;
+    //   if (openTable[index]) {
+    //     phaseData[index].values.forEach((element: any) => {
+    //       phaseChart(element);
+    //     });
+    //   }
+    // }
   }, [phaseData,openTable]);
 
   //Start of phase chart generation
@@ -504,7 +520,7 @@ const PhaseBody = ({
             .attr("r", radius + 0.5)
             .style("fill", 'white')
             .style('opacity', 0)
-            .on("click", (d: any) => {
+            .on("click", (d: any) => {             
               setOpenPiney(false)              
               let searchTextId2 = d3.event.target.id.slice(0, -6);
               let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();
@@ -528,7 +544,7 @@ const PhaseBody = ({
                   isLocked: z.is_locked
                 };
               })
-              let scheduleParsed = { ...d, schedule: dataParsed }
+              let scheduleParsed = { ...d, schedule: dataParsed }            
               setPopUpData({
                 project_name: d.rowLabel,
                 phase: scheduleList[r].phase,
@@ -605,7 +621,7 @@ const PhaseBody = ({
   useEffect(() => {
     let dataParsed = (dataBody.map((x: any, index: number) => {
       return {
-        id: `${currentGroup}${index}`,
+        id: `${groupName}${index}`,
         project_id: x.project_id,
         rowLabel: x.project_name,
         on_base: x?.onbase_project_number,
@@ -647,7 +663,7 @@ const PhaseBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20`, {}).then((res: any) => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20&code_project_type_id=${tabKey}`, {}).then((res: any) => {
       setDataBody(res);
     })
   }, [currentGroup, page])
@@ -668,75 +684,6 @@ const PhaseBody = ({
     }
   };
 
-  const ValueTabsHeader = () => {
-    let header = AllHeaderTable;
-    switch (tabKey) {
-      case "All": {
-        header = AllHeaderTable;
-        break;
-      }
-      case "DIP": {
-        header = DIPHeaderTable;
-        break;
-      }
-      case "R&D": {
-        header = RDHeaderTable;
-        break;
-      }
-      case "Restoration": {
-        header = RestorationHeaderTable;
-        break;
-      }
-      case "CIP": {
-        header = CIPHeaderTable;
-        break;
-      }
-      case "Planning": {
-        header = PlanningHeaderTable;
-        break;
-      }
-      case "Acquisition": {
-        header = PropertyAcquisitionHeaderTable;
-        break;
-      }
-      default: {
-        header = AllHeaderTable;
-        break;
-      }
-    }
-    return header;
-  }
-
-  const ValueTabsValue = () => {
-    switch (tabKey) {
-      case "All": {
-        return AllValueTable;
-      }
-      case "DIP": {
-        return DIPValueTable;
-      }
-      case "R&D": {
-        return RDValueTable;
-      }
-      case "Restoration": {
-        return RestorationValueTable;
-      }
-      case "CIP": {
-        return CIPValueTable;
-      }
-      case "Acquisition": {
-        return PropertyAcquisitionValueTable;
-      }
-      case "Planning": {
-        return PlanningValueTable;
-      }
-      default: {
-        return AllValueTable;
-      }
-    }
-  }
-
-
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
@@ -746,6 +693,19 @@ const PhaseBody = ({
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
     />}
+    {openPiney && (
+      <div className="piney-text">
+        <PineyView
+          setOpenPiney={setOpenPiney}
+          data={popUpData}
+          userName={userName}
+          setUpdateAction={setUpdateAction}
+          updateAction={updateAction}
+          setOpenModalTollgate={setOpenModalTollgate}
+          setTollData={setTollData}
+        />
+      </div>
+    )}
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>
