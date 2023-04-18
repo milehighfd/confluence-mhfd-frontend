@@ -1,29 +1,68 @@
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  setToggleModalFilter, getParamFilterProjects, getParamFilterProblems, getParamFilterProjectsNoBounds,
-  getParamFilterComponents, setTabCards, setFilterTabNumber, setBoundMap,
-  setOpacityLayer, setCoordinatesJurisdiction,
-  setFilterProblemOptions, setFilterProjectOptions, resetFiltercomponentOptions, setNameZoomArea,
-  setLabelFilterProblems, setLabelFilterProjects, setSpinMapLoaded,
-  setAutocomplete, getBBOXComponents, updateSelectedLayers,
-  addFavorite, deleteFavorite, favoriteList, changeTutorialStatus, favoriteCards,
-  setBBOXComponents, getGalleryProblems, getGalleryProjects, getProjectsFilteredIds, setApplyFilter, setHighlighted,
-  setFilterComponentOptions, setZoomProjectOrProblem, setSelectedPopup, getComponentCounter,
-  mapSearchQuery, setSelectedOnMap, existDetailedPageProblem,
-  existDetailedPageProject, getDetailedPageProblem, getDetailedPageProject,resetDetailed, 
-  getComponentsByProblemId, getMapTables,
-  getComponentsByProjid, replaceFilterCoordinates, resetMap,
-  setFilterCoordinates, setProblemKeyword,
-  setProjectKeyword, getParamsFilter, getMapWithSublayers, getMapLayers,
-  getComponentsCounter, getProjectCounter, getProblemCounter, resetFilterProjectOptionsEmpty
+  setToggleModalFilter,
+  getParamFilterProjects,
+  getParamFilterProblems,
+  getParamFilterProjectsNoBounds,
+  getParamFilterComponents,
+  setTabCards,
+  setFilterTabNumber,
+  setBoundMap,
+  setOpacityLayer,
+  setCoordinatesJurisdiction,
+  setFilterProblemOptions,
+  setFilterProjectOptions,
+  resetFiltercomponentOptions,
+  setNameZoomArea,
+  setLabelFilterProblems,
+  setLabelFilterProjects,
+  setSpinMapLoaded,
+  setAutocomplete,
+  getBBOXComponents,
+  updateSelectedLayers,
+  addFavorite,
+  deleteFavorite,
+  favoriteList,
+  changeTutorialStatus,
+  favoriteCards,
+  setBBOXComponents,
+  getGalleryProblems,
+  getGalleryProjects,
+  getProjectsFilteredIds,
+  setApplyFilter,
+  setHighlighted,
+  setFilterComponentOptions,
+  setZoomProjectOrProblem,
+  setSelectedPopup,
+  getComponentCounter,
+  mapSearchQuery,
+  setSelectedOnMap,
+  existDetailedPageProblem,
+  existDetailedPageProject,
+  getDetailedPageProblem,
+  getDetailedPageProject,
+  resetDetailed,
+  getComponentsByProblemId,
+  getMapTables,
+  getComponentsByProjid,
+  replaceFilterCoordinates,
+  resetMap,
+  setFilterCoordinates,
+  setProblemKeyword,
+  setProjectKeyword,
+  getParamsFilter,
+  getMapWithSublayers,
+  getMapLayers,
+  getComponentsCounter,
+  getProjectCounter,
+  getProblemCounter,
+  resetFilterProjectOptionsEmpty,
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
 
-export const useMapState = () => useSelector(
-  (state: { map: any }) => state.map
-);
+export const useMapState = () => useSelector((state: { map: any }) => state.map);
 
 export const useMapDispatch = () => {
   const dispatch = useDispatch();
@@ -98,13 +137,13 @@ export const useMapDispatch = () => {
       dispatch(setSpinMapLoaded(spin));
     },
     setBBOXComponents: (bboxComponents: any) => {
-      dispatch(setBBOXComponents(bboxComponents))
+      dispatch(setBBOXComponents(bboxComponents));
     },
     getBBOXComponents: (table: string, id: number) => {
       dispatch(getBBOXComponents(table, id));
     },
     updateSelectedLayers: (selectedLayer: any) => {
-      dispatch(updateSelectedLayers(selectedLayer))
+      dispatch(updateSelectedLayers(selectedLayer));
     },
     addFavorite: (email: string, id: number, isProblem: boolean) => {
       dispatch(addFavorite(email, id, isProblem));
@@ -120,7 +159,7 @@ export const useMapDispatch = () => {
     },
     favoriteCards: (email: string, isproblem: boolean, extraOptions?: any) => {
       if (extraOptions) {
-        dispatch(favoriteCards(email, isproblem, extraOptions))
+        dispatch(favoriteCards(email, isproblem, extraOptions));
       } else {
         dispatch(favoriteCards(email, isproblem));
       }
@@ -208,6 +247,6 @@ export const useMapDispatch = () => {
     },
     resetFilterProjectOptionsEmpty: () => {
       dispatch(resetFilterProjectOptionsEmpty());
-    }
-  }
-}
+    },
+  };
+};

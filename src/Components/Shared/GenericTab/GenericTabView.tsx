@@ -9,6 +9,8 @@ import store from "../../../store";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 import { useProfileState } from '../../../hook/profileHook';
+/* import { postData } from "Config/datasets";
+import { SERVER } from "Config/Server.config"; */
 const PROJECT_TABLE = 'mhfd_projects'
 
 const GenericTabView = ({
@@ -37,7 +39,7 @@ const GenericTabView = ({
         selectedOnMap,
         favorites
       } = useMapState();
-    let totalElement = cardInformation.length;
+    let totalElement = cardInformation?.length || 0;
     const size = 6;
     let sw = false;
     if (totalElement) {
@@ -161,20 +163,27 @@ const GenericTabView = ({
     const tagProjects = [] as any;
 
     const fetchMoreData = () => {
-        if (state.items.length >= totalElement - size) {
-            const auxState = { ...state };
-            if (state.items.length !== totalElements) {
-                auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
-            }
-            auxState.hasMore = false;
-            setState(auxState);
-            return;
+      if (state.items.length >= totalElement - size) {
+        const auxState = { ...state };
+        if (state.items.length !== totalElements) {
+          auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
         }
-        setTimeout(() => {
-            const auxState = { ...state };
-            auxState.items = state.items.concat(Array.from({ length: size }));
-            setState(auxState);
-        }, 500);
+        auxState.hasMore = false;
+        setState(auxState);
+        return;
+      }
+      setTimeout(() => {
+        const auxState = { ...state };
+        auxState.items = state.items.concat(Array.from({ length: size }));
+        setState(auxState);
+      }, 500);
+      /* console.log("fetching data");
+        postData(`${SERVER.URL_BASE}/projects?offset=${1}&limit=${20}`,{})
+        .then(
+            (r: any) => {
+            console.log(r);
+            }
+        )  */
     };
 
     return <>
