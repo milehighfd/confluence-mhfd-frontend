@@ -118,9 +118,16 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
     changeTutorialStatus(state.visible1);
   }, [state]);
   useEffect(() => {
-    if (sliderIndex === 3) {
-      setState({...state, visible1: false});
-      setSliderIndex(0);
+      if(locationPage.pathname === '/profile-view') {
+        if (sliderIndex === 1) {
+          setState({...state, visible1: false});
+          setSliderIndex(0);
+        }
+      }else{
+          if (sliderIndex === 2) {
+            setState({...state, visible1: false});
+            setSliderIndex(0);
+        }
     }
   }, [sliderIndex]);
   const showModal = () => {
@@ -448,81 +455,102 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
      style={{ top: '0', height: '100vh' }}
      className="tutorial-carousel tutorial"
     >
-        {sliderIndex === 0 && <div className="tuto-01">
-          <div className="tuto-02">
-            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
-            <p><i>This is the navigation bar. Hover over icons to see what they do, and click on them to go to that area of Confluence.</i></p>
-          </div>
-          <div className="tuto-03">
-            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
-            <p><i>Explore Confluence and have fun learning more about your streams and watersheds. Please use this button to make suggestions, ask questions or provide overall feedback.</i></p>
-          </div>
-          <div className="tuto-04">
-            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
-            <p><i>Click here to expand the navigation bar and see descriptions of all the options.</i></p>
-          </div>
-          <div className="tuto-05">
-            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>This is the hybrid map view. Click on the chevron to expand into full map view.</i></p>
-          </div>
-          <div className="tuto-06">
-            <img className="img-t-01" src="/Icons/tutorial/ic_arrow2.svg" alt="" />
-            <img className="img-t-02" src="/Icons/tutorial/ic_arrow2.svg" alt="" />
-            <p><i>This area allows you to access notifications, user settings, and this Guide.</i></p>
-          </div>
-        </div>}
+      {
+        locationPage.pathname === '/map' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-17">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View more than 20 curated layers for additional project context</i></p>
+              </div>
+              <div className="tuto-18">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Explore Confluence and have fun learning ore about your streams and watersheds. Please use this button to make suggestions, ask questions and provide overall feedback.</i></p>
+              </div>
+              <div className="tuto-19">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>This is the hybrid map view. Click on the chevron arrows to expand into full map view.</i></p>
+              </div>
+              <div className="tuto-20">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Access project and problem profiles, detailing associated actions, financial information, team members, and other attributes.</i></p>
+              </div>
+            </div>}
 
-        {sliderIndex === 1 && <div className="tuto-01">
-          <div className="tuto-07">
-            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
-            <p><i>Click here to select your area of interest and show only the Problems and  Projects in that area.</i></p>
-          </div>
-          <div className="tuto-08">
-            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>Use this bar to search, sort, and filter the Problems and Projects shown on the cards below.</i></p>
-          </div>
-          <div className="tuto-09">
-            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>Toggle between Problems and Projects to display related cards below.</i></p>
-          </div>
-          <div className="tuto-10">
-            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>Click here to automatically limit the Cards shown below to the area that is currently visable on the map.</i></p>
-          </div>
-          <div className="tuto-11">
-            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>This is a Card. Click the card to see the related Detail Page, and click the ellipses to see all available options. Hovering on a card heighlights its related feature on the map.</i></p>
-          </div>
-        </div>}
+            {sliderIndex === 1 && <div className="tuto-01">
+              <div className="tuto-21">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View different modules within Confluence by clicking the icons in the sidebar</i></p>
+              </div>
+              <div className="tuto-22">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Create and organize your own map notes</i></p>
+              </div>
+              <div className="tuto-23">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Return to your previous map location</i></p>
+              </div>
+              <div className="tuto-24">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Confluence uses the latest satellite imagery from Nearmap. Zoom closer to get a peek.</i></p>
+              </div>
+              <div className="tuto-25">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Measure distances and calculate areas</i></p>
+              </div>
+              <div className="tuto-26">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Favorite a project or problem and see it in your MyConfluence profile</i></p>
+              </div>
+            </div>}
 
-        {sliderIndex === 2 && <div className="tuto-01">
-          <div className="tuto-12">
-            <img src="/Icons/tutorial/ic_arrow5.svg" alt="" />
-            <p><i>Click here to see all of the layers (including legends) that are avilable for display on the Confluence map.</i></p>
-          </div>
-          <div className="tuto-13">
-            <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
-            <p><i>Search for a street, intersection, address, landmark, or stream.</i></p>
-          </div>
-          <div className="tuto-14">
-            <img  className="img-card" src="/Icons/tutorial/overlay.png" width="280px" alt="" />
-            <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
-            <p><i>Click on map features to see details and additional ways to interact with MHFD data. Click and drag the right mouse button to view the map in 3D.</i></p>
-          </div>
-          <div className="tuto-15">
-            <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
-            <p><i>Click this button to quickly zoom out to MHFD boundary extents.</i></p>
-          </div>
-          <div className="tuto-16">
-            <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-            <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
-          </div>
-        </div>}
-    <div className="footer-next">
-          <h4>How to Use the Map</h4>
-          <Button onClick={() => {
-            setSliderIndex(sliderIndex => sliderIndex + 1);
-          }} className="btn-green">Next <DoubleRightOutlined /></Button>
+            {/* {sliderIndex === 2 && <div className="tuto-01">
+              <div className="tuto-12">
+                <img src="/Icons/tutorial/ic_arrow5.svg" alt="" />
+                <p><i>Click here to see all of the layers (including legends) that are avilable for display on the Confluence map.</i></p>
+              </div>
+              <div className="tuto-13">
+                <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
+                <p><i>Search for a street, intersection, address, landmark, or stream.</i></p>
+              </div>
+              <div className="tuto-14">
+                <img  className="img-card" src="/Icons/tutorial/overlay.png" width="280px" alt="" />
+                <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
+                <p><i>Click on map features to see details and additional ways to interact with MHFD data. Click and drag the right mouse button to view the map in 3D.</i></p>
+              </div>
+              <div className="tuto-15">
+                <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
+                <p><i>Click this button to quickly zoom out to MHFD boundary extents.</i></p>
+              </div>
+              <div className="tuto-16">
+                <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
+                <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
+              </div>
+            </div>} */}
+          </>
+        )
+      }
+      {
+         locationPage.pathname === '/profile-view' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-27">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View your favorite projects and problems</i></p>
+              </div>
+              <div className="tuto-28">
+                <p><i>Edit your profile and apply your default map area</i></p>
+                <img src="/Icons/tutorial/ic_arrow9.svg" alt="" />
+              </div>
+            </div>}
+          </>
+        )
+      }
+      <div className="footer-next">
+        <h4>How to Use the Map</h4>
+        <Button onClick={() => {
+          setSliderIndex(sliderIndex => sliderIndex + 1);
+        }} className="btn-green">{sliderIndex === 1 ? 'Close': (locationPage.pathname === '/profile-view' ? 'Close':<>Next <DoubleRightOutlined /> </>)}</Button>
       </div>
     </Modal>
   </Header>
