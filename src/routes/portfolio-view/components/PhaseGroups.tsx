@@ -106,7 +106,7 @@ const PhaseGroups = ({
               }}
             ></div>
             {data.value}
-            <div style={{ display: 'flex', marginLeft: 'auto', gap: '5px' }}>
+            <div style={{ display: 'flex', marginLeft: 'auto', gap: '5px', alignItems: 'center' }}>
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);
