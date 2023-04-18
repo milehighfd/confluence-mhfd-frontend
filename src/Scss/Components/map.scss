@@ -1315,7 +1315,11 @@
     color: $purple;
   }
   .ant-input-affix-wrapper .ant-input {
-    width: 307px;
+    
+    background-color: transparent;
+    padding-right: 35px;
+    z-index:-2;
+  
   }
   
   .ant-dropdown-link{
