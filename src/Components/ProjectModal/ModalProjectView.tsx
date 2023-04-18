@@ -168,7 +168,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 10 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 11 
         ){
-        setSubType(data.projectsubtype);
+        setSubType(data?.code_project_type?.project_type_name);
         setVisibleMaintenance(true);
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 13){
@@ -384,7 +384,7 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
           <Popover content={content03}><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs? "btn-opacity-active btn-opacity" : "btn-opacity"}>General Maintenance</Button></Popover>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} onClick={()=> subTypeProject(NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration)} style={{padding: '8px'}}>
-          <Popover content={content04}><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration? "btn-opacity-active btn-opacity" : "btn-opacity"}>Maintenance Restoration</Button></Popover>
+          <Popover content={content04}><Button className={subType===NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration? "btn-opacity-active btn-opacity" : "btn-opacity"}>Restoration</Button></Popover>
         </Col>
       </Row></>}
       

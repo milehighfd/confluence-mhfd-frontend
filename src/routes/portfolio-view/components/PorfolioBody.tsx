@@ -616,6 +616,7 @@ const PortafolioBody = () => {
       setVisible={setOpenModalTollgate}
       dataProject={tollData}
       saveCB={createProjectStatusesCb}
+      setOpenPiney={setOpenPiney}
     />
     <div>
       {isLoading && <LoadingViewOverall />}

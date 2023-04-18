@@ -1217,7 +1217,7 @@ export const NEW_PROJECT_TYPES = {
     Vegetation_Management: "Vegetation Management",
     Sediment_Removal: "Sediment Removal",
     Minor_Repairs: "General Maintenance",
-    Restoration: "Maintenance Restoration"
+    Restoration: "Restoration"
   }
 }
 

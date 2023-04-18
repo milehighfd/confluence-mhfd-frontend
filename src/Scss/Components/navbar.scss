@@ -414,6 +414,10 @@
 }
 .tutorial-carousel{
   scroll-behavior: smooth;
+  scroll-behavior: smooth;
+    max-width: 100%;
+    margin: 0px;
+    padding: 0px;
   .ant-modal-content{
     background: rgba(00, 00, 00, 0.3);
     top: 15px;
@@ -424,7 +428,7 @@
   }
   .footer-next{
     position: absolute;
-    bottom: 20px;
+    bottom: 48px;
     text-align: center;
     width: 100%;
 
@@ -459,10 +463,20 @@
 
     .tuto-02, .tuto-03, .tuto-04, .tuto-05, .tuto-06,
     .tuto-07, .tuto-08, .tuto-09, .tuto-10, .tuto-11,
-    .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16{
+    .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16,
+    .tuto-17, .tuto-18, .tuto-19, .tuto-20, .tuto-21,
+    .tuto-22, .tuto-23, .tuto-24, .tuto-25, .tuto-26,
+    .tuto-27, .tuto-28, .tuto-29, .tuto-30, .tuto-31,
+    .tuto-32, .tuto-33, .tuto-34, .tuto-35, .tuto-36,
+    .tuto-37, .tuto-38, .tuto-39, .tuto-40, .tuto-41,
+    .tuto-42, .tuto-43, .tuto-44, .tuto-45, .tuto-46,
+    .tuto-47, .tuto-48, .tuto-49, .tuto-50, .tuto-51{
       position: absolute;
       text-align: center;
       width: 300px;
+      p{
+        font-size: 14px;
+      }
     }
     p{
       color: $white;
@@ -616,6 +630,196 @@
       }
       img{
         right: 0px;
+      }
+    }
+    .tuto-17{
+      top: 96px;
+      left: 9px;
+      width: 293px;
+      p{
+        padding: 16px 0px 0px 57px;
+      }
+    }
+    .tuto-18{
+      top: 400px;
+      left: 52px;
+      width: 304px;
+      text-align: initial;
+      p{
+        padding: 16px 0px 0px 30px;
+        padding-left: 8px;
+        text-align: center;
+      }
+    }
+    .tuto-19{
+      top: calc(50vh + 30px);
+      right: 31%;
+      width: 316px;
+      p{
+        padding: 16px 0px 0px 0px;
+      }
+    }
+    .tuto-20{
+      top: 364px;
+      right: 38px;
+      width: 295px;
+      p{
+        padding: 16px 0px 0px 0px;
+      }
+    }
+    .tuto-21{
+      top: 126px;
+      left: 52px;
+      width: 276px;
+      text-align: initial;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+      }
+    }
+    .tuto-22{
+      bottom: 179px;
+      left: 120px;
+      width: 183px;
+      text-align: initial;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-23{
+      bottom: 82px;
+      left: 120px;
+      width: 183px;
+      text-align: initial;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-24{
+      left: 394px;
+      width: 248px;
+      /* text-align: initial; */
+      top: 40vh;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-25{
+      top: 105px;
+      left: 49.5vw;
+      width: 139px;
+      text-align: end;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-26{
+      top: 55vh;
+      right: 67px;
+      width: 255px;
+      text-align: end;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-27{
+      top: 87px;
+      left: 38.5%;
+      width: 139px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-28{
+      bottom: 20px;
+      left: 24vw;
+      width: 166px;
+      p{
+        padding: 0px 0px 16px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-29{
+      top: 52vh;
+      left: 206px;
+      width: 204px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-30{
+      top: 228px;
+      left: 41vw;
+      width: 184px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-31{
+      top: 88px;
+      right: 14.5vw;
+      width: 253px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-32{
+      top: 240px;
+      right: 11.5vw;
+      width: 218px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-33{
+      top: 240px;
+      right: 11.5vw;
+      width: 218px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-34{
+      top: 240px;
+      right: 11.5vw;
+      width: 218px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-35{
+      top: 240px;
+      right: 11.5vw;
+      width: 218px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
       }
     }
   }

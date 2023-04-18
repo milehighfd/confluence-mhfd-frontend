@@ -11,13 +11,14 @@ import DetailModal from "routes/detail-page/components/DetailModal";
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
 const { Step } = Steps;
-const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData }: 
+const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData, openModalTollgate }: 
   { setOpenPiney: any, 
     data?: any, 
     userName?: string
     setUpdateAction?: any, 
     updateAction?: any,
     setOpenModalTollgate?: any,
+    openModalTollgate?: any,
     setTollData? : any
     }) => {     
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
@@ -26,6 +27,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   const [counterD, setCounterD]= useState(+data.d3_text)
   const [visibleDetail, setVisibleDetail] = useState(false);
   const [tollgate, setTollgate] = useState(false);
+  const [sendTollgate, setSendTollgate] = useState({});
   const [checkboxValue, setCheckboxValue] = useState({
     draft: true,
     sign: false,
@@ -235,9 +237,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
   }
 
   const openTollModal = () => {
-    setOpenModalTollgate(true);
-    const sendTollgate = { d: data.data, scheduleList: data.scheduleList }
-    setTollData(sendTollgate);
+    setOpenModalTollgate(true);       
+    setTollData({ d: data.data, scheduleList: data.scheduleList });
   }
   return (
     <>

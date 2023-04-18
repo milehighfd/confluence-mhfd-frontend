@@ -1,35 +1,59 @@
-import React, { useState, useEffect, Fragment, useCallback } from "react";
-import { getGroupList } from "routes/portfolio-view/components/ListUtils";
+import React, { useState, useEffect, Fragment, useCallback } from 'react';
+import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
-import GenericTabView from "../../../Components/Shared/GenericTab/GenericTabView";
-import FiltersProjectView from "../../../Components/FiltersProject/FiltersProjectView";
+import GenericTabView from '../../../Components/Shared/GenericTab/GenericTabView';
+import FiltersProjectView from '../../../Components/FiltersProject/FiltersProjectView';
 
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, SORTED_PROBLEMS, SORTED_PROJECTS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER, SELECT_ALL_FILTERS, PROJECT_TYPE } from '../../../constants/constants';
-import DetailedModal from "../../../Components/Shared/Modals/DetailedModal";
-import { useMapDispatch, useMapState } from "../../../hook/mapHook";
+import {
+  FILTER_PROBLEMS_TRIGGER,
+  FILTER_PROJECTS_TRIGGER,
+  SORTED_PROBLEMS,
+  SORTED_PROJECTS,
+  PROBLEMS_TRIGGER,
+  PROJECTS_TRIGGER,
+  COMPONENTS_TRIGGER,
+  SELECT_ALL_FILTERS,
+  PROJECT_TYPE,
+} from '../../../constants/constants';
+import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
+import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
 import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilter/RheoStatService';
-import { useProfileDispatch, useProfileState } from "../../../hook/profileHook";
-import { useDetailedState } from "../../../hook/detailedHook";
-import MapAutoComplete from "./MapAutoComplete";
-import { getCurrentProjectStatus } from "utils/parsers";
+import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
+import { useDetailedState } from '../../../hook/detailedHook';
+import MapAutoComplete from './MapAutoComplete';
+import { getCurrentProjectStatus } from 'utils/parsers';
 
-const STATUS = 'status', JURISDICTION = 'jurisdiction',
-COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
-CONTRACTOR = 'contractor', STREAMS = 'streams', PROJECTTYPE = 'projecttype';
+const STATUS = 'status',
+  JURISDICTION = 'jurisdiction',
+  COUNTY = 'county',
+  SERVICE_AREA = 'servicearea',
+  CONSULTANT = 'consultant',
+  CONTRACTOR = 'contractor',
+  STREAMS = 'streams',
+  PROJECTTYPE = 'projecttype';
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
-contents.push((<div className="popoveer-00"><b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.</div>));
-contents.push((<div className="popoveer-00"><b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the problems identified in the Problems dataset or brought to MHFD by local governments.</div>));
+contents.push(
+  <div className="popoveer-00">
+    <b>Problems:</b> Problems represent areas where values such as public health, safety, and environmental quality are
+    at risk due to potential flooding, erosion, or other identified threats within MHFD’s purview.
+  </div>,
+);
+contents.push(
+  <div className="popoveer-00">
+    <b>Projects:</b> Projects are active efforts (i.e. planned and budgeted or funded and underway) to solve the
+    problems identified in the Problems dataset or brought to MHFD by local governments.
+  </div>,
+);
 
 const { TabPane } = Tabs;
 const { Search } = Input;
-let counterZoomArea = 0 ;
+let counterZoomArea = 0;
 
 const MapView = () => {
-
   const {
     getGalleryProblems,
     getGalleryProjects,

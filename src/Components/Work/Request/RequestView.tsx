@@ -451,7 +451,7 @@ const RequestView = ({ type, isFirstRendering }: {
             setBoardStatus(board.status);
             setBoardSubstatus(board.substatus);
             setBoardComment(board.comment);
-            setNamespaceId(board._id)
+            setNamespaceId(board.board_id)
             setReqManager([
               board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
             ])
@@ -639,7 +639,7 @@ const RequestView = ({ type, isFirstRendering }: {
                     setBoardComment(board.comment);
                   }
                   if (board._id !== namespaceId) {
-                    setNamespaceId(board._id)
+                    setNamespaceId(board.board_id)
                   }
                   let reqManagerEq = true;
                   for (var i = 1 ; i <= 5; i++) {

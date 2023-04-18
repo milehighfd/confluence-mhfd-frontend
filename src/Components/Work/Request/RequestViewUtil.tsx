@@ -142,7 +142,7 @@ export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   }
 }
 
-export const MaintenanceTypes = ['Debris Management', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
+export const MaintenanceTypes = ['Routine Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'General Maintenance', 'Restoration'];
 
 export const generateColumns = (boardProjects: boardProject[], year: number, tabKey: string) => {
   let columns: any[] = defaultColumns.map((dc: any, index: number) => {
@@ -236,7 +236,7 @@ export const onDropFunction = (projectid: any, columns: any[], tabKey: string, s
     return columns;
   }
   if (tabKey === 'Maintenance') {
-    var destinyColumnMaintenance = MaintenanceTypes.indexOf(project.projectData.projectsubtype) + 1;
+    var destinyColumnMaintenance = MaintenanceTypes.indexOf(project?.projectData?.code_project_type?.project_type_name) + 1;
     if (!(destColumn === 0 || destColumn === destinyColumnMaintenance)) {
       return;
     }
@@ -365,7 +365,7 @@ export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: st
     return temporalColumns;
   }
   if (tabKey === 'Maintenance') {
-    var destinyColumn = MaintenanceTypes.indexOf(project.projectData.projectsubtype) + 1;
+    var destinyColumn = MaintenanceTypes.indexOf(project?.projectData?.code_project_type?.project_type_name) + 1;
     if (!(columnIdx === 0 || columnIdx === destinyColumn)) {
       return;
     }
