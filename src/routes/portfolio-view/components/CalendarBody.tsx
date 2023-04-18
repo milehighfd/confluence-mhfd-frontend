@@ -132,7 +132,12 @@ const CalendarBody = ({
           (windowWidth >= 1501 && windowWidth <= 1700 ? '-5.9px' :
             (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
-  let factortransformSVG = (windowWidth >= 3001 && windowWidth <= 3999 ? -75 : (windowWidth >= 2550 && windowWidth <= 3000 ? -65 : (windowWidth >= 1450 && windowWidth <= 2000 ? -50 : (windowWidth >= 2001 && windowWidth <= 2549 ? -50 : (windowWidth >= 1199 && windowWidth <= 1449 ? -30 : -30)))));
+  let factortransformSVG = 
+  (windowWidth >= 3001 && windowWidth <= 3999 ? -75 : 
+    (windowWidth >= 2550 && windowWidth <= 3000 ? -65 : 
+      (windowWidth >= 1450 && windowWidth <= 2000 ? -50 : 
+        (windowWidth >= 2001 && windowWidth <= 2549 ? -50 : 
+          (windowWidth >= 1199 && windowWidth <= 1449 ? 8 : 8)))));
   let heigthOfHeaderAxis =
     (windowWidth >= 3001 && windowWidth <= 3999 ? 123.02 :
       (windowWidth >= 2550 && windowWidth <= 3000 ? 120.77 :
@@ -143,7 +148,12 @@ const CalendarBody = ({
   let separationHeaderAxisYear = (windowWidth >= 3001 && windowWidth <= 3999 ? 3 : (windowWidth >= 2550 && windowWidth <= 3000 ? 6 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
   let separationHeaderAxisMonth = (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : (windowWidth >= 2550 && windowWidth <= 3000 ? 13 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
   let separationHeaderAxisInFunction = (windowWidth >= 3001 && windowWidth <= 3999 ? 20 : (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 2001 && windowWidth <= 2549 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 20 : 20)))));
-  let marginTopFactor = (windowWidth >= 3001 && windowWidth <= 3999 ? '-55px' : (windowWidth >= 2550 && windowWidth <= 3000 ? '-45px' : (windowWidth >= 1450 && windowWidth <= 2000 ? '-40px' : (windowWidth >= 2001 && windowWidth <= 2549 ? '-28px' : (windowWidth >= 1199 && windowWidth <= 1449 ? '-45px' : '-45px')))));
+  let marginTopFactor = 
+  (windowWidth >= 3001 && windowWidth <= 3999 ? '-55px' : 
+  (windowWidth >= 2550 && windowWidth <= 3000 ? '-45px' : 
+  (windowWidth >= 1450 && windowWidth <= 2000 ? '-40px' : 
+  (windowWidth >= 2001 && windowWidth <= 2549 ? '-28px' : 
+  (windowWidth >= 1199 && windowWidth <= 1449 ? '-45px' : '-45px')))));
   let barHeightDefault = (windowWidth >= 3001 && windowWidth <= 3999 ? 42 : (windowWidth >= 2550 && windowWidth <= 3000 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 27 : 27)))));
   let width = widthofDiv - 20;
   let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 250 : (windowWidth >= 2550 && windowWidth <= 3000 ? 162 : (windowWidth >= 2001 && windowWidth <= 2549 ? 259 : (windowWidth >= 1450 && windowWidth <= 2000 ? 180 : (windowWidth >= 1199 && windowWidth <= 1449 ? 21.55 : 21.5)))));
@@ -221,14 +231,15 @@ const CalendarBody = ({
       let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight) : 12;
       let padding = { top: 38, right: 10, bottom: 10, left: -0 };
       let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
-
+      const removechartAxis: any = document.getElementById('timeline-chart-axis');
+      removeAllChildNodes(removechartAxis);
       if (svg) {
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
       }
 
       svg = d3
-        .select('#timeline-chart')
+        .select(`#timeline-chart-${groupName}`)
         .append('svg')
         .attr('width', width)
         .attr('height', height)
@@ -466,7 +477,7 @@ const CalendarBody = ({
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
             console.log(statusCounter, (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length)
-            if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
+            if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length-1 && !flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
               hasDateData = false;
@@ -505,7 +516,7 @@ const CalendarBody = ({
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
             console.log(statusCounter)
-            if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
+            if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length-1 && !flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
               hasDateData = false;
@@ -1551,7 +1562,7 @@ const CalendarBody = ({
                 phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
                 phaseId: z.code_phase_type_id,
                 tasks: 10,
-                show: (statusCounter === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
+                show: (statusCounter === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length-1 && !flag),
                 current: x?.phaseId === z?.code_phase_type_id,
                 isDone: z.is_done,
                 isLocked: z.is_locked
@@ -1697,14 +1708,14 @@ const CalendarBody = ({
 
   useEffect(() => {
     if (svgState) {     
-      const removeAllChildNodes = (parent: any) => {
-        if (parent){
-          while (parent.firstChild) {
-            parent?.removeChild(parent.firstChild);
-          }
-        }
-      };
-      const removechart: any = document.getElementById('timeline-chart');
+      // const removeAllChildNodes = (parent: any) => {
+      //   if (parent){
+      //     while (parent.firstChild) {
+      //       parent?.removeChild(parent.firstChild);
+      //     }
+      //   }
+      // };
+      const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
       removeAllChildNodes(removechartAxis);
@@ -1775,12 +1786,12 @@ const CalendarBody = ({
           }
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-          <div style={{ width: '100%', marginBottom: marginReducerHeaderAxis }}>
+          {/* <div style={{ width: '100%', marginBottom: marginReducerHeaderAxis }}>
             <div style={{ overflowX: 'hidden', overflowY: 'hidden' }} id="timeline-chart-axis" />
-          </div>
-          <div
+          </div> */}
+          {/* <div
             id="chartContainer"
-            style={{ overflowY: 'auto', overflowX: 'hidden' }}
+            style={{ overflowY: 'auto', overflowX: 'hidden',height:'1000px' }}
             ref={el => scheduleRef.current = el}
             className='chart-container'
             onScroll={(e: any) => {
@@ -1789,12 +1800,12 @@ const CalendarBody = ({
                 searchRef.current[index].scrollTo(0, dr.scrollTop);
               }
             }}
-          >
+          > */}
             <div style={{ marginTop: marginTopFactor }}>
-              <div style={{ height: heightt }} id="timeline-chart" />
+              <div style={{ height: calendarData.length=1*39 }} id={`timeline-chart-${groupName}`} />
               {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
             </div>
-          </div>
+          {/* </div> */}
         </Col>
       </Row>
     </div>
