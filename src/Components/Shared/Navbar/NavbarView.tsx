@@ -534,20 +534,103 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
          locationPage.pathname === '/profile-view' && (
           <>
             {sliderIndex === 0 && <div className="tuto-01">
-              <div className="tuto-27">
+              <div className="tuto-29">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>View your favorite projects and problems</i></p>
+                <p><i>View all projects in your current board view (to the right)</i></p>
               </div>
-              <div className="tuto-28">
-                <p><i>Edit your profile and apply your default map area</i></p>
+              <div className="tuto-30">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Create a 'submitted' project for a local government</i></p>
+              </div>
+              <div className="tuto-31">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
+              </div>
+            </div>}
+            {sliderIndex === 1 && <div className="tuto-01">
+              <div className="tuto-32">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Change the project type board for the local government and year selected above</i></p>
+              </div>
+              <div className="tuto-33">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Change Work Request 'Board' to a different local government and view requested projects</i></p>
+              </div>
+              <div className="tuto-34">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Click on the three dots to Zoom to the Project, Edit the Project, and Edit Yearly Amounts</i></p>
+              </div>
+              <div className="tuto-35">
+                <p><i>Expand the Total Cost for the Work Request board. View a breakdown by County, and Add Target Costs</i></p>
                 <img src="/Icons/tutorial/ic_arrow9.svg" alt="" />
               </div>
             </div>}
           </>
         )
       }
+      {
+         locationPage.pathname === '/work-request' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-29">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View all projects in your current board view (to the right)</i></p>
+              </div>
+              <div className="tuto-30">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Create a 'submitted' project for a local government</i></p>
+              </div>
+              <div className="tuto-31">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
+              </div>
+              <div className="tuto-32">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Move project cards between columns and add requested yearly amounts to develop a plan</i></p>
+              </div>
+            </div>}
+            {sliderIndex === 1 && <div className="tuto-01">
+              <div className="tuto-29">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View all projects in your current board view (to the right)</i></p>
+              </div>
+              <div className="tuto-30">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Create a 'submitted' project for a local government</i></p>
+              </div>
+              <div className="tuto-31">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
+              </div>
+            </div>}
+          </>
+        )
+      }
+      {
+         locationPage.pathname === '/work-plan' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-29">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View all projects in your current board view (to the right)</i></p>
+              </div>
+              <div className="tuto-30">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Create a 'submitted' project for a local government</i></p>
+              </div>
+              <div className="tuto-31">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
+              </div>
+            </div>}
+          </>
+        )
+      }
       <div className="footer-next">
-        <h4>How to Use the Map</h4>
+        <h4>How to Use the 
+          {locationPage.pathname === '/map' && 'Map'}
+          {locationPage.pathname === '/work-request' &&  'Work Request Board'}
+        </h4>
         <Button onClick={() => {
           setSliderIndex(sliderIndex => sliderIndex + 1);
         }} className="btn-green">{sliderIndex === 1 ? 'Close': (locationPage.pathname === '/profile-view' ? 'Close':<>Next <DoubleRightOutlined /> </>)}</Button>
