@@ -34,7 +34,8 @@ const TableBody = ({
   index,
   divRef,
   searchRef,
-  tableRef
+  tableRef,
+  tabKeyId,
 }: {
   currentGroup: any,
   dataId: any,
@@ -49,7 +50,8 @@ const TableBody = ({
   index: number,
   divRef: any,
   searchRef: any,
-  tableRef: any
+  tableRef: any,
+  tabKeyId: any,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -114,7 +116,7 @@ const TableBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20`, {}).then((res: any) => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20&code_project_type_id=${tabKeyId}`, {}).then((res: any) => {
       setDataBody(res);
     })
   }, [currentGroup, page])
@@ -208,7 +210,7 @@ const TableBody = ({
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
     />}
-    <div >
+    <div className="table-body">
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>
           {

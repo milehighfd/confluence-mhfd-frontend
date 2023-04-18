@@ -1724,7 +1724,7 @@ const CalendarBody = ({
   }
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20`, {}).then((res: any) => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20&code_project_type_id=${tabKey}`, {}).then((res: any) => {
       setDataBody(res);
     })
   }, [currentGroup, page])

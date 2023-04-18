@@ -732,6 +732,7 @@ const PortafolioBody = () => {
                         collapsePhase={collapsePhase}
                         divRef={tableRef}
                         tabKey={tabKey}
+                        tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
                         favorites={favorites}
                       />
@@ -798,6 +799,7 @@ const PortafolioBody = () => {
                         setGrapphicOpen={setGrapphicOpen}
                         setPositionModalGraphic={setPositionModalGraphic}
                         setDataModal={setDataModal}
+                        userName={appUser.userInformation?.user}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 

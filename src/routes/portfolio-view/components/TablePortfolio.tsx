@@ -38,6 +38,7 @@ const TablePortafolio = (
     collapsePhase,
     currentGroup,
     favorites,
+    tabKeyId,
   }
     : {
       divRef: React.MutableRefObject<any>,
@@ -68,6 +69,7 @@ const TablePortafolio = (
       collapsePhase: any,
       currentGroup: any,
       favorites: any,
+      tabKeyId: any,
     }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -387,6 +389,7 @@ const TablePortafolio = (
                     divRef={divRef}
                     searchRef={searchRef}
                     tableRef = {tableRef}
+                    tabKeyId = {tabKeyId}
                     />
                 </div>
               )
