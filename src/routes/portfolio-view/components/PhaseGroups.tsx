@@ -44,6 +44,7 @@ const PhaseGroups = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
+  userName,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -70,6 +71,7 @@ const PhaseGroups = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
+  userName: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -139,10 +141,11 @@ const PhaseGroups = ({
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
             userBrowser={userBrowser}
-            setOpenPiney={setOpenPiney}
             setGrapphicOpen={setGrapphicOpen}
             setPositionModalGraphic={setPositionModalGraphic}
             setDataModal={setDataModal}
+            groupName={data.value}
+            userName={userName}
           ></PhaseBody>
         </Panel>
       </Collapse>

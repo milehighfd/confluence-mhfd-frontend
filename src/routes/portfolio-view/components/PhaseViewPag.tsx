@@ -47,6 +47,7 @@ const PhaseViewPag = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
+  userName,
 }: {
   rawData: any,
   groupsBy: any,
@@ -73,6 +74,7 @@ const PhaseViewPag = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
+  userName: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -224,6 +226,7 @@ const PhaseViewPag = ({
       </Col>
     </Row>
     {
+      <div style={{overflowY:'scroll'}}>
         <div
           className="search"
           ref={el => searchRef.current[index] = el}
@@ -240,12 +243,12 @@ const PhaseViewPag = ({
                     setOpenTable={setOpenTable}
                     index={index}
                     currentGroup={currentGroup}
-                    tabKey={tabKey} 
+                    tabKey={tabKey}
                     favorites={favorites}
                     email={email}
                     divRef={divRef}
                     searchRef={searchRef}
-                    tableRef = {tableRef}
+                    tableRef={tableRef}
                     totalLabelWidth={totalLabelWidth}
                     scheduleList={scheduleList}
                     phaseList={phaseList}
@@ -258,13 +261,15 @@ const PhaseViewPag = ({
                     setGrapphicOpen={setGrapphicOpen}
                     setPositionModalGraphic={setPositionModalGraphic}
                     setDataModal={setDataModal}
-                    />
+                    userName={userName}
+                  />
                 </div>
               )
             })
           }
         </div>
-      }
+      </div>
+    }
   </>
 };
 
