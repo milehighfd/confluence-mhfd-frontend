@@ -58,13 +58,13 @@ const CardsList = ({
             // Maintenance Eligibiity Project (MEP)
             // Research and Development (RD)
             image: (
-              projectType === 'Capital (CIP)' ? '/projectImages/capital.png' :
-                projectType === 'Planning Study (Study)' ? '/projectImages/study.png' :
+              projectType === 'CIP' ? '/projectImages/capital.png' :
+                projectType === 'Study' ? '/projectImages/study.png' :
                   projectType === 'Special' ? '/projectImages/special.png' :
                     projectType === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
                       projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                        projectType === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
-                          projectType === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+                        projectType === 'Restoration' ? '/projectImages/restoration.png' :
+                          projectType === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
                             projectType === 'Routine Trash and Debris' ? '/projectImages/debris-management.png' : '/projectImages/watershed-change.png'
             ),
             requestName: project.project_name,
@@ -180,7 +180,7 @@ const CardsList = ({
           height={window.innerHeight - 200}
           className="scroll-infinite-mobile"
           endMessage={''}
-          loader={undefined}>
+          loader={state.items.length ? <h4>Loading...</h4>: ''}>
           {sw ? state.items.map((i, index: number) => {
             return data[index] && <CardInformationView
               key={index}

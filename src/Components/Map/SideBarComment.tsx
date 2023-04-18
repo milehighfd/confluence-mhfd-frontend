@@ -47,11 +47,11 @@ const SideBarComment = ({visible, setVisible, flyTo, openEditNote, addToMap, cha
     },...colorsList];
     
     auxColorList = auxColorList.filter((color: any)=> {
-      const findColor = availableColors.find((availableColor: any) => availableColor.color_id === color.color_id);
+      const findColor = availableColors.find((availableColor: any) => availableColor?.color_id === color?.color_id);
       return findColor;
     })
     auxColorList.forEach((color: any) => {
-      const findColor = currentSelected?.find((selected: any) => selected.color_id === color.color_id);
+      const findColor = currentSelected?.find((selected: any) => selected?.color_id === color?.color_id);
       
       if (findColor) {
         color.selected = findColor.selected;

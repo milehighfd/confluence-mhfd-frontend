@@ -380,13 +380,13 @@ export const addPopupsOnClick = async (
               popupId: 'popupWR',
               mapType: mapType ? mapType : 'MAINMAP',
               image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                projecttypename === 'Capital (CIP)' ? '/projectImages/capital.png' :
-                  projecttypename === 'Planning Study (Study)' ? '/projectImages/study.png' :
+                projecttypename === 'CIP' ? '/projectImages/capital.png' :
+                  projecttypename === 'Study' ? '/projectImages/study.png' :
                     projecttypename === 'Special' ? '/projectImages/special.png' :
                       projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
                         projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                          projecttypename === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
-                            projecttypename === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+                          projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
+                            projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
                               projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
           }
         }else{
@@ -431,13 +431,13 @@ export const addPopupsOnClick = async (
                         isEditPopup: feature.source === PROJECTS_DRAFT,
                         popupId: 'popup',
                         image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                          projecttypename === 'Capital (CIP)' ? '/projectImages/capital.png' :
-                            projecttypename === 'Planning Study (Study)' ? '/projectImages/study.png' :
+                          projecttypename === 'CIP' ? '/projectImages/capital.png' :
+                            projecttypename === 'Study' ? '/projectImages/study.png' :
                               projecttypename === 'Special' ? '/projectImages/special.png' :
                                 projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
                                   projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                                    projecttypename === 'Maintenance Restoration' ? '/projectImages/restoration.png' :
-                                      projecttypename === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
+                                    projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
+                                      projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
                                         projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
                     };
               // type: 'project',

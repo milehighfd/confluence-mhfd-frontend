@@ -650,14 +650,14 @@ const DetailModal = ({
                       ) : (
                         projectType ?
                           (
-                            <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img  src={
-                              projectType === 'Capital (CIP)' ? '/detailed/capital.png' :
-                                projectType === 'Planning Study (Study)' ? '/detailed/study.png' :
+                            <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img alt="" src={
+                              projectType === 'CIP' ? '/detailed/capital.png' :
+                                projectType === 'Study' ? '/detailed/study.png' :
                                 projectType === 'Special' ? '/detailed/special.png' :
                                   projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
                                     projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
-                                      projectType === 'Maintenance Restoration' ? '/detailed/restoration.png' :
-                                        projectType === 'Minor Repairs' ? '/detailed/minor-repairs.png' :
+                                      projectType === 'Restoration' ? '/detailed/restoration.png' :
+                                        projectType === 'General Maintenance' ? '/detailed/minor-repairs.png' :
                                           projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
                             }/> </div>
                           )
