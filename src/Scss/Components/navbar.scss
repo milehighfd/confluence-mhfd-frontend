@@ -414,10 +414,9 @@
 }
 .tutorial-carousel{
   scroll-behavior: smooth;
-  scroll-behavior: smooth;
-    max-width: 100%;
-    margin: 0px;
-    padding: 0px;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 31px;
   .ant-modal-content{
     background: rgba(00, 00, 00, 0.3);
     top: 15px;
@@ -793,8 +792,8 @@
       }
     }
     .tuto-33{
-      top: 240px;
-      right: 11.5vw;
+      top: 132px;
+      left: 33.5vw;
       width: 218px;
       p{
         padding: 16px 0px 0px 0px;
@@ -803,9 +802,10 @@
       }
     }
     .tuto-34{
-      top: 240px;
-      right: 11.5vw;
+      top: 206px;
+      right: 4.5vw;
       width: 218px;
+      text-align: end;
       p{
         padding: 16px 0px 0px 0px;
         text-align: center;
@@ -813,9 +813,72 @@
       }
     }
     .tuto-35{
-      top: 240px;
-      right: 11.5vw;
+      bottom: 21px;
+      right: 10.5vw;
       width: 218px;
+      p{
+        padding: 0px 0px 16px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-36{
+      top: 84px;
+      left: 21.5vw;
+      width: 280px;
+      text-align: inherit;
+      p{
+        padding: 16px 0px 0px 61px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-37{
+      top: 85px;
+      left: 51.5vw;
+      width: 266px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-38{
+      top: 85px;
+      right: 100px;
+      width: 170px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-39{
+      top: 206px;
+      left: 186px;
+      width: 309px;
+      p{
+        padding: 16px 0px 0px 67px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-40{
+      top: 25px;
+      right: 196px;
+      width: 218px;
+      text-align: end;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-41{
+      top: 281px;
+      left: 283px;
+      width: 177px;
+      text-align: inherit;
       p{
         padding: 16px 0px 0px 0px;
         text-align: center;

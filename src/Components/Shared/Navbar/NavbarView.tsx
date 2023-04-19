@@ -8,7 +8,7 @@ import { ROUTERS, ROUTER_TITLE } from '../../../constants/constants';
 import { User } from '../../../Classes/TypeList';
 import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
 import { useMapDispatch } from '../../../hook/mapHook';
-import { useProfileDispatch } from '../../../hook/profileHook';
+import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
 import { useUsersState } from '../../../hook/usersHook';
 import { GlobalMapHook } from "utils/globalMapHook";
 import '../../../Scss/Components/navbar.scss';
@@ -24,8 +24,8 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 
-const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrganization}:
-  {user: User, updateUserInformation : Function, groupOrganization: [], getGroupOrganization: Function}) => {
+const NavbarView = ({tabActive}:
+  {tabActive?: string}) => {
   const [ key, setKey] = useState('1');
   const [tabKey, setTabKey] = useState<any>('Unread');
   const [ openProfile, setOpenProfile] = useState(false);
@@ -35,6 +35,10 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
     visible: false,
     visible1:false
   }
+  console.log(tabActive, 'tabActive');
+  const {userInformation, groupOrganization} = useProfileState ();
+  const user =userInformation;
+  const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
   const { changeTutorialStatus } = useMapDispatch();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
@@ -461,11 +465,11 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
             {sliderIndex === 0 && <div className="tuto-01">
               <div className="tuto-17">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>View more than 20 curated layers for additional project context</i></p>
+                <p><i>View more than 20 curated layers for additional project context.</i></p>
               </div>
               <div className="tuto-18">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Explore Confluence and have fun learning ore about your streams and watersheds. Please use this button to make suggestions, ask questions and provide overall feedback.</i></p>
+                <p><i>Explore Confluence and learn more about your streams and watersheds. Please use this button to make suggestions, ask questions and provide overall feedback.</i></p>
               </div>
               <div className="tuto-19">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
@@ -480,15 +484,15 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
             {sliderIndex === 1 && <div className="tuto-01">
               <div className="tuto-21">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>View different modules within Confluence by clicking the icons in the sidebar</i></p>
+                <p><i>View different modules within Confluence by clicking the icons in the sidebar.</i></p>
               </div>
               <div className="tuto-22">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Create and organize your own map notes</i></p>
+                <p><i>Create and organize your own map notes.</i></p>
               </div>
               <div className="tuto-23">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Return to your previous map location</i></p>
+                <p><i>Return to your previous map location.</i></p>
               </div>
               <div className="tuto-24">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
@@ -496,11 +500,11 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
               </div>
               <div className="tuto-25">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Measure distances and calculate areas</i></p>
+                <p><i>Measure distances and calculate areas.</i></p>
               </div>
               <div className="tuto-26">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Favorite a project or problem and see it in your MyConfluence profile</i></p>
+                <p><i>Favorite a project or problem and see it in your MyConfluence profile at any time.</i></p>
               </div>
             </div>}
 
@@ -534,34 +538,12 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
          locationPage.pathname === '/profile-view' && (
           <>
             {sliderIndex === 0 && <div className="tuto-01">
-              <div className="tuto-29">
+              <div className="tuto-27">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>View all projects in your current board view (to the right)</i></p>
+                <p><i>View your favorited projects and problems.</i></p>
               </div>
-              <div className="tuto-30">
-                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Create a 'submitted' project for a local government</i></p>
-              </div>
-              <div className="tuto-31">
-                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
-              </div>
-            </div>}
-            {sliderIndex === 1 && <div className="tuto-01">
-              <div className="tuto-32">
-                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Change the project type board for the local government and year selected above</i></p>
-              </div>
-              <div className="tuto-33">
-                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Change Work Request 'Board' to a different local government and view requested projects</i></p>
-              </div>
-              <div className="tuto-34">
-                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Click on the three dots to Zoom to the Project, Edit the Project, and Edit Yearly Amounts</i></p>
-              </div>
-              <div className="tuto-35">
-                <p><i>Expand the Total Cost for the Work Request board. View a breakdown by County, and Add Target Costs</i></p>
+              <div className="tuto-28">
+                <p><i>Edit your profile and apply your default map area.</i></p>
                 <img src="/Icons/tutorial/ic_arrow9.svg" alt="" />
               </div>
             </div>}
@@ -590,17 +572,17 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
               </div>
             </div>}
             {sliderIndex === 1 && <div className="tuto-01">
-              <div className="tuto-29">
+              <div className="tuto-33">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>View all projects in your current board view (to the right)</i></p>
+                <p><i>Change the project type for the current Work Request view.</i></p>
               </div>
-              <div className="tuto-30">
-                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Create a 'submitted' project for a local government</i></p>
-              </div>
-              <div className="tuto-31">
+              <div className="tuto-34">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
+                <p><i>Expand the Total Cost for the Work Request board. View a breakdown by County, and Add Target Costs.</i></p>
+              </div>
+              <div className="tuto-35">
+                <p><i>Click on the three dots to Zoom to the Project, Edit the Project, and Edit Yearly Amounts.</i></p>
+                <img src="/Icons/tutorial/ic_arrow9.svg" alt="" />
               </div>
             </div>}
           </>
@@ -612,24 +594,79 @@ const NavbarView = ({user, updateUserInformation, groupOrganization, getGroupOrg
             {sliderIndex === 0 && <div className="tuto-01">
               <div className="tuto-29">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>View all projects in your current board view (to the right)</i></p>
+                <p><i>View all projects in your current board view (to the right).</i></p>
               </div>
               <div className="tuto-30">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Create a 'submitted' project for a local government</i></p>
+                <p><i>Create as many 'draft' projects as you want for your Local Government to possibly submit to MHFD for funding.</i></p>
               </div>
               <div className="tuto-31">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Change between Work Plan years, Submit a "Board", View Analytics, Apply a Filter, Share a URL, or Export to CSV</i></p>
+                <p><i>Change between Work Request years, Submit a Request, View Analytics, Share a URL, or Export to CSV.</i></p>
+              </div>
+              <div className="tuto-36">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Move project cards between columns (years) and add requested yearly amounts to develop a plan.</i></p>
+              </div>
+            </div>}
+            {sliderIndex === 1 && <div className="tuto-01">
+              <div className="tuto-33">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Change the project type for the Work Plan and year selected above.</i></p>
+              </div>
+              <div className="tuto-34">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>Click on the three dots to Zoom to the Project, Edit the Project, and Edit Yearly Amounts.</i></p>
+              </div>
+              <div className="tuto-35">
+                <p><i>Expand the Total Cost for the Work Plan board. View a breakdown by Local Government, and Add Target Costs.</i></p>
+                <img src="/Icons/tutorial/ic_arrow9.svg" alt="" />
+              </div>
+            </div>}
+          </>
+        )
+      }
+      {
+         locationPage.pathname === '/pm-tools' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-36">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Apply a quick filter by county, local government, service area, manager, consultant and other dimensions.</i></p>
+              </div>
+              <div className="tuto-37">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Toggle across various views to see your projects in a table, progress view, or calendar display.</i></p>
+              </div>
+              <div className="tuto-38">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>View only projects where you are a team member.</i></p>
+              </div>
+              <div className="tuto-39">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Group your selection by various dimensions including by project phase, manager, and contractor.</i></p>
+              </div>
+            </div>}
+            {sliderIndex === 1 && <div className="tuto-01">
+              <div className="tuto-40">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>View notifications for projects whose current phase end date is less than 14 days away.</i></p>
+              </div>
+              <div className="tuto-41">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Click on a project title to open it's Detail Page.</i></p>
               </div>
             </div>}
           </>
         )
       }
       <div className="footer-next">
-        <h4>How to Use the 
+        <h4>How to Use the&nbsp;
           {locationPage.pathname === '/map' && 'Map'}
+          {locationPage.pathname === '/profile-view' && 'MyConfluence Page'}
+          {locationPage.pathname === '/work-plan' && 'Work Plan'}
           {locationPage.pathname === '/work-request' &&  'Work Request Board'}
+          {locationPage.pathname === '/pm-tools' && 'PM Tools Schedule View'}
         </h4>
         <Button onClick={() => {
           setSliderIndex(sliderIndex => sliderIndex + 1);
