@@ -269,6 +269,7 @@ const CalendarViewPag = ({
               <div id={elem.id} key={elem.id}>
                 <CalendarGroups
                   data={elem}
+                  groupCollapsed={detailGroup}
                   setCollapsePhase={setCollapsePhase}
                   collapsePhase={collapsePhase}
                   openTable={openTable}

@@ -394,6 +394,30 @@
   opacity: 1;
   visibility: hidden;
 }
+.dragginglinesLeft path{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: visible;
+}
+.dragginglinesLeft line{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: hidden;
+}
+.dragginglinesRight path{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: visible;
+}
+.dragginglinesRight line{
+  stroke: white;
+  stroke-width: 2;
+  opacity: 1;
+  visibility: hidden;
+}
 //change to hidden to avoid modifying dates. Dates will be modify from modal
 .dragginglinesonclick line{
   stroke: white;

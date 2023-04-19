@@ -20,6 +20,7 @@ const popovers: any = [
 ]
 const CalendarGroups = ({
   data,
+  groupCollapsed,
   setCollapsePhase,
   collapsePhase,
   setOpenTable,
@@ -48,6 +49,7 @@ const CalendarGroups = ({
   scheduleRef,
 }: {
   data: any,
+  groupCollapsed: any,
   setCollapsePhase: any,
   collapsePhase: any,
   setOpenTable: any,
@@ -122,6 +124,7 @@ const CalendarGroups = ({
         } key={index}>
           <CalendarBody
             currentGroup={currentGroup}
+            groupCollapsed={groupCollapsed}
             dataId={data.id}
             tabKey={tabKey}
             next={next}

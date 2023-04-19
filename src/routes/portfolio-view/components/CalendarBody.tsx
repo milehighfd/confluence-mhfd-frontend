@@ -25,6 +25,7 @@ const popovers: any = [
 ]
 const CalendarBody = ({
   currentGroup,
+  groupCollapsed,
   dataId,
   tabKey,
   next,
@@ -55,6 +56,7 @@ const CalendarBody = ({
   groupName,
 }: {
   currentGroup: any,
+  groupCollapsed: any,
   dataId: any,
   tabKey: any,
   next: boolean,
@@ -158,7 +160,7 @@ const CalendarBody = ({
   let width = widthofDiv - 20;
   let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 250 : (windowWidth >= 2550 && windowWidth <= 3000 ? 162 : (windowWidth >= 2001 && windowWidth <= 2549 ? 259 : (windowWidth >= 1450 && windowWidth <= 2000 ? 180 : (windowWidth >= 1199 && windowWidth <= 1449 ? 21.55 : 21.5)))));
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
-  
+
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
     completedtoActive
@@ -353,42 +355,49 @@ const CalendarBody = ({
 
         let gX = svg
           .append('g')
+          .attr('id', 'xDay')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
           .attr('class', 'topHeaderChart')
           .call(xAxisDay);
 
         let gX1 = svg
           .append('g')
+          .attr('id', 'xMonth')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
           .attr('class', 'topHeaderMonthChart')
           .call(xAxisMonth);
 
         let gX2 = svg
           .append('g')
+          .attr('id', 'xYear')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
           .attr('class', 'topHeaderYearChart')
           .call(xAxisYear);
 
         let gXa = svgAxis
           .append('g')
+          .attr('id', 'xAxisDay')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top + separationHeaderAxisMonth) + ')')
           .attr('class', 'topHeader')
           .call(xAxisDay);
 
         let gX1a = svgAxis
           .append('g')
+          .attr('id', 'xAxisMonth')
           .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
           .attr('class', 'topHeaderMonthforTicks')
           .call(xAxisMonth);
 
         let gX2a = svgAxis
           .append('g')
+          .attr('id', 'xAxisYear')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22 + separationHeaderAxisMonth) + ')')
           .attr('class', 'topHeaderYear')
           .call(xAxisYear);
 
         let gX2aYear = svgAxis
           .append('g')
+          .attr('id', 'xAxisYears')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22 + separationHeaderAxisYear) + ')')
           .attr('class', 'topHeaderYearAxis')
           .call(xAxisYear);
@@ -417,6 +426,7 @@ const CalendarBody = ({
           });
         let todayline = scheduleG
           .enter().append('line')
+          .attr('id', 'todayLine')
           .attr('x1', function () {
             return xScale(today);
           })
@@ -431,6 +441,7 @@ const CalendarBody = ({
           .style('fill', 'none');
 
         let todayCircle = scheduleGaxis.enter().append("circle")
+          .attr('id', 'todayCircle')
           .attr("cx", function () {
             return xScale(today);
           })
@@ -439,6 +450,7 @@ const CalendarBody = ({
           .style("fill", '#047CD7')
         let todaylineaxis = scheduleGaxis
           .enter().append('line')
+          .attr('id', 'todayLineAxis')
           .attr('x1', function () {
             return xScale(today);
           })
@@ -743,7 +755,7 @@ const CalendarBody = ({
           .attr('id', function (d: any) {
             return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_left`;
           })
-          .attr('class', 'dragginglines')
+          .attr('class', 'dragginglinesLeft')
           .attr('x1', function (d: any) {
             let xScaleFrom: any = (xScale(d['from']) || 0);
             return xScaleFrom - dragableLineHalf + 3;
@@ -773,7 +785,7 @@ const CalendarBody = ({
           .attr('id', function (d: any) {
             return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_right`;
           })
-          .attr('class', 'dragginglines')
+          .attr('class', 'dragginglinesRight')
           .attr('x1', function (d: any) {
             let xScaleTo: any = (xScale(d['to']) || 0);
             return xScaleTo - dragableLineHalf - 3;
@@ -982,19 +994,37 @@ const CalendarBody = ({
         };
 
         let updateRects = function () {
-          todayline.attr('x1', calctodayX);
-          todayline.attr('x2', calctodayX);
-          todaylineaxis.attr('x1', calctodayX);
-          todaylineaxis.attr('x2', calctodayX);
-          todayCircle.attr('cx', calctodayX);
-          scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
-          rectNames.attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
+          // todayline.attr('x1', calctodayX);
+          // todayline.attr('x2', calctodayX);
+          d3.selectAll('#todayLine').attr('x1', calctodayX);
+          d3.selectAll('#todayLine').attr('x2', calctodayX);
+          // todaylineaxis.attr('x1', calctodayX);
+          // todaylineaxis.attr('x2', calctodayX);
+          d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
+          d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
+          // todayCircle.attr('cx', calctodayX);
+          d3.selectAll('#todayCircle').attr('cx', calctodayX);
+          // console.log('scheduleRects', scheduleRects._groups)
+          // scheduleRects._groups.forEach((element:any) => {
+          //   console.log('element', element)
+          // });
+
+          // scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
+          d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
+          d3.selectAll('.agrupationbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
+
+          // scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
+          d3.selectAll('.stackedbarCenter').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
+
+          // rectNames.attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
+          d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
+          d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
+
           leftLine.attr('x1', calcLeftXLine).attr('x2', calcLeftXLine);
           d3.selectAll('.labels').call(dotme);
 
           let h = yScale.bandwidth() - barHeight;
-          leftLine
+          d3.selectAll('.dragginglinesLeft')
             .attr('x1', calcLeftXLine)
             .attr('x2', calcLeftXLine)
             .attr('y1', (d: any) => {
@@ -1007,7 +1037,7 @@ const CalendarBody = ({
               let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 0)
               return yScaleId + h + 13 + yScaleFactor;
             });
-          rightLine
+            d3.selectAll('.dragginglinesRight')
             .attr('x1', calcRightXLine)
             .attr('x2', calcRightXLine)
             .attr('y1', (d: any) => {
@@ -1408,7 +1438,7 @@ const CalendarBody = ({
         } // renderMonthNames
 
         zoomed = function () {
-
+          
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 35) {
