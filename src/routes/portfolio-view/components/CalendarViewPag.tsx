@@ -100,7 +100,16 @@ const CalendarViewPag = ({
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   let totalLabelWidth = phaseList.length * labelWidth;
-
+  let heightSearchBody = document.getElementById("rc-tabs-0-panel-CIP")?.offsetHeight
+  let heightSearchHeader = document.getElementById('widthDivforChart')?.offsetHeight
+  let heightSearch = (heightSearchBody && heightSearchHeader) && heightSearchBody-heightSearchHeader
+  let marginReducerHeaderAxis =
+    (windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' :
+      (windowWidth >= 2550 && windowWidth <= 3000 ? '-5.9px' :
+        (windowWidth >= 1450 && windowWidth <= 1500 ? '-5.9px' :
+          (windowWidth >= 1501 && windowWidth <= 1700 ? '-5.9px' :
+            (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
+              (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
   useEffect(() => {
     let browser;
     function getUserBrowser() {
@@ -240,6 +249,11 @@ const CalendarViewPag = ({
               </div>
             </Col>
           </Row>
+          <Row>
+          <div style={{ width: '100%', marginBottom: marginReducerHeaderAxis }}>
+            <div style={{ overflowX: 'hidden', overflowY: 'hidden' }} id="timeline-chart-axis" />
+          </div>
+          </Row>
         </div>
       </Col>
     </Row>
@@ -247,6 +261,7 @@ const CalendarViewPag = ({
       <div
         className="search"
         ref={el => searchRef.current[index] = el}
+        style={{overflowY:'auto', height:heightSearch}}
       >{
           detailGroup?.map((elem: any, index: number) => {
             const id = 'collapse' + index;

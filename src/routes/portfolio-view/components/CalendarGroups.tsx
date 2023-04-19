@@ -86,7 +86,7 @@ const CalendarGroups = ({
   }
 
   return <>
-    <div  className="table-body2" id={data.id} key={data.id}>
+    <div  className="table-body2" id={data.id} key={data.id} style={{overflowY:'hidden', overflowX: 'hidden'}}>
       <Collapse
         //defaultActiveKey={['0', '1', '2']}
         activeKey={getActiveKeys()}
