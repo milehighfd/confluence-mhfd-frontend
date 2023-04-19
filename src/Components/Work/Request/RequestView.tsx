@@ -467,6 +467,7 @@ const RequestView = ({ type, isFirstRendering }: { type: boardType; isFirstRende
       year: `${year}`,
       locality,
       projecttype: tabKey ? tabKey : tabKeys[0],
+      position: `position${0}`,
     };
     setCurrentDataForBoard(data);
     setColumns(defaultColumns);
@@ -683,6 +684,7 @@ const RequestView = ({ type, isFirstRendering }: { type: boardType; isFirstRende
       locality,
       // the next condition should be removed once all Special element would have been replace by R&D in DB
       projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
+      position: `position${0}`,
     }).then(
       (r: any) => {
         counterBoardsCalls--;
@@ -1219,6 +1221,7 @@ const RequestView = ({ type, isFirstRendering }: { type: boardType; isFirstRende
                                 className="icon-bt"
                                 style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }}
                                 src=""
+                                alt=""
                               />
                             </Button>
                           )}
@@ -1227,6 +1230,7 @@ const RequestView = ({ type, isFirstRendering }: { type: boardType; isFirstRende
                               className="icon-bt"
                               style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }}
                               src=""
+                              alt=""
                             />
                           </Button>
                         </ButtonGroup>
@@ -1256,6 +1260,7 @@ const RequestView = ({ type, isFirstRendering }: { type: boardType; isFirstRende
                           className="icon-bt"
                           style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }}
                           src=""
+                          alt=""
                         />
                       </Button>
                     )}

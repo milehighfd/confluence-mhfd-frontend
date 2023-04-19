@@ -28,8 +28,9 @@ export interface Attachment {
 }
 
 export interface BoardDataRequest {
-  type: boardType,
-  year: number | string,
-  locality: string,
-  projecttype: string
+  type: boardType;
+  year: number | string;
+  locality: string;
+  projecttype: string;
+  position: string;
 }
