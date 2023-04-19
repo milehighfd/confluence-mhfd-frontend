@@ -304,6 +304,9 @@
   opacity: 1 !important;
 }
 .tutorial{
+  .ant-modal-mask {
+    background-color: rgb(0 0 0 / 65%) !important;
+  }
   .btn-question{
     -webkit-mask: url('../../Icons/icon-27.svg') no-repeat center;
     height: 24px;
@@ -417,17 +420,21 @@
   padding: 0px;
   margin: 0px;
   margin-left: 31px;
+  .ant-modal-mask {
+    background-color: rgb(0 0 0 / 65%) !important;
+  }
   .ant-modal-content{
-    background: rgba(00, 00, 00, 0.3);
+    background: rgb(0 0 0 / 0%);
     top: 15px;
     height: 100%;
+    box-shadow: none;
   }
   .ant-modal-body{
     padding: 0px;
   }
   .footer-next{
     position: absolute;
-    bottom: 48px;
+    bottom: 50px;
     text-align: center;
     width: 100%;
 
@@ -633,15 +640,15 @@
     }
     .tuto-17{
       top: 96px;
-      left: 9px;
+      left: -17px;
       width: 293px;
       p{
         padding: 16px 0px 0px 57px;
       }
     }
     .tuto-18{
-      top: 400px;
-      left: 52px;
+      top: 397px;
+      left: 23px;
       width: 304px;
       text-align: initial;
       p{
@@ -652,7 +659,7 @@
     }
     .tuto-19{
       top: calc(50vh + 30px);
-      right: 31%;
+      right: 32%;
       width: 316px;
       p{
         padding: 16px 0px 0px 0px;
@@ -668,7 +675,7 @@
     }
     .tuto-21{
       top: 126px;
-      left: 52px;
+      left: 28px;
       width: 276px;
       text-align: initial;
       p{
@@ -678,7 +685,7 @@
     }
     .tuto-22{
       bottom: 179px;
-      left: 120px;
+      left: 94px;
       width: 183px;
       text-align: initial;
       p{
@@ -689,7 +696,7 @@
     }
     .tuto-23{
       bottom: 82px;
-      left: 120px;
+      left: 94px;
       width: 183px;
       text-align: initial;
       p{
@@ -699,7 +706,7 @@
       }
     }
     .tuto-24{
-      left: 394px;
+      left: 436px;
       width: 248px;
       /* text-align: initial; */
       top: 40vh;
@@ -711,7 +718,7 @@
     }
     .tuto-25{
       top: 105px;
-      left: 49.5vw;
+      left: 47.5vw;
       width: 139px;
       text-align: end;
       p{
@@ -733,7 +740,7 @@
     }
     .tuto-27{
       top: 87px;
-      left: 38.5%;
+      left: 37.5%;
       width: 139px;
       p{
         padding: 16px 0px 0px 0px;
@@ -743,7 +750,7 @@
     }
     .tuto-28{
       bottom: 20px;
-      left: 24vw;
+      left: 21.5vw;
       width: 166px;
       p{
         padding: 0px 0px 16px 0px;
@@ -865,7 +872,7 @@
     }
     .tuto-40{
       top: 25px;
-      right: 196px;
+      right: 211px;
       width: 218px;
       text-align: end;
       p{
@@ -875,10 +882,49 @@
       }
     }
     .tuto-41{
-      top: 281px;
-      left: 283px;
-      width: 177px;
-      text-align: inherit;
+      top: 302px;
+      left: 221px;
+      width: 175px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-42{
+      top: 221px;
+      right: 189px;
+      width: 237px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-43{
+      bottom: 157px;
+      left: 285px;
+      width: 430px;
+      p{
+        padding: 16px 0px 0px 130px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-44{
+      bottom: 281px;
+      right: 312px;
+      width: 250px;
+      p{
+        padding: 16px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+      }
+    }
+    .tuto-45{
+      top: 313px;
+      left: 380px;
+      width: 265px;
       p{
         padding: 16px 0px 0px 0px;
         text-align: center;

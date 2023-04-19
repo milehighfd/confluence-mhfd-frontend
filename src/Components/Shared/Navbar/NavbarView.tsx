@@ -35,7 +35,6 @@ const NavbarView = ({tabActive}:
     visible: false,
     visible1:false
   }
-  console.log(tabActive, 'tabActive');
   const {userInformation, groupOrganization} = useProfileState ();
   const user =userInformation;
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
@@ -122,7 +121,7 @@ const NavbarView = ({tabActive}:
     changeTutorialStatus(state.visible1);
   }, [state]);
   useEffect(() => {
-      if(locationPage.pathname === '/profile-view') {
+      if(locationPage.pathname === '/profile-view' || tabActive === 'Schedule' || tabActive === 'Phase') {
         if (sliderIndex === 1) {
           setState({...state, visible1: false});
           setSliderIndex(0);
@@ -627,7 +626,7 @@ const NavbarView = ({tabActive}:
         )
       }
       {
-         locationPage.pathname === '/pm-tools' && (
+         locationPage.pathname === '/pm-tools' && tabActive === 'List' && (
           <>
             {sliderIndex === 0 && <div className="tuto-01">
               <div className="tuto-36">
@@ -660,17 +659,56 @@ const NavbarView = ({tabActive}:
           </>
         )
       }
+      {
+         locationPage.pathname === '/pm-tools' && tabActive === 'Phase' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-40">
+                <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
+                <p><i>View project notifications where a it's current phase end date is less than 14 days away.</i></p>
+              </div>
+              <div className="tuto-45">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Click on a circle to open that project's phase sidebar. Leave notes, View dates, and Complete the Action checklist.</i></p>
+              </div>
+              <div className="tuto-42">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Projects consist of distinct phases, grouped into a smaller number of project statuses (i.e. Active) that are the same for all project types.</i></p>
+              </div>
+            </div>}
+          </>
+        )
+      }
+      {
+         locationPage.pathname === '/pm-tools' && tabActive === 'Schedule' && (
+          <>
+            {sliderIndex === 0 && <div className="tuto-01">
+              <div className="tuto-43">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>If data is available, a timeline of distinct phases for the project willl appear. Otherwise, if no data is available, users can initiate a project's timeline by clicking on 'Add Dates' and then assigning a current phase and start date.</i></p>
+              </div>
+              <div className="tuto-44">
+                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
+                <p><i>Left click and drag to scroll left or right or select a daily or monthly view above.</i></p>
+              </div>
+            </div>}
+          </>
+        )
+      }
       <div className="footer-next">
         <h4>How to Use the&nbsp;
           {locationPage.pathname === '/map' && 'Map'}
           {locationPage.pathname === '/profile-view' && 'MyConfluence Page'}
           {locationPage.pathname === '/work-plan' && 'Work Plan'}
           {locationPage.pathname === '/work-request' &&  'Work Request Board'}
-          {locationPage.pathname === '/pm-tools' && 'PM Tools Schedule View'}
+          {locationPage.pathname === '/pm-tools' && tabActive === 'List' && 'PM Tools Schedule View'}
+          {locationPage.pathname === '/pm-tools' && tabActive === 'Phase' && 'How to Use the PM Tools Phase View'}
+          {locationPage.pathname === '/pm-tools' && tabActive === 'Schedule' && 'How to Use the PM Tools Schedule View'}
+
         </h4>
         <Button onClick={() => {
           setSliderIndex(sliderIndex => sliderIndex + 1);
-        }} className="btn-green">{sliderIndex === 1 ? 'Close': (locationPage.pathname === '/profile-view' ? 'Close':<>Next <DoubleRightOutlined /> </>)}</Button>
+        }} className="btn-green">{sliderIndex === 1 || tabActive === 'Schedule' || tabActive === 'Phase' ? 'Close': (locationPage.pathname === '/profile-view' ? 'Close':<>Next <DoubleRightOutlined /> </>)}</Button>
       </div>
     </Modal>
   </Header>

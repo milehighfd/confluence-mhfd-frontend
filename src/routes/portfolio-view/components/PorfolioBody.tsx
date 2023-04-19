@@ -37,7 +37,7 @@ let previousFilterBy = '';
 //   <div className="popoveer-00"><b>R&D:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
 //   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
 // ]
-const PortafolioBody = () => {
+const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, setOptionSelect:React.Dispatch<React.SetStateAction<string>>}) => {
   const {
     setFilterProjectOptions,
     resetFiltercomponentOptions,
@@ -65,7 +65,6 @@ const PortafolioBody = () => {
   const [openFavorites, setOpenFavorites] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
-  const [optionSelect, setOptionSelect] = useState('List');
   const [openTable, setOpenTable] = useState<any>([]);
   //const [hoverTable, setHoverTable] = useState<number>()
   const tableRef = useRef([]); 
