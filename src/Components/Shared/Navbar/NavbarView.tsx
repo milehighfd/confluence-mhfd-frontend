@@ -44,6 +44,7 @@ const NavbarView = ({tabActive}:
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
   let displayedTabKey = tabKeys;
+  console.log(tabActive, 'tabActive')
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
       <div className="notification-header">
@@ -457,6 +458,9 @@ const NavbarView = ({tabActive}:
      width="100vw"
      style={{ top: '0', height: '100vh' }}
      className="tutorial-carousel tutorial"
+     maskStyle={{
+        backgroundColor: "#0000008f"
+      }}
     >
       {
         locationPage.pathname === '/map' && (
@@ -701,9 +705,9 @@ const NavbarView = ({tabActive}:
           {locationPage.pathname === '/profile-view' && 'MyConfluence Page'}
           {locationPage.pathname === '/work-plan' && 'Work Plan'}
           {locationPage.pathname === '/work-request' &&  'Work Request Board'}
-          {locationPage.pathname === '/pm-tools' && tabActive === 'List' && 'PM Tools Schedule View'}
-          {locationPage.pathname === '/pm-tools' && tabActive === 'Phase' && 'How to Use the PM Tools Phase View'}
-          {locationPage.pathname === '/pm-tools' && tabActive === 'Schedule' && 'How to Use the PM Tools Schedule View'}
+          {locationPage.pathname === '/pm-tools' && tabActive === 'List' && 'PM Tools List View'}
+          {locationPage.pathname === '/pm-tools' && tabActive === 'Phase' && 'PM Tools Phase View'}
+          {locationPage.pathname === '/pm-tools' && tabActive === 'Schedule' && 'PM Tools Schedule View'}
 
         </h4>
         <Button onClick={() => {
