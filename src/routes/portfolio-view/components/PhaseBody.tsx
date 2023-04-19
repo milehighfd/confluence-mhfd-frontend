@@ -38,7 +38,7 @@ const PhaseBody = ({
   index,
   divRef,
   searchRef,
-  tableRef,
+  phaseRef,
   totalLabelWidth,
   scheduleList,
   phaseList,
@@ -52,6 +52,8 @@ const PhaseBody = ({
   setDataModal,
   groupName,
   userName,
+  setOpenPiney,
+  setPopUpData,
 }: {
   currentGroup: any,
   dataId: any,
@@ -66,7 +68,7 @@ const PhaseBody = ({
   index: number,
   divRef: any,
   searchRef: any,
-  tableRef: any,
+  phaseRef: any,
   totalLabelWidth: number,
   scheduleList: any,
   phaseList: any,
@@ -79,7 +81,9 @@ const PhaseBody = ({
   setPositionModalGraphic: Function,
   setDataModal: Function,
   groupName: string,
-  userName: string
+  userName: string,
+  setOpenPiney: Function,
+  setPopUpData: Function,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -89,10 +93,8 @@ const PhaseBody = ({
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [phaseData, setPhaseData] = useState<any>([]);
-  const [popUpData, setPopUpData] = useState<any>({});
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
   const [updateAction,setUpdateAction] = useState(false);
-  const [openPiney, setOpenPiney] = useState(false);
 
   let svg: any;
   const windowWidth: any = window.innerWidth;
@@ -171,12 +173,7 @@ const PhaseBody = ({
         ))
       ));
     }
-    console.log(Object.keys(phaseData).length)
-    console.log(phaseData.length)
-
-
-    if (phaseData.length > 0) {      
-      console.log(phaseData)
+    if (phaseData.length > 0) {     
       phaseData.forEach((element:any) => {
         element.values.forEach((value:any) => {
           phaseChart(value);
@@ -593,8 +590,9 @@ const PhaseBody = ({
                 let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
-                let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
-                let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
+                let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop + 120; // Delete 120 when the popup is fixed
+                let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft - 35; //Delete 35 when the popup is fixed
+                console.log(positionLeft, positionTop, 'positionLeft, positionTop')
                 setPositionModalGraphic({ left: positionLeft, top: positionTop })
                 d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
@@ -683,7 +681,6 @@ const PhaseBody = ({
       parent.removeChild(parent.firstChild);
     }
   };
-
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
@@ -692,22 +689,7 @@ const PhaseBody = ({
       type={FILTER_PROJECTS_TRIGGER}
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
-    />}    
-    {openPiney && (
-      <div className="phaseview-body">
-        <div className="piney-text">
-          <PineyView
-            setOpenPiney={setOpenPiney}
-            data={popUpData}
-            userName={userName}
-            setUpdateAction={setUpdateAction}
-            updateAction={updateAction}
-            setOpenModalTollgate={setOpenModalTollgate}
-            setTollData={setTollData}
-          />
-        </div>
-      </div>
-    )}
+    />}        
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>
@@ -727,16 +709,21 @@ const PhaseBody = ({
           }
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-          {phaseData.map((elem: any, index: number) => (
-            elem.values.map((value: any, indexinside: number) => {
-              return <div>
-                <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
-                  <div id={`dotchart_${value.id.replace(/\s/g, '')}`}></div>
-                </div>
-                {elem.values.length - 1 === indexinside && phaseData.length - 1 !== index ? <div className="header-timeline" style={{ width: totalLabelWidth }}></div> : ''}
-              </div>
-            })
-          ))}
+          <div style={{overflowX:'hidden'}} ref={el => phaseRef.current = el}>
+            <div className="container-timeline"              
+              style={{ paddingLeft: '5px' }}>
+              {phaseData.map((elem: any, index: number) => (
+                elem.values.map((value: any, indexinside: number) => {
+                  return <div>
+                    <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
+                      <div id={`dotchart_${value.id.replace(/\s/g, '')}`}></div>
+                    </div>
+                    {elem.values.length - 1 === indexinside && phaseData.length - 1 !== index ? <div className="header-timeline" style={{ width: totalLabelWidth }}></div> : ''}
+                  </div>
+                })
+              ))}
+            </div>
+          </div>
         </Col>
       </Row>
     </div>

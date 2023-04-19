@@ -62,8 +62,8 @@ const TableGroups = ({
   return <>
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
-        defaultActiveKey={['0', '1', '2']}
-        //activeKey={getActiveKeys()}
+        //defaultActiveKey={['0', '1', '2']}
+        activeKey={getActiveKeys()}
         onChange={
           () => {
             setCollapsePhase(!collapsePhase)            

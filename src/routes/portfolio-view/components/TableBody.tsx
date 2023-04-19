@@ -233,14 +233,14 @@ const TableBody = ({
             <div
               className="table-body-body"
               id={`listView_${index}`}
-              ref={el => (divRef.current[index] = el)}
-              onScrollCapture={(e: any) => {
-                let dr: any = divRef.current[index];
-                if (searchRef.current[index] && tableRef.current) {
-                  searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
-                  tableRef.current.scrollTo(dr.scrollLeft, 0);
-                }
-              }}
+              ref={el => tableRef.current = el}
+              // onScrollCapture={(e: any) => {
+              //   let dr: any = divRef.current[index];
+              //   if (searchRef.current[index] && tableRef.current) {
+              //     searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+              //     tableRef.current.scrollTo(dr.scrollLeft, 0);
+              //   }
+              // }}
             >
               <div className="scroll-table">                
                 <Table

@@ -10,6 +10,7 @@ import SearchDropdown from "./SearchDropdown";
 import moment from "moment";
 import { getGroupList } from "./ListUtils";
 import PhaseGroups from "./PhaseGroups";
+import PineyView from "./PineyView";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -42,7 +43,6 @@ const PhaseViewPag = ({
   email,
   setTollData,
   setOpenModalTollgate,
-  setOpenPiney,
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
@@ -68,7 +68,6 @@ const PhaseViewPag = ({
   email: any,  
   setTollData: any,
   setOpenModalTollgate: any,
-  setOpenPiney: any,
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
@@ -89,6 +88,8 @@ const PhaseViewPag = ({
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   const phaseRef = useRef<null | HTMLDivElement>(null);
   let totalLabelWidth = phaseList.length * labelWidth;
+  const [openPiney, setOpenPiney] = useState(false);
+  const [popUpData, setPopUpData] = useState<any>({});
 
   useEffect(() => {
     let browser;
@@ -180,6 +181,21 @@ const PhaseViewPag = ({
   }, [currentGroup])
 
   return <>
+    {openPiney && (
+      <div className="phaseview-body">
+        <div className="piney-text">
+          <PineyView
+            setOpenPiney={setOpenPiney}
+            data={popUpData}
+            userName={userName}
+            setUpdateAction={setUpdateAction}
+            updateAction={updateAction}
+            setOpenModalTollgate={setOpenModalTollgate}
+            setTollData={setTollData}
+          />
+        </div>
+      </div>
+    )}
     <Row>
       <Col xs={{ span: 10 }} lg={{ span: 5 }}>
         <SearchDropdown rawData={rawData}
@@ -196,12 +212,11 @@ const PhaseViewPag = ({
               className="header-title"
               ref={headerRef}
               onScrollCapture={(e: any) => {
-                if (phaseRef.current && indexParent && phaseRef.current) {
-                  let dr: any = phaseRef.current;
-                  let dr1: any = headerRef.current;
-                  if (searchRef.current[indexParent] && phaseRef.current) {
-                    phaseRef.current.scrollTo(dr1.scrollLeft, dr.scrollTop);
-                  }
+                let dr: any = headerRef.current;
+                if (headerRef.current) {                  
+                  if(phaseRef.current){
+                    phaseRef.current?.scrollTo(dr.scrollLeft, dr.scrollTop);
+                  }                                     
                 }
               }}
             >
@@ -246,7 +261,7 @@ const PhaseViewPag = ({
                     email={email}
                     divRef={divRef}
                     searchRef={searchRef}
-                    tableRef={tableRef}
+                    phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
                     scheduleList={scheduleList}
                     phaseList={phaseList}
@@ -260,6 +275,7 @@ const PhaseViewPag = ({
                     setPositionModalGraphic={setPositionModalGraphic}
                     setDataModal={setDataModal}
                     userName={userName}
+                    setPopUpData={setPopUpData}
                   />
                 </div>
               )
