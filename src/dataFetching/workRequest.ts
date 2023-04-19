@@ -9,3 +9,7 @@ export const getLocalitiesByBoardType = (type: boardType) => {
 export const getBoardData = (data: BoardDataRequest) => {
   return datasets.postData(`${SERVER.URL_BASE}/board/`, data);
 };
+
+export const getBoardData2 = (data: BoardDataRequest) => {
+  return datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions`, data);
+};
