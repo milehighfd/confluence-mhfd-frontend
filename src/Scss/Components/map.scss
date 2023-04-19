@@ -269,6 +269,8 @@
     -webkit-transition: color .3s;
     transition: color .3s;
     vertical-align: 0;
+    z-index: 2;
+
   }
   .style-input {
     margin-top: 5px;
@@ -1226,6 +1228,7 @@
     -webkit-transition: color .3s;
     transition: color .3s;
     vertical-align: 0;
+    z-index: 2;
   }
 } 
 .m-head {
@@ -1317,9 +1320,7 @@
   .ant-input-affix-wrapper .ant-input {
     
     background-color: transparent;
-    padding-right: 35px;
-    z-index:-2;
-  
+    padding-right: 35px;  
   }
   
   .ant-dropdown-link{
