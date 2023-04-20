@@ -105,16 +105,15 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
     }
+    setOpenTable([true, true, true]);
     setTimeout(()=>{
       isInit = false;
       resetFilterProjectOptionsEmpty();
     }, 1000);
     return () => {
       resetFiltercomponentOptions();
-    }
+    }    
   }, []);
-
-
 
 
   useEffect(() => {    
@@ -236,227 +235,231 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   //   }
   // }, [optionSelect, tabKey]);
 
-  const callGetGroupList = (sortValue: any, withFavorites: any) => {
-    let optionsfiltersoptions = isInit ? filterProjectOptionsNoFilter : filterProjectOptions;
-    const optionsfilters = optionsProjects( optionsfiltersoptions, filterComponentOptions, '' , false);    
-    //console.log("Filter")
-    //console.log(optionsfilters)
-    setIsLoading(true);
-    getGroupList(currentGroup).then((valuesGroups) => {
-      //const groups = valuesGroups.groups;
-      let groups = valuesGroups.groups.filter((x:any)=>x.value !== 'Draft' && x.value !== 'Requested');      
-      if(valuesGroups.table === 'CODE_STATE_COUNTY_4326'){
-        groups = valuesGroups.groups.map((x:any)=>{
-          return {...x, value : (x.value+' County')}
-        } );     
-      }
-      const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-      //console.log(valuesGroups)
-      //console.log(currentGroup)
-      // setNewData(updatedGroups);
-      //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
-      getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
-       const updatedGroups: any = [];         
-        console.log("valuesList")
-        console.log(valuesList)
-        groups.forEach((element: any, index: number) => {
-          // console.log("ELEMENT")
-          // console.log(element);
-          if (valuesList[element.id]) {
-          updatedGroups.push({
-            id: `Title${element.id}`,
-            headerLabel: element.value,
-            date: moment('2022/08/11'),
-            schedule: [
-              {
-                objectId: 10,
-                type: 'title',
-                categoryNo: 100,
-                from: moment('2022/02/01 00:00:00'),
-                to: moment('2022/06/01 00:00:00'),
-                status: 'completed',
-                name: element.value,
-              }
-            ],
-          });
-          //console.log("VALUES")
-          //console.log(valuesList)
-            valuesList[element.id].forEach((elem: any, idx: number) => {
-              // if(idx > 20) return;      
+  //START PARSING DATA
+
+  // const callGetGroupList = (sortValue: any, withFavorites: any) => {
+  //   let optionsfiltersoptions = isInit ? filterProjectOptionsNoFilter : filterProjectOptions;
+  //   const optionsfilters = optionsProjects( optionsfiltersoptions, filterComponentOptions, '' , false);    
+  //   //console.log("Filter")
+  //   //console.log(optionsfilters)
+  //   setIsLoading(true);
+  //   getGroupList(currentGroup).then((valuesGroups) => {
+  //     //const groups = valuesGroups.groups;
+  //     let groups = valuesGroups.groups.filter((x:any)=>x.value !== 'Draft' && x.value !== 'Requested');      
+  //     if(valuesGroups.table === 'CODE_STATE_COUNTY_4326'){
+  //       groups = valuesGroups.groups.map((x:any)=>{
+  //         return {...x, value : (x.value+' County')}
+  //       } );     
+  //     }
+  //     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
+  //     //console.log(valuesGroups)
+  //     //console.log(currentGroup)
+  //     // setNewData(updatedGroups);
+  //     //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
+  //     getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
+  //      const updatedGroups: any = [];         
+  //       console.log("valuesList")
+  //       console.log(valuesList)
+  //       groups.forEach((element: any, index: number) => {
+  //         // console.log("ELEMENT")
+  //         // console.log(element);
+  //         if (valuesList[element.id]) {
+  //         updatedGroups.push({
+  //           id: `Title${element.id}`,
+  //           headerLabel: element.value,
+  //           date: moment('2022/08/11'),
+  //           schedule: [
+  //             {
+  //               objectId: 10,
+  //               type: 'title',
+  //               categoryNo: 100,
+  //               from: moment('2022/02/01 00:00:00'),
+  //               to: moment('2022/06/01 00:00:00'),
+  //               status: 'completed',
+  //               name: element.value,
+  //             }
+  //           ],
+  //         });
+  //         //console.log("VALUES")
+  //         //console.log(valuesList)
+  //           valuesList[element.id].forEach((elem: any, idx: number) => {
+  //             // if(idx > 20) return;      
               
-              updatedGroups.push({
-                id: `${element.value}${idx}`,
-                project_id: elem.project_id,
-                code_project_type_id:elem.code_project_type_id,
-                headerLabel: element.value,
-                rowLabel: elem.project_name, //description
-                date: moment('2022/08/11'),
-                key: elem.project_id + element.id,
-                phase: getCurrentProjectStatus(elem)?.code_phase_type?.phase_name,
-                phaseId: getCurrentProjectStatus(elem)?.code_phase_type_id,
-                mhfd:  elem?.project_staffs.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.mhfd_staff?.full_name || '';
-                  const sa1 = pl?.code_project_staff_role_type_id || '';
-                  let value = accumulator;
-                  if (sa && sa1 === 1) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  }  
-                  return value;
-                }, ''),
-                mhfd_support: null,
-                lg_lead: null,
-                developer: null,
-                consultant:  elem?.project_partners.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.business_associate?.business_name || '';
-                  const sa1 = pl?.code_partner_type_id || '';
-                  let value = accumulator;
-                  if (sa && sa1 === 3) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  }  
-                  return value;
-                }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
-                civil_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.business_associate?.business_name || '';
-                  const sa1 = pl?.code_partner_type_id || '';
-                  let value = accumulator;
-                  if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  }  
-                  return value;
-                }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
-                landscape_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.business_associate?.business_name || '';
-                  const sa1 = pl?.code_partner_type_id || '';
-                  let value = accumulator;
-                  if (sa && sa1 === 9) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  }  
-                  return value;
-                }, ''), // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
-                construction_start_date: elem?.project_status?.code_phase_type?.code_phase_type_id === 125 ? elem?.project_status?.planned_start_date : elem?.project_status?.actual_start_date, //elem?.construction_start_date,
-                jurisdiction_id: elem?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
-                  const sa = pl?.CODE_LOCAL_GOVERNMENT?.code_local_government_id || '';
-                  let value = accumulator;
-                  if (sa) {
-                    value = [...value,sa];
-                  }  
-                  return value;
-                }, ''), 
-                county_id: elem?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
-                  const county = pl?.CODE_STATE_COUNTY?.state_county_id || '';
-                  let value = accumulator;
-                  if (county) {
-                    value = [...value,county];
-                  }  
-                  return value;
-                }, ''),
-                servicearea_id: elem?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
-                  const sa = pl?.CODE_SERVICE_AREA?.code_service_area_id || '';
-                  let value = accumulator;
-                  if (sa) {
-                    value = [...value,sa];
-                  }  
-                  return value;
-                }, ''),
-                consultant_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
-                  const sa = pl?.business_associate?.business_associates_id || '';
-                  const sa1 = pl?.code_partner_type_id || '';
-                  let value = accumulator;
-                  if (sa && sa1 === 3) {
-                    value = [...value,sa];
-                  }  
-                  return value;
-                }, ''),
-                contractor_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
-                  const sa = pl?.business_associate?.business_associates_id || '';
-                  const sa1 = pl?.code_partner_type_id || '';
-                  let value = accumulator;
-                  if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
-                    value = [...value,sa];
-                  }  
-                  return value;
-                }, ''),
-                isFavorite : favorites.some((element: { project_id: number; }) => {
-                  if (element.project_id === elem.project_id) {
-                    return true;
-                  }              
-                  return false;
-                }),
-                local_government: elem?.project_local_governments.reduce((accumulator: string, pl: any) => {
-                  const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
-                  let value = accumulator;
-                  if (sa) {
-                    if (value) {
-                      value += ',';
-                    }
-                    value += sa;
-                  }  
-                  return value;
-                }, ''),
-                on_base: elem?.onbase_project_number,
-                total_funding: null,
-                project_sponsor: getSponsors(elem.project_partners),
-                project_type:elem?.code_project_type?.project_type_name,
-                status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
-                project_status: elem?.project_statuses?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
-                service_area: getServiceAreas(elem?.project_service_areas || []),
-                county: getCounties(elem?.project_counties || []),
-                estimated_cost: getTotalEstimatedCost(elem?.project_costs),
-                stream: getStreams(elem?.project_streams || []).join(' , '),
-                contact: 'ICON',
-                view: 'id',
-                options:'red',
-                schedule: [
-                  {
-                    objectId: 1,
-                    type: 'rect',
-                    categoryNo: 1,
-                    from: moment('2022/06/22 07:30:00'),
-                    to: moment('2022/07/01 08:30:00'),
-                    status: 'completed',
-                    name: 'Draft',
-                    phase: 'Draft', 
-                    tasks: 6,
-                    show: false,
-                    current:false
-                  },
-                ],
-              })
-            });
-          }
-        });        
-        setNewData(updatedGroups);
-        setCompleteData(updatedGroups);
-        setListLoaded(!listLoaded);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1500);
-        const sortedData = updatedGroups.filter((elem: any) => elem.id.includes('Title'));
-        setOpenTable(new Array(sortedData.length).fill(true));
-      });
-    });
-  }
+  //             updatedGroups.push({
+  //               id: `${element.value}${idx}`,
+  //               project_id: elem.project_id,
+  //               code_project_type_id:elem.code_project_type_id,
+  //               headerLabel: element.value,
+  //               rowLabel: elem.project_name, //description
+  //               date: moment('2022/08/11'),
+  //               key: elem.project_id + element.id,
+  //               phase: getCurrentProjectStatus(elem)?.code_phase_type?.phase_name,
+  //               phaseId: getCurrentProjectStatus(elem)?.code_phase_type_id,
+  //               mhfd:  elem?.project_staffs.reduce((accumulator: string, pl: any) => {
+  //                 const sa = pl?.mhfd_staff?.full_name || '';
+  //                 const sa1 = pl?.code_project_staff_role_type_id || '';
+  //                 let value = accumulator;
+  //                 if (sa && sa1 === 1) {
+  //                   if (value) {
+  //                     value += ',';
+  //                   }
+  //                   value += sa;
+  //                 }  
+  //                 return value;
+  //               }, ''),
+  //               mhfd_support: null,
+  //               lg_lead: null,
+  //               developer: null,
+  //               consultant:  elem?.project_partners.reduce((accumulator: string, pl: any) => {
+  //                 const sa = pl?.business_associate?.business_name || '';
+  //                 const sa1 = pl?.code_partner_type_id || '';
+  //                 let value = accumulator;
+  //                 if (sa && sa1 === 3) {
+  //                   if (value) {
+  //                     value += ',';
+  //                   }
+  //                   value += sa;
+  //                 }  
+  //                 return value;
+  //               }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
+  //               civil_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
+  //                 const sa = pl?.business_associate?.business_name || '';
+  //                 const sa1 = pl?.code_partner_type_id || '';
+  //                 let value = accumulator;
+  //                 if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+  //                   if (value) {
+  //                     value += ',';
+  //                   }
+  //                   value += sa;
+  //                 }  
+  //                 return value;
+  //               }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
+  //               landscape_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
+  //                 const sa = pl?.business_associate?.business_name || '';
+  //                 const sa1 = pl?.code_partner_type_id || '';
+  //                 let value = accumulator;
+  //                 if (sa && sa1 === 9) {
+  //                   if (value) {
+  //                     value += ',';
+  //                   }
+  //                   value += sa;
+  //                 }  
+  //                 return value;
+  //               }, ''), // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
+  //               construction_start_date: elem?.project_status?.code_phase_type?.code_phase_type_id === 125 ? elem?.project_status?.planned_start_date : elem?.project_status?.actual_start_date, //elem?.construction_start_date,
+  //               jurisdiction_id: elem?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
+  //                 const sa = pl?.CODE_LOCAL_GOVERNMENT?.code_local_government_id || '';
+  //                 let value = accumulator;
+  //                 if (sa) {
+  //                   value = [...value,sa];
+  //                 }  
+  //                 return value;
+  //               }, ''), 
+  //               county_id: elem?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
+  //                 const county = pl?.CODE_STATE_COUNTY?.state_county_id || '';
+  //                 let value = accumulator;
+  //                 if (county) {
+  //                   value = [...value,county];
+  //                 }  
+  //                 return value;
+  //               }, ''),
+  //               servicearea_id: elem?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
+  //                 const sa = pl?.CODE_SERVICE_AREA?.code_service_area_id || '';
+  //                 let value = accumulator;
+  //                 if (sa) {
+  //                   value = [...value,sa];
+  //                 }  
+  //                 return value;
+  //               }, ''),
+  //               consultant_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+  //                 const sa = pl?.business_associate?.business_associates_id || '';
+  //                 const sa1 = pl?.code_partner_type_id || '';
+  //                 let value = accumulator;
+  //                 if (sa && sa1 === 3) {
+  //                   value = [...value,sa];
+  //                 }  
+  //                 return value;
+  //               }, ''),
+  //               contractor_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
+  //                 const sa = pl?.business_associate?.business_associates_id || '';
+  //                 const sa1 = pl?.code_partner_type_id || '';
+  //                 let value = accumulator;
+  //                 if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+  //                   value = [...value,sa];
+  //                 }  
+  //                 return value;
+  //               }, ''),
+  //               isFavorite : favorites.some((element: { project_id: number; }) => {
+  //                 if (element.project_id === elem.project_id) {
+  //                   return true;
+  //                 }              
+  //                 return false;
+  //               }),
+  //               local_government: elem?.project_local_governments.reduce((accumulator: string, pl: any) => {
+  //                 const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
+  //                 let value = accumulator;
+  //                 if (sa) {
+  //                   if (value) {
+  //                     value += ',';
+  //                   }
+  //                   value += sa;
+  //                 }  
+  //                 return value;
+  //               }, ''),
+  //               on_base: elem?.onbase_project_number,
+  //               total_funding: null,
+  //               project_sponsor: getSponsors(elem.project_partners),
+  //               project_type:elem?.code_project_type?.project_type_name,
+  //               status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
+  //               project_status: elem?.project_statuses?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
+  //               service_area: getServiceAreas(elem?.project_service_areas || []),
+  //               county: getCounties(elem?.project_counties || []),
+  //               estimated_cost: getTotalEstimatedCost(elem?.project_costs),
+  //               stream: getStreams(elem?.project_streams || []).join(' , '),
+  //               contact: 'ICON',
+  //               view: 'id',
+  //               options:'red',
+  //               schedule: [
+  //                 {
+  //                   objectId: 1,
+  //                   type: 'rect',
+  //                   categoryNo: 1,
+  //                   from: moment('2022/06/22 07:30:00'),
+  //                   to: moment('2022/07/01 08:30:00'),
+  //                   status: 'completed',
+  //                   name: 'Draft',
+  //                   phase: 'Draft', 
+  //                   tasks: 6,
+  //                   show: false,
+  //                   current:false
+  //                 },
+  //               ],
+  //             })
+  //           });
+  //         }
+  //       });        
+  //       setNewData(updatedGroups);
+  //       setCompleteData(updatedGroups);
+  //       setListLoaded(!listLoaded);
+  //       setTimeout(() => {
+  //         setIsLoading(false);
+  //       }, 1500);
+  //       const sortedData = updatedGroups.filter((elem: any) => elem.id.includes('Title'));
+  //       setOpenTable(new Array(sortedData.length).fill(true));
+  //     });
+  //   });
+  // }
 
 
   const createProjectStatusesCb = () => {
-    callGetGroupList(sortValue, openFavorites);
+    //callGetGroupList(sortValue, openFavorites);
   }
-  useEffect(() => {
-    callGetGroupList(sortValue, openFavorites);  
-    apply(null, '', '');
-  }, [ applyFilter,currentGroup]);
+  // useEffect(() => {
+  //   callGetGroupList(sortValue, openFavorites);  
+  //   apply(null, '', '');
+  // }, [ applyFilter,currentGroup]);
+
+  //END PARSING DATA
   
   useEffect(() => {
     datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
