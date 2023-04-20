@@ -392,7 +392,11 @@ const PhaseBody = ({
           circles
             .append("circle")
             .attr('id', (d: any) => {
-              return `${d.id.replace(/\s/g, '')}_${(scheduleList[r].phase)}`;
+              if(d.id === 'Active1'){
+                console.log('asd',`${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}`)
+              }
+              return `${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}`
+              // return `${d.id.replace(/\s/g, '')}_${(scheduleList[r].phase)}`;
             })
             .attr("cx", xdr(r))
             .attr("cy", (d: any) => {
@@ -590,13 +594,19 @@ const PhaseBody = ({
                         (windowWidth >= 1450 && windowWidth <= 2000 ? 170 :
                           (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
                 }
-                let popupfactorLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : (windowWidth >= 1199 && windowWidth <= 1449 ? 345 : 345)))))
+                let popupfactorLeft = 
+                (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : 
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : 
+                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : 
+                        (windowWidth >= 1199 && windowWidth <= 1449 ? 380 : 345)))))
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
                 let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop + 120; // Delete 120 when the popup is fixed
                 let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft - 35; //Delete 35 when the popup is fixed
                 setPositionModalGraphic({ left: positionLeft, top: positionTop })
-                d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
+                console.log('aaa',d3.event.target.id.slice(0, -6))
+                d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
                 d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
                 d3.select(`#${searchTextId}`).style('text-decoration', 'underline');
@@ -606,7 +616,31 @@ const PhaseBody = ({
               setGrapphicOpen(false);
               setPositionModalGraphic({ left: 10000, top: 10000 })
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-                return colorScale[d.schedule[r].status];
+                let indexStatus;
+                const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
+                let today = moment()
+                scheduleList.forEach((element: any, index: number) => {
+                  if (d.phaseId === element.code_phase_type_id) {
+                    indexStatus = index;
+                  }
+                });
+                if (indexStatus === r) {
+                  if (endDate) {
+                    const diffDates = ((moment(endDate).diff(today, 'M', true)))
+                    if (diffDates > 0) {
+                      return colorScale['Current'];
+                    } else {
+                      return colorScale['Overdue'];
+                    }
+                  } else {
+                    return colorScale['Current'];
+                  }
+                }
+                if (indexStatus && r < indexStatus) {
+                  return colorScale['Done'];
+                } else {
+                  return colorScale['NotStarted'];
+                }
               });
               let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
               d3.select(`#${searchTextId}`).style('background-color', 'white');
