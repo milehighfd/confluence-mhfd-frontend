@@ -47,6 +47,7 @@ const PhaseGroups = ({
   setDataModal,
   userName,
   setPopUpData,
+  headerRef,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -75,6 +76,7 @@ const PhaseGroups = ({
   setDataModal: any,
   userName: any,
   setPopUpData: any,
+  headerRef: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -153,6 +155,7 @@ const PhaseGroups = ({
             userName={userName}
             setOpenPiney={setOpenPiney}
             setPopUpData={setPopUpData}
+            headerRef={headerRef}
           ></PhaseBody>
         </Panel>
       </Collapse>

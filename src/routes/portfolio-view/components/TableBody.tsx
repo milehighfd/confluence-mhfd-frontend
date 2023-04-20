@@ -36,6 +36,7 @@ const TableBody = ({
   searchRef,
   tableRef,
   tabKeyId,
+  headerRef,
 }: {
   currentGroup: any,
   dataId: any,
@@ -52,6 +53,7 @@ const TableBody = ({
   searchRef: any,
   tableRef: any,
   tabKeyId: any,
+  headerRef: any,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -200,7 +202,6 @@ const TableBody = ({
     }
   }
 
-
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
@@ -232,15 +233,20 @@ const TableBody = ({
           {<div >
             <div
               className="table-body-body"
+              key={`listView_${index}`}
               id={`listView_${index}`}
-              ref={el => tableRef.current = el}
-              // onScrollCapture={(e: any) => {
-              //   let dr: any = divRef.current[index];
-              //   if (searchRef.current[index] && tableRef.current) {
-              //     searchRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
-              //     tableRef.current.scrollTo(dr.scrollLeft, 0);
-              //   }
-              // }}
+              ref={el => tableRef.current[index] = el}
+              onScrollCapture={(e: any) => {
+                let dr: any = tableRef.current[index];
+                if (headerRef.current) {
+                  if (tableRef.current) {
+                    tableRef.current.forEach((elem: any, index:number) => {
+                      tableRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+                      headerRef.current.scrollTo(dr.scrollLeft, dr.scrollTop);
+                    })
+                  }
+                }
+              }}
             >
               <div className="scroll-table">                
                 <Table
@@ -249,6 +255,7 @@ const TableBody = ({
                   columns={ValueTabsValue()}
                   dataSource={dataParsed}
                   pagination={false}
+                  key={index}
                   className={
                     openTable[index]
                       ? index === 0

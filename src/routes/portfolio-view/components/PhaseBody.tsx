@@ -54,6 +54,7 @@ const PhaseBody = ({
   userName,
   setOpenPiney,
   setPopUpData,
+  headerRef,
 }: {
   currentGroup: any,
   dataId: any,
@@ -84,6 +85,7 @@ const PhaseBody = ({
   userName: string,
   setOpenPiney: Function,
   setPopUpData: Function,
+  headerRef: any,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -192,7 +194,7 @@ const PhaseBody = ({
     //     });
     //   }
     // }
-  }, [phaseData,openTable]);
+  }, [phaseData,openTable,windowWidth]);
 
   //Start of phase chart generation
   const phaseChart = (dataDotchart: any) => {
@@ -200,10 +202,11 @@ const PhaseBody = ({
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;
       let heightDiv: any;
-      heightDiv = (windowWidth >= 3001 && windowWidth <= 3999 ? 146.6 : (windowWidth >= 2550 && windowWidth <= 3000 ? 127.56 : (windowWidth >= 2001 && windowWidth <= 2549 ? 117 : (windowWidth >= 1450 && windowWidth <= 2000 ? 106.12 : (windowWidth >= 1199 && windowWidth <= 1449 ? 78 : 78)))))
+      heightDiv = (windowWidth >= 3001 && windowWidth <= 3999 ? 146.6 : (windowWidth >= 2550 && windowWidth <= 3000 ? 127.56 : (windowWidth >= 2001 && windowWidth <= 2549 ? 105 : (windowWidth >= 1450 && windowWidth <= 2000 ? 106.12 : (windowWidth >= 1199 && windowWidth <= 1449 ? 78 : 78)))))
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
       let heightContainer: any = height + margin.top + margin.bottom;
+      console.log(heightDiv)
       if (heightContainer > 0) {
         removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart.id.replace(/\s/g, '')}`))
         svg = d3
@@ -592,7 +595,6 @@ const PhaseBody = ({
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
                 let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop + 120; // Delete 120 when the popup is fixed
                 let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft - 35; //Delete 35 when the popup is fixed
-                console.log(positionLeft, positionTop, 'positionLeft, positionTop')
                 setPositionModalGraphic({ left: positionLeft, top: positionTop })
                 d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
@@ -709,12 +711,25 @@ const PhaseBody = ({
           }
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
-          <div style={{overflowX:'hidden'}} ref={el => phaseRef.current = el}>
-            <div className="container-timeline"              
+          <div
+            className="container-phase"
+            ref={el => phaseRef.current[index] = el}
+            onScrollCapture={(e: any) => {
+              let dr: any = phaseRef.current[index];
+              if (headerRef.current) {
+                if (phaseRef.current) {
+                  phaseRef.current.forEach((elem: any, index: number) => {
+                    phaseRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+                    headerRef.current.scrollTo(dr.scrollLeft, dr.scrollTop);
+                  })
+                }
+              }
+            }}>
+            <div className="container-timeline"
               style={{ paddingLeft: '5px' }}>
               {phaseData.map((elem: any, index: number) => (
                 elem.values.map((value: any, indexinside: number) => {
-                  return <div>
+                  return <div key={`value.id${indexinside}`}>
                     <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
                       <div id={`dotchart_${value.id.replace(/\s/g, '')}`}></div>
                     </div>

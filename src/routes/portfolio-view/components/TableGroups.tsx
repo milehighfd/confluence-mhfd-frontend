@@ -33,6 +33,7 @@ const TableGroups = ({
   searchRef,
   tableRef,
   tabKeyId,
+  headerRef,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -48,6 +49,7 @@ const TableGroups = ({
   searchRef: any,
   tableRef: any,
   tabKeyId: any,
+  headerRef: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -112,6 +114,7 @@ const TableGroups = ({
             searchRef={searchRef}
             tableRef={tableRef}
             tabKeyId={tabKeyId}
+            headerRef={headerRef}
           ></TableBody>
         </Panel>
       </Collapse>
