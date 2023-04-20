@@ -180,7 +180,7 @@ const CardsList = ({
           height={window.innerHeight - 200}
           className="scroll-infinite-mobile"
           endMessage={''}
-          loader={state.items.length ? <h4>Loading...</h4>: ''}>
+          loader={state.items.length ? <h4 style={{paddingLeft:'12px'}}>Loading...</h4>: ''}>
           {sw ? state.items.map((i, index: number) => {
             return data[index] && <CardInformationView
               key={index}
