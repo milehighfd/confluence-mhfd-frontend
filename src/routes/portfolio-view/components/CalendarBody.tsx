@@ -1050,12 +1050,12 @@ const CalendarBody = ({
             .attr('x2', calcLeftXLine)
             .attr('y1', (d: any) => {
               let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 0)
+              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
               return yScaleId + h + yScaleFactor;
             })
             .attr('y2', (d: any) => {
               let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 0)
+              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
               return yScaleId + h + 13 + yScaleFactor;
             });
             d3.selectAll('.dragginglinesRight')
@@ -1063,12 +1063,12 @@ const CalendarBody = ({
             .attr('x2', calcRightXLine)
             .attr('y1', (d: any) => {
               let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 0)
+              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
               return yScaleId + h + yScaleFactor;
             })
             .attr('y2', (d: any) => {
               let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 0)
+              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
               return yScaleId + h + 13 + yScaleFactor;
             });
         };
