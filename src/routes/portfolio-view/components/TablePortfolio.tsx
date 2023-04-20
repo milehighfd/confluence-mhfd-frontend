@@ -75,7 +75,7 @@ const TablePortafolio = (
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const { Panel } = Collapse;
-  const tableRef = useRef<null | HTMLDivElement>(null);
+  const tableRef = useRef<any[]>([]);
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
     switch (tabKey) {
@@ -170,11 +170,11 @@ const TablePortafolio = (
       setDetailGroup(valuesGroups.groups)
     })
   }, [currentGroup])
-
   return (
     <div>
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+          <div className="vertical-line"></div>
           <SearchDropdown rawData={rawData}
             groupsBy={groupsBy}
             setCurrentGroup={setCurrentGroup}
@@ -193,7 +193,9 @@ const TablePortafolio = (
                   let dr: any = headerRef.current;
                   if (headerRef.current) {
                     if (tableRef.current) {
-                      tableRef.current?.scrollTo(dr.scrollLeft, dr.scrollTop);
+                      tableRef.current.forEach((elem: any, index:number) => {
+                        tableRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+                      })
                     }
                   }
                 }}
@@ -392,6 +394,7 @@ const TablePortafolio = (
                       searchRef={searchRef}
                       tableRef={tableRef}
                       tabKeyId={tabKeyId}
+                      headerRef={headerRef}
                     />
                   </div>
                 )

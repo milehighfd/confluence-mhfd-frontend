@@ -1003,7 +1003,7 @@
     //overflow-y: hidden;
     overflow-x: hidden;
     height: 100%;
-    //border-right: 1px solid #E3E5E5;
+    border-right: 1px solid #E3E5E5;
     border-top: 1px solid transparent;
     // border-radius: 5px;
     padding: 0px 0px;
@@ -1093,7 +1093,7 @@
       width: 100%;
       padding: 8.5px 0px;
       align-items: center;
-      //border-right: 1px solid #E3E5E5;
+      border-right: 1px solid #E3E5E5;
       p{
         margin-bottom: 0px;
         color: #706b8a !important;
@@ -1226,7 +1226,7 @@
         border-bottom:  none;
       }
       overflow-y: hidden;
-      overflow-x: hidden;
+      overflow-x: scroll;
       height: auto;
       .line-table{
         height: 39px;
@@ -1243,6 +1243,7 @@
       border-radius: 10px;
     }
     .table-body-body::-webkit-scrollbar {
+      display: none;
       width: 5px;
       height: 5px;
     }
@@ -1735,14 +1736,12 @@
           width: 6.666666667%;
           height: 13px;
           border-left: 2px solid #eae8f0;
-
           font-family: 'Ubuntu';
           font-style: normal;
           font-weight: 400;
           font-size: 11px;
           line-height: 14px;
           text-align: center;
-
           mix-blend-mode: normal;
           overflow:hidden; 
           text-overflow:ellipsis;
@@ -1750,9 +1749,7 @@
           -webkit-box-orient:vertical;
           -webkit-line-clamp:2;
           // opacity: 0.6;
-
           /* Inside auto layout */
-
           flex: none;
           order: 1;
           flex-grow: 0;
@@ -2267,6 +2264,11 @@
   display: none; 
 }
 @media (min-width: 1900px) and (max-width: 2549px){
+  .table-body2{   
+    .line-table{
+      height: 53.07px !important;
+    }
+  }
   .modal-graphic{
     width: 253px;
     p{
@@ -3020,6 +3022,11 @@
 }
 
 @media (min-width: 2555px) and (max-width: 3799px){
+  .table-body2{   
+    .line-table{
+      height: 63.78px !important;
+    }
+  }
   .body-piney{
     .checkbox-select{
       .ant-checkbox-inner{
@@ -3717,6 +3724,11 @@
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .table-body2{   
+    .line-table{
+      height: 73.06px !important;
+    }
+  }
   // .body-piney{
   //   .checkbox-select{
   //     .ant-checkbox-inner{
@@ -4512,52 +4524,11 @@
   height: calc(100vh - 117px)
 }
 
-.vertical-line{
-  width: 94.8%;
-  position: absolute;
-  height: 100vh;
-  padding: 0;
-  border-right: 1px solid #E3E5E5; 
-  z-index: 2;
-  left: 90%;
-  
-    /* Styles for screens 1440px wide or less */
-  @media (max-width: 1440px) {
-    /* Styles for screens 700px high or less */
-    @media (max-height: 700px) {
-      left: 20%;  
-      transform: translateX(-15%); 
-    }
-    /* Styles for screens 900px high or more */
-    @media (min-height: 900px) {
-      left: 20%;  
-      transform: translateX(-15%); 
-    }
-  }
-
-  /* Styles for screens 1920px wide or less */
-  @media (max-width: 1920px) {
-    left: 18%;  
-    transform: translateX(-13%); 
-  }
-
-  /* Styles for screens 2560px wide or less */
-  @media (max-width: 2560px) {
-    /* Styles for screens 1080px high or less */
-    @media (max-height: 1080px) {
-      left: 15%;  
-      transform: translateX(-10%); 
-    }
-    /* Styles for screens 1440px high or more */
-    @media (min-height: 1440px) {
-      left: 15%;  
-      transform: translateX(-10%); 
-    }
-  }
-
-  /* Styles for screens 3840px wide or less */
-  @media (max-width: 3840px) {
-    left: 12%;  
-    transform: translateX(-7%); 
-  }
+.container-phase {
+  overflow-x: scroll;
+}
+.container-phase::-webkit-scrollbar {
+  display: none;
+  width: 5px;
+  height: 5px;
 }
