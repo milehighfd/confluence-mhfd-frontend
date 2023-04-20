@@ -561,9 +561,9 @@ const NavbarView = ({tabActive}:
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
                 <p><i>View all projects in your current board view (to the right)</i></p>
               </div>
-              <div className="tuto-30">
+              <div className="tuto-47">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Create a 'submitted' project for a local government</i></p>
+                <p><i>Create as many 'draft' projects as you want for your Local Government to possibly submit to MHFD for funding.</i></p>
               </div>
               <div className="tuto-31">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
@@ -581,10 +581,10 @@ const NavbarView = ({tabActive}:
               </div>
               <div className="tuto-34">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
-                <p><i>Expand the Total Cost for the Work Request board. View a breakdown by County, and Add Target Costs.</i></p>
+                <p><i>Click on the three dots to Zoom to the Project, Edit the Project, and Edit Yearly Amounts.</i></p>
               </div>
               <div className="tuto-35">
-                <p><i>Click on the three dots to Zoom to the Project, Edit the Project, and Edit Yearly Amounts.</i></p>
+                <p><i>Expand the Total Cost for the Work Request board. View a breakdown by County, and Add Target Costs.</i></p>
                 <img src="/Icons/tutorial/ic_arrow9.svg" alt="" />
               </div>
             </div>}
@@ -601,16 +601,16 @@ const NavbarView = ({tabActive}:
               </div>
               <div className="tuto-30">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Create as many 'draft' projects as you want for your Local Government to possibly submit to MHFD for funding.</i></p>
+                <p><i>Create a project on behalf of a Local Government or to go directly onto the Work Plan.</i></p>
               </div>
               <div className="tuto-31">
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
                 <p><i>Change between Work Request years, Submit a Request, View Analytics, Share a URL, or Export to CSV.</i></p>
               </div>
-              <div className="tuto-36">
+              {/* <div className="tuto-36">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
                 <p><i>Move project cards between columns (years) and add requested yearly amounts to develop a plan.</i></p>
-              </div>
+              </div> */}
             </div>}
             {sliderIndex === 1 && <div className="tuto-01">
               <div className="tuto-33">
@@ -633,7 +633,7 @@ const NavbarView = ({tabActive}:
          locationPage.pathname === '/pm-tools' && tabActive === 'List' && (
           <>
             {sliderIndex === 0 && <div className="tuto-01">
-              <div className="tuto-36">
+              <div className="tuto-48">
                 <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
                 <p><i>Apply a quick filter by county, local government, service area, manager, consultant and other dimensions.</i></p>
               </div>

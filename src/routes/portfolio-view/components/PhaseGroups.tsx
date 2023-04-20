@@ -7,6 +7,7 @@ import * as datasets from "../../../Config/datasets";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
 import PhaseBody from "./PhaseBody";
+import PineyView from "./PineyView";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -31,7 +32,7 @@ const PhaseGroups = ({
   email,
   divRef,
   searchRef,
-  tableRef,
+  phaseRef,
   totalLabelWidth,
   scheduleList,
   phaseList,
@@ -45,6 +46,7 @@ const PhaseGroups = ({
   setPositionModalGraphic,
   setDataModal,
   userName,
+  setPopUpData,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -58,7 +60,7 @@ const PhaseGroups = ({
   email: any,
   divRef: any,
   searchRef: any,
-  tableRef: any,
+  phaseRef: any,
   totalLabelWidth: any,
   scheduleList: any,
   phaseList: any,
@@ -72,9 +74,12 @@ const PhaseGroups = ({
   setPositionModalGraphic: any,
   setDataModal: any,
   userName: any,
+  setPopUpData: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
+
   const getActiveKeys = () => {
     const indices = openTable.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
@@ -83,7 +88,7 @@ const PhaseGroups = ({
     return indices;
   }
 
-  return <>
+  return <>    
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
         //defaultActiveKey={['0', '1', '2']}
@@ -132,7 +137,7 @@ const PhaseGroups = ({
             index={index}
             divRef={divRef}
             searchRef={searchRef}
-            tableRef={tableRef}
+            phaseRef={phaseRef}
             totalLabelWidth={totalLabelWidth}
             scheduleList={scheduleList}
             phaseList={phaseList}
@@ -146,6 +151,8 @@ const PhaseGroups = ({
             setDataModal={setDataModal}
             groupName={data.value}
             userName={userName}
+            setOpenPiney={setOpenPiney}
+            setPopUpData={setPopUpData}
           ></PhaseBody>
         </Panel>
       </Collapse>

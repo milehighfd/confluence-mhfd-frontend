@@ -47,7 +47,6 @@ const TablePortafolio = (
       tabKey: any,
       setSortValue: Function | any,
       searchRef: React.MutableRefObject<any>,
-      tableRef: React.MutableRefObject<any>,
       scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
       setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
       openTable: any[],
@@ -74,6 +73,7 @@ const TablePortafolio = (
 
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
+  const headerRef = useRef<null | HTMLDivElement>(null);
   const { Panel } = Collapse;
   const tableRef = useRef<null | HTMLDivElement>(null);
   const ValueTabsHeader = () => {
@@ -187,13 +187,14 @@ const TablePortafolio = (
             {/* {detailOpen && <DetailModal visible={detailOpen} setVisible={setDetailOpen}/>} */}
             <div className="table-table-body" style={{ width: 'min-content' }}>
               <div
-                ref={tableRef}
+                ref={headerRef}
                 className="scroll-scroll-table"
                 onScrollCapture={(e: any) => {
-                  let dr: any = divRef.current[index];
-                  let dr1: any = tableRef.current;
-                  if (searchRef.current[index] && divRef.current[index]) {
-                    divRef.current[index].scrollTo(dr1.scrollLeft, dr.scrollTop);
+                  let dr: any = headerRef.current;
+                  if (headerRef.current) {
+                    if (tableRef.current) {
+                      tableRef.current?.scrollTo(dr.scrollLeft, dr.scrollTop);
+                    }
                   }
                 }}
               >

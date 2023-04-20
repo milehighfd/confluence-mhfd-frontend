@@ -710,7 +710,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       {optionSelect === 'List' && <TablePortafolio
                         searchWord={searchWord}
                         searchRef={searchRef}
-                        tableRef={tableRef}
                         setOpenTable={setOpenTable}
                         openTable={openTable}
                         //hoverTable={hoverTable}
@@ -794,7 +793,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         favorites={favorites}
                         setTollData = {setTollData}
                         setOpenModalTollgate = {setOpenModalTollgate}
-                        setOpenPiney = {setOpenPiney}
                         setGrapphicOpen={setGrapphicOpen}
                         setPositionModalGraphic={setPositionModalGraphic}
                         setDataModal={setDataModal}
