@@ -173,8 +173,7 @@ const TablePortafolio = (
   return (
     <div>
       <Row>
-        <Col xs={{ span: 10 }} lg={{ span: 5 }}>
-          <div className="vertical-line"></div>
+        <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
           <SearchDropdown rawData={rawData}
             groupsBy={groupsBy}
             setCurrentGroup={setCurrentGroup}

@@ -74,10 +74,9 @@ const TableGroups = ({
             setOpenTable(newOpenTable);
           }
         } className=''
-      >
-   
+      >   
         <Panel header={
-          <div style={{ display: 'flex', width: '100%' }}>
+          <div className="header-group">
             <div
               className="line-table"
               onMouseEnter={e => {
