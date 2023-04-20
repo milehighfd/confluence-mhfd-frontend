@@ -57,6 +57,7 @@ const CalendarGroups = ({
   setEditData,
   zoomSelected,
   setZoomSelected,
+  setPopUpData,
 }: {
   data: any,
   groupCollapsed: any,
@@ -96,6 +97,7 @@ const CalendarGroups = ({
   setEditData: any,
   zoomSelected: any,
   setZoomSelected: any,
+  setPopUpData: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -183,6 +185,7 @@ const CalendarGroups = ({
             setEditData={setEditData}
             zoomSelected={zoomSelected}
             setZoomSelected={setZoomSelected}
+            setPopUpData={setPopUpData}
           ></CalendarBody>
         </Panel>
       </Collapse>

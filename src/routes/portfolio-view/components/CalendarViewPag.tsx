@@ -10,6 +10,7 @@ import SearchDropdown from "./SearchDropdown";
 import moment from "moment";
 import { getGroupList } from "./ListUtils";
 import CalendarGroups from "./CalendarGroups";
+import PineyView from "./PineyView";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -50,6 +51,7 @@ const CalendarViewPag = ({
   setDataModal,
   moveSchedule,
   scheduleRef,
+  userName,
 }: {
   rawData: any,
   groupsBy: any,
@@ -79,6 +81,7 @@ const CalendarViewPag = ({
   setDataModal: any,
   moveSchedule: any,
   scheduleRef: any,
+  userName: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -95,6 +98,7 @@ const CalendarViewPag = ({
   const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [editData,setEditData] = useState<any>({});
   const [zoomSelected, setZoomSelected] = useState('Today');
+  const [popUpData, setPopUpData] = useState<any>({});
   const headerRef = useRef<null | HTMLDivElement>(null);
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
@@ -201,8 +205,23 @@ const CalendarViewPag = ({
   }, [currentGroup])
 
   return <>
+    {openPiney && (
+      <div className="phaseview-body">
+        <div className="piney-text">
+          <PineyView
+            setOpenPiney={setOpenPiney}
+            data={popUpData}
+            userName={userName}
+            setUpdateAction={setUpdateAction}
+            updateAction={updateAction}
+            setOpenModalTollgate={setOpenModalTollgate}
+            setTollData={setTollData}
+          />
+        </div>
+      </div>
+    )}
     <Row>
-      <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+      <Col xs={ { span: 10 }} lg={{ span: 5 }}>
         <SearchDropdown rawData={rawData}
           groupsBy={groupsBy}
           setCurrentGroup={setCurrentGroup}
@@ -306,6 +325,7 @@ const CalendarViewPag = ({
                   setEditData={setEditData}
                   zoomSelected={zoomSelected}
                   setZoomSelected={setZoomSelected}
+                  setPopUpData={setPopUpData}
                 />
               </div>
             )

@@ -865,6 +865,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       setDataModal={setDataModal}
                       moveSchedule={zoomTimeline}
                       scheduleRef={scheduleRef}
+                      userName={appUser.userInformation?.user}
                     />    
                     
                     }

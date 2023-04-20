@@ -64,6 +64,7 @@ const CalendarBody = ({
   setEditData,
   zoomSelected,
   setZoomSelected,
+  setPopUpData,
 }: {
   currentGroup: any,
   groupCollapsed: any,
@@ -105,6 +106,7 @@ const CalendarBody = ({
   setEditData: any,
   zoomSelected: any,
   setZoomSelected: any,
+  setPopUpData: Function,
 }) => {
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
@@ -113,7 +115,6 @@ const CalendarBody = ({
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [calendarData, setCalendarData] = useState<any>([]);
-  const [popUpData, setPopUpData] = useState<any>({});
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
   // const [editData,setEditData] = useState<any>({});
   const [currentZScale, setCurrentZScale] = useState(7.5);
@@ -1596,6 +1597,7 @@ const CalendarBody = ({
       }
     }))
     console.log(dataParsed)
+    console.log(scheduleList)
     let rawData2 = dataParsed?.map((x: any) => {
       if (x?.project_status?.length) {
         let flag = ((x?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
@@ -1615,7 +1617,7 @@ const CalendarBody = ({
                 phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
                 phaseId: z.code_phase_type_id,
                 tasks: 10,
-                show: (statusCounter === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length-1 && !flag),
+                show: (statusCounter === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
                 current: x?.phaseId === z?.code_phase_type_id,
                 isDone: z.is_done,
                 isLocked: z.is_locked
