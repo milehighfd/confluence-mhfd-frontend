@@ -47,6 +47,16 @@ const CalendarGroups = ({
   setDataModal,
   moveSchedule,
   scheduleRef,
+  isZoomToday,
+  setIsZoomToday,
+  isZoomWeekly,
+  setIsZoomWeekly,
+  isZoomMonthly,
+  setIsZoomMonthly,
+  editData,
+  setEditData,
+  zoomSelected,
+  setZoomSelected,
 }: {
   data: any,
   groupCollapsed: any,
@@ -76,6 +86,16 @@ const CalendarGroups = ({
   setDataModal: any,
   moveSchedule: any,
   scheduleRef: any,
+  isZoomToday: any,
+  setIsZoomToday: any,
+  isZoomWeekly: any,
+  setIsZoomWeekly: any,
+  isZoomMonthly: any,
+  setIsZoomMonthly: any,
+  editData: any,
+  setEditData: any,
+  zoomSelected: any,
+  setZoomSelected: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -153,6 +173,16 @@ const CalendarGroups = ({
             moveSchedule={moveSchedule}
             scheduleRef={scheduleRef}
             groupName={data.value}
+            isZoomToday={isZoomToday}
+            setIsZoomToday={setIsZoomToday}
+            isZoomWeekly={isZoomWeekly}
+            setIsZoomWeekly={setIsZoomWeekly}
+            isZoomMonthly={isZoomMonthly}
+            setIsZoomMonthly={setIsZoomMonthly}
+            editData={editData}
+            setEditData={setEditData}
+            zoomSelected={zoomSelected}
+            setZoomSelected={setZoomSelected}
           ></CalendarBody>
         </Panel>
       </Collapse>

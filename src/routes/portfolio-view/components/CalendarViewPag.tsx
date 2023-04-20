@@ -251,7 +251,7 @@ const CalendarViewPag = ({
           </Row>
           <Row>
           <div style={{ width: '100%', marginBottom: marginReducerHeaderAxis }}>
-            <div style={{ overflowX: 'hidden', overflowY: 'hidden' }} id="timeline-chart-axis" />
+            <div style={{ overflowX: 'hidden', overflowY: 'hidden', marginLeft: '-1.55px' }} id="timeline-chart-axis" />
           </div>
           </Row>
         </div>
@@ -296,6 +296,16 @@ const CalendarViewPag = ({
                   setDataModal={setDataModal}
                   moveSchedule={moveSchedule}
                   scheduleRef={scheduleRef}
+                  isZoomToday={isZoomToday}
+                  setIsZoomToday={setIsZoomToday}
+                  isZoomWeekly={isZoomWeekly}
+                  setIsZoomWeekly={setIsZoomWeekly}
+                  isZoomMonthly={isZoomMonthly}
+                  setIsZoomMonthly={setIsZoomMonthly}
+                  editData={editData}
+                  setEditData={setEditData}
+                  zoomSelected={zoomSelected}
+                  setZoomSelected={setZoomSelected}
                 />
               </div>
             )
