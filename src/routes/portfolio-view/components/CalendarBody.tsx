@@ -146,7 +146,7 @@ const CalendarBody = ({
         (windowWidth >= 1450 && windowWidth <= 1500 ? 93.06 :
           (windowWidth >= 1501 && windowWidth <= 1700 ? 82.06 :
             (windowWidth >= 2001 && windowWidth <= 2549 ? 100 :
-              (windowWidth >= 1199 && windowWidth <= 1449 ? 79 : 79))))));
+              (windowWidth >= 1199 && windowWidth <= 1449 ? 40 : 79))))));
   let separationHeaderAxisYear = (windowWidth >= 3001 && windowWidth <= 3999 ? 3 : (windowWidth >= 2550 && windowWidth <= 3000 ? 6 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
   let separationHeaderAxisMonth = (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : (windowWidth >= 2550 && windowWidth <= 3000 ? 13 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
   let separationHeaderAxisInFunction = (windowWidth >= 3001 && windowWidth <= 3999 ? 20 : (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 2001 && windowWidth <= 2549 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 20 : 20)))));
@@ -277,8 +277,8 @@ const CalendarBody = ({
             }
           }
         });
-        let monthsBehind = (moment(today).diff(moment(fromData[0]?.from?.startOf('month')), 'M')) || 12;
-        let monthsAhead = (moment.max(endDates).diff(moment(today), 'M')) || 12;
+        let monthsBehind = 85 //(moment(today).diff(moment(fromData[0]?.from?.startOf('month')), 'M')) || 12;
+        let monthsAhead = 85 //(moment.max(endDates).diff(moment(today), 'M')) || 12;
         let timelineStartTime: any;
         let timelineEndTime: any;
         if (monthsAhead > monthsBehind) {
@@ -1439,6 +1439,8 @@ const CalendarBody = ({
 
         zoomed = function () {
           
+
+
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 35) {
@@ -1451,6 +1453,7 @@ const CalendarBody = ({
             gX2.call(xAxisYear.scale(zoomedXScale));
 
             gXa.call(xAxisMonth.scale(zoomedXScale));
+              d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
             gXa.attr('class', 'topHeaderM');
             gX1a.call(xAxisMonth.scale(zoomedXScale));
             //gX2a.call(xAxisYear.scale(zoomedXScale));
