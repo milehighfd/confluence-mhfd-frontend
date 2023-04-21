@@ -293,9 +293,10 @@ export const addPopupsOnClick = async (
         })?.map((sps: any) => sps.business_associate?.business_name);
         const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
         const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
-        const filtered = galleryProjects.filter((item: any) =>
-          item.cartodb_id === feature.properties.cartodb_id
-        );
+        console.log('galleryProjects', galleryProjects)
+        // const filtered = galleryProjects.filter((item: any) =>
+        //   item.cartodb_id === feature.properties.cartodb_id
+        // );
         const projecttypename = dataFromDB?.code_project_type?.project_type_name
         console.log('mapType', mapType)
         console.log(estimatedcost)
@@ -379,15 +380,15 @@ export const addPopupsOnClick = async (
               isEditPopup: feature.source === PROJECTS_DRAFT+'draft',
               popupId: 'popupWR',
               mapType: mapType ? mapType : 'MAINMAP',
-              image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                projecttypename === 'CIP' ? '/projectImages/capital.png' :
-                  projecttypename === 'Study' ? '/projectImages/study.png' :
-                    projecttypename === 'Special' ? '/projectImages/special.png' :
-                      projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                        projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                          projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
-                            projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
-                              projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
+              // image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
+              //   projecttypename === 'CIP' ? '/projectImages/capital.png' :
+              //     projecttypename === 'Study' ? '/projectImages/study.png' :
+              //       projecttypename === 'Special' ? '/projectImages/special.png' :
+              //         projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+              //           projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+              //             projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
+              //               projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
+              //                 projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
           }
         }else{
 
@@ -430,15 +431,15 @@ export const addPopupsOnClick = async (
                         streamname: feature.properties.streamname, // TODO streamname
                         isEditPopup: feature.source === PROJECTS_DRAFT,
                         popupId: 'popup',
-                        image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                          projecttypename === 'CIP' ? '/projectImages/capital.png' :
-                            projecttypename === 'Study' ? '/projectImages/study.png' :
-                              projecttypename === 'Special' ? '/projectImages/special.png' :
-                                projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                                  projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                                    projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
-                                      projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
-                                        projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
+                        // image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
+                        //   projecttypename === 'CIP' ? '/projectImages/capital.png' :
+                        //     projecttypename === 'Study' ? '/projectImages/study.png' :
+                        //       projecttypename === 'Special' ? '/projectImages/special.png' :
+                        //         projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
+                        //           projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
+                        //             projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
+                        //               projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
+                        //                 projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
                     };
               // type: 'project',
               // title:
@@ -494,7 +495,7 @@ export const addPopupsOnClick = async (
               name: item.name,
               value: item.value,
               projecttype: item.projecctype,
-              image: item.image,
+              // image: item.image,
               id: item.project_id,
               objectid: item.objectid,
               valueid: item.valueid,
