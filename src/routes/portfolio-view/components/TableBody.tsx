@@ -8,7 +8,7 @@ import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from "utils/parsers";
-
+import { LIMIT_PAGINATION } from "../../../constants/constants";
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -37,6 +37,7 @@ const TableBody = ({
   tableRef,
   tabKeyId,
   headerRef,
+  filterPagination,
 }: {
   currentGroup: any,
   dataId: any,
@@ -54,6 +55,7 @@ const TableBody = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
+  filterPagination: any,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -62,15 +64,19 @@ const TableBody = ({
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
+  const [resultCounter, setResultCounter] = useState<any>(0);
+  const [updateData, setUpdateData] = useState(false);
 
   useEffect(() => {
-    if (next) {
+    if (next && resultCounter === LIMIT_PAGINATION) {
       setPage(page + 1)
       setNext(false)
+      setPrev(false)
     }
     if (prev && page > 1) {
       setPage(page - 1)
       setPrev(false)
+      setNext(false)
     }
   }, [next, prev])
 
@@ -118,10 +124,17 @@ const TableBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20&code_project_type_id=${tabKeyId}`, {}).then((res: any) => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
       setDataBody(res);
+      setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, page])
+  }, [currentGroup, filterPagination, page])
+
+  useEffect(() => {
+    if (page != 1) {
+      setPage(1);
+    }
+  }, [filterPagination])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

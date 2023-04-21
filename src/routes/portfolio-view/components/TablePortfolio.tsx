@@ -39,6 +39,8 @@ const TablePortafolio = (
     currentGroup,
     favorites,
     tabKeyId,
+    filterPagination,
+    setFilterPagination,
   }
     : {
       divRef: React.MutableRefObject<any>,
@@ -69,6 +71,8 @@ const TablePortafolio = (
       currentGroup: any,
       favorites: any,
       tabKeyId: any,
+      filterPagination: any,
+      setFilterPagination: Function,
     }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -394,6 +398,7 @@ const TablePortafolio = (
                       tableRef={tableRef}
                       tabKeyId={tabKeyId}
                       headerRef={headerRef}
+                      filterPagination={filterPagination}
                     />
                   </div>
                 )

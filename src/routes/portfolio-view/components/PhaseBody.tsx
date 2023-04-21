@@ -12,6 +12,7 @@ import * as d3 from 'd3';
 import moment from "moment";
 import { colorScale } from "../constants/PhaseViewData";
 import PineyView from "./PineyView";
+import { LIMIT_PAGINATION } from "../../../constants/constants";
 
 
 const { TabPane } = Tabs;
@@ -55,6 +56,8 @@ const PhaseBody = ({
   setOpenPiney,
   setPopUpData,
   headerRef,
+  filterPagination,
+  setFilterPagination,
 }: {
   currentGroup: any,
   dataId: any,
@@ -86,6 +89,8 @@ const PhaseBody = ({
   setOpenPiney: Function,
   setPopUpData: Function,
   headerRef: any,
+  filterPagination: any,
+  setFilterPagination: Function,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -97,6 +102,7 @@ const PhaseBody = ({
   const [phaseData, setPhaseData] = useState<any>([]);
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
   const [updateAction,setUpdateAction] = useState(false);
+  const [resultCounter, setResultCounter] = useState<any>(0);
 
   let svg: any;
   const windowWidth: any = window.innerWidth;
@@ -151,13 +157,15 @@ const PhaseBody = ({
   }
 
   useEffect(() => {
-    if (next) {
+    if (next && resultCounter === LIMIT_PAGINATION) {
       setPage(page + 1)
       setNext(false)
+      setPrev(false)
     }
     if (prev && page > 1) {
       setPage(page - 1)
       setPrev(false)
+      setNext(false)
     }
   }, [next, prev])
 
@@ -391,10 +399,7 @@ const PhaseBody = ({
           hasDateData = true
           circles
             .append("circle")
-            .attr('id', (d: any) => {
-              if(d.id === 'Active1'){
-                console.log('asd',`${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}`)
-              }
+            .attr('id', (d: any) => {             
               return `${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}`
               // return `${d.id.replace(/\s/g, '')}_${(scheduleList[r].phase)}`;
             })
@@ -697,10 +702,11 @@ const PhaseBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20&code_project_type_id=${tabKey}`, {}).then((res: any) => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
       setDataBody(res);
+      setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, page])
+  }, [currentGroup, page, filterPagination])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
