@@ -270,8 +270,8 @@ const CardInformationView = ({
             </div>
           ) : (
               <div style={{ display: 'flex', width: '100%' }}>
-                 <p style={{ color: ' #11093c', width: '80%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
-                  <span style={{ textAlign: 'right', width: '20%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
+                 <p style={{ color: ' #11093c', width: '70%', opacity: '0.6', fontSize: '13px' }}>{data.projecttype}</p>
+                  <span style={{ textAlign: 'right', width: '30%', color: ' #11093c', opacity: '0.6', fontSize: '13px' }}>{data.status}</span>
               </div>
             )}
         </Card>
