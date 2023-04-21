@@ -88,7 +88,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [openPiney, setOpenPiney] = useState(false);
   const [statusCounter,setStatusCounter] = useState(0);
   const [updateFilter, setUpdateFilter] = useState([]);
-  const [filterPagination, setFilterPagination] = useState({});
+  const [filterPagination, setFilterPagination] = useState<any>({});
 
   const [favorites, setFavorites] = useState<any>([]);
   const [tollData,setTollData] = useState<any>([]);
@@ -616,6 +616,19 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     setFilterPagination({ ...filterPagination, search: searchWord, filterby: filterby, value: filterValue })
     console.log(filterby, filterValue, filtername, searchWord)
   }, [searchWord, filterby, filterValue, filtername])
+
+  useEffect(() => {
+    if(openFavorites){
+      setFilterPagination({ ...filterPagination, favorites: favorites.map((x:any)=>{
+        return x.project_id
+      }) })
+    }else{
+      if(filterPagination.favorites){
+        const {favorites, ...rest} = filterPagination;
+        setFilterPagination(rest)
+      }
+    }    
+  }, [openFavorites])
 
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
