@@ -226,7 +226,7 @@ const TableBody = ({
     />}
     <div className="table-body">
       <Row>
-        <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+        <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{zIndex:2}}>
           {
             dataParsed.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}
@@ -242,7 +242,7 @@ const TableBody = ({
             ))
           }
         </Col>
-        <Col xs={{ span: 34 }} lg={{ span: 19 }}>
+        <Col xs={{ span: 34 }} lg={{ span: 19 }} style={{zIndex:'1'}}>
           {<div >
             <div
               className="table-body-body"

@@ -1090,7 +1090,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      width: 100%;
+      width: 100.3%;
       padding: 8.5px 10px;
       align-items: center;
       border-right: 1px solid #E3E5E5;
@@ -1183,6 +1183,7 @@
       top:0px;
       width: 100vw;
       right: -100vw;
+      border-left: 1px solid #e3e5e5;
     }
     scrollbar-color:  $purple00 transparent;    
   }
@@ -1278,6 +1279,16 @@
       display: none;  /* Oculta las flechas */
     }
     .scroll-table{
+      .ant-empty-image svg {
+        height: 100%;
+        margin: auto;
+        position: relative;
+        left: -6.5%;
+      }
+      .ant-empty-description{
+        position: relative;
+        left: -6.5%;
+      }
       // width: min-content;
     }
     .scroll-table::-webkit-scrollbar-thumb {
@@ -2692,6 +2703,7 @@
     }
     .text-search {
       padding: 12.4px 16px !important;
+      width: 100.6% !important;
       p{
         font-size: 18px !important;
       }
@@ -3425,6 +3437,7 @@
     }
     .text-search {
       padding: 15.4px 22px !important;
+      width: 100% !important;
       p{
         font-size: 21px !important;
       }
@@ -3439,6 +3452,7 @@
       padding: 17px 23px !important;
       font-size: 24.5px !important;
       height: 63.78px !important;
+      width: 20.853% !important;
       .ant-collapse-expand-icon{
         span{
           font-size: 20px !important;
@@ -3685,6 +3699,10 @@
     font-size: 20px !important;
   }
   .protafolio-body{
+    .protafolio-body .ant-collapse-header {
+      width: calc(20.95% - 2px) !important;
+      border-right: 1px solid #E3E5E5;
+    }
     hr.filters-line {
       opacity: 0.1;
       margin-top: 40px !important;
@@ -4536,13 +4554,13 @@
   display: flex;
   width: 100%; 
 }
-.ant-empty-image svg {
-  height: 100%;
-  margin: auto;
-  position: relative;
-  left: -16.5%;
-}
-.ant-empty-description{
-  position: relative;
-  left: -16.5%;
-}
+// .ant-empty-image svg {
+//   height: 100%;
+//   margin: auto;
+//   position: relative;
+//   left: -16.5%;
+// }
+// .ant-empty-description{
+//   position: relative;
+//   left: -16.5%;
+// }
