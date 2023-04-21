@@ -82,7 +82,7 @@ const CardInformationView = ({
   }
 
   const changeFavorite = () => {
-    addFavorite(user.email, (data.id || data.problemid), data.type);
+    addFavorite(user.email, (data.project_id || data.problemid), data.type);
   }
 
   useEffect(() => {
