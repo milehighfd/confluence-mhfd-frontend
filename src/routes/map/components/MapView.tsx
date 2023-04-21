@@ -849,10 +849,29 @@ const MapView = () => {
     </Row>
   );
 
+  const isActiveDrop = (element: any) =>{
+    let valueActive = ""
+    if(tabActive === '0'){
+      if(filterProblemOptions.column === element.name){
+        valueActive = "item-active-dropdown-color"
+      }else{
+        valueActive = "no-active"
+      }
+    }else{
+      if(filterProjectOptions.column === element.name){
+        valueActive = "item-active-dropdown-color"
+      }else{
+        valueActive = "no-active"
+      }
+    }
+    return valueActive
+  }
+
   const menuSort = (listSort: Array<{ name: string; title: string }>) => {
     const itemMenu: MenuProps['items'] = [];
     listSort.forEach((element: { name: string; title: string }, index: number) => {
       itemMenu.push({
+        className: `${isActiveDrop(element)}`,
         key: `${index}|${element.title}`,
         label: (
           <span className="menu-item-text" style={{ height: '10px', border: 'transparent' }}>
@@ -965,7 +984,7 @@ const MapView = () => {
           <Row justify="space-around" align="middle">
             <Col span={11} style={{ textAlign: 'initial' }}>
               <Search
-                disabled={true}
+                // disabled={true}
                 id="search-input"
                 allowClear
                 placeholder="Search"
