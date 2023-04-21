@@ -42,7 +42,7 @@ const Roadmap = ({setOpenPiney,
     console.log(data[0].code_project_type_id)
     projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
   }  
-  let totalLabelWidth = (phaseList.length * labelWidth) + projectTypeOffset;
+  let totalLabelWidth = (phaseList.length * labelWidth);
 
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
@@ -559,6 +559,7 @@ const Roadmap = ({setOpenPiney,
 
   useEffect(() => {
     const z: any = [];
+    console.log('statusList', statusList)
     statusList.map((img: any) => {
       if (z.indexOf(img.status_name) === -1) {
         z.push(img.status_name)
@@ -600,10 +601,11 @@ const Roadmap = ({setOpenPiney,
       <div className="phaseview-content" id="get-roadmap-content">
         <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage'>
         {availableStatusList.map((item: any, index: number) => {
-              console.log(availableStatusList)
-              return <div style={{ display: 'flex', width: item[1], border: 'transparent', fontSize: '13px', fontFamily: 'Ubuntu', color: '#706b8a', alignItems: 'center' }}>
-              <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>
-            </div>
+              console.log(item)
+              return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
+              <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
+              {/* <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr> */}
+            </p>
             })}
         </div>
           <div id='dotchart_detailPage' ></div>
