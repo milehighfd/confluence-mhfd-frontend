@@ -1499,15 +1499,28 @@ const CalendarBody = ({
           } else {
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
-            gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
-            gX.attr('class', 'topHeaderChart');
-            gX2.call(xAxisMonth.scale(zoomedXScale));
-            gX1.call(xAxisMonth.scale(zoomedXScale));
 
-            gXa.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+            // gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+            d3.selectAll('#xDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
+
+            gX.attr('class', 'topHeaderChart');
+            
+            // gX2.call(xAxisMonth.scale(zoomedXScale));
+            d3.selectAll('#xYear').call((xAxisMonth as any).scale(zoomedXScale))
+
+            // gX1.call(xAxisMonth.scale(zoomedXScale));
+            d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
+
+            // gXa.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
+            d3.selectAll('#xAxisDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
+
             gXa.attr('class', 'topHeader');
-            gX2a.call(xAxisMonth.scale(zoomedXScale));
-            gX1a.call(xAxisMonth.scale(zoomedXScale));
+            // gX2a.call(xAxisMonth.scale(zoomedXScale));
+            d3.selectAll('#xAxisYear').call((xAxisMonth as any).scale(zoomedXScale))
+
+            // gX1a.call(xAxisMonth.scale(zoomedXScale));
+            d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
+
             d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
           }
           updateRects();
