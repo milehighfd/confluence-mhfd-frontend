@@ -193,7 +193,7 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
   if (menu.includes('roject') && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration || popups.projecctype.includes(NEW_PROJECT_TYPES.Maintenance) || popups.projecctype.includes('Capital') || popups.projecctype === "Fee in Lieu")) {
     console.log('AQUIx2')
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_projects@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_restoration.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
   if (menu === "Project" && popups.projecctype !== undefined && (popups.name.includes('FHAD'))) {
@@ -206,6 +206,12 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
     console.log('AQUIx4')
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_MasterPlan@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    )
+  }
+  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype.includes('CIP'))) {
+    console.log('AQUIx4')
+    return (
+      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_capital.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
   if (menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')) {

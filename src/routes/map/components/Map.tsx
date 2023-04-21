@@ -1451,6 +1451,7 @@ const Map = ({
       const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
       const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
       
+      console.log('projectsss',projectsids)
       const uniqueIds = projectsids.reduce((ids:any, project:any) => {
         if (!ids.includes(project.code_project_type_id)) {
           ids.push(project.code_project_type_id);

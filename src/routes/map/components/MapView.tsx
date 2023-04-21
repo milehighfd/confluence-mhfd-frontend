@@ -860,7 +860,7 @@ const MapView = () => {
       }
     }else{
       if(filterProjectOptions.column === element.name){
-        console.log(filterProjectOptions, 'filterProblemOptions');
+        // console.log(filterProjectOptions, 'filterProblemOptions');
         valueActive = "item-active-dropdown-color"
       }else{
         valueActive = "no-active"
