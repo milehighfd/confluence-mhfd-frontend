@@ -1139,8 +1139,7 @@ const MapView = () => {
                       type: project.type,
                       value: project.cartodb_id,
                       id: project.projectId,
-                      totalComponents:0
-                       /*  project.GRADE_CONTROL_STRUCTURE ?? 0 +
+                      totalComponents: project.GRADE_CONTROL_STRUCTURE ?? 0 +
                         project.PIPE_APPURTENANCES ?? 0 +
                         project.SPECIAL_ITEM_POINT ?? 0 +
                         project.SPECIAL_ITEM_LINEAR ?? 0 +
@@ -1153,7 +1152,7 @@ const MapView = () => {
                         project.DETENTION_FACILITIES ?? 0 +
                         project.MAINTENANCE_TRAILS ?? 0 +
                         project.LAND_ACQUISITION ?? 0 +
-                        project.LANDSCAPING_AREA ?? 0 */,
+                        project.LANDSCAPING_AREA ?? 0 ,
                       // coordinates: project.coordinates[0]
                     };
                     return x;

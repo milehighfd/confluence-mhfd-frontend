@@ -77,8 +77,7 @@ const CardsList = ({
             type: project.type,
             value: project.cartodb_id,
             id: project.projectId,
-            totalComponents: 0
-            /* project.GRADE_CONTROL_STRUCTURE +
+            totalComponents: project.GRADE_CONTROL_STRUCTURE +
             project.PIPE_APPURTENANCES +
             project.SPECIAL_ITEM_POINT +
             project.SPECIAL_ITEM_LINEAR +
@@ -91,7 +90,7 @@ const CardsList = ({
             project.DETENTION_FACILITIES +
             project.MAINTENANCE_TRAILS +
             project.LAND_ACQUISITION +
-            project.LANDSCAPING_AREA */,
+            project.LANDSCAPING_AREA ,
             isFavorite: true
             // coordinates: project.coordinates[0]
           }

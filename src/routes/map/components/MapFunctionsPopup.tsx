@@ -354,7 +354,7 @@ export const addPopupsOnClick = async (
               status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
               objectid: dataFromDB?.codeStateCounty?.objectid,
               // TODO component_count
-              component_count: 0 /* 
+              component_count: 
                   dataFromDB?.GRADE_CONTROL_STRUCTURE ?? 0 +
                   dataFromDB?.PIPE_APPURTENANCES ?? 0 +
                   dataFromDB?.SPECIAL_ITEM_POINT ?? 0 +
@@ -368,7 +368,7 @@ export const addPopupsOnClick = async (
                   dataFromDB?.DETENTION_FACILITIES ?? 0 +
                   dataFromDB?.MAINTENANCE_TRAILS ?? 0 +
                   dataFromDB?.LAND_ACQUISITION ?? 0 +
-                  dataFromDB?.LANDSCAPING_AREA ?? 0 */,
+                  dataFromDB?.LANDSCAPING_AREA ?? 0,
 
               // valueid: feature.properties.cartodb_id,
               // id: feature.properties.projectid,
@@ -411,8 +411,7 @@ export const addPopupsOnClick = async (
                         status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
                         objectid: dataFromDB?.codeStateCounty?.objectid,
                       // TODO component_count
-                        component_count: 0
-                       /*  dataFromDB?.GRADE_CONTROL_STRUCTURE ?? 0 +
+                        component_count: dataFromDB?.GRADE_CONTROL_STRUCTURE ?? 0 +
                         dataFromDB?.PIPE_APPURTENANCES ?? 0 +
                         dataFromDB?.SPECIAL_ITEM_POINT ?? 0 +
                         dataFromDB?.SPECIAL_ITEM_LINEAR ?? 0 +
@@ -425,7 +424,7 @@ export const addPopupsOnClick = async (
                         dataFromDB?.DETENTION_FACILITIES ?? 0 +
                         dataFromDB?.MAINTENANCE_TRAILS ?? 0 +
                         dataFromDB?.LAND_ACQUISITION ?? 0 +
-                        dataFromDB?.LANDSCAPING_AREA ?? 0 */,
+                        dataFromDB?.LANDSCAPING_AREA ?? 0 ,
                         valueid: feature.properties.cartodb_id,
                         project_id: dataFromDB.project_id,
                         streamname: feature.properties.streamname, // TODO streamname
