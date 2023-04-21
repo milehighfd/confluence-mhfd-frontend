@@ -852,6 +852,7 @@ const MapView = () => {
   const isActiveDrop = (element: any) =>{
     let valueActive = ""
     if(tabActive === '0'){
+      console.log(filterProblemOptions, 'filterProblemOptions');
       if(filterProblemOptions.column === element.name){
         valueActive = "item-active-dropdown-color"
       }else{
@@ -859,6 +860,7 @@ const MapView = () => {
       }
     }else{
       if(filterProjectOptions.column === element.name){
+        console.log(filterProjectOptions, 'filterProblemOptions');
         valueActive = "item-active-dropdown-color"
       }else{
         valueActive = "no-active"
@@ -1070,7 +1072,7 @@ const MapView = () => {
                       }}
                       className="btn-filter"
                     >
-                      <img className="img-sortBy" alt="" />
+                      <img className="img-sortBy" alt="" style={tabActive === '0'? (filterProblemOptions.order === 'asc' ? {transform: 'rotate(-180deg)'}:{}):(filterProjectOptions.order === 'asc' ? {transform: 'rotate(-180deg)'}:{})}/>
                       <span style={{ color: textStyle, marginLeft: '-3px', fontFamily: 'Ubuntu' }}> Sort By</span>
                     </Button>
                   </Dropdown>
