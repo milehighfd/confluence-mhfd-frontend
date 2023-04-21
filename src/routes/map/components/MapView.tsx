@@ -965,7 +965,7 @@ const MapView = () => {
           <Row justify="space-around" align="middle">
             <Col span={11} style={{ textAlign: 'initial' }}>
               <Search
-                disabled={true}
+                // disabled={true}
                 id="search-input"
                 allowClear
                 placeholder="Search"

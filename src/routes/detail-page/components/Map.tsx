@@ -208,6 +208,7 @@ const addLayer = () => {
     i = 0;
     addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
     }
+    console.log('Detailed ', detailed);
     if (detailed?.coordinates) {
       map.fitBounds([
         detailed?.coordinates[0][0],
@@ -218,7 +219,9 @@ const addLayer = () => {
         });
     }else{
       if(detailed?.project_id){
+        console.log('project id', detailed?.project_id);
         datasets.getData(`${SERVER.BBOX_COMPONENTS}?table=${MHFD_PROJECTS}&id=${detailed?.project_id}&activetab=1`).then((coordinates: any) => {
+          console.log('coordinates', coordinates);
           if( coordinates.bbox ) {
             map.fitBounds(
               [
