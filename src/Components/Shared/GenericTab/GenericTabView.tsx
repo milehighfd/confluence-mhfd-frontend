@@ -9,6 +9,8 @@ import store from "../../../store";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 import { useProfileState } from '../../../hook/profileHook';
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
+import { getCurrentProjectStatus } from "utils/parsers";
 /* import { postData } from "Config/datasets";
 import { SERVER } from "Config/Server.config"; */
 const PROJECT_TABLE = 'mhfd_projects'
@@ -25,10 +27,16 @@ const GenericTabView = ({
       setFilterProjectOptions, 
       setFilterComponentOptions,
       setZoomProjectOrProblem,
-      favoriteList
+      favoriteList,
+      getExtraProjects
     } = useMapDispatch();
     const { userInformation: user } = useProfileState();
     const [data, setData] = useState<any>([]);
+    const [hotReload, setHotReload] = useState(0);
+    const [carInfo, setCardInfo] = useState<any>([]);
+    const [totalPages, setTotalPages] = useState(0);
+    const [nextPage, setNextPage] = useState(1);
+
     const {
       detailed,
     } = useDetailedState();
@@ -37,7 +45,8 @@ const GenericTabView = ({
         filterProjectOptions,
         filterComponentOptions,
         selectedOnMap,
-        favorites
+        favorites,
+        galleryProjectsV2
       } = useMapState();
     let totalElement = cardInformation?.length || 0;
     const size = 6;
@@ -45,7 +54,12 @@ const GenericTabView = ({
     if (totalElement) {
         sw = true;
     }
-    
+    // call init page action  just once ONLY
+    useEffect(() => {
+        const totalpages = Math.ceil(totalElements / 20);
+        setTotalPages(totalpages);
+    }, []);
+
     useEffect(() => {
         favoriteList(user.email, type === 'Problems');    
     }, [user]);
@@ -60,9 +74,13 @@ const GenericTabView = ({
     }
 
     useEffect(() => {
-        if (favorites && cardInformation) {
+        if (cardInformation) {
+            const a = Math.ceil(cardInformation.length / 20) + 1
+            setNextPage(a);
+        }
+        if (favorites && carInfo) {
             setData(
-                cardInformation.map((ci: any) => {
+                carInfo.map((ci: any) => {
                     return {
                         ...ci,
                         isFavorite: favorites.some((f: any) => (f.project_id && f.project_id === ci.project_id) || (f.problem_id && f.problem_id === ci.problemid))
@@ -71,7 +89,9 @@ const GenericTabView = ({
                 })
             )
         }
-    }, [favorites, cardInformation]);
+        setCardInfo(cardInformation);
+    }, [favorites, cardInformation, hotReload]);
+
 
     const params = store.getState().map.paramFilters;
 
@@ -95,7 +115,7 @@ const GenericTabView = ({
         auxFilterComponents[tag] = tag === 'estimatedcost' ? auxValueTag : newValue;
         setFilterComponentOptions(auxFilterComponents);
                              console.log('get gallery'); 
-                      getGalleryProjects();;
+                      getGalleryProjects();
         getGalleryProblems();
     }
     const deleteTagProblem = (tag: string, value: string) => {
@@ -162,13 +182,20 @@ const GenericTabView = ({
     const tagProblems = [] as any;
     const tagProjects = [] as any;
 
-    const fetchMoreData = () => {
+    const fetchMoreData = async () => {
       if (state.items.length >= totalElement - size) {
         const auxState = { ...state };
         if (state.items.length !== totalElements) {
-          auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
+            if (state.items.length < totalElements && totalElement - size < totalElements) {
+                await getExtraProjects(nextPage);
+                setHotReload(Math.random());
+                auxState.items = state.items.concat(Array.from({ length: size }));
+                auxState.hasMore = true
+            } else {
+                auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
+                auxState.hasMore = false
+            }
         }
-        auxState.hasMore = false;
         setState(auxState);
         return;
       }
@@ -177,13 +204,7 @@ const GenericTabView = ({
         auxState.items = state.items.concat(Array.from({ length: size }));
         setState(auxState);
       }, 500);
-      /* console.log("fetching data");
-        postData(`${SERVER.URL_BASE}/projects?offset=${1}&limit=${20}`,{})
-        .then(
-            (r: any) => {
-            console.log(r);
-            }
-        )  */
+      
     };
 
     return <>
@@ -261,7 +282,7 @@ const GenericTabView = ({
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}
-                loader={undefined}>
+                loader={<h4> Loading...</h4>}>
                 {sw ? state.items.map((i, index: number) => {
                     return data[index] && <CardInformationView
                         key={index}

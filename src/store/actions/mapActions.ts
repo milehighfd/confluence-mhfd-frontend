@@ -308,7 +308,7 @@ export const getGalleryProblems = () => {
     }
 }
 
-export const getGalleryProjects = (origin?: any) => {
+export const getGalleryProjects = (origin?: any, page?: any) => {
   return (dispatch: Function, getState: Function) => {
     const {
       map: {
@@ -321,26 +321,15 @@ export const getGalleryProjects = (origin?: any) => {
       type: types.SET_SPIN_CARD_PROJECTS,
       spin: true,
     });
-    // removed because is not necesary to pull data from CARTO
-    // datasets.postData(
-    //     SERVER.GALLERY_PROJECTS,
-    //     optionsProjects(filterOptions, filterComponent, coordinates),
-    //     datasets.getToken()
-    // ).then(galleryProjects => {
-    //     if (galleryProjects?.length >= 0) {
-    //       console.log('Gallery priject 1 ', galleryProjects);
-    //         dispatch({ type: types.GALLERY_PROJECTS, galleryProjects });
-    //     }
-    //     dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
-    // });
     const applyFilter = store.getState().map.applyFilter;
     datasets
       .postData(
-        `${SERVER.GALLERY_PROJECTS_V2}?limit=20&offset=${0}`,
+        `${SERVER.GALLERY_PROJECTS_V2}?limit=20&offset=${page}`,
         optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
         datasets.getToken(),
       )
       .then(galleryProjects => {
+        console.log(galleryProjects);
         dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
         dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
       });
@@ -349,7 +338,31 @@ export const getGalleryProjects = (origin?: any) => {
     }
   };
 };
-
+export const getExtraGalleryProjects = (page: any = 0) => {
+    return (dispatch: Function, getState: Function) => {
+    const {
+        map: {
+            filterCoordinates: coordinates,
+            filterProjectOptions: filterOptions,
+            filterComponentOptions: filterComponent,
+        },
+    } = getState();
+    const applyFilter = store.getState().map.applyFilter;
+    const currentPorjects = store.getState().map.galleryProjectsV2;
+      datasets
+        .postData(
+          `${SERVER.GALLERY_PROJECTS_V2}?limit=20&offset=${page}`,
+          optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
+          datasets.getToken(),
+        )
+        .then(galleryProject => {
+        const galleryProjects = {
+            count: currentPorjects.count, 
+            projects: [currentPorjects.projects , galleryProject.projects].flat() };
+        dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects});
+        });
+    };
+  };
 export const getProjectsFilteredIds = () => {
   return (dispatch: Function, getState: Function) => {
     const {

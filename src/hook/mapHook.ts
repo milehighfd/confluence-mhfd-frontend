@@ -58,6 +58,7 @@ import {
   getProjectCounter,
   getProblemCounter,
   resetFilterProjectOptionsEmpty,
+  getExtraGalleryProjects,
 } from '../store/actions/mapActions';
 
 import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
@@ -168,7 +169,7 @@ export const useMapDispatch = () => {
       dispatch(getGalleryProblems());
     },
     getGalleryProjects: () => {
-      dispatch(getGalleryProjects());
+      dispatch(getGalleryProjects(null, 0));
     },
     getProjectsFilteredIds: () => {
       dispatch(getProjectsFilteredIds());
@@ -247,6 +248,9 @@ export const useMapDispatch = () => {
     },
     resetFilterProjectOptionsEmpty: () => {
       dispatch(resetFilterProjectOptionsEmpty());
+    },
+    getExtraProjects: (data: any) => {
+      dispatch(getExtraGalleryProjects(data));
     },
   };
 };
