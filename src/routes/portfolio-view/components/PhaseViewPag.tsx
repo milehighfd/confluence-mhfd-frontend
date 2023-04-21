@@ -229,9 +229,9 @@ const PhaseViewPag = ({
             >
               <div className="phaseview-title-label" style={{ width: totalLabelWidth, paddingRight: '13px' }} id="phaseviewTitlleWidth">
                 {availableStatusList.map((item: any, index: number) => {
-                  return <div style={{ display: 'flex', width: item[1], border: 'transparent', fontSize: '13px', fontFamily: 'Ubuntu', color: '#706b8a', alignItems: 'center' }}>
+                  return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
                     <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
-                  </div>
+                  </p>
                 })}
               </div>
               <div style={{ width: totalLabelWidth, paddingRight: '13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
