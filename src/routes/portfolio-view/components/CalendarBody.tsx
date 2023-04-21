@@ -11,6 +11,7 @@ import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimated
 import * as d3 from 'd3';
 import moment from "moment";
 import { colorScale } from "../constants/PhaseViewData";
+import { LIMIT_PAGINATION } from "../../../constants/constants";
 
 
 const { TabPane } = Tabs;
@@ -65,6 +66,8 @@ const CalendarBody = ({
   zoomSelected,
   setZoomSelected,
   setPopUpData,
+  filterPagination,
+  setFilterPagination,
 }: {
   currentGroup: any,
   groupCollapsed: any,
@@ -107,6 +110,8 @@ const CalendarBody = ({
   zoomSelected: any,
   setZoomSelected: any,
   setPopUpData: Function,
+  filterPagination: any,
+  setFilterPagination: Function,
 }) => {
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
@@ -131,6 +136,7 @@ const CalendarBody = ({
   const [agrupationData, setAgrupationData] = useState<any>([]);
   const [svgState, setSvgState] = useState<any>();
   const [svgAxisState, setSvgAxisState] = useState<any>();
+  const [resultCounter, setResultCounter] = useState<any>(0);
 
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
@@ -228,13 +234,15 @@ const CalendarBody = ({
   }
 
   useEffect(() => {
-    if (next) {
+    if (next && resultCounter === LIMIT_PAGINATION) {
       setPage(page + 1)
       setNext(false)
+      setPrev(false)
     }
     if (prev && page > 1) {
       setPage(page - 1)
       setPrev(false)
+      setNext(false)
     }
   }, [next, prev])
 
@@ -509,7 +517,6 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
-            console.log(statusCounter, (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length)
             if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
@@ -548,7 +555,6 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
-            console.log(statusCounter)
             if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
@@ -1607,8 +1613,6 @@ const CalendarBody = ({
         }),
       }
     }))
-    console.log(dataParsed)
-    console.log(scheduleList)
     let rawData2 = dataParsed?.map((x: any) => {
       if (x?.project_status?.length) {
         let flag = ((x?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
@@ -1801,10 +1805,13 @@ const CalendarBody = ({
   }
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=20&code_project_type_id=${tabKey}`, {}).then((res: any) => {
+    console.log('useEffect calendar body')
+    console.log(currentGroup, page, filterPagination)
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
       setDataBody(res);
+      setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, page])
+  }, [currentGroup, page, filterPagination])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

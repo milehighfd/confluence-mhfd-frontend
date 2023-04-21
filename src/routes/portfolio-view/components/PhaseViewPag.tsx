@@ -47,6 +47,8 @@ const PhaseViewPag = ({
   setPositionModalGraphic,
   setDataModal,
   userName,
+  filterPagination,
+  setFilterPagination,
 }: {
   rawData: any,
   groupsBy: any,
@@ -72,6 +74,8 @@ const PhaseViewPag = ({
   setPositionModalGraphic: any,
   setDataModal: any,
   userName: any,
+  filterPagination: any,
+  setFilterPagination: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -179,7 +183,7 @@ const PhaseViewPag = ({
       setDetailGroup(valuesGroups.groups)
     })
   }, [currentGroup])
-
+  console.log(userName)
   return <>
     {openPiney && (
       <div className="phaseview-body">
@@ -280,6 +284,8 @@ const PhaseViewPag = ({
                     userName={userName}
                     setPopUpData={setPopUpData}
                     headerRef={headerRef}
+                    setFilterPagination={setFilterPagination}
+                    filterPagination={filterPagination}
                   />
                 </div>
               )

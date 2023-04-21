@@ -34,6 +34,7 @@ const TableGroups = ({
   tableRef,
   tabKeyId,
   headerRef,
+  filterPagination,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -50,6 +51,7 @@ const TableGroups = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
+  filterPagination: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -114,6 +116,7 @@ const TableGroups = ({
             tableRef={tableRef}
             tabKeyId={tabKeyId}
             headerRef={headerRef}
+            filterPagination={filterPagination}
           ></TableBody>
         </Panel>
       </Collapse>

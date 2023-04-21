@@ -849,10 +849,29 @@ const MapView = () => {
     </Row>
   );
 
+  const isActiveDrop = (element: any) =>{
+    let valueActive = ""
+    if(tabActive === '0'){
+      if(filterProblemOptions.column === element.name){
+        valueActive = "item-active-dropdown-color"
+      }else{
+        valueActive = "no-active"
+      }
+    }else{
+      if(filterProjectOptions.column === element.name){
+        valueActive = "item-active-dropdown-color"
+      }else{
+        valueActive = "no-active"
+      }
+    }
+    return valueActive
+  }
+
   const menuSort = (listSort: Array<{ name: string; title: string }>) => {
     const itemMenu: MenuProps['items'] = [];
     listSort.forEach((element: { name: string; title: string }, index: number) => {
       itemMenu.push({
+        className: `${isActiveDrop(element)}`,
         key: `${index}|${element.title}`,
         label: (
           <span className="menu-item-text" style={{ height: '10px', border: 'transparent' }}>
@@ -1139,21 +1158,21 @@ const MapView = () => {
                       type: project.type,
                       value: project.cartodb_id,
                       id: project.projectId,
-                      totalComponents:0
-                       /*  project.GRADE_CONTROL_STRUCTURE ?? 0 +
-                        project.PIPE_APPURTENANCES ?? 0 +
-                        project.SPECIAL_ITEM_POINT ?? 0 +
-                        project.SPECIAL_ITEM_LINEAR ?? 0 +
-                        project.SPECIAL_ITEM_AREA ?? 0 +
-                        project.CHANNEL_IMPROVEMENTS_LINEAR ?? 0 +
-                        project.CHANNEL_IMPROVEMENTS_AREA ?? 0 +
-                        project.REMOVAL_LINE ?? 0 +
-                        project.REMOVAL_AREA ?? 0 +
-                        project.STORM_DRAIN ?? 0 +
-                        project.DETENTION_FACILITIES ?? 0 +
-                        project.MAINTENANCE_TRAILS ?? 0 +
-                        project.LAND_ACQUISITION ?? 0 +
-                        project.LANDSCAPING_AREA ?? 0 */,
+                      totalComponents: parseInt(
+                        project.GRADE_CONTROL_STRUCTURE +
+                        project.PIPE_APPURTENANCES +
+                        project.SPECIAL_ITEM_POINT +
+                        project.SPECIAL_ITEM_LINEAR +
+                        project.SPECIAL_ITEM_AREA +
+                        project.CHANNEL_IMPROVEMENTS_LINEAR +
+                        project.CHANNEL_IMPROVEMENTS_AREA +
+                        project.REMOVAL_LINE +
+                        project.REMOVAL_AREA +
+                        project.STORM_DRAIN +
+                        project.DETENTION_FACILITIES +
+                        project.MAINTENANCE_TRAILS +
+                        project.LAND_ACQUISITION +
+                        project.LANDSCAPING_AREA ),
                       // coordinates: project.coordinates[0]
                     };
                     return x;

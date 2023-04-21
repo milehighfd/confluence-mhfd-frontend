@@ -88,6 +88,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [openPiney, setOpenPiney] = useState(false);
   const [statusCounter,setStatusCounter] = useState(0);
   const [updateFilter, setUpdateFilter] = useState([]);
+  const [filterPagination, setFilterPagination] = useState<any>({});
 
   const [favorites, setFavorites] = useState<any>([]);
   const [tollData,setTollData] = useState<any>([]);
@@ -137,7 +138,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     filterProjectOptions.keyword = searchWord
     setFilterProjectOptions(filterProjectOptions)
     setUpdateFilter(filterProjectOptions);
-  }, [searchWord]);
+  }, []);
 
   const groupsBy = [
     'Status',
@@ -578,7 +579,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     let numAscending = [];
     numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
     setNewData(numAscending)
-  }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, searchWord, openFavorites,completeData]);
+  }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, openFavorites,completeData]);
  
   useEffect(() => {
     let z = []      
@@ -610,6 +611,25 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     setOpenPiney(false)    
     setOpenFavorites(!openFavorites)   
   }
+
+  useEffect(() => {
+    setFilterPagination({ ...filterPagination, search: searchWord, filterby: filterby, value: filterValue })
+    console.log(filterby, filterValue, filtername, searchWord)
+  }, [searchWord, filterby, filterValue, filtername])
+
+  useEffect(() => {
+    if(openFavorites){
+      setFilterPagination({ ...filterPagination, favorites: favorites.map((x:any)=>{
+        return x.project_id
+      }) })
+    }else{
+      if(filterPagination.favorites){
+        const {favorites, ...rest} = filterPagination;
+        setFilterPagination(rest)
+      }
+    }    
+  }, [openFavorites])
+
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
@@ -737,6 +757,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
                         favorites={favorites}
+                        filterPagination={filterPagination}
+                        setFilterPagination={setFilterPagination}
                       />
                       }
                       {optionSelect === 'Phase' && 
@@ -799,7 +821,9 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         setGrapphicOpen={setGrapphicOpen}
                         setPositionModalGraphic={setPositionModalGraphic}
                         setDataModal={setDataModal}
-                        userName={appUser.userInformation?.user}
+                        userName={appUser.userInformation?.name}                        
+                        filterPagination={filterPagination}
+                        setFilterPagination={setFilterPagination}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
@@ -865,7 +889,9 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       setDataModal={setDataModal}
                       moveSchedule={zoomTimeline}
                       scheduleRef={scheduleRef}
-                      userName={appUser.userInformation?.user}
+                      userName={appUser.userInformation?.name}
+                      filterPagination={filterPagination}
+                      setFilterPagination={setFilterPagination}
                     />    
                     
                     }

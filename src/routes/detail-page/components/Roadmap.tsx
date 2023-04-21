@@ -37,7 +37,12 @@ const Roadmap = ({setOpenPiney,
 
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
-  let totalLabelWidth = phaseList.length * labelWidth;
+  let projectTypeOffset = 0;
+  if(data.length > 0){
+    console.log(data[0].code_project_type_id)
+    projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
+  }  
+  let totalLabelWidth = (phaseList.length * labelWidth) + projectTypeOffset;
 
   const [graphicOpen, setGrapphicOpen] = useState(false);
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
@@ -97,35 +102,35 @@ const Roadmap = ({setOpenPiney,
   
     }
     
-    const phaseChart = (dataDotchart: any) => {
-     let dataDetailed = dataDotchart.filter((e:any) => e.specificId === 3);
-     if (Object.keys(scheduleList).length > 0) {
-    let margin = { top: marginTop, right: marginRight, bottom: -30, left: marginLeft };
-    let width: any = totalLabelWidth//document.getElementById('phaseviewTitleDetailPage')?.offsetWidth;//= 1405 - margin.left - margin.right,
-    let heightDiv: any;
-      heightDiv  = document.getElementById(`ProjectRoadmapHeader`)?.offsetHeight; //265 - margin.top - margin.bottom;
-      console.log('height div',heightDiv)
-      let factorHeight = (windowWidth>=3001 && windowWidth<=3999 ? 10:0);
-    let height: any  = factorHeight + heightDiv +40;
-    let heightContainer: any = height + margin.top + margin.bottom;
+  const phaseChart = (dataDotchart: any) => {
+    let dataDetailed = dataDotchart.filter((e: any) => e.specificId === 3);
+    if (Object.keys(scheduleList).length > 0) {
+      let margin = { top: marginTop, right: marginRight, bottom: -30, left: marginLeft };
+      let width: any = totalLabelWidth//document.getElementById('phaseviewTitleDetailPage')?.offsetWidth;//= 1405 - margin.left - margin.right,
+      let heightDiv: any;
+      heightDiv = document.getElementById(`ProjectRoadmapHeader`)?.offsetHeight; //265 - margin.top - margin.bottom;
+      console.log('height div', heightDiv)
+      let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : 0);
+      let height: any = factorHeight + heightDiv + 40;
+      let heightContainer: any = height + margin.top + margin.bottom;
 
-    if (heightContainer>0){
-  // append the svg object to the body of the page
-   svg = d3
-    .select(`#dotchart_detailPage`)
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
-    .append("g")
-    .attr("transform", "translate("+margin.left+","+margin.top+")");
-  
-    setSvgStatePhase(svg);
-  let datas = dataDotchart;
+      if (heightContainer > 0) {
+        // append the svg object to the body of the page
+        svg = d3
+          .select(`#dotchart_detailPage`)
+          .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          //.attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  let arrayForCirclesAndLines = [];
-  for (var i = 0; i < scheduleList.length; i++) {
-    arrayForCirclesAndLines.push(i);
+        setSvgStatePhase(svg);
+        let datas = dataDotchart;
+
+        let arrayForCirclesAndLines = [];
+        for (var i = 0; i < scheduleList.length; i++) {
+          arrayForCirclesAndLines.push(i);
   }
   let svgDefinitions = svg.append("defs");
   svg.selectAll("defs")
@@ -595,10 +600,10 @@ const Roadmap = ({setOpenPiney,
       <div className="phaseview-content" id="get-roadmap-content">
         <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage'>
         {availableStatusList.map((item: any, index: number) => {
-              // console.log('item', item)
-              return <p style={index === 0 ? { display: 'flex', width: item[1] , border: 'transparent'}:{ display: 'flex', width: item[1] }}>
-                <hr className="hr2" style={{width:item[1]/2 - 48}}></hr>{item[0]}<hr className="hr2" style={{width:item[1]/2 - 48}}></hr>
-              </p>
+              console.log(availableStatusList)
+              return <div style={{ display: 'flex', width: item[1], border: 'transparent', fontSize: '13px', fontFamily: 'Ubuntu', color: '#706b8a', alignItems: 'center' }}>
+              <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>
+            </div>
             })}
         </div>
           <div id='dotchart_detailPage' ></div>

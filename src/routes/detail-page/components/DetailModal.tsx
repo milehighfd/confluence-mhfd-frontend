@@ -136,7 +136,7 @@ const DetailModal = ({
     console.log('detailed', detailed, projectTypeId)
     setProjecttype(projectType);
     const roadmapData = [];
-    if(Object.keys(detailed).length !== 0){
+    if(detailed && Object.keys(detailed).length !== 0){
     roadmapData.push({
       id: `${detailed.project_id}`,
       project_id: detailed.project_id,

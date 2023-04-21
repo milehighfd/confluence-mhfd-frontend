@@ -43,6 +43,15 @@
     border-bottom: transparent !important;
   }
 }
+.item-active-dropdown-color{
+  background: #f7f7f9 !important;
+  color: #11093c;
+  margin: 3px;
+  border-radius: 5px;
+  /* font-weight: bold; */
+  font-weight: 400;
+  opacity: 1;
+}
 .map{
   height: calc(100vh - 69px);
   margin: 5px;
