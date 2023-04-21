@@ -324,7 +324,7 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
     const applyFilter = store.getState().map.applyFilter;
     datasets
       .postData(
-        `${SERVER.GALLERY_PROJECTS_V2}?limit=20&offset=${page}`,
+        `${SERVER.GALLERY_PROJECTS_V2}?limit=20&page=1`,
         optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
         datasets.getToken(),
       )
@@ -351,7 +351,7 @@ export const getExtraGalleryProjects = (page: any = 0) => {
     const currentPorjects = store.getState().map.galleryProjectsV2;
       datasets
         .postData(
-          `${SERVER.GALLERY_PROJECTS_V2}?limit=20&offset=${page}`,
+          `${SERVER.GALLERY_PROJECTS_V2}?limit=20&page=${page}`,
           optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
           datasets.getToken(),
         )
