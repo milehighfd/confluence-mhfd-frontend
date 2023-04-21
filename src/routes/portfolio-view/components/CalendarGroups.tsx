@@ -58,6 +58,8 @@ const CalendarGroups = ({
   zoomSelected,
   setZoomSelected,
   setPopUpData,
+  filterPagination,
+  setFilterPagination,
 }: {
   data: any,
   groupCollapsed: any,
@@ -98,6 +100,8 @@ const CalendarGroups = ({
   zoomSelected: any,
   setZoomSelected: any,
   setPopUpData: any,
+  filterPagination: any,
+  setFilterPagination: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -186,6 +190,8 @@ const CalendarGroups = ({
             zoomSelected={zoomSelected}
             setZoomSelected={setZoomSelected}
             setPopUpData={setPopUpData}
+            filterPagination={filterPagination}
+            setFilterPagination={setFilterPagination}
           ></CalendarBody>
         </Panel>
       </Collapse>

@@ -48,6 +48,8 @@ const PhaseGroups = ({
   userName,
   setPopUpData,
   headerRef,
+  filterPagination,
+  setFilterPagination,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -77,6 +79,8 @@ const PhaseGroups = ({
   userName: any,
   setPopUpData: any,
   headerRef: any,
+  filterPagination: any,
+  setFilterPagination: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -156,6 +160,8 @@ const PhaseGroups = ({
             setOpenPiney={setOpenPiney}
             setPopUpData={setPopUpData}
             headerRef={headerRef}
+            filterPagination={filterPagination}
+            setFilterPagination={setFilterPagination}
           ></PhaseBody>
         </Panel>
       </Collapse>

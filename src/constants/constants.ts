@@ -1104,6 +1104,7 @@ export const FILTER_PROJECTS_TRIGGER = 'Projects';
 export const FILTER_COMPONENTS_TRIGGER = 'Components';
 
 export const PROJECT_TYPE = 'projectType';
+export const LIMIT_PAGINATION = 15;
 
 export const PROBLEM_TYPE = 'problemType';
 export const SERVICE_AREA_VALUE = 'serviceArea';

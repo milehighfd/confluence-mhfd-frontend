@@ -52,6 +52,8 @@ const CalendarViewPag = ({
   moveSchedule,
   scheduleRef,
   userName,
+  filterPagination,
+  setFilterPagination,
 }: {
   rawData: any,
   groupsBy: any,
@@ -82,6 +84,8 @@ const CalendarViewPag = ({
   moveSchedule: any,
   scheduleRef: any,
   userName: any,
+  filterPagination: any,
+  setFilterPagination: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -326,6 +330,8 @@ const CalendarViewPag = ({
                   zoomSelected={zoomSelected}
                   setZoomSelected={setZoomSelected}
                   setPopUpData={setPopUpData}
+                  filterPagination={filterPagination}
+                  setFilterPagination={setFilterPagination}
                 />
               </div>
             )
