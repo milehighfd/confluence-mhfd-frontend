@@ -105,7 +105,7 @@ const TableGroups = ({
         } key={index}>
           <TableBody
             currentGroup={currentGroup}
-            dataId={data.id}
+            dataId={data}
             tabKey={tabKey}
             next={next}
             prev={prev}

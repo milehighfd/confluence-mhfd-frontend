@@ -60,6 +60,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
+  const [updatedGroup, setUpdatedGroup] = useState(null);
+  const [secondaryUpdatedGroup, setSecondaryUpdatedGroup] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
   const [openFavorites, setOpenFavorites] = useState(false);
@@ -643,6 +645,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       dataProject={tollData}
       saveCB={createProjectStatusesCb}
       setOpenPiney={setOpenPiney}
+      setUpdatedGroup={setUpdatedGroup}
+      setSecondaryUpdatedGroup={setSecondaryUpdatedGroup}
     />
     <div>
       {isLoading && <LoadingViewOverall />}
@@ -898,6 +902,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       userName={appUser.userInformation?.name}
                       filterPagination={filterPagination}
                       setFilterPagination={setFilterPagination}
+                      updatedGroup={updatedGroup}
+                      secondaryUpdatedGroup={secondaryUpdatedGroup}
                     />    
                     
                     }

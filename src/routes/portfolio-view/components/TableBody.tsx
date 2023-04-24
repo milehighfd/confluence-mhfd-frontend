@@ -127,8 +127,12 @@ const TableBody = ({
     }))
   }, [dataBody, favorites])
 
-  useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+  useEffect(() => {    
+    let idForFilter = dataId.id;
+    if(currentGroup === 'streams' && dataId.value !== ''){
+      idForFilter = dataId.value;
+    }
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })

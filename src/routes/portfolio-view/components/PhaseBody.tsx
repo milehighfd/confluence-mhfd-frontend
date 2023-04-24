@@ -702,7 +702,11 @@ const PhaseBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
+    let idForFilter = dataId.id;
+    if(currentGroup === 'streams' && dataId.value !== ''){
+      idForFilter = dataId.value;
+    }
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })

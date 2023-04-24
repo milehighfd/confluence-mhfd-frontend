@@ -149,7 +149,8 @@ const PhaseViewPag = ({
               tasksData: x.code_rule_action_items,
               duration: x.duration,
               duration_type: x.duration_type,
-              code_phase_type_id: x.code_phase_type_id
+              code_phase_type_id: x.code_phase_type_id,
+              code_status_type_id: x.code_status_type?.code_status_type_id,
             })
         })
         setScheduleList(z);
