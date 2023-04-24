@@ -16,9 +16,12 @@ const ModalGraphic = ({ positionModalGraphic,
     dataProject?:any,
   }) => {
     const [actualEndDate,setActualEndDate] = useState<any>()
+    const [modifiedDate,setModifiedDate] = useState<any>()
     const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
   useEffect(() => {
+    const modified_date = dataProject?.d?.project_status?.filter((x: any) => x.code_phase_type_id  === dataProject?.phase_id)[0]?.modified_date;  
+    setModifiedDate(modified_date)
     if (Object.keys(dataProject).length > 0) {
       datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: dataProject.phase_id, project_id: dataProject.d.project_id })
         .then((rows) => {
@@ -48,6 +51,7 @@ const ModalGraphic = ({ positionModalGraphic,
           `${dataProject.actualNumber} Action Items of ${dataProject.scheduleList} Remaining`}</p>
           <hr></hr>
           <p>{!actualEndDate?'No data available.':actualEndDate}</p>
+          <p>{!modifiedDate?'No data available.':`Modified : ${moment(modifiedDate).format('MMMM d, YYYY')}`}</p>
         </div>
       )
     }else{
@@ -58,7 +62,7 @@ const ModalGraphic = ({ positionModalGraphic,
           <hr></hr>
           <p>{`- Action Item of - Closed`}</p>
           <hr></hr>
-          <p>No data available.</p>
+          <p>No data available.</p>          
         </div>
       )
     }
