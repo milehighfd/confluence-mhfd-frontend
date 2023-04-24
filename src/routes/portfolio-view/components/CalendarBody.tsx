@@ -167,14 +167,14 @@ const CalendarBody = ({
             (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
   let factortransformSVG = 
-  (windowWidth >= 3001 && windowWidth <= 3999 ? -75 : 
+  (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 
     (windowWidth >= 2550 && windowWidth <= 3000 ? 0 : 
       (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : 
         (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : 
           (windowWidth >= 1199 && windowWidth <= 1449 ? 8 : 8)))));
   let heigthOfHeaderAxis =
-    (windowWidth >= 3001 && windowWidth <= 3999 ? 123.02 :
-      (windowWidth >= 2550 && windowWidth <= 3000 ? 120.77 :
+    (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
+      (windowWidth >= 2550 && windowWidth <= 3000 ? 70 :
         (windowWidth >= 1450 && windowWidth <= 1500 ? 93.06 :
           (windowWidth >= 1501 && windowWidth <= 2000 ? 50 :
             (windowWidth >= 2001 && windowWidth <= 2549 ? 100 :
