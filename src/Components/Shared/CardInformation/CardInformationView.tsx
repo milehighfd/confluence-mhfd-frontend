@@ -82,7 +82,8 @@ const CardInformationView = ({
   }
 
   const changeFavorite = () => {
-    addFavorite(user.email, (data.project_id || data.problemid), data.type);
+    
+    data.isFavorite ?  deleteFunction(user.email, (data.project_id || data.problemid), type) : addFavorite(user.email, (data.project_id || data.problemid), type === 'Problems' );
   }
 
   useEffect(() => {
