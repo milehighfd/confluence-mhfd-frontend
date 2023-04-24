@@ -83,7 +83,7 @@ const ModalTollgate = ({
     const type = duration.trim()[0];
     return type;
   };
-
+  console.log(dataProject)
   const propagateDates = (array: any, index: number) => {
     let newDates: any = [...array];
     const reversed = newDates.slice(0, index + 1).reverse();
