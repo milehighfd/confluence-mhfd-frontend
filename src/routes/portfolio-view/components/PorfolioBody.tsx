@@ -91,6 +91,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [filterPagination, setFilterPagination] = useState<any>({});
 
   const [favorites, setFavorites] = useState<any>([]);
+  const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
   
   useEffect(()=>{
@@ -466,7 +467,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
       setFavorites(result);    
     })    
-  }, [listLoaded]);
+  }, [listLoaded,updateFavorites]);
   useEffect(() => {
     const z = [...completeData].map((x: any)  => {  return {...x, isFavorite : favorites.some((element: { project_id: number; }) => (element.project_id === x.project_id))}})     
     setNewData(z)
@@ -762,6 +763,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         favorites={favorites}
                         filterPagination={filterPagination}
                         setFilterPagination={setFilterPagination}
+                        updateFavorites={updateFavorites}
+                        setUpdateFavorites={setUpdateFavorites}
                       />
                       }
                       {optionSelect === 'Phase' && 

@@ -35,6 +35,8 @@ const TableGroups = ({
   tabKeyId,
   headerRef,
   filterPagination,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -52,6 +54,8 @@ const TableGroups = ({
   tabKeyId: any,
   headerRef: any,
   filterPagination: any,
+  updateFavorites: any,
+  setUpdateFavorites: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -117,6 +121,8 @@ const TableGroups = ({
             tabKeyId={tabKeyId}
             headerRef={headerRef}
             filterPagination={filterPagination}
+            updateFavorites={updateFavorites}
+            setUpdateFavorites={setUpdateFavorites}
           ></TableBody>
         </Panel>
       </Collapse>

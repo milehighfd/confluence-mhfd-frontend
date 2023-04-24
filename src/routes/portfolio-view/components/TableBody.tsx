@@ -38,6 +38,8 @@ const TableBody = ({
   tabKeyId,
   headerRef,
   filterPagination,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   currentGroup: any,
   dataId: any,
@@ -56,6 +58,8 @@ const TableBody = ({
   tabKeyId: any,
   headerRef: any,
   filterPagination: any,
+  updateFavorites: boolean,
+  setUpdateFavorites: Function,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -139,11 +143,13 @@ const TableBody = ({
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
       setUpdateFavorite(!updateFavorite)
+      setUpdateFavorites(!updateFavorites)
     });
   }
   const addFunction = (email: string, id: number, table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
       setUpdateFavorite(!updateFavorite)
+      setUpdateFavorites(!updateFavorites)
     });
   }
 
