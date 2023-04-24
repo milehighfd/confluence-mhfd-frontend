@@ -238,7 +238,8 @@ const CalendarViewPag = ({
           setCurrentGroup={setCurrentGroup}
           setSearchWord={setSearchWord}
           searchWord={searchWord}
-          fullData={rawData}></SearchDropdown>
+          fullData={rawData}
+          setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="calendar-body" id="widthDivforChart">

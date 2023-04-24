@@ -184,7 +184,6 @@ const PhaseViewPag = ({
       setDetailGroup(valuesGroups.groups)
     })
   }, [currentGroup])
-  console.log(userName)
   return <>
     {openPiney && (
       <div className="phaseview-body">
@@ -209,7 +208,8 @@ const PhaseViewPag = ({
           setCurrentGroup={setCurrentGroup}
           setSearchWord={setSearchWord}
           searchWord={searchWord}
-          fullData={rawData}></SearchDropdown>
+          fullData={rawData}
+          setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="phaseview-body">

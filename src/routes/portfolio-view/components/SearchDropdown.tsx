@@ -25,6 +25,7 @@ const SearchDropdown = (
     setSearchWord,
     fullData,
     searchWord,
+    setOpenTable,
   }
     : {
       rawData: any,
@@ -33,6 +34,7 @@ const SearchDropdown = (
       setSearchWord: Function,
       fullData: any,
       searchWord: string,
+      setOpenTable: Function,
     }) => {
 
   const [keyword, setKeyword] = useState('');
@@ -60,7 +62,7 @@ const SearchDropdown = (
           children: groupsBy.map((gb, index) => {
             return {
               key: `1-${index + 1}`,
-              label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active" : "menu-drop-sub menu-sub-drop"} onClick={() => { setCurrentGroup(gb.toLowerCase().replace(' ', '')); setActiveDrop(index); setOpenDrop(false) }}>{gb}</div>,
+              label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active" : "menu-drop-sub menu-sub-drop"} onClick={() => { setCurrentGroup(gb.toLowerCase().replace(' ', '')); setActiveDrop(index); setOpenDrop(false); setOpenTable([true, true, true]); }}>{gb}</div>,
               className: index === activeDrop ? " menu-active" : ""
             }
           })

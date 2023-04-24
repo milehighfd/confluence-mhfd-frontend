@@ -37,6 +37,7 @@ const TableGroups = ({
   filterPagination,
   updateFavorites,
   setUpdateFavorites,
+  dataId,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -56,6 +57,7 @@ const TableGroups = ({
   filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
+  dataId: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -105,7 +107,7 @@ const TableGroups = ({
         } key={index}>
           <TableBody
             currentGroup={currentGroup}
-            dataId={data}
+            dataId={dataId}
             tabKey={tabKey}
             next={next}
             prev={prev}
