@@ -117,6 +117,30 @@ const TableBody = ({
         service_area: getServiceAreas(x?.project_service_areas || []),
         stream: getStreams(x?.project_streams || []).join(' , '),
         estimated_cost: getTotalEstimatedCost(x?.project_costs),
+        consultant: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.business_associate?.business_name || '';
+          const sa1 = pl?.code_partner_type_id || '';
+          let value = accumulator;
+          if (sa && sa1 === 3) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
+        civil_contractor: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.business_associate?.business_name || '';
+          const sa1 = pl?.code_partner_type_id || '';
+          let value = accumulator;
+          if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
         isFavorite: favorites?.some((element: { project_id: number; }) => {
           if (element.project_id === x.project_id) {
             return true;
@@ -127,16 +151,12 @@ const TableBody = ({
     }))
   }, [dataBody, favorites])
 
-  useEffect(() => {    
-    let idForFilter = dataId.id;
-    if(currentGroup === 'streams' && dataId.value !== ''){
-      idForFilter = dataId.value;
-    }
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+  useEffect(() => {   
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, filterPagination, page])
+  }, [ filterPagination, page])
 
   useEffect(() => {
     if (page != 1) {

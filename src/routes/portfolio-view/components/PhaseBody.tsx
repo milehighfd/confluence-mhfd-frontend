@@ -710,7 +710,7 @@ const PhaseBody = ({
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, page, filterPagination])
+  }, [ page, filterPagination])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
