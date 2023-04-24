@@ -580,10 +580,10 @@ const PhaseBody = ({
               const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
               setDataModal(sendModal);
               if (popupVisible !== null) {
-                let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 205 :
-                  (windowWidth >= 2550 && windowWidth <= 3000 ? 165 :
+                let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 280 :
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 215 :
                     (windowWidth >= 2001 && windowWidth <= 2549 ? 60 :
-                      (windowWidth >= 1450 && windowWidth <= 2000 ? 160 :
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 170 :
                         (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
                 if (userBrowser === 'Safari') {
                   popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 400 :
@@ -600,17 +600,16 @@ const PhaseBody = ({
                           (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
                 }
                 let popupfactorLeft = 
-                (windowWidth >= 3001 && windowWidth <= 3999 ? 875 : 
-                  (windowWidth >= 2550 && windowWidth <= 3000 ? 575 : 
+                (windowWidth >= 3001 && windowWidth <= 3999 ? 910 : 
+                  (windowWidth >= 2550 && windowWidth <= 3000 ? 620 : 
                     (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
-                      (windowWidth >= 1450 && windowWidth <= 2000 ? 445 : 
+                      (windowWidth >= 1450 && windowWidth <= 2000 ? 475 : 
                         (windowWidth >= 1199 && windowWidth <= 1449 ? 380 : 345)))))
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
                 let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop + 120; // Delete 120 when the popup is fixed
                 let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft - 35; //Delete 35 when the popup is fixed
                 setPositionModalGraphic({ left: positionLeft, top: positionTop })
-                console.log('aaa',d3.event.target.id.slice(0, -6))
                 d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
                 d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
