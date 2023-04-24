@@ -617,9 +617,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
 
   useEffect(() => {
     let filterByP = filterby;
-    if (filterby === 'consultant'|| filterby === 'contractor') {
-      filterByP = ''
-    }
     setFilterPagination({ ...filterPagination, search: searchWord, filterby: filterByP, value: filterValue })
   }, [searchWord, filterby, filterValue, filtername])
 
