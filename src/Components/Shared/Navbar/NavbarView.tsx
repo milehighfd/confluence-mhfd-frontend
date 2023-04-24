@@ -44,7 +44,6 @@ const NavbarView = ({tabActive}:
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
   let displayedTabKey = tabKeys;
-  console.log(tabActive, 'tabActive')
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
       <div className="notification-header">

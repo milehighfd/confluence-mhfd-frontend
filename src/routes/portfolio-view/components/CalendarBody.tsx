@@ -68,6 +68,8 @@ const CalendarBody = ({
   setPopUpData,
   filterPagination,
   setFilterPagination,
+  updatedGroup,
+  secondaryUpdatedGroup,
 }: {
   currentGroup: any,
   groupCollapsed: any,
@@ -112,6 +114,8 @@ const CalendarBody = ({
   setPopUpData: Function,
   filterPagination: any,
   setFilterPagination: Function,
+  updatedGroup: any,
+  secondaryUpdatedGroup: any,
 }) => {
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
@@ -137,6 +141,7 @@ const CalendarBody = ({
   const [svgState, setSvgState] = useState<any>();
   const [svgAxisState, setSvgAxisState] = useState<any>();
   const [resultCounter, setResultCounter] = useState<any>(0);
+  const [updateForDates, setUpdateForDates] = useState<any>(false);
 
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
@@ -232,6 +237,22 @@ const CalendarBody = ({
       .attr("stop-color", '#D4D2D9')
 
   }
+
+  useEffect(() => {        
+    let idF = '';
+    if(currentGroup === 'streams' && dataId.value !== ''){
+      idF = dataId.value;
+    }else{
+      idF = dataId.id;
+    }
+    console.log(updatedGroup, secondaryUpdatedGroup, idF)
+    if (idF === updatedGroup) {
+      setUpdateForDates(!updateForDates);
+    }
+    if (idF === secondaryUpdatedGroup) {
+      setUpdateForDates(!updateForDates);
+    }
+  }, [updatedGroup, secondaryUpdatedGroup])
 
   useEffect(() => {
     if (next && resultCounter === LIMIT_PAGINATION) {
@@ -1818,13 +1839,15 @@ const CalendarBody = ({
   }
 
   useEffect(() => {
-    console.log('useEffect calendar body')
-    console.log(currentGroup, page, filterPagination)
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
+    let idForFilter = dataId.id;
+    if(currentGroup === 'streams' && dataId.value !== ''){
+      idForFilter = dataId.value;
+    }
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, page, filterPagination])
+  }, [currentGroup, page, filterPagination,updateForDates])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

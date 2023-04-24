@@ -16,13 +16,17 @@ const ModalTollgate = ({
   setVisible, 
   dataProject,
   saveCB,
-  setOpenPiney
+  setOpenPiney,  
+  setUpdatedGroup,
+  setSecondaryUpdatedGroup,
 }: {
   visible: boolean, 
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
   dataProject?:any,
   saveCB?: any,
-  setOpenPiney?: any
+  setOpenPiney?: any,
+  setUpdatedGroup?: any,
+  setSecondaryUpdatedGroup?: any,
 }) => {
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
@@ -73,6 +77,7 @@ const ModalTollgate = ({
   const [dates, setDates]: any[] = useState([]);
   const [viewOverlappingAlert, setViewOverlappingAlert] = useState(false);
   const [overlapping, setOverlapping] = useState(false);
+  const [originPhase, setOriginPhase] = useState(null);
   
   const parseDuration = (duration: string) => { 
     const type = duration.trim()[0];
@@ -199,6 +204,9 @@ const ModalTollgate = ({
     return 'NotStarted';
   };
   useEffect(() => {
+    const currentId = dataProject?.d?.phaseId;
+    const currentStatus = dataProject?.scheduleList?.filter((x: any) => x.phase_id === currentId)[0]?.code_status_type_id;
+    setOriginPhase(currentStatus);
     setDates(dataProject?.scheduleList?.map((x:any)=>{
       const date = dataProject?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);
       let duration = 0;
@@ -420,6 +428,8 @@ let items = [
     setCalendarPhase(0)
   }
   function sendData() {
+    const currentId = dates?.filter((x: any) => x.current)[0]?.phase_id;
+    const currentStatus = dataProject.scheduleList?.filter((x: any) => x.phase_id === currentId)[0]?.code_status_type_id;  
     datasets.postData(SERVER.CREATE_STATUS_GROUP, 
       {
         project_id: dataProject.d.project_id,
@@ -427,10 +437,9 @@ let items = [
       }, datasets.getToken()).then(async res => {
         saveCB();
         setVisible(false);
-        if(setOpenPiney){
-          setOpenPiney(false);
-          setOpenPiney(true);
-        }
+        setOpenPiney(false);
+        setUpdatedGroup(originPhase);
+        setSecondaryUpdatedGroup(currentStatus);     
       });
   }
 
