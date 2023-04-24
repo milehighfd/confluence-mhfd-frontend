@@ -137,7 +137,7 @@ const CardInformationView = ({
       },
       {
         key: 'popup-favorite',
-        label: <span className="menu-item-text" /* style={{ cursor: 'auto', opacity: 0.5 }} */>Favorite Card</span>
+        label: <span className="menu-item-text" /* style={{ cursor: 'auto', opacity: 0.5 }} */>{data.isFavorite ? 'Unfavorite Card':'Favorite Card'}</span>
       },
       {
         key: 'popup-comment',

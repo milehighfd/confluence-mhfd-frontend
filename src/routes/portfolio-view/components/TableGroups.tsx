@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
+import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs, Tooltip } from 'antd';
 import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
 import DetailModal from "routes/detail-page/components/DetailModal";
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
@@ -91,8 +91,13 @@ const TableGroups = ({
                 //setHoverTable(-1)
               }}
             ></div>
-            {data.value}
-            <div style={{ display: 'flex', marginLeft: 'auto', gap: '5px', alignItems:'center' }}>
+            <Tooltip placement="top" title={data.value}>
+            <span style={{maxWidth: '79%',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',}}>{data.value}</span>
+                  </Tooltip>
+            <div style={{ display: 'flex', gap: '5px', alignItems:'center' }}>
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);

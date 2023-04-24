@@ -993,11 +993,11 @@
     }
   }
    .ant-collapse-header{
-     width: 20.95% !important;  
+     width: 20.85% !important;  
      border-right: 1px solid #E3E5E5;
    }
    .ant-collapse-header-text{
-    width: 100% !important;
+    width: calc(100% - 24px) !important;
    }
   .search{
     //overflow-y: hidden;
@@ -4553,6 +4553,8 @@
 .header-group {  
   display: flex;
   width: 100%; 
+  flex-direction: row;
+  justify-content: space-between;
 }
 // .ant-empty-image svg {
 //   height: 100%;
