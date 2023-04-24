@@ -83,7 +83,6 @@ const ModalTollgate = ({
     const type = duration.trim()[0];
     return type;
   };
-  console.log(dataProject)
   const propagateDates = (array: any, index: number) => {
     let newDates: any = [...array];
     const reversed = newDates.slice(0, index + 1).reverse();
@@ -205,10 +204,10 @@ const ModalTollgate = ({
   };
   useEffect(() => {
     const currentId = dataProject?.d?.phaseId;
-    const currentStatus = dataProject?.scheduleList?.filter((x: any) => x.phase_id === currentId)[0]?.code_status_type_id;
+    const currentStatus = dataProject?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id;
     setOriginPhase(currentStatus);
     setDates(dataProject?.scheduleList?.map((x:any)=>{
-      const date = dataProject?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);
+      const date = dataProject?.d?.schedule.find((z:any) => z.phaseId === x.phase_id);   
       let duration = 0;
       if (date?.from && moment(date?.from).isValid() && date?.to && moment(date?.to).isValid()){
         duration =  Math.round(Math.abs(moment(date?.from).diff(moment(date?.to), 'M')));
@@ -428,8 +427,8 @@ let items = [
     setCalendarPhase(0)
   }
   function sendData() {
-    const currentId = dates?.filter((x: any) => x.current)[0]?.phase_id;
-    const currentStatus = dataProject.scheduleList?.filter((x: any) => x.phase_id === currentId)[0]?.code_status_type_id;  
+    const currentId = dates?.find((x: any) => x.current)?.phase_id;
+    const currentStatus = dataProject.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id;  
     datasets.postData(SERVER.CREATE_STATUS_GROUP, 
       {
         project_id: dataProject.d.project_id,
