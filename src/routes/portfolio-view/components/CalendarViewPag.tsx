@@ -54,6 +54,8 @@ const CalendarViewPag = ({
   userName,
   filterPagination,
   setFilterPagination,
+  updatedGroup,
+  secondaryUpdatedGroup,
 }: {
   rawData: any,
   groupsBy: any,
@@ -86,6 +88,8 @@ const CalendarViewPag = ({
   userName: any,
   filterPagination: any,
   setFilterPagination: any,
+  updatedGroup: any,
+  secondaryUpdatedGroup: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -155,7 +159,7 @@ const CalendarViewPag = ({
   useEffect(() => {
     let z = []
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
-      .then((rows) => {
+      .then((rows) => {        
         setPhaseList(rows)
         setStatusCounter(rows.length)
         let counter = 0;
@@ -174,7 +178,8 @@ const CalendarViewPag = ({
               tasksData: x.code_rule_action_items,
               duration: x.duration,
               duration_type: x.duration_type,
-              code_phase_type_id: x.code_phase_type_id
+              code_phase_type_id: x.code_phase_type_id,
+              code_status_type_id: x.code_status_type?.code_status_type_id,
             })
         })
         setScheduleList(z);
@@ -233,7 +238,8 @@ const CalendarViewPag = ({
           setCurrentGroup={setCurrentGroup}
           setSearchWord={setSearchWord}
           searchWord={searchWord}
-          fullData={rawData}></SearchDropdown>
+          fullData={rawData}
+          setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="calendar-body" id="widthDivforChart">
@@ -334,6 +340,8 @@ const CalendarViewPag = ({
                   setPopUpData={setPopUpData}
                   filterPagination={filterPagination}
                   setFilterPagination={setFilterPagination}
+                  updatedGroup={updatedGroup}
+                  secondaryUpdatedGroup={secondaryUpdatedGroup}
                 />
               </div>
             )

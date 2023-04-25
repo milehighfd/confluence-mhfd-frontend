@@ -149,7 +149,8 @@ const PhaseViewPag = ({
               tasksData: x.code_rule_action_items,
               duration: x.duration,
               duration_type: x.duration_type,
-              code_phase_type_id: x.code_phase_type_id
+              code_phase_type_id: x.code_phase_type_id,
+              code_status_type_id: x.code_status_type?.code_status_type_id,
             })
         })
         setScheduleList(z);
@@ -183,7 +184,6 @@ const PhaseViewPag = ({
       setDetailGroup(valuesGroups.groups)
     })
   }, [currentGroup])
-  console.log(userName)
   return <>
     {openPiney && (
       <div className="phaseview-body">
@@ -208,7 +208,8 @@ const PhaseViewPag = ({
           setCurrentGroup={setCurrentGroup}
           setSearchWord={setSearchWord}
           searchWord={searchWord}
-          fullData={rawData}></SearchDropdown>
+          fullData={rawData}
+          setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="phaseview-body">

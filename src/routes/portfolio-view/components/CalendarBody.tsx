@@ -68,6 +68,8 @@ const CalendarBody = ({
   setPopUpData,
   filterPagination,
   setFilterPagination,
+  updatedGroup,
+  secondaryUpdatedGroup,
 }: {
   currentGroup: any,
   groupCollapsed: any,
@@ -112,6 +114,8 @@ const CalendarBody = ({
   setPopUpData: Function,
   filterPagination: any,
   setFilterPagination: Function,
+  updatedGroup: any,
+  secondaryUpdatedGroup: any,
 }) => {
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
@@ -137,6 +141,7 @@ const CalendarBody = ({
   const [svgState, setSvgState] = useState<any>();
   const [svgAxisState, setSvgAxisState] = useState<any>();
   const [resultCounter, setResultCounter] = useState<any>(0);
+  const [updateForDates, setUpdateForDates] = useState<any>(false);
 
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
@@ -162,16 +167,16 @@ const CalendarBody = ({
             (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
   let factortransformSVG = 
-  (windowWidth >= 3001 && windowWidth <= 3999 ? -75 : 
-    (windowWidth >= 2550 && windowWidth <= 3000 ? -65 : 
-      (windowWidth >= 1450 && windowWidth <= 2000 ? -50 : 
-        (windowWidth >= 2001 && windowWidth <= 2549 ? -50 : 
+  (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 
+    (windowWidth >= 2550 && windowWidth <= 3000 ? 0 : 
+      (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : 
+        (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : 
           (windowWidth >= 1199 && windowWidth <= 1449 ? 8 : 8)))));
   let heigthOfHeaderAxis =
-    (windowWidth >= 3001 && windowWidth <= 3999 ? 123.02 :
-      (windowWidth >= 2550 && windowWidth <= 3000 ? 120.77 :
+    (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
+      (windowWidth >= 2550 && windowWidth <= 3000 ? 70 :
         (windowWidth >= 1450 && windowWidth <= 1500 ? 93.06 :
-          (windowWidth >= 1501 && windowWidth <= 1700 ? 82.06 :
+          (windowWidth >= 1501 && windowWidth <= 2000 ? 50 :
             (windowWidth >= 2001 && windowWidth <= 2549 ? 100 :
               (windowWidth >= 1199 && windowWidth <= 1449 ? 50 : 79))))));
   let separationHeaderAxisYear = (windowWidth >= 3001 && windowWidth <= 3999 ? 3 : (windowWidth >= 2550 && windowWidth <= 3000 ? 6 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
@@ -232,6 +237,22 @@ const CalendarBody = ({
       .attr("stop-color", '#D4D2D9')
 
   }
+
+  useEffect(() => {        
+    let idF = '';
+    if(currentGroup === 'streams' && dataId.value !== ''){
+      idF = dataId.value;
+    }else{
+      idF = dataId.id;
+    }
+    console.log(updatedGroup, secondaryUpdatedGroup, idF)
+    if (idF === updatedGroup) {
+      setUpdateForDates(!updateForDates);
+    }
+    if (idF === secondaryUpdatedGroup) {
+      setUpdateForDates(!updateForDates);
+    }
+  }, [updatedGroup, secondaryUpdatedGroup])
 
   useEffect(() => {
     if (next && resultCounter === LIMIT_PAGINATION) {
@@ -1638,8 +1659,8 @@ const CalendarBody = ({
                 objectId: index + 1,
                 type: 'rect',
                 categoryNo: index + 1,
-                from: moment(z?.planned_start_date).isValid()?moment(z?.planned_start_date):moment(),
-                to: moment(z?.planned_end_date).isValid()?moment(z?.planned_end_date):moment(),
+                from: moment(z?.planned_start_date).isValid()?moment(z?.planned_start_date):undefined,
+                to: moment(z?.planned_end_date).isValid()?moment(z?.planned_end_date):undefined,
                 status: z?.code_phase_type?.code_status_type?.status_name,
                 name: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
                 phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
@@ -1659,8 +1680,8 @@ const CalendarBody = ({
               objectId: index + 1,
               type: 'rect',
               categoryNo: index + 1,
-              from: moment(),
-              to: moment(),
+              from: undefined,
+              to: undefined,
               status: '',
               name: '',
               phase: 0,
@@ -1680,8 +1701,8 @@ const CalendarBody = ({
             objectId: index + 1,
             type: 'rect',
             categoryNo: index + 1,
-            from: moment(),
-            to: moment(),
+            from: undefined,
+            to: undefined,
             status: '',
             name: '',
             phase: 0,
@@ -1818,13 +1839,15 @@ const CalendarBody = ({
   }
 
   useEffect(() => {
-    console.log('useEffect calendar body')
-    console.log(currentGroup, page, filterPagination)
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
+    let idForFilter = dataId.id;
+    if(currentGroup === 'streams' && dataId.value !== ''){
+      idForFilter = dataId.value;
+    }
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, page, filterPagination])
+  }, [ page, filterPagination,updateForDates])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

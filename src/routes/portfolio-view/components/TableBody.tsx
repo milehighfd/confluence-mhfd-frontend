@@ -38,6 +38,8 @@ const TableBody = ({
   tabKeyId,
   headerRef,
   filterPagination,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   currentGroup: any,
   dataId: any,
@@ -56,6 +58,8 @@ const TableBody = ({
   tabKeyId: any,
   headerRef: any,
   filterPagination: any,
+  updateFavorites: boolean,
+  setUpdateFavorites: Function,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -113,6 +117,30 @@ const TableBody = ({
         service_area: getServiceAreas(x?.project_service_areas || []),
         stream: getStreams(x?.project_streams || []).join(' , '),
         estimated_cost: getTotalEstimatedCost(x?.project_costs),
+        consultant: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.business_associate?.business_name || '';
+          const sa1 = pl?.code_partner_type_id || '';
+          let value = accumulator;
+          if (sa && sa1 === 3) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
+        civil_contractor: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.business_associate?.business_name || '';
+          const sa1 = pl?.code_partner_type_id || '';
+          let value = accumulator;
+          if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
         isFavorite: favorites?.some((element: { project_id: number; }) => {
           if (element.project_id === x.project_id) {
             return true;
@@ -123,12 +151,12 @@ const TableBody = ({
     }))
   }, [dataBody, favorites])
 
-  useEffect(() => {
+  useEffect(() => {   
     datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [currentGroup, filterPagination, page])
+  }, [ filterPagination, page])
 
   useEffect(() => {
     if (page != 1) {
@@ -139,11 +167,13 @@ const TableBody = ({
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
       setUpdateFavorite(!updateFavorite)
+      setUpdateFavorites(!updateFavorites)
     });
   }
   const addFunction = (email: string, id: number, table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
       setUpdateFavorite(!updateFavorite)
+      setUpdateFavorites(!updateFavorites)
     });
   }
 

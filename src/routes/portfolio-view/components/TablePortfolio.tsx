@@ -41,6 +41,8 @@ const TablePortafolio = (
     tabKeyId,
     filterPagination,
     setFilterPagination,
+    updateFavorites,
+    setUpdateFavorites,
   }
     : {
       divRef: React.MutableRefObject<any>,
@@ -73,6 +75,8 @@ const TablePortafolio = (
       tabKeyId: any,
       filterPagination: any,
       setFilterPagination: Function,
+      updateFavorites: any,
+      setUpdateFavorites: Function,
     }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -183,7 +187,8 @@ const TablePortafolio = (
             setCurrentGroup={setCurrentGroup}
             setSearchWord={setSearchWord}
             searchWord={searchWord}
-            fullData={rawData}></SearchDropdown>
+            fullData={rawData}
+            setOpenTable={setOpenTable}></SearchDropdown>
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
           <div className="table-body">
@@ -399,6 +404,9 @@ const TablePortafolio = (
                       tabKeyId={tabKeyId}
                       headerRef={headerRef}
                       filterPagination={filterPagination}
+                      updateFavorites={updateFavorites}
+                      setUpdateFavorites={setUpdateFavorites}
+                      dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                     />
                   </div>
                 )

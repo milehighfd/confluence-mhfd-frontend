@@ -60,6 +60,8 @@ const CalendarGroups = ({
   setPopUpData,
   filterPagination,
   setFilterPagination,
+  updatedGroup,
+  secondaryUpdatedGroup,
 }: {
   data: any,
   groupCollapsed: any,
@@ -102,6 +104,8 @@ const CalendarGroups = ({
   setPopUpData: any,
   filterPagination: any,
   setFilterPagination: any,
+  updatedGroup: any,
+  secondaryUpdatedGroup: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -151,7 +155,7 @@ const CalendarGroups = ({
           <CalendarBody
             currentGroup={currentGroup}
             groupCollapsed={groupCollapsed}
-            dataId={data.id}
+            dataId={data}
             tabKey={tabKey}
             next={next}
             prev={prev}
@@ -192,6 +196,8 @@ const CalendarGroups = ({
             setPopUpData={setPopUpData}
             filterPagination={filterPagination}
             setFilterPagination={setFilterPagination}
+            updatedGroup={updatedGroup}
+            secondaryUpdatedGroup={secondaryUpdatedGroup}
           ></CalendarBody>
         </Panel>
       </Collapse>

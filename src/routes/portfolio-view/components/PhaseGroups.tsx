@@ -131,7 +131,7 @@ const PhaseGroups = ({
         } key={index}>
           <PhaseBody
             currentGroup={currentGroup}
-            dataId={data.id}
+            dataId={data}
             tabKey={tabKey}
             next={next}
             prev={prev}
