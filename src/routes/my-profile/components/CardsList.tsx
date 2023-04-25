@@ -98,8 +98,10 @@ const CardsList = ({
           }
           setIsLoading(false)
           return x;
-        }));
+        }
+        ));
       });
+      setIsLoading(false)
     } else {
       setIsLoading(true)
       datasets.getData(SERVER.FAVORITE_PROBLEMS, datasets.getToken()).then(result => {
@@ -126,6 +128,7 @@ const CardsList = ({
           }
         }));
       })
+      setIsLoading(false)
     }
 
   }
