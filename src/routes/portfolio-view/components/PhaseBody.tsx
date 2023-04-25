@@ -611,8 +611,9 @@ const PhaseBody = ({
                         (windowWidth >= 1199 && windowWidth <= 1449 ? 380 : 345)))))
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
-                let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop + 120; // Delete 120 when the popup is fixed
-                let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft - 35; //Delete 35 when the popup is fixed
+                console.log('d3.event', d3.event)
+                let positionTop: any = d3.event.y - heightOfPopup-20 ; // Delete 120 when the popup is fixed
+                let positionLeft: any = d3.event.x - widthOfPopup / 2; //Delete 35 when the popup is fixed
                 setPositionModalGraphic({ left: positionLeft, top: positionTop })
                 d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
@@ -621,8 +622,8 @@ const PhaseBody = ({
               }
             })
             .on("mouseout", (d: any) => {
-              setGrapphicOpen(false);
-              setPositionModalGraphic({ left: 10000, top: 10000 })
+              // setGrapphicOpen(false);
+              // setPositionModalGraphic({ left: 10000, top: 10000 })
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
                 let indexStatus;
                 const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
