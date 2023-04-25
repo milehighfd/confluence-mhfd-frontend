@@ -13,6 +13,7 @@ import CardInformationView from 'Components/Shared/CardInformation/CardInformati
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 import { getCurrentProjectStatus } from 'utils/parsers';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const { Search } = Input;
 
@@ -25,7 +26,7 @@ const CardsList = ({
 }) => {
   const { detailed } = useDetailedState();
   const [data, setData] = useState<Array<Object>>([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const updateFavoritesAndCount = (id: number) => {
     if (type === 'Projects') {      
       setData((data: Array<Object>) => {
@@ -42,6 +43,7 @@ const CardsList = ({
 
   const getProjectCards = () =>{
     if (type === 'Projects') {
+      setIsLoading(true)
       datasets.getData(SERVER.FAVORITE_PROJECTS, datasets.getToken()).then(result => {
         setData(result.map((project: any) => {
           const projectType = project?.code_project_type?.project_type_name;
@@ -94,12 +96,15 @@ const CardsList = ({
             isFavorite: true
             // coordinates: project.coordinates[0]
           }
+          setIsLoading(false)
           return x;
         }));
       });
     } else {
+      setIsLoading(true)
       datasets.getData(SERVER.FAVORITE_PROBLEMS, datasets.getToken()).then(result => {
         setData(result.map((problem: any) => {
+          setIsLoading(false)
           return {
             cartodb_id: problem.cartodb_id,
             image: `gallery/${problem.problemtype}.png`,
@@ -166,11 +171,13 @@ const CardsList = ({
       const auxState = { ...state };
       auxState.items = state.items.concat(Array.from({ length: size }));
       setState(auxState);
+      // setIsLoading(false)
     }, 500);
   };
   return(
     <Row style={{ background: '#fff', marginTop: '-4px', marginRight: '-2px', marginLeft: '-20px', width:'100%' }} className="card-map profile-mobile" gutter={[16, 16]}>
       {/* <div style={{ width: '100%', marginBottom: '-38px' }}></div> */}
+      {isLoading && <LoadingViewOverall />}
       <div style={{ width: '100%', marginBottom: '-38px' }}>
         <InfiniteScroll
           dataLength={state.items.length}
@@ -179,7 +186,7 @@ const CardsList = ({
           height={window.innerHeight - 200}
           className="scroll-infinite-mobile"
           endMessage={''}
-          loader={state.items.length ? <h4 style={{paddingLeft:'12px'}}>Loading...</h4>: ''}>
+          loader={state.items.length ? <h4 style={{paddingLeft:'12px'}}></h4>: ''}>
           {sw ? state.items.map((i, index: number) => {
             return data[index] && <CardInformationView
               key={index}

@@ -1003,11 +1003,21 @@
     //overflow-y: hidden;
     overflow-x: hidden;
     height: 100%;
-    border-right: 1px solid #E3E5E5;
+    // border-right: 1px solid #E3E5E5;
     border-top: 1px solid transparent;
     // border-radius: 5px;
     padding: 0px 0px;
-    
+    .hr-collapse{
+      position: absolute;
+      height: 100vh;
+      z-index: 10;
+      left: 100%;
+      width: 0px;
+      top: -7px;
+      border: none;
+      width: 1px;
+      background: #e3e5e5;
+    }
     .search-body{
       overflow-y: auto;
       height: calc(100vh - 249px);
@@ -1075,7 +1085,7 @@
       align-self: center;
       padding-right: 10px;
       /* padding-top: 10px; */
-      border-right: 1px solid #e3e5e5;
+      // border-right: 1px solid #e3e5e5;
       margin-right: -2px;
     }
     .ant-collapse-content > .ant-collapse-content-box {
@@ -1109,7 +1119,7 @@
       width: 100.3%;
       padding: 8.5px 10px;
       align-items: center;
-      border-right: 1px solid #E3E5E5;
+      // border-right: 1px solid #E3E5E5;
       p{
         margin-bottom: 0px;
         color: #706b8a !important;

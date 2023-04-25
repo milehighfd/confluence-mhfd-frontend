@@ -282,7 +282,7 @@ const TableBody = ({
     />}
     <div className="table-body">
       <Row>
-        <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{zIndex:2, borderRight: '1px solid #eaebeb'}}>
+        <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{zIndex:2}}>
           {
             dataParsed.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}

@@ -114,6 +114,7 @@ const SearchDropdown = (
             </a>
           </div>
         </Dropdown>
+        <hr className="hr-collapse"/>
       </div>
     </div>
   </>
