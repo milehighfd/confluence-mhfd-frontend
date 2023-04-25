@@ -79,6 +79,19 @@ const FiltersProjectView = ({
     useEffect(() => {
         getTabCounters(boundsMap, filterProblemOptions, filterProjectOptions, filterComponentOptions);
     }, [])
+
+    const getTotalValue = (tabindex: number) => {
+        switch (tabindex) {
+            case 0:
+                return totals.problems;
+            case 1:
+                return galleryProjectsV2.count;
+            case 2:
+                return totals.components;
+            default:
+                break;
+        }
+    }
     return <>
         { <Tabs activeKey={tabPosition} tabBarExtraContent={genExtra()} onChange={(key) => setTabPosition(key)} className="tabs-map over-00" onTabClick={(e: string) => {
             if (e === '0') {
@@ -106,7 +119,7 @@ const FiltersProjectView = ({
             {tabs.map((value: string, index: number) => {
                 let tabLabel;
                 if (`${index}` === tabActive) {
-                    let total = (index === 0) ? totals.problems : (index === 1 ? galleryProjectsV2.length : totals.components);
+                    let total = getTotalValue(index);
                     let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     tabLabel = `${value === 'Components' ? 'Actions' : value} (${totalLabel})`;
                 } else {
