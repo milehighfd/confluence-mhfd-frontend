@@ -4,7 +4,7 @@ import { getGroupList } from "./ListUtils";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
-CONTRACTOR = 'contractor', STREAMS = 'streams';
+CONTRACTOR = 'contractor', STREAMS = 'streams' , STAFF = 'staff';
 export const FilterByGroupName = ({
   setFilterby, setFiltervalue, setFiltername
 }: {
@@ -17,6 +17,7 @@ export const FilterByGroupName = ({
   const [jurisdictionList, setJurisdictionList] = useState([]);
   const [consultantList, setConsultantList] = useState([]);
   const [contractorList, setContractorList] = useState([]);
+  const [staffList, setStaffList] = useState([]);
   const [activeDrop, setActiveDrop] = useState('MHFD District Plan');
 
   const parseToMenuItem = (list: any, filterby: string) => {
@@ -64,6 +65,10 @@ export const FilterByGroupName = ({
       const groups = valuesGroups.groups;
       setContractorList(parseToMenuItem(groups, CONTRACTOR));
     });
+    getGroupList(STAFF).then((valuesGroups) => {
+      const groups = valuesGroups.groups;
+      setStaffList(parseToMenuItem(groups, STAFF));
+    });
   }, []);
 
   // useEffect(()=>{
@@ -88,13 +93,7 @@ export const FilterByGroupName = ({
           key: '1',
           label: 'MHFD Lead/PM',
           className: activeDrop === 'MHFD Lead/PM' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
-          children: [
-            {
-              key: 'nodata',
-              label: 'None',
-              className:'menu-drop-sub-sub'
-            }
-          ],
+          children: staffList,
         },
         {
           key: '2',
