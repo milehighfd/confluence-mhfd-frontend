@@ -148,7 +148,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     'Jurisdiction',
     'County',
     'Service Area',
-    'Streams',
     'MHFD Lead/PM',
     'Consultant',
     'Contractor'
