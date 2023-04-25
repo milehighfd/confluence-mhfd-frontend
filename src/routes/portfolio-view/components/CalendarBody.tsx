@@ -296,7 +296,7 @@ const CalendarBody = ({
       }
 
       svg = d3
-        .select(`#timeline-chart-${groupName}`)
+        .select(`#timeline-chart-${groupName.replaceAll(' ', '')}`)
         .append('svg')
         .attr('width', width)
         .attr('height', height)
@@ -1921,7 +1921,7 @@ const CalendarBody = ({
             }}
           > */}
             <div style={{ marginTop: marginTopFactor }}>
-              <div style={{ height: calendarData.length=1*39 }} id={`timeline-chart-${groupName}`} />
+              <div style={{ height: calendarData.length=1*39 }} id={`timeline-chart-${groupName.replaceAll(' ', '')}`} />
               {/* <img src="/picture/Maps.png" alt="" width="100%" onClick={() => {setOpenPiney(true)}}/>*/}
             </div>
           {/* </div> */}
