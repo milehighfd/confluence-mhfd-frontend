@@ -938,7 +938,7 @@ export const USER = {
 }
 export const RADIO_ITEMS = [
   {
-    value: 'admin', name: 'MHFD Admin'
+    value: 'admin', name: 'MHFD Senior Manager'
   }, {
     value: 'staff', name: 'MHFD Staff'
   }, {
@@ -946,7 +946,7 @@ export const RADIO_ITEMS = [
   }, {
     value: 'consultant', name: 'Consultant / Contractor'
   }, {
-    value: 'other', name: 'Public'
+    value: 'other', name: 'Other'
   }
 ]
 

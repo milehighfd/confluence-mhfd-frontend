@@ -25,7 +25,6 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
     auxOption.serviceArea = serviceArea;
     setOption(auxOption);
     search(auxOption);
-    console.log(organization);
   }, [organization, serviceArea]);
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
@@ -53,7 +52,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
             auxOption.serviceArea = val;
             break;
           case 'designation':
-            auxOption.designation = event.key.split('|')[0] !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';
+            auxOption.designation = event.key.split('|')[0] !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';            
             break;
           default:
             auxOption.sort = SORT_ITEMS.filter(item => item.name === val)[0].value;
