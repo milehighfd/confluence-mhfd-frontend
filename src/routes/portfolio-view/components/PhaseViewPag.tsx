@@ -293,6 +293,7 @@ const PhaseViewPag = ({
                     filterPagination={filterPagination}
                     updateFavorites={updateFavorites}
                     setUpdateFavorites={setUpdateFavorites}
+                    dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                   />
                 </div>
               )

@@ -259,6 +259,7 @@ export const SERVER = (function () {
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}/${group}`,
+        GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${COUNT}/${groupname}/${group}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
         UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/board/update-budget/${id}`,
         GET_CONFIGURATIONS: (key: string) => {

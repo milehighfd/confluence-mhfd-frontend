@@ -61,6 +61,7 @@ const TableGroups = ({
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
+  const [counter, setCounter] = useState([]);
   const getActiveKeys = () => {
     const indices = openTable.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
@@ -68,6 +69,13 @@ const TableGroups = ({
     );
     return indices;
   }
+  useEffect(() => {
+    if(currentGroup !== 'streams'){
+      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+        setCounter(res.count)
+      })
+    }    
+  },[tabKeyId,filterPagination])
 
   return <>
     <div  className="table-body2" id={data.id} key={data.id}>
@@ -89,7 +97,7 @@ const TableGroups = ({
             <span style={{width: '100%',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',}}>{data.value}</span>
+                textOverflow: 'ellipsis',}}>{`${data.value} (${counter})`}</span>
            </div>
             
             <div className="btn-collapse">

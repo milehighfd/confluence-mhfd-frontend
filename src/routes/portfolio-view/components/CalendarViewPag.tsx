@@ -349,6 +349,7 @@ const CalendarViewPag = ({
                   secondaryUpdatedGroup={secondaryUpdatedGroup}
                   updateFavorites={updateFavorites}
                   setUpdateFavorites={setUpdateFavorites}
+                  dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                 />
               </div>
             )
