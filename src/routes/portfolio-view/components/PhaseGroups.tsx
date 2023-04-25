@@ -114,15 +114,14 @@ const PhaseGroups = ({
         } className=''
       >   
         <Panel header={
-          <div style={{ display: 'flex', width: '100%' }}>
-            <div
-              className="line-table"
-              onMouseEnter={e => {
-                //setHoverTable(-1)
-              }}
-            ></div>
-            {data.value}
-            <div style={{ display: 'flex', marginLeft: 'auto', gap: '5px', alignItems: 'center' }}>
+          <div  className="header-group">
+            <div style={{display: 'flex', maxWidth: '79%', alignItems: 'center'}}>
+              <span style={{width: '100%',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',}}>{data.value}</span>
+            </div>
+            <div className="btn-collapse">
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);
