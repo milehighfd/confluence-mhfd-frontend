@@ -743,7 +743,7 @@ const PhaseBody = ({
     />}        
     <div >
       <Row>
-        <Col xs={{ span: 10 }} lg={{ span: 5 }}>
+        <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{borderRight: '1px solid #eaebeb'}}>
           {
             phaseData.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}

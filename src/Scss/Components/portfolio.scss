@@ -1070,7 +1070,8 @@
       display: flex;
       gap: 5px;
       align-items: center;
-      height: 53px;
+      // height: 53px;
+      height: 39px;
       align-self: center;
       padding-right: 10px;
       /* padding-top: 10px; */
@@ -2693,6 +2694,7 @@
   .search{
     .btn-collapse{
       margin-right: -2.5px !important;
+      height: 53px !important;
     }
     .search-head{
       padding: 0px 16px !important;
