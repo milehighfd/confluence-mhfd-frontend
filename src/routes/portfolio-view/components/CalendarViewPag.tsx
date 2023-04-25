@@ -118,9 +118,10 @@ const CalendarViewPag = ({
   let totalLabelWidth = phaseList.length * labelWidth;
   let heightSearchBody = document.getElementById("rc-tabs-0-panel-CIP")?.offsetHeight
   let heightSearchBody2 = document.getElementById("rc-tabs-1-panel-CIP")?.offsetHeight
-  let heightSearchHeader = document.getElementById('widthDivforChart')?.offsetHeight
+  let heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
+  let heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
   let heightSearchB = (heightSearchBody ? heightSearchBody: heightSearchBody2)
-  let heightSearch = (heightSearchB && heightSearchHeader) && heightSearchB-heightSearchHeader
+  let heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest-heightSearchHeader
   let marginReducerHeaderAxis =
     (windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' :
       (windowWidth >= 2550 && windowWidth <= 3000 ? '-5.9px' :

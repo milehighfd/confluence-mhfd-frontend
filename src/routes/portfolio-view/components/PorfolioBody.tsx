@@ -727,6 +727,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
               </div>}
         </div>
         <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[1]}
+          id="tabsPM"
           activeKey={tabKey}
           onChange={(key) => changeTabkey(key)} className="tabs-map">
           {

@@ -171,10 +171,10 @@ const CalendarBody = ({
             (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
   let factortransformSVG = 
-  (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 
-    (windowWidth >= 2550 && windowWidth <= 3000 ? 0 : 
-      (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : 
-        (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : 
+  (windowWidth >= 3001 && windowWidth <= 3999 ? 8 : 
+    (windowWidth >= 2550 && windowWidth <= 3000 ? 8 : 
+      (windowWidth >= 1450 && windowWidth <= 2000 ? 8 : 
+        (windowWidth >= 2001 && windowWidth <= 2549 ? 8 : 
           (windowWidth >= 1199 && windowWidth <= 1449 ? 8 : 8)))));
   let heigthOfHeaderAxis =
     (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
@@ -286,7 +286,8 @@ const CalendarBody = ({
       let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8) : barHeightDefault;
       let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight) : 12;
       let padding = { top: 38, right: 10, bottom: 10, left: -0 };
-      let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
+      // let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
+      let height = (heightDiv[0].offsetHeight * 15) + padding.bottom + padding.top;
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechartAxis);
       if (svg) {
@@ -371,7 +372,7 @@ const CalendarBody = ({
         let yScale = d3
           .scaleBand()
           .domain(datasets.map((d: any) => d.id))
-          .range([padding.top + screenOffset, height - padding.bottom + screenOffset]);
+          .range([padding.top, height - padding.bottom + screenOffset]);
         let chartHeight = height - padding.top - padding.bottom;
         let timeFormatterForYears: any = d3.timeFormat('%Y');
         let timeFormatterForMonths: any = d3.timeFormat('%B');
@@ -802,61 +803,63 @@ const CalendarBody = ({
         hasDateData = true
 
         let h = yScale.bandwidth();
-        leftLine = dragableLineLeft
-          .append('line')
-          .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_left`;
-          })
-          .attr('class', 'dragginglinesLeft')
-          .attr('x1', function (d: any) {
-            let xScaleFrom: any = (xScale(d['from']) || 0);
-            return xScaleFrom - dragableLineHalf + 3;
-          })
-          .attr('x2', function (d: any) {
-            let xScaleFrom: any = (xScale(d['from']) || 0);
-            return xScaleFrom - dragableLineHalf + 3;
-          })
-          .attr('y1', function (d: any) {
-            let yScaleId: any = (yScale(d['id']) || 0);
-            let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 100 : 0)
-            return yScaleId + h + yScaleFactor;
-          })
-          .attr('y2', function (d: any) {
-            let yScaleId: any = (yScale(d['id']) || 0);
-            let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
-            return yScaleId + h + 8 + yScaleFactor;
-          })
-          .style('visibility', (d: any) => {
-            return d.show ? 'visible' : 'hidden'
-          });
 
-        hasDateData = true
+        // commented to disable left and right dragging lines 
+        // leftLine = dragableLineLeft
+        //   .append('line')
+        //   .attr('id', function (d: any) {
+        //     return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_left`;
+        //   })
+        //   .attr('class', 'dragginglinesLeft')
+        //   .attr('x1', function (d: any) {
+        //     let xScaleFrom: any = (xScale(d['from']) || 0);
+        //     return xScaleFrom - dragableLineHalf + 3;
+        //   })
+        //   .attr('x2', function (d: any) {
+        //     let xScaleFrom: any = (xScale(d['from']) || 0);
+        //     return xScaleFrom - dragableLineHalf + 3;
+        //   })
+        //   .attr('y1', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 100 : 0)
+        //     return yScaleId + h + yScaleFactor;
+        //   })
+        //   .attr('y2', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
+        //     return yScaleId + h + 8 + yScaleFactor;
+        //   })
+        //   .style('visibility', (d: any) => {
+        //     return d.show ? 'visible' : 'hidden'
+        //   });
 
-        rightLine = dragableLineRight
-          .append('line')
-          .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_right`;
-          })
-          .attr('class', 'dragginglinesRight')
-          .attr('x1', function (d: any) {
-            let xScaleTo: any = (xScale(d['to']) || 0);
-            return xScaleTo - dragableLineHalf - 3;
-          })
-          .attr('x2', function (d: any) {
-            let xScaleTo: any = (xScale(d['to']) || 0);
-            return xScaleTo + dragableLineHalf - 3;
-          })
-          .attr('y1', function (d: any) {
-            let yScaleId: any = (yScale(d['id']) || 0);
-            return yScaleId + h - 2;
-          })
-          .attr('y2', function (d: any) {
-            let yScaleId: any = (yScale(d['id']) || 0);
-            return yScaleId + h + 8;
-          })
-          .style('visibility', (d: any) => {
-            return d.show ? 'visible' : 'hidden'
-          });
+        // hasDateData = true
+
+        // rightLine = dragableLineRight
+        //   .append('line')
+        //   .attr('id', function (d: any) {
+        //     return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_right`;
+        //   })
+        //   .attr('class', 'dragginglinesRight')
+        //   .attr('x1', function (d: any) {
+        //     let xScaleTo: any = (xScale(d['to']) || 0);
+        //     return xScaleTo - dragableLineHalf - 3;
+        //   })
+        //   .attr('x2', function (d: any) {
+        //     let xScaleTo: any = (xScale(d['to']) || 0);
+        //     return xScaleTo + dragableLineHalf - 3;
+        //   })
+        //   .attr('y1', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     return yScaleId + h - 2;
+        //   })
+        //   .attr('y2', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     return yScaleId + h + 8;
+        //   })
+        //   .style('visibility', (d: any) => {
+        //     return d.show ? 'visible' : 'hidden'
+        //   });
 
         zoomedXScale = xScale;
         let calctodayX = function (d: any) {
@@ -1071,37 +1074,38 @@ const CalendarBody = ({
           // rectNames.attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
           d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
           d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-
-          leftLine.attr('x1', calcLeftXLine).attr('x2', calcLeftXLine);
+          
           d3.selectAll('.labels').call(dotme);
-
-          let h = yScale.bandwidth() - barHeight;
-          d3.selectAll('.dragginglinesLeft')
-            .attr('x1', calcLeftXLine)
-            .attr('x2', calcLeftXLine)
-            .attr('y1', (d: any) => {
-              let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
-              return yScaleId + h + yScaleFactor;
-            })
-            .attr('y2', (d: any) => {
-              let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
-              return yScaleId + h + 13 + yScaleFactor;
-            });
-            d3.selectAll('.dragginglinesRight')
-            .attr('x1', calcRightXLine)
-            .attr('x2', calcRightXLine)
-            .attr('y1', (d: any) => {
-              let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
-              return yScaleId + h + yScaleFactor;
-            })
-            .attr('y2', (d: any) => {
-              let yScaleId: any = (yScale(d['id']) || 0);
-              let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
-              return yScaleId + h + 13 + yScaleFactor;
-            });
+          // commented to disable left and right dragging lines 
+          // leftLine.attr('x1', calcLeftXLine).attr('x2', calcLeftXLine);
+          
+          // let h = yScale.bandwidth() - barHeight;
+          // d3.selectAll('.dragginglinesLeft')
+          //   .attr('x1', calcLeftXLine)
+          //   .attr('x2', calcLeftXLine)
+          //   .attr('y1', (d: any) => {
+          //     let yScaleId: any = (yScale(d['id']) || 0);
+          //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
+          //     return yScaleId + h + yScaleFactor;
+          //   })
+          //   .attr('y2', (d: any) => {
+          //     let yScaleId: any = (yScale(d['id']) || 0);
+          //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
+          //     return yScaleId + h + 13 + yScaleFactor;
+          //   });
+          //   d3.selectAll('.dragginglinesRight')
+          //   .attr('x1', calcRightXLine)
+          //   .attr('x2', calcRightXLine)
+          //   .attr('y1', (d: any) => {
+          //     let yScaleId: any = (yScale(d['id']) || 0);
+          //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
+          //     return yScaleId + h + yScaleFactor;
+          //   })
+          //   .attr('y2', (d: any) => {
+          //     let yScaleId: any = (yScale(d['id']) || 0);
+          //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 11 : 2)
+          //     return yScaleId + h + 13 + yScaleFactor;
+          //   });
         };
         scheduleRects.on('mousemove', function () {
           if (d3.event.target.className.animVal === 'agrupationbar') {
