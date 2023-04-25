@@ -62,6 +62,8 @@ const CalendarGroups = ({
   setFilterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   data: any,
   groupCollapsed: any,
@@ -106,6 +108,8 @@ const CalendarGroups = ({
   setFilterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
+  updateFavorites: any,
+  setUpdateFavorites: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -198,6 +202,8 @@ const CalendarGroups = ({
             setFilterPagination={setFilterPagination}
             updatedGroup={updatedGroup}
             secondaryUpdatedGroup={secondaryUpdatedGroup}
+            updateFavorites={updateFavorites}
+            setUpdateFavorites={setUpdateFavorites}
           ></CalendarBody>
         </Panel>
       </Collapse>

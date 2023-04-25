@@ -56,6 +56,8 @@ const CalendarViewPag = ({
   setFilterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   rawData: any,
   groupsBy: any,
@@ -90,6 +92,8 @@ const CalendarViewPag = ({
   setFilterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
+  updateFavorites: any,
+  setUpdateFavorites: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -342,6 +346,8 @@ const CalendarViewPag = ({
                   setFilterPagination={setFilterPagination}
                   updatedGroup={updatedGroup}
                   secondaryUpdatedGroup={secondaryUpdatedGroup}
+                  updateFavorites={updateFavorites}
+                  setUpdateFavorites={setUpdateFavorites}
                 />
               </div>
             )

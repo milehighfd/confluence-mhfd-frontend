@@ -58,6 +58,8 @@ const PhaseBody = ({
   headerRef,
   filterPagination,
   setFilterPagination,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   currentGroup: any,
   dataId: any,
@@ -91,6 +93,8 @@ const PhaseBody = ({
   headerRef: any,
   filterPagination: any,
   setFilterPagination: Function,
+  updateFavorites: any,
+  setUpdateFavorites: Function,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -713,12 +717,14 @@ const PhaseBody = ({
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite)
+      setUpdateFavorite(!updateFavorite);
+      setUpdateFavorites(!updateFavorites);
     });
   }
   const addFunction = (email: string, id: number, table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite)
+      setUpdateFavorite(!updateFavorite);
+      setUpdateFavorites(!updateFavorites);
     });
   }
   const removeAllChildNodes = (parent: any) => {

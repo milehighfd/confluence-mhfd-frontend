@@ -70,6 +70,8 @@ const CalendarBody = ({
   setFilterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   currentGroup: any,
   groupCollapsed: any,
@@ -116,6 +118,8 @@ const CalendarBody = ({
   setFilterPagination: Function,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
+  updateFavorites: any,
+  setUpdateFavorites: Function,
 }) => {
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
@@ -1851,12 +1855,14 @@ const CalendarBody = ({
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite)
+      setUpdateFavorite(!updateFavorite);
+      setUpdateFavorites(!updateFavorites);
     });
   }
   const addFunction = (email: string, id: number, table: string) => {
     datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite)
+      setUpdateFavorite(!updateFavorite);
+      setUpdateFavorites(!updateFavorites);
     });
   }
   const removeAllChildNodes = (parent: any) => {

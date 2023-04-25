@@ -50,6 +50,8 @@ const PhaseGroups = ({
   headerRef,
   filterPagination,
   setFilterPagination,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -81,6 +83,9 @@ const PhaseGroups = ({
   headerRef: any,
   filterPagination: any,
   setFilterPagination: any,
+  updateFavorites: any,
+  setUpdateFavorites: any,
+
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -162,6 +167,8 @@ const PhaseGroups = ({
             headerRef={headerRef}
             filterPagination={filterPagination}
             setFilterPagination={setFilterPagination}
+            updateFavorites={updateFavorites}
+            setUpdateFavorites={setUpdateFavorites}
           ></PhaseBody>
         </Panel>
       </Collapse>

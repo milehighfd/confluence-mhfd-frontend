@@ -831,6 +831,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         userName={appUser.userInformation?.name}                        
                         filterPagination={filterPagination}
                         setFilterPagination={setFilterPagination}
+                        updateFavorites={updateFavorites}
+                        setUpdateFavorites={setUpdateFavorites}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
@@ -901,6 +903,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       setFilterPagination={setFilterPagination}
                       updatedGroup={updatedGroup}
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
+                      updateFavorites={updateFavorites}
+                      setUpdateFavorites={setUpdateFavorites}
                     />    
                     
                     }
