@@ -2301,6 +2301,9 @@
   display: none; 
 }
 @media (min-width: 1900px) and (max-width: 2549px){
+  .phase-groups{
+    height: calc(100vh - 282px) !important;
+  }
   .table-body2{   
     .line-table{
       height: 53.07px !important;
@@ -3064,6 +3067,9 @@
 }
 
 @media (min-width: 2555px) and (max-width: 3799px){
+  .phase-groups{
+    height: calc(100vh - 282px) !important;
+  }
   .table-body2{   
     .line-table{
       height: 63.78px !important;
@@ -3776,6 +3782,9 @@
   }
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .phase-groups{
+    height: calc(100vh - 282px) !important;
+  }
   .table-body2{   
     .line-table{
       height: 73.06px !important;
@@ -4577,7 +4586,7 @@
   }  
 }
 .phase-groups{
-  height: calc(100vh - 117px)
+  height: calc(100vh - 249px)
 }
 
 .container-phase {
