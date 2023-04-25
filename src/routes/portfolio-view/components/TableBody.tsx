@@ -7,7 +7,7 @@ import * as datasets from "../../../Config/datasets";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
-import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from "utils/parsers";
+import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from "utils/parsers";
 import { LIMIT_PAGINATION } from "../../../constants/constants";
 
 const { TabPane } = Tabs;
@@ -102,6 +102,8 @@ const TableBody = ({
         project_status: x?.project_statuses?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
         phase: getCurrentProjectStatus(x)?.code_phase_type?.phase_name,
         phaseId: getCurrentProjectStatus(x)?.code_phase_type_id,
+        county: getCounties(x?.project_counties || []),
+        project_sponsor: getSponsors(x.project_partners),
         mhfd: x?.project_staffs.reduce((accumulator: string, pl: any) => {
           const sa = pl?.mhfd_staff?.full_name || '';
           const sa1 = pl?.code_project_staff_role_type_id || '';
@@ -141,6 +143,30 @@ const TableBody = ({
           }
           return value;
         }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
+        local_government: x?.project_local_governments.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
+          let value = accumulator;
+          if (sa) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''),
+        construction_start_date: x?.project_status?.code_phase_type?.code_phase_type_id === 125 ? x?.project_status?.planned_start_date : x?.project_status?.actual_start_date, //elem?.construction_start_date,
+        landscape_contractor: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.business_associate?.business_name || '';
+          const sa1 = pl?.code_partner_type_id || '';
+          let value = accumulator;
+          if (sa && sa1 === 9) {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''), // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
         isFavorite: favorites?.some((element: { project_id: number; }) => {
           if (element.project_id === x.project_id) {
             return true;
