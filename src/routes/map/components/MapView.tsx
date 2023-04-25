@@ -852,7 +852,6 @@ const MapView = () => {
   const isActiveDrop = (element: any) =>{
     let valueActive = ""
     if(tabActive === '0'){
-      console.log(filterProblemOptions, 'filterProblemOptions');
       if(filterProblemOptions.column === element.name){
         valueActive = "item-active-dropdown-color"
       }else{

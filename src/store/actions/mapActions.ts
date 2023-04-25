@@ -294,7 +294,7 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
 }
 
 export const getGalleryProblems = () => {
-    const coordinates = store.getState().map.filterCoordinates;
+    const coordinates: any = store.getState().map.filterCoordinates;
     const filterOptions = store.getState().map.filterProblemOptions;
     const filterComponent = store.getState().map.filterComponentOptions;
     return (dispatch: Function) => {
@@ -329,7 +329,6 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
         datasets.getToken(),
       )
       .then(galleryProjects => {
-        console.log(galleryProjects);
         dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
         dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
       });
