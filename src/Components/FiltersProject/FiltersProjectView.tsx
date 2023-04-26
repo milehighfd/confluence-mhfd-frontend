@@ -106,7 +106,7 @@ const FiltersProjectView = ({
             {tabs.map((value: string, index: number) => {
                 let tabLabel;
                 if (`${index}` === tabActive) {
-                    let total = (index === 0) ? totals.problems : (index === 1 ? galleryProjectsV2.length : totals.components);
+                    let total = (index === 0) ? totals.problems : (index === 1 ? galleryProjectsV2.count : totals.components);
                     let totalLabel = `${total}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     tabLabel = `${value === 'Components' ? 'Actions' : value} (${totalLabel})`;
                 } else {
