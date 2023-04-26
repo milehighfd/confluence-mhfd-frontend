@@ -62,6 +62,9 @@ const CalendarGroups = ({
   setFilterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
+  updateFavorites,
+  setUpdateFavorites,
+  dataId,
 }: {
   data: any,
   groupCollapsed: any,
@@ -106,9 +109,14 @@ const CalendarGroups = ({
   setFilterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
+  updateFavorites: any,
+  setUpdateFavorites: any,
+  dataId: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
+  const [counter, setCounter] = useState([]);
+
   const getActiveKeys = () => {
     const indices = openTable.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
@@ -116,6 +124,13 @@ const CalendarGroups = ({
     );
     return indices;
   }
+  useEffect(() => {
+    if(currentGroup !== 'streams'){
+      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
+        setCounter(res.count)
+      })
+    }    
+  },[tabKey,filterPagination])
 
   return <>
     <div  className="table-body2" id={data.id} key={data.id} style={{overflowY:'hidden', overflowX: 'hidden'}}>
@@ -132,15 +147,14 @@ const CalendarGroups = ({
         } className=''
       >   
         <Panel header={
-          <div style={{ display: 'flex', width: '100%' }}>
-            <div
-              className="line-table"
-              onMouseEnter={e => {
-                //setHoverTable(-1)
-              }}
-            ></div>
-            {data.value}
-            <div style={{ display: 'flex', marginLeft: 'auto', gap: '5px', alignItems:'center' }}>
+          <div className="header-group">
+            <div style={{display: 'flex', maxWidth: '79%', alignItems: 'center'}}>
+            <span style={{width: '100%',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',}}>{`${data.value} (${counter})`}</span>
+           </div>
+            <div className="btn-collapse">
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);
@@ -198,6 +212,8 @@ const CalendarGroups = ({
             setFilterPagination={setFilterPagination}
             updatedGroup={updatedGroup}
             secondaryUpdatedGroup={secondaryUpdatedGroup}
+            updateFavorites={updateFavorites}
+            setUpdateFavorites={setUpdateFavorites}
           ></CalendarBody>
         </Panel>
       </Collapse>

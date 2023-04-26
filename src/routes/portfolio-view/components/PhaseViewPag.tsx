@@ -49,6 +49,8 @@ const PhaseViewPag = ({
   userName,
   filterPagination,
   setFilterPagination,
+  updateFavorites,
+  setUpdateFavorites,
 }: {
   rawData: any,
   groupsBy: any,
@@ -76,6 +78,8 @@ const PhaseViewPag = ({
   userName: any,
   filterPagination: any,
   setFilterPagination: any,
+  updateFavorites: any,
+  setUpdateFavorites: any,
 }) => {
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
@@ -287,6 +291,9 @@ const PhaseViewPag = ({
                     headerRef={headerRef}
                     setFilterPagination={setFilterPagination}
                     filterPagination={filterPagination}
+                    updateFavorites={updateFavorites}
+                    setUpdateFavorites={setUpdateFavorites}
+                    dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                   />
                 </div>
               )

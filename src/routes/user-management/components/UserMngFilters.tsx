@@ -6,6 +6,7 @@ import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { Option } from 'antd/lib/mentions';
 import SelectOrganization from 'routes/Utils/SelectOrganization';
 import SelectServiceArea from 'routes/Utils/SelectServiceArea';
+import SelectAssociate from 'routes/Utils/SelectAssociate';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation', 'Date Registered'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' },
@@ -25,7 +26,6 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
     auxOption.serviceArea = serviceArea;
     setOption(auxOption);
     search(auxOption);
-    console.log(organization);
   }, [organization, serviceArea]);
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
@@ -53,7 +53,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
             auxOption.serviceArea = val;
             break;
           case 'designation':
-            auxOption.designation = event.key.split('|')[0] !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';
+            auxOption.designation = event.key.split('|')[0] !== 'all' ? RADIO_ITEMS.filter(item => item.name === val)[0].value : '';            
             break;
           default:
             auxOption.sort = SORT_ITEMS.filter(item => item.name === val)[0].value;
@@ -119,11 +119,15 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       {/* </div> */}
 
       <div id={"filter-organization" + title} className="filter-area">
-        <SelectOrganization
-          organization={organization}
+        <SelectAssociate organization={organization}
           setOrganization={setOrganization}
           defaultValue={'Organization'}
           value = {organization}/>
+        {/* <SelectOrganization
+          organization={organization}
+          setOrganization={setOrganization}
+          defaultValue={'Organization'}
+          value = {organization}/> */}
       </div>
       <div id={"filter-service-area" + title} className="filter-area">
         <SelectServiceArea

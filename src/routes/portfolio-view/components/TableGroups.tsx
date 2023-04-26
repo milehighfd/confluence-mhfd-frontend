@@ -61,6 +61,7 @@ const TableGroups = ({
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
+  const [counter, setCounter] = useState([]);
   const getActiveKeys = () => {
     const indices = openTable.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
@@ -68,6 +69,13 @@ const TableGroups = ({
     );
     return indices;
   }
+  useEffect(() => {
+    if(currentGroup !== 'streams'){
+      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+        setCounter(res.count)
+      })
+    }    
+  },[tabKeyId,filterPagination])
 
   return <>
     <div  className="table-body2" id={data.id} key={data.id}>
@@ -85,19 +93,14 @@ const TableGroups = ({
       >   
         <Panel header={
           <div className="header-group">
-            <div
-              className="line-table"
-              onMouseEnter={e => {
-                //setHoverTable(-1)
-              }}
-            ></div>
-            <Tooltip placement="top" title={data.value}>
-            <span style={{maxWidth: '79%',
+           <div style={{display: 'flex', maxWidth: '79%', alignItems: 'center'}}>
+            <span style={{width: '100%',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',}}>{data.value}</span>
-                  </Tooltip>
-            <div style={{ display: 'flex', gap: '5px', alignItems:'center' }}>
+                textOverflow: 'ellipsis',}}>{`${data.value} (${counter})`}</span>
+           </div>
+            
+            <div className="btn-collapse">
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);
@@ -106,8 +109,15 @@ const TableGroups = ({
                 e.stopPropagation();
                 setNext(true);
               }} />
-
             </div>
+             {/* <div
+              className="line-table"
+              style={{ width: '79.16666667%'}}
+              onMouseEnter={e => {
+                //setHoverTable(-1)
+              }}
+            ></div> */}
+            
           </div>
         } key={index}>
           <TableBody

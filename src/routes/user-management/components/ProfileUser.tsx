@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Collapse, Dropdown, Input, Layout, Menu, MenuProps, Popover, Radio, Row, Select, Switch, Table, Tabs } from 'antd';
 import { useFormik } from 'formik';
-import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, DROPDOWN_ORGANIZATION, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, OTHER, ADMIN, STAFF, CONSULTANT } from "../../../constants/constants";
+import { CITIES, SERVICE_AREA, COUNTIES, RADIO_ITEMS, STATES_NAME, GOVERNMENT_ADMIN, GOVERNMENT_STAFF, OTHER, ADMIN, STAFF, CONSULTANT } from "../../../constants/constants";
 import { VALIDATION_USER } from "../../../constants/validation";
 import * as datasets from "../../../Config/datasets";
 // import RadioItemsView from './RadioItemsView';
@@ -124,6 +124,31 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
     </Menu>
   };
 
+  const menuStates = () => {
+    const itemMenu: MenuProps['items'] = [];
+    let dataMenu: any[] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {        
+          itemMenu.push({
+            key: element,
+            label: <span style={{ border: 'transparent' }}>{element}</span>
+          });
+          dataMenu.push({
+            ...element
+          });        
+      });
+    };
+    generateItemMenu(STATES_NAME);
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event:any) => {   
+          setState(event.key);
+      }}>
+    </Menu>
+  };
+
   const [modal, setModal] = useState(visible);
   const [, setSwitchTo] = useState<boolean>(record.activated);
   const [designation, setDesignation] = useState<string>(record.designation);
@@ -227,6 +252,12 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
   const handleChangeData = (value : any, setValue?: any) => {
     console.log('here');
     setValue(value)
+  }
+
+  const handleZipChange = (value : any, setValue?: any) => {
+    if (value.length <= 5 && (value === '' || !isNaN(value))) {
+      setValue(value)
+    }    
   }
 
 
@@ -524,7 +555,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               <Input
                 placeholder="Zip Code"
                 value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
-                onChange= {(e) => {handleChangeData(e.target.value, setZip)}}
+                onChange= {(e) => {handleZipChange(e.target.value, setZip)}}
                 style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
                 disabled={disabled}
               />
@@ -533,13 +564,18 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
               <p>STATE</p>
-              <Input
+              <Dropdown trigger={['click']} overlay={menuStates} >
+                  <Button className="btn-borde-management">
+                      State<DownOutlined />
+                  </Button>
+              </Dropdown>
+              {/* <Input
                 placeholder="State"
                 value={(state === '' && disabled ? (state !== '' ? state : values.business_associate_contact?.business_address?.state) : state)}
                 onChange= {(e) => {handleChangeData(e.target.value, setState)}}
                 style={errors.lastName && touched.lastName ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
                 disabled={disabled}
-              />
+              /> */}
             </Col>
             </>
             }
