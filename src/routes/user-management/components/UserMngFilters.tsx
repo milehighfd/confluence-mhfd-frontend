@@ -6,6 +6,7 @@ import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { Option } from 'antd/lib/mentions';
 import SelectOrganization from 'routes/Utils/SelectOrganization';
 import SelectServiceArea from 'routes/Utils/SelectServiceArea';
+import SelectAssociate from 'routes/Utils/SelectAssociate';
 
 const SORT = ['Name', 'Organization', 'Service Area', 'Designation', 'Date Registered'];
 const SORT_ITEMS = [{ name: 'Name', value: 'name' },
@@ -118,11 +119,15 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       {/* </div> */}
 
       <div id={"filter-organization" + title} className="filter-area">
-        <SelectOrganization
-          organization={organization}
+        <SelectAssociate organization={organization}
           setOrganization={setOrganization}
           defaultValue={'Organization'}
           value = {organization}/>
+        {/* <SelectOrganization
+          organization={organization}
+          setOrganization={setOrganization}
+          defaultValue={'Organization'}
+          value = {organization}/> */}
       </div>
       <div id={"filter-service-area" + title} className="filter-area">
         <SelectServiceArea
