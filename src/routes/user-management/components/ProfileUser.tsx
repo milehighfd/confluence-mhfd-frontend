@@ -566,7 +566,7 @@ const ProfileUser = ({ record, saveUser, deleteUser, type, deleteUserDatabase }:
               <p>STATE</p>
               <Dropdown trigger={['click']} overlay={menuStates} >
                   <Button className="btn-borde-management">
-                      State<DownOutlined />
+                      {state===''?'State':state}<DownOutlined />
                   </Button>
               </Dropdown>
               {/* <Input

@@ -622,8 +622,8 @@ const PhaseBody = ({
               }
             })
             .on("mouseout", (d: any) => {
-              // setGrapphicOpen(false);
-              // setPositionModalGraphic({ left: 10000, top: 10000 })
+              setGrapphicOpen(false);
+              setPositionModalGraphic({ left: 10000, top: 10000 })
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
                 let indexStatus;
                 const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
