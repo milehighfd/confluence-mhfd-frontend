@@ -97,7 +97,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [tollData,setTollData] = useState<any>([]);
   
   useEffect(()=>{
-    // getParamFilterProjectsNoBounds();
+    getParamFilterProjectsNoBounds();
     if (searchWord) {
       let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
       currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
@@ -128,7 +128,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
 
   useEffect(() => {
     if(Object.keys(updateFilter).length > 0){
-      //getParamFilterProjectsNoBounds(updateFilter);
+      getParamFilterProjectsNoBounds(updateFilter);
     }
   }, [updateFilter]);
 
@@ -161,12 +161,12 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     />
   );
 
-  // useEffect( () => {  
-  //   setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
-  //   return () => {
-  //     resetFiltercomponentOptions();
-  //   }
-  // }, []);
+  useEffect( () => {  
+    setBoundMap('-105.96857996935253,38.91703158891448,-103.60676985708743,40.405727514276464');
+    return () => {
+      resetFiltercomponentOptions();
+    }
+  }, []);
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
     let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};
