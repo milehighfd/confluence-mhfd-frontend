@@ -49,6 +49,7 @@ const GenericTabView = ({
         galleryProjectsV2
       } = useMapState();
     let totalElement = cardInformation?.length || 0;
+    const [isLoading, setIsLoading] = useState(false);
     const size = 6;
     let sw = false;
     if (totalElement) {
@@ -178,6 +179,8 @@ const GenericTabView = ({
         const auxState = { ...state };
         auxState.hasMore = true;
         setState(auxState);
+        setIsLoading(false);
+        console.log("2222222222");
     }, [totalElement])
     const tagProblems = [] as any;
     const tagProjects = [] as any;
@@ -187,8 +190,11 @@ const GenericTabView = ({
         const auxState = { ...state };
         if (state.items.length !== totalElements) {
             if (state.items.length < totalElements && totalElement - size < totalElements) {
-                await getExtraProjects(nextPage);
-                setHotReload(Math.random());
+                if (!isLoading) {
+                    setIsLoading(true);
+                    getExtraProjects(nextPage);
+                    setHotReload(Math.random());
+                }
                 auxState.items = state.items.concat(Array.from({ length: size }));
                 auxState.hasMore = true
             } else {

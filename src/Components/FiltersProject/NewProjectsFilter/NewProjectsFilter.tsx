@@ -34,19 +34,11 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
     const {
         getParamFilterProjects,
         setFilterProjectOptions,
-        getGalleryProjects,
-        getProjectsFilteredIds,
-        getProjectCounter,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
     useEffect(() => {
       console.log('paramProjects', paramProjects, filterProjectOptions);
     }, [paramProjects, filterProjectOptions]);
-    // useEffect(() => {
-    //   if (filtersObject.filterValue !== -1) {
-    //     apply(filtersObject.filterValue, filtersObject.filterby);
-    //   }
-    // } ,[filtersObject]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
@@ -82,13 +74,8 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
         setFilterProjectOptions(options);
         if(originpage === 'portfolio' && setApplyFilter) {
           setApplyFilter(Math.random());
-        } else {
-        //   getGalleryProjects();
-        }
-        options.servicearea = options.servicearea;
-        options.county = options.county;
+        } 
         getParamFilterProjects(boundsMap, options);
-        // getProjectCounter(boundsMap, options);
     }
 
     ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {
@@ -109,7 +96,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
         });
 
     const axisLabel = 'Number of Projects';
-
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00">
             <Col span={12} className={filtersObject?.filterby === 'servicearea' ? 'disabledchart': ''}>
