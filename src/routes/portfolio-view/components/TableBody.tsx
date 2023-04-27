@@ -40,6 +40,7 @@ const TableBody = ({
   filterPagination,
   updateFavorites,
   setUpdateFavorites,
+  sortValue,
 }: {
   currentGroup: any,
   dataId: any,
@@ -60,6 +61,7 @@ const TableBody = ({
   filterPagination: any,
   updateFavorites: boolean,
   setUpdateFavorites: Function,
+  sortValue: any,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
   const [page, setPage] = useState(1);
@@ -178,11 +180,29 @@ const TableBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {   
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+    let sort = "";
+    let order = "";
+    console.log(sortValue)
+    if (sortValue.order === 'ascend') {
+      order = "asc";
+    } else if (sortValue.order === 'descend') {
+      order = "desc";
+    }
+    if (sortValue.columnKey === 'on_base' && sortValue.order !== undefined) {
+      sort = "onbase_project_number";
+    }
+    if (sortValue.columnKey === 'service_area' && sortValue.order !== undefined) {
+      //sort = "servicearea";
+    }
+    //add sortValue.columnKey === 'project_type' and sortValue.columnKey === 'status' and sortValue.columnKey === 'phase' to sort by project type and status when the api is ready
+    // if ((  sortValue.columnKey === 'stream') && sortValue.order !== undefined) {
+    //   sort = sortValue.columnKey;
+    // }
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}&sortby=${sort}&sortorder=${order}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [ filterPagination, page])
+  }, [ filterPagination, page,sortValue])
 
   useEffect(() => {
     if (page != 1) {

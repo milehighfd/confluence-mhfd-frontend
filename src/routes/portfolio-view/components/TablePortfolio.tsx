@@ -43,6 +43,7 @@ const TablePortafolio = (
     setFilterPagination,
     updateFavorites,
     setUpdateFavorites,
+    sortValue,
   }
     : {
       divRef: React.MutableRefObject<any>,
@@ -77,6 +78,7 @@ const TablePortafolio = (
       setFilterPagination: Function,
       updateFavorites: any,
       setUpdateFavorites: Function,
+      sortValue: any,
     }) => {
 
   const [detailOpen, setDetailOpen] = useState(false);
@@ -407,6 +409,7 @@ const TablePortafolio = (
                       updateFavorites={updateFavorites}
                       setUpdateFavorites={setUpdateFavorites}
                       dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
+                      sortValue={sortValue}
                     />
                   </div>
                 )

@@ -766,6 +766,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         setFilterPagination={setFilterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
+                        sortValue={sortValue}
                       />
                       }
                       {optionSelect === 'Phase' && 

@@ -38,6 +38,7 @@ const TableGroups = ({
   updateFavorites,
   setUpdateFavorites,
   dataId,
+  sortValue,
 }: {
   data: any,
   setCollapsePhase: any,
@@ -58,6 +59,7 @@ const TableGroups = ({
   updateFavorites: any,
   setUpdateFavorites: any,
   dataId: any,
+  sortValue: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -140,6 +142,7 @@ const TableGroups = ({
             filterPagination={filterPagination}
             updateFavorites={updateFavorites}
             setUpdateFavorites={setUpdateFavorites}
+            sortValue={sortValue}
           ></TableBody>
         </Panel>
       </Collapse>
