@@ -186,7 +186,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 }
             </Col>
         </Row> */}
-        <hr className='filters-line'></hr>
+        {/* <hr className='filters-line'></hr>
         <Row className="filt-00">
             <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">
                 <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
@@ -208,7 +208,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                         onSelect={(e: string) => apply(e, 'completedyear')} />
                 }
             </Col>
-        </Row>
+        </Row> */}
 
         
         <hr className='filters-line'></hr>
@@ -305,7 +305,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
             </Col>
         </Row>
         <hr className='filters-line'></hr>
-        <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
+        {/* <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
             <Col span={12}>
                 <h5 className="filter-title">Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
@@ -328,7 +328,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                     </>
                 }
             </Col>
-        </Row>
+        </Row> */}
         <Row className="filt-00" gutter={[24, 16]} style={{height: 50}}>
             <Col span={24} style={{height: 50}}></Col>
         </Row>
