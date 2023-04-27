@@ -900,6 +900,7 @@ const Map = ({
         let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
         if (toggleModalFilter) { // if tab of filters is open 
           if (filterTabNumber === PROJECTS_TRIGGER) {
+            setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
               getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
           } else if (filterTabNumber === PROBLEMS_TRIGGER) {
               getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
