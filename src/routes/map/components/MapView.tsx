@@ -232,8 +232,8 @@ const MapView = () => {
     options.startyear = '';
     options.completedyear = '';
     options.problemtype = '';
-    options.mhfdmanager = [0];
-    options.jurisdiction = [0];
+    options.mhfdmanager = '';
+    options.jurisdiction = '';
     options.totalcost = [];
     options.streamname = '';
     options.name = '';
@@ -242,8 +242,8 @@ const MapView = () => {
     options.lgmanager = '';
     options.creator = '';
     options.problemtype = '';
-    options.consultant = [0];
-    options.contractor = [0];
+    options.consultant = '';
+    options.contractor = '';
     options.servicearea = '';
     setFilterProjectOptions(options);
     if (toggleModalFilter) {
