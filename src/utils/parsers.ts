@@ -1,4 +1,4 @@
-import { ADMIN_STAFF, CIVIL_CONTRACTOR, DEVELOPER, ESTIMATED_COST, LANDSCAPE_CONTRACTOR, MHFD_LEAD, MHFD_SUPPORT, PARTNER_MAP, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
+import { ADMIN_STAFF, CIVIL_CONTRACTOR, CONSULTANT_ID, DEVELOPER, ESTIMATED_COST, LANDSCAPE_CONTRACTOR, MHFD_LEAD, MHFD_SUPPORT, PARTNER_MAP, REQUESTOR_ID, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
   const sponsors = projectPartners.reduce((accumulator: string, current: any) => {
@@ -62,7 +62,7 @@ export const getTotalEstimatedCost = (projectCosts: any) => {
 };
 
 export const getVendors = (projectPartners: any) => {
-  const validIds = [DEVELOPER, CIVIL_CONTRACTOR, LANDSCAPE_CONTRACTOR];
+  const validIds = [DEVELOPER, CIVIL_CONTRACTOR, LANDSCAPE_CONTRACTOR, CONSULTANT_ID, REQUESTOR_ID];
   return projectPartners.filter((pp: any) => validIds.includes(pp.code_partner_type_id))
     .map((pp: any) => {
     return {
