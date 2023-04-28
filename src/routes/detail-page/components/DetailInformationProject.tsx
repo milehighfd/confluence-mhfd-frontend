@@ -14,7 +14,7 @@ const DetailInformationProject = () => {
     return words.join(" ");
   }
   const mhfdManager = detailed?.managers ? detailed?.managers.find((obj:any) => obj.mhfd_staff_id === 1) : null;
-  const lgManager = detailed?.managers ? detailed?.managers.find((obj:any) => obj.mhfd_staff_id === 10) : null;
+  const lgManager = detailed?.project_staffs ? detailed?.project_staffs.find((obj:any) => obj.code_project_staff_role_type_id === 10).mhfd_staff : null
   const date = detailed?.start_date ? new Date(detailed?.start_date) : new Date();
   const dateComplete = detailed?.end_date ? new Date(detailed?.end_date) : new Date();  
   const streamList = getStreams(detailed?.project_streams || []).join(' , ');
