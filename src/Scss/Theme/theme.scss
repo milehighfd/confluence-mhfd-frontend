@@ -19,6 +19,35 @@ html, body{
     border-radius: 5px !important;
   }
 }
+.tag-filters {
+  margin-top: -10px !important;
+  .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-popover-placement-bottom .ant-popover-arrow, .ant-popover-placement-bottomLeft .ant-popover-arrow, .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-arrow{
+    display: none !important;
+  }
+}
+.arrow-popover-delete{
+  .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-popover-placement-bottom .ant-popover-arrow, .ant-popover-placement-bottomLeft .ant-popover-arrow, .ant-popover-placement-bottomRight .ant-popover-arrow {
+    display: none !important;
+  }
+  .ant-arrow{
+    display: none !important;
+  }
+}
 body{
  font-family: $ubunto !important;
  overflow-y: hidden;

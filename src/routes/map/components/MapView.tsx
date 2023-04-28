@@ -1024,7 +1024,7 @@ const MapView = () => {
                 <Button className="btn-red" onClick={onResetClick}>
                   <u>Reset</u>
                 </Button>
-                <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()} className='arrow-popover-delete'>
+                <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()} className="arrow-popover-delete">
                   <Button
                     onClick={handleToggle}
                     style={{
