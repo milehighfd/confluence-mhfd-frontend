@@ -385,7 +385,7 @@ const DetailModal = ({
         map = await c.getCanvasBase64()
       }
     } else {
-      url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${data.project_id}`;
+      url = `${process.env.REACT_APP_API_URI}/gallery/project-pdf/${detailed.project_id}`;
       fileName = 'project.pdf';
       let c: any = cipjRef.current;
       if (c) {
