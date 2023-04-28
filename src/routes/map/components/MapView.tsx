@@ -197,6 +197,9 @@ const MapView = () => {
       counterZoomArea = 0;
     };
   }, []);
+  const toCamelCase = (str:string):string => {
+    return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
+  }
   const resetFilterProblems = (withCoords?: any) => {
     const options = { ...filterProblemOptions };
     options.components = '';
@@ -580,7 +583,7 @@ const MapView = () => {
       return (
         <Fragment key={`${element.name}_${index}`}>
           <div className="head">
-            {element.display} &nbsp;
+            {toCamelCase(element.display)} &nbsp;&nbsp;&nbsp;
             <img src="/Icons/icon-19.svg" width="13px" alt="" />
           </div>
           {element.detail.map((filter: any, filterIndex: number) => {
@@ -1021,7 +1024,7 @@ const MapView = () => {
                 <Button className="btn-red" onClick={onResetClick}>
                   <u>Reset</u>
                 </Button>
-                <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()}>
+                <Popover placement="bottomRight" overlayClassName="tag-filters" content={getFiltersPopoverContent()} className='arrow-popover-delete'>
                   <Button
                     onClick={handleToggle}
                     style={{
