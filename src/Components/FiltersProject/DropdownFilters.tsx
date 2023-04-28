@@ -88,7 +88,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
       amount = (+money / 1_000_000);
       million = true;
     }
-    return `$${amount.toFixed(0)}${million ? 'M' : ''}`;
+    return `$${numberWithCommas(amount.toFixed(0))}${million ? 'M' : ''}`;
   }
 
   const apply = () => {
@@ -101,7 +101,9 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
     setMinIndex(-1);
     setMaxIndex(-1);
   };
-
+  const numberWithCommas =(x:any) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   useEffect(() => {
     const sData: any[] = [];
     if (minIndex !== -1 && maxIndex !== -1) {
