@@ -52,13 +52,17 @@ export const getStreams = (projectStreams: any) => {
 };
 
 export const getTotalEstimatedCost = (projectCosts: any) => {
-  return projectCosts?.reduce((accumulator: number, pl: any) => {
-    let sum = accumulator;
-    if (pl.code_cost_type_id === ESTIMATED_COST) {
-      sum += pl.cost;
-    }
-    return sum;
-  }, 0);
+if (projectCosts.length > 0) {
+  return projectCosts[0].cost;
+}
+  // return projectCosts?.reduce((accumulator: number, pl: any) => {
+  //   let sum = accumulator;
+  //   if (pl.code_cost_type_id === ESTIMATED_COST) {
+  //     sum += pl.cost;
+  //   }
+  //   return sum;
+  // }, 0);
+  return 0;
 };
 
 export const getVendors = (projectPartners: any) => {
