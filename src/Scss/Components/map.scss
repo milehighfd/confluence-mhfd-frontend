@@ -1408,12 +1408,14 @@
     height: 16px;
     width: 18px;
     padding: 7px;
+    border: 0px solid #ff000000;
   }
   .ant-btn:hover > .img-sortBy{
     background: url('../../Icons/ic_sort_by_hover.svg') no-repeat center;
     height: 16px;
     width: 18px;
     padding: 7px;
+    border: 0px solid #ff000000;
   }
   .sort-content {
     display: inline-block;

@@ -29,7 +29,7 @@ const ComponentSolucions = () => {
       dataIndex: 'component',
       key: 'component',
       width:'30%',
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a?.length - b?.length,
     },
     {
       title: <>Cost</>,
@@ -37,20 +37,20 @@ const ComponentSolucions = () => {
       key: 'cost',
       width:'20%',
       render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+     sorter: (a:any, b:any) => a?.length - b?.length,
     },
     {
       title: <>% Complete</>,
       dataIndex: 'completepercen',
       key: 'completepercen',
-      render: (completepercen: number) => `${completepercen ? completepercen : 0}%`,
+     // render: (completepercen: number) => `${completepercen ? completepercen : 0}%`,
       width:'20%',
       // render: (status:any) => (
       //   <span className={'span-' + status}>
       //     {status}
       //   </span> 
       // ),
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a?.length - b?.length,
     },
     {
       title: <>% of Total Cost</>,
@@ -58,7 +58,7 @@ const ComponentSolucions = () => {
       width:'30%',
       key: 'total_cost',
       render: (percen: any) => `${Math.round(percen)}%`,
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a?.length - b?.length,
     },
   ];
   return (
