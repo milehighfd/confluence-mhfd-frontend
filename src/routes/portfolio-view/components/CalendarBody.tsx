@@ -72,6 +72,9 @@ const CalendarBody = ({
   secondaryUpdatedGroup,
   updateFavorites,
   setUpdateFavorites,
+  counter,
+  page,
+  setPage,
 }: {
   currentGroup: any,
   groupCollapsed: any,
@@ -120,8 +123,11 @@ const CalendarBody = ({
   secondaryUpdatedGroup: any,
   updateFavorites: any,
   setUpdateFavorites: Function,
+  counter:  never[],
+  page: number,
+  setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
@@ -149,6 +155,7 @@ const CalendarBody = ({
 
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
+  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   let zoom: any;
   let svg: any;
   let svgAxis: any;
@@ -259,7 +266,7 @@ const CalendarBody = ({
   }, [updatedGroup, secondaryUpdatedGroup])
 
   useEffect(() => {
-    if (next && resultCounter === LIMIT_PAGINATION) {
+    if (next && page < limitPage) {
       setPage(page + 1)
       setNext(false)
       setPrev(false)
@@ -1889,6 +1896,7 @@ const CalendarBody = ({
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{}}>
+          <hr className="line-progress" style={{width: `${(((page) * 100 )/ limitPage)}%`}}/>
           {
             calendarData.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}

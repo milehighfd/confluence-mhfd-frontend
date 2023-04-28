@@ -41,6 +41,9 @@ const TableBody = ({
   updateFavorites,
   setUpdateFavorites,
   sortValue,
+  counter,
+  page,
+  setPage,
 }: {
   currentGroup: any,
   dataId: any,
@@ -62,9 +65,12 @@ const TableBody = ({
   updateFavorites: boolean,
   setUpdateFavorites: Function,
   sortValue: any,
+  counter:  never[],
+  page: number,
+  setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
@@ -72,9 +78,9 @@ const TableBody = ({
   const [dataDetail, setDataDetail] = useState();
   const [resultCounter, setResultCounter] = useState<any>(0);
   const [updateData, setUpdateData] = useState(false);
-
+  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   useEffect(() => {
-    if (next && resultCounter === LIMIT_PAGINATION) {
+    if (next && page < limitPage) {
       setPage(page + 1)
       setNext(false)
       setPrev(false)
@@ -303,6 +309,7 @@ const TableBody = ({
     <div className="table-body">
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{zIndex:2}}>
+          <hr className="line-progress" style={{width: `${(((page) * 100 )/ limitPage)}%`}}/>
           {
             dataParsed.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}

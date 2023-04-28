@@ -60,6 +60,9 @@ const PhaseBody = ({
   setFilterPagination,
   updateFavorites,
   setUpdateFavorites,
+  counter,
+  page,
+  setPage,
 }: {
   currentGroup: any,
   dataId: any,
@@ -95,9 +98,12 @@ const PhaseBody = ({
   setFilterPagination: Function,
   updateFavorites: any,
   setUpdateFavorites: Function,
+  counter:  never[],
+  page: number,
+  setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   const [dataParsed, setDataParsed] = useState<any>([]);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
@@ -107,7 +113,7 @@ const PhaseBody = ({
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
   const [updateAction,setUpdateAction] = useState(false);
   const [resultCounter, setResultCounter] = useState<any>(0);
-
+  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   let svg: any;
   const windowWidth: any = window.innerWidth;
   const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 22 : 20)))))
@@ -161,7 +167,7 @@ const PhaseBody = ({
   }
 
   useEffect(() => {
-    if (next && resultCounter === LIMIT_PAGINATION) {
+    if (next && page < limitPage) {
       setPage(page + 1)
       setNext(false)
       setPrev(false)
@@ -745,6 +751,7 @@ const PhaseBody = ({
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{}}>
+          <hr className="line-progress"  style={{width: `${(((page) * 100 )/ limitPage)}%`}}/>
           {
             phaseData.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}

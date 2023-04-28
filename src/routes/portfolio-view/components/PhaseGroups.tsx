@@ -91,15 +91,9 @@ const PhaseGroups = ({
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [page, setPage] = useState(1);
   const [counter, setCounter] = useState([]);
 
-  const getActiveKeys = () => {
-    const indices = openTable.reduce(
-      (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
-      []
-    );
-    return indices;
-  }
   useEffect(() => {
     if(currentGroup !== 'streams'){
       datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
@@ -107,7 +101,17 @@ const PhaseGroups = ({
       })
     }    
   },[tabKey,filterPagination])
-
+  const getActiveKeys = () => {
+    const indices = openTable.reduce(
+      (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
+      []
+    );
+    if(Number(counter) === 0) {
+      return false;
+    }
+    return indices;
+  }
+  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   return <>    
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
@@ -121,6 +125,7 @@ const PhaseGroups = ({
             setOpenTable(newOpenTable);
           }
         } className=''
+        collapsible={Number(counter) ===0 ? "disabled" :"header"}
       >   
         <Panel header={
           <div  className="header-group">
@@ -134,11 +139,17 @@ const PhaseGroups = ({
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);
-              }} />
+              }}
+              className="btn-arrow-porfolio"
+              style={page === 1 ? {color:'#2518633d', cursor: 'default'}:{}} 
+              />
               <RightOutlined onClick={(e) => {
                 e.stopPropagation();
                 setNext(true);
-              }} />
+              }}
+              className="btn-arrow-porfolio"
+              style={page === limitPage || Number(counter) === 0 ? {color:'#2518633d', cursor: 'default'}:{}}
+              />
             </div>
           </div>
         } key={index}>
@@ -177,6 +188,9 @@ const PhaseGroups = ({
             setFilterPagination={setFilterPagination}
             updateFavorites={updateFavorites}
             setUpdateFavorites={setUpdateFavorites}
+            counter={counter}
+            page={page}
+            setPage={setPage}
           ></PhaseBody>
         </Panel>
       </Collapse>

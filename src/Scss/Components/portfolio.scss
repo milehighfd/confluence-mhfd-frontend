@@ -81,6 +81,16 @@
     z-index: 3;
     margin-top:11.5px;
   }
+  .line-progress{
+    margin: 0px;
+    width: 100%;
+    height: 2px;
+    border: none;
+    background-color: #06242d;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
   .ant-tabs-bottom>.ant-tabs-nav, .ant-tabs-bottom>div>.ant-tabs-nav, .ant-tabs-top>.ant-tabs-nav, .ant-tabs-top>div>.ant-tabs-nav {
     margin: 0;
   }
@@ -4602,6 +4612,9 @@
   // width: 100%; 
   flex-direction: row;
   justify-content: space-between;
+  .btn-arrow-porfolio:hover{
+    color: #29c499;
+  }
 }
 // .ant-empty-image svg {
 //   height: 100%;
