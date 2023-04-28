@@ -10,6 +10,8 @@ export const MHFD_SUPPORT = 4;
 export const ADMIN_STAFF = 5;
 
 export const PARTNER_MAP: any = {
+  [CONSULTANT_ID]: 'Consultant',
+  [REQUESTOR_ID]: 'Requestor',
   [DEVELOPER]: 'Developer',
   [CIVIL_CONTRACTOR]: 'Civil Contractor',
   [LANDSCAPE_CONTRACTOR]: 'Landscape Contractor'
