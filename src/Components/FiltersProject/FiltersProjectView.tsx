@@ -29,6 +29,7 @@ const FiltersProjectView = ({
         setApplyFilter
     } = useMapDispatch();
     const {
+        galleryProblems,
         boundsMap,
         spinCardProblems,
         spinCardProjects,
@@ -77,13 +78,14 @@ const FiltersProjectView = ({
         }
     }
     useEffect(() => {
-        getTabCounters(boundsMap, filterProblemOptions, filterProjectOptions, filterComponentOptions);
+        // commented to avoid error in network pending, lets check how to get the counter of components
+        //getTabCounters(boundsMap, filterProblemOptions, filterProjectOptions, filterComponentOptions);
     }, [])
 
     const getTotalValue = (tabindex: number) => {
         switch (tabindex) {
             case 0:
-                return totals.problems;
+                return galleryProblems.length;
             case 1:
                 return galleryProjectsV2.count;
             case 2:

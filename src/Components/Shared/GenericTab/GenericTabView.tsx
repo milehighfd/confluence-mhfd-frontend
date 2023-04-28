@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import CardInformationView from "../CardInformation/CardInformationView";
 import { elementCost } from '../../../utils/utils';
-import { FILTER_PROBLEMS_TRIGGER } from "../../../constants/constants";
+import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from "../../../constants/constants";
 import store from "../../../store";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useDetailedState } from "../../../hook/detailedHook";
@@ -28,7 +28,8 @@ const GenericTabView = ({
       setFilterComponentOptions,
       setZoomProjectOrProblem,
       favoriteList,
-      getExtraProjects
+      getExtraProjects,
+      setFilterTabNumber
     } = useMapDispatch();
     const { userInformation: user } = useProfileState();
     const [data, setData] = useState<any>([]);
@@ -46,7 +47,8 @@ const GenericTabView = ({
         filterComponentOptions,
         selectedOnMap,
         favorites,
-        galleryProjectsV2
+        galleryProjectsV2,
+        filterTabNumber
       } = useMapState();
     let totalElement = cardInformation?.length || 0;
     const [isLoading, setIsLoading] = useState(false);
@@ -180,7 +182,10 @@ const GenericTabView = ({
         auxState.hasMore = true;
         setState(auxState);
         setIsLoading(false);
-        console.log("2222222222");
+        if(type === FILTER_PROBLEMS_TRIGGER){
+            setFilterTabNumber(PROBLEMS_TRIGGER)
+        }
+        console.log("2222222222", type, filterTabNumber);
     }, [totalElement])
     const tagProblems = [] as any;
     const tagProjects = [] as any;

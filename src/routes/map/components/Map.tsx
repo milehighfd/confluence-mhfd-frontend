@@ -154,7 +154,8 @@ const Map = ({
     setSpinMapLoaded,
     setSelectedPopup,
     getProjectsFilteredIds,
-    getDetailedPageProject
+    getDetailedPageProject,
+    getGalleryProblems
   } = useMapDispatch();
   const {
     toggleModalFilter,
@@ -179,7 +180,8 @@ const Map = ({
     mapSearch,
     applyFilter,
     zoomProblemOrProject: zoom,
-    projectsids
+    projectsids,
+    galleryProblems
   } = useMapState();
   const {
     detailed,
@@ -903,6 +905,8 @@ const Map = ({
             setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
               getParamFilterProjects(applyFilter ? boundingBox : defaultBounds, filterProjectOptions);
           } else if (filterTabNumber === PROBLEMS_TRIGGER) {
+            setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
+            getGalleryProblems();
               getParamFilterProblems(applyFilter ? boundingBox : defaultBounds, filterProblemOptions);
           } else {
               getParamFilterComponents(applyFilter ? boundingBox : defaultBounds, filterComponentOptions);
@@ -910,7 +914,7 @@ const Map = ({
         } else {
           setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
-    }, [applyFilter, zoomEndCounter, dragEndCounter]);
+    }, [applyFilter, zoomEndCounter, dragEndCounter, filterTabNumber]);
     useEffect(() => {
         if (zoom?.length > 0) {
             map.fitBounds([zoom[0], zoom[2]], { padding: 100 });
