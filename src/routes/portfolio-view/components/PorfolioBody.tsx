@@ -134,13 +134,29 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
 
   useEffect(() => {
     setUpdateFilter(filterProjectOptions);
+    console.log('filterProjectOptions',filterProjectOptions);
+    console.log("ENTRA",filterProjectOptions.servicearea)
+    if (filterProjectOptions.servicearea.lenght > 0 || filterProjectOptions.servicearea !== '') {
+      let code = filterProjectOptions.servicearea;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'servicearea', value: code })
+    }else if (filterProjectOptions.county.lenght > 0 || filterProjectOptions.county !== '') {
+      let code = filterProjectOptions.county;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'county', value: code })
+    }
+    else if (filterProjectOptions.jurisdiction.lenght > 0 || filterProjectOptions.jurisdiction !== '') {
+      let code = filterProjectOptions.jurisdiction;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'jurisdiction', value: code })
+    }
+    else{
+      setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
+    }
   }, [filterProjectOptions]);
   
   useEffect(() => {
     filterProjectOptions.name = searchWord;
     filterProjectOptions.keyword = searchWord
     setFilterProjectOptions(filterProjectOptions)
-    setUpdateFilter(filterProjectOptions);
+    setUpdateFilter(filterProjectOptions);    
   }, []);
 
   const groupsBy = [

@@ -36,9 +36,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
         setFilterProjectOptions,
     } = useMapDispatch();
     const { boundsMap } = useMapState();
-    useEffect(() => {
-      console.log('paramProjects', paramProjects, filterProjectOptions);
-    }, [paramProjects, filterProjectOptions]);
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
