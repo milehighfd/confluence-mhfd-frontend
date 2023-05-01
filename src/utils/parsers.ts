@@ -66,11 +66,11 @@ if (projectCosts.length > 0) {
 };
 
 export const getVendors = (projectPartners: any) => {
-  const validIds = [DEVELOPER, CIVIL_CONTRACTOR, LANDSCAPE_CONTRACTOR, CONSULTANT_ID, REQUESTOR_ID];
-  return projectPartners.filter((pp: any) => validIds.includes(pp.code_partner_type_id))
+  const validIds = "VENDORS";
+  return projectPartners.filter((pp: any) => validIds.includes(pp?.code_project_partner_type?.partner_type))
     .map((pp: any) => {
     return {
-      type: PARTNER_MAP[pp.code_partner_type_id] || '',
+      type: pp?.code_project_partner_type?.partner_type_name || '',
       name: pp?.business_associate?.business_name || '',
       key: pp?.project_partner_id || -1
     }
