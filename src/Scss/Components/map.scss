@@ -1450,16 +1450,20 @@
   button .img-sortBy{
     background: url('../../Icons/ic_sort_by_active.svg') no-repeat center;
     height: 16px;
-    width: 18px;
+    width: 15px;
     padding: 7px;
     border: 0px solid #ff000000;
+    outline: none;
+    margin-right: 7px;
   }
   .ant-btn:hover > .img-sortBy{
     background: url('../../Icons/ic_sort_by_hover.svg') no-repeat center;
     height: 16px;
-    width: 18px;
+    width: 15px;
     padding: 7px;
     border: 0px solid #ff000000;
+    outline: none;
+    margin-right: 7px;
   }
   .sort-content {
     display: inline-block;
@@ -1781,7 +1785,7 @@
     align-items: baseline;
 
     button{
-      height: 15px;
+      height: auto;
       width: 15px;
       padding: 0px;
       margin: 0px;

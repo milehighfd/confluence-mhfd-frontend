@@ -25,7 +25,12 @@
 .ant-menu-dark.ant-menu-inline .ant-menu-item, .ant-menu-dark.ant-menu-vertical .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
 .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
-  padding: 0px 20px !important;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 2px 8px !important;
+  margin-bottom: 19px !important;
+  height: 36px;
 }
 .img-a{
   display: none !important;
@@ -35,11 +40,12 @@
   //  opacity: 0.5;
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-  background-color: transparent !important;
+  // background-color: transparent;
   color: $green !important;
 }
 .ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover {
   color: $green !important;
+  background-color: #516065 !important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected .img-a{
   display: inline-block !important;
@@ -86,6 +92,12 @@
 }
 .ant-tooltip-placement-right, .ant-tooltip-placement-rightBottom, .ant-tooltip-placement-rightTop {
   padding-left: 8px;
+}
+.menu-sidebar-hover{
+    background-color: #516065 !important;
+}
+.menu-sidebar-hove:hover{
+  background-color: #516065 !important;
 }
 // RESPONSIVE MOBILE
 @media (max-width: 575.98px) {

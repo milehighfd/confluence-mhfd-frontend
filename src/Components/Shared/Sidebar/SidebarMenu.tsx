@@ -11,7 +11,9 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
+  console.log(indexOf, 'indexOf');
   const itemMenuSidebar: MenuProps['items'] = [{
+    className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
     key: '0',
     label: <Link to={'/profile-view'} style={{ textDecoration: 'none' }}>
       <img className="img-h anticon" src="/Icons/menu-white-01.svg" alt="" width="22px" height="20px" />
@@ -19,6 +21,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>my confluence</span>
     </Link>
   }, {
+    className: Number(indexOf) === 1 ? 'menu-sidebar-hover':'',
     key: '1',
     label: <Link to={'/map'} >
       <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
@@ -43,6 +46,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     </Link>
   },
   */ {
+    className: Number(indexOf) === 5 ? 'menu-sidebar-hover':'',
     key: '5',
     label: <Link to={userApproved ? '/pm-tools' : '#'}>
       <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2'}} />
@@ -50,6 +54,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>PM Tools</span>
     </Link>
   }, {
+    className: Number(indexOf) === 2 ? 'menu-sidebar-hover':'',
     key: '2',
     label: <Link to={'/map'}>
       <img className="img-h anticon" src="/Icons/menu-white-15.svg" alt="" width="22px" height="22px" style={{ opacity: '0.2' }} />
@@ -64,6 +69,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   //     <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>uploader</span>
   //   </Link>
   }, {
+    className: Number(indexOf) === 7 ? 'menu-sidebar-hover':'',
     key: '7',
     label: <a href={'https://forms.office.com/r/CUgfTnrTUm'} target="_blank">
       <img className="img-h anticon" src="/Icons/menu-white-12.svg" alt="" width="22px" height="22px" />
@@ -72,6 +78,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     </a>
   }, {
     key: '8',
+    className: Number(indexOf) === 8 ? 'menu-sidebar-hover':'',
     label: <Link to={'/user'}>
       <img className="img-h anticon" src="/Icons/menu-white-06.svg" alt="" width="22px" height="22px" />
       <img className="img-a anticon" src="/Icons/menu-green-06.svg" alt="" width="22px" height="22px" />
