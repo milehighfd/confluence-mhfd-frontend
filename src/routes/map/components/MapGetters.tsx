@@ -329,6 +329,11 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
+  if(menu.includes('Stream Improvement Measure')){
+    return (
+      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_streamimprovmentmeasure.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+    );
+  }
   if (icon !== undefined) {
     return icon
   }
