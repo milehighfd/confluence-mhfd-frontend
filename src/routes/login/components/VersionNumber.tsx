@@ -23,7 +23,7 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
-            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>V2.2 - April 1, 2023</p>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>V2.2 - May 1, 2023</p>
             <ul>
                 <li>The following views are open for Review: My Confluence, Main Map (except for Action Filters), PM tools (except for Filters and List View Sort)</li>
                 <li>New features and functionality include: redesigned guide overlay for each view, progress bar for each group within the PM Tools, expanded 'Vendor' table within the Detail Page, new icon for the Stream Improvement layer, and new terminology for Proposed Actions, Problem Groups, and Problems </li>
