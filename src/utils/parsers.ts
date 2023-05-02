@@ -52,7 +52,7 @@ export const getStreams = (projectStreams: any) => {
 };
 
 export const getTotalEstimatedCost = (projectCosts: any) => {
-if (projectCosts.length > 0) {
+if (projectCosts && projectCosts.length > 0) {
   return projectCosts[0].cost;
 }
   // return projectCosts?.reduce((accumulator: number, pl: any) => {
