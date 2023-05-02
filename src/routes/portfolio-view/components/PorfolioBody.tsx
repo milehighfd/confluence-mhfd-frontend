@@ -151,10 +151,10 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       let code = filterProjectOptions.consultant;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'consultant', value: code })
     }
-    else if (filterProjectOptions.contractor.lenght > 0 || filterProjectOptions.contractor !== '') {
-      let code = filterProjectOptions.consultant;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
-    }
+    // else if (filterProjectOptions.contractor.lenght > 0 || filterProjectOptions.contractor !== '') {
+    //   let code = filterProjectOptions.consultant;
+    //   setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
+    // }
     else{
       setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
     }
