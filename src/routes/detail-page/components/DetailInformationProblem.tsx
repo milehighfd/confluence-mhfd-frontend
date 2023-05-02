@@ -27,7 +27,7 @@ const DetailInformationProblem = () => {
           <label><i>Source Name</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{detailed?.problemname ? detailed?.problemname : 'N/A'}</p>
+          <p>{detailed?.sourcename ? detailed?.sourcename : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>Source</i></label>
