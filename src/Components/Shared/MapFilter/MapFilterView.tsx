@@ -426,8 +426,8 @@ const MapFilterView = ({
           <Panel header="" key="1" extra={genExtra()}>
             <p>
               <img key="mxq8tfB7PK3Z" src="/Icons/Filters/ic_problems.png" width="18px" alt="" />
-                  Problems
-                  <Popover key="zmn5lhLm5Qn9" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem, 'Problems – ')}>
+                  Problem Groups
+                  <Popover key="zmn5lhLm5Qn9" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem_group, 'Problem Groups –')}>
                 <img key="2F2q9UatPR1G" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="4DNRVR0SBlXw" checked={switches[PROBLEMS_TRIGGER]} size="small" onClick={(value) => onChange(value, PROBLEMS_TRIGGER)} />
@@ -435,8 +435,8 @@ const MapFilterView = ({
             
             <p>
               <img key="hygfgsbnF7gs" src="/Icons/ic-problem-parts.png" width="18px" alt="" />
-                  Problem Groups
-                  <Popover key="uibfUYSsd7" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem_group, 'Problem Groups – ')}>
+                  Problems
+                  <Popover key="uibfUYSsd7" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.problem, 'Problems – ')}>
                 <img key="778POIAOSDaasse" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>
               <Switch key="COCh15" checked={switches[FLOOD_HAZARDS.name]} size="small" onClick={(value) => onChange(value, FLOOD_HAZARDS)} />
