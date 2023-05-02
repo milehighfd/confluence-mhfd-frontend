@@ -1423,6 +1423,7 @@
       }
       .ant-table {
         color: #11093ccc;
+        transition: background .3s;
       }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 8px 14px;
@@ -2762,7 +2763,7 @@
   }
   .table-body{
     .ant-table-tbody>tr.ant-table-row:hover>td, .ant-table-tbody>tr>td.ant-table-cell-row-hover {
-      background: #fafafa00 !important;
+      // background: #fafafa00 !important;
     }
     .scroll-scroll-table{
       width: calc(100vw - 448px) !important;
@@ -3510,6 +3511,9 @@
       }
     }
   }
+  .row-active-table{
+    background: #fafafa;
+  }
   .table-body{
     .scroll-scroll-table{
       width: calc(100vw - 582px) !important;
@@ -3521,6 +3525,9 @@
         height: 63.78px !important;
         width: 99.6% !important;
         top: 96px !important;
+      }
+      .row-active{
+        background-color: #fafafa;
       }
     }
     .table-first{
@@ -3790,6 +3797,10 @@
       }
     }
   }
+}
+.row-active-table{
+  background: #fafafa;
+  transition: background .3s;
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .phase-groups{

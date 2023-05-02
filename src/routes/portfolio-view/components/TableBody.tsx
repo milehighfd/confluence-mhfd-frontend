@@ -76,6 +76,7 @@ const TableBody = ({
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
+  const [rowActive, setRowActive] = useState(-20)
   const [resultCounter, setResultCounter] = useState<any>(0);
   const [updateData, setUpdateData] = useState(false);
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
@@ -314,8 +315,13 @@ const TableBody = ({
             dataParsed.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}
                 onMouseEnter={(e: any) => {
-                  //setHoverTable(elem.values[index_elem].project_id)
-                }}>
+                  setRowActive(d.project_id);
+                }}
+                onMouseLeave={(e: any) => {
+                  setRowActive(-20);
+                }}
+                style={rowActive === d.project_id ? {background:'#fafafa', transition: 'background .3s'}:{transition: 'background .3s'}}
+                >
                 <p onClick={() => {
                   setDetailOpen(true); 
                   setDataDetail(d) 
@@ -352,6 +358,31 @@ const TableBody = ({
                   dataSource={dataParsed}
                   pagination={false}
                   key={index}
+                  onRow={(record, rowIndex) => {
+                    return {
+                      onMouseEnter: (event) => {
+                        setRowActive(record.project_id);
+                      },
+                      onMouseLeave: (event) => {
+                        setRowActive( -20);
+                      },
+                    };
+                  }}
+                  rowClassName={(record, index) => {
+                    if (record.project_id === rowActive) {
+                      return 'row-active-table';
+                    } else {
+                      return '';
+                    }
+                  }}
+                  onHeaderRow={(record, rowIndex) => {
+                    return {
+                      onMouseEnter: (event) => {
+                        console.log('AQUUIII', record, event.target, rowIndex);
+                        setRowActive(-20);
+                      },
+                    };
+                  }}
                   className={
                     openTable[index]
                       ? index === 0
