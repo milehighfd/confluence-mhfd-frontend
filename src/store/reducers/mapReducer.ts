@@ -132,7 +132,7 @@ const initState = {
       jurisdiction: '',
       county: '',
       consultant: '',
-      constractor: '',
+      contractor: '',
       servicearea: ''
     },
     filterProjectOptions: {
@@ -154,7 +154,7 @@ const initState = {
       jurisdiction: '',
       county: '',
       consultant: '',
-      constractor: '',
+      contractor: '',
       servicearea: ''
     },
     filterComponentOptions: {
@@ -303,12 +303,6 @@ const initState = {
             'display': 'CONTRACTOR',
             'detail': [],
             'popover': ''
-        },
-        {
-          'name': 'constractor',
-          'display': 'CONTRACTOR',
-          'detail': [],
-          'popover': ''
         },
         {
             'name': 'jurisdiction',
