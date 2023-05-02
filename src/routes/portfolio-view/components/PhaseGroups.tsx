@@ -133,7 +133,7 @@ const PhaseGroups = ({
               <span style={{width: '100%',
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',}}>{`${data.value} (${counter})`}</span>
+                  textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No group Available':data.value} (${counter})`}</span>
             </div>
             <div className="btn-collapse">
               <LeftOutlined onClick={(e) => {

@@ -102,6 +102,7 @@ const TableBody = ({
   useEffect(() => {
     setDataParsed(dataBody.map((x: any, index: number) => {
       return {
+        key: `${currentGroup}${index}`,
         id: `${currentGroup}${index}`,
         project_id: x.project_id,
         rowLabel: x.project_name,
