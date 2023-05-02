@@ -139,7 +139,7 @@ export const NewProblemsFilter = () => {
             </Row>
             <hr className='filters-line'></hr>
             <Row className="filt-00">
-                <Col span={12}>
+                <Col span={12} style={{opacity:'0.5'}}>
                     <h5 className="filter-title chart-filter-title">Problem Priority <Popover content={content01}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     {
                         paramProblems.priority &&
