@@ -51,7 +51,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
     label: <Link to={userApproved ? '/pm-tools' : '#'}>
       <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2'}} />
       <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
-      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>PM Tools</span>
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>pm tools</span>
     </Link>
   }, {
     className: Number(indexOf) === 2 ? 'menu-sidebar-hover':'',
