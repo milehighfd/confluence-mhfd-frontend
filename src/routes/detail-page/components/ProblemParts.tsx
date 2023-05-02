@@ -17,19 +17,19 @@ const ProblemParts = ({problemParts}:{problemParts:any}) => {
       title: <>Problem type</>,
       dataIndex: 'problem_type',
       key: 'problem_type',
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a.problem_type.localeCompare(b.problem_type),
     },
     {
       title: <>Problem Part Category</>,
       dataIndex: 'problem_part_category',
       key: 'problem_part_category',
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a.problem_part_category.localeCompare(b.problem_part_category),
     },
     {
       title: <>Problem Part Subcategory</>,
       dataIndex: 'problem_part_subcategory',
       key: 'problem_part_subcategory',
-      sorter: (a:any, b:any) => a.agreement.length - b.agreement.length,
+      sorter: (a:any, b:any) => a.problem_part_subcategory.localeCompare(b.problem_part_subcategory),
     },
   ];
   return (
