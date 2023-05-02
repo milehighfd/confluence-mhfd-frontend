@@ -89,7 +89,7 @@ const CardInformationView = ({
   useEffect(() => {
     const bcbbox = bboxComponents.bbox;
     if (setZoomProjectOrProblem) {
-      if (bcbbox.length && bcbbox[0] != null) {
+      if (bcbbox?.length && bcbbox[0] != null) {
         updateSelectedLayers([...selectedLayers, COMPONENT_LAYERS]);
         setZoomProjectOrProblem(bcbbox[0]);
       }
