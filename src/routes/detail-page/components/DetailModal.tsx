@@ -640,7 +640,8 @@ const DetailModal = ({
             </div>
             <Carousel className="detail-carousel" ref={carouselRef} style={{zIndex:'3', height:'266px'}}>
               {detailed?.problemid ? (
-                    <div className="detailed-c"> <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
+                    <div className="detailed-c"> <img  src={
+                      detailed?.problemtype==='Watershed Change'?"detailed/watershed-change.png":"detailed/" + detailed?.problemtype + ".png"}/> </div>
                   ) : (
                     detailed?.attachments ? (detailed?.attachments.map((image: string, index: number) => {
                     return <div key={index} className="detailed-c" onClick={()=>{setOpenImage(true);setActive(0)}}>
