@@ -67,12 +67,10 @@ const TableGroups = ({
   const [page, setPage] = useState(1);
  
   useEffect(() => {
-    if(currentGroup !== 'streams'){
-      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
-        setCounter(res.count)
-      })
-    }    
-  },[tabKeyId,filterPagination])
+    datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+      setCounter(res.count)
+    })
+  }, [tabKeyId,filterPagination,currentGroup])
 
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   const getActiveKeys = () => {
@@ -107,7 +105,7 @@ const TableGroups = ({
             <span style={{width: '100%',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',}}>{`${data.value} (${counter})`}</span>
+                textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No group Available':data.value} (${counter})`}</span>
            </div>
             
             <div className="btn-collapse">
