@@ -44,11 +44,11 @@ export const CheckBoxFilters = ({
       {
         showControls ? (
         <>
-          <Button className="btn-svg" onClick={apply}>
+          <Button className="btn-svg" onClick={apply} disabled={type === 'problemPriority'?true : false}>
             <u>Apply</u>
           </Button>
           &nbsp;|&nbsp;
-          <Button className="btn-svg" onClick={reset}>
+          <Button className="btn-svg" onClick={reset} disabled={type === 'problemPriority'?true : false}>
             <u>Reset</u>
           </Button>
         </>
@@ -57,6 +57,7 @@ export const CheckBoxFilters = ({
         )
       }
       <Checkbox.Group 
+        disabled={type === 'problemPriority'?true : false}
         defaultValue={['Active']}
         value={selectedData}
         options={data ? data.map((element: any) => {

@@ -145,6 +145,7 @@ export const NewProblemsFilter = () => {
                         paramProblems.priority &&
                         <CheckBoxFilters data={paramProblems.priority}
                             defaultValue={''}
+                            type={'problemPriority'}
                             selected={filterProblemOptions.priority}
                             onSelect={(items: any) => {
                                 apply(items, 'priority');
