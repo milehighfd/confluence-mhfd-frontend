@@ -30,7 +30,7 @@ const TeamCollaborator = () => {
           </div>
         </Col>
         <Col span={3} style={{textAlign:'end'}}>
-          <PlusOutlined />
+          {/*<PlusOutlined />*/}
         </Col>
       </Row>
       {selected && <TeamModal />}
