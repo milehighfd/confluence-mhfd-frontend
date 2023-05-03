@@ -343,41 +343,41 @@ const MapView = () => {
     const filterComponents = { ...filterComponentOptions } as any;
     const labelsProblems = [...labelsFiltersComponents];
     for (const key in filterComponents) {
-                                          const tag =
-                                            key === 'estimatedcost'
-                                              ? filterComponents[key]
-                                              : filterComponents[key].split(',');
-                                          if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-                                            const elements = [];
-                                            const position = labelsProblems.findIndex((x: any) => x.name === key);
-                                            for (let index = 0; index < tag.length; index++) {
-                                              const element = tag[index];
-                                              if (element) {
-                                                if (key === 'estimatedcost') {
-                                                  const cost = element.split(',');
-                                                  elements.push({
-                                                    tag: key,
-                                                    value: element,
-                                                    display: elementCost(cost[0], cost[1]),
-                                                  });
-                                                } else if (key === 'component_type') {
-                                                  elements.push({
-                                                    tag: key,
-                                                    value: element,
-                                                    display: capitalLetter(element),
-                                                  });
-                                                } else {
-                                                  elements.push({
-                                                    tag: key,
-                                                    value: element,
-                                                    display: element,
-                                                  });
-                                                }
-                                              }
-                                            }
-                                            labelsProblems[position]['detail'] = elements as any;
-                                          }
-                                        }
+        const tag =
+          key === 'estimatedcost'
+            ? filterComponents[key]
+            : filterComponents[key].split(',');
+        if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+          const elements = [];
+          const position = labelsProblems.findIndex((x: any) => x.name === key);
+          for (let index = 0; index < tag.length; index++) {
+            const element = tag[index];
+            if (element) {
+              if (key === 'estimatedcost') {
+                const cost = element.split(',');
+                elements.push({
+                  tag: key,
+                  value: element,
+                  display: elementCost(cost[0], cost[1]),
+                });
+              } else if (key === 'component_type') {
+                elements.push({
+                  tag: key,
+                  value: element,
+                  display: capitalLetter(element),
+                });
+              } else {
+                elements.push({
+                  tag: key,
+                  value: element,
+                  display: element,
+                });
+              }
+            }
+          }
+          labelsProblems[position]['detail'] = elements as any;
+        }
+      }
     return (
       <div className="tag-filters">
         <div className="tag-body">

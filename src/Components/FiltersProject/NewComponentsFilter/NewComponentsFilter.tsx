@@ -34,11 +34,8 @@ export const NewComponentsFilter = () => {
         filterComponentOptions
     } = useMapState();
 
-    useEffect(() => {
-      console.log('para components', paramComponents);
-    }, [paramComponents]);
     const apply = (values: any, field: string) => {
-        console.log('value: ' + values + ", field: " + field);
+        console.log('value: ' + values + ", field: " + field, 'yearofstudy' == field);
         const options = { ...filterComponentOptions };
         if ('component_type' === field || 'status' === field || 'yearofstudy' === field
         || 'jurisdiction' === field || 'mhfdmanager' === field) {
@@ -49,17 +46,22 @@ export const NewComponentsFilter = () => {
             }
             options[field] = newValue;
         } else if ('estimatedcost' === field) {
-          if(values.length === 0 || values === ''){
+          if(values.length === 0 || values === '') {
               options[field] = []
-          }else {
+          } else {
               options[field] = [values[0], values[values.length - 1]];
           }
-      } else {
+        } else if ('yearofstudy' == field) {
+          if(values.length === 0 || values === '') {
+            options[field] = []
+          } else {
+            options[field] = [values[0], values[values.length - 1]];
+          }
+        } else {
             options[field] = values;
         }
         setFilterComponentOptions(options);
-                             console.log('get gallery'); 
-                      getGalleryProjects();;
+        getGalleryProjects();;
         getGalleryProblems();
         getParamFilterComponents(boundsMap, options);
         getComponentsCounter(boundsMap, options);
@@ -140,7 +142,7 @@ export const NewComponentsFilter = () => {
         <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.estimatedcost &&
+                    // paramComponents.estimatedcost &&
                     <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={''}
                         // data={paramComponents.estimatedcost}
                         selected={filterComponentOptions.estimatedcost}
@@ -153,9 +155,9 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Year Of Study <Popover content={content16}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.yearofstudy &&
+                    // paramComponents.yearofstudy &&
                     <DropdownFiltersYearsMax type={'yearofstudy'} defaultValue={''} axisLabel={axisLabel}
-                        data={paramComponents.yearofstudy}
+                        // data={paramComponents.yearofstudy}
                         selected={filterComponentOptions.yearofstudy}
                         onSelect={(e: string) => apply(e, 'yearofstudy')} />
                 }
