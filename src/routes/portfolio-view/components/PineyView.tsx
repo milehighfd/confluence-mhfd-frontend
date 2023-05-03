@@ -11,7 +11,7 @@ import DetailModal from "routes/detail-page/components/DetailModal";
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
 const { Step } = Steps;
-const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData, openModalTollgate }: 
+const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData, openModalTollgate }: 
   { setOpenPiney: any, 
     data?: any, 
     userName?: string
@@ -19,7 +19,8 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
     updateAction?: any,
     setOpenModalTollgate?: any,
     openModalTollgate?: any,
-    setTollData? : any
+    setTollData? : any,
+    isDetail:boolean
     }) => {     
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
@@ -255,13 +256,16 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         >
           <img src="/Icons/ic-close-piney.svg" alt="" height="20px" />
         </Button>
-        <Button
+        {
+          isDetail === true ? (<></>):
+          (<Button
           className="btn-transparent"
           onClick={()=>{setVisibleDetail(true)}}
           style={{padding:'0px 0px'}}
         >
           <img src="/Icons/ic_send.svg" alt="" height="16px" />
-        </Button>
+        </Button> )
+        }
       </div>
       <div className="body-piney">
         <p style={{marginBottom:'0px'}}>Capital Project</p>
@@ -269,7 +273,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>
         </div>
-        <div className="body-piney-body" style={{paddingBottom:'20px'}}>
+        <div className="body-piney-body" style={{paddingBottom:'30px'}}>
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
             <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={handleOnchange} value={newNote} placeholder="Add note here"/>
           <div className="form-text-calendar">

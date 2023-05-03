@@ -694,8 +694,8 @@ const DetailModal = ({
               }
             </div>
           </Col>
-          <Col span={7} className="mobile-display" style={{height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}}>
-            {openPiney? <div className="piney-modal-detail"><PineyView setOpenPiney={setOpenPiney} data={popUpData} userName={appUser.userInformation?.name} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
+          <Col span={7} className="mobile-display" style={{height:'calc(100vh - 183px)', overflowY:'auto', scrollBehavior:'smooth'}}>
+            {openPiney? <div className="piney-modal-detail"><PineyView isDetail={true} setOpenPiney={setOpenPiney} data={popUpData} userName={appUser.userInformation?.name} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
             :<TeamCollaborator />} 
           </Col>
         </Row>

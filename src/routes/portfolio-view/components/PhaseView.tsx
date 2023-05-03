@@ -847,6 +847,7 @@ const PhaseView = (
                 setOpenPiney={setOpenPiney}
                 data={popUpData}
                 userName={userName}
+                isDetail={false}
                 setUpdateAction={setUpdateAction}
                 updateAction={updateAction}
                 setOpenModalTollgate={setOpenModalTollgate}

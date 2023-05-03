@@ -230,6 +230,7 @@ const CalendarViewPag = ({
             userName={userName}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
+            isDetail={false}
             setOpenModalTollgate={setOpenModalTollgate}
             setTollData={setTollData}
           />

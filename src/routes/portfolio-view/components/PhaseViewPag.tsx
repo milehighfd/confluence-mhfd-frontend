@@ -200,6 +200,7 @@ const PhaseViewPag = ({
             updateAction={updateAction}
             setOpenModalTollgate={setOpenModalTollgate}
             setTollData={setTollData}
+            isDetail={false}
           />
         </div>
       </div>

@@ -1781,6 +1781,7 @@ let toData = datas?.map((ds: any) => ds.schedule)
                 setUpdateAction={setUpdateAction}
                 updateAction={updateAction}
                 setTollData={setTollData}
+                isDetail={false}
                 setOpenModalTollgate={setOpenModalTollgate} />
             </div>}
             <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
