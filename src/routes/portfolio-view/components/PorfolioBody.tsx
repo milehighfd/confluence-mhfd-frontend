@@ -131,6 +131,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     const mhfdmanagerLength = mhfdmanager.length;
     const status = filterProjectOptions.status;
     const statusLength = status.length;    
+    const cost = filterProjectOptions.totalcost;
+    const costLength = cost.length;
     if (serviceareaLength > 0 || filterProjectOptions.servicearea !== '') {
       let code = filterProjectOptions.servicearea;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'servicearea', value: code })
@@ -155,9 +157,12 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
     }
     else if (statusLength > 0 ) {
-      console.log('filterProjectOptions.status',filterProjectOptions.status)
       let code = filterProjectOptions.status;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'status', value: code })
+    }
+    else if (costLength > 0 ) {
+      let code = filterProjectOptions.totalcost;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'cost', value: code })
     }
     else{
       setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
