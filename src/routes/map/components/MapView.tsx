@@ -2,10 +2,8 @@ import React, { useState, useEffect, Fragment, useCallback } from 'react';
 import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
 import { useLocation } from 'react-router-dom';
-
-import GenericTabView from '../../../Components/Shared/GenericTab/GenericTabView';
-import FiltersProjectView from '../../../Components/FiltersProject/FiltersProjectView';
-
+import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
+import FiltersProjectView from 'Components/FiltersProject/FiltersProjectView';
 import {
   FILTER_PROBLEMS_TRIGGER,
   FILTER_PROJECTS_TRIGGER,
@@ -14,16 +12,15 @@ import {
   PROBLEMS_TRIGGER,
   PROJECTS_TRIGGER,
   COMPONENTS_TRIGGER,
-  SELECT_ALL_FILTERS,
-  PROJECT_TYPE,
-} from '../../../constants/constants';
-import DetailedModal from '../../../Components/Shared/Modals/DetailedModal';
-import { useMapDispatch, useMapState } from '../../../hook/mapHook';
-import { capitalLetter, elementCost, getStatus } from '../../../utils/utils';
-import RheoStatService from '../../../Components/FiltersProject/NewProblemsFilter/RheoStatService';
-import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
-import { useDetailedState } from '../../../hook/detailedHook';
-import MapAutoComplete from './MapAutoComplete';
+  SELECT_ALL_FILTERS
+} from 'constants/constants';
+import DetailedModal from 'Components/Shared/Modals/DetailedModal';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { capitalLetter, elementCost, getStatus } from 'utils/utils';
+import RheoStatService from 'Components/FiltersProject/NewProblemsFilter/RheoStatService';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
+import { useDetailedState } from 'hook/detailedHook';
+import MapAutoComplete from 'routes/map/components/MapAutoComplete';
 import { getCurrentProjectStatus } from 'utils/parsers';
 
 const STATUS = 'status',
@@ -309,19 +306,9 @@ const MapView = () => {
           auxValueTag.push(element);
         }
       }
-    // let newValue = '';
-    // for (let index = 0; index < auxValueTag.length; index++) {
-    //   const element = auxValueTag[index];
-    //   if (element !== '') {
-    //     newValue = newValue ? (newValue + ',' + element) : element;
-    //   }
-    // }
-    //  = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
     auxFilterProjects[tag] = auxValueTag;
     setFilterProjectOptions(auxFilterProjects);
-    // getGalleryProjects();
     getParamFilterProjects(boundsMap, auxFilterProjects)
-
   }, [filterProjectOptions]);
 
   const getFiltersPopoverContent = () => {
@@ -535,7 +522,6 @@ const MapView = () => {
             });
           } else {
             if (tag[index]) {
-              // console.log('ACCESS HERE', tag[index], key);
               elements.push({
                 tag: key,
                 value: tag[index],
@@ -544,9 +530,7 @@ const MapView = () => {
             }
           }
         }
-        // if (elements.length > 0) {
         labelsFiltersProjects[position]['detail'] = elements as any;
-        // }
       }
     }
     let mappedLabelsFiltersProjects = labelsFiltersProjects
@@ -650,7 +634,6 @@ const MapView = () => {
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
-      // const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
       const tag = filterProjects[key];
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         for (let index = 0; index < tag.length; index++) {
@@ -662,7 +645,6 @@ const MapView = () => {
       }
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
-        // const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
         const tag = filterProjects[key];
         const elements = [];
         for (let index = 0; index < tag.length; index++) {
@@ -861,7 +843,6 @@ const MapView = () => {
       }
     }else{
       if(filterProjectOptions.column === element.name){
-        // console.log(filterProjectOptions, 'filterProblemOptions');
         valueActive = "item-active-dropdown-color"
       }else{
         valueActive = "no-active"
@@ -1181,7 +1162,6 @@ const MapView = () => {
                   });
                   totalElements = galleryProjectsV2?.count ?? 0;
                 }
-                // console.log(value, 'VALUE')
                 return (
                   <TabPane
                     tab={
