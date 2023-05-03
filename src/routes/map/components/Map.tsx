@@ -54,7 +54,6 @@ import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
 import { flytoBoundsCoor, getTitle, polyMask, depth} from './MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
 import { GlobalMapHook } from '../../../utils/globalMapHook';
-import { useDetailedState } from '../../../hook/detailedHook';
 import MobileMenu from './MobileMenu';
 import SideMenuTools from './SideMenuTools';
 import { commentPopup } from './MapGetters';
@@ -141,10 +140,8 @@ const Map = ({
   const {
     updateSelectedLayers,
     setFilterCoordinates,
-    existDetailedPageProject,
     existDetailedPageProblem,
     setSelectedOnMap,
-    getParamsFilter,
     mapSearchQuery,
     setBoundMap,
     getParamFilterComponents,
@@ -177,18 +174,13 @@ const Map = ({
       components: paramComponents
     },
     filterProblems,
-    filterProjects,
     filterComponents,
     componentDetailIds,
     mapSearch,
     applyFilter,
     zoomProblemOrProject: zoom,
-    projectsids,
-    galleryProblems
+    projectsids
   } = useMapState();
-  const {
-    detailed,
-  } = useDetailedState();
     let geocoderRef = useRef<HTMLDivElement>(null);
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
@@ -624,7 +616,6 @@ const Map = ({
     const addFunction = () => {
       let mask;   
       if (coordinatesJurisdiction?.length > 0) {
-        // console.log('DEPTH', depth(coordinatesJurisdiction), 'Coordinates Jurisdiction', coordinatesJurisdiction, "STREING", JSON.stringify(coordinatesJurisdiction));
         const DEPTH = depth(coordinatesJurisdiction);
         if (DEPTH == 4) {
           mask = turf.multiPolygon(coordinatesJurisdiction);
@@ -702,27 +693,13 @@ const Map = ({
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
     }, [filterProblems,zoomEndCounter, dragEndCounter]);
-
-    // useEffect(() => {
-    //     if (map) {
-    //       applyFilters(MHFD_PROJECTS, filterProjects);
-    //     }
-    // }, [filterProjects, componentDetailIds]);
-    // useEffect(() => {
-    //   getIdByProjectType()
-    // }, [galleryProjectsV2,filterProjectOptions,projectsids]);
     useEffect(() => {
-      // if(projectsids.length) {
-        applyFilters(MHFD_PROJECTS, filterProjectOptions);
-      // }
+      applyFilters(MHFD_PROJECTS, filterProjectOptions);
     }, [projectsids,zoomEndCounter, dragEndCounter]);
-    // }, [projectsids]);
-
     useEffect(() => {
-      // if(projectsids.length) {
-        applyFilters(MHFD_PROJECTS, filterProjectOptions);
-      // }
+      applyFilters(MHFD_PROJECTS, filterProjectOptions);
     }, [groupedProjectIdsType]);
+
     useEffect(() => {
         if (map) {
             for (const component of COMPONENT_LAYERS.tiles) {
@@ -812,22 +789,7 @@ const Map = ({
                 const bounds = map.getBounds();
                 const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
                 setBoundMap(boundingBox);
-                // if (applyFilter) {
-                //     if (toggleModalFilter) {
-                //         if (filterTabNumber === PROJECTS_TRIGGER) {
-                //             getParamFilterProjects(boundingBox, filterProjectOptions);
-                //         } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-                //             getParamFilterProblems(boundingBox, filterProblemOptions);
-                //         } else {
-                //             getParamFilterComponents(boundingBox, filterComponentOptions);
-                //         }
-                //         getParamsFilter(boundingBox);
-                //     } else {
-                //         setFilterCoordinates(boundingBox, tabCards);   // This is commented because the zoonendcounter will trigger useeffect with the same function
-                //     }
-                // }
             }
-
         });
         let __ = 1;
         map.on('dragend', () => {
@@ -837,19 +799,6 @@ const Map = ({
             const bounds = map.getBounds();
             const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
             setBoundMap(boundingBox);
-            // if (applyFilter) {
-            //     if (toggleModalFilter) {
-            //         if (filterTabNumber === PROJECTS_TRIGGER) {
-            //             getParamFilterProjects(boundingBox, filterProjectOptions);
-            //         } else if (filterTabNumber === PROBLEMS_TRIGGER) {
-            //             getParamFilterProblems(boundingBox, filterProblemOptions);
-            //         } else {
-            //             getParamFilterComponents(boundingBox, filterComponentOptions);
-            //         }
-            //     } else {
-            //         // setFilterCoordinates(boundingBox, tabCards);  // This is commented because the zoonendcounter will trigger useeffect with the same function
-            //     }
-            // }
         });
         const updateZoom = () => {
             const zoom = map.getZoom().toFixed(2);
@@ -945,9 +894,6 @@ const Map = ({
             hideHighlighted();
         }
     }, [currentPopup, activeMobilePopups]);
-    // useEffect(() => {
-    //     map.setStyle(dropdownItems.items[dropdownItems.default].style);
-    // }, [dropdownItems.items[dropdownItems.default].style]);
 
     useEffect(() => {
         const mapResize = () => map.resize();
@@ -968,7 +914,6 @@ const Map = ({
             }
             setSpinMapLoaded(false);
             applyNearMapLayer();
-            //applyTileSetLayer();
             applyMeasuresLayer();
             const removedLayers = SWITCHES_MAP.filter((layerElement:any) => !selectedLayers.includes(layerElement))
             removedLayers.forEach((layerExcluded: any) => {
@@ -983,35 +928,6 @@ const Map = ({
         }
     };
     waiting();
-        // map.on('style.load', () => {
-        //     const waiting = () => {
-        //         if (!map.isStyleLoaded()) {
-        //             setTimeout(waiting, 250);
-        //         } else {
-        //             applySkyMapLayer();
-        //             applyMapLayers();
-        //             setSpinMapLoaded(false);
-        //             applyNearMapLayer();
-        //             applyProblemClusterLayer();
-        //             applyMeasuresLayer();
-        //         }
-        //     };
-        //     waiting();
-        // });
-        // if (map.isStyleLoaded()) {
-        //     applyMapLayers();
-        //     setSpinMapLoaded(false);
-        // } else {
-        //     const waiting = () => {
-        //         if (!map.isStyleLoaded()) {
-        //             setTimeout(waiting, 250);
-        //         } else {
-        //             //applyMapLayers();
-        //             setSpinMapLoaded(false);
-        //         }
-        //     };
-        //     waiting();
-        // }
     }, [selectedLayers]);
 
     useEffect(() => {
@@ -1192,7 +1108,6 @@ const Map = ({
       const sourceNameTile = 'milehighfd.create';
       const tileName = 'Adams1_LULC';
       if (!map.getSource(sourceNameTile)) {
-        // console.log('About to add');
         map.addSource(sourceNameTile, {
           "url": `mapbox://${sourceNameTile}`,
           "type": "vector"
@@ -1202,8 +1117,6 @@ const Map = ({
           'type': 'fill',
           'source': sourceNameTile,
           'source-layer': tileName,
-          // 'type': 'line',
-          // 'source-layer': 'pluto15v1',
           layout: {
             visibility: "visible"
           },
@@ -1233,9 +1146,6 @@ const Map = ({
             ]
           }
         });
-        setTimeout(() => {
-          //console.log(map.getStyle().layers);
-        }, 3500);
       }
     }
 
@@ -1308,7 +1218,6 @@ const Map = ({
     const topHovereableLayers = () => {
       const styles = { ...tileStyles as any };
       hovereableLayers.forEach((key:any) => {
-        // console.log('key to chec', key, styles[key]);
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if (!hovereableLayers.includes(key)) {
             return;
@@ -1458,12 +1367,6 @@ const Map = ({
       const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
       const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
       const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
-      const uniqueIds = projectsids.reduce((ids:any, project:any) => {
-        if (!ids.includes(project.code_project_type_id)) {
-          ids.push(project.code_project_type_id);
-        }
-        return ids;
-      }, []);
       const groupedProjectsByType ={
         5: capitalProjects,
         7: maintenanceProjects,
@@ -1473,8 +1376,6 @@ const Map = ({
         6: developementImprProjects
       };
       setGroupedProjectIdsType(groupedProjectsByType)
-  
-
     })
 
     useEffect(() => {
@@ -1564,23 +1465,6 @@ const Map = ({
                         }
                         continue;
                     }
-                    // if (filterField === 'servicearea') {
-                      
-                    //   let filterValue = filters;
-                    //     if(filterValue[filters.length - 1] == ' ') {
-                    //       filterValue = filters.substring(0,filters.length - 1);
-                    //     }
-                    //     allFilters.push(['==', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[9] : filterField)], filterValue]);
-                    //     continue;
-                    // }
-                    // if(filterField === 'county' ){
-                    //   let filterValue = filters.replace('County','');
-                    //     if(filterValue[filterValue.length - 1] == ' ') {
-                    //       filterValue = filterValue.substring(0,filterValue.length - 1);
-                    //     }
-                    //     allFilters.push(['==', ['get', filterField], filterValue]);
-                    //     continue;
-                    // }
                     if (filterField === 'completedyear') {
                         continue;
                     }
@@ -1619,8 +1503,6 @@ const Map = ({
                 } 
               }
             } else if (key === MHFD_PROJECTS) {
-              //console.log('projectsids', projectsids)
-              // allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
               const currentLayer = map.getLayer(key + '_' + index)
               let projecttypes = currentLayer.metadata.projecttype;
               let combinedProjects:any=[];
@@ -1639,10 +1521,6 @@ const Map = ({
                 allFilters.push(['in', ['get','component_id'], ['literal', component.actions]]);
               });
             }
-            
-            // if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
-            //   allFilters.push(style.filter);
-            // }
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
                 allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
@@ -1777,7 +1655,6 @@ const Map = ({
         paint: {
             'line-color': '#fff',
             'line-width': style.source_name ? widthLayersStream[0]:widthLayersStream[1],
-            // 'line-opacity': style.paint['line-opacity'],
         },
         filter: ['in', 'cartodb_id']
       });
@@ -1891,18 +1768,13 @@ const Map = ({
     };
 
     const test = (item: any) => {
- 
         setVisible(true);
         setData(item);
         if (item.problemid) {
             existDetailedPageProblem(item.problemid);
         } else {
-            const url = 'projectid=' + (item.projectid || item.id);
-            // existDetailedPageProject(url);
             getDetailedPageProject(item.projectid || item.iditem.projectid || item.project_id)
         }
-
-
     }
     const highlithOnTap = (id: any) => {
         hideHighlighted();
@@ -2037,9 +1909,6 @@ const Map = ({
 
    
     useEffect(() => {
-      //   if (allLayers.length < 100) {
-      //     return;
-      // }
       EventService.setRef('click', eventclick);
       let eventToClick = EventService.getRef('click');
       map.on('click', eventToClick);
@@ -2517,7 +2386,6 @@ const Map = ({
 
     const setSideBarStatus = (status: boolean) => {
         setCommentVisible(status);
-        // un comment when notes is ready
         setOpen(status);
     }
     const [measuringState, setMeasuringState] = useState(isMeasuring);
@@ -2633,7 +2501,10 @@ const Map = ({
                     </div>
                     <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <div className="bodymap" onClick={() => setIsMeasuring(true)}>
-                        <b><img className='img-measure-00'></img>Create a new measurement</b>
+                      <b>
+                        <img className='img-measure-00' alt="Create new measurement"></img>
+                        Create a new measurement
+                      </b>
                     </div>
                 </div>
               </div>}
@@ -2658,16 +2529,31 @@ const Map = ({
                     <hr style={{opacity: 0.4, width: '96%'}}></hr>
                     <p className='paragraph'> 
                       {
-                       !isdrawingmeasure && 
-                       <span  className="button-c" style={{marginLeft:'-1px'}} onClick={()=>setIsMeasuring(false)}><a style={{color:'#11093C'}}><img className='img-measure-05'></img> <b>Cancel</b></a></span >
+                        !isdrawingmeasure && 
+                        <span className="button-c" style={{marginLeft:'-1px'}} onClick={()=>setIsMeasuring(false)}>
+                          <a style={{color:'#11093C'}}>
+                            <img className='img-measure-05' alt="Cancel"></img>
+                            <b>Cancel</b>
+                          </a>
+                        </span >
                       }
                       {  
                         isdrawingmeasure && 
-                        <span  className="button-c" style={{paddingLeft:'20px'}} onClick={()=>finishMeasure('line')}><a style={{color:'#11093C'}}><img className='img-measure-png-01' src='/Icons/icon-line.png'></img> <b>Finish Line</b></a></span >
+                        <span className="button-c" style={{paddingLeft:'20px'}} onClick={()=>finishMeasure('line')}>
+                          <a style={{color:'#11093C'}}>
+                            <img className='img-measure-png-01' src='/Icons/icon-line.png' alt="Finish Line"></img>
+                            <b>Finish Line</b>
+                          </a>
+                        </span >
                       }
                       {  
                         isdrawingmeasure && 
-                        <span  className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure('polygon')}><a style={{color:'#11093C'}}><img className='img-measure-png-02' src='/Icons/icon-polygon.png'></img> <b>Finish Polygon</b></a></span >
+                        <span className="button-c" style={{paddingLeft:'22px'}} onClick={()=>finishMeasure('polygon')}>
+                          <a style={{color:'#11093C'}}>
+                            <img className='img-measure-png-02' src='/Icons/icon-polygon.png' alt="Finish Polygon"></img>
+                            <b>Finish Polygon</b>
+                          </a>
+                        </span >
                       }
                     </p>
                   </div>
