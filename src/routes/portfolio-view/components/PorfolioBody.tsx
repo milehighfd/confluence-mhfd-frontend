@@ -135,29 +135,47 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   useEffect(() => {
     setUpdateFilter(filterProjectOptions);
     console.log('filterProjectOptions',filterProjectOptions);
-    console.log("ENTRA",filterProjectOptions.servicearea)
-    if (filterProjectOptions.servicearea.lenght > 0 || filterProjectOptions.servicearea !== '') {
+    const servicearea = filterProjectOptions.servicearea;
+    const serviceareaLength = servicearea.length;
+    const county = filterProjectOptions.county;
+    const countyLength = county.length;
+    const jurisdiction = filterProjectOptions.jurisdiction;
+    const jurisdictionLength = jurisdiction.length;
+    const consultant = filterProjectOptions.consultant;
+    const consultantLength = consultant.length;
+    const contractor = filterProjectOptions.contractor;
+    const contractorLength = contractor.length;
+    const mhfdmanager = filterProjectOptions.mhfdmanager;
+    const mhfdmanagerLength = mhfdmanager.length;
+    const status = filterProjectOptions.status;
+    const statusLength = status.length;    
+    if (serviceareaLength > 0 || filterProjectOptions.servicearea !== '') {
       let code = filterProjectOptions.servicearea;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'servicearea', value: code })
-    }else if (filterProjectOptions.county.lenght > 0 || filterProjectOptions.county !== '') {
+    }else if (countyLength > 0 || filterProjectOptions.county !== '') {
       let code = filterProjectOptions.county;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'county', value: code })
     }
-    else if (filterProjectOptions.jurisdiction.lenght > 0 || filterProjectOptions.jurisdiction !== '') {
+    else if (jurisdictionLength > 0 || filterProjectOptions.jurisdiction !== '') {
       let code = filterProjectOptions.jurisdiction;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'jurisdiction', value: code })
     }
-    else if (filterProjectOptions.consultant.lenght > 0 || filterProjectOptions.consultant !== '') {
+    else if (consultantLength > 0 || filterProjectOptions.consultant !== '') {
       let code = filterProjectOptions.consultant;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'consultant', value: code })
     }
-    else if (filterProjectOptions.mhfdmanager.lenght > 0 || filterProjectOptions.mhfdmanager !== '') {
+    else if (mhfdmanagerLength > 0 || filterProjectOptions.mhfdmanager !== '') {
       let code = filterProjectOptions.mhfdmanager;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'staff', value: code })
     }
-    else if (filterProjectOptions.contractor.lenght > 0 || filterProjectOptions.contractor !== '') {
+    else if (contractorLength > 0 || filterProjectOptions.contractor !== '') {
       let code = filterProjectOptions.contractor;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
+    }
+    else if (statusLength > 0 ) {
+      console.log('filterProjectOptions.status',filterProjectOptions.status)
+      let code = filterProjectOptions.status;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'status', value: code })
     }
     else{
       setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
