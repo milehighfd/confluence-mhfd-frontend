@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Menu } from 'antd';
 import { getGroupList } from "./ListUtils";
+import { useMapDispatch } from "hook/mapHook";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
@@ -12,6 +13,9 @@ export const FilterByGroupName = ({
   setFiltervalue: Function,
   setFiltername: Function
 }) => {
+  const {    
+    resetFilterProjectOptionsEmpty,
+  } = useMapDispatch();
   const [serviceAreaList, setServiceAreaList] = useState([]);
   const [countyList, setCountyList] = useState([]);
   const [jurisdictionList, setJurisdictionList] = useState([]);
@@ -86,6 +90,7 @@ export const FilterByGroupName = ({
             setFilterby('');
             setFiltervalue(-1);
             setFiltername('Mile High Flood District');
+            resetFilterProjectOptionsEmpty();
           },
           className: activeDrop === 'MHFD District Plan' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
         },
