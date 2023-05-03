@@ -73,6 +73,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
         servicearea: servicearea,
+        serviceareaComp: filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order,
         bounds: coordinates
@@ -96,6 +97,7 @@ const options = (options: OptionProblems, filterComponent: OptionComponents, coo
         estimatedcostComp: filterComponent.estimatedcost,
         name: options.keyword,
         servicearea: servicearea,
+        serviceareaComp: filterComponent.servicearea,
         sortby: options.column,
         sorttype: options.order
     }

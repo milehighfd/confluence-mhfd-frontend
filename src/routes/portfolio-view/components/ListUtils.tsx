@@ -15,7 +15,7 @@ export const optionsProjects = (options: OptionProjects, filterComponent: Option
     servicearea = options.servicearea;
   } else {
     if (filterComponent.servicearea) {
-      servicearea = filterComponent.servicearea;
+      // servicearea = filterComponent.servicearea;
     }
   }
   const formattedOptions = {
@@ -45,6 +45,7 @@ export const optionsProjects = (options: OptionProjects, filterComponent: Option
     consultant: options.consultant,
     contractor: options.contractor,
     servicearea: servicearea,
+    serviceareaComp: filterComponent.servicearea,
     sortby: options.column,
     sorttype: options.order
   }
