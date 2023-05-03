@@ -840,7 +840,6 @@ const MapView = () => {
             onChange={() => {
               setApplyFilter(!applyFilter);
               getGalleryProblems();
-              console.log('get gallery');
               getGalleryProjects();
             }}
           ></Checkbox>

@@ -3,6 +3,15 @@ import { RefObject } from 'react';
 import { MapStyleTypes } from '../Classes/MapTypes';
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
+export const getMapBoundingBoxTrimmed = (map: mapboxgl.Map) => {
+  const bounds = map.getBounds();
+  const sw = bounds.getSouthWest();
+  const ne = bounds.getNorthEast();
+  return [
+    sw.lng, sw.lat, ne.lng, ne.lat
+  ].map(r => r.toFixed(4)).join(',');
+}
+
 export const addMapGeocoder = (map : any, geocoderRef : RefObject<HTMLDivElement>) => {
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,

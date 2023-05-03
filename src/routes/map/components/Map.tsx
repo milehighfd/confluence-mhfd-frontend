@@ -36,7 +36,7 @@ import {
   NEARMAP_STYLE,
   USE_LAND_TILES_STYLE
 } from '../../../constants/mapStyles';
-import { addMapGeocoder } from '../../../utils/mapUtils';
+import { addMapGeocoder, getMapBoundingBoxTrimmed } from '../../../utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
 import { useMapState, useMapDispatch } from '../../../hook/mapHook';
 import { useColorListDispatch, useColorListState } from '../../../hook/colorListHook';
@@ -323,7 +323,7 @@ const Map = ({
       if (user?.polygon[0]) {
         let myPolygon: any = [];
         const depthPolygon = depth(userInformation.polygon);
-        if (depthPolygon == 4) {
+        if (depthPolygon === 4) {
           // MULTIPOLYGON
           for (let index = 0; index < userInformation.polygon.length; index++) {
             const geo = userInformation.polygon[index];
@@ -336,7 +336,7 @@ const Map = ({
                 myPolygon.push([...geo]);
             }
         }
-        } else if (depthPolygon == 2) {
+        } else if (depthPolygon === 2) {
           myPolygon = userInformation.polygon;
         } else {
           // POLYGON
@@ -786,9 +786,7 @@ const Map = ({
             setOpacityLayer(false)
             value += 1;
             if (value >= 2) {
-                const bounds = map.getBounds();
-                const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
-                setBoundMap(boundingBox);
+                setBoundMap(getMapBoundingBoxTrimmed(map));
             }
         });
         let __ = 1;
@@ -796,9 +794,7 @@ const Map = ({
             mapService.hideOpacity();
             setDragEndCounter(__++);
             setOpacityLayer(false)
-            const bounds = map.getBounds();
-            const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
-            setBoundMap(boundingBox);
+            setBoundMap(getMapBoundingBoxTrimmed(map));
         });
         const updateZoom = () => {
             const zoom = map.getZoom().toFixed(2);
@@ -849,7 +845,7 @@ const Map = ({
                 setKeyword('');
             }
         }
-        const boundingBox = bounds._sw.lng + ',' + bounds._sw.lat + ',' + bounds._ne.lng + ',' + bounds._ne.lat;
+        const boundingBox = getMapBoundingBoxTrimmed(map);
         setBoundMap(boundingBox);
         let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
         if (toggleModalFilter) { // if tab of filters is open 
