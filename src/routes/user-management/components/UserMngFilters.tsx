@@ -20,6 +20,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
   const { Search } = Input;
   const [organization,setOrganization] = useState('');
   const [serviceArea,setServiceArea] = useState('');  
+  const [name,setName] = useState(option.name);
   useEffect(() => {
     const auxOption = { ...option };
     auxOption.organization = organization;
@@ -65,6 +66,17 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
     </Menu>
   };
 
+  const ResetFilters = () => {
+    const auxOption = { ...option };
+    auxOption.organization = '';
+    auxOption.serviceArea = '';
+    auxOption.designation = '';
+    auxOption.sort = '';
+    setOption(auxOption);
+    setName('');
+    reset();
+  };
+
   const MenuOrganization = () => {
     const itemOrganization: any = [];
     const itemConsultant: any = [];
@@ -104,6 +116,10 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       {/* <div> */}
         <Search
           placeholder="Search by Name"
+          value={name}
+          onChange={e => {
+            setName(e.target.value);
+          }}
           onSearch={value => {
             const auxOption = { ...option };
             auxOption.name = value;
@@ -151,7 +167,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       <Button className="btn-purple" style={{height:'36px', width:'8%'}} onClick={() => {
         setOrganization('');
         setServiceArea('');
-        reset();
+        ResetFilters();
       }}>Reset</Button>
 
       {/* <div className="btn-r" id={"filter-sort" + title}>
