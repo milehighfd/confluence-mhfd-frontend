@@ -29,7 +29,7 @@ const ComponentSolucions = () => {
       dataIndex: 'component',
       key: 'component',
       width:'30%',
-      sorter: (a:any, b:any) => a?.length - b?.length,
+      sorter: (a:any, b:any) =>  a.component.localeCompare(b.component),
     },
     {
       title: <>Cost</>,
@@ -37,7 +37,7 @@ const ComponentSolucions = () => {
       key: 'cost',
       width:'20%',
       render: (estimated_cost: number) => '$' + new Intl.NumberFormat("en-EN").format(Math.round(estimated_cost)),
-     sorter: (a:any, b:any) => a?.length - b?.length,
+     sorter: (a:any, b:any) => a?.cost - b?.cost,
     },
     {
       title: <>% Complete</>,
@@ -50,7 +50,7 @@ const ComponentSolucions = () => {
       //     {status}
       //   </span> 
       // ),
-      sorter: (a:any, b:any) => a?.length - b?.length,
+      sorter: (a:any, b:any) => a?.completepercer - b?.completepercer,
     },
     {
       title: <>% of Total Cost</>,
@@ -58,7 +58,7 @@ const ComponentSolucions = () => {
       width:'30%',
       key: 'total_cost',
       render: (percen: any) => `${Math.round(percen)}%`,
-      sorter: (a:any, b:any) => a?.length - b?.length,
+      sorter: (a:any, b:any) => a?.total_cost - b?.total_cost,
     },
   ];
   return (
