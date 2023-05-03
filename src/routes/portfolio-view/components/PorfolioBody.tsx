@@ -73,16 +73,15 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [statusCounter,setStatusCounter] = useState(0);
   const [updateFilter, setUpdateFilter] = useState([]);
   const [filterPagination, setFilterPagination] = useState<any>({});
-
   const [favorites, setFavorites] = useState<any>([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
   
-  useEffect(()=>{
+  useEffect(() => {
     getParamFilterProjectsNoBounds();
     if (searchWord) {
       let currentNewData = [...newData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
-      currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
+      currentNewData = currentNewData.filter((d: any, idx: number) => (d.id.includes('Title') && (currentNewData[idx + 1] ? currentNewData[idx + 1].id.includes('Title') : true)) ? false : true);
       setNewData(currentNewData);
       const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
@@ -92,13 +91,13 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       setOpenTable(new Array(sortedData.length).fill(true));
     }
     setOpenTable([true, true, true]);
-    setTimeout(()=>{
+    setTimeout(() => {
       isInit = false;
       resetFilterProjectOptionsEmpty();
     }, 1000);
     return () => {
       resetFiltercomponentOptions();
-    }    
+    }
   }, []);
 
 
@@ -202,12 +201,10 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   }, []);
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
-    let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};
-    
+    let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};    
     if (!(resetFilterBy === 'projecttype' && tabKey !== 'All') && resetFilterBy !== '') {
       options[resetFilterBy] = '';
-    }
-    
+    }    
     if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
     || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
     || 'staff' === field) {
@@ -253,6 +250,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       previousFilterBy = filterby;
     }
   } ,[filterby, filterValue]);
+
   useEffect(() => {
     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
     if (currentId == 0) {
@@ -261,129 +259,14 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       apply([currentId], 'projecttype', '');
     }
   } ,[ tabKey ]);
-  //END PARSING DATA
   
   useEffect(() => {
     datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
       setFavorites(result);    
     })    
   }, [listLoaded,updateFavorites]);
-  useEffect(() => {
-    const z = [...completeData].map((x: any)  => {  return {...x, isFavorite : favorites.some((element: { project_id: number; }) => (element.project_id === x.project_id))}})     
-    setNewData(z)
-    setCompleteData(z)
-  }, [favorites]);
-
-  const parseDataToString = (data: any) => {
-    if (data == null) return '';
-    return data;
-  }
-
-  function sort(order: any, columnKey: any, tabkey: any , filterby: any, filterValue: any, filtername: any) {  
-    let numAscending: any[] = [];
-    let filteredData = [];
-    let filteredData2: any[] = [];
-    let filteredTitles = [];    
-      filterby = filterby+"_id"
-    
-    let filterWord : any[] = []; 
-    let filterHeart : any[] = [];   
-    
-    if (searchWord) {
-      let currentNewData = [...completeData].filter((d: any) => d.id.includes('Title') || d.rowLabel.toLowerCase().includes(searchWord.toLowerCase()));
-      currentNewData = currentNewData.filter((d:any, idx:number) => (d.id.includes('Title') && (currentNewData[idx+1] ? currentNewData[idx+1].id.includes('Title') : true)) ?  false : true );
-      filterWord = currentNewData;
-    } else {
-      filterWord = completeData;
-    }
-    if (filterValue!==-1) {      
-        filteredData2 = [...filterWord].filter(name => name.id.includes('Title') 
-        || name[filterby].includes(filterValue));               
-    } else{
-      filteredData2 = [...filterWord]
-    }
-    if (tabkey!==0) {
-      filteredData = [...filteredData2].filter(name => name.id.includes('Title') 
-        || name.code_project_type_id===tabkey);  
-    } else{
-      filteredData = [...filteredData2]
-    }
-    if (columnKey + '' === 'on_base' || columnKey + '' === 'estimated_cost') {
-      if (order + '' === 'ascend'){      
-        numAscending = filteredData.sort((a: any, b: any) => a[columnKey] - b[columnKey]);       
-      }else if (order + '' === 'descend')     {
-        numAscending = filteredData.sort((a: any, b: any) => b[columnKey] - a[columnKey]);
-      }else{
-        numAscending = filteredData;
-      }
-    } else {
-      if(order + '' === 'ascend'){
-        numAscending = filteredData.sort((a: any, b: any) => parseDataToString(a[columnKey]).localeCompare(parseDataToString(b[columnKey])));
-      } else if (order+'' === 'descend')     {
-        numAscending = filteredData.sort((a: any, b: any) => parseDataToString(b[columnKey]).localeCompare(parseDataToString(a[columnKey]))
-    );
-      }else{
-        numAscending = filteredData;
-      }
-    }
-    if(openFavorites){
-      filterHeart = [...numAscending].filter((x: any) => x.isFavorite || x.id.includes('Title'))
-    }else{
-      filterHeart = numAscending;
-    }
-    filteredTitles = [...filterHeart].filter(name => {
-      const countTitles = [...filterHeart].filter(item  => item.headerLabel === name.headerLabel);
-      const count = countTitles.length;
-      if (name.id.includes('Title') && count === 1) {
-        return false
-      } else{
-        return true
-      }
-    });
-
-    const prevData = filteredTitles.map((elem: any) => {
-      return {
-        ...elem,
-        schedule: elem.schedule.filter((val: any) => val.phase !== 'Draft' && val.phase !== 'WorkRequest')
-      }
-    });
-    const sortedData = prevData.filter((elem: any) => elem.id.includes('Title'));
-    let phaseD = sortedData.map((elem: any) => {
-      return {
-        ...elem,
-        values: prevData.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
-      }
-    });
-    const counterGroup = ((phaseD.map((x: any) => {
-      let counter = Object.keys(x.values).length
-      return x.headerLabel + ' (' + counter + ')'
-    })))
-    filteredTitles = ( filteredTitles.map((x:any)=>{
-      if (x.id.includes('Title')){        
-        for (var i=0; i < counterGroup.length; i++) {      
-          if(counterGroup[i].includes(x.headerLabel)){                  
-            return {...x,counter: counterGroup[i]}         
-          }          
-        } 
-      }else{
-        return {...x}
-      }
-    }))
-    setPhaseData(phaseD)
-    
-    return filteredTitles;
-  }
-  
-
-  useEffect(()=>{     
-    let tabkey1 = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;    
-    let numAscending = [];
-    numAscending = (sort(sortValue.order,sortValue.columnKey,tabkey1,filterby,filterValue,filtername));
-    setNewData(numAscending)
-  }, [sortValue, tabKey, filterby, filterValue, filtername, listLoaded, openFavorites,completeData]);
  
   useEffect(() => {
-    let z = []      
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKeysIds[tabKeys.indexOf(tabKey)] || 0 })
       .then((rows) => {        
         setStatusCounter(rows.length)      
@@ -519,20 +402,14 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         searchRef={searchRef}
                         setOpenTable={setOpenTable}
                         openTable={openTable}
-                        phaseRef={phaseRef}
-                        scheduleRef={scheduleRef}
                         rawData={newData}
-                        setCompleteData={setCompleteData}
-                        setNewData={setNewData}
                         index={idx}
                         groupsBy={groupsBy}
                         setCurrentGroup={setCurrentGroup}
                         currentGroup={currentGroup}
                         setSearchWord={setSearchWord}
-                        fullData={newData}
                         email={appUser.userInformation?.email}
                         setCollapsePhase={setCollapsePhase}
-                        optionSelect={optionSelect}
                         collapsePhase={collapsePhase}
                         divRef={tableRef}
                         tabKey={tabKey}
@@ -540,7 +417,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         setSortValue={setSortValue}
                         favorites={favorites}
                         filterPagination={filterPagination}
-                        setFilterPagination={setFilterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
                         sortValue={sortValue}
