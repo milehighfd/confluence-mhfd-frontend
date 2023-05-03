@@ -923,8 +923,7 @@ const MapView = () => {
       } else {
         setKeywordProject('');
         setProjectKeyword('');
-        console.log('get gallery'); 
-        getGalleryProjects();;
+        getGalleryProjects();
       }
       switch(tabCards) {
         case PROBLEMS_TRIGGER:

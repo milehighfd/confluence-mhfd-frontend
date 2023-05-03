@@ -1,42 +1,25 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Col, Dropdown, Row, Tabs } from 'antd';
 import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, HeartOutlined,  UpOutlined } from "@ant-design/icons";
-import Search from "./Search";
 import TablePortafolio from "./TablePortfolio";
-import PhaseView from "./PhaseView";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import CalendarView from "./CalendarView";
 import Filters from "./Filters";
 import ModalFields from "routes/list-view/components/ModalFields";
 import ModalTollgate from "routes/list-view/components/ModalTollgate";
-import { rawData } from "../constants/PhaseViewData";
 import ModalGraphic from "./ModalGraphic";
-import { getListProjects, getGroupList, DEFAULT_GROUP, optionsProjects } from "./ListUtils";
-import moment from 'moment';
+import { DEFAULT_GROUP } from "./ListUtils";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import store from "../../../store";
 import { FilterByGroupName } from './FilterByGroupField';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
-import { getCounties, getServiceAreas, getSponsors, getStreams, getTeam, getTotalEstimatedCost,getCurrentProjectStatus } from '../../../utils/parsers';
 import PhaseViewPag from "./PhaseViewPag";
 import CalendarViewPag from "./CalendarViewPag";
 
 const { TabPane } = Tabs;
-//const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
-//const tabKeysIds = [ 0, 5, 7, 1, 6, 15, 13];
-const BOUNDSMAP = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`;
 let isInit = true;
 let previousFilterBy = '';
-// const popovers: any = [
-//   <div className="popoveer-00"><b>All:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-//   <div className="popoveer-00"><b>Capital:</b> Master plans that identify problems and recommend improvements.</div>,
-//   <div className="popoveer-00"><b>Restoration:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-//   <div className="popoveer-00"><b>Study:</b> Property with high flood risk or needed for improvements.</div>,
-//   <div className="popoveer-00"><b>Acquisition:</b> Any other effort for which MHFD funds or staff time is requested.</div>,
-//   <div className="popoveer-00"><b>R&D:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-//   <div className="popoveer-00"><b>DIP:</b> Master plans that identify problems and recommend improvements.</div>,
-// ]
+
 const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, setOptionSelect:React.Dispatch<React.SetStateAction<string>>}) => {
   const {
     setFilterProjectOptions,
@@ -47,8 +30,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   } = useMapDispatch();
   const {
     filterProjectOptions,
-    filterProjectOptionsNoFilter,
-    filterComponentOptions,
+    filterProjectOptionsNoFilter
   } = useMapState();
   const [tabKeys, setTabKeys] = useState<any>(['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
   const [tabKeysIds, setTabKeysIds] = useState<any>([ 0, 5, 7, 1, 6, 15, 13]);
@@ -198,7 +180,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     'Consultant',
     'Contractor'
   ];
-  // console.log('zoom',zoomTimeline);
+
   const menu = (
     <FilterByGroupName 
       setFilterby={setFilterby}
@@ -252,11 +234,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
         }
     }
     setFilterProjectOptions(options);
-    // if(originpage === 'portfolio' && setApplyFilter) {
-    //   setApplyFilter(Math.random());
-    // } else {
-    //   getGalleryProjects();
-    // }
     options.servicearea = options.servicearea;
     options.county = options.county;
     setUpdateFilter(options);
@@ -279,240 +256,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       apply([currentId], 'projecttype', '');
     }
   } ,[ tabKey ]);
-  
-  // useEffect(() => {
-  //   if(searchRef.current.length) {
-  //     searchRef.current.forEach(element => {
-  //       let div: any = element;
-  //       div.scrollTop = 0;  
-  //     });
-  //   }
-  // }, [optionSelect, tabKey]);
-
-  //START PARSING DATA
-
-  // const callGetGroupList = (sortValue: any, withFavorites: any) => {
-  //   let optionsfiltersoptions = isInit ? filterProjectOptionsNoFilter : filterProjectOptions;
-  //   const optionsfilters = optionsProjects( optionsfiltersoptions, filterComponentOptions, '' , false);    
-  //   //console.log("Filter")
-  //   //console.log(optionsfilters)
-  //   setIsLoading(true);
-  //   getGroupList(currentGroup).then((valuesGroups) => {
-  //     //const groups = valuesGroups.groups;
-  //     let groups = valuesGroups.groups.filter((x:any)=>x.value !== 'Draft' && x.value !== 'Requested');      
-  //     if(valuesGroups.table === 'CODE_STATE_COUNTY_4326'){
-  //       groups = valuesGroups.groups.map((x:any)=>{
-  //         return {...x, value : (x.value+' County')}
-  //       } );     
-  //     }
-  //     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
-  //     //console.log(valuesGroups)
-  //     //console.log(currentGroup)
-  //     // setNewData(updatedGroups);
-  //     //getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, filterValue, filterby, optionsfilters).then((valuesList) => {       
-  //     getListProjects(currentGroup, currentId, sortValue, withFavorites, currentUserId, -1, '', optionsfilters).then((valuesList) => {
-  //      const updatedGroups: any = [];         
-  //       console.log("valuesList")
-  //       console.log(valuesList)
-  //       groups.forEach((element: any, index: number) => {
-  //         // console.log("ELEMENT")
-  //         // console.log(element);
-  //         if (valuesList[element.id]) {
-  //         updatedGroups.push({
-  //           id: `Title${element.id}`,
-  //           headerLabel: element.value,
-  //           date: moment('2022/08/11'),
-  //           schedule: [
-  //             {
-  //               objectId: 10,
-  //               type: 'title',
-  //               categoryNo: 100,
-  //               from: moment('2022/02/01 00:00:00'),
-  //               to: moment('2022/06/01 00:00:00'),
-  //               status: 'completed',
-  //               name: element.value,
-  //             }
-  //           ],
-  //         });
-  //         //console.log("VALUES")
-  //         //console.log(valuesList)
-  //           valuesList[element.id].forEach((elem: any, idx: number) => {
-  //             // if(idx > 20) return;      
-              
-  //             updatedGroups.push({
-  //               id: `${element.value}${idx}`,
-  //               project_id: elem.project_id,
-  //               code_project_type_id:elem.code_project_type_id,
-  //               headerLabel: element.value,
-  //               rowLabel: elem.project_name, //description
-  //               date: moment('2022/08/11'),
-  //               key: elem.project_id + element.id,
-  //               phase: getCurrentProjectStatus(elem)?.code_phase_type?.phase_name,
-  //               phaseId: getCurrentProjectStatus(elem)?.code_phase_type_id,
-  //               mhfd:  elem?.project_staffs.reduce((accumulator: string, pl: any) => {
-  //                 const sa = pl?.mhfd_staff?.full_name || '';
-  //                 const sa1 = pl?.code_project_staff_role_type_id || '';
-  //                 let value = accumulator;
-  //                 if (sa && sa1 === 1) {
-  //                   if (value) {
-  //                     value += ',';
-  //                   }
-  //                   value += sa;
-  //                 }  
-  //                 return value;
-  //               }, ''),
-  //               mhfd_support: null,
-  //               lg_lead: null,
-  //               developer: null,
-  //               consultant:  elem?.project_partners.reduce((accumulator: string, pl: any) => {
-  //                 const sa = pl?.business_associate?.business_name || '';
-  //                 const sa1 = pl?.code_partner_type_id || '';
-  //                 let value = accumulator;
-  //                 if (sa && sa1 === 3) {
-  //                   if (value) {
-  //                     value += ',';
-  //                   }
-  //                   value += sa;
-  //                 }  
-  //                 return value;
-  //               }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
-  //               civil_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
-  //                 const sa = pl?.business_associate?.business_name || '';
-  //                 const sa1 = pl?.code_partner_type_id || '';
-  //                 let value = accumulator;
-  //                 if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
-  //                   if (value) {
-  //                     value += ',';
-  //                   }
-  //                   value += sa;
-  //                 }  
-  //                 return value;
-  //               }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
-  //               landscape_contractor: elem?.project_partners.reduce((accumulator: string, pl: any) => {
-  //                 const sa = pl?.business_associate?.business_name || '';
-  //                 const sa1 = pl?.code_partner_type_id || '';
-  //                 let value = accumulator;
-  //                 if (sa && sa1 === 9) {
-  //                   if (value) {
-  //                     value += ',';
-  //                   }
-  //                   value += sa;
-  //                 }  
-  //                 return value;
-  //               }, ''), // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
-  //               construction_start_date: elem?.project_status?.code_phase_type?.code_phase_type_id === 125 ? elem?.project_status?.planned_start_date : elem?.project_status?.actual_start_date, //elem?.construction_start_date,
-  //               jurisdiction_id: elem?.project_local_governments.reduce((accumulator: Array<string>, pl: any) => {
-  //                 const sa = pl?.CODE_LOCAL_GOVERNMENT?.code_local_government_id || '';
-  //                 let value = accumulator;
-  //                 if (sa) {
-  //                   value = [...value,sa];
-  //                 }  
-  //                 return value;
-  //               }, ''), 
-  //               county_id: elem?.project_counties?.reduce((accumulator: Array<string>, pl: any) => {
-  //                 const county = pl?.CODE_STATE_COUNTY?.state_county_id || '';
-  //                 let value = accumulator;
-  //                 if (county) {
-  //                   value = [...value,county];
-  //                 }  
-  //                 return value;
-  //               }, ''),
-  //               servicearea_id: elem?.project_service_areas.reduce((accumulator: Array<string>, pl: any) => {
-  //                 const sa = pl?.CODE_SERVICE_AREA?.code_service_area_id || '';
-  //                 let value = accumulator;
-  //                 if (sa) {
-  //                   value = [...value,sa];
-  //                 }  
-  //                 return value;
-  //               }, ''),
-  //               consultant_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
-  //                 const sa = pl?.business_associate?.business_associates_id || '';
-  //                 const sa1 = pl?.code_partner_type_id || '';
-  //                 let value = accumulator;
-  //                 if (sa && sa1 === 3) {
-  //                   value = [...value,sa];
-  //                 }  
-  //                 return value;
-  //               }, ''),
-  //               contractor_id: elem?.project_partners.reduce((accumulator: Array<string>, pl: any) => {
-  //                 const sa = pl?.business_associate?.business_associates_id || '';
-  //                 const sa1 = pl?.code_partner_type_id || '';
-  //                 let value = accumulator;
-  //                 if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
-  //                   value = [...value,sa];
-  //                 }  
-  //                 return value;
-  //               }, ''),
-  //               isFavorite : favorites.some((element: { project_id: number; }) => {
-  //                 if (element.project_id === elem.project_id) {
-  //                   return true;
-  //                 }              
-  //                 return false;
-  //               }),
-  //               local_government: elem?.project_local_governments.reduce((accumulator: string, pl: any) => {
-  //                 const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
-  //                 let value = accumulator;
-  //                 if (sa) {
-  //                   if (value) {
-  //                     value += ',';
-  //                   }
-  //                   value += sa;
-  //                 }  
-  //                 return value;
-  //               }, ''),
-  //               on_base: elem?.onbase_project_number,
-  //               total_funding: null,
-  //               project_sponsor: getSponsors(elem.project_partners),
-  //               project_type:elem?.code_project_type?.project_type_name,
-  //               status: getCurrentProjectStatus(elem)?.code_phase_type?.code_status_type?.status_name || '',
-  //               project_status: elem?.project_statuses?.filter((ps:any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
-  //               service_area: getServiceAreas(elem?.project_service_areas || []),
-  //               county: getCounties(elem?.project_counties || []),
-  //               estimated_cost: getTotalEstimatedCost(elem?.project_costs),
-  //               stream: getStreams(elem?.project_streams || []).join(' , '),
-  //               contact: 'ICON',
-  //               view: 'id',
-  //               options:'red',
-  //               schedule: [
-  //                 {
-  //                   objectId: 1,
-  //                   type: 'rect',
-  //                   categoryNo: 1,
-  //                   from: moment('2022/06/22 07:30:00'),
-  //                   to: moment('2022/07/01 08:30:00'),
-  //                   status: 'completed',
-  //                   name: 'Draft',
-  //                   phase: 'Draft', 
-  //                   tasks: 6,
-  //                   show: false,
-  //                   current:false
-  //                 },
-  //               ],
-  //             })
-  //           });
-  //         }
-  //       });        
-  //       setNewData(updatedGroups);
-  //       setCompleteData(updatedGroups);
-  //       setListLoaded(!listLoaded);
-  //       setTimeout(() => {
-  //         setIsLoading(false);
-  //       }, 1500);
-  //       const sortedData = updatedGroups.filter((elem: any) => elem.id.includes('Title'));
-  //       setOpenTable(new Array(sortedData.length).fill(true));
-  //     });
-  //   });
-  // }
-
-
-  const createProjectStatusesCb = () => {
-    //callGetGroupList(sortValue, openFavorites);
-  }
-  // useEffect(() => {
-  //   callGetGroupList(sortValue, openFavorites);  
-  //   apply(null, '', '');
-  // }, [ applyFilter,currentGroup]);
-
   //END PARSING DATA
   
   useEffect(() => {
@@ -690,7 +433,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       visible={openModalTollgate}
       setVisible={setOpenModalTollgate}
       dataProject={tollData}
-      saveCB={createProjectStatusesCb}
+      saveCB={()=>{}}
       setOpenPiney={setOpenPiney}
       setUpdatedGroup={setUpdatedGroup}
       setSecondaryUpdatedGroup={setSecondaryUpdatedGroup}
@@ -727,29 +470,17 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
             <Button className={openProjects ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenProjects(!openProjects)}}>
               {openProjects? <CheckCircleFilled style={{color:'#2ac499', fontSize: '16px'}}/>:<CheckCircleOutlined style={{color: '#251863', fontSize: '16px'}} />} My Teams
             </Button>
-            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFavorites ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{openFavs()}}>
               {openFavorites? <HeartFilled style={{color: '#f5575c', fontSize: '16px'}}/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
             </Button>
-            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
             <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(!openFilters)}}>
-              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#251863' }} src=""/>&nbsp;Filter
+              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#251863' }} src="" alt="filter" />&nbsp;Filter
             </Button>
-            {/* <Button className=" btn-filter-k" onClick={()=>{setOpenFilters(true)}}>
-              <ToTopOutlined style={{fontSize: '16px', color: '#706b8a'}}/>
-            </Button> */}
-            {/* <span style={{color:'#DBDBE1'}}>|</span> */}
           </Col>
         </Row>
       </div>
       <div className="work-body portafolio">
         <div className="legends-porfolio">
-          {/* {optionSelect === 'List' &&
-            <Button  style={{border:'1px solid transparent', color:'#29C499'}} onClick={()=>{setOpenModalTable(true)}}>
-              <SettingFilled />
-              Customize table
-            </Button>
-          } */}
           {(optionSelect === 'Phase' || optionSelect === 'Schedule') && <div>
                 <span className="span-dots-heder">
                   <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
@@ -767,13 +498,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                   <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
                   <span style={{marginLeft:'1px', marginRight:'12px'}}>Overdue</span>
                 </span>
-                  {/* <Button style={{paddingLeft:'0px',border: '1px solid transparent', color: '#11093C', opacity: '0.6', paddingRight: '10px'}} onClick={() => {setOpenModalTollgate(true)}}>
-                    <CalendarOutlined /> Edit Dates
-                  </Button>
-                  
-                  {optionSelect === 'Schedule' && <><span style={{marginRight:'10px', color:'#DBDBE1'}}> |</span>
-                  <ZoomInOutlined style={{marginRight:'12px', color: '#11093C', opacity: '0.6'}} onClick={() => setZoomTimeline(zoomTimeline -1)}/>
-                  <ZoomOutOutlined  style={{color: '#11093C', opacity: '0.6', marginRight:'15px'}} onClick={() => setZoomTimeline(zoomTimeline +1)}/></>} */}
               </div>}
         </div>
         <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[1]}
@@ -782,17 +506,14 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
           onChange={(key) => changeTabkey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string, idx: number) => { return (
-              <TabPane style={{marginBottom:'0px'}} tab={<span>{/*<Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style" style={{marginLeft:'-15px'}}>{tk} </Popover>*/} {tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
+              <TabPane style={{marginBottom:'0px'}} tab={<span>{tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
                 <div className="protafolio-body">
-                  {openFilters && <Filters openFilters={openFilters} setOpenFilters={setOpenFilters} setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
-                {/* <Row> */}
+                  {openFilters && <Filters setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
                       {optionSelect === 'List' && <TablePortafolio
                         searchWord={searchWord}
                         searchRef={searchRef}
                         setOpenTable={setOpenTable}
                         openTable={openTable}
-                        //hoverTable={hoverTable}
-                        //setHoverTable={setHoverTable}
                         phaseRef={phaseRef}
                         scheduleRef={scheduleRef}
                         rawData={newData}
@@ -821,41 +542,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       />
                       }
                       {optionSelect === 'Phase' && 
-                      // <PhaseView
-                      //   searchWord={searchWord}
-                      //   tableRef={tableRef}
-                      //   setOpenTable={setOpenTable}
-                      //   //hoverTable={hoverTable}
-                      //   //setHoverTable={setHoverTable}
-                      //   scheduleRef={scheduleRef}
-                      //   setCompleteData={setCompleteData}
-                      //   setNewData={setNewData}
-                      //   index={idx}
-                      //   groupsBy={groupsBy}
-                      //   setCurrentGroup={setCurrentGroup}
-                      //   setSearchWord={setSearchWord}
-                      //   fullData={newData}
-                      //   email={appUser.userInformation?.email}
-                      //   setCollapsePhase={setCollapsePhase}
-                      //   optionSelect={optionSelect}                        
-                      //   rawData={phaseData}
-                      //   openTable={openTable}
-                      //   phaseRef={phaseRef}
-                      //   searchRef={searchRef}
-                      //   graphicOpen={graphicOpen}
-                      //   setGrapphicOpen={setGrapphicOpen}
-                      //   positionModalGraphic={positionModalGraphic}
-                      //   setPositionModalGraphic={setPositionModalGraphic}                        
-                      //   indexParent={idx}
-                      //   tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                      //   userName={appUser.userInformation?.name}
-                      //   setDataModal={setDataModal}
-                      //   setTollData = {setTollData}
-                      //   openPiney = {openPiney}
-                      //   setOpenPiney = {setOpenPiney}
-                      //   collapsePhase = {collapsePhase}
-                      //   setOpenModalTollgate = {setOpenModalTollgate}
-                      // />
                       <PhaseViewPag                        
                         rawData={newData}
                         groupsBy={groupsBy}
@@ -888,39 +574,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
-                    // <CalendarView 
-                    // searchWord={searchWord}
-                    // tableRef={tableRef}
-                    // setOpenTable={setOpenTable}
-                    // //hoverTable={hoverTable}
-                    // //setHoverTable={setHoverTable}
-                    // phaseRef={phaseRef}
-                    // setCompleteData={setCompleteData}
-                    // setNewData={setNewData}
-                    // groupsBy={groupsBy}
-                    // setCurrentGroup={setCurrentGroup}
-                    // setSearchWord={setSearchWord}
-                    // fullData={newData}
-                    // email={appUser.userInformation?.email}
-                    // setCollapsePhase={setCollapsePhase}
-                    // optionSelect={optionSelect}
-                    // collapsePhase={collapsePhase}
-                    // rawData={newData} 
-                    // openTable={openTable} 
-                    // moveSchedule={zoomTimeline} 
-                    // scheduleRef={scheduleRef} 
-                    // searchRef={searchRef} 
-                    // graphicOpen={graphicOpen} 
-                    // setGrapphicOpen={setGrapphicOpen}
-                    // setTollData = {setTollData}
-                    // setOpenModalTollgate = {setOpenModalTollgate}
-                    // tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0} 
-                    // positionModalGraphic={positionModalGraphic} 
-                    // setPositionModalGraphic={setPositionModalGraphic} 
-                    // index={idx}
-                    // userName={appUser.userInformation?.name}
-                    // setDataModal={setDataModal}
-                    // />
                     <CalendarViewPag
                       rawData={newData}
                       groupsBy={groupsBy}
@@ -957,11 +610,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
                       updateFavorites={updateFavorites}
                       setUpdateFavorites={setUpdateFavorites}
-                    />    
-                    
+                    />
                     }
-                  
-                {/* </Row> */}
                 </div>
               </TabPane>
             )})
