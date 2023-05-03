@@ -2463,7 +2463,7 @@
     }
     .body-piney{
       .body-piney-body{
-        height: calc(100vh - 357px) !important;
+        height: calc(100vh - 451px) !important;
         .ant-space-align-center {
           margin-top: -6px;
         }
@@ -3172,6 +3172,7 @@
     .body-piney{
       .body-piney-body{
         height: calc(100vh - 450px) !important;
+        padding-bottom: 55px !important;
       }
       .checkbox-select{
         .ant-checkbox-inner {
@@ -3297,7 +3298,7 @@
       padding: 4px 12px !important;
     }
     p{
-      font-size: 21px !important;
+      font-size: 20px !important;
     }
     span{
       font-size: 19px !important;
