@@ -1,3 +1,11 @@
+import UnauthorizedError from 'Errors/UnauthorizedError';
+
+const handleErrors = (response: any) => {
+    if (response.status === 401) {
+        throw new UnauthorizedError();
+    }
+    return response.json();
+}
 
 export const postData = (url: any, body: any, token?: any) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
@@ -6,7 +14,7 @@ export const postData = (url: any, body: any, token?: any) => {
         headers,
         body: JSON.stringify(body)
     })
-    .then(response => response.json())
+    .then(handleErrors)
     .then(data => {return (data);})
     .catch((err) => {
       console.log(err);
@@ -20,7 +28,7 @@ export const postDataAsyn = async (url: any, body: any, token?: any) => {
             method: 'POST',
             headers,
             body: JSON.stringify(body)
-        }).then(response => response.json())
+        }).then(handleErrors)
             .then(data => { return (data); })
             .catch((err) => {
                 console.log(err);
@@ -38,7 +46,7 @@ export const postDataMultipart = (url: any, body: any, token?: any) => {
         headers,
         body: body
     })
-    .then(response => response.json())
+    .then(handleErrors)
     .then(data => {return (data);})
     .catch((err) => {
       console.log(err);
@@ -52,7 +60,7 @@ export const putData = (url: any, body: any, token?: any) => {
         headers,
         body: JSON.stringify(body)
     })
-    .then(response => response.json())
+    .then(handleErrors)
     .then(data => (data))
     .catch((err) => {
       console.log(err);
@@ -65,12 +73,7 @@ export const getData = (url: any, token?: any) => {
         method: 'GET',
         headers
     })
-    .then(response => response.json())
-    .then(data => (data))
-    .catch((err) => {
-      console.log(err);
-    });
-    
+    .then(handleErrors);
 }
 
 export const getDataOctet = (url: any, token: any) => {
@@ -99,7 +102,7 @@ export const deleteData = (url: any, token?: any) => {
         method: 'DELETE',
         headers
     })
-    .then(response => response.json())
+    .then(handleErrors)
     .then(data => (data))
     .catch((err) => {
       console.log(err);

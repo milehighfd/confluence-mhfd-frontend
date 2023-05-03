@@ -11,7 +11,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
-  console.log(indexOf, 'indexOf');
+
   const itemMenuSidebar: MenuProps['items'] = [{
     className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
     key: '0',

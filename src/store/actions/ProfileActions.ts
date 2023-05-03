@@ -3,14 +3,23 @@ import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import { User } from '../../Classes/TypeList';
 import { message } from 'antd';
+import UnauthorizedError from 'Errors/UnauthorizedError';
+import { push } from 'connected-react-router';
 
 export const getUserInformation = () => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.ME, datasets.getToken()).then(user => {
-      if (user?._id) {
-        dispatch({ type: types.GET_USER_INFORMATION, user });
-      }
-    });
+    datasets.getData(SERVER.ME, datasets.getToken())
+      .then(user => {
+        if (user?._id) {
+          dispatch({ type: types.GET_USER_INFORMATION, user });
+        }
+      })
+      .catch(err => {
+        if (err instanceof UnauthorizedError) {
+          dispatch(push('/'));
+          message.error('Your session has expired, please login again!', 5);
+        }
+      });
   }
 }
 

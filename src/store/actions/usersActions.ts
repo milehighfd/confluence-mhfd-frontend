@@ -1,6 +1,8 @@
 import * as types from '../types/usersTypes';
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
+import UnauthorizedError from 'Errors/UnauthorizedError';
+import { push } from 'connected-react-router';
 
 export const resetTimesLogin = () => ({ type: types.RESET_TIMES_LOGIN });
 
@@ -52,9 +54,16 @@ export const getAllUserActivity = () => {
 
 export const getTimesLogin = () => {
   return (dispatch: Function) => {
-    datasets.getData(SERVER.TIMES_LOGIN, datasets.getToken()).then(times => {
-      dispatch({ type: types.TIMES_LOGIN, times: times.times});
-    });
+    datasets.getData(SERVER.TIMES_LOGIN, datasets.getToken())
+      .then(times => {
+        dispatch({ type: types.TIMES_LOGIN, times: times.times});
+      })
+      .catch(err => {
+        if (err instanceof UnauthorizedError) {
+          dispatch(push('/'));
+        }
+        console.error('This is the error ' +  err.message);
+      });
   }
 }
 
