@@ -5,7 +5,7 @@ import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import TreeMapComponent from "../NewProblemsFilter/TreeMapComponent";
 import { CheckBoxFilters } from '../CheckboxFiltersComponent';
 import { CheckBoxFilters as CheckBoxFiltersProblem } from "../CheckboxFiltersProblem";
-import { DropdownFilters } from "../DropdownFiltersComponent";
+import { DropdownFilters } from "../DropdownFilters";
 import { DropdownFiltersYearsMax } from "../DropdownFilterMax";
 
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the action is located.</div>);
@@ -34,6 +34,9 @@ export const NewComponentsFilter = () => {
         filterComponentOptions
     } = useMapState();
 
+    useEffect(() => {
+      console.log('para components', paramComponents);
+    }, [paramComponents]);
     const apply = (values: any, field: string) => {
         console.log('value: ' + values + ", field: " + field);
         const options = { ...filterComponentOptions };
@@ -45,7 +48,13 @@ export const NewComponentsFilter = () => {
                 newValue = newValue ? (newValue + ',' + element) : element;
             }
             options[field] = newValue;
-        } else {
+        } else if ('estimatedcost' === field) {
+          if(values.length === 0 || values === ''){
+              options[field] = []
+          }else {
+              options[field] = [values[0], values[values.length - 1]];
+          }
+      } else {
             options[field] = values;
         }
         setFilterComponentOptions(options);
@@ -132,8 +141,8 @@ export const NewComponentsFilter = () => {
                 <h5 className="filter-title chart-filter-title">Estimated Cost <Popover content={content17}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramComponents.estimatedcost &&
-                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={[]}
-                        data={paramComponents.estimatedcost}
+                    <DropdownFilters type={'estimatedcost'} axisLabel={axisLabel} defaultValue={''}
+                        // data={paramComponents.estimatedcost}
                         selected={filterComponentOptions.estimatedcost}
                         onSelect={(items: any) => apply(items, 'estimatedcost')} />
                 }
