@@ -396,7 +396,7 @@ const DetailModal = ({
     const widthCustom = roadMapSelector?.scrollWidth ? roadMapSelector?.scrollWidth + 50 : 1250;
     const heightCustom = roadMapSelector?.scrollHeight ? roadMapSelector?.scrollHeight - 50: 250;
     if (roadMapSelector) {
-      roadMap = await toPng(roadMapSelector, {width: widthCustom, height: heightCustom, style: {overflow: 'visible'}});
+      roadMap = await toPng(roadMapSelector, {width: widthCustom, height: heightCustom, style: {overflow: 'visible', fontFamily: "Ubuntu", border:'none', borderColor:'transparent'}});
     }
     
     let body = { mapImage: map, roadMap };
@@ -434,7 +434,7 @@ const DetailModal = ({
       onCancel={() => setVisible(false)}
       forceRender={false}
       destroyOnClose>
-      <div className="detailed" style={{overflowY:'hidden', maxHeight:"calc(100vh - 8vh)"}}>
+      <div className="detailed" style={{overflowY:'clip', maxHeight:"calc(100vh - 8vh)"}}>
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
@@ -499,7 +499,7 @@ const DetailModal = ({
           <a href="#project-basics" onClick={()=>{setscrollOpen(0)}} className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
           <a href="#problem" onClick={()=>{setscrollOpen(1)}} className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
           <a href="#vendors" onClick={()=>{setscrollOpen(2)}} className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
-          <a href="#component-solutions" onClick={()=>{setscrollOpen(3)}} className={openSecction === 3 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
+          <a href="#component-solutions" onClick={()=>{setscrollOpen(3)}} className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
           <a href="#project-roadmap" onClick={()=>{setscrollOpen(4)}} className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
           {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
@@ -507,128 +507,115 @@ const DetailModal = ({
           {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
           <a href="#maps" onClick={()=>{setscrollOpen(8)}} className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
-          <a href="#gallery" onClick={()=>{setscrollOpen(8)}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Gallery</a>
-          <a href="#attachments" onClick={()=>{setscrollOpen(9)}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
-          <a href="#history" onClick={()=>{setscrollOpen(10)}} className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
+          <a href="#gallery" onClick={()=>{setscrollOpen(9)}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Gallery</a>
+          <a href="#attachments" onClick={()=>{setscrollOpen(10)}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
+          <a href="#history" onClick={()=>{setscrollOpen(11)}} className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
         </div>}
         <Row
           className="detailed-b"
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail body-detail-modal"
             onScrollCapture={(e)=>{
-              let numberSecction = 0;
-              if(pageWidth < 1900 && divRef.current){
-                switch(true) {
-                  case divRef.current?.scrollTop < 444 || scrollOpen === 0:
-                    numberSecction= 0;
-                    break;
-                  case (divRef.current?.scrollTop > 444 &&  divRef.current?.scrollTop < 700) || scrollOpen === 1:
-                    numberSecction= 1;
-                    break;
-                  case (divRef.current?.scrollTop > 700 &&  divRef.current?.scrollTop < 957) || scrollOpen === 2:
-                    numberSecction= 2;
-                    break;
-                  case (divRef.current?.scrollTop > 957 &&  divRef.current?.scrollTop < 1214) || scrollOpen === 3:
-                    numberSecction= 3;
-                    break;
-                  case (divRef.current?.scrollTop > 1214 &&  divRef.current?.scrollTop < 1442) || scrollOpen === 4:
-                    numberSecction= 4;
-                    break;
-                    case (divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1908) || scrollOpen === 5:
-                    numberSecction= 5;
-                    break;
-                  case (divRef.current?.scrollTop > 1908 &&  divRef.current?.scrollTop < 2497) || scrollOpen === 6:
-                    numberSecction= 6;
-                    break;
-                  case (divRef.current?.scrollTop > 2497 &&  divRef.current?.scrollTop < 3616) || scrollOpen === 7:
-                    numberSecction= 7;
-                    break;
-                  case (divRef.current?.scrollTop > 3616 &&  divRef.current?.scrollTop < 3695) || scrollOpen === 8:
-                    numberSecction= 8;
-                    break;
-                  case (divRef.current?.scrollTop > 3695 &&  divRef.current?.scrollTop < 4000) || scrollOpen === 9:
-                    numberSecction= 9;
-                    break;
-                  default:
-                    numberSecction= 10;
-                    break;
-                }
+              const projectDiv = document.getElementById('project-basics');
+              const rectProject = projectDiv?.getBoundingClientRect();
+              if ((rectProject &&
+                rectProject.top >= 0 &&
+                rectProject.left >= 0 &&
+                rectProject.bottom <= window.innerHeight &&
+                rectProject.right <= window.innerWidth) || scrollOpen === 0
+              ) {
+                return setOpenSecction(0)
               }
-              if(pageWidth < 2550 && pageWidth >= 1900 && divRef.current){
-                switch(true) {
-                  case divRef.current?.scrollTop < 514:
-                    numberSecction= 0;
-                    break;
-                  case divRef.current?.scrollTop > 514 &&  divRef.current?.scrollTop < 777:
-                    numberSecction= 1;
-                    break;
-                  case divRef.current?.scrollTop > 777 &&  divRef.current?.scrollTop < 1042:
-                    numberSecction= 2;
-                    break;
-                  case divRef.current?.scrollTop > 1042 &&  divRef.current?.scrollTop < 1306:
-                    numberSecction= 3;
-                    break;
-                  case divRef.current?.scrollTop > 1306 &&  divRef.current?.scrollTop < 1442:
-                    numberSecction= 4;
-                    break;
-                    case divRef.current?.scrollTop > 1442 &&  divRef.current?.scrollTop < 1549 :
-                    numberSecction= 5;
-                    break;
-                  case divRef.current?.scrollTop > 1549  &&  divRef.current?.scrollTop < 2120 :
-                    numberSecction= 6;
-                    break;
-                  case divRef.current?.scrollTop > 2120  &&  divRef.current?.scrollTop < 2725:
-                    numberSecction= 7;
-                    break;
-                  case divRef.current?.scrollTop > 2725 &&  divRef.current?.scrollTop < 3880:
-                    numberSecction= 8;
-                    break;
-                  case divRef.current?.scrollTop > 3880 &&  divRef.current?.scrollTop < 3977:
-                    numberSecction= 9;
-                    break;
-                  default:
-                    numberSecction= 10;
-                    break;
-                }
+              const problemDiv = document.getElementById('problem');
+              const rectProblem = problemDiv?.getBoundingClientRect();
+              if ((rectProblem &&
+                rectProblem.top >= 0 &&
+                rectProblem.left >= 0 &&
+                rectProblem.bottom <= window.innerHeight &&
+                rectProblem.right <= window.innerWidth) || scrollOpen === 1
+              ) {
+                return setOpenSecction(1)
               }
-              if(pageWidth >= 2550 && divRef.current){
-                switch(true) {
-                  case divRef.current?.scrollTop < 600:
-                    numberSecction= 0;
-                    break;
-                  case divRef.current?.scrollTop > 600 &&  divRef.current?.scrollTop < 880:
-                    numberSecction= 1;
-                    break;
-                  case divRef.current?.scrollTop > 880 &&  divRef.current?.scrollTop < 1168:
-                    numberSecction= 2;
-                    break;
-                  case divRef.current?.scrollTop > 1168 &&  divRef.current?.scrollTop < 1433:
-                    numberSecction= 3;
-                    break;
-                  case divRef.current?.scrollTop > 1433 &&  divRef.current?.scrollTop < 1730 :
-                    numberSecction= 4;
-                    break;
-                    case divRef.current?.scrollTop > 1730  &&  divRef.current?.scrollTop < 2400 :
-                    numberSecction= 5;
-                    break;
-                  case divRef.current?.scrollTop > 2400  &&  divRef.current?.scrollTop < 3027 :
-                    numberSecction= 6;
-                    break;
-                  case divRef.current?.scrollTop > 3027  &&  divRef.current?.scrollTop < 4285:
-                    numberSecction= 7;
-                    break;
-                  case divRef.current?.scrollTop > 4285 &&  divRef.current?.scrollTop < 4319:
-                    numberSecction= 8;
-                    break;
-                  case divRef.current?.scrollTop > 4319 &&  divRef.current?.scrollTop < 4419 :
-                    numberSecction= 9;
-                    break;
-                  default:
-                    numberSecction= 10;
-                    break;
-                }
+              const vendorsDiv = document.getElementById('vendors');
+              const rectVendors = vendorsDiv?.getBoundingClientRect();
+              if ((rectVendors &&
+                rectVendors.top >= 0 &&
+                rectVendors.left >= 0 &&
+                rectVendors.bottom <= window.innerHeight &&
+                rectVendors.right <= window.innerWidth) || scrollOpen === 2
+              ) {
+                return setOpenSecction(2)
               }
-              setOpenSecction(numberSecction);
+              const solutionsDiv = document.getElementById('component-solutions');
+              const rectSolutions = solutionsDiv?.getBoundingClientRect();
+              if ((rectSolutions &&
+                rectSolutions.top >= 0 &&
+                rectSolutions.left >= 0 &&
+                rectSolutions.bottom <= window.innerHeight &&
+                rectSolutions.right <= window.innerWidth) || scrollOpen === 3
+              ) {
+                return setOpenSecction(3)
+              }
+              const roadmapDiv = document.getElementById('project-roadmap');
+              const rectRoadmap = roadmapDiv?.getBoundingClientRect();
+              if ((rectRoadmap &&
+                rectRoadmap.top >= 0 &&
+                rectRoadmap.left >= 0 &&
+                rectRoadmap.bottom <= window.innerHeight &&
+                rectRoadmap.right <= window.innerWidth) || scrollOpen === 4
+              ) {
+                return setOpenSecction(4)
+              }
+              const projectFinancialsDiv = document.getElementById('project-financials');
+              const rectProjectFinancials = projectFinancialsDiv?.getBoundingClientRect();
+              if ((rectProjectFinancials &&
+                rectProjectFinancials.top >= 0 &&
+                rectProjectFinancials.left >= 0 &&
+                rectProjectFinancials.bottom <= window.innerHeight &&
+                rectProjectFinancials.right <= window.innerWidth) || scrollOpen === 6
+              ) {
+                return setOpenSecction(6)
+              }
+              const mapDiv = document.getElementById('maps');
+              const rectMap = mapDiv?.getBoundingClientRect();
+              if ((rectMap &&
+                rectMap.top >= 0 &&
+                rectMap.left >= 0 &&
+                rectMap.bottom <= window.innerHeight &&
+                rectMap.right <= window.innerWidth) || scrollOpen === 8
+              ) {
+                return setOpenSecction(8)
+              }
+              const galleryDiv = document.getElementById('gallery');
+              const rectGallery = galleryDiv?.getBoundingClientRect();
+              if ((rectGallery &&
+                rectGallery.top >= 0 &&
+                rectGallery.left >= 0 &&
+                rectGallery.bottom <= window.innerHeight &&
+                rectGallery.right <= window.innerWidth) || scrollOpen === 9
+              ) {
+                return setOpenSecction(9)
+              }
+              const attachmentsDiv = document.getElementById('attachments');
+              const rectAttachments = attachmentsDiv?.getBoundingClientRect();
+              if ((rectAttachments &&
+                rectAttachments.top >= 0 &&
+                rectAttachments.left >= 0 &&
+                rectAttachments.bottom <= window.innerHeight &&
+                rectAttachments.right <= window.innerWidth) || scrollOpen === 10
+              ) {
+                 setOpenSecction(10)
+              }
+              const historyDiv = document.getElementById('history');
+              const rectHistory = historyDiv?.getBoundingClientRect();
+              if ((rectHistory &&
+                rectHistory.top >= 0 &&
+                rectHistory.left >= 0 &&
+                rectHistory.bottom <= window.innerHeight &&
+                rectHistory.right <= window.innerWidth) || scrollOpen === 11
+              ) {
+                 setOpenSecction(11)
+              }
             }}
             ref={divRef}
           >

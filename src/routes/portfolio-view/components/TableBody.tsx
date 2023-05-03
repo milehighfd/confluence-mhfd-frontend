@@ -379,7 +379,6 @@ const TableBody = ({
                   onHeaderRow={(record, rowIndex) => {
                     return {
                       onMouseEnter: (event) => {
-                        console.log('AQUUIII', record, event.target, rowIndex);
                         setRowActive(-20);
                       },
                     };

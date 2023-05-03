@@ -593,25 +593,25 @@ const Roadmap = ({setOpenPiney,
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
       <Row id='ProjectRoadmapHeader'>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
-          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="project-roadmap">PROJECT ROADMAP</h3>
+          <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="project-roadmap">PROJECT ROADMAP</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'75%'}}></div>
         </Col>
       </Row>
       <Row>
-      <div className="phaseview-content" id="get-roadmap-content">
-        <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center'}}>
+      <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
+        <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
         {availableStatusList.map((item: any, index: number) => {
               console.log(item)
-              return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
+              return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent', fontFamily: "Ubuntu" } : { display: 'flex', width: item[1], fontFamily: "Ubuntu" }}>
               <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
               {/* <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr> */}
             </p>
             })}
         </div>
-          <div id='dotchart_detailPage' style={{display: 'flex', justifyContent: 'center', marginLeft: '21px'}}></div>
+          <div id='dotchart_detailPage' style={{display: 'flex', justifyContent: 'center', marginLeft: '21px', border:'transparent'}}></div>
           {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
-        <div className="phaseview-title" id='phaseviewTitleDetailPage' style={{justifyContent:'center'}}>
-        <div style={{ width: totalLabelWidth, paddingRight:'13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
+        <div className="phaseview-title" id='phaseviewTitleDetailPage' style={{justifyContent:'center', border:'none',borderColor:'transparent'}}>
+        <div style={{ width: totalLabelWidth, paddingRight:'13px',borderColor:'transparent' ,border:'none' }} className="phaseview-title" id="phaseviewTitlleWidth">
             {/* <p>Draft</p>
             <p>
               Work Request
@@ -619,7 +619,7 @@ const Roadmap = ({setOpenPiney,
               (WR)
             </p> */}
             {phaseList.map((item: any) => {
-              return <p style={{ width: labelWidth }}>{item.phase_name}</p>
+              return <p style={{ width: labelWidth , fontFamily: "Ubuntu"}}>{item.phase_name}</p>
             })}
           </div>
         </div>
@@ -645,7 +645,7 @@ const Roadmap = ({setOpenPiney,
       </Row>
       <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
-          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="graphical-view">GRAPHICAL VIEW</h3>
+          <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="graphical-view">GRAPHICAL VIEW</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'77%'}}></div>
         </Col>
       </Row>

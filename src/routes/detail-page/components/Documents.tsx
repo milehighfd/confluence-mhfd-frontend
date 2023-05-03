@@ -9,7 +9,7 @@ const Documents = () => {
     <>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
-          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="attachments">ATTACHMENTS</h3>
+          <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="attachments">ATTACHMENTS</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px'}}></div>
         </Col>
       </Row>

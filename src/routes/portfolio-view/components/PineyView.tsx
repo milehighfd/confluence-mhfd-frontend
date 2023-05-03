@@ -269,7 +269,7 @@ const PineyView = ({ setOpenPiney, data, userName, setUpdateAction, updateAction
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>
         </div>
-        <div className="body-piney-body">
+        <div className="body-piney-body" style={{paddingBottom:'20px'}}>
           <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
             <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={handleOnchange} value={newNote} placeholder="Add note here"/>
           <div className="form-text-calendar">
