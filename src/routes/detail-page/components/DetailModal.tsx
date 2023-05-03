@@ -480,7 +480,7 @@ const DetailModal = ({
                 )
               }
               <Button className="btn-circle">
-                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} style={{margin:'0px -1.5px', height:'18px'}}/>
+                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} style={{margin:'1px 0.4px', height:'17px'}}/>
               </Button>
               <Button style={{marginLeft:'10px'}}  className="btn-circle" onClick={copyUrl}>
                 <img src="/Icons/icon-06.svg" alt="" />
