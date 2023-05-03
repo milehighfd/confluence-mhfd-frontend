@@ -32,11 +32,11 @@ const Alert = ({ save, visible, setVisible, message }: { save: Function, visible
       destroyOnClose>
       <div className="detailed">
         <Row className="detailed-h" gutter={[16, 8]}>
-          <Col xs={{ span: 12 }} lg={{ span: 18 }}>
+          <Col xs={{ span: 12 }} lg={{ span: 21 }}>
             <h1 style={{marginTop: '15px'}}>{message}
             </h1>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 6 }} style={{textAlign: 'end'}}>
+          <Col xs={{ span: 12 }} lg={{ span: 3 }} style={{textAlign: 'end'}}>
             <Button className="btn-transparent" onClick={() => setVisible(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
           </Col>
         </Row>
