@@ -151,10 +151,14 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       let code = filterProjectOptions.consultant;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'consultant', value: code })
     }
-    // else if (filterProjectOptions.contractor.lenght > 0 || filterProjectOptions.contractor !== '') {
-    //   let code = filterProjectOptions.consultant;
-    //   setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
-    // }
+    else if (filterProjectOptions.mhfdmanager.lenght > 0 || filterProjectOptions.mhfdmanager !== '') {
+      let code = filterProjectOptions.mhfdmanager;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'staff', value: code })
+    }
+    else if (filterProjectOptions.contractor.lenght > 0 || filterProjectOptions.contractor !== '') {
+      let code = filterProjectOptions.contractor;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
+    }
     else{
       setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
     }
@@ -201,13 +205,18 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     
     if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
     || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
-    || 'mhfdmanager' === field) {
+    || 'staff' === field) {
         let newValue = '';
         if ('workplanyear' === field) {
             options['status'] = [...options['status'], 'Complete'];
         }
-        newValue = values;
-        options[field] = newValue;
+        if ('staff' === field) {
+          newValue = values;
+          options['mhfdmanager'] = newValue;
+        }else{
+          newValue = values;
+          options[field] = newValue;
+        }
     } else {
         if ('completedyear' === field) {
             options['status'] = [...options['status'], 'Complete'];
