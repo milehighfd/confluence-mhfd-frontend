@@ -79,6 +79,7 @@ export const SERVER = (function () {
     // const PARAM_FILTER_PROJECTS = 'params-filter-projects';
     const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
     const PARAM_FILTER_COMPONENTS = 'params-filter-components';
+    const PARAM_FILTER_COMPONENTS_DB = 'params-filter-components-db';
     const COUNTER_PROJECTS = 'projects-counter';
     const COUNTER_PROBLEMS = 'problems-counter';
     const COUNTER_COMPONENTS = 'components-counter';
@@ -214,7 +215,8 @@ export const SERVER = (function () {
         CHANGE_USER_STATUS: `${URL_BASE.BASE}/${ADMIN}/${MODIFY_USER_STATUS}`,
         // PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
-        PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
+        // PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
+        PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS_DB}`,
         COUNTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROJECTS}`,
         COUNTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROBLEMS}`,
         COUNTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_COMPONENTS}`,

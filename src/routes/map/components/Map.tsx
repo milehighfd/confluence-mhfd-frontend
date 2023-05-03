@@ -173,6 +173,9 @@ const Map = ({
     filterProjectOptions,
     highlighted,
     filterComponentOptions,
+    paramFilters: {
+      components: paramComponents
+    },
     filterProblems,
     filterProjects,
     filterComponents,
@@ -1485,7 +1488,7 @@ const Map = ({
                 return;
             }
             const allFilters: any[] = ['all'];
-            if (key !== MHFD_PROJECTS) {
+            if (key === PROBLEMS_TRIGGER) {
               for (const filterField in toFilter) {
                 let filters = toFilter[filterField];
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
@@ -1615,7 +1618,7 @@ const Map = ({
                     allFilters.push(options);
                 } 
               }
-            } else {
+            } else if (key === MHFD_PROJECTS) {
               //console.log('projectsids', projectsids)
               // allFilters.push(['in', ['get','projectid'], ['literal', projectsids]]);
               const currentLayer = map.getLayer(key + '_' + index)
@@ -1631,6 +1634,10 @@ const Map = ({
               }else{
                 allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
               }
+            } else{
+              paramComponents.actionsIds.forEach((component:any) => {
+                allFilters.push(['in', ['get','component_id'], ['literal', component.actions]]);
+              });
             }
             
             // if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {

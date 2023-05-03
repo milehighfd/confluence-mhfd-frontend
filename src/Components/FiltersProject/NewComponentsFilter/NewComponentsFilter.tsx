@@ -96,8 +96,8 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.servicearea &&
-                    <TreeMapComponent data={paramComponents.servicearea} type={'servicearea'} tab={'component'}
+                    paramComponents?.filtersData?.servicearea &&
+                    <TreeMapComponent data={paramComponents.filtersData.servicearea} type={'servicearea'} tab={'component'}
                         selected={filterComponentOptions.servicearea} defaultValue={''}
                         onSelect={(items: any) => apply(items, 'servicearea')} />
                 }
@@ -105,8 +105,8 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.county &&
-                    <TreeMapComponent data={paramComponents.county} type={'county'} tab={'component'}
+                    paramComponents?.filtersData?.county &&
+                    <TreeMapComponent data={paramComponents.filtersData.county} type={'county'} tab={'component'}
                         selected={filterComponentOptions.county} defaultValue={''}
                         onSelect={(items: any) => apply(items, 'county')} />
                 }
@@ -117,9 +117,9 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Action Type <Popover content={content14}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.component_type &&
-                    <CheckBoxFilters defaultValue={''}
-                        data={paramComponents.component_type.sort((a: any, b: any) => a.value.localeCompare(b.value))}
+                    paramComponents?.filtersData?.component_type &&
+                    <CheckBoxFiltersProblem defaultValue={''}
+                        data={paramComponents.filtersData.component_type.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterComponentOptions.component_type}
                         onSelect={(items: any) => apply(items, 'component_type')} />
                 }
@@ -127,9 +127,9 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title chart-filter-title">Action Status <Popover content={content15}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.status &&
+                    paramComponents?.filtersData?.status &&
                     <CheckBoxFiltersProblem defaultValue={''}
-                        data={paramComponents.status}
+                        data={paramComponents.filtersData.status}
                         selected={filterComponentOptions.status}
                         onSelect={(items: any) => apply(items, 'status')} />
                 }
@@ -167,9 +167,9 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title ">Jurisdiction <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.jurisdiction &&
+                    paramComponents?.filtersData?.jurisdiction &&
                     <CheckBoxFiltersProblem defaultValue={''}
-                        data={paramComponents.jurisdiction}
+                        data={paramComponents.filtersData.jurisdiction}
                         selected={filterComponentOptions.jurisdiction}
                         onSelect={(items: any) => apply(items, 'jurisdiction')}/>
                 }
@@ -177,9 +177,9 @@ export const NewComponentsFilter = () => {
             <Col span={12}>
                 <h5 className="filter-title ">MHFD Watershed Manager <Popover content={content3}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
-                    paramComponents.watershed &&
+                    paramComponents?.filtersData?.mhfdmanager &&
                     <CheckBoxFiltersProblem defaultValue={''}
-                        data={paramComponents.watershed}
+                        data={paramComponents.filtersData.mhfdmanager}
                         selected={filterComponentOptions.mhfdmanager}
                         onSelect={(items: any) => apply(items, 'mhfdmanager')}/>
                 }
