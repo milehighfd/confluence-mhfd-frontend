@@ -362,7 +362,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
               {openFavorites? <HeartFilled style={{color: '#f5575c', fontSize: '16px'}}/>:<HeartOutlined style={{color: '#251863', fontSize: '16px'}}  />} Favorites
             </Button>
             <Button className={openFilters ? "btn-filter-k btn-filter-k-active":"btn-filter-k" } onClick={()=>{setOpenFilters(!openFilters)}}>
-              <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center", backgroundColor: '#251863' }} src="" alt="filter" />&nbsp;Filter
+              <img className="icon-bt" src="/Icons/icon-73.svg" alt="filter" />&nbsp;Filter
             </Button>
           </Col>
         </Row>
