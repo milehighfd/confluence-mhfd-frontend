@@ -7,7 +7,33 @@ export const DropdownFiltersYearsMax = ({ type, selected, onSelect, defaultValue
   const [selectedData, setSelectedData] = useState<string[]>([]);
   const [minIndex, setMinIndex] = useState(-1);
   const [maxIndex, setMaxIndex] = useState(-1);
-  const data: any = [{"value":2000,"counter":0},{"value":2001,"counter":0},{"value":2002,"counter":0},{"value":2003,"counter":0},{"value":2004,"counter":null},{"value":2005,"counter":0},{"value":2006,"counter":0},{"value":2007,"counter":0},{"value":2008,"counter":null},{"value":2009,"counter":null},{"value":2010,"counter":0},{"value":2011,"counter":null},{"value":2012,"counter":null},{"value":2013,"counter":null},{"value":2014,"counter":null},{"value":2015,"counter":null},{"value":2016,"counter":null},{"value":2017,"counter":null},{"value":2018,"counter":null},{"value":2019,"counter":null},{"value":2020,"counter":null},{"value":2021,"counter":null},{"value":2022,"counter":null},{"value":2023,"counter":0},{"value":2024,"counter":0},{"value":2025,"counter":0},{"value":2026,"counter":null},{"value":2027,"counter":null},{"value":2028,"counter":null},{"value":2029,"counter":null},{"value":2030,"counter":null}];
+  const data: any = [
+    {"value":1976,"counter":0},
+    {"value":1977,"counter":0},
+    {"value":1978,"counter":0},
+    {"value":1979,"counter":0},
+    {"value":1980,"counter":0},
+    {"value":1981,"counter":0},
+    {"value":1982,"counter":0},
+    {"value":1983,"counter":0},
+    {"value":1984,"counter":0},
+    {"value":1985,"counter":0},
+    {"value":1986,"counter":0},
+    {"value":1987,"counter":0},
+    {"value":1988,"counter":0},
+    {"value":1989,"counter":0},
+    {"value":1990,"counter":0},
+    {"value":1991,"counter":0},
+    {"value":1992,"counter":0},
+    {"value":1993,"counter":0},
+    {"value":1994,"counter":0},
+    {"value":1995,"counter":0},
+    {"value":1996,"counter":0},
+    {"value":1997,"counter":0},
+    {"value":1998,"counter":0},
+    {"value":1999,"counter":0},
+    {"value":2000,"counter":0},
+  {"value":2001,"counter":0},{"value":2002,"counter":0},{"value":2003,"counter":0},{"value":2004,"counter":null},{"value":2005,"counter":0},{"value":2006,"counter":0},{"value":2007,"counter":0},{"value":2008,"counter":null},{"value":2009,"counter":null},{"value":2010,"counter":0},{"value":2011,"counter":null},{"value":2012,"counter":null},{"value":2013,"counter":null},{"value":2014,"counter":null},{"value":2015,"counter":null},{"value":2016,"counter":null},{"value":2017,"counter":null},{"value":2018,"counter":null},{"value":2019,"counter":null},{"value":2020,"counter":null},{"value":2021,"counter":null},{"value":2022,"counter":null},{"value":2023,"counter":0},{"value":2024,"counter":0},{"value":2025,"counter":0},{"value":2026,"counter":null},{"value":2027,"counter":null},{"value":2028,"counter":null},{"value":2029,"counter":null},{"value":2030,"counter":null}];
   const apply = () => {
     console.log('Selected data year', selectedData);
     // if (type === 'yearofstudy') {
