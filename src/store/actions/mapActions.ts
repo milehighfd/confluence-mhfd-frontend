@@ -279,13 +279,6 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
                 "channel_improvements_area,storm_drain," +
                 "detention_facilities,land_acquisition,landscaping_area,stream_improvement_measure_copy" // TODO save on a constant the useful components 
         }
-        // datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
-        //     if (filtersComponents?.problems || filtersComponents[constants.MHFD_PROJECTS] || filtersComponents?.projects_polygon_) {
-        //         dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents });
-        //     } else {
-        //         dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents: {} });
-        //     }
-        // })
     }
 }
 
@@ -532,11 +525,17 @@ export const getParamFilterProblems = (bounds: string, data?: any) => {
 }
 export const getParamFilterComponents = (bounds: string, data?: any) => {
     return (dispatch: Function) => {
-        datasets.postData(SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds, data || {}).then(params => {
-            if (params) {
-                dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS, params });
-            }
-        })
+      const controller = getAndDispatchAbortableCtrl(dispatch, 'PARAM_FILTER_COMPONENTS');
+      datasets.postData(
+        SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds,
+        data || {},
+        datasets.getToken(),
+        controller.signal
+      ).then(params => {
+          if (params) {
+              dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS, params });
+          }
+      })
     }
 }
 export const getComponentsByProblemId = (data: any) => {
