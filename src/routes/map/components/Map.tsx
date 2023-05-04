@@ -708,7 +708,7 @@ const Map = ({
             applyFilters(MHFD_PROJECTS, filterProjectOptions);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
-    }, [filterComponents, componentDetailIds]);
+    }, [filterComponents, componentDetailIds, paramComponents]);
 
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
@@ -1513,8 +1513,8 @@ const Map = ({
                 allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
               }
             } else{
-              paramComponents.actionsIds.forEach((component:any) => {
-                allFilters.push(['in', ['get','component_id'], ['literal', component.actions]]);
+              paramComponents?.actionsIds.forEach((component:any) => {
+                  allFilters.push({type: component.component_type.toLowerCase().replace(/ /g,"_"),filter: ['in', ['get','component_id'], ['literal', component.actions]]});
               });
             }
             if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
@@ -1524,12 +1524,21 @@ const Map = ({
               addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
             }
             if (map.getLayer(key + '_' + index)) {
-              if(key === MHFD_PROJECTS){
-              }
+              if(key !== MHFD_PROJECTS && key !== PROBLEMS_TRIGGER){
+                let filterFinal:any = [];
+                allFilters.forEach(filterAction => {
+                  if(key.includes(filterAction.type)){
+                    filterFinal.push(allFilters[0])
+                    filterFinal.push(filterAction.filter)
+                    map.setFilter(key + '_' + index, filterFinal);
+                  }
+                });
+              }else{
                 map.setFilter(key + '_' + index, allFilters);
+              }
             }
         });
-    }, [problemClusterGeojson, projectsids,filterProjectOptions, groupedProjectIdsType]);
+    }, [problemClusterGeojson, projectsids,filterProjectOptions, groupedProjectIdsType, paramComponents]);
 
     const hideLayerAfterRender = async (key: string,) => {
       const styles = { ...(tileStyles as any) };
