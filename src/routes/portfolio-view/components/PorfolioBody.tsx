@@ -132,6 +132,8 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     const statusLength = status.length;    
     const cost = filterProjectOptions.totalcost;
     const costLength = cost.length;
+    const stream = filterProjectOptions.streamname;
+    const streamLength = stream.length;
     if (serviceareaLength > 0 || filterProjectOptions.servicearea !== '') {
       let code = filterProjectOptions.servicearea;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'servicearea', value: code })
@@ -162,6 +164,15 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     else if (costLength > 0 ) {
       let code = filterProjectOptions.totalcost;
       setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'cost', value: code })
+    }
+    else if (streamLength > 0 ) {
+      let code = filterProjectOptions.streamname[0];
+      code = code.split(',');
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'stream', value: code })
+    }
+    else if (filterProjectOptions.lgmanager !== '') {
+      let code = filterProjectOptions.lgmanager;
+      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'lgmanager', value: code })
     }
     else{
       setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
