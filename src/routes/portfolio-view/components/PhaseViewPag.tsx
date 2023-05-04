@@ -92,6 +92,8 @@ const PhaseViewPag = ({
   const [userBrowser, setUserBrowser] = useState<any>()
   const [updateAction,setUpdateAction] = useState(false);
   const headerRef = useRef<null | HTMLDivElement>(null);
+  const scrollRef = useRef<null | HTMLDivElement>(null);
+  const phaseHeaderRef = useRef<null | HTMLDivElement>(null);
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   const phaseRef = useRef<any[]>([]);
@@ -188,6 +190,10 @@ const PhaseViewPag = ({
       setDetailGroup(valuesGroups.groups)
     })
   }, [currentGroup])
+  let drr = phaseHeaderRef.current;
+  let myDiv = drr?.querySelector('.container-phase');
+  let widthMax = myDiv? myDiv.clientWidth : 0;
+
   return <>
     {openPiney && (
       <div className="phaseview-body">
@@ -205,6 +211,23 @@ const PhaseViewPag = ({
         </div>
       </div>
     )}
+    <div className="scroll-custom" style={{width:`${widthMax - 5}px`}}  ref={scrollRef}
+        onScrollCapture={(e: any) => {
+          let dr: any = scrollRef.current;
+          if (scrollRef.current) {
+            if(phaseRef.current){
+              phaseRef.current.forEach((elem: any, index:number) => {
+                phaseRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
+              })
+            }
+            if (headerRef.current) {
+              headerRef.current.scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
+            }
+          }
+        }}
+      >
+        <div className="scroll-bar" style={{ width: `${totalLabelWidth - 5}px`}}></div>
+      </div>  
     <Row>
       <Col xs={{ span: 10 }} lg={{ span: 5 }}>
         <div className="vertical-line"></div>
@@ -229,7 +252,10 @@ const PhaseViewPag = ({
                     phaseRef.current.forEach((elem: any, index:number) => {
                       phaseRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
                     })
-                  }                                     
+                  }
+                  if (scrollRef.current) {
+                    scrollRef.current.scrollTo(dr.scrollLeft, 0);
+                  }                                 
                 }
               }}
             >
@@ -252,7 +278,7 @@ const PhaseViewPag = ({
       </Col>
     </Row>
     {
-      <div className="phase-groups">
+      <div className="phase-groups" ref={phaseHeaderRef}>
         <div
           className="search"
           ref={el => searchRef.current[index] = el}

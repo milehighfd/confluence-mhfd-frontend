@@ -1244,7 +1244,7 @@
     }
   }
   .table-body2{
-    overflow-y: auto; 
+    overflow-y: hidden; 
     overflow-x: hidden;   
     .ant-table-tbody>tr>td {
       border-bottom: none;
