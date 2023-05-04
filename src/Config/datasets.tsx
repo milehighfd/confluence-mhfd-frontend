@@ -7,18 +7,15 @@ const handleErrors = (response: any) => {
     return response.json();
 }
 
-export const postData = (url: any, body: any, token?: any) => {
+export const postData = (url: any, body: any, token?: any, signal?: any) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
     return fetch(url, {
         method: 'POST',
         headers,
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        signal
     })
-    .then(handleErrors)
-    .then(data => {return (data);})
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(handleErrors);
 }
 
 export const postDataAsyn = async (url: any, body: any, token?: any) => {

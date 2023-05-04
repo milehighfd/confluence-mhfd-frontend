@@ -1,10 +1,9 @@
-import * as types from '../types/mapTypes';
-
-import * as detailedTypes from '../types/detailedTypes';
-import { SERVER } from "../../Config/Server.config";
-import * as datasets from "../../Config/datasets";
-import * as constants from '../../constants/constants';
-import { OptionProblems, OptionProjects, OptionComponents } from '../../Classes/MapTypes';
+import * as types from 'store/types/mapTypes';
+import * as detailedTypes from 'store/types/detailedTypes';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from 'Config/datasets';
+import * as constants from 'constants/constants';
+import { OptionProblems, OptionProjects, OptionComponents } from 'Classes/MapTypes';
 import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
 import store from '..';
 
@@ -232,26 +231,10 @@ export const setProblemKeyword = (keyword: string) => {
 export const setProjectKeyword = (keyword: string) => {
     const filterOptions = store.getState().map.filterProjectOptions;
     const auxFilter = { ...filterOptions };
-    const filterProjects = store.getState().map.filterProjects;
-    const auxFilterProjects = { ...filterProjects };
     auxFilter.keyword = keyword;
     auxFilter.name = keyword;
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters: auxFilter });
-        // const params = '?field=' + keyword;
-        // if (keyword) {
-        //     datasets.getData(SERVER.SEARCH_KEYWORD_PROJECTS + params, datasets.getToken()).then(tables => {
-        //         if (tables[constants.MHFD_PROJECTS]?.length >= 0 || tables?.projects_polygon_?.length >= 0) {
-        //             auxFilterProjects.keyword = tables;
-        //             auxFilterProjects.projectname = keyword;
-        //             dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
-        //         }
-        //     });
-        // } else {
-        //     auxFilterProjects.keyword = {};
-        //     auxFilterProjects.projectname = keyword;
-        //     dispatch({ type: types.SET_FILTER_PROJECTS, filters: auxFilterProjects });
-        // }
     }
 }
 export const resetFilterProjectOptionsEmpty = () => {
@@ -317,18 +300,27 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
         filterCoordinates: coordinates,
         filterProjectOptions: filterOptions,
         filterComponentOptions: filterComponent,
+        applyFilter
       },
     } = getState();
     dispatch({
       type: types.SET_SPIN_CARD_PROJECTS,
       spin: true,
     });
-    const applyFilter = store.getState().map.applyFilter;
+    const controller = new AbortController();
+    dispatch({
+        type: types.FETCH_DATA_GALLERY_PROJECTS,
+        payload: {
+            abortableController: controller,
+            abortableKey: 'getGalleryProjects',
+        },
+      });
     datasets
       .postData(
         `${SERVER.GALLERY_PROJECTS_V2}?limit=20&page=1`,
         optionsProjects(filterOptions, filterComponent, coordinates, applyFilter),
         datasets.getToken(),
+        controller.signal
       )
       .then(galleryProjects => {
         dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
@@ -339,6 +331,7 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
     }
   };
 };
+
 export const getExtraGalleryProjects = (page: any = 0) => {
     return (dispatch: Function, getState: Function) => {
     const {
@@ -373,14 +366,21 @@ export const getProjectsFilteredIds = () => {
           filterComponentOptions: filterComponent,
       }
     } = getState();
+    const controller = new AbortController();
+    dispatch({
+        type: types.FETCH_GALLERY_FILTERED_PROJECTS_ID,
+        payload: {
+            abortableController: controller,
+            abortableKey: 'getProjectsFilteredIds',
+        },
+    });
     datasets.postData(
       SERVER.GALLERY_FILTERED_PROJECTS_ID,
       optionsProjects(filterOptions, filterComponent, coordinates, false),
-      datasets.getToken()
+      datasets.getToken(),
+      controller.signal
     ).then(projectsids => {
-        // if (projectsids?.length >= 0) {
-            dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
-        // }
+        dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
     });
   };
 }
