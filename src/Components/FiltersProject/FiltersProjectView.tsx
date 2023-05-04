@@ -34,7 +34,10 @@ const FiltersProjectView = ({
         spinCardProblems,
         spinCardProjects,
         totals,
-        spinMapLoaded
+        spinMapLoaded,
+        paramFilters: {
+            components: paramComponents
+          },
     } = useMapState();
     const {
         selectedLayers,
@@ -83,13 +86,14 @@ const FiltersProjectView = ({
     }, [])
 
     const getTotalValue = (tabindex: number) => {
+        console.log('paramComponents', paramComponents)
         switch (tabindex) {
             case 0:
                 return galleryProblems.length;
             case 1:
                 return galleryProjectsV2.count;
             case 2:
-                return totals.components;
+                return paramComponents.counter === undefined ? 0 : paramComponents.counter;
             default:
                 break;
         }
