@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import * as datasets from "../../../Config/datasets";
-import { SERVER } from "../../../Config/Server.config";
+import * as datasets from "Config/datasets";
+import { SERVER } from "Config/Server.config";
 import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
-import { measureFunction, addPopupAndListeners, addPopupServiceCountyMunicipality, addPopupsOnClick } from './MapFunctionsPopup';
+import { measureFunction, addPopupAndListeners, addPopupServiceCountyMunicipality, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
 import { InfoCircleOutlined } from "@ant-design/icons";
-import MapFilterView from '../../../Components/Shared/MapFilter/MapFilterView';
+import MapFilterView from 'Components/Shared/MapFilter/MapFilterView';
 import { Dropdown,  Button, Popover } from 'antd';
-import { MapProps, ObjectLayerType, LayerStylesType } from '../../../Classes/MapTypes';
+import { MapProps, ObjectLayerType, LayerStylesType } from 'Classes/MapTypes';
 import {
     SWITCHES_MAP,
     MAP_DROPDOWN_ITEMS,
@@ -29,43 +29,43 @@ import {
     USE_LAND_COVER_LABEL,
     USE_LAND_COVER_MAP,
     FEMA_FLOOD_HAZARD
-} from "../../../constants/constants";
+} from "constants/constants";
 import { 
   COMPONENT_LAYERS_STYLE,
   tileStyles, widthLayersStream,
   NEARMAP_STYLE,
   USE_LAND_TILES_STYLE
-} from '../../../constants/mapStyles';
-import { addMapGeocoder, getMapBoundingBoxTrimmed } from '../../../utils/mapUtils';
+} from 'constants/mapStyles';
+import { addMapGeocoder, getMapBoundingBoxTrimmed } from 'utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
-import { useMapState, useMapDispatch } from '../../../hook/mapHook';
-import { useColorListDispatch, useColorListState } from '../../../hook/colorListHook';
-import { useProjectDispatch } from '../../../hook/projectHook';
-import { setOpacityLayer } from '../../../store/actions/mapActions';
+import { useMapState, useMapDispatch } from 'hook/mapHook';
+import { useColorListDispatch, useColorListState } from 'hook/colorListHook';
+import { useProjectDispatch } from 'hook/projectHook';
+import { setOpacityLayer } from 'store/actions/mapActions';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
-import MapService from '../../../Components/Map/MapService';
-import MobilePopup from '../../../Components/MobilePopup/MobilePopup';
-import { ModalProjectView } from '../../../Components/ProjectModal/ModalProjectView';
-import SideBarComment from '../../../Components/Map/SideBarComment';
-import { useNoteDispatch, useNotesState } from '../../../hook/notesHook';
-import { useProfileState } from '../../../hook/profileHook';
-import { addGeojsonSource, removeGeojsonCluster } from './MapFunctionsCluster';
-import { flytoBoundsCoor, getTitle, polyMask, depth} from './MapFunctionsUtilities';
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from '../../../Components/Map/commetsFunctions';
-import { GlobalMapHook } from '../../../utils/globalMapHook';
-import MobileMenu from './MobileMenu';
-import SideMenuTools from './SideMenuTools';
-import { commentPopup } from './MapGetters';
+import MapService from 'Components/Map/MapService';
+import MobilePopup from 'Components/MobilePopup/MobilePopup';
+import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
+import SideBarComment from 'Components/Map/SideBarComment';
+import { useNoteDispatch, useNotesState } from 'hook/notesHook';
+import { useProfileState } from 'hook/profileHook';
+import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
+import { flytoBoundsCoor, getTitle, polyMask, depth} from 'routes/map/components/MapFunctionsUtilities';
+import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from 'Components/Map/commetsFunctions';
+import { GlobalMapHook } from 'utils/globalMapHook';
+import MobileMenu from 'routes/map/components/MobileMenu';
+import SideMenuTools from 'routes/map/components/SideMenuTools';
+import { commentPopup } from 'routes/map/components/MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
-import EventService from '../../../services/EventService';
+import EventService from 'services/EventService';
 import {
   createNoteWithElem,
   editNoteWithElem,
   clickoutsideList,
   addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
-} from './MapFunctionsNotes';
+} from 'routes/map/components/MapFunctionsNotes';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { UseDebouncedEffect } from 'routes/Utils/useDebouncedEffect';
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Button, Col, Modal, Row} from 'antd';
 
 const Alert = ({ save, visible, setVisible, message }: { save: Function, visible: { visible: boolean }, setVisible: Function, message: string }) => {
@@ -8,21 +8,6 @@ const Alert = ({ save, visible, setVisible, message }: { save: Function, visible
     setVisible(false);
   };
   return (
-  //   <Modal
-  //   centered
-  //   visible={visible.visible}
-  //   onCancel={handleCancel}
-  //   className="modal-confirm"
-  //   width="400px"
-  // >
-  //   <h2>{message}</h2>
-  //   <Button className="btn-cancel" onClick={() => {
-  //     handleCancel();
-  //   }}>Cancel</Button>
-  //   <Button className="btn-submit" onClick={() => {
-  //     save();
-  //   }}>Update</Button>
-  // </Modal>
     <Modal
       className="detailed-version detailed-upload-save"
       style={{ top: 'calc(50vh - 100px)', width: '34%' }}

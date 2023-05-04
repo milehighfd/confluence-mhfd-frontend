@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AutoComplete } from 'antd';
 
-
 const BusinessAssociatesDropdown = ({
   businessAssociate,
   setSelectAssociate,
@@ -17,13 +16,11 @@ const BusinessAssociatesDropdown = ({
   setPrimary: any,
   setContactLabel: any
 }) => {
-
   const [menu, setMenu] = useState<any>([]);
   const [keyword, setKeyword] = useState(associateLabel);
   const [dataMenu, setDataMenu] = useState<any>([]);
 
   const onSelect = (value: any) => {
-    console.log(value);
     setSelectAssociate(value);
     setAssociateLabel((dataMenu.find((elm: any) => +elm.key === +value))?.label);
     setContactLabel('')
@@ -32,7 +29,6 @@ const BusinessAssociatesDropdown = ({
   }
 
   const onSearch = (value: string) => {
-    console.log(value);
     setKeyword(value);
   }
 

@@ -249,7 +249,7 @@ const MapView = () => {
     if (toggleModalFilter) {
       getParamFilterProjects(withCoords ? withCoords : boundsMap, options)
     } else{
-      getGalleryProjects();;
+      getGalleryProjects();
     }
   };
 

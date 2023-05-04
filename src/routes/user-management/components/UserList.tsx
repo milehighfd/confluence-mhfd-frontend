@@ -401,8 +401,7 @@ const UserList = () => {
             if(userSelected !== undefined){
             if(userSelected.user_id === record.user_id){
               return (
-                <ProfileUser record={record} saveUser={getAllUser} deleteUser={deleteUserActivated} type="/deleted"
-                deleteUserDatabase={deleteUserDatabase} />
+                <ProfileUser record={record} saveUser={getAllUser} />
               )
             }}
             },
@@ -415,9 +414,6 @@ const UserList = () => {
                 </Dropdown>
               )
           }}
-          // expandable={{
-          //   expandedRowRender: record => <ProfileUser record={record}/>,
-          // }}
           dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
         /> : ()=> {getAllUserActivity() 
           // console.log('userActivity',userActivity);
