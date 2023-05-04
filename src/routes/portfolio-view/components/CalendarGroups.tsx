@@ -161,7 +161,7 @@ const CalendarGroups = ({
                 whiteSpace: 'nowrap',
                 textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counter})`}</span>
            </div>
-            <div className="btn-collapse">
+           <div className="btn-collapse" onClick={(e) => {e.stopPropagation(); }}>
               <LeftOutlined onClick={(e) => {
                 e.stopPropagation();
                 setPrev(true);
