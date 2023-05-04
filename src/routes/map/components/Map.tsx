@@ -175,7 +175,6 @@ const Map = ({
     },
     filterProblems,
     filterComponents,
-    componentDetailIds,
     mapSearch,
     applyFilter,
     zoomProblemOrProject: zoom,
@@ -708,7 +707,7 @@ const Map = ({
             applyFilters(MHFD_PROJECTS, filterProjectOptions);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
-    }, [filterComponents, componentDetailIds, paramComponents]);
+    }, [filterComponents, paramComponents]);
 
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
@@ -1516,9 +1515,6 @@ const Map = ({
               paramComponents?.actionsIds.forEach((component:any) => {
                   allFilters.push({type: component.component_type.toLowerCase().replace(/ /g,"_"),filter: ['in', ['get','component_id'], ['literal', component.actions]]});
               });
-            }
-            if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
-                allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
             }
             if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
               addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);

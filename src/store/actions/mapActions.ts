@@ -267,14 +267,13 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
                 "channel_improvements_area,storm_drain," +
                 "detention_facilities,land_acquisition,landscaping_area,stream_improvement_measure_copy" // TODO save on a constant the useful components 
         }
-        datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
-            if (filtersComponents?.problems || filtersComponents[constants.MHFD_PROJECTS] || filtersComponents?.projects_polygon_) {
-                dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents });
-            } else {
-                dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents: {} });
-            }
-
-        })
+        // datasets.postData(SERVER.FILTER_BY_COMPONENTS, auxFilter, datasets.getToken()).then(filtersComponents => {
+        //     if (filtersComponents?.problems || filtersComponents[constants.MHFD_PROJECTS] || filtersComponents?.projects_polygon_) {
+        //         dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents });
+        //     } else {
+        //         dispatch({ type: types.FILTER_BY_COMPONENTS, filtersComponents: {} });
+        //     }
+        // })
     }
 }
 
