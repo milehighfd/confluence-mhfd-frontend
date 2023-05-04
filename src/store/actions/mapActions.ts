@@ -462,7 +462,7 @@ export const getParamsFilter = (bounds: string) => {
         })
     }
 }
-//rodrigo ponce
+
 export const getParamFilterProjects = (bounds: string, data?: any) => {
     return (dispatch: Function) => {
         const controller = getAndDispatchAbortableCtrl(dispatch, 'getParamFilterProjects');

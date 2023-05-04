@@ -9,11 +9,6 @@ import store from "../../../store";
 import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { useDetailedState } from "../../../hook/detailedHook";
 import { useProfileState } from '../../../hook/profileHook';
-import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
-import { getCurrentProjectStatus } from "utils/parsers";
-/* import { postData } from "Config/datasets";
-import { SERVER } from "Config/Server.config"; */
-const PROJECT_TABLE = 'mhfd_projects'
 
 const GenericTabView = ({
     totalElements,
@@ -64,7 +59,7 @@ const GenericTabView = ({
     }, []);
 
     useEffect(() => {
-        favoriteList(user.email, type === 'Problems');    
+        favoriteList(type === 'Problems');    
     }, [user]);
 
     const deleteFavorite = (id: number) => {
@@ -72,7 +67,7 @@ const GenericTabView = ({
         // TODO: fix the logic of this , dont get again the list of favorites
         // only update the variable with a favorites.filter 
         setTimeout(() => {
-            favoriteList(user.email, type === 'Problems');
+            favoriteList(type === 'Problems');
         }, 1000);
     }
 
