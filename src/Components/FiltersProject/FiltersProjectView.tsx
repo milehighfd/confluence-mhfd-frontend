@@ -112,7 +112,7 @@ const FiltersProjectView = ({
                 } else {
                     setTabActive('2');
                     setFilterTabNumber(COMPONENTS_TRIGGER);
-                    getParamFilterComponents(boundsMap, filterComponentOptions);
+                    // getParamFilterComponents(boundsMap, filterComponentOptions);
                     const copySelectedLayers = [...selectedLayers];
                     if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
                         copySelectedLayers.push(COMPONENT_LAYERS);

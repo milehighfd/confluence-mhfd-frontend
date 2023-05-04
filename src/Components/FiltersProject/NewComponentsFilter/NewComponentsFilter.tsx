@@ -64,7 +64,7 @@ export const NewComponentsFilter = () => {
         getGalleryProjects();;
         getGalleryProblems();
         getParamFilterComponents(boundsMap, options);
-        getComponentsCounter(boundsMap, options);
+        // getComponentsCounter(boundsMap, options);
     }
 
     useEffect(() => {

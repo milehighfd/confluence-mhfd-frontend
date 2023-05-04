@@ -1523,6 +1523,7 @@ const Map = ({
               if(key !== MHFD_PROJECTS && key !== PROBLEMS_TRIGGER){
                 let filterFinal:any = [];
                 allFilters.forEach(filterAction => {
+                  console.log('asdf',key, filterAction.type)
                   if(key.includes(filterAction.type)){
                     filterFinal.push(allFilters[0])
                     filterFinal.push(filterAction.filter)
