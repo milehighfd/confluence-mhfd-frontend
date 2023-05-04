@@ -426,6 +426,7 @@ const DetailModal = ({
   const toCamelCase = (str:string):string => {
     return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
   }
+  
   return (
     <>
     {isLoading && <LoadingViewOverall />}
@@ -499,123 +500,149 @@ const DetailModal = ({
         {!detailed?.problemtype && <div
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
-          <a href="#project-basics" onClick={()=>{setscrollOpen(0)}} className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
-          <a href="#problem" onClick={()=>{setscrollOpen(1)}} className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
-          <a href="#vendors" onClick={()=>{setscrollOpen(2)}} className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
-          <a href="#component-solutions" onClick={()=>{setscrollOpen(3)}} className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
-          <a href="#project-roadmap" onClick={()=>{setscrollOpen(4)}} className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
+          <a href="#project-basics" onClick={()=>{setscrollOpen(0); setTimeout(() => {
+     setOpenSecction(0);
+  }, 1000);}} className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
+          <a href="#problem" onClick={()=>{setscrollOpen(1); setTimeout(() => {
+     setOpenSecction(1);
+  }, 1000);}} className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
+          <a href="#vendors" onClick={()=>{setscrollOpen(2); setTimeout(() => {
+     setOpenSecction(2);
+  }, 1000);}} className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
+          <a href="#component-solutions" onClick={()=>{setscrollOpen(3); setTimeout(() => {
+     setOpenSecction(3);
+  }, 1000);}} className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
+          <a href="#project-roadmap" onClick={()=>{setscrollOpen(4); setTimeout(() => {
+     setOpenSecction(4);
+  }, 1000);}} className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
           {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
-          <a href="#project-financials" onClick={()=>{setscrollOpen(6)}} className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
+          <a href="#project-financials" onClick={()=>{setscrollOpen(6); setTimeout(() => {
+     setOpenSecction(6);
+  }, 1000);}} className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
           {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
-          <a href="#maps" onClick={()=>{setscrollOpen(8)}} className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
-          <a href="#gallery" onClick={()=>{setscrollOpen(9)}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Gallery</a>
-          <a href="#attachments" onClick={()=>{setscrollOpen(10)}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
-          <a href="#history" onClick={()=>{setscrollOpen(11)}} className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
+          <a href="#maps" onClick={()=>{setscrollOpen(8);setTimeout(() => {
+     setOpenSecction(8);
+  }, 1000);}} className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
+          <a href="#gallery" onClick={()=>{setscrollOpen(9); setTimeout(() => {
+     setOpenSecction(9);
+  }, 1000);}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Gallery</a>
+          <a href="#attachments" onClick={()=>{setscrollOpen(10); setTimeout(() => {
+     setOpenSecction(10);
+  }, 1000);}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
+          <a href="#history" onClick={()=>{setscrollOpen(11); setTimeout(() => {
+     setOpenSecction(11);
+  }, 1000);}} className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
         </div>}
         <Row
           className="detailed-b"
         >
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail body-detail-modal"
+            
             onScrollCapture={(e)=>{
+              console.log(e)
+              const value = e.currentTarget;
+
+              console.log('@@@@@@@@@@', value.scrollTop, value.scrollLeft)
               const projectDiv = document.getElementById('project-basics');
               const rectProject = projectDiv?.getBoundingClientRect();
+              console.log(rectProject?.bottom, rectProject?.top)
               if ((rectProject &&
                 rectProject.top >= 0 &&
                 rectProject.left >= 0 &&
                 rectProject.bottom <= window.innerHeight &&
                 rectProject.right <= window.innerWidth) || scrollOpen === 0
               ) {
-                return setOpenSecction(0)
+                 setOpenSecction(0)
               }
               const problemDiv = document.getElementById('problem');
               const rectProblem = problemDiv?.getBoundingClientRect();
-              if ((rectProblem &&
+              if (((rectProblem &&
                 rectProblem.top >= 0 &&
                 rectProblem.left >= 0 &&
                 rectProblem.bottom <= window.innerHeight &&
-                rectProblem.right <= window.innerWidth) || scrollOpen === 1
+                rectProblem.right <= window.innerWidth) || scrollOpen === 1) 
               ) {
-                return setOpenSecction(1)
+                 setOpenSecction(1)
               }
               const vendorsDiv = document.getElementById('vendors');
               const rectVendors = vendorsDiv?.getBoundingClientRect();
-              if ((rectVendors &&
+              if (((rectVendors &&
                 rectVendors.top >= 0 &&
                 rectVendors.left >= 0 &&
                 rectVendors.bottom <= window.innerHeight &&
-                rectVendors.right <= window.innerWidth) || scrollOpen === 2
+                rectVendors.right <= window.innerWidth) || scrollOpen === 2) 
               ) {
-                return setOpenSecction(2)
+                 setOpenSecction(2)
               }
               const solutionsDiv = document.getElementById('component-solutions');
               const rectSolutions = solutionsDiv?.getBoundingClientRect();
-              if ((rectSolutions &&
+              if (((rectSolutions &&
                 rectSolutions.top >= 0 &&
                 rectSolutions.left >= 0 &&
                 rectSolutions.bottom <= window.innerHeight &&
-                rectSolutions.right <= window.innerWidth) || scrollOpen === 3
+                rectSolutions.right <= window.innerWidth) || scrollOpen === 3) 
               ) {
-                return setOpenSecction(3)
+                 setOpenSecction(3)
               }
               const roadmapDiv = document.getElementById('project-roadmap');
               const rectRoadmap = roadmapDiv?.getBoundingClientRect();
-              if ((rectRoadmap &&
+              if (((rectRoadmap &&
                 rectRoadmap.top >= 0 &&
                 rectRoadmap.left >= 0 &&
                 rectRoadmap.bottom <= window.innerHeight &&
-                rectRoadmap.right <= window.innerWidth) || scrollOpen === 4
+                rectRoadmap.right <= window.innerWidth) || scrollOpen === 4) 
               ) {
-                return setOpenSecction(4)
+                 setOpenSecction(4)
               }
               const projectFinancialsDiv = document.getElementById('project-financials');
               const rectProjectFinancials = projectFinancialsDiv?.getBoundingClientRect();
-              if ((rectProjectFinancials &&
+              if (((rectProjectFinancials &&
                 rectProjectFinancials.top >= 0 &&
                 rectProjectFinancials.left >= 0 &&
                 rectProjectFinancials.bottom <= window.innerHeight &&
-                rectProjectFinancials.right <= window.innerWidth) || scrollOpen === 6
+                rectProjectFinancials.right <= window.innerWidth) || scrollOpen === 6) 
               ) {
-                return setOpenSecction(6)
+                 setOpenSecction(6)
               }
               const mapDiv = document.getElementById('maps');
               const rectMap = mapDiv?.getBoundingClientRect();
-              if ((rectMap &&
+              if (((rectMap &&
                 rectMap.top >= 0 &&
                 rectMap.left >= 0 &&
                 rectMap.bottom <= window.innerHeight &&
-                rectMap.right <= window.innerWidth) || scrollOpen === 8
+                rectMap.right <= window.innerWidth) || scrollOpen === 8) 
               ) {
-                return setOpenSecction(8)
+                 setOpenSecction(8)
               }
               const galleryDiv = document.getElementById('gallery');
               const rectGallery = galleryDiv?.getBoundingClientRect();
-              if ((rectGallery &&
+              if (((rectGallery &&
                 rectGallery.top >= 0 &&
                 rectGallery.left >= 0 &&
                 rectGallery.bottom <= window.innerHeight &&
-                rectGallery.right <= window.innerWidth) || scrollOpen === 9
+                rectGallery.right <= window.innerWidth) || scrollOpen === 9) 
               ) {
-                return setOpenSecction(9)
+                 setOpenSecction(9)
               }
               const attachmentsDiv = document.getElementById('attachments');
               const rectAttachments = attachmentsDiv?.getBoundingClientRect();
-              if ((rectAttachments &&
+              if (((rectAttachments &&
                 rectAttachments.top >= 0 &&
                 rectAttachments.left >= 0 &&
                 rectAttachments.bottom <= window.innerHeight &&
-                rectAttachments.right <= window.innerWidth) || scrollOpen === 10
+                rectAttachments.right <= window.innerWidth) || scrollOpen === 10) 
               ) {
                  setOpenSecction(10)
               }
               const historyDiv = document.getElementById('history');
               const rectHistory = historyDiv?.getBoundingClientRect();
-              if ((rectHistory &&
+              if (((rectHistory &&
                 rectHistory.top >= 0 &&
                 rectHistory.left >= 0 &&
                 rectHistory.bottom <= window.innerHeight &&
-                rectHistory.right <= window.innerWidth) || scrollOpen === 11
+                rectHistory.right <= window.innerWidth) || scrollOpen === 11) 
               ) {
                  setOpenSecction(11)
               }
