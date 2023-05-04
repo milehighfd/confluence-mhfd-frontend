@@ -152,8 +152,8 @@ export const useMapDispatch = () => {
     deleteFavorite: (email: string, id: number, table: string) => {
       dispatch(deleteFavorite(email, id, table));
     },
-    favoriteList: (email: string, isProblem: boolean) => {
-      dispatch(favoriteList(email, isProblem));
+    favoriteList: (isProblem: boolean) => {
+      dispatch(favoriteList(isProblem));
     },
     changeTutorialStatus: (status: boolean) => {
       dispatch(changeTutorialStatus(status));

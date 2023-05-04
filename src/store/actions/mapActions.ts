@@ -7,6 +7,18 @@ import { OptionProblems, OptionProjects, OptionComponents } from 'Classes/MapTyp
 import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
 import store from '..';
 
+const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
+    const controller = new AbortController();
+    dispatch({
+        type: types.ABORTABLE_REQUEST,
+        payload: {
+            abortableController: controller,
+            abortableKey: key
+        }
+    });
+    return controller;
+};
+
 export const getMapTables = (trigger: string, name?: string) => {
     return (dispatch: Function, getState: Function) => {
         const state = getState();
@@ -278,12 +290,22 @@ export const setFilterComponentOptions = (filters: OptionComponents) => {
 }
 
 export const getGalleryProblems = () => {
-    const coordinates: any = store.getState().map.filterCoordinates;
-    const filterOptions = store.getState().map.filterProblemOptions;
-    const filterComponent = store.getState().map.filterComponentOptions;
-    return (dispatch: Function) => {
+    return (dispatch: Function, getState: Function) => {
+        const {
+            map: {
+                filterCoordinates: coordinates,
+                filterProblemOptions: filterOptions,
+                filterComponentOptions: filterComponent,
+            }
+        } = getState();
         dispatch({ type: types.SET_SPIN_CARD_PROBLEMS, spin: true });
-        datasets.postData(SERVER.GALLERY_PROJECTS, options(filterOptions, filterComponent, coordinates), datasets.getToken()).then(galleryProblems => {
+        const controller = getAndDispatchAbortableCtrl(dispatch, 'getGalleryProblems');
+        datasets.postData(
+            SERVER.GALLERY_PROJECTS,
+            options(filterOptions, filterComponent, coordinates),
+            datasets.getToken(),
+            controller.signal
+        ).then(galleryProblems => {
             if (galleryProblems?.length >= 0) {
                 dispatch({ type: types.GALLERY_PROBLEMS, galleryProblems });
             }
@@ -306,14 +328,7 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
       type: types.SET_SPIN_CARD_PROJECTS,
       spin: true,
     });
-    const controller = new AbortController();
-    dispatch({
-        type: types.FETCH_DATA_GALLERY_PROJECTS,
-        payload: {
-            abortableController: controller,
-            abortableKey: 'getGalleryProjects',
-        },
-      });
+    const controller = getAndDispatchAbortableCtrl(dispatch, 'getGalleryProjects');
     datasets
       .postData(
         `${SERVER.GALLERY_PROJECTS_V2}?limit=20&page=1`,
@@ -365,14 +380,7 @@ export const getProjectsFilteredIds = () => {
           filterComponentOptions: filterComponent,
       }
     } = getState();
-    const controller = new AbortController();
-    dispatch({
-        type: types.FETCH_GALLERY_FILTERED_PROJECTS_ID,
-        payload: {
-            abortableController: controller,
-            abortableKey: 'getProjectsFilteredIds',
-        },
-    });
+    const controller = getAndDispatchAbortableCtrl(dispatch, 'getProjectsFilteredIds');
     datasets.postData(
       SERVER.GALLERY_FILTERED_PROJECTS_ID,
       optionsProjects(filterOptions, filterComponent, coordinates, false),
@@ -454,14 +462,15 @@ export const getParamsFilter = (bounds: string) => {
         })
     }
 }
+//rodrigo ponce
 export const getParamFilterProjects = (bounds: string, data?: any) => {
-    if (data) {
-        data.county = data.county;
-        // data.servicearea = data.servicearea.replace("Service Area", "");
-        data.servicearea = data.servicearea
-    }
     return (dispatch: Function) => {
-        datasets.postData(SERVER.PARAM_FILTER_PROJECTS + '?bounds=' + bounds, data || {}).then((params:any) => {
+        const controller = getAndDispatchAbortableCtrl(dispatch, 'getParamFilterProjects');
+        datasets.postData(
+            `${SERVER.PARAM_FILTER_PROJECTS}?bounds=${bounds}`,
+            data || {},
+            controller.signal
+        ).then((params:any) => {
             if (params) {
               const projectsCounters = params['data'];
               dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
@@ -470,11 +479,8 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         dispatch(getGalleryProjects('paramfilter'))
     }
 }
+
 export const getParamFilterProjectsNoBounds = (data?: any) => {
-  if (data) {
-      data.county = data.county;
-      data.servicearea = data.servicearea
-  }
   return (dispatch: Function) => {
       datasets.postData(SERVER.PARAM_FILTER_PROJECTS, data || {}).then((params:any) => {
           if (params) {
@@ -699,16 +705,19 @@ export const deleteFavorite = (email: string, id: number, table: string) => {
     }
 }
 
-export const favoriteList = (email: string, isProblem: boolean) => {
-    const suffix = isProblem ? '?isProblem=1' : '';
+export const favoriteList = (isProblem: boolean) => {
     return (dispatch: Function) => {
-        datasets.getData(SERVER.FAVORITES + suffix, datasets.getToken()).then(favorites => {
+        const suffix = isProblem ? '?isProblem=1' : '';
+        const controller = getAndDispatchAbortableCtrl(dispatch, 'favoriteList');
+        datasets.getData(
+            SERVER.FAVORITES + suffix,
+            datasets.getToken(),
+            controller.signal
+        ).then(favorites => {
             dispatch({ type: types.FAVORITE_LIST, favorites });
         });
     }
 }
-
-
 
 export const favoriteCards = (email: string, isproblem: boolean, extraOptions?: any) => {
     return (dispatch: Function) => {

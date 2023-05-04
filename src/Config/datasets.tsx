@@ -7,7 +7,7 @@ const handleErrors = (response: any) => {
     return response.json();
 }
 
-export const postData = (url: any, body: any, token?: any, signal?: any) => {
+export const postData = (url: any, body: any, token?: any, signal?: AbortSignal) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
     return fetch(url, {
         method: 'POST',
@@ -64,11 +64,12 @@ export const putData = (url: any, body: any, token?: any) => {
     });
 }
 
-export const getData = (url: any, token?: any) => {
+export const getData = (url: any, token?: any, signal?: AbortSignal) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
     return fetch(url, {
         method: 'GET',
-        headers
+        headers,
+        signal
     })
     .then(handleErrors);
 }
