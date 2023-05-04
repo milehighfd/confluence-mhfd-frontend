@@ -186,21 +186,41 @@
 .scroll-custom{
   height: 5px;
   width: 75%;
-  background: white;
+  width: calc(100vw - 24.833333%);
+  background: #ffffff;
   position: absolute;
   bottom: 0px;
-  margin-left: 20.4%;
+  margin-left: 20.2%;
   z-index: 10;
   border-radius: 5px;
+  overflow: auto;
+  margin-bottom: 1px;
   .scroll-bar{
-    max-width: calc(100vw - 60%);
-  width: 100%;
-  z-index: 10;
-  border-radius: 5px;
-  height: 4px;
-background-color: #11093C;
-    margin-top: 1px;
+    z-index: 10;
+    border-radius: 5px;
+    height: 4px;
+    background-color: transparent;
   }
+}
+.scroll-custom::-webkit-scrollbar-thumb {
+  background: transparent; 
+  border-radius: 10px;
+}
+.scroll-custom::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+.scroll-custom::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+  
+/* Handle */
+.scroll-custom::-webkit-scrollbar-thumb {
+  background: $purple00;
+  border-radius: 10px;
+  z-index: 100;
 }
 .topHeaderMonth text{
   fill: #11093C;
@@ -3101,6 +3121,9 @@ background-color: #11093C;
 }
 
 @media (min-width: 2555px) and (max-width: 3799px){
+  .scroll-custom{
+    margin-left: 20.5%;
+  }
   .phase-groups{
     height: calc(100vh - 282px) !important;
   }
@@ -3827,6 +3850,9 @@ background-color: #11093C;
   transition: background .3s;
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .scroll-custom{
+    margin-left: 20.8%;
+  }
   .phase-groups{
     height: calc(100vh - 282px) !important;
   }

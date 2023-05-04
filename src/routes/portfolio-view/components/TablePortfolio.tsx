@@ -61,7 +61,8 @@ const TablePortafolio = (
 
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
-  const [scrollValue, setScrollValue] = useState([0, 0]);
+  const scrollRef = useRef<null | HTMLDivElement>(null);
+  const tableHeaderRef = useRef<null | HTMLDivElement>(null);
   const tableRef = useRef<any[]>([]);
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
@@ -107,10 +108,29 @@ const TablePortafolio = (
       setDetailGroup(valuesGroups.groups)
     })
   }, [currentGroup])
+  let drr =tableHeaderRef.current;
+  let widthMax = drr? drr.offsetWidth : 0;
+  let myDiv = drr?.querySelector('.ant-table-thead');
+  let myDivWidth = myDiv? myDiv.clientWidth :0;
+
   return (
     <div>
-      <div className="scroll-custom" style={{paddingLeft: `${scrollValue[0]}px`}}>
-        <div className="scroll-bar" style={{width:`${scrollValue[1]}px`}}></div>
+      <div className="scroll-custom" style={{width:`${widthMax - 5}px`}}  ref={scrollRef}
+        onScrollCapture={(e: any) => {
+          let dr: any = scrollRef.current;
+          if (scrollRef.current) {
+            if (tableRef.current) {
+              tableRef.current.forEach((elem: any, index:number) => {
+                tableRef.current[index].scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
+              })
+            }
+            if (headerRef.current) {
+              headerRef.current.scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
+            }
+          }
+        }}
+      >
+        <div className="scroll-bar" style={{ width: `${myDivWidth - 5}px`}}></div>
       </div>  
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
@@ -134,10 +154,11 @@ const TablePortafolio = (
                   if (headerRef.current) {
                     if (tableRef.current) {
                       tableRef.current.forEach((elem: any, index:number) => {
-                        const valueScro = (Math.abs( dr.scrollLeft ) * Math.abs( dr.scrollHeight - width)) / width
-                        setScrollValue([valueScro, dr.scrollHeight]);
                         tableRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
                       })
+                    }
+                    if (scrollRef.current) {
+                        scrollRef.current.scrollTo(dr.scrollLeft, 0);
                     }
                   }
                 }}
@@ -147,6 +168,7 @@ const TablePortafolio = (
                   dataSource={dataTable00}
                   className="table-portafolio header-table"
                   style={{ marginBottom: '20px' }}
+                  ref={tableHeaderRef}
                   onChange={(pagination, filters, sorters: any) => {
                     setSortValue({
                       columnKey: sorters.columnKey,
