@@ -115,10 +115,22 @@ const TableBody = ({
         county: getCounties(x?.project_counties || []),
         project_sponsor: getSponsors(x.project_partners),
         mhfd: x?.project_staffs.reduce((accumulator: string, pl: any) => {
-          const sa = pl?.mhfd_staff?.full_name || '';
-          const sa1 = pl?.code_project_staff_role_type_id || '';
+          const sa = pl?.business_associate_contact?.user?.name || '';
+          const sa1 = pl?.code_project_staff_role_type?.project_staff_role_type_name || '';
           let value = accumulator;
-          if (sa && sa1 === 1) {
+          if (sa && sa1 === 'MHFD Lead') {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        }, ''),
+        lg_lead: x?.project_staffs.reduce((accumulator: string, pl: any) => {
+          const sa = pl?.business_associate_contact?.user?.name || '';
+          const sa1 = pl?.code_project_staff_role_type?.project_staff_role_type_name || '';
+          let value = accumulator;
+          if (sa && sa1 === 'Local Government Lead') {
             if (value) {
               value += ',';
             }
