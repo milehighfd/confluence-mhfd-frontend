@@ -423,6 +423,9 @@ const DetailModal = ({
   //     existDetailedPageProject(data.project_id);
   //   }
   // },[])
+  const toCamelCase = (str:string):string => {
+    return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
+  }
   return (
     <>
     {isLoading && <LoadingViewOverall />}
@@ -441,9 +444,9 @@ const DetailModal = ({
               <div style={detailed?.problemtype ? {width:'100%'} : {width:'76%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.problemtype ? ( detailed?.jurisdiction + ', CO' ) : (getSponsors(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.problemtype ? (detailed?.county + ' County') : (getCounties(detailed?.project_counties || []) || 'N/A')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span> {detailed?.problemtype ? (detailed?.servicearea + ' Service Area'):(getServiceAreas(detailed?.project_service_areas || []) || 'N/A')} </span></p>
+                <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase( detailed?.jurisdiction + ', CO' ) :toCamelCase (getSponsors(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase(detailed?.county + ' County') : toCamelCase(getCounties(detailed?.project_counties || []) || 'N/A')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase(detailed?.servicearea + ' Service Area'):toCamelCase(getServiceAreas(detailed?.project_service_areas || []) || 'N/A')} </span></p>
               </div>
               {detailed?.problemtype ? 
                 <></>:
@@ -480,7 +483,7 @@ const DetailModal = ({
                 )
               }
               <Button className="btn-circle">
-                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} style={{margin:'1px 0.4px', height:'17px'}}/>
+                <img src="/Icons/icon-01.svg" alt="" onClick={downloadPdf} style={{margin:'1px -10px', height:'17px'}}/>
               </Button>
               <Button style={{marginLeft:'10px'}}  className="btn-circle" onClick={copyUrl}>
                 <img src="/Icons/icon-06.svg" alt="" />
