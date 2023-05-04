@@ -34,6 +34,7 @@ const TableBody = ({
   index,
   divRef,
   searchRef,
+  scrollHeaderScrollRef,
   tableRef,
   tabKeyId,
   headerRef,
@@ -57,6 +58,7 @@ const TableBody = ({
   setOpenTable: Function,
   index: number,
   divRef: any,
+  scrollHeaderScrollRef:any,
   searchRef: any,
   tableRef: any,
   tabKeyId: any,
@@ -358,6 +360,7 @@ const TableBody = ({
                     tableRef.current.forEach((elem: any, index:number) => {
                       tableRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
                       headerRef.current.scrollTo(dr.scrollLeft, dr.scrollTop);
+                      scrollHeaderScrollRef.current.scrollTo(dr.scrollLeft, dr.scrollTop);
                     })
                   }
                 }

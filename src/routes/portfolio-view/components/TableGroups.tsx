@@ -31,6 +31,8 @@ const TableGroups = ({
   email,
   divRef,
   searchRef,
+  scrollRef,
+  tableHeaderRef,
   tableRef,
   tabKeyId,
   headerRef,
@@ -50,6 +52,8 @@ const TableGroups = ({
   tabKey: any,
   favorites: any,
   email: any,
+  scrollRef:any,
+  tableHeaderRef:any,
   divRef: any,
   searchRef: any,
   tableRef: any,
@@ -64,6 +68,7 @@ const TableGroups = ({
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [counter, setCounter] = useState([]);
+  const scrollHeaderScrollRef = useRef<null | HTMLDivElement>(null);
   const [page, setPage] = useState(1);
  
   useEffect(() => {
@@ -83,6 +88,10 @@ const TableGroups = ({
     }
     return indices;
   }
+  let drr = tableHeaderRef.current;
+  let myDiv = drr?.querySelector('.ant-table-thead');
+  let myDivWidth = myDiv? myDiv.clientWidth :0;
+
   return <>
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
@@ -100,38 +109,52 @@ const TableGroups = ({
         collapsible={Number(counter) ===0 ? "disabled" :"header"}
       >   
         <Panel header={
-          <div className="header-group">
-           <div style={{display: 'flex', maxWidth: '79%', alignItems: 'center'}}>
-            <span style={{width: '100%',
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counter})`}</span>
-           </div>
-            
-            <div className="btn-collapse" onClick={(e) => {e.stopPropagation(); }}>
-              <LeftOutlined onClick={(e) => {
-                e.stopPropagation();
-                setPrev(true);
-              }}
-              className="btn-arrow-porfolio"
-              style={page === 1 ? {color:'#2518633d', cursor: 'default'}:{}} 
-              />
-              <RightOutlined onClick={(e) => {
-                e.stopPropagation();
-                setNext(true);
-              }}
-              className="btn-arrow-porfolio"
-              style={page === limitPage || Number(counter) === 0 ? {color:'#2518633d', cursor: 'default'}:{}} />
+          <>
+            <div className="header-group">
+            <div style={{display: 'flex', maxWidth: '79%', alignItems: 'center'}}>
+              <span style={{width: '100%',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counter})`}</span>
             </div>
-             {/* <div
-              className="line-table"
-              style={{ width: '79.16666667%'}}
-              onMouseEnter={e => {
-                //setHoverTable(-1)
-              }}
-            ></div> */}
+              <div className="btn-collapse" onClick={(e) => {e.stopPropagation(); }}>
+                <LeftOutlined onClick={(e) => {
+                  e.stopPropagation();
+                  setPrev(true);
+                }}
+                className="btn-arrow-porfolio"
+                style={page === 1 ? {color:'#2518633d', cursor: 'default'}:{}} 
+                />
+                <RightOutlined onClick={(e) => {
+                  e.stopPropagation();
+                  setNext(true);
+                }}
+                className="btn-arrow-porfolio"
+                style={page === limitPage || Number(counter) === 0 ? {color:'#2518633d', cursor: 'default'}:{}} />
+              </div>
+            </div>
+            <div style={{width:'81%'}} className="scroll-line" ref={scrollHeaderScrollRef}
             
-          </div>
+              onScrollCapture={(e: any) => {
+                let dr: any = scrollHeaderScrollRef.current;
+                if (scrollHeaderScrollRef.current) {
+                  if (tableRef.current) {
+                    tableRef.current.forEach((elem: any, index:number) => {
+                      tableRef.current[index].scrollTo(dr.scrollLeft, tableRef.current[index].scrollTop);
+                    })
+                  }
+                  if (scrollRef.current) {
+                      scrollRef.current.scrollTo(dr.scrollLeft, 0);
+                  }
+                  if (headerRef.current) {
+                    headerRef.current.scrollTo(dr.scrollLeft, 0);
+                  }
+                }
+              }}
+            >
+              <div className="line-collapse" style={{width: `${myDivWidth}px`}}></div>
+            </div>
+          </>
         } key={index}>
           <TableBody
             currentGroup={currentGroup}
@@ -146,6 +169,7 @@ const TableGroups = ({
             setOpenTable={setOpenTable}
             index={index}
             divRef={divRef}
+            scrollHeaderScrollRef={scrollHeaderScrollRef}
             searchRef={searchRef}
             tableRef={tableRef}
             tabKeyId={tabKeyId}

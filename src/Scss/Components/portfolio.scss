@@ -379,6 +379,18 @@
 .topHeaderMonthChart path{
   visibility: hidden;
 }
+.scroll-line{
+  overflow: scroll;
+}
+.scroll-line::-webkit-scrollbar {
+  display: none;
+  }
+.line-collapse{
+  width: 38px;
+  background: #fafafa;
+  // background: red;
+  height: 100%;
+}
 
 .topHeaderYearChart text{
   visibility: hidden;
@@ -1047,6 +1059,9 @@
     //  width: 20.85% !important;  
     //  border-right: 1px solid #E3E5E5;
    }
+   .ant-collapse>.ant-collapse-item .ant-collapse-header-collapsible-only .ant-collapse-header-text {
+    display: flex;
+  }
    .ant-collapse-header-text{
     width: calc(100% - 24px) !important;
    }
@@ -1124,8 +1139,9 @@
       font-weight: bold !important;
       padding-top: 0px !important;
       padding-bottom: 0px !important;
-      padding-right: calc(79.16666667% - 0px ) !important;
+      // padding-right: calc(79.16666667% - 0px ) !important;
       align-items: center;
+      padding-right: 0px;
     }
     .btn-collapse{
       display: flex;
@@ -1134,10 +1150,11 @@
       // height: 53px;
       height: 39px;
       align-self: center;
-      padding-right: 10px;
+      padding-right: 15px;
       /* padding-top: 10px; */
       // border-right: 1px solid #e3e5e5;
-      margin-right: -2px;
+      margin-right: 0px;
+      padding-left: 5px;
     }
     .ant-collapse-content > .ant-collapse-content-box {
       padding: 0px 0px !important;
@@ -4671,6 +4688,7 @@
 .header-group {  
   display: flex;
   // width: 100%; 
+  width: 19.5%;
   flex-direction: row;
   justify-content: space-between;
   .btn-arrow-porfolio:hover{
