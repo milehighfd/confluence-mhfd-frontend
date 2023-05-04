@@ -40,7 +40,7 @@ export const GlobalMapHook = () => {
         lastMaps = (copy);
         sessionStorage.setItem('globalMap', JSON.stringify(copy));
       }
-    }, 2500);
+    }, 1000);
   }
 
   const getHistoric = () => {

@@ -181,7 +181,7 @@ export const NewComponentsFilter = () => {
                 {
                     paramComponents?.filtersData?.mhfdmanager &&
                     <CheckBoxFiltersProblem defaultValue={''}
-                        data={paramComponents.filtersData.mhfdmanager}
+                        data={paramComponents.filtersData.mhfdmanager.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterComponentOptions.mhfdmanager}
                         onSelect={(items: any) => apply(items, 'mhfdmanager')}/>
                 }
