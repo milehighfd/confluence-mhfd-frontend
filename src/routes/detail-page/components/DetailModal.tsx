@@ -444,7 +444,7 @@ const DetailModal = ({
               <div style={detailed?.problemtype ? {width:'100%'} : {width:'76%'}}>
                 <h1>{detailed?.problemname ? detailed?.problemname : detailed?.project_name}</h1>
                 <p><span>{detailed?.problemtype ? (detailed?.problemtype + ' Problem') : (detailed?.code_project_type?.project_type_name + ' Project')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
-                <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase( detailed?.jurisdiction + ', CO' ) :toCamelCase (getJurisdictions(detailed?.project_partners || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
+                <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase( detailed?.jurisdiction + ', CO' ) :toCamelCase (getJurisdictions(detailed?.project_local_governments || []) || 'N/A')} </span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase(detailed?.county + ' County') : toCamelCase(getCounties(detailed?.project_counties || []) || 'N/A')}</span>&nbsp;&nbsp;•&nbsp;&nbsp;
                 <span style={{textTransform: 'capitalize'}}> {detailed?.problemtype ? toCamelCase(detailed?.servicearea + ' Service Area'):toCamelCase(getServiceAreas(detailed?.project_service_areas || []) || 'N/A')} </span></p>
               </div>
