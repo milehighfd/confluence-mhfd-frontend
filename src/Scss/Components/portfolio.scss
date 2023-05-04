@@ -183,6 +183,25 @@
 .topHeaderM line{
   visibility: hidden;
 }
+.scroll-custom{
+  height: 5px;
+  width: 75%;
+  background: white;
+  position: absolute;
+  bottom: 0px;
+  margin-left: 20.4%;
+  z-index: 10;
+  border-radius: 5px;
+  .scroll-bar{
+    max-width: calc(100vw - 60%);
+  width: 100%;
+  z-index: 10;
+  border-radius: 5px;
+  height: 4px;
+background-color: #11093C;
+    margin-top: 1px;
+  }
+}
 .topHeaderMonth text{
   fill: #11093C;
   width: 58px;

@@ -61,6 +61,7 @@ const TablePortafolio = (
 
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
+  const [scrollValue, setScrollValue] = useState([0, 0]);
   const tableRef = useRef<any[]>([]);
   const ValueTabsHeader = () => {
     let header = AllHeaderTable;
@@ -108,6 +109,9 @@ const TablePortafolio = (
   }, [currentGroup])
   return (
     <div>
+      <div className="scroll-custom" style={{paddingLeft: `${scrollValue[0]}px`}}>
+        <div className="scroll-bar" style={{width:`${scrollValue[1]}px`}}></div>
+      </div>  
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
           <SearchDropdown rawData={rawData}
@@ -126,9 +130,12 @@ const TablePortafolio = (
                 className="scroll-scroll-table"
                 onScrollCapture={(e: any) => {
                   let dr: any = headerRef.current;
+                  let width = dr? dr.offsetWidth : 0;
                   if (headerRef.current) {
                     if (tableRef.current) {
                       tableRef.current.forEach((elem: any, index:number) => {
+                        const valueScro = (Math.abs( dr.scrollLeft ) * Math.abs( dr.scrollHeight - width)) / width
+                        setScrollValue([valueScro, dr.scrollHeight]);
                         tableRef.current[index].scrollTo(dr.scrollLeft, dr.scrollTop);
                       })
                     }
@@ -145,9 +152,9 @@ const TablePortafolio = (
                       columnKey: sorters.columnKey,
                       order: sorters.order,
                     });
-                  }}                
+                  }}
                 />
-              </div>              
+              </div>
             </div>
           </div>
         </Col>
