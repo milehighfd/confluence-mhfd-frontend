@@ -15,6 +15,21 @@ export const getSponsors = (projectPartners: any) => {
   return sponsors;
 };
 
+export const getJurisdictions = (projectLocalGovernment: any) => {
+  const jurisdictions = projectLocalGovernment.reduce((accumulator: string, current: any) => {
+    const sa = current?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
+    let value = accumulator;
+    if (sa) {
+      if (value) {
+        value += ', ';
+      }
+      value += sa;
+    }  
+    return value;
+  }, '');
+  return jurisdictions;
+};
+
 export const getServiceAreas = (serviceAreas: any) => {
   return serviceAreas.reduce((accumulator: string, pl: any) => {
     const sa = pl?.CODE_SERVICE_AREA?.service_area_name || '';
