@@ -272,7 +272,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                             apply(e, 'lgmanager');
                         }}>
                             {paramProjects.lgmanager.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} `}</Option>
+                                return element && <Option key={index} value={element.id}>{`${element.value} `}</Option>
                             })}
                         </Select>
                     </>
