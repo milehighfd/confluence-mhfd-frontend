@@ -18,7 +18,7 @@ export const optionsProjects = (options: OptionProjects, filterComponent: Option
       // servicearea = filterComponent.servicearea;
     }
   }
-  const formattedOptions = {
+  const formattedOptions: any = {
     name: options.keyword,
     projecttype: options.projecttype,
     status: options.status,
@@ -41,7 +41,6 @@ export const optionsProjects = (options: OptionProjects, filterComponent: Option
     jurisdictionComp: filterComponent.jurisdiction,
     countyComp: filterComponent.county,
     yearofstudy: filterComponent.yearofstudy,
-    bounds: coordinates,
     consultant: options.consultant,
     contractor: options.contractor,
     servicearea: servicearea,
