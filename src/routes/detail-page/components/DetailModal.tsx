@@ -542,9 +542,6 @@ const DetailModal = ({
             
             onScrollCapture={(e)=>{
               console.log(e)
-              const value = e.currentTarget;
-
-              console.log('@@@@@@@@@@', value.scrollTop, value.scrollLeft)
               const projectDiv = document.getElementById('project-basics');
               const rectProject = projectDiv?.getBoundingClientRect();
               console.log(rectProject?.bottom, rectProject?.top)
