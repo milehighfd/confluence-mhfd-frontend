@@ -149,6 +149,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
         ...prevState,
         filterby:  Array.isArray(prevState.filterby) ? newFilterby : newFilterby,
         value: Array.isArray(prevState.value) ? newFilterValue : [value],
+        search : searchWord
       };
     });
   }
@@ -227,7 +228,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     if (!filterExist){
       setFilterPagination({ ...filterPagination, search: '', filterby: [], value: [] })
     }
-    setFilterPagination({ ...filterPagination, search: searchWord})
   }, [filterProjectOptions]);
   
   useEffect(() => {
