@@ -37,7 +37,7 @@ import {
 import { numberWithCommas } from '../../../utils/utils';
 import { SERVER } from "../../../Config/Server.config";
 import { SPONSOR_ID } from '../../../constants/databaseConstants';
-import { getCurrentProjectStatus } from '../../../utils/parsers';
+import { getCurrentProjectStatus, getJurisdictions } from '../../../utils/parsers';
 
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet =  3280.8;
@@ -407,6 +407,7 @@ export const addPopupsOnClick = async (
                           ? dataFromDB.project_name
                           : '-'),
                         organization: sponsors.join(','),
+                        jurisdiction: getJurisdictions(dataFromDB.project_local_governments),
                         value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : 0),
                         projecctype: dataFromDB?.code_project_type?.project_type_name,
                         status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
