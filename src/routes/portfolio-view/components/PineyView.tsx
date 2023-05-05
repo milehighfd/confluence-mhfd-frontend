@@ -36,34 +36,6 @@ const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, upd
     send: false,
     pay: false,
   });
-  const menu = (
-    <Menu
-      className="card-dropdown"
-      items={[
-        {
-          key: '1-1',
-          label: <>
-            <img src="/picture/user.png" height={30} width="30" style={{marginRight:'5px'}}/>
-            <span style={{fontSize:'14px'}}>Jon Villines</span>
-          </>,
-        },
-        {
-          key: '1-2',
-          label: <>
-            <img src="/picture/user01.png"height={30} width="30" style={{marginRight:'5px'}}/>
-            <span style={{fontSize:'14px'}}>Jane Smith </span>
-          </>,
-        },
-        {
-          key: '1-3',
-          label: <>
-            <img src="/picture/user02.png"height={30} width="30" style={{marginRight:'5px'}}/>
-            <span style={{fontSize:'14px'}}>Robert Croquette  </span>
-          </>,
-        },
-      ]}
-    />
-  );
   const [actionList, setActionList] = useState<any>([])
   const [updateList, setupdateList] = useState(true)
   const [percent, setPercent] = useState(0)
@@ -243,71 +215,54 @@ const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, upd
   }
   return (
     <>
-      {visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
+      {
+        visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
       }
-      {/* {tollgate && <ModalTollgate visible={tollgate} setVisible={setTollgate} />} */}
-      <div className="header-piney" style={{marginBottom:'20px'}}>
-        {/* <CloseOutlined onClick={()=>{setOpenPiney(false)}}/>
-        <FormOutlined style={{fontSize:'20px'}} className={editView ? 'active-btn-piney active-btn-piney-edit':'active-btn-piney-edit'} onClick={()=>{setVisibleDetail(true)}}/> */}
+      <div className="header-piney" style={{ marginBottom: '20px' }}>
         <Button
           className="btn-transparent"
-          onClick={()=>{setOpenPiney(false)}}
-          style={{padding:'0px 0px'}}
+          onClick={() => { setOpenPiney(false) }}
+          style={{ padding: '0px 0px' }}
         >
           <img src="/Icons/ic-close-piney.svg" alt="" height="20px" />
         </Button>
         {
-          isDetail === true ? (<></>):
-          (<Button
-          className="btn-transparent"
-          onClick={()=>{setVisibleDetail(true)}}
-          style={{padding:'0px 0px'}}
-        >
-          <img src="/Icons/ic_send.svg" alt="" height="16px" />
-        </Button> )
+          isDetail === true ? (<></>) :
+            (<Button
+              className="btn-transparent"
+              onClick={() => { setVisibleDetail(true) }}
+              style={{ padding: '0px 0px' }}
+            >
+              <img src="/Icons/ic_send.svg" alt="" height="16px" />
+            </Button>)
         }
       </div>
       <div className="body-piney">
-        <p style={{marginBottom:'0px'}}>Capital Project</p>
+        <p style={{ marginBottom: '0px' }}>{`${data?.data?.project_type} Project` || 'N/A'}</p>
         <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '7px' }}>{data.project_name}</h1>
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>
         </div>
-        <div className="body-piney-body" style={{paddingBottom:'30px'}}>
-          <p style={{ marginBottom:'5px', fontWeight:'700', opacity:'0.6'}}>Notes</p>
-            <TextArea rows={4} style={{marginBottom:'15px', color:'#706b8a', resize:'none'}} className='text-area-piney' onChange={handleOnchange} value={newNote} placeholder="Add note here"/>
+        <div className="body-piney-body" style={{ paddingBottom: '30px' }}>
+          <p style={{ marginBottom: '5px', fontWeight: '700', opacity: '0.6' }}>Notes</p>
+          <TextArea rows={4} style={{ marginBottom: '15px', color: '#706b8a', resize:'none'}} className='text-area-piney' onChange={handleOnchange} value={newNote} placeholder="Add note here"/>
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p>MHFD Lead/PM</p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-                {/* {editView ?
-                  <>
-                    <Dropdown overlay={menu} placement="bottomRight" trigger={['click']} getPopupContainer={(trigger:any) => trigger.parentNode} onVisibleChange={()=>{setOpenDrop(!openDrop)}}>
-                      <Space style={{border:'1px solid #eae8f0', borderRadius:'17.5px', padding:'3px 5px', width:'100%', justifyContent:'space-between'}}>
-                        <div><img src="/picture/user.png" alt="" height="24px" style={{borderRadius: '50%'}}/> <span>Jon Villines</span></div>
-                        {openDrop ? <UpOutlined style={{color:'#251863'}} /> : < DownOutlined style={{color:'#251863'}} />}
-                      </Space>
-                    </Dropdown>
-                  </>
-                  : */}
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>               
                   <>
                     <img src="/picture/user-default.svg" alt="" height="24px" style={{borderRadius: '50%'}}/> <span   className="text-piney-body">{!data.mhfd?'N/A':data.mhfd}</span>
-                  </>
-                {/* } */}
+                  </>               
               </Col>
             </Row>
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
                 <p >Total Est. Cost <InfoCircleOutlined style={{color:'rgb(205 203 214)'}}/></p>
               </Col>
-              <Col xs={{ span: 10 }} lg={{ span: 13 }}>
-                {/* {editView ?
-                  <input type="text" placeholder="$3,708,000" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%'}} className='input-focus'></input>
-                  : */}
-                  <p  className="text-piney-body">{!data.estimated_cost?'N/A':formatter.format(data.estimated_cost)}</p>
-                {/* } */}
+              <Col xs={{ span: 10 }} lg={{ span: 13 }}>                
+                  <p  className="text-piney-body">{!data.estimated_cost?'N/A':formatter.format(data.estimated_cost)}</p>                
               </Col>
             </Row>
             <Row>
@@ -369,9 +324,6 @@ const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, upd
               </Col>
             </Row>                       
             {actionList.map((x:any) =>{
-              //{checkboxValue.draft ? "checkbox-select-active checkbox-select":"checkbox-select"}
-              //onClick={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}
-              //onChange={(e)=>{setCheckboxValue({...checkboxValue, draft: !checkboxValue.draft })}}
               return (<div className={x.isChecked ? "checkbox-select-active checkbox-select":"checkbox-select"} 
               onClick={(e)=>{
                 if(x.isChecked)
