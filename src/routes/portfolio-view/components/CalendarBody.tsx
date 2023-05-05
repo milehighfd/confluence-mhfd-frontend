@@ -499,7 +499,7 @@ const CalendarBody = ({
           .attr('y2', height + padding.top - padding.bottom)
           .style('stroke-dasharray', 5.5)
           .style('stroke-width', 2)
-          .style('stroke', '#047CD7')
+          .style('stroke', '#FF901C')
           .style('fill', 'none');
 
         let todayCircle = scheduleGaxis.enter().append("circle")
@@ -509,7 +509,7 @@ const CalendarBody = ({
           })
           .attr("cy", 10)
           .attr("r", 6)
-          .style("fill", '#047CD7')
+          .style("fill", '#FF901C')
         let todaylineaxis = scheduleGaxis
           .enter().append('line')
           .attr('id', 'todayLineAxis')
@@ -523,7 +523,7 @@ const CalendarBody = ({
           .attr('y2', height + padding.top - padding.bottom)
           .style('stroke-dasharray', 5.5)
           .style('stroke-width', 2)
-          .style('stroke', '#047CD7')
+          .style('stroke', '#FF901C')
           .style('fill', 'none');
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
@@ -1506,6 +1506,7 @@ const CalendarBody = ({
 
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
+          // console.log(d3.event.transform)
           if (d3.event.transform.k < 35) {
             renderMonthNames();
             renderYearNames();
