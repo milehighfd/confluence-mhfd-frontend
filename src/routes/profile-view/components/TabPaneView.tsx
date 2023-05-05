@@ -54,6 +54,7 @@ const TabPaneView = ({
       setOptions(auxOptions);
       search(user.email, type === 'Problems', auxOptions);
     };
+    
     const itemMenu: MenuProps['items'] = [];
     valueDropdown.forEach((element) => {
       itemMenu.push({

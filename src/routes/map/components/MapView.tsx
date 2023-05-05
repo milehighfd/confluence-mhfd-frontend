@@ -577,7 +577,6 @@ const MapView = () => {
   }, [groupsLabels, filterProjectOptions]);
 
   const showFilterLabels = (element: any, index: number) => {
-    console.log(toCamelCase(element.display))
     if (element.detail[0].length === 0) {
       return null;
     } else {
@@ -827,6 +826,7 @@ const MapView = () => {
   };
 
   const sortClick = () => {
+    console.log('Sort bcl');
     if (tabActive === '0') {
       const auxOptions = { ...filterProblemOptions };
       auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
