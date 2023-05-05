@@ -95,13 +95,14 @@ export const getVendors = (projectPartners: any) => {
 
 export const getTeam = (projectStaffs: any) => {
   const validIds = [MHFD_LEAD, MHFD_SUPPORT, ADMIN_STAFF];
+  console.log('aca', projectStaffs)
   const sortStaffs = projectStaffs.filter((ps: any) => validIds.includes(ps.code_project_staff_role_type_id) && ps.is_active)
     .map((ps: any) => {
       return {
-        fullName: ps?.mhfd_staff?.full_name || 'N/A',
+        fullName: ps?.business_associate_contact?.contact_name || 'N/A',
         roleType: STAFF_ROL_MAP[ps.code_project_staff_role_type_id],
         key: ps?.project_staff_id,
-        organization: ps?.mhfd_staff?.user?.organization || 'N/A',
+        organization: ps?.business_associate_contact?.user?.organization || 'N/A',
         roleId: ps?.code_project_staff_role_type_id
       }
     });
