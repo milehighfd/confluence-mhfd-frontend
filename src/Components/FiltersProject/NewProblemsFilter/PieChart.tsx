@@ -41,7 +41,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .outerRadius(radius * 1.2);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
-      .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff", "#66d5df"]);
+      .range(["#5E63E4", "#8893E7", "#C8CEFC", "#C8CEF1", "#C8CEdf", "#dbcafa"]);
 
     var pie = d3.pie()
       .value(function (d: any) { return d.value; })
