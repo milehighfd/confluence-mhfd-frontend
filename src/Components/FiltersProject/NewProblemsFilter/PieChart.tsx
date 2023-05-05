@@ -18,7 +18,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     console.log('Selected Data', selectedData);
     let total: any;
     let pieChartData: any;
-    let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 7));
+    let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 7 || d.id == 13 || d.id == 6 || d.id == 15));
     total = dataReduced.reduce((a: number, x: any) => a + x.counter, 0);
     pieChartData = dataReduced.map((d: any) => {
       return {
@@ -41,7 +41,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .outerRadius(radius * 1.2);
     var color = d3.scaleOrdinal()
       .domain(pieChartData.map((r: any) => r.key))
-      .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff"]);
+      .range(["#5E63E4", "#8893E7", "#C8CEFC", "#29c49a", "#66d5ff", "#66d5df"]);
 
     var pie = d3.pie()
       .value(function (d: any) { return d.value; })
@@ -49,7 +49,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     d3.select(svgRef.current).select('g').remove();
 
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${width + 50} ${height - 20}`)
+      .attr("viewBox", `0 0 ${width + 50} ${isProb ? height - 20: height+20}`)
       .append("g")
       .attr("transform", "translate(" + width / 1.9 + "," + height / 3 + ")");
     
@@ -119,11 +119,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .enter()
       .append('text')
       .text(function (d: any) {
-        return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : d.data?.key?.split(' ')[0]) ;
+        return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : (d.data?.id===1 ? 'Planning' : d.data?.key)) ;
       })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * separationJump) - 42;
-        let yo = radius + 32;
+        let xo = (i<3 ? -radius + (i * separationJump) - 42 : -radius + ((i-3) * separationJump) - 42);
+        let yo = (i<3 ? radius + 32 :radius + 67 );
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
@@ -148,8 +148,8 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .append('text')
       .text(function (d: any) {  return (isProb ? d.data?.key?.split(' ')[1] + ' (':'') + d.data.counter + (isProb ? ')':'') + ' ' + labelValues })
       .attr("transform", (d: any, i) => {
-        let xo = -radius + (i * separationJump) - 42;
-        let yo = radius + 45;
+        let xo = (i<3 ? -radius + (i * separationJump) - 42 : -radius + ((i-3) * separationJump) - 42);
+        let yo = (i<3 ? radius + 45 :radius + 80 );
         return `translate(${xo},${yo})`;
       })
       .style("font-size", fontSize)
@@ -177,10 +177,10 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       })
       .attr("r", 5)
       .attr("cx", (d: any, i) => {
-        return -radius + (i * separationJump) - 50
+        return (i<3 ? -radius + (i * separationJump) - 50 : -radius + ((i-3) * separationJump) - 50 )
       })
       .attr("cy", (d: any, i) => {
-        return radius + 29.5
+        return (i<3 ?radius + 29.5 : radius + 64.5 )
       });
   }, [data, selectedData]);
 
