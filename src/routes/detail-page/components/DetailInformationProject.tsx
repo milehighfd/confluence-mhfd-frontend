@@ -51,13 +51,13 @@ const DetailInformationProject = () => {
       </Row> */}
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>LG Manager</i></label>
+          <label><i>LG Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{lgManager?.full_name ? lgManager?.full_name : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
-          <label><i>MHFD Manager</i></label>
+          <label><i>MHFD Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
           <p>{mhfdManager?.full_name ? mhfdManager?.full_name : 'N/A'}</p>

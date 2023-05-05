@@ -105,7 +105,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
           <p>{'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>LG Manager</i></label>
+          <label><i>LG Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{'N/A'}</p>
@@ -113,7 +113,7 @@ const DetailedInfo = ({ detailedPage }: { detailedPage: any }) => {
       </Row>}
       {detailedPage?.code_project_type?.project_type_name.includes('Capital') && <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <label><i>MHFD Lead/PM</i></label>
+          <label><i>MHFD Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{'N/A'}</p>
