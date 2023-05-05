@@ -238,7 +238,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, upd
         }
       </div>
       <div className="body-piney">
-        <p style={{ marginBottom: '0px' }}>{`${data?.data?.project_type} Project` || 'N/A'}</p>
+        <p style={{ marginBottom: '0px' }}>{`${(data?.data?.project_type==='Study'?'Planning':data?.data?.project_type)} Project` || 'N/A'}</p>
         <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '7px' }}>{data.project_name}</h1>
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>
@@ -249,7 +249,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, upd
           <div className="form-text-calendar">
             <Row>
               <Col xs={{ span: 10 }} lg={{ span: 11 }}>
-                <p>MHFD Lead/PM</p>
+                <p>MHFD Lead</p>
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>               
                   <>

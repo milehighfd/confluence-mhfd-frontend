@@ -71,7 +71,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [openPiney, setOpenPiney] = useState(false);
   const [statusCounter,setStatusCounter] = useState(0);
   const [updateFilter, setUpdateFilter] = useState([]);
-  const [filterPagination, setFilterPagination] = useState<any>({});
+  const [filterPagination, setFilterPagination] = useState<any>({search: '', filterby: [], value: []});
   const [favorites, setFavorites] = useState<any>([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
@@ -112,69 +112,120 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     }
   }, [updateFilter]);
 
+  function removeFilterPagination(filterby: string) {
+    setFilterPagination((prevState:any) => {
+      const filterbyIndex = prevState.filterby.indexOf(filterby);
+      const updatedFilterby = prevState.filterby.filter((item:any) => item !== filterby);
+      const updatedValue = [...prevState.value];
+      if (filterbyIndex !== -1) {
+        updatedValue.splice(filterbyIndex, 1);
+      }
+      return {
+        ...prevState,
+        filterby: updatedFilterby,
+        value: updatedValue,
+      };
+    });
+  }
+
+  function getLength(options: any): number {
+    const item = options;
+    const itemLength = Array.isArray(item) ? item.length : 0;
+    return itemLength;
+  }
+
+  function updateFilterPagination(filterby: string, value: any) {
+    setFilterPagination((prevState:any) => {
+      let newFilterby = [...prevState.filterby];
+      let newFilterValue = [...prevState.value];  
+      const index = prevState.filterby.indexOf(filterby);  
+      if (index !== -1) {
+        newFilterValue[index] = value;
+      } else {
+        newFilterby.push(filterby);
+        newFilterValue.push(value);
+      }  
+      return {
+        ...prevState,
+        filterby:  Array.isArray(prevState.filterby) ? newFilterby : newFilterby,
+        value: Array.isArray(prevState.value) ? newFilterValue : [value],
+      };
+    });
+  }
+
+  useEffect(() => {
+    if (openProjects) {
+      updateFilterPagination('teams', appUser?.userInformation?.user_id);
+    }else{
+      removeFilterPagination('teams');
+    }
+  }, [openProjects]);
+
   useEffect(() => {
     setUpdateFilter(filterProjectOptions);
-    console.log('filterProjectOptions',filterProjectOptions);
-    const servicearea = filterProjectOptions.servicearea;
-    const serviceareaLength = servicearea.length;
-    const county = filterProjectOptions.county;
-    const countyLength = county.length;
-    const jurisdiction = filterProjectOptions.jurisdiction;
-    const jurisdictionLength = jurisdiction.length;
-    const consultant = filterProjectOptions.consultant;
-    const consultantLength = consultant.length;
-    const contractor = filterProjectOptions.contractor;
-    const contractorLength = contractor.length;
-    const mhfdmanager = filterProjectOptions.mhfdmanager;
-    const mhfdmanagerLength = mhfdmanager.length;
-    const status = filterProjectOptions.status;
-    const statusLength = status.length;    
-    const cost = filterProjectOptions.totalcost;
-    const costLength = cost.length;
-    const stream = filterProjectOptions.streamname;
-    const streamLength = stream.length;
-    if (serviceareaLength > 0 || filterProjectOptions.servicearea !== '') {
-      let code = filterProjectOptions.servicearea;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'servicearea', value: code })
-    }else if (countyLength > 0 || filterProjectOptions.county !== '') {
+    let filterExist = false;
+    if (getLength(filterPagination.filterby)>0){      
+      filterPagination.filterby.forEach((filterby: string) => {
+        removeFilterPagination(filterby);
+      })      
+    }
+    if (getLength(filterProjectOptions.servicearea) > 0 || filterProjectOptions.servicearea !== '') {
+      let code = filterProjectOptions.servicearea;     
+      updateFilterPagination('servicearea', code);
+      filterExist = true;
+    }
+    if (getLength(filterProjectOptions.county) > 0 || filterProjectOptions.county !== '') {      
       let code = filterProjectOptions.county;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'county', value: code })
+      updateFilterPagination('county', code);
+      filterExist = true;
     }
-    else if (jurisdictionLength > 0 || filterProjectOptions.jurisdiction !== '') {
+    if (getLength(filterProjectOptions.jurisdiction) > 0 || filterProjectOptions.jurisdiction !== '') {
       let code = filterProjectOptions.jurisdiction;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'jurisdiction', value: code })
+      updateFilterPagination('jurisdiction', code);
+      filterExist = true;
     }
-    else if (consultantLength > 0 || filterProjectOptions.consultant !== '') {
+    if (getLength(filterProjectOptions.consultant) > 0 || filterProjectOptions.consultant !== '') {
       let code = filterProjectOptions.consultant;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'consultant', value: code })
+      updateFilterPagination('consultant', code);
+      filterExist = true;
     }
-    else if (mhfdmanagerLength > 0 || filterProjectOptions.mhfdmanager !== '') {
+    if (getLength(filterProjectOptions.mhfdmanager) > 0 || filterProjectOptions.mhfdmanager !== '') {
       let code = filterProjectOptions.mhfdmanager;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'staff', value: code })
+      updateFilterPagination('staff', code);
+      filterExist = true;
     }
-    else if (contractorLength > 0 || filterProjectOptions.contractor !== '') {
+    if (getLength(filterProjectOptions.contractor) > 0 || filterProjectOptions.contractor !== '') {
       let code = filterProjectOptions.contractor;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'contractor', value: code })
+      updateFilterPagination('contractor', code);
+      filterExist = true;
     }
-    else if (statusLength > 0 ) {
+    if (getLength(filterProjectOptions.status) > 0  ) {
       let code = filterProjectOptions.status;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'status', value: code })
+      updateFilterPagination('status', code);
+      filterExist = true;
     }
-    else if (costLength > 0 ) {
+    if (getLength(filterProjectOptions.totalcost) > 0  ) {
       let code = filterProjectOptions.totalcost;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'cost', value: code })
+      updateFilterPagination('cost', code);
+      filterExist = true;
     }
-    else if (streamLength > 0 ) {
-      let code = filterProjectOptions.streamname[0];
-      code = code.split(',');
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'stream', value: code })
+    if (getLength(filterProjectOptions.streamname) > 0  ) {
+      let code = filterProjectOptions.streamname;
+      updateFilterPagination('stream', code);
+      filterExist = true;
     }
-    else if (filterProjectOptions.lgmanager !== '') {
+    if (filterProjectOptions.lgmanager !== '') {
       let code = filterProjectOptions.lgmanager;
-      setFilterPagination({ ...filterPagination, search: filterProjectOptions.name, filterby: 'lgmanager', value: code })
+      updateFilterPagination('lgmanager', code);
+      filterExist = true;
     }
-    else{
-      setFilterPagination({ ...filterPagination, search: '', filterby: '', value: -1 })
+    if (getLength(filterProjectOptions.projecttype) > 0 || filterProjectOptions.contractor !== '') {
+      let code = filterProjectOptions.projecttype;
+      updateFilterPagination('projecttype', code);
+      filterExist = true;
+    }
+    if (!filterExist){
+      setFilterPagination({ ...filterPagination, search: '', filterby: [], value: [] })
     }
   }, [filterProjectOptions]);
   
@@ -277,6 +328,9 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   }, [listLoaded,updateFavorites]);
  
   useEffect(() => {
+    if (tabKey === 'All') {
+      removeFilterPagination('projecttype');
+    }
     datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKeysIds[tabKeys.indexOf(tabKey)] || 0 })
       .then((rows) => {        
         setStatusCounter(rows.length)      
@@ -297,7 +351,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   function enterList (){
     setOptionSelect('List')
   }
-  function changeTabkey (key : any){
+  function changeTabkey (key : any){   
     setOpenPiney(false)
     setTabKey(key)
   }
@@ -307,8 +361,23 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   }
 
   useEffect(() => {
-    let filterByP = filterby;
-    setFilterPagination({ ...filterPagination, search: searchWord, filterby: filterByP, value: filterValue })
+    setFilterPagination((prevState:any) => {
+      let newFilterby = [...prevState.filterby];
+      let newFilterValue = [...prevState.value];  
+      const index = prevState.filterby.indexOf(filterby);  
+      if (index !== -1) {
+        newFilterValue[index] = filterValue;
+      } else {
+        newFilterby.push(filterby);
+        newFilterValue.push(filterValue);
+      }
+  
+      return {
+        ...prevState,
+        filterby:  Array.isArray(prevState.filterby) ? newFilterby : newFilterby,
+        value: Array.isArray(prevState.value) ? newFilterValue : [filterValue],
+      };
+    });
   }, [searchWord, filterby, filterValue, filtername])
 
   useEffect(() => {

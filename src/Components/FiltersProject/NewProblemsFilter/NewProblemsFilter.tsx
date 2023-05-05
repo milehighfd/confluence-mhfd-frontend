@@ -16,7 +16,7 @@ const content03 = (<div className="popoveer-00"> <p style={{fontWeight:'600'}}>P
 const content04 = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the problem is located.</div>);
 const content05 = (<div className="popoveer-00"><b>County</b> is the county where the problem is located.</div>);
 const content06 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the problem is located.</div>);
-const content07 = (<div className="popoveer-00"><b>MHFD Project Manager</b> is the MHFD PM who is responsible for the service area where the problem is located.</div>);
+const content07 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the problem is located.</div>);
 
 export const NewProblemsFilter = () => {
     const {
@@ -153,7 +153,7 @@ export const NewProblemsFilter = () => {
                     }
                 </Col>
                 <Col span={12}>
-                    <h5 className="filter-title">MHFD Project Manager <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
+                    <h5 className="filter-title">MHFD Lead <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
                         <CheckBoxFilters
                             defaultValue={''}

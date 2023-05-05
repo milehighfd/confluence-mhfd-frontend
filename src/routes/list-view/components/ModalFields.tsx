@@ -41,7 +41,7 @@ const ModalFields = ({visible, setVisible}: {visible: boolean, setVisible: React
                 <p style={{marginBottom:'15px'}}>Consultant </p>
                 <p style={{marginBottom:'15px'}}>Contractor </p>
                 <p style={{marginBottom:'15px'}}>Jurisdiction </p>
-                <p style={{marginBottom:'15px'}}>Local Government Manager </p>
+                <p style={{marginBottom:'15px'}}>Local Government Lead </p>
                 <p style={{marginBottom:'15px'}}>Stream Name </p>
                 <p style={{marginBottom:'15px'}}>Work Plan Year </p>
               </Col>
