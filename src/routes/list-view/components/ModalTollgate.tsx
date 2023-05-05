@@ -473,7 +473,7 @@ let items = [
         <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px', paddingTop:'10px'}}>
             <Col xs={{ span: 12 }} lg={{ span: 20 }}>
-              <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>{`${dataProject?.d?.project_type} Project` || 'N/A'}</p>
+              <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>{`${(dataProject?.d?.project_type==='Study'?'Planning':dataProject?.d?.project_type)} Project` || 'N/A'}</p>
               <h1>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
               <p>Define the time period for each phase.</p>
               <div style={{display:'flex', paddingTop:'10px'}}>

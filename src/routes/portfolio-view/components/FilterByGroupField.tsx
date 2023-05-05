@@ -96,8 +96,8 @@ export const FilterByGroupName = ({
         },
         {
           key: '1',
-          label: 'MHFD Lead/PM',
-          className: activeDrop === 'MHFD Lead/PM' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
+          label: 'MHFD Lead',
+          className: activeDrop === 'MHFD Lead' ? 'menu-active menu-drop-sub-sub' :'menu-drop-sub-sub',
           children: staffList,
         },
         {
@@ -114,7 +114,7 @@ export const FilterByGroupName = ({
         },
         {
           key: '4',
-          label: 'Jurisdiction',
+          label: 'Local Government',
           children: jurisdictionList,
           className: activeDrop === 'jurisdiction' ? 'menu-active-active' :'',
         },
