@@ -19,5 +19,9 @@ export const isAbortableRequest = (action: any): any => {
 };
 
 export const abortRequest = (controller: AbortController) => {
-  controller.abort();
+  try {
+    controller.abort();
+  } catch (e) {
+    console.log(e);
+  }
 };

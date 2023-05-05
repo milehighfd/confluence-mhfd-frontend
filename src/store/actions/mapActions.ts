@@ -332,7 +332,10 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
       .then(galleryProjects => {
         dispatch({ type: types.GALLERY_PROJECTS_V2, galleryProjects });
         dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
-      });
+      })
+      .catch(err => {
+        console.log('getGalleryProjects', err);
+      })
     if (origin != 'bounds') {
       dispatch(getProjectsFilteredIds());
     }
@@ -381,7 +384,10 @@ export const getProjectsFilteredIds = () => {
       controller.signal
     ).then(projectsids => {
         dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
-    });
+    })
+    .catch(err => {
+        console.log('getProjectsFilteredIds', err);
+    })
   };
 }
 
@@ -462,6 +468,7 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
         datasets.postData(
             `${SERVER.PARAM_FILTER_PROJECTS}?bounds=${bounds}`,
             data || {},
+            datasets.getToken(),
             controller.signal
         ).then((params:any) => {
             if (params) {
@@ -516,13 +523,22 @@ export const getParamFilterProblems = (bounds: string, data?: any) => {
         data.servicearea = data.servicearea.replace("Service Area", "").trim();
     }
     return (dispatch: Function) => {
-        datasets.postData(SERVER.PARAM_FILTER_PROBLEMS + '?bounds=' + bounds, data || {}).then(params => {
+        const controller = getAndDispatchAbortableCtrl(dispatch, 'getParamFilterProblems');
+        datasets.postData(
+            `${SERVER.PARAM_FILTER_PROBLEMS}?bounds=${bounds}`,
+            data || {},
+            datasets.getToken(),
+            controller.signal
+        ).then(params => {
             if (params) {
                 dispatch({ type: types.GET_PARAM_FILTER_PROBLEMS, params });
             }
+        }).catch(e => {
+            console.log(e);
         })
     }
 }
+
 export const getParamFilterComponents = (bounds: string, data?: any) => {
     return (dispatch: Function) => {
       const controller = getAndDispatchAbortableCtrl(dispatch, 'PARAM_FILTER_COMPONENTS');

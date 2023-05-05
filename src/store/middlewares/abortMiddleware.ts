@@ -6,8 +6,8 @@ const mapAbortableRequests = new Map();
 const abortMiddleware: Middleware = () => (next) => (action) => {
   const abortableRequest = isAbortableRequest(action);
   if (abortableRequest) {
-    console.log('action', action);
-    if (mapAbortableRequests.has(abortableRequest.key)) {
+    const alreadyInMap = mapAbortableRequests.has(abortableRequest.key);
+    if (alreadyInMap) {
       const previousController = mapAbortableRequests.get(abortableRequest.key);
       abortRequest(previousController);
     }
