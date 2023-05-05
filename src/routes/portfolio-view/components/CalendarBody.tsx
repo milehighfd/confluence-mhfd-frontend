@@ -293,8 +293,8 @@ const CalendarBody = ({
       let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8) : barHeightDefault;
       let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight) : 12;
       let padding = { top: 38, right: 10, bottom: 10, left: -0 };
-      // let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
-      let height = (heightDiv[0].offsetHeight * 15) + padding.bottom + padding.top;
+      let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
+      // let height = (heightDiv[0].offsetHeight * 15) + padding.bottom + padding.top;
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechartAxis);
       if (svg) {
@@ -1532,6 +1532,14 @@ const CalendarBody = ({
             // gX2aYear.call(xAxisYear.scale(zoomedXScale));
             d3.selectAll('#xAxisYears').call((xAxisYear as any).scale(zoomedXScale))
 
+            const linesAxis:any = document.getElementsByTagName("line")
+            if(linesAxis){
+              for(let line of linesAxis){
+                if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
+                  line.setAttribute('y2', 600) 
+                }
+              }
+            }
           } else {
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
