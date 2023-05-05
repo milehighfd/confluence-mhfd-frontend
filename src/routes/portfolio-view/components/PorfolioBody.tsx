@@ -377,6 +377,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
         ...prevState,
         filterby:  Array.isArray(prevState.filterby) ? newFilterby : newFilterby,
         value: Array.isArray(prevState.value) ? newFilterValue : [filterValue],
+        search: searchWord,
       };
     });
   }, [searchWord, filterby, filterValue, filtername])
