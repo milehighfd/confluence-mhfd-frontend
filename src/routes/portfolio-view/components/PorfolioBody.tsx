@@ -168,7 +168,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       filterPagination.filterby.forEach((filterby: string) => {
         removeFilterPagination(filterby);
       })      
-    }
+    }    
     if (getLength(filterProjectOptions.servicearea) > 0 || filterProjectOptions.servicearea !== '') {
       let code = filterProjectOptions.servicearea;     
       updateFilterPagination('servicearea', code);
@@ -227,6 +227,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     if (!filterExist){
       setFilterPagination({ ...filterPagination, search: '', filterby: [], value: [] })
     }
+    setFilterPagination({ ...filterPagination, search: searchWord})
   }, [filterProjectOptions]);
   
   useEffect(() => {
