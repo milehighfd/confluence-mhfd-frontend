@@ -18,7 +18,7 @@ export const PARTNER_MAP: any = {
 };
 
 export const STAFF_ROL_MAP: any = {
-  [MHFD_LEAD]: 'MHFD Lead/PM',
+  [MHFD_LEAD]: 'MHFD Lead',
   [MHFD_SUPPORT]: 'MHFD Support',
   [ADMIN_STAFF]: 'Admin Staff'
 };
