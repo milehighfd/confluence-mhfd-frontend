@@ -1,23 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs, Tooltip } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
+import React, { useEffect, useRef, useState } from 'react';
+import { Collapse } from 'antd';
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { SERVER } from 'Config/Server.config';
-import TableBody from "./TableBody";
+import * as datasets from 'Config/datasets';
+import TableBody from 'routes/portfolio-view/components/TableBody';
 
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
+
 const TableGroups = ({
   data,
   setCollapsePhase,
@@ -27,7 +16,6 @@ const TableGroups = ({
   index,
   currentGroup,
   tabKey,
-  favorites,
   email,
   divRef,
   searchRef,
@@ -50,7 +38,6 @@ const TableGroups = ({
   index: any,
   currentGroup: any,
   tabKey: any,
-  favorites: any,
   email: any,
   scrollRef:any,
   tableHeaderRef:any,
@@ -72,10 +59,20 @@ const TableGroups = ({
   const [page, setPage] = useState(1);
  
   useEffect(() => {
-    datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKeyId}`, filterPagination).then((res: any) => {
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKeyId}`,
+      filterPagination,
+      datasets.getToken(),
+      controller.signal
+    )
+    .then((res: any) => {
       setCounter(res.count)
-    })
-  }, [tabKeyId,filterPagination,currentGroup])
+    });
+    return () => {
+      controller.abort();
+    }
+  }, [tabKeyId, filterPagination, currentGroup, dataId]);
 
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   const getActiveKeys = () => {
@@ -95,7 +92,6 @@ const TableGroups = ({
   return <>
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
-        //defaultActiveKey={['0', '1', '2']}
         activeKey={getActiveKeys()}
         onChange={
           () => {

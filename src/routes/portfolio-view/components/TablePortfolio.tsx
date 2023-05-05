@@ -1,15 +1,19 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Input, Layout, Popover, Row, Select, Space, Table, Tabs, Tag } from 'antd';
-import { ColumnsType } from "antd/lib/table";
-import { ArrowDownOutlined, ConsoleSqlOutlined, MoreOutlined } from "@ant-design/icons";
-import { dataTable, dataTable00, dataTable01, dataTable02 } from "../constants/constants";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
-import Search from "./Search";
-import SearchDropdown from "./SearchDropdown";
-import { getGroupList } from "./ListUtils";
-import TableBody from "./TableGroups";
-import TableGroups from "./TableGroups";
+import React, { useEffect, useRef, useState } from 'react';
+import { Col, Row, Table } from 'antd';
+import { dataTable00 } from 'routes/portfolio-view/constants/constants';
+import {
+  AllHeaderTable,
+  CIPHeaderTable,
+  DIPHeaderTable,
+  PlanningHeaderTable,
+  PropertyAcquisitionHeaderTable,
+  RDHeaderTable,
+  RestorationHeaderTable
+} from 'routes/portfolio-view/constants/tableHeader';
+import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
+import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
+import TableGroups from 'routes/portfolio-view/components/TableGroups';
+
 const TablePortafolio = (
   { divRef,
     tabKey,
@@ -27,7 +31,6 @@ const TablePortafolio = (
     setCollapsePhase,
     collapsePhase,
     currentGroup,
-    favorites,
     tabKeyId,
     filterPagination,
     updateFavorites,
@@ -51,7 +54,6 @@ const TablePortafolio = (
       setCollapsePhase: Function,
       collapsePhase: any,
       currentGroup: any,
-      favorites: any,
       tabKeyId: any,
       filterPagination: any,
       updateFavorites: any,
@@ -150,7 +152,6 @@ const TablePortafolio = (
                 className="scroll-scroll-table"
                 onScrollCapture={(e: any) => {
                   let dr: any = headerRef.current;
-                  let width = dr? dr.offsetWidth : 0;
                   if (headerRef.current) {
                     if (tableRef.current) {
                       tableRef.current.forEach((elem: any, index:number) => {
@@ -188,7 +189,6 @@ const TablePortafolio = (
             ref={el => searchRef.current[index] = el}
           >{
               detailGroup?.map((elem: any, index: number) => {
-                const id = 'collapse' + index;
                 return (
                   <div id={elem.id} key={elem.id}>
                     <TableGroups
@@ -200,7 +200,6 @@ const TablePortafolio = (
                       index={index}
                       currentGroup={currentGroup}
                       tabKey={tabKey}
-                      favorites={favorites}
                       email={email}
                       divRef={divRef}
                       searchRef={searchRef}
