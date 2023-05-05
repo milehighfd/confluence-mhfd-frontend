@@ -288,7 +288,7 @@ const GenericTabView = ({
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}
-                loader={<h4 style={{paddingLeft:'12px', textAlign: 'center'}}> Loading...</h4>}>
+                loader={<h4 style={{paddingLeft:'12px', textAlign: 'center'}}> </h4>}>
                 {sw ? state.items.map((i, index: number) => {
                     return data[index] && <CardInformationView
                         key={index}

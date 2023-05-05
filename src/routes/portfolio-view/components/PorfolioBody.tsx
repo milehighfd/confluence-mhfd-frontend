@@ -1,20 +1,20 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Col, Dropdown, Row, Tabs } from 'antd';
-import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, HeartOutlined,  UpOutlined } from "@ant-design/icons";
-import TablePortafolio from "./TablePortfolio";
-import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import Filters from "./Filters";
-import ModalFields from "routes/list-view/components/ModalFields";
-import ModalTollgate from "routes/list-view/components/ModalTollgate";
-import ModalGraphic from "./ModalGraphic";
-import { DEFAULT_GROUP } from "./ListUtils";
-import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
-import store from "../../../store";
-import { FilterByGroupName } from './FilterByGroupField';
-import * as datasets from "../../../Config/datasets";
-import { SERVER } from "../../../Config/Server.config";
-import PhaseViewPag from "./PhaseViewPag";
-import CalendarViewPag from "./CalendarViewPag";
+import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, HeartOutlined,  UpOutlined } from '@ant-design/icons';
+import TablePortafolio from 'routes/portfolio-view/components/TablePortfolio';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import Filters from 'routes/portfolio-view/components/Filters';
+import ModalFields from 'routes/list-view/components/ModalFields';
+import ModalTollgate from 'routes/list-view/components/ModalTollgate';
+import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
+import { DEFAULT_GROUP } from 'routes/portfolio-view/components/ListUtils';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import store from 'store';
+import { FilterByGroupName } from 'routes/portfolio-view/components/FilterByGroupField';
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
+import PhaseViewPag from 'routes/portfolio-view/components/PhaseViewPag';
+import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -60,7 +60,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
   const [completeData, setCompleteData] = useState<any>([]);
-  const [phaseData, setPhaseData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
@@ -426,7 +425,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         tabKey={tabKey}
                         tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
-                        favorites={favorites}
                         filterPagination={filterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}

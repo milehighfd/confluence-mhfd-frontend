@@ -1523,11 +1523,12 @@ const Map = ({
               if(key !== MHFD_PROJECTS && key !== PROBLEMS_TRIGGER){
                 let filterFinal:any = [];
                 allFilters.forEach(filterAction => {
-                  console.log('asdf',key, filterAction.type)
-                  if(key.includes(filterAction.type)){
-                    filterFinal.push(allFilters[0])
-                    filterFinal.push(filterAction.filter)
-                    map.setFilter(key + '_' + index, filterFinal);
+                  if(filterAction!==allFilters[0]){
+                    if(filterAction?.type.includes(key)){
+                      filterFinal.push(allFilters[0])
+                      filterFinal.push(filterAction.filter)
+                      map.setFilter(key + '_' + index, filterFinal);
+                    }
                   }
                 });
               }else{
