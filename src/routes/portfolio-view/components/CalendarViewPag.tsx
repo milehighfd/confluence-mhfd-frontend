@@ -1,4 +1,4 @@
-import { CalendarOutlined } from "@ant-design/icons";
+import { CalendarOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { SERVER } from 'Config/Server.config';
 import { Button, Col, Row } from 'antd';
 import moment from "moment";
@@ -99,6 +99,7 @@ const CalendarViewPag = ({
   const [editData,setEditData] = useState<any>({});
   const [zoomSelected, setZoomSelected] = useState('Today');
   const [popUpData, setPopUpData] = useState<any>({});
+  const [zoomTimeline, setZoomTimeline] = useState(0);
   const headerRef = useRef<null | HTMLDivElement>(null);
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
@@ -237,7 +238,7 @@ const CalendarViewPag = ({
               <div className='calendar-text-header'>
                 <Button
                   className={zoomSelected === 'Today' ? "btn-view btn-view-active" : "btn-view"}
-                  onClick={() => { setIsZoomToday(true); setZoomSelected('Today') }}
+                  onClick={() => { setIsZoomToday(true); setZoomSelected('Today'); setZoomTimeline(0) }}
                 >
                   Today
                 </Button>
@@ -245,7 +246,7 @@ const CalendarViewPag = ({
                 <Button
                   className={zoomSelected === 'Weekly' ? "btn-view btn-view-active" : "btn-view"}
 
-                  onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly') }}
+                  onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly'); setZoomTimeline(0) }}
                 >
                   Daily
                 </Button>
@@ -253,7 +254,7 @@ const CalendarViewPag = ({
                 <Button
                   className={zoomSelected === 'Monthly' ? "btn-view btn-view-active" : "btn-view"}
 
-                  onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly') }}
+                  onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly'); setZoomTimeline(0) }}
                 >
                   Monthly
                 </Button>
@@ -267,6 +268,21 @@ const CalendarViewPag = ({
                   <span style={{ marginRight: '10px', color: '#DBDBE1' }}></span>
                 </> : ''}
               </div>
+              {!openPiney && 
+                <div className="btn-collapse" >
+                  <LeftOutlined onClick={(e) => {
+                    e.stopPropagation();
+                    setZoomTimeline(zoomTimeline +50)
+                  }}
+                  className="btn-arrow-porfolio"
+                  />
+                  <RightOutlined onClick={(e) => {
+                    e.stopPropagation();
+                    setZoomTimeline(zoomTimeline -50)
+                  }}
+                  className="btn-arrow-porfolio"
+                  />
+                </div>}
             </Col>
           </Row>
           <Row>
@@ -322,6 +338,8 @@ const CalendarViewPag = ({
                   setIsZoomWeekly={setIsZoomWeekly}
                   isZoomMonthly={isZoomMonthly}
                   setIsZoomMonthly={setIsZoomMonthly}
+                  zoomTimeline={zoomTimeline}
+                  setZoomTimeline={setZoomTimeline}
                   editData={editData}
                   setEditData={setEditData}
                   zoomSelected={zoomSelected}

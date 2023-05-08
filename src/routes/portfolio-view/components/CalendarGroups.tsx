@@ -53,6 +53,8 @@ const CalendarGroups = ({
   setIsZoomWeekly,
   isZoomMonthly,
   setIsZoomMonthly,
+  zoomTimeline,
+  setZoomTimeline,
   editData,
   setEditData,
   zoomSelected,
@@ -100,6 +102,8 @@ const CalendarGroups = ({
   setIsZoomWeekly: any,
   isZoomMonthly: any,
   setIsZoomMonthly: any,
+  zoomTimeline: any,
+  setZoomTimeline: any,
   editData: any,
   setEditData: any,
   zoomSelected: any,
@@ -216,6 +220,8 @@ const CalendarGroups = ({
             setIsZoomWeekly={setIsZoomWeekly}
             isZoomMonthly={isZoomMonthly}
             setIsZoomMonthly={setIsZoomMonthly}
+            zoomTimeline={zoomTimeline}
+            setZoomTimeline={setZoomTimeline}
             editData={editData}
             setEditData={setEditData}
             zoomSelected={zoomSelected}

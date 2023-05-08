@@ -61,6 +61,8 @@ const CalendarBody = ({
   setIsZoomWeekly,
   isZoomMonthly,
   setIsZoomMonthly,
+  zoomTimeline,
+  setZoomTimeline,
   editData,
   setEditData,
   zoomSelected,
@@ -112,6 +114,8 @@ const CalendarBody = ({
   setIsZoomWeekly: any,
   isZoomMonthly: any,
   setIsZoomMonthly: any,
+  zoomTimeline: any,
+  setZoomTimeline: any,
   editData: any,
   setEditData: any,
   zoomSelected: any,
@@ -137,7 +141,7 @@ const CalendarBody = ({
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
   // const [editData,setEditData] = useState<any>({});
   const [currentZScale, setCurrentZScale] = useState(7.5);
-  const [zoomTimeline, setZoomTimeline] = useState(0);
+
   const [zoomStatus, setZoomStatus] = useState(0);
   // const [isZoomToday, setIsZoomToday] = useState<any>(false);
   // const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
@@ -155,6 +159,7 @@ const CalendarBody = ({
 
   const windowHeight: any = window.innerHeight;
   const windowWidth: any = window.innerWidth;
+  let panInit=0;
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   let zoom: any;
   let svg: any;
@@ -1584,20 +1589,9 @@ const CalendarBody = ({
         svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
         svgAxis.call(zoom.scaleBy, currentZScale);
         const moveZoom = (newZoomValue: any) => {
-          // if(zoomSelected === 'Today'){
-          //   setZoomSelected('')
-          // }
-          let type: any;
-          if (zoomStatus > newZoomValue) {
-            type = 'in';
-          } else {
-            type = 'out';
-          }
-          if (zoomStatus === newZoomValue) {
-          } else {
-            const adder = type === 'in' ? 1.4 : 0.7;
-            svg.transition().call(zoom.scaleBy, adder);
-            svgAxis.transition().call(zoom.scaleBy, adder);
+          if (zoomStatus !== newZoomValue) {
+            svg.transition().call(zoom.translateBy, newZoomValue,0);
+            svgAxis.transition().call(zoom.translateBy, newZoomValue,0);
             setZoomStatus(newZoomValue);
           }
         };
