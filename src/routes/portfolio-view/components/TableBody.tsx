@@ -1,25 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs, Table } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
+import React, { useEffect, useState } from 'react';
+import { Col, Row, Table } from 'antd';
+import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
+import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
+import DetailModal from 'routes/detail-page/components/DetailModal';
+import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
+import * as datasets from 'Config/datasets';
+import { LIMIT_PAGINATION } from 'constants/constants';
 import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
-import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from "utils/parsers";
-import { LIMIT_PAGINATION } from "../../../constants/constants";
 
-const { TabPane } = Tabs;
-const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
 const TableBody = ({
   currentGroup,
   dataId,
@@ -96,9 +85,17 @@ const TableBody = ({
   }, [next, prev])
 
   useEffect(() => {
-    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
+    const controller = new AbortController();
+    datasets.getData(
+      SERVER.FAVORITES,
+      datasets.getToken(),
+      controller.signal
+    ).then(result => {
       setFavorites(result);
-    })
+    });
+    return () => {
+      controller.abort();
+    };
   }, [updateFavorite]);
 
   useEffect(() => {

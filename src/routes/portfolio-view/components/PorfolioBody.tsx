@@ -8,7 +8,6 @@ import ModalFields from 'routes/list-view/components/ModalFields';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
 import { DEFAULT_GROUP } from 'routes/portfolio-view/components/ListUtils';
-import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import store from 'store';
 import { FilterByGroupName } from 'routes/portfolio-view/components/FilterByGroupField';
 import * as datasets from 'Config/datasets';
@@ -19,8 +18,16 @@ import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
 const { TabPane } = Tabs;
 let isInit = true;
 let previousFilterBy = '';
+const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
+const tabKeysIds = [0, 5, 7, 1, 6, 15, 13];
 
-const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, setOptionSelect:React.Dispatch<React.SetStateAction<string>>}) => {
+const PortafolioBody = ({
+  optionSelect,
+  setOptionSelect
+}: {
+  optionSelect: string,
+  setOptionSelect: React.Dispatch<React.SetStateAction<string>>
+}) => {
   const {
     setFilterProjectOptions,
     resetFiltercomponentOptions,
@@ -32,10 +39,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
     filterProjectOptions,
     filterProjectOptionsNoFilter
   } = useMapState();
-  const [tabKeys, setTabKeys] = useState<any>(['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition']);
-  const [tabKeysIds, setTabKeysIds] = useState<any>([ 0, 5, 7, 1, 6, 15, 13]);
   const [filterby, setFilterby] = useState('');
-  const [applyFilter, setApplyFilter] = useState(0);
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
   const [graphicOpen, setGrapphicOpen] = useState(false);
@@ -50,7 +54,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
   const [openTable, setOpenTable] = useState<any>([]);
-  //const [hoverTable, setHoverTable] = useState<number>()
   const tableRef = useRef([]); 
   const searchRef = useRef([]); 
   const phaseRef = useRef<null | HTMLDivElement>(null);
@@ -59,23 +62,18 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
-  const [completeData, setCompleteData] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const [listLoaded, setListLoaded] = useState(false);
   const [collapsePhase, setCollapsePhase] = useState(false);
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
-  const [statusCounter,setStatusCounter] = useState(0);
   const [updateFilter, setUpdateFilter] = useState([]);
   const [filterPagination, setFilterPagination] = useState<any>({search: '', filterby: [], value: []});
   const [favorites, setFavorites] = useState<any>([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
-  
+
   useEffect(() => {
     getParamFilterProjectsNoBounds();
     if (searchWord) {
@@ -85,7 +83,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
     } else {
-      setNewData(completeData);
+      setNewData([]);
       const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
       setOpenTable(new Array(sortedData.length).fill(true));
     }
@@ -98,13 +96,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       resetFiltercomponentOptions();
     }
   }, []);
-
-
-  useEffect(() => {    
-    if (appUser.userInformation?.user_id) {
-      setCurrentUserId(appUser.userInformation?.user_id);      
-    }   
-  }, [appUser]);
 
   useEffect(() => {
     if(Object.keys(updateFilter).length > 0){
@@ -298,8 +289,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
         }
     }
     setFilterProjectOptions(options);
-    options.servicearea = options.servicearea;
-    options.county = options.county;
     setUpdateFilter(options);
   }, [filterProjectOptions]);
 
@@ -323,19 +312,23 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
   } ,[ tabKey ]);
   
   useEffect(() => {
-    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
+    const controller = new AbortController();
+    datasets.getData(
+      SERVER.FAVORITES,
+      datasets.getToken(),
+      controller.signal
+    ).then(result => {
       setFavorites(result);    
-    })    
-  }, [listLoaded,updateFavorites]);
+    })
+    return () => {
+      controller.abort();
+    }
+  }, [updateFavorites]);
  
   useEffect(() => {
     if (tabKey === 'All') {
       removeFilterPagination('projecttype');
     }
-    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKeysIds[tabKeys.indexOf(tabKey)] || 0 })
-      .then((rows) => {        
-        setStatusCounter(rows.length)      
-      })
   }, [tabKey])
 
   function enterPhase() {
@@ -408,7 +401,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
       setSecondaryUpdatedGroup={setSecondaryUpdatedGroup}
     />
     <div>
-      {isLoading && <LoadingViewOverall />}
       <div className="portafolio-head">
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
@@ -477,7 +469,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
             displayedTabKey.map((tk: string, idx: number) => { return (
               <TabPane style={{marginBottom:'0px'}} tab={<span>{tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
                 <div className="protafolio-body">
-                  {openFilters && <Filters setApplyFilter={setApplyFilter} filtersObject={ {filterby, filterValue, tabKey}}/>}
+                  {openFilters && <Filters filtersObject={ {filterby, filterValue, tabKey}}/>}
                       {optionSelect === 'List' && <TablePortafolio
                         searchWord={searchWord}
                         searchRef={searchRef}
@@ -509,10 +501,7 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         setCurrentGroup={setCurrentGroup}
                         setSearchWord={setSearchWord}
                         searchWord={searchWord}
-                        indexParent={idx}
                         searchRef={searchRef}
-                        divRef={tableRef}
-                        tableRef={tableRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
                         currentGroup={currentGroup}
@@ -521,7 +510,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         openTable={openTable}
                         setOpenTable={setOpenTable}
                         email={appUser.userInformation?.email}
-                        favorites={favorites}
                         setTollData = {setTollData}
                         setOpenModalTollgate = {setOpenModalTollgate}
                         setGrapphicOpen={setGrapphicOpen}
@@ -529,7 +517,6 @@ const PortafolioBody = ({optionSelect, setOptionSelect}:{optionSelect: string, s
                         setDataModal={setDataModal}
                         userName={appUser.userInformation?.name}                        
                         filterPagination={filterPagination}
-                        setFilterPagination={setFilterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
                       />                        

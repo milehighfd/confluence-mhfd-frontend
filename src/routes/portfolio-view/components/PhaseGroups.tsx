@@ -1,24 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
+import React, { useEffect, useState } from 'react';
+import { Collapse } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
-import PhaseBody from "./PhaseBody";
-import PineyView from "./PineyView";
+import * as datasets from 'Config/datasets';
+import PhaseBody from 'routes/portfolio-view/components/PhaseBody';
 
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
+
 const PhaseGroups = ({
   data,
   setCollapsePhase,
@@ -28,10 +16,7 @@ const PhaseGroups = ({
   index,
   currentGroup,
   tabKey,
-  favorites,
   email,
-  divRef,
-  searchRef,
   phaseRef,
   totalLabelWidth,
   scheduleList,
@@ -45,11 +30,9 @@ const PhaseGroups = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  userName,
   setPopUpData,
   headerRef,
   filterPagination,
-  setFilterPagination,
   updateFavorites,
   setUpdateFavorites,
   dataId,
@@ -62,10 +45,7 @@ const PhaseGroups = ({
   index: any,
   currentGroup: any,
   tabKey: any,
-  favorites: any,
   email: any,
-  divRef: any,
-  searchRef: any,
   phaseRef: any,
   totalLabelWidth: any,
   scheduleList: any,
@@ -79,18 +59,15 @@ const PhaseGroups = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  userName: any,
   setPopUpData: any,
   headerRef: any,
   filterPagination: any,
-  setFilterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
   dataId: any,
 }) => {
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
-  const [detailOpen, setDetailOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [counter, setCounter] = useState([]);
 
@@ -115,7 +92,6 @@ const PhaseGroups = ({
   return <>    
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
-        //defaultActiveKey={['0', '1', '2']}
         activeKey={getActiveKeys()}
         onChange={
           () => {
@@ -162,11 +138,7 @@ const PhaseGroups = ({
             setNext={setNext}
             setPrev={setPrev}
             email={email}
-            openTable={openTable}
-            setOpenTable={setOpenTable}
             index={index}
-            divRef={divRef}
-            searchRef={searchRef}
             phaseRef={phaseRef}
             totalLabelWidth={totalLabelWidth}
             scheduleList={scheduleList}
@@ -180,12 +152,10 @@ const PhaseGroups = ({
             setPositionModalGraphic={setPositionModalGraphic}
             setDataModal={setDataModal}
             groupName={data.value}
-            userName={userName}
             setOpenPiney={setOpenPiney}
             setPopUpData={setPopUpData}
             headerRef={headerRef}
             filterPagination={filterPagination}
-            setFilterPagination={setFilterPagination}
             updateFavorites={updateFavorites}
             setUpdateFavorites={setUpdateFavorites}
             counter={counter}

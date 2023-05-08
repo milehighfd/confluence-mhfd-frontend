@@ -7,8 +7,15 @@ const handleErrors = (response: any) => {
     return response.json();
 }
 
+const validateSignal = (signal?: AbortSignal) => {
+    if (signal && !(signal instanceof AbortSignal)) {
+        throw new Error('Signal is not an instance of AbortSignal');
+    }
+}
+
 export const postData = (url: any, body: any, token?: any, signal?: AbortSignal) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
+    validateSignal(signal);
     return fetch(url, {
         method: 'POST',
         headers,
@@ -66,6 +73,7 @@ export const putData = (url: any, body: any, token?: any) => {
 
 export const getData = (url: any, token?: any, signal?: AbortSignal) => {
     const headers = token ? JSONOptions(token) : JSONDefault();
+    validateSignal(signal);
     return fetch(url, {
         method: 'GET',
         headers,

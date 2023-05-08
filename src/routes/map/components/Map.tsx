@@ -1512,7 +1512,7 @@ const Map = ({
                 allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
               }
             } else{
-              paramComponents?.actionsIds.forEach((component:any) => {
+              paramComponents?.actionsIds?.forEach((component:any) => {
                   allFilters.push({type: component.component_type.toLowerCase().replace(/ /g,"_"),filter: ['in', ['get','component_id'], ['literal', component.actions]]});
               });
             }

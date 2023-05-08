@@ -1,30 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs, Table } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
-import { SERVER } from 'Config/Server.config';
-import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
-import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from "utils/parsers";
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'antd';
 import * as d3 from 'd3';
-import moment from "moment";
-import { colorScale } from "../constants/PhaseViewData";
-import PineyView from "./PineyView";
-import { LIMIT_PAGINATION } from "../../../constants/constants";
+import moment from 'moment';
+import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { SERVER } from 'Config/Server.config';
+import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
+import DetailModal from 'routes/detail-page/components/DetailModal';
+import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
+import * as datasets from 'Config/datasets';
+import { LIMIT_PAGINATION } from 'constants/constants';
+import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 
-
-const { TabPane } = Tabs;
-const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
 const PhaseBody = ({
   currentGroup,
   dataId,
@@ -34,11 +20,7 @@ const PhaseBody = ({
   setNext,
   setPrev,
   email,
-  openTable,
-  setOpenTable,
   index,
-  divRef,
-  searchRef,
   phaseRef,
   totalLabelWidth,
   scheduleList,
@@ -52,12 +34,10 @@ const PhaseBody = ({
   setPositionModalGraphic,
   setDataModal,
   groupName,
-  userName,
   setOpenPiney,
   setPopUpData,
   headerRef,
   filterPagination,
-  setFilterPagination,
   updateFavorites,
   setUpdateFavorites,
   counter,
@@ -72,11 +52,7 @@ const PhaseBody = ({
   setNext: Function,
   setPrev: Function,
   email: string,
-  openTable: any,
-  setOpenTable: Function,
   index: number,
-  divRef: any,
-  searchRef: any,
   phaseRef: any,
   totalLabelWidth: number,
   scheduleList: any,
@@ -90,29 +66,23 @@ const PhaseBody = ({
   setPositionModalGraphic: Function,
   setDataModal: Function,
   groupName: string,
-  userName: string,
   setOpenPiney: Function,
   setPopUpData: Function,
   headerRef: any,
   filterPagination: any,
-  setFilterPagination: Function,
   updateFavorites: any,
   setUpdateFavorites: Function,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
-  const [dataParsed, setDataParsed] = useState<any>([]);
-  // const [page, setPage] = useState(1);
+
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [phaseData, setPhaseData] = useState<any>([]);
-  const [svgStatePhase, setSvgStatePhase] = useState<any>();
-  const [updateAction,setUpdateAction] = useState(false);
-  const [resultCounter, setResultCounter] = useState<any>(0);
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   let svg: any;
   const windowWidth: any = window.innerWidth;
@@ -180,9 +150,17 @@ const PhaseBody = ({
   }, [next, prev])
 
   useEffect(() => {
-    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
+    const controller = new AbortController();
+    datasets.getData(
+      SERVER.FAVORITES,
+      datasets.getToken(),
+      controller.signal
+    ).then(result => {
       setFavorites(result);
     })
+    return () => {
+      controller.abort();
+    }
   }, [updateFavorite]);
 
   useEffect(() => {
@@ -200,19 +178,7 @@ const PhaseBody = ({
         })
       });
     }    
-    // for (let index = 0; index < phaseData.length; index++) {
-    //   const updatedValues = phaseData[index].values.map((obj: any) => ({
-    //     ...obj,
-    //     idExt: phaseData[index].id
-    //   }));
-    //   phaseData[index].values = updatedValues;
-    //   if (openTable[index]) {
-    //     phaseData[index].values.forEach((element: any) => {
-    //       phaseChart(element);
-    //     });
-    //   }
-    // }
-  }, [phaseData,openTable,windowWidth]);
+  }, [phaseData, windowWidth]);
 
   //Start of phase chart generation
   const phaseChart = (dataDotchart: any) => {
@@ -234,7 +200,6 @@ const PhaseBody = ({
           .attr("height", heightContainer)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        setSvgStatePhase(svg);
         let datas = [dataDotchart];
         let arrayForCirclesAndLines = [];
         for (var i = 0; i < scheduleList.length; i++) {
@@ -716,11 +681,19 @@ const PhaseBody = ({
     if(currentGroup === 'streams' && dataId.value !== ''){
       idForFilter = dataId.value;
     }
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
+    const controller = new AbortController();
+    datasets.postData(
+      SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
+      filterPagination,
+      datasets.getToken(),
+      controller.signal
+    ).then((res: any) => {
       setDataBody(res);
-      setResultCounter(Object.keys(res).length);
-    })
-  }, [ page, filterPagination])
+    });
+    return () => {
+      controller.abort();
+    };
+  }, [page, filterPagination])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

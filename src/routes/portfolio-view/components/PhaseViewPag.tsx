@@ -1,37 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
+import React, { useEffect, useRef, useState } from 'react';
+import { Col, Row } from 'antd';
 import { SERVER } from 'Config/Server.config';
-import SearchDropdown from "./SearchDropdown";
-import moment from "moment";
-import { getGroupList } from "./ListUtils";
-import PhaseGroups from "./PhaseGroups";
-import PineyView from "./PineyView";
+import moment from 'moment';
+import * as datasets from 'Config/datasets';
+import PhaseGroups from 'routes/portfolio-view/components/PhaseGroups';
+import PineyView from 'routes/portfolio-view/components/PineyView';
+import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 
-const { TabPane } = Tabs;
-const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
 const PhaseViewPag = ({
   rawData,
   groupsBy,
   setCurrentGroup,
   setSearchWord,
   searchWord,
-  indexParent,
   searchRef,
-  divRef,
-  tableRef,
   tabKey,
   index,
   currentGroup,
@@ -39,7 +21,6 @@ const PhaseViewPag = ({
   setCollapsePhase,
   openTable,
   setOpenTable,
-  favorites,
   email,
   setTollData,
   setOpenModalTollgate,
@@ -48,7 +29,6 @@ const PhaseViewPag = ({
   setDataModal,
   userName,
   filterPagination,
-  setFilterPagination,
   updateFavorites,
   setUpdateFavorites,
 }: {
@@ -57,10 +37,7 @@ const PhaseViewPag = ({
   setCurrentGroup: any,
   setSearchWord: any,
   searchWord: any,
-  indexParent: any,
   searchRef: any,
-  divRef: any,
-  tableRef: any,
   tabKey: any,
   index: any,
   currentGroup: any,
@@ -68,7 +45,6 @@ const PhaseViewPag = ({
   setCollapsePhase: any,
   openTable: any,
   setOpenTable: any,
-  favorites: any,
   email: any,  
   setTollData: any,
   setOpenModalTollgate: any,
@@ -77,7 +53,6 @@ const PhaseViewPag = ({
   setDataModal: any,
   userName: any,
   filterPagination: any,
-  setFilterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
 }) => {
@@ -125,17 +100,30 @@ const PhaseViewPag = ({
     }
     getUserBrowser()
     setUserBrowser(browser)
-    datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {
-    }).then((e) => {
+    const controller = new AbortController();
+    datasets.getData(
+      `${SERVER.PROJECT_ACTION_ITEM}`,
+      datasets.getToken(),
+      controller.signal
+    ).then((e) => {
       setActionsDone(e);
     }).catch((e) => {
       console.log(e);
-    })
+    });
+    return () => {
+      controller.abort();
+    };
   }, [tabKey, updateAction])
 
   useEffect(() => {
     let z = []
-    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.PHASE_TYPE}`,
+      { tabKey: tabKey },
+      datasets.getToken(),
+      controller.signal
+    )
       .then((rows) => {  
         setPhaseList(rows)  
         setStatusCounter(rows.length)
@@ -170,6 +158,9 @@ const PhaseViewPag = ({
       .catch((e) => {
         console.log(e);
       })
+    return () => {
+      controller.abort();
+    }
   }, [actionsDone])
   useEffect(() => {
     const z: any = [];
@@ -186,10 +177,18 @@ const PhaseViewPag = ({
   }, [updatePhaseList])
 
   useEffect(() => {
-    getGroupList(currentGroup).then((valuesGroups) => {
+    const controller = new AbortController();
+    datasets.getData(
+      SERVER.GET_LIST_GROUPS(currentGroup),
+      datasets.getToken(),
+      controller.signal
+    ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
     })
-  }, [currentGroup])
+    return () => {
+      controller.abort();
+    };
+  }, [currentGroup]);
   let drr = phaseHeaderRef.current;
   let myDiv = drr?.querySelector('.container-phase');
   let widthMax = myDiv? myDiv.clientWidth : 0;
@@ -284,7 +283,6 @@ const PhaseViewPag = ({
           ref={el => searchRef.current[index] = el}
         >{
             detailGroup?.map((elem: any, index: number) => {
-              const id = 'collapse' + index;
               return (
                 <div id={elem.id} key={elem.id}>
                   <PhaseGroups
@@ -296,10 +294,7 @@ const PhaseViewPag = ({
                     index={index}
                     currentGroup={currentGroup}
                     tabKey={tabKey}
-                    favorites={favorites}
                     email={email}
-                    divRef={divRef}
-                    searchRef={searchRef}
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
                     scheduleList={scheduleList}
@@ -313,10 +308,8 @@ const PhaseViewPag = ({
                     setGrapphicOpen={setGrapphicOpen}
                     setPositionModalGraphic={setPositionModalGraphic}
                     setDataModal={setDataModal}
-                    userName={userName}
                     setPopUpData={setPopUpData}
                     headerRef={headerRef}
-                    setFilterPagination={setFilterPagination}
                     filterPagination={filterPagination}
                     updateFavorites={updateFavorites}
                     setUpdateFavorites={setUpdateFavorites}
