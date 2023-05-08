@@ -21,7 +21,7 @@ const TeamModal = () => {
           <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
           <p>{item.roleType}</p>
         </Col>
-        <Col span={6} style={{ textAlign: 'right' }}>
+        <Col span={7} style={{ textAlign: 'right' }} className='col-name-team-organization'>
           <span>{item.organization}</span>
         </Col>
       </Row>
