@@ -233,7 +233,7 @@ const PortafolioBody = ({
     'Jurisdiction',
     'County',
     'Service Area',
-    'MHFD Lead/PM',
+    'MHFD Lead',
     'Consultant',
     'Contractor'
   ];
