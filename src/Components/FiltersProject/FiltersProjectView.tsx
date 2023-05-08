@@ -86,7 +86,6 @@ const FiltersProjectView = ({
     }, [])
 
     const getTotalValue = (tabindex: number) => {
-        console.log('paramComponents', paramComponents)
         switch (tabindex) {
             case 0:
                 return galleryProblems.length;

@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, Menu, MenuProps, Popover } from 'antd';
 import { useSelector } from 'react-redux';
-import { Col, Card, Popover, Menu, Button, MenuProps } from 'antd';
-import { numberWithCommas } from 'utils/utils';
-import { Detailed } from 'store/types/detailedTypes';
-import { useMapDispatch, useMapState } from 'hook/mapHook';
-import store from 'store';
-import { COMPONENT_LAYERS, MENU_OPTIONS, MHFD_PROJECTS } from 'constants/constants';
-import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
+import { COMPONENT_LAYERS, MENU_OPTIONS, MHFD_PROJECTS } from 'constants/constants';
+import { useMapDispatch } from 'hook/mapHook';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getTotalEstimatedCost } from 'utils/parsers';
-
-const content = (<div className="popoveer-00">Project Sponsor</div>);
-const status = (<div className="popoveer-00">Status</div>);
-const cost = (<div className="popoveer-00">Project Cost</div>);
-const total = (<div className="popoveer-00">Number Project</div>);
-const PROJECT_TABLE = 'mhfd_projects'
+import * as datasets from 'Config/datasets';
+import { useProfileState } from 'hook/profileHook';
 
 const CardInformationView = ({
   data,
   type,
-  detailed,
   selectedOnMap,
   setZoomProjectOrProblem,
   deleteCallback,
@@ -28,7 +19,6 @@ const CardInformationView = ({
 }: {
   data: any,
   type: string,
-  detailed: Detailed,
   selectedOnMap?: any,
   setZoomProjectOrProblem?: Function,
   deleteCallback?: Function,
@@ -40,7 +30,6 @@ const CardInformationView = ({
     getBBOXComponents,
     updateSelectedLayers,
     addFavorite,
-    deleteFavorite,
     setHighlighted
   } = useMapDispatch();
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
@@ -58,7 +47,7 @@ const CardInformationView = ({
     const id = data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? data.problemid : data.project_id;
     getBBOXComponents(data.type === MENU_OPTIONS.PROBLEMS_BOUNDARY ? MENU_OPTIONS.PROBLEMS_BOUNDARY : MHFD_PROJECTS, id);
   }
-  const user = store.getState().profile.userInformation;
+  const { userInformation: user } = useProfileState();
  
   const { bboxComponents, selectedLayers } = useSelector((state: any) => ({
     spinMapLoaded: state.map.spinMapLoaded,
@@ -191,9 +180,7 @@ const CardInformationView = ({
        <Col xs={xs} lg={lg} md={md} style={style}>
        <div className="border-line-green" style={{ width: '100%'}}>
         <Card
-          // hoverable
           style={{border: (selectedOnMap?.id === data.cartodb_id && selectedOnMap?.tab.toLocaleLowerCase().includes(type.toLocaleLowerCase())) ? 'solid 2px #28c499' : '', width: '100%', padding:'0px'}}
-          // style={{ width: '100%', padding: '0px' }}
           onClick={() => setVisible(true)}
           onMouseEnter={(e) =>  {
             let typeInData:any 
@@ -244,22 +231,15 @@ const CardInformationView = ({
           {
             type === 'Problems' 
             ? 
-            // <Popover placement="topLeft" content={content}>
               <h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6>
-            // </Popover> 
             : 
             <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
           }
-          {/* <Popover placement="topLeft" content={cost}> */}
             <h5>{
-              // data.estimatedCost ? ('$'+numberWithCommas(Math.round(data.estimatedCost))) : (data.componentCost?('$'+numberWithCommas(Math.round(data.componentCost))):'No Cost Data')  
               (getTotalEstimatedCost(data?.project_costs || []) != null ?(new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])) === '0' ? 'No Cost Data' : ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])))): 'No Cost Data')
               } 
-              {/* <Popover content={total}> */}
                 <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
-              {/* </Popover>  */}
             </h5>
-          {/* </Popover> */}
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>

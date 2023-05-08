@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import { DATA_SOLUTIONS } from "../constants";
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'antd';
 import * as d3 from 'd3';
-import { dataDot1,dataDot2, dataDot3,colorScale, rawData  } from "routes/portfolio-view/constants/PhaseViewData";
-import ModalGraphic from "routes/portfolio-view/components/ModalGraphic";
-import * as datasets from "../../../Config/datasets";
-import { SERVER } from "Config/Server.config";
-import moment from "moment";
+import { SERVER } from 'Config/Server.config';
+import moment from 'moment';
+import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
+import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
+import { getUserBrowser } from 'utils/utils';
+import * as datasets from 'Config/datasets';
 
 const Roadmap = ({setOpenPiney,
    openPiney, 
@@ -25,7 +24,6 @@ const Roadmap = ({setOpenPiney,
     }) => {
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
-  const [statusCounter,setStatusCounter] = useState(0);
   const [scheduleList, setScheduleList] = useState<any>({})
   const [statusList, setStatusList] = useState<any>([])
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
@@ -477,14 +475,18 @@ const Roadmap = ({setOpenPiney,
   useEffect(() => {
     let z = []
     let typeProject;
-    if(data.length > 0){
-
-      console.log('dataaaaaaaaaaaaa', data )
-      typeProject =data[0].code_project_type_id
-    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: typeProject })
+    if(data.length === 0) return;
+    console.log('dataaaaaaaaaaaaa', data )
+    typeProject =data[0].code_project_type_id;
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.PHASE_TYPE}`,
+      { tabKey: typeProject },
+      datasets.getToken(),
+      controller.signal
+    )
       .then((rows) => {  
         setPhaseList(rows)  
-        setStatusCounter(rows.length)
         let counter = 0;
         z = rows.map((x: any) => {
           counter++;
@@ -515,47 +517,27 @@ const Roadmap = ({setOpenPiney,
       .catch((e) => {
         console.log(e);
       })
-    }
+    return () => {
+      controller.abort();
+    };
   }, [actionsDone,data])
 
   useEffect(() => {
-    let browser;
-    function getUserBrowser() { 
-      if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
-     {
-         browser ='Opera'
-     }
-     else if(navigator.userAgent.indexOf("Edg") != -1 )
-     {
-         browser ='Edge'
-     }
-     else if(navigator.userAgent.indexOf("Chrome") != -1 )
-     {
-         browser ='Chrome'
-     }
-     else if(navigator.userAgent.indexOf("Safari") != -1)
-     {
-         browser ='Safari'
-     }
-     else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
-     {
-          browser ='Firefox'
-     }
-     else 
-     {
-        browser ='unknown'
-     }
-     }
-     getUserBrowser()
-    setUserBrowser(browser)
-    datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {   
-    }).then((e) => {     
+    setUserBrowser(getUserBrowser())
+    const controller = new AbortController();
+    datasets.getData(
+      `${SERVER.PROJECT_ACTION_ITEM}`,
+      datasets.getToken(),
+      controller.signal
+    ).then((e) => {
       setActionsDone(e);
     }).catch((e) => {
       console.log(e);
-    })  
+    });
+    return () => {
+      controller.abort();
+    };
   }, [data?.code_project_type_id,updateAction])
-
 
   useEffect(() => {
     const z: any = [];

@@ -6,6 +6,7 @@ import * as datasets from 'Config/datasets';
 import PhaseGroups from 'routes/portfolio-view/components/PhaseGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
+import { getUserBrowser } from 'utils/utils';
 
 const PhaseViewPag = ({
   rawData,
@@ -77,29 +78,7 @@ const PhaseViewPag = ({
   const [popUpData, setPopUpData] = useState<any>({});
 
   useEffect(() => {
-    let browser;
-    function getUserBrowser() {
-      if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
-        browser = 'Opera'
-      }
-      else if (navigator.userAgent.indexOf("Edg") != -1) {
-        browser = 'Edge'
-      }
-      else if (navigator.userAgent.indexOf("Chrome") != -1) {
-        browser = 'Chrome'
-      }
-      else if (navigator.userAgent.indexOf("Safari") != -1) {
-        browser = 'Safari'
-      }
-      else if (navigator.userAgent.indexOf("Firefox") != -1) {
-        browser = 'Firefox'
-      }
-      else {
-        browser = 'unknown'
-      }
-    }
-    getUserBrowser()
-    setUserBrowser(browser)
+    setUserBrowser(getUserBrowser());
     const controller = new AbortController();
     datasets.getData(
       `${SERVER.PROJECT_ACTION_ITEM}`,
@@ -169,10 +148,14 @@ const PhaseViewPag = ({
         z.push(img.status_name)
       }
     });
-    const counts = z.map((item1: any) => ([
-      item1,
-      (statusList.filter((item: any) => item.status_name === item1).length) * labelWidth
-    ]));
+    const counts = z.map((item1: any) => {
+      const elements = statusList.filter((item: any) => item.status_name === item1);
+      return [
+        item1,
+        (elements.length) * labelWidth,
+        elements[0].code_status_type_id
+      ]
+    });
     setAvailableStatusList(counts)
   }, [updatePhaseList])
 
@@ -184,7 +167,9 @@ const PhaseViewPag = ({
       controller.signal
     ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
-    })
+    }).catch((e) => {
+      console.log(e);
+    });
     return () => {
       controller.abort();
     };
@@ -259,15 +244,17 @@ const PhaseViewPag = ({
               }}
             >
               <div className="phaseview-title-label" style={{ width: totalLabelWidth, paddingRight: '13px' }} id="phaseviewTitlleWidth">
-                {availableStatusList.map((item: any, index: number) => {
-                  return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
-                    <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
-                  </p>
-                })}
+                {
+                  availableStatusList.map((item: any, index: number) => (
+                    <p key={item[2]} style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent' } : { display: 'flex', width: item[1] }}>
+                      <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
+                    </p>
+                  ))
+                }
               </div>
               <div style={{ width: totalLabelWidth, paddingRight: '13px' }} className="phaseview-title" id="phaseviewTitlleWidth">
                 {phaseList.map((item: any) => {
-                  return <p style={{ width: labelWidth }}>{item.phase_name}</p>
+                  return <p key={item.code_phase_type_id} style={{ width: labelWidth }}>{item.phase_name}</p>
                 })}
               </div>
             </div>

@@ -26,7 +26,7 @@ export const numberWithCommas = (x: number) => {
 
 export const getStatus = (value: any) => {
   let percentStatus = '';
-  switch(value) {
+  switch (value) {
     case '0':
       percentStatus = '0% - 25%';
       break;
@@ -40,7 +40,6 @@ export const getStatus = (value: any) => {
       percentStatus = '75% - 100%';
       break;
   }
-  //console.log('status', value + ' ' + percentStatus);
   return percentStatus;
 }
 
@@ -75,7 +74,7 @@ export const elementCost = (min: number, max: number) => {
 
 export const elementCostLastPosition = (min: number, max: number, lastPosition: boolean) => {
   let value = '';
-  if (lastPosition) { 
+  if (lastPosition) {
     if (min >= 1000000) {
       value = '>$' + Math.trunc(min / 100000) / 10 + 'M';
     } else {
@@ -108,3 +107,26 @@ export const elementCostLastPosition = (min: number, max: number, lastPosition: 
 
   return value;
 }
+
+export const getUserBrowser = () => {
+  let browser;
+  if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
+    browser = 'Opera'
+  }
+  else if (navigator.userAgent.indexOf("Edg") != -1) {
+    browser = 'Edge'
+  }
+  else if (navigator.userAgent.indexOf("Chrome") != -1) {
+    browser = 'Chrome'
+  }
+  else if (navigator.userAgent.indexOf("Safari") != -1) {
+    browser = 'Safari'
+  }
+  else if (navigator.userAgent.indexOf("Firefox") != -1) {
+    browser = 'Firefox'
+  }
+  else {
+    browser = 'unknown'
+  }
+  return browser;
+};

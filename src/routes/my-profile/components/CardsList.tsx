@@ -196,7 +196,6 @@ const CardsList = ({
             return data[index] && <CardInformationView
               key={index}
               data={data[index]}
-              detailed={detailed}
               type={type}
               deleteCallback={updateFavoritesAndCount}
               isProfile = {true}

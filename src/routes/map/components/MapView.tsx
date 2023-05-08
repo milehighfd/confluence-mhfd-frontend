@@ -1193,7 +1193,6 @@ const MapView = () => {
                         project.MAINTENANCE_TRAILS +
                         project.LAND_ACQUISITION +
                         project.LANDSCAPING_AREA ),
-                      // coordinates: project.coordinates[0]
                     };
                     return x;
                   });
@@ -1210,10 +1209,9 @@ const MapView = () => {
                         </Popover>
                       </span>
                     }
-                    key={index} //TODO: change key but making sure problem's tab works key={`TabPane_${index}`}
+                    key={index}
                   >
                     <GenericTabView
-                      key={`GenericTabView_${index}`}
                       type={value}
                       totalElements={totalElements}
                       cardInformation={cardInformation}

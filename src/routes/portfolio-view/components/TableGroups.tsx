@@ -17,8 +17,6 @@ const TableGroups = ({
   currentGroup,
   tabKey,
   email,
-  divRef,
-  searchRef,
   scrollRef,
   tableHeaderRef,
   tableRef,
@@ -41,8 +39,6 @@ const TableGroups = ({
   email: any,
   scrollRef:any,
   tableHeaderRef:any,
-  divRef: any,
-  searchRef: any,
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
@@ -68,6 +64,9 @@ const TableGroups = ({
     )
     .then((res: any) => {
       setCounter(res.count)
+    })
+    .catch((e) => {
+      console.log(e);
     });
     return () => {
       controller.abort();
@@ -162,11 +161,8 @@ const TableGroups = ({
             setPrev={setPrev}
             email={email}
             openTable={openTable}
-            setOpenTable={setOpenTable}
             index={index}
-            divRef={divRef}
             scrollHeaderScrollRef={scrollHeaderScrollRef}
-            searchRef={searchRef}
             tableRef={tableRef}
             tabKeyId={tabKeyId}
             headerRef={headerRef}

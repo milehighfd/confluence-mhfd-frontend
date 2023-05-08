@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { Row, Tag } from "antd";
+import { Row, Tag } from 'antd';
+import React, { Fragment, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-import CardInformationView from "../CardInformation/CardInformationView";
-import { elementCost } from '../../../utils/utils';
-import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from "../../../constants/constants";
-import store from "../../../store";
-import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import { useDetailedState } from "../../../hook/detailedHook";
-import { useProfileState } from '../../../hook/profileHook';
+import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from 'constants/constants';
+import { useDetailedState } from 'hook/detailedHook';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { useProfileState } from 'hook/profileHook';
+import { elementCost } from 'utils/utils';
+import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
 
 const GenericTabView = ({
     totalElements,
     type,
     cardInformation,
-}: any) => {
+}: {
+    totalElements: number,
+    type: string,
+    cardInformation: any[]
+}) => {
     const {
-      getGalleryProblems, 
+      getGalleryProblems,
       getGalleryProjects,
       setFilterProblemOptions,
-      setFilterProjectOptions, 
+      setFilterProjectOptions,
       setFilterComponentOptions,
       setZoomProjectOrProblem,
       favoriteList,
@@ -30,7 +32,6 @@ const GenericTabView = ({
     const [data, setData] = useState<any>([]);
     const [hotReload, setHotReload] = useState(0);
     const [carInfo, setCardInfo] = useState<any>([]);
-    const [totalPages, setTotalPages] = useState(0);
     const [nextPage, setNextPage] = useState(1);
 
     const {
@@ -42,8 +43,7 @@ const GenericTabView = ({
         filterComponentOptions,
         selectedOnMap,
         favorites,
-        galleryProjectsV2,
-        filterTabNumber
+        paramFilters: params
       } = useMapState();
     let totalElement = cardInformation?.length || 0;
     const [isLoading, setIsLoading] = useState(false);
@@ -52,18 +52,12 @@ const GenericTabView = ({
     if (totalElement) {
         sw = true;
     }
-    // call init page action  just once ONLY
-    useEffect(() => {
-        const totalpages = Math.ceil(totalElements / 20);
-        setTotalPages(totalpages);
-    }, []);
 
     useEffect(() => {
         favoriteList(type === 'Problems');    
     }, [user]);
 
     const deleteFavorite = (id: number) => {
-        console.log('deleting ', id);
         // TODO: fix the logic of this , dont get again the list of favorites
         // only update the variable with a favorites.filter 
         setTimeout(() => {
@@ -90,9 +84,6 @@ const GenericTabView = ({
         setCardInfo(cardInformation);
     }, [favorites, cardInformation, hotReload]);
 
-
-    const params = store.getState().map.paramFilters;
-
     const deleteFilter = (tag: string, value: string) => {
         const auxFilterComponents = { ...filterComponentOptions };
         const valueTag = tag === 'estimatedcost' ? filterComponentOptions[tag] : filterComponentOptions[tag].split(',');
@@ -112,8 +103,7 @@ const GenericTabView = ({
         }
         auxFilterComponents[tag] = tag === 'estimatedcost' ? auxValueTag : newValue;
         setFilterComponentOptions(auxFilterComponents);
-                             console.log('get gallery'); 
-                      getGalleryProjects();
+        getGalleryProjects();
         getGalleryProblems();
     }
     const deleteTagProblem = (tag: string, value: string) => {
@@ -156,8 +146,7 @@ const GenericTabView = ({
         }
         auxFilterProjects[tag] = (tag === 'mhfddollarsallocated' || tag === 'totalcost') ? auxValueTag : newValue;
         setFilterProjectOptions(auxFilterProjects);
-                             console.log('get gallery'); 
-                      getGalleryProjects();;
+        getGalleryProjects();;
     }
     const [state, setState] = useState({
         items: Array.from({ length: size }),
@@ -180,7 +169,6 @@ const GenericTabView = ({
         if(type === FILTER_PROBLEMS_TRIGGER){
             setFilterTabNumber(PROBLEMS_TRIGGER)
         }
-        console.log("2222222222", type, filterTabNumber);
     }, [totalElement])
     const tagProblems = [] as any;
     const tagProjects = [] as any;
@@ -213,7 +201,7 @@ const GenericTabView = ({
       
     };
 
-    return <>
+    return (
         <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
             <div className="hastag" style={{ minHeight: 34 }}>
                 <div style={{ marginBottom: totalElements ? 0 : 5 }}>
@@ -258,7 +246,7 @@ const GenericTabView = ({
                     </>
                 })}
                 {tagComponents.map((tag: { key: string, values: Array<string> }, index: number) => {
-                    return <>
+                    return <Fragment key={tag.key}>
                         {tag.values.map((element: string) => {
                             let value = '';
                             if (tag.key === 'estimatedcost') {
@@ -276,7 +264,7 @@ const GenericTabView = ({
                                 {value}
                             </Tag>
                         })}
-                    </>
+                    </Fragment>
                 })}
             </div>
         </div>
@@ -293,7 +281,6 @@ const GenericTabView = ({
                     return data[index] && <CardInformationView
                         key={index}
                         data={data[index]}
-                        detailed={detailed} 
                         type={type}
                         selectedOnMap={selectedOnMap}
                         setZoomProjectOrProblem={setZoomProjectOrProblem}
@@ -303,8 +290,7 @@ const GenericTabView = ({
             </InfiniteScroll>
         </Row>
     </div>
-
-    </>
+    )
 };
 
 export default GenericTabView;

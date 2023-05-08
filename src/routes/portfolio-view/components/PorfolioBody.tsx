@@ -484,7 +484,6 @@ const PortafolioBody = ({
                         email={appUser.userInformation?.email}
                         setCollapsePhase={setCollapsePhase}
                         collapsePhase={collapsePhase}
-                        divRef={tableRef}
                         tabKey={tabKey}
                         tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}

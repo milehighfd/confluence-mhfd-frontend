@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Row, Table } from 'antd';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
-import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
+import * as datasets from 'Config/datasets';
+import { Col, Row, Table } from 'antd';
+import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
+import React, { useEffect, useState } from 'react';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
-import * as datasets from 'Config/datasets';
-import { LIMIT_PAGINATION } from 'constants/constants';
-import { AllHeaderTable, AllValueTable, CIPHeaderTable, CIPValueTable, DIPHeaderTable, DIPValueTable, PlanningHeaderTable, PlanningValueTable, PropertyAcquisitionHeaderTable, PropertyAcquisitionValueTable, RDHeaderTable, RDValueTable, RestorationHeaderTable, RestorationValueTable } from "../constants/tableHeader";
+import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
 
 const TableBody = ({
   currentGroup,
@@ -19,10 +18,7 @@ const TableBody = ({
   setPrev,
   email,
   openTable,
-  setOpenTable,
   index,
-  divRef,
-  searchRef,
   scrollHeaderScrollRef,
   tableRef,
   tabKeyId,
@@ -44,11 +40,8 @@ const TableBody = ({
   setPrev: Function,
   email: string,
   openTable: any,
-  setOpenTable: Function,
   index: number,
-  divRef: any,
   scrollHeaderScrollRef:any,
-  searchRef: any,
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
@@ -201,7 +194,6 @@ const TableBody = ({
   useEffect(() => {   
     let sort = "";
     let order = "";
-    console.log(sortValue)
     if (sortValue.order === 'ascend') {
       order = "asc";
     } else if (sortValue.order === 'descend') {
@@ -210,13 +202,6 @@ const TableBody = ({
     if (sortValue.columnKey === 'on_base' && sortValue.order !== undefined) {
       sort = "onbase_project_number";
     }
-    if (sortValue.columnKey === 'service_area' && sortValue.order !== undefined) {
-      //sort = "servicearea";
-    }
-    //add sortValue.columnKey === 'project_type' and sortValue.columnKey === 'status' and sortValue.columnKey === 'phase' to sort by project type and status when the api is ready
-    // if ((  sortValue.columnKey === 'stream') && sortValue.order !== undefined) {
-    //   sort = sortValue.columnKey;
-    // }
     datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}&sortby=${sort}&sortorder=${order}`, filterPagination).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
@@ -240,45 +225,6 @@ const TableBody = ({
       setUpdateFavorite(!updateFavorite)
       setUpdateFavorites(!updateFavorites)
     });
-  }
-
-  const ValueTabsHeader = () => {
-    let header = AllHeaderTable;
-    switch (tabKey) {
-      case "All": {
-        header = AllHeaderTable;
-        break;
-      }
-      case "DIP": {
-        header = DIPHeaderTable;
-        break;
-      }
-      case "R&D": {
-        header = RDHeaderTable;
-        break;
-      }
-      case "Restoration": {
-        header = RestorationHeaderTable;
-        break;
-      }
-      case "CIP": {
-        header = CIPHeaderTable;
-        break;
-      }
-      case "Planning": {
-        header = PlanningHeaderTable;
-        break;
-      }
-      case "Acquisition": {
-        header = PropertyAcquisitionHeaderTable;
-        break;
-      }
-      default: {
-        header = AllHeaderTable;
-        break;
-      }
-    }
-    return header;
   }
 
   const ValueTabsValue = () => {

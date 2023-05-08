@@ -15,7 +15,6 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   const isProb = type === 'problemtype';
   const labelValues = isProb ? '' : 'Projects';
   useEffect(() => {
-    console.log('Selected Data', selectedData);
     let total: any;
     let pieChartData: any;
     let dataReduced = data.filter((d: any) => (d.id == 1 || d.id == 5 || d.id == 7 || d.id == 13 || d.id == 6 || d.id == 15));

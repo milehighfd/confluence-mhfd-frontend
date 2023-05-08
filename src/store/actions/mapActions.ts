@@ -19,6 +19,10 @@ const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortCont
     return controller;
 };
 
+const isAbortError = (error: any) => {
+    return error instanceof DOMException && error.message === 'The user aborted a request.';
+}
+
 export const getMapTables = (trigger: string, name?: string) => {
     return (dispatch: Function, getState: Function) => {
         const state = getState();
@@ -303,6 +307,10 @@ export const getGalleryProblems = () => {
                 dispatch({ type: types.GALLERY_PROBLEMS, galleryProblems });
             }
             dispatch({ type: types.SET_SPIN_CARD_PROBLEMS, spin: false });
+        }).catch(err => {
+            if (!isAbortError) {
+                console.log('getGalleryProblems', err);
+            }
         });
     }
 }
@@ -334,7 +342,9 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
         dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
       })
       .catch(err => {
-        console.log('getGalleryProjects', err);
+        if (!isAbortError) {
+            console.log('getGalleryProjects', err);
+        }
       })
     if (origin != 'bounds') {
       dispatch(getProjectsFilteredIds());
@@ -386,7 +396,9 @@ export const getProjectsFilteredIds = () => {
         dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
     })
     .catch(err => {
-        console.log('getProjectsFilteredIds', err);
+        if (!isAbortError) {
+            console.log('getProjectsFilteredIds', err);
+        }
     })
   };
 }

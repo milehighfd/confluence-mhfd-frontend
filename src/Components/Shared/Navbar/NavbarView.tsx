@@ -1,35 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Layout, Menu, Dropdown, Popover, Modal, Button, Tabs, MenuProps, Badge, Avatar } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { CaretDownOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
-import {DoubleRightOutlined} from '@ant-design/icons';
-import * as datasets from '../../../Config/datasets';
-import { ROUTERS, ROUTER_TITLE } from '../../../constants/constants';
-import { User } from '../../../Classes/TypeList';
-import ModalEditUserView from '../../Profile/ProfileComponents/ModalEditUserView';
-import { useMapDispatch } from '../../../hook/mapHook';
-import { useProfileDispatch, useProfileState } from '../../../hook/profileHook';
-import { useUsersState } from '../../../hook/usersHook';
-import { GlobalMapHook } from "utils/globalMapHook";
-import '../../../Scss/Components/navbar.scss';
+import { Badge, Button, Dropdown, Layout, Menu, Modal, Popover, Tabs } from 'antd';
+import { CaretDownOutlined, DoubleRightOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { GlobalMapHook } from 'utils/globalMapHook';
+import * as datasets from 'Config/datasets';
+import 'Scss/Components/navbar.scss';
+import { ROUTERS, ROUTER_TITLE } from 'constants/constants';
+import { useMapDispatch } from 'hook/mapHook';
+import { useProfileDispatch, useProfileState } from 'hook/profileHook';
+import { useUsersState } from 'hook/usersHook';
+import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
 const content = (<div className="popoveer-00">Notifications (Coming Soon)</div>);
-const popovers: any = [
-  <div className="popoveer-00"><b>Unread:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>All:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
 
-const NavbarView = ({tabActive}:
-  {tabActive?: string}) => {
-  const [ key, setKey] = useState('1');
+const NavbarView = ({
+  tabActive
+}: {
+  tabActive?: string
+}) => {
+  const [key, setKey] = useState('1');
   const [tabKey, setTabKey] = useState<any>('Unread');
-  const [ openProfile, setOpenProfile] = useState(false);
-  const [ sliderIndex, setSliderIndex] = useState(0);
+  const [openProfile, setOpenProfile] = useState(false);
+  const [sliderIndex, setSliderIndex] = useState(0);
   const tabKeys = ['Unread', 'All'];
   const stateValue = {
     visible: false,
@@ -47,15 +41,8 @@ const NavbarView = ({tabActive}:
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
       <div className="notification-header">
-        <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2> {/*<a>Mark all as read</a>*/}
+        <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2>
       </div>
-      {/*<div style={{position: 'absolute', right: '1px', marginTop: '10px'}}>
-        <Button
-          className="btn-transparent"
-        >
-          <img src="/Icons/ic-settings.svg" alt="" height="90%" />
-        </Button>
-  </div>*/}
       <Tabs defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
         onChange={(key) => setTabKey(key)} className="tabs-map">
@@ -213,7 +200,6 @@ const NavbarView = ({tabActive}:
     setOpenProfile(false);
   }
   const items = [
-    // { key: 'my-profile', label: 'My Profile' },
     { key: 'tutorial', label: 'Tutorial' },
     { key: 'logout', label: localStorage.getItem('mfx-token') == 'GUEST' ? 'Sign In' : 'Logout' },
   ];
@@ -249,13 +235,6 @@ const NavbarView = ({tabActive}:
     { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
-    {/* <Menu
-      theme="dark"
-      mode="horizontal"
-      items={itemMenuRight}
-      defaultSelectedKeys={['0']}
-    >
-    </Menu> */}
     <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={locationPage.pathname === '/pm-tools' ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
@@ -509,30 +488,6 @@ const NavbarView = ({tabActive}:
                 <p><i>Favorite a project or problem and see it in your MyConfluence profile at any time.</i></p>
               </div>
             </div>}
-
-            {/* {sliderIndex === 2 && <div className="tuto-01">
-              <div className="tuto-12">
-                <img src="/Icons/tutorial/ic_arrow5.svg" alt="" />
-                <p><i>Click here to see all of the layers (including legends) that are avilable for display on the Confluence map.</i></p>
-              </div>
-              <div className="tuto-13">
-                <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
-                <p><i>Search for a street, intersection, address, landmark, or stream.</i></p>
-              </div>
-              <div className="tuto-14">
-                <img  className="img-card" src="/Icons/tutorial/overlay.png" width="280px" alt="" />
-                <img src="/Icons/tutorial/ic_arrow1.svg" alt="" />
-                <p><i>Click on map features to see details and additional ways to interact with MHFD data. Click and drag the right mouse button to view the map in 3D.</i></p>
-              </div>
-              <div className="tuto-15">
-                <img src="/Icons/tutorial/ic_arrow6.svg" alt="" />
-                <p><i>Click this button to quickly zoom out to MHFD boundary extents.</i></p>
-              </div>
-              <div className="tuto-16">
-                <img src="/Icons/tutorial/ic_arrow4.svg" alt="" />
-                <p><i>Hovering on a map feature highlights the related card on the right side of the page.</i></p>
-              </div>
-            </div>} */}
           </>
         )
       }
@@ -606,10 +561,6 @@ const NavbarView = ({tabActive}:
                 <img src="/Icons/tutorial/ic_arrow8.svg" alt="" />
                 <p><i>Change between Work Request years, Submit a Request, View Analytics, Share a URL, or Export to CSV.</i></p>
               </div>
-              {/* <div className="tuto-36">
-                <img src="/Icons/tutorial/ic_arrow7.svg" alt="" />
-                <p><i>Move project cards between columns (years) and add requested yearly amounts to develop a plan.</i></p>
-              </div> */}
             </div>}
             {sliderIndex === 1 && <div className="tuto-01">
               <div className="tuto-33">

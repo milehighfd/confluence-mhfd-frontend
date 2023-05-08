@@ -1,27 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { CalendarOutlined, DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
+import { CalendarOutlined } from "@ant-design/icons";
 import { SERVER } from 'Config/Server.config';
-import SearchDropdown from "./SearchDropdown";
+import { Button, Col, Row } from 'antd';
 import moment from "moment";
-import { getGroupList } from "./ListUtils";
+import React, { useEffect, useRef, useState } from "react";
+import { getUserBrowser } from "utils/utils";
+import * as datasets from "../../../Config/datasets";
 import CalendarGroups from "./CalendarGroups";
+import { getGroupList } from "./ListUtils";
 import PineyView from "./PineyView";
+import SearchDropdown from "./SearchDropdown";
 
-const { TabPane } = Tabs;
-const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
 const CalendarViewPag = ({
   rawData,
   groupsBy,
@@ -129,41 +117,33 @@ const CalendarViewPag = ({
           (windowWidth >= 1501 && windowWidth <= 1700 ? '-5.9px' :
             (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
+
   useEffect(() => {
-    let browser;
-    function getUserBrowser() {
-      if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
-        browser = 'Opera'
-      }
-      else if (navigator.userAgent.indexOf("Edg") != -1) {
-        browser = 'Edge'
-      }
-      else if (navigator.userAgent.indexOf("Chrome") != -1) {
-        browser = 'Chrome'
-      }
-      else if (navigator.userAgent.indexOf("Safari") != -1) {
-        browser = 'Safari'
-      }
-      else if (navigator.userAgent.indexOf("Firefox") != -1) {
-        browser = 'Firefox'
-      }
-      else {
-        browser = 'unknown'
-      }
-    }
-    getUserBrowser()
-    setUserBrowser(browser)
-    datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {
-    }).then((e) => {
+    setUserBrowser(getUserBrowser());
+    const controller = new AbortController();
+    datasets.getData(
+      `${SERVER.PROJECT_ACTION_ITEM}`,
+      datasets.getToken(),
+      controller.signal
+    ).then((e) => {
       setActionsDone(e);
     }).catch((e) => {
       console.log(e);
-    })
+    });
+    return () => {
+      controller.abort();
+    };
   }, [tabKey, updateAction])
 
   useEffect(() => {
-    let z = []
-    datasets.postData(`${SERVER.PHASE_TYPE}`, { tabKey: tabKey })
+    let z = [];
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.PHASE_TYPE}`,
+      { tabKey: tabKey },
+      datasets.getToken(),
+      controller.signal
+    )
       .then((rows) => {        
         setPhaseList(rows)
         setStatusCounter(rows.length)
@@ -198,6 +178,9 @@ const CalendarViewPag = ({
       .catch((e) => {
         console.log(e);
       })
+    return () => {
+      controller.abort();
+    };
   }, [actionsDone])
 
   useEffect(() => {

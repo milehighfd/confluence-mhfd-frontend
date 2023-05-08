@@ -14,8 +14,7 @@ import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import TableGroups from 'routes/portfolio-view/components/TableGroups';
 
-const TablePortafolio = (
-  { divRef,
+const TablePortafolio = ({
     tabKey,
     setSortValue,
     searchRef,
@@ -36,30 +35,28 @@ const TablePortafolio = (
     updateFavorites,
     setUpdateFavorites,
     sortValue,
-  }
-    : {
-      divRef: React.MutableRefObject<any>,
-      tabKey: any,
-      setSortValue: Function | any,
-      searchRef: React.MutableRefObject<any>,
-      setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
-      openTable: any[],      
-      rawData: any,      
-      index: number,
-      groupsBy: any[],
-      setCurrentGroup: Function,
-      setSearchWord: Function,
-      email: string,
-      searchWord: string,
-      setCollapsePhase: Function,
-      collapsePhase: any,
-      currentGroup: any,
-      tabKeyId: any,
-      filterPagination: any,
-      updateFavorites: any,
-      setUpdateFavorites: Function,
-      sortValue: any,
-    }) => {
+  }: {
+    tabKey: any,
+    setSortValue: Function | any,
+    searchRef: React.MutableRefObject<any>,
+    setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
+    openTable: any[],      
+    rawData: any,      
+    index: number,
+    groupsBy: any[],
+    setCurrentGroup: Function,
+    setSearchWord: Function,
+    email: string,
+    searchWord: string,
+    setCollapsePhase: Function,
+    collapsePhase: any,
+    currentGroup: any,
+    tabKeyId: any,
+    filterPagination: any,
+    updateFavorites: any,
+    setUpdateFavorites: Function,
+    sortValue: any,
+  }) => {
 
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
@@ -201,8 +198,6 @@ const TablePortafolio = (
                       currentGroup={currentGroup}
                       tabKey={tabKey}
                       email={email}
-                      divRef={divRef}
-                      searchRef={searchRef}
                       scrollRef={scrollRef}
                       tableHeaderRef={tableHeaderRef}
                       tableRef={tableRef}

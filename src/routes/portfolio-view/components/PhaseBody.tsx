@@ -190,7 +190,6 @@ const PhaseBody = ({
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
       let height: any = factorHeight + heightDiv + 3;
       let heightContainer: any = height + margin.top + margin.bottom;
-      console.log(heightDiv)
       if (heightContainer > 0) {
         removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart.id.replace(/\s/g, '')}`))
         svg = d3
@@ -582,7 +581,6 @@ const PhaseBody = ({
                         (windowWidth >= 1199 && windowWidth <= 1449 ? 380 : 345)))))
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
-                console.log('d3.event', d3.event)
                 let positionTop: any = d3.event.y - heightOfPopup-20 ; // Delete 120 when the popup is fixed
                 let positionLeft: any = d3.event.x - widthOfPopup / 2; //Delete 35 when the popup is fixed
                 setPositionModalGraphic({ left: positionLeft, top: positionTop })

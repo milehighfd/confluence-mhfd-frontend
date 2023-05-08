@@ -1,16 +1,13 @@
-import React, { cloneElement, useEffect, useRef, useState } from "react";
+import { Col, Row } from 'antd';
 import * as d3 from 'd3';
-import { dataDot1, dataDot2, dataDot3, colorScale } from "../constants/PhaseViewData";
-import { Button, Col, Input, Layout, message, Popover, Progress, Checkbox, Row, Select, Space, Steps, Table, Tabs, Tag } from 'antd';
-import { CalendarOutlined, ClockCircleOutlined, CloseOutlined, FormOutlined, ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
-import PineyView from "./PineyView";
-import ModalGraphic from "./ModalGraphic";
-import * as datasets from "../../../Config/datasets";
-import { SERVER } from "../../../Config/Server.config";
 import moment from 'moment';
+import React, { useEffect, useRef, useState } from "react";
+import { getUserBrowser } from "utils/utils";
+import { SERVER } from "../../../Config/Server.config";
+import * as datasets from "../../../Config/datasets";
+import { colorScale } from "../constants/PhaseViewData";
+import PineyView from "./PineyView";
 import Search from "./Search";
-
-const { Step } = Steps;
 
 const PhaseView = (
   { rawData,
@@ -758,41 +755,20 @@ const PhaseView = (
   }, [actionsDone])
 
   useEffect(() => {
-    let browser;
-    function getUserBrowser() { 
-      if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
-     {
-         browser ='Opera'
-     }
-     else if(navigator.userAgent.indexOf("Edg") != -1 )
-     {
-         browser ='Edge'
-     }
-     else if(navigator.userAgent.indexOf("Chrome") != -1 )
-     {
-         browser ='Chrome'
-     }
-     else if(navigator.userAgent.indexOf("Safari") != -1)
-     {
-         browser ='Safari'
-     }
-     else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
-     {
-          browser ='Firefox'
-     }
-     else 
-     {
-        browser ='unknown'
-     }
-     }
-     getUserBrowser()
-    setUserBrowser(browser)
-    datasets.getData(`${SERVER.PROJECT_ACTION_ITEM}`, {   
-    }).then((e) => {     
+    setUserBrowser(getUserBrowser());
+    const controller = new AbortController();
+    datasets.getData(
+      `${SERVER.PROJECT_ACTION_ITEM}`,
+      datasets.getToken(),
+      controller.signal
+    ).then((e) => {     
       setActionsDone(e);
     }).catch((e) => {
       console.log(e);
-    })  
+    });
+    return () => {
+      controller.abort();
+    };
   }, [tabKey,updateAction])
 
 
