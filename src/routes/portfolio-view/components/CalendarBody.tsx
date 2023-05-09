@@ -1618,7 +1618,7 @@ const CalendarBody = ({
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
             <div style={{ marginTop: marginTopFactor }}>
-              <div style={{ height: calendarData.length=1*39 }} id={`timeline-chart-${groupName.replaceAll(' ', '')}`} />
+              <div style={{ height: calendarData.length=1*39, marginLeft: '2px' }} id={`timeline-chart-${groupName.replaceAll(' ', '')}`} />
             </div>
         </Col>
       </Row>

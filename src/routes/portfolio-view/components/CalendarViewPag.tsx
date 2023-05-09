@@ -234,7 +234,7 @@ const CalendarViewPag = ({
           </Row>
           <Row>
           <div style={{ width: '100%', marginBottom: marginReducerHeaderAxis }}>
-            <div style={{ overflowX: 'hidden', overflowY: 'hidden', marginLeft: '-1px' }} id="timeline-chart-axis" />
+            <div style={{ overflowX: 'hidden', overflowY: 'hidden', marginLeft: '1px' }} id="timeline-chart-axis" />
           </div>
           </Row>
         </div>
