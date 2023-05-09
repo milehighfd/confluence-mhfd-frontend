@@ -6,6 +6,7 @@ import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/cons
 import * as datasets from "../../../Config/datasets";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -22,18 +23,14 @@ const SearchDropdown = (
     rawData,
     groupsBy,
     setCurrentGroup,
-    setSearchWord,
     fullData,
-    searchWord,
     setOpenTable,
   }
     : {
       rawData: any,
       groupsBy: any[],
       setCurrentGroup: Function,
-      setSearchWord: Function,
       fullData: any,
-      searchWord: string,
       setOpenTable: Function,
     }) => {
 
@@ -44,6 +41,12 @@ const SearchDropdown = (
   const {
     setProjectKeyword
   } = useMapDispatch();
+  const {
+    searchWord
+  } = usePortflioState();
+  const {
+    setSearchWord
+  } = usePortfolioDispatch();
 
   let displayedTabKey = tabKeys;
   const content = (

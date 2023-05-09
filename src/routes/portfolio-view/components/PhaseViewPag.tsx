@@ -12,8 +12,6 @@ const PhaseViewPag = ({
   rawData,
   groupsBy,
   setCurrentGroup,
-  setSearchWord,
-  searchWord,
   searchRef,
   tabKey,
   index,
@@ -36,8 +34,6 @@ const PhaseViewPag = ({
   rawData: any,
   groupsBy: any,
   setCurrentGroup: any,
-  setSearchWord: any,
-  searchWord: any,
   searchRef: any,
   tabKey: any,
   index: any,
@@ -218,8 +214,6 @@ const PhaseViewPag = ({
         <SearchDropdown rawData={rawData}
           groupsBy={groupsBy}
           setCurrentGroup={setCurrentGroup}
-          setSearchWord={setSearchWord}
-          searchWord={searchWord}
           fullData={rawData}
           setOpenTable={setOpenTable}></SearchDropdown>
       </Col>

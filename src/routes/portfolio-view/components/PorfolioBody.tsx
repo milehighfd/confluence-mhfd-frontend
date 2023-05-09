@@ -14,6 +14,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import PhaseViewPag from 'routes/portfolio-view/components/PhaseViewPag';
 import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -36,9 +37,17 @@ const PortafolioBody = ({
     resetFilterProjectOptionsEmpty,
   } = useMapDispatch();
   const {
+    setSearchWord
+  } = usePortfolioDispatch();
+
+  const {
     filterProjectOptions,
     filterProjectOptionsNoFilter
   } = useMapState();
+  const {
+    searchWord
+  } = usePortflioState();
+    
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
@@ -62,7 +71,6 @@ const PortafolioBody = ({
   const [openDrop, setOpenDrop] = useState(false);
   const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
-  const [searchWord, setSearchWord] = useState('');
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
   const [collapsePhase, setCollapsePhase] = useState(false);
@@ -471,7 +479,6 @@ const PortafolioBody = ({
                 <div className="protafolio-body">
                   {openFilters && <Filters filtersObject={ {filterby, filterValue, tabKey}}/>}
                       {optionSelect === 'List' && <TablePortafolio
-                        searchWord={searchWord}
                         searchRef={searchRef}
                         setOpenTable={setOpenTable}
                         openTable={openTable}
@@ -480,7 +487,6 @@ const PortafolioBody = ({
                         groupsBy={groupsBy}
                         setCurrentGroup={setCurrentGroup}
                         currentGroup={currentGroup}
-                        setSearchWord={setSearchWord}
                         email={appUser.userInformation?.email}
                         setCollapsePhase={setCollapsePhase}
                         collapsePhase={collapsePhase}
@@ -498,8 +504,6 @@ const PortafolioBody = ({
                         rawData={newData}
                         groupsBy={groupsBy}
                         setCurrentGroup={setCurrentGroup}
-                        setSearchWord={setSearchWord}
-                        searchWord={searchWord}
                         searchRef={searchRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
@@ -525,8 +529,6 @@ const PortafolioBody = ({
                       rawData={newData}
                       groupsBy={groupsBy}
                       setCurrentGroup={setCurrentGroup}
-                      setSearchWord={setSearchWord}
-                      searchWord={searchWord}
                       indexParent={idx}
                       phaseRef={phaseRef}
                       searchRef={searchRef}

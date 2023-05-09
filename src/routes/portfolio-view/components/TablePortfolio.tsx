@@ -13,6 +13,7 @@ import {
 import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import TableGroups from 'routes/portfolio-view/components/TableGroups';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 
 const TablePortafolio = ({
     tabKey,
@@ -23,10 +24,8 @@ const TablePortafolio = ({
     rawData,
     index,
     groupsBy,
-    setCurrentGroup,
-    setSearchWord,    
+    setCurrentGroup,    
     email,
-    searchWord,
     setCollapsePhase,
     collapsePhase,
     currentGroup,
@@ -45,9 +44,7 @@ const TablePortafolio = ({
     index: number,
     groupsBy: any[],
     setCurrentGroup: Function,
-    setSearchWord: Function,
     email: string,
-    searchWord: string,
     setCollapsePhase: Function,
     collapsePhase: any,
     currentGroup: any,
@@ -57,7 +54,6 @@ const TablePortafolio = ({
     setUpdateFavorites: Function,
     sortValue: any,
   }) => {
-
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const scrollRef = useRef<null | HTMLDivElement>(null);
@@ -136,8 +132,6 @@ const TablePortafolio = ({
           <SearchDropdown rawData={rawData}
             groupsBy={groupsBy}
             setCurrentGroup={setCurrentGroup}
-            setSearchWord={setSearchWord}
-            searchWord={searchWord}
             fullData={rawData}
             setOpenTable={setOpenTable}></SearchDropdown>
         </Col>

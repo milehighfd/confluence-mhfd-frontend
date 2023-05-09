@@ -14,8 +14,6 @@ const CalendarViewPag = ({
   rawData,
   groupsBy,
   setCurrentGroup,
-  setSearchWord,
-  searchWord,
   indexParent,
   phaseRef,
   searchRef,
@@ -50,8 +48,6 @@ const CalendarViewPag = ({
   rawData: any,
   groupsBy: any,
   setCurrentGroup: any,
-  setSearchWord: any,
-  searchWord: any,
   indexParent: any,
   phaseRef: any,
   searchRef: any,
@@ -226,8 +222,6 @@ const CalendarViewPag = ({
         <SearchDropdown rawData={rawData}
           groupsBy={groupsBy}
           setCurrentGroup={setCurrentGroup}
-          setSearchWord={setSearchWord}
-          searchWord={searchWord}
           fullData={rawData}
           setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
