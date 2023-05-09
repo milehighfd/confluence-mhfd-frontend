@@ -16,7 +16,6 @@ const TableGroups = ({
   openTable,
   index,
   tabKey,
-  email,
   scrollRef,
   tableHeaderRef,
   tableRef,
@@ -35,7 +34,6 @@ const TableGroups = ({
   openTable: any,
   index: any,
   tabKey: any,
-  email: any,
   scrollRef:any,
   tableHeaderRef:any,
   tableRef: any,
@@ -159,7 +157,6 @@ const TableGroups = ({
             prev={prev}
             setNext={setNext}
             setPrev={setPrev}
-            email={email}
             openTable={openTable}
             index={index}
             scrollHeaderScrollRef={scrollHeaderScrollRef}

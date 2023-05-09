@@ -16,7 +16,6 @@ const PhaseGroups = ({
   openTable,
   index,
   tabKey,
-  email,
   phaseRef,
   totalLabelWidth,
   scheduleList,
@@ -44,7 +43,6 @@ const PhaseGroups = ({
   openTable: any,
   index: any,
   tabKey: any,
-  email: any,
   phaseRef: any,
   totalLabelWidth: any,
   scheduleList: any,
@@ -137,7 +135,6 @@ const PhaseGroups = ({
             prev={prev}
             setNext={setNext}
             setPrev={setPrev}
-            email={email}
             index={index}
             phaseRef={phaseRef}
             totalLabelWidth={totalLabelWidth}

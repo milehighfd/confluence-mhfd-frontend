@@ -1,9 +1,10 @@
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import store from 'store';
+import { Col, Row, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import { Col, Row, Table } from 'antd';
 import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
-import React, { useEffect, useState } from 'react';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
@@ -16,7 +17,6 @@ const TableBody = ({
   prev,
   setNext,
   setPrev,
-  email,
   openTable,
   index,
   scrollHeaderScrollRef,
@@ -37,7 +37,6 @@ const TableBody = ({
   prev: boolean,
   setNext: Function,
   setPrev: Function,
-  email: string,
   openTable: any,
   index: number,
   scrollHeaderScrollRef:any,
@@ -53,6 +52,9 @@ const TableBody = ({
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   const { currentGroup } = usePortflioState();
+
+  const appUser = store.getState().profile;
+  const email = appUser.userInformation?.email;
 
   const [dataParsed, setDataParsed] = useState<any>([]);
   // const [page, setPage] = useState(1);

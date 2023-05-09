@@ -13,6 +13,7 @@ import moment from "moment";
 import { colorScale } from "../constants/PhaseViewData";
 import { LIMIT_PAGINATION } from "../../../constants/constants";
 import { usePortflioState } from '../../../hook/portfolioHook';
+import store from '../../../store';
 
 
 const { TabPane } = Tabs;
@@ -33,7 +34,6 @@ const CalendarBody = ({
   prev,
   setNext,
   setPrev,
-  email,
   openTable,
   setOpenTable,
   index,
@@ -85,7 +85,6 @@ const CalendarBody = ({
   prev: boolean,
   setNext: Function,
   setPrev: Function,
-  email: string,
   openTable: any,
   setOpenTable: Function,
   index: number,
@@ -130,6 +129,9 @@ const CalendarBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  const appUser = store.getState().profile;
+  const email = appUser.userInformation?.email;
+
   const { currentGroup } = usePortflioState();
 
   // const [page, setPage] = useState(1);

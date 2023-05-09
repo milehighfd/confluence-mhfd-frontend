@@ -22,8 +22,7 @@ const TablePortafolio = ({
     setOpenTable,
     openTable,
     rawData,
-    index,    
-    email,
+    index,
     setCollapsePhase,
     collapsePhase,
     tabKeyId,
@@ -39,7 +38,6 @@ const TablePortafolio = ({
     openTable: any[],      
     rawData: any,      
     index: number,
-    email: string,
     setCollapsePhase: Function,
     collapsePhase: any,
     tabKeyId: any,
@@ -185,7 +183,6 @@ const TablePortafolio = ({
                       setOpenTable={setOpenTable}
                       index={index}
                       tabKey={tabKey}
-                      email={email}
                       scrollRef={scrollRef}
                       tableHeaderRef={tableHeaderRef}
                       tableRef={tableRef}

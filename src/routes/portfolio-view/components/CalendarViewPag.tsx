@@ -25,7 +25,6 @@ const CalendarViewPag = ({
   openTable,
   setOpenTable,
   favorites,
-  email,
   setTollData,
   setOpenModalTollgate,
   setOpenPiney,
@@ -56,7 +55,6 @@ const CalendarViewPag = ({
   openTable: any,
   setOpenTable: any,
   favorites: any,
-  email: any,
   setTollData: any,
   setOpenModalTollgate: any,
   setOpenPiney: any,
@@ -302,7 +300,6 @@ const CalendarViewPag = ({
                   index={index}
                   tabKey={tabKey}
                   favorites={favorites}
-                  email={email}
                   divRef={divRef}
                   searchRef={searchRef}
                   tableRef={tableRef}

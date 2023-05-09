@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import * as d3 from 'd3';
 import moment from 'moment';
+import store from 'store';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
@@ -19,7 +20,6 @@ const PhaseBody = ({
   prev,
   setNext,
   setPrev,
-  email,
   index,
   phaseRef,
   totalLabelWidth,
@@ -50,7 +50,6 @@ const PhaseBody = ({
   prev: boolean,
   setNext: Function,
   setPrev: Function,
-  email: string,
   index: number,
   phaseRef: any,
   totalLabelWidth: number,
@@ -75,6 +74,9 @@ const PhaseBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  const appUser = store.getState().profile;
+  const email = appUser.userInformation?.email;
+
   const { currentGroup } = usePortflioState();
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);

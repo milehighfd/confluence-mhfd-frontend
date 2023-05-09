@@ -18,7 +18,6 @@ const PhaseViewPag = ({
   setCollapsePhase,
   openTable,
   setOpenTable,
-  email,
   setTollData,
   setOpenModalTollgate,
   setGrapphicOpen,
@@ -37,7 +36,6 @@ const PhaseViewPag = ({
   setCollapsePhase: any,
   openTable: any,
   setOpenTable: any,
-  email: any,  
   setTollData: any,
   setOpenModalTollgate: any,
   setGrapphicOpen: any,
@@ -271,7 +269,6 @@ const PhaseViewPag = ({
                     setOpenTable={setOpenTable}
                     index={index}
                     tabKey={tabKey}
-                    email={email}
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
                     scheduleList={scheduleList}

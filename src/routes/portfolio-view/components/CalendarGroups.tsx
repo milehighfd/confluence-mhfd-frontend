@@ -29,7 +29,6 @@ const CalendarGroups = ({
   index,
   tabKey,
   favorites,
-  email,
   divRef,
   searchRef,
   tableRef,
@@ -77,7 +76,6 @@ const CalendarGroups = ({
   index: any,
   tabKey: any,
   favorites: any,
-  email: any,
   divRef: any,
   searchRef: any,
   tableRef: any,
@@ -192,7 +190,6 @@ const CalendarGroups = ({
             prev={prev}
             setNext={setNext}
             setPrev={setPrev}
-            email={email}
             openTable={openTable}
             setOpenTable={setOpenTable}
             index={index}
