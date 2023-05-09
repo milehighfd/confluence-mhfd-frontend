@@ -13,7 +13,7 @@ import {
 import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import TableGroups from 'routes/portfolio-view/components/TableGroups';
-import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const TablePortafolio = ({
     tabKey,
@@ -21,7 +21,6 @@ const TablePortafolio = ({
     searchRef,
     setOpenTable,
     openTable,
-    rawData,
     index,
     setCollapsePhase,
     collapsePhase,
@@ -35,8 +34,7 @@ const TablePortafolio = ({
     setSortValue: Function | any,
     searchRef: React.MutableRefObject<any>,
     setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
-    openTable: any[],      
-    rawData: any,      
+    openTable: any[],
     index: number,
     setCollapsePhase: Function,
     collapsePhase: any,
@@ -124,9 +122,9 @@ const TablePortafolio = ({
       </div>  
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
-          <SearchDropdown rawData={rawData}
-            fullData={rawData}
-            setOpenTable={setOpenTable}></SearchDropdown>
+          <SearchDropdown
+            setOpenTable={setOpenTable}
+          />
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
           <div className="table-body">

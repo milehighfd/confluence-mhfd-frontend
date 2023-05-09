@@ -10,7 +10,6 @@ import { getUserBrowser } from 'utils/utils';
 import { usePortflioState } from '../../../hook/portfolioHook';
 
 const PhaseViewPag = ({
-  rawData,
   searchRef,
   tabKey,
   index,
@@ -27,7 +26,6 @@ const PhaseViewPag = ({
   updateFavorites,
   setUpdateFavorites,
 }: {
-  rawData: any,
   searchRef: any,
   tabKey: any,
   index: any,
@@ -205,9 +203,9 @@ const PhaseViewPag = ({
     <Row>
       <Col xs={{ span: 10 }} lg={{ span: 5 }}>
         <div className="vertical-line"></div>
-        <SearchDropdown rawData={rawData}
-          fullData={rawData}
-          setOpenTable={setOpenTable}></SearchDropdown>
+        <SearchDropdown
+          setOpenTable={setOpenTable} 
+        />
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="phaseview-body">

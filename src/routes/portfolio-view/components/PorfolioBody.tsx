@@ -472,7 +472,6 @@ const PortafolioBody = ({
                         searchRef={searchRef}
                         setOpenTable={setOpenTable}
                         openTable={openTable}
-                        rawData={newData}
                         index={idx}
                         setCollapsePhase={setCollapsePhase}
                         collapsePhase={collapsePhase}
@@ -486,8 +485,7 @@ const PortafolioBody = ({
                       />
                       }
                       {optionSelect === 'Phase' && 
-                      <PhaseViewPag                        
-                        rawData={newData}
+                      <PhaseViewPag
                         searchRef={searchRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
@@ -507,7 +505,6 @@ const PortafolioBody = ({
                       }
                     {optionSelect === 'Schedule'  && 
                     <CalendarViewPag
-                      rawData={newData}
                       indexParent={idx}
                       phaseRef={phaseRef}
                       searchRef={searchRef}
