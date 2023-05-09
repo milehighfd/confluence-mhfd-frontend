@@ -170,57 +170,57 @@ const PortafolioBody = ({
       })      
     }    
     if (getLength(filterProjectOptions.servicearea) > 0 || filterProjectOptions.servicearea !== '') {
-      let code = filterProjectOptions.servicearea;     
+      const code = filterProjectOptions.servicearea;     
       updateFilterPagination('servicearea', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.county) > 0 || filterProjectOptions.county !== '') {      
-      let code = filterProjectOptions.county;
+      const code = filterProjectOptions.county;
       updateFilterPagination('county', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.jurisdiction) > 0 || filterProjectOptions.jurisdiction !== '') {
-      let code = filterProjectOptions.jurisdiction;
+      const code = filterProjectOptions.jurisdiction;
       updateFilterPagination('jurisdiction', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.consultant) > 0 || filterProjectOptions.consultant !== '') {
-      let code = filterProjectOptions.consultant;
+      const code = filterProjectOptions.consultant;
       updateFilterPagination('consultant', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.mhfdmanager) > 0 || filterProjectOptions.mhfdmanager !== '') {
-      let code = filterProjectOptions.mhfdmanager;
+      const code = filterProjectOptions.mhfdmanager;
       updateFilterPagination('staff', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.contractor) > 0 || filterProjectOptions.contractor !== '') {
-      let code = filterProjectOptions.contractor;
+      const code = filterProjectOptions.contractor;
       updateFilterPagination('contractor', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.status) > 0  ) {
-      let code = filterProjectOptions.status;
+      const code = filterProjectOptions.status;
       updateFilterPagination('status', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.totalcost) > 0  ) {
-      let code = filterProjectOptions.totalcost;
+      const code = filterProjectOptions.totalcost;
       updateFilterPagination('cost', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.streamname) > 0  ) {
-      let code = filterProjectOptions.streamname;
+      const code = filterProjectOptions.streamname;
       updateFilterPagination('stream', code);
       filterExist = true;
     }
     if (filterProjectOptions.lgmanager !== '') {
-      let code = filterProjectOptions.lgmanager;
+      const code = filterProjectOptions.lgmanager;
       updateFilterPagination('lgmanager', code);
       filterExist = true;
     }
     if (getLength(filterProjectOptions.projecttype) > 0 || filterProjectOptions.contractor !== '') {
-      let code = filterProjectOptions.projecttype;
+      const code = filterProjectOptions.projecttype;
       updateFilterPagination('projecttype', code);
       filterExist = true;
     }
