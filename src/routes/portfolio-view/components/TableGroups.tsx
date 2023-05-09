@@ -4,6 +4,7 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import TableBody from 'routes/portfolio-view/components/TableBody';
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const { Panel } = Collapse;
 
@@ -14,7 +15,6 @@ const TableGroups = ({
   setOpenTable,
   openTable,
   index,
-  currentGroup,
   tabKey,
   email,
   scrollRef,
@@ -34,7 +34,6 @@ const TableGroups = ({
   setOpenTable: any,
   openTable: any,
   index: any,
-  currentGroup: any,
   tabKey: any,
   email: any,
   scrollRef:any,
@@ -48,6 +47,8 @@ const TableGroups = ({
   dataId: any,
   sortValue: any,
 }) => {
+  const { currentGroup } = usePortflioState();
+
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [counter, setCounter] = useState([]);
@@ -152,7 +153,6 @@ const TableGroups = ({
           </>
         } key={index}>
           <TableBody
-            currentGroup={currentGroup}
             dataId={dataId}
             tabKey={tabKey}
             next={next}

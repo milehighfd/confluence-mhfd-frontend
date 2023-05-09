@@ -7,9 +7,9 @@ import React, { useEffect, useState } from 'react';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const TableBody = ({
-  currentGroup,
   dataId,
   tabKey,
   next,
@@ -31,7 +31,6 @@ const TableBody = ({
   page,
   setPage,
 }: {
-  currentGroup: any,
   dataId: any,
   tabKey: any,
   next: boolean,
@@ -53,6 +52,8 @@ const TableBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  const { currentGroup } = usePortflioState();
+
   const [dataParsed, setDataParsed] = useState<any>([]);
   // const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);

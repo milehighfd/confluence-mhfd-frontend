@@ -12,6 +12,7 @@ import * as d3 from 'd3';
 import moment from "moment";
 import { colorScale } from "../constants/PhaseViewData";
 import { LIMIT_PAGINATION } from "../../../constants/constants";
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 
 const { TabPane } = Tabs;
@@ -25,7 +26,6 @@ const popovers: any = [
   <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
 ]
 const CalendarBody = ({
-  currentGroup,
   groupCollapsed,
   dataId,
   tabKey,
@@ -78,7 +78,6 @@ const CalendarBody = ({
   page,
   setPage,
 }: {
-  currentGroup: any,
   groupCollapsed: any,
   dataId: any,
   tabKey: any,
@@ -131,6 +130,8 @@ const CalendarBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  const { currentGroup } = usePortflioState();
+
   // const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);

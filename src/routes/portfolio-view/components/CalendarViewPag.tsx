@@ -9,11 +9,11 @@ import CalendarGroups from "./CalendarGroups";
 import { getGroupList } from "./ListUtils";
 import PineyView from "./PineyView";
 import SearchDropdown from "./SearchDropdown";
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const CalendarViewPag = ({
   rawData,
   groupsBy,
-  setCurrentGroup,
   indexParent,
   phaseRef,
   searchRef,
@@ -21,7 +21,6 @@ const CalendarViewPag = ({
   tableRef,
   tabKey,
   index,
-  currentGroup,
   collapsePhase,
   setCollapsePhase,
   openTable,
@@ -47,7 +46,6 @@ const CalendarViewPag = ({
 }: {
   rawData: any,
   groupsBy: any,
-  setCurrentGroup: any,
   indexParent: any,
   phaseRef: any,
   searchRef: any,
@@ -55,7 +53,6 @@ const CalendarViewPag = ({
   tableRef: any,
   tabKey: any,
   index: any,
-  currentGroup: any,
   collapsePhase: any,
   setCollapsePhase: any,
   openTable: any,
@@ -79,6 +76,8 @@ const CalendarViewPag = ({
   updateFavorites: any,
   setUpdateFavorites: any,
 }) => {
+  const { currentGroup } = usePortflioState();
+
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [statusCounter, setStatusCounter] = useState(0);
@@ -221,7 +220,6 @@ const CalendarViewPag = ({
       <Col xs={ { span: 10 }} lg={{ span: 5 }}>
         <SearchDropdown rawData={rawData}
           groupsBy={groupsBy}
-          setCurrentGroup={setCurrentGroup}
           fullData={rawData}
           setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
@@ -305,7 +303,6 @@ const CalendarViewPag = ({
                   openTable={openTable}
                   setOpenTable={setOpenTable}
                   index={index}
-                  currentGroup={currentGroup}
                   tabKey={tabKey}
                   favorites={favorites}
                   email={email}

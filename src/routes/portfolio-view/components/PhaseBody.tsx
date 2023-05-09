@@ -10,9 +10,9 @@ import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimated
 import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const PhaseBody = ({
-  currentGroup,
   dataId,
   tabKey,
   next,
@@ -44,7 +44,6 @@ const PhaseBody = ({
   page,
   setPage,
 }: {
-  currentGroup: any,
   dataId: any,
   tabKey: any,
   next: boolean,
@@ -76,7 +75,7 @@ const PhaseBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
-
+  const { currentGroup } = usePortflioState();
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);

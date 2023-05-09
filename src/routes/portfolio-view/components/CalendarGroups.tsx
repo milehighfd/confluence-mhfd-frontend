@@ -7,6 +7,7 @@ import * as datasets from "../../../Config/datasets";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
 import CalendarBody from "./CalendarBody";
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -26,7 +27,6 @@ const CalendarGroups = ({
   setOpenTable,
   openTable,
   index,
-  currentGroup,
   tabKey,
   favorites,
   email,
@@ -75,7 +75,6 @@ const CalendarGroups = ({
   setOpenTable: any,
   openTable: any,
   index: any,
-  currentGroup: any,
   tabKey: any,
   favorites: any,
   email: any,
@@ -117,6 +116,8 @@ const CalendarGroups = ({
   setUpdateFavorites: any,
   dataId: any,
 }) => {
+  const { currentGroup } = usePortflioState();
+
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [page, setPage] = useState(1);
@@ -184,7 +185,6 @@ const CalendarGroups = ({
           </div>
         } key={index}>
           <CalendarBody
-            currentGroup={currentGroup}
             groupCollapsed={groupCollapsed}
             dataId={data}
             tabKey={tabKey}

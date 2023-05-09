@@ -22,14 +22,12 @@ const SearchDropdown = (
   {
     rawData,
     groupsBy,
-    setCurrentGroup,
     fullData,
     setOpenTable,
   }
     : {
       rawData: any,
       groupsBy: any[],
-      setCurrentGroup: Function,
       fullData: any,
       setOpenTable: Function,
     }) => {
@@ -45,7 +43,8 @@ const SearchDropdown = (
     searchWord
   } = usePortflioState();
   const {
-    setSearchWord
+    setSearchWord,
+    setCurrentGroup
   } = usePortfolioDispatch();
 
   let displayedTabKey = tabKeys;

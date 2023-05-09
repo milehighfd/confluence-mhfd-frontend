@@ -36,16 +36,18 @@ const PortafolioBody = ({
     setBoundMap,
     resetFilterProjectOptionsEmpty,
   } = useMapDispatch();
+  /*
   const {
-    setSearchWord
-  } = usePortfolioDispatch();
 
+  } = usePortfolioDispatch();
+  */
+ 
   const {
     filterProjectOptions,
     filterProjectOptionsNoFilter
   } = useMapState();
   const {
-    searchWord
+    searchWord,
   } = usePortflioState();
     
   const [filterby, setFilterby] = useState('');
@@ -69,7 +71,6 @@ const PortafolioBody = ({
   const scheduleRef = useRef<null | HTMLDivElement>(null);
   const [zoomTimeline] = useState(0);
   const [openDrop, setOpenDrop] = useState(false);
-  const [currentGroup, setCurrentGroup] = useState(DEFAULT_GROUP);
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
@@ -485,8 +486,6 @@ const PortafolioBody = ({
                         rawData={newData}
                         index={idx}
                         groupsBy={groupsBy}
-                        setCurrentGroup={setCurrentGroup}
-                        currentGroup={currentGroup}
                         email={appUser.userInformation?.email}
                         setCollapsePhase={setCollapsePhase}
                         collapsePhase={collapsePhase}
@@ -503,11 +502,9 @@ const PortafolioBody = ({
                       <PhaseViewPag                        
                         rawData={newData}
                         groupsBy={groupsBy}
-                        setCurrentGroup={setCurrentGroup}
                         searchRef={searchRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
-                        currentGroup={currentGroup}
                         collapsePhase={collapsePhase}
                         setCollapsePhase={setCollapsePhase}
                         openTable={openTable}
@@ -528,7 +525,6 @@ const PortafolioBody = ({
                     <CalendarViewPag
                       rawData={newData}
                       groupsBy={groupsBy}
-                      setCurrentGroup={setCurrentGroup}
                       indexParent={idx}
                       phaseRef={phaseRef}
                       searchRef={searchRef}
@@ -536,7 +532,6 @@ const PortafolioBody = ({
                       tableRef={tableRef}
                       tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       index={idx}
-                      currentGroup={currentGroup}
                       collapsePhase={collapsePhase}
                       setCollapsePhase={setCollapsePhase}
                       openTable={openTable}

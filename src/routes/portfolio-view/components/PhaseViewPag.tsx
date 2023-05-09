@@ -7,15 +7,14 @@ import PhaseGroups from 'routes/portfolio-view/components/PhaseGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import { getUserBrowser } from 'utils/utils';
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const PhaseViewPag = ({
   rawData,
   groupsBy,
-  setCurrentGroup,
   searchRef,
   tabKey,
   index,
-  currentGroup,
   collapsePhase,
   setCollapsePhase,
   openTable,
@@ -33,11 +32,9 @@ const PhaseViewPag = ({
 }: {
   rawData: any,
   groupsBy: any,
-  setCurrentGroup: any,
   searchRef: any,
   tabKey: any,
   index: any,
-  currentGroup: any,
   collapsePhase: any,
   setCollapsePhase: any,
   openTable: any,
@@ -53,6 +50,10 @@ const PhaseViewPag = ({
   updateFavorites: any,
   setUpdateFavorites: any,
 }) => {
+  const {
+    currentGroup
+  } = usePortflioState();
+
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [statusCounter,setStatusCounter] = useState(0);
@@ -213,7 +214,6 @@ const PhaseViewPag = ({
         <div className="vertical-line"></div>
         <SearchDropdown rawData={rawData}
           groupsBy={groupsBy}
-          setCurrentGroup={setCurrentGroup}
           fullData={rawData}
           setOpenTable={setOpenTable}></SearchDropdown>
       </Col>
@@ -273,7 +273,6 @@ const PhaseViewPag = ({
                     openTable={openTable}
                     setOpenTable={setOpenTable}
                     index={index}
-                    currentGroup={currentGroup}
                     tabKey={tabKey}
                     email={email}
                     phaseRef={phaseRef}

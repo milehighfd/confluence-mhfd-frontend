@@ -4,6 +4,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import PhaseBody from 'routes/portfolio-view/components/PhaseBody';
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const { Panel } = Collapse;
 
@@ -14,7 +15,6 @@ const PhaseGroups = ({
   setOpenTable,
   openTable,
   index,
-  currentGroup,
   tabKey,
   email,
   phaseRef,
@@ -43,7 +43,6 @@ const PhaseGroups = ({
   setOpenTable: any,
   openTable: any,
   index: any,
-  currentGroup: any,
   tabKey: any,
   email: any,
   phaseRef: any,
@@ -66,6 +65,8 @@ const PhaseGroups = ({
   setUpdateFavorites: any,
   dataId: any,
 }) => {
+  const { currentGroup } = usePortflioState();
+
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [page, setPage] = useState(1);
@@ -130,7 +131,6 @@ const PhaseGroups = ({
           </div>
         } key={index}>
           <PhaseBody
-            currentGroup={currentGroup}
             dataId={data}
             tabKey={tabKey}
             next={next}

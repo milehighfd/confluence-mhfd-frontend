@@ -23,12 +23,10 @@ const TablePortafolio = ({
     openTable,
     rawData,
     index,
-    groupsBy,
-    setCurrentGroup,    
+    groupsBy,    
     email,
     setCollapsePhase,
     collapsePhase,
-    currentGroup,
     tabKeyId,
     filterPagination,
     updateFavorites,
@@ -43,17 +41,18 @@ const TablePortafolio = ({
     rawData: any,      
     index: number,
     groupsBy: any[],
-    setCurrentGroup: Function,
     email: string,
     setCollapsePhase: Function,
     collapsePhase: any,
-    currentGroup: any,
     tabKeyId: any,
     filterPagination: any,
     updateFavorites: any,
     setUpdateFavorites: Function,
     sortValue: any,
   }) => {
+  const {
+    currentGroup
+  } = usePortflioState();
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const scrollRef = useRef<null | HTMLDivElement>(null);
@@ -131,7 +130,6 @@ const TablePortafolio = ({
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
           <SearchDropdown rawData={rawData}
             groupsBy={groupsBy}
-            setCurrentGroup={setCurrentGroup}
             fullData={rawData}
             setOpenTable={setOpenTable}></SearchDropdown>
         </Col>
@@ -189,7 +187,6 @@ const TablePortafolio = ({
                       openTable={openTable}
                       setOpenTable={setOpenTable}
                       index={index}
-                      currentGroup={currentGroup}
                       tabKey={tabKey}
                       email={email}
                       scrollRef={scrollRef}

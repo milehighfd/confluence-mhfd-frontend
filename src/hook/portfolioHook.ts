@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  setCurrentGroup,
   setSearchWord
 } from '../store/actions/portfolioActions';
 
@@ -12,6 +13,9 @@ export const usePortfolioDispatch = () => {
   return {
     setSearchWord: (searchWord: string) => {
       dispatch(setSearchWord(searchWord));
+    },
+    setCurrentGroup: (currentGroup: string) => {
+      dispatch(setCurrentGroup(currentGroup));
     }
   };
 };
