@@ -1,24 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, LeftOutlined, MoreOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
-import { useMapDispatch } from "hook/mapHook";
+import React, { useEffect, useState } from 'react';
+import { Collapse } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
-import CalendarBody from "./CalendarBody";
-import { usePortflioState } from '../../../hook/portfolioHook';
+import * as datasets from 'Config/datasets';
+import { usePortflioState } from 'hook/portfolioHook';
+import CalendarBody from 'routes/portfolio-view/components/CalendarBody';
 
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
+
 const CalendarGroups = ({
   data,
   groupCollapsed,
@@ -28,7 +17,6 @@ const CalendarGroups = ({
   openTable,
   index,
   tabKey,
-  favorites,
   divRef,
   searchRef,
   tableRef,
@@ -39,7 +27,6 @@ const CalendarGroups = ({
   setTollData,
   setOpenModalTollgate,
   actionsDone,
-  userBrowser,
   setOpenPiney,
   setGrapphicOpen,
   setPositionModalGraphic,
@@ -75,7 +62,6 @@ const CalendarGroups = ({
   openTable: any,
   index: any,
   tabKey: any,
-  favorites: any,
   divRef: any,
   searchRef: any,
   tableRef: any,
@@ -86,7 +72,6 @@ const CalendarGroups = ({
   setTollData: any,
   setOpenModalTollgate: any,
   actionsDone: any,
-  userBrowser: any,
   setOpenPiney: any,
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
@@ -203,7 +188,6 @@ const CalendarGroups = ({
             setTollData={setTollData}
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
-            userBrowser={userBrowser}
             setOpenPiney={setOpenPiney}
             setGrapphicOpen={setGrapphicOpen}
             setPositionModalGraphic={setPositionModalGraphic}

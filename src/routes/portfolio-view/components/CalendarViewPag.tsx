@@ -1,18 +1,15 @@
-import { CalendarOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { SERVER } from 'Config/Server.config';
+import React, { useEffect, useState } from 'react';
+import { CalendarOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
-import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
-import { getUserBrowser } from "utils/utils";
-import * as datasets from "Config/datasets";
-import CalendarGroups from "./CalendarGroups";
-import PineyView from "./PineyView";
-import SearchDropdown from "./SearchDropdown";
+import moment from 'moment';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from 'Config/datasets';
 import { usePortflioState } from 'hook/portfolioHook';
+import CalendarGroups from 'routes/portfolio-view/components//CalendarGroups';
+import PineyView from 'routes/portfolio-view/components/PineyView';
+import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 
 const CalendarViewPag = ({
-  indexParent,
-  phaseRef,
   searchRef,
   divRef,
   tableRef,
@@ -22,7 +19,6 @@ const CalendarViewPag = ({
   setCollapsePhase,
   openTable,
   setOpenTable,
-  favorites,
   setTollData,
   setOpenModalTollgate,
   setOpenPiney,
@@ -41,8 +37,6 @@ const CalendarViewPag = ({
   updateFavorites,
   setUpdateFavorites,
 }: {
-  indexParent: any,
-  phaseRef: any,
   searchRef: any,
   divRef: any,
   tableRef: any,
@@ -52,7 +46,6 @@ const CalendarViewPag = ({
   setCollapsePhase: any,
   openTable: any,
   setOpenTable: any,
-  favorites: any,
   setTollData: any,
   setOpenModalTollgate: any,
   setOpenPiney: any,
@@ -74,13 +67,10 @@ const CalendarViewPag = ({
   const { currentGroup } = usePortflioState();
 
   const [phaseList, setPhaseList] = useState<any>([]);
-  const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [statusCounter, setStatusCounter] = useState(0);
-  const [statusList, setStatusList] = useState<any>([]);
   const [actionsDone, setActionsDone] = useState<any>({});
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
-  const [userBrowser, setUserBrowser] = useState<any>()
   const [updateAction, setUpdateAction] = useState(false);
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
   const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
@@ -89,16 +79,12 @@ const CalendarViewPag = ({
   const [zoomSelected, setZoomSelected] = useState('Today');
   const [popUpData, setPopUpData] = useState<any>({});
   const [zoomTimeline, setZoomTimeline] = useState(0);
-  const headerRef = useRef<null | HTMLDivElement>(null);
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   let totalLabelWidth = phaseList.length * labelWidth;
-  let heightSearchBody = document.getElementById("rc-tabs-0-panel-CIP")?.offsetHeight
-  let heightSearchBody2 = document.getElementById("rc-tabs-1-panel-CIP")?.offsetHeight
   let heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
   let heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
-  let heightSearchB = (heightSearchBody ? heightSearchBody: heightSearchBody2)
   let heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest-heightSearchHeader
   let marginReducerHeaderAxis =
     (windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' :
@@ -109,7 +95,6 @@ const CalendarViewPag = ({
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
 
   useEffect(() => {
-    setUserBrowser(getUserBrowser());
     const controller = new AbortController();
     datasets.getData(
       `${SERVER.PROJECT_ACTION_ITEM}`,
@@ -126,7 +111,6 @@ const CalendarViewPag = ({
   }, [tabKey, updateAction])
 
   useEffect(() => {
-    let z = [];
     const controller = new AbortController();
     datasets.postData(
       `${SERVER.PHASE_TYPE}`,
@@ -137,12 +121,10 @@ const CalendarViewPag = ({
       .then((rows) => {        
         setPhaseList(rows)
         setStatusCounter(rows.length)
-        let counter = 0;
-        z = rows.map((x: any) => {
-          counter++;
+        const z = rows.map((x: any, index: number) => {
           return (
             {
-              categoryNo: counter,
+              categoryNo: index,
               from: moment(null),
               to: moment(null),
               status: x?.code_status_type?.status_name,
@@ -158,12 +140,7 @@ const CalendarViewPag = ({
             })
         })
         setScheduleList(z);
-        const y = rows.map((x: any) => {
-          return x.code_status_type;
-        })
-        setStatusList(y)
-        setUpdatePhaseList(!updatePhaseList)
-        return rows
+        setUpdatePhaseList(!updatePhaseList);
       })
       .catch((e) => {
         console.log(e);
@@ -172,20 +149,6 @@ const CalendarViewPag = ({
       controller.abort();
     };
   }, [actionsDone])
-
-  useEffect(() => {
-    const z: any = [];
-    statusList.map((img: any) => {
-      if (z.indexOf(img.status_name) === -1) {
-        z.push(img.status_name)
-      }
-    });
-    const counts = z.map((item1: any) => ([
-      item1,
-      (statusList.filter((item: any) => item.status_name === item1).length) * labelWidth
-    ]));
-    setAvailableStatusList(counts)
-  }, [updatePhaseList])
 
   useEffect(() => {
     const controller = new AbortController();
@@ -292,7 +255,6 @@ const CalendarViewPag = ({
         style={{overflowY:'auto', height:heightSearch}}
       >{
           detailGroup?.map((elem: any, index: number) => {
-            const id = 'collapse' + index;
             return (
               <div id={elem.id} key={elem.id}>
                 <CalendarGroups
@@ -304,7 +266,6 @@ const CalendarViewPag = ({
                   setOpenTable={setOpenTable}
                   index={index}
                   tabKey={tabKey}
-                  favorites={favorites}
                   divRef={divRef}
                   searchRef={searchRef}
                   tableRef={tableRef}
@@ -315,7 +276,6 @@ const CalendarViewPag = ({
                   setTollData={setTollData}
                   setOpenModalTollgate={setOpenModalTollgate}
                   actionsDone={actionsDone}
-                  userBrowser={userBrowser}
                   setOpenPiney={setOpenPiney}
                   setGrapphicOpen={setGrapphicOpen}
                   setPositionModalGraphic={setPositionModalGraphic}

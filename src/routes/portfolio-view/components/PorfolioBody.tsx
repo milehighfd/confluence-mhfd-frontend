@@ -13,7 +13,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import PhaseViewPag from 'routes/portfolio-view/components/PhaseViewPag';
 import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState } from 'hook/portfolioHook';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -35,11 +35,6 @@ const PortafolioBody = ({
     setBoundMap,
     resetFilterProjectOptionsEmpty,
   } = useMapDispatch();
-  /*
-  const {
-
-  } = usePortfolioDispatch();
-  */
 
   const {
     filterProjectOptions,
@@ -66,7 +61,6 @@ const PortafolioBody = ({
   const [openTable, setOpenTable] = useState<any>([]);
   const tableRef = useRef([]); 
   const searchRef = useRef([]); 
-  const phaseRef = useRef<null | HTMLDivElement>(null);
   const scheduleRef = useRef<null | HTMLDivElement>(null);
   const [zoomTimeline] = useState(0);
   const [openDrop, setOpenDrop] = useState(false);
@@ -508,8 +502,6 @@ const PortafolioBody = ({
                       }
                     {optionSelect === 'Schedule'  && 
                     <CalendarViewPag
-                      indexParent={idx}
-                      phaseRef={phaseRef}
                       searchRef={searchRef}
                       divRef={tableRef}
                       tableRef={tableRef}
@@ -519,7 +511,6 @@ const PortafolioBody = ({
                       setCollapsePhase={setCollapsePhase}
                       openTable={openTable}
                       setOpenTable={setOpenTable}
-                      favorites={favorites}
                       setTollData={setTollData}
                       setOpenModalTollgate={setOpenModalTollgate}
                       setOpenPiney={setOpenPiney}
