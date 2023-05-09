@@ -1505,7 +1505,6 @@ const CalendarBody = ({
 
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
-          // console.log(d3.event.transform)
           if (d3.event.transform.k < 35) {
             renderMonthNames();
             renderYearNames();
@@ -1569,7 +1568,6 @@ const CalendarBody = ({
           }
           updateRects();
           
-        console.log('sss',d3.selectAll('.stackedbarHover'))
                               // todayline.attr('x1', calctodayX);
           // todayline.attr('x2', calctodayX);
           d3.selectAll('#todayLine').attr('x1', calctodayX);
