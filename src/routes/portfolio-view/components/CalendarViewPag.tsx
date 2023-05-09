@@ -4,12 +4,11 @@ import { Button, Col, Row } from 'antd';
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { getUserBrowser } from "utils/utils";
-import * as datasets from "../../../Config/datasets";
+import * as datasets from "Config/datasets";
 import CalendarGroups from "./CalendarGroups";
-import { getGroupList } from "./ListUtils";
 import PineyView from "./PineyView";
 import SearchDropdown from "./SearchDropdown";
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState } from 'hook/portfolioHook';
 
 const CalendarViewPag = ({
   indexParent,
@@ -189,10 +188,18 @@ const CalendarViewPag = ({
   }, [updatePhaseList])
 
   useEffect(() => {
-    getGroupList(currentGroup).then((valuesGroups) => {
+    const controller = new AbortController();
+    datasets.getData(
+      SERVER.GET_LIST_GROUPS(currentGroup),
+      datasets.getToken(),
+      controller.signal
+    ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
     })
-  }, [currentGroup])
+    return () => {
+      controller.abort();
+    };
+  }, [currentGroup]);
 
   return <>
     {openPiney && (

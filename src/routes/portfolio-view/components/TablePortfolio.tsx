@@ -10,10 +10,11 @@ import {
   RDHeaderTable,
   RestorationHeaderTable
 } from 'routes/portfolio-view/constants/tableHeader';
-import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import TableGroups from 'routes/portfolio-view/components/TableGroups';
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState } from 'hook/portfolioHook';
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
 
 const TablePortafolio = ({
     tabKey,
@@ -92,10 +93,18 @@ const TablePortafolio = ({
   }
  
   useEffect(() => {
-    getGroupList(currentGroup).then((valuesGroups) => {
+    const controller = new AbortController();
+    datasets.getData(
+      SERVER.GET_LIST_GROUPS(currentGroup),
+      datasets.getToken(),
+      controller.signal
+    ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
     })
-  }, [currentGroup])
+    return () => {
+      controller.abort();
+    };
+  }, [currentGroup]);
   let drr =tableHeaderRef.current;
   let widthMax = drr? drr.offsetWidth : 0;
   let myDiv = drr?.querySelector('.ant-table-thead');
