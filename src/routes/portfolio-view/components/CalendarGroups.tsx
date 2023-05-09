@@ -10,19 +10,13 @@ const { Panel } = Collapse;
 
 const CalendarGroups = ({
   data,
-  groupCollapsed,
   setCollapsePhase,
   collapsePhase,
   setOpenTable,
   openTable,
   index,
   tabKey,
-  divRef,
-  searchRef,
-  tableRef,
-  totalLabelWidth,
   scheduleList,
-  phaseList,
   statusCounter,
   setTollData,
   setOpenModalTollgate,
@@ -32,22 +26,16 @@ const CalendarGroups = ({
   setPositionModalGraphic,
   setDataModal,
   moveSchedule,
-  scheduleRef,
   isZoomToday,
-  setIsZoomToday,
   isZoomWeekly,
   setIsZoomWeekly,
   isZoomMonthly,
   setIsZoomMonthly,
   zoomTimeline,
-  setZoomTimeline,
-  editData,
   setEditData,
   zoomSelected,
-  setZoomSelected,
   setPopUpData,
   filterPagination,
-  setFilterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
   updateFavorites,
@@ -55,19 +43,13 @@ const CalendarGroups = ({
   dataId,
 }: {
   data: any,
-  groupCollapsed: any,
   setCollapsePhase: any,
   collapsePhase: any,
   setOpenTable: any,
   openTable: any,
   index: any,
   tabKey: any,
-  divRef: any,
-  searchRef: any,
-  tableRef: any,
-  totalLabelWidth: any,
   scheduleList: any,
-  phaseList: any,
   statusCounter: any,
   setTollData: any,
   setOpenModalTollgate: any,
@@ -77,22 +59,16 @@ const CalendarGroups = ({
   setPositionModalGraphic: any,
   setDataModal: any,
   moveSchedule: any,
-  scheduleRef: any,
   isZoomToday: any,
-  setIsZoomToday: any,
   isZoomWeekly: any,
   setIsZoomWeekly: any,
   isZoomMonthly: any,
   setIsZoomMonthly: any,
   zoomTimeline: any,
-  setZoomTimeline: any,
-  editData: any,
   setEditData: any,
   zoomSelected: any,
-  setZoomSelected: any,
   setPopUpData: any,
   filterPagination: any,
-  setFilterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
   updateFavorites: any,
@@ -168,7 +144,6 @@ const CalendarGroups = ({
           </div>
         } key={index}>
           <CalendarBody
-            groupCollapsed={groupCollapsed}
             dataId={data}
             tabKey={tabKey}
             next={next}
@@ -176,14 +151,8 @@ const CalendarGroups = ({
             setNext={setNext}
             setPrev={setPrev}
             openTable={openTable}
-            setOpenTable={setOpenTable}
             index={index}
-            divRef={divRef}
-            searchRef={searchRef}
-            tableRef={tableRef}
-            totalLabelWidth={totalLabelWidth}
             scheduleList={scheduleList}
-            phaseList={phaseList}
             statusCounter={statusCounter}
             setTollData={setTollData}
             setOpenModalTollgate={setOpenModalTollgate}
@@ -193,23 +162,17 @@ const CalendarGroups = ({
             setPositionModalGraphic={setPositionModalGraphic}
             setDataModal={setDataModal}
             moveSchedule={moveSchedule}
-            scheduleRef={scheduleRef}
             groupName={data.value}
             isZoomToday={isZoomToday}
-            setIsZoomToday={setIsZoomToday}
             isZoomWeekly={isZoomWeekly}
             setIsZoomWeekly={setIsZoomWeekly}
             isZoomMonthly={isZoomMonthly}
             setIsZoomMonthly={setIsZoomMonthly}
             zoomTimeline={zoomTimeline}
-            setZoomTimeline={setZoomTimeline}
-            editData={editData}
             setEditData={setEditData}
             zoomSelected={zoomSelected}
-            setZoomSelected={setZoomSelected}
             setPopUpData={setPopUpData}
             filterPagination={filterPagination}
-            setFilterPagination={setFilterPagination}
             updatedGroup={updatedGroup}
             secondaryUpdatedGroup={secondaryUpdatedGroup}
             updateFavorites={updateFavorites}

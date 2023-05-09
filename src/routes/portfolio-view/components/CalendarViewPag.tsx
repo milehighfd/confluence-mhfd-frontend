@@ -11,8 +11,6 @@ import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 
 const CalendarViewPag = ({
   searchRef,
-  divRef,
-  tableRef,
   tabKey,
   index,
   collapsePhase,
@@ -29,17 +27,13 @@ const CalendarViewPag = ({
   scheduleList,
   setScheduleList,
   moveSchedule,
-  scheduleRef,
   filterPagination,
-  setFilterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
   updateFavorites,
   setUpdateFavorites,
 }: {
   searchRef: any,
-  divRef: any,
-  tableRef: any,
   tabKey: any,
   index: any,
   collapsePhase: any,
@@ -56,9 +50,7 @@ const CalendarViewPag = ({
   scheduleList: any,
   setScheduleList: any,
   moveSchedule: any,
-  scheduleRef: any,
   filterPagination: any,
-  setFilterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
   updateFavorites: any,
@@ -259,19 +251,13 @@ const CalendarViewPag = ({
               <div id={elem.id} key={elem.id}>
                 <CalendarGroups
                   data={elem}
-                  groupCollapsed={detailGroup}
                   setCollapsePhase={setCollapsePhase}
                   collapsePhase={collapsePhase}
                   openTable={openTable}
                   setOpenTable={setOpenTable}
                   index={index}
                   tabKey={tabKey}
-                  divRef={divRef}
-                  searchRef={searchRef}
-                  tableRef={tableRef}
-                  totalLabelWidth={totalLabelWidth}
                   scheduleList={scheduleList}
-                  phaseList={phaseList}
                   statusCounter={statusCounter}
                   setTollData={setTollData}
                   setOpenModalTollgate={setOpenModalTollgate}
@@ -281,22 +267,16 @@ const CalendarViewPag = ({
                   setPositionModalGraphic={setPositionModalGraphic}
                   setDataModal={setDataModal}
                   moveSchedule={moveSchedule}
-                  scheduleRef={scheduleRef}
                   isZoomToday={isZoomToday}
-                  setIsZoomToday={setIsZoomToday}
                   isZoomWeekly={isZoomWeekly}
                   setIsZoomWeekly={setIsZoomWeekly}
                   isZoomMonthly={isZoomMonthly}
                   setIsZoomMonthly={setIsZoomMonthly}
                   zoomTimeline={zoomTimeline}
-                  setZoomTimeline={setZoomTimeline}
-                  editData={editData}
                   setEditData={setEditData}
                   zoomSelected={zoomSelected}
-                  setZoomSelected={setZoomSelected}
                   setPopUpData={setPopUpData}
                   filterPagination={filterPagination}
-                  setFilterPagination={setFilterPagination}
                   updatedGroup={updatedGroup}
                   secondaryUpdatedGroup={secondaryUpdatedGroup}
                   updateFavorites={updateFavorites}
