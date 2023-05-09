@@ -18,7 +18,7 @@ import { usePortflioState } from '../../../hook/portfolioHook';
 const { TabPane } = Tabs;
 let isInit = true;
 let previousFilterBy = '';
-const tabKeys = ['All','CIP', 'Restoration', 'Planning', 'DIP', 'R&D', 'Acquisition'];
+const tabKeys = ['All','CIP', 'Restoration', 'Study', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [0, 5, 7, 1, 6, 15, 13];
 
 const PortafolioBody = ({

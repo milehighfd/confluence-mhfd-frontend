@@ -48,10 +48,10 @@ contents.push(
 
 const content = (<div className="popoveer-00"><b>Watershed Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
 const content1 = (<div className="popoveer-00"><b>County</b> is the county where the project is located.</div>);
-const content2 = (<div className="popoveer-00"><b>Jurisdiction</b> is the local government where the project is located.</div>);
-const content3 = (<div className="popoveer-00"><b>MHFD Watershed Manager</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
+const content2 = (<div className="popoveer-00"><b>Local Government</b> is the local government where the project is located.</div>);
+const content3 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM who is responsible for the service area where the project is located.</div>);
 const content4 = (<div className="popoveer-00"><b>Project Type</b> is the MHFD program of which the project is a part.</div>);
-const content05 = (<div className="popoveer-00"><b>Total Cost </b> is the estimated total cost of the project based on the cost of the underlying components.</div>);
+const content05 = (<div className="popoveer-00"><b>Estimated Cost </b> is the estimated total cost of the project based on the cost of the underlying components.</div>);
 const content06 = (<div className="popoveer-00"><b>Project Status</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
 const content07 = (<div className="popoveer-00"><b>Year Initiated</b> is the year a Project was initiated (i.e. provided MHFD funding). For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
 const content08 = (<div className="popoveer-00"><b>Year Completed</b> is the year a project was closed out by MHFD.</div>);
@@ -583,7 +583,13 @@ const MapView = () => {
       return (
         <Fragment key={`${element.name}_${index}`}>
           <div className="head">
-            {toCamelCase(element.display)} &nbsp;&nbsp;&nbsp;
+            {toCamelCase(element.display) === 'total cost' ? 'Estimated Cost'
+              :(toCamelCase(element.display) === 'jurisdiction'? 'Local Government'
+                :(toCamelCase(element.display) === 'mhfd watershed manager'? 'MHFD Lead'
+                  :toCamelCase(element.display)
+                )
+              )
+            } &nbsp;&nbsp;&nbsp;
             <Popover
               content={toCamelCase(element.display) === 'project type' ? content4
                 : toCamelCase(element.display) === 'watershed service area' ? content

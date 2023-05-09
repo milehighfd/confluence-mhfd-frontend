@@ -82,6 +82,7 @@ const DetailModal = ({
   const [projectTypeId, setProjecttypeId] = useState('');
   const [active, setActive] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
+  const [activeScroll, setActiveScroll] = useState(true);
   const [openImage, setOpenImage] = useState(false);
   const [scrollOpen, setscrollOpen] = useState(0)
   const [typeDetail, setTypeDetail] = useState('');
@@ -500,40 +501,132 @@ const DetailModal = ({
         {!detailed?.problemtype && <div
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
-          <a href="#project-basics" onClick={()=>{setscrollOpen(0); setTimeout(() => {
-     setOpenSecction(0);
-  }, 1000);}} className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Basics</a>
-          <a href="#problem" onClick={()=>{setscrollOpen(1); setTimeout(() => {
-     setOpenSecction(1);
-  }, 1000);}} className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Problem</a>
-          <a href="#vendors" onClick={()=>{setscrollOpen(2); setTimeout(() => {
-     setOpenSecction(2);
-  }, 1000);}} className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Vendors</a>
-          <a href="#component-solutions" onClick={()=>{setscrollOpen(3); setTimeout(() => {
-     setOpenSecction(3);
-  }, 1000);}} className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Proposed Actions</a>
-          <a href="#project-roadmap" onClick={()=>{setscrollOpen(4); setTimeout(() => {
-     setOpenSecction(4);
-  }, 1000);}} className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Roadmap</a>
-          {/* <a href="#graphical-view" style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graphical View</a> */}
+          <a
+            href="#project-basics"
+            onClick={()=>{
+              setActiveScroll(false);
+              setscrollOpen(0);
+              setOpenSecction(0);
+              setTimeout(() => {
+                setActiveScroll(true);
+              }, 1500);
+            }}
+            className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Project Basics</a>
+          <a
+            href="#problem"
+            onClick={()=>{
+              setActiveScroll(false);
+              setscrollOpen(1);
+              setOpenSecction(1);
+              setTimeout(() => {
+                setActiveScroll(true);
+              }, 1500);
+            }}
+            className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Problem</a>
+          <a
+            href="#vendors"
+            onClick={()=>{
+              setActiveScroll(false);
+              setscrollOpen(2);
+              setOpenSecction(2);
+              setTimeout(() => {
+                setActiveScroll(true);
+              }, 1500);
+            }}
+            className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Vendors</a>
+          <a
+            href="#component-solutions"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(3);
+              setscrollOpen(3);
+              setTimeout(() => {
+                setActiveScroll(true);
+              }, 1500);
+            }}
+            className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Proposed Actions</a>
+          <a
+            href="#project-roadmap"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(4);
+              setscrollOpen(4);
+              setTimeout(() => {
+                setActiveScroll(true);
+              }, 1500);
+            }}
+            className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Project Roadmap</a>
           <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
-          <a href="#project-financials" onClick={()=>{setscrollOpen(6); setTimeout(() => {
-     setOpenSecction(6);
-  }, 1000);}} className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Financials</a>
-          {/* <a href="#project-management" style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a> */}
+          <a 
+            href="#project-financials"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(6);
+              setscrollOpen(6);
+              setTimeout(() => {
+                  setActiveScroll(true);
+                }, 1500);
+              }}
+            className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Project Financials</a>
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
-          <a href="#maps" onClick={()=>{setscrollOpen(8);setTimeout(() => {
-     setOpenSecction(8);
-  }, 1000);}} className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Maps</a>
-          <a href="#gallery" onClick={()=>{setscrollOpen(9); setTimeout(() => {
-     setOpenSecction(9);
-  }, 1000);}} className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}>Gallery</a>
-          <a href="#attachments" onClick={()=>{setscrollOpen(10); setTimeout(() => {
-     setOpenSecction(10);
-  }, 1000);}} className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Attachments</a>
-          <a href="#history" onClick={()=>{setscrollOpen(11); setTimeout(() => {
-     setOpenSecction(11);
-  }, 1000);}} className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >History</a>
+          <a 
+            href="#maps"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(8);
+              setscrollOpen(8);
+              setTimeout(() => {
+                setActiveScroll(true);
+                setOpenSecction(8);
+              }, 1500);
+            }}
+            className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            >Maps</a>
+          <a 
+            href="#gallery"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(9);
+              setscrollOpen(9);
+              setTimeout(() => {
+                setActiveScroll(true);
+                setOpenSecction(9);
+              }, 1500);
+            }}
+            className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Gallery</a>
+          <a 
+            href="#attachments"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(10);
+              setscrollOpen(10);
+              setTimeout(() => {
+                setActiveScroll(true);
+                setOpenSecction(10);
+              }, 1500);
+            }}
+            className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >Attachments</a>
+          <a 
+            href="#history"
+            onClick={()=>{
+              setActiveScroll(false);
+              setOpenSecction(11);
+              setscrollOpen(11);
+              setTimeout(() => {
+                setActiveScroll(true);
+                setOpenSecction(11);
+              }, 1500);
+            }}
+            className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+          >History</a>
         </div>}
         <Row
           className="detailed-b"
@@ -542,106 +635,108 @@ const DetailModal = ({
             
             onScrollCapture={(e)=>{
               console.log(e)
-              const projectDiv = document.getElementById('project-basics');
-              const rectProject = projectDiv?.getBoundingClientRect();
-              console.log(rectProject?.bottom, rectProject?.top)
-              if ((rectProject &&
-                rectProject.top >= 0 &&
-                rectProject.left >= 0 &&
-                rectProject.bottom <= window.innerHeight &&
-                rectProject.right <= window.innerWidth) || scrollOpen === 0
-              ) {
-                 setOpenSecction(0)
-              }
-              const problemDiv = document.getElementById('problem');
-              const rectProblem = problemDiv?.getBoundingClientRect();
-              if (((rectProblem &&
-                rectProblem.top >= 0 &&
-                rectProblem.left >= 0 &&
-                rectProblem.bottom <= window.innerHeight &&
-                rectProblem.right <= window.innerWidth) || scrollOpen === 1) 
-              ) {
-                 setOpenSecction(1)
-              }
-              const vendorsDiv = document.getElementById('vendors');
-              const rectVendors = vendorsDiv?.getBoundingClientRect();
-              if (((rectVendors &&
-                rectVendors.top >= 0 &&
-                rectVendors.left >= 0 &&
-                rectVendors.bottom <= window.innerHeight &&
-                rectVendors.right <= window.innerWidth) || scrollOpen === 2) 
-              ) {
-                 setOpenSecction(2)
-              }
-              const solutionsDiv = document.getElementById('component-solutions');
-              const rectSolutions = solutionsDiv?.getBoundingClientRect();
-              if (((rectSolutions &&
-                rectSolutions.top >= 0 &&
-                rectSolutions.left >= 0 &&
-                rectSolutions.bottom <= window.innerHeight &&
-                rectSolutions.right <= window.innerWidth) || scrollOpen === 3) 
-              ) {
-                 setOpenSecction(3)
-              }
-              const roadmapDiv = document.getElementById('project-roadmap');
-              const rectRoadmap = roadmapDiv?.getBoundingClientRect();
-              if (((rectRoadmap &&
-                rectRoadmap.top >= 0 &&
-                rectRoadmap.left >= 0 &&
-                rectRoadmap.bottom <= window.innerHeight &&
-                rectRoadmap.right <= window.innerWidth) || scrollOpen === 4) 
-              ) {
-                 setOpenSecction(4)
-              }
-              const projectFinancialsDiv = document.getElementById('project-financials');
-              const rectProjectFinancials = projectFinancialsDiv?.getBoundingClientRect();
-              if (((rectProjectFinancials &&
-                rectProjectFinancials.top >= 0 &&
-                rectProjectFinancials.left >= 0 &&
-                rectProjectFinancials.bottom <= window.innerHeight &&
-                rectProjectFinancials.right <= window.innerWidth) || scrollOpen === 6) 
-              ) {
-                 setOpenSecction(6)
-              }
-              const mapDiv = document.getElementById('maps');
-              const rectMap = mapDiv?.getBoundingClientRect();
-              if (((rectMap &&
-                rectMap.top >= 0 &&
-                rectMap.left >= 0 &&
-                rectMap.bottom <= window.innerHeight &&
-                rectMap.right <= window.innerWidth) || scrollOpen === 8) 
-              ) {
-                 setOpenSecction(8)
-              }
-              const galleryDiv = document.getElementById('gallery');
-              const rectGallery = galleryDiv?.getBoundingClientRect();
-              if (((rectGallery &&
-                rectGallery.top >= 0 &&
-                rectGallery.left >= 0 &&
-                rectGallery.bottom <= window.innerHeight &&
-                rectGallery.right <= window.innerWidth) || scrollOpen === 9) 
-              ) {
-                 setOpenSecction(9)
-              }
-              const attachmentsDiv = document.getElementById('attachments');
-              const rectAttachments = attachmentsDiv?.getBoundingClientRect();
-              if (((rectAttachments &&
-                rectAttachments.top >= 0 &&
-                rectAttachments.left >= 0 &&
-                rectAttachments.bottom <= window.innerHeight &&
-                rectAttachments.right <= window.innerWidth) || scrollOpen === 10) 
-              ) {
-                 setOpenSecction(10)
-              }
-              const historyDiv = document.getElementById('history');
-              const rectHistory = historyDiv?.getBoundingClientRect();
-              if (((rectHistory &&
-                rectHistory.top >= 0 &&
-                rectHistory.left >= 0 &&
-                rectHistory.bottom <= window.innerHeight &&
-                rectHistory.right <= window.innerWidth) || scrollOpen === 11) 
-              ) {
-                 setOpenSecction(11)
+              if(activeScroll){
+                  const projectDiv = document.getElementById('project-basics');
+                const rectProject = projectDiv?.getBoundingClientRect();
+                console.log(rectProject?.bottom, rectProject?.top)
+                if ((rectProject &&
+                  rectProject.top >= 0 &&
+                  rectProject.left >= 0 &&
+                  rectProject.bottom <= window.innerHeight &&
+                  rectProject.right <= window.innerWidth) 
+                ) {
+                  setOpenSecction(0)
+                }
+                const problemDiv = document.getElementById('problem');
+                const rectProblem = problemDiv?.getBoundingClientRect();
+                if (((rectProblem &&
+                  rectProblem.top >= 0 &&
+                  rectProblem.left >= 0 &&
+                  rectProblem.bottom <= window.innerHeight &&
+                  rectProblem.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(1)
+                }
+                const vendorsDiv = document.getElementById('vendors');
+                const rectVendors = vendorsDiv?.getBoundingClientRect();
+                if (((rectVendors &&
+                  rectVendors.top >= 0 &&
+                  rectVendors.left >= 0 &&
+                  rectVendors.bottom <= window.innerHeight &&
+                  rectVendors.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(2)
+                }
+                const solutionsDiv = document.getElementById('component-solutions');
+                const rectSolutions = solutionsDiv?.getBoundingClientRect();
+                if (((rectSolutions &&
+                  rectSolutions.top >= 0 &&
+                  rectSolutions.left >= 0 &&
+                  rectSolutions.bottom <= window.innerHeight &&
+                  rectSolutions.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(3)
+                }
+                const roadmapDiv = document.getElementById('project-roadmap');
+                const rectRoadmap = roadmapDiv?.getBoundingClientRect();
+                if (((rectRoadmap &&
+                  rectRoadmap.top >= 0 &&
+                  rectRoadmap.left >= 0 &&
+                  rectRoadmap.bottom <= window.innerHeight &&
+                  rectRoadmap.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(4)
+                }
+                const projectFinancialsDiv = document.getElementById('project-financials');
+                const rectProjectFinancials = projectFinancialsDiv?.getBoundingClientRect();
+                if (((rectProjectFinancials &&
+                  rectProjectFinancials.top >= 0 &&
+                  rectProjectFinancials.left >= 0 &&
+                  rectProjectFinancials.bottom <= window.innerHeight &&
+                  rectProjectFinancials.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(6)
+                }
+                const mapDiv = document.getElementById('maps');
+                const rectMap = mapDiv?.getBoundingClientRect();
+                if (((rectMap &&
+                  rectMap.top >= 0 &&
+                  rectMap.left >= 0 &&
+                  rectMap.bottom <= window.innerHeight &&
+                  rectMap.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(8)
+                }
+                const galleryDiv = document.getElementById('gallery');
+                const rectGallery = galleryDiv?.getBoundingClientRect();
+                if (((rectGallery &&
+                  rectGallery.top >= 0 &&
+                  rectGallery.left >= 0 &&
+                  rectGallery.bottom <= window.innerHeight &&
+                  rectGallery.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(9)
+                }
+                const attachmentsDiv = document.getElementById('attachments');
+                const rectAttachments = attachmentsDiv?.getBoundingClientRect();
+                if (((rectAttachments &&
+                  rectAttachments.top >= 0 &&
+                  rectAttachments.left >= 0 &&
+                  rectAttachments.bottom <= window.innerHeight &&
+                  rectAttachments.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(10)
+                }
+                const historyDiv = document.getElementById('history');
+                const rectHistory = historyDiv?.getBoundingClientRect();
+                if (((rectHistory &&
+                  rectHistory.top >= 0 &&
+                  rectHistory.left >= 0 &&
+                  rectHistory.bottom <= window.innerHeight &&
+                  rectHistory.right <= window.innerWidth) ) 
+                ) {
+                  setOpenSecction(11)
+                }
               }
             }}
             ref={divRef}
