@@ -24,7 +24,6 @@ const PhaseViewPag = ({
   setDataModal,
   scheduleList,
   setScheduleList,
-  filterPagination,
   updateFavorites,
   setUpdateFavorites,
 }: {
@@ -42,7 +41,6 @@ const PhaseViewPag = ({
   setDataModal: any,
   scheduleList: any,
   setScheduleList: any,
-  filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
 }) => {
@@ -282,7 +280,6 @@ const PhaseViewPag = ({
                     setDataModal={setDataModal}
                     setPopUpData={setPopUpData}
                     headerRef={headerRef}
-                    filterPagination={filterPagination}
                     updateFavorites={updateFavorites}
                     setUpdateFavorites={setUpdateFavorites}
                     dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}

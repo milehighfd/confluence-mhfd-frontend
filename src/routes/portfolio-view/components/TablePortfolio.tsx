@@ -26,7 +26,6 @@ const TablePortafolio = ({
     setCollapsePhase,
     collapsePhase,
     tabKeyId,
-    filterPagination,
     updateFavorites,
     setUpdateFavorites,
     sortValue,
@@ -40,7 +39,6 @@ const TablePortafolio = ({
     setCollapsePhase: Function,
     collapsePhase: any,
     tabKeyId: any,
-    filterPagination: any,
     updateFavorites: any,
     setUpdateFavorites: Function,
     sortValue: any,
@@ -195,7 +193,6 @@ const TablePortafolio = ({
                       tableRef={tableRef}
                       tabKeyId={tabKeyId}
                       headerRef={headerRef}
-                      filterPagination={filterPagination}
                       updateFavorites={updateFavorites}
                       setUpdateFavorites={setUpdateFavorites}
                       dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}

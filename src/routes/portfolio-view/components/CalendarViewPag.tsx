@@ -27,7 +27,6 @@ const CalendarViewPag = ({
   scheduleList,
   setScheduleList,
   moveSchedule,
-  filterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
   updateFavorites,
@@ -50,7 +49,6 @@ const CalendarViewPag = ({
   scheduleList: any,
   setScheduleList: any,
   moveSchedule: any,
-  filterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
   updateFavorites: any,
@@ -276,7 +274,6 @@ const CalendarViewPag = ({
                   setEditData={setEditData}
                   zoomSelected={zoomSelected}
                   setPopUpData={setPopUpData}
-                  filterPagination={filterPagination}
                   updatedGroup={updatedGroup}
                   secondaryUpdatedGroup={secondaryUpdatedGroup}
                   updateFavorites={updateFavorites}

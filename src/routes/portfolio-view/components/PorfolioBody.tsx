@@ -69,7 +69,6 @@ const PortafolioBody = ({
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
   const [updateFilter, setUpdateFilter] = useState([]);
-  const [filterPagination, setFilterPagination] = useState<any>({search: '', filterby: [], value: []});
   const [favorites, setFavorites] = useState<any>([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
@@ -102,125 +101,13 @@ const PortafolioBody = ({
     if(Object.keys(updateFilter).length > 0){
       getParamFilterProjectsNoBounds(updateFilter);
     }
-  }, [updateFilter]);
+  }, [updateFilter]);   
 
-  function removeFilterPagination(filterby: string) {
-    setFilterPagination((prevState:any) => {
-      const filterbyIndex = prevState.filterby.indexOf(filterby);
-      const updatedFilterby = prevState.filterby.filter((item:any) => item !== filterby);
-      const updatedValue = [...prevState.value];
-      if (filterbyIndex !== -1) {
-        updatedValue.splice(filterbyIndex, 1);
-      }
-      return {
-        ...prevState,
-        filterby: updatedFilterby,
-        value: updatedValue,
-      };
-    });
-  }
-
-  function getLength(options: any): number {
-    const item = options;
-    const itemLength = Array.isArray(item) ? item.length : 0;
-    return itemLength;
-  }
-
-  function updateFilterPagination(filterby: string, value: any) {
-    setFilterPagination((prevState:any) => {
-      let newFilterby = [...prevState.filterby];
-      let newFilterValue = [...prevState.value];  
-      const index = prevState.filterby.indexOf(filterby);  
-      if (index !== -1) {
-        newFilterValue[index] = value;
-      } else {
-        newFilterby.push(filterby);
-        newFilterValue.push(value);
-      }  
-      return {
-        ...prevState,
-        filterby:  Array.isArray(prevState.filterby) ? newFilterby : newFilterby,
-        value: Array.isArray(prevState.value) ? newFilterValue : [value],
-        search : searchWord
-      };
-    });
-  }
+ 
 
   useEffect(() => {
-    if (openProjects) {
-      updateFilterPagination('teams', appUser?.userInformation?.user_id);
-    }else{
-      removeFilterPagination('teams');
-    }
+    console.log('teams')
   }, [openProjects]);
-
-  useEffect(() => {
-    setUpdateFilter(filterProjectOptions);
-    let filterExist = false;
-    if (getLength(filterPagination.filterby)>0){      
-      filterPagination.filterby.forEach((filterby: string) => {
-        removeFilterPagination(filterby);
-      })      
-    }    
-    if (getLength(filterProjectOptions.servicearea) > 0 || filterProjectOptions.servicearea !== '') {
-      const code = filterProjectOptions.servicearea;     
-      updateFilterPagination('servicearea', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.county) > 0 || filterProjectOptions.county !== '') {      
-      const code = filterProjectOptions.county;
-      updateFilterPagination('county', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.jurisdiction) > 0 || filterProjectOptions.jurisdiction !== '') {
-      const code = filterProjectOptions.jurisdiction;
-      updateFilterPagination('jurisdiction', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.consultant) > 0 || filterProjectOptions.consultant !== '') {
-      const code = filterProjectOptions.consultant;
-      updateFilterPagination('consultant', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.mhfdmanager) > 0 || filterProjectOptions.mhfdmanager !== '') {
-      const code = filterProjectOptions.mhfdmanager;
-      updateFilterPagination('staff', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.contractor) > 0 || filterProjectOptions.contractor !== '') {
-      const code = filterProjectOptions.contractor;
-      updateFilterPagination('contractor', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.status) > 0  ) {
-      const code = filterProjectOptions.status;
-      updateFilterPagination('status', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.totalcost) > 0  ) {
-      const code = filterProjectOptions.totalcost;
-      updateFilterPagination('cost', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.streamname) > 0  ) {
-      const code = filterProjectOptions.streamname;
-      updateFilterPagination('stream', code);
-      filterExist = true;
-    }
-    if (filterProjectOptions.lgmanager !== '') {
-      const code = filterProjectOptions.lgmanager;
-      updateFilterPagination('lgmanager', code);
-      filterExist = true;
-    }
-    if (getLength(filterProjectOptions.projecttype) > 0 || filterProjectOptions.contractor !== '') {
-      const code = filterProjectOptions.projecttype;
-      updateFilterPagination('projecttype', code);
-      filterExist = true;
-    }
-    if (!filterExist){
-      setFilterPagination({ ...filterPagination, search: '', filterby: [], value: [] })
-    }
-  }, [filterProjectOptions]);
   
   useEffect(() => {
     filterProjectOptions.name = searchWord;
@@ -294,6 +181,53 @@ const PortafolioBody = ({
   } ,[filterby, filterValue]);
 
   useEffect(() => {
+    if (openFavorites){
+      const auxOptions = { ...filterProjectOptions };
+      auxOptions.favorites = appUser.userInformation?.user_id;
+      setFilterProjectOptions(auxOptions);
+    }else{
+      const auxOptions = { ...filterProjectOptions };
+      delete auxOptions.favorites;
+      setFilterProjectOptions(auxOptions);
+    }   
+  }, [openFavorites]);
+
+  useEffect(() => {
+    if (openProjects){
+      const auxOptions = { ...filterProjectOptions };
+      auxOptions.teams = appUser.userInformation?.user_id;
+      setFilterProjectOptions(auxOptions);
+    }else{
+      const auxOptions = { ...filterProjectOptions };
+      delete auxOptions.teams;
+      setFilterProjectOptions(auxOptions);
+    }   
+  }, [openProjects]);
+
+  useEffect(() => {
+    console.log(sortValue)
+    if (sortValue.columnKey === 'project_type' && sortValue.order !== undefined) {
+      const auxOptions = { ...filterProjectOptions };
+      auxOptions.sortby = 'projecttype';
+      auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';
+      setFilterProjectOptions(auxOptions);
+    } else if ((sortValue.columnKey === 'lg_lead' || sortValue.columnKey === 'service_area' || sortValue.columnKey === 'county'
+      || sortValue.columnKey === 'phase' || sortValue.columnKey === 'status' || sortValue.columnKey === 'mhfd' || sortValue.columnKey === 'on_base'
+      || sortValue.columnKey === 'stream')
+      && sortValue.order !== undefined) {
+      const auxOptions = { ...filterProjectOptions };
+      auxOptions.sortby = sortValue.columnKey;
+      auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';
+      setFilterProjectOptions(auxOptions);
+    } else {
+      const auxOptions = { ...filterProjectOptions };
+      delete auxOptions.sortby;
+      delete auxOptions.sorttype;
+      setFilterProjectOptions(auxOptions);
+    }
+  }, [sortValue]);
+
+  useEffect(() => {
     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
     if (currentId == 0) {
       apply([], 'projecttype', '');
@@ -316,21 +250,12 @@ const PortafolioBody = ({
     }
   }, [updateFavorites]);
  
-  useEffect(() => {
-    if (tabKey === 'All') {
-      removeFilterPagination('projecttype');
-    }
-  }, [tabKey])
-
   function enterPhase() {
     setOptionSelect('Phase')
     setTabKey('CIP');
   }  
   function enterSchedule() {   
     setTabKey('CIP');   
-    setSortValue({
-      columnKey: null, order: undefined
-    });
     setOptionSelect('Schedule')       
   }
   function enterList (){
@@ -344,40 +269,6 @@ const PortafolioBody = ({
     setOpenPiney(false)    
     setOpenFavorites(!openFavorites)   
   }
-
-  useEffect(() => {
-    setFilterPagination((prevState:any) => {
-      let newFilterby = [...prevState.filterby];
-      let newFilterValue = [...prevState.value];  
-      const index = prevState.filterby.indexOf(filterby);  
-      if (index !== -1) {
-        newFilterValue[index] = filterValue;
-      } else {
-        newFilterby.push(filterby);
-        newFilterValue.push(filterValue);
-      }
-  
-      return {
-        ...prevState,
-        filterby:  Array.isArray(prevState.filterby) ? newFilterby : newFilterby,
-        value: Array.isArray(prevState.value) ? newFilterValue : [filterValue],
-        search: searchWord,
-      };
-    });
-  }, [searchWord, filterby, filterValue, filtername])
-
-  useEffect(() => {
-    if(openFavorites){
-      setFilterPagination({ ...filterPagination, favorites: favorites.map((x:any)=>{
-        return x.project_id
-      }) })
-    }else{
-      if(filterPagination.favorites){
-        const {favorites, ...rest} = filterPagination;
-        setFilterPagination(rest)
-      }
-    }    
-  }, [openFavorites])
 
   return <>
     {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal} scheduleList={scheduleList}/>}
@@ -471,7 +362,6 @@ const PortafolioBody = ({
                         tabKey={tabKey}
                         tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
-                        filterPagination={filterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
                         sortValue={sortValue}
@@ -493,7 +383,6 @@ const PortafolioBody = ({
                         setDataModal={setDataModal}                    
                         scheduleList={scheduleList}
                         setScheduleList={setScheduleList}
-                        filterPagination={filterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
                       />                        
@@ -517,7 +406,6 @@ const PortafolioBody = ({
                       scheduleList={scheduleList}
                       setScheduleList={setScheduleList}
                       moveSchedule={zoomTimeline}
-                      filterPagination={filterPagination}
                       updatedGroup={updatedGroup}
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
                       updateFavorites={updateFavorites}
