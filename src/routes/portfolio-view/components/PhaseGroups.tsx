@@ -5,6 +5,7 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import PhaseBody from 'routes/portfolio-view/components/PhaseBody';
 import { usePortflioState } from '../../../hook/portfolioHook';
+import { useMapState } from 'hook/mapHook';
 
 const { Panel } = Collapse;
 
@@ -31,7 +32,6 @@ const PhaseGroups = ({
   setDataModal,
   setPopUpData,
   headerRef,
-  filterPagination,
   updateFavorites,
   setUpdateFavorites,
   dataId,
@@ -58,12 +58,14 @@ const PhaseGroups = ({
   setDataModal: any,
   setPopUpData: any,
   headerRef: any,
-  filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
   dataId: any,
 }) => {
   const { currentGroup } = usePortflioState();
+  const {
+    filterProjectOptions,
+  } = useMapState();
 
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -71,12 +73,14 @@ const PhaseGroups = ({
   const [counter, setCounter] = useState([]);
 
   useEffect(() => {
-    if(currentGroup !== 'streams'){
-      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
-        setCounter(res.count)
-      })
-    }    
-  },[tabKey,filterPagination])
+    const sendfilter = filterProjectOptions;
+    delete sendfilter.sortby;
+    delete sendfilter.sortorder;
+    datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, sendfilter).then((res: any) => {
+      setCounter(res.count)
+    })
+  }, [tabKey, filterProjectOptions])
+  
   const getActiveKeys = () => {
     const indices = openTable.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
@@ -152,7 +156,6 @@ const PhaseGroups = ({
             setOpenPiney={setOpenPiney}
             setPopUpData={setPopUpData}
             headerRef={headerRef}
-            filterPagination={filterPagination}
             updateFavorites={updateFavorites}
             setUpdateFavorites={setUpdateFavorites}
             counter={counter}

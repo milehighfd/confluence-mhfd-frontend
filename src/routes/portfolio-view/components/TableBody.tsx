@@ -9,6 +9,7 @@ import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
 import { usePortflioState } from '../../../hook/portfolioHook';
+import { useMapState } from 'hook/mapHook';
 
 const TableBody = ({
   dataId,
@@ -23,7 +24,6 @@ const TableBody = ({
   tableRef,
   tabKeyId,
   headerRef,
-  filterPagination,
   updateFavorites,
   setUpdateFavorites,
   sortValue,
@@ -43,7 +43,6 @@ const TableBody = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
-  filterPagination: any,
   updateFavorites: boolean,
   setUpdateFavorites: Function,
   sortValue: any,
@@ -51,8 +50,13 @@ const TableBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  
   const { currentGroup } = usePortflioState();
 
+  const {
+    filterProjectOptions,
+  } = useMapState();
+  
   const appUser = store.getState().profile;
   const email = appUser.userInformation?.email;
 
@@ -195,27 +199,18 @@ const TableBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {   
-    let sort = "";
-    let order = "";
-    if (sortValue.order === 'ascend') {
-      order = "asc";
-    } else if (sortValue.order === 'descend') {
-      order = "desc";
-    }
-    if (sortValue.columnKey === 'on_base' && sortValue.order !== undefined) {
-      sort = "onbase_project_number";
-    }
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}&sortby=${sort}&sortorder=${order}`, filterPagination).then((res: any) => {
+    //&sortby=${sort}&sortorder=${order}
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterProjectOptions).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [ filterPagination, page,sortValue])
+  }, [ filterProjectOptions, page])
 
   useEffect(() => {
     if (page != 1) {
       setPage(1);
     }
-  }, [filterPagination])
+  }, [filterProjectOptions])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

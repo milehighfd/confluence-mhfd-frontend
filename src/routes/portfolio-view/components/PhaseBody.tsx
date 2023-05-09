@@ -12,6 +12,7 @@ import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { usePortflioState } from '../../../hook/portfolioHook';
+import { useMapState } from 'hook/mapHook';
 
 const PhaseBody = ({
   dataId,
@@ -37,7 +38,6 @@ const PhaseBody = ({
   setOpenPiney,
   setPopUpData,
   headerRef,
-  filterPagination,
   updateFavorites,
   setUpdateFavorites,
   counter,
@@ -67,7 +67,6 @@ const PhaseBody = ({
   setOpenPiney: Function,
   setPopUpData: Function,
   headerRef: any,
-  filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: Function,
   counter:  never[],
@@ -76,6 +75,9 @@ const PhaseBody = ({
 }) => {
   const appUser = store.getState().profile;
   const email = appUser.userInformation?.email;
+  const {
+    filterProjectOptions,
+  } = useMapState();
 
   const { currentGroup } = usePortflioState();
   const [favorites, setFavorites] = useState([]);
@@ -683,7 +685,7 @@ const PhaseBody = ({
     const controller = new AbortController();
     datasets.postData(
       SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
-      filterPagination,
+      filterProjectOptions,
       datasets.getToken(),
       controller.signal
     ).then((res: any) => {
@@ -692,7 +694,7 @@ const PhaseBody = ({
     return () => {
       controller.abort();
     };
-  }, [page, filterPagination])
+  }, [page, filterProjectOptions])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

@@ -5,6 +5,7 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { usePortflioState } from 'hook/portfolioHook';
 import CalendarBody from 'routes/portfolio-view/components/CalendarBody';
+import { useMapState } from "hook/mapHook";
 
 const { Panel } = Collapse;
 
@@ -35,7 +36,6 @@ const CalendarGroups = ({
   setEditData,
   zoomSelected,
   setPopUpData,
-  filterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
   updateFavorites,
@@ -68,7 +68,6 @@ const CalendarGroups = ({
   setEditData: any,
   zoomSelected: any,
   setPopUpData: any,
-  filterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
   updateFavorites: any,
@@ -76,6 +75,9 @@ const CalendarGroups = ({
   dataId: any,
 }) => {
   const { currentGroup } = usePortflioState();
+  const {
+    filterProjectOptions,
+  } = useMapState();
 
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
@@ -83,23 +85,15 @@ const CalendarGroups = ({
   const [counter, setCounter] = useState([]);
 
   useEffect(() => {
-    if(currentGroup === 'streams') return;
-    const controller = new AbortController();
-    datasets.postData(
-      `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKey}`,
-      filterPagination,
-      datasets.getToken(),
-      controller.signal
-    ).then((res: any) => {
-      setCounter(res.count)
-    })
-    .catch(e => {
-      console.error(e);
-    });
-    return () => {
-      controller.abort();
-    };
-  }, [tabKey, filterPagination]);
+    const sendfilter = filterProjectOptions;
+    delete sendfilter.sortby;
+    delete sendfilter.sortorder;
+    if(currentGroup !== 'streams'){
+      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, sendfilter).then((res: any) => {
+        setCounter(res.count)
+      })
+    }    
+  },[tabKey,filterProjectOptions])
 
   const getActiveKeys = () => {
     const indices = openTable.reduce(
@@ -183,7 +177,6 @@ const CalendarGroups = ({
             setEditData={setEditData}
             zoomSelected={zoomSelected}
             setPopUpData={setPopUpData}
-            filterPagination={filterPagination}
             updatedGroup={updatedGroup}
             secondaryUpdatedGroup={secondaryUpdatedGroup}
             updateFavorites={updateFavorites}

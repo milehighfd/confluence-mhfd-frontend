@@ -12,6 +12,7 @@ import { LIMIT_PAGINATION } from 'constants/constants';
 import { usePortflioState } from 'hook/portfolioHook';
 import store from 'store';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
+import { useMapState } from "hook/mapHook";
 
 const CalendarBody = ({
   dataId,
@@ -42,7 +43,6 @@ const CalendarBody = ({
   setEditData,
   zoomSelected,
   setPopUpData,
-  filterPagination,
   updatedGroup,
   secondaryUpdatedGroup,
   updateFavorites,
@@ -79,7 +79,6 @@ const CalendarBody = ({
   setEditData: any,
   zoomSelected: any,
   setPopUpData: Function,
-  filterPagination: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
   updateFavorites: any,
@@ -90,7 +89,9 @@ const CalendarBody = ({
 }) => {
   const appUser = store.getState().profile;
   const email = appUser.userInformation?.email;
-
+  const {
+    filterProjectOptions,
+  } = useMapState();
   const { currentGroup } = usePortflioState();
   const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
@@ -249,7 +250,13 @@ const CalendarBody = ({
             .add(monthsBehind, 'months')
             .startOf('month');
         }
-
+        
+        // let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
+        // let timelineEndTime = moment(toData[toData.length - 1].to)
+        //   .add(12, 'months')
+        //   .startOf('month');     
+        // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
+        // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
         let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
         width = widhtDiv - 3;
 
@@ -593,6 +600,35 @@ const CalendarBody = ({
             return d.show ? 'visible' : 'hidden'
           });
 
+        // let rectNamesAgrupation = scheduleG
+        // .join('text')
+        // .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
+        // .attr('class', (d: any) => (d.type === 'title' ? 'labelsAgrupation':'labels'))
+        // .style('fill', '#11093C')
+        // .style('font-weight', 500)
+        // .attr('x', function(d: any) {
+        //   let scaleName: any =xScale(d['from'])
+        //   return scaleName + 150;
+        // })
+        // .attr('y', function(d: any) {
+        //   let yScaleId: any = yScale(d['id']);
+        //   return yScaleId + yScale.bandwidth() / 2;
+        // })
+        // .attr('width', function(d: any) {
+        //   let xScaleTo: any;
+        //   let xScaleFrom: any;
+        //   if (d.type === 'title'){
+        //     xScaleTo = xScale(moment('2022/11/11'));
+        //     xScaleFrom = xScale(moment('2022/06/11'));
+        //   } else {
+        //     xScaleTo = xScale(d['from']);
+        //     xScaleFrom = xScale(d['from']);
+        //   }
+        //   return xScaleTo - xScaleFrom;
+        // })
+        // .attr('visibility', (d: any) => (d.type === 'title' ? 'visible':'hidden'))
+        // .text((d: any) => d.name);
+
         let dragableLineLeft = scheduleG
           .enter().append('g')
           .attr('class', dragablesLines)
@@ -607,6 +643,63 @@ const CalendarBody = ({
         hasDateData = true
 
         let h = yScale.bandwidth();
+
+        // commented to disable left and right dragging lines 
+        // leftLine = dragableLineLeft
+        //   .append('line')
+        //   .attr('id', function (d: any) {
+        //     return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_left`;
+        //   })
+        //   .attr('class', 'dragginglinesLeft')
+        //   .attr('x1', function (d: any) {
+        //     let xScaleFrom: any = (xScale(d['from']) || 0);
+        //     return xScaleFrom - dragableLineHalf + 3;
+        //   })
+        //   .attr('x2', function (d: any) {
+        //     let xScaleFrom: any = (xScale(d['from']) || 0);
+        //     return xScaleFrom - dragableLineHalf + 3;
+        //   })
+        //   .attr('y1', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 100 : 0)
+        //     return yScaleId + h + yScaleFactor;
+        //   })
+        //   .attr('y2', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
+        //     return yScaleId + h + 8 + yScaleFactor;
+        //   })
+        //   .style('visibility', (d: any) => {
+        //     return d.show ? 'visible' : 'hidden'
+        //   });
+
+        // hasDateData = true
+
+        // rightLine = dragableLineRight
+        //   .append('line')
+        //   .attr('id', function (d: any) {
+        //     return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_right`;
+        //   })
+        //   .attr('class', 'dragginglinesRight')
+        //   .attr('x1', function (d: any) {
+        //     let xScaleTo: any = (xScale(d['to']) || 0);
+        //     return xScaleTo - dragableLineHalf - 3;
+        //   })
+        //   .attr('x2', function (d: any) {
+        //     let xScaleTo: any = (xScale(d['to']) || 0);
+        //     return xScaleTo + dragableLineHalf - 3;
+        //   })
+        //   .attr('y1', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     return yScaleId + h - 2;
+        //   })
+        //   .attr('y2', function (d: any) {
+        //     let yScaleId: any = (yScale(d['id']) || 0);
+        //     return yScaleId + h + 8;
+        //   })
+        //   .style('visibility', (d: any) => {
+        //     return d.show ? 'visible' : 'hidden'
+        //   });
 
         zoomedXScale = xScale;
         let calctodayX = function (d: any) {
@@ -758,6 +851,10 @@ const CalendarBody = ({
           .on('drag', lineDragFunction)
           .on('end', dragEndLines);
 
+        // commented to avoid dragging rects
+
+        // scheduleRects.style('cursor', 'move').call(rectDrag);
+        // scheduleRectsCenter.style('cursor', 'move').call(rectDrag);
         dragableLineLeft
           .style('cursor', 'ew-resize')
           .style('stroke-linecap', 'round')
@@ -792,7 +889,6 @@ const CalendarBody = ({
         };
 
         let updateRects = function () {
-          // scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.agrupationbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
@@ -800,13 +896,9 @@ const CalendarBody = ({
           d3.selectAll('.stackedbarCenterClicked').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
           d3.selectAll('.stackedbarClicked').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.nameClicked').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-          // scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
           d3.selectAll('.stackedbarCenter').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
-
-          // rectNames.attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
           d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-          d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-          
+          d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);          
           d3.selectAll('.labels').call(dotme);
         };
         scheduleRects.on('mousemove', function () {
@@ -1565,11 +1657,11 @@ const CalendarBody = ({
     if(currentGroup === 'streams' && dataId.value !== ''){
       idForFilter = dataId.value;
     }
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
+    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterProjectOptions).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
     })
-  }, [ page, filterPagination,updateForDates])
+  }, [ page, filterProjectOptions,updateForDates])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {

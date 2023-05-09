@@ -5,6 +5,7 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import TableBody from 'routes/portfolio-view/components/TableBody';
 import { usePortflioState } from '../../../hook/portfolioHook';
+import { useMapState } from 'hook/mapHook';
 
 const { Panel } = Collapse;
 
@@ -21,7 +22,6 @@ const TableGroups = ({
   tableRef,
   tabKeyId,
   headerRef,
-  filterPagination,
   updateFavorites,
   setUpdateFavorites,
   dataId,
@@ -39,25 +39,30 @@ const TableGroups = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
-  filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
   dataId: any,
   sortValue: any,
 }) => {
   const { currentGroup } = usePortflioState();
-
+  const {
+    filterProjectOptions,
+  } = useMapState();
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [counter, setCounter] = useState([]);
   const scrollHeaderScrollRef = useRef<null | HTMLDivElement>(null);
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState<any>({});
  
   useEffect(() => {
+    const sendfilter = filterProjectOptions;
+    delete sendfilter.sortby;
+    delete sendfilter.sortorder;
     const controller = new AbortController();
     datasets.postData(
       `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKeyId}`,
-      filterPagination,
+      filterProjectOptions,
       datasets.getToken(),
       controller.signal
     )
@@ -70,7 +75,7 @@ const TableGroups = ({
     return () => {
       controller.abort();
     }
-  }, [tabKeyId, filterPagination, currentGroup, dataId]);
+  }, [tabKeyId, filterProjectOptions, currentGroup, dataId]);
 
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   const getActiveKeys = () => {
@@ -163,7 +168,6 @@ const TableGroups = ({
             tableRef={tableRef}
             tabKeyId={tabKeyId}
             headerRef={headerRef}
-            filterPagination={filterPagination}
             updateFavorites={updateFavorites}
             setUpdateFavorites={setUpdateFavorites}
             sortValue={sortValue}
