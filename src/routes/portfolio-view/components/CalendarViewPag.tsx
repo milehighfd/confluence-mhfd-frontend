@@ -34,7 +34,6 @@ const CalendarViewPag = ({
   setDataModal,
   moveSchedule,
   scheduleRef,
-  userName,
   filterPagination,
   setFilterPagination,
   updatedGroup,
@@ -64,7 +63,6 @@ const CalendarViewPag = ({
   setDataModal: any,
   moveSchedule: any,
   scheduleRef: any,
-  userName: any,
   filterPagination: any,
   setFilterPagination: any,
   updatedGroup: any,
@@ -202,7 +200,6 @@ const CalendarViewPag = ({
           <PineyView
             setOpenPiney={setOpenPiney}
             data={popUpData}
-            userName={userName}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
             isDetail={false}

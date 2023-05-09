@@ -9,12 +9,12 @@ import * as d3 from 'd3';
 import DetailModal from "routes/detail-page/components/DetailModal";
 
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
+import store from 'store';
 
 const { Step } = Steps;
-const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, updateAction, setOpenModalTollgate, setTollData, openModalTollgate }: 
+const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction, setOpenModalTollgate, setTollData, openModalTollgate }: 
   { setOpenPiney: any, 
-    data?: any, 
-    userName?: string
+    data?: any,
     setUpdateAction?: any, 
     updateAction?: any,
     setOpenModalTollgate?: any,
@@ -22,6 +22,9 @@ const PineyView = ({ isDetail,setOpenPiney, data, userName, setUpdateAction, upd
     setTollData? : any,
     isDetail:boolean
     }) => {     
+
+  const appUser = store.getState().profile;
+  const userName = appUser.userInformation?.name;
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);

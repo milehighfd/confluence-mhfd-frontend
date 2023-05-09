@@ -130,6 +130,7 @@ const CalendarBody = ({
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   const appUser = store.getState().profile;
+  const userName = appUser.userInformation?.name;
   const email = appUser.userInformation?.email;
 
   const { currentGroup } = usePortflioState();

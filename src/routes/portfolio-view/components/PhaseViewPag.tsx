@@ -23,7 +23,6 @@ const PhaseViewPag = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  userName,
   filterPagination,
   updateFavorites,
   setUpdateFavorites,
@@ -41,7 +40,6 @@ const PhaseViewPag = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  userName: any,
   filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
@@ -178,7 +176,6 @@ const PhaseViewPag = ({
           <PineyView
             setOpenPiney={setOpenPiney}
             data={popUpData}
-            userName={userName}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
             setOpenModalTollgate={setOpenModalTollgate}
