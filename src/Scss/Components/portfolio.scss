@@ -76,6 +76,7 @@
 .team-item{
   display: flex;
   align-items: center;
+  margin-bottom: 9px;
   img{
     margin-right: 0.8pc;
     height: 35px;
@@ -3192,8 +3193,7 @@
 
 @media (min-width: 2555px) and (max-width: 3799px){
   .team-item{
-    display: flex;
-    align-items: center;
+    margin-bottom: 15px;
     img{
       height: 55px !important;
       margin-top: 0px !important;
@@ -3952,8 +3952,7 @@
 }
 @media (min-width: 3800px) and (max-width: 5999px){
   .team-item{
-    display: flex;
-    align-items: center;
+    margin-bottom: 15px;
     img{
       height: 40px !important;
       margin-top: 0px !important;
