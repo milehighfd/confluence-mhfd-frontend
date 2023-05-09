@@ -11,7 +11,6 @@ import { usePortflioState } from '../../../hook/portfolioHook';
 
 const PhaseViewPag = ({
   rawData,
-  groupsBy,
   searchRef,
   tabKey,
   index,
@@ -31,7 +30,6 @@ const PhaseViewPag = ({
   setUpdateFavorites,
 }: {
   rawData: any,
-  groupsBy: any,
   searchRef: any,
   tabKey: any,
   index: any,
@@ -213,7 +211,6 @@ const PhaseViewPag = ({
       <Col xs={{ span: 10 }} lg={{ span: 5 }}>
         <div className="vertical-line"></div>
         <SearchDropdown rawData={rawData}
-          groupsBy={groupsBy}
           fullData={rawData}
           setOpenTable={setOpenTable}></SearchDropdown>
       </Col>

@@ -7,6 +7,7 @@ import * as datasets from "../../../Config/datasets";
 import { useMapDispatch } from "hook/mapHook";
 import { SERVER } from 'Config/Server.config';
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
+import { GROUPS } from '../constants/constants';
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -21,13 +22,11 @@ const popovers: any = [
 const SearchDropdown = (
   {
     rawData,
-    groupsBy,
     fullData,
     setOpenTable,
   }
     : {
       rawData: any,
-      groupsBy: any[],
       fullData: any,
       setOpenTable: Function,
     }) => {
@@ -61,7 +60,7 @@ const SearchDropdown = (
           key: '1',
           label: <p style={{ fontWeight: '700', color: '#11093C', opacity: '0.5', fontSize: '12px', marginBottom: '2px', marginLeft: '3px' }}>Group By</p>,
           type: 'group',
-          children: groupsBy.map((gb, index) => {
+          children: GROUPS.map((gb, index) => {
             return {
               key: `1-${index + 1}`,
               label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active" : "menu-drop-sub menu-sub-drop"} onClick={() => { gb !=='MHFD Lead'?setCurrentGroup(gb.toLowerCase().replace(' ', '')):setCurrentGroup('staff'); setActiveDrop(index); setOpenDrop(false); setOpenTable([true, true, true]); }}>{gb}</div>,

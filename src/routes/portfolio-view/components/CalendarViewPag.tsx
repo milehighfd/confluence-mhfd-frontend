@@ -13,7 +13,6 @@ import { usePortflioState } from '../../../hook/portfolioHook';
 
 const CalendarViewPag = ({
   rawData,
-  groupsBy,
   indexParent,
   phaseRef,
   searchRef,
@@ -45,7 +44,6 @@ const CalendarViewPag = ({
   setUpdateFavorites,
 }: {
   rawData: any,
-  groupsBy: any,
   indexParent: any,
   phaseRef: any,
   searchRef: any,
@@ -219,7 +217,6 @@ const CalendarViewPag = ({
     <Row>
       <Col xs={ { span: 10 }} lg={{ span: 5 }}>
         <SearchDropdown rawData={rawData}
-          groupsBy={groupsBy}
           fullData={rawData}
           setOpenTable={setOpenTable}></SearchDropdown>
       </Col>

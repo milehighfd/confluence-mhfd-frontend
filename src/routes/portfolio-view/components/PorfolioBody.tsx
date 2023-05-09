@@ -7,14 +7,13 @@ import Filters from 'routes/portfolio-view/components/Filters';
 import ModalFields from 'routes/list-view/components/ModalFields';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
-import { DEFAULT_GROUP } from 'routes/portfolio-view/components/ListUtils';
 import store from 'store';
 import { FilterByGroupName } from 'routes/portfolio-view/components/FilterByGroupField';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import PhaseViewPag from 'routes/portfolio-view/components/PhaseViewPag';
 import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
-import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
+import { usePortflioState } from '../../../hook/portfolioHook';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -41,7 +40,7 @@ const PortafolioBody = ({
 
   } = usePortfolioDispatch();
   */
- 
+
   const {
     filterProjectOptions,
     filterProjectOptionsNoFilter
@@ -236,16 +235,6 @@ const PortafolioBody = ({
     setFilterProjectOptions(filterProjectOptions)
     setUpdateFilter(filterProjectOptions);    
   }, []);
-
-  const groupsBy = [
-    'Status',
-    'Jurisdiction',
-    'County',
-    'Service Area',
-    'MHFD Lead',
-    'Consultant',
-    'Contractor'
-  ];
 
   const menu = (
     <FilterByGroupName 
@@ -485,7 +474,6 @@ const PortafolioBody = ({
                         openTable={openTable}
                         rawData={newData}
                         index={idx}
-                        groupsBy={groupsBy}
                         email={appUser.userInformation?.email}
                         setCollapsePhase={setCollapsePhase}
                         collapsePhase={collapsePhase}
@@ -501,7 +489,6 @@ const PortafolioBody = ({
                       {optionSelect === 'Phase' && 
                       <PhaseViewPag                        
                         rawData={newData}
-                        groupsBy={groupsBy}
                         searchRef={searchRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
@@ -524,7 +511,6 @@ const PortafolioBody = ({
                     {optionSelect === 'Schedule'  && 
                     <CalendarViewPag
                       rawData={newData}
-                      groupsBy={groupsBy}
                       indexParent={idx}
                       phaseRef={phaseRef}
                       searchRef={searchRef}

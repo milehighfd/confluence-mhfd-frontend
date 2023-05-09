@@ -22,8 +22,7 @@ const TablePortafolio = ({
     setOpenTable,
     openTable,
     rawData,
-    index,
-    groupsBy,    
+    index,    
     email,
     setCollapsePhase,
     collapsePhase,
@@ -40,7 +39,6 @@ const TablePortafolio = ({
     openTable: any[],      
     rawData: any,      
     index: number,
-    groupsBy: any[],
     email: string,
     setCollapsePhase: Function,
     collapsePhase: any,
@@ -129,7 +127,6 @@ const TablePortafolio = ({
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
           <SearchDropdown rawData={rawData}
-            groupsBy={groupsBy}
             fullData={rawData}
             setOpenTable={setOpenTable}></SearchDropdown>
         </Col>
