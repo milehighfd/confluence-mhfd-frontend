@@ -83,12 +83,23 @@ const CalendarGroups = ({
   const [counter, setCounter] = useState([]);
 
   useEffect(() => {
-    if(currentGroup !== 'streams'){
-      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, filterPagination).then((res: any) => {
-        setCounter(res.count)
-      })
-    }    
-  },[tabKey,filterPagination])
+    if(currentGroup === 'streams') return;
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKey}`,
+      filterPagination,
+      datasets.getToken(),
+      controller.signal
+    ).then((res: any) => {
+      setCounter(res.count)
+    })
+    .catch(e => {
+      console.error(e);
+    });
+    return () => {
+      controller.abort();
+    };
+  }, [tabKey, filterPagination]);
 
   const getActiveKeys = () => {
     const indices = openTable.reduce(
