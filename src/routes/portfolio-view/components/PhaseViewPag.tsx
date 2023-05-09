@@ -22,6 +22,8 @@ const PhaseViewPag = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
+  scheduleList,
+  setScheduleList,
   filterPagination,
   updateFavorites,
   setUpdateFavorites,
@@ -38,6 +40,8 @@ const PhaseViewPag = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
+  scheduleList: any,
+  setScheduleList: any,
   filterPagination: any,
   updateFavorites: any,
   setUpdateFavorites: any,
@@ -49,7 +53,6 @@ const PhaseViewPag = ({
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [statusCounter,setStatusCounter] = useState(0);
-  const [scheduleList, setScheduleList] = useState<any>({});
   const [statusList, setStatusList] = useState<any>([]);
   const [actionsDone,setActionsDone] = useState<any>({});
   const [updatePhaseList, setUpdatePhaseList] = useState(false);

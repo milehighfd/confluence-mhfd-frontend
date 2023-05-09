@@ -81,6 +81,7 @@ const PortafolioBody = ({
   const [favorites, setFavorites] = useState<any>([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
+  const [scheduleList, setScheduleList] = useState<any>({});
 
   useEffect(() => {
     getParamFilterProjectsNoBounds();
@@ -387,7 +388,7 @@ const PortafolioBody = ({
   }, [openFavorites])
 
   return <>
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal} scheduleList={scheduleList}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate
       visible={openModalTollgate}
@@ -498,6 +499,8 @@ const PortafolioBody = ({
                         setGrapphicOpen={setGrapphicOpen}
                         setPositionModalGraphic={setPositionModalGraphic}
                         setDataModal={setDataModal}                    
+                        scheduleList={scheduleList}
+                        setScheduleList={setScheduleList}
                         filterPagination={filterPagination}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
@@ -524,6 +527,8 @@ const PortafolioBody = ({
                       setGrapphicOpen={setGrapphicOpen}
                       setPositionModalGraphic={setPositionModalGraphic}
                       setDataModal={setDataModal}
+                      scheduleList={scheduleList}
+                      setScheduleList={setScheduleList}
                       moveSchedule={zoomTimeline}
                       scheduleRef={scheduleRef}
                       filterPagination={filterPagination}

@@ -31,6 +31,8 @@ const CalendarViewPag = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
+  scheduleList,
+  setScheduleList,
   moveSchedule,
   scheduleRef,
   filterPagination,
@@ -59,6 +61,8 @@ const CalendarViewPag = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
+  scheduleList: any,
+  setScheduleList: any,
   moveSchedule: any,
   scheduleRef: any,
   filterPagination: any,
@@ -73,7 +77,6 @@ const CalendarViewPag = ({
   const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [statusCounter, setStatusCounter] = useState(0);
-  const [scheduleList, setScheduleList] = useState<any>({});
   const [statusList, setStatusList] = useState<any>([]);
   const [actionsDone, setActionsDone] = useState<any>({});
   const [updatePhaseList, setUpdatePhaseList] = useState(false);

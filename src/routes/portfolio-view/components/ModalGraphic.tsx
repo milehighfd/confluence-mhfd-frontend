@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
+import { colorScale } from '../constants/PhaseViewData';
 
 const ModalGraphic = ({
   positionModalGraphic,
-  dataProject
+  dataProject,
+  scheduleList
 }: {
   positionModalGraphic?: any,
   dataProject?: any,
+  scheduleList?:any
 }) => {
   const [actualEndDate, setActualEndDate] = useState<any>()
   const [modifiedDate, setModifiedDate] = useState<any>()
@@ -44,9 +47,33 @@ const ModalGraphic = ({
       controller.abort();
     };
   }, [dataProject])
+
+  const colorStatus = (d:any)=>{
+    let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.d?.phaseId))
+    let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phase_id))
+    let color = '';
+    let today = moment()
+    if (currentIndex > phaseIndex) {
+      color = 'Done'
+    } else if (currentIndex === phaseIndex) {
+      if (d?.to) {
+        const diffDates = ((moment(d?.to).diff(today, 'M', true)))
+        if (diffDates < 0) {
+          color = 'Overdue'
+        } else {
+          color = 'Current'
+        }
+      } else {
+        color = 'Current'
+      }
+    } else {
+      color = 'NotStarted'
+    }
+    return (d.type === 'title' ? '#C9C5D8' : colorScale[color]);
+  }
   if (Object.keys(dataProject).length > 0) {
     return (
-      <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top }}>
+      <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top, borderTopColor: colorStatus(dataProject) }}>
         <p className="title">{dataProject.schedulePhase}</p>
         <p style={{ color: 'white' }}>{dataProject.d.rowLabel}</p>
         <hr></hr>

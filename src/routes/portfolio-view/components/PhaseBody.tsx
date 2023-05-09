@@ -552,7 +552,7 @@ const PhaseBody = ({
               const lenghtSc = Object.keys(scheduleList[r].tasksData).length
               const phaseSc = (scheduleList[r].phase)
               const phaseId = (scheduleList[r].phase_id)
-              const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
+              const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:(d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)}
               setDataModal(sendModal);
               if (popupVisible !== null) {
                 let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 280 :

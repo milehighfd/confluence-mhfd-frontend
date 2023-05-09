@@ -1147,7 +1147,7 @@ const CalendarBody = ({
           const phaseSc = scheduleData.phase
           const phaseId = scheduleData.phase_id
           const dataProject = d.project_data;
-          const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
+          const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
           setDataModal(sendModal);
           if (d3.event.target.className.animVal === 'agrupationbar') {
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
