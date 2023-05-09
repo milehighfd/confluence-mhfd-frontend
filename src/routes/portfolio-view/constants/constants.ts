@@ -1,3 +1,14 @@
+export const GROUPS = [
+  'Status',
+  'Jurisdiction',
+  'County',
+  'Service Area',
+  'MHFD Lead',
+  'Consultant',
+  'Contractor'
+];
+
+
 export const dataTable = [
   {
     key: '1',
@@ -175,3 +186,4 @@ export const dataTable00 = [
     options:'red',
   },
 ];
+
