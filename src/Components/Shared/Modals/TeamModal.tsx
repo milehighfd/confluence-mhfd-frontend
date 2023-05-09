@@ -13,18 +13,26 @@ const TeamModal = () => {
   }, [detailed]);
   return <>
     {data.map((item: any)=>(
-      <Row key={item.key}>
-        <Col span={4}>
-          <img src="/picture/user-default.svg" alt="" height="35px" />
-        </Col>
-        <Col span={13}>
+      <div className='team-item'>
+        <img src="/picture/user-default.svg" alt="" />
+        <div className='text-team-item'>
           <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
           <p>{item.roleType}</p>
-        </Col>
-        <Col span={7} style={{ textAlign: 'right' }} className='col-name-team-organization'>
-          <span>{item.organization}</span>
-        </Col>
-      </Row>
+          <span >{item.organization}</span>
+        </div>
+      </div>
+      // <Row key={item.key}>
+    //     <Col span={4}>
+    //     <img src="/picture/user-default.svg" alt="" height="35px" />
+    //   </Col>
+    //   <Col span={13}>
+    //     <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
+    //     <p>{item.roleType}</p>
+    //   </Col>
+    //   <Col span={7} style={{ textAlign: 'right' }} className='col-name-team-organization'>
+    //     <span>{item.organization}</span>
+    //   </Col>
+    // </Row>
     ))}
   </>
 };

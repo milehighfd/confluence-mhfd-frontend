@@ -73,6 +73,39 @@
 .portafolio .ant-tabs-tabpane-active {
   overflow-y: hidden;
 }
+.team-item{
+  display: flex;
+  align-items: center;
+  img{
+    margin-right: 0.8pc;
+    height: 35px;
+    margin-top: 0px;
+    border-radius: 50%;
+  }
+  h6{
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  p{
+    margin-bottom: -4px;
+    margin-top: -2px;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  span{
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .text-team-item{
+    width: 87%;
+  }
+}
 .col-name-team-organization{
   line-height: 15px;
   margin-top: 4px;
@@ -2374,6 +2407,18 @@
   display: none; 
 }
 @media (min-width: 1900px) and (max-width: 2549px){
+  .team-item{
+    display: flex;
+    align-items: center;
+    img{
+      height: 40px !important;
+      margin-top: 0px !important;
+    }
+    p{
+      margin-bottom: -2px;
+      margin-top: -2px;
+    }
+  }
   .col-name-team-organization {
     line-height: 20px;
     margin-top: 5px;
@@ -3146,6 +3191,25 @@
 }
 
 @media (min-width: 2555px) and (max-width: 3799px){
+  .team-item{
+    display: flex;
+    align-items: center;
+    img{
+      height: 55px !important;
+      margin-top: 0px !important;
+      margin-right: 0px !important;
+    }
+    p{
+      margin-bottom: -2px !important;
+      margin-top: -4px !important;
+    }
+    p span h6{
+      width: 100% !important;
+    }
+    .text-team-item{
+      width: 83% !important;
+    }
+  }
   .scroll-custom{
     margin-left: 20.5%;
   }
@@ -3887,6 +3951,25 @@
   transition: background .3s;
 }
 @media (min-width: 3800px) and (max-width: 5999px){
+  .team-item{
+    display: flex;
+    align-items: center;
+    img{
+      height: 40px !important;
+      margin-top: 0px !important;
+    }
+    p{
+      margin-bottom: -9px !important;
+      margin-top: -6px !important;
+      width: 100% !important;
+    }
+    p span h6{
+      width: 100% !important;
+    }
+    .text-team-item{
+      width: 83% !important;
+    }
+  }
   .scroll-custom{
     margin-left: 20.8%;
   }
