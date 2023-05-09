@@ -495,45 +495,7 @@ const CalendarBody = ({
           .data((d: any) => {
             return d.schedule;
           });
-        let todayline = scheduleG
-          .enter().append('line')
-          .attr('id', 'todayLine')
-          .attr('x1', function () {
-            return xScale(today);
-          })
-          .attr('y1', padding.top - 40)
-          .attr('x2', function () {
-            return xScale(today);
-          })
-          .attr('y2', height + padding.top - padding.bottom)
-          .style('stroke-dasharray', 5.5)
-          .style('stroke-width', 2)
-          .style('stroke', '#FF901C')
-          .style('fill', 'none');
-
-        let todayCircle = scheduleGaxis.enter().append("circle")
-          .attr('id', 'todayCircle')
-          .attr("cx", function () {
-            return xScale(today);
-          })
-          .attr("cy", 10)
-          .attr("r", 6)
-          .style("fill", '#FF901C')
-        let todaylineaxis = scheduleGaxis
-          .enter().append('line')
-          .attr('id', 'todayLineAxis')
-          .attr('x1', function () {
-            return xScale(today);
-          })
-          .attr('y1', 10)
-          .attr('x2', function () {
-            return xScale(today);
-          })
-          .attr('y2', height + padding.top - padding.bottom)
-          .style('stroke-dasharray', 5.5)
-          .style('stroke-width', 2)
-          .style('stroke', '#FF901C')
-          .style('fill', 'none');
+        
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
@@ -1065,21 +1027,6 @@ const CalendarBody = ({
         };
 
         let updateRects = function () {
-          // todayline.attr('x1', calctodayX);
-          // todayline.attr('x2', calctodayX);
-          d3.selectAll('#todayLine').attr('x1', calctodayX);
-          d3.selectAll('#todayLine').attr('x2', calctodayX);
-          // todaylineaxis.attr('x1', calctodayX);
-          // todaylineaxis.attr('x2', calctodayX);
-          d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
-          d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
-          // todayCircle.attr('cx', calctodayX);
-          d3.selectAll('#todayCircle').attr('cx', calctodayX);
-          // console.log('scheduleRects', scheduleRects._groups)
-          // scheduleRects._groups.forEach((element:any) => {
-          //   console.log('element', element)
-          // });
-
           // scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.agrupationbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
@@ -1509,6 +1456,45 @@ const CalendarBody = ({
             .remove();
         } // renderMonthNames
 
+        let todayline = scheduleG
+          .enter().append('line')
+          .attr('id', 'todayLine')
+          .attr('x1', function () {
+            return xScale(today);
+          })
+          .attr('y1', padding.top - 40)
+          .attr('x2', function () {
+            return xScale(today);
+          })
+          .attr('y2', height + padding.top - padding.bottom)
+          .style('stroke-dasharray', 5.5)
+          .style('stroke-width', 2)
+          .style('stroke', '#FF901C')
+          .style('fill', 'none');
+
+        let todayCircle = scheduleGaxis.enter().append("circle")
+          .attr('id', 'todayCircle')
+          .attr("cx", function () {
+            return xScale(today);
+          })
+          .attr("cy", 10)
+          .attr("r", 6)
+          .style("fill", '#FF901C')
+        let todaylineaxis = scheduleGaxis
+          .enter().append('line')
+          .attr('id', 'todayLineAxis')
+          .attr('x1', function () {
+            return xScale(today);
+          })
+          .attr('y1', 10)
+          .attr('x2', function () {
+            return xScale(today);
+          })
+          .attr('y2', height + padding.top - padding.bottom)
+          .style('stroke-dasharray', 5.5)
+          .style('stroke-width', 2)
+          .style('stroke', '#FF901C')
+          .style('fill', 'none');
         zoomed = function () {
           
 
@@ -1578,6 +1564,20 @@ const CalendarBody = ({
             d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
           }
           updateRects();
+                              // todayline.attr('x1', calctodayX);
+          // todayline.attr('x2', calctodayX);
+          d3.selectAll('#todayLine').attr('x1', calctodayX);
+          d3.selectAll('#todayLine').attr('x2', calctodayX);
+          // todaylineaxis.attr('x1', calctodayX);
+          // todaylineaxis.attr('x2', calctodayX);
+          d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
+          d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
+          // todayCircle.attr('cx', calctodayX);
+          d3.selectAll('#todayCircle').attr('cx', calctodayX);
+          // console.log('scheduleRects', scheduleRects._groups)
+          // scheduleRects._groups.forEach((element:any) => {
+          //   console.log('element', element)
+          // });
         };
 
         zoom = d3
