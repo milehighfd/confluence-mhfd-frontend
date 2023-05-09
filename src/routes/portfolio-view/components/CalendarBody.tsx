@@ -1029,8 +1029,12 @@ const CalendarBody = ({
         let updateRects = function () {
           // scheduleRects.attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
+          d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.agrupationbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-
+          d3.selectAll('.agrupationbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
+          d3.selectAll('.stackedbarCenterClicked').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
+          d3.selectAll('.stackedbarClicked').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
+          d3.selectAll('.nameClicked').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
           // scheduleRectsCenter.attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
           d3.selectAll('.stackedbarCenter').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
 
@@ -1107,7 +1111,7 @@ const CalendarBody = ({
           let positionTop: any = d3.event.y - heightOfPopup-20;
           let positionLeft: any = d3.event.x - widthOfPopup / 2;
           setPositionModalGraphic({ left: positionLeft, top: positionTop })
-          d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar:hover');
+          d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarHover');
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
             d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
             d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
@@ -1144,7 +1148,7 @@ const CalendarBody = ({
             let positionTop: any = d3.event.y - heightOfPopup-20;
             let positionLeft: any = d3.event.x - widthOfPopup / 2;
             setPositionModalGraphic({ left: positionLeft, top: positionTop })
-            d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbar:hover');
+            d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarHover');
             if (d3.event.target.className.animVal === 'nameClicked') {
               d3.selectAll('.nameClicked').attr('class', 'labels');
               d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
@@ -1564,6 +1568,8 @@ const CalendarBody = ({
             d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
           }
           updateRects();
+          
+        console.log('sss',d3.selectAll('.stackedbarHover'))
                               // todayline.attr('x1', calctodayX);
           // todayline.attr('x2', calctodayX);
           d3.selectAll('#todayLine').attr('x1', calctodayX);
