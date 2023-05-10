@@ -353,7 +353,6 @@ const CalendarBody = ({
           .data((d: any) => {
             return d.schedule;
           });
-        
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
@@ -1142,9 +1141,7 @@ const CalendarBody = ({
           .style('stroke', '#FF901C')
           .style('fill', 'none');
         zoomed = function () {
-          
-
-
+        
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 35) {
@@ -1234,18 +1231,11 @@ const CalendarBody = ({
             [width, 0],
           ])
           .on('zoom', zoomed);
-        // svg.call(zoom).on('wheel.zoom', { passive: true }).on("dblclick.zoom", { passive: true });
-        svg.call(zoom.scaleBy, currentZScale);
-        // svgAxis.call(zoom).on('wheel.zoom', { passive: true }).on("dblclick.zoom", { passive: true });
-        svgAxis.call(zoom.scaleBy, currentZScale);
-        const moveZoom = (newZoomValue: any) => {
-          if (zoomStatus !== newZoomValue) {
-            svg.transition().call(zoom.translateBy, newZoomValue,0);
-            svgAxis.transition().call(zoom.translateBy, newZoomValue,0);
-            setZoomStatus(newZoomValue);
-          }
-        };
-        moveZoom(zoomTimeline);
+          svg.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
+          svg.call(zoom.scaleBy, currentZScale);
+          svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
+          svgAxis.call(zoom.scaleBy, currentZScale);
+        moveZoom(zoomTimeline, svg, svgAxis);
         if (zoomSelected === 'Today') {
           zoom.translateTo(svg, xScale(today), 0);
           zoom.scaleTo(svg, 7.5);
@@ -1253,7 +1243,7 @@ const CalendarBody = ({
           zoom.scaleTo(svgAxis, 7.5);
           //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
           //setIsZoomToday(false);
-          moveZoom(zoomTimeline);
+          moveZoom(zoomTimeline, svg, svgAxis);
           d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
         }
         if (isZoomWeekly) {
@@ -1278,7 +1268,14 @@ const CalendarBody = ({
       }
     }
   };
-
+  const moveZoom = (newZoomValue: any, svg: any, svgAxis: any) => {
+    
+    if (zoomStatus !== newZoomValue) {
+      svg.transition().call(zoom.translateBy, newZoomValue,0);
+      svgAxis.transition().call(zoom.translateBy, newZoomValue,0);
+      setZoomStatus(newZoomValue);
+    }
+  };
 
   useEffect(() => {
     let dataParsed = (dataBody.map((x: any, index: number) => {
@@ -1479,7 +1476,7 @@ const CalendarBody = ({
       removeAllChildNodes(removechartAxis);
       timelineChart(datas);
     }
-  }, [openTable, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,calendarData,scheduleList,windowWidth]);
+  }, [isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected]);
 
   useEffect(() => {
     let idForFilter = dataId.id;
