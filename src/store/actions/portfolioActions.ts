@@ -1,15 +1,16 @@
-import * as types from '../types/portfolioTypes';
-import * as datasets from '../../Config/datasets';
-import { SERVER } from '../../Config/Server.config';
+import * as types from 'store/types/portfolioTypes';
 
-export const setSearchWord = (searchWord: string) => {
-  return (dispatch: Function) => {
-    dispatch({type: types.SET_SEARCH_WORD, payload: searchWord});
-  }
-};
+export const setSearchWord = (searchWord: string) => ({
+  type: types.SET_SEARCH_WORD,
+  payload: searchWord
+});
 
-export const setCurrentGroup = (currentGroup: string) => {
-  return (dispatch: Function) => {
-    dispatch({type: types.SET_CURRENT_GROUP, payload: currentGroup});
-  }
-};
+export const setCurrentGroup = (currentGroup: string) => ({
+  type: types.SET_CURRENT_GROUP,
+  payload: currentGroup
+});
+
+export const setFavorites = (favorites: Array<any>) => ({
+  type: types.SET_FAVORITES,
+  payload: favorites
+});

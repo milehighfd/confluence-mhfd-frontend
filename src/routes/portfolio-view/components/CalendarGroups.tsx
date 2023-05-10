@@ -6,6 +6,7 @@ import * as datasets from 'Config/datasets';
 import { usePortflioState } from 'hook/portfolioHook';
 import CalendarBody from 'routes/portfolio-view/components/CalendarBody';
 import { useMapState } from "hook/mapHook";
+import { handleAbortError } from 'store/actions/mapActions';
 
 const { Panel } = Collapse;
 
@@ -26,7 +27,6 @@ const CalendarGroups = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  moveSchedule,
   isZoomToday,
   isZoomWeekly,
   setIsZoomWeekly,
@@ -58,7 +58,6 @@ const CalendarGroups = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  moveSchedule: any,
   isZoomToday: any,
   isZoomWeekly: any,
   setIsZoomWeekly: any,
@@ -88,11 +87,19 @@ const CalendarGroups = ({
     const sendfilter = filterProjectOptions;
     delete sendfilter.sortby;
     delete sendfilter.sortorder;
-    if(currentGroup !== 'streams'){
-      datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, sendfilter).then((res: any) => {
-        setCounter(res.count)
-      })
-    }    
+    if(currentGroup === 'streams') return;
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKey}`,
+      sendfilter,
+      datasets.getToken(),
+      controller.signal
+    ).then((res: any) => {
+      setCounter(res.count)
+    }).catch(handleAbortError);
+    return () => {
+      controller.abort();
+    };
   },[tabKey,filterProjectOptions])
 
   const getActiveKeys = () => {
@@ -166,7 +173,6 @@ const CalendarGroups = ({
             setGrapphicOpen={setGrapphicOpen}
             setPositionModalGraphic={setPositionModalGraphic}
             setDataModal={setDataModal}
-            moveSchedule={moveSchedule}
             groupName={data.value}
             isZoomToday={isZoomToday}
             isZoomWeekly={isZoomWeekly}

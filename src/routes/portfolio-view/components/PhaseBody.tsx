@@ -79,8 +79,7 @@ const PhaseBody = ({
     filterProjectOptions,
   } = useMapState();
 
-  const { currentGroup } = usePortflioState();
-  const [favorites, setFavorites] = useState([]);
+  const { currentGroup, favorites } = usePortflioState();
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -151,20 +150,6 @@ const PhaseBody = ({
       setNext(false)
     }
   }, [next, prev])
-
-  useEffect(() => {
-    const controller = new AbortController();
-    datasets.getData(
-      SERVER.FAVORITES,
-      datasets.getToken(),
-      controller.signal
-    ).then(result => {
-      setFavorites(result);
-    })
-    return () => {
-      controller.abort();
-    }
-  }, [updateFavorite]);
 
   useEffect(() => {
     if (Object.keys(phaseData).length > 0) {

@@ -13,6 +13,7 @@ import { usePortflioState } from 'hook/portfolioHook';
 import store from 'store';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { useMapState } from "hook/mapHook";
+import { handleAbortError } from 'store/actions/mapActions';
 
 const CalendarBody = ({
   dataId,
@@ -32,7 +33,6 @@ const CalendarBody = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  moveSchedule,
   groupName,
   isZoomToday,
   isZoomWeekly,
@@ -68,7 +68,6 @@ const CalendarBody = ({
   setGrapphicOpen: Function,
   setPositionModalGraphic: Function,
   setDataModal: Function,
-  moveSchedule: Function,
   groupName: string,
   isZoomToday: any,
   isZoomWeekly: any,
@@ -87,13 +86,13 @@ const CalendarBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  console.log('Starting again');
   const appUser = store.getState().profile;
   const email = appUser.userInformation?.email;
   const {
     filterProjectOptions,
   } = useMapState();
-  const { currentGroup } = usePortflioState();
-  const [favorites, setFavorites] = useState([]);
+  const { currentGroup, favorites } = usePortflioState();
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -101,13 +100,10 @@ const CalendarBody = ({
   const [calendarData, setCalendarData] = useState<any>([]);
   const [currentZScale, setCurrentZScale] = useState(7.5);
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [fromData,setFromData] = useState<any>([]);
   const [toData,setToData] = useState<any>([]);
   const [locations, setLocations] = useState<any>([]);
   const [datas, setDatas] = useState<any>([]);
   const [svgState, setSvgState] = useState<any>();
-  const [svgAxisState, setSvgAxisState] = useState<any>();
-  const [resultCounter, setResultCounter] = useState<any>(0);
   const [updateForDates, setUpdateForDates] = useState<any>(false);
   const windowWidth: any = window.innerWidth;
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
@@ -117,7 +113,6 @@ const CalendarBody = ({
   let xScale: any;
   let zoomedXScale: any;
   let zoomed: any;
-  let zoomfortoday: any
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
   let hasDateData = true;
@@ -176,23 +171,13 @@ const CalendarBody = ({
     }
   }, [next, prev])
 
-  useEffect(() => {
-    datasets.getData(SERVER.FAVORITES, datasets.getToken()).then(result => {
-      setFavorites(result);
-    })
-  }, [updateFavorite]);
-
-  
-
   //Start of calendar generation
   const timelineChart = (datasets: any) => {
     if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
       let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
       let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8) : barHeightDefault;
-      let paddingBars = heightDiv[0].offsetHeight ? (heightDiv[0].offsetHeight - barHeight) : 12;
       let padding = { top: 38, right: 10, bottom: 10, left: -0 };
       let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
-      // let height = (heightDiv[0].offsetHeight * 15) + padding.bottom + padding.top;
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechartAxis);
       if (svg) {
@@ -215,8 +200,6 @@ const CalendarBody = ({
       let dragablesLines = 'dragginglines';
 
       let offsetBar = 18;
-      const dragableLineLength = 3;
-      const dragableLineHalf = dragableLineLength / 2;
 
       let counterDataForChart: number = 0;
       datasets.forEach((sch: any) => {
@@ -250,13 +233,7 @@ const CalendarBody = ({
             .add(monthsBehind, 'months')
             .startOf('month');
         }
-        
-        // let timelineStartTime = moment(fromData[0].from.startOf('month')).subtract(12, 'months');
-        // let timelineEndTime = moment(toData[toData.length - 1].to)
-        //   .add(12, 'months')
-        //   .startOf('month');     
-        // let timelineStartTimeForYears = moment(fromData[0].from.startOf('year')).subtract(1, 'years');
-        // let timelineEndTimeForYears = moment(toData[toData.length - 1].to).add(1, 'years').startOf('year');
+
         let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
         width = widhtDiv - 3;
 
@@ -277,7 +254,6 @@ const CalendarBody = ({
           .domain(datasets.map((d: any) => d.id))
           .range([padding.top, height - padding.bottom + screenOffset]);
         let chartHeight = height - padding.top - padding.bottom;
-        let timeFormatterForYears: any = d3.timeFormat('%Y');
         let timeFormatterForMonths: any = d3.timeFormat('%B');
         let timeFormatterForDays: any = d3.timeFormat('%d');
         let tickFormatEmpty: any = '';
@@ -293,7 +269,7 @@ const CalendarBody = ({
           .tickSize(-chartHeight)
           .tickFormat(tickFormatEmpty);
 
-        let xAxisMonthMonthly = d3
+        d3
           .axisTop(xScale)
           .ticks(d3.timeMonth.every(1))
           .tickSize(-chartHeight)
@@ -305,7 +281,7 @@ const CalendarBody = ({
           .tickSize(-chartHeight)
           .tickFormat(timeFormatterForDays);
 
-        let yAxis = d3
+        d3
           .axisLeft(yScale)
           .ticks(12)
           .tickSize(width)
@@ -318,14 +294,14 @@ const CalendarBody = ({
           .attr('class', 'topHeaderChart')
           .call(xAxisDay);
 
-        let gX1 = svg
+        svg
           .append('g')
           .attr('id', 'xMonth')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
           .attr('class', 'topHeaderMonthChart')
           .call(xAxisMonth);
 
-        let gX2 = svg
+        svg
           .append('g')
           .attr('id', 'xYear')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top) + ')')
@@ -339,21 +315,21 @@ const CalendarBody = ({
           .attr('class', 'topHeader')
           .call(xAxisDay);
 
-        let gX1a = svgAxis
+        svgAxis
           .append('g')
           .attr('id', 'xAxisMonth')
           .attr('transform', 'translate(' + 0 + ',' + padding.top + ')')
           .attr('class', 'topHeaderMonthforTicks')
           .call(xAxisMonth);
 
-        let gX2a = svgAxis
+        svgAxis
           .append('g')
           .attr('id', 'xAxisYear')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22 + separationHeaderAxisMonth) + ')')
           .attr('class', 'topHeaderYear')
           .call(xAxisYear);
 
-        let gX2aYear = svgAxis
+        svgAxis
           .append('g')
           .attr('id', 'xAxisYears')
           .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22 + separationHeaderAxisYear) + ')')
@@ -396,8 +372,6 @@ const CalendarBody = ({
             let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 190 : (windowWidth >= 2001 && windowWidth <= 2549 ? 130 : (windowWidth >= 2550 && windowWidth <= 3000 ? 140 : (windowWidth >= 1450 && windowWidth <= 2000 ? 120 : (windowWidth >= 1199 && windowWidth <= 1449 ? 100 : 100)))));
             return widthAddButton;
           })
-          // (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11)))))
-
           .attr("y", (d: any) => {
             let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 11 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 1450 && windowWidth <= 2000 ? 9 : (windowWidth >= 1199 && windowWidth <= 1449 ? 2 : 2)))));
             let yScaleRect: any = yScale(d['id']);
@@ -461,8 +435,6 @@ const CalendarBody = ({
           ;
 
         hasDateData = true;
-        let countColor = 0;
-        let done = true;
         let scheduleRects = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
@@ -513,7 +485,6 @@ const CalendarBody = ({
               }
             } else {
               color = 'NotStarted'
-              done = false
             }
             return (d.type === 'title' ? '#C9C5D8' : colorScale[color]);
           })
@@ -522,8 +493,6 @@ const CalendarBody = ({
           })
 
         hasDateData = true;
-        done = true;
-        countColor = 0;
         let scheduleRectsCenter = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
@@ -564,7 +533,6 @@ const CalendarBody = ({
               }
             } else {
               color = 'NotStarted'
-              done = false
             }
             return (d.type === 'title' ? '#C9C5D8' : colorScale[color]);
           })
@@ -587,7 +555,6 @@ const CalendarBody = ({
           .attr('y', function (d: any) {
             let yScaleId: any = (yScale(d['id']) || 0);
             let yfactor: any = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
-            let forTitle: any = (windowWidth >= 2550 && windowWidth <= 3999 && d.type === 'title' ? -9 : 0);
             return yScaleId + yScale.bandwidth() / 2 + yfactor;
           })
           .attr('width', function (d: any) {
@@ -599,35 +566,6 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
           });
-
-        // let rectNamesAgrupation = scheduleG
-        // .join('text')
-        // .attr('id', (d: any) => 'text_' + d.name.replace(/ +/g, '') + '_' + d.objectId)
-        // .attr('class', (d: any) => (d.type === 'title' ? 'labelsAgrupation':'labels'))
-        // .style('fill', '#11093C')
-        // .style('font-weight', 500)
-        // .attr('x', function(d: any) {
-        //   let scaleName: any =xScale(d['from'])
-        //   return scaleName + 150;
-        // })
-        // .attr('y', function(d: any) {
-        //   let yScaleId: any = yScale(d['id']);
-        //   return yScaleId + yScale.bandwidth() / 2;
-        // })
-        // .attr('width', function(d: any) {
-        //   let xScaleTo: any;
-        //   let xScaleFrom: any;
-        //   if (d.type === 'title'){
-        //     xScaleTo = xScale(moment('2022/11/11'));
-        //     xScaleFrom = xScale(moment('2022/06/11'));
-        //   } else {
-        //     xScaleTo = xScale(d['from']);
-        //     xScaleFrom = xScale(d['from']);
-        //   }
-        //   return xScaleTo - xScaleFrom;
-        // })
-        // .attr('visibility', (d: any) => (d.type === 'title' ? 'visible':'hidden'))
-        // .text((d: any) => d.name);
 
         let dragableLineLeft = scheduleG
           .enter().append('g')
@@ -642,64 +580,7 @@ const CalendarBody = ({
 
         hasDateData = true
 
-        let h = yScale.bandwidth();
-
-        // commented to disable left and right dragging lines 
-        // leftLine = dragableLineLeft
-        //   .append('line')
-        //   .attr('id', function (d: any) {
-        //     return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_left`;
-        //   })
-        //   .attr('class', 'dragginglinesLeft')
-        //   .attr('x1', function (d: any) {
-        //     let xScaleFrom: any = (xScale(d['from']) || 0);
-        //     return xScaleFrom - dragableLineHalf + 3;
-        //   })
-        //   .attr('x2', function (d: any) {
-        //     let xScaleFrom: any = (xScale(d['from']) || 0);
-        //     return xScaleFrom - dragableLineHalf + 3;
-        //   })
-        //   .attr('y1', function (d: any) {
-        //     let yScaleId: any = (yScale(d['id']) || 0);
-        //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 100 : 0)
-        //     return yScaleId + h + yScaleFactor;
-        //   })
-        //   .attr('y2', function (d: any) {
-        //     let yScaleId: any = (yScale(d['id']) || 0);
-        //     let yScaleFactor = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
-        //     return yScaleId + h + 8 + yScaleFactor;
-        //   })
-        //   .style('visibility', (d: any) => {
-        //     return d.show ? 'visible' : 'hidden'
-        //   });
-
-        // hasDateData = true
-
-        // rightLine = dragableLineRight
-        //   .append('line')
-        //   .attr('id', function (d: any) {
-        //     return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_right`;
-        //   })
-        //   .attr('class', 'dragginglinesRight')
-        //   .attr('x1', function (d: any) {
-        //     let xScaleTo: any = (xScale(d['to']) || 0);
-        //     return xScaleTo - dragableLineHalf - 3;
-        //   })
-        //   .attr('x2', function (d: any) {
-        //     let xScaleTo: any = (xScale(d['to']) || 0);
-        //     return xScaleTo + dragableLineHalf - 3;
-        //   })
-        //   .attr('y1', function (d: any) {
-        //     let yScaleId: any = (yScale(d['id']) || 0);
-        //     return yScaleId + h - 2;
-        //   })
-        //   .attr('y2', function (d: any) {
-        //     let yScaleId: any = (yScale(d['id']) || 0);
-        //     return yScaleId + h + 8;
-        //   })
-        //   .style('visibility', (d: any) => {
-        //     return d.show ? 'visible' : 'hidden'
-        //   });
+        yScale.bandwidth();
 
         zoomedXScale = xScale;
         let calctodayX = function (d: any) {
@@ -729,18 +610,10 @@ const CalendarBody = ({
           let widthcenter = zoomedXScaleTo - zoomedXScaleFrom - 24;
           return (d.type === 'title' ? 0 : (widthcenter >= 0 ? widthcenter : 0));
         };
-        let calcLeftXLine = function (d: any) {
-          let zoomedXScaleFrom: any = zoomedXScale(d['from']);
-          return (zoomedXScaleFrom || 0) - dragableLineHalf + 8;
-        };
         let calcScheduleWidthText = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale(d['from']);
           let zoomedXScaleTo: any = zoomedXScale(d['to']);
           return (zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0) - 1;
-        };
-        let calcRightXLine = function (d: any) {
-          let zoomedXScaleTo: any = zoomedXScale(d['to']);
-          return (zoomedXScaleTo || 0) - dragableLineHalf - 6;
         };
 
         let makeRoundTime = function (time: any) {
@@ -756,31 +629,6 @@ const CalendarBody = ({
           d3.select(this as any)
             .classed('dragging', true)
             .style('opacity', 1);
-        };
-        let dragStart = function (this: any, d: any) {
-          d3.event.sourceEvent.stopPropagation();
-          d3.select(this).classed('dragging', true);
-        };
-        let dragEndRect = function (this: any, d: any) {
-          d['from'] = makeRoundTime(d['from']);
-          d['to'] = makeRoundTime(d['to']);
-          d3.select(this)
-            .classed('dragging', false)
-            .attr('x', calcScheduleX)
-            .attr('width', calcScheduleWidth);
-          updateRects();
-        };
-        let moveOtherRects = function (moveX: any, dataId: any, groupId: any) {
-          let currentDataset = datasets.filter((d: any) => d.id === groupId)[0];
-          currentDataset.schedule.forEach((sch: any) => {
-            if (sch.categoryNo !== dataId) {
-              let fromTime = moment(zoomedXScale.invert(zoomedXScale(sch['from']) + moveX));
-              let between = sch['to'].diff(sch['from'], 'days');
-              let toTime = moment(fromTime).add(between, 'days');
-              sch['from'] = fromTime;
-              sch['to'] = toTime;
-            }
-          });
         };
 
         let moveOtherRectsByDirection = function (moveX: any, dataId: any, direction: any, groupId: any) {
@@ -926,6 +774,7 @@ const CalendarBody = ({
           const phaseId = scheduleData.phase_id
           const dataProject = d.project_data;
           const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
+          console.log('setDataModal');
           setDataModal(sendModal);
           if (d3.event.target.className.animVal === 'agrupationbar') {
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
@@ -1055,6 +904,7 @@ const CalendarBody = ({
           d3.event.stopPropagation();
         });
         svg.on('click', function () {
+          console.log('click');
           //setOpenPiney(false);
           d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
           d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden');
@@ -1067,12 +917,6 @@ const CalendarBody = ({
           }
         });
 
-        let YearsToPixels = function (years: any) {
-          let d1 = new Date();
-          let firstvalue: any = zoomedXScale(d3.timeYear.offset(d1, years));
-          let secondvalue: any = zoomedXScale(d1);
-          return firstvalue - secondvalue;
-        };
         let MonthsToPixels = function (months: any) {
           let d1 = new Date();
           let firstvalue: any = zoomedXScale(d3.timeMonth.offset(d1, months));
@@ -1158,7 +1002,6 @@ const CalendarBody = ({
             } else {
               opacity = 1;
             }
-            let thisVar: any = d3.select(this)
             d3.select(this)
               .attr('x', (x >= 0 && x <= width / 2 + yearOffset ? width / 2 + yearOffset : x))
               .attr('opacity', opacity);
@@ -1185,7 +1028,6 @@ const CalendarBody = ({
           nameEnter = name.enter();
           nameUpdate = name;
           nameExit = name.exit();
-          zoomfortoday = d3.event.transform.k;
 
           nameEnter
             .append('text')
@@ -1267,7 +1109,7 @@ const CalendarBody = ({
             .remove();
         } // renderMonthNames
 
-        let todayline = scheduleG
+        scheduleG
           .enter().append('line')
           .attr('id', 'todayLine')
           .attr('x1', function () {
@@ -1283,7 +1125,7 @@ const CalendarBody = ({
           .style('stroke', '#FF901C')
           .style('fill', 'none');
 
-        let todayCircle = scheduleGaxis.enter().append("circle")
+        scheduleGaxis.enter().append("circle")
           .attr('id', 'todayCircle')
           .attr("cx", function () {
             return xScale(today);
@@ -1291,7 +1133,7 @@ const CalendarBody = ({
           .attr("cy", 10)
           .attr("r", 6)
           .style("fill", '#FF901C')
-        let todaylineaxis = scheduleGaxis
+        scheduleGaxis
           .enter().append('line')
           .attr('id', 'todayLineAxis')
           .attr('x1', function () {
@@ -1399,9 +1241,9 @@ const CalendarBody = ({
             [width, 0],
           ])
           .on('zoom', zoomed);
-        svg.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
+        // svg.call(zoom).on('wheel.zoom', { passive: true }).on("dblclick.zoom", { passive: true });
         svg.call(zoom.scaleBy, currentZScale);
-        svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
+        // svgAxis.call(zoom).on('wheel.zoom', { passive: true }).on("dblclick.zoom", { passive: true });
         svgAxis.call(zoom.scaleBy, currentZScale);
         const moveZoom = (newZoomValue: any) => {
           if (zoomStatus !== newZoomValue) {
@@ -1573,11 +1415,6 @@ const CalendarBody = ({
           }),
       };
     });
-    setFromData(datasInt?.map((ds: any) => ds.schedule)
-      .flat()
-      .sort(function (a: any, b: any) {
-        return a.from - b.from;
-      }));
     setToData(datasInt?.map((ds: any) => ds.schedule)
       .flat()
       .sort(function (a: any, b: any) {
@@ -1639,7 +1476,6 @@ const CalendarBody = ({
     //collapseItemStatus();
     timelineChart(datas);
     setSvgState(svg);
-    setSvgAxisState(svgAxis);
   }, [calendarData,scheduleList,windowWidth]);
 
   useEffect(() => {
@@ -1650,17 +1486,25 @@ const CalendarBody = ({
       removeAllChildNodes(removechartAxis);
       timelineChart(datas);
     }
-  }, [openTable, moveSchedule, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,calendarData,scheduleList,windowWidth]);
+  }, [openTable, isZoomToday, isZoomWeekly, isZoomMonthly, zoomTimeline, zoomSelected,calendarData,scheduleList,windowWidth]);
 
   useEffect(() => {
     let idForFilter = dataId.id;
     if(currentGroup === 'streams' && dataId.value !== ''){
       idForFilter = dataId.value;
     }
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`, filterProjectOptions).then((res: any) => {
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter)}?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
+      filterProjectOptions,
+      datasets.getToken(),
+      controller.signal
+    ).then((res: any) => {
       setDataBody(res);
-      setResultCounter(Object.keys(res).length);
-    })
+    }).catch(handleAbortError);
+    return () => {
+      controller.abort();
+    };
   }, [ page, filterProjectOptions,updateForDates])
 
   const deleteFunction = (id: number, email: string, table: string) => {
@@ -1676,13 +1520,15 @@ const CalendarBody = ({
     });
   }
   const removeAllChildNodes = (parent: any) => {
-    while (parent !== null && parent.firstChild) {
+    console.log('removeAllChildNodes', new Date());
+    if (parent !== null && parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
+    console.log('removeAllChildNodes', new Date());
   };
 
 
-
+  console.log('Rendering CalendarBody');
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}

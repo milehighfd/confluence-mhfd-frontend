@@ -8,6 +8,7 @@ import { usePortflioState } from 'hook/portfolioHook';
 import CalendarGroups from 'routes/portfolio-view/components//CalendarGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
+import { handleAbortError } from 'store/actions/mapActions';
 
 const CalendarViewPag = ({
   searchRef,
@@ -26,7 +27,6 @@ const CalendarViewPag = ({
   setDataModal,
   scheduleList,
   setScheduleList,
-  moveSchedule,
   updatedGroup,
   secondaryUpdatedGroup,
   updateFavorites,
@@ -48,7 +48,6 @@ const CalendarViewPag = ({
   setDataModal: any,
   scheduleList: any,
   setScheduleList: any,
-  moveSchedule: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
   updateFavorites: any,
@@ -92,9 +91,7 @@ const CalendarViewPag = ({
       controller.signal
     ).then((e) => {
       setActionsDone(e);
-    }).catch((e) => {
-      console.log(e);
-    });
+    }).catch(handleAbortError);
     return () => {
       controller.abort();
     };
@@ -132,9 +129,7 @@ const CalendarViewPag = ({
         setScheduleList(z);
         setUpdatePhaseList(!updatePhaseList);
       })
-      .catch((e) => {
-        console.log(e);
-      })
+      .catch(handleAbortError)
     return () => {
       controller.abort();
     };
@@ -148,12 +143,12 @@ const CalendarViewPag = ({
       controller.signal
     ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
-    })
+    }).catch(handleAbortError);
     return () => {
       controller.abort();
     };
   }, [currentGroup]);
-
+  console.log('Rendering CalendarViewPag');
   return <>
     {openPiney && (
       <div className="phaseview-body">
@@ -264,7 +259,6 @@ const CalendarViewPag = ({
                   setGrapphicOpen={setGrapphicOpen}
                   setPositionModalGraphic={setPositionModalGraphic}
                   setDataModal={setDataModal}
-                  moveSchedule={moveSchedule}
                   isZoomToday={isZoomToday}
                   isZoomWeekly={isZoomWeekly}
                   setIsZoomWeekly={setIsZoomWeekly}

@@ -2,7 +2,8 @@ import { DEFAULT_GROUP } from '../../routes/portfolio-view/components/ListUtils'
 import * as types from '../types/portfolioTypes';
 const initState = {
   searchWord: '',
-  currentGroup: DEFAULT_GROUP
+  currentGroup: DEFAULT_GROUP,
+  favorites: [],
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -17,6 +18,11 @@ const portfolioReducer = (state = initState, action: any) => {
         ...state,
         currentGroup: action.payload
       }
+    case types.SET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload
+      };
     default: 
       return state
   }

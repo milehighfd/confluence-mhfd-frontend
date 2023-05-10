@@ -27,7 +27,6 @@ const TableBody = ({
   headerRef,
   updateFavorites,
   setUpdateFavorites,
-  sortValue,
   counter,
   page,
   setPage,
@@ -46,13 +45,12 @@ const TableBody = ({
   headerRef: any,
   updateFavorites: boolean,
   setUpdateFavorites: Function,
-  sortValue: any,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   
-  const { currentGroup } = usePortflioState();
+  const { currentGroup, favorites } = usePortflioState();
 
   const {
     filterProjectOptions,
@@ -62,15 +60,11 @@ const TableBody = ({
   const email = appUser.userInformation?.email;
 
   const [dataParsed, setDataParsed] = useState<any>([]);
-  // const [page, setPage] = useState(1);
-  const [favorites, setFavorites] = useState([]);
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [rowActive, setRowActive] = useState(-20)
-  const [resultCounter, setResultCounter] = useState<any>(0);
-  const [updateData, setUpdateData] = useState(false);
   let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
   useEffect(() => {
     if (next && page < limitPage) {
@@ -84,20 +78,6 @@ const TableBody = ({
       setNext(false)
     }
   }, [next, prev])
-
-  useEffect(() => {
-    const controller = new AbortController();
-    datasets.getData(
-      SERVER.FAVORITES,
-      datasets.getToken(),
-      controller.signal
-    ).then(result => {
-      setFavorites(result);
-    }).catch(handleAbortError);
-    return () => {
-      controller.abort();
-    };
-  }, [updateFavorite]);
 
   useEffect(() => {
     setDataParsed(dataBody.map((x: any, index: number) => {
@@ -208,7 +188,6 @@ const TableBody = ({
       controller.signal
     ).then((res: any) => {
       setDataBody(res);
-      setResultCounter(Object.keys(res).length);
     }).catch(handleAbortError);
     return () => {
       controller.abort();

@@ -28,7 +28,6 @@ const TablePortafolio = ({
     tabKeyId,
     updateFavorites,
     setUpdateFavorites,
-    sortValue,
   }: {
     tabKey: any,
     setSortValue: Function | any,
@@ -41,7 +40,6 @@ const TablePortafolio = ({
     tabKeyId: any,
     updateFavorites: any,
     setUpdateFavorites: Function,
-    sortValue: any,
   }) => {
   const {
     currentGroup
@@ -196,7 +194,6 @@ const TablePortafolio = ({
                       updateFavorites={updateFavorites}
                       setUpdateFavorites={setUpdateFavorites}
                       dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
-                      sortValue={sortValue}
                     />
                   </div>
                 )

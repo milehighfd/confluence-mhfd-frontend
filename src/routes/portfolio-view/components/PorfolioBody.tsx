@@ -13,7 +13,8 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import PhaseViewPag from 'routes/portfolio-view/components/PhaseViewPag';
 import CalendarViewPag from 'routes/portfolio-view/components/CalendarViewPag';
-import { usePortflioState } from 'hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
+import { handleAbortError } from 'store/actions/mapActions';
 
 const { TabPane } = Tabs;
 let isInit = true;
@@ -43,7 +44,8 @@ const PortafolioBody = ({
   const {
     searchWord,
   } = usePortflioState();
-    
+  const { setFavorites } = usePortfolioDispatch();
+
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
@@ -60,7 +62,6 @@ const PortafolioBody = ({
   let displayedTabKey = tabKeys;
   const [openTable, setOpenTable] = useState<any>([]);
   const searchRef = useRef([]); 
-  const [zoomTimeline] = useState(0);
   const [openDrop, setOpenDrop] = useState(false);
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
@@ -69,7 +70,6 @@ const PortafolioBody = ({
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
   const [updateFilter, setUpdateFilter] = useState([]);
-  const [favorites, setFavorites] = useState<any>([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
   const [scheduleList, setScheduleList] = useState<any>({});
@@ -243,12 +243,12 @@ const PortafolioBody = ({
       datasets.getToken(),
       controller.signal
     ).then(result => {
-      setFavorites(result);    
-    })
+      setFavorites(result);
+    }).catch(handleAbortError);
     return () => {
       controller.abort();
-    }
-  }, [updateFavorites]);
+    };
+  }, [setFavorites]);
  
   function enterPhase() {
     setOptionSelect('Phase')
@@ -364,7 +364,6 @@ const PortafolioBody = ({
                         setSortValue={setSortValue}
                         updateFavorites={updateFavorites}
                         setUpdateFavorites={setUpdateFavorites}
-                        sortValue={sortValue}
                       />
                       }
                       {optionSelect === 'Phase' && 
@@ -405,7 +404,6 @@ const PortafolioBody = ({
                       setDataModal={setDataModal}
                       scheduleList={scheduleList}
                       setScheduleList={setScheduleList}
-                      moveSchedule={zoomTimeline}
                       updatedGroup={updatedGroup}
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
                       updateFavorites={updateFavorites}
