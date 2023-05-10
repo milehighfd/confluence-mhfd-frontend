@@ -1,45 +1,38 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Button, Carousel, Col, message, Modal, Popover, Progress, Row, Tabs, Tooltip } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
+import ImageModal from "Components/Shared/Modals/ImageModal";
+import { SERVER } from "Config/Server.config";
+import { Button, Carousel, Col, Modal, Progress, Row, Tooltip, message } from "antd";
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import { saveAs } from 'file-saver';
+import { useDetailedState } from "hook/detailedHook";
+import { useMapDispatch } from "hook/mapHook";
+import { toPng } from 'html-to-image';
+import moment from "moment";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router";
+import PineyView from "routes/portfolio-view/components/PineyView";
+import store from "store/index";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import DetailInformationProject from "./DetailInformationProject";
-import ComponentSolucions from "./ComponentSolucions";
-import Roadmap from "./Roadmap";
 import * as datasets from "../../../Config/datasets";
+import { getCounties, getCurrentProjectStatus, getJurisdictions, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
+import ComponentSolucions from "./ComponentSolucions";
+import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
+import DetailInformationProblem from "./DetailInformationProblem";
+import DetailInformationProject from "./DetailInformationProject";
+import Documents from "./Documents";
 import Financials from "./Financials";
+import GalleryDetail from "./GalleryDetail";
+import History from "./History";
 import Management from "./Management";
 import Map from "./Map";
-import Documents from "./Documents";
-import { LeftCircleFilled, LeftOutlined, RightCircleFilled, RightOutlined } from "@ant-design/icons";
-import { CarouselRef } from "antd/lib/carousel";
-import ImageModal from "Components/Shared/Modals/ImageModal";
-import History from "./History";
-import PineyView from "routes/portfolio-view/components/PineyView";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_MODAL } from "constants/constants";
-import { useMapDispatch } from "hook/mapHook";
-import { SERVER } from "Config/Server.config";
-import { useDetailedState } from "hook/detailedHook";
-import DetailInformationProblem from "./DetailInformationProblem";
 import ProblemParts from "./ProblemParts";
-import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
-import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ProblemsProjects from "./ProblemsProjects";
+import Roadmap from "./Roadmap";
 import Vendors from "./Vendors";
-import { getCounties, getCurrentProjectStatus, getJurisdictions, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
-import { useLocation } from "react-router";
-import GalleryDetail from "./GalleryDetail";
-import moment from "moment";
-import store from "store/index";
-import { saveAs } from 'file-saver';
-import { toPng } from 'html-to-image';
-const { TabPane } = Tabs;
+
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
+
 const DetailModal = ({
   visible, 
   setVisible, 

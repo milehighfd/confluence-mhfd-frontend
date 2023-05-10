@@ -11,7 +11,7 @@ import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimated
 import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 
 const PhaseBody = ({
@@ -80,6 +80,7 @@ const PhaseBody = ({
   } = useMapState();
 
   const { currentGroup, favorites } = usePortflioState();
+  const { deleteFavorite, addFavorite } = usePortfolioDispatch();
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -682,16 +683,10 @@ const PhaseBody = ({
   }, [page, filterProjectOptions])
 
   const deleteFunction = (id: number, email: string, table: string) => {
-    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite);
-      setUpdateFavorites(!updateFavorites);
-    });
+    deleteFavorite(id);
   }
   const addFunction = (email: string, id: number, table: string) => {
-    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite);
-      setUpdateFavorites(!updateFavorites);
-    });
+    addFavorite(id);
   }
   const removeAllChildNodes = (parent: any) => {
     while (parent !== null && parent.firstChild) {

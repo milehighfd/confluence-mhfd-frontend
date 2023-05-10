@@ -8,7 +8,7 @@ import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
 
@@ -51,6 +51,7 @@ const TableBody = ({
 }) => {
   
   const { currentGroup, favorites } = usePortflioState();
+  const { deleteFavorite, addFavorite } = usePortfolioDispatch();
 
   const {
     filterProjectOptions,
@@ -60,7 +61,6 @@ const TableBody = ({
   const email = appUser.userInformation?.email;
 
   const [dataParsed, setDataParsed] = useState<any>([]);
-  const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -201,16 +201,10 @@ const TableBody = ({
   }, [filterProjectOptions])
 
   const deleteFunction = (id: number, email: string, table: string) => {
-    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite)
-      setUpdateFavorites(!updateFavorites)
-    });
+    deleteFavorite(id);
   }
   const addFunction = (email: string, id: number, table: string) => {
-    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite)
-      setUpdateFavorites(!updateFavorites)
-    });
+    addFavorite(id);
   }
 
   const ValueTabsValue = () => {

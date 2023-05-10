@@ -1,30 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Dropdown, Input, AutoComplete, Menu, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, HeartFilled, HeartOutlined, InfoCircleOutlined, MoreOutlined, SearchOutlined } from "@ant-design/icons";
-import DetailModal from "routes/detail-page/components/DetailModal";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
-import * as datasets from "../../../Config/datasets";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
+import { Collapse, Dropdown, Input, Menu } from 'antd';
+import { FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { useMapDispatch } from "hook/mapHook";
-import { SERVER } from 'Config/Server.config';
+import { usePortfolioDispatch } from "hook/portfolioHook";
+import React, { useState } from "react";
+import DetailModal from "routes/detail-page/components/DetailModal";
 
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
-const tabKeys = ['Capital(67)', 'Study', 'Maintenance', 'Acquisition', 'Special'];
-const popovers: any = [
-  <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
-  <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
-  <div className="popoveer-00"><b>Maintenance:</b> Restore existing infrastructure eligible for MHFD participation.</div>,
-  <div className="popoveer-00"><b>Acquisition:</b> Property with high flood risk or needed for improvements.</div>,
-  <div className="popoveer-00"><b>Special:</b> Any other effort for which MHFD funds or staff time is requested.</div>
-]
+
 const Search = (
   {
     searchRef,
     tableRef,
     setOpenTable,
     openTable,
-    //hoverTable,
-    //setHoverTable,
     phaseRef,
     scheduleRef,
     rawData,
@@ -47,8 +36,6 @@ const Search = (
     scheduleRef: React.MutableRefObject<HTMLDivElement | null>,
     setOpenTable:React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: any[],
-    //hoverTable: any,
-    //setHoverTable:React.Dispatch<React.SetStateAction<number | undefined>>,
     phaseRef:React.MutableRefObject<HTMLDivElement | null>,
     rawData: any,
     setCompleteData: Function,
@@ -64,25 +51,16 @@ const Search = (
     optionSelect:any,
     collapsePhase: any
   }) => {
-
-  const [tabKey, setTabKey] = useState<any>('Capital(67)');
+  const { deleteFavorite, addFavorite } = usePortfolioDispatch();
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
-  const [likeActive, setLikeActive] = useState([1,0,2]);
   const [keyword, setKeyword] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
   const [activeDrop, setActiveDrop] = useState(0);
   const [openDrop, setOpenDrop] = useState<boolean>(false)
   const {
     setProjectKeyword
   } = useMapDispatch();
 
-  let displayedTabKey = tabKeys;
-  const content = (
-    <div style={{width:'137px'}}>
-      <p style={{marginBottom:'0px'}}>This is a sample blurb describing the project. Alternatively we can open the detail page.</p>
-    </div>
-  );
   const menu = (
     <Menu
       className="menu-drop"
@@ -120,32 +98,14 @@ const Search = (
     );
     return indices;
   }
-  const renderOption = (item: any) => {
-    return {
-      key: `${item.id}`,
-      value: `${item.rowLabel}`,
-      label: <div className="global-search-item">
-      <h6>{item.rowLabel}</h6>
-    </div>
-    }
-  }
 
-  useEffect(() => {
-    if (searchWord) {
-      setFilteredData(fullData.filter((item: any) => !item.id.includes('Title') && item.rowLabel.toLowerCase().includes(searchWord.toLowerCase())));     
-    } else {
-      setFilteredData([]);
-    }
-  }, [searchWord, fullData]);
   const handleSearch = (value: string) => { 
     setSearchWord(value);
     setKeyword(value);
     setProjectKeyword(value);
   }
   const deleteFunction = (id: number, email: string, table: string) => {
-    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      deleteUpdate(id)
-    });
+    deleteFavorite(id);
   }
   const deleteUpdate = (id: number) => {
     const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? false : x.isFavorite } })
@@ -154,12 +114,11 @@ const Search = (
     setNewData(z1)
   }
   const addFunction = (email: string, id: number,  table: string) => {
-    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
-      const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
-      setCompleteData(z)
-      setNewData(z1)     
-    });
+    addFavorite(id);
+    const z = [...fullData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+    const z1 = [...rawData].map((x: any) => { return { ...x, isFavorite: (id === x.project_id) ? true : x.isFavorite } })
+    setCompleteData(z)
+    setNewData(z1)
   }
   
   return <>
@@ -195,12 +154,9 @@ const Search = (
         className="search-body"
         ref={el => searchRef.current[index] = el}
         onScrollCapture={(e:any) => {
-          // TODO
           let dr: any = searchRef.current[index];
           let drTable: any = tableRef.current[index];
-          // console.log('inside search',tableRef.current, index)
           let listviewElement = document.getElementById(`listView_${index}`)
-          // console.log('listviewElement', listviewElement)
           if(tableRef.current[index]){
             tableRef.current[index].scrollTo(drTable.scrollLeft, dr.scrollTop);
           }
@@ -214,13 +170,7 @@ const Search = (
             scheduleRef.current.scrollTo(scheduleRef.current.scrollLeft, e.target.scrollTop)
           }
         }}
-        // onMouseEnter={()=>{
-        //   setHoverTable([0,0,0] );
-        // }}
       >
-        {/* <div className='line-search'>
-          <span><DownOutlined className="icon-line"/></span><span>{titleCollaps[1]}</span>
-        </div> */}
         {
           completeData.map((elem: any, index: number) => {
             const id = 'collapse' + index;          
@@ -231,33 +181,18 @@ const Search = (
                   onChange={
                     ()=>{
                       setCollapsePhase(!collapsePhase)
-                      // setTimeout(()=>{
                         const newOpenTable = [...openTable];
                         newOpenTable[index] = !openTable[index] as any;
                         setOpenTable(newOpenTable);
-                      // },70)
                     }
-                  } className=''/*{openTable[0] && index === 0? "collapse-first":""}*/>
+                  }>
                   <Panel header={<div onMouseEnter={(e:any)=>{
-                    //setHoverTable(-1)
                     }}>{elem?.counter?.includes('NoGroupAvailable')?'No Group Available '+elem?.counter?.split(" ")[1]:elem?.counter}</div>} key={index}>
-                    {/* {
-                      index === 0 && <div className="text-search text-first" id="headerCentennial">
-                        <p></p>
-                      </div>
-                    } */}
                     {
                       elem.values.map((d:any, index_elem: number) => (
-                        <div className="text-search" key={d.key} id={d.id} 
-                        // style={
-                        //   hoverTable === elem.values[index_elem].project_id ? {background:'#fafaf'}:{}
-                        // } 
-                          onMouseEnter={(e:any)=>{
-                            //setHoverTable(elem.values[index_elem].project_id)
-                            }}>
+                        <div className="text-search" key={d.key} id={d.id}>
                           <p onClick={()=>{setDetailOpen(true); setDataDetail(d)}} className="title-project" >{d.rowLabel}</p>
                           {d.isFavorite ? <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} onClick={()=>(deleteFunction( d.project_id ,email, ''))} />:<HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=> addFunction(email,d.project_id , '')} />}
-                          {/* <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}} onClick={()=>(setLikeActive([0, index , index_elem]))}/> */}
                         </div>
                       ))
                     }
@@ -267,37 +202,7 @@ const Search = (
             )
           })
         }
-        
-        {/* <Collapse defaultActiveKey={['1']}  onChange={(e)=>{setOpenTable([openTable[0],e.length > 0, openTable[2]]);console.log(e, 'Dotty')}}>
-          <Panel header="Commerce City" key="1" id='testing2'>
-            <div className="text-search" id='CommerceCity1'  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa'}:{}}  onMouseEnter={()=>{setHoverTable([1,1,0]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>North Outfall - Phase IV</p>
-              <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
-            </div>
-            <div className="text-search" id='CommerceCity2' style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 1 ? {background:'#fafafa', marginRight:'11px'}:{marginRight:'11px'}}  onMouseEnter={()=>{setHoverTable([1,1,1]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>Snyder Creek - E470 to Quebec</p>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
-            </div>
-          </Panel>
-        </Collapse>
-        <Collapse defaultActiveKey={['1']}  style={{marginBottom:'25px'}}  onChange={(e)=>{setOpenTable([openTable[0], openTable[1],e.length > 0 ])}}>
-          <Panel header="Denver" key="1" id='testing3'>
-            <div className="text-search" id='Denver1'  style={hoverTable[2] === 0 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,0]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>Piney Creek Channel Restore</p>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
-            </div>
-            <div className="text-search" id='Denver2'  style={hoverTable[2] === 1 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,1]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>No Name Creek Regional </p>
-              <HeartFilled style={{marginLeft:'7px', color:'#F5575C', marginRight:'10px'}} />
-            </div>
-            <div className="text-search" id='Denver3' style={hoverTable[2] === 2 && hoverTable[0] && hoverTable[1] === 2 ? {background:'#fafafa'}:{}} onMouseEnter={()=>{setHoverTable([1,2,2]);}}>
-              <p onClick={()=>{setDetailOpen(true)}}>East Tollgate Creek</p>
-              <HeartOutlined style={{marginLeft:'7px', color:'#706B8A', marginRight:'10px'}}/>
-            </div>
-          </Panel>
-        </Collapse> */}
       </div>
-      
     </div>
   </>
 };

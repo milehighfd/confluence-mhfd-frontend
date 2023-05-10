@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   setCurrentGroup,
   setSearchWord,
-  setFavorites
+  setFavorites,
+  deleteFavorite,
+  addFavorite
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -22,10 +24,18 @@ export const usePortfolioDispatch = () => {
   const _setFavorites = useCallback((favorites: Array<any>) => {
     dispatch(setFavorites(favorites));
   }, [dispatch]);
+  const _deleteFavorite = useCallback((id: number) => {
+    dispatch(deleteFavorite(id));
+  }, [dispatch]);
+  const _addFavorite = useCallback((id: number) => {
+    dispatch(addFavorite(id));
+  }, [dispatch]);
 
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
-    setFavorites: _setFavorites
+    setFavorites: _setFavorites,
+    deleteFavorite: _deleteFavorite,
+    addFavorite: _addFavorite
   };
 };

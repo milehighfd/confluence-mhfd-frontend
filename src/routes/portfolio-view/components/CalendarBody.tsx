@@ -9,8 +9,7 @@ import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
-import { usePortflioState } from 'hook/portfolioHook';
-import store from 'store';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
@@ -87,13 +86,11 @@ const CalendarBody = ({
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   console.log('Starting again');
-  const appUser = store.getState().profile;
-  const email = appUser.userInformation?.email;
   const {
     filterProjectOptions,
   } = useMapState();
   const { currentGroup, favorites } = usePortflioState();
-  const [updateFavorite, setUpdateFavorite] = useState(false);
+  const { deleteFavorite, addFavorite } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -1507,17 +1504,11 @@ const CalendarBody = ({
     };
   }, [ page, filterProjectOptions,updateForDates])
 
-  const deleteFunction = (id: number, email: string, table: string) => {
-    datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite);
-      setUpdateFavorites(!updateFavorites);
-    });
+  const deleteFunction = (id: number) => {
+    deleteFavorite(id);
   }
   const addFunction = (email: string, id: number, table: string) => {
-    datasets.getData(SERVER.ADD_FAVORITE + '?table=' + table + '&email=' + email + '&id=' + id, datasets.getToken()).then(favorite => {
-      setUpdateFavorite(!updateFavorite);
-      setUpdateFavorites(!updateFavorites);
-    });
+    addFavorite(id);
   }
   const removeAllChildNodes = (parent: any) => {
     console.log('removeAllChildNodes', new Date());
@@ -1549,7 +1540,13 @@ const CalendarBody = ({
                   setDetailOpen(true);
                   setDataDetail(d)
                 }} className="title-project" >{d.rowLabel}</p>
-                {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
+                {
+                  d.isFavorite ? <HeartFilled
+                    style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }}
+                    onClick={() => deleteFunction(d.project_id)}
+                  /> : <HeartOutlined
+                    style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }}
+                    onClick={() => addFunction('', d.project_id, '')} />}
               </div>
             ))
           }

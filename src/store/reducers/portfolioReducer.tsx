@@ -23,6 +23,16 @@ const portfolioReducer = (state = initState, action: any) => {
         ...state,
         favorites: action.payload
       };
+    case types.PM_DELETE_FAVORITE:
+      return {
+        ...state,
+        favorites: state.favorites.filter((_: any) => _.project_id !== action.payload)
+      };
+    case types.PM_ADD_FAVORITE:
+      return {
+        ...state,
+        favorites: [...state.favorites, action.payload]
+      };
     default: 
       return state
   }
