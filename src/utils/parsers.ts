@@ -1,6 +1,7 @@
 import { ADMIN_STAFF, MHFD_LEAD, MHFD_SUPPORT, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
+  projectPartners = projectPartners.reverse();
   const sponsors = projectPartners.reduce((accumulator: string, current: any) => {
     const sa = current?.business_associate?.business_name || '';
     let value = accumulator;
@@ -16,6 +17,7 @@ export const getSponsors = (projectPartners: any) => {
 };
 
 export const getJurisdictions = (projectLocalGovernment: any) => {
+  projectLocalGovernment = projectLocalGovernment.reverse();
   const jurisdictions = projectLocalGovernment.reduce((accumulator: string, current: any) => {
     const sa = current?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
     let value = accumulator;
@@ -31,6 +33,7 @@ export const getJurisdictions = (projectLocalGovernment: any) => {
 };
 
 export const getServiceAreas = (serviceAreas: any) => {
+  serviceAreas = serviceAreas.reverse();
   return serviceAreas.reduce((accumulator: string, pl: any) => {
     const sa = pl?.CODE_SERVICE_AREA?.service_area_name || '';
     let value = accumulator;
@@ -45,6 +48,7 @@ export const getServiceAreas = (serviceAreas: any) => {
 };
 
 export const getCounties = (projectsCounties: any) => {
+  projectsCounties = projectsCounties.reverse();
   return projectsCounties?.reduce((accumulator: string, pl: any) => {
     const county = pl?.CODE_STATE_COUNTY?.county_name || '';
     let value = accumulator;
