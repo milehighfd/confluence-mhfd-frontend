@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 import * as serviceWorker from './serviceWorker';
 import { history } from "./store/configureStore";
@@ -12,11 +13,13 @@ import './index.scss';
 import App from './App';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
+  <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_CAPTCHA}>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>
+  </GoogleReCaptchaProvider>,
   document.getElementById('root')
 );
 

@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 let lastId = -1;
 let cc = 0;
 let lastMaps = JSON.parse(sessionStorage.getItem('globalMap') || '[]') as any;

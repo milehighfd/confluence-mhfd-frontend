@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Form, Button, } from 'antd';
-import { useFormik } from "formik";
-import { Redirect, Link } from "react-router-dom";
+import { useFormik } from 'formik';
+import { Redirect, Link } from 'react-router-dom';
 import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
-import * as Yup from "yup";
-
-import * as datasets from "../../../Config/datasets";
-import { SERVER } from "../../../Config/Server.config";
-
-import { useProfileDispatch } from "../../../hook/profileHook";
-import { useAppUserDispatch } from "../../../hook/useAppUser";
-import { useMapDispatch } from "../../../hook/mapHook";
-import { REQUIRED } from "./constantsLogin";
-import { GlobalMapHook } from "utils/globalMapHook";
+import * as Yup from 'yup';
+import * as datasets from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
+import { useProfileDispatch } from 'hook/profileHook';
+import { useAppUserDispatch } from 'hook/useAppUser';
+import { useMapDispatch } from 'hook/mapHook';
+import { REQUIRED } from 'routes/login/components/constantsLogin';
+import { GlobalMapHook } from 'utils/globalMapHook';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -41,11 +39,11 @@ const LoginView = () => {
   const { getGroupOrganization, resetTimesLogin } = useProfileDispatch();
   const { callMaps } = GlobalMapHook();
   useEffect(() => {
+    resetMap();
     resetAppUser();
     resetProfile();
-    resetMap();
     getGroupOrganization();
-  }, []);
+  }, [resetAppUser, resetProfile, resetMap, getGroupOrganization]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
@@ -55,7 +53,8 @@ const LoginView = () => {
     },
     validationSchema,
     onSubmit(values: { email: string, password: string, recaptcha: string }) {
-      datasets.postData(SERVER.LOGIN, values).then(async res => {
+      datasets.postData(SERVER.LOGIN, values)
+      .then(async res => {
         resetTimesLogin();
         if (res?.token) {
           callMaps();
@@ -83,36 +82,65 @@ const LoginView = () => {
   if (redirect) {
     return <Redirect to="/map" />
   }
+
   return (
     <Form className="login-form" onFinish={handleSubmit}>
-      <img src="/Icons/Confluence-Color-Tagline.svg" alt="" width="248px" />
-      <div style={{ marginTop: '20px' }}>
+      <img src="/Icons/Confluence-Color-Tagline.svg" alt="Confluence Logo" width="248px" />
+      <div className="group-container">
         <div className="group">
-          {(emailOnBlur || values.email.length > 0) && <label style={{color: '#88849d'}}>Email Address</label>}
-          <input placeholder="Email Address" type="email" name="email" onChange={handleChange} onBlur={() => (setEmailOnBlur(false))} onClick={() => (setEmailOnBlur(true))}
-            style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px'} : {paddingLeft: '10px'}} />
+          {
+            (emailOnBlur || values.email.length > 0) && <label>Email Address</label>
+          }
+          <input
+            placeholder="Email Address"
+            type="email"
+            name="email"
+            onChange={handleChange}
+            onBlur={() => setEmailOnBlur(false)}
+            onClick={() => setEmailOnBlur(true)}
+            style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px' } : { paddingLeft: '10px' }}
+            autoComplete="username"
+          />
           <span className="highlight"></span>
           <span className="bar"></span>
         </div>
         <div className="group">
-          {(passwordOnBlur || values.password.length > 0 )&& <label style={{color: '#88849d'}}>Enter Password</label>}
-          <input placeholder="Enter Password" type="password" name="password" onChange={handleChange} onBlur={() => (setPasswordOnBlur(false))} onClick={() => (setPasswordOnBlur(true))}
-            style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px' } : {paddingLeft: '10px'}} />
+          {
+            (passwordOnBlur || values.password.length > 0) && <label>Enter Password</label>
+          }
+          <input
+            placeholder="Enter Password"
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={() => setPasswordOnBlur(false)}
+            onClick={() => setPasswordOnBlur(true)}
+            autoComplete="current-password"
+            style={(errors.password && touched.password) ? { borderBottom: 'solid red 1px' } : { paddingLeft: '10px' }}
+          />
           <span className="highlight"></span>
           <span className="bar"></span>
         </div>
         <div className="marbot-4">
-          <span>Don’t have an account?</span>
-          <Link to={'/sign-up'} className="login-form-forgot">
+          <span>Don't have an account?</span>
+          <Link
+            to={'/sign-up'}
+            className="login-form-forgot"
+          >
             Sign-Up
           </Link>
-          <Link to={'/reset-password'} className="login-forgot">
+          <Link
+            to={'/reset-password'}
+            className="login-forgot"
+          >
             Forgot Password?
           </Link>
-          <br /><br />
-          <GoogleReCaptcha onVerify={(token: string) => {
-            values.recaptcha = '' + (token !== 'null' ? token : '');
-          }} />
+          <br/><br/>
+          <GoogleReCaptcha
+            onVerify={(token: string) => {
+              values.recaptcha = '' + (token !== 'null' ? token : '');
+            }}
+          />
         </div>
         <span style={{ color: message.color }}>&nbsp;&nbsp; {message.message}</span>
         <Button className="btn-purple" block htmlType="submit">

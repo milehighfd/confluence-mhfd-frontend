@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -59,15 +60,21 @@ import {
   getProblemCounter,
   resetFilterProjectOptionsEmpty,
   getExtraGalleryProjects,
-} from '../store/actions/mapActions';
+} from 'store/actions/mapActions';
 
-import { OptionProblems, OptionProjects } from '../Classes/MapTypes';
+import { OptionProblems, OptionProjects } from 'Classes/MapTypes';
 
 export const useMapState = () => useSelector((state: { map: any }) => state.map);
 
 export const useMapDispatch = () => {
   const dispatch = useDispatch();
+
+  const _resetMap = useCallback(() => {
+    dispatch(resetMap());
+  }, [dispatch]);
+
   return {
+    resetMap: _resetMap,
     setToggleModalFilter: (toggle: boolean) => {
       dispatch(setToggleModalFilter(toggle));
     },
@@ -224,9 +231,6 @@ export const useMapDispatch = () => {
     },
     replaceFilterCoordinates: (coordinates: string) => {
       dispatch(replaceFilterCoordinates(coordinates));
-    },
-    resetMap: () => {
-      dispatch(resetMap());
     },
     setFilterCoordinates: (coordinates: string, tab: string) => {
       dispatch(setFilterCoordinates(coordinates, tab));

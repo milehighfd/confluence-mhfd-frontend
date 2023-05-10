@@ -1,4 +1,6 @@
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { User } from 'Classes/TypeList';
 import {
    saveUserInformation,
    updateUserInformation,
@@ -6,9 +8,12 @@ import {
    getGroupOrganizationNoGeom,
    uploadImage,
    spinValue
-} from '../store/actions/ProfileActions';
-import { User } from '../Classes/TypeList';
-import { getTimesLogin, resetTimesLogin, saveBoardProjecttype } from '../store/actions/usersActions';
+} from 'store/actions/ProfileActions';
+import {
+   getTimesLogin,
+   resetTimesLogin,
+   saveBoardProjecttype
+} from 'store/actions/usersActions';
 
 export const useProfileState = () => useSelector(
    (state: { profile: any }) => state.profile
@@ -20,7 +25,13 @@ export const useMyUser = () => useSelector(
 
 export const useProfileDispatch = () => {
    const dispatch = useDispatch();
+
+   const _getGroupOrganization = useCallback(() => {
+      dispatch(getGroupOrganization());
+   }, [dispatch]);
+
    return {
+      getGroupOrganization: _getGroupOrganization,
       saveUserInformation: (user: User) => {
          dispatch(saveUserInformation(user));
       },
@@ -32,9 +43,6 @@ export const useProfileDispatch = () => {
       },
       getTimesLogin: () => {
          dispatch(getTimesLogin());
-      },
-      getGroupOrganization: () => {
-         dispatch(getGroupOrganization());
       },
       getGroupOrganizationNoGeom: () => {
          dispatch(getGroupOrganizationNoGeom());

@@ -1,6 +1,10 @@
 @use  '../Theme/styles';
 @import "../Theme/styles.scss";
 
+.auth-layout {
+  background: $green !important;
+}
+
 // LOGIN
 .carrousel-mobile {
   display: none;
@@ -464,6 +468,14 @@
 // END logo white
 
 // styles material input
+.group-container {
+  margin-top: 20px;
+}
+.ant-form label {
+  display: inline !important;
+  color: $light-gray;
+}
+
 .group {
   position:relative;
   margin-bottom: 15px;

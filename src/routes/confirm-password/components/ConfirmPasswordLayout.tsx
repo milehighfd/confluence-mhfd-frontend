@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Layout, Row } from 'antd';
-import CarouselAutoPlayView from '../../../Components/Shared/CarouselAutoPlay/CarouselAutoPlayView';
+import CarouselAutoPlayView from 'Components/Shared/CarouselAutoPlay/CarouselAutoPlayView';
 import ConfirmPasswordForm from './ConfirmPasswordForm';
 
 const ConfirmPasswordLayout = () => {
