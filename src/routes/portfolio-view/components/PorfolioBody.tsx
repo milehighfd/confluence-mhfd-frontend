@@ -210,9 +210,15 @@ const PortafolioBody = ({
       auxOptions.sortby = 'projecttype';
       auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';
       setFilterProjectOptions(auxOptions);
+    } else if (sortValue.columnKey === 'estimated_cost' && sortValue.order !== undefined){
+      const auxOptions = { ...filterProjectOptions };
+      auxOptions.sortby = 'cost';
+      auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';
+      setFilterProjectOptions(auxOptions);
     } else if ((sortValue.columnKey === 'lg_lead' || sortValue.columnKey === 'service_area' || sortValue.columnKey === 'county'
       || sortValue.columnKey === 'phase' || sortValue.columnKey === 'status' || sortValue.columnKey === 'mhfd' || sortValue.columnKey === 'on_base'
-      || sortValue.columnKey === 'stream')
+      || sortValue.columnKey === 'stream' || sortValue.columnKey === 'consultant' || sortValue.columnKey === 'landscape_contractor' || sortValue.columnKey === 'civil_contractor'
+      || sortValue.columnKey === 'project_sponsor')
       && sortValue.order !== undefined) {
       const auxOptions = { ...filterProjectOptions };
       auxOptions.sortby = sortValue.columnKey;
@@ -359,8 +365,6 @@ const PortafolioBody = ({
                         tabKey={tabKey}
                         tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
-                        updateFavorites={updateFavorites}
-                        setUpdateFavorites={setUpdateFavorites}
                       />
                       }
                       {optionSelect === 'Phase' && 
