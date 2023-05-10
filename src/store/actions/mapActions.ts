@@ -202,6 +202,8 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
         consultant: filters.consultant,
         contractor: filters.contractor,
         servicearea: filters.servicearea,
+        sortby: filters.column,
+        sorttype: filters.order,
         keyword
     }
     return (dispatch: Function) => {
