@@ -28,12 +28,6 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{streamList || 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
-          <label><i>OnBase ID</i></label>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
-          <p>{(detailed?.onbase_project_number || []) || 'N/A'}</p>
-        </Col>
       </Row>
       {/* <Row>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
@@ -50,16 +44,28 @@ const DetailInformationProject = () => {
         </Col>
       </Row> */}
       <Row>
+      <Col xs={{ span: 24 }} lg={{ span: 4 }} >
+          <label><i>Project Number</i></label>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }} >
+          <p>{mhfdManager ? mhfdManager : 'N/A'}</p>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }}>
+          <label><i>OnBase Project Number</i></label>
+        </Col>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }}>
+          <p>{lgManager ? lgManager : 'N/A'}</p>
+        </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>LG Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{lgManager ? lgManager : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>MHFD Lead</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{mhfdManager ? mhfdManager : 'N/A'}</p>
         </Col>
       </Row>
