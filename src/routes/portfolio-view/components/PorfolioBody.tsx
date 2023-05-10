@@ -204,22 +204,12 @@ const PortafolioBody = ({
   }, [openProjects]);
 
   useEffect(() => {
-    console.log(sortValue)
     if (sortValue.columnKey === 'project_type' && sortValue.order !== undefined) {
       const auxOptions = { ...filterProjectOptions };
       auxOptions.sortby = 'projecttype';
       auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';
       setFilterProjectOptions(auxOptions);
-    } else if (sortValue.columnKey === 'estimated_cost' && sortValue.order !== undefined){
-      const auxOptions = { ...filterProjectOptions };
-      auxOptions.sortby = 'cost';
-      auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';
-      setFilterProjectOptions(auxOptions);
-    } else if ((sortValue.columnKey === 'lg_lead' || sortValue.columnKey === 'service_area' || sortValue.columnKey === 'county'
-      || sortValue.columnKey === 'phase' || sortValue.columnKey === 'status' || sortValue.columnKey === 'mhfd' || sortValue.columnKey === 'on_base'
-      || sortValue.columnKey === 'stream' || sortValue.columnKey === 'consultant' || sortValue.columnKey === 'landscape_contractor' || sortValue.columnKey === 'civil_contractor'
-      || sortValue.columnKey === 'project_sponsor')
-      && sortValue.order !== undefined) {
+    } else if (sortValue.columnKey && sortValue.order !== undefined) {
       const auxOptions = { ...filterProjectOptions };
       auxOptions.sortby = sortValue.columnKey;
       auxOptions.sorttype = sortValue.order === 'ascend' ? 'asc' : 'desc';

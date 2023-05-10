@@ -76,7 +76,6 @@ const TableBody = ({
   }, [next, prev])
 
   useEffect(() => {
-    console.log(dataBody)
     setDataParsed(dataBody.map((x: any, index: number) => {
       return {
         key: `${currentGroup}${index}`,
