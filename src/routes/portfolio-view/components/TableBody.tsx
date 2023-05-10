@@ -25,8 +25,6 @@ const TableBody = ({
   tableRef,
   tabKeyId,
   headerRef,
-  updateFavorites,
-  setUpdateFavorites,
   counter,
   page,
   setPage,
@@ -43,8 +41,6 @@ const TableBody = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
-  updateFavorites: boolean,
-  setUpdateFavorites: Function,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
@@ -80,6 +76,7 @@ const TableBody = ({
   }, [next, prev])
 
   useEffect(() => {
+    console.log(dataBody)
     setDataParsed(dataBody.map((x: any, index: number) => {
       return {
         key: `${currentGroup}${index}`,
@@ -122,29 +119,31 @@ const TableBody = ({
         stream: getStreams(x?.project_streams || []).join(' , '),
         estimated_cost: getTotalEstimatedCost(x?.project_costs),
         consultant: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const CONSULTANT = 3;
           const sa = pl?.business_associate?.business_name || '';
           const sa1 = pl?.code_partner_type_id || '';
           let value = accumulator;
-          if (sa && sa1 === 3) {
+          if (sa && sa1 === CONSULTANT) {
             if (value) {
               value += ',';
             }
             value += sa;
           }
           return value;
-        }, ''), //'elem?.consultants[0]?.consultant[0]?.business_name',
+        }, ''), 
         civil_contractor: x?.project_partners.reduce((accumulator: string, pl: any) => {
+          const CIVIL_CONTRACTOR = 8;
           const sa = pl?.business_associate?.business_name || '';
           const sa1 = pl?.code_partner_type_id || '';
           let value = accumulator;
-          if ((sa && sa1 === 8) || (sa && sa1 === 9)) {
+          if ((sa && sa1 === CIVIL_CONTRACTOR)) {
             if (value) {
               value += ',';
             }
             value += sa;
           }
           return value;
-        }, ''), // 'elem?.civilContractor[0]?.business[0]?.business_name',
+        }, ''), 
         local_government: x?.project_local_governments.reduce((accumulator: string, pl: any) => {
           const sa = pl?.CODE_LOCAL_GOVERNMENT?.local_government_name || '';
           let value = accumulator;
@@ -156,7 +155,21 @@ const TableBody = ({
           }
           return value;
         }, ''),
-        construction_start_date: x?.project_status?.code_phase_type?.code_phase_type_id === 125 ? x?.project_status?.planned_start_date : x?.project_status?.actual_start_date, //elem?.construction_start_date,
+        construction_start_date: x?.project_statuses.reduce((accumulator: string, pl: any) => {
+          const datestr: string | null = pl?.actual_start_date;
+          const date: Date | null = datestr ? new Date(datestr) : null;
+          const formattedDate: string = date ? `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}` : '';
+          const sa = formattedDate;
+          const sa1 = pl?.code_phase_type?.phase_name || '';
+          let value = accumulator;
+          if (sa && sa1 === 'Construction') {
+            if (value) {
+              value += ',';
+            }
+            value += sa;
+          }
+          return value;
+        },''),  
         landscape_contractor: x?.project_partners.reduce((accumulator: string, pl: any) => {
           const sa = pl?.business_associate?.business_name || '';
           const sa1 = pl?.code_partner_type_id || '';
@@ -168,7 +181,7 @@ const TableBody = ({
             value += sa;
           }
           return value;
-        }, ''), // 'elem?.landscapeContractor[0]?.business[0]?.business_name',
+        }, ''),
         isFavorite: favorites?.some((element: { project_id: number; }) => {
           if (element.project_id === x.project_id) {
             return true;

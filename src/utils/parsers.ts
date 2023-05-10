@@ -1,10 +1,10 @@
-import { ADMIN_STAFF, CIVIL_CONTRACTOR, CONSULTANT_ID, DEVELOPER, ESTIMATED_COST, LANDSCAPE_CONTRACTOR, MHFD_LEAD, MHFD_SUPPORT, PARTNER_MAP, REQUESTOR_ID, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
+import { ADMIN_STAFF, MHFD_LEAD, MHFD_SUPPORT, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
   const sponsors = projectPartners.reduce((accumulator: string, current: any) => {
     const sa = current?.business_associate?.business_name || '';
     let value = accumulator;
-    if (sa && current.code_partner_type_id === SPONSOR_ID) {
+    if (sa && current?.code_project_partner_type?.partner_type  === 'SPONSOR') {
       if (value) {
         value += ',';
       }
