@@ -85,7 +85,6 @@ const CalendarBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
-  console.log('Starting again');
   const {
     filterProjectOptions,
   } = useMapState();
@@ -146,7 +145,6 @@ const CalendarBody = ({
     }else{
       idF = dataId.id;
     }
-    console.log(updatedGroup, secondaryUpdatedGroup, idF)
     if (idF === updatedGroup) {
       setUpdateForDates(!updateForDates);
     }
@@ -771,7 +769,6 @@ const CalendarBody = ({
           const phaseId = scheduleData.phase_id
           const dataProject = d.project_data;
           const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
-          console.log('setDataModal');
           setDataModal(sendModal);
           if (d3.event.target.className.animVal === 'agrupationbar') {
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
@@ -901,7 +898,6 @@ const CalendarBody = ({
           d3.event.stopPropagation();
         });
         svg.on('click', function () {
-          console.log('click');
           //setOpenPiney(false);
           d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
           d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden');
@@ -1511,15 +1507,11 @@ const CalendarBody = ({
     addFavorite(id);
   }
   const removeAllChildNodes = (parent: any) => {
-    console.log('removeAllChildNodes', new Date());
     if (parent !== null && parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
-    console.log('removeAllChildNodes', new Date());
   };
 
-
-  console.log('Rendering CalendarBody');
   return <>
     {detailOpen && <DetailModal
       visible={detailOpen}
