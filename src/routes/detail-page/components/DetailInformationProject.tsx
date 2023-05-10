@@ -48,13 +48,13 @@ const DetailInformationProject = () => {
           <label><i>Project Number</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} >
-          <p>{mhfdManager ? mhfdManager : 'N/A'}</p>
+          <p>{detailed?.project_id ? detailed?.project_id : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
           <label><i>OnBase Project Number</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
-          <p>{lgManager ? lgManager : 'N/A'}</p>
+          <p>{detailed?.onbase_project_number ? detailed?.onbase_project_number : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <label><i>LG Lead</i></label>
