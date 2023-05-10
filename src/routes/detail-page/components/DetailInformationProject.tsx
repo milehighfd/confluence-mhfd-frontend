@@ -12,9 +12,9 @@ const DetailInformationProject = () => {
       words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
     }
     return words.join(" ");
-  }
-  const mhfdManager = detailed?.managers ? detailed?.managers.find((obj:any) => obj.mhfd_staff_id === 1) : null;
-  const lgManager = detailed?.project_staffs ? detailed?.project_staffs.find((obj:any) => obj.code_project_staff_role_type_id === 10)?.mhfd_staff : null
+  } 
+  const mhfdManager = detailed?.project_staffs ? detailed?.project_staffs?.find((obj:any) => obj.code_project_staff_role_type_id === 1)?.business_associate_contact?.user?.name : null
+  const lgManager = detailed?.project_staffs ? detailed?.project_staffs.find((obj:any) => obj.code_project_staff_role_type_id === 10)?.business_associate_contact?.user?.name : null
   const date = detailed?.start_date ? new Date(detailed?.start_date) : new Date();
   const dateComplete = detailed?.end_date ? new Date(detailed?.end_date) : new Date();  
   const streamList = getStreams(detailed?.project_streams || []).join(' , ');
@@ -54,13 +54,13 @@ const DetailInformationProject = () => {
           <label><i>LG Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{lgManager?.full_name ? lgManager?.full_name : 'N/A'}</p>
+          <p>{lgManager ? lgManager : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{paddingLeft:'10px'}}>
           <label><i>MHFD Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{paddingLeft:'10px'}}>
-          <p>{mhfdManager?.full_name ? mhfdManager?.full_name : 'N/A'}</p>
+          <p>{mhfdManager ? mhfdManager : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
