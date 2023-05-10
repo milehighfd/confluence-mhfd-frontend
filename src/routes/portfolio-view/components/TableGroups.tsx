@@ -57,7 +57,7 @@ const TableGroups = ({
     const controller = new AbortController();
     datasets.postData(
       `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKeyId}`,
-      filterProjectOptions,
+      sendfilter,
       datasets.getToken(),
       controller.signal
     )
