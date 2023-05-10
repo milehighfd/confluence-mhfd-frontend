@@ -4,7 +4,7 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import TableBody from 'routes/portfolio-view/components/TableBody';
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
 
@@ -12,8 +12,6 @@ const { Panel } = Collapse;
 
 const TableGroups = ({
   data,
-  setCollapsePhase,
-  collapsePhase,
   setOpenTable,
   openTable,
   index,
@@ -28,8 +26,6 @@ const TableGroups = ({
   dataId,
 }: {
   data: any,
-  setCollapsePhase: any,
-  collapsePhase: any,
   setOpenTable: any,
   openTable: any,
   index: any,
@@ -43,7 +39,8 @@ const TableGroups = ({
   setUpdateFavorites: any,
   dataId: any,
 }) => {
-  const { currentGroup } = usePortflioState();
+  const { currentGroup, collapsePhase } = usePortflioState();
+  const { setCollapsePhase } = usePortfolioDispatch();
   const {
     filterProjectOptions,
   } = useMapState();
@@ -52,7 +49,6 @@ const TableGroups = ({
   const [counter, setCounter] = useState([]);
   const scrollHeaderScrollRef = useRef<null | HTMLDivElement>(null);
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState<any>({});
  
   useEffect(() => {
     const sendfilter = filterProjectOptions;

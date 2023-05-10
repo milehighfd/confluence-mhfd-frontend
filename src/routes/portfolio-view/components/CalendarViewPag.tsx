@@ -14,8 +14,6 @@ const CalendarViewPag = ({
   searchRef,
   tabKey,
   index,
-  collapsePhase,
-  setCollapsePhase,
   openTable,
   setOpenTable,
   setTollData,
@@ -35,8 +33,6 @@ const CalendarViewPag = ({
   searchRef: any,
   tabKey: any,
   index: any,
-  collapsePhase: any,
-  setCollapsePhase: any,
   openTable: any,
   setOpenTable: any,
   setTollData: any,
@@ -244,8 +240,6 @@ const CalendarViewPag = ({
               <div id={elem.id} key={elem.id}>
                 <CalendarGroups
                   data={elem}
-                  setCollapsePhase={setCollapsePhase}
-                  collapsePhase={collapsePhase}
                   openTable={openTable}
                   setOpenTable={setOpenTable}
                   index={index}

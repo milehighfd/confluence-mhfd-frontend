@@ -14,8 +14,6 @@ const PhaseViewPag = ({
   searchRef,
   tabKey,
   index,
-  collapsePhase,
-  setCollapsePhase,
   openTable,
   setOpenTable,
   setTollData,
@@ -31,8 +29,6 @@ const PhaseViewPag = ({
   searchRef: any,
   tabKey: any,
   index: any,
-  collapsePhase: any,
-  setCollapsePhase: any,
   openTable: any,
   setOpenTable: any,
   setTollData: any,
@@ -254,8 +250,6 @@ const PhaseViewPag = ({
                 <div id={elem.id} key={elem.id}>
                   <PhaseGroups
                     data={elem}
-                    setCollapsePhase={setCollapsePhase}
-                    collapsePhase={collapsePhase}
                     openTable={openTable}
                     setOpenTable={setOpenTable}
                     index={index}

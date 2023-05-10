@@ -44,3 +44,8 @@ export const addFavorite = (id: number) => {
     });
   }
 };
+
+export const setCollapsePhase = (value: boolean) => ({
+  type: types.SET_COLLAPSE_PHASE,
+  payload: value
+});

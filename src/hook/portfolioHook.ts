@@ -5,7 +5,8 @@ import {
   setSearchWord,
   setFavorites,
   deleteFavorite,
-  addFavorite
+  addFavorite,
+  setCollapsePhase
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -30,12 +31,16 @@ export const usePortfolioDispatch = () => {
   const _addFavorite = useCallback((id: number) => {
     dispatch(addFavorite(id));
   }, [dispatch]);
+  const _setCollapsePhase = useCallback((value: boolean) => {
+    dispatch(setCollapsePhase(value));
+  }, [dispatch]);
 
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
     setFavorites: _setFavorites,
     deleteFavorite: _deleteFavorite,
-    addFavorite: _addFavorite
+    addFavorite: _addFavorite,
+    setCollapsePhase: _setCollapsePhase,
   };
 };

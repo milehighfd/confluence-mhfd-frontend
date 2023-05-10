@@ -4,6 +4,7 @@ const initState = {
   searchWord: '',
   currentGroup: DEFAULT_GROUP,
   favorites: [],
+  collapsePhase: false,
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -32,6 +33,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         favorites: [...state.favorites, action.payload]
+      };
+    case types.SET_COLLAPSE_PHASE:
+      return {
+        ...state,
+        collapsePhase: action.payload
       };
     default: 
       return state

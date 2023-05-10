@@ -42,7 +42,7 @@ const PortafolioBody = ({
     filterProjectOptionsNoFilter
   } = useMapState();
   const {
-    searchWord,
+    searchWord
   } = usePortflioState();
   const { setFavorites } = usePortfolioDispatch();
 
@@ -66,7 +66,6 @@ const PortafolioBody = ({
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
-  const [collapsePhase, setCollapsePhase] = useState(false);
   const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
   const [updateFilter, setUpdateFilter] = useState([]);
@@ -357,8 +356,6 @@ const PortafolioBody = ({
                         setOpenTable={setOpenTable}
                         openTable={openTable}
                         index={idx}
-                        setCollapsePhase={setCollapsePhase}
-                        collapsePhase={collapsePhase}
                         tabKey={tabKey}
                         tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         setSortValue={setSortValue}
@@ -371,8 +368,6 @@ const PortafolioBody = ({
                         searchRef={searchRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
-                        collapsePhase={collapsePhase}
-                        setCollapsePhase={setCollapsePhase}
                         openTable={openTable}
                         setOpenTable={setOpenTable}
                         setTollData = {setTollData}
@@ -391,8 +386,6 @@ const PortafolioBody = ({
                       searchRef={searchRef}
                       tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       index={idx}
-                      collapsePhase={collapsePhase}
-                      setCollapsePhase={setCollapsePhase}
                       openTable={openTable}
                       setOpenTable={setOpenTable}
                       setTollData={setTollData}

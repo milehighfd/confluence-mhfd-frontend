@@ -3,7 +3,7 @@ import { Collapse } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import { usePortflioState } from 'hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import CalendarBody from 'routes/portfolio-view/components/CalendarBody';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
@@ -12,8 +12,6 @@ const { Panel } = Collapse;
 
 const CalendarGroups = ({
   data,
-  setCollapsePhase,
-  collapsePhase,
   setOpenTable,
   openTable,
   index,
@@ -43,8 +41,6 @@ const CalendarGroups = ({
   dataId,
 }: {
   data: any,
-  setCollapsePhase: any,
-  collapsePhase: any,
   setOpenTable: any,
   openTable: any,
   index: any,
@@ -73,7 +69,8 @@ const CalendarGroups = ({
   setUpdateFavorites: any,
   dataId: any,
 }) => {
-  const { currentGroup } = usePortflioState();
+  const { currentGroup, collapsePhase } = usePortflioState();
+  const { setCollapsePhase } = usePortfolioDispatch();
   const {
     filterProjectOptions,
   } = useMapState();
@@ -117,7 +114,6 @@ const CalendarGroups = ({
   return <>
     <div  className="table-body2" id={data.id} key={data.id} style={{overflowY:'hidden', overflowX: 'hidden'}}>
       <Collapse
-        //defaultActiveKey={['0', '1', '2']}
         activeKey={getActiveKeys()}
         onChange={
           () => {
@@ -126,9 +122,9 @@ const CalendarGroups = ({
             newOpenTable[index] = !openTable[index] as any;
             setOpenTable(newOpenTable);
           }
-        } className=''
+        }
         collapsible={Number(counter) ===0 ? "disabled" :"header"}
-      >   
+      >
         <Panel header={
           <div className="header-group">
             <div style={{display: 'flex', maxWidth: '79%', alignItems: 'center'}}>

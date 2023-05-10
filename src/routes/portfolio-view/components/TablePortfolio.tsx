@@ -23,8 +23,6 @@ const TablePortafolio = ({
     setOpenTable,
     openTable,
     index,
-    setCollapsePhase,
-    collapsePhase,
     tabKeyId,
     updateFavorites,
     setUpdateFavorites,
@@ -35,8 +33,6 @@ const TablePortafolio = ({
     setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: any[],
     index: number,
-    setCollapsePhase: Function,
-    collapsePhase: any,
     tabKeyId: any,
     updateFavorites: any,
     setUpdateFavorites: Function,
@@ -180,8 +176,6 @@ const TablePortafolio = ({
                   <div id={elem.id} key={elem.id}>
                     <TableGroups
                       data={elem}
-                      setCollapsePhase={setCollapsePhase}
-                      collapsePhase={collapsePhase}
                       openTable={openTable}
                       setOpenTable={setOpenTable}
                       index={index}
