@@ -14,17 +14,17 @@ export const useAppUserDispatch = () => {
   const _resetAppUser = useCallback(() => {
     dispatch(resetAppUser());
   }, [dispatch]);
-
   const _resetProfile = useCallback(() => {
     dispatch(resetProfile());
+  }, [dispatch]);
+  const _replaceAppUser = useCallback((appUser : User) => {
+    dispatch(replaceAppUser(appUser));
   }, [dispatch]);
 
   return {
     resetAppUser: _resetAppUser,
     resetProfile: _resetProfile,
-    replaceAppUser: (appUser : User) => {
-      dispatch(replaceAppUser(appUser));
-    },
+    replaceAppUser: _replaceAppUser,
     saveUserInformation: (user: User) => {
       dispatch(saveUserInformation(user));
     },

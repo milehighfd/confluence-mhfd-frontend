@@ -72,9 +72,13 @@ export const useMapDispatch = () => {
   const _resetMap = useCallback(() => {
     dispatch(resetMap());
   }, [dispatch]);
+  const _replaceFilterCoordinates = useCallback((coordinates: string) => {
+    dispatch(replaceFilterCoordinates(coordinates));
+  }, [dispatch]);
 
   return {
     resetMap: _resetMap,
+    replaceFilterCoordinates: _replaceFilterCoordinates,
     setToggleModalFilter: (toggle: boolean) => {
       dispatch(setToggleModalFilter(toggle));
     },
@@ -228,9 +232,6 @@ export const useMapDispatch = () => {
     },
     getComponentsByProjid: (projectid: any, setCounter: Function) => {
       dispatch(getComponentsByProjid(projectid, setCounter));
-    },
-    replaceFilterCoordinates: (coordinates: string) => {
-      dispatch(replaceFilterCoordinates(coordinates));
     },
     setFilterCoordinates: (coordinates: string, tab: string) => {
       dispatch(setFilterCoordinates(coordinates, tab));

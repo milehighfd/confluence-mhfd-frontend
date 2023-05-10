@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
-import * as datasets from '../../Config/datasets'
-import { SERVER } from '../../Config/Server.config';
-import { useMapDispatch } from '../mapHook';
-import { useProfileDispatch, useProfileState } from '../profileHook';
-import { useAppUserState, useAppUserDispatch } from '../useAppUser';
+import * as datasets from 'Config/datasets'
+import { SERVER } from 'Config/Server.config';
+import { useMapDispatch } from 'hook/mapHook';
+import { useProfileDispatch } from 'hook/profileHook';
+import { useAppUserDispatch } from 'hook/useAppUser';
 
 const useLogin = () => {
-  const appUser = useAppUserState();
-  const { groupOrganization } = useProfileState();
   const { replaceFilterCoordinates } = useMapDispatch();
   const { replaceAppUser } = useAppUserDispatch();
   const { saveUserInformation } = useProfileDispatch();
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    if (datasets.getToken() && appUser.email === '') {     
-      datasets.getData(SERVER.ME, datasets.getToken()).then(async res => {
+    datasets.getData(SERVER.ME, datasets.getToken())
+      .then((res) => {
         if (res?.user_id) {
           saveUserInformation(res);
           if (res.polygon && res.polygon.length) {
@@ -45,22 +42,12 @@ const useLogin = () => {
           }
           replaceAppUser(res);
         }
-        setTimeout(() => {
-          // if (groupOrganization.length) {
-            setLoading(false);
-          // }
-        }, 3000);
+      }).catch((e) => {
+        console.error('error', e);
+      }).finally(() => {
+        setLoading(false);
       });
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (groupOrganization?.length > 1) {
-      setLoading(false);
-    }
-  }, [groupOrganization]);
+  }, [replaceAppUser, replaceFilterCoordinates, saveUserInformation]);
 
   return {
     loading

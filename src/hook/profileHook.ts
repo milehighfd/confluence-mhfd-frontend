@@ -29,12 +29,13 @@ export const useProfileDispatch = () => {
    const _getGroupOrganization = useCallback(() => {
       dispatch(getGroupOrganization());
    }, [dispatch]);
+   const _saveUserInformation = useCallback((user: User) => {
+      dispatch(saveUserInformation(user));
+   }, [dispatch]);
 
    return {
       getGroupOrganization: _getGroupOrganization,
-      saveUserInformation: (user: User) => {
-         dispatch(saveUserInformation(user));
-      },
+      saveUserInformation: _saveUserInformation,
       updateUserInformation: (user: User) => {
          dispatch(updateUserInformation(user));
       },
