@@ -3,6 +3,7 @@ import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { colorScale } from '../constants/PhaseViewData';
+import { handleAbortError } from 'store/actions/mapActions';
 
 const ModalGraphic = ({
   positionModalGraphic,
@@ -40,9 +41,7 @@ const ModalGraphic = ({
           }
         }
       })
-      .catch((e) => {
-        console.log(e);
-      });
+      .catch(handleAbortError);
     return () => {
       controller.abort();
     };

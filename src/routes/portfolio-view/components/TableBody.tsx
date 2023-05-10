@@ -10,6 +10,7 @@ import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, get
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
 import { usePortflioState } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
+import { handleAbortError } from 'store/actions/mapActions';
 
 const TableBody = ({
   dataId,
@@ -92,7 +93,7 @@ const TableBody = ({
       controller.signal
     ).then(result => {
       setFavorites(result);
-    });
+    }).catch(handleAbortError);
     return () => {
       controller.abort();
     };
@@ -198,12 +199,20 @@ const TableBody = ({
     }))
   }, [dataBody, favorites])
 
-  useEffect(() => {   
-    //&sortby=${sort}&sortorder=${order}
-    datasets.postData(SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId) + `?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`, filterProjectOptions).then((res: any) => {
+  useEffect(() => {
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, dataId)}?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKeyId}`,
+      filterProjectOptions,
+      datasets.getToken(),
+      controller.signal
+    ).then((res: any) => {
       setDataBody(res);
       setResultCounter(Object.keys(res).length);
-    })
+    }).catch(handleAbortError);
+    return () => {
+      controller.abort();
+    };
   }, [ filterProjectOptions, page])
 
   useEffect(() => {

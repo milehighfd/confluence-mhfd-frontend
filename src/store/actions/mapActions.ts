@@ -23,6 +23,12 @@ const isAbortError = (error: any) => {
     return error instanceof DOMException && error.message === 'The user aborted a request.';
 }
 
+export const handleAbortError = (error: any) => {
+    if (!isAbortError(error)) {
+        console.log(`Error`, error);
+    }
+};
+
 export const getMapTables = (trigger: string, name?: string) => {
     return (dispatch: Function, getState: Function) => {
         const state = getState();
@@ -342,7 +348,7 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
         dispatch({ type: types.SET_SPIN_CARD_PROJECTS, spin: false });
       })
       .catch(err => {
-        if (!isAbortError) {
+        if (!isAbortError(err)) {
             console.log('getGalleryProjects', err);
         }
       })
@@ -396,7 +402,7 @@ export const getProjectsFilteredIds = () => {
         dispatch({ type: types.GALLERY_PROJECTS_IDS_V2, projectsids });
     })
     .catch(err => {
-        if (!isAbortError) {
+        if (!isAbortError(err)) {
             console.log('getProjectsFilteredIds', err);
         }
     })
@@ -487,21 +493,37 @@ export const getParamFilterProjects = (bounds: string, data?: any) => {
               const projectsCounters = params['data'];
               dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
             }
-        });
+        })
+        .catch(err => {
+            if (!isAbortError(err)) {
+                console.log('getParamFilterProjects', err);
+            }
+        })
         dispatch(getGalleryProjects('paramfilter'))
     }
 }
 
 export const getParamFilterProjectsNoBounds = (data?: any) => {
   return (dispatch: Function) => {
-      datasets.postData(SERVER.PARAM_FILTER_PROJECTS, data || {}).then((params:any) => {
-          if (params) {
+    const controller = getAndDispatchAbortableCtrl(dispatch, 'getParamFilterProjectsNoBounds');
+    datasets.postData(
+        SERVER.PARAM_FILTER_PROJECTS,
+        data || {},
+        datasets.getToken(),
+        controller.signal
+    ).then((params:any) => {
+        if (params) {
             const projectsCounters = params['data'];
             dispatch({ type: types.GET_PARAM_FILTER_PROJECTS, params: projectsCounters });
-          }
-      });
+        }
+    }).catch(err => {
+        if (!isAbortError(err)) {
+            console.log('getParamFilterProjectsNoBounds', err);
+        }
+    });
   }
 }
+
 export const getProblemCounter = (bounds: string, options: any) => {
   return (dispatch: Function) => {
       datasets.postData(SERVER.COUNTER_PROBLEMS + '?bounds=' + bounds, options).then(params => {
@@ -546,24 +568,30 @@ export const getParamFilterProblems = (bounds: string, data?: any) => {
                 dispatch({ type: types.GET_PARAM_FILTER_PROBLEMS, params });
             }
         }).catch(e => {
-            console.log(e);
-        })
+            if (!isAbortError(e)) {
+                console.log('getParamFilterProblems', e);
+            }
+        });
     }
 }
 
 export const getParamFilterComponents = (bounds: string, data?: any) => {
     return (dispatch: Function) => {
-      const controller = getAndDispatchAbortableCtrl(dispatch, 'PARAM_FILTER_COMPONENTS');
-      datasets.postData(
-        SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds,
-        data || {},
-        datasets.getToken(),
-        controller.signal
-      ).then(params => {
-          if (params) {
-              dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS, params });
-          }
-      })
+        const controller = getAndDispatchAbortableCtrl(dispatch, 'PARAM_FILTER_COMPONENTS');
+        datasets.postData(
+            SERVER.PARAM_FILTER_COMPONENTS + '?bounds=' + bounds,
+            data || {},
+            datasets.getToken(),
+            controller.signal
+        ).then(params => {
+            if (params) {
+                dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS, params });
+            }
+        }).catch(err => {
+            if (!isAbortError(err)) {
+                console.log('getParamFilterComponents', err);
+            }
+        })
     }
 }
 export const getComponentsByProblemId = (data: any) => {
@@ -742,6 +770,11 @@ export const favoriteList = (isProblem: boolean) => {
             controller.signal
         ).then(favorites => {
             dispatch({ type: types.FAVORITE_LIST, favorites });
+        })
+        .catch(err => {
+            if (!isAbortError(err)) {
+                console.log('favoriteList', err);
+            }
         });
     }
 }

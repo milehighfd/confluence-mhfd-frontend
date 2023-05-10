@@ -6,6 +6,7 @@ import * as datasets from 'Config/datasets';
 import TableBody from 'routes/portfolio-view/components/TableBody';
 import { usePortflioState } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
+import { handleAbortError } from 'store/actions/mapActions';
 
 const { Panel } = Collapse;
 
@@ -69,9 +70,7 @@ const TableGroups = ({
     .then((res: any) => {
       setCounter(res.count)
     })
-    .catch((e) => {
-      console.log(e);
-    });
+    .catch(handleAbortError);
     return () => {
       controller.abort();
     }

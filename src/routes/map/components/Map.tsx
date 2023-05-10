@@ -712,100 +712,107 @@ const Map = ({
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
       getNotes();
-        (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
-        map = new mapboxgl.Map({
-            container: 'map',
-            dragRotate: true,
-            touchZoomRotate: true,
-            style: dropdownItems.items[dropdownItems.default].style,
-            center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
-            zoom: 8,
-            attributionControl: false
-        });
-        const imagesPaths = [
-          'custom-sprite/30x30px.png',
-          'custom-sprite/dollar.png',
-          'custom-sprite/fema-floodway.png',
-          'custom-sprite/Levee.png',
-          'custom-sprite/Frame13a.png',
-          'custom-sprite/Frame17m2t.png',
-          'custom-sprite/Frame21C.png',
-          'custom-sprite/pjm2.png',
-          'custom-sprite/ic-stripered.png',
-          'custom-sprite/ic-stripeviolet.png',
-          'custom-sprite/Urbanclimbtosafetysign_origclean.png',
-        ];
-        imagesPaths.forEach((imagePath: string) => {
-          map.loadImage(imagePath, (error: any, image: any) => {
-            if (error) {
-              console.log('error on load ', error);
-              return;
-            }
-            if (!map.hasImage(imagePath.split('/')[1].split('.')[0])) {
-                map.addImage(imagePath.split('/')[1].split('.')[0], image);
-            }
-          })
-        });
+      (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
+      map = new mapboxgl.Map({
+          container: 'map',
+          dragRotate: true,
+          touchZoomRotate: true,
+          style: dropdownItems.items[dropdownItems.default].style,
+          center: [userInformation.coordinates.longitude, userInformation.coordinates.latitude],
+          zoom: 8,
+          attributionControl: false
+      });
+      const imagesPaths = [
+        'custom-sprite/30x30px.png',
+        'custom-sprite/dollar.png',
+        'custom-sprite/fema-floodway.png',
+        'custom-sprite/Levee.png',
+        'custom-sprite/Frame13a.png',
+        'custom-sprite/Frame17m2t.png',
+        'custom-sprite/Frame21C.png',
+        'custom-sprite/pjm2.png',
+        'custom-sprite/ic-stripered.png',
+        'custom-sprite/ic-stripeviolet.png',
+        'custom-sprite/Urbanclimbtosafetysign_origclean.png',
+      ];
+      imagesPaths.forEach((imagePath: string) => {
+        map.loadImage(imagePath, (error: any, image: any) => {
+          if (error) {
+            console.log('error on load ', error);
+            return;
+          }
+          if (!map.hasImage(imagePath.split('/')[1].split('.')[0])) {
+              map.addImage(imagePath.split('/')[1].split('.')[0], image);
+          }
+        })
+      });
 
-        mapService.map = map;  
-        flytoBoundsCoor(
-          getCurrent, 
-          userInformation,
-          globalMapId,
-          coorBounds,
-          map,
-          groupOrganization,
-          setCoordinatesJurisdiction
-        );
+      mapService.map = map;  
+      flytoBoundsCoor(
+        getCurrent, 
+        userInformation,
+        globalMapId,
+        coorBounds,
+        map,
+        groupOrganization,
+        setCoordinatesJurisdiction
+      );
         
 
-        map.addControl(new mapboxgl.ScaleControl({
-            unit: 'imperial'
-        }), 'bottom-right');
-        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-        map.addControl( new mapboxgl.AttributionControl({compact:true}) )
-        addMapGeocoder(map, geocoderRef);
+      map.addControl(new mapboxgl.ScaleControl({
+          unit: 'imperial'
+      }), 'bottom-right');
+      map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+      map.addControl( new mapboxgl.AttributionControl({compact:true}) )
+      addMapGeocoder(map, geocoderRef);
 
-        map.on('render', () => {
-            if (!globalMapId && itMoved) {
-                const center = [map.getCenter().lng, map.getCenter().lat];
-                const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
-                  map.getBounds()._ne.lng, map.getBounds()._ne.lat];
-                addHistoric({center, bbox});
-            }
-            globalMapId = null;
-            itMoved = false;
-        });
-
-        let value = 0;
-        let _ = 0;
-        map.on('zoomend', () => {
-            mapService.hideOpacity();
-            setZoomEndCounter(_++);
-            setOpacityLayer(false)
-            value += 1;
-            if (value >= 2) {
-                setBoundMap(getMapBoundingBoxTrimmed(map));
-            }
-        });
-        let __ = 1;
-        map.on('dragend', () => {
-            mapService.hideOpacity();
-            setDragEndCounter(__++);
-            setOpacityLayer(false)
-            setBoundMap(getMapBoundingBoxTrimmed(map));
-        });
-        const updateZoom = () => {
-            const zoom = map.getZoom().toFixed(2);
-            setZoomValue(zoom);
+      let value = 0;
+      let _ = 0;
+      let __ = 1;
+      const mapOnRenderFn = () => {
+        if (!globalMapId && itMoved) {
+          const center = [map.getCenter().lng, map.getCenter().lat];
+          const bbox = [map.getBounds()._sw.lng, map.getBounds()._sw.lat, 
+          map.getBounds()._ne.lng, map.getBounds()._ne.lat];
+          addHistoric({center, bbox});
         }
-        map.on('load', updateZoom);
-        map.on('move', updateZoom);
-        map.on('dragend', () => {
-            itMoved = true;
-        });
-        getColorsList();
-        getProjectsFilteredIds();
+        globalMapId = null;
+        itMoved = false;
+      }
+      const zoomEndFn = () => {
+        mapService.hideOpacity();
+        setZoomEndCounter(_++);
+        setOpacityLayer(false)
+        value += 1;
+        if (value >= 2) {
+            setBoundMap(getMapBoundingBoxTrimmed(map));
+        }
+      }
+      const dragEndFn = () => {
+        mapService.hideOpacity();
+        setDragEndCounter(__++);
+        setOpacityLayer(false)
+        setBoundMap(getMapBoundingBoxTrimmed(map));
+        itMoved = true;
+      }
+      const updateZoom = () => {
+          const zoom = map.getZoom().toFixed(2);
+          setZoomValue(zoom);
+      }
+      map.on('render', mapOnRenderFn);
+      map.on('zoomend', zoomEndFn);
+      map.on('dragend', dragEndFn);
+      map.on('load', updateZoom);
+      map.on('move', updateZoom);
+      getColorsList();
+      getProjectsFilteredIds();
+      return () => {
+        map.off('dragend', dragEndFn);
+        map.off('load', updateZoom);
+        map.off('move', updateZoom);
+        map.off('zoomend', zoomEndFn);
+        map.off('render', mapOnRenderFn);
+      };
     }, []);
     const removeAllChildNodes = (parent:any) => {
       while (parent.firstChild) {

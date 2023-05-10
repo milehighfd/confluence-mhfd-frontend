@@ -8,6 +8,7 @@ import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import { getUserBrowser } from 'utils/utils';
 import { usePortflioState } from '../../../hook/portfolioHook';
+import { handleAbortError } from 'store/actions/mapActions';
 
 const PhaseViewPag = ({
   searchRef,
@@ -76,9 +77,7 @@ const PhaseViewPag = ({
       controller.signal
     ).then((e) => {
       setActionsDone(e);
-    }).catch((e) => {
-      console.log(e);
-    });
+    }).catch(handleAbortError);
     return () => {
       controller.abort();
     };
@@ -124,9 +123,7 @@ const PhaseViewPag = ({
         setUpdatePhaseList(!updatePhaseList) 
         return rows
       })
-      .catch((e) => {
-        console.log(e);
-      })
+      .catch(handleAbortError);
     return () => {
       controller.abort();
     }
@@ -157,9 +154,7 @@ const PhaseViewPag = ({
       controller.signal
     ).then((valuesGroups) => {
       setDetailGroup(valuesGroups.groups)
-    }).catch((e) => {
-      console.log(e);
-    });
+    }).catch(handleAbortError);
     return () => {
       controller.abort();
     };
