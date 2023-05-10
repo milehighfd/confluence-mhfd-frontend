@@ -24,8 +24,6 @@ const TablePortafolio = ({
     openTable,
     index,
     tabKeyId,
-    updateFavorites,
-    setUpdateFavorites,
   }: {
     tabKey: any,
     setSortValue: Function | any,
@@ -34,8 +32,6 @@ const TablePortafolio = ({
     openTable: any[],
     index: number,
     tabKeyId: any,
-    updateFavorites: any,
-    setUpdateFavorites: Function,
   }) => {
   const {
     currentGroup
@@ -185,8 +181,6 @@ const TablePortafolio = ({
                       tableRef={tableRef}
                       tabKeyId={tabKeyId}
                       headerRef={headerRef}
-                      updateFavorites={updateFavorites}
-                      setUpdateFavorites={setUpdateFavorites}
                       dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                     />
                   </div>

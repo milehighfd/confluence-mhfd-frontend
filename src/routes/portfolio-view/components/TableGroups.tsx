@@ -21,8 +21,6 @@ const TableGroups = ({
   tableRef,
   tabKeyId,
   headerRef,
-  updateFavorites,
-  setUpdateFavorites,
   dataId,
 }: {
   data: any,
@@ -35,8 +33,6 @@ const TableGroups = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
-  updateFavorites: any,
-  setUpdateFavorites: any,
   dataId: any,
 }) => {
   const { currentGroup, collapsePhase } = usePortflioState();
@@ -161,8 +157,6 @@ const TableGroups = ({
             tableRef={tableRef}
             tabKeyId={tabKeyId}
             headerRef={headerRef}
-            updateFavorites={updateFavorites}
-            setUpdateFavorites={setUpdateFavorites}
             counter={counter}
             page={page}
             setPage={setPage}
