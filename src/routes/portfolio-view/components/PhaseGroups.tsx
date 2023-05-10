@@ -70,7 +70,7 @@ const PhaseGroups = ({
   const [counter, setCounter] = useState([]);
 
   useEffect(() => {
-    const sendfilter = filterProjectOptions;
+    const sendfilter = {...filterProjectOptions};
     delete sendfilter.sortby;
     delete sendfilter.sortorder;
     datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, sendfilter).then((res: any) => {
