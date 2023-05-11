@@ -83,6 +83,7 @@ const DetailModal = ({
   const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
   const [popUpData, setPopUpData] = useState<any>({});
   const [updateAction,setUpdateAction] = useState(false);
+  const [nameLinkPage,setNameLinkPage] = useState('#');
   const appUser = store.getState().profile;
   const [mapImage, setMapImage] = useState<any>(undefined);
 
@@ -420,16 +421,17 @@ const DetailModal = ({
   const toCamelCase = (str:string):string => {
     return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
   }
-  const activeTab = (numberTab:number) => {
+  const activeTab = (numberTab:number, nameLink:string) => {
     if(activeScroll){
       setTimeout(() => {
         setActiveScroll(false);
         setscrollOpen(numberTab);
         setOpenSecction(numberTab);
+        setNameLinkPage(nameLink)
       }, 200)
       setTimeout(() => {
         setActiveScroll(true);
-      }, 1400);
+      }, 1550);
     }
   }
   return (
@@ -506,88 +508,88 @@ const DetailModal = ({
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
           <a
-            href={activeScroll ? "#project-basics":"#"}
+            href={activeScroll ? "#project-basics": nameLinkPage}
             onClick={()=>{
-              activeTab(0);
+              activeTab(0, "#project-basics");
             }}
             className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Project Basics</a>
           <a
-            href={activeScroll ? "#problem":"#"}
+            href={activeScroll ? "#problem":nameLinkPage}
             onClick={()=>{
-              activeTab(1);
+              activeTab(1, "#problem");
             }}
             className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Problem</a>
           <a
-            href={activeScroll ? "#vendors":"#"}
+            href={activeScroll ? "#vendors":nameLinkPage}
             onClick={()=>{
-              activeTab(2);
+              activeTab(2, "#vendors");
             }}
             className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Vendors</a>
           <a
-            href={activeScroll ? "#component-solutions":"#"}
+            href={activeScroll ? "#component-solutions":nameLinkPage}
             onClick={()=>{
-              activeTab(3);
+              activeTab(3, "#component-solutions");
             }}
             className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Proposed Actions</a>
           <a
-            href={activeScroll ? "#project-roadmap":"#"}
+            href={activeScroll ? "#project-roadmap":nameLinkPage}
             onClick={()=>{
-              activeTab(4);
+              activeTab(4, "#project-roadmap");
             }}
             className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Project Roadmap</a>
           <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
           <a 
-            href={activeScroll ? "#project-financials":"#"}
+            href={activeScroll ? "#project-financials":nameLinkPage}
             onClick={()=>{
-              activeTab(6);
+              activeTab(6, "#project-financials");
             }}
             className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Project Financials</a>
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
           <a 
-            href={activeScroll ? "#maps":"#"}
+            href={activeScroll ? "#maps":nameLinkPage}
             onClick={()=>{
-              activeTab(8);
+              activeTab(8, "#maps");
             }}
             className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
             >Maps</a>
           <a 
-            href={activeScroll ? "#gallery":"#"}
+            href={activeScroll ? "#gallery":nameLinkPage}
             onClick={()=>{
-              activeTab(9);
+              activeTab(9, "#gallery");
             }}
             className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Gallery</a>
           <a 
-            href={activeScroll ? "#attachments":"#"}
+            href={activeScroll ? "#attachments":nameLinkPage}
             onClick={()=>{
-              activeTab(10);
+              activeTab(10, "#attachments");
             }}
             className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >Attachments</a>
           <a 
-            href={activeScroll ? "#history":"#"}
+            href={activeScroll ? "#history":nameLinkPage}
             onClick={()=>{
               if(activeScroll){
-                activeTab(11);
+                activeTab(11, "#history");
               }
             }}
             className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'not-allowed'}:{}}
+            style={!activeScroll ? {cursor:'default'}:{}}
           >History</a>
         </div>}
         <Row
