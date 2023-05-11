@@ -18,8 +18,7 @@ import { SERVER } from 'Config/Server.config';
 
 const TablePortafolio = ({
     tabKey,
-    setSortValue,
-    searchRef,
+    setSortValue,   
     setOpenTable,
     openTable,
     index,
@@ -27,7 +26,6 @@ const TablePortafolio = ({
   }: {
     tabKey: any,
     setSortValue: Function | any,
-    searchRef: React.MutableRefObject<any>,
     setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
     openTable: any[],
     index: number,
@@ -164,8 +162,7 @@ const TablePortafolio = ({
       {
         <div className="phase-groups">
           <div
-            className="search"
-            ref={el => searchRef.current[index] = el}
+            className="search"           
           >{
               detailGroup?.map((elem: any, index: number) => {
                 return (

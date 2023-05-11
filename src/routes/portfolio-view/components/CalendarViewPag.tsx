@@ -11,7 +11,6 @@ import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
 
 const CalendarViewPag = ({
-  searchRef,
   tabKey,
   index,
   openTable,
@@ -27,10 +26,7 @@ const CalendarViewPag = ({
   setScheduleList,
   updatedGroup,
   secondaryUpdatedGroup,
-  updateFavorites,
-  setUpdateFavorites,
 }: {
-  searchRef: any,
   tabKey: any,
   index: any,
   openTable: any,
@@ -46,8 +42,6 @@ const CalendarViewPag = ({
   setScheduleList: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
-  updateFavorites: any,
-  setUpdateFavorites: any,
 }) => {
   const { currentGroup } = usePortflioState();
 
@@ -232,7 +226,6 @@ const CalendarViewPag = ({
     {
       <div
         className="search"
-        ref={el => searchRef.current[index] = el}
         style={{overflowY:'auto', height:heightSearch}}
       >{
           detailGroup?.map((elem: any, index: number) => {
@@ -264,8 +257,6 @@ const CalendarViewPag = ({
                   setPopUpData={setPopUpData}
                   updatedGroup={updatedGroup}
                   secondaryUpdatedGroup={secondaryUpdatedGroup}
-                  updateFavorites={updateFavorites}
-                  setUpdateFavorites={setUpdateFavorites}
                   dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                 />
               </div>

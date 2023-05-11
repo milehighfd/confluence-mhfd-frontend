@@ -44,8 +44,6 @@ const CalendarBody = ({
   setPopUpData,
   updatedGroup,
   secondaryUpdatedGroup,
-  updateFavorites,
-  setUpdateFavorites,
   counter,
   page,
   setPage,
@@ -79,8 +77,6 @@ const CalendarBody = ({
   setPopUpData: Function,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
-  updateFavorites: any,
-  setUpdateFavorites: Function,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
@@ -102,7 +98,7 @@ const CalendarBody = ({
   const [svgState, setSvgState] = useState<any>();
   const [updateForDates, setUpdateForDates] = useState<any>(false);
   const windowWidth: any = window.innerWidth;
-  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
+  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   let zoom: any;
   let svg: any;
   let svgAxis: any;

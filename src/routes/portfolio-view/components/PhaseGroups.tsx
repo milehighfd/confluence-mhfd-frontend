@@ -6,6 +6,7 @@ import * as datasets from 'Config/datasets';
 import PhaseBody from 'routes/portfolio-view/components/PhaseBody';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
+import { LIMIT_PAGINATION } from 'constants/constants';
 
 const { Panel } = Collapse;
 
@@ -30,8 +31,6 @@ const PhaseGroups = ({
   setDataModal,
   setPopUpData,
   headerRef,
-  updateFavorites,
-  setUpdateFavorites,
   dataId,
 }: {
   data: any,
@@ -54,8 +53,6 @@ const PhaseGroups = ({
   setDataModal: any,
   setPopUpData: any,
   headerRef: any,
-  updateFavorites: any,
-  setUpdateFavorites: any,
   dataId: any,
 }) => {
   const { currentGroup, collapsePhase } = usePortflioState();
@@ -88,7 +85,7 @@ const PhaseGroups = ({
     }
     return indices;
   }
-  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
+  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   return <>    
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
@@ -153,8 +150,6 @@ const PhaseGroups = ({
             setOpenPiney={setOpenPiney}
             setPopUpData={setPopUpData}
             headerRef={headerRef}
-            updateFavorites={updateFavorites}
-            setUpdateFavorites={setUpdateFavorites}
             counter={counter}
             page={page}
             setPage={setPage}

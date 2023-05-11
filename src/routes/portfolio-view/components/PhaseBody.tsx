@@ -38,8 +38,6 @@ const PhaseBody = ({
   setOpenPiney,
   setPopUpData,
   headerRef,
-  updateFavorites,
-  setUpdateFavorites,
   counter,
   page,
   setPage,
@@ -67,8 +65,6 @@ const PhaseBody = ({
   setOpenPiney: Function,
   setPopUpData: Function,
   headerRef: any,
-  updateFavorites: any,
-  setUpdateFavorites: Function,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
@@ -86,7 +82,7 @@ const PhaseBody = ({
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [phaseData, setPhaseData] = useState<any>([]);
-  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
+  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   let svg: any;
   const windowWidth: any = window.innerWidth;
   const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 22 : 20)))))

@@ -10,8 +10,7 @@ import { getUserBrowser } from 'utils/utils';
 import { usePortflioState } from '../../../hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
 
-const PhaseViewPag = ({
-  searchRef,
+const PhaseViewPag = ({  
   tabKey,
   index,
   openTable,
@@ -23,10 +22,7 @@ const PhaseViewPag = ({
   setDataModal,
   scheduleList,
   setScheduleList,
-  updateFavorites,
-  setUpdateFavorites,
 }: {
-  searchRef: any,
   tabKey: any,
   index: any,
   openTable: any,
@@ -38,8 +34,6 @@ const PhaseViewPag = ({
   setDataModal: any,
   scheduleList: any,
   setScheduleList: any,
-  updateFavorites: any,
-  setUpdateFavorites: any,
 }) => {
   const {
     currentGroup
@@ -243,7 +237,6 @@ const PhaseViewPag = ({
       <div className="phase-groups" ref={phaseHeaderRef}>
         <div
           className="search"
-          ref={el => searchRef.current[index] = el}
         >{
             detailGroup?.map((elem: any, index: number) => {
               return (
@@ -269,8 +262,6 @@ const PhaseViewPag = ({
                     setDataModal={setDataModal}
                     setPopUpData={setPopUpData}
                     headerRef={headerRef}
-                    updateFavorites={updateFavorites}
-                    setUpdateFavorites={setUpdateFavorites}
                     dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                   />
                 </div>

@@ -4,9 +4,10 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import TableBody from 'routes/portfolio-view/components/TableBody';
-import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
+import { LIMIT_PAGINATION } from 'constants/constants';
 
 const { Panel } = Collapse;
 
@@ -66,7 +67,7 @@ const TableGroups = ({
     }
   }, [tabKeyId, filterProjectOptions, currentGroup, dataId]);
 
-  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
+  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   const getActiveKeys = () => {
     const indices = openTable.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
