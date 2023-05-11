@@ -171,44 +171,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 }
             </Col>
         </Row>
-        {/* <hr className='filters-line'></hr>
-        <Row className="filt-00">
-            <Col span={12} >
-                <h5 className="filter-title chart-filter-title">MHFD Dollars Allocated <Popover content={content09}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects.mhfddollarsallocated &&
-                    <DropdownFilters type={'mhfddollarsallocated'} axisLabel={axisLabel} defaultValue={[]}
-                        data={paramProjects.mhfddollarsallocated}
-                        selected={filterProjectOptions.mhfddollarsallocated}
-                        onSelect={(items: any) => apply(items, 'mhfddollarsallocated')} />
-                }
-            </Col>
-        </Row> */}
-        {/* <hr className='filters-line'></hr>
-        <Row className="filt-00">
-            <Col span={12}  style={{ paddingLeft: '0px', paddingRight: '14pxpx' }} className="filter-menu">
-                <h5 className="filter-title chart-filter-title">Year Initiated <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects?.startyear &&
-                    <DropdownFiltersYears type={'startyear'} axisLabel={axisLabel} defaultValue={''}
-                        // data={paramProjects.startyear}
-                        selected={filterProjectOptions.startyear}
-                        onSelect={(e: string) => apply(e, 'startyear')} />
-                }
-            </Col>
-            <Col span={12} style={{ paddingLeft: '14px', paddingRight: '0px' }} >
-                <h5 className="filter-title chart-filter-title">Year Completed <Popover content={content08}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects?.completedyear &&
-                    <DropdownFiltersYears type={'completedyear'} axisLabel={axisLabel} defaultValue={''}
-                        // data={paramProjects.completedyear}
-                        selected={filterProjectOptions.completedyear}
-                        onSelect={(e: string) => apply(e, 'completedyear')} />
-                }
-            </Col>
-        </Row> */}
-
-        
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
             <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === 'consultant' ? 'disabledchart': ''}>
@@ -303,30 +265,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
             </Col>
         </Row>
         <hr className='filters-line'></hr>
-        {/* <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
-            <Col span={12}>
-                <h5 className="filter-title">Work Plan Year <Popover content={content10}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
-                {
-                    paramProjects?.workplanyear &&
-                    <>
-                        <Button className="btn-svg" onClick={() => { }}>
-                            <u>Apply</u>
-                        </Button>
-                        &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply([], 'workplanyear') }}>
-                            <u>Reset</u>
-                        </Button>
-                        <Select value={filterProjectOptions.workplanyear ? filterProjectOptions.workplanyear : '- Select -'} style={{ width: '100%', fontSize: '12px' }} onChange={(e: string) => {
-                            apply([`${e}`], 'workplanyear');
-                        }}>
-                            {paramProjects.workplanyear.map((element: any, index: number) => {
-                                return element && <Option key={index} value={element.value}>{`${element.value} `}</Option>
-                            })}
-                        </Select>
-                    </>
-                }
-            </Col>
-        </Row> */}
         <Row className="filt-00" gutter={[24, 16]} style={{height: 50}}>
             <Col span={24} style={{height: 50}}></Col>
         </Row>

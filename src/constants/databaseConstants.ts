@@ -6,6 +6,7 @@ export const LANDSCAPE_CONTRACTOR = 9;
 export const CONSULTANT_ID = 3;
 export const REQUESTOR_ID = 10;
 export const MHFD_LEAD = 1;
+export const LG_LEAD = 10;
 export const MHFD_SUPPORT = 4;
 export const ADMIN_STAFF = 5;
 
