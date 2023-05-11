@@ -46,11 +46,15 @@ const TableGroups = ({
   const [counter, setCounter] = useState([]);
   const scrollHeaderScrollRef = useRef<null | HTMLDivElement>(null);
   const [page, setPage] = useState(1);
+  const [sendfilter, setSendFilter] = useState(filterProjectOptions); 
  
   useEffect(() => {
-    const sendfilter = {...filterProjectOptions};
-    delete sendfilter.sortby;
-    delete sendfilter.sortorder;
+    const sendfiltercopy = {...filterProjectOptions};
+    delete sendfiltercopy.sortby;
+    delete sendfiltercopy.sortorder;
+    setSendFilter(sendfilter);
+  }, [filterProjectOptions]);
+  useEffect(() => {
     const controller = new AbortController();
     datasets.postData(
       `${SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId)}?code_project_type_id=${tabKeyId}`,
@@ -65,7 +69,7 @@ const TableGroups = ({
     return () => {
       controller.abort();
     }
-  }, [tabKeyId, filterProjectOptions, currentGroup, dataId]);
+  }, [tabKeyId, sendfilter, currentGroup, dataId]);
 
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   const getActiveKeys = () => {
