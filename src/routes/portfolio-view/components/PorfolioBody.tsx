@@ -192,7 +192,7 @@ const PortafolioBody = ({
   useEffect(() => {
     if (openProjects){
       const auxOptions = { ...filterProjectOptions };
-      auxOptions.teams = appUser.userInformation?.user_id;
+      auxOptions.teams = appUser.userInformation?.business_associate_contact?.business_associate_contact_id;
       setFilterProjectOptions(auxOptions);
     }else{
       const auxOptions = { ...filterProjectOptions };

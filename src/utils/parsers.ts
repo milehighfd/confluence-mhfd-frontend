@@ -1,4 +1,4 @@
-import { ADMIN_STAFF, MHFD_LEAD, MHFD_SUPPORT, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
+import { ADMIN_STAFF, LG_LEAD, MHFD_LEAD, MHFD_SUPPORT, SPONSOR_ID, STAFF_ROL_MAP } from '../constants/databaseConstants';
 
 export const getSponsors = (projectPartners: any) => {
   projectPartners = projectPartners.reverse();
@@ -98,8 +98,7 @@ export const getVendors = (projectPartners: any) => {
 
 
 export const getTeam = (projectStaffs: any) => {
-  const validIds = [MHFD_LEAD, MHFD_SUPPORT, ADMIN_STAFF];
-  console.log('aca', projectStaffs)
+  const validIds = [MHFD_LEAD, MHFD_SUPPORT, ADMIN_STAFF, LG_LEAD];
   const sortStaffs = projectStaffs.filter((ps: any) => validIds.includes(ps.code_project_staff_role_type_id) && ps.is_active)
     .map((ps: any) => {
       return {

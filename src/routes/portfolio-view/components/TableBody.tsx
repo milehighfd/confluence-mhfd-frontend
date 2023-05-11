@@ -76,6 +76,7 @@ const TableBody = ({
   }, [next, prev])
 
   useEffect(() => {
+    console.log(dataBody)
     setDataParsed(dataBody.map((x: any, index: number) => {
       return {
         key: `${currentGroup}${index}`,
@@ -91,7 +92,7 @@ const TableBody = ({
         county: getCounties(x?.project_counties || []),
         project_sponsor: getSponsors(x.project_partners),
         mhfd: x?.project_staffs.reduce((accumulator: string, pl: any) => {
-          const sa = pl?.business_associate_contact?.user?.name || '';
+          const sa = pl?.business_associate_contact?.contact_name || '';
           const sa1 = pl?.code_project_staff_role_type?.project_staff_role_type_name || '';
           let value = accumulator;
           if (sa && sa1 === 'MHFD Lead') {
@@ -103,7 +104,7 @@ const TableBody = ({
           return value;
         }, ''),
         lg_lead: x?.project_staffs.reduce((accumulator: string, pl: any) => {
-          const sa = pl?.business_associate_contact?.user?.name || '';
+          const sa = pl?.business_associate_contact?.contact_name || '';
           const sa1 = pl?.code_project_staff_role_type?.project_staff_role_type_name || '';
           let value = accumulator;
           if (sa && sa1 === 'Local Government Lead') {
