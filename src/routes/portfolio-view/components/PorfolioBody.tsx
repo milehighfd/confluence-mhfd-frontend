@@ -61,7 +61,6 @@ const PortafolioBody = ({
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
   const [openTable, setOpenTable] = useState<any>([]);
-  const searchRef = useRef([]); 
   const [openDrop, setOpenDrop] = useState(false);
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
@@ -348,7 +347,6 @@ const PortafolioBody = ({
                 <div className="protafolio-body">
                   {openFilters && <Filters filtersObject={ {filterby, filterValue, tabKey}}/>}
                       {optionSelect === 'List' && <TablePortafolio
-                        searchRef={searchRef}
                         setOpenTable={setOpenTable}
                         openTable={openTable}
                         index={idx}
@@ -359,7 +357,6 @@ const PortafolioBody = ({
                       }
                       {optionSelect === 'Phase' && 
                       <PhaseViewPag
-                        searchRef={searchRef}
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
                         openTable={openTable}
@@ -371,13 +368,10 @@ const PortafolioBody = ({
                         setDataModal={setDataModal}                    
                         scheduleList={scheduleList}
                         setScheduleList={setScheduleList}
-                        updateFavorites={updateFavorites}
-                        setUpdateFavorites={setUpdateFavorites}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
                     <CalendarViewPag
-                      searchRef={searchRef}
                       tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       index={idx}
                       openTable={openTable}
@@ -393,8 +387,6 @@ const PortafolioBody = ({
                       setScheduleList={setScheduleList}
                       updatedGroup={updatedGroup}
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
-                      updateFavorites={updateFavorites}
-                      setUpdateFavorites={setUpdateFavorites}
                     />
                     }
                 </div>

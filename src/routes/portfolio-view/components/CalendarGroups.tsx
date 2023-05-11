@@ -7,6 +7,7 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import CalendarBody from 'routes/portfolio-view/components/CalendarBody';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
+import { LIMIT_PAGINATION } from 'constants/constants';
 
 const { Panel } = Collapse;
 
@@ -36,8 +37,6 @@ const CalendarGroups = ({
   setPopUpData,
   updatedGroup,
   secondaryUpdatedGroup,
-  updateFavorites,
-  setUpdateFavorites,
   dataId,
 }: {
   data: any,
@@ -65,8 +64,6 @@ const CalendarGroups = ({
   setPopUpData: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
-  updateFavorites: any,
-  setUpdateFavorites: any,
   dataId: any,
 }) => {
   const { currentGroup, collapsePhase } = usePortflioState();
@@ -109,7 +106,7 @@ const CalendarGroups = ({
     }
     return indices;
   }
-  let limitPage = Number(counter) % 20 > 0 ?  Math.floor(Number(counter) / 20 + 1) : Number(counter) / 20;
+  let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
 
   return <>
     <div  className="table-body2" id={data.id} key={data.id} style={{overflowY:'hidden', overflowX: 'hidden'}}>
@@ -181,8 +178,6 @@ const CalendarGroups = ({
             setPopUpData={setPopUpData}
             updatedGroup={updatedGroup}
             secondaryUpdatedGroup={secondaryUpdatedGroup}
-            updateFavorites={updateFavorites}
-            setUpdateFavorites={setUpdateFavorites}
             counter={counter}
             page={page}
             setPage={setPage}
