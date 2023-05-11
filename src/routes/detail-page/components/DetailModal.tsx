@@ -420,7 +420,18 @@ const DetailModal = ({
   const toCamelCase = (str:string):string => {
     return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
   }
-  
+  const activeTab = (numberTab:number) => {
+    if(activeScroll){
+      setTimeout(() => {
+        setActiveScroll(false);
+        setscrollOpen(numberTab);
+        setOpenSecction(numberTab);
+      }, 200)
+      setTimeout(() => {
+        setActiveScroll(true);
+      }, 1500);
+    }
+  }
   return (
     <>
     {isLoading && <LoadingViewOverall />}
@@ -495,130 +506,88 @@ const DetailModal = ({
           style={{display:'flex', boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.15)', zIndex:'10000', paddingLeft:'20px', scrollBehavior: 'smooth', marginBottom:'1.5px'}}
         >
           <a
-            href="#project-basics"
+            href={activeScroll ? "#project-basics":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setscrollOpen(0);
-              setOpenSecction(0);
-              setTimeout(() => {
-                setActiveScroll(true);
-              }, 1500);
+              activeTab(0);
             }}
             className={openSecction === 0 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Project Basics</a>
           <a
-            href="#problem"
+            href={activeScroll ? "#problem":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setscrollOpen(1);
-              setOpenSecction(1);
-              setTimeout(() => {
-                setActiveScroll(true);
-              }, 1500);
+              activeTab(1);
             }}
             className={openSecction === 1 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Problem</a>
           <a
-            href="#vendors"
+            href={activeScroll ? "#vendors":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setscrollOpen(2);
-              setOpenSecction(2);
-              setTimeout(() => {
-                setActiveScroll(true);
-              }, 1500);
+              activeTab(2);
             }}
             className={openSecction === 2 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Vendors</a>
           <a
-            href="#component-solutions"
+            href={activeScroll ? "#component-solutions":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(3);
-              setscrollOpen(3);
-              setTimeout(() => {
-                setActiveScroll(true);
-              }, 1500);
+              activeTab(3);
             }}
             className={openSecction === 3  ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Proposed Actions</a>
           <a
-            href="#project-roadmap"
+            href={activeScroll ? "#project-roadmap":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(4);
-              setscrollOpen(4);
-              setTimeout(() => {
-                setActiveScroll(true);
-              }, 1500);
+              activeTab(4);
             }}
             className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Project Roadmap</a>
           <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
           <a 
-            href="#project-financials"
+            href={activeScroll ? "#project-financials":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(6);
-              setscrollOpen(6);
-              setTimeout(() => {
-                  setActiveScroll(true);
-                }, 1500);
-              }}
+              activeTab(6);
+            }}
             className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Project Financials</a>
           <a style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</a>
           <a 
-            href="#maps"
+            href={activeScroll ? "#maps":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(8);
-              setscrollOpen(8);
-              setTimeout(() => {
-                setActiveScroll(true);
-                setOpenSecction(8);
-              }, 1500);
+              activeTab(8);
             }}
             className={openSecction === 8 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
             >Maps</a>
           <a 
-            href="#gallery"
+            href={activeScroll ? "#gallery":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(9);
-              setscrollOpen(9);
-              setTimeout(() => {
-                setActiveScroll(true);
-                setOpenSecction(9);
-              }, 1500);
+              activeTab(9);
             }}
             className={openSecction === 9 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Gallery</a>
           <a 
-            href="#attachments"
+            href={activeScroll ? "#attachments":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(10);
-              setscrollOpen(10);
-              setTimeout(() => {
-                setActiveScroll(true);
-                setOpenSecction(10);
-              }, 1500);
+              activeTab(10);
             }}
             className={openSecction === 10 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >Attachments</a>
           <a 
-            href="#history"
+            href={activeScroll ? "#history":"#"}
             onClick={()=>{
-              setActiveScroll(false);
-              setOpenSecction(11);
-              setscrollOpen(11);
-              setTimeout(() => {
-                setActiveScroll(true);
-                setOpenSecction(11);
-              }, 1500);
+              if(activeScroll){
+                activeTab(11);
+              }
             }}
             className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
+            style={!activeScroll ? {cursor:'not-allowed'}:{}}
           >History</a>
         </div>}
         <Row
@@ -627,7 +596,6 @@ const DetailModal = ({
           <Col xs={{ span: 24 }} lg={{ span: 17 }} style={detailed?.problemtype ? { borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 138px)', overflowY:'auto', scrollBehavior:'smooth'}:{ borderRight: '1.5px solid rgba(61, 46, 138, 0.07)' ,height:'calc(100vh - 200px)', overflowY:'auto', scrollBehavior:'smooth'}} className="carouse-detail body-detail-modal"
             
             onScrollCapture={(e)=>{
-              console.log(e)
               if(activeScroll){
                   const projectDiv = document.getElementById('project-basics');
                 const rectProject = projectDiv?.getBoundingClientRect();
