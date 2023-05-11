@@ -62,10 +62,10 @@ const DetailInformationProject = () => {
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
           <p>{lgManager ? lgManager : 'N/A'}</p>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 6 }}>
           <label><i>MHFD Lead</i></label>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 4 }}>
           <p>{mhfdManager ? mhfdManager : 'N/A'}</p>
         </Col>
       </Row>
