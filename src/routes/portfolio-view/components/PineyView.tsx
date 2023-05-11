@@ -241,7 +241,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction,
         }
       </div>
       <div className="body-piney">
-        <p style={{ marginBottom: '0px' }}>{`${(data?.data?.project_type==='Study'?'Planning':data?.data?.project_type)} Project` || 'N/A'}</p>
+        <p style={{ marginBottom: '0px' }}>{`${(data?.data?.project_type==='Study'?'Study':data?.data?.project_type + ' Project')}` || 'N/A'}</p>
         <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '7px' }}>{data.project_name}</h1>
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>

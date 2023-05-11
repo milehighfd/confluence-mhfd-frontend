@@ -429,7 +429,7 @@ const DetailModal = ({
       }, 200)
       setTimeout(() => {
         setActiveScroll(true);
-      }, 1500);
+      }, 1400);
     }
   }
   return (
