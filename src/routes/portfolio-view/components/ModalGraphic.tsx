@@ -8,8 +8,7 @@ import { usePortflioState } from 'hook/portfolioHook';
 
 const ModalGraphic = ({
   positionModalGraphic,
-  dataProject,
-  
+  dataProject,  
 }: {
   positionModalGraphic?: any,
   dataProject?: any,
@@ -22,30 +21,14 @@ const ModalGraphic = ({
   useEffect(() => {
     const modified_date = dataProject?.d?.project_status?.filter((x: any) => x.code_phase_type_id === dataProject?.phase_id)[0]?.modified_date;
     setModifiedDate(modified_date)
-    if (Object.keys(dataProject).length === 0) return;
-    const controller = new AbortController();
-    datasets.postData(
-      `${SERVER.STATUS}`,
-      { code_phase_type_id: dataProject.phase_id, project_id: dataProject.d.project_id },
-      datasets.getToken(),
-      controller.signal
-    )
-      .then((rows) => {
-        if (Object.keys(rows).length > 0) {
-          if (rows[0].actual_end_date !== null) {
-            let check1 = moment(rows[0].actual_end_date, 'YYYY-MM-DD');
-            let monthEnd = check1.format('MM');
-            monthEnd = monthNames[+monthEnd - 1];
-            let dayEnd = check1.format('DD');
-            let yearEnd = check1.format('YYYY');
-            setActualEndDate(`Due on ${monthEnd} ${dayEnd}, ${yearEnd}.`)
-          }
-        }
-      })
-      .catch(handleAbortError);
-    return () => {
-      controller.abort();
-    };
+    if (dataProject?.to !== null) {
+      let check1 = moment.utc(dataProject?.to, 'YYYY-MM-DD');
+      let monthEnd = check1.format('MM');
+      monthEnd = monthNames[+monthEnd - 1];
+      let dayEnd = check1.format('DD');
+      let yearEnd = check1.format('YYYY');
+      setActualEndDate(`Due on ${monthEnd} ${dayEnd}, ${yearEnd}.`)
+    }    
   }, [dataProject])
 
   const colorStatus = (d:any)=>{
