@@ -80,6 +80,9 @@ let currentElement: any = {
   opacity: 1, 
   color_id: undefined
 }
+let isEdit = false;
+let newNote:any = undefined;
+let currentNote :any=undefined;
 type LayersType = string | ObjectLayerType;
 let coordX = -1;
 let coordY = -1;
@@ -224,9 +227,6 @@ const Map = ({
     const [commentVisible, setCommentVisible] = useState(false);
     const [, setSwSave] = useState(false);
     const coorBounds: any[][] = [];
-    const [newNote, setNewNote] = useState<any>();
-    const [currentNote, setCurrentNote] = useState<any>();
-    const [isEdit, setIsEdit] = useState(false);
 
     const [data, setData] = useState({
         problemid: '',
@@ -247,21 +247,6 @@ const Map = ({
     });
     const [ showDefault, setShowDefault ] = useState(false);
 
-    UseDebouncedEffect(() => {
-      if (newNote !== void(0) && isEdit === false) {
-        createNoteWithElem(newNote, createNote);
-        markerNote.remove();
-        popup.remove();
-      }
-    }, [newNote], 1000);
-
-    UseDebouncedEffect(() => {
-      if (isEdit) {
-        editNoteWithElem(currentNote, editNote);
-        setIsEdit(false);
-        
-      }
-    }, [currentNote], 1000);
 
     const handleColor = () => {
       let color = '';
@@ -293,7 +278,7 @@ const Map = ({
         latitude: popup.getLngLat().lat,
         longitude: popup.getLngLat().lng
       }; 
-        setNewNote(note);
+        newNote = note;
         return;
       }else {
         const noteEdit = {
@@ -303,8 +288,8 @@ const Map = ({
           latitude: note.latitude,
           longitude: note.longitude
       };
-        setCurrentNote(noteEdit);
-        setIsEdit(true);
+        currentNote = noteEdit;
+        isEdit =true
         return;
       }
     }
@@ -1928,6 +1913,20 @@ const Map = ({
     }, [allLayers]);
 
         const eventclick =  async (e: any) => {
+            if (isEdit) {
+              editNoteWithElem(currentNote, editNote);
+              isEdit= false
+              newNote =  undefined;
+              currentNote= undefined
+            }
+            if (newNote !== void(0) && isEdit === false) {
+              createNoteWithElem(newNote, createNote);
+              markerNote.remove();
+              popup.remove();
+              isEdit= false
+              newNote =  undefined;
+              currentNote= undefined
+            }
             if(markerGeocoder){
               markerGeocoder.remove();
               setMarkerGeocoder(undefined);
@@ -1958,7 +1957,6 @@ const Map = ({
               }
               if (commentAvailable && canAdd.value) {
                 const html = commentPopup(handleComments,handleDeleteNote);
-                popup.remove();
                 popup = new mapboxgl.Popup({
                   closeButton: false, 
                   offset: { 
