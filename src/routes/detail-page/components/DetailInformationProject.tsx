@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { useDetailedState } from "hook/detailedHook";
-import { getStreams } from '../../../utils/parsers';
+import { getStreams, getTeam } from '../../../utils/parsers';
 
 const DetailInformationProject = () => {
   const {detailed,} = useDetailedState();
+  const [mhfdManager, setMhfdManager] = useState<any>([{}]);
+  const [lgManager, setLgManager] = useState<any>([{}]);
+  const streamList = getStreams(detailed?.project_streams || []).join(' , ');
   const capitalizeWords = (str:any) =>{
     let words = str.split(" ");
     for (let i = 0; i < words.length; i++) {
@@ -13,11 +16,12 @@ const DetailInformationProject = () => {
     }
     return words.join(" ");
   } 
-  const mhfdManager = detailed?.project_staffs ? detailed?.project_staffs?.find((obj:any) => obj.code_project_staff_role_type_id === 1)?.business_associate_contact?.user?.name : null
-  const lgManager = detailed?.project_staffs ? detailed?.project_staffs.find((obj:any) => obj.code_project_staff_role_type_id === 10)?.business_associate_contact?.user?.name : null
-  const date = detailed?.start_date ? new Date(detailed?.start_date) : new Date();
-  const dateComplete = detailed?.end_date ? new Date(detailed?.end_date) : new Date();  
-  const streamList = getStreams(detailed?.project_streams || []).join(' , ');
+  useEffect(() => {
+    const staffs = (getTeam(detailed?.project_staffs || [])); 
+    setMhfdManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 1):[{}])
+    setLgManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 10):[{}])
+  }, [detailed]);
+
   return (
     <>
       <h3 style={{marginBottom:'15px'}} id="project-basics">PROJECT BASICS</h3>
@@ -60,13 +64,13 @@ const DetailInformationProject = () => {
           <label><i>LG Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-          <p>{lgManager ? lgManager : 'N/A'}</p>
+          <p>{lgManager.length > 0 ? lgManager[0].fullName : 'N/A'}</p>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 6 }}>
           <label><i>MHFD Lead</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 4 }}>
-          <p>{mhfdManager ? mhfdManager : 'N/A'}</p>
+          <p>{mhfdManager.length > 0 ? mhfdManager[0].fullName : 'N/A'}</p>
         </Col>
       </Row>
       <Row>
