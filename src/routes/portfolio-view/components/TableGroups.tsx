@@ -52,7 +52,7 @@ const TableGroups = ({
     const sendfiltercopy = {...filterProjectOptions};
     delete sendfiltercopy.sortby;
     delete sendfiltercopy.sortorder;
-    setSendFilter(sendfilter);
+    setSendFilter(sendfiltercopy);
   }, [filterProjectOptions]);
   useEffect(() => {
     const controller = new AbortController();
