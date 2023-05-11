@@ -1,6 +1,7 @@
 import * as types from 'store/types/portfolioTypes';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import moment from 'moment';
 
 export const setSearchWord = (searchWord: string) => ({
   type: types.SET_SEARCH_WORD,
@@ -49,3 +50,49 @@ export const setCollapsePhase = (value: boolean) => ({
   type: types.SET_COLLAPSE_PHASE,
   payload: value
 });
+
+export const getListPMTools = (tabKey: number) => {
+  console.log('tabkey action', tabKey)
+  return (dispatch: Function) => {
+    const controller = new AbortController();
+    datasets.postData(
+      `${SERVER.PHASE_TYPE}`,
+      { tabKey: tabKey },
+      datasets.getToken(),
+      controller.signal
+    )
+      .then((rows) => {        
+        dispatch({type: types.PHASE_LIST, payload: rows});
+        dispatch({type: types.STATUS_COUNTER, payload: rows.length});
+        const z = rows.map((x: any, index: number) => {
+          return (
+            {
+              categoryNo: index,
+              from: moment(null),
+              to: moment(null),
+              status: x?.code_status_type?.status_name,
+              name: x.phase_name,
+              phase: x.phase_name,
+              tasks: x.code_rule_action_items.length,
+              phase_id: x.code_phase_type_id,
+              tasksData: x.code_rule_action_items,
+              duration: x.duration,
+              duration_type: x.duration_type,
+              code_phase_type_id: x.code_phase_type_id,
+              code_status_type_id: x.code_status_type?.code_status_type_id,
+            })
+        })
+        dispatch({type: types.SCHEDULE_LIST, payload: z});
+        
+        // setUpdatePhaseList(!updatePhaseList);
+        const y = rows.map((x: any) => {
+          return x.code_status_type;
+        })
+        dispatch({type: types.STATUS_LIST, payload: y});
+      })
+      .catch((error: any) => {
+        console.log('Error on delete favorite?', error);
+      });
+    
+  }
+};

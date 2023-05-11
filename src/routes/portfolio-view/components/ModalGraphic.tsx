@@ -4,16 +4,17 @@ import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { colorScale } from '../constants/PhaseViewData';
 import { handleAbortError } from 'store/actions/mapActions';
+import { usePortflioState } from 'hook/portfolioHook';
 
 const ModalGraphic = ({
   positionModalGraphic,
   dataProject,
-  scheduleList
+  
 }: {
   positionModalGraphic?: any,
   dataProject?: any,
-  scheduleList?:any
 }) => {
+  const { scheduleList } = usePortflioState();
   const [actualEndDate, setActualEndDate] = useState<any>()
   const [modifiedDate, setModifiedDate] = useState<any>()
   const monthNames = ["January", "February", "March", "April", "May", "June",

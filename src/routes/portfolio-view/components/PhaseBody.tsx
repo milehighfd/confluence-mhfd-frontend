@@ -24,9 +24,6 @@ const PhaseBody = ({
   index,
   phaseRef,
   totalLabelWidth,
-  scheduleList,
-  phaseList,
-  statusCounter,
   setTollData,
   setOpenModalTollgate,
   actionsDone,
@@ -51,9 +48,6 @@ const PhaseBody = ({
   index: number,
   phaseRef: any,
   totalLabelWidth: number,
-  scheduleList: any,
-  phaseList: any,
-  statusCounter: any,
   setTollData: Function,
   setOpenModalTollgate: Function,
   actionsDone: any,
@@ -74,8 +68,7 @@ const PhaseBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-
-  const { currentGroup, favorites } = usePortflioState();
+  const { currentGroup, favorites, scheduleList, phaseList, statusCounter } = usePortflioState();
   const { deleteFavorite, addFavorite } = usePortfolioDispatch();
   const [updateFavorite, setUpdateFavorite] = useState(false);
   const [dataBody, setDataBody] = useState([]);

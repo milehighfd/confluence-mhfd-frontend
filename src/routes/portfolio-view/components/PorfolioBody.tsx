@@ -44,7 +44,7 @@ const PortafolioBody = ({
   const {
     searchWord
   } = usePortflioState();
-  const { setFavorites } = usePortfolioDispatch();
+  const { setFavorites, getListPMTools } = usePortfolioDispatch();
 
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -70,7 +70,6 @@ const PortafolioBody = ({
   const [updateFilter, setUpdateFilter] = useState([]);
   const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
-  const [scheduleList, setScheduleList] = useState<any>({});
 
   useEffect(() => {
     getParamFilterProjectsNoBounds();
@@ -226,6 +225,8 @@ const PortafolioBody = ({
     if (currentId == 0) {
       apply([], 'projecttype', '');
     } else {
+      console.log('antes de action')
+      getListPMTools(currentId)
       apply([currentId], 'projecttype', '');
     }
   } ,[ tabKey ]);
@@ -265,7 +266,7 @@ const PortafolioBody = ({
   }
 
   return <>
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal} scheduleList={scheduleList}/>}
+    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate
       visible={openModalTollgate}
@@ -365,9 +366,7 @@ const PortafolioBody = ({
                         setOpenModalTollgate = {setOpenModalTollgate}
                         setGrapphicOpen={setGrapphicOpen}
                         setPositionModalGraphic={setPositionModalGraphic}
-                        setDataModal={setDataModal}                    
-                        scheduleList={scheduleList}
-                        setScheduleList={setScheduleList}
+                        setDataModal={setDataModal}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
@@ -383,8 +382,6 @@ const PortafolioBody = ({
                       setGrapphicOpen={setGrapphicOpen}
                       setPositionModalGraphic={setPositionModalGraphic}
                       setDataModal={setDataModal}
-                      scheduleList={scheduleList}
-                      setScheduleList={setScheduleList}
                       updatedGroup={updatedGroup}
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
                     />

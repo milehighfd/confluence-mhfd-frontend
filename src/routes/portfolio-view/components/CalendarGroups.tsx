@@ -17,8 +17,6 @@ const CalendarGroups = ({
   openTable,
   index,
   tabKey,
-  scheduleList,
-  statusCounter,
   setTollData,
   setOpenModalTollgate,
   actionsDone,
@@ -44,8 +42,6 @@ const CalendarGroups = ({
   openTable: any,
   index: any,
   tabKey: any,
-  scheduleList: any,
-  statusCounter: any,
   setTollData: any,
   setOpenModalTollgate: any,
   actionsDone: any,
@@ -155,10 +151,7 @@ const CalendarGroups = ({
             prev={prev}
             setNext={setNext}
             setPrev={setPrev}
-            openTable={openTable}
             index={index}
-            scheduleList={scheduleList}
-            statusCounter={statusCounter}
             setTollData={setTollData}
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}

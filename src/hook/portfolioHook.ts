@@ -6,7 +6,8 @@ import {
   setFavorites,
   deleteFavorite,
   addFavorite,
-  setCollapsePhase
+  setCollapsePhase,
+  getListPMTools
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -34,7 +35,9 @@ export const usePortfolioDispatch = () => {
   const _setCollapsePhase = useCallback((value: boolean) => {
     dispatch(setCollapsePhase(value));
   }, [dispatch]);
-
+  const _getListPMTools = useCallback((tabKey: number) => {
+    dispatch(getListPMTools(tabKey));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -42,5 +45,6 @@ export const usePortfolioDispatch = () => {
     deleteFavorite: _deleteFavorite,
     addFavorite: _addFavorite,
     setCollapsePhase: _setCollapsePhase,
+    getListPMTools: _getListPMTools
   };
 };

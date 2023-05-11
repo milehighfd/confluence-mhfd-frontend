@@ -9,6 +9,7 @@ import CalendarGroups from 'routes/portfolio-view/components//CalendarGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
+import { getListPMTools } from 'store/actions/portfolioActions';
 
 const CalendarViewPag = ({
   tabKey,
@@ -22,8 +23,6 @@ const CalendarViewPag = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  scheduleList,
-  setScheduleList,
   updatedGroup,
   secondaryUpdatedGroup,
 }: {
@@ -38,17 +37,11 @@ const CalendarViewPag = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  scheduleList: any,
-  setScheduleList: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
 }) => {
-  const { currentGroup } = usePortflioState();
-
-  const [phaseList, setPhaseList] = useState<any>([]);
-  const [statusCounter, setStatusCounter] = useState(0);
+  const { currentGroup,scheduleList,phaseList,statusCounter } = usePortflioState();
   const [actionsDone, setActionsDone] = useState<any>({});
-  const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
   const [isZoomToday, setIsZoomToday] = useState<any>(false);
@@ -61,7 +54,6 @@ const CalendarViewPag = ({
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
-  let totalLabelWidth = phaseList.length * labelWidth;
   let heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
   let heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
   let heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest-heightSearchHeader
@@ -74,6 +66,8 @@ const CalendarViewPag = ({
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
 
   useEffect(() => {
+    console.log('gets here', tabKey)
+    getListPMTools(tabKey)
     const controller = new AbortController();
     datasets.getData(
       `${SERVER.PROJECT_ACTION_ITEM}`,
@@ -88,41 +82,9 @@ const CalendarViewPag = ({
   }, [tabKey, updateAction])
 
   useEffect(() => {
-    const controller = new AbortController();
-    datasets.postData(
-      `${SERVER.PHASE_TYPE}`,
-      { tabKey: tabKey },
-      datasets.getToken(),
-      controller.signal
-    )
-      .then((rows) => {        
-        setPhaseList(rows)
-        setStatusCounter(rows.length)
-        const z = rows.map((x: any, index: number) => {
-          return (
-            {
-              categoryNo: index,
-              from: moment(null),
-              to: moment(null),
-              status: x?.code_status_type?.status_name,
-              name: x.phase_name,
-              phase: x.phase_name,
-              tasks: x.code_rule_action_items.length,
-              phase_id: x.code_phase_type_id,
-              tasksData: x.code_rule_action_items,
-              duration: x.duration,
-              duration_type: x.duration_type,
-              code_phase_type_id: x.code_phase_type_id,
-              code_status_type_id: x.code_status_type?.code_status_type_id,
-            })
-        })
-        setScheduleList(z);
-        setUpdatePhaseList(!updatePhaseList);
-      })
-      .catch(handleAbortError)
-    return () => {
-      controller.abort();
-    };
+    console.log('phaseList', phaseList)
+    //     setStatusCounter(rows.length)
+        console.log('statusCounter', statusCounter)
   }, [actionsDone])
 
   useEffect(() => {
@@ -237,8 +199,6 @@ const CalendarViewPag = ({
                   setOpenTable={setOpenTable}
                   index={index}
                   tabKey={tabKey}
-                  scheduleList={scheduleList}
-                  statusCounter={statusCounter}
                   setTollData={setTollData}
                   setOpenModalTollgate={setOpenModalTollgate}
                   actionsDone={actionsDone}

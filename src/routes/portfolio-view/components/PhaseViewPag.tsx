@@ -7,7 +7,7 @@ import PhaseGroups from 'routes/portfolio-view/components/PhaseGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
 import { getUserBrowser } from 'utils/utils';
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
 
 const PhaseViewPag = ({  
@@ -19,9 +19,7 @@ const PhaseViewPag = ({
   setOpenModalTollgate,
   setGrapphicOpen,
   setPositionModalGraphic,
-  setDataModal,
-  scheduleList,
-  setScheduleList,
+  setDataModal
 }: {
   tabKey: any,
   index: any,
@@ -31,18 +29,21 @@ const PhaseViewPag = ({
   setOpenModalTollgate: any,
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
-  setDataModal: any,
-  scheduleList: any,
-  setScheduleList: any,
+  setDataModal: any
 }) => {
   const {
-    currentGroup
+    currentGroup,
+    scheduleList,
+  phaseList,
+  statusCounter,
+  // updatePhaseList,
+  statusList,
   } = usePortflioState();
-
-  const [phaseList, setPhaseList] = useState<any>([]);
+  const { getListPMTools } = usePortfolioDispatch();
+  // const [phaseList, setPhaseList] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
-  const [statusCounter,setStatusCounter] = useState(0);
-  const [statusList, setStatusList] = useState<any>([]);
+  // const [statusCounter,setStatusCounter] = useState(0);
+  // const [statusList, setStatusList] = useState<any>([]);
   const [actionsDone,setActionsDone] = useState<any>({});
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
@@ -59,6 +60,7 @@ const PhaseViewPag = ({
   const [popUpData, setPopUpData] = useState<any>({});
 
   useEffect(() => {
+    console.log('tabKeyy',tabKey)
     setUserBrowser(getUserBrowser());
     const controller = new AbortController();
     datasets.getData(
@@ -74,49 +76,54 @@ const PhaseViewPag = ({
   }, [tabKey, updateAction])
 
   useEffect(() => {
-    let z = []
-    const controller = new AbortController();
-    datasets.postData(
-      `${SERVER.PHASE_TYPE}`,
-      { tabKey: tabKey },
-      datasets.getToken(),
-      controller.signal
-    )
-      .then((rows) => {  
-        setPhaseList(rows)  
-        setStatusCounter(rows.length)
-        let counter = 0;
-        z = rows.map((x: any) => {
-          counter++;
-          return (
-            {
-              categoryNo: counter,
-              from: moment(null),
-              to: moment(null),
-              status: x?.code_status_type?.status_name,
-              name: x.phase_name,
-              phase: x.phase_name,
-              tasks: x.code_rule_action_items.length,
-              phase_id: x.code_phase_type_id,             
-              tasksData: x.code_rule_action_items,
-              duration: x.duration,
-              duration_type: x.duration_type,
-              code_phase_type_id: x.code_phase_type_id,
-              code_status_type_id: x.code_status_type?.code_status_type_id,
-            })
-        })
-        setScheduleList(z);
-        const y = rows.map((x: any) => {
-          return x.code_status_type;
-        })
-        setStatusList(y)
-        setUpdatePhaseList(!updatePhaseList) 
-        return rows
-      })
-      .catch(handleAbortError);
-    return () => {
-      controller.abort();
-    }
+    // let z = []
+    // const controller = new AbortController();
+    // datasets.postData(
+    //   `${SERVER.PHASE_TYPE}`,
+    //   { tabKey: tabKey },
+    //   datasets.getToken(),
+    //   controller.signal
+    // )
+    //   .then((rows) => {  
+    //     setPhaseList(rows)
+        console.log('phaseList', phaseList)
+    //     setStatusCounter(rows.length)
+        console.log('statusCounter', statusCounter)
+    //     let counter = 0;
+    //     z = rows.map((x: any) => {
+    //       counter++;
+    //       return (
+    //         {
+    //           categoryNo: counter,
+    //           from: moment(null),
+    //           to: moment(null),
+    //           status: x?.code_status_type?.status_name,
+    //           name: x.phase_name,
+    //           phase: x.phase_name,
+    //           tasks: x.code_rule_action_items.length,
+    //           phase_id: x.code_phase_type_id,             
+    //           tasksData: x.code_rule_action_items,
+    //           duration: x.duration,
+    //           duration_type: x.duration_type,
+    //           code_phase_type_id: x.code_phase_type_id,
+    //           code_status_type_id: x.code_status_type?.code_status_type_id,
+    //         })
+    //     })
+    //     setScheduleList(z);
+        console.log('scheduleList', scheduleList)
+
+    //     const y = rows.map((x: any) => {
+    //       return x.code_status_type;
+    //     })
+    //     setStatusList(y)
+        console.log('statusList', statusList)
+    //     setUpdatePhaseList(!updatePhaseList) 
+    //     return rows
+    //   })
+    //   .catch(handleAbortError);
+    // return () => {
+    //   controller.abort();
+    // }
   }, [actionsDone])
   useEffect(() => {
     const z: any = [];
@@ -249,9 +256,6 @@ const PhaseViewPag = ({
                     tabKey={tabKey}
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
-                    scheduleList={scheduleList}
-                    phaseList={phaseList}
-                    statusCounter={statusCounter}
                     setTollData={setTollData}
                     setOpenModalTollgate={setOpenModalTollgate}
                     actionsDone={actionsDone}

@@ -18,9 +18,6 @@ const PhaseGroups = ({
   tabKey,
   phaseRef,
   totalLabelWidth,
-  scheduleList,
-  phaseList,
-  statusCounter,
   setTollData,
   setOpenModalTollgate,
   actionsDone,
@@ -40,9 +37,6 @@ const PhaseGroups = ({
   tabKey: any,
   phaseRef: any,
   totalLabelWidth: any,
-  scheduleList: any,
-  phaseList: any,
-  statusCounter: any,
   setTollData: any,
   setOpenModalTollgate: any,
   actionsDone: any,
@@ -136,9 +130,6 @@ const PhaseGroups = ({
             index={index}
             phaseRef={phaseRef}
             totalLabelWidth={totalLabelWidth}
-            scheduleList={scheduleList}
-            phaseList={phaseList}
-            statusCounter={statusCounter}
             setTollData={setTollData}
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}

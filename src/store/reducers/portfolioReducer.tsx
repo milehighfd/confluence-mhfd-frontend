@@ -5,42 +5,73 @@ const initState = {
   currentGroup: DEFAULT_GROUP,
   favorites: [],
   collapsePhase: false,
+  scheduleList: [],
+  phaseList: [],
+  statusCounter: 0,
+  // updatePhaseList:,
+  statusList: []
 }
 
 const portfolioReducer = (state = initState, action: any) => {
-  switch(action.type) {
-    case types.SET_SEARCH_WORD: 
+  switch (action.type) {
+    case types.SET_SEARCH_WORD:
       return {
-        ...state, 
-        searchWord: action.payload
-      }
+        ...state,
+        searchWord: action.payload,
+      };
     case types.SET_CURRENT_GROUP:
       return {
         ...state,
-        currentGroup: action.payload
-      }
+        currentGroup: action.payload,
+      };
     case types.SET_FAVORITES:
       return {
         ...state,
-        favorites: action.payload
+        favorites: action.payload,
       };
     case types.PM_DELETE_FAVORITE:
       return {
         ...state,
-        favorites: state.favorites.filter((_: any) => _.project_id !== action.payload)
+        favorites: state.favorites.filter((_: any) => _.project_id !== action.payload),
       };
     case types.PM_ADD_FAVORITE:
       return {
         ...state,
-        favorites: [...state.favorites, action.payload]
+        favorites: [...state.favorites, action.payload],
       };
     case types.SET_COLLAPSE_PHASE:
       return {
         ...state,
-        collapsePhase: action.payload
+        collapsePhase: action.payload,
       };
-    default: 
-      return state
+    case types.SCHEDULE_LIST:
+      return {
+        ...state,
+        scheduleList: action.payload,
+      };
+
+    case types.PHASE_LIST:
+      return {
+        ...state,
+        phaseList: action.payload,
+      };
+    case types.STATUS_COUNTER:
+      return {
+        ...state,
+        statusCounter: action.payload,
+      };
+    case types.UPDATE_PHASELIST:
+      return {
+        ...state,
+        updatePhaseList: action.payload,
+      };
+      case types.STATUS_LIST:
+        return {
+          ...state,
+          statusList: action.payload,
+        };
+    default:
+      return state;
   }
 }
 

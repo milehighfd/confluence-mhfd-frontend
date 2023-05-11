@@ -21,10 +21,7 @@ const CalendarBody = ({
   prev,
   setNext,
   setPrev,
-  openTable,
   index,
-  scheduleList,
-  statusCounter,
   setTollData,
   setOpenModalTollgate,
   actionsDone,
@@ -54,10 +51,7 @@ const CalendarBody = ({
   prev: boolean,
   setNext: Function,
   setPrev: Function,
-  openTable: any,
   index: number,
-  scheduleList: any,
-  statusCounter: any,
   setTollData: Function,
   setOpenModalTollgate: Function,
   actionsDone: any,
@@ -84,7 +78,8 @@ const CalendarBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  const { currentGroup, favorites } = usePortflioState();
+
+  const { currentGroup, favorites,scheduleList,statusCounter } = usePortflioState();
   const { deleteFavorite, addFavorite } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
