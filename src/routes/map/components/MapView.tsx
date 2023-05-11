@@ -30,7 +30,10 @@ const STATUS = 'status',
   CONSULTANT = 'consultant',
   CONTRACTOR = 'contractor',
   STREAMS = 'streams',
-  PROJECTTYPE = 'projecttype';
+  PROJECTTYPE = 'projecttype',
+  MHFD_LEAD = 'staff',
+  LG_LEAD = 'lg_lead';
+
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER];
 let contents: any = [];
 contents.push(
@@ -510,6 +513,7 @@ const MapView = () => {
   const getLabel = useCallback(
     (key: any, value: any) => {
       const valueGroup = groupsLabels[key]?.filter((g: any) => g.id === value);
+      // console.log('here is the label', valueGroup, key, value, groupsLabels);
       return valueGroup[0]?.value;
     },
     [groupsLabels],
@@ -537,6 +541,7 @@ const MapView = () => {
               value: tag[index],
             });
           } else {
+            
             if (tag[index]) {
               elements.push({
                 tag: key,
@@ -713,6 +718,8 @@ const MapView = () => {
       getGroupList(STATUS),
       getGroupList(STREAMS),
       getGroupList(PROJECTTYPE),
+      getGroupList(MHFD_LEAD),
+      getGroupList(LG_LEAD)
     ];
     Promise.all(promises).then(values => {
       setGroupsLabels({
@@ -725,6 +732,8 @@ const MapView = () => {
         status: values[5]?.groups,
         streamname: values[6]?.groups,
         projecttype: values[7]?.groups,
+        mhfdmanager: values[8]?.groups,
+        lgmanager: values[9]?.groups
       });
     });
   };
@@ -813,7 +822,6 @@ const MapView = () => {
 
   const onSelect = (value: any, isSelect?: any) => {
     setAutocomplete(value);
-    console.log('enter here');
     const zoomareaSelected = groupOrganization
       .filter((x: any) => x.name === value)
       .map((element: any) => {

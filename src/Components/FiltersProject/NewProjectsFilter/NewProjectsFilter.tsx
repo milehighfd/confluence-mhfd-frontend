@@ -38,6 +38,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
     const { boundsMap } = useMapState();
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
+        console.log('Values at new project filter', values, field);
         if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
         || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
         || 'mhfdmanager' === field) {
@@ -51,7 +52,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
             if ('completedyear' === field) {
                 options['status'] = [...options['status'], 'Complete'];
                 options[field] = values;
-            } else if ('streamname' === field) {
+            } else if ('streamname' === field || 'lgmanager' === field) {
               if (values === '') {
                 options[field] = values;
               } else {
