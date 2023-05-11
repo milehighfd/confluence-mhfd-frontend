@@ -22,16 +22,10 @@ const SelectAssociate = ({
   defaultValue: string,
   value?: string
 }) => {
-  const {
-    saveUserActivated,
-    saveUserPending,
-    getUserActivity,
-    getAllUserActivity
-  } = useUsersDispatch();
   const [optionAssociate, setOptionAssociate] = useState<any[]>([]); 
 
   const getUser = () => {
-    datasets.getData(SERVER.LIST_USERS_ACTIVATED , datasets.getToken()).then(res => {
+    datasets.getData(SERVER.LIST_USERS_TOTAL , datasets.getToken()).then(res => {
       const arrayUsers = res.users.map((elem: any) => {
         return {
           associate: elem?.business_associate_contact?.business_address?.business_associate?.business_name,

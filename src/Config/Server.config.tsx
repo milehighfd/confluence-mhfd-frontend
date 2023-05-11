@@ -42,6 +42,7 @@ export const SERVER = (function () {
     const RECOVERY_PASSWORD = 'recovery-password';
     const RESET_PASSWORD = 'reset-password';
     const LIST_USERS_ACTIVATED = 'list?';
+    const LIST_USERS_TOTAL = 'listTotal';
     const LIST_USERS_PENDING = 'list?pending=false&';
     const CREATORS = 'creators';
     const FILTER_BY_FIELD = 'filter-by-field';
@@ -162,6 +163,7 @@ export const SERVER = (function () {
         GALLERY_PROBLEMS: `${URL_BASE.BASE}/${GALLERY_PROBLEMS}`,
         MAP_TABLES: `${URL_BASE.BASE}/${MAP}`,
         MAP_PROBLEM_TABLES: `${URL_BASE.BASE}/${MAP}/probs`,
+        LIST_USERS_TOTAL: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_TOTAL}`,
         LIST_USERS_ACTIVATED: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_ACTIVATED}`,
         LIST_USERS_PENDING: `${URL_BASE.BASE}/${ADMIN}/${LIST_USERS_PENDING}`,
         CHANGE_USER_STATE: `${URL_BASE.BASE}/${ADMIN}/${CHANGE_USER_STATE}`,

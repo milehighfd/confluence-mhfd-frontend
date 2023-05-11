@@ -139,11 +139,6 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
           setOrganization={setOrganization}
           defaultValue={'Organization'}
           value = {organization}/>
-        {/* <SelectOrganization
-          organization={organization}
-          setOrganization={setOrganization}
-          defaultValue={'Organization'}
-          value = {organization}/> */}
       </div>
       <div id={"filter-service-area" + title} className="filter-area">
         <SelectServiceArea
@@ -169,17 +164,6 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
         setServiceArea('');
         ResetFilters();
       }}>Reset</Button>
-
-      {/* <div className="btn-r" id={"filter-sort" + title}>
-        <label>Sort by:</label>
-        <Dropdown trigger={['click']} overlay={menu(SORT, '', '')} getPopupContainer={() => document.getElementById("filter-sort" + title ) as HTMLElement}>
-          <Button className="btn-borde"> 
-            {SORT_ITEMS.filter(item => item.value === option.sort)[0].name}
-            <img src="/Icons/icon-14.svg" alt="" />
-          </Button>
-        </Dropdown>
-      </div> */}
-    {/* </div> */}
     </>
   )
 };
