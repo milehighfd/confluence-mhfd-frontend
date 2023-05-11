@@ -35,12 +35,8 @@ const GenericTabView = ({
     const { userInformation: user } = useProfileState();
 
     const [data, setData] = useState<any>([]);
-    const [hotReload, setHotReload] = useState(0);
     const [carInfo, setCardInfo] = useState<any>([]);
 
-    const {
-      detailed,
-    } = useDetailedState();
     const {
         filterProblemOptions,
         filterProjectOptions,
