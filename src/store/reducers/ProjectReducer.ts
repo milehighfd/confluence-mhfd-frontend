@@ -70,7 +70,8 @@ const initState = {
   zoomProject: undefined,
   jurisdiction: undefined,
   componentGeom: undefined,
-  zoomGeom: undefined
+  zoomGeom: undefined,
+  nextPageOfCards: 1
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -327,6 +328,18 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         componentGeom: action.componentGeom
+      }
+    }
+    case types.NEXT_PAGE: {
+      return {
+        ...state,
+        nextPageOfCards: action.nextPageOfCards
+      }
+    }
+    case types.RESET_NEXT_PAGE: {
+      return {
+        ...state,
+        nextPageOfCards: initState.nextPageOfCards
       }
     }
     default: 

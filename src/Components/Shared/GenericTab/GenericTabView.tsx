@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from 'constants/constants';
 import { useDetailedState } from 'hook/detailedHook';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useProfileState } from 'hook/profileHook';
 import { elementCost } from 'utils/utils';
 import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
@@ -28,11 +29,14 @@ const GenericTabView = ({
       getExtraProjects,
       setFilterTabNumber
     } = useMapDispatch();
+    const { setNextPageOfCards } = useProjectDispatch();
+    const { nextPageOfCards } = useProjectState();
+    
     const { userInformation: user } = useProfileState();
+
     const [data, setData] = useState<any>([]);
     const [hotReload, setHotReload] = useState(0);
     const [carInfo, setCardInfo] = useState<any>([]);
-    const [nextPage, setNextPage] = useState(1);
 
     const {
       detailed,
@@ -68,7 +72,7 @@ const GenericTabView = ({
     useEffect(() => {
         if (cardInformation) {
             const a = Math.ceil(cardInformation.length / 20) + 1
-            setNextPage(a);
+            setNextPageOfCards(a);
         }
         if (favorites && carInfo) {
             setData(
@@ -82,7 +86,7 @@ const GenericTabView = ({
             )
         }
         setCardInfo(cardInformation);
-    }, [favorites, cardInformation, hotReload]);
+    }, [favorites, cardInformation]);
 
     const deleteFilter = (tag: string, value: string) => {
         const auxFilterComponents = { ...filterComponentOptions };
@@ -180,8 +184,7 @@ const GenericTabView = ({
             if (state.items.length < totalElements && totalElement - size < totalElements) {
                 if (!isLoading) {
                     setIsLoading(true);
-                    getExtraProjects(nextPage);
-                    setHotReload(Math.random());
+                    getExtraProjects(nextPageOfCards);
                 }
                 auxState.items = state.items.concat(Array.from({ length: size }));
                 auxState.hasMore = true

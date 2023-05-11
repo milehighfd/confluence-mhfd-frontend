@@ -57,7 +57,9 @@ import {
   setComponentGeom,
   setHighlightedStream,
   setHighlightedStreams,
-  saveOverheadCost
+  saveOverheadCost,
+  setNextPageOfCards,
+  resetNextPageOfCards
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -240,6 +242,12 @@ export const useProjectDispatch = () => {
     },
     setComponentGeom: (componentGeom: any) => {
       dispatch(setComponentGeom(componentGeom))
+    },
+    setNextPageOfCards: (page: number) => {
+      dispatch(setNextPageOfCards(page))
+    },
+    resetNextPageOfCards: () => {
+      dispatch(resetNextPageOfCards())
     }
   };
 };

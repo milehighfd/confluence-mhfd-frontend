@@ -673,6 +673,20 @@ export const setIndComponents = (independentComponents: any) => {
     dispatch({type: types.SET_IND_COMPONENTS, independentComponents})
   }
 }
+
+export const setNextPageOfCards = (nextPageOfCards: number) => {
+  return (dispatch: Function) => {
+    console.log(nextPageOfCards)
+    dispatch({type: types.NEXT_PAGE, nextPageOfCards})
+  }
+}
+
+export const resetNextPageOfCards = () => {
+  return (dispatch: Function) => {
+    dispatch({type: types.RESET_NEXT_PAGE})
+  }
+}
+
 export const getGEOMByProjectId = ( projectid : any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_GEOM_BY_PROJECTID(projectid), datasets.getToken()).then(res => {
