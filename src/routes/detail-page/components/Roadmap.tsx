@@ -37,7 +37,6 @@ const Roadmap = ({setOpenPiney,
   const labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
   let projectTypeOffset = 0;
   if(data.length > 0){
-    console.log(data[0].code_project_type_id)
     projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
   }  
   let totalLabelWidth = (phaseList.length * labelWidth);
@@ -50,7 +49,6 @@ const Roadmap = ({setOpenPiney,
   let heightDiv3  = document.getElementById(`testing3`)?.offsetHeight;
   let svg:any;
 
-    // console.log(windowWidth);
     const marginLeft = (windowWidth>=3001 && windowWidth<=3999 ? 30:(windowWidth>=2550 && windowWidth<=3000 ? 24:(windowWidth>=2001 && windowWidth<=2549 ? 29:(windowWidth>=1450 && windowWidth<=2000 ? 19 :(windowWidth>=1199 && windowWidth<=1449 ? 17 :14)))))
     const marginRight = (windowWidth>=1900 && windowWidth<=2549 ? 15 : (windowWidth>=2550 && windowWidth<=3000 ? 18: (windowWidth>=3001 && windowWidth<=3999? 25:15)))
     const marginTop = (windowWidth>=3001 && windowWidth<=3999 ? -41:(windowWidth>=1900 && windowWidth<=2549 ? -20 : (windowWidth>=2550 && windowWidth<=3000 ? -35: -15.8)))
@@ -107,7 +105,6 @@ const Roadmap = ({setOpenPiney,
       let width: any = totalLabelWidth//document.getElementById('phaseviewTitleDetailPage')?.offsetWidth;//= 1405 - margin.left - margin.right,
       let heightDiv: any;
       heightDiv = document.getElementById(`ProjectRoadmapHeader`)?.offsetHeight; //265 - margin.top - margin.bottom;
-      console.log('height div', heightDiv)
       let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : 0);
       let height: any = factorHeight + heightDiv + 40;
       let heightContainer: any = height + margin.top + margin.bottom;
@@ -150,7 +147,6 @@ const Roadmap = ({setOpenPiney,
     .call(d3.axisBottom(x));
 
   // Y axis
-  console.log('dqqqqqqqqqqqqqqqs',datas)
   var y = d3
     .scaleBand()
     .range([0, height])
@@ -476,7 +472,6 @@ const Roadmap = ({setOpenPiney,
     let z = []
     let typeProject;
     if(data.length === 0) return;
-    console.log('dataaaaaaaaaaaaa', data )
     typeProject =data[0].code_project_type_id;
     const controller = new AbortController();
     datasets.postData(
@@ -541,7 +536,6 @@ const Roadmap = ({setOpenPiney,
 
   useEffect(() => {
     const z: any = [];
-    console.log('statusList', statusList)
     statusList.map((img: any) => {
       if (z.indexOf(img.status_name) === -1) {
         z.push(img.status_name)
@@ -583,7 +577,6 @@ const Roadmap = ({setOpenPiney,
       <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
         <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
         {availableStatusList.map((item: any, index: number) => {
-              console.log(item)
               return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent', fontFamily: "Ubuntu" } : { display: 'flex', width: item[1], fontFamily: "Ubuntu" }}>
               <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
               {/* <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr> */}
