@@ -96,3 +96,28 @@ export const getListPMTools = (tabKey: number) => {
     
   }
 };
+
+export const setZoomTimeline = (value: number) => ({
+  type: types.SET_ZOOMTIMELINE,
+  payload: value
+});
+
+export const setIsZoomToday = (value: boolean) => ({
+  type: types.SET_IS_ZOOM_TODAY,
+  payload: value
+});
+
+export const setIsZoomWeekly = (value: boolean) => ({
+  type: types.SET_IS_ZOOM_WEEKLY,
+  payload: value
+});
+
+export const setIsZoomMonthly = (value: boolean) => ({
+  type: types.SET_IS_ZOOM_MONTHLY,
+  payload: value
+});
+
+export const setZoomSelected = (value: string) => ({
+  type: types.SET_ZOOMSELECTED,
+  payload: value
+});

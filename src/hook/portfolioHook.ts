@@ -7,7 +7,12 @@ import {
   deleteFavorite,
   addFavorite,
   setCollapsePhase,
-  getListPMTools
+  getListPMTools,
+  setZoomTimeline,
+  setIsZoomToday,
+  setIsZoomWeekly,
+  setIsZoomMonthly,
+  setZoomSelected
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -38,6 +43,21 @@ export const usePortfolioDispatch = () => {
   const _getListPMTools = useCallback((tabKey: number) => {
     dispatch(getListPMTools(tabKey));
   }, [dispatch]);
+  const _setZoomTimeline = useCallback((value: number) => {
+    dispatch(setZoomTimeline(value));
+  }, [dispatch]);
+  const _setIsZoomToday = useCallback((value: boolean) => {
+    dispatch(setIsZoomToday(value));
+  }, [dispatch]);
+  const _setIsZoomWeekly = useCallback((value: boolean) => {
+    dispatch(setIsZoomWeekly(value));
+  }, [dispatch]);
+  const _setIsZoomMonthly = useCallback((value: boolean) => {
+    dispatch(setIsZoomMonthly(value));
+  }, [dispatch]);
+  const _setZoomSelected = useCallback((value: string) => {
+    dispatch(setZoomSelected(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -45,6 +65,11 @@ export const usePortfolioDispatch = () => {
     deleteFavorite: _deleteFavorite,
     addFavorite: _addFavorite,
     setCollapsePhase: _setCollapsePhase,
-    getListPMTools: _getListPMTools
+    getListPMTools: _getListPMTools,
+    setZoomTimeline: _setZoomTimeline,
+    setIsZoomToday: _setIsZoomToday,
+    setIsZoomWeekly: _setIsZoomWeekly,
+    setIsZoomMonthly: _setIsZoomMonthly,
+    setZoomSelected: _setZoomSelected
   };
 };

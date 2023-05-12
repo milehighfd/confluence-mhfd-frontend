@@ -4,7 +4,7 @@ import { Button, Col, Row } from 'antd';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import { usePortflioState } from 'hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import CalendarGroups from 'routes/portfolio-view/components//CalendarGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
@@ -40,17 +40,18 @@ const CalendarViewPag = ({
   updatedGroup: any,
   secondaryUpdatedGroup: any,
 }) => {
-  const { currentGroup,scheduleList,phaseList,statusCounter } = usePortflioState();
+  const { currentGroup,phaseList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
+  const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected} = usePortfolioDispatch();
   const [actionsDone, setActionsDone] = useState<any>({});
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
-  const [isZoomToday, setIsZoomToday] = useState<any>(false);
-  const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
-  const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
+  // const [isZoomToday, setIsZoomToday] = useState<any>(false);
+  // const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
+  // const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [editData,setEditData] = useState<any>({});
-  const [zoomSelected, setZoomSelected] = useState('Today');
+  // const [zoomSelected, setZoomSelected] = useState('Today');
   const [popUpData, setPopUpData] = useState<any>({});
-  const [zoomTimeline, setZoomTimeline] = useState(0);
+  // const [zoomTimeline, setZoomTimeline] = useState(0);
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
@@ -67,7 +68,7 @@ const CalendarViewPag = ({
 
   useEffect(() => {
     console.log('gets here', tabKey)
-    getListPMTools(tabKey)
+    // getListPMTools(tabKey)
     const controller = new AbortController();
     datasets.getData(
       `${SERVER.PROJECT_ACTION_ITEM}`,
@@ -206,14 +207,7 @@ const CalendarViewPag = ({
                   setGrapphicOpen={setGrapphicOpen}
                   setPositionModalGraphic={setPositionModalGraphic}
                   setDataModal={setDataModal}
-                  isZoomToday={isZoomToday}
-                  isZoomWeekly={isZoomWeekly}
-                  setIsZoomWeekly={setIsZoomWeekly}
-                  isZoomMonthly={isZoomMonthly}
-                  setIsZoomMonthly={setIsZoomMonthly}
-                  zoomTimeline={zoomTimeline}
                   setEditData={setEditData}
-                  zoomSelected={zoomSelected}
                   setPopUpData={setPopUpData}
                   updatedGroup={updatedGroup}
                   secondaryUpdatedGroup={secondaryUpdatedGroup}

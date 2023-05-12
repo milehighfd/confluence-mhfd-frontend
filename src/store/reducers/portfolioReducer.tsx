@@ -8,8 +8,12 @@ const initState = {
   scheduleList: [],
   phaseList: [],
   statusCounter: 0,
-  // updatePhaseList:,
-  statusList: []
+  statusList: [],
+  zoomTimeline: 0,
+  isZoomToday: true,
+  isZoomWeekly: false,
+  isZoomMonthly: false,
+  zoomSelected: 'Today'
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -65,11 +69,36 @@ const portfolioReducer = (state = initState, action: any) => {
         ...state,
         updatePhaseList: action.payload,
       };
-      case types.STATUS_LIST:
-        return {
-          ...state,
-          statusList: action.payload,
-        };
+    case types.STATUS_LIST:
+      return {
+        ...state,
+        statusList: action.payload,
+      };
+    case types.SET_ZOOMTIMELINE:
+      return {
+        ...state,
+        zoomTimeline: action.payload,
+      };
+    case types.SET_IS_ZOOM_TODAY:
+      return {
+        ...state,
+        isZoomToday: action.payload,
+      };
+    case types.SET_IS_ZOOM_WEEKLY:
+      return {
+        ...state,
+        isZoomWeekly: action.payload,
+      };
+    case types.SET_IS_ZOOM_MONTHLY:
+      return {
+        ...state,
+        isZoomMonthly: action.payload,
+      };
+    case types.SET_ZOOMSELECTED:
+      return {
+        ...state,
+        zoomSelected: action.payload,
+      };
     default:
       return state;
   }

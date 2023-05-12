@@ -24,14 +24,7 @@ const CalendarGroups = ({
   setGrapphicOpen,
   setPositionModalGraphic,
   setDataModal,
-  isZoomToday,
-  isZoomWeekly,
-  setIsZoomWeekly,
-  isZoomMonthly,
-  setIsZoomMonthly,
-  zoomTimeline,
   setEditData,
-  zoomSelected,
   setPopUpData,
   updatedGroup,
   secondaryUpdatedGroup,
@@ -49,14 +42,7 @@ const CalendarGroups = ({
   setGrapphicOpen: any,
   setPositionModalGraphic: any,
   setDataModal: any,
-  isZoomToday: any,
-  isZoomWeekly: any,
-  setIsZoomWeekly: any,
-  isZoomMonthly: any,
-  setIsZoomMonthly: any,
-  zoomTimeline: any,
   setEditData: any,
-  zoomSelected: any,
   setPopUpData: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
@@ -160,14 +146,7 @@ const CalendarGroups = ({
             setPositionModalGraphic={setPositionModalGraphic}
             setDataModal={setDataModal}
             groupName={data.value}
-            isZoomToday={isZoomToday}
-            isZoomWeekly={isZoomWeekly}
-            setIsZoomWeekly={setIsZoomWeekly}
-            isZoomMonthly={isZoomMonthly}
-            setIsZoomMonthly={setIsZoomMonthly}
-            zoomTimeline={zoomTimeline}
             setEditData={setEditData}
-            zoomSelected={zoomSelected}
             setPopUpData={setPopUpData}
             updatedGroup={updatedGroup}
             secondaryUpdatedGroup={secondaryUpdatedGroup}
