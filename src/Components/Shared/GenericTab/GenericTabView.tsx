@@ -7,6 +7,7 @@ import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useProfileState } from 'hook/profileHook';
 import { elementCost } from 'utils/utils';
 import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
+import LoadingView from 'Components/Loading/LoadingView';
 
 const GenericTabView = ({
     totalElements,
@@ -46,7 +47,7 @@ const GenericTabView = ({
       } = useMapState();
     let totalElement = cardInformation?.length || 0;
     const [isLoading, setIsLoading] = useState(false);
-    const size = 6;
+    const size = 20;
     let sw = false;
     if (totalElement) {
         sw = true;
@@ -177,11 +178,6 @@ const GenericTabView = ({
                 if (!isLoading) {
                     setIsLoading(true);
                     getExtraProjects(nextPageOfCards);
-                }else {
-                    console.log(infiniteScrollItems.length )
-                    console.log(totalElements)
-                    console.log(totalElement)
-                    console.log(size)
                 }
                 const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
                 setInfiniteScrollItems(nextItems);
@@ -202,6 +198,7 @@ const GenericTabView = ({
     };
     return (
         <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
+            {isLoading && <LoadingView/>}
             <div className="hastag" style={{ minHeight: 34 }}>
                 <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
