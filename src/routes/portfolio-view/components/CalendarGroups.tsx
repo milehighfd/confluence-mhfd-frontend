@@ -18,7 +18,6 @@ const CalendarGroups = ({
   index,
   tabKey,
   setTollData,
-  setOpenModalTollgate,
   actionsDone,
   setOpenPiney,
   setEditData,
@@ -33,7 +32,6 @@ const CalendarGroups = ({
   index: any,
   tabKey: any,
   setTollData: any,
-  setOpenModalTollgate: any,
   actionsDone: any,
   setOpenPiney: any,
   setEditData: any,
@@ -133,7 +131,6 @@ const CalendarGroups = ({
             setPrev={setPrev}
             index={index}
             setTollData={setTollData}
-            setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
             setOpenPiney={setOpenPiney}
             groupName={data.value}

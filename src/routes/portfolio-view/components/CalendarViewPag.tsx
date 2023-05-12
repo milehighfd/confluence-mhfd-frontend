@@ -15,7 +15,6 @@ const CalendarViewPag = ({
   openTable,
   setOpenTable,
   setTollData,
-  setOpenModalTollgate,
   setOpenPiney,
   openPiney,
   updatedGroup,
@@ -26,14 +25,13 @@ const CalendarViewPag = ({
   openTable: any,
   setOpenTable: any,
   setTollData: any,
-  setOpenModalTollgate: any,
   setOpenPiney: any,
   openPiney:any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
 }) => {
   const { currentGroup, zoomTimeline, zoomSelected } = usePortflioState();
-  const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected} = usePortfolioDispatch();
+  const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate} = usePortfolioDispatch();
   const [actionsDone, setActionsDone] = useState<any>({});
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
@@ -90,7 +88,6 @@ const CalendarViewPag = ({
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
             isDetail={false}
-            setOpenModalTollgate={setOpenModalTollgate}
             setTollData={setTollData}
           />
         </div>
@@ -179,7 +176,6 @@ const CalendarViewPag = ({
                   index={index}
                   tabKey={tabKey}
                   setTollData={setTollData}
-                  setOpenModalTollgate={setOpenModalTollgate}
                   actionsDone={actionsDone}
                   setOpenPiney={setOpenPiney}
                   setEditData={setEditData}

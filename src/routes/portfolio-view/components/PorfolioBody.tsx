@@ -50,7 +50,6 @@ const PortafolioBody = ({
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
   const [tabKey, setTabKey] = useState<any>('All');
-  const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [updatedGroup, setUpdatedGroup] = useState(null);
   const [secondaryUpdatedGroup, setSecondaryUpdatedGroup] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
@@ -266,8 +265,6 @@ const PortafolioBody = ({
     {graphicOpen && <ModalGraphic/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate
-      visible={openModalTollgate}
-      setVisible={setOpenModalTollgate}
       dataProject={tollData}
       saveCB={()=>{}}
       setOpenPiney={setOpenPiney}
@@ -360,7 +357,6 @@ const PortafolioBody = ({
                         openTable={openTable}
                         setOpenTable={setOpenTable}
                         setTollData = {setTollData}
-                        setOpenModalTollgate = {setOpenModalTollgate}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
@@ -370,7 +366,6 @@ const PortafolioBody = ({
                       openTable={openTable}
                       setOpenTable={setOpenTable}
                       setTollData={setTollData}
-                      setOpenModalTollgate={setOpenModalTollgate}
                       setOpenPiney={setOpenPiney}
                       openPiney={openPiney}
                       updatedGroup={updatedGroup}

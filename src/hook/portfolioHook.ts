@@ -15,7 +15,8 @@ import {
   setZoomSelected,
   setPositionModalGraphic,
   setDataModal,
-  setGraphicOpen
+  setGraphicOpen,
+  setOpenModalTollgate
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -70,6 +71,9 @@ export const usePortfolioDispatch = () => {
   const _setGraphicOpen = useCallback((value: boolean) => {
     dispatch(setGraphicOpen(value));
   }, [dispatch]);
+  const _setOpenModalTollgate = useCallback((value: boolean) => {
+    dispatch(setOpenModalTollgate(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -85,6 +89,7 @@ export const usePortfolioDispatch = () => {
     setZoomSelected: _setZoomSelected,
     setPositionModalGraphic: _setPositionModalGraphic,
     setDataModal:_setDataModal,
-    setGraphicOpen: _setGraphicOpen
+    setGraphicOpen: _setGraphicOpen,
+    setOpenModalTollgate: _setOpenModalTollgate
   };
 };

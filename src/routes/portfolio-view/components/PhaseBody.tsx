@@ -25,7 +25,6 @@ const PhaseBody = ({
   phaseRef,
   totalLabelWidth,
   setTollData,
-  setOpenModalTollgate,
   actionsDone,
   userBrowser,
   groupName,
@@ -46,7 +45,6 @@ const PhaseBody = ({
   phaseRef: any,
   totalLabelWidth: number,
   setTollData: Function,
-  setOpenModalTollgate: Function,
   actionsDone: any,
   userBrowser: any,
   groupName: string,
@@ -63,7 +61,7 @@ const PhaseBody = ({
     filterProjectOptions,
   } = useMapState();
   const { currentGroup, favorites, scheduleList, phaseList, statusCounter } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen } = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();

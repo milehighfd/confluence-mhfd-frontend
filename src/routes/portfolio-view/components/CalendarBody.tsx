@@ -23,7 +23,6 @@ const CalendarBody = ({
   setPrev,
   index,
   setTollData,
-  setOpenModalTollgate,
   actionsDone,
   setOpenPiney,
   groupName,
@@ -43,7 +42,6 @@ const CalendarBody = ({
   setPrev: Function,
   index: number,
   setTollData: Function,
-  setOpenModalTollgate: Function,
   actionsDone: any,
   setOpenPiney: Function,
   groupName: string,
@@ -60,7 +58,7 @@ const CalendarBody = ({
   } = useMapState();
 
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen} = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();

@@ -16,7 +16,8 @@ const initState = {
   zoomSelected: 'Today',
   positionModalGraphic: {left: 500, top:500},
   dataModal: {},
-  graphicOpen: false
+  graphicOpen: false,
+  openModalTollgate: false
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -116,6 +117,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         graphicOpen: action.payload,
+      };
+    case types.SET_OPEN_MODAL_TOLLGATE:
+      return {
+        ...state,
+        openModalTollgate: action.payload,
       };
     default:
       return state;

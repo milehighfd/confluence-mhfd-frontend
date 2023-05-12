@@ -15,14 +15,12 @@ const PhaseViewPag = ({
   openTable,
   setOpenTable,
   setTollData,
-  setOpenModalTollgate
 }: {
   tabKey: any,
   index: any,
   openTable: any,
   setOpenTable: any,
   setTollData: any,
-  setOpenModalTollgate: any,
 }) => {
   const {
     currentGroup,
@@ -108,7 +106,6 @@ const PhaseViewPag = ({
             data={popUpData}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
-            setOpenModalTollgate={setOpenModalTollgate}
             setTollData={setTollData}
             isDetail={false}
           />
@@ -196,7 +193,6 @@ const PhaseViewPag = ({
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
                     setTollData={setTollData}
-                    setOpenModalTollgate={setOpenModalTollgate}
                     actionsDone={actionsDone}
                     userBrowser={userBrowser}
                     setOpenPiney={setOpenPiney}

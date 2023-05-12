@@ -8,26 +8,26 @@ import { SERVER } from '../../../Config/Server.config';
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 
 const { RangePicker }:any = DatePicker;
 
 const ModalTollgate = ({
-  visible, 
-  setVisible, 
   dataProject,
   saveCB,
   setOpenPiney,  
   setUpdatedGroup,
   setSecondaryUpdatedGroup,
 }: {
-  visible: boolean, 
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>,
   dataProject?:any,
   saveCB?: any,
   setOpenPiney?: any,
   setUpdatedGroup?: any,
   setSecondaryUpdatedGroup?: any,
 }) => {
+  const { openModalTollgate: visible } = usePortflioState();
+  const { setOpenModalTollgate: setVisible } = usePortfolioDispatch();
+  
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
   const [dateValue, setDateValue] = useState<any[]>([]);

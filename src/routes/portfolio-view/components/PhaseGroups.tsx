@@ -19,7 +19,6 @@ const PhaseGroups = ({
   phaseRef,
   totalLabelWidth,
   setTollData,
-  setOpenModalTollgate,
   actionsDone,
   userBrowser,
   setOpenPiney,
@@ -35,7 +34,6 @@ const PhaseGroups = ({
   phaseRef: any,
   totalLabelWidth: any,
   setTollData: any,
-  setOpenModalTollgate: any,
   actionsDone: any,
   userBrowser: any,
   setOpenPiney: any,
@@ -125,7 +123,6 @@ const PhaseGroups = ({
             phaseRef={phaseRef}
             totalLabelWidth={totalLabelWidth}
             setTollData={setTollData}
-            setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
             userBrowser={userBrowser}
             groupName={data.value}

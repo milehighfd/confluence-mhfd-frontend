@@ -136,3 +136,8 @@ export const setGraphicOpen = (value: boolean) => ({
   type: types.SET_GRAPHIC_OPEN,
   payload: value
 });
+
+export const setOpenModalTollgate = (value: boolean) => ({
+  type: types.SET_OPEN_MODAL_TOLLGATE,
+  payload: value
+});

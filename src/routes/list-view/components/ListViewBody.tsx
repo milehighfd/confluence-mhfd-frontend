@@ -7,6 +7,7 @@ import { DATA_LIST_VIEW } from "../constants";
 import ListViewBodyTable from "./ListViewTable";
 import ModalFields from "./ModalFields";
 import ModalTollgate from "./ModalTollgate";
+import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -39,9 +40,11 @@ const roleSpan = (role:string) => {
   return span;
 }
 const ListViewBody = () => {
+  const { openModalTollgate: tollgate } = usePortflioState();
+  const { setOpenModalTollgate: setTollgate } = usePortfolioDispatch();
   const [tabKey, setTabKey] = useState<any>('Project Type');
   const [fields, setFields] = useState(false);
-  const [tollgate, setTollgate] = useState(false);
+  // const [tollgate, setTollgate] = useState(false);
   let displayedTabKey = tabKeys;
   const columns: ColumnsType<any> = [
     {
@@ -76,7 +79,7 @@ const ListViewBody = () => {
   return (
     <>
       {fields && <ModalFields visible={fields} setVisible={setFields} />}
-      {tollgate && <ModalTollgate visible={tollgate} setVisible={setTollgate} />}
+      {tollgate && <ModalTollgate/>}
       <div className="body-list-view">
         <div style={{padding:'15px 20px'}}>
           <div className="list-view-head" >
