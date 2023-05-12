@@ -6,7 +6,7 @@ import { User } from '../../Classes/User';
 const appUser = (state = new User(), action : any) => {
     switch(action.type) {
         case types.REPLACE_USER: 
-            return {...action.appUser}
+            return {...state,...action.appUser}
         case types.RESET_APP_USER: 
             return {...new User()}
         case types.ADD_NOTIFICATION:
