@@ -136,19 +136,18 @@ const CalendarBody = ({
   }, [next, prev])
 
   //Start of calendar generation
+  let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
+  let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8) : barHeightDefault;
+  let padding = { top: 38, right: 10, bottom: 10, left: -0 };
+  const removechartAxis: any = document.getElementById('timeline-chart-axis');
   const timelineChart = (datasets: any) => {
     if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
-      let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
-      let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8) : barHeightDefault;
-      let padding = { top: 38, right: 10, bottom: 10, left: -0 };
       let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
-      const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechartAxis);
       if (svg) {
         svg.selectAll('*').remove();
         svgAxis.selectAll('*').remove();
       }
-
       svg = d3
         .select(`#timeline-chart-${groupName.replaceAll(' ', '')}`)
         .append('svg')
@@ -337,7 +336,7 @@ const CalendarBody = ({
           .attr("y", (d: any) => {
             let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 11 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 1450 && windowWidth <= 2000 ? 9 : (windowWidth >= 1199 && windowWidth <= 1449 ? 2 : 2)))));
             let yScaleRect: any = yScale(d['id']);
-            return (d.type === 'title' ? yScaleRect + 12 : yScaleRect + yAddButton);
+            return yScaleRect + yAddButton
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
@@ -376,8 +375,7 @@ const CalendarBody = ({
           .attr("y", (d: any) => {
             let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 18)))));
             let yScaleRect: any = yScale(d['id']);
-
-            return (d.type === 'title' ? yScaleRect + 12 : yScaleRect + yAddButton);
+            return yScaleRect + yAddButton
           })
           .style('visibility', (d: any) => {
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
@@ -402,31 +400,23 @@ const CalendarBody = ({
           .attr('id', function (d: any) {
             return `${d.id.replaceAll(' ', '')}_${d.categoryNo}`;
           })
-          .attr('class', function (d: any) {
-            return (d.type === 'title' ? 'agrupationbar' : 'stackedbar')
-          })
-          .attr('rx', function (d: any) {
-            return (d.type === 'title' ? 3 : 12)
-          })
-          .attr('ry', function (d: any) {
-            return (d.type === 'title' ? 3 : 12)
-          })
+          .attr('class', 'stackedbar')
+          .attr('rx', 12)
+          .attr('ry', 12)
           .attr('x', function (d: any) {
             return (xScale(d['from']) || 0);
           })
           .attr('y', function (d: any) {
             let yScaleRect: any = (yScale(d['id']) || 0);
             let yScaleParam = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
-            return (d.type === 'title' ? yScaleRect + 12 : yScaleRect + yScaleParam);
+            return yScaleRect + yScaleParam
           })
           .attr('width', function (d: any) {
             let xScaleTo: any = (xScale(d['to']) || 0);
             let xScaleFrom: any = (xScale(d['from']) || 0);
             return (xScaleTo - xScaleFrom) < 0 ? 0 : (xScaleTo - xScaleFrom);
           })
-          .attr('height', function (d: any) {
-            return (d.type === 'title' ? barHeight / 4 : barHeight);
-          })
+          .attr('height', barHeight)
           .attr('fill', function (d: any) {
             let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
             let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phaseId))
@@ -448,7 +438,7 @@ const CalendarBody = ({
             } else {
               color = 'NotStarted'
             }
-            return (d.type === 'title' ? '#C9C5D8' : colorScale[color]);
+            return colorScale[color];
           })
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
@@ -472,7 +462,7 @@ const CalendarBody = ({
           .attr('width', function (d: any) {
             let xScaleTo: any = (xScale(d['to']) || 0);
             let xScaleFrom: any = (xScale(d['from']) || 0);
-            return (d.type === 'title' ? 0 : xScaleTo - xScaleFrom);
+            return  xScaleTo - xScaleFrom
           })
           .attr('height', barHeight - 2)
           .attr('fill', function (d: any) {
@@ -496,7 +486,7 @@ const CalendarBody = ({
             } else {
               color = 'NotStarted'
             }
-            return (d.type === 'title' ? '#C9C5D8' : colorScale[color]);
+            return colorScale[color]
           })
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
@@ -509,10 +499,10 @@ const CalendarBody = ({
           .attr('id', function (d: any) {
             return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_text`;
           })
-          .attr('class', (d: any) => (d.type === 'title' ? 'labelsAgrupation' : 'labels'))
-          .style('fill', (d: any) => (d.type === 'title' ? '#11093C' : 'white'))
+          .attr('class', 'labels')
+          .style('fill',  'white')
           .attr('x', function (d: any) {
-            return (d.type === 'title' ? (xScale(d['to']) || 0) : (xScale(d['from']) || 0));
+            return  (xScale(d['from']) || 0);
           })
           .attr('y', function (d: any) {
             let yScaleId: any = (yScale(d['id']) || 0);
@@ -522,7 +512,7 @@ const CalendarBody = ({
           .attr('width', function (d: any) {
             let xScaleTo: any = (xScale(d['to']) || 0);
             let xScaleFrom: any = (xScale(d['from']) || 0);
-            return (d.type === 'title' ? 100 : xScaleTo - xScaleFrom);
+            return  xScaleTo - xScaleFrom
           })
           .text((d: any) => d.name)
           .style('visibility', (d: any) => {
@@ -534,9 +524,7 @@ const CalendarBody = ({
         yScale.bandwidth();
 
         zoomedXScale = xScale;
-        let calctodayX = function (d: any) {
-          return zoomedXScale(today);
-        };
+        let calctodayX =  zoomedXScale(today);
         let calcScheduleX = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale((d['from']));
           return zoomedXScaleFrom || 0;
@@ -547,8 +535,7 @@ const CalendarBody = ({
         };
         let calcScheduleXCenter = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale((d['from']));
-          let zoomedXScaleTo: any = zoomedXScale(d['to']);
-          return (d.type === 'title' ? (zoomedXScaleTo || 0) + 5 : (zoomedXScaleFrom || 0) + offsetBar);
+          return (zoomedXScaleFrom || 0) + offsetBar
         };
         let calcScheduleWidth = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale(d['from']);
@@ -559,7 +546,7 @@ const CalendarBody = ({
           let zoomedXScaleFrom: any = zoomedXScale(d['from']);
           let zoomedXScaleTo: any = zoomedXScale(d['to']);
           let widthcenter = zoomedXScaleTo - zoomedXScaleFrom - 24;
-          return (d.type === 'title' ? 0 : (widthcenter >= 0 ? widthcenter : 0));
+          return widthcenter >= 0 ? widthcenter : 0;
         };
         let calcScheduleWidthText = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale(d['from']);
@@ -594,8 +581,6 @@ const CalendarBody = ({
         let updateRects = function () {
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.agrupationbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.agrupationbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarCenterClicked').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
           d3.selectAll('.stackedbarClicked').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.nameClicked').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
@@ -604,16 +589,6 @@ const CalendarBody = ({
           d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);          
           d3.selectAll('.labels').call(dotme);
         };
-        scheduleRects.on('mousemove', function () {
-          if (d3.event.target.className.animVal === 'agrupationbar') {
-            d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbarHover')
-          }
-        })
-        scheduleRects.on('mouseout', function () {
-          if (d3.event.target.className.animVal === 'agrupationbarHover') {
-            d3.select(`#${d3.event.target.id}`).attr('class', 'agrupationbar')
-          }
-        })
         scheduleRectsCenter.on('mousemove', function (d: any) {
           let scheduleData = (scheduleList.find((x: any) =>
             d.phaseId === x.phase_id
@@ -630,9 +605,6 @@ const CalendarBody = ({
           const dataProject = d.project_data;
           const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
           setDataModal(sendModal);
-          if (d3.event.target.className.animVal === 'agrupationbar') {
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
-          }
           setGraphicOpen(true);
           let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
           let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
@@ -664,7 +636,6 @@ const CalendarBody = ({
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', 'white');
         })
-
 
         rectNames.on('mousemove', function () {
           if (d3.event.target.className.animVal !== 'labelsAgrupation') {
@@ -717,10 +688,6 @@ const CalendarBody = ({
           setEditData(sendTollgate1)
           setOpenPiney(true);
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-          d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
-
-          d3.select(`#${d3.event.target.id.slice(0, -7)}_right`).attr('class', 'dragginglinesonclick');
-          d3.select(`#${d3.event.target.id.slice(0, -7)}_left`).attr('class', 'dragginglinesonclick');
           if (d3.event.target.id.includes('center')) {
             d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked');
@@ -733,7 +700,6 @@ const CalendarBody = ({
         });
         rectNames.on('click', function () {
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-          d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
 
           if (d3.event.target.id.includes('text')) {
             d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
@@ -747,19 +713,12 @@ const CalendarBody = ({
         scheduleRects.on('click', function () {
           if (!d3.event.target.id.includes('Title')) {
             d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-            d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
-
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
-
-            d3.select(`#${d3.event.target.id}_right`).attr('class', 'dragginglinesonclick');
-            d3.select(`#${d3.event.target.id}_left`).attr('class', 'dragginglinesonclick');
             backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
           }
           d3.event.stopPropagation();
         });
         svg.on('click', function () {
-          //setOpenPiney(false);
-          d3.selectAll('.dragginglinesonclick').attr('class', 'dragginglines');
           d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden');
           d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
           d3.selectAll('.nameClicked').attr('class', 'labels');
@@ -937,7 +896,7 @@ const CalendarBody = ({
           nameEnter
             .append('text')
             .attr('class', 'nameYear')
-            .attr('transform', function (d: any) { return (d3.event.transform.k < 35 ? 'translate(0,' + 0 + ')' : 'translate(0,' + 0 + ')') })
+            .attr('transform', (d3.event.transform.k < 35 ? 'translate(0,' + 0 + ')' : 'translate(0,' + 0 + ')'))
             .text(function (d: any) { return d3.timeFormat('%Y')(d); })
 
             .call(setTextPositionYear, zoomedXScale);
