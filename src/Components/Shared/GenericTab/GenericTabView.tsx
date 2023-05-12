@@ -2,11 +2,12 @@ import { Row, Tag } from 'antd';
 import React, { Fragment, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FILTER_PROBLEMS_TRIGGER, PROBLEMS_TRIGGER } from 'constants/constants';
-import { useDetailedState } from 'hook/detailedHook';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
 import { useProfileState } from 'hook/profileHook';
 import { elementCost } from 'utils/utils';
 import CardInformationView from 'Components/Shared/CardInformation/CardInformationView';
+import LoadingView from 'Components/Loading/LoadingView';
 
 const GenericTabView = ({
     totalElements,
@@ -28,15 +29,14 @@ const GenericTabView = ({
       getExtraProjects,
       setFilterTabNumber
     } = useMapDispatch();
+    const { setNextPageOfCards, setInfiniteScrollItems, setInfiniteScrollHasMoreItems } = useProjectDispatch();
+    const { nextPageOfCards, infiniteScrollHasMoreItems, infiniteScrollItems } = useProjectState();
+    
     const { userInformation: user } = useProfileState();
-    const [data, setData] = useState<any>([]);
-    const [hotReload, setHotReload] = useState(0);
-    const [carInfo, setCardInfo] = useState<any>([]);
-    const [nextPage, setNextPage] = useState(1);
 
-    const {
-      detailed,
-    } = useDetailedState();
+    const [data, setData] = useState<any>([]);
+    const [carInfo, setCardInfo] = useState<any>([]);
+
     const {
         filterProblemOptions,
         filterProjectOptions,
@@ -47,7 +47,7 @@ const GenericTabView = ({
       } = useMapState();
     let totalElement = cardInformation?.length || 0;
     const [isLoading, setIsLoading] = useState(false);
-    const size = 6;
+    const size = 20;
     let sw = false;
     if (totalElement) {
         sw = true;
@@ -68,7 +68,9 @@ const GenericTabView = ({
     useEffect(() => {
         if (cardInformation) {
             const a = Math.ceil(cardInformation.length / 20) + 1
-            setNextPage(a);
+            if(( nextPageOfCards + 1 ) === a) {
+                setNextPageOfCards(a)
+            }
         }
         if (favorites && carInfo) {
             setData(
@@ -82,7 +84,7 @@ const GenericTabView = ({
             )
         }
         setCardInfo(cardInformation);
-    }, [favorites, cardInformation, hotReload]);
+    }, [favorites, cardInformation]);
 
     const deleteFilter = (tag: string, value: string) => {
         const auxFilterComponents = { ...filterComponentOptions };
@@ -148,10 +150,7 @@ const GenericTabView = ({
         setFilterProjectOptions(auxFilterProjects);
         getGalleryProjects();;
     }
-    const [state, setState] = useState({
-        items: Array.from({ length: size }),
-        hasMore: true
-    });
+
     const tagComponents = [] as any;
     for (const key in filterComponentOptions) {
         const tag = {
@@ -162,47 +161,44 @@ const GenericTabView = ({
     }
 
     useEffect(() => {
-        const auxState = { ...state };
-        auxState.hasMore = true;
-        setState(auxState);
+        setInfiniteScrollHasMoreItems(true);
         setIsLoading(false);
         if(type === FILTER_PROBLEMS_TRIGGER){
             setFilterTabNumber(PROBLEMS_TRIGGER)
         }
     }, [totalElement])
+
     const tagProblems = [] as any;
     const tagProjects = [] as any;
 
     const fetchMoreData = async () => {
-      if (state.items.length >= totalElement - size) {
-        const auxState = { ...state };
-        if (state.items.length !== totalElements) {
-            if (state.items.length < totalElements && totalElement - size < totalElements) {
+      if (infiniteScrollItems.length >= totalElement - size) {
+        if (infiniteScrollItems.length !== totalElements) {
+            if (infiniteScrollItems.length < totalElements && totalElement - size < totalElements) {
                 if (!isLoading) {
                     setIsLoading(true);
-                    getExtraProjects(nextPage);
-                    setHotReload(Math.random());
+                    getExtraProjects(nextPageOfCards);
                 }
-                auxState.items = state.items.concat(Array.from({ length: size }));
-                auxState.hasMore = true
+                const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
+                setInfiniteScrollItems(nextItems);
+                setInfiniteScrollHasMoreItems(true);
             } else {
-                auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
-                auxState.hasMore = false
+                const nextItems = infiniteScrollItems.concat(Array.from({ length: totalElement - infiniteScrollItems.length }));
+                setInfiniteScrollItems(nextItems);
+                setInfiniteScrollHasMoreItems(false);
             }
         }
-        setState(auxState);
         return;
       }
       setTimeout(() => {
-        const auxState = { ...state };
-        auxState.items = state.items.concat(Array.from({ length: size }));
-        setState(auxState);
+        const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
+        setInfiniteScrollItems(nextItems);
       }, 500);
       
     };
-
     return (
         <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
+            {isLoading && <LoadingView/>}
             <div className="hastag" style={{ minHeight: 34 }}>
                 <div style={{ marginBottom: totalElements ? 0 : 5 }}>
                 {type === FILTER_PROBLEMS_TRIGGER ? tagProblems.map((tag: { key: string, values: Array<string> }, index: number) => {
@@ -270,14 +266,14 @@ const GenericTabView = ({
         </div>
         <Row className="card-map" gutter={[16, 16]} >
             <InfiniteScroll
-                dataLength={state.items.length}
+                dataLength={infiniteScrollItems.length}
                 next={fetchMoreData}
-                hasMore={state.hasMore}
+                hasMore={infiniteScrollHasMoreItems}
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}
                 loader={<h4 style={{paddingLeft:'12px', textAlign: 'center'}}> </h4>}>
-                {sw ? state.items.map((i, index: number) => {
+                {sw ? infiniteScrollItems.map((_: any, index: number) => {
                     return data[index] && <CardInformationView
                         key={index}
                         data={data[index]}
