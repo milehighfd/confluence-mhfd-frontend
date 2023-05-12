@@ -69,6 +69,7 @@
   padding: 0 20px !important;
   line-height: 58px !important;
   background: $dark !important;
+  z-index: 3;
   .ant-badge-count {
     z-index: auto;
     min-width: 6px;
