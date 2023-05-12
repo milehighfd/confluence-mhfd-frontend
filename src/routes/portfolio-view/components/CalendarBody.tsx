@@ -524,7 +524,9 @@ const CalendarBody = ({
         yScale.bandwidth();
 
         zoomedXScale = xScale;
-        let calctodayX =  zoomedXScale(today);
+        let calctodayX = function (d: any) {
+          return zoomedXScale(today);
+        };
         let calcScheduleX = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale((d['from']));
           return zoomedXScaleFrom || 0;

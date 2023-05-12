@@ -446,7 +446,7 @@ const PhaseBody = ({
               }
               return scheduleList[r].tasks - counterdown
             })
-            .attr("x", function (d: any) {
+            .attr("x", function () {
               const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 : (windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2)))))
               let offset = 0;
               offset =
@@ -556,7 +556,7 @@ const PhaseBody = ({
                 d3.select(`#${searchTextId}`).style('text-decoration', 'underline');
               }
             })
-            .on("mouseout", (d: any) => {
+            .on("mouseout", () => {
               setGraphicOpen(false);
               setPositionModalGraphic(10000, 10000)
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
