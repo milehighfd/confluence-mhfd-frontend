@@ -12,3 +12,9 @@ export const resetAppUser = () => {
         dispatch({ type: types.RESET_APP_USER, });
     }
 }
+
+export const addNotifications = (notifications : any) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.ADD_NOTIFICATION, notifications });
+    }
+}

@@ -29,7 +29,8 @@ const LoginView = () => {
     replaceAppUser,
     saveUserInformation,
     resetAppUser,
-    resetProfile
+    resetProfile,
+    addNotifications
   } = useAppUserDispatch();
   const { resetMap } = useMapDispatch();
   const [emailOnBlur, setEmailOnBlur] = useState(false);
@@ -67,6 +68,9 @@ const LoginView = () => {
           await datasets.getData(SERVER.ME, datasets.getToken()).then(async result => {
             replaceAppUser(result);
             saveUserInformation(result)
+          });
+          await datasets.getData(SERVER.NOTIFICATIONS, datasets.getToken()).then(async result => {
+            addNotifications(result);
           });
           setRedirect(true);
         } else {

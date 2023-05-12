@@ -9,6 +9,8 @@ const appUser = (state = new User(), action : any) => {
             return {...action.appUser}
         case types.RESET_APP_USER: 
             return {...new User()}
+        case types.ADD_NOTIFICATION:
+            return {...state, notifications: action.notifications}
         default: 
             return state;
     }
