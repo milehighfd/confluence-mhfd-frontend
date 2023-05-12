@@ -33,6 +33,7 @@ export const SERVER = (function () {
     const GRAPHQL = 'graphql';
     const UPLOAD_FILE = 'upload-file';
     const ME = 'me';
+    const NOTIFICATIONS = 'notifications';
     const ADMIN = 'admin';
     const MAP = 'map';
     const CHANGE_USER_STATE = 'change-user-state';
@@ -143,6 +144,7 @@ export const SERVER = (function () {
         LOGIN: `${URL_BASE.BASE}/${AUTH}/${LOGIN}`,
         GUEST: `${URL_BASE.BASE}/${AUTH}/${GUEST}`,
         ME: `${URL_BASE.BASE}/${USER}/${ME}`,
+        NOTIFICATIONS: `${URL_BASE.BASE}/${NOTIFICATIONS}`,
         GRAPHQL:`${URL_BASE.BASE}/${GRAPHQL}`, 
         UPLOAD_FILE: `${URL_BASE.BASE}/${ATTACHMENT}/${UPLOAD_FILE}`,
         PROJECT: `${URL_BASE.BASE}/${PROJECT}`,
