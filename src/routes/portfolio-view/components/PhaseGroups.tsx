@@ -23,9 +23,6 @@ const PhaseGroups = ({
   actionsDone,
   userBrowser,
   setOpenPiney,
-  setGrapphicOpen,
-  setPositionModalGraphic,
-  setDataModal,
   setPopUpData,
   headerRef,
   dataId,
@@ -42,9 +39,6 @@ const PhaseGroups = ({
   actionsDone: any,
   userBrowser: any,
   setOpenPiney: any,
-  setGrapphicOpen: any,
-  setPositionModalGraphic: any,
-  setDataModal: any,
   setPopUpData: any,
   headerRef: any,
   dataId: any,
@@ -134,9 +128,6 @@ const PhaseGroups = ({
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
             userBrowser={userBrowser}
-            setGrapphicOpen={setGrapphicOpen}
-            setPositionModalGraphic={setPositionModalGraphic}
-            setDataModal={setDataModal}
             groupName={data.value}
             setOpenPiney={setOpenPiney}
             setPopUpData={setPopUpData}

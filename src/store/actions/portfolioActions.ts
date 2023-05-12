@@ -121,3 +121,18 @@ export const setZoomSelected = (value: string) => ({
   type: types.SET_ZOOMSELECTED,
   payload: value
 });
+
+export const setPositionModalGraphic = (left: number, top: number) => ({
+  type: types.SET_POSITION_MODAL_GRPHIC,
+  payload: {left: left, top: top}
+});
+
+export const setDataModal = (data: Object) => ({
+  type: types.SET_DATA_MODAL,
+  payload: data
+});
+
+export const setGraphicOpen = (value: boolean) => ({
+  type: types.SET_GRAPHIC_OPEN,
+  payload: value
+});

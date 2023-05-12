@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import * as d3 from 'd3';
@@ -26,9 +26,6 @@ const CalendarBody = ({
   setOpenModalTollgate,
   actionsDone,
   setOpenPiney,
-  setGrapphicOpen,
-  setPositionModalGraphic,
-  setDataModal,
   groupName,
   setEditData,
   setPopUpData,
@@ -49,9 +46,6 @@ const CalendarBody = ({
   setOpenModalTollgate: Function,
   actionsDone: any,
   setOpenPiney: Function,
-  setGrapphicOpen: Function,
-  setPositionModalGraphic: Function,
-  setDataModal: Function,
   groupName: string,
   setEditData: any,
   setPopUpData: Function,
@@ -65,15 +59,14 @@ const CalendarBody = ({
     filterProjectOptions,
   } = useMapState();
 
-  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, isZoomToday, isZoomWeekly, isZoomMonthly, zoomSelected } = usePortflioState();
-  const { deleteFavorite, addFavorite, setIsZoomWeekly, setIsZoomMonthly } = usePortfolioDispatch();
+  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [calendarData, setCalendarData] = useState<any>([]);
   const [currentZScale, setCurrentZScale] = useState(7.5);
   const [zoomStatus, setZoomStatus] = useState(0);
-  const [zoomState, setZoomState] = useState<any>();
   const [toData,setToData] = useState<any>([]);
   const [locations, setLocations] = useState<any>([]);
   const [datas, setDatas] = useState<any>([]);
@@ -169,8 +162,6 @@ const CalendarBody = ({
         .append('svg')
         .attr('width', width)
         .attr('height', heigthOfHeaderAxis);
-
-      let dragablesLines = 'dragginglines';
 
       let offsetBar = 18;
 
@@ -644,12 +635,12 @@ const CalendarBody = ({
           if (d3.event.target.className.animVal === 'agrupationbar') {
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar')
           }
-          setGrapphicOpen(true);
+          setGraphicOpen(true);
           let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
           let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
           let positionTop: any = d3.event.y - heightOfPopup-20;
           let positionLeft: any = d3.event.x - widthOfPopup / 2;
-          setPositionModalGraphic({ left: positionLeft, top: positionTop })
+          setPositionModalGraphic(positionLeft, positionTop)
           d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarHover');
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
             d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
@@ -660,7 +651,7 @@ const CalendarBody = ({
           d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
         });
         scheduleRectsCenter.on("mouseout", (d: any) => {
-          setGrapphicOpen(false);
+          setGraphicOpen(false);
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
             d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
             d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
@@ -679,12 +670,12 @@ const CalendarBody = ({
 
         rectNames.on('mousemove', function () {
           if (d3.event.target.className.animVal !== 'labelsAgrupation') {
-            setGrapphicOpen(true);
+            setGraphicOpen(true);
             let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
             let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
             let positionTop: any = d3.event.y - heightOfPopup-20;
             let positionLeft: any = d3.event.x - widthOfPopup / 2;
-            setPositionModalGraphic({ left: positionLeft, top: positionTop })
+            setPositionModalGraphic(positionLeft,positionTop)
             d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarHover');
             if (d3.event.target.className.animVal === 'nameClicked') {
               d3.selectAll('.nameClicked').attr('class', 'labels');
@@ -696,7 +687,7 @@ const CalendarBody = ({
           }
         });
         rectNames.on("mouseout", (d: any) => {
-          setGrapphicOpen(false);
+          setGraphicOpen(false);
           if (d3.event.target.className.animVal === 'nameClicked') {
             d3.selectAll('.nameClicked').attr('class', 'labels');
             d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
@@ -954,9 +945,7 @@ const CalendarBody = ({
             .call(setTextPositionYear, zoomedXScale);
           // set text position in the other thread
           // because we need BBox of the already rendered text element
-          // setTimeout(function() {
           d3.select('.topHeaderYearAxis').selectAll('.nameYear').call(setTextPositionYear, zoomedXScale);
-          // }, 1);
           nameUpdate = nameUpdate.transition().duration(300);
           nameExit = nameExit.transition().duration(300);
 
@@ -1080,7 +1069,7 @@ const CalendarBody = ({
           }
           updateRects();
           
-                              // todayline.attr('x1', calctodayX);
+          // todayline.attr('x1', calctodayX);
           // todayline.attr('x2', calctodayX);
           d3.selectAll('#todayLine').attr('x1', calctodayX);
           d3.selectAll('#todayLine').attr('x2', calctodayX);

@@ -13,7 +13,10 @@ const initState = {
   isZoomToday: true,
   isZoomWeekly: false,
   isZoomMonthly: false,
-  zoomSelected: 'Today'
+  zoomSelected: 'Today',
+  positionModalGraphic: {left: 500, top:500},
+  dataModal: {},
+  graphicOpen: false
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -98,6 +101,21 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         zoomSelected: action.payload,
+      };
+    case types.SET_POSITION_MODAL_GRPHIC:
+      return {
+        ...state,
+        positionModalGraphic: action.payload,
+      };
+    case types.SET_DATA_MODAL:
+      return {
+        ...state,
+        dataModal: action.payload,
+      };
+    case types.SET_GRAPHIC_OPEN:
+      return {
+        ...state,
+        graphicOpen: action.payload,
       };
     default:
       return state;

@@ -12,7 +12,10 @@ import {
   setIsZoomToday,
   setIsZoomWeekly,
   setIsZoomMonthly,
-  setZoomSelected
+  setZoomSelected,
+  setPositionModalGraphic,
+  setDataModal,
+  setGraphicOpen
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -58,6 +61,15 @@ export const usePortfolioDispatch = () => {
   const _setZoomSelected = useCallback((value: string) => {
     dispatch(setZoomSelected(value));
   }, [dispatch]);
+  const _setPositionModalGraphic = useCallback((left: number, top: number) => {
+    dispatch(setPositionModalGraphic(left, top));
+  }, [dispatch]);
+  const _setDataModal = useCallback((data: Object) => {
+    dispatch(setDataModal(data));
+  }, [dispatch]);
+  const _setGraphicOpen = useCallback((value: boolean) => {
+    dispatch(setGraphicOpen(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -70,6 +82,9 @@ export const usePortfolioDispatch = () => {
     setIsZoomToday: _setIsZoomToday,
     setIsZoomWeekly: _setIsZoomWeekly,
     setIsZoomMonthly: _setIsZoomMonthly,
-    setZoomSelected: _setZoomSelected
+    setZoomSelected: _setZoomSelected,
+    setPositionModalGraphic: _setPositionModalGraphic,
+    setDataModal:_setDataModal,
+    setGraphicOpen: _setGraphicOpen
   };
 };

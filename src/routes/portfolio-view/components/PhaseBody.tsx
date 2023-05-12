@@ -28,9 +28,6 @@ const PhaseBody = ({
   setOpenModalTollgate,
   actionsDone,
   userBrowser,
-  setGrapphicOpen,
-  setPositionModalGraphic,
-  setDataModal,
   groupName,
   setOpenPiney,
   setPopUpData,
@@ -52,9 +49,6 @@ const PhaseBody = ({
   setOpenModalTollgate: Function,
   actionsDone: any,
   userBrowser: any,
-  setGrapphicOpen: Function,
-  setPositionModalGraphic: Function,
-  setDataModal: Function,
   groupName: string,
   setOpenPiney: Function,
   setPopUpData: Function,
@@ -69,8 +63,7 @@ const PhaseBody = ({
     filterProjectOptions,
   } = useMapState();
   const { currentGroup, favorites, scheduleList, phaseList, statusCounter } = usePortflioState();
-  const { deleteFavorite, addFavorite } = usePortfolioDispatch();
-  const [updateFavorite, setUpdateFavorite] = useState(false);
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -284,8 +277,6 @@ const PhaseBody = ({
           ;
 
         // Lines
-        let z1 = true;
-        let colorChange = true;
         arrayForCirclesAndLines.forEach((r) => {
           hasDateData = true
           if (r < arrayForCirclesAndLines.length - 1) {
@@ -346,7 +337,6 @@ const PhaseBody = ({
         });
         const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
         let circles = svg.selectAll("mycircle").data(datas).enter();
-        let z = true;
         arrayForCirclesAndLines.forEach((r) => {
           hasDateData = true
           circles
@@ -523,7 +513,7 @@ const PhaseBody = ({
             })
             .on("mousemove", (d: any) => {
               let popupVisible: any = document.getElementById('popup-phaseview');
-              setGrapphicOpen(true);
+              setGraphicOpen(true);
               let searchTextId2 = d3.event.target.id.slice(0, -6);
               let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ', '')}_text`).text();
               const lenghtSc = Object.keys(scheduleList[r].tasksData).length
@@ -561,7 +551,7 @@ const PhaseBody = ({
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
                 let positionTop: any = d3.event.y - heightOfPopup-20 ; // Delete 120 when the popup is fixed
                 let positionLeft: any = d3.event.x - widthOfPopup / 2; //Delete 35 when the popup is fixed
-                setPositionModalGraphic({ left: positionLeft, top: positionTop })
+                setPositionModalGraphic(positionLeft,positionTop)
                 d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
                 d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
@@ -569,8 +559,8 @@ const PhaseBody = ({
               }
             })
             .on("mouseout", (d: any) => {
-              setGrapphicOpen(false);
-              setPositionModalGraphic({ left: 10000, top: 10000 })
+              setGraphicOpen(false);
+              setPositionModalGraphic(10000, 10000)
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
                 let indexStatus;
                 const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)

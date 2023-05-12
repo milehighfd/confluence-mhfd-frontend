@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CalendarOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
-import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
@@ -9,7 +8,6 @@ import CalendarGroups from 'routes/portfolio-view/components//CalendarGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
-import { getListPMTools } from 'store/actions/portfolioActions';
 
 const CalendarViewPag = ({
   tabKey,
@@ -20,9 +18,6 @@ const CalendarViewPag = ({
   setOpenModalTollgate,
   setOpenPiney,
   openPiney,
-  setGrapphicOpen,
-  setPositionModalGraphic,
-  setDataModal,
   updatedGroup,
   secondaryUpdatedGroup,
 }: {
@@ -34,27 +29,18 @@ const CalendarViewPag = ({
   setOpenModalTollgate: any,
   setOpenPiney: any,
   openPiney:any,
-  setGrapphicOpen: any,
-  setPositionModalGraphic: any,
-  setDataModal: any,
   updatedGroup: any,
   secondaryUpdatedGroup: any,
 }) => {
-  const { currentGroup,phaseList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
+  const { currentGroup, zoomTimeline, zoomSelected } = usePortflioState();
   const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected} = usePortfolioDispatch();
   const [actionsDone, setActionsDone] = useState<any>({});
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
-  // const [isZoomToday, setIsZoomToday] = useState<any>(false);
-  // const [isZoomWeekly, setIsZoomWeekly] = useState<any>(false);
-  // const [isZoomMonthly, setIsZoomMonthly] = useState<any>(false);
   const [editData,setEditData] = useState<any>({});
-  // const [zoomSelected, setZoomSelected] = useState('Today');
   const [popUpData, setPopUpData] = useState<any>({});
-  // const [zoomTimeline, setZoomTimeline] = useState(0);
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
-  const labelWidth = windowWidth > 2000 && windowWidth <= 2999 ? 150 : windowWidth >= 3001 && windowWidth <= 3999 ? 185 : 95;
   let heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
   let heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
   let heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest-heightSearchHeader
@@ -67,8 +53,6 @@ const CalendarViewPag = ({
               (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
 
   useEffect(() => {
-    console.log('gets here', tabKey)
-    // getListPMTools(tabKey)
     const controller = new AbortController();
     datasets.getData(
       `${SERVER.PROJECT_ACTION_ITEM}`,
@@ -81,12 +65,6 @@ const CalendarViewPag = ({
       controller.abort();
     };
   }, [tabKey, updateAction])
-
-  useEffect(() => {
-    console.log('phaseList', phaseList)
-    //     setStatusCounter(rows.length)
-        console.log('statusCounter', statusCounter)
-  }, [actionsDone])
 
   useEffect(() => {
     const controller = new AbortController();
@@ -204,9 +182,6 @@ const CalendarViewPag = ({
                   setOpenModalTollgate={setOpenModalTollgate}
                   actionsDone={actionsDone}
                   setOpenPiney={setOpenPiney}
-                  setGrapphicOpen={setGrapphicOpen}
-                  setPositionModalGraphic={setPositionModalGraphic}
-                  setDataModal={setDataModal}
                   setEditData={setEditData}
                   setPopUpData={setPopUpData}
                   updatedGroup={updatedGroup}

@@ -7,6 +7,7 @@ import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { getUserBrowser } from 'utils/utils';
 import * as datasets from 'Config/datasets';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 
 const Roadmap = ({setOpenPiney,
    openPiney, 
@@ -22,6 +23,8 @@ const Roadmap = ({setOpenPiney,
      updateAction:any,
      setUpdateAction: any
     }) => {
+  const { graphicOpen } = usePortflioState();
+  const { setPositionModalGraphic, setDataModal, setGraphicOpen } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
   const [scheduleList, setScheduleList] = useState<any>({})
@@ -29,8 +32,6 @@ const Roadmap = ({setOpenPiney,
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [actionsDone,setActionsDone] = useState<any>({})
   const [userBrowser, setUserBrowser] = useState<any>()
-  
-  const [dataModal,setDataModal] = useState<any>([]);
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
 
   const windowWidth: any = window.innerWidth;
@@ -40,9 +41,6 @@ const Roadmap = ({setOpenPiney,
     projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
   }  
   let totalLabelWidth = (phaseList.length * labelWidth);
-
-  const [graphicOpen, setGrapphicOpen] = useState(false);
-  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [svgStatePhase, setSvgStatePhase] = useState<any>();
   let heightDiv1  = document.getElementById(`testing1`)?.offsetHeight;
   let heightDiv2  = document.getElementById(`testing2`)?.offsetHeight;
@@ -402,7 +400,7 @@ const Roadmap = ({setOpenPiney,
           })
           .on("mousemove", (d: any) => {
             let popupVisible: any = document.getElementById('popup-phaseview');
-            setGrapphicOpen(true);
+            setGraphicOpen(true);
             let searchTextId2 = d3.event.target.id.slice(0, -6);           
             let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')}_text`).text();
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
@@ -440,7 +438,7 @@ const Roadmap = ({setOpenPiney,
               //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
               let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
               let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
-              setPositionModalGraphic({ left: positionLeft, top: positionTop })
+              setPositionModalGraphic(positionLeft, positionTop)
               //d3.selectAll('.text-search:hover').attr('text-search');
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
               let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
@@ -449,8 +447,8 @@ const Roadmap = ({setOpenPiney,
             }
           })
           .on("mouseout", (d: any) => {
-            setGrapphicOpen(false);
-            setPositionModalGraphic({ left: 10000, top: 10000 })
+            setGraphicOpen(false);
+            setPositionModalGraphic(10000, 10000)
             d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
               return colorScale[d.schedule[r].status];
             });
@@ -566,7 +564,7 @@ const Roadmap = ({setOpenPiney,
 
   return (
     <>
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
+    {graphicOpen && <ModalGraphic/>}
       <Row id='ProjectRoadmapHeader'>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
           <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="project-roadmap">PROJECT ROADMAP</h3>

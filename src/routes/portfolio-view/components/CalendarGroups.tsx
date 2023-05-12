@@ -21,9 +21,6 @@ const CalendarGroups = ({
   setOpenModalTollgate,
   actionsDone,
   setOpenPiney,
-  setGrapphicOpen,
-  setPositionModalGraphic,
-  setDataModal,
   setEditData,
   setPopUpData,
   updatedGroup,
@@ -39,9 +36,6 @@ const CalendarGroups = ({
   setOpenModalTollgate: any,
   actionsDone: any,
   setOpenPiney: any,
-  setGrapphicOpen: any,
-  setPositionModalGraphic: any,
-  setDataModal: any,
   setEditData: any,
   setPopUpData: any,
   updatedGroup: any,
@@ -142,9 +136,6 @@ const CalendarGroups = ({
             setOpenModalTollgate={setOpenModalTollgate}
             actionsDone={actionsDone}
             setOpenPiney={setOpenPiney}
-            setGrapphicOpen={setGrapphicOpen}
-            setPositionModalGraphic={setPositionModalGraphic}
-            setDataModal={setDataModal}
             groupName={data.value}
             setEditData={setEditData}
             setPopUpData={setPopUpData}

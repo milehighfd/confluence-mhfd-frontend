@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Col, Dropdown, Row, Tabs } from 'antd';
 import { CheckCircleFilled, CheckCircleOutlined, DownOutlined, HeartFilled, HeartOutlined,  UpOutlined } from '@ant-design/icons';
 import TablePortafolio from 'routes/portfolio-view/components/TablePortfolio';
@@ -42,15 +42,13 @@ const PortafolioBody = ({
     filterProjectOptionsNoFilter
   } = useMapState();
   const {
-    searchWord
+    searchWord, graphicOpen
   } = usePortflioState();
   const { setFavorites, getListPMTools } = usePortfolioDispatch();
 
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
-  const [graphicOpen, setGrapphicOpen] = useState(false);
-  const [positionModalGraphic, setPositionModalGraphic]= useState({left: 500, top:500})
   const [tabKey, setTabKey] = useState<any>('All');
   const [openModalTollgate, setOpenModalTollgate] = useState(false);
   const [updatedGroup, setUpdatedGroup] = useState(null);
@@ -65,10 +63,9 @@ const PortafolioBody = ({
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
-  const [dataModal,setDataModal] = useState<any>([]);
+  // const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
   const [updateFilter, setUpdateFilter] = useState([]);
-  const [updateFavorites, setUpdateFavorites] = useState(false);
   const [tollData,setTollData] = useState<any>([]);
 
   useEffect(() => {
@@ -266,7 +263,7 @@ const PortafolioBody = ({
   }
 
   return <>
-    {graphicOpen && <ModalGraphic positionModalGraphic={positionModalGraphic} dataProject={dataModal}/>}
+    {graphicOpen && <ModalGraphic/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate
       visible={openModalTollgate}
@@ -364,9 +361,6 @@ const PortafolioBody = ({
                         setOpenTable={setOpenTable}
                         setTollData = {setTollData}
                         setOpenModalTollgate = {setOpenModalTollgate}
-                        setGrapphicOpen={setGrapphicOpen}
-                        setPositionModalGraphic={setPositionModalGraphic}
-                        setDataModal={setDataModal}
                       />                        
                       }
                     {optionSelect === 'Schedule'  && 
@@ -379,9 +373,6 @@ const PortafolioBody = ({
                       setOpenModalTollgate={setOpenModalTollgate}
                       setOpenPiney={setOpenPiney}
                       openPiney={openPiney}
-                      setGrapphicOpen={setGrapphicOpen}
-                      setPositionModalGraphic={setPositionModalGraphic}
-                      setDataModal={setDataModal}
                       updatedGroup={updatedGroup}
                       secondaryUpdatedGroup={secondaryUpdatedGroup}
                     />
