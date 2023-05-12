@@ -71,7 +71,9 @@ const initState = {
   jurisdiction: undefined,
   componentGeom: undefined,
   zoomGeom: undefined,
-  nextPageOfCards: 1
+  nextPageOfCards: 1,
+  infiniteScrollItems: Array.from({ length: 20 }),
+  infiniteScrollHasMoreItems: true
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -340,6 +342,30 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         nextPageOfCards: initState.nextPageOfCards
+      }
+    }
+    case types.INFINITE_SCROLL_ITEM: {
+      return {
+        ...state,
+        infiniteScrollItems: action.infiniteScrollItems
+      }
+    }
+    case types.RESET_INFINITE_SCROLL_ITEM: {
+      return {
+        ...state,
+        infiniteScrollItems: initState.infiniteScrollItems
+      }
+    }
+    case types.INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS: {
+      return {
+        ...state,
+        infiniteScrollHasMoreItems: action.infiniteScrollHasMoreItems
+      }
+    }
+    case types.RESET_INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS: {
+      return {
+        ...state,
+        infiniteScrollHasMoreItems: initState.infiniteScrollHasMoreItems
       }
     }
     default: 

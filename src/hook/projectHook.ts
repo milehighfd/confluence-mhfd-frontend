@@ -59,7 +59,11 @@ import {
   setHighlightedStreams,
   saveOverheadCost,
   setNextPageOfCards,
-  resetNextPageOfCards
+  resetNextPageOfCards,
+  setInfiniteScrollItems,
+  resetInfiniteScrollItems,
+  setInfiniteScrollHasMoreItems,
+  resetInfiniteScrollHasMoreItems
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -248,6 +252,18 @@ export const useProjectDispatch = () => {
     },
     resetNextPageOfCards: () => {
       dispatch(resetNextPageOfCards())
+    },
+    setInfiniteScrollItems: (infiniteScrollItems: any) => {
+      dispatch(setInfiniteScrollItems(infiniteScrollItems))
+    },
+    resetInfiniteScrollItems: () => {
+      dispatch(resetInfiniteScrollItems())
+    },
+    setInfiniteScrollHasMoreItems: (infiniteScrollHasMoreItems: boolean) => {
+      dispatch(setInfiniteScrollHasMoreItems(infiniteScrollHasMoreItems))
+    },
+    resetInfiniteScrollHasMoreItems: () => {
+      dispatch(resetInfiniteScrollHasMoreItems())
     }
   };
 };

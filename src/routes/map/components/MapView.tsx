@@ -22,6 +22,7 @@ import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useDetailedState } from 'hook/detailedHook';
 import MapAutoComplete from 'routes/map/components/MapAutoComplete';
 import { getCurrentProjectStatus } from 'utils/parsers';
+import { useProjectDispatch } from 'hook/projectHook';
 
 const STATUS = 'status',
   JURISDICTION = 'jurisdiction',
@@ -121,6 +122,7 @@ const MapView = () => {
     getMapTables,
   } = useMapDispatch();
   const { getGroupOrganization } = useProfileDispatch();
+  const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
   const { userInformation, groupOrganization } = useProfileState();
   const { zoomarea } = userInformation;
   const [countFilterProblems, setCountFilterProblems] = useState(0);
@@ -853,6 +855,9 @@ const MapView = () => {
       console.log('get gallery');
       getGalleryProjects();
     }
+    resetNextPageOfCards();
+    resetInfiniteScrollItems();
+    resetInfiniteScrollHasMoreItems();
   };
 
   const genExtra = () => (
@@ -966,6 +971,9 @@ const MapView = () => {
           break;
       }
     }
+    resetNextPageOfCards();
+    resetInfiniteScrollItems();
+    resetInfiniteScrollHasMoreItems();
   };
 
   const getCounter = (index: any, currentTab: any, total: number) => {

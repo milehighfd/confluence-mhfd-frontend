@@ -687,6 +687,30 @@ export const resetNextPageOfCards = () => {
   }
 }
 
+export const setInfiniteScrollItems = (infiniteScrollItems: any) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.INFINITE_SCROLL_ITEM, infiniteScrollItems})
+  }
+}
+
+export const resetInfiniteScrollItems  = () => {
+  return (dispatch: Function) => {
+    dispatch({type: types.RESET_INFINITE_SCROLL_ITEM})
+  }
+}
+
+export const setInfiniteScrollHasMoreItems = (infiniteScrollHasMoreItems: boolean) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS, infiniteScrollHasMoreItems})
+  }
+}
+
+export const resetInfiniteScrollHasMoreItems = () => {
+  return (dispatch: Function) => {
+    dispatch({type: types.RESET_INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS})
+  }
+}
+
 export const getGEOMByProjectId = ( projectid : any) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.GET_GEOM_BY_PROJECTID(projectid), datasets.getToken()).then(res => {
