@@ -142,7 +142,7 @@ const MapLayout = () => {
                 <Col
                   xs={{ span: 24 }}
                   className={open ? "height-mobile padding-comment" : "height-mobile"}
-                  style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' }}
+                  style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' , zIndex:1, background:'white'}}
                   lg={leftWidth}
                 >
                   <Map

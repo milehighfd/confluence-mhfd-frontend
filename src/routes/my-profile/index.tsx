@@ -35,12 +35,12 @@ const MyProfile = () => {
       <NavbarContainer/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout style={{overflow:'hidden'}} className="map-00 profile-00">
+        <Layout style={{overflow:'hidden', zIndex:1}} className="map-00 profile-00">
           {/* <div className="header-myprofile">
             <h2>My Profile</h2>
           </div> */}
           <Row>
-            <Col xs={{ span: 10 }} lg={{ span: 6 }}>
+            <Col xs={{ span: 10 }} lg={{ span: 6 }} style={{zIndex:1}}>
               <Profile counterProjects={counterProjects} counterProblems={counterProblems} />
             </Col>
             <Col xs= {{span: 23}} lg={{ span: 13}}>

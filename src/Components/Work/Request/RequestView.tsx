@@ -31,13 +31,13 @@ import '../../../index.scss';
 import ColumsTrelloCard from './ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
 import { postData } from 'Config/datasets';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
-let currentProject: any = {};
-const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'];
+
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
   <div className="popoveer-00"><b>Study:</b> Master plans that identify problems and recommend improvements.</div>,
@@ -50,16 +50,29 @@ const RequestView = ({ type, isFirstRendering }: {
   isFirstRendering: boolean
 }) => {
   const emptyStyle: React.CSSProperties = {};
+  const {
+    showModalProject,
+    locality,
+    tabKeys,
+    tabKey,
+    year,
+    yearList,
+  } = useRequestState();
+  const {
+    setShowModalProject,
+    setCompleteProjectData,
+    setLocality,
+    setTabKey,
+    setYear,
+    setYearList,
+    setProblemId,
+  } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
-  const [years, setYears] = useState([2022, 2021, 2020, 2019, 2018]);
-  const [locality, setLocality] = useState('');
   const [localityType, setLocalityType] = useState('');
-  const [year, setYear] = useState<any>(years[0]);
-  const [tabKey, setTabKey] = useState<any>(null);
   const [namespaceId, setNamespaceId] = useState<string>('');
   const [callBoard, setCallBoard] = useState(0);
   const [callProjects, setCallProjects] = useState(0);
@@ -74,7 +87,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [boardStatus, setBoardStatus] = useState<any>(null);
   const [boardSubstatus, setBoardSubstatus] = useState<any>(null);
   const [boardComment, setBoardComment] = useState(null);
-  const [showModalProject, setShowModalProject] = useState(false);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const [totalCountyBudget, setTotalCountyBudget] = useState(0);
   const history = useHistory();
@@ -96,13 +108,17 @@ const RequestView = ({ type, isFirstRendering }: {
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
   const ref = useRef<any>(null);
-  const [problemid, setProblemId ] = useState<any>(undefined);
-  const [currentDataForBoard, setCurrentDataForBoard] = useState({});
+  const currentDataForBoard: BoardDataRequest = {
+    type,
+    year: `${year}`,
+    locality,
+    projecttype: tabKey ? tabKey : tabKeys[0],
+    position: ''
+  };
   const { userInformation } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-  const [completeProjectData, setCompleteProjectData] = useState<any>(null);
   const [isOnSelected, setIsOnSelected]= useState(false);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
@@ -232,7 +248,7 @@ const RequestView = ({ type, isFirstRendering }: {
     for (var i = 0 ; i < 5 ; i++) {
       array.push(boardYearLimit - i);
     }
-    setYears(array);
+    setYearList(array);
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
     let _locality = params.get('locality');
@@ -402,17 +418,9 @@ const RequestView = ({ type, isFirstRendering }: {
     if (!locality || !tabKey) {
       return;
     }
-    let data: BoardDataRequest = {
-      type,
-      year: `${year}`,
-      locality,
-      projecttype: tabKey ? tabKey : tabKeys[0],
-      position: ''
-    }
     setLoading(true);
-    setCurrentDataForBoard(data);
     setColumns(defaultColumns);
-    getBoardData2(data)
+    getBoardData2(currentDataForBoard)
       .then(
         (r: any) => {
           console.log(r);
@@ -616,22 +624,6 @@ const RequestView = ({ type, isFirstRendering }: {
 
   }, [reqManager, sumTotal]);
 
-  const splitColumns = (cols: any) => {
-    let mySet:any = new Set();
-    for(let c of cols){
-      let projs = [...c.projects];
-      for(let p of projs) {
-        mySet.add(p);
-      }
-    }
-    let newArray = [...mySet.values()];
-    let projectAmounts:any = newArray.map((proj:any)=> {
-      return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-      cartodb_id: proj.projectData?.cartodb_id
-      }
-    });
-    setProjectAmounts(projectAmounts);
-  }
   const openEdit = (project:any,event:any) => {
     setShowModalEdit(project);
   }
@@ -684,7 +676,7 @@ const RequestView = ({ type, isFirstRendering }: {
         originPosition5: projectData.originPosition5,
         position1: null, position2: null, position3: null, position4: null, position5: null,
         req1: amounts[0], req2: amounts[1], req3: amounts[2], req4: amounts[3], req5: amounts[4],
-        year1: years[0], year2: years[1],
+        year1: yearList[0], year2: yearList[1],
         projectData: projectData.projectData
       }
       let temporalColumns = columns.map(r => r);
@@ -790,30 +782,6 @@ const RequestView = ({ type, isFirstRendering }: {
   };
   console.log('Rendering Request View');
   return <>
-    {  showModalProject &&
-      <ModalProjectView
-          visible={showModalProject}
-          setVisible={setShowModalProject}
-          data={completeProjectData}
-          showDefaultTab={true}
-          locality={locality}
-          editable={true}
-          currentData={currentDataForBoard}
-          year={year}
-      />
-    }{  showCreateProject &&
-      <ModalProjectView
-          visible={showCreateProject}
-          setVisible={setShowCreateProject}
-          data={"no data"}
-          showDefaultTab={true}
-          locality={locality}
-          editable={true}
-          problemId= {problemid}
-          currentData={currentDataForBoard}
-          year={year}
-      />
-    }
     {
       <Analytics
         type={type}
@@ -957,7 +925,7 @@ const RequestView = ({ type, isFirstRendering }: {
                       }}
                       className={'ant-select-2'} >
                       {
-                        years.map((y, i) => (
+                        yearList.map((y: number, i: number) => (
                           <Option key={i} value={y} >Year {y}</Option>
                         ))
                       }
