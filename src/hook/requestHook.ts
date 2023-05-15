@@ -14,6 +14,12 @@ import {
   setSumTotal,
   setTotalCountyBudget,
   setNamespaceId,
+  setShowBoardStatus,
+  setBoardStatus,
+  setBoardSubstatus,
+  setBoardComment,
+  setAlertStatus,
+  setShowAlert,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -60,6 +66,24 @@ export const useRequestDispatch = () => {
   const _setNamespaceId = useCallback((namespace: any) => {
     dispatch(setNamespaceId(namespace));
   }, [dispatch]);
+  const _setShowBoardStatus = useCallback((showBoardStatus: any) => {
+    dispatch(setShowBoardStatus(showBoardStatus));
+  }, [dispatch]);
+  const _setBoardStatus = useCallback((boardStatus: any) => {
+    dispatch(setBoardStatus(boardStatus));
+  }, [dispatch]);
+  const _setBoardSubstatus = useCallback((boardSubStatus: any) => {
+    dispatch(setBoardSubstatus(boardSubStatus));
+  }, [dispatch]);
+  const _setBoardComment = useCallback((boardComment: any) => {
+    dispatch(setBoardComment(boardComment));
+  }, [dispatch]);
+  const _setAlertStatus = useCallback((alertStatus: any) => {
+    dispatch(setAlertStatus(alertStatus));
+  }, [dispatch]);
+  const _setShowAlert = useCallback((showAlert: any) => {
+    dispatch(setShowAlert(showAlert));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -75,5 +99,11 @@ export const useRequestDispatch = () => {
     setSumTotal: _setSumTotal,
     setTotalCountyBudget: _setTotalCountyBudget,
     setNamespaceId: _setNamespaceId,
+    setShowBoardStatus: _setShowBoardStatus,
+    setBoardStatus: _setBoardStatus,
+    setBoardSubstatus: _setBoardSubstatus,
+    setBoardComment: _setBoardComment,
+    setAlertStatus: _setAlertStatus,
+    setShowAlert: _setShowAlert,
   };
 };

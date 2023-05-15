@@ -13,8 +13,6 @@ import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
 import Navbar from 'Components/Shared/Navbar/NavbarContainer';
 import SidebarView from'Components/Shared/Sidebar/SidebarView';
 import Filter from 'Components/Work/Drawers/Filter';
-import Analytics from 'Components/Work/Drawers/Analytics';
-import Status from 'Components/Work/Drawers/Status';
 import { AlertStatus } from 'Components/Work/Request/AlertStatus';
 import ColorService from 'Components/Work/Request/ColorService';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
@@ -60,6 +58,10 @@ const RequestView = ({ type, isFirstRendering }: {
     sumByCounty,
     sumTotal,
     namespaceId,
+    boardStatus,
+    boardSubstatus,
+    boardComment,
+    showAlert,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -74,6 +76,10 @@ const RequestView = ({ type, isFirstRendering }: {
     setTotalCountyBudget,
     setNamespaceId,
     setShowAnalytics,
+    setShowBoardStatus,
+    setBoardStatus,
+    setBoardSubstatus,
+    setBoardComment,
   } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
@@ -85,12 +91,8 @@ const RequestView = ({ type, isFirstRendering }: {
   const [callProjects, setCallProjects] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
-  const [showBoardStatus, setShowBoardStatus] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
-  const [boardStatus, setBoardStatus] = useState<any>(null);
-  const [boardSubstatus, setBoardSubstatus] = useState<any>(null);
-  const [boardComment, setBoardComment] = useState(null);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const {setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
@@ -105,7 +107,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [csaSelected, setCsaSelected] = useState<string[]>([]);
   const [prioritySelected, setPrioritySelected] = useState<string[]>(['1', '2', '3', 'Over 3', 'Work Plan']);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [alertStatus, setAlertStatus] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
@@ -785,22 +786,6 @@ const RequestView = ({ type, isFirstRendering }: {
   };
   console.log('Rendering Request View');
   return <>
-    {
-      showBoardStatus &&
-      <Status
-        locality={locality}
-        boardId={namespaceId}
-        visible={showBoardStatus}
-        setVisible={setShowBoardStatus}
-        status={boardStatus}
-        substatus={boardSubstatus}
-        comment={boardComment}
-        type={type}
-        setAlertStatus={setAlertStatus}
-        setShowAlert={setShowAlert}
-        onUpdateHandler={onUpdateBoard}
-        />
-    }
     {
       showFilters && <Filter
         visible={showFilters}

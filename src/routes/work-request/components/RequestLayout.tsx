@@ -25,11 +25,18 @@ const RequestLayout = () => {
     sumTotal,
     totalCountyBudget,
     namespaceId,
+    showBoardStatus,
+    boardStatus,
+    boardSubstatus,
+    boardComment,
   } = useRequestState();
   const {
     setShowModalProject,
     setShowCreateProject,
     setShowAnalytics,
+    setShowBoardStatus,
+    setAlertStatus,
+    setShowAlert,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type,
@@ -38,6 +45,10 @@ const RequestLayout = () => {
     projecttype: tabKey ? tabKey : tabKeys[0],
     position: ''
   };
+
+  const onUpdateBoard = () => {
+    //This fn is intented to be used to reload getBoardData2
+  }
 
   return (
     <Fragment>
@@ -81,7 +92,7 @@ const RequestLayout = () => {
           boardId={namespaceId}
         />
       }
-      {/* {
+      {
         showBoardStatus &&
         <Status
           locality={locality}
@@ -96,7 +107,7 @@ const RequestLayout = () => {
           setShowAlert={setShowAlert}
           onUpdateHandler={onUpdateBoard}
         />
-      } */}
+      }
       {/* {
         showFilters && <Filter
           visible={showFilters}

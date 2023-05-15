@@ -64,3 +64,33 @@ export const setNamespaceId = (payload: any) => ({
   type: types.REQUEST_SET_NAMESPACE_ID,
   payload
 });
+
+export const setShowBoardStatus = (payload: any) => ({
+  type: types.REQUEST_SET_SHOW_BOARD_STATUS,
+  payload
+});
+
+export const setBoardStatus = (payload: any) => ({
+  type: types.REQUEST_SET_BOARD_STATUS,
+  payload
+});
+
+export const setBoardSubstatus = (payload: any) => ({
+  type: types.REQUEST_SET_BOARD_SUBSTATUS,
+  payload
+});
+
+export const setBoardComment = (payload: any) => ({
+  type: types.REQUEST_SET_BOARD_COMMENT,
+  payload
+});
+
+export const setAlertStatus = (payload: any) => ({
+  type: types.REQUEST_SET_ALERT_STATUS,
+  payload
+});
+
+export const setShowAlert = (payload: any) => ({
+  type: types.REQUEST_SET_SHOW_ALERT,
+  payload
+});

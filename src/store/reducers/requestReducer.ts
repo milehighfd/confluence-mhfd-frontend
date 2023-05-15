@@ -15,6 +15,12 @@ const initialState = {
   sumTotal: {},
   totalCountyBudget: 0,
   namespaceId: '',
+  showBoardStatus: false,
+  boardStatus: null,
+  boardSubstatus: null,
+  boardComment: null,
+  alertStatus: {},
+  showAlert: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -83,6 +89,36 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         namespaceId: action.payload
+      };
+    case types.REQUEST_SET_SHOW_BOARD_STATUS:
+      return {
+        ...state,
+        showBoardStatus: action.payload
+      };
+    case types.REQUEST_SET_BOARD_STATUS:
+      return {
+        ...state,
+        boardStatus: action.payload
+      };
+    case types.REQUEST_SET_BOARD_SUBSTATUS:
+      return {
+        ...state,
+        boardSubstatus: action.payload
+      };
+    case types.REQUEST_SET_BOARD_COMMENT:
+      return {
+        ...state,
+        boardComment: action.payload
+      };
+    case types.REQUEST_SET_ALERT_STATUS:
+      return {
+        ...state,
+        alertStatus: action.payload
+      };
+    case types.REQUEST_SET_SHOW_ALERT:
+      return {
+        ...state,
+        showAlert: action.payload
       };
     default:
       return state;
