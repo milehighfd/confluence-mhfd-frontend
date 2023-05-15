@@ -10,10 +10,12 @@ import { useMapDispatch } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
+import { useAppUserState } from 'hook/useAppUser';
+import moment from 'moment';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
-const content = (<div className="popoveer-00">Notifications (Coming Soon)</div>);
+const content = (<div className="popoveer-00">No new notifications</div>);
 
 const NavbarView = ({
   tabActive
@@ -33,10 +35,12 @@ const NavbarView = ({
   const user =userInformation;
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
+  const [notification,setNotification] = useState<any>([]);
   const { changeTutorialStatus } = useMapDispatch();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
+  const appUser = useAppUserState();
   let displayedTabKey = tabKeys;
   const contentNotification = (
     <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
@@ -48,43 +52,24 @@ const NavbarView = ({
         onChange={(key) => setTabKey(key)} className="tabs-map">
         {
           displayedTabKey.map((tk: string) => (
-            <TabPane style={{marginBottom:'0px'}} 
+            <TabPane style={{ marginBottom: '0px' }}
               key={tk}>
-              <div className="notification-body">
-                <img src={"/picture/user03.png"} alt="" height="35px" />
-                <div className="text-notification">
-                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
-                  <p className="date">Work Request is due on 10/28/22</p>
-                </div>
-              </div>
-              <div className="notification-body">
-                <img src={"/picture/user03.png"} alt="" height="35px" />
-                <div className="text-notification">
-                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
-                  <p className="date">Work Request is due on 10/28/22</p>
-                </div>
-              </div>
-              <div className="notification-body">
-                <img src={"/picture/user03.png"} alt="" height="35px" />
-                <div className="text-notification">
-                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
-                  <p className="date">Work Request is due on 10/28/22</p>
-                </div>
-              </div>
-              <div className="notification-body">
-                <img src={"/picture/user03.png"} alt="" height="35px" />
-                <div className="text-notification">
-                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
-                  <p className="date">Work Request is due on 10/28/22</p>
-                </div>
-              </div>
-              <div className="notification-body">
-                <img src={"/picture/user03.png"} alt="" height="35px" />
-                <div className="text-notification">
-                  <p>Badger Gulch @ Upstream of Ridgegate Parkway 2020</p>
-                  <p className="date">Work Request is due on 10/28/22</p>
-                </div>
-              </div>
+              {notification?.map((item: any) => {
+                console.log(item)
+                let check1 = moment.utc(item?.project_status_notification?.project_status?.planned_end_date, 'YYYY-MM-DD');
+                let monthEnd = check1.format('MM');
+                let dayEnd = check1.format('DD');
+                let yearEnd = check1.format('YYYY');
+                return (
+                  <div className="notification-body">
+                    <img src={"/picture/user03.png"} alt="" height="35px" />
+                    <div className="text-notification">
+                      <p>{item?.project?.project_name}</p>
+                      <p className="date">{`${item?.project_status_notification?.project_status?.code_phase_type?.phase_name} is due on ${monthEnd}/${dayEnd}/${yearEnd}`}</p>
+                    </div>
+                  </div>
+                )
+              })}
             </TabPane>
           ))
         }
@@ -95,6 +80,7 @@ const NavbarView = ({
   useEffect(() => {
     resetTimesLogin();
     getTimesLogin();
+    setNotification(appUser.notifications);
   }, []);
   useEffect(() => {
     let currentRef = window.location.href?window.location.href:"none";
@@ -236,7 +222,7 @@ const NavbarView = ({
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
-      <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={locationPage.pathname === '/pm-tools' ? contentNotification : content}>
+      <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
         (<span className="avatar-item">
           <Badge count={22}>
