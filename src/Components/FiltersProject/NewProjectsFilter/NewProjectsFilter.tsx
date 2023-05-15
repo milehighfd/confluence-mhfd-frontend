@@ -6,6 +6,7 @@ import { useMapDispatch, useMapState } from "../../../hook/mapHook";
 import { CheckBoxFilters } from '../CheckboxFilters';
 import { DropdownFilters } from "../DropdownFilters";
 import { DropdownFiltersYears } from "../DropdownFiltersYears";
+import { useProjectDispatch } from "hook/projectHook";
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -31,6 +32,8 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
             projects: paramProjects
         }
     } = useMapState();
+    const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
+
     const {
         getParamFilterProjects,
         setFilterProjectOptions,
@@ -74,6 +77,9 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
           setApplyFilter(Math.random());
         } 
         getParamFilterProjects(boundsMap, options);
+        resetNextPageOfCards();
+        resetInfiniteScrollItems();
+        resetInfiniteScrollHasMoreItems();
     }
 
     ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {

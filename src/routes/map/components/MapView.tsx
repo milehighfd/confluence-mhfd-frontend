@@ -879,6 +879,9 @@ const MapView = () => {
               setApplyFilter(!applyFilter);
               getGalleryProblems();
               getGalleryProjects();
+              resetNextPageOfCards();
+              resetInfiniteScrollItems();
+              resetInfiniteScrollHasMoreItems();
             }}
           ></Checkbox>
           <div className="progress">
