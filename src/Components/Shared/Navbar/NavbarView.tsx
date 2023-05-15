@@ -249,7 +249,7 @@ const NavbarView = ({
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
-      <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification.length > 0 ? contentNotification : content}>
+      <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
         (<span className="avatar-item">
           <Badge count={22}>
