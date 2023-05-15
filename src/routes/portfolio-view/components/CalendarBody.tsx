@@ -57,6 +57,7 @@ const CalendarBody = ({
     filterProjectOptions,
   } = useMapState();
   const svgDivWrapperId = `#timeline-chart-${groupName.replaceAll(' ', '')}`;
+  const svgAxisDivWrapperId = `#timeline-chart-axis`;
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
   const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
@@ -156,10 +157,11 @@ const CalendarBody = ({
         .attr('viewBox', `0 0 ${width} ${height}`)
         .attr('transform', 'translate(' + 0 + ',' + (factortransformSVG) + ')')
       svgAxis = d3
-        .select('#timeline-chart-axis')
+        .select(svgAxisDivWrapperId)
         .append('svg')
         .attr('width', width)
-        .attr('height', heigthOfHeaderAxis);
+        .attr('height', heigthOfHeaderAxis)
+        .attr('viewBox', `0 0 ${width} ${heigthOfHeaderAxis}`)
 
       let offsetBar = 18;
 
@@ -525,7 +527,9 @@ const CalendarBody = ({
         yScale.bandwidth();
 
         zoomedXScale = xScale;
-        let calctodayX =  zoomedXScale(today);
+        let calctodayX = function (d: any) {
+          return zoomedXScale(today);
+        };
         let calcScheduleX = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale((d['from']));
           return zoomedXScaleFrom || 0;
@@ -1291,14 +1295,16 @@ const CalendarBody = ({
   }, [calendarData,scheduleList,windowWidth]);
 
   useEffect(() => {
-    const svg = d3.select(svgDivWrapperId)
-    .select('svg');
+    const svg = d3.select(svgDivWrapperId).select('svg');
+    const svgAx = d3.select(svgAxisDivWrapperId).select('svg');
     if (!svg.empty()) {
       let viewBox = svg.attr('viewBox');
+      let viewBoxAx = svgAx.attr('viewBox');
       const [initX, initY, boxWidth, boxHeight] = viewBox.split(' ').map((x: any) => parseInt(x));
-      svg.attr('viewBox', `${initX+zoomTimeline} ${initY} ${boxWidth} ${boxHeight}`);
+      const [initXax, initYax, boxWidthax, boxHeightax] = viewBoxAx.split(' ').map((x: any) => parseInt(x));
+      svg.attr('viewBox', `${zoomTimeline} ${initY} ${boxWidth} ${boxHeight}`);
+      svgAx.attr('viewBox', `${zoomTimeline} ${initYax} ${boxWidthax} ${boxHeightax}`);
     }
-
     
     // if (svgState) {     
     //   const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
