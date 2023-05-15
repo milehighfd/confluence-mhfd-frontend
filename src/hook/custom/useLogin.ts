@@ -7,7 +7,7 @@ import { useAppUserDispatch } from 'hook/useAppUser';
 
 const useLogin = () => {
   const { replaceFilterCoordinates } = useMapDispatch();
-  const { replaceAppUser } = useAppUserDispatch();
+  const { replaceAppUser,addNotifications } = useAppUserDispatch();
   const { saveUserInformation } = useProfileDispatch();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -41,6 +41,9 @@ const useLogin = () => {
             replaceFilterCoordinates(bounds);
           }
           replaceAppUser(res);
+          datasets.getData(SERVER.NOTIFICATIONS, datasets.getToken()).then(async result => {
+            addNotifications(result);
+          });
         }
       }).catch((e) => {
         console.error('error', e);
