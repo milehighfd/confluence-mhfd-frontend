@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
@@ -10,7 +10,7 @@ import { SERVER } from '../../../Config/Server.config';
 import CardStatService from './CardService';
 import { DeleteAlert } from './DeleteAlert';
 import { boardType } from './RequestTypes';
-import { EllipsisOutlined, MoreOutlined } from '@ant-design/icons';
+import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
 import { getCurrentProjectStatus } from '../../../utils/parsers';
 import WsService from './WsService';
@@ -73,7 +73,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
-    setCompleteProjectData(dataFromDB); 
+    console.log('dataFromDB', dataFromDB)
+    setCompleteProjectData({...dataFromDB, tabKey}); 
   }
 
   const copyProjectToCurrent = () => {

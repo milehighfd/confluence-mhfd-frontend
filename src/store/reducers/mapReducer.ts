@@ -633,8 +633,6 @@ const mapReducer = (state = initState, action: any) => {
             }
         }
         case types.SET_FILTER_PROJECTS: {
-            action.filters.servicearea = action.filters.servicearea;
-            action.filters.county = action.filters.county;
             return {
                 ...state,
                 filterProjects: action.filters

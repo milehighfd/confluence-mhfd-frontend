@@ -1,13 +1,11 @@
-import { DownCircleTwoTone, DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
+import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
-import { getBoardData, getBoardData2, getLocalitiesByBoardType } from 'dataFetching/workRequest';
+import { getBoardData2, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
-import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
-import { useBoardState } from 'hook/boardHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
@@ -23,25 +21,22 @@ import CostTableBody from 'Components/Work/Request/CostTableBody';
 import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ProjectEditService from 'Components/Work/Request/ProjectEditService';
 import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
-import { compareArrays, compareColumns, defaultColumns, filterByJurisdictionAndCsaSelected, formatter, generateColumns, getTotalsByProperty, getTotalsByPropertyV2, onDropFn, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
+import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getTotalsByPropertyV2, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
 import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
-import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
 
 import '../../../index.scss';
 import ColumsTrelloCard from './ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
-import { postData } from '../../../Config/datasets';
+import { postData } from 'Config/datasets';
 
 const { Option } = Select;
 const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 let currentProject: any = {};
-let columDragAction = [false, 0, 0];
-let counterBoardsCalls = 0;
 const tabKeys = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'];
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
@@ -83,7 +78,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [showCreateProject, setShowCreateProject] = useState(false);
   const [totalCountyBudget, setTotalCountyBudget] = useState(0);
   const history = useHistory();
-  const {setBoardProjects, setZoomProject, setStreamsIds, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
+  const {setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
   const [localities, setLocalities] = useState<any[]>([]);
@@ -98,20 +93,17 @@ const RequestView = ({ type, isFirstRendering }: {
   const [showAlert, setShowAlert] = useState(false);
   const [alertStatus, setAlertStatus] = useState<any>({});
   const [loading, setLoading] = useState(false);
-  const {clear} = useAttachmentDispatch();
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
   const ref = useRef<any>(null);
   const [problemid, setProblemId ] = useState<any>(undefined);
   const [currentDataForBoard, setCurrentDataForBoard] = useState({});
   const { userInformation } = useProfileState();
-  // TODO: openmodal
-  // const { isOpenModal } = useBoardState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-  const [boardFlag, setBoardFlag] = useState(0);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
+  const [isOnSelected, setIsOnSelected]= useState(false);
   const updateWidth = () => {
     if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
       setLeftWidth(MEDIUM_SCREEN_LEFT);
@@ -169,11 +161,7 @@ const RequestView = ({ type, isFirstRendering }: {
     }
     setColumns(newcols);
   }
-  // useEffect(() => {
-  //   console.log('isOpenModal', isOpenModal);
-  // }, [isOpenModal]);
 
-  const [isOnSelected,setIsOnSelected]= useState(false);
   const onSelect = (value: any) => {
     setLoading(true);
     setShowAnalytics(false);
@@ -257,10 +245,6 @@ const RequestView = ({ type, isFirstRendering }: {
           (r: any) => {
             setLocalities(r.localities);
             let localitiesData = r.localities.map((l: any) => l.name);
- /*            localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
-            localitiesData.push('月');
-             */
-            
             setDataAutocomplete(localitiesData);
               if (_year) {
                 setYear(_year)
@@ -339,17 +323,6 @@ const RequestView = ({ type, isFirstRendering }: {
     initLoading();
     setZoomProject(undefined);
   }, []);
-
-  // 1	Draft
-  // 2	Requested
-  // 3	Approved
-  // 4	Initiated
-  // 5	Active
-  // 6	Completed
-  // 7	Inactive
-  // 8	Cancelled
-  // 9	Closed
-  // 10	Closeout
   const groupBy = (arr: any, keyGetter: any) => {
     const out: any = {};
     for (let item of arr) {
@@ -373,7 +346,6 @@ const RequestView = ({ type, isFirstRendering }: {
         if (p.projectData?.current_project_status_id) {
           return ps?.project_status_id == p.projectData?.current_project_status_id
         } else {
-          // IF NO CURRENT STATUS PICK FIRST ONE 
           return index === 0;
         }
       });
@@ -403,13 +375,11 @@ const RequestView = ({ type, isFirstRendering }: {
   const splitProjectsIdsByStatuses = (projects: any) => {
     const projectsRelevantData = projects.map((p: any) => {
       return {
-        // current_project_status_id: p.projectData?.current_project_status_id, 
         statuses: p.projectData?.project_statuses,
         current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
           if (p.projectData?.current_project_status_id) {
             return ps?.project_status_id == p.projectData?.current_project_status_id
           } else {
-            // IF NO CURRENT STATUS PICK FIRST ONE 
             return index === 0;
           }
         })[0]?.code_phase_type?.code_status_type,
@@ -506,14 +476,9 @@ const RequestView = ({ type, isFirstRendering }: {
       console.log('connected', socket.id);
     });
     WsService.receiveUpdate((data: any) => {
-      // setColumns(data);
-      // splitColumns(data);
-      // setTimeout(() => {
         console.log('This is the data after ws', data);
         setLoading(true);
         setCallBoard(Math.random());
-      // }, 2400);
-      
     });
     WsService.receiveReqmanager((data: any) => {
       console.log('receiveReqmanager', data);
@@ -523,87 +488,6 @@ const RequestView = ({ type, isFirstRendering }: {
       WsService.disconnect();
     }
   }, [namespaceId])
-
-  // const getBoardD = () => {
-  //   counterBoardsCalls++;
-  //   getBoardData({
-  //     type,
-  //     year: `${year}`,
-  //     locality,
-  //     projecttype: tabKey
-  //   })
-  //   .then(
-  //     (r: any) => {
-  //       if (!r) return;
-  //       if ( r === 'error') {
-  //         setTimeout(() => {
-  //           setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
-  //           counterBoardsCalls--;
-  //         }, 8000);
-  //       } else if(r){
-  //         let { board, projects } = r;
-  //         ProjectEditService.setProjects(projects);
-  //         if (board) {
-  //           if (board.status !== boardStatus) {
-  //             setBoardStatus(board.status);
-  //           }
-  //           if (board.substatus !== boardSubstatus) {
-  //             setBoardSubstatus(board.substatus);
-  //           }
-  //           if (board.comment !== boardComment) {
-  //             setBoardComment(board.comment);
-  //           }
-  //           if (board._id !== namespaceId) {
-  //             setNamespaceId(board._id)
-  //           }
-  //           let reqManagerEq = true;
-  //           for (var i = 1 ; i <= 5; i++) {
-  //             if (board[`targetcost${i}`] != reqManager[i-1]) {
-  //               reqManagerEq = false;
-  //             }
-  //           }
-  //           if (!reqManagerEq) {
-  //             setReqManager([
-  //               board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-  //             ])
-  //           }
-  //         }
-  //         if (projects) {
-  //           let cols = generateColumns(projects, year, tabKey);
-  //           let areEqual: boolean = compareColumns(columns, cols);
-  //           if (!areEqual) {
-  //             setColumns(cols);
-  //             let justProjects = projects.map((proj:any)=> {
-  //               return proj.projectData.cartodb_id;
-  //             });
-  //             let idsProjects = projects.map((proj:any)=> {
-  //               return proj.projectData?.projectid;
-  //             });
-  //             let projectAmounts = projects.map((proj:any)=> {
-  //               return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-  //               cartodb_id: proj.projectData?.cartodb_id
-  //               }
-  //             });
-  //             setProjectAmounts(projectAmounts);
-  //             if(projects.length>0){
-  //               setBoardProjects({cartoids:justProjects, ids: idsProjects});
-  //             } else {
-  //               setBoardProjects(['-8887']);
-  //             }
-  //           }
-  //         }
-  //       }
-  //       setTimeout(() => {
-  //         setBoardFlag((oldBoardFlag) =>  oldBoardFlag + 1);
-  //         counterBoardsCalls--;
-  //       }, 5700);
-        
-  //     },
-  //     (e) => {
-  //       console.log('e', e);
-  //     }
-  //   )
-  // };
 
   useEffect(() => {
     setLoading(true);
@@ -621,7 +505,6 @@ const RequestView = ({ type, isFirstRendering }: {
       })
           .then(
             (r: any) => {
-              counterBoardsCalls--;
               if (!r) return;
               if(r){
                 let { board, projects } = r;
@@ -685,7 +568,6 @@ const RequestView = ({ type, isFirstRendering }: {
             },
             (e) => {
               console.log('e', e);
-              counterBoardsCalls--;
             }
           )
       setLoading(false);
@@ -753,32 +635,30 @@ const RequestView = ({ type, isFirstRendering }: {
   const openEdit = (project:any,event:any) => {
     setShowModalEdit(project);
   }
-  const getCompleteProjectData = async (data:any) => {
-    let dataForBoard = {...data};
-    const newDataComplete = await postData(`${SERVER.URL_BASE}/board/projectdata`, dataForBoard).then((value:any)=> {
-      console.log('value',value)
-
-      // next line was commented cause endpoint returns 404, it should be a comparison between data gotten from endpoint and the data currently received
-      // setCompleteProjectData(value); 
-      setCompleteProjectData(data); 
+  const getCompleteProjectData = async (data: any) => {
+    postData(
+      `${SERVER.URL_BASE}/board/projectdata`,
+      { projectid: data.project_id, projecttype: tabKey }
+    ).then((value:any)=> {
+      console.log('value', value);
+      console.log('data', data);
+      setCompleteProjectData({...data.projectData, tabKey});
       setTimeout(()=>{
-      setShowModalProject(true);
-    },200);});
-    
+        setShowModalProject(true);
+      },200);
+    });
   }
   const setShowModalEdit = (project: any) => {
     let projectswithid: any = new Set();
-    let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.id.toString()));
+    console.log('project.id',  project, project.id);
+
+    let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.project_id.toString()));
     if(projectsFiltered.length>0){
       projectswithid.add(projectsFiltered[0]);
     }
     let newArray = [...projectswithid.values()];
     if(newArray[0]){
-      currentProject = {...newArray[0].projectData};
-      getCompleteProjectData(currentProject);
-      // setTimeout(()=>{
-      //   setShowModalProject(true);
-      // },200);
+      getCompleteProjectData(newArray[0]);
     }
   }
   const saveData = ({ projectId, amounts, years }:{ projectId: any, amounts: any[], years: any[] }) => {
@@ -908,6 +788,7 @@ const RequestView = ({ type, isFirstRendering }: {
       label: item
     };
   };
+  console.log('Rendering Request View');
   return <>
     {  showModalProject &&
       <ModalProjectView
@@ -1003,7 +884,17 @@ const RequestView = ({ type, isFirstRendering }: {
           {
             <Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap isFirstRendering={isFirstRendering} locality={{locality: locality, isOnSelected: isOnSelected}} openEdit={openEdit} projectsAmounts={projectsAmounts} currentTab={tabKey} change={changes} openModal={setShowCreateProject} setProblemId={setProblemId} leftWidth={leftWidth}/>
+                <WorkRequestMap
+                  isFirstRendering={isFirstRendering}
+                  leftWidth={leftWidth}
+                  change={changes}
+                  locality={{locality: locality, isOnSelected: isOnSelected}}
+                  setProblemId={setProblemId}
+                  openModal={setShowCreateProject}
+                  openEdit={openEdit}
+                  currentTab={tabKey}
+                  projectsAmounts={projectsAmounts}
+                />
                 <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
                   <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
                 </Button>

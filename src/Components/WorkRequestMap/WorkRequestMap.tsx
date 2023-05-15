@@ -1,22 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as mapboxgl from 'mapbox-gl';
-import { MapService } from '../../utils/MapService';
+import { Input, AutoComplete } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import * as turf from '@turf/turf';
-import DetailedModal from '../Shared/Modals/DetailedModal';
-import EventService from '../../services/EventService';
-import { getData, getToken, postDataAsyn, postData } from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
-import * as datasets from "../../Config/datasets";
+import { MapService } from 'utils/MapService';
+import DetailedModal from 'Components/Shared/Modals/DetailedModal';
+import EventService from 'services/EventService';
+import { getData, getToken, postDataAsyn, postData } from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from 'Config/datasets';
 import {
   addPopupAndListeners,
   measureFunction,
   addPopupsOnClick
-} from '../../routes/map/components/MapFunctionsPopup';
+} from 'routes/map/components/MapFunctionsPopup';
 import {
   depth 
-} from "../../routes/map/components/MapFunctionsUtilities";
-import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
+} from 'routes/map/components/MapFunctionsUtilities';
+import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
 import {
   PROBLEMS_TRIGGER,
   COMPONENT_LAYERS,
@@ -58,7 +59,6 @@ import {
   STREAM_FUNCTION_LINE,
   FUTURE_DEVELOPMENT_POLYGON,
   FUTURE_DEVELOPMENT_LINE,
-  TEST_LINE,
   NEARMAP_TOKEN,
   EFFECTIVE_REACHES,
   SERVICE_AREA_FILTERS,
@@ -67,21 +67,18 @@ import {
   MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
   MAPTYPES,
-  templateGeomRandom,
-  PROJECTS_MAP_STYLES
-} from "../../constants/constants";
-import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
-import store from '../../store';
+} from 'constants/constants';
+import { ObjectLayerType, LayerStylesType } from 'Classes/MapTypes';
+import store from 'store';
 import { Dropdown, Button, Popover } from 'antd';
-import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from '../../constants/mapStyles';
-import { useMapState, useMapDispatch } from '../../hook/mapHook';
-import { useDetailedState } from '../../hook/detailedHook';
-import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
-import { useProfileState, useProfileDispatch } from '../../hook/profileHook';
+import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from 'constants/mapStyles';
+import { useMapState, useMapDispatch } from 'hook/mapHook';
+import { useDetailedState } from 'hook/detailedHook';
+import { useProjectState, useProjectDispatch } from 'hook/projectHook';
+import { useProfileState, useProfileDispatch } from 'hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import { Input, AutoComplete } from 'antd';
-import { useAttachmentDispatch } from '../../hook/attachmentHook';
-import { GlobalMapHook } from '../../utils/globalMapHook';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
+import { GlobalMapHook } from 'utils/globalMapHook';
 
 let mapid = 'map4';
 let map: any;
@@ -118,7 +115,27 @@ const linestringMeasure = {
 const factorKMToMiles = 0.621371;
 const factorKMtoFeet = 3280.8;
 const factorm2toacre = 0.00024710538146717;
-const WorkRequestMap = (type: any) => {
+const WorkRequestMap = ({
+  isFirstRendering,
+  leftWidth,
+  change,
+  locality,
+  setProblemId,
+  openModal,
+  openEdit,
+  currentTab,
+  projectsAmounts,
+}: {
+  isFirstRendering: any;
+  leftWidth: any;
+  change: any;
+  locality: any;
+  setProblemId: any;
+  openModal: any;
+  openEdit: any;
+  currentTab: any;
+  projectsAmounts: any;
+}) => {
   let html = document.getElementById(mapid);
   const [measuringState, setMeasuringState] = useState(isMeasuring);
   const [measuringState2, setMeasuringState2] = useState(isMeasuring);
@@ -169,7 +186,7 @@ const WorkRequestMap = (type: any) => {
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
-  const [firstRendering, setFirstRendering] = useState(type.isFirstRendering);
+  const [firstRendering, setFirstRendering] = useState(isFirstRendering);
   const hovereableLayers = [
     PROBLEMS_TRIGGER,
     MHFD_PROJECTS,
@@ -233,7 +250,7 @@ const WorkRequestMap = (type: any) => {
         setTimeout(() => mapResize(), i);
       }
     }
-  }, [type.leftWidth]);
+  }, [leftWidth]);
 
   const setIsMeasuring = (value: boolean) => {
     isMeasuring = value;
@@ -318,7 +335,6 @@ const WorkRequestMap = (type: any) => {
           map.isStyleLoaded(() => {
             applyMapLayers();
             applyProblemClusterLayer();
-            // applyMapLayerfromArcgis();
           });
       }
   }, [layerFilters, selectedLayersWR]);
@@ -420,7 +436,7 @@ const WorkRequestMap = (type: any) => {
   }, []);
   useEffect(() => {
     popup.remove();
-  }, [type.change]);
+  }, [change]);
   useEffect(() => {
     if (map) {
       if (highlightedComponent.table) {
@@ -444,12 +460,6 @@ const WorkRequestMap = (type: any) => {
           Promise.all(promises).then(tiles => {
             updateLayerSource(PROJECTS_DRAFT+'draft', tiles[0]);
             showLayers(PROJECTS_DRAFT+'draft');
-          });
-          map.isRendered(() => {
-            setTimeout(() => {
-              // TODO: WHY DOES THIS IS IN HERE??? SEEMS TO WORK aNYWAY
-              // applyFiltersIDs(PROJECTS_DRAFT+'draft', filterProjectsDraft);
-            }, 700);
           });
         });
       });
@@ -498,13 +508,6 @@ const WorkRequestMap = (type: any) => {
       'source': 'project_board',
       'layout': {
         "text-field": ["to-string", ["get", "project_name"]],
-        // "text-rotation-alignment": "map",
-        // "text-offset": [3, 3],
-        // "text-font": [
-        //     "Open Sans SemiBold Italic",
-        //     "Arial Unicode MS Regular"
-        // ],
-        // "symbol-placement": "line"
         'icon-ignore-placement': true
       },
       "paint": {
@@ -538,47 +541,6 @@ const WorkRequestMap = (type: any) => {
         "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
       }
     });
-    // map.map.addLayer({
-    //     id: "projectDraftLayer",
-    //     type: "symbol",
-    //     source: "projectDraftSource",
-    //     layout: {
-    //       "text-field": ["to-string", ["get", "project_name"]],
-    //       "text-rotation-alignment": "map",
-    //       "text-offset": [3, 3],
-    //       "text-font": [
-    //           "Open Sans SemiBold Italic",
-    //           "Arial Unicode MS Regular"
-    //       ],
-    //       "symbol-placement": "line"
-    //     },
-    //     "paint": {
-    //       "text-color": [
-    //         "match",
-    //         ["get", "status"],
-    //         ["Initiated"],
-    //         "#139660",
-    //         ["Requested"],
-    //         "#9309EA",
-    //         ["Approved"],
-    //         "#497BF3",
-    //         ["Cancelled"],
-    //         "#FF0000",
-    //         ["Complete"],
-    //         "#06242D",
-    //         "#b36304"
-    //       ],
-    //       // "text-halo-color": "hsl(0, 0%, 45%)",
-    //       // "text-halo-width": 0.5,
-    //       // "text-halo-blur": 5,
-
-    //       'text-halo-color': "#ffffff",
-    //       'text-halo-width': 1,
-    //       'text-halo-blur': 0,
-
-    //       "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
-    //     }
-    //   });
   }
   useEffect(() => {
     popup.remove();
@@ -592,76 +554,10 @@ const WorkRequestMap = (type: any) => {
       setIdsBoardProjects(boardProjects);
     }
     if (boardProjects && boardProjects.ids) {
-      // if (!equals(boardProjects.ids, idsBoardProjects)) {
-        setIdsBoardProjects(boardProjects.ids);
-        setGroupedIdsBoardProjects(boardProjects.groupedIds);
-      // }
+      setIdsBoardProjects(boardProjects.ids);
+      setGroupedIdsBoardProjects(boardProjects.groupedIds);
     }
     addGeojsonLayer(boardProjects.geojsonData);
-    // if (map.map.getLayer('projectDraftLayer')) {
-    //   map.map.removeLayer('projectDraftLayer');
-    // }
-    // if (map.map.getSource('projectDraftSource')) {
-    //   map.map.removeSource('projectDraftSource');
-    // }
-
-    // if (!map.map.getSource('projectDraftSource')) {
-    //   console.log('ADDING SOURCe', boardProjects.geojsonData);
-    //   map.map.addSource("projectDraftSource",
-    //     {
-    //       type: "geojson",
-    //       data: boardProjects.geojsonData
-    //     }
-    //   )
-    // }
-    // if (!map.map.getLayer('projectDraftLayer')) {
-    //   console.log('Adding Layer');
-    //   map.map.addLayer({
-    //     id: "projectDraftLayer",
-    //     type: "symbol",
-    //     source: "projectDraftSource",
-    //     layout: {
-    //       "text-field": ["to-string", ["get", "project_name"]],
-    //       "text-rotation-alignment": "map",
-    //       "text-offset": [3, 3],
-    //       "text-font": [
-    //           "Open Sans SemiBold Italic",
-    //           "Arial Unicode MS Regular"
-    //       ],
-    //       "symbol-placement": "line"
-    //     },
-    //     "paint": {
-    //       "text-color": [
-    //         "match",
-    //         ["get", "status"],
-    //         ["Initiated"],
-    //         "#139660",
-    //         ["Requested"],
-    //         "#9309EA",
-    //         ["Approved"],
-    //         "#497BF3",
-    //         ["Cancelled"],
-    //         "#FF0000",
-    //         ["Complete"],
-    //         "#06242D",
-    //         "#b36304"
-    //       ],
-    //       // "text-halo-color": "hsl(0, 0%, 45%)",
-    //       // "text-halo-width": 0.5,
-    //       // "text-halo-blur": 5,
-
-    //       'text-halo-color': "#ffffff",
-    //       'text-halo-width': 1,
-    //       'text-halo-blur': 0,
-
-    //       "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
-    //     }
-    //   });
-    // }
-      // function showFsLayer () {
-      // map.map.setLayoutProperty("projectDraftLayer", 'visibility', 'visible')
-      // }
-      // showFsLayer();
   }, [boardProjects]);
 
   const polyMask = (mask: any, bounds: any) => {
@@ -711,10 +607,9 @@ const WorkRequestMap = (type: any) => {
       getGroupOrganization();
     }
     setTimeout(() => {
-      //let value = store.getState().profile.userInformation.zoomarea;
       let value = '';
-      if (type.locality.locality) {
-        value = type.locality.locality;
+      if (locality.locality) {
+        value = locality.locality;
       }
       if (groupOrganization.length > 0) {
         wait(() => setBounds(value));
@@ -722,17 +617,17 @@ const WorkRequestMap = (type: any) => {
     }, 500);
   };
   useEffect(() => {
-    if (type.locality.isOnSelected) {
+    if (locality.isOnSelected) {
       centerToLocalityy();
     }
-  }, [type.locality]);
+  }, [locality]);
   const getGroupOrganizationZoomWithouBounds = () => {
     if (groupOrganization.length == 0) {
       getGroupOrganization();
     }
 
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => type.locality.locality.includes(x.name))
+      .filter((x: any) => locality.locality.includes(x.name))
       .map((element: any) => {
         return {
           aoi: element.name,
@@ -746,7 +641,7 @@ const WorkRequestMap = (type: any) => {
   };
   useEffect(() => {
     let historicBounds = getCurrent();
-    if (type.locality.isOnSelected) {
+    if (locality.isOnSelected) {
       getGroupOrganizationZoomWithouBounds();
     } else if (historicBounds && historicBounds.bbox) {
       globalMapId = historicBounds.id;
@@ -758,7 +653,7 @@ const WorkRequestMap = (type: any) => {
     } else {
       groupOrganizationZoom();
     }
-  }, [groupOrganization, type.locality.locality]);
+  }, [groupOrganization, locality.locality]);
   useEffect(() => {
     if (data.problemid || data.cartoid) {
       setVisible(true);
@@ -824,18 +719,18 @@ const WorkRequestMap = (type: any) => {
       ];
       setComponentsFromMap(newComponents);
       getComponentGeom(details.table, details.objectid);
-      type.setProblemId('-1');
+      setProblemId('-1');
       setTimeout(() => {
         getZoomGeomComp(details.table, details.objectid);
       }, 4500);
     } else if (details.type === 'problems') {
       getAllComponentsByProblemId(details.problemid);
-      type.setProblemId(details.problemid);
+      setProblemId(details.problemid);
     } else {
       setComponentsFromMap([]);
     }
     setTimeout(() => {
-      type.openModal(true);
+      openModal(true);
     }, 35);
   };
   const applyNearMapLayer = () => {
@@ -856,47 +751,14 @@ const applyProblemClusterLayer = () => {
     setProblemClusterGeojson(geoj.geom);
   });
 }
-// const applyMapLayerfromArcgis = useCallback(async () => {
-//   if (!map.map.getSource('testprojectarcgis')) {
-//   map.map.addSource("testprojectarcgis",
-//   {
-//   type: "geojson",
-//   //data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry=%7B%22xmin%22%3A-11740727.54461383%2C%22ymin%22%3A4852834.051789243%2C%22xmax%22%3A-11701591.786131874%2C%22ymax%22%3A4891969.810271202%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%2C%22latestWkid%22%3A3857%7D%7D&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
-//   data: 'https://gis.mhfd.org/server/rest/services/test/ProjectsTestForConfluence/MapServer/0/query?f=geojson&returnGeometry=true&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22:-11750727.54461383,%22ymin%22:4852634.051789243,%22xmax%22:-11601591.786131874,%22ymax%22:4898969.810271202,%22spatialReference%22:{%22wkid%22:102100,%22latestWkid%22:3857}}&geometryType=esriGeometryEnvelope&inSR=102100&outFields=projectid&outSR=4326&resultType=geojson'
-//   })
-//   }
-//   if (!map.map.getLayer('testprojects')) {
-//   map.map.addLayer({
-//   id: "testprojects",
-//   type: "line",
-//   source: "testprojectarcgis",
-  
-//   paint: {
-//   "line-color": "white",
-//   'line-width': 5
-//   }
-//   });
-//   }
-//   function showFsLayer () {
-//   map.map.setLayoutProperty("testprojects", 'visibility', 'visible')
-//   }
-//   showFsLayer();
-//   }, [selectedLayersWR]);
 const getIdByProjectType = (() => {
-
   const capitalProjects = projectsids.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
   const maintenanceProjects = projectsids.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
   const studyProjects = projectsids.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
   const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
   const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
   const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
-  
-  const uniqueIds = projectsids.reduce((ids:any, project:any) => {
-    if (!ids.includes(project.code_project_type_id)) {
-      ids.push(project.code_project_type_id);
-    }
-    return ids;
-  }, []);
+
   const groupedProjectsByType ={
     5: capitalProjects,
     7: maintenanceProjects,
@@ -906,8 +768,6 @@ const getIdByProjectType = (() => {
     6: developementImprProjects
   };
   setGroupedProjectIdsType(groupedProjectsByType)
-
-
 })
 
 useEffect(() => {
@@ -955,13 +815,6 @@ useEffect(() => {
     let filterProjectsNew = { ...filterProjects };
     let filterProjectsDraft = { ...filterProjects };
 
-    if (type.type === 'SPECIAL') {
-      filterProjectsNew.projecttype = 'Special';
-    } else if (type.type === 'STUDY') {
-      filterProjectsNew.projecttype = 'Study';
-    } else {
-      filterProjectsNew.projecttype = '';
-    }
     setFilterProjectOptions(filterProjectsNew)
     getProjectsFilteredIds();
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
@@ -969,9 +822,6 @@ useEffect(() => {
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = 'Draft';
 
-    if (type.type === 'CAPITAL') {
-      applyComponentFilter();
-    }
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
@@ -990,7 +840,7 @@ useEffect(() => {
     }, 500);
     applyMeasuresLayer();
   }, [selectedLayersWR, projectsids]);
-  
+
   const applyMeasuresLayer = () => {
     if (!map.map.getSource('geojsonMeasure')) {
       map.map.addSource('geojsonMeasure', {
@@ -1260,35 +1110,10 @@ useEffect(() => {
                     }
                     continue;
                 }
-                // if (filterField === 'servicearea') {
-                //   let filterValue = filters;
-                //     if(filterValue[filters.length - 1] == ' ') {
-                //       filterValue = filters.substring(0,filters.length - 1);
-                //     }
-                //     allFilters.push(['==', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[9] : filterField)], filterValue]);
-                //     continue;
-                // }
-                // if(filterField === 'county' ){
-                //   let filterValue = filters.replace('County','');
-                //     if(filterValue[filterValue.length - 1] == ' ') {
-                //       filterValue = filterValue.substring(0,filterValue.length - 1);
-                //     }
-                //     allFilters.push(['==', ['get', filterField], filterValue]);
-                //     continue;
-                // }
                 if (filterField === 'completedyear') {
                     continue;
                 }
-                if (typeof filters === 'object') {
-                    for (const range of filters) {
-                        console.error('TODO: Give a check for this filter on map ', range);
-                        // const [lower, upper] = range?.split(',');
-                        // const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
-                        // const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
-                        // const allFilter = ['all', lowerArray, upperArray];
-                        // options.push(allFilter);
-                    }
-                } else {                        
+                if (typeof filters !== 'object') {                        
                     for (const filter of filters.split(',')) {
                         if (isNaN(+filter)) {
                             if(filterField == 'projecttype') {
@@ -1307,7 +1132,6 @@ useEffect(() => {
                         }
                     }
                 }
-                
                 allFilters.push(options);
             } 
         }
@@ -1384,9 +1208,6 @@ useEffect(() => {
           if (map.map.getLayer(key + '_' + index)) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
-          // if ( key === TEST_LINE) {
-          //   map.map.setLayoutProperty(key+ '_' + index, 'visibility', 'visible');
-          // }
         });
       }
       if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
@@ -1421,7 +1242,6 @@ useEffect(() => {
       map.addVectorSource(key, tiles);
       addTilesLayers(key);
     } else if (map.getSource(key)) {
-      // map.removeLayer(key);
       map.getSource(key).setTiles(tiles);
       addTilesLayers(key);
     }
@@ -1617,8 +1437,8 @@ useEffect(() => {
     }
   };
   useEffect(() => {
-    if (type.currentTab) {
-      if (type.currentTab == 'Maintenance' || type.currentTab == 'MAINTENANCE') {
+    if (currentTab) {
+      if (currentTab == 'Maintenance' || currentTab == 'MAINTENANCE') {
         const selectedLayersMaintenance = [
           MHFD_BOUNDARY_FILTERS,
           ROUTINE_MAINTENANCE,
@@ -1632,12 +1452,12 @@ useEffect(() => {
         updateSelectedLayersWR(selectedLayersOthers);
       }
     }
-  }, [type.currentTab]);
+  }, [currentTab]);
   useEffect(() => {
-    amounts = type.projectsAmounts;
-  }, [type.projectsAmounts]);
+    amounts = projectsAmounts;
+  }, [projectsAmounts]);
   const getTotalAmount = (cartodb_id: any) => {
-    if (type.projectsAmounts.length > 0) {
+    if (projectsAmounts.length > 0) {
       let newAmounts = [...amounts];
       let value = newAmounts.filter((val: any) => val.cartodb_id === cartodb_id);
       if (value[0]) {
@@ -1740,7 +1560,7 @@ useEffect(() => {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
         addPopupAndListeners(
-          (type.mapType, type.mapType, MAPTYPES.WORKREQUEST),
+          MAPTYPES.WORKREQUEST,
           menuOptions,
           popups,
           user,
@@ -1759,7 +1579,7 @@ useEffect(() => {
           e,
           ids,
           addRemoveComponent,
-          type.openEdit,
+          openEdit,
           isEditPopup
         )
       }
@@ -1796,46 +1616,6 @@ useEffect(() => {
       }
     };
   }, [allLayers]);
-
-  const generateRangom = (low: any, up: any) => {
-    const u = Math.max(low, up);
-    const l = Math.min(low, up);
-    const diff = u - l;
-    const r = Math.floor(Math.random() * (diff + 1)); //'+1' because Math.random() returns 0..0.99, it does not include 'diff' value, so we do +1, so 'diff + 1' won't be included, but just 'diff' value will be.
-    
-    return l + r; //add the random number that was selected within distance between low and up to the lower limit.  
-  }
-  const createRandomGeomOnARCGIS = () => {
-    // const formData = new FormData();
-    // const newGEOM = [...templateGeomRandom];
-    // newGEOM[0].geometry.paths[0] = [
-    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
-    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
-    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
-    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
-    //   [generateRangom(-108, -104),generateRangom(35, 40)], 
-    // ];
-    // formData.append('f', 'json');
-    // formData.append('adds', JSON.stringify(newGEOM));
-    // const TOKEN = 'O1WHjHuEOlj3UQHK5Sm7wj7v_TQ-kTazIFLaKt8sMcmHuIJ8wJjjf9sgz80RE6Ff4h5tnsA2HYO5AEGt7uiXjTaXiY35rQlguRHt76w88dfPAGIf4w1rJ27Xl0FY79J86JjzNYrssNuoqhKANZd0Ig..';
-    // formData.append('token', TOKEN);
-    // datasets.postDataMultipart('https://gis.mhfd.org/server/rest/services/Confluence/mhfd_projects_created_dev/FeatureServer/0/applyedits', formData).then(res => {
-    //   console.log('return create of geom', res);
-    // });
-    const formData = new FormData();
-    formData.append('username', 'ricardo_confluence');
-    formData.append('password', 'M!l3H!gh$m$');
-    formData.append('client', 'ip');
-    // THIS IP IS MOMENTARILY TO TEST TODO: add to env
-    formData.append('ip', '181.188.178.182');
-    formData.append('expiration', '60');
-    formData.append('f', 'pjson');
-    formData.append('referer', '');
-    const URL_TOKEN = 'https://gis.mhfd.org/portal/sharing/rest/generateToken';
-    datasets.postDataMultipart(URL_TOKEN, formData).then(res => {
-      console.log('return create of geom', res);
-    });
-  };
   const renderOption = (item: any) => {
     return {
       key: `${item.text}|${item.place_name}`,

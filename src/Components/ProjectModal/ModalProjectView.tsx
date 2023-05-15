@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Input, Row, Col, Popover } from 'antd';
-import { ModalCapital } from "../Project/Capital/ModalCapital";
-import { ModalAcquisition } from "../Project/Acquisition/ModalAcquisition";
-import { ModalMaintenance } from "../Project/Maintenance/ModalMaintenance";
-import { ModalSpecial } from "../Project/Special/ModalSpecial";
-import { ModalStudy } from "../Project/Study/ModalStudy";
-import { NEW_PROJECT_TYPES } from "../../constants/constants";
-import { useProjectDispatch } from "../../hook/projectHook";
-import { useAttachmentDispatch } from "../../hook/attachmentHook";
-import { getAllowedBasedOnLocality } from "../Work/Request/RequestViewUtil";
-import { postData } from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
-import { useBoardDispatch } from "../../hook/boardHook";
-import { getCurrentProjectStatus } from '../../utils/parsers';
+import { ModalCapital } from 'Components/Project/Capital/ModalCapital';
+import { ModalAcquisition } from 'Components/Project/Acquisition/ModalAcquisition';
+import { ModalMaintenance } from 'Components/Project/Maintenance/ModalMaintenance';
+import { ModalSpecial } from 'Components/Project/Special/ModalSpecial';
+import { ModalStudy } from 'Components/Project/Study/ModalStudy';
+import { NEW_PROJECT_TYPES } from 'constants/constants';
+import { useProjectDispatch } from 'hook/projectHook';
+import { getAllowedBasedOnLocality } from 'Components/Work/Request/RequestViewUtil';
+import { postData } from 'Config/datasets';
+import { SERVER } from 'Config/Server.config';
+import { getCurrentProjectStatus } from 'utils/parsers';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -20,12 +18,21 @@ const content02 = (<div className="popver-info">Removal of accumulated sediment 
 const content03 = (<div className="popver-info">Upkeep of aging or failing drop structures, outfalls, and other eligible flood control features.</div>);
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
-
-export const ModalProjectView = ({ visible, setVisible, data, template, defaultTab, showDefaultTab, locality, editable, problemId, currentData, year }: {
+export const ModalProjectView = ({
+  visible,
+  setVisible,
+  data,
+  defaultTab,
+  showDefaultTab,
+  locality,
+  editable,
+  problemId,
+  currentData,
+  year
+}: {
   visible: boolean,
   setVisible: Function,
   data: any,
-  template?: any,
   defaultTab?: any,
   showDefaultTab?: any,
   locality?: any,
@@ -47,8 +54,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
   const [visibleSpecial, setVisibleSpecial] = useState(false);
   const [visibleStudy, setVisibleStudy] = useState(false);
   const [allowed, setAllowed] = useState<string[]>([]);
-  const {getAttachmentByProject} = useAttachmentDispatch();
-  const { setIsOpenModal } = useBoardDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
   const RandD = 'R&D';
 
@@ -147,7 +152,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         setVisibleCapital(true);
         setNameProject('Ex: Stream Name @ Location 202X');
       } else {
-        //getAttachmentByProject(data.projectid);
         if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 1){
           getStreamsByProjectId(data.project_id);
         } else if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5) {
@@ -156,25 +160,25 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
         }
           
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5 || data.tabKey === 'Capital'){
         setVisibleCapital(true);
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 1){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 1 || data.tabKey === 'Study'){
         setVisibleStudy(true);
       }
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 7 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 8 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 9 || 
         getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 10 || 
-        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 11 
+        getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 11 || data.tabKey === 'Maintenance'
         ){
         setSubType(data?.code_project_type?.project_type_name);
         setVisibleMaintenance(true);
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 13){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 13 || data.tabKey === 'Acquisition'){
         setVisibleAcquisition(true);
       }
-      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15){
+      if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 15 || data.tabKey === 'Special'){
         setVisibleSpecial(true);
       }
     }
@@ -184,16 +188,6 @@ export const ModalProjectView = ({ visible, setVisible, data, template, defaultT
     setAllowed(getAllowedBasedOnLocality(locality, year));
   }, [locality]);
 
-  useEffect(() => {
-    // TODO: openmodal
-    // setTimeout(() => {
-    //   setIsOpenModal(true);
-    // }, 3000);
-    return () => {
-      setBoardProjectsCreate([]);
-      // setIsOpenModal(false);
-    }
-  },[]);
   return (
     <div id='modalProjectView'>
      {visibleCapital && <ModalCapital
