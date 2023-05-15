@@ -39,3 +39,28 @@ export const setProblemId = (payload: any) => ({
   type: types.REQUEST_SET_PROBLEM_ID,
   payload
 });
+
+export const setShowAnalytics = (payload: any) => ({
+  type: types.REQUEST_SET_SHOW_ANALYTICS,
+  payload
+});
+
+export const setSumByCounty = (payload: any) => ({
+  type: types.REQUEST_SET_SUM_BY_COUNTY,
+  payload
+});
+
+export const setSumTotal = (payload: any) => ({
+  type: types.REQUEST_SET_SUM_TOTAL,
+  payload
+});
+
+export const setTotalCountyBudget = (payload: any) => ({
+  type: types.REQUEST_SET_TOTAL_COUNTY_BUDGET,
+  payload
+});
+
+export const setNamespaceId = (payload: any) => ({
+  type: types.REQUEST_SET_NAMESPACE_ID,
+  payload
+});

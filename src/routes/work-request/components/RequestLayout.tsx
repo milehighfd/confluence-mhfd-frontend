@@ -19,11 +19,17 @@ const RequestLayout = () => {
     tabKey,
     tabKeys,
     showCreateProject,
-    problemId
+    problemId,
+    showAnalytics,
+    sumByCounty,
+    sumTotal,
+    totalCountyBudget,
+    namespaceId,
   } = useRequestState();
   const {
     setShowModalProject,
     setShowCreateProject,
+    setShowAnalytics,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type,
@@ -62,7 +68,7 @@ const RequestLayout = () => {
           year={year}
         />
       }
-      {/* {
+      {
         <Analytics
           type={type}
           visible={showAnalytics}
@@ -74,7 +80,7 @@ const RequestLayout = () => {
           totalCountyBudget={totalCountyBudget}
           boardId={namespaceId}
         />
-      } */}
+      }
       {/* {
         showBoardStatus &&
         <Status

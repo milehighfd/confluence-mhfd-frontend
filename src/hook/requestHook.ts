@@ -9,6 +9,11 @@ import {
   setYearList,
   setShowCreateProject,
   setProblemId,
+  setShowAnalytics,
+  setSumByCounty,
+  setSumTotal,
+  setTotalCountyBudget,
+  setNamespaceId,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -40,6 +45,21 @@ export const useRequestDispatch = () => {
   const _setProblemId = useCallback((problemId: any) => {
     dispatch(setProblemId(problemId));
   }, [dispatch]);
+  const _setShowAnalytiics = useCallback((showAnalytics: any) => {
+    dispatch(setShowAnalytics(showAnalytics));
+  }, [dispatch]);
+  const _setSumByCounty = useCallback((sumByCounty: any) => {
+    dispatch(setSumByCounty(sumByCounty));
+  }, [dispatch]);
+  const _setSumTotal = useCallback((sumTotal: any) => {
+    dispatch(setSumTotal(sumTotal));
+  }, [dispatch]);
+  const _setTotalCountyBudget = useCallback((totalCountyBudget: any) => {
+    dispatch(setTotalCountyBudget(totalCountyBudget));
+  }, [dispatch]);
+  const _setNamespaceId = useCallback((namespace: any) => {
+    dispatch(setNamespaceId(namespace));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -50,5 +70,10 @@ export const useRequestDispatch = () => {
     setYearList: _setYearList,
     setShowCreateProject: _setShowCreateProject,
     setProblemId: _setProblemId,
+    setShowAnalytics: _setShowAnalytiics,
+    setSumByCounty: _setSumByCounty,
+    setSumTotal: _setSumTotal,
+    setTotalCountyBudget: _setTotalCountyBudget,
+    setNamespaceId: _setNamespaceId,
   };
 };

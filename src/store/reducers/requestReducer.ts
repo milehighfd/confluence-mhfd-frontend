@@ -10,6 +10,11 @@ const initialState = {
   tabKey: null,
   showCreateProject: false,
   problemId: null,
+  showAnalytics: false,
+  sumByCounty: [],
+  sumTotal: {},
+  totalCountyBudget: 0,
+  namespaceId: '',
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -53,6 +58,31 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         problemId: action.payload
+      };
+    case types.REQUEST_SET_SHOW_ANALYTICS:
+      return {
+        ...state,
+        showAnalytics: action.payload
+      };
+    case types.REQUEST_SET_SUM_BY_COUNTY:
+      return {
+        ...state,
+        sumByCounty: action.payload
+      };
+    case types.REQUEST_SET_SUM_TOTAL:
+      return {
+        ...state,
+        sumTotal: action.payload
+      };
+    case types.REQUEST_SET_TOTAL_COUNTY_BUDGET:
+      return {
+        ...state,
+        totalCountyBudget: action.payload
+      };
+    case types.REQUEST_SET_NAMESPACE_ID:
+      return {
+        ...state,
+        namespaceId: action.payload
       };
     default:
       return state;

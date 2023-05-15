@@ -57,6 +57,9 @@ const RequestView = ({ type, isFirstRendering }: {
     tabKey,
     year,
     yearList,
+    sumByCounty,
+    sumTotal,
+    namespaceId,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -66,6 +69,11 @@ const RequestView = ({ type, isFirstRendering }: {
     setYear,
     setYearList,
     setProblemId,
+    setSumByCounty,
+    setSumTotal,
+    setTotalCountyBudget,
+    setNamespaceId,
+    setShowAnalytics,
   } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
@@ -73,14 +81,10 @@ const RequestView = ({ type, isFirstRendering }: {
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const [localityType, setLocalityType] = useState('');
-  const [namespaceId, setNamespaceId] = useState<string>('');
   const [callBoard, setCallBoard] = useState(0);
   const [callProjects, setCallProjects] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [visibleCreateProject, setVisibleCreateProject] = useState(false);
-  const [sumByCounty, setSumByCounty] = useState<any[]>([]);
-  const [sumTotal, setSumTotal] = useState<any>({});
-  const [showAnalytics, setShowAnalytics] = useState(false);
   const [showBoardStatus, setShowBoardStatus] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
@@ -88,7 +92,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [boardSubstatus, setBoardSubstatus] = useState<any>(null);
   const [boardComment, setBoardComment] = useState(null);
   const [showCreateProject, setShowCreateProject] = useState(false);
-  const [totalCountyBudget, setTotalCountyBudget] = useState(0);
   const history = useHistory();
   const {setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
   const [columns, setColumns] = useState(defaultColumns);
@@ -783,19 +786,6 @@ const RequestView = ({ type, isFirstRendering }: {
   console.log('Rendering Request View');
   return <>
     {
-      <Analytics
-        type={type}
-        visible={showAnalytics}
-        setVisible={setShowAnalytics}
-        tabKey={tabKey}
-        data={sumByCounty}
-        totals={sumTotal}
-        initialYear={year}
-        totalCountyBudget={totalCountyBudget}
-        boardId={namespaceId}
-      />
-    }
-    {
       showBoardStatus &&
       <Status
         locality={locality}
@@ -1026,7 +1016,7 @@ const RequestView = ({ type, isFirstRendering }: {
                               <div className="tab-body-project streams" style={{backgroundColor: '#f9faff'}}>
                                 <Timeline>
                                   {
-                                    tabKey !== 'Maintenance' && sumByCounty.map((countySum) => (
+                                    tabKey !== 'Maintenance' && sumByCounty.map((countySum: any) => (
                                       <Timeline.Item color="purple" key={Math.random()}>
                                         <CostTableBody type={type} countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey}/>
                                       </Timeline.Item>
