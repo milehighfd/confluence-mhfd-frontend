@@ -11,8 +11,20 @@ import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
 const RequestLayout = () => {
   const location = useLocation();
   const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
-  const { showModalProject, completeProjectData, locality, year, tabKey, tabKeys } = useRequestState();
-  const { setShowModalProject } = useRequestDispatch();
+  const {
+    showModalProject,
+    completeProjectData,
+    locality,
+    year,
+    tabKey,
+    tabKeys,
+    showCreateProject,
+    problemId
+  } = useRequestState();
+  const {
+    setShowModalProject,
+    setShowCreateProject,
+  } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type,
     year: `${year}`,
@@ -36,7 +48,8 @@ const RequestLayout = () => {
           year={year}
         />
       }
-      {/* {showCreateProject &&
+      {
+        showCreateProject &&
         <ModalProjectView
           visible={showCreateProject}
           setVisible={setShowCreateProject}
@@ -44,12 +57,12 @@ const RequestLayout = () => {
           showDefaultTab={true}
           locality={locality}
           editable={true}
-          problemId={problemid}
+          problemId={problemId}
           currentData={currentDataForBoard}
           year={year}
         />
       }
-      {
+      {/* {
         <Analytics
           type={type}
           visible={showAnalytics}
@@ -61,8 +74,8 @@ const RequestLayout = () => {
           totalCountyBudget={totalCountyBudget}
           boardId={namespaceId}
         />
-      }
-      {
+      } */}
+      {/* {
         showBoardStatus &&
         <Status
           locality={locality}
@@ -77,8 +90,8 @@ const RequestLayout = () => {
           setShowAlert={setShowAlert}
           onUpdateHandler={onUpdateBoard}
         />
-      }
-      {
+      } */}
+      {/* {
         showFilters && <Filter
           visible={showFilters}
           setVisible={setShowFilters}
@@ -92,8 +105,8 @@ const RequestLayout = () => {
           setPS={setPrioritySelected}
           l={localityType}
         />
-      }
-      {
+      } */}
+      {/* {
         visibleCreateProject &&
         <ModalProjectView
           visible={visibleCreateProject}

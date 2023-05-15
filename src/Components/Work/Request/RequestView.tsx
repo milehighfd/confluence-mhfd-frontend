@@ -64,7 +64,8 @@ const RequestView = ({ type, isFirstRendering }: {
     setLocality,
     setTabKey,
     setYear,
-    setYearList
+    setYearList,
+    setProblemId,
   } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
@@ -107,7 +108,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
   const ref = useRef<any>(null);
-  const [problemid, setProblemId ] = useState<any>(undefined);
   const currentDataForBoard: BoardDataRequest = {
     type,
     year: `${year}`,
@@ -782,19 +782,6 @@ const RequestView = ({ type, isFirstRendering }: {
   };
   console.log('Rendering Request View');
   return <>
-    {  showCreateProject &&
-      <ModalProjectView
-          visible={showCreateProject}
-          setVisible={setShowCreateProject}
-          data={"no data"}
-          showDefaultTab={true}
-          locality={locality}
-          editable={true}
-          problemId= {problemid}
-          currentData={currentDataForBoard}
-          year={year}
-      />
-    }
     {
       <Analytics
         type={type}

@@ -7,6 +7,8 @@ import {
   setYear,
   setTabKey,
   setYearList,
+  setShowCreateProject,
+  setProblemId,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -32,6 +34,12 @@ export const useRequestDispatch = () => {
   const _setYearList = useCallback((yearList: any) => {
     dispatch(setYearList(yearList));
   }, [dispatch]);
+  const _setShowCreateProject = useCallback((showCreateProject: any) => {
+    dispatch(setShowCreateProject(showCreateProject));
+  }, [dispatch]);
+  const _setProblemId = useCallback((problemId: any) => {
+    dispatch(setProblemId(problemId));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -40,5 +48,7 @@ export const useRequestDispatch = () => {
     setYear: _setYear,
     setTabKey: _setTabKey,
     setYearList: _setYearList,
+    setShowCreateProject: _setShowCreateProject,
+    setProblemId: _setProblemId,
   };
 };

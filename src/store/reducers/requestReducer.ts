@@ -8,6 +8,8 @@ const initialState = {
   year: 2023,
   tabKeys: ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D'],
   tabKey: null,
+  showCreateProject: false,
+  problemId: null,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -41,6 +43,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         yearList: action.payload
+      };
+    case types.REQUEST_SET_SHOW_CREATE_PROJECT:
+      return {
+        ...state,
+        showCreateProject: action.payload
+      };
+    case types.REQUEST_SET_PROBLEM_ID:
+      return {
+        ...state,
+        problemId: action.payload
       };
     default:
       return state;

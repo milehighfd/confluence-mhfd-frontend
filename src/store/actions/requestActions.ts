@@ -29,3 +29,13 @@ export const setYearList = (payload: any) => ({
   type: types.REQUEST_SET_YEAR_LIST,
   payload
 });
+
+export const setShowCreateProject = (payload: any) => ({
+  type: types.REQUEST_SET_SHOW_CREATE_PROJECT,
+  payload
+});
+
+export const setProblemId = (payload: any) => ({
+  type: types.REQUEST_SET_PROBLEM_ID,
+  payload
+});
