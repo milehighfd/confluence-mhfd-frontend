@@ -19,8 +19,7 @@ const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
 const MapRoute = lazy(() => import('./routes/map'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
 const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
-const WorkPlan = lazy(() => import('./Components/Work/Plan/WorkPlan'));
-const WorkRequest = lazy(() => import('./Components/Work/Request/WorkRequest'));
+const RequestRoute = lazy(() => import('./routes/work-request/index'));
 const maptest = lazy(() => import('./routes/maptest'));
 const DetailedModal = lazy(() => import('./routes/detail-page/components/DetailModal'));
 
@@ -55,9 +54,9 @@ const App = () => {
         <Route path={`/map`} component={MapRoute} />
         {datasets.getToken() && appUser.email && <Route path={`/profile-view`} component={MyProfile} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && <Route path={'/work-plan'} component={WorkPlan} />}
+          appUser.designation === 'staff') && <Route path={'/work-plan'} component={RequestRoute} />}
         {(appUser.designation === 'government_staff' || appUser.designation === 'admin' ||
-          appUser.designation === 'staff') && <Route path={'/work-request'} component={WorkRequest} />}
+          appUser.designation === 'staff') && <Route path={'/work-request'} component={RequestRoute} />}
         {(appUser.designation === 'admin' ||
           appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/user`} component={UserManagement} />}
         {(loading && <Route path={`/`} component={LoadingView} />)}
