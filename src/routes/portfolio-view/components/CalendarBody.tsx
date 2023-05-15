@@ -64,7 +64,7 @@ const CalendarBody = ({
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [calendarData, setCalendarData] = useState<any>([]);
-  const [currentZScale, setCurrentZScale] = useState(7.5);
+  const [currentZScale, setCurrentZScale] = useState(0.5);
   const [zoomStatus, setZoomStatus] = useState(0);
   const [toData,setToData] = useState<any>([]);
   const [locations, setLocations] = useState<any>([]);
@@ -154,14 +154,14 @@ const CalendarBody = ({
         .append('svg')
         .attr('width', width)
         .attr('height', height)
-        .attr('viewBox', `0 0 ${width} ${height}`)
+        .attr('viewBox', `${zoomTimeline} 0 ${width} ${height}`)
         .attr('transform', 'translate(' + 0 + ',' + (factortransformSVG) + ')')
       svgAxis = d3
         .select(svgAxisDivWrapperId)
         .append('svg')
         .attr('width', width)
         .attr('height', heigthOfHeaderAxis)
-        .attr('viewBox', `0 0 ${width} ${heigthOfHeaderAxis}`)
+        .attr('viewBox', `${zoomTimeline} 0 ${width} ${heigthOfHeaderAxis}`)
 
       let offsetBar = 18;
 
@@ -212,7 +212,7 @@ const CalendarBody = ({
         xScale = d3
           .scaleTime()
           .domain([timelineStartTime, timelineEndTime])
-          .range([padding.left, width - padding.right + 0]);
+          .range([padding.left -10000, width - padding.right + 10000]);
         let yScale = d3
           .scaleBand()
           .domain(datasets.map((d: any) => d.id))
@@ -326,6 +326,7 @@ const CalendarBody = ({
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
+          .attr('id', 'buttonRect')
           .attr('rx', 3)
           .attr('ry', 3)
           .attr("x", (d: any) => {
@@ -366,6 +367,7 @@ const CalendarBody = ({
           .data(datasets)
           .enter()
           .append("text")
+          .attr('id', 'buttonText')
           .attr("class", "circletext")
           .attr('fill', 'white')
           .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 26 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : (windowWidth >= 1199 && windowWidth <= 1449 ? 13 : 11))))))
@@ -779,11 +781,11 @@ const CalendarBody = ({
               minPos = 0, maxPos = zoomedXScale.range()[1],
               x, opacity;
             x = zoomedXScale(d) + (MonthsToPixels(1) / 2); // center
-            x = Math.max(minPos, x); // left-left
-            x = Math.min(x, nextMonthPos - widthMonth - padding);  // left-right
+            // x = Math.max(minPos, x); // left-left
+            // x = Math.min(x, nextMonthPos - widthMonth - padding);  // left-right
 
-            x = Math.min(x, maxPos - widthMonth); // right-right
-            x = Math.max(x, zoomedXScale(d) + padding); // right-left
+            // x = Math.min(x, maxPos - widthMonth); // right-right
+            // x = Math.max(x, zoomedXScale(d) + padding); // right-left
 
             if (x < minPos) {
               opacity = (x + widthMonth - minPos) / widthMonth;
@@ -792,6 +794,7 @@ const CalendarBody = ({
             } else {
               opacity = 1;
             }
+            opacity =1;
             d3.select(this)
               .attr('x', (x >= 0 && x <= widthMonth / 2 + 15 ? widthMonth / 2 + 15 : x))
               .attr('opacity', opacity);
@@ -806,11 +809,11 @@ const CalendarBody = ({
               x, opacity;
 
             x = zoomedXScale(d) + DaysToPixels(182) - width / 2; // center
-            x = Math.max(minPos, x); // left-left
-            x = Math.min(x, nextMonthPos - width - padding);  // left-right
+            // x = Math.max(minPos, x); // left-left
+            // x = Math.min(x, nextMonthPos - width - padding);  // left-right
 
-            x = Math.min(x, maxPos - width); // right-right
-            x = Math.max(x, zoomedXScale(d) + padding); // right-left
+            // x = Math.min(x, maxPos - width); // right-right
+            // x = Math.max(x, zoomedXScale(d) + padding); // right-left
 
             if (x < minPos) {
               opacity = (x + width - minPos) / width;
@@ -819,6 +822,7 @@ const CalendarBody = ({
             } else {
               opacity = 1;
             }
+            opacity =1;
             d3.select(this)
               .attr('x', (x >= 0 && x <= width / 2 + yearOffset ? width / 2 + yearOffset : x))
               .attr('opacity', opacity);
@@ -1062,9 +1066,9 @@ const CalendarBody = ({
         // moveZoom(zoomTimeline, svg, svgAxis);
         if (zoomSelected === 'Today') {
           zoom.translateTo(svg, xScale(today), 0);
-          zoom.scaleTo(svg, 7.5);
+          zoom.scaleTo(svg, 0.5);
           zoom.translateTo(svgAxis, xScale(today), 0);
-          zoom.scaleTo(svgAxis, 7.5);
+          zoom.scaleTo(svgAxis, 0.5);
           //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
           //setIsZoomToday(false);
           // moveZoom(zoomTimeline, svg, svgAxis);
@@ -1304,6 +1308,8 @@ const CalendarBody = ({
       const [initXax, initYax, boxWidthax, boxHeightax] = viewBoxAx.split(' ').map((x: any) => parseInt(x));
       svg.attr('viewBox', `${zoomTimeline} ${initY} ${boxWidth} ${boxHeight}`);
       svgAx.attr('viewBox', `${zoomTimeline} ${initYax} ${boxWidthax} ${boxHeightax}`);
+      d3.selectAll('#buttonText').attr('transform', 'translate(' + zoomTimeline + ',0)')
+      d3.selectAll('#buttonRect').attr('transform', 'translate(' + zoomTimeline + ',0)')
     }
     
     // if (svgState) {     
