@@ -17,7 +17,7 @@ import { SERVER } from 'Config/Server.config';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
-const content = (<div className="popoveer-00">No new notifications</div>);
+const content = (<div className="popoveer-00">No Notifications</div>);
 
 const NavbarView = ({
   tabActive
