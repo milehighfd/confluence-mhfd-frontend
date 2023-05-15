@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from 'Classes/TypeList';
-import { addNotifications, replaceAppUser, resetAppUser } from 'store/actions/appUser';
+import { addNotifications, deleteNotification, replaceAppUser, resetAppUser } from 'store/actions/appUser';
 import { getUserInformation, resetProfile, saveUserInformation } from 'store/actions/ProfileActions';
 
 export const useAppUserState = () => useSelector(
@@ -33,6 +33,9 @@ export const useAppUserDispatch = () => {
     },
     addNotifications: (notification: any) => {
       dispatch(addNotifications(notification));
+    },
+    deleteNotification: (id: any) => {
+      dispatch(deleteNotification(id));
     }
   }
 };

@@ -18,3 +18,9 @@ export const addNotifications = (notifications : any) => {
         dispatch({ type: types.ADD_NOTIFICATION, notifications });
     }
 }
+
+export const deleteNotification = (id : any) => {
+    return (dispatch : Function) => {
+        dispatch({ type: types.DELETE_NOTIFICATION, id });
+    }
+}

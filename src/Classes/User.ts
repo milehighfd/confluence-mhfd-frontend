@@ -5,6 +5,7 @@ export class User {
     designation: string;
     _id: string;
     email: string;
+    notifications: any;
     constructor() {
         this.activated = false;
         this.firstName = "";

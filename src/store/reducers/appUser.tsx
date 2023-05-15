@@ -11,6 +11,11 @@ const appUser = (state = new User(), action : any) => {
             return {...new User()}
         case types.ADD_NOTIFICATION:
             return {...state, notifications: action.notifications}
+        case types.DELETE_NOTIFICATION:
+            console.log(action.id)
+            console.log(state.notifications.filter((_: any) => _.notification_id !== action.id))
+            return {...state, 
+                notifications: state.notifications?.filter((_: any) => _.notification_id !== action.id)}
         default: 
             return state;
     }
