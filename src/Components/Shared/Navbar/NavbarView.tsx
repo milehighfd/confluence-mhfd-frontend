@@ -28,20 +28,17 @@ const NavbarView = ({
   const [tabKey, setTabKey] = useState<any>('Unread');
   const [openProfile, setOpenProfile] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
-  const [detailOpen, setDetailOpen] = useState(false);
   const tabKeys = ['Unread', 'All'];
   const stateValue = {
     visible: false,
     visible1:false
   }
+  const [projectData, setProjectData] = useState<any>({});
   const {userInformation, groupOrganization} = useProfileState ();
   const user =userInformation;
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
   const [notification,setNotification] = useState<any>([]);
-  const {
-    detailed,
-  } = useDetailedState();
   const { changeTutorialStatus,getDetailedPageProject } = useMapDispatch();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
@@ -81,11 +78,13 @@ const NavbarView = ({
       </Tabs>
     </div>
   );
-  function readClick(id: any) {    
-    getDetailedPageProject(id);  
-    console.log(detailed)
-    //setDetailOpen(true);
+  function readClick(id: any) {  
+    // getDetailedPageProject(id);  
+    setProjectData({project_id: id});
   }
+  useEffect(() => {
+    console.log('project data', projectData);
+  }, [projectData]);
   let locationPage = useLocation();
   useEffect(() => {
     resetTimesLogin();
@@ -222,6 +221,11 @@ const NavbarView = ({
     />
   );
 
+  const setDetailOpen = (value: boolean) => {
+    if (!value) {
+      setProjectData({})
+    }
+  }
   if (redirect) {
     return <Redirect to="/login" />
   }
@@ -230,10 +234,10 @@ const NavbarView = ({
     <div className="logo"
       style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
     />
-    {detailOpen && <DetailModal
-      visible={detailOpen}
+    {projectData?.project_id && <DetailModal
+      visible={projectData?.project_id}
       setVisible={setDetailOpen}
-      data={detailed}
+      data={projectData}
       type={FILTER_PROJECTS_TRIGGER}
     />}
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}

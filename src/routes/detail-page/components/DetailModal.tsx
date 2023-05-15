@@ -92,6 +92,7 @@ const DetailModal = ({
   let displayedTabKey = tabKeys;
   let pageWidth  = document.documentElement.scrollWidth;
   useEffect(() => { 
+    console.log('should Reach here', type, data);
     resetDetailed();  
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
       console.log('PROBLEM')
@@ -117,7 +118,7 @@ const DetailModal = ({
         setProblemPart(t);
       });
     } else {
-      console.log('PROJECT')
+      console.log('PROJECT', data)
       const project_id = project_idS ? +project_idS : ( +problem_idS ? +problem_idS : 0) ;
       getDetailedPageProject(project_id);
       getComponentsByProblemId({id: data?.on_base || project_id || data?.id  || data?.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
