@@ -10,10 +10,10 @@ import { useMapDispatch } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
-import { useAppUserState } from 'hook/useAppUser';
+import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
 import DetailModal from 'routes/detail-page/components/DetailModal';
-import { useDetailedState } from 'hook/detailedHook';
+import { SERVER } from 'Config/Server.config';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -24,6 +24,7 @@ const NavbarView = ({
 }: {
   tabActive?: string
 }) => {
+  const { deleteNotification } = useAppUserDispatch();
   const [key, setKey] = useState('1');
   const [tabKey, setTabKey] = useState<any>('Unread');
   const [openProfile, setOpenProfile] = useState(false);
@@ -63,7 +64,7 @@ const NavbarView = ({
                 let dayEnd = check1.format('DD');
                 let yearEnd = check1.format('YYYY');
                 return (
-                  <div key={item.notification_id} className="notification-body" onClick={() => readClick(item?.project?.project_id)}>
+                  <div key={item.notification_id} className="notification-body" onClick={() => readClick(item?.project?.project_id,item?.notification_id)}>
                     <img src={"/picture/user03.png"} alt="" height="35px" />
                     <div className="text-notification">
                       <p>{item?.project?.project_name}</p>
@@ -78,9 +79,13 @@ const NavbarView = ({
       </Tabs>
     </div>
   );
-  function readClick(id: any) {  
-    // getDetailedPageProject(id);  
-    setProjectData({project_id: id});
+  function readClick(id: any, notification_id: any) {
+    const sendId = {notification_id: notification_id};
+    datasets.postData(SERVER.NOTIFICATIONS, sendId, datasets.getToken()).then(async result => {
+      setProjectData({ project_id: id });
+      deleteNotification(notification_id);
+      console.log(result)
+    });
   }
   useEffect(() => {
     console.log('project data', projectData);
@@ -244,7 +249,7 @@ const NavbarView = ({
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
-      <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification ? contentNotification : content}>
+      <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
         (<span className="avatar-item">
           <Badge count={22}>
