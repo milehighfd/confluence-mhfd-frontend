@@ -12,7 +12,7 @@ const UserManagement = () => {
       <NavbarContainer/>
       <Layout>
         <SidebarView></SidebarView>
-        <Layout style={{overflow:'hidden'}} className="map-00 profile-00">
+        <Layout style={{overflow:'hidden', zIndex:1}} className="map-00 profile-00">
           <UserManagementBody/>
         </Layout>
       </Layout>

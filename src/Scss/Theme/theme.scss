@@ -12,7 +12,6 @@ html, body{
 }
 .ant-layout{
   background: #f5f7ff !important;
-  z-index: 1;
 }
 .drop-menu-header{
   .ant-dropdown-menu-submenu-popup {
@@ -130,7 +129,6 @@ body{
   border-color: none !important;
   box-shadow: none !important;
 }
-// margins
 .marbot-4 {
   margin-bottom: 10px;
 }
@@ -440,10 +438,8 @@ body{
   .ant-modal-close {
     display: none;
   }
-  /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -585,7 +581,6 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -699,7 +694,6 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -754,7 +748,6 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -763,7 +756,6 @@ body{
   .body-modal-team{
     color: #11093c;
     overflow-y: hidden;
-    // height: 400px;
   }
   .body-modal-data{
     overflow-y: scroll;
@@ -851,7 +843,6 @@ body{
   }
   .btn-filter-k:hover{
     color: #11093c;
-    // background: #fff;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -859,7 +850,6 @@ body{
   }
   .btn-filter-k-active{
     color: #11093c;
-    // background: #fff;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -871,7 +861,6 @@ body{
   }
   .btn-filter-k:hover, .btn-filter-k:focus, .btn-filter-k:active, .btn-filter-k.active{
     color: #11093c;
-    // background: #fff;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -884,7 +873,6 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -896,11 +884,8 @@ body{
     .ant-carousel {
       padding-top: 0px !important;
     }
-    // height: 400px;
     img{
       border-radius: 20px !important;
-      // width: 100%;
-      // height: 100%;
       object-fit: cover;
     }
     .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan, .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
@@ -997,7 +982,6 @@ body{
   color: #11093C !important;
   height: 32px;
   text-align: center;
-    // padding: 5px 0px;
 }
 .number-wrapper {
   position: relative;
@@ -1040,7 +1024,6 @@ body{
     text-align: center;
   }
   .ant-input-number-handler-wrap {
-    // display: block;
     opacity: 1;
   }
   .ant-input-number-handler {
@@ -1100,7 +1083,6 @@ body{
   top:33px !important;
   .menu-login-dropdown {
     border-radius: 9px !important;
-    // opacity: 0.6;
   }
   .ant-dropdown-menu-item {
     opacity: 0.6 !important;
@@ -1132,7 +1114,6 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -1178,7 +1159,6 @@ body{
   /* Body of the Modal */
   .ant-modal-body {
     padding: 0;
-    // height: 800px;
   }
   /* Moldal's Footer */
   .ant-modal-footer {
@@ -1268,8 +1248,6 @@ body{
     justify-content: flex-end;
     align-items: initial;
     padding: 0px;
-    // width: 220px;
-    // height: 200px;
   }
  .ant-btn:hover .img-h, .ant-btn:focus .img-h, .ant-btn:active .img-h, .ant-btn.active .img-h {
    display: none;
@@ -1703,7 +1681,6 @@ body{
   height: 24px;
   font-family: Ubuntu;
   font-size: 14px;
-  // font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
@@ -1715,7 +1692,6 @@ body{
   height: 24px;
   font-family: Ubuntu;
   font-size: 14px;
-  // font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
@@ -1751,7 +1727,6 @@ body{
   overflow: hidden;
   font-family: Ubuntu;
   font-size: 14px;
-  // font-weight: 500;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.29;
@@ -1839,7 +1814,6 @@ body{
 }
 // DETAILED PROBLEM
 .upload{
-  // width: 1200px;
   width: 100%;
   height: 100%;
   border-radius: 4px;
@@ -1900,7 +1874,6 @@ body{
   }
 }
 .detailed{
-  // width: 1200px;
   width: 100%;
   height: 100%;
   border-radius: 4px;
@@ -1929,7 +1902,6 @@ body{
   }
 }
 .upload02{
-  // width: 1200px;
   width: 100%;
   height: 100%;
   border-radius: 4px;
@@ -1993,7 +1965,6 @@ body{
   border-radius: 5px;
 }
 .detailed{
-  // width: 1200px;
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -2005,7 +1976,6 @@ body{
       height: auto;
   }
   .ant-carousel .slick-dots {
-    // display: block !important;
     padding-bottom: 50px !important;
   }
   .ant-tabs-bottom>.ant-tabs-nav, .ant-tabs-bottom>div>.ant-tabs-nav, .ant-tabs-top>.ant-tabs-nav, .ant-tabs-top>div>.ant-tabs-nav {
@@ -2050,7 +2020,6 @@ body{
   .mapboxgl-popup-close-button:hover {
     background-color: rgb(0 0 0 / 0%);
 }
-  // height: 80px !important;
   min-height: 30px;
   background: #f5f7ff;
   padding: 20px 20px;
@@ -2071,9 +2040,6 @@ body{
       padding: 3px 11px;
       color: white;
       width: fit-content;
-      // position: absolute;
-      // left: 440px;
-      // top: 460px;
       border-radius: 12px;
       font-size: 14px;
     }
@@ -2158,9 +2124,6 @@ body{
     font-size: 21px;
     color: $purple00;
     margin-bottom: -5px;
-    // white-space: nowrap;
-    // text-overflow: ellipsis;
-    // overflow: hidden;
     line-height: 22px;
     margin-bottom: 7px;
   }
@@ -2224,12 +2187,6 @@ body{
     float: right;
     background: $white !important;
   }
-  // .detailed-h-list-view{
-  //   height: 326px;
-  //   overflow-y: auto;
-  //   margin-right: -10px;
-  //   padding-right: 10px;
-  // }
   .body-modal-team::-webkit-scrollbar {
     width: 5px;
   }
@@ -2291,12 +2248,10 @@ body{
 }
 .disabled-btn{
   opacity: 0.5;
-  //pointer-events: none;
 }
 .status-d{
   padding: 6px 0px 6px 15px;
   .status-active{
-    // margin-left: 5px;
     padding: 3px 7px;
     background: #e4f4f0;
     border-radius: 3px;
@@ -2304,7 +2259,6 @@ body{
     display: block;
   }
   .status-final{
-    // margin-left: 5px;
     padding: 3px 7px;
     background: #e4eef5;
     border-radius: 3px;
@@ -2349,11 +2303,9 @@ body{
   .ant-carousel{
     padding: 0px !important;
     position: absolute;
-    // display: contents;
     top: 0px;
     z-index: 8;
     width: 100%;
-    // padding-right: 20px !important;
   }
   .ant-carousel .slick-slider .slick-list, .ant-carousel .slick-slider .slick-track {
     border-radius: 0px !important;
@@ -2442,9 +2394,6 @@ body{
     border: 1px solid #dddbe3;
     border-radius: 5px;
     padding: 10px;
-    p{
-      // font-size: 12px;
-    }
   }
   .menu-density{
     .ant-dropdown-menu-item-active {
@@ -2695,11 +2644,9 @@ body{
   .phaseview-title-label-roadmap{
     display: flex;
     flex-direction: row;
-    // justify-content: space-between;
     text-align: center;
     height: 25px;
     padding-top:9px;
-    /* padding: 19px 0px; */
     background: #ffffff;
     width: 99%;
     align-items: center;
@@ -2740,7 +2687,6 @@ body{
       color: #251863;
 
       mix-blend-mode: normal;
-      // opacity: 0.6;
 
       /* Inside auto layout */
 
@@ -2756,9 +2702,7 @@ body{
     text-align: center;
     height: 46px;
     padding-top:9px;
-    /* padding: 19px 0px; */
     background: #ffffff;
-    //border-bottom: 1px solid #d4d2d9;
     width: 99%;
     p{
       -ms-hyphens: auto;
@@ -2779,14 +2723,8 @@ body{
       font-size: 11px !important;
       line-height: 14px;
       text-align: center;
-
       color: #251863;
-
       mix-blend-mode: normal;
-      // opacity: 0.6;
-
-      /* Inside auto layout */
-
       flex: none;
       order: 1;
       flex-grow: 0;
@@ -2794,12 +2732,10 @@ body{
   }
   .header-timeline{
     background: #fbfbfc;
-    /* padding: 23.5px; */
     height: 39px;
     margin-bottom: 0px;
   }
   .phaseview-timeline{
-    //padding: 0px 40px;
     padding-bottom: 0px;
     .ant-steps {
       padding: 0px 0px;
@@ -2882,7 +2818,6 @@ body{
 .detailed-b{
   .ant-carousel .slick-slide {
     text-align: center;
-    // height: 450px;
     overflow: hidden;
   }
   .ant-carousel .slick-slide img{
@@ -2893,9 +2828,6 @@ body{
   .ant-carousel .slick-slide h3 {
     color: #fff;
   }
-  // .ant-carousel{
-  //   height: 450px;
-  // }
   .chat-r{
     padding: 20px 25px;
   }
@@ -2904,13 +2836,10 @@ body{
   height:266px;
 }
 .detailed-c{
-  // height: 450px;
-  // background-image: url('../../Icons/bg-00.png');
   text-align: -webkit-center;
   background-size: cover;
    img{
     position: relative !important;
-    // margin-top: -20%;dsxxxxxxx
   }
   .img-modal{
     width: 710px;
@@ -2947,7 +2876,6 @@ body{
     border: none;
     color: #8d88b1;
     padding: 5px 6px;
-    /* height: max-content; */
     border-radius: 3px
   }
   label{
@@ -3010,7 +2938,6 @@ body{
   height: 650px;
   border-radius: 4px;
   box-shadow: $shadow;
-  // background-image: url('../../Icons/mapitash.png');
   position: relative;
 
   .btn-03, .btn-03:hover, .btn-03:focus, .btn-03:active, .btn-03.active {
@@ -3180,13 +3107,8 @@ body{
   border-bottom: 1px solid rgba(61, 46, 138, 0.07) !important;
   color: #11093c !important;
  }
- // .dropdown-map-layers {
- //   left: 75px;
- // }
  .ant-dropdown-menu-item-group-title {
-  //  color: #ff7600 !important;
    margin: 4px 0px -4px 0px!important;
-  //  font-weight: bold;
  }
  .input-span {
    display: inline-block;
@@ -3217,7 +3139,6 @@ body{
 }
 .ant-btn-disabled, .ant-btn.disabled, .ant-btn[disabled], .ant-btn-disabled:hover, .ant-btn.disabled:hover, .ant-btn[disabled]:hover, .ant-btn-disabled:focus, .ant-btn.disabled:focus, .ant-btn[disabled]:focus, .ant-btn-disabled:active, .ant-btn.disabled:active, .ant-btn[disabled]:active, .ant-btn-disabled.active, .ant-btn.disabled.active, .ant-btn[disabled].active {
     color: rgba(0, 0, 0, 0.75) !important;
-    // background-color: #f5f5f5 !important;
     border-color: #d9d9d9 !important;
     text-shadow: none;
     -webkit-box-shadow: none;
@@ -3226,9 +3147,6 @@ body{
 // OTHERS END
 .ant-drawer{
   z-index: 999 !important;
-}
-.ant-picker-input>input {
-  // color: #11093c !important;
 }
 
 .dropdown-container-filter {

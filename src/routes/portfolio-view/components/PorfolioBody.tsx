@@ -335,10 +335,11 @@ const PortafolioBody = ({
         <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[1]}
           id="tabsPM"
           activeKey={tabKey}
+          // style={{zIndex:1}}
           onChange={(key) => changeTabkey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string, idx: number) => { return (
-              <TabPane style={{marginBottom:'0px'}} tab={<span>{tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
+              <TabPane style={{marginBottom:'0px', zIndex:1}} tab={<span>{tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
                 <div className="protafolio-body">
                   {openFilters && <Filters filtersObject={ {filterby, filterValue, tabKey}}/>}
                       {optionSelect === 'List' && <TablePortafolio
