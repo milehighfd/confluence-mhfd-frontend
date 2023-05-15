@@ -1062,10 +1062,10 @@ const CalendarBody = ({
             [width, 0],
           ])
           .on('zoom', zoomed);
-          svg.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
-          svg.call(zoom.scaleBy, currentZScale);
-          svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
-          svgAxis.call(zoom.scaleBy, currentZScale);
+          // svg.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
+          // svg.call(zoom.scaleBy, currentZScale);
+          // svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
+          // svgAxis.call(zoom.scaleBy, currentZScale);
         // moveZoom(zoomTimeline, svg, svgAxis);
         if (zoomSelected === 'Today') {
           zoom.translateTo(svg, xScale(today), 0);
