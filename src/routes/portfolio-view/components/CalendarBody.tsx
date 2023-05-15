@@ -59,7 +59,7 @@ const CalendarBody = ({
   const svgDivWrapperId = `#timeline-chart-${groupName.replaceAll(' ', '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate} = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -862,7 +862,7 @@ const CalendarBody = ({
           setTimeout(function () {
             d3.select('.topHeaderYear').selectAll('.name').call(setTextPositionMonth, zoomedXScale);
           }, 100);
-          name.attr('transform', function (d: any) { return (d3.event.transform.k < 35 ? 'translate(0,' + separationHeaderAxisInFunction + ')' : 'translate(0,' + 0 + ')') })
+          name.attr('transform', function (d: any) { return (d3.event.transform.k < 4 ? 'translate(0,' + separationHeaderAxisInFunction + ')' : 'translate(0,' + 0 + ')') })
           nameUpdate = nameUpdate.transition().duration(300);
           nameExit = nameExit.transition().duration(300);
 
@@ -971,8 +971,10 @@ const CalendarBody = ({
         zoomed = function () {
         
           setCurrentZScale(d3.event.transform.k);
+          console.log('dddd',d3.event.transform.k)
           zoomedXScale = d3.event.transform.rescaleX(xScale);
-          if (d3.event.transform.k < 35) {
+          if (d3.event.transform.k < 4) {
+            console.log('year month')
             renderMonthNames();
             renderYearNames();
             // gX.call(xAxisMonth.scale(zoomedXScale));
@@ -1007,6 +1009,7 @@ const CalendarBody = ({
               }
             }
           } else {
+            console.log('day month')
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
 
@@ -1077,18 +1080,18 @@ const CalendarBody = ({
         if (zoomSelected === 'Weekly') {
           // svg
           // .transition().call(zoom.scaleBy, 80);
-          zoom.scaleTo(svg, 80);
+          zoom.scaleTo(svg, 4.5);
           zoom.translateTo(svg, xScale(today),0);
-          zoom.scaleTo(svgAxis, 80);
+          zoom.scaleTo(svgAxis, 4.5);
           zoom.translateTo(svgAxis, xScale(today),0);
           // setIsZoomWeekly(false);
         }
         if (zoomSelected === 'Monthly') {
           // svg
           // .transition().call(zoom.scaleBy, 18);
-          zoom.scaleTo(svg, 7.5);
+          zoom.scaleTo(svg, 0.5);
           zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-          zoom.scaleTo(svgAxis, 7.5);
+          zoom.scaleTo(svgAxis, 0.5);
           zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
           // setIsZoomMonthly(false);
         }
@@ -1293,6 +1296,7 @@ const CalendarBody = ({
 
   useEffect(() => {
     //collapseItemStatus();
+    setZoomTimeline(0)
     console.log('end1',datas)
     timelineChart(datas);
     setSvgState(svg);
@@ -1321,6 +1325,18 @@ const CalendarBody = ({
     //   timelineChart(datas);
     // }
   }, [zoomTimeline]);
+
+  useEffect(() => {
+
+    if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') {     
+      const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
+      const removechartAxis: any = document.getElementById('timeline-chart-axis');
+      removeAllChildNodes(removechart);
+      removeAllChildNodes(removechartAxis);
+      console.log('end2',datas)
+      timelineChart(datas);
+    }
+  }, [zoomSelected]);
 
   useEffect(() => {
     let idForFilter = dataId.id;
