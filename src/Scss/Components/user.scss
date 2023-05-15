@@ -173,7 +173,6 @@
     color: $white;
   }
   .ant-pagination-item {
-    // margin-right: 4px;
     border: none;
   }
   .ant-pagination-prev a, .ant-pagination-next a {
@@ -264,8 +263,6 @@
 .img-banner {
   overflow: hidden;
   width: 130vh;
-
-  // width: 1066px;
   height: 180%;
 }
 .user-card{
@@ -318,11 +315,9 @@
   .btn-d{
     color: $red;
     border-right: 1px solid $opacity00 !important;
-    // -webkit-text-stroke: medium;
   }
   .btn-s{
     color: $purple;
-    // -webkit-text-stroke: medium;
   }
   .btn-s-01{
     width: 100% !important;

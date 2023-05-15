@@ -4,7 +4,6 @@
 .auth-layout {
   background: $green !important;
 }
-
 // LOGIN
 .carrousel-mobile {
   display: none;
@@ -33,7 +32,6 @@
   position: absolute;
   top: 50%;
   left: 50%;
-
   .btn-purple {
     height: 50px;
     font-size: 16px;
@@ -169,7 +167,6 @@
   }
 }
 // END LOGIN
-
 /* Sign up */
 .signup {
   margin: 15px 0;
@@ -254,7 +251,6 @@
     color: $purple00;
   }
   .ant-menu-item{
-    // border-top: 1px solid $opacity01;
     margin: 0px !important;
     padding: 0px 7px !important;
   }
@@ -263,21 +259,8 @@
     color: $purple;
     font-weight: 500;
   }
-  .ant-dropdown-menu-item{
-    // padding: 10px 10px 0px 10px !important;
-    // text-align: left;
-  }
-  .ant-dropdown-menu-item:hover{
-    // background: none;
-    // background-color: #e6f7ff !important;
-  }
   span{
-    // font-size: 12px;
-    // color: $purple00;
-    // padding: 0px 0px 10px 0px;
-    // border-bottom: 1px solid rgba(61, 46, 138, 0.07);
     width: 100%;
-    // display: inline-block;
   }
   span:hover{
     color: #251863;
@@ -486,7 +469,6 @@
     display:block;
     width:100%;
     border:none;
-    // opacity: 15%;
     border-bottom:1px solid $opacity01;
     color: $purple00;
   }
@@ -502,7 +484,6 @@
     display:block;
     width:100%;
     border:none;
-    // opacity: 15%;
     border-bottom:1px solid $opacity01;
     color: $purple00;
   }
@@ -700,7 +681,6 @@
   }
   .social01{
     position: absolute;
-    // top: 80vh;
     bottom: 230px;
     z-index: 10;
 
@@ -717,7 +697,6 @@
   }
   .mobile-login{
     position: absolute;
-    // top: 72vh;
     bottom: 270px;
     z-index: 10;
     width: 88vw;
@@ -727,7 +706,6 @@
     .btn-purple{
       height: 50px;
       font-size: 16px;
-      // margin-top: 10px;
       width: 100%;
       padding: 16px 0px;
     }
@@ -784,18 +762,12 @@
 }
 
 @media (min-width: 1200px) and (max-width: 1900px){
-  // .ant-carousel .slick-slide .textContent {
-  //   height: 80vh;
-  // }
   .ant-carousel .slick-list {
     height: 94vh;
   }
 }
 
 @media (min-width: 1900px) and (max-width: 2499px){
-  // .ant-carousel .slick-slide .textContent {
-  //   height: 80vh;
-  // }
   .logo-partner{
     bottom: 30px;
     right: 30px;

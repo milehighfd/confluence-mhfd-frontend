@@ -40,7 +40,6 @@
   //  opacity: 0.5;
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-  // background-color: transparent;
   color: $green !important;
 }
 .ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover {
@@ -144,7 +143,6 @@
   .ant-menu-dark.ant-menu-vertical .ant-menu-item,
   .ant-menu-dark.ant-menu-vertical-left .ant-menu-item,
   .ant-menu-dark.ant-menu-vertical-right .ant-menu-item {
-    // width: 25%;
     text-align: center;
     display: flex !important;
   }

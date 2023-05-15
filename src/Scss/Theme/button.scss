@@ -42,15 +42,13 @@
   width: 100%;
   min-height: 36px !important;
   border-radius: 7px !important;
-  // border: solid 1.3px rgba(37, 24, 99, 0.1) !important;
   background-color: #ffffff !important;
   color: $opacity !important;
   box-shadow: none !important;
   position: relative;
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
-    // border-radius: 2px;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
 }
 .btn-borde-management:hover, .btn-borde-management:focus, .btn-borde-management:active, .btn-borde-management.active{
   color: $purple00 !important;
@@ -83,9 +81,6 @@
   font-weight: 400 !important;
   width: auto !important;
   padding-right: 6px !important;
-}
-.btn-filter:hover {
-  // border-color:  !important;
 }
 .btn-circle{
   border-radius: 50%;
@@ -197,7 +192,6 @@
 }
 .ant-table-container table>thead>tr:first-child th:last-child {
   border-top-right-radius: 5px;
-  // border-bottom: 1px solid #d9d9d9;
 }
 .scroll-filters {
   .ant-checkbox-group{

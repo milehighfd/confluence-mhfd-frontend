@@ -54,10 +54,6 @@
 }
 .grid * {
   font-size: 30px;
-  // box-sizing: border-box;
-  // display: grid;
-  // place-content: center;
-  // margin: 5px;
   border-radius: 10px;
   background: #f5f7ff;
   img{
@@ -65,11 +61,6 @@
     width: 100%;
   }
 }
-// .grid *:before {
-//   content: counter(num);
-//   counter-increment: num;
-// }
-
 .portafolio .ant-tabs-tabpane-active {
   overflow-y: hidden;
 }
@@ -144,7 +135,6 @@
 .topHeader line{
   stroke: gray;
   opacity: .3;
-  //visibility: hidden;
 }
 
 .topHeader path{
@@ -309,7 +299,6 @@
 .topHeaderMonthforTicks line{
   stroke: gray;
   opacity: 0.8;
-  //visibility: hidden;
 }
 .topHeaderMonthforTicks path{
   visibility: hidden;
@@ -335,7 +324,6 @@
     opacity: 0.6;
   }
   hr{
-    // border: 1px solid #FFFFFF;
     opacity: 0.1;
     background-color: #ffffff;
     height: 0.5px;
@@ -426,7 +414,6 @@
 .line-collapse{
   width: 38px;
   background: #fafafa;
-  // background: red;
   height: 100%;
 }
 
@@ -522,7 +509,6 @@
   stroke: white;
   stroke-width: 2;
   opacity: 1;
-  //visibility: visible;
   visibility: hidden;
 }
 
@@ -639,9 +625,6 @@
     color: #11093C !important;
   }
   .form-text-calendar{
-    p{
-      // opacity: 0.5 !important;
-    }
     .ant-space-align-center {
       opacity: 1 !important;
       span{
@@ -729,9 +712,6 @@
       }
       .input-focus:active{
         box-shadow: 0 0 0 2px rgb(24 144 255 / 20%) !important;
-      }
-      p{
-        // opacity: 1 !important;
       }
       .ant-space-align-center {
         opacity: 1 !important;
@@ -860,7 +840,6 @@
   }
   .ant-input-affix-wrapper:hover {
     border-color: #fefefe00;
-    //border-right-width: 1px;
   }
   .ant-select-selection-placeholder {
     flex: 1 1;
@@ -882,7 +861,6 @@
     border-radius: 8px;
     box-shadow: none;
     color: #251863 !important;
-    // opacity: 0.6;
     font-weight: 400;
   }
   .btn-filter-k:hover{
@@ -906,7 +884,6 @@
     border: 1px solid #ffffff;
     color: #251863;
     background: #ffffff;
-    // opacity: 0.6;
     border-radius: 6px;
     padding: 4px 10px;
     margin: 0px 3px;
@@ -914,9 +891,6 @@
     border: none !important;
     height: auto;
     --ant-wave-shadow-color: none !important;
-    span{
-      // color: #251863 !important;
-    }
     img{
       height: 16px;
       margin-right: 5px;
@@ -927,7 +901,6 @@
   }
   .btn-filter-k:hover{
     color: #251863;
-    // background: #fff;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -935,7 +908,6 @@
   }
   .btn-filter-k-active{
     color: #251863;
-    // background: #fff;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -943,7 +915,6 @@
   }
   .btn-filter-k:hover, .btn-filter-k:focus, .btn-filter-k:active, .btn-filter-k.active{
     color: #251863;
-    // background: #fff;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -1093,10 +1064,6 @@
       color: #40cba4 !important;
     }
   }
-   .ant-collapse-header{
-    //  width: 20.85% !important;  
-    //  border-right: 1px solid #E3E5E5;
-   }
    .ant-collapse>.ant-collapse-item .ant-collapse-header-collapsible-only .ant-collapse-header-text {
     display: flex;
   }
@@ -1104,12 +1071,9 @@
     width: calc(100% - 24px) !important;
    }
   .search{
-    //overflow-y: hidden;
     overflow-x: hidden;
     height: 100%;
-    // border-right: 1px solid #E3E5E5;
     border-top: 1px solid transparent;
-    // border-radius: 5px;
     padding: 0px 0px;
     .hr-collapse{
       position: absolute;
@@ -1173,11 +1137,9 @@
       top: 0;
       display: flex;
       width: 100% !important;
-      // z-index: 2;
       font-weight: bold !important;
       padding-top: 0px !important;
       padding-bottom: 0px !important;
-      // padding-right: calc(79.16666667% - 0px ) !important;
       align-items: center;
       padding-right: 0px;
     }
@@ -1185,12 +1147,9 @@
       display: flex;
       gap: 5px;
       align-items: center;
-      // height: 53px;
       height: 39px;
       align-self: center;
       padding-right: 15px;
-      /* padding-top: 10px; */
-      // border-right: 1px solid #e3e5e5;
       margin-right: 0px;
       padding-left: 10px;
     }
@@ -1225,7 +1184,6 @@
       width: 100.3%;
       padding: 8.5px 10px;
       align-items: center;
-      // border-right: 1px solid #E3E5E5;
       p{
         margin-bottom: 0px;
         color: #251863 !important;
@@ -1236,9 +1194,6 @@
       .title-project:hover{
         text-decoration: underline;
       }
-    }
-    .text-search:hover {
-      // background-color: #fafafa;
     }
   }
   .search::-webkit-scrollbar {
@@ -1394,21 +1349,21 @@
     }
     
     .table-body-body::-webkit-scrollbar-button {
-      display: none;  /* Oculta las flechas */
+      display: none;
     }
     
     .table-body-body::-moz-scrollbar {
-      width: 5px;  /* Tamaño de la barra de desplazamiento */
-      background-color: #F5F5F5;  /* Color del track */
+      width: 5px;
+      background-color: #F5F5F5;
     }
     
     .table-body-body::-moz-scrollbar-thumb {
-      background-color: $purple00;  /* Color del thumb */
-      border-radius: 10px;  /* Bordes redondeados del thumb */
+      background-color: $purple00;
+      border-radius: 10px;
     }
     
     .table-body-body::-moz-scrollbar-button {
-      display: none;  /* Oculta las flechas */
+      display: none;
     }
     .scroll-table{
       .ant-empty-image svg {
@@ -1421,7 +1376,6 @@
         position: relative;
         left: -16.5%;
       }
-      // width: min-content;
     }
     .scroll-table::-webkit-scrollbar-thumb {
       background: transparent; 
@@ -1444,27 +1398,22 @@
     }
     
     .scroll-tabley::-webkit-scrollbar-button {
-      display: none;  /* Oculta las flechas */
+      display: none;
     }
     
     .scroll-table::-moz-scrollbar {
-      width: 5px;  /* Tamaño de la barra de desplazamiento */
-      background-color: #F5F5F5;  /* Color del track */
+      width: 5px;
+      background-color: #F5F5F5;
       height: 5px;
     }
     
     .scroll-table::-moz-scrollbar-thumb {
-      background-color: $purple00;  /* Color del thumb */
-      border-radius: 10px;  /* Bordes redondeados del thumb */
+      background-color: $purple00;
+      border-radius: 10px; 
     }
     
     .scroll-table::-moz-scrollbar-button {
-      display: none;  /* Oculta las flechas */
-    }
-    .table-close{
-      .ant-table-tbody {
-        // display: none;
-      }
+      display: none; 
     }
     .table-first{
       margin-top: 0px;
@@ -1479,7 +1428,6 @@
       margin-top: 0px;
     }
     .table-portafolio{
-      // overflow: hidden;  
       .ant-table-thead {
         height: 39px;
         border-radius: 7px 7px 0px 0px;
@@ -1514,7 +1462,6 @@
       .ant-table-thead>tr>th {
         color: #251863;
         background: #fbfbfc;
-        // opacity: 0.6;
         padding: 5px 14px !important;
       }
       .ant-table {
@@ -1554,9 +1501,6 @@
       .ant-table-thead > tr > th {
         background: #ffffff;
         padding-top: 17px;
-      }
-      .ant-table-tbody {
-        // display: none;
       }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 0px 14px;
@@ -1784,22 +1728,19 @@
       }
     }
     h1{
-      // top: calc(50% - 15px/2 - 306.5px);
       font-family: 'Ubuntu';
       font-style: normal;
       font-weight: 700;
       font-size: 13px;
       line-height: 15px;
-      /* identical to box height */
       color: #11093C;
     }
   }
   .phaseview-body{
     width: 100% !important;
     overflow-x: scroll;
-    // height: calc(100vh - 181px);
     .phaseview-content{
-      width: 100%;//110%
+      width: 100%;
       overflow-y: auto;
       overflow-x: scroll;
       .header-title{
@@ -1851,11 +1792,9 @@
       .phaseview-title-label{
         display: flex;
         flex-direction: row;
-        // justify-content: space-between;
         text-align: center;
         height: 25px;
         padding-top:9px;
-        /* padding: 19px 0px; */
         background: #ffffff;
         width: 99%;
         hr{
@@ -1864,11 +1803,6 @@
           background-color: #fff;
           height: 1px;
           border-top: 3px dashed #D5D3DA;
-          // border-top: 3px dashed transparent;
-          // width: 39%;
-        }
-        .hr2{
-          // width: 44%;
         }
         p{
           width: 6.6666666667%;
@@ -1892,8 +1826,6 @@
           display:-webkit-box; 
           -webkit-box-orient:vertical;
           -webkit-line-clamp:2;
-          // opacity: 0.6;
-          /* Inside auto layout */
           flex: none;
           order: 1;
           flex-grow: 0;
@@ -1909,9 +1841,7 @@
         text-align: center;
         height: 46px;
         padding-top:9px;
-        /* padding: 19px 0px; */
         background: #ffffff;
-        // border-bottom: 1px solid #d4d2d9;
         width: 99%;
         p{
           width: 6.6666666667%;
@@ -1921,21 +1851,14 @@
           letter-spacing: -1px;
           width: 6.666666667%;
           height: 28px;
-
           font-family: 'Ubuntu';
           font-style: normal;
           font-weight: 500;
           font-size: 12px;
           line-height: 14px;
           text-align: center;
-
           color: #706b8a;
-
           mix-blend-mode: normal;
-          // opacity: 0.6;
-
-          /* Inside auto layout */
-
           flex: none;
           order: 1;
           flex-grow: 0;
@@ -1948,13 +1871,10 @@
       }
       .header-timeline{
         background: #fbfbfc;
-        /* padding: 23.5px; */
         height: 39px;
         margin-bottom: 0px;
-        // border-top: 1px solid #d4d2d9;
       }
       .phaseview-timeline{
-        //padding: 0px 40px;
         padding-bottom: 0px;
         .ant-steps {
           padding: 0px 0px;
@@ -2119,9 +2039,6 @@
         opacity: 0.8;
       }
       .form-text-calendar{
-        p{
-          // opacity: 0.5 !important;
-        }
         .ant-space-align-center {
           opacity: 1 !important;
           span{
@@ -2143,13 +2060,11 @@
       }
     }
     h1{
-      // top: calc(50% - 15px/2 - 306.5px);
       font-family: 'Ubuntu';
       font-style: normal;
       font-weight: 700;
       font-size: 13px;
       line-height: 20px;
-      /* identical to box height */
       color: #11093C;
       overflow:hidden; 
           text-overflow:ellipsis;
