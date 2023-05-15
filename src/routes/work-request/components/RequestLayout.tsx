@@ -5,8 +5,12 @@ import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
 import Analytics from 'Components/Work/Drawers/Analytics';
 import Status from 'Components/Work/Drawers/Status';
 import Filter from 'Components/Work/Drawers/Filter';
+import Navbar from 'Components/Shared/Navbar/NavbarContainer';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
+import { Layout } from 'antd';
+import SidebarView from 'Components/Shared/Sidebar/SidebarView';
+import { AlertStatus } from 'Components/Work/Request/AlertStatus';
 
 const RequestLayout = () => {
   const location = useLocation();
@@ -29,6 +33,16 @@ const RequestLayout = () => {
     boardStatus,
     boardSubstatus,
     boardComment,
+    showFilters,
+    jurisdictionFilterList,
+    csaFilterList,
+    prioritySelected,
+    jurisdictionSelected,
+    csaSelected,
+    localityType,
+    visibleCreateProject,
+    showAlert,
+    alertStatus,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -37,6 +51,11 @@ const RequestLayout = () => {
     setShowBoardStatus,
     setAlertStatus,
     setShowAlert,
+    setShowFilters,
+    setPrioritySelected,
+    setJurisdictionSelected,
+    setCsaSelected,
+    setVisibleCreateProject
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type,
@@ -108,7 +127,7 @@ const RequestLayout = () => {
           onUpdateHandler={onUpdateBoard}
         />
       }
-      {/* {
+      {
         showFilters && <Filter
           visible={showFilters}
           setVisible={setShowFilters}
@@ -122,8 +141,8 @@ const RequestLayout = () => {
           setPS={setPrioritySelected}
           l={localityType}
         />
-      } */}
-      {/* {
+      }
+      {
         visibleCreateProject &&
         <ModalProjectView
           visible={visibleCreateProject}
@@ -135,11 +154,21 @@ const RequestLayout = () => {
           currentData={currentDataForBoard}
           year={year}
         />
-      } */}
-      <RequestView
-        type={type}
-        isFirstRendering={true}
-      />
+      }
+      <Layout>
+        <Navbar />
+        <Layout>
+          <SidebarView />
+          {
+            showAlert &&
+            <AlertStatus type={alertStatus.type} message={alertStatus.message} />
+          }
+          <RequestView
+            type={type}
+            isFirstRendering={true}
+          />
+        </Layout>
+      </Layout>
     </Fragment>
   );
 };

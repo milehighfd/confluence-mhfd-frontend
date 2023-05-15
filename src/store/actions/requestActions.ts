@@ -94,3 +94,48 @@ export const setShowAlert = (payload: any) => ({
   type: types.REQUEST_SET_SHOW_ALERT,
   payload
 });
+
+export const setShowFilters = (payload: any) => ({
+  type: types.REQUEST_SET_SHOW_FILTERS,
+  payload
+});
+
+export const setJurisdictionFilterList = (payload: any) => ({
+  type: types.REQUEST_SET_JURISDICTION_FILTER_LIST,
+  payload
+});
+
+export const setCsaFilterList = (payload: any) => ({
+  type: types.REQUEST_SET_CSA_FILTER_LIST,
+  payload
+});
+
+export const setPrioritySelected = (payload: any) => ({
+  type: types.REQUEST_SET_PRIORITY_SELECTED,
+  payload
+});
+
+export const setJurisdictionSelected = (payload: any) => ({
+  type: types.REQUEST_SET_JURISDICTION_SELECTED,
+  payload
+});
+
+export const setCsaSelected = (payload: any) => ({
+  type: types.REQUEST_SET_CSA_SELECTED,
+  payload
+});
+
+export const setSetPrioritySelected = (payload: any) => ({
+  type: types.REQUEST_SET_SET_PRIORITY_SELECTED,
+  payload
+});
+
+export const setLocalityType = (payload: any) => ({
+  type: types.REQUEST_SET_LOCALITY_TYPE,
+  payload
+});
+
+export const setVisibleCreateProject = (payload: any) => ({
+  type: types.REQUEST_SET_VISIBLE_CREATE_PROJECT,
+  payload
+});

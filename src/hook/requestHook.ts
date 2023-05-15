@@ -20,6 +20,14 @@ import {
   setBoardComment,
   setAlertStatus,
   setShowAlert,
+  setShowFilters,
+  setJurisdictionFilterList,
+  setCsaFilterList,
+  setPrioritySelected,
+  setJurisdictionSelected,
+  setCsaSelected,
+  setLocalityType,
+  setVisibleCreateProject,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -84,6 +92,30 @@ export const useRequestDispatch = () => {
   const _setShowAlert = useCallback((showAlert: any) => {
     dispatch(setShowAlert(showAlert));
   }, [dispatch]);
+  const _setShowFilters = useCallback((showFilters: any) => {
+    dispatch(setShowFilters(showFilters));
+  }, [dispatch]);
+  const _setJurisdictionFilterList = useCallback((jurisdictionFilterList: any) => {
+    dispatch(setJurisdictionFilterList(jurisdictionFilterList));
+  }, [dispatch]);
+  const _setCsaFilterList = useCallback((csaFilterList: any) => {
+    dispatch(setCsaFilterList(csaFilterList));
+  }, [dispatch]);
+  const _setPrioritySelected = useCallback((prioritySelected: any) => {
+    dispatch(setPrioritySelected(prioritySelected));
+  }, [dispatch]);
+  const _setJurisdictionSelected = useCallback((jurisdictionSelected: any) => {
+    dispatch(setJurisdictionSelected(jurisdictionSelected));
+  }, [dispatch]);
+  const _setCsaSelected = useCallback((csaSelected: any) => {
+    dispatch(setCsaSelected(csaSelected));
+  }, [dispatch]);
+  const _setLocalityType = useCallback((localityType: any) => {
+    dispatch(setLocalityType(localityType));
+  }, [dispatch]);
+  const _setVisibleCreateProject = useCallback((visibleCreateProject: any) => {
+    dispatch(setVisibleCreateProject(visibleCreateProject));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -105,5 +137,13 @@ export const useRequestDispatch = () => {
     setBoardComment: _setBoardComment,
     setAlertStatus: _setAlertStatus,
     setShowAlert: _setShowAlert,
+    setShowFilters: _setShowFilters,
+    setJurisdictionFilterList: _setJurisdictionFilterList,
+    setCsaFilterList: _setCsaFilterList,
+    setPrioritySelected: _setPrioritySelected,
+    setJurisdictionSelected: _setJurisdictionSelected,
+    setCsaSelected: _setCsaSelected,
+    setLocalityType: _setLocalityType,
+    setVisibleCreateProject: _setVisibleCreateProject,
   };
 };

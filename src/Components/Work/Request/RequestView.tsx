@@ -9,11 +9,6 @@ import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
-import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
-import Navbar from 'Components/Shared/Navbar/NavbarContainer';
-import SidebarView from'Components/Shared/Sidebar/SidebarView';
-import Filter from 'Components/Work/Drawers/Filter';
-import { AlertStatus } from 'Components/Work/Request/AlertStatus';
 import ColorService from 'Components/Work/Request/ColorService';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
 import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
@@ -61,7 +56,12 @@ const RequestView = ({ type, isFirstRendering }: {
     boardStatus,
     boardSubstatus,
     boardComment,
-    showAlert,
+    jurisdictionFilterList,
+    csaFilterList,
+    prioritySelected,
+    jurisdictionSelected,
+    csaSelected,
+    localityType,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -80,17 +80,22 @@ const RequestView = ({ type, isFirstRendering }: {
     setBoardStatus,
     setBoardSubstatus,
     setBoardComment,
+    setShowFilters,
+    setJurisdictionFilterList,
+    setCsaFilterList,
+    setPrioritySelected,
+    setJurisdictionSelected,
+    setCsaSelected,
+    setLocalityType,
+    setVisibleCreateProject,
   } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
   const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
-  const [localityType, setLocalityType] = useState('');
   const [callBoard, setCallBoard] = useState(0);
-  const [callProjects, setCallProjects] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
-  const [visibleCreateProject, setVisibleCreateProject] = useState(false);
   const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
   const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
   const [showCreateProject, setShowCreateProject] = useState(false);
@@ -99,15 +104,8 @@ const RequestView = ({ type, isFirstRendering }: {
   const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
   const [localities, setLocalities] = useState<any[]>([]);
-  const [showFilters, setShowFilters] = useState(false);
   const [localityFilter, setLocalityFilter] = useState('');
-  const [jurisdictionFilterList, setJurisdictionFilterList] = useState([]);
-  const [csaFilterList, setCsaFilterList] = useState([]);
-  const [jurisdictionSelected, setJurisdictionSelected] = useState<string[]>([]);
-  const [csaSelected, setCsaSelected] = useState<string[]>([]);
-  const [prioritySelected, setPrioritySelected] = useState<string[]>(['1', '2', '3', 'Over 3', 'Work Plan']);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [alertStatus, setAlertStatus] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
@@ -478,7 +476,7 @@ const RequestView = ({ type, isFirstRendering }: {
         search: `?${params.map(p => p.join('=')).join('&')}`
       })
       setLoading(false);
-  }, [year, locality, tabKey, callProjects]);
+  }, [year, locality, tabKey]);
 
   useEffect(() => {
     if (!namespaceId) {
@@ -773,10 +771,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
-  
-  const onUpdateBoard = () =>{
-    setCallProjects(Math.random());
-  }
+
   const renderOption = (item: string) => {
     return {
       key: `${item}|${item}`,
@@ -785,46 +780,10 @@ const RequestView = ({ type, isFirstRendering }: {
     };
   };
   console.log('Rendering Request View');
-  return <>
-    {
-      showFilters && <Filter
-        visible={showFilters}
-        setVisible={setShowFilters}
-        jurisdictionFilterList={jurisdictionFilterList}
-        csaFilterList={csaFilterList}
-        selPS={prioritySelected}
-        selJS={jurisdictionSelected}
-        selCS={csaSelected}
-        setJS={setJurisdictionSelected}
-        setCS={setCsaSelected}
-        setPS={setPrioritySelected}
-        l={localityType}
-        />
-    }
+  return (
+    <Layout className="work">
+      { (fakeLoading || loading) && <LoadingViewOverall /> }
       {
-        visibleCreateProject &&
-        <ModalProjectView
-          visible={visibleCreateProject}
-          setVisible={setVisibleCreateProject}
-          data={"no data"}
-          defaultTab={tabKey}
-          locality={locality}
-          editable = {true}
-          currentData={currentDataForBoard}
-          year={year}
-        />
-      }
-    <Layout>
-      <Navbar />
-      <Layout>
-        <SidebarView></SidebarView>
-        {
-          showAlert &&
-          <AlertStatus type={alertStatus.type} message={alertStatus.message} />
-        }
-        <Layout className="work">
-          { (fakeLoading || loading) && <LoadingViewOverall /> }
-          {
             <Row>
             <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
                 <WorkRequestMap
@@ -1061,11 +1020,9 @@ const RequestView = ({ type, isFirstRendering }: {
               </Button>
             </Col>
           </Row>
-          }
-        </Layout>
-      </Layout>
+      }
     </Layout>
-  </>
+  )
 }
 
 export default RequestView;

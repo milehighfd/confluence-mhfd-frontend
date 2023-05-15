@@ -21,6 +21,14 @@ const initialState = {
   boardComment: null,
   alertStatus: {},
   showAlert: false,
+  showFilters: false,
+  jurisdictionFilterList: [],
+  csaFilterList: [],
+  prioritySelected: ['1', '2', '3', 'Over 3', 'Work Plan'],
+  jurisdictionSelected: [],
+  csaSelected: [],
+  localityType: '',
+  visibleCreateProject: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -119,6 +127,51 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         showAlert: action.payload
+      };
+    case types.REQUEST_SET_SHOW_FILTERS:
+      return {
+        ...state,
+        showFilters: action.payload
+      };
+    case types.REQUEST_SET_JURISDICTION_FILTER_LIST:
+      return {
+        ...state,
+        jurisdictionFilterList: action.payload
+      };
+    case types.REQUEST_SET_CSA_FILTER_LIST:
+      return {
+        ...state,
+        csaFilterList: action.payload
+      };
+    case types.REQUEST_SET_PRIORITY_SELECTED:
+      return {
+        ...state,
+        prioritySelected: action.payload
+      };
+    case types.REQUEST_SET_JURISDICTION_SELECTED:
+      return {
+        ...state,
+        jurisdictionSelected: action.payload
+      };
+    case types.REQUEST_SET_CSA_SELECTED:
+      return {
+        ...state,
+        csaSelected: action.payload
+      };
+    case types.REQUEST_SET_SET_PRIORITY_SELECTED:
+      return {
+        ...state,
+        prioritySelected: action.payload
+      };
+    case types.REQUEST_SET_LOCALITY_TYPE:
+      return {
+        ...state,
+        localityType: action.payload
+      };
+    case types.REQUEST_SET_VISIBLE_CREATE_PROJECT:
+      return {
+        ...state,
+        visibleCreateProject: action.payload
       };
     default:
       return state;
