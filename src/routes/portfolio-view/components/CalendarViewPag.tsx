@@ -140,13 +140,13 @@ const CalendarViewPag = ({
                 <div className="btn-collapse" >
                   <LeftOutlined onClick={(e) => {
                     e.stopPropagation();
-                    setZoomTimeline(zoomTimeline +50)
+                    setZoomTimeline(zoomTimeline -100)
                   }}
                   className="btn-arrow-porfolio"
                   />
                   <RightOutlined onClick={(e) => {
                     e.stopPropagation();
-                    setZoomTimeline(zoomTimeline -50)
+                    setZoomTimeline(zoomTimeline +100)
                   }}
                   className="btn-arrow-porfolio"
                   />
