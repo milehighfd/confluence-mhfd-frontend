@@ -5,13 +5,15 @@ import { CaretDownOutlined, DoubleRightOutlined, QuestionCircleOutlined } from '
 import { GlobalMapHook } from 'utils/globalMapHook';
 import * as datasets from 'Config/datasets';
 import 'Scss/Components/navbar.scss';
-import { ROUTERS, ROUTER_TITLE } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, ROUTERS, ROUTER_TITLE } from 'constants/constants';
 import { useMapDispatch } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
 import { useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
+import DetailModal from 'routes/detail-page/components/DetailModal';
+import { useDetailedState } from 'hook/detailedHook';
 
 const { TabPane } = Tabs;
 const { Header } = Layout;
@@ -26,6 +28,7 @@ const NavbarView = ({
   const [tabKey, setTabKey] = useState<any>('Unread');
   const [openProfile, setOpenProfile] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
+  const [detailOpen, setDetailOpen] = useState(false);
   const tabKeys = ['Unread', 'All'];
   const stateValue = {
     visible: false,
@@ -36,7 +39,10 @@ const NavbarView = ({
   const {updateUserInformation, getGroupOrganization} = useProfileDispatch();
   const [state, setState] = useState(stateValue);
   const [notification,setNotification] = useState<any>([]);
-  const { changeTutorialStatus } = useMapDispatch();
+  const {
+    detailed,
+  } = useDetailedState();
+  const { changeTutorialStatus,getDetailedPageProject } = useMapDispatch();
   const { getTimesLogin, resetTimesLogin } = useProfileDispatch();
   const { timesLogged } = useUsersState();
   const { deleteMaps } = GlobalMapHook();
@@ -55,13 +61,12 @@ const NavbarView = ({
             <TabPane style={{ marginBottom: '0px' }}
               key={tk}>
               {notification?.map((item: any) => {
-                console.log(item)
                 let check1 = moment.utc(item?.project_status_notification?.project_status?.planned_end_date, 'YYYY-MM-DD');
                 let monthEnd = check1.format('MM');
                 let dayEnd = check1.format('DD');
                 let yearEnd = check1.format('YYYY');
                 return (
-                  <div className="notification-body">
+                  <div key={item.notification_id} className="notification-body" onClick={() => readClick(item?.project?.project_id)}>
                     <img src={"/picture/user03.png"} alt="" height="35px" />
                     <div className="text-notification">
                       <p>{item?.project?.project_name}</p>
@@ -76,12 +81,19 @@ const NavbarView = ({
       </Tabs>
     </div>
   );
+  function readClick(id: any) {    
+    getDetailedPageProject(id);  
+    console.log(detailed)
+    //setDetailOpen(true);
+  }
   let locationPage = useLocation();
   useEffect(() => {
     resetTimesLogin();
     getTimesLogin();
-    setNotification(appUser.notifications);
   }, []);
+  useEffect(() => {
+    setNotification(appUser.notifications);
+  },[appUser.notifications]);
   useEffect(() => {
     let currentRef = window.location.href?window.location.href:"none";
     if (timesLogged !== -1) {
@@ -218,7 +230,13 @@ const NavbarView = ({
     <div className="logo"
       style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
     />
-    { openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
+    {detailOpen && <DetailModal
+      visible={detailOpen}
+      setVisible={setDetailOpen}
+      data={detailed}
+      type={FILTER_PROJECTS_TRIGGER}
+    />}
+    {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
     <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
