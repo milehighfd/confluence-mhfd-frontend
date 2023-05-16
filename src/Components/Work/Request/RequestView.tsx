@@ -1,5 +1,5 @@
 import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
-import { Layout, Button, Input, Row, Col, Select, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
+import { Layout, Button, Input, Row, Col, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
@@ -24,8 +24,8 @@ import { SERVER } from 'Config/Server.config';
 import { postData } from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
+import YearDropdown from 'routes/work-request/components/YearDropdown';
 
-const { Option } = Select;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
@@ -110,7 +110,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [localityFilter, setLocalityFilter] = useState('');
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [openYearDropdown, setOpenYearDropdown] = useState(false);
   const wrtRef = useRef(null);
   const ref = useRef<any>(null);
   const currentDataForBoard: BoardDataRequest = {
@@ -851,23 +850,8 @@ const RequestView = ({ type, isFirstRendering }: {
                     </div>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
-                    <Select
-                      defaultValue={year}
-                      value={`Year ${year}`}
-                      suffixIcon={openYearDropdown? < DownOutlined/> :<UpOutlined  />}
-                      onClick={()=>(setOpenYearDropdown(!openYearDropdown))}
-                      onChange={(y: any) => {
-                        setYear(y);
-                        setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
-                      }}
-                      className={'ant-select-2'} >
-                      {
-                        yearList.map((y: number, i: number) => (
-                          <Option key={i} value={y} >Year {y}</Option>
-                        ))
-                      }
-                    </Select>
-                      <Toolbar />
+                    <YearDropdown />
+                    <Toolbar />
                   </Col>
                 </Row>
               </div>
