@@ -41,7 +41,12 @@ const DownloadCSV = ({
         className="btn-opacity"
         style={{ padding: '0px' }}
       >
-        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }} src="" />
+        <img
+          className="icon-bt"
+          style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }}
+          alt=""
+          src=""
+        />
       </CSVLink>
     </Button>
   );

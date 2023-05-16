@@ -1,4 +1,6 @@
+import { MEDIUM_SCREEN_RIGHT } from 'constants/constants';
 import * as types from '../types/requestTypes';
+import { defaultColumns } from 'routes/work-request/constants';
 
 const initialState = {
   showModalProject: false,
@@ -29,6 +31,11 @@ const initialState = {
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
+  leftWidth: MEDIUM_SCREEN_RIGHT - 1,
+  localities: [],
+  columns: defaultColumns,
+  reqManager: [null, null, null, null, null],
+  diff: [null, null, null, null, null],
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -172,6 +179,31 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         visibleCreateProject: action.payload
+      };
+    case types.REQUEST_SET_LEFT_WIDTH:
+      return {
+        ...state,
+        leftWidth: action.payload
+      };
+    case types.REQUEST_SET_LOCALITIES:
+      return {
+        ...state,
+        localities: action.payload
+      };
+    case types.REQUEST_SET_COLUMNS:
+      return {
+        ...state,
+        columns: action.payload
+      };
+    case types.REQUEST_SET_REQ_MANAGER:
+      return {
+        ...state,
+        reqManager: action.payload
+      };
+    case types.REQUEST_SET_DIFF:
+      return {
+        ...state,
+        diff: action.payload
       };
     default:
       return state;

@@ -28,6 +28,11 @@ import {
   setCsaSelected,
   setLocalityType,
   setVisibleCreateProject,
+  setLeftWidth,
+  setLocalities,
+  setColumns,
+  setReqManager,
+  setDiff,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -116,6 +121,21 @@ export const useRequestDispatch = () => {
   const _setVisibleCreateProject = useCallback((visibleCreateProject: any) => {
     dispatch(setVisibleCreateProject(visibleCreateProject));
   }, [dispatch]);
+  const _setLeftWidth = useCallback((leftWidth: any) => {
+    dispatch(setLeftWidth(leftWidth));
+  }, [dispatch]);
+  const _setLocalities = useCallback((localities: any) => {
+    dispatch(setLocalities(localities));
+  }, [dispatch]);
+  const _setColumns = useCallback((columns: any) => {
+    dispatch(setColumns(columns));
+  }, [dispatch]);
+  const _setReqManager = useCallback((reqManager: any) => {
+    dispatch(setReqManager(reqManager));
+  }, [dispatch]);
+  const _setDiff = useCallback((diff: any) => {
+    dispatch(setDiff(diff));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -145,5 +165,10 @@ export const useRequestDispatch = () => {
     setCsaSelected: _setCsaSelected,
     setLocalityType: _setLocalityType,
     setVisibleCreateProject: _setVisibleCreateProject,
+    setLeftWidth: _setLeftWidth,
+    setLocalities: _setLocalities,
+    setColumns: _setColumns,
+    setReqManager: _setReqManager,
+    setDiff: _setDiff,
   };
 };

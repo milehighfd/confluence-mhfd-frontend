@@ -11,12 +11,10 @@ import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import ColorService from 'Components/Work/Request/ColorService';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
-import DownloadCSV from 'Components/Work/Request/Toolbar/DownloadCSV';
 import ProjectEditService from 'Components/Work/Request/ProjectEditService';
 import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
 import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getTotalsByPropertyV2, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
-import ShareURL from 'Components/Work/Request/Toolbar/ShareURL';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
 
@@ -25,9 +23,9 @@ import ColumsTrelloCard from './ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
 import { postData } from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import Toolbar from 'routes/work-request/components/Toolbar';
 
 const { Option } = Select;
-const ButtonGroup = Button.Group;
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
@@ -62,6 +60,11 @@ const RequestView = ({ type, isFirstRendering }: {
     jurisdictionSelected,
     csaSelected,
     localityType,
+    leftWidth,
+    localities,
+    columns,
+    diff,
+    reqManager,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -88,22 +91,22 @@ const RequestView = ({ type, isFirstRendering }: {
     setCsaSelected,
     setLocalityType,
     setVisibleCreateProject,
+    setLeftWidth,
+    setLocalities,
+    setColumns,
+    setDiff,
+    setReqManager,
   } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
   const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
-  const [leftWidth, setLeftWidth] = useState(MEDIUM_SCREEN_RIGHT - 1);
   const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const [callBoard, setCallBoard] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
-  const [diff, setDiff] = useState<any[]>([null, null, null, null, null]);
-  const [reqManager, setReqManager] = useState<any[]>([null, null, null, null, null]);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const {setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
-  const [columns, setColumns] = useState(defaultColumns);
   const [projectsAmounts, setProjectAmounts] = useState([]);
-  const [localities, setLocalities] = useState<any[]>([]);
   const [localityFilter, setLocalityFilter] = useState('');
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -657,7 +660,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }
   const saveData = ({ projectId, amounts, years }:{ projectId: any, amounts: any[], years: any[] }) => {
     let projectData: any;
-    columns.forEach(c => {
+    columns.forEach((c: any) => {
       c.projects.forEach((p: any) => {
         if (p.project_id == projectId) {
           projectData = p;
@@ -681,7 +684,7 @@ const RequestView = ({ type, isFirstRendering }: {
         year1: yearList[0], year2: yearList[1],
         projectData: projectData.projectData
       }
-      let temporalColumns = columns.map(r => r);
+      let temporalColumns = columns.map((r: any) => r);
       let positions = amounts.map((req: number, index: number) => {
         let column = temporalColumns[index + 1];
         let projects = column.projects;
@@ -720,7 +723,7 @@ const RequestView = ({ type, isFirstRendering }: {
       setColumns(temporalColumns)
 
     } else {
-      let temporalColumns = columns.map((col: any, colIndex) => {
+      let temporalColumns = columns.map((col: any) => {
         return {
           ...col,
           projects: col.projects.filter((p: any) => {
@@ -823,7 +826,7 @@ const RequestView = ({ type, isFirstRendering }: {
                         value={localityFilter}
                         onSearch={(input2: any) => {
                           setLocalityFilter(input2);
-                          if (localities.map(r => r.name).indexOf(input2) !== -1) {
+                          if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
                             setLocality(input2)
                             setIsOnSelected(false);
                             let l = localities.find((p: any) => {
@@ -864,31 +867,7 @@ const RequestView = ({ type, isFirstRendering }: {
                         ))
                       }
                     </Select>
-
-                     <ButtonGroup>
-                     {(locality === 'Mile High Flood District' || type === 'WORK_REQUEST') && <Button className="btn-opacity" onClick={() => setShowBoardStatus(true) }>
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-88.svg') no-repeat center" }} src="" />
-                      </Button>}
-                      <Button className="btn-opacity" onClick={() => setShowAnalytics(true)}>
-                        <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-89.svg') no-repeat center" }} src="" />
-                      </Button>
-                    </ButtonGroup>
-
-                    <ButtonGroup className={leftWidth === (MEDIUM_SCREEN_RIGHT - 1) ? '' : 'hide-when-1' }>
-                    <DownloadCSV
-                      type={type}
-                      localities={localities}
-                      columns={columns}
-                      locality={locality}
-                      year={year}
-                      tabKey={tabKey}
-                      sumTotal={sumTotal}
-                      sumByCounty={sumByCounty}
-                      reqManager={reqManager}
-                      diff={diff}
-                    />
-                    <ShareURL />
-                    </ButtonGroup>
+                      <Toolbar />
                   </Col>
                 </Row>
               </div>
@@ -999,7 +978,7 @@ const RequestView = ({ type, isFirstRendering }: {
                           <div className="col-bg">
                             <div><h5>Contingency</h5></div>
                             {
-                              diff.map((d: any, i) => (
+                              diff.map((d: any, i: number) => (
                                 <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} className="differential">
                                   {d ? formatter.format(Math.floor(d)) : ''}
                                 </div>

@@ -139,3 +139,28 @@ export const setVisibleCreateProject = (payload: any) => ({
   type: types.REQUEST_SET_VISIBLE_CREATE_PROJECT,
   payload
 });
+
+export const setLeftWidth = (payload: any) => ({
+  type: types.REQUEST_SET_LEFT_WIDTH,
+  payload
+});
+
+export const setLocalities = (payload: any) => ({
+  type: types.REQUEST_SET_LOCALITIES,
+  payload
+});
+
+export const setColumns = (payload: any) => ({
+  type: types.REQUEST_SET_COLUMNS,
+  payload
+});
+
+export const setReqManager = (payload: any) => ({
+  type: types.REQUEST_SET_REQ_MANAGER,
+  payload
+});
+
+export const setDiff = (payload: any) => ({
+  type: types.REQUEST_SET_DIFF,
+  payload
+});

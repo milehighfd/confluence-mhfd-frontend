@@ -1,5 +1,4 @@
 import { boardProject, boardType, columnProject } from 'Components/Work/Request/RequestTypes';
-import CardStatService from 'Components/Work/Request/CardService';
 import { NEW_PROJECT_TYPES, list } from 'constants/constants';
 import { getCurrentProjectStatus } from '../../../utils/parsers';
 

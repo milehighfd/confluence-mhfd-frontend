@@ -16,7 +16,12 @@ const ShareURL = () => {
         openNotification();
       }
     }>
-      <img className="icon-bt" style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }} src="" />
+      <img
+        className="icon-bt"
+        style={{ WebkitMask: "url('/Icons/ic_share1.svg') no-repeat center" }}
+        alt=""
+        src=""
+      />
     </Button>
   );
 };
