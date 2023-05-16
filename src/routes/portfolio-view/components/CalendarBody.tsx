@@ -1297,6 +1297,8 @@ const CalendarBody = ({
 
   useEffect(() => {
     //collapseItemStatus();
+      const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
+      removeAllChildNodes(removechart);
     setZoomTimeline(0)
     console.log('end1',datas)
     timelineChart(datas);
