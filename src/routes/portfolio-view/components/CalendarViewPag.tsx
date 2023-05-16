@@ -77,7 +77,6 @@ const CalendarViewPag = ({
       controller.abort();
     };
   }, [currentGroup]);
-  console.log('Rendering CalendarViewPag');
   return <>
     {openPiney && (
       <div className="phaseview-body">

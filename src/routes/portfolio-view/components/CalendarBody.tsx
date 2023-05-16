@@ -112,14 +112,14 @@ const CalendarBody = ({
   let width = widthofDiv - 20;
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
 
-  useEffect(() => {        
+  useEffect(() => {       
     let idF = '';
     if(currentGroup === 'streams' && dataId.value !== ''){
       idF = dataId.value;
     }else{
       idF = dataId.id;
     }
-    if (idF === updatedGroup) {
+    if (idF === updatedGroup || !updatedGroup) {
       setUpdateForDates(!updateForDates);
     }
     if (idF === secondaryUpdatedGroup) {
@@ -1301,7 +1301,7 @@ const CalendarBody = ({
     console.log('end1',datas)
     timelineChart(datas);
     setSvgState(svg);
-  }, [calendarData,scheduleList,windowWidth]);
+  }, [calendarData,scheduleList,windowWidth,datas]);
 
   useEffect(() => {
     const svg = d3.select(svgDivWrapperId).select('svg');
@@ -1345,7 +1345,7 @@ const CalendarBody = ({
       idForFilter = dataId.value;
     }
     const controller = new AbortController();
-    console.log('init', currentGroup)
+    console.log('updateForDates', updateForDates)
     datasets.postData(
       `${SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter)}?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
       filterProjectOptions,
