@@ -56,7 +56,12 @@ const CalendarBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  const svgDivWrapperId = `#timeline-chart-${groupName.replaceAll(' ', '')}`;
+  console.log('groupName',groupName)
+  function startsWithNumber(str:string) {
+    return /^\d/.test(str);
+  }
+  groupName = groupName === '?' ? '#questionMark' : groupName;
+  const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
   const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline} = usePortfolioDispatch();
@@ -403,7 +408,7 @@ const CalendarBody = ({
         let scheduleRects = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}`;
+            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`;
           })
           .attr('class', 'stackedbar')
           .attr('rx', 12)
@@ -453,7 +458,7 @@ const CalendarBody = ({
         let scheduleRectsCenter = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_center`;
+            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_center`;
           })
           .attr('class', 'stackedbarCenter')
           .attr('x', function (d: any) {
@@ -502,7 +507,7 @@ const CalendarBody = ({
         let rectNames = scheduleG
           .enter().append('text')
           .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_text`;
+            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
           })
           .attr('class', 'labels')
           .style('fill',  'white')
@@ -564,9 +569,9 @@ const CalendarBody = ({
         const dotme = (text: any) => {
           text.each((d: any) => {
             const completeLabel = `${d['name']}`;
-            const idText = `${d.id.replaceAll(' ', '')}_${d.categoryNo}_text`;
+            const idText = `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
             const textElem: any = d3.select(`#${idText}`);
-            const rectElem = d3.select(`#${d.id.replaceAll(' ', '')}_${d.categoryNo}`);
+            const rectElem = d3.select(`#${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`);
             const padding = 15;
             const rectElemWidth: any = rectElem.attr('width');
             const totalWidth = rectElemWidth - padding;
@@ -1403,7 +1408,7 @@ const CalendarBody = ({
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
             <div style={{ marginTop: marginTopFactor }}>
-              <div style={{ height: calendarData.length=1*39, marginLeft: '2px' }} id={`timeline-chart-${groupName.replaceAll(' ', '')}`} />
+              <div style={{ height: calendarData.length=1*39, marginLeft: '2px' }} id={groupName === '?' ? 'questionMark' : `timeline-chart-${startsWithNumber(groupName) ? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`} />
             </div>
         </Col>
       </Row>
