@@ -2,9 +2,7 @@ import { boardType } from "./RequestTypes";
 
 class ColorService {
 
-    constructor() {}
-
-    getColor(type: boardType, project: any, arr: any[], year: number, columnIdx: number, editable: boolean) {
+    getColor(type: boardType, project: any, arr: any[], columnIdx: number) {
         let color = '#9faeb1'
         let a = arr.filter(p => p.origin === project.origin);
         let index = -1;

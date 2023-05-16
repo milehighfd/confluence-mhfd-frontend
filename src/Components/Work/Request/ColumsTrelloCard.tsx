@@ -1,73 +1,65 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useLocation } from 'react-router-dom';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useProjectDispatch } from 'hook/projectHook';
-import { filterByJurisdictionAndCsaSelected, hasPriority, onDropFunction } from './RequestViewUtil';
-import TrelloLikeCard from './TrelloLikeCard';
-import WsService from './WsService';
+import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import { useProfileState } from 'hook/profileHook';
+import { filterByJurisdictionAndCsaSelected, hasPriority, onDropFunction } from 'Components/Work/Request/RequestViewUtil';
+import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
+import WsService from 'Components/Work/Request/WsService';
 import { ADMIN, STAFF } from 'constants/constants';
+import ColorService from 'Components/Work/Request/ColorService';
 
 let columDragAction = [false, 0, 0];
 let fixedDragAction = [false, 0, 0];
-let scrollValues:any= [0,0,0,0,0,0];
-let scrollByIds:any = [];
+let scrollValues: any = [0, 0, 0, 0, 0, 0];
+let scrollByIds: any = [];
 
 const ColumsTrelloCard = ({
-  columns,
-  setColumns,
-  tabKey,
-  locality,
-  setVisibleCreateProject,
-  jurisdictionSelected,
-  csaSelected,
-  jurisdictionFilterList,
-  csaFilterList,
-  prioritySelected,
-  year,
-  type,
   setLoading,
   deleteProject,
-  namespaceId,
   saveData,
-  boardStatus,
   notIsFiltered,
-  ColorService,
-  userDesignation,
   flagforScroll
 }: {
-  columns: any;
-  setColumns: any;
-  tabKey: any;
-  locality: any;
-  setVisibleCreateProject: any;
-  jurisdictionSelected: any;
-  csaSelected: any;
-  jurisdictionFilterList: any;
-  csaFilterList: any;
-  prioritySelected: any;
-  year: any;
-  type: any;
   setLoading: any;
   deleteProject: any;
-  namespaceId: any;
   saveData: any;
-  boardStatus: any;
   notIsFiltered: any;
-  ColorService: any;
-  userDesignation: any;
   flagforScroll: any;
 }) => {
+  const location = useLocation();
+  const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
+  const {
+    columns,
+    tabKey,
+    locality,
+    jurisdictionSelected,
+    csaSelected,
+    jurisdictionFilterList,
+    csaFilterList,
+    prioritySelected,
+    year,
+    namespaceId,
+    boardStatus,
+  } = useRequestState();
+  const {
+    setColumns,
+    setVisibleCreateProject,
+  } = useRequestDispatch();
+  const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
   const { setStreamsIds, setComponentsFromMap } = useProjectDispatch();
   const divRef = useRef(null);
-  let scrollValuesInit:any= [0,0,0,0,0,0];
+  let scrollValuesInit: any = [0, 0, 0, 0, 0, 0];
   const [onScrollValue, setOnScrollValue] = useState(scrollValuesInit);
 
   useEffect(() => {
     setTimeout(() => {
-      if( document.getElementById(`column_${tabKey}_1`)){
-        scrollValues.forEach((element:any, index:any ) => {
+      if (document.getElementById(`column_${tabKey}_1`)) {
+        scrollValues.forEach((element: any, index: any) => {
           scrollByIds[index] = document.getElementById(`column_${tabKey}_${index}`);
           scrollByIds[index].scrollTop = onScrollValue[index];
         });
@@ -77,8 +69,8 @@ const ColumsTrelloCard = ({
 
   useEffect(() => {
     setTimeout(() => {
-      if( document.getElementById(`column_${tabKey}_1`)){
-        scrollValues.forEach((element:any, index:any ) => {
+      if (document.getElementById(`column_${tabKey}_1`)) {
+        scrollValues.forEach((element: any, index: any) => {
           scrollByIds[index] = document.getElementById(`column_${tabKey}_${index}`);
           scrollByIds[index].scrollTop = onScrollValue[index];
         });
@@ -88,7 +80,7 @@ const ColumsTrelloCard = ({
 
   const onDrop = (projectid: number, state: boolean, sourceColumn: number, sourcePosition: number, destColumn: number, destPosition: number) => {
     let cols = onDropFunction(projectid, columns, tabKey, state, sourceColumn, sourcePosition, destColumn, destPosition, saveData);
-    if(cols) {
+    if (cols) {
       WsService.sendUpdate(cols);
       setColumns(cols);
     }
@@ -101,32 +93,31 @@ const ColumsTrelloCard = ({
     setComponentsFromMap([]);
   };
 
-  return <DragDropContext onDragEnd={result => 
-    {
-      const { source, destination } = result;
-      if (!destination){
-        return;
-      }
-      const sourceColumn = +source.droppableId;
-      const destColumn = +destination.droppableId;
-      const sPosition = +source.index;
-      const dPosition = +destination.index;
-
-      onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
-
-      if( document.getElementById(`column_${tabKey}_1`)){
-        scrollValues.forEach((element:any, index:any ) => {
-          scrollValues[index] = document.getElementById(`column_${tabKey}_${index}`)?.scrollTop
-          setOnScrollValue(scrollValues)
-        });
-      }
+  return <DragDropContext onDragEnd={result => {
+    const { source, destination } = result;
+    if (!destination) {
+      return;
     }
-    }>
-      {columns.map((column: any, columnIdx: number) => (
-    
-    <div className="container-drag" id={`container_${tabKey}`} key={columnIdx + Math.random()}>
-      <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
-      
+    const sourceColumn = +source.droppableId;
+    const destColumn = +destination.droppableId;
+    const sPosition = +source.index;
+    const dPosition = +destination.index;
+
+    onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
+
+    if (document.getElementById(`column_${tabKey}_1`)) {
+      scrollValues.forEach((element: any, index: any) => {
+        scrollValues[index] = document.getElementById(`column_${tabKey}_${index}`)?.scrollTop
+        setOnScrollValue(scrollValues)
+      });
+    }
+  }
+  }>
+    {columns.map((column: any, columnIdx: number) => (
+
+      <div className="container-drag" id={`container_${tabKey}`} key={columnIdx + Math.random()}>
+        <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
+
         <Droppable droppableId={`${columnIdx}`}>
           {droppableProvided => (
             <div
@@ -137,14 +128,14 @@ const ColumsTrelloCard = ({
               style={
                 fixedDragAction[0] && columnIdx === Math.trunc(Number(fixedDragAction[1])) ? { backgroundColor: '#f2f4ff' } : {}
               }
-              onScroll={(e:any)=>{
-                  if(document.getElementById('modalProjectView')===null){
-                    scrollValues[columnIdx] = e.currentTarget?.scrollTop
-                    setOnScrollValue(scrollValues)
-                  }       
-                  e.preventDefault()
-                  e.stopPropagation()
-                }}
+              onScroll={(e: any) => {
+                if (document.getElementById('modalProjectView') === null) {
+                  scrollValues[columnIdx] = e.currentTarget?.scrollTop
+                  setOnScrollValue(scrollValues)
+                }
+                e.preventDefault()
+                e.stopPropagation()
+              }}
             >
               {column.hasCreateOption && (
                 <Button className="btn-transparent button-createProject " onClick={onClickNewProject}>
@@ -162,7 +153,7 @@ const ColumsTrelloCard = ({
                     p,
                   ),
                 )
-                .filter((p: any) => { return hasPriority(p, prioritySelected, columnIdx)})
+                .filter((p: any) => { return hasPriority(p, prioritySelected, columnIdx) })
                 .map((p: any, i: number, arr: any[]) => {
                   columDragAction = fixedDragAction;
                   const valuePosition: number = Number(columDragAction[2]);
@@ -211,16 +202,14 @@ const ColumsTrelloCard = ({
                                   rowIdx={i}
                                   saveData={saveData}
                                   tabKey={tabKey}
-                                  editable={boardStatus !== 'Approved' || (userDesignation === ADMIN || userDesignation === STAFF)}
+                                  editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
                                   filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
                                     type,
                                     p,
                                     arr,
-                                    year,
                                     columnIdx,
-                                    boardStatus !== 'Approved',
                                   )}
                                   divRef={divRef}
                                 />
@@ -263,16 +252,14 @@ const ColumsTrelloCard = ({
                                   rowIdx={i}
                                   saveData={saveData}
                                   tabKey={tabKey}
-                                  editable={boardStatus !== 'Approved' || (userDesignation === ADMIN || userDesignation === STAFF)}
+                                  editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
                                   filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
                                     type,
                                     p,
                                     arr,
-                                    year,
                                     columnIdx,
-                                    boardStatus !== 'Approved',
                                   )}
                                   divRef={divRef}
                                 />
@@ -310,16 +297,14 @@ const ColumsTrelloCard = ({
                                   rowIdx={i}
                                   saveData={saveData}
                                   tabKey={tabKey}
-                                  editable={boardStatus !== 'Approved' || (userDesignation === ADMIN || userDesignation === STAFF)}
+                                  editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
                                   filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
                                     type,
                                     p,
                                     arr,
-                                    year,
                                     columnIdx,
-                                    boardStatus !== 'Approved',
                                   )}
                                   divRef={divRef}
                                 />
@@ -352,8 +337,9 @@ const ColumsTrelloCard = ({
             </div>
           )}
         </Droppable>
-    </div>
-  ))}
+      </div>
+    ))}
   </DragDropContext>
 };
+
 export default ColumsTrelloCard;

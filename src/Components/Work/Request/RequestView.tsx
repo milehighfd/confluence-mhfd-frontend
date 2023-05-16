@@ -9,7 +9,6 @@ import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook
 import { useProjectDispatch } from 'hook/projectHook';
 import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
-import ColorService from 'Components/Work/Request/ColorService';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
 import ProjectEditService from 'Components/Work/Request/ProjectEditService';
 import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
@@ -56,7 +55,6 @@ const RequestView = ({ type, isFirstRendering }: {
     boardComment,
     jurisdictionFilterList,
     csaFilterList,
-    prioritySelected,
     jurisdictionSelected,
     csaSelected,
     localityType,
@@ -90,7 +88,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setJurisdictionSelected,
     setCsaSelected,
     setLocalityType,
-    setVisibleCreateProject,
     setLeftWidth,
     setLocalities,
     setColumns,
@@ -872,26 +869,10 @@ const RequestView = ({ type, isFirstRendering }: {
                       <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                         <div className="work-table" ref={wrtRef}>
                           <ColumsTrelloCard
-                            columns={columns}
-                            setColumns={setColumns}
-                            tabKey={tabKey}
-                            locality={locality}
-                            setVisibleCreateProject={setVisibleCreateProject}
-                            jurisdictionSelected={jurisdictionSelected}
-                            csaSelected={csaSelected}
-                            jurisdictionFilterList={jurisdictionFilterList}
-                            csaFilterList={csaFilterList}
-                            prioritySelected={prioritySelected}
-                            year={year}
-                            type={type}
                             setLoading={setLoading}
                             deleteProject={deleteProject}
-                            namespaceId={namespaceId}
                             saveData={saveData}
-                            boardStatus={boardStatus}
                             notIsFiltered={notIsFiltered}
-                            ColorService={ColorService}
-                            userDesignation={userInformation.designation}
                             flagforScroll={flagforScroll}
                           />
                         </div>
@@ -901,7 +882,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             collapsible="header"
                           >
                             <Panel
-                              disabled={sumByCounty.length === 0}
+                              collapsible={sumByCounty.length === 0 ? 'disabled' : 'header'}
                               header={
                                 tabKey !== 'Maintenance' ?
                                 (!openCollaps
