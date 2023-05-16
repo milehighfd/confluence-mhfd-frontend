@@ -115,7 +115,7 @@
     width: 100%;
     height: 2px;
     border: none;
-    background-color: #251863;
+    background-color: $purple;
     position: absolute;
     left: 0px;
     top: 0px;
@@ -171,7 +171,7 @@
   stroke: red;
 }
 .topHeader text{
-  fill: #11093C;
+  fill: $purple00;
   width: 58px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -189,7 +189,7 @@
 }
 
 .topHeaderM text{
-  fill: #11093C;
+  fill: $purple00;
   width: 58px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -251,7 +251,7 @@
   z-index: 100;
 }
 .topHeaderMonth text{
-  fill: #11093C;
+  fill: $purple00;
   width: 58px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -274,7 +274,7 @@
   visibility: hidden;
 }
 .topHeaderYearAxis text{
-  fill: #11093C;
+  fill: $purple00;
   position: absolute;
   height: 15px;
   left: 23.15%;
@@ -330,7 +330,7 @@
   }
 }
 .topHeaderYear text{
-  fill: #11093C;
+  fill: $purple00;
   position: absolute;
   height: 15px;
   left: 23.15%;
@@ -355,7 +355,7 @@
 
 .topHeaderChart text{
   visibility: hidden;
-  fill: #11093C;
+  fill: $purple00;
   width: 58px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -373,7 +373,7 @@
 }
 .topHeaderMChart text{
   visibility: hidden;
-  fill: #11093C;
+  fill: $purple00;
   width: 58px;
   height: 14px;
   font-family: 'Ubuntu';
@@ -419,7 +419,7 @@
 
 .topHeaderYearChart text{
   visibility: hidden;
-  fill: #11093C;
+  fill: $purple00;
   position: absolute;
   height: 15px;
   left: 23.15%;
@@ -465,7 +465,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 14px;
-  color: #11093C;
+  color: $purple00;
 }
 
 .dragginglines path{
@@ -600,7 +600,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    color:#11093C !important;
+    color:$purple00 !important;
   }
   .tag-blue{
     background-color: #047cd7;
@@ -622,7 +622,7 @@
     width: 100%;
   }
   p{
-    color: #11093C !important;
+    color: $purple00 !important;
   }
   .form-text-calendar{
     .ant-space-align-center {
@@ -632,7 +632,7 @@
       }
     }
     .span-tollgate:hover{
-      color: #11093C !important;
+      color: $purple00 !important;
       opacity: 0.6 !important;
       cursor: pointer;
     }
@@ -670,7 +670,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    color:#11093C !important;
+    color:$purple00 !important;
   }
   .tag-blue{
     background-color: #e6f2fb;
@@ -759,7 +759,7 @@
   }
   .select-area{
     a{
-      color: #11093C;
+      color: $purple00;
       max-width: 342px;
     }
   }
@@ -860,21 +860,21 @@
     margin: 0px 5px;
     border-radius: 8px;
     box-shadow: none;
-    color: #251863 !important;
+    color: $purple !important;
     font-weight: 400;
   }
   .btn-filter-k:hover{
-    color: #251863;
+    color: $purple;
     opacity: 1;
   }
   .btn-view:hover  .btn-view:focus .btn-view:active{
-    color: #251863;
+    color: $purple;
     background: rgba(17, 9, 60, 0.03);
     opacity: 1;
     font-weight: 500;
   }
   .btn-view-active{
-    color: #251863;
+    color: $purple;
     background: rgba(17, 9, 60, 0.03);
     opacity: 1;
     font-weight: 500;
@@ -882,7 +882,7 @@
   }
   .btn-filter-k{
     border: 1px solid #ffffff;
-    color: #251863;
+    color: $purple;
     background: #ffffff;
     border-radius: 6px;
     padding: 4px 10px;
@@ -900,21 +900,21 @@
     }
   }
   .btn-filter-k:hover{
-    color: #251863;
+    color: $purple;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
     border: none !important;
   }
   .btn-filter-k-active{
-    color: #251863;
+    color: $purple;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
     border: none !important;
   }
   .btn-filter-k:hover, .btn-filter-k:focus, .btn-filter-k:active, .btn-filter-k.active{
-    color: #251863;
+    color: $purple;
     background: #f8f7f9;
     opacity: 1;
     box-shadow: none !important;
@@ -1127,7 +1127,7 @@
     .ant-collapse > .ant-collapse-item > .ant-collapse-header {
       padding: 5px 10px;
       padding-left: 10px;
-      color: #251863 !important;
+      color: $purple !important;
       background: #fafafa;
       line-height: 30px;
       height: 39px;
@@ -1186,7 +1186,7 @@
       align-items: center;
       p{
         margin-bottom: 0px;
-        color: #251863 !important;
+        color: $purple !important;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -1227,7 +1227,7 @@
     }
     p{
       margin-bottom: -4px;
-      color: #11093c;
+      color: $purple00;
     }
     .title-timeline{
       font-weight: 600;
@@ -1246,7 +1246,7 @@
     padding: 8px 10px;
     span{
       font-size: 16px;
-      color: #11093C;
+      color: $purple00;
     }
     .icon-line{
       font-size: 12px;
@@ -1277,7 +1277,7 @@
   .table-body{
     overflow-x: hidden;
     .ant-table-column-sorter {
-      color: #11093c;
+      color: $purple00;
     }
     .table-table-body{
       width: min-content;
@@ -1460,27 +1460,27 @@
         background-color: rgb(0 0 0 / 0%);
       }
       .ant-table-thead>tr>th {
-        color: #251863;
+        color: $purple;
         background: #fbfbfc;
         padding: 5px 14px !important;
       }
       .ant-table {
-        color: #11093ccc;
+        color: $purple00cc;
         transition: background .3s;
       }
       .ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th {
         padding: 8px 14px;
         height: 39px;
-        color: #251863 !important;
+        color: $purple !important;
       }
       .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
-        color: #11093c;
+        color: $purple00;
       }
       .tag{
         background-color: #eafaf5;
         padding: 4px 10px;
         border-radius: 5px;
-        color: #28c499;
+        color: $green;
       }
       .ant-table-pagination.ant-pagination {
         display: none;
@@ -1574,29 +1574,29 @@
       margin: 0px 0px;
       border-radius: 0px;
       box-shadow: none;
-      color: #11093C;
+      color: $purple00;
       opacity: 0.6;
       font-weight: 400;
     }
     .btn-filter-k:hover{
-      color: #11093c;
+      color: $purple00;
       opacity: 1;
     }
     .btn-view:hover  .btn-view:focus .btn-view:active{
-      color: #11093c;
+      color: $purple00;
       background: rgba(17, 9, 60, 0.03);
       opacity: 1;
       font-weight: 500;
     }
     .btn-view-active{
-      color: #11093c;
+      color: $purple00;
       opacity: 1;
       font-weight: 500;
     }
     .form-text-calendar{
       margin-top: 10px;
       p{
-        color: #11093C !important;
+        color: $purple00 !important;
         opacity: 0.5 !important;
       }
       span{
@@ -1692,7 +1692,7 @@
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
-        color:#11093C !important;
+        color:$purple00 !important;
       }
       .tag-blue{
         background-color: #e6f2fb;
@@ -1733,7 +1733,7 @@
       font-weight: 700;
       font-size: 13px;
       line-height: 15px;
-      color: #11093C;
+      color: $purple00;
     }
   }
   .phaseview-body{
@@ -1762,7 +1762,7 @@
        
       /* Handle */
       .header-title::-webkit-scrollbar-thumb {
-        background: #11093c00;
+        background: $purple0000;
         border-radius: 10px;
       }
       .container-timeline{
@@ -2048,7 +2048,7 @@
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
-        color:#11093C !important;
+        color:$purple00 !important;
       }
       .tag-blue{
         background-color: #e6f2fb;
@@ -2091,7 +2091,7 @@
       font-weight: 700;
       font-size: 13px;
       line-height: 20px;
-      color: #11093C;
+      color: $purple00;
       overflow:hidden; 
           text-overflow:ellipsis;
           display:-webkit-box; 
@@ -2230,7 +2230,7 @@
     }
     .ant-table-thead>tr>th {
       background: #f8f8fa;
-      color: #11093c;
+      color: $purple00;
     }
     .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
       background-color: rgb(0 0 0 / 0%);
@@ -2980,7 +2980,7 @@
     }
   }
   .topHeader text{
-    fill: #11093C;
+    fill: $purple00;
     width: 58px;
     height: 14px;
     font-family: 'Ubuntu';
@@ -2997,7 +2997,7 @@
     position: fixed;
   }
   .topHeaderYear text{
-    fill: #11093C;
+    fill: $purple00;
     position: absolute;
     height: 15px;
     left: 23.15%;
@@ -3020,7 +3020,7 @@
     visibility: hidden;
   }
   .topHeaderYearAxis text{
-    fill: #11093C;
+    fill: $purple00;
     position: absolute;
     height: 15px;
     left: 23.15%;
@@ -3061,7 +3061,7 @@
     font-weight: 500;
     font-size: 16px !important;
     line-height: 14px;
-    color: #11093C;
+    color: $purple00;
   }
   .nameClicked {
     font-family: 'Ubuntu';
@@ -3524,7 +3524,7 @@
     }
     h2{
       max-width: 551px !important;
-      color: #11093c;
+      color: $purple00;
       font-size: 34px;
       span{
         font-size: 20px !important;
@@ -3742,7 +3742,7 @@
     line-height: 21px;
   }
   .topHeader text{
-    fill: #11093C;
+    fill: $purple00;
     width: 58px;
     height: 14px;
     font-family: 'Ubuntu';
@@ -3759,7 +3759,7 @@
     position: fixed;
   }
   .topHeaderYear text{
-    fill: #11093C;
+    fill: $purple00;
     position: absolute;
     height: 15px;
     left: 23.15%;
@@ -3782,7 +3782,7 @@
     visibility: hidden;
   }
   .topHeaderYearAxis text{
-    fill: #11093C;
+    fill: $purple00;
     position: absolute;
     height: 15px;
     font-family: 'Ubuntu';
@@ -3820,7 +3820,7 @@
     font-weight: 500;
     font-size: 22px !important;
     line-height: 14px;
-    color: #11093C;
+    color: $purple00;
   }
   .nameClicked {
     font-family: 'Ubuntu';
@@ -4463,7 +4463,7 @@
   }
   .portafolio-head{
     .select-area a {
-      color: #11093C;
+      color: $purple00;
       max-width: 100%;
     }
     .icon-bt{
@@ -4472,7 +4472,7 @@
     }
     h2{
       max-width: 616px !important;
-      color: #11093c;
+      color: $purple00;
       font-size: 37px;
       span{
         font-size: 27px !important;
@@ -4650,7 +4650,7 @@
     line-height: 21px;
   }
   .topHeader text{
-    fill: #11093C;
+    fill: $purple00;
     width: 58px;
     height: 14px;
     font-family: 'Ubuntu';
@@ -4667,7 +4667,7 @@
     position: fixed;
   }
   .topHeaderYear text{
-    fill: #11093C;
+    fill: $purple00;
     position: absolute;
     height: 15px;
     left: 23.15%;
@@ -4690,7 +4690,7 @@
     visibility: hidden;
   }
   .topHeaderYearAxis text{
-    fill: #11093C;
+    fill: $purple00;
     position: absolute;
     height: 15px;
     left: 23.15%;
@@ -4731,7 +4731,7 @@
     font-weight: 500;
     font-size: 22px !important;
     line-height: 14px;
-    color: #11093C;
+    color: $purple00;
   }
   .nameClicked {
     font-family: 'Ubuntu';
