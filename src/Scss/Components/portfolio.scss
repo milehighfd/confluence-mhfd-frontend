@@ -1804,6 +1804,32 @@
           height: 1px;
           border-top: 3px dashed #D5D3DA;
         }
+        .text-p{
+          width: 6.6666666667%;
+          padding: 0px 0px;
+          color: #706b8a;
+          line-height: 14px;
+          margin-bottom: 0px;
+          letter-spacing: -1px;
+          width: 6.666666667%;
+          height: 13px;
+          border-left: 2px solid #eae8f0;
+          font-family: 'Ubuntu';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 14px;
+          text-align: center;
+          mix-blend-mode: normal;
+          overflow:hidden; 
+          text-overflow:ellipsis;
+          display:-webkit-box; 
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2;
+          flex: none;
+          order: 1;
+          flex-grow: 0;
+        }
         p{
           width: 6.6666666667%;
           padding: 0px 0px;
@@ -2854,13 +2880,22 @@
         height: calc(100vh - 328px) !important;
       }
       .phaseview-title{
+        .text-p{
+          font-size: 15px !important;
+          line-height: 14px !important;
+        }
         p{
           font-size: 14px !important;
+          line-height: 13px !important;
         }
       }
       .phaseview-title-label{
         p{
           font-size: 14px !important;
+        }
+        .text-p{
+          font-size: 14.5px !important;
+          line-height: 13px !important;
         }
         .border-transparent{
           border-left: 0px solid transparent !important;
@@ -3656,16 +3691,25 @@
       }
       .phaseview-title{
         p{
-          font-size: 20px !important;
-          line-height: 20px !important;
+          font-size: 18px !important;
+          line-height: 18px !important;
           height: 43px !important;
+        }
+        .text-p{
+          font-size: 18px !important;
+          line-height: 18px !important;
+          height: 23px !important;
         }
       }
       .phaseview-title-label{
         p{
-          font-size: 20px !important;
-          height: 20px !important;
+          font-size: 18px !important;
+          height: 18px !important;
           border-left: 4px solid #eae8f0 !important;
+        }
+        .text-p{
+          font-size: 18px !important;
+          line-height: 18px !important;
         }
         .border-transparent{
           border-left: 0px solid transparent !important;
@@ -4565,9 +4609,16 @@
         p{
           font-size: 24px !important;
           line-height: 23px !important;
+          height: auto !important;
         }
       }
       .phaseview-title-label{
+        height: auto !important;
+        .text-p{
+          font-size: 24px !important;
+          line-height: 25px !important;
+          height: auto !important;
+        }
         p{
           font-size: 24px !important;
           height: 24px !important;
@@ -4575,7 +4626,7 @@
         }
         hr{
           transform: translate(0px, -5px) !important;
-          border-top: 5px dashed #D5D3DA;
+          border-top: 5px dashed #D5D3DA !important;
         }
       }
     }

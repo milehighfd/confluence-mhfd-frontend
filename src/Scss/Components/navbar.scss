@@ -215,15 +215,6 @@
     border-radius: 5px !important;
   }
 }
-.menu-mhfd-dis{
-  margin: 0px !important;
-  color: #11093c !important;
-  opacity: 1 !important;
-  margin-top: -4px !important;
-  background-color: rgba(37, 24, 99, 0.08) !important;
-  border-radius: 5px 5px 0px 0px !important;
-  padding: 7px 11px;
-}
 .ant-dropdown-menu-submenu-popup{
   .ant-dropdown-menu::-webkit-scrollbar {
   width: 5px !important;
@@ -434,9 +425,6 @@
     background-size: contain;
     background-position-x: center;
 
-    .tuto-02, .tuto-03, .tuto-04, .tuto-05, .tuto-06,
-    .tuto-07, .tuto-08, .tuto-09, .tuto-10, .tuto-11,
-    .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16,
     .tuto-17, .tuto-18, .tuto-19, .tuto-20, .tuto-21,
     .tuto-22, .tuto-23, .tuto-24, .tuto-25, .tuto-26,
     .tuto-27, .tuto-28, .tuto-29, .tuto-30, .tuto-31,
@@ -453,157 +441,6 @@
     }
     p{
       color: $white;
-    }
-    .tuto-02{
-      top: 96px;
-      left: 35px;
-
-      p{
-        padding: 30px 0px 0px 30px;
-      }
-    }
-    .tuto-03{
-      top: 425px;
-      left: 35px;
-
-      p{
-        padding: 30px 0px 0px 30px;
-      }
-    }
-    .tuto-04{
-      bottom: 0px;
-      left: 35px;
-      p{
-        padding: 30px 0px 0px 30px;
-      }
-    }
-    .tuto-05{
-      top: calc(50% - -27px);
-      right: 40%;
-      p{
-        padding: 35px 0px 0px 30px;
-      }
-      img{
-        right: 0px;
-      }
-    }
-    .tuto-06{
-      top: 50px;
-      right: 20px;
-
-      p{
-        padding: 50px 0px 0px 0px;
-      }
-      .img-t-01{
-        left: 50px;
-      }
-      .img-t-02{
-        right: 35px;
-      }
-    }
-    .tuto-07{
-      top:52px;
-      left:  82%;
-      width: 250px;
-
-      p{
-        padding: 30px 0px 0px 10px;
-      }
-    }
-    .tuto-08{
-      top: 150px;
-      right: 36%;
-
-      p{
-        padding: 35px 0px 0px 0px;
-      }
-      img{
-        right: 0px;
-      }
-    }
-    .tuto-09{
-      top: 215px;
-      right:  calc(28% - 42px);
-      width: 250px;
-      p{
-        padding: 35px 0px 0px 0px;
-      }
-      img{
-        right: 65px;
-      }
-    }
-    .tuto-10{
-      top: 230px;
-      right: 0px;
-      width: 250px;
-
-      p{
-        padding: 35px 10px 0px 0px;
-      }
-      img{
-        left: 90px;
-      }
-    }
-    .tuto-11{
-      top: calc(60% - -27px);
-      right: 35%;
-      p{
-        padding: 35px 0px 0px 30px;
-      }
-      img{
-        right: 0px;
-      }
-    }
-    .tuto-12{
-      top: 115px;
-      left: 15px;
-      width: 250px;
-      p{
-        padding: 45px 0px 0px 0px;
-      }
-      img{
-        left: 100px;
-      }
-    }
-    .tuto-13{
-      top: 100px;
-      left: 235px;
-      width: 250px;
-      p{
-        padding: 30px 0px 0px 30px;
-      }
-      img{
-        left: 100px;
-      }
-    }
-    .tuto-14{
-      top: 30%;
-      left: 40%;
-      p{
-        padding: 35px 0px 0px 30px;
-      }
-      .img-card{
-        left: -240px;
-        top: 20px;
-      }
-    }
-    .tuto-15{
-      bottom: 68px;
-      left: 110px;
-      width: 210px;
-      p{
-        padding: 30px 0px 0px 0px;
-      }
-    }
-    .tuto-16{
-      top: calc(60% - -27px);
-      right: 35%;
-      p{
-        padding: 35px 0px 0px 30px;
-      }
-      img{
-        right: 0px;
-      }
     }
     .tuto-17{
       top: 96px;
@@ -1044,9 +881,6 @@
     background-size: contain;
     background-position-x: center;
 
-    .tuto-02, .tuto-03, .tuto-04, .tuto-05, .tuto-06,
-    .tuto-07, .tuto-08, .tuto-09, .tuto-10, .tuto-11,
-    .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16,
     .tuto-17, .tuto-18, .tuto-19, .tuto-20, .tuto-21,
     .tuto-22, .tuto-23, .tuto-24, .tuto-25, .tuto-26,
     .tuto-27, .tuto-28, .tuto-29, .tuto-30, .tuto-31,
@@ -1334,10 +1168,6 @@
     padding: 7px 12px;
   }
   .tuto-01{
-
-    .tuto-02, .tuto-03, .tuto-04, .tuto-05, .tuto-06,
-    .tuto-07, .tuto-08, .tuto-09, .tuto-10, .tuto-11,
-    .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16,
     .tuto-17, .tuto-18, .tuto-19, .tuto-20, .tuto-21,
     .tuto-22, .tuto-23, .tuto-24, .tuto-25, .tuto-26,
     .tuto-27, .tuto-28, .tuto-29, .tuto-30, .tuto-31,
@@ -1645,9 +1475,6 @@
   }
   .tuto-01{
 
-    .tuto-02, .tuto-03, .tuto-04, .tuto-05, .tuto-06,
-    .tuto-07, .tuto-08, .tuto-09, .tuto-10, .tuto-11,
-    .tuto-12, .tuto-13, .tuto-14, .tuto-15, .tuto-16,
     .tuto-17, .tuto-18, .tuto-19, .tuto-20, .tuto-21,
     .tuto-22, .tuto-23, .tuto-24, .tuto-25, .tuto-26,
     .tuto-27, .tuto-28, .tuto-29, .tuto-30, .tuto-31,
