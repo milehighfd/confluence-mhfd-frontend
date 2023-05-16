@@ -16,17 +16,21 @@ const SORT_ITEMS = [{ name: 'Name', value: 'name' },
   { name: 'Date Registered', value: 'createdAt' }
  ];
 const ROLES = ['MHFD Senior Manager', 'MHFD Staff', 'Local Government', 'Consultant / Contractor', 'Other'];
-const UserMngFilters = ({ option, setOption, search, reset, title }: { option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
+const UserMngFilters = ({setIsLoading, option, setOption, search, reset, title }: {setIsLoading:any,  option: OptionsFiltersUser, setOption: Function, search: Function, reset: Function, title: string }) => {
   const { Search } = Input;
   const [organization,setOrganization] = useState('');
   const [serviceArea,setServiceArea] = useState('');  
   const [name,setName] = useState(option.name);
   useEffect(() => {
+    setIsLoading(true);
     const auxOption = { ...option };
     auxOption.organization = organization;
     auxOption.serviceArea = serviceArea;
     setOption(auxOption);
     search(auxOption);
+    setTimeout(() =>{
+      setIsLoading(false)
+   }, 1500)
   }, [organization, serviceArea]);
   const menu = (list: Array<string>, title: string, defaultValue: string) => {
     const itemMenu: MenuProps['items'] = [];
@@ -44,6 +48,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
       items={itemMenu}
       onClick={(event) => {
         console.log(event);
+        setIsLoading(true);
         const auxOption = { ...option };
         const val = event.key.split('|')[0] !== 'all' ? event.key.split('|')[1] : '';
         switch (title) {
@@ -62,6 +67,9 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
         };
         setOption(auxOption);
         search(auxOption);
+        setTimeout(() =>{
+          setIsLoading(false)
+       }, 1500)
       }}>
     </Menu>
   };
@@ -125,6 +133,7 @@ const UserMngFilters = ({ option, setOption, search, reset, title }: { option: O
             auxOption.name = value;
             setOption(auxOption);
             search(auxOption);
+            setIsLoading(true);
             console.log(auxOption);
           }}
           style={{ width: '30%', marginRight:'10px', height: '36px', borderRadius:'5px'}}

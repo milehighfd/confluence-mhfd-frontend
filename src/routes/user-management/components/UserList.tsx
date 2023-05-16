@@ -354,6 +354,7 @@ let items = [
         }
       }
     });
+    setIsLoading(false)
   }
 
   // console.log(optionSelect)
@@ -366,11 +367,10 @@ let items = [
             <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
             <Option value="Pending User Requests"><span style={{paddingLeft:'3px'}}>Pending User Requests</span></Option>
             <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
-            {/* <Option value="User Activity">User Activity</Option> */}
         </Select>
         </div>
         <div className='filter-user-management'>
-          <UserMngFilters option={optionSelect === 'Approved Users' ? optionUserActivated : (optionSelect === 'Pending User Requests' ? optionUserPending : optionUserDeleted)} setOption={optionSelect === 'Approved Users' ? setOptionUserActivated : (optionSelect === 'Pending User Requests' ? setOptionUserPending : setOptionUserDeleted)} search={optionSelect === 'Approved Users' ? searchUserActivated : (optionSelect === 'Pending User Requests' ? searchUserPending : searchUserDelete)}
+          <UserMngFilters setIsLoading={setIsLoading} option={optionSelect === 'Approved Users' ? optionUserActivated : (optionSelect === 'Pending User Requests' ? optionUserPending : optionUserDeleted)} setOption={optionSelect === 'Approved Users' ? setOptionUserActivated : (optionSelect === 'Pending User Requests' ? setOptionUserPending : setOptionUserDeleted)} search={optionSelect === 'Approved Users' ? searchUserActivated : (optionSelect === 'Pending User Requests' ? searchUserPending : searchUserDelete)}
           reset={resetActivated} title={'activated'}/>
           {/* <Input
             style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
