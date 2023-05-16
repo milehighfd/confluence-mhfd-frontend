@@ -25,7 +25,7 @@ const DetailedModal = lazy(() => import('./routes/detail-page/components/DetailM
 
 const App = () => {
   console.log(`ENVIRONMENT: ${process.env.REACT_APP_NODE_ENV}`);
-  console.log('May 11 11:26 version');
+  console.log('May 16 18:08 version');
 
   const appUser = useAppUserState();
   const { loading } = useLogin();

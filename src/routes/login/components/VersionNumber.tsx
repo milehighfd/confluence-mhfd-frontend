@@ -23,6 +23,12 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
+          <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.3 - May 16, 2023 (for testing purposes only)</p>
+            <ul>
+                <li>The following views are availalable for Review: Main Map (except sorting), PM Tools (incl. groupings, filters, favorites and sorting)</li>
+                <li>Enhancements include: in-app notifications; teams and project numbers (in the project detail page); more precise search qualifiers (in Main Map and PM Tools); general memory optimization; and user database reconciliation; and design clean-up in preparation for the "Work Plan Debrief"</li>
+                <li>The next release will include the work request, work plan, and the already-complete create project workflows; and the financial section</li>
+            </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>V2.2 - May 1, 2023</p>
             <ul>
                 <li>The following views are open for Review: My Confluence, Main Map (except for Action Filters), PM tools (except for Filters and List View Sort)</li>
