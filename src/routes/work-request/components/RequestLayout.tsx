@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import RequestView from 'Components/Work/Request/RequestView';
 import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
@@ -11,6 +11,7 @@ import { BoardDataRequest } from 'Components/Work/Request/RequestTypes';
 import { Layout } from 'antd';
 import SidebarView from 'Components/Shared/Sidebar/SidebarView';
 import { AlertStatus } from 'Components/Work/Request/AlertStatus';
+import ConfigurationService from 'services/ConfigurationService';
 
 const RequestLayout = () => {
   const location = useLocation();
@@ -55,7 +56,8 @@ const RequestLayout = () => {
     setPrioritySelected,
     setJurisdictionSelected,
     setCsaSelected,
-    setVisibleCreateProject
+    setVisibleCreateProject,
+    setYearList,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
     type,
@@ -68,6 +70,24 @@ const RequestLayout = () => {
   const onUpdateBoard = () => {
     //This fn is intented to be used to reload getBoardData2
   }
+
+  useEffect(() => {
+    const initLoading = async () => {
+      let config;
+      try {
+        config = await ConfigurationService.getConfiguration('BOARD_YEAR');
+      } catch (e) {
+        console.log(e);
+      }
+      let boardYearLimit = +config.value;
+      let array = [];
+      for (var i = 0; i < 5; i++) {
+        array.push(boardYearLimit - i);
+      }
+      setYearList(array);
+    }
+    initLoading();
+  }, [setYearList]);
 
   return (
     <Fragment>

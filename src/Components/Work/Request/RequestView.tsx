@@ -1,5 +1,5 @@
-import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOutlined } from '@ant-design/icons';
-import { Layout, Button, Input, Row, Col, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
+import { DownOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
+import { Layout, Button, Input, Row, Col, Tabs, AutoComplete, Popover } from 'antd';
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { GOVERNMENT_STAFF } from 'constants/constants';
@@ -7,13 +7,10 @@ import { getBoardData2, getLocalitiesByBoardType } from 'dataFetching/workReques
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useProjectDispatch } from 'hook/projectHook';
-import ConfigurationService from 'services/ConfigurationService';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
-import CostTableBody from 'Components/Work/Request/CostTableBody';
 import ProjectEditService from 'Components/Work/Request/ProjectEditService';
 import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
-import { compareArrays, compareColumns, defaultColumns, formatter, generateColumns, getTotalsByPropertyV2, priceFormatter, priceParser } from 'Components/Work/Request/RequestViewUtil';
-import TotalHeader from 'Components/Work/Request/TotalHeader';
+import { compareArrays, compareColumns, defaultColumns, generateColumns, getTotalsByPropertyV2 } from 'Components/Work/Request/RequestViewUtil';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
@@ -23,12 +20,11 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
 import YearDropdown from 'routes/work-request/components/YearDropdown';
 import ResizableButton from 'routes/work-request/components/ResizableButton';
+import RequestCostRows from 'routes/work-request/components/RequestCostRows';
 
 import '../../../index.scss';
 
-
 const { TabPane } = Tabs;
-const { Panel } = Collapse;
 
 const popovers: any = [
   <div className="popoveer-00"><b>Capital:</b> Master planned improvements that increase conveyance or reduce flow.</div>,
@@ -48,7 +44,6 @@ const RequestView = ({ type, isFirstRendering }: {
     tabKey,
     year,
     yearList,
-    sumByCounty,
     sumTotal,
     namespaceId,
     boardStatus,
@@ -62,7 +57,6 @@ const RequestView = ({ type, isFirstRendering }: {
     leftWidth,
     localities,
     columns,
-    diff,
     reqManager,
   } = useRequestState();
   const {
@@ -71,7 +65,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setLocality,
     setTabKey,
     setYear,
-    setYearList,
     setProblemId,
     setSumByCounty,
     setSumTotal,
@@ -94,7 +87,6 @@ const RequestView = ({ type, isFirstRendering }: {
     setDiff,
     setReqManager,
   } = useRequestDispatch();
-  const [openCollaps, setOpenCollaps] = useState(false);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const [callBoard, setCallBoard] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
@@ -222,18 +214,6 @@ const RequestView = ({ type, isFirstRendering }: {
 
   useEffect(() => {
     const initLoading = async () => {
-    let config;
-    try {
-      config = await ConfigurationService.getConfiguration('BOARD_YEAR');
-    } catch (e) {
-      console.log(e);
-    }
-    let boardYearLimit = +config.value;
-    let array = [];
-    for (var i = 0 ; i < 5 ; i++) {
-      array.push(boardYearLimit - i);
-    }
-    setYearList(array);
     let params = new URLSearchParams(history.location.search)
     let _year = params.get('year');
     let _locality = params.get('locality');
@@ -249,8 +229,6 @@ const RequestView = ({ type, isFirstRendering }: {
             setDataAutocomplete(localitiesData);
               if (_year) {
                 setYear(_year)
-              } else {
-                setYear(boardYearLimit);
               }
               if (_locality) {
                 setLocality(_locality)
@@ -858,84 +836,7 @@ const RequestView = ({ type, isFirstRendering }: {
                             flagforScroll={flagforScroll}
                           />
                         </div>
-
-                        <div className="cost-wr">
-                          <Collapse
-                            collapsible="header"
-                          >
-                            <Panel
-                              collapsible={sumByCounty.length === 0 ? 'disabled' : 'header'}
-                              header={
-                                tabKey !== 'Maintenance' ?
-                                (!openCollaps
-                                ? <a href="#openCost" style={{padding:'10px 0px'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}><DownSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>
-                                : <a href="#openCost" style={{padding:'10px 0px'}}  onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))} ><UpSquareOutlined style={{height:'16px', width:'16px', color: '#251863'}} onClick={() => (setOpenCollaps(sumByCounty.length === 0 ? openCollaps : !openCollaps))}/></a>)
-                                : null
-                              }
-                              key="1"
-                              style={{backgroundColor: '#F5F7FF'}}
-                              extra={
-                                <TotalHeader
-                                  columns={columns}
-                                  jurisdictionSelected={jurisdictionSelected}
-                                  csaSelected={csaSelected}
-                                  jurisdictionFilterList={jurisdictionFilterList}
-                                  csaFilterList={csaFilterList}
-                                   />
-                              }>
-                              <div className="tab-body-project streams" style={{backgroundColor: '#f9faff'}}>
-                                <Timeline>
-                                  {
-                                    tabKey !== 'Maintenance' && sumByCounty.map((countySum: any) => (
-                                      <Timeline.Item color="purple" key={Math.random()}>
-                                        <CostTableBody type={type} countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey}/>
-                                      </Timeline.Item>
-                                    ))
-                                  }
-                                </Timeline>
-                              </div>
-                            </Panel>
-                          </Collapse>
-                          {openCollaps && tabKey !== 'Maintenance' && <>
-                          <div className="col-bg">
-                            <div><h5>Target Cost</h5></div>
-                            {
-                              reqManager.map((val: any, index: number) => (
-                                <div key={index}>
-                                  <InputNumber placeholder="Enter target cost"
-                                      style={{opacity: !notIsFiltered ? 0.5 : 1 }}
-                                      readOnly={!notIsFiltered}
-                                      formatter={priceFormatter}
-                                      parser={priceParser}
-                                      value={val} onChange={(e: any) => {
-                                    let v = e;
-                                    let nv = reqManager.map((vl: any, i: number) => {
-                                      if (i === index) {
-                                        return v;
-                                      }
-                                      return vl;
-                                    })
-                                    WsService.sendReqmanager(nv);
-                                    setReqManager(nv);
-                                  }} />
-                                </div>
-                              ))
-                            }
-                          </div>
-                          <div className="col-bg">
-                            <div><h5>Contingency</h5></div>
-                            {
-                              diff.map((d: any, i: number) => (
-                                <div key={i} style={{opacity: !notIsFiltered ? 0.5 : 1 }} className="differential">
-                                  {d ? formatter.format(Math.floor(d)) : ''}
-                                </div>
-                              ))
-                            }
-                          </div>
-                          <div style={{height:'5px'}}></div>
-                          <div id="openCost"></div>
-                          </>}
-                        </div>
+                        <RequestCostRows />
                       </TabPane>
                     ))
                   }
