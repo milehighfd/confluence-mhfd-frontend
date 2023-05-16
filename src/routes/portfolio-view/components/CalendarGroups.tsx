@@ -126,6 +126,7 @@ const CalendarGroups = ({
             setNext={setNext}
             setPrev={setPrev}
             index={index}
+            openTable={openTable}
             setTollData={setTollData}
             actionsDone={actionsDone}
             setOpenPiney={setOpenPiney}

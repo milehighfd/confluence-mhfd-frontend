@@ -19,6 +19,7 @@ const initState = {
   graphicOpen: false,
   openModalTollgate: false,
   updateGroup: {id1: null,id2: null},
+  isLoading: false
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -128,6 +129,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         updateGroup: action.payload,
+      };
+    case types.SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
     default:
       return state;

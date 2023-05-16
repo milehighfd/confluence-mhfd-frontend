@@ -13,6 +13,7 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
 const CalendarBody = ({
   dataId,
@@ -22,6 +23,7 @@ const CalendarBody = ({
   setNext,
   setPrev,
   index,
+  openTable,
   setTollData,
   actionsDone,
   setOpenPiney,
@@ -39,6 +41,7 @@ const CalendarBody = ({
   setNext: Function,
   setPrev: Function,
   index: number,
+  openTable: any,
   setTollData: Function,
   actionsDone: any,
   setOpenPiney: Function,
@@ -58,8 +61,9 @@ const CalendarBody = ({
   groupName = groupName === '?' ? '#questionMark' : groupName;
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
+  // const [isLoading, setIsLoading] = useState(false);
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline} = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -138,6 +142,7 @@ const CalendarBody = ({
   let padding = { top: 38, right: 10, bottom: 10, left: -0 };
   const removechartAxis: any = document.getElementById('timeline-chart-axis');
   const timelineChart = (datasets: any) => {
+    setIsLoading(true)
     if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
       let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
       removeAllChildNodes(removechartAxis);
@@ -963,7 +968,6 @@ const CalendarBody = ({
           .style('stroke-width', 2)
           .style('stroke', '#FF901C')
           .style('fill', 'none');
-          console.log('zoomTimeline',zoomTimeline)
         zoomed = function () {
         
           setCurrentZScale(d3.event.transform.k);
@@ -1091,7 +1095,7 @@ const CalendarBody = ({
 
       }
     }
-    console.log('fin function')
+    setIsLoading(false)
   }
   const moveZoom = (newZoomValue: any, svg: any, svgAxis: any) => {
     
@@ -1103,6 +1107,7 @@ const CalendarBody = ({
   };
 
   useEffect(() => {
+    setIsLoading(true)
     let dataParsed = (dataBody.map((x: any, index: number) => {
       return {
         id: `${groupName}${index}`,
@@ -1288,13 +1293,15 @@ const CalendarBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    //collapseItemStatus();
-      const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
-      removeAllChildNodes(removechart);
-    setZoomTimeline(0)
-    console.log('end1',datas)
-    timelineChart(datas);
-    setSvgState(svg);
+    if (datas.length !== 0){
+      setIsLoading(true)
+      //collapseItemStatus();
+        const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
+        removeAllChildNodes(removechart);
+      setZoomTimeline(0)
+      timelineChart(datas);
+      setSvgState(svg);
+    }
   }, [calendarData,scheduleList,windowWidth,datas]);
 
   useEffect(() => {
@@ -1322,13 +1329,12 @@ const CalendarBody = ({
   }, [zoomTimeline]);
 
   useEffect(() => {
-
+    setIsLoading(true)
     if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') {     
       const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
       removeAllChildNodes(removechartAxis);
-      console.log('end2',datas)
       timelineChart(datas);
     }
   }, [zoomSelected]);

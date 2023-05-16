@@ -17,7 +17,8 @@ import {
   setDataModal,
   setGraphicOpen,
   setOpenModalTollgate,
-  setUpdateGroup
+  setUpdateGroup,
+  setIsLoading
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -78,6 +79,9 @@ export const usePortfolioDispatch = () => {
   const _setUpdateGroup = useCallback((value: Object) => {
     dispatch(setUpdateGroup(value));
   }, [dispatch]);
+  const _setIsLoading = useCallback((value: boolean) => {
+    dispatch(setIsLoading(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -96,5 +100,6 @@ export const usePortfolioDispatch = () => {
     setGraphicOpen: _setGraphicOpen,
     setOpenModalTollgate: _setOpenModalTollgate,
     setUpdateGroup: _setUpdateGroup,
+    setIsLoading: _setIsLoading
   };
 };
