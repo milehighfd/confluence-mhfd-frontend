@@ -56,7 +56,6 @@ const CalendarBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  console.log('groupName',groupName)
   function startsWithNumber(str:string) {
     return /^\d/.test(str);
   }
@@ -976,10 +975,8 @@ const CalendarBody = ({
         zoomed = function () {
         
           setCurrentZScale(d3.event.transform.k);
-          console.log('dddd',d3.event.transform.k)
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 4) {
-            console.log('year month')
             renderMonthNames();
             renderYearNames();
             // gX.call(xAxisMonth.scale(zoomedXScale));
@@ -1014,7 +1011,6 @@ const CalendarBody = ({
               }
             }
           } else {
-            console.log('day month')
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
 

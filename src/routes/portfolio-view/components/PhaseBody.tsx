@@ -149,8 +149,12 @@ const PhaseBody = ({
     }    
   }, [phaseData, windowWidth]);
 
+  function startsWithNumber(str:string) {
+    return /^\d/.test(str);
+  }
   //Start of phase chart generation
   const phaseChart = (dataDotchart: any) => {
+    dataDotchart.id = dataDotchart.id.includes('?')? 'questionMark' : startsWithNumber(dataDotchart.id)? dataDotchart.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : dataDotchart.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')
     if (Object.keys(scheduleList).length > 0) {
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;
@@ -160,9 +164,9 @@ const PhaseBody = ({
       let height: any = factorHeight + heightDiv + 3;
       let heightContainer: any = height + margin.top + margin.bottom;
       if (heightContainer > 0) {
-        removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart.id.replace(/\s/g, '')}`))
+        removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart.id}`))
         svg = d3
-          .select(`#dotchart_${dataDotchart.id.replace(/\s/g, '')}`)
+          .select(`#dotchart_${dataDotchart.id}`)
           .append("svg")
           .attr("width", totalLabelWidth)
           .attr("height", heightContainer)
@@ -719,7 +723,7 @@ const PhaseBody = ({
                 elem.values.map((value: any, indexinside: number) => {
                   return <div key={`value.id${indexinside}`}>
                     <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
-                      <div id={`dotchart_${value.id.replace(/\s/g, '')}`}></div>
+                      <div id={`dotchart_${value.id.includes('?')? 'questionMark' : startsWithNumber(value.id)? value.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : value.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`}></div>
                     </div>
                     {elem.values.length - 1 === indexinside && phaseData.length - 1 !== index ? <div className="header-timeline" style={{ width: totalLabelWidth }}></div> : ''}
                   </div>
