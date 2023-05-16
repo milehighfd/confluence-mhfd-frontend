@@ -16,7 +16,8 @@ import {
   setPositionModalGraphic,
   setDataModal,
   setGraphicOpen,
-  setOpenModalTollgate
+  setOpenModalTollgate,
+  setUpdateGroup
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -74,6 +75,9 @@ export const usePortfolioDispatch = () => {
   const _setOpenModalTollgate = useCallback((value: boolean) => {
     dispatch(setOpenModalTollgate(value));
   }, [dispatch]);
+  const _setUpdateGroup = useCallback((value: Object) => {
+    dispatch(setUpdateGroup(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -90,6 +94,7 @@ export const usePortfolioDispatch = () => {
     setPositionModalGraphic: _setPositionModalGraphic,
     setDataModal:_setDataModal,
     setGraphicOpen: _setGraphicOpen,
-    setOpenModalTollgate: _setOpenModalTollgate
+    setOpenModalTollgate: _setOpenModalTollgate,
+    setUpdateGroup: _setUpdateGroup,
   };
 };

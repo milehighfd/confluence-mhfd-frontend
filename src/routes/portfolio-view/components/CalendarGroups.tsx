@@ -22,8 +22,6 @@ const CalendarGroups = ({
   setOpenPiney,
   setEditData,
   setPopUpData,
-  updatedGroup,
-  secondaryUpdatedGroup,
   dataId,
 }: {
   data: any,
@@ -36,8 +34,6 @@ const CalendarGroups = ({
   setOpenPiney: any,
   setEditData: any,
   setPopUpData: any,
-  updatedGroup: any,
-  secondaryUpdatedGroup: any,
   dataId: any,
 }) => {
   const { currentGroup, collapsePhase } = usePortflioState();
@@ -136,8 +132,6 @@ const CalendarGroups = ({
             groupName={data.value}
             setEditData={setEditData}
             setPopUpData={setPopUpData}
-            updatedGroup={updatedGroup}
-            secondaryUpdatedGroup={secondaryUpdatedGroup}
             counter={counter}
             page={page}
             setPage={setPage}

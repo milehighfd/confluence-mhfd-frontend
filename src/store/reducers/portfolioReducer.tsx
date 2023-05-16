@@ -17,7 +17,8 @@ const initState = {
   positionModalGraphic: {left: 500, top:500},
   dataModal: {},
   graphicOpen: false,
-  openModalTollgate: false
+  openModalTollgate: false,
+  updateGroup: {id1: null,id2: null},
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -122,6 +123,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         openModalTollgate: action.payload,
+      };
+    case types.SET_UPDATE_GROUP:
+      return {
+        ...state,
+        updateGroup: action.payload,
       };
     default:
       return state;

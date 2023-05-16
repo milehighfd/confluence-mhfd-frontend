@@ -60,12 +60,13 @@ const PhaseBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  const { currentGroup, favorites, scheduleList, phaseList, statusCounter } = usePortflioState();
+  const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup } = usePortflioState();
   const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [phaseData, setPhaseData] = useState<any>([]);
+  const [updateForPhase, setUpdateForPhase] = useState(false);
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   let svg: any;
   const windowWidth: any = window.innerWidth;
@@ -131,6 +132,16 @@ const PhaseBody = ({
       setNext(false)
     }
   }, [next, prev])
+
+  useEffect(() => {       
+    let idF = dataId.id;
+    if (idF === updateGroup.id1 || !updateGroup.id1) {
+      setUpdateForPhase(!updateForPhase);
+    }
+    if (idF === updateGroup.id2) {
+      setUpdateForPhase(!updateForPhase);
+    }
+  }, [updateGroup])
 
   useEffect(() => {
     if (Object.keys(phaseData).length > 0) {
@@ -661,7 +672,7 @@ const PhaseBody = ({
     return () => {
       controller.abort();
     };
-  }, [page, filterProjectOptions])
+  }, [page, filterProjectOptions,updateForPhase])
 
   const deleteFunction = (id: number, email: string, table: string) => {
     deleteFavorite(id);

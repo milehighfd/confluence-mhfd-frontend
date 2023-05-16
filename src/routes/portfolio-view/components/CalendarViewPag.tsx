@@ -17,8 +17,6 @@ const CalendarViewPag = ({
   setTollData,
   setOpenPiney,
   openPiney,
-  updatedGroup,
-  secondaryUpdatedGroup,
 }: {
   tabKey: any,
   index: any,
@@ -27,8 +25,6 @@ const CalendarViewPag = ({
   setTollData: any,
   setOpenPiney: any,
   openPiney:any,
-  updatedGroup: any,
-  secondaryUpdatedGroup: any,
 }) => {
   const { currentGroup, zoomTimeline, zoomSelected } = usePortflioState();
   const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate} = usePortfolioDispatch();
@@ -179,8 +175,6 @@ const CalendarViewPag = ({
                   setOpenPiney={setOpenPiney}
                   setEditData={setEditData}
                   setPopUpData={setPopUpData}
-                  updatedGroup={updatedGroup}
-                  secondaryUpdatedGroup={secondaryUpdatedGroup}
                   dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                 />
               </div>

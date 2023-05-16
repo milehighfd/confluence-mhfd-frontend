@@ -28,8 +28,6 @@ const CalendarBody = ({
   groupName,
   setEditData,
   setPopUpData,
-  updatedGroup,
-  secondaryUpdatedGroup,
   counter,
   page,
   setPage,
@@ -47,8 +45,6 @@ const CalendarBody = ({
   groupName: string,
   setEditData: any,
   setPopUpData: Function,
-  updatedGroup: any,
-  secondaryUpdatedGroup: any,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
@@ -62,7 +58,7 @@ const CalendarBody = ({
   groupName = groupName === '?' ? '#questionMark' : groupName;
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
-  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
+  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected, updateGroup } = usePortflioState();
   const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -112,20 +108,16 @@ const CalendarBody = ({
   let width = widthofDiv - 20;
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
 
-  useEffect(() => {       
-    let idF = '';
-    if(currentGroup === 'streams' && dataId.value !== ''){
-      idF = dataId.value;
-    }else{
-      idF = dataId.id;
-    }
-    if (idF === updatedGroup || !updatedGroup) {
+  useEffect(() => {
+    console.log('updateForDates', updateGroup)
+    let idF = dataId.id;
+    if (idF === updateGroup.id1 || !updateGroup.id1) {
       setUpdateForDates(!updateForDates);
     }
-    if (idF === secondaryUpdatedGroup) {
+    if (idF === updateGroup.id2) {
       setUpdateForDates(!updateForDates);
     }
-  }, [updatedGroup, secondaryUpdatedGroup])
+  }, [updateGroup])
 
   useEffect(() => {
     if (next && page < limitPage) {
