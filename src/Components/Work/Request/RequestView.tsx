@@ -2,7 +2,7 @@ import { DownOutlined, DownSquareOutlined, RightOutlined, UpOutlined, UpSquareOu
 import { Layout, Button, Input, Row, Col, Tabs, Collapse, Timeline, AutoComplete, InputNumber, Popover } from 'antd';
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT, GOVERNMENT_STAFF } from 'constants/constants';
+import { GOVERNMENT_STAFF } from 'constants/constants';
 import { getBoardData2, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
@@ -16,14 +16,16 @@ import { compareArrays, compareColumns, defaultColumns, formatter, generateColum
 import TotalHeader from 'Components/Work/Request/TotalHeader';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
-
-import '../../../index.scss';
-import ColumsTrelloCard from './ColumsTrelloCard';
+import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
 import { postData } from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
 import YearDropdown from 'routes/work-request/components/YearDropdown';
+import ResizableButton from 'routes/work-request/components/ResizableButton';
+
+import '../../../index.scss';
+
 
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
@@ -39,7 +41,6 @@ const RequestView = ({ type, isFirstRendering }: {
   type: boardType,
   isFirstRendering: boolean
 }) => {
-  const emptyStyle: React.CSSProperties = {};
   const {
     showModalProject,
     locality,
@@ -88,15 +89,12 @@ const RequestView = ({ type, isFirstRendering }: {
     setJurisdictionSelected,
     setCsaSelected,
     setLocalityType,
-    setLeftWidth,
     setLocalities,
     setColumns,
     setDiff,
     setReqManager,
   } = useRequestDispatch();
   const [openCollaps, setOpenCollaps] = useState(false);
-  const [rotationStyle, setRotationStyle] = useState<any>(emptyStyle);
-  const [rightWidth, setRightWitdh] = useState(MEDIUM_SCREEN_LEFT + 1);
   const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
   const [callBoard, setCallBoard] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
@@ -121,20 +119,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
   const [isOnSelected, setIsOnSelected]= useState(false);
-  const updateWidth = () => {
-    if (leftWidth === (MEDIUM_SCREEN_RIGHT - 1)) {
-      setLeftWidth(MEDIUM_SCREEN_LEFT);
-      setRightWitdh(MEDIUM_SCREEN_RIGHT);
-      setRotationStyle({transform: 'rotate(180deg)', marginRight:'-4px', right:'4px', position:'relative'});
-    } else {
-      setLeftWidth(MEDIUM_SCREEN_RIGHT - 1);
-      setRightWitdh(MEDIUM_SCREEN_LEFT + 1);
-      setRotationStyle(emptyStyle);
-    }
-    setTimeout( () => {
-      setChanges(Math.random())
-    }, 1000)
-  }
  
   const resetOnClose = () => {
     setStreamIntersected([]);
@@ -796,12 +780,10 @@ const RequestView = ({ type, isFirstRendering }: {
                   currentTab={tabKey}
                   projectsAmounts={projectsAmounts}
                 />
-                <Button id="resizable-btn" className="btn-coll" onClick={updateWidth}>
-                  <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px"/>
-                </Button>
+                <ResizableButton />
             </Col>
 
-            <Col xs={{ span: 24 }} lg={{ span: rightWidth }}>
+            <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}>
               <div className="work-head" >
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 12 }}>
