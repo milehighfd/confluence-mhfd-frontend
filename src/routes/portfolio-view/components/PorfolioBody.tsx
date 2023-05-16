@@ -50,8 +50,6 @@ const PortafolioBody = ({
   const [filterValue, setFilterValue] = useState(-1);
   const [filtername, setFiltername] = useState('Mile High Flood District');
   const [tabKey, setTabKey] = useState<any>('All');
-  const [updatedGroup, setUpdatedGroup] = useState(null);
-  const [secondaryUpdatedGroup, setSecondaryUpdatedGroup] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
   const [openFavorites, setOpenFavorites] = useState(false);
@@ -268,8 +266,6 @@ const PortafolioBody = ({
       dataProject={tollData}
       saveCB={()=>{}}
       setOpenPiney={setOpenPiney}
-      setUpdatedGroup={setUpdatedGroup}
-      setSecondaryUpdatedGroup={setSecondaryUpdatedGroup}
     />
     <div>
       <div className="portafolio-head">
@@ -369,8 +365,6 @@ const PortafolioBody = ({
                       setTollData={setTollData}
                       setOpenPiney={setOpenPiney}
                       openPiney={openPiney}
-                      updatedGroup={updatedGroup}
-                      secondaryUpdatedGroup={secondaryUpdatedGroup}
                     />
                     }
                 </div>

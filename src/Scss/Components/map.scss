@@ -39,13 +39,13 @@
     /* margin: 0px 10px; */
     text-align: left;
     font-size: 12px;
-    color: #11093C !important;
+    color: $purple00 !important;
     border-bottom: transparent !important;
   }
 }
 .item-active-dropdown-color{
   background: #f7f7f9 !important;
-  color: #11093c;
+  color: $purple00;
   margin: 3px;
   border-radius: 5px;
   /* font-weight: bold; */
@@ -78,7 +78,7 @@
         border-radius: 5px;
 
         .head {
-          color: #11093c;
+          color: $purple00;
           font-weight: 500;
           opacity: 0.6;
         }
@@ -122,7 +122,7 @@
         font-weight: 500;
 
         .divider{
-          border-top: 1px solid #251863;
+          border-top: 1px solid $purple;
           opacity: 0.1;
         }
       }
@@ -442,7 +442,7 @@
     .bodymap{
       text-align: center;
       padding: 10px 10px;
-      color:#11093C;
+      color:$purple00;
       .label {
         color:$opacity;
       }
@@ -603,7 +603,7 @@
           .progress-value {
             float: right;
             &.light {
-              background-color: #28c499;
+              background-color: $green;
               display: block;
 					    height: 2px;
 					    border-top-left-radius: 0;
@@ -620,7 +620,7 @@
           .progress-value {
             float: left;
             &.light {
-              background-color: #28c499;
+              background-color: $green;
               display: block;
 					    height: 2px;
 					    border-top-right-radius: 0;
@@ -635,13 +635,6 @@
       }
     }
   }
-/*   .mapstateprevnext {
-    flex-grow: 1;
-    padding: 0;
-  }
-  .mapstateprevnext:hover {
-    border-bottom: 3px solid rgb(40, 196, 153);
-  } */
 }
 
 .filter-map{
@@ -1362,7 +1355,7 @@
     font-size: 12px;
     box-shadow: none;
     transition: all 0s cubic-bezier(0.645, 0.045, 0.355, 1);
-    color: #251863;
+    color: $purple;
     height: 35px;
     border-radius: 2px;
     background-color: #ffffff;
@@ -2039,7 +2032,7 @@ hr.filters-line {
     justify-content: space-between;
     width: 100%;
     h2{
-      color:#11093C;
+      color:$purple00;
     }
     a{
       font-family: 'Ubuntu';
@@ -2048,7 +2041,7 @@ hr.filters-line {
       font-size: 12px;
       line-height: 14px;
       text-decoration-line: underline;
-      color: #11093C;
+      color: $purple00;
       margin-top: 7px;
     }
   }
@@ -2061,7 +2054,7 @@ hr.filters-line {
       p{
         margin-bottom: 2px;
         font-size: 13px;
-        color: #11093C;
+        color: $purple00;
         font-family: 'Ubuntu';
         font-style: normal;
         font-weight: 400;
@@ -2401,7 +2394,7 @@ hr.filters-line {
   .bodymap{
     text-align: center;
     padding: 10px 10px;
-    color:#11093C;
+    color:$purple00;
     .label {
       color:$opacity;
     }

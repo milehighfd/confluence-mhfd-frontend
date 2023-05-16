@@ -160,14 +160,14 @@
       height: 36px;
     }
     .ant-input-search .ant-input:focus, .ant-input-search .ant-input:hover {
-      border-color: #251863;
+      border-color: $purple;
     }
   }
   .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
-    border-color: #251863;
+    border-color: $purple;
   }
   .ant-btn:focus, .ant-btn:hover {
-    border-color: #251863 !important;
+    border-color: $purple !important;
   }
   .head-list{
     box-sizing: border-box;
@@ -223,15 +223,15 @@
       justify-content: flex-start;
     }
     .ico-arrow{
-      color: #251863;
+      color: $purple;
       margin-left: 6px;
     }
     .ant-table-thead>tr>th {
-      color: #251863 !important;
+      color: $purple !important;
       background: #ffffff;
     }
     .ant-pagination-item-active a {
-      color: #251863;
+      color: $purple;
     }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
       min-height: 34px !important;
@@ -242,7 +242,7 @@
       display: none;
     }
     .ant-pagination-item-active {
-      border-color: #251863;
+      border-color: $purple;
     }
     .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
       background-color: rgb(0 0 0 / 0%);
@@ -295,24 +295,24 @@
       font-size: 14px;
       line-height: 16px;
       letter-spacing: 0.2px;
-      color: #11093C;
+      color: $purple00;
     }
     .span-admin {
-      color: #251863;
+      color: $purple;
       background-color: #eae8f0;
       padding: 3px 8px;
       border-radius: 5px;
       font-size: 14px;
     }
     .span-manager{
-      color: #251863;
+      color: $purple;
       background-color: #eaf4fa;
       padding: 3px 8px;
       border-radius: 5px;
       font-size: 14px;
     }
     .span-gov{
-      color: #251863;
+      color: $purple;
       background-color: #eafaf5;
       padding: 3px 8px;
       border-radius: 5px;
@@ -353,7 +353,7 @@
       border: 1px solid #eae8f0;
       padding: 30px 40px;
       border-radius: 3px;
-      color: #11093C;
+      color: $purple00;
       .ant-dropdown-menu-item {
         opacity: 0.6;
       }
@@ -429,21 +429,21 @@
       justify-content: flex-start;
     }
     .ico-arrow{
-      color: #251863;
+      color: $purple;
       margin-left: 6px;
     }
     .ant-table-thead>tr>th {
-      color: #251863 !important;
+      color: $purple !important;
       background: #ffffff;
     }
     .ant-pagination-item-active a {
-      color: #251863;
+      color: $purple;
     }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
       min-height: 36px !important;
     }
     .ant-pagination-item-active {
-      border-color: #251863;
+      border-color: $purple;
     }
     .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
       background-color: rgb(0 0 0 / 0%);
@@ -484,19 +484,19 @@
       background: #ffffff;
     }
     .span-admin {
-      color: #251863;
+      color: $purple;
       background-color: #eae8f0;
       padding: 3px 8px;
       border-radius: 5px;
     }
     .span-manager{
-      color: #251863;
+      color: $purple;
       background-color: #eaf4fa;
       padding: 3px 8px;
       border-radius: 5px;
     }
     .span-gov{
-      color: #251863;
+      color: $purple;
       background-color: #eafaf5;
       padding: 3px 8px;
       border-radius: 5px;
@@ -536,7 +536,7 @@
       border: 1px solid #eae8f0;
       padding: 30px 40px;
       border-radius: 3px;
-      color: #11093C;
+      color: $purple00;
       h1, h2, h3, h4, h5, h6 {
         color: rgb(29 22 70);
       }
@@ -553,7 +553,7 @@
   background: #FFFFFF;
   border: 1px solid #E3E5E5;
   border-radius: 4px;
-  color: #11093C;
+  color: $purple00;
   text-align: center;
   height:  calc(100vh - 59px);
   overflow-y: hidden;
@@ -583,7 +583,7 @@
     color: rgb(29 22 70);
   }
   .color-sub{
-    color: #11093C;
+    color: $purple00;
     opacity: 0.6;
   }
   .profile{
@@ -649,7 +649,7 @@
     overflow-x: hidden;
   }
   .color-sub{
-    color: #11093C;
+    color: $purple00;
     opacity: 0.6;
   }
   .avatar-group{
@@ -975,7 +975,7 @@
       height: calc(100vh - 222px);
       margin-top: 10px !important;
       .ant-table-column-sorter-down.active, .ant-table-column-sorter-up.active {
-        color: #251863;
+        color: $purple;
       }
       .ant-pagination-jump-next, .ant-pagination-jump-prev, .ant-pagination-next, .ant-pagination-prev {
         min-width: 40px;
@@ -1001,6 +1001,7 @@
       .user-tab{
         img{
           height: 43px !important;
+          width: 43px !important;
         }
         .name-user-list {
           font-size: 16px !important;
@@ -1150,7 +1151,7 @@
         font-size: 21px !important;
       }
       .ant-card:hover {
-        border: 2.5px solid #28C499 !important;
+        border: 2.5px solid $green !important;
       }
     }
   }
@@ -1441,7 +1442,7 @@
         font-size: 27px !important;
       }
       .ant-card:hover {
-        border: 4px solid #28C499 !important;
+        border: 4px solid $green !important;
       }
       .ant-card{
         margin: 13px !important;

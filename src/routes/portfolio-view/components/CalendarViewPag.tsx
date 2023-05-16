@@ -8,6 +8,7 @@ import CalendarGroups from 'routes/portfolio-view/components//CalendarGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components//SearchDropdown';
 import { handleAbortError } from 'store/actions/mapActions';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const CalendarViewPag = ({
   tabKey,
@@ -17,8 +18,6 @@ const CalendarViewPag = ({
   setTollData,
   setOpenPiney,
   openPiney,
-  updatedGroup,
-  secondaryUpdatedGroup,
 }: {
   tabKey: any,
   index: any,
@@ -27,10 +26,8 @@ const CalendarViewPag = ({
   setTollData: any,
   setOpenPiney: any,
   openPiney:any,
-  updatedGroup: any,
-  secondaryUpdatedGroup: any,
 }) => {
-  const { currentGroup, zoomTimeline, zoomSelected } = usePortflioState();
+  const { currentGroup, zoomTimeline, zoomSelected, isLoading } = usePortflioState();
   const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate} = usePortfolioDispatch();
   const [actionsDone, setActionsDone] = useState<any>({});
   const [detailGroup, setDetailGroup] = useState<any>(null);
@@ -77,8 +74,8 @@ const CalendarViewPag = ({
       controller.abort();
     };
   }, [currentGroup]);
-  console.log('Rendering CalendarViewPag');
   return <>
+      {isLoading && <LoadingViewOverall></LoadingViewOverall>}
     {openPiney && (
       <div className="phaseview-body">
         <div className="piney-text">
@@ -180,8 +177,6 @@ const CalendarViewPag = ({
                   setOpenPiney={setOpenPiney}
                   setEditData={setEditData}
                   setPopUpData={setPopUpData}
-                  updatedGroup={updatedGroup}
-                  secondaryUpdatedGroup={secondaryUpdatedGroup}
                   dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                 />
               </div>

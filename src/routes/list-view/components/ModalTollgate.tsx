@@ -16,17 +16,13 @@ const ModalTollgate = ({
   dataProject,
   saveCB,
   setOpenPiney,  
-  setUpdatedGroup,
-  setSecondaryUpdatedGroup,
 }: {
   dataProject?:any,
   saveCB?: any,
   setOpenPiney?: any,
-  setUpdatedGroup?: any,
-  setSecondaryUpdatedGroup?: any,
 }) => {
-  const { openModalTollgate: visible } = usePortflioState();
-  const { setOpenModalTollgate: setVisible } = usePortfolioDispatch();
+  const { openModalTollgate: visible, currentGroup } = usePortflioState();
+  const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();
   
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
@@ -204,7 +200,7 @@ const ModalTollgate = ({
   };
   useEffect(() => {
     const currentId = dataProject?.d?.phaseId;
-    const currentStatus = dataProject?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id;
+    const currentStatus = dataProject?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;
     setOriginPhase(currentStatus);
     setDates(dataProject?.scheduleList?.map((x:any)=>{
       const date = dataProject?.d?.schedule.find((z:any) => z.phaseId === x.phase_id);   
@@ -428,7 +424,7 @@ let items = [
   }
   function sendData() {
     const currentId = dates?.find((x: any) => x.current)?.phase_id;
-    const currentStatus = dataProject.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id;  
+    const currentStatus = dataProject.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;  
     datasets.postData(SERVER.CREATE_STATUS_GROUP, 
       {
         project_id: dataProject.d.project_id,
@@ -436,9 +432,8 @@ let items = [
       }, datasets.getToken()).then(async res => {
         saveCB();
         setVisible(false);
-        setOpenPiney(false);
-        setUpdatedGroup(originPhase);
-        setSecondaryUpdatedGroup(currentStatus);     
+        setOpenPiney(false); 
+        setUpdateGroup({id1: originPhase, id2: currentStatus});
       });
   }
 

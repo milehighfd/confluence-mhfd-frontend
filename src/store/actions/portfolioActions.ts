@@ -141,3 +141,13 @@ export const setOpenModalTollgate = (value: boolean) => ({
   type: types.SET_OPEN_MODAL_TOLLGATE,
   payload: value
 });
+
+export const setUpdateGroup = (value: Object) => ({
+  type: types.SET_UPDATE_GROUP,
+  payload: value
+});
+
+export const setIsLoading = (value: boolean) => ({
+  type: types.SET_IS_LOADING,
+  payload: value
+});

@@ -13,6 +13,7 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
+import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
 const CalendarBody = ({
   dataId,
@@ -22,14 +23,13 @@ const CalendarBody = ({
   setNext,
   setPrev,
   index,
+  openTable,
   setTollData,
   actionsDone,
   setOpenPiney,
   groupName,
   setEditData,
   setPopUpData,
-  updatedGroup,
-  secondaryUpdatedGroup,
   counter,
   page,
   setPage,
@@ -41,14 +41,13 @@ const CalendarBody = ({
   setNext: Function,
   setPrev: Function,
   index: number,
+  openTable: any,
   setTollData: Function,
   actionsDone: any,
   setOpenPiney: Function,
   groupName: string,
   setEditData: any,
   setPopUpData: Function,
-  updatedGroup: any,
-  secondaryUpdatedGroup: any,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
@@ -56,10 +55,15 @@ const CalendarBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  const svgDivWrapperId = `#timeline-chart-${groupName.replaceAll(' ', '')}`;
+  function startsWithNumber(str:string) {
+    return /^\d/.test(str);
+  }
+  groupName = groupName === '?' ? '#questionMark' : groupName;
+  const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
-  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline} = usePortfolioDispatch();
+  // const [isLoading, setIsLoading] = useState(false);
+  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected, updateGroup } = usePortflioState();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -108,20 +112,16 @@ const CalendarBody = ({
   let width = widthofDiv - 20;
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
 
-  useEffect(() => {        
-    let idF = '';
-    if(currentGroup === 'streams' && dataId.value !== ''){
-      idF = dataId.value;
-    }else{
-      idF = dataId.id;
-    }
-    if (idF === updatedGroup) {
+  useEffect(() => {
+    console.log('updateForDates', updateGroup)
+    let idF = dataId.id;
+    if (idF === updateGroup.id1 || !updateGroup.id1) {
       setUpdateForDates(!updateForDates);
     }
-    if (idF === secondaryUpdatedGroup) {
+    if (idF === updateGroup.id2) {
       setUpdateForDates(!updateForDates);
     }
-  }, [updatedGroup, secondaryUpdatedGroup])
+  }, [updateGroup])
 
   useEffect(() => {
     if (next && page < limitPage) {
@@ -142,6 +142,7 @@ const CalendarBody = ({
   let padding = { top: 38, right: 10, bottom: 10, left: -0 };
   const removechartAxis: any = document.getElementById('timeline-chart-axis');
   const timelineChart = (datasets: any) => {
+    setIsLoading(true)
     if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
       let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
       removeAllChildNodes(removechartAxis);
@@ -403,7 +404,7 @@ const CalendarBody = ({
         let scheduleRects = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}`;
+            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`;
           })
           .attr('class', 'stackedbar')
           .attr('rx', 12)
@@ -453,7 +454,7 @@ const CalendarBody = ({
         let scheduleRectsCenter = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_center`;
+            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_center`;
           })
           .attr('class', 'stackedbarCenter')
           .attr('x', function (d: any) {
@@ -502,7 +503,7 @@ const CalendarBody = ({
         let rectNames = scheduleG
           .enter().append('text')
           .attr('id', function (d: any) {
-            return `${d.id.replaceAll(' ', '')}_${d.categoryNo}_text`;
+            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
           })
           .attr('class', 'labels')
           .style('fill',  'white')
@@ -564,9 +565,9 @@ const CalendarBody = ({
         const dotme = (text: any) => {
           text.each((d: any) => {
             const completeLabel = `${d['name']}`;
-            const idText = `${d.id.replaceAll(' ', '')}_${d.categoryNo}_text`;
+            const idText = `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
             const textElem: any = d3.select(`#${idText}`);
-            const rectElem = d3.select(`#${d.id.replaceAll(' ', '')}_${d.categoryNo}`);
+            const rectElem = d3.select(`#${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`);
             const padding = 15;
             const rectElemWidth: any = rectElem.attr('width');
             const totalWidth = rectElemWidth - padding;
@@ -967,14 +968,11 @@ const CalendarBody = ({
           .style('stroke-width', 2)
           .style('stroke', '#FF901C')
           .style('fill', 'none');
-          console.log('zoomTimeline',zoomTimeline)
         zoomed = function () {
         
           setCurrentZScale(d3.event.transform.k);
-          console.log('dddd',d3.event.transform.k)
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 4) {
-            console.log('year month')
             renderMonthNames();
             renderYearNames();
             // gX.call(xAxisMonth.scale(zoomedXScale));
@@ -1009,7 +1007,6 @@ const CalendarBody = ({
               }
             }
           } else {
-            console.log('day month')
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
 
@@ -1098,7 +1095,7 @@ const CalendarBody = ({
 
       }
     }
-    console.log('fin function')
+    setIsLoading(false)
   }
   const moveZoom = (newZoomValue: any, svg: any, svgAxis: any) => {
     
@@ -1110,6 +1107,7 @@ const CalendarBody = ({
   };
 
   useEffect(() => {
+    setIsLoading(true)
     let dataParsed = (dataBody.map((x: any, index: number) => {
       return {
         id: `${groupName}${index}`,
@@ -1295,12 +1293,16 @@ const CalendarBody = ({
   }, [dataBody, favorites])
 
   useEffect(() => {
-    //collapseItemStatus();
-    setZoomTimeline(0)
-    console.log('end1',datas)
-    timelineChart(datas);
-    setSvgState(svg);
-  }, [calendarData,scheduleList,windowWidth]);
+    if (datas.length !== 0){
+      setIsLoading(true)
+      //collapseItemStatus();
+        const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
+        removeAllChildNodes(removechart);
+      setZoomTimeline(0)
+      timelineChart(datas);
+      setSvgState(svg);
+    }
+  }, [calendarData,scheduleList,windowWidth,datas]);
 
   useEffect(() => {
     const svg = d3.select(svgDivWrapperId).select('svg');
@@ -1327,13 +1329,12 @@ const CalendarBody = ({
   }, [zoomTimeline]);
 
   useEffect(() => {
-
+    setIsLoading(true)
     if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') {     
       const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
       removeAllChildNodes(removechartAxis);
-      console.log('end2',datas)
       timelineChart(datas);
     }
   }, [zoomSelected]);
@@ -1344,7 +1345,7 @@ const CalendarBody = ({
       idForFilter = dataId.value;
     }
     const controller = new AbortController();
-    console.log('init', currentGroup)
+    console.log('updateForDates', updateForDates)
     datasets.postData(
       `${SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter)}?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
       filterProjectOptions,
@@ -1403,7 +1404,7 @@ const CalendarBody = ({
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
             <div style={{ marginTop: marginTopFactor }}>
-              <div style={{ height: calendarData.length=1*39, marginLeft: '2px' }} id={`timeline-chart-${groupName.replaceAll(' ', '')}`} />
+              <div style={{ height: calendarData.length=1*39, marginLeft: '2px' }} id={groupName === '?' ? 'questionMark' : `timeline-chart-${startsWithNumber(groupName) ? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`} />
             </div>
         </Col>
       </Row>
