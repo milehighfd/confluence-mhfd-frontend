@@ -347,7 +347,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
 
   const removeStream = (stream: any) => {
     console.log('Stream to remove', stream);
-    let mhfd_codeIdToRemove = stream?.stream?.stream?.MHFD_Code;
+    console.log(stream?.mhfd_code)
+    let mhfd_codeIdToRemove = stream?.mhfd_code;
     let copyList = { ...streamsList };
     console.log('Current list', streamsList, mhfd_codeIdToRemove);
     for (let jurisdiction in copyList) {
