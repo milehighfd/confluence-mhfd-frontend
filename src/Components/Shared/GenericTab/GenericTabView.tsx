@@ -55,7 +55,6 @@ const GenericTabView = ({
 
     useEffect(() => {
         if (nextPageOfCards === 1) {
-            console.log('entro')
             let div = document.getElementsByClassName('infinite-scroll-component')[0]
             if (div) div.scrollTop = 0;
         }
