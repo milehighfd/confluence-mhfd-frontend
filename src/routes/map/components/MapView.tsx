@@ -272,6 +272,9 @@ const MapView = () => {
     } else{
       getGalleryProjects();
     }
+    resetNextPageOfCards();
+    resetInfiniteScrollItems();
+    resetInfiniteScrollHasMoreItems();
   };
 
   const resetFilterComponents = (withCoords?: any) => {
@@ -330,6 +333,9 @@ const MapView = () => {
     auxFilterProjects[tag] = auxValueTag;
     setFilterProjectOptions(auxFilterProjects);
     getParamFilterProjects(boundsMap, auxFilterProjects)
+    resetNextPageOfCards();
+    resetInfiniteScrollItems();
+    resetInfiniteScrollHasMoreItems();
   }, [filterProjectOptions]);
 
   const getFiltersPopoverContent = () => {
