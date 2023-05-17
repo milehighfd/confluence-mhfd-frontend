@@ -106,7 +106,7 @@ const CalendarBody = ({
   (windowWidth >= 1450 && windowWidth <= 2000 ? '-40px' : 
   (windowWidth >= 2001 && windowWidth <= 2549 ? '-28px' : 
   (windowWidth >= 1199 && windowWidth <= 1449 ? '-45px' : '-45px')))));
-  let barHeightDefault = (windowWidth >= 3001 && windowWidth <= 3999 ? 42 : (windowWidth >= 2550 && windowWidth <= 3000 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 27 : 27)))));
+  let barHeightDefault = (windowWidth >= 3001 && windowWidth <= 3999 ? 42 : (windowWidth >= 2550 && windowWidth <= 3000 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 15 : 27)))));
   let width = widthofDiv - 20;
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
 
@@ -137,7 +137,7 @@ const CalendarBody = ({
   //Start of calendar generation
   let heightDiv: any = document.getElementsByClassName(`ant-collapse-header`);
   let barHeight = heightDiv[0].offsetHeight ? Math.ceil((heightDiv[0].offsetHeight) * 0.8) : barHeightDefault;
-  let padding = { top: 38, right: 10, bottom: 10, left: -0 };
+  let padding = { top: 43, right: 10, bottom: 10, left: -0 };
   const removechartAxis: any = document.getElementById('timeline-chart-axis');
   const timelineChart = (datasets: any) => {
     setIsLoading(true)
@@ -215,7 +215,7 @@ const CalendarBody = ({
         let yScale = d3
           .scaleBand()
           .domain(datasets.map((d: any) => d.id))
-          .range([padding.top, height - padding.bottom + screenOffset]);
+          .range([padding.top, height - padding.bottom + screenOffset-10]);
         let chartHeight = height - padding.top - padding.bottom;
         let timeFormatterForMonths: any = d3.timeFormat('%B');
         let timeFormatterForDays: any = d3.timeFormat('%d');
