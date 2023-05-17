@@ -102,6 +102,11 @@ export const setZoomTimeline = (value: number) => ({
   payload: value
 });
 
+export const setZoomTimelineAux = (value: number) => ({
+  type: types.SET_ZOOMTIMELINE_AUX,
+  payload: value
+});
+
 export const setIsZoomToday = (value: boolean) => ({
   type: types.SET_IS_ZOOM_TODAY,
   payload: value

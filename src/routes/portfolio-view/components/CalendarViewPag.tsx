@@ -23,8 +23,8 @@ const CalendarViewPag = ({
   setOpenPiney: any,
   openPiney:any,
 }) => {
-  const { currentGroup, zoomTimeline, zoomSelected, isLoading } = usePortflioState();
-  const { setZoomTimeline, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate} = usePortfolioDispatch();
+  const { currentGroup, zoomTimeline, zoomTimelineAux, zoomSelected, isLoading } = usePortflioState();
+  const { setZoomTimeline, setZoomTimelineAux, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading} = usePortfolioDispatch();
   const [actionsDone, setActionsDone] = useState<any>({});
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
@@ -97,7 +97,7 @@ const CalendarViewPag = ({
               <div className='calendar-text-header'>
                 <Button
                   className={zoomSelected === 'Today' ? "btn-view btn-view-active" : "btn-view"}
-                  onClick={() => { setIsZoomToday(true); setZoomSelected('Today'); setZoomTimeline(0) }}
+                  onClick={() => { setIsZoomToday(true); setZoomSelected('Today'); setZoomTimeline(0); setZoomTimelineAux(0) }}
                 >
                   Today
                 </Button>
@@ -105,7 +105,7 @@ const CalendarViewPag = ({
                 <Button
                   className={zoomSelected === 'Weekly' ? "btn-view btn-view-active" : "btn-view"}
 
-                  onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly'); setZoomTimeline(0) }}
+                  onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly'); setZoomTimeline(0); setIsLoading(true)}}
                 >
                   Daily
                 </Button>
@@ -113,7 +113,7 @@ const CalendarViewPag = ({
                 <Button
                   className={zoomSelected === 'Monthly' ? "btn-view btn-view-active" : "btn-view"}
 
-                  onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly'); setZoomTimeline(0) }}
+                  onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly'); setZoomTimeline(0); setIsLoading(true)}}
                 >
                   Monthly
                 </Button>
@@ -132,12 +132,14 @@ const CalendarViewPag = ({
                   <LeftOutlined onClick={(e) => {
                     e.stopPropagation();
                     setZoomTimeline(zoomTimeline -100)
+                    setZoomTimelineAux(zoomTimelineAux -100)
                   }}
                   className="btn-arrow-porfolio"
                   />
                   <RightOutlined onClick={(e) => {
                     e.stopPropagation();
                     setZoomTimeline(zoomTimeline +100)
+                    setZoomTimelineAux(zoomTimelineAux +100)
                   }}
                   className="btn-arrow-porfolio"
                   />

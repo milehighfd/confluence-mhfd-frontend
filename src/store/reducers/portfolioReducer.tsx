@@ -10,6 +10,7 @@ const initState = {
   statusCounter: 0,
   statusList: [],
   zoomTimeline: 0,
+  zoomTimelineAux: 0,
   isZoomToday: true,
   isZoomWeekly: false,
   isZoomMonthly: false,
@@ -85,6 +86,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         zoomTimeline: action.payload,
+      };
+    case types.SET_ZOOMTIMELINE_AUX:
+      return {
+        ...state,
+        zoomTimelineAux: action.payload,
       };
     case types.SET_IS_ZOOM_TODAY:
       return {

@@ -60,7 +60,7 @@ const CalendarBody = ({
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   // const [isLoading, setIsLoading] = useState(false);
-  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomSelected, updateGroup } = usePortflioState();
+  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
   const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -995,15 +995,6 @@ const CalendarBody = ({
             //gX2a.call(xAxisYear.scale(zoomedXScale));
             // gX2aYear.call(xAxisYear.scale(zoomedXScale));
             d3.selectAll('#xAxisYears').call((xAxisYear as any).scale(zoomedXScale))
-
-            const linesAxis:any = document.getElementsByTagName("line")
-            if(linesAxis){
-              for(let line of linesAxis){
-                if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
-                  line.setAttribute('y2', 600) 
-                }
-              }
-            }
           } else {
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
@@ -1047,6 +1038,15 @@ const CalendarBody = ({
           // scheduleRects._groups.forEach((element:any) => {
           //   console.log('element', element)
           // });
+          
+          const linesAxis:any = document.getElementsByTagName("line")
+          if(linesAxis){
+            for(let line of linesAxis){
+              if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
+                line.setAttribute('y2', 600) 
+              }
+            }
+          }
         };
         // setZoomState(zoomed)
         zoom = d3
@@ -1076,19 +1076,18 @@ const CalendarBody = ({
           // svg
           // .transition().call(zoom.scaleBy, 80);
           zoom.scaleTo(svg, 4.5);
-          zoom.translateTo(svg, xScale(today),0);
+          // zoom.translateTo(svg, xScale(today),0);
           zoom.scaleTo(svgAxis, 4.5);
-          zoom.translateTo(svgAxis, xScale(today),0);
+          // zoom.translateTo(svgAxis, xScale(today),0);
           // setIsZoomWeekly(false);
         }
         if (zoomSelected === 'Monthly') {
           // svg
           // .transition().call(zoom.scaleBy, 18);
           zoom.scaleTo(svg, 0.5);
-          zoom.translateTo(svg, 0.9 * width, 0.5 * height);
+          // zoom.translateTo(svg, 0.9 * width, 0.5 * height);
           zoom.scaleTo(svgAxis, 0.5);
-          zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
-          // setIsZoomMonthly(false);
+          // zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         }
 
       }
@@ -1315,7 +1314,7 @@ const CalendarBody = ({
       d3.selectAll('#buttonText').attr('transform', 'translate(' + zoomTimeline + ',0)')
       d3.selectAll('#buttonRect').attr('transform', 'translate(' + zoomTimeline + ',0)')
     }
-    
+    setIsLoading(false)
     // if (svgState) {     
     //   const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
     //   const removechartAxis: any = document.getElementById('timeline-chart-axis');
@@ -1328,13 +1327,19 @@ const CalendarBody = ({
 
   useEffect(() => {
     setIsLoading(true)
-    if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') {     
+    if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') { 
+      setIsLoading(true)    
       const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
       removeAllChildNodes(removechartAxis);
       timelineChart(datas);
     }
+      const svg = d3.select(svgDivWrapperId).select('svg');
+      if (!svg.empty()) {
+        setZoomTimeline(zoomTimelineAux)
+      }
+    setIsLoading(false)
   }, [zoomSelected]);
 
   useEffect(() => {

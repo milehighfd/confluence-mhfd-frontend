@@ -9,6 +9,7 @@ import {
   setCollapsePhase,
   getListPMTools,
   setZoomTimeline,
+  setZoomTimelineAux,
   setIsZoomToday,
   setIsZoomWeekly,
   setIsZoomMonthly,
@@ -53,6 +54,9 @@ export const usePortfolioDispatch = () => {
   const _setZoomTimeline = useCallback((value: number) => {
     dispatch(setZoomTimeline(value));
   }, [dispatch]);
+  const _setZoomTimelineAux = useCallback((value: number) => {
+    dispatch(setZoomTimelineAux(value));
+  }, [dispatch]);
   const _setIsZoomToday = useCallback((value: boolean) => {
     dispatch(setIsZoomToday(value));
   }, [dispatch]);
@@ -95,6 +99,7 @@ export const usePortfolioDispatch = () => {
     setCollapsePhase: _setCollapsePhase,
     getListPMTools: _getListPMTools,
     setZoomTimeline: _setZoomTimeline,
+    setZoomTimelineAux: _setZoomTimelineAux,
     setIsZoomToday: _setIsZoomToday,
     setIsZoomWeekly: _setIsZoomWeekly,
     setIsZoomMonthly: _setIsZoomMonthly,
