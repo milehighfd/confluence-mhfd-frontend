@@ -59,7 +59,8 @@ const CalendarBody = ({
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   // const [isLoading, setIsLoading] = useState(false);
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading, setDatesData} = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline,setZoomTimelineAux, setIsLoading, setDatesData} = usePortfolioDispatch();
+  let wasMonthly = true;
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -1299,6 +1300,7 @@ const CalendarBody = ({
   }, [calendarData,scheduleList,windowWidth,datas]);
 
   useEffect(() => {
+    setZoomTimelineAux(zoomTimeline)
     const svg = d3.select(svgDivWrapperId).select('svg');
     const svgAx = d3.select(svgAxisDivWrapperId).select('svg');
     if (!svg.empty()) {
@@ -1326,6 +1328,11 @@ const CalendarBody = ({
     setIsLoading(true)
     if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') { 
       setIsLoading(true)    
+      if(currentZScale > 4){      
+        wasMonthly = false;
+      } else {
+        wasMonthly = true;
+      }
       const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
@@ -1334,7 +1341,13 @@ const CalendarBody = ({
     }
       const svg = d3.select(svgDivWrapperId).select('svg');
       if (!svg.empty()) {
-        setZoomTimeline(zoomTimelineAux)
+        if (zoomSelected === 'Weekly' && wasMonthly === true ){
+          const newValuePan = (zoomTimelineAux === 0 ? 100: (((zoomTimelineAux/100)*10)-5)* 100)
+          setZoomTimeline(newValuePan )
+        } else if (zoomSelected === 'Monthly'&& wasMonthly === false){
+          const newValuePan = (((zoomTimelineAux/100)+5)/10)* 100
+          setZoomTimeline(newValuePan)
+        }
       }
     setIsLoading(false)
   }, [zoomSelected]);
