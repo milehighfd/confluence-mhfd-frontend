@@ -1,10 +1,11 @@
 import ReactGA from 'react-ga';
 import { useHistory } from 'react-router-dom'
 import { useClearCache } from 'react-clear-cache';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const useInitializeApp = () => {
   const { isLatestVersion, emptyCacheStorage } = useClearCache();
+  const shownRef = useRef(false);
 
   const history = useHistory();
 
@@ -43,8 +44,9 @@ const useInitializeApp = () => {
   }, [history]);
 
   useEffect(() => {
-    if (!isLatestVersion) {
-      if (window.confirm("There is a new version available, update?") == true) {
+    if (!isLatestVersion && !shownRef.current) {
+      shownRef.current = true;
+      if (window.confirm("There is a new version available, update?")) {
         emptyCacheStorage();
       }
     }
