@@ -72,7 +72,7 @@ const initState = {
   componentGeom: undefined,
   zoomGeom: undefined,
   nextPageOfCards: 1,
-  infiniteScrollItems: Array.from({ length: 10 }),
+  infiniteScrollItems: Array.from({ length: 20 }),
   infiniteScrollHasMoreItems: true
 }
 

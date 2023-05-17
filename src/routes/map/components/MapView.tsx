@@ -934,6 +934,9 @@ const MapView = () => {
             console.log('get gallery');
             getGalleryProjects();
           }
+          resetNextPageOfCards();
+          resetInfiniteScrollItems();
+          resetInfiniteScrollHasMoreItems();
         },
       });
     });

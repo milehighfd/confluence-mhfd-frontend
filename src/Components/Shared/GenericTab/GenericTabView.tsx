@@ -172,29 +172,15 @@ const GenericTabView = ({
     const tagProjects = [] as any;
 
     const fetchMoreData = async () => {
-      if (infiniteScrollItems.length >= totalElement - size) {
-        if (infiniteScrollItems.length !== totalElements) {
-            if (infiniteScrollItems.length < totalElements && totalElement - size < totalElements) {
-                if (!isLoading) {
-                    setIsLoading(true);
-                    getExtraProjects(nextPageOfCards);
-                }
-                const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
-                setInfiniteScrollItems(nextItems);
-                setInfiniteScrollHasMoreItems(true);
-            } else {
-                const nextItems = infiniteScrollItems.concat(Array.from({ length: totalElement - infiniteScrollItems.length }));
-                setInfiniteScrollItems(nextItems);
-                setInfiniteScrollHasMoreItems(false);
-            }
+    if (infiniteScrollItems.length < totalElements) {
+        if (!isLoading) {
+            setIsLoading(true);
+            getExtraProjects(nextPageOfCards);
         }
-        return;
-      }
-      setTimeout(() => {
         const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
         setInfiniteScrollItems(nextItems);
-      }, 500);
-      
+        setInfiniteScrollHasMoreItems(true);
+    }
     };
     return (
         <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
@@ -266,15 +252,15 @@ const GenericTabView = ({
         </div>
         <Row className="card-map" gutter={[16, 16]} >
             <InfiniteScroll
-                dataLength={infiniteScrollItems.length}
+                dataLength={totalElement}
                 next={fetchMoreData}
                 hasMore={infiniteScrollHasMoreItems}
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}
-                loader={<h4 style={{paddingLeft:'12px', textAlign: 'center'}}> </h4>}>
+                loader={<></>}>
                 {sw ? infiniteScrollItems.map((_: any, index: number) => {
-                    return data[index] && <CardInformationView
+                    return data[index] && <CardInformationView  
                         key={index}
                         data={data[index]}
                         type={type}
