@@ -118,6 +118,7 @@ export const SERVER = (function () {
     const GET_PROBLEM_GEOM = 'problem-geom';
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
+    const GET_COSTS_BY_ID = 'get-costs-by-id'
     const NEW_NOTES = 'newnotes';
     const GROUP_TYPE = 'group';
     const COLOR = 'color';
@@ -133,6 +134,7 @@ export const SERVER = (function () {
     const STREAMS = 'streams';
     const BUSINESS = 'business';
     const STATUS = 'status';
+    const FINANCIAL = 'financial';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -324,6 +326,9 @@ export const SERVER = (function () {
         },
         PROJECT_COST_OVERHEAD: (projectId: any) => {
             return `${URL_BASE.BASE}/${PROJECT}/${PROJECT_COST}/${projectId}`
+        },
+        GET_FINANCIAL_BY_ID: (projectId: any) => {
+            return `${URL_BASE.BASE}/${FINANCIAL}/${GET_COSTS_BY_ID}/${projectId}`
         },
         SAVE_BUSINESS_ADRESS_AND_CONTACT: (id: string | number) =>`${URL_BASE.BASE}/${BUSINESS}/business-address-and-contact/${id}`,
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
