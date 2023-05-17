@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button,  Checkbox, Col, Dropdown, Menu, Row, Space, Table } from "antd";
-import { DATA_FINANCIALS} from "../constants";
 import { DeleteOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import AddAmountModal from "Components/Shared/Modals/AddAmountModal";
 import { useFinancialDispatch, useFinancialState } from "hook/financialHook";
@@ -11,6 +10,8 @@ const Financials = ({projectId} : {projectId: any}) => {
 
   const [openModalAmount, setOpenModalAmount] = useState(false);
   const [finalData, setFinalData] = useState([]);
+  const [dropdownPhase, setDropdownPhase] = useState<any>([]);
+  const [dropdownPartner, setDropdownPartner] = useState<any>([]);
   const [viewDropdown, setViewDropdow] = useState(
     {
       income : true,
@@ -32,15 +33,43 @@ const Financials = ({projectId} : {projectId: any}) => {
       const amendment = element?.amendment_number || '';
       const partner = element?.project_partner_name || '';
       const phase = element?.code_phase_type_name || '';
-      const projected = ['0',''];
-      const encumbered = ['0',''];
-      const tyler = ['0',''];
-      const available = ['', 'purple'];
+      const projected = ['$0','purple'];
+      const encumbered = ['$0','purple'];
+      const tyler = ['$0','purple'];
+      const available = ['$0', 'purple'];
       return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available}
     });
     setFinalData(mappingDataForDataSource);
   }, [financialInformation])
 
+  useEffect(() => {
+    const dropdownPhase = finalData.map((element: any) => {
+      if(element.phase){
+        const key = element?.phase;
+        const label = <span >{element?.phase}</span>;
+        return {key,label}
+      }
+    });
+    const dropdownPartner = finalData.map((element: any) => {
+      if(element.partner){
+        const key = element?.partner;
+        const label = <span >{element?.partner}</span>;
+        return {key,label}
+      }
+    });
+    let uniquedropdownPhase = dropdownPhase.filter((value: any, index, self) =>
+      index === self.findIndex((t: any) => (
+        t?.key === value?.key
+      ))
+    )
+    let uniquedropdownPartner = dropdownPartner.filter((value: any, index, self) =>
+      index === self.findIndex((t: any) => (
+        t?.key === value?.key
+      ))
+    )
+    setDropdownPartner(uniquedropdownPartner);
+    setDropdownPhase(uniquedropdownPhase);
+  }, [financialInformation])
   
   const columns = [
     {
@@ -48,7 +77,7 @@ const Financials = ({projectId} : {projectId: any}) => {
       dataIndex: 'agreement',
       key: 'agreement',
       render: (agreement: any, index:any) => (
-        <p className={"table-" + agreement[1]} key={index}>{agreement[0]}</p>
+        <p className={"table-" + agreement[1]}>{agreement[0]}</p>
       ),
     },
   {
@@ -66,7 +95,7 @@ const Financials = ({projectId} : {projectId: any}) => {
       dataIndex: 'phase',
       key: 'phase',
       render: (phase:any) => (
-        <span className={'span-' + phase}>
+        <span className={phase !== ''? 'span-Phase':'span'}>
           {phase}
         </span>
       ),
@@ -144,27 +173,16 @@ const Financials = ({projectId} : {projectId: any}) => {
     <Menu
       className="menu-density"
       // onClick={(e) => (setNormalTimeline(e.key === 'Normal' ? true: false))}
-      items={[
-        {
-          label:<span > Partner</span>,
-          key: 'Partner',
-        },
-      ]}
+      items={dropdownPartner}
     />
   );
   const menu3 = (
     <Menu
       className="menu-density"
       // onClick={(e) => (setNormalTimeline(e.key === 'Normal' ? true: false))}
-      items={[
-        {
-          label:<span > Phase</span>,
-          key: 'Phase',
-        },
-      ]}
+      items={dropdownPhase}
     />
   );
-
 
   return (
     <>
