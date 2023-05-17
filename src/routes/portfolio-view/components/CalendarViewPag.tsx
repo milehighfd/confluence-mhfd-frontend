@@ -12,12 +12,10 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const CalendarViewPag = ({
   tabKey,
-  index,
   setOpenPiney,
   openPiney,
 }: {
   tabKey: any,
-  index: any,
   setOpenPiney: any,
   openPiney:any,
 }) => {

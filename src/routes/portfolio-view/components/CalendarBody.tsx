@@ -109,7 +109,6 @@ const CalendarBody = ({
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
 
   useEffect(() => {
-    console.log('updateForDates', updateGroup)
     let idF = dataId.id;
     if (idF === updateGroup.id1 || !updateGroup.id1) {
       setUpdateForDates(!updateForDates);
@@ -1346,7 +1345,6 @@ const CalendarBody = ({
       idForFilter = dataId.value;
     }
     const controller = new AbortController();
-    console.log('updateForDates', updateForDates)
     datasets.postData(
       `${SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter)}?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
       filterProjectOptions,

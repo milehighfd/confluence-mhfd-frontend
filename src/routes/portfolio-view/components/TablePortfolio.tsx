@@ -19,12 +19,10 @@ import { SERVER } from 'Config/Server.config';
 const TablePortafolio = ({
     tabKey,
     setSortValue,   
-    index,
     tabKeyId,
   }: {
     tabKey: any,
     setSortValue: Function | any,
-    index: number,
     tabKeyId: any,
   }) => {
   const {
