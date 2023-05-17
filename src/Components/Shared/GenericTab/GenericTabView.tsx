@@ -54,6 +54,14 @@ const GenericTabView = ({
     }
 
     useEffect(() => {
+        if (nextPageOfCards === 1) {
+            console.log('entro')
+            let div = document.getElementsByClassName('infinite-scroll-component')[0]
+            if (div) div.scrollTop = 0;
+        }
+    }, [nextPageOfCards]);
+
+    useEffect(() => {
         favoriteList(type === 'Problems');    
     }, [user]);
 
@@ -250,7 +258,7 @@ const GenericTabView = ({
                 })}
             </div>
         </div>
-        <Row className="card-map" gutter={[16, 16]} >
+        <Row className="card-map" id='card-on-map' gutter={[16, 16]} >
             <InfiniteScroll
                 dataLength={totalElement}
                 next={fetchMoreData}
@@ -258,6 +266,7 @@ const GenericTabView = ({
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}
+                scrollableTarget="card-on-map"
                 loader={<></>}>
                 {sw ? infiniteScrollItems.map((_: any, index: number) => {
                     return data[index] && <CardInformationView  
