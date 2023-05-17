@@ -84,6 +84,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction 
   }, [updateList,note])
 
   useEffect(() => {
+    console.log('data',data)
     datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         if (Object.keys(rows).length > 0) {
@@ -237,7 +238,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction 
         }
       </div>
       <div className="body-piney">
-        <p style={{ marginBottom: '0px' }}>{`${(data?.data?.project_type==='Study'?'Study':data?.data?.project_type + ' Project')}` || 'N/A'}</p>
+        <p style={{ marginBottom: '0px' }}>{`${(data?.project_type==='Study'?'Study':data?.project_type + ' Project')}` || 'N/A'}</p>
         <h1 style={{ color: 'rgb(37 24 99)', fontSize: '16px', marginBottom: '7px' }}>{data.project_name}</h1>
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase} {data.project_type}</span>
@@ -281,7 +282,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction 
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span></p>
+                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} {!isDetail && <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span>}</p>
                 }
               </Col>
             </Row>
@@ -292,7 +293,7 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction 
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span></p>
+                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} {!isDetail && <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span>}</p>
                 }
               </Col>
             </Row>
