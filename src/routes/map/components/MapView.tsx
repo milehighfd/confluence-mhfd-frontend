@@ -690,7 +690,7 @@ const MapView = () => {
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
       const tag = filterProjects[key];
-      if (key !== 'keyword' && key !== 'column' && key !== 'order') {
+      if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name') {
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
           if (element) {
@@ -848,7 +848,6 @@ const MapView = () => {
   };
 
   const sortClick = () => {
-    console.log('Sort bcl');
     if (tabActive === '0') {
       const auxOptions = { ...filterProblemOptions };
       auxOptions.order = filterProblemOptions.order === 'asc' ? 'desc' : 'asc';
@@ -858,7 +857,6 @@ const MapView = () => {
       const auxOptions = { ...filterProjectOptions };
       auxOptions.order = filterProjectOptions.order === 'asc' ? 'desc' : 'asc';
       setFilterProjectOptions(auxOptions);
-      console.log('get gallery');
       getGalleryProjects();
     }
     resetNextPageOfCards();
@@ -937,7 +935,7 @@ const MapView = () => {
             const auxOptions = { ...filterProjectOptions };
             auxOptions.column = element.name;
             setFilterProjectOptions(auxOptions);
-            console.log('get gallery');
+            
             getGalleryProjects();
           }
           resetNextPageOfCards();
@@ -1000,18 +998,21 @@ const MapView = () => {
     }
   }, [tutorialStatus]);
 
-  let filterCounter = 0;
-  switch (tabActive) {
-    case '0':
-      filterCounter = countFilterProblems;
-      break;
-    case '1':
-      filterCounter = countFilterProjects;
-      break;
-    case '2':
-      filterCounter = countFilterComponents;
-      break;
-  }
+  // let filterCounter = 0;
+  const [filterCounter, setFilterCounter ] = useState(0);
+  useEffect(() => {
+    switch (tabActive) {
+      case '0':
+        setFilterCounter(countFilterProblems);
+        break;
+      case '1':
+        setFilterCounter(countFilterProjects);
+        break;
+      case '2':
+        setFilterCounter(countFilterComponents);
+        break;
+    }
+  }, [tabActive, countFilterProblems, countFilterProjects, countFilterComponents]);
   let filterLabel = `Filters `;
   return (
     <>
