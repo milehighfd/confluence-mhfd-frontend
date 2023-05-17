@@ -210,6 +210,9 @@ export const setFilterProjectOptions = (filters: OptionProjects) => {
     }
     return (dispatch: Function) => {
         dispatch({ type: types.SET_FILTER_PROJECT_OPTIONS, filters });
+        dispatch({ type: projectTypes.RESET_NEXT_PAGE});
+        dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM });
+        dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS });
         const params = '?problemtype=' + filters.problemtype;
         if (filters.problemtype) {
             datasets.getData(SERVER.GET_FILTER_PROBLEMTYPE_FOR_PROJECTS + params, datasets.getToken()).then(tables => {
@@ -356,6 +359,9 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
             console.log('getGalleryProjects', err);
         }
       })
+      dispatch({ type: projectTypes.RESET_NEXT_PAGE});
+      dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM });
+      dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS });
     if (origin != 'bounds') {
       dispatch(getProjectsFilteredIds());
     }
