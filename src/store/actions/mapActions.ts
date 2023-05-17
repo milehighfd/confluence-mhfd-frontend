@@ -1,4 +1,5 @@
 import * as types from 'store/types/mapTypes';
+import * as projectTypes from '../types/ProjectTypes';
 import * as detailedTypes from 'store/types/detailedTypes';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
@@ -6,6 +7,7 @@ import * as constants from 'constants/constants';
 import { OptionProblems, OptionProjects, OptionComponents } from 'Classes/MapTypes';
 import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
 import store from '..';
+import { useProjectDispatch } from '../../hook/projectHook';
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
     const controller = new AbortController();
@@ -665,8 +667,12 @@ export const setTabCards = (tab: string) => {
         dispatch({ type: types.SET_TAB_CARDS, tab });
     }
 }
+
 export const setBoundMap = (bounds: string) => {
     return (dispatch: Function) => {
+        dispatch({ type: projectTypes.RESET_NEXT_PAGE});
+        dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM });
+        dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS });
         dispatch({ type: types.SET_BOUNDS_MAP, bounds });
     }
 }
