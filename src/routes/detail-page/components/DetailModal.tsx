@@ -437,7 +437,6 @@ const DetailModal = ({
   }
   return (
     <>
-    {isLoading && <LoadingViewOverall />}
     <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback} addFavorite={addFavorite}/>
     <Modal
       className="detailed-modal modal-detailed-modal"
@@ -447,6 +446,7 @@ const DetailModal = ({
       forceRender={false}
       destroyOnClose>
       <div className="detailed" style={{overflowY:'clip', maxHeight:"calc(100vh - 8vh)"}}>
+      {isLoading && <LoadingViewOverall />}
         <Row className="detailed-h" gutter={[16, 8]} style={{background:'#f8f8fa'}}>
           <Col xs={{ span: 24 }} lg={typeS === FILTER_PROBLEMS_TRIGGER ? { span: 13}:{ span: 18}}>
             <div className="header-detail" style={{alignItems: 'normal'}}>
