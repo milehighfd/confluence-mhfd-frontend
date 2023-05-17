@@ -161,3 +161,8 @@ export const setOpenGroups = (value: Object) => ({
   type: types.SET_OPEN_GROUPS,
   payload: value
 });
+
+export const setDatesData = (value: Object) => ({
+  type: types.SET_DATES_DATA,
+  payload: value
+});

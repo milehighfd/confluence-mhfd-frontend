@@ -23,7 +23,6 @@ const CalendarBody = ({
   setNext,
   setPrev,
   index,
-  setTollData,
   actionsDone,
   setOpenPiney,
   groupName,
@@ -40,7 +39,6 @@ const CalendarBody = ({
   setNext: Function,
   setPrev: Function,
   index: number,
-  setTollData: Function,
   actionsDone: any,
   setOpenPiney: Function,
   groupName: string,
@@ -61,7 +59,7 @@ const CalendarBody = ({
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   // const [isLoading, setIsLoading] = useState(false);
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading} = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading, setDatesData} = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -357,7 +355,7 @@ const CalendarBody = ({
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
             const sendTollgate = { d, scheduleList }
-            setTollData(sendTollgate);
+            setDatesData(sendTollgate);
             setOpenModalTollgate(true);
           })
         hasDateData = true;
@@ -393,7 +391,7 @@ const CalendarBody = ({
           })
           .on("click", function (d: any) {
             const sendTollgate = { d, scheduleList }
-            setTollData(sendTollgate);
+            setDatesData(sendTollgate);
             setOpenModalTollgate(true);
           })
           ;

@@ -12,11 +12,9 @@ import { handleAbortError } from 'store/actions/mapActions';
 const PhaseViewPag = ({  
   tabKey,
   index,
-  setTollData,
 }: {
   tabKey: any,
   index: any,
-  setTollData: any,
 }) => {
   const {
     currentGroup,
@@ -102,7 +100,6 @@ const PhaseViewPag = ({
             data={popUpData}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
-            setTollData={setTollData}
             isDetail={false}
           />
         </div>
@@ -184,7 +181,6 @@ const PhaseViewPag = ({
                     tabKey={tabKey}
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
-                    setTollData={setTollData}
                     actionsDone={actionsDone}
                     userBrowser={userBrowser}
                     setOpenPiney={setOpenPiney}

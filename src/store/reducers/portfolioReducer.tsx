@@ -22,6 +22,7 @@ const initState = {
   updateGroup: {id1: null,id2: null},
   isLoading: false,
   openGroups: [true, true, true],
+  datesData: {},
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -146,6 +147,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         openGroups: action.payload,
+      };
+    case types.SET_DATES_DATA:
+      return {
+        ...state,
+        datesData: action.payload,
       };
     default:
       return state;

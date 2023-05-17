@@ -42,9 +42,9 @@ const PortafolioBody = ({
     filterProjectOptionsNoFilter
   } = useMapState();
   const {
-    searchWord, graphicOpen
+    searchWord, graphicOpen, datesData
   } = usePortflioState();
-  const { setFavorites, getListPMTools,setOpenGroups } = usePortfolioDispatch();
+  const { setFavorites, getListPMTools, setOpenGroups, setDatesData } = usePortfolioDispatch();
 
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -62,7 +62,6 @@ const PortafolioBody = ({
   // const [dataModal,setDataModal] = useState<any>([]);
   const [openPiney, setOpenPiney] = useState(false);
   const [updateFilter, setUpdateFilter] = useState([]);
-  const [tollData,setTollData] = useState<any>([]);
 
   useEffect(() => {
     getParamFilterProjectsNoBounds();
@@ -262,7 +261,7 @@ const PortafolioBody = ({
     {graphicOpen && <ModalGraphic/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
     <ModalTollgate
-      dataProject={tollData}
+      dataProject={datesData}
       saveCB={()=>{}}
       setOpenPiney={setOpenPiney}
     />
@@ -349,14 +348,12 @@ const PortafolioBody = ({
                       <PhaseViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
-                        setTollData={setTollData}
                       />
                     }
                     {optionSelect === 'Schedule' &&
                       <CalendarViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
-                        setTollData={setTollData}
                         setOpenPiney={setOpenPiney}
                         openPiney={openPiney}
                       />

@@ -20,7 +20,8 @@ import {
   setOpenModalTollgate,
   setUpdateGroup,
   setIsLoading,
-  setOpenGroups
+  setOpenGroups,
+  setDatesData
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -90,6 +91,9 @@ export const usePortfolioDispatch = () => {
   const _setOpenGroups = useCallback((value: Array<any>) => {
     dispatch(setOpenGroups(value));
   }, [dispatch]);
+  const _setDatesData = useCallback((value: Object) => {
+    dispatch(setDatesData(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -111,5 +115,6 @@ export const usePortfolioDispatch = () => {
     setUpdateGroup: _setUpdateGroup,
     setIsLoading: _setIsLoading,
     setOpenGroups: _setOpenGroups,
+    setDatesData: _setDatesData
   };
 };

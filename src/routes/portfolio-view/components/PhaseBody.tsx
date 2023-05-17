@@ -24,7 +24,6 @@ const PhaseBody = ({
   index,
   phaseRef,
   totalLabelWidth,
-  setTollData,
   actionsDone,
   userBrowser,
   groupName,
@@ -44,7 +43,6 @@ const PhaseBody = ({
   index: number,
   phaseRef: any,
   totalLabelWidth: number,
-  setTollData: Function,
   actionsDone: any,
   userBrowser: any,
   groupName: string,
@@ -61,7 +59,7 @@ const PhaseBody = ({
     filterProjectOptions,
   } = useMapState();
   const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate } = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setDatesData } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -253,7 +251,7 @@ const PhaseBody = ({
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
             const sendTollgate = { d, scheduleList }
-            setTollData(sendTollgate);
+            setDatesData(sendTollgate);
             setOpenModalTollgate(true);
           })
         hasDateData = true;
@@ -284,7 +282,7 @@ const PhaseBody = ({
           })
           .on("click", function (d: any) {
             const sendTollgate = { d, scheduleList }
-            setTollData(sendTollgate);
+            setDatesData(sendTollgate);
             setOpenModalTollgate(true);
           })
           ;

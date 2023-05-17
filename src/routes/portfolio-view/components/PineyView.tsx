@@ -13,24 +13,20 @@ import store from 'store';
 import { usePortfolioDispatch } from "hook/portfolioHook";
 
 const { Step } = Steps;
-const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction, setTollData }: 
+const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction }: 
   { setOpenPiney: any, 
     data?: any,
     setUpdateAction?: any, 
     updateAction?: any,
-    setTollData? : any,
     isDetail:boolean
     }) => {     
-  const {setOpenModalTollgate} = usePortfolioDispatch();
+  const {setOpenModalTollgate, setDatesData} = usePortfolioDispatch();
   const appUser = store.getState().profile;
   const userName = appUser.userInformation?.name;
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
-  const [openDrop, setOpenDrop] = useState(false);
   const [editView, setEditView] = useState(false);
   const [counterD, setCounterD]= useState(+data.d3_text)
   const [visibleDetail, setVisibleDetail] = useState(false);
-  const [tollgate, setTollgate] = useState(false);
-  const [sendTollgate, setSendTollgate] = useState({});
   const [checkboxValue, setCheckboxValue] = useState({
     draft: true,
     sign: false,
@@ -213,7 +209,8 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction,
 
   const openTollModal = () => {
     setOpenModalTollgate(true);       
-    setTollData({ d: data.data, scheduleList: data.scheduleList });
+    let send = {d: data.data, scheduleList: data.scheduleList};
+    setDatesData(send);
   }
   return (
     <>
@@ -324,19 +321,20 @@ const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction,
               <Col xs={{ span: 10 }} lg={{ span: 20 }}>
                 <Progress percent={percent} />
               </Col>
-            </Row>                       
-            {actionList.map((x:any) =>{
-              return (<div className={x.isChecked ? "checkbox-select-active checkbox-select":"checkbox-select"} 
-              onClick={(e)=>{
-                if(x.isChecked)
-                {deleteData(x)                  
-                }else{
-                  saveData(x)                  
-                }}}>
+          </Row>
+          {actionList.map((x: any) => {
+            return (<div key={x.code_rule_action_item_id} className={x.isChecked ? "checkbox-select-active checkbox-select" : "checkbox-select"}
+              onClick={(e) => {
+                if (x.isChecked) {
+                  deleteData(x)
+                } else {
+                  saveData(x)
+                }
+              }}>
               <p>{x.action_item_name}</p>
               <Checkbox checked={x.isChecked}></Checkbox>
             </div>)
-            })}            
+          })}
         </div>
       </div>
     </>
