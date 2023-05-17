@@ -347,12 +347,11 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
 
   const removeStream = (stream: any) => {
     console.log('Stream to remove', stream);
-    console.log(stream?.mhfd_code)
     let mhfd_codeIdToRemove = stream?.mhfd_code;
     let copyList = { ...streamsList };
     console.log('Current list', streamsList, mhfd_codeIdToRemove);
     for (let jurisdiction in copyList) {
-      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.stream?.stream?.MHFD_Code != mhfd_codeIdToRemove);
+      let newArray = [...copyList[jurisdiction]].filter((st: any) => st.mhfd_code != mhfd_codeIdToRemove);
       copyList[jurisdiction] = newArray;
     }
     let newCopyList: any = {};
@@ -494,9 +493,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                             <div key={`${key}`} className="tab-body-project">
                               <Timeline>
                                 {
-                                  streamsList[key] && streamsList[key].map((stream: any) => {
+                                  streamsList[key] && streamsList[key].map((stream: any, index :any) => {
                                     return (
-                                      <Timeline.Item color="green">
+                                      <Timeline.Item color="green" key={index}>
                                         <Row style={{ marginLeft: '-18px' }}>
                                           <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
                                           <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>

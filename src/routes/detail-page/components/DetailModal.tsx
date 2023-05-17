@@ -767,7 +767,7 @@ const DetailModal = ({
                   <ComponentSolucions />
                   <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} setPopUpData={setPopUpData} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
                   <br></br>
-                  <Financials />
+                  <Financials projectId={project_idS}/>
                   <br></br>
                   <Management />
                   <Map type={typeS} ref={cipjRef} />

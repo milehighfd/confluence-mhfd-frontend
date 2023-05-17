@@ -1,7 +1,7 @@
 import * as types from '../types/financialTypes';
 
 const initState = {
-    financialInformation:[]
+    financialInformation: []
 };
 
 const financialReducer = (state = initState, action : any) => {

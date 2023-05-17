@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button, Carousel, Checkbox, Col, Dropdown, Menu, Modal, Progress, Row, Space, Table, Tooltip } from "antd";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import type { MenuProps } from 'antd';
-import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
-import { ArrowDownOutlined, DeleteOutlined, DownOutlined, PlusOutlined, UpOutlined } from "@ant-design/icons";
+import { Button,  Checkbox, Col, Dropdown, Menu, Row, Space, Table } from "antd";
+import { DATA_FINANCIALS} from "../constants";
+import { DeleteOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import AddAmountModal from "Components/Shared/Modals/AddAmountModal";
+import { useFinancialDispatch, useFinancialState } from "hook/financialHook";
 
-const Financials = () => {
+const Financials = ({projectId} : {projectId: any}) => {
+  const { financialInformation } = useFinancialState();
+  const { getFinancialData } = useFinancialDispatch();
+
   const [openModalAmount, setOpenModalAmount] = useState(false);
+  const [finalData, setFinalData] = useState([]);
   const [viewDropdown, setViewDropdow] = useState(
     {
       income : true,
@@ -17,16 +20,38 @@ const Financials = () => {
   const [openDrop, setOpenDrop] = useState(false);
   const [openDropPhatner, setOpenPhatner] = useState(false);
   const [openDropPhase, setOpenDropPhase] = useState(false);
+
+  useEffect(() => {
+    getFinancialData(projectId);
+  }, []) 
+
+  useEffect(() => {
+    const mappingDataForDataSource = financialInformation.map((element: any, index: number) => {
+      const key = `${index}`;
+      const agreement = [element?.agreement_number, ''];
+      const amendment = element?.amendment_number || '';
+      const partner = element?.project_partner_name || '';
+      const phase = element?.code_phase_type_name || '';
+      const projected = ['0',''];
+      const encumbered = ['0',''];
+      const tyler = ['0',''];
+      const available = ['', 'purple'];
+      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available}
+    });
+    setFinalData(mappingDataForDataSource);
+  }, [financialInformation])
+
+  
   const columns = [
     {
       title: 'Agreement',
       dataIndex: 'agreement',
       key: 'agreement',
-      render: (agreement:string[]) => (
-        <p className={"table-" + agreement[1]}>{agreement[0]}</p>
+      render: (agreement: any, index:any) => (
+        <p className={"table-" + agreement[1]} key={index}>{agreement[0]}</p>
       ),
     },
-    {
+  {
       title: 'Amendment',
       dataIndex: 'amendment',
       key: 'amendment',
@@ -178,7 +203,7 @@ const Financials = () => {
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
           <div style={{width:'100%', overflowX:'hidden'}}>
-            <Table dataSource={DATA_FINANCIALS} columns={columns} pagination={{ pageSize: 50 }}  scroll={{ y: 350 }} />
+            <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }}  scroll={{ y: 350 }} />
             <div style={{display:'flex', paddingTop:'5px', borderTop: '1px solid #d7d3e2',marginTop: '5px'}}>
               <p style={{color:'#28c499', fontWeight:'400', width:'50%'}}>Subtotal Income</p>
               <p style={{color:'#28c499', fontWeight:'400', width:'12.5%'}}>$600,320</p>
