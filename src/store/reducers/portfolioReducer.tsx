@@ -19,7 +19,8 @@ const initState = {
   graphicOpen: false,
   openModalTollgate: false,
   updateGroup: {id1: null,id2: null},
-  isLoading: false
+  isLoading: false,
+  openGroups: [true, true, true],
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -134,6 +135,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         isLoading: action.payload,
+      };
+    case types.SET_OPEN_GROUPS:
+      return {
+        ...state,
+        openGroups: action.payload,
       };
     default:
       return state;

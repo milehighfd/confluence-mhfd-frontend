@@ -44,7 +44,7 @@ const PortafolioBody = ({
   const {
     searchWord, graphicOpen
   } = usePortflioState();
-  const { setFavorites, getListPMTools } = usePortfolioDispatch();
+  const { setFavorites, getListPMTools,setOpenGroups } = usePortfolioDispatch();
 
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -55,7 +55,6 @@ const PortafolioBody = ({
   const [openFavorites, setOpenFavorites] = useState(false);
   const [openModalTable, setOpenModalTable] = useState(false);
   let displayedTabKey = tabKeys;
-  const [openTable, setOpenTable] = useState<any>([]);
   const [openDrop, setOpenDrop] = useState(false);
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
@@ -72,13 +71,13 @@ const PortafolioBody = ({
       currentNewData = currentNewData.filter((d: any, idx: number) => (d.id.includes('Title') && (currentNewData[idx + 1] ? currentNewData[idx + 1].id.includes('Title') : true)) ? false : true);
       setNewData(currentNewData);
       const sortedData = currentNewData.filter((elem: any) => elem.id.includes('Title'));
-      setOpenTable(new Array(sortedData.length).fill(true));
+      setOpenGroups(new Array(sortedData.length).fill(true));
     } else {
       setNewData([]);
       const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
-      setOpenTable(new Array(sortedData.length).fill(true));
+      setOpenGroups(new Array(sortedData.length).fill(true));
     }
-    setOpenTable([true, true, true]);
+    setOpenGroups([true, true, true]);
     setTimeout(() => {
       isInit = false;
       resetFilterProjectOptionsEmpty();
@@ -334,41 +333,36 @@ const PortafolioBody = ({
           // style={{zIndex:1}}
           onChange={(key) => changeTabkey(key)} className="tabs-map">
           {
-            displayedTabKey.map((tk: string, idx: number) => { return (
-              <TabPane style={{marginBottom:'0px', zIndex:1}} tab={<span>{tk}</span>} key={tk} disabled = {(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All'?true:false}>
-                <div className="protafolio-body">
-                  {openFilters && <Filters filtersObject={ {filterby, filterValue, tabKey}}/>}
-                      {optionSelect === 'List' && <TablePortafolio
-                        setOpenTable={setOpenTable}
-                        openTable={openTable}
-                        index={idx}
-                        tabKey={tabKey}
-                        tabKeyId = {tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                        setSortValue={setSortValue}
-                      />
-                      }
-                      {optionSelect === 'Phase' && 
+            displayedTabKey.map((tk: string, idx: number) => {
+              return (
+                <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All' ? true : false}>
+                  <div className="protafolio-body">
+                    {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
+                    {optionSelect === 'List' && <TablePortafolio
+                      index={idx}
+                      tabKey={tabKey}
+                      tabKeyId={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
+                      setSortValue={setSortValue}
+                    />
+                    }
+                    {optionSelect === 'Phase' &&
                       <PhaseViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                         index={idx}
-                        openTable={openTable}
-                        setOpenTable={setOpenTable}
-                        setTollData = {setTollData}
-                      />                        
-                      }
-                    {optionSelect === 'Schedule'  && 
-                    <CalendarViewPag
-                      tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                      index={idx}
-                      openTable={openTable}
-                      setOpenTable={setOpenTable}
-                      setTollData={setTollData}
-                      setOpenPiney={setOpenPiney}
-                      openPiney={openPiney}
-                    />
+                        setTollData={setTollData}
+                      />
                     }
-                </div>
-              </TabPane>
+                    {optionSelect === 'Schedule' &&
+                      <CalendarViewPag
+                        tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
+                        index={idx}
+                        setTollData={setTollData}
+                        setOpenPiney={setOpenPiney}
+                        openPiney={openPiney}
+                      />
+                    }
+                  </div>
+                </TabPane>
             )})
             }
           </Tabs>

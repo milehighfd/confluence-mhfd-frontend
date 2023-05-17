@@ -12,8 +12,6 @@ const { Panel } = Collapse;
 
 const PhaseGroups = ({
   data,
-  setOpenTable,
-  openTable,
   index,
   tabKey,
   phaseRef,
@@ -27,8 +25,6 @@ const PhaseGroups = ({
   dataId,
 }: {
   data: any,
-  setOpenTable: any,
-  openTable: any,
   index: any,
   tabKey: any,
   phaseRef: any,
@@ -41,8 +37,8 @@ const PhaseGroups = ({
   headerRef: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase } = usePortflioState();
-  const { setCollapsePhase } = usePortfolioDispatch();
+  const { currentGroup, collapsePhase, openGroups } = usePortflioState();
+  const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
   } = useMapState();
@@ -62,7 +58,7 @@ const PhaseGroups = ({
   }, [tabKey, filterProjectOptions])
   
   const getActiveKeys = () => {
-    const indices = openTable.reduce(
+    const indices = openGroups.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
       []
     );
@@ -79,9 +75,9 @@ const PhaseGroups = ({
         onChange={
           () => {
             setCollapsePhase(!collapsePhase)            
-            const newOpenTable = [...openTable];
-            newOpenTable[index] = !openTable[index] as any;
-            setOpenTable(newOpenTable);
+            const newOpenTable = [...openGroups];
+            newOpenTable[index] = !openGroups[index] as any;
+            setOpenGroups(newOpenTable);
           }
         } className=''
         collapsible={Number(counter) ===0 ? "disabled" :"header"}

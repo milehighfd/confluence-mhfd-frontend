@@ -13,16 +13,12 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 const CalendarViewPag = ({
   tabKey,
   index,
-  openTable,
-  setOpenTable,
   setTollData,
   setOpenPiney,
   openPiney,
 }: {
   tabKey: any,
   index: any,
-  openTable: any,
-  setOpenTable: any,
   setTollData: any,
   setOpenPiney: any,
   openPiney:any,
@@ -92,9 +88,7 @@ const CalendarViewPag = ({
     )}
     <Row>
       <Col xs={ { span: 10 }} lg={{ span: 5 }}>
-        <SearchDropdown
-          setOpenTable={setOpenTable}
-        />
+        <SearchDropdown />
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="calendar-body" id="widthDivforChart">
@@ -168,8 +162,6 @@ const CalendarViewPag = ({
               <div id={elem.id} key={elem.id}>
                 <CalendarGroups
                   data={elem}
-                  openTable={openTable}
-                  setOpenTable={setOpenTable}
                   index={index}
                   tabKey={tabKey}
                   setTollData={setTollData}

@@ -18,7 +18,8 @@ import {
   setGraphicOpen,
   setOpenModalTollgate,
   setUpdateGroup,
-  setIsLoading
+  setIsLoading,
+  setOpenGroups
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -82,6 +83,9 @@ export const usePortfolioDispatch = () => {
   const _setIsLoading = useCallback((value: boolean) => {
     dispatch(setIsLoading(value));
   }, [dispatch]);
+  const _setOpenGroups = useCallback((value: Array<any>) => {
+    dispatch(setOpenGroups(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -100,6 +104,7 @@ export const usePortfolioDispatch = () => {
     setGraphicOpen: _setGraphicOpen,
     setOpenModalTollgate: _setOpenModalTollgate,
     setUpdateGroup: _setUpdateGroup,
-    setIsLoading: _setIsLoading
+    setIsLoading: _setIsLoading,
+    setOpenGroups: _setOpenGroups,
   };
 };

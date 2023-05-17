@@ -19,7 +19,6 @@ const TableBody = ({
   prev,
   setNext,
   setPrev,
-  openTable,
   index,
   scrollHeaderScrollRef,
   tableRef,
@@ -35,7 +34,6 @@ const TableBody = ({
   prev: boolean,
   setNext: Function,
   setPrev: Function,
-  openTable: any,
   index: number,
   scrollHeaderScrollRef:any,
   tableRef: any,
@@ -46,7 +44,7 @@ const TableBody = ({
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
   
-  const { currentGroup, favorites } = usePortflioState();
+  const { currentGroup, favorites, openGroups } = usePortflioState();
   const { deleteFavorite, addFavorite } = usePortfolioDispatch();
 
   const {
@@ -335,7 +333,7 @@ const TableBody = ({
                     };
                   }}
                   className={
-                    openTable[index]
+                    openGroups[index]
                       ? index === 0
                         ? 'table-portafolio table-first'
                         : 'table-portafolio'

@@ -151,3 +151,8 @@ export const setIsLoading = (value: boolean) => ({
   type: types.SET_IS_LOADING,
   payload: value
 });
+
+export const setOpenGroups = (value: Object) => ({
+  type: types.SET_OPEN_GROUPS,
+  payload: value
+});

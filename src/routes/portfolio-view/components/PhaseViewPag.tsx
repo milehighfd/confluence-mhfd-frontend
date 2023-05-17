@@ -12,14 +12,10 @@ import { handleAbortError } from 'store/actions/mapActions';
 const PhaseViewPag = ({  
   tabKey,
   index,
-  openTable,
-  setOpenTable,
   setTollData,
 }: {
   tabKey: any,
   index: any,
-  openTable: any,
-  setOpenTable: any,
   setTollData: any,
 }) => {
   const {
@@ -132,9 +128,7 @@ const PhaseViewPag = ({
     <Row>
       <Col xs={{ span: 10 }} lg={{ span: 5 }}>
         <div className="vertical-line"></div>
-        <SearchDropdown
-          setOpenTable={setOpenTable} 
-        />
+        <SearchDropdown />
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
         <div className="phaseview-body">
@@ -186,8 +180,6 @@ const PhaseViewPag = ({
                 <div id={elem.id} key={elem.id}>
                   <PhaseGroups
                     data={elem}
-                    openTable={openTable}
-                    setOpenTable={setOpenTable}
                     index={index}
                     tabKey={tabKey}
                     phaseRef={phaseRef}

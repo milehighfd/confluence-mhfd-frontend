@@ -19,15 +19,11 @@ import { SERVER } from 'Config/Server.config';
 const TablePortafolio = ({
     tabKey,
     setSortValue,   
-    setOpenTable,
-    openTable,
     index,
     tabKeyId,
   }: {
     tabKey: any,
     setSortValue: Function | any,
-    setOpenTable: React.Dispatch<React.SetStateAction<boolean[]>>,
-    openTable: any[],
     index: number,
     tabKeyId: any,
   }) => {
@@ -117,9 +113,7 @@ const TablePortafolio = ({
       </div>  
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
-          <SearchDropdown
-            setOpenTable={setOpenTable}
-          />
+          <SearchDropdown />
         </Col>
         <Col xs={{ span: 34 }} lg={{ span: 19 }}>
           <div className="table-body">
@@ -169,8 +163,6 @@ const TablePortafolio = ({
                   <div id={elem.id} key={elem.id}>
                     <TableGroups
                       data={elem}
-                      openTable={openTable}
-                      setOpenTable={setOpenTable}
                       index={index}
                       tabKey={tabKey}
                       scrollRef={scrollRef}

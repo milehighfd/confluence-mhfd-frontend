@@ -13,8 +13,6 @@ const { Panel } = Collapse;
 
 const TableGroups = ({
   data,
-  setOpenTable,
-  openTable,
   index,
   tabKey,
   scrollRef,
@@ -25,8 +23,6 @@ const TableGroups = ({
   dataId,
 }: {
   data: any,
-  setOpenTable: any,
-  openTable: any,
   index: any,
   tabKey: any,
   scrollRef:any,
@@ -36,8 +32,8 @@ const TableGroups = ({
   headerRef: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase } = usePortflioState();
-  const { setCollapsePhase } = usePortfolioDispatch();
+  const { currentGroup, collapsePhase, openGroups } = usePortflioState();
+  const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
   } = useMapState();
@@ -73,7 +69,7 @@ const TableGroups = ({
 
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   const getActiveKeys = () => {
-    const indices = openTable.reduce(
+    const indices = openGroups.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
       []
     );
@@ -93,9 +89,9 @@ const TableGroups = ({
         onChange={
           () => {
             setCollapsePhase(!collapsePhase)            
-            const newOpenTable = [...openTable];
-            newOpenTable[index] = !openTable[index] as any;
-            setOpenTable(newOpenTable);
+            const newOpenTable = [...openGroups];
+            newOpenTable[index] = !openGroups[index] as any;
+            setOpenGroups(newOpenTable);
           }
         }
         className=''
@@ -156,7 +152,6 @@ const TableGroups = ({
             prev={prev}
             setNext={setNext}
             setPrev={setPrev}
-            openTable={openTable}
             index={index}
             scrollHeaderScrollRef={scrollHeaderScrollRef}
             tableRef={tableRef}

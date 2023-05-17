@@ -13,8 +13,6 @@ const { Panel } = Collapse;
 
 const CalendarGroups = ({
   data,
-  setOpenTable,
-  openTable,
   index,
   tabKey,
   setTollData,
@@ -25,8 +23,6 @@ const CalendarGroups = ({
   dataId,
 }: {
   data: any,
-  setOpenTable: any,
-  openTable: any,
   index: any,
   tabKey: any,
   setTollData: any,
@@ -36,8 +32,8 @@ const CalendarGroups = ({
   setPopUpData: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase } = usePortflioState();
-  const { setCollapsePhase } = usePortfolioDispatch();
+  const { currentGroup, collapsePhase, openGroups } = usePortflioState();
+  const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
   } = useMapState();
@@ -67,7 +63,7 @@ const CalendarGroups = ({
   },[tabKey,filterProjectOptions])
 
   const getActiveKeys = () => {
-    const indices = openTable.reduce(
+    const indices = openGroups.reduce(
       (out: string | any[], bool: any, index: any) => bool ? out.concat(index) : out,
       []
     );
@@ -85,9 +81,9 @@ const CalendarGroups = ({
         onChange={
           () => {
             setCollapsePhase(!collapsePhase)            
-            const newOpenTable = [...openTable];
-            newOpenTable[index] = !openTable[index] as any;
-            setOpenTable(newOpenTable);
+            const newOpenTable = [...openGroups];
+            newOpenTable[index] = !openGroups[index] as any;
+            setOpenGroups(newOpenTable);
           }
         }
         collapsible={Number(counter) ===0 ? "disabled" :"header"}
@@ -126,7 +122,6 @@ const CalendarGroups = ({
             setNext={setNext}
             setPrev={setPrev}
             index={index}
-            openTable={openTable}
             setTollData={setTollData}
             actionsDone={actionsDone}
             setOpenPiney={setOpenPiney}
