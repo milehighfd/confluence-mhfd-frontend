@@ -338,7 +338,6 @@ const PortafolioBody = ({
                   <div className="protafolio-body">
                     {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
                     {optionSelect === 'List' && <TablePortafolio
-                      index={idx}
                       tabKey={tabKey}
                       tabKeyId={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
                       setSortValue={setSortValue}
@@ -347,13 +346,11 @@ const PortafolioBody = ({
                     {optionSelect === 'Phase' &&
                       <PhaseViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                        index={idx}
                       />
                     }
                     {optionSelect === 'Schedule' &&
                       <CalendarViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                        index={idx}
                         setOpenPiney={setOpenPiney}
                         openPiney={openPiney}
                       />

@@ -59,7 +59,8 @@ const CalendarBody = ({
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   // const [isLoading, setIsLoading] = useState(false);
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline, setIsLoading, setDatesData} = usePortfolioDispatch();
+  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline,setZoomTimelineAux, setIsLoading, setDatesData} = usePortfolioDispatch();
+  let wasMonthly = true;
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -109,7 +110,6 @@ const CalendarBody = ({
   let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
 
   useEffect(() => {
-    console.log('updateForDates', updateGroup)
     let idF = dataId.id;
     if (idF === updateGroup.id1 || !updateGroup.id1) {
       setUpdateForDates(!updateForDates);
@@ -1300,6 +1300,7 @@ const CalendarBody = ({
   }, [calendarData,scheduleList,windowWidth,datas]);
 
   useEffect(() => {
+    setZoomTimelineAux(zoomTimeline)
     const svg = d3.select(svgDivWrapperId).select('svg');
     const svgAx = d3.select(svgAxisDivWrapperId).select('svg');
     if (!svg.empty()) {
@@ -1327,6 +1328,11 @@ const CalendarBody = ({
     setIsLoading(true)
     if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') { 
       setIsLoading(true)    
+      if(currentZScale > 4){      
+        wasMonthly = false;
+      } else {
+        wasMonthly = true;
+      }
       const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
       const removechartAxis: any = document.getElementById('timeline-chart-axis');
       removeAllChildNodes(removechart);
@@ -1335,7 +1341,13 @@ const CalendarBody = ({
     }
       const svg = d3.select(svgDivWrapperId).select('svg');
       if (!svg.empty()) {
-        setZoomTimeline(zoomTimelineAux)
+        if (zoomSelected === 'Weekly' && wasMonthly === true ){
+          const newValuePan = (zoomTimelineAux === 0 ? 100: (((zoomTimelineAux/100)*10)-5)* 100)
+          setZoomTimeline(newValuePan )
+        } else if (zoomSelected === 'Monthly'&& wasMonthly === false){
+          const newValuePan = (((zoomTimelineAux/100)+5)/10)* 100
+          setZoomTimeline(newValuePan)
+        }
       }
     setIsLoading(false)
   }, [zoomSelected]);
@@ -1346,7 +1358,6 @@ const CalendarBody = ({
       idForFilter = dataId.value;
     }
     const controller = new AbortController();
-    console.log('updateForDates', updateForDates)
     datasets.postData(
       `${SERVER.GET_LIST_PMTOOLS_PAGE(currentGroup, idForFilter)}?page=${page}&limit=${LIMIT_PAGINATION}&code_project_type_id=${tabKey}`,
       filterProjectOptions,

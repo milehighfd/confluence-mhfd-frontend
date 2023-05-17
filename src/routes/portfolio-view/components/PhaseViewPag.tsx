@@ -11,10 +11,8 @@ import { handleAbortError } from 'store/actions/mapActions';
 
 const PhaseViewPag = ({  
   tabKey,
-  index,
 }: {
   tabKey: any,
-  index: any,
 }) => {
   const {
     currentGroup,
