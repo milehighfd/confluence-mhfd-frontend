@@ -81,7 +81,6 @@ const DetailModal = ({
   const [typeDetail, setTypeDetail] = useState('');
   const [problemPart, setProblemPart] = useState<any[]>([]);
   const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
-  const [popUpData, setPopUpData] = useState<any>({});
   const [updateAction,setUpdateAction] = useState(false);
   const [nameLinkPage,setNameLinkPage] = useState('#');
   const appUser = store.getState().profile;
@@ -765,7 +764,7 @@ const DetailModal = ({
                   <ProblemsProjects/>
                   <Vendors/>
                   <ComponentSolucions />
-                  <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} setPopUpData={setPopUpData} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
+                  <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
                   <br></br>
                   <Financials projectId={project_idS}/>
                   <br></br>
@@ -781,7 +780,7 @@ const DetailModal = ({
             </div>
           </Col>
           <Col span={7} className="mobile-display" style={{height:'calc(100vh - 183px)', overflowY:'auto', scrollBehavior:'smooth'}}>
-            {openPiney? <div className="piney-modal-detail"><PineyView isDetail={true} setOpenPiney={setOpenPiney} data={popUpData} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
+            {openPiney? <div className="piney-modal-detail"><PineyView isDetail={true} setOpenPiney={setOpenPiney} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
             :<TeamCollaborator />} 
           </Col>
         </Row>

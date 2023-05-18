@@ -21,7 +21,7 @@ const ModalTollgate = ({
   saveCB?: any,
   setOpenPiney?: any,
 }) => {
-  const { openModalTollgate: visible, currentGroup } = usePortflioState();
+  const { openModalTollgate: visible } = usePortflioState();
   const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();
   
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
@@ -496,18 +496,6 @@ let items = [
             </Col>
           </Row>
           <Row className="detailed-h detailed-hh" gutter={[16, 16]} style={{backgroundColor: 'white', paddingTop:'0px', paddingBottom:'0px'}}>
-            {/* <Col xs={{ span: 12 }} lg={{ span: 24}}>
-              <Row>
-                <Col xs={{ span: 12 }} lg={{ span: 9}}>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 10}} style={{textAlign:'center'}}>
-                  <h3 style={{marginBottom:'0px', color: '#11093C'}} className='dates-title'>Dates</h3>
-                </Col>
-                <Col xs={{ span: 12 }} lg={{ span: 5}} style={{textAlign:'center'}}>
-                  <h3 style={{marginBottom:'0px', color: '#11093C'}}>Duration</h3>
-                </Col>
-              </Row>
-            </Col> */}
             <Col xs={{ span: 12 }} lg={{ span: 24}}>
               <Row style={{height:'30px',overflowY: 'auto'}} className="row-modal-list-view">
                 <Col xs={{ span: 12 }} lg={{ span: 9}}>
@@ -562,19 +550,6 @@ let items = [
                       </div>
                   )
                   })}
-                  {/* <p style={{marginBottom:'25px'}}>Draft <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Work Request (WR) <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Work Plan (WP) <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Startup <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Initial Funding <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Consultant Procurement <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Conceptual Design <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Preliminary Design <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Final Design <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Construction Contracting <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Construction <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Substantial Completion <MoreOutlined /></p>
-                  <p style={{marginBottom:'25px'}}>Closed <MoreOutlined /></p> */}
                 </Col>
                 <Col xs={{ span: 12 }} lg={{ span: 10}}>
                 {dates?.map((x: any, index: number) => {         

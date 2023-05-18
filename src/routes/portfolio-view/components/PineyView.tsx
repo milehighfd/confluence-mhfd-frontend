@@ -10,17 +10,18 @@ import DetailModal from "routes/detail-page/components/DetailModal";
 
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 import store from 'store';
-import { usePortfolioDispatch } from "hook/portfolioHook";
+import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
 
 const { Step } = Steps;
-const PineyView = ({ isDetail,setOpenPiney, data, setUpdateAction, updateAction }: 
+const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }: 
   { setOpenPiney: any, 
-    data?: any,
     setUpdateAction?: any, 
     updateAction?: any,
     isDetail:boolean
     }) => {     
   const {setOpenModalTollgate, setDatesData} = usePortfolioDispatch();
+  const { pineyData } = usePortflioState();
+  const data = pineyData;
   const appUser = store.getState().profile;
   const userName = appUser.userInformation?.name;
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];

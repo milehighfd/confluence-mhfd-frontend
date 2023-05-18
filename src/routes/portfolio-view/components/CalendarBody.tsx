@@ -27,7 +27,6 @@ const CalendarBody = ({
   setOpenPiney,
   groupName,
   setEditData,
-  setPopUpData,
   counter,
   page,
   setPage,
@@ -43,7 +42,6 @@ const CalendarBody = ({
   setOpenPiney: Function,
   groupName: string,
   setEditData: any,
-  setPopUpData: Function,
   counter:  never[],
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
@@ -59,7 +57,19 @@ const CalendarBody = ({
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   // const [isLoading, setIsLoading] = useState(false);
   const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setZoomTimeline,setZoomTimelineAux, setIsLoading, setDatesData} = usePortfolioDispatch();
+  const { 
+    deleteFavorite, 
+    addFavorite, 
+    setPositionModalGraphic, 
+    setDataModal, 
+    setGraphicOpen, 
+    setOpenModalTollgate, 
+    setZoomTimeline,
+    setZoomTimelineAux, 
+    setIsLoading, 
+    setDatesData,
+    setPineyData,
+  } = usePortfolioDispatch();
   let wasMonthly = true;
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -675,7 +685,7 @@ const CalendarBody = ({
         })
         scheduleRectsCenter.on('click', function (d: any) {
           let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
-          setPopUpData({
+          setPineyData({
             project_name: d.project_data.rowLabel,
             phase: d.phase,
             project_type: d.project_data.project_type,
@@ -687,7 +697,7 @@ const CalendarBody = ({
             estimated_cost: d.project_data.estimated_cost,
             data: dataProject,
             scheduleList: scheduleList
-          })
+          })          
           const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
           setEditData(sendTollgate1)
           setOpenPiney(true);

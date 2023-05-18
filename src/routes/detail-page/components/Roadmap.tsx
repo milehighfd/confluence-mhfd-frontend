@@ -12,19 +12,17 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 const Roadmap = ({setOpenPiney,
    openPiney, 
    data, 
-   setPopUpData,
    updateAction,
    setUpdateAction
   }:
   {setOpenPiney: React.Dispatch<React.SetStateAction<boolean>>,
      openPiney:boolean, 
      data:any, 
-     setPopUpData: any
      updateAction:any,
      setUpdateAction: any
     }) => {
   const { graphicOpen } = usePortflioState();
-  const { setPositionModalGraphic, setDataModal, setGraphicOpen } = usePortfolioDispatch();
+  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
   const [scheduleList, setScheduleList] = useState<any>({})
@@ -384,8 +382,8 @@ const Roadmap = ({setOpenPiney,
           .on("click", (d: any) => {            
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();           
-            setPopUpData({
+            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();       
+            setPineyData({
               project_name: d.rowLabel,
               phase: scheduleList[r].phase,
               project_type: d.project_type,

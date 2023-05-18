@@ -19,7 +19,6 @@ const PhaseGroups = ({
   actionsDone,
   userBrowser,
   setOpenPiney,
-  setPopUpData,
   headerRef,
   dataId,
 }: {
@@ -31,7 +30,6 @@ const PhaseGroups = ({
   actionsDone: any,
   userBrowser: any,
   setOpenPiney: any,
-  setPopUpData: any,
   headerRef: any,
   dataId: any,
 }) => {
@@ -120,7 +118,6 @@ const PhaseGroups = ({
             userBrowser={userBrowser}
             groupName={data.value}
             setOpenPiney={setOpenPiney}
-            setPopUpData={setPopUpData}
             headerRef={headerRef}
             counter={counter}
             page={page}

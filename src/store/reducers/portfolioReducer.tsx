@@ -24,6 +24,7 @@ const initState = {
   isLoading: false,
   openGroups: [true, true, true],
   datesData: {},
+  pineyData: {},
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -153,6 +154,11 @@ const portfolioReducer = (state = initState, action: any) => {
       return {
         ...state,
         datesData: action.payload,
+      };
+    case types.SET_PINEY_DATA:
+      return {
+        ...state,
+        pineyData: action.payload,
       };
     default:
       return state;

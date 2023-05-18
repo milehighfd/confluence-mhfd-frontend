@@ -21,7 +21,8 @@ import {
   setUpdateGroup,
   setIsLoading,
   setOpenGroups,
-  setDatesData
+  setDatesData,
+  setPineyData
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -94,6 +95,9 @@ export const usePortfolioDispatch = () => {
   const _setDatesData = useCallback((value: Object) => {
     dispatch(setDatesData(value));
   }, [dispatch]);
+  const _setPineyData = useCallback((value: Object) => {
+    dispatch(setPineyData(value));
+  }, [dispatch]);
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -115,6 +119,7 @@ export const usePortfolioDispatch = () => {
     setUpdateGroup: _setUpdateGroup,
     setIsLoading: _setIsLoading,
     setOpenGroups: _setOpenGroups,
-    setDatesData: _setDatesData
+    setDatesData: _setDatesData,
+    setPineyData: _setPineyData,
   };
 };

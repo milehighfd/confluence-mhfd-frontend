@@ -168,3 +168,8 @@ export const setDatesData = (value: Object) => ({
   type: types.SET_DATES_DATA,
   payload: value
 });
+
+export const setPineyData = (value: Object) => ({
+  type: types.SET_PINEY_DATA,
+  payload: value
+});

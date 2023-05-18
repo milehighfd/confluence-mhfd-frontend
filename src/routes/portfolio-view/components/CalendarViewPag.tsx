@@ -12,12 +12,8 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const CalendarViewPag = ({
   tabKey,
-  setOpenPiney,
-  openPiney,
 }: {
   tabKey: any,
-  setOpenPiney: any,
-  openPiney:any,
 }) => {
   const { currentGroup, zoomTimeline, zoomTimelineAux, zoomSelected, isLoading } = usePortflioState();
   const { setZoomTimeline, setZoomTimelineAux, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading, setDatesData} = usePortfolioDispatch();
@@ -25,7 +21,7 @@ const CalendarViewPag = ({
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
-  const [popUpData, setPopUpData] = useState<any>({});
+  const [openPiney, setOpenPiney] = useState(false);
   let pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
   let heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
@@ -73,7 +69,6 @@ const CalendarViewPag = ({
         <div className="piney-text">
           <PineyView
             setOpenPiney={setOpenPiney}
-            data={popUpData}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
             isDetail={false}
@@ -164,7 +159,6 @@ const CalendarViewPag = ({
                   actionsDone={actionsDone}
                   setOpenPiney={setOpenPiney}
                   setEditData={setEditData}
-                  setPopUpData={setPopUpData}
                   dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                 />
               </div>

@@ -351,8 +351,6 @@ const PortafolioBody = ({
                     {optionSelect === 'Schedule' &&
                       <CalendarViewPag
                         tabKey={tabKeysIds[tabKeys.indexOf(tabKey)] || 0}
-                        setOpenPiney={setOpenPiney}
-                        openPiney={openPiney}
                       />
                     }
                   </div>

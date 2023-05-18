@@ -28,7 +28,6 @@ const PhaseBody = ({
   userBrowser,
   groupName,
   setOpenPiney,
-  setPopUpData,
   headerRef,
   counter,
   page,
@@ -47,7 +46,6 @@ const PhaseBody = ({
   userBrowser: any,
   groupName: string,
   setOpenPiney: Function,
-  setPopUpData: Function,
   headerRef: any,
   counter:  never[],
   page: number,
@@ -59,7 +57,16 @@ const PhaseBody = ({
     filterProjectOptions,
   } = useMapState();
   const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup } = usePortflioState();
-  const { deleteFavorite, addFavorite, setPositionModalGraphic, setDataModal, setGraphicOpen, setOpenModalTollgate, setDatesData } = usePortfolioDispatch();
+  const { 
+    deleteFavorite, 
+    addFavorite, 
+    setPositionModalGraphic, 
+    setDataModal, 
+    setGraphicOpen, 
+    setOpenModalTollgate, 
+    setDatesData,
+    setPineyData,
+  } = usePortfolioDispatch();
   const [dataBody, setDataBody] = useState([]);
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
@@ -506,8 +513,8 @@ const PhaseBody = ({
                   isLocked: z.is_locked
                 };
               })
-              let scheduleParsed = { ...d, schedule: dataParsed }            
-              setPopUpData({
+              let scheduleParsed = { ...d, schedule: dataParsed }     
+              setPineyData({
                 project_name: d.rowLabel,
                 phase: scheduleList[r].phase,
                 project_type: d.project_type,
@@ -519,7 +526,7 @@ const PhaseBody = ({
                 estimated_cost: d.estimated_cost,
                 data: scheduleParsed,
                 scheduleList: scheduleList
-              })
+              })       
               setOpenPiney(true)
             })
             .on("mousemove", (d: any) => {

@@ -23,3 +23,4 @@ export const SET_UPDATE_GROUP = 'SET_UPDATE_GROUP';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_OPEN_GROUPS = 'SET_OPEN_GROUPS';
 export const SET_DATES_DATA = 'SET_DATES_DATA';
+export const SET_PINEY_DATA = 'SET_PINEY_DATA';

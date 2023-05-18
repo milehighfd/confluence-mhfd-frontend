@@ -36,7 +36,6 @@ const PhaseViewPag = ({
   const phaseRef = useRef<any[]>([]);
   let totalLabelWidth = phaseList.length * labelWidth;
   const [openPiney, setOpenPiney] = useState(false);
-  const [popUpData, setPopUpData] = useState<any>({});
 
   useEffect(() => {
     console.log('tabKeyy',tabKey)
@@ -95,7 +94,6 @@ const PhaseViewPag = ({
         <div className="piney-text">
           <PineyView
             setOpenPiney={setOpenPiney}
-            data={popUpData}
             setUpdateAction={setUpdateAction}
             updateAction={updateAction}
             isDetail={false}
@@ -182,7 +180,6 @@ const PhaseViewPag = ({
                     actionsDone={actionsDone}
                     userBrowser={userBrowser}
                     setOpenPiney={setOpenPiney}
-                    setPopUpData={setPopUpData}
                     headerRef={headerRef}
                     dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
                   />
