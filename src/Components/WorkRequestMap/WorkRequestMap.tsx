@@ -544,7 +544,6 @@ const WorkRequestMap = ({
   }
   useEffect(() => {
     popup.remove();
-    const equals = (a: any, b: any) => a.length === b.length && a.every((v: any, i: any) => v === b[i]);
 
     if (firstRendering) {
       setFirstRendering(false);

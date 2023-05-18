@@ -3,7 +3,7 @@ import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 
 export const getLocalitiesByBoardType = (type: boardType) => {
-  return datasets.getData(`${SERVER.URL_BASE}/locality/${type}`, datasets.getToken());
+  return datasets.getData(`${SERVER.URL_BASE}/locality/${type}?nogeom=true`, datasets.getToken());
 };
 
 export const getBoardData = (data: BoardDataRequest) => {
@@ -14,8 +14,9 @@ export const getBoardData2 = async (data: BoardDataRequest) => {
   let totalProjects: Array<any> = [];
   let newBoardData: any = {};
   for (let index = 0; index < 6; index++) {
-    data.position = `position${index}`;
-    const parsed = await datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions`, data);
+    data.position = `${index}`;
+    const parsed = await datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions2`, data);
+    console.log(parsed);
     totalProjects.push(parsed);
   }
   if (totalProjects.length > 0) {
@@ -33,4 +34,11 @@ export const getBoardData2 = async (data: BoardDataRequest) => {
     (value: any, index: any, self: any) => index === self.findIndex((t: any) => t.project_id === value.project_id),
   );
   return newBoardData;
+};
+
+export const getBoardData3 = (data: BoardDataRequest) => {
+  return datasets.postData(
+    `${SERVER.URL_BASE}/board/get-or-create`,
+    data
+  );
 };

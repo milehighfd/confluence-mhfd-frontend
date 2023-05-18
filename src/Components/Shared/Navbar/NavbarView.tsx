@@ -87,9 +87,6 @@ const NavbarView = ({
       console.log(result)
     });
   }
-  useEffect(() => {
-    console.log('project data', projectData);
-  }, [projectData]);
   let locationPage = useLocation();
   useEffect(() => {
     resetTimesLogin();

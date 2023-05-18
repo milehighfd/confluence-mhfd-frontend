@@ -112,8 +112,8 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       ]}
     >
       {
-        (project.projectData.projecttype == 'Capital') && 
-        <div style={{ marginBottom: '15px',marginTop: '-15px', fontWeight: 'bold'}}>Estimated Project Cost: {formatter.format(project.projectData.estimatedcost)}</div>
+        (tabKey === 'Capital') && 
+        <div style={{ marginBottom: '15px',marginTop: '-15px', fontWeight: 'bold'}}>Estimated Project Cost: {formatter.format(project.projectData?.estimatedcost)}</div>
       }
       {
         showFirst &&

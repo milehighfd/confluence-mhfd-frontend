@@ -22,11 +22,10 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor, divRef }: {
+const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor, divRef }: {
   year: number,
   type: boardType,
   namespaceId: string,
-  setLoading: Function,
   delProject: Function,
   project: any,
   columnIdx: number,
@@ -42,9 +41,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {
     project_id,
-    project_name,
+    projectname,
     projectsubtype,
-  } = project.projectData;
+  } = project;
   const status = getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name
   const {id} = project
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
@@ -58,16 +57,13 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   const pageWidth  = document.documentElement.scrollWidth;
   const deleteProject = () => {
     delProject(project_id)
-    setLoading(true);
     deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
-        setLoading(false);
         WsService.sendEdit();
       })
       .catch((e) => {
         console.log('e', e)
-        setLoading(false)
       })
   }
   const getCompleteProjectData = async () => {
@@ -78,7 +74,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
   }
 
   const copyProjectToCurrent = () => {
-    setLoading(true);
     postData(
       `${SERVER.URL_BASE}/create/copy`,
       {
@@ -91,11 +86,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     )
       .then((r) => {
         console.log('r', r)
-        setLoading(false);
       })
       .catch((e) => {
         console.log('e', e)
-        setLoading(false)
       })
   };
 
@@ -152,7 +145,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
 
-  let displayName = project_name || '';
+  let displayName = projectname || '';
   if (displayName.length > 35) {
     displayName = displayName.substr(0,35) + '...';
   }
@@ -242,7 +235,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
         visibleAlert={showDeleteAlert}
         setVisibleAlert={setShowDeleteAlert}
         action={deleteProject}
-        name={project_name}
+        name={projectname}
         />
     }
     {
@@ -291,7 +284,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, setLoading, delProject, proje
       }}>
         <div style={{marginRight:'-10px', width:'100%'}}>
           <Popover placement="top" content={<>
-            <b>{project_name}</b>
+            <b>{projectname}</b>
             <br />
             <b>Project: </b> {project_id}
             <br />

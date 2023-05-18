@@ -1,16 +1,16 @@
-import { DownOutlined, RightOutlined, UpOutlined } from '@ant-design/icons';
-import { Layout, Button, Input, Row, Col, Tabs, AutoComplete, Popover } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
+import { Layout, Button, Row, Col, Tabs, Popover } from 'antd';
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { GOVERNMENT_STAFF } from 'constants/constants';
-import { getBoardData2, getLocalitiesByBoardType } from 'dataFetching/workRequest';
+import { getBoardData3, getLocalitiesByBoardType } from 'dataFetching/workRequest';
 import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import ProjectEditService from 'Components/Work/Request/ProjectEditService';
-import { BoardDataRequest, boardType } from 'Components/Work/Request/RequestTypes';
-import { compareArrays, compareColumns, defaultColumns, generateColumns, getTotalsByPropertyV2 } from 'Components/Work/Request/RequestViewUtil';
+import { boardType } from 'Components/Work/Request/RequestTypes';
+import { compareArrays, defaultColumns } from 'Components/Work/Request/RequestViewUtil';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
@@ -21,6 +21,7 @@ import Toolbar from 'routes/work-request/components/Toolbar';
 import YearDropdown from 'routes/work-request/components/YearDropdown';
 import ResizableButton from 'routes/work-request/components/ResizableButton';
 import RequestCostRows from 'routes/work-request/components/RequestCostRows';
+import AutoCompleteDropdown from 'routes/work-request/components/AutoCompleteDropdown';
 
 import '../../../index.scss';
 
@@ -46,18 +47,15 @@ const RequestView = ({ type, isFirstRendering }: {
     yearList,
     sumTotal,
     namespaceId,
-    boardStatus,
-    boardSubstatus,
-    boardComment,
     jurisdictionFilterList,
     csaFilterList,
     jurisdictionSelected,
     csaSelected,
     localityType,
     leftWidth,
-    localities,
     columns,
     reqManager,
+    isOnSelected,
   } = useRequestState();
   const {
     setShowModalProject,
@@ -66,67 +64,49 @@ const RequestView = ({ type, isFirstRendering }: {
     setTabKey,
     setYear,
     setProblemId,
-    setSumByCounty,
-    setSumTotal,
-    setTotalCountyBudget,
     setNamespaceId,
-    setShowAnalytics,
-    setShowBoardStatus,
     setBoardStatus,
     setBoardSubstatus,
     setBoardComment,
     setShowFilters,
-    setJurisdictionFilterList,
-    setCsaFilterList,
     setPrioritySelected,
-    setJurisdictionSelected,
-    setCsaSelected,
     setLocalityType,
     setLocalities,
     setColumns,
     setDiff,
     setReqManager,
+    loadColumns,
+    setBoard,
+    setLocalityFilter,
+    setIsOnSelected,
+    setDataAutocomplete,
   } = useRequestDispatch();
-  const [dataAutocomplete, setDataAutocomplete] = useState<string[]>([]);
-  const [callBoard, setCallBoard] = useState(0);
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
-  const {setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected} = useProjectDispatch();
+  const { setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
   const [projectsAmounts, setProjectAmounts] = useState([]);
-  const [localityFilter, setLocalityFilter] = useState('');
-  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const wrtRef = useRef(null);
-  const ref = useRef<any>(null);
-  const currentDataForBoard: BoardDataRequest = {
-    type,
-    year: `${year}`,
-    locality,
-    projecttype: tabKey ? tabKey : tabKeys[0],
-    position: ''
-  };
   const { userInformation } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
   const users = useMyUser();
   const fakeLoading = useFakeLoadingHook(tabKey);
-  const [isOnSelected, setIsOnSelected]= useState(false);
- 
+
   const resetOnClose = () => {
     setStreamIntersected([]);
     setComponentIntersected([]);
     setComponentsFromMap([]);
   }
-  useEffect(()=>{
-    if(!showModalProject){
-     resetOnClose();
-    }
-  },[showModalProject]);
-  useEffect(()=>{
-    if(!showCreateProject){
+  useEffect(() => {
+    if (!showModalProject) {
       resetOnClose();
     }
-  },[showCreateProject]);
+  }, [showModalProject]);
+  useEffect(() => {
+    if (!showCreateProject) {
+      resetOnClose();
+    }
+  }, [showCreateProject]);
 
   const deleteProject = (pid: string) => {
     let array: any[] = [];
@@ -141,72 +121,24 @@ const RequestView = ({ type, isFirstRendering }: {
         })
       }
     });
-    let justProjects = array.map((proj:any)=> {
+    let justProjects = array.map((proj: any) => {
       return proj.projectData?.cartodb_id;
     });
-    let idsProjects = array.map((proj:any)=> {
+    let idsProjects = array.map((proj: any) => {
       return proj.projectData?.projectid;
     });
-    if(array.length>0){
-      setBoardProjects({cartoids:justProjects, ids: idsProjects});
+    if (array.length > 0) {
+      setBoardProjects({ cartoids: justProjects, ids: idsProjects });
     } else {
       setBoardProjects(['-8886']);
     }
     setColumns(newcols);
   }
 
-  const onSelect = (value: any) => {
-    setLoading(true);
-    setShowAnalytics(false);
-    setShowBoardStatus(false);
-    setLocality(value);
-    setIsOnSelected(true);
-    setLocalityFilter(value);
-    setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
-    let l = localities.find((p: any) => {
-      return p.name === value;
-    })
-    console.log('Locality', l);
-    if (l) {
-      setLocalityType(l.table);
-      if (type === 'WORK_PLAN') {
-        let displayedTabKey: string[] = [];
-
-        if (year < 2022) {
-          if (l.table === 'CODE_STATE_COUNTY') {
-            displayedTabKey = ['Capital', 'Maintenance']
-          } else if (l.table === 'CODE_SERVICE_AREA') {
-            displayedTabKey = ['Study', 'Acquisition', 'R&D'];
-          }
-        } else {
-          if (l.table === 'CODE_STATE_COUNTY') {
-            displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
-          } else if (l.table === 'CODE_SERVICE_AREA') {
-            displayedTabKey = ['Study'];
-          }
-        }
-        if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
-          displayedTabKey = tabKeys;
-        }
-        if (l.name.includes('South Platte River County')) {
-          displayedTabKey = tabKeys;
-          setTabKey(displayedTabKey[0]);
-        }
-
-        if (!displayedTabKey.includes(tabKey)) {
-          setTabKey(displayedTabKey[0]);
-        }
-      } else {
-        if (!tabKeys.includes(tabKey)) {
-          setTabKey(tabKeys[0]);
-        }
-      }
-    }
-  };
   const [changes, setChanges] = useState(0);
-  useEffect(()=>{
+  useEffect(() => {
     setChanges(Math.random());
-  },[locality, tabKey,year]);
+  }, [locality, tabKey, year]);
 
   useEffect(() => {
     saveBoardProjecttype(tabKey);
@@ -214,229 +146,169 @@ const RequestView = ({ type, isFirstRendering }: {
 
   useEffect(() => {
     const initLoading = async () => {
-    let params = new URLSearchParams(history.location.search)
-    let _year = params.get('year');
-    let _locality = params.get('locality');
-    let _tabKey = params.get('tabKey') || users.projecttype;
-    if( _locality != userInformation.organization && userInformation.designation == GOVERNMENT_STAFF) {
-      _locality = userInformation.organization;
-    }
-    getLocalitiesByBoardType(type)
-        .then(
-          (r: any) => {
-            setLocalities(r.localities);
-            let localitiesData = r.localities.map((l: any) => l.name);
-            setDataAutocomplete(localitiesData);
-              if (_year) {
-                setYear(_year)
-              }
-              if (_locality) {
-                setLocality(_locality)
-                setIsOnSelected(false);
-                setLocalityFilter(_locality)
-              } else {
-                if (r.localities.length > 0) {
-                  setLocality(r.localities[0].name);
-                  setIsOnSelected(false);
-                  setLocalityFilter(r.localities[0].name)
-                  _locality = r.localities[0].name;
-                }
-              }
-              let l = r.localities.find((p: any) => {
-                return p.name === _locality;
-              })
-              if (l) {
-                setLocalityType(l.table);
-              }
-              if (_tabKey) {
-                let displayedTabKey: string[] = [];
-                if (type === "WORK_REQUEST") {
-                  displayedTabKey = tabKeys;
-                } else {
-                  if (l) {
-                    if (l.table === 'CODE_STATE_COUNTY') {
-                      displayedTabKey = ['Capital', 'Maintenance']
-                    } else if (l.table === 'CODE_SERVICE_AREA') {
-                      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
-                    }
-                    if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
-                      displayedTabKey = tabKeys;
-                    }
-                    if (l.name.includes('South Platte River County')) {
-                      displayedTabKey = tabKeys;
-                    }
-                  }
-                }
-                if (displayedTabKey.includes(_tabKey)) {
-                  setTabKey(_tabKey)
-                } else {
-                  setTabKey(displayedTabKey[0]);
-                }
-              } else {
-                if (type === "WORK_REQUEST") {
-                  setTabKey(tabKeys[0])
-                } else {
-                  if (l) {
-                    let displayedTabKey: string[] = [];
-                    if (l.type === 'COUNTY') {
-                      displayedTabKey = ['Capital', 'Maintenance']
-                    } else if (l.type === 'SERVICE_AREA') {
-                      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
-                    }
-                    if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
-                      displayedTabKey = tabKeys;
-                    }
-                    if (l.name.includes('South Platte River County')) {
-                      displayedTabKey = tabKeys;
-                    }
-                    setTabKey(displayedTabKey[0]);
-                  }
-                }
-              }
-          },
-          (e) => {
-            console.log('e', e);
+      let params = new URLSearchParams(history.location.search)
+      let _year = params.get('year');
+      let _locality = params.get('locality');
+      let _tabKey = params.get('tabKey') || users.projecttype;
+      if (_locality !== userInformation.organization && userInformation.designation === GOVERNMENT_STAFF) {
+        _locality = userInformation.organization;
+      }
+      let r;
+      try {
+        r = await getLocalitiesByBoardType(type);
+      } catch (e) {
+        console.log('e', e)
+      };
+      setLocalities(r.localities);
+      setDataAutocomplete(r.localities.map((l: any) => l.name));
+      if (_year) {
+        setYear(_year)
+      }
+      if (!_locality && r.localities.length > 0) {
+        _locality = r.localities[0].name;
+      }
+      if (_locality) {
+        setLocality(_locality)
+        setIsOnSelected(false);
+        setLocalityFilter(_locality)
+      }
+      let l = r.localities.find((p: any) => {
+        return p.name === _locality;
+      })
+      if (l) {
+        setLocalityType(l.table);
+      }
+      if (_tabKey) {
+        let displayedTabKey: string[] = [];
+        if (type === "WORK_REQUEST") {
+          displayedTabKey = tabKeys;
+        } else {
+          if (l) {
+            if (l.table === 'CODE_STATE_COUNTY') {
+              displayedTabKey = ['Capital', 'Maintenance']
+            } else if (l.table === 'CODE_SERVICE_AREA') {
+              displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+            }
+            if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
+              displayedTabKey = tabKeys;
+            }
           }
-        )
+        }
+        if (displayedTabKey.includes(_tabKey)) {
+          setTabKey(_tabKey)
+        } else {
+          setTabKey(displayedTabKey[0]);
+        }
+      } else {
+        if (type === "WORK_REQUEST") {
+          setTabKey(tabKeys[0])
+        } else {
+          if (l) {
+            let displayedTabKey: string[] = [];
+            if (l.type === 'COUNTY') {
+              displayedTabKey = ['Capital', 'Maintenance']
+            } else if (l.type === 'SERVICE_AREA') {
+              displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+            }
+            if (l.name === 'MHFD District Work Plan' || l.name === 'Mile High Flood District') {
+              displayedTabKey = tabKeys;
+            }
+            if (l.name.includes('South Platte River County')) {
+              displayedTabKey = tabKeys;
+            }
+            setTabKey(displayedTabKey[0]);
+          }
+        }
+      }
+
     }
     initLoading();
     setZoomProject(undefined);
   }, []);
-  const groupBy = (arr: any, keyGetter: any) => {
-    const out: any = {};
-    for (let item of arr) {
-      const key = keyGetter(item);
-      if (!out[key]) {
-        out[key] = [];
-      }
-      out[key].push(item);
-    }
-    return out;
-  };
-  
-  const buildGeojsonForLabelsProjectsInBoards = (projects: any) => {
-    const geojsonData = {
-      "type": "FeatureCollection",
-      "features": []
-    };
-    console.log('Projects in labels ', projects);
-    const projectsRData = projects.map((p:any) => {
-      const currentPS = p.projectData?.project_statuses?.filter((ps: any, index: number) => {
-        if (p.projectData?.current_project_status_id) {
-          return ps?.project_status_id == p.projectData?.current_project_status_id
-        } else {
-          return index === 0;
-        }
-      });
-      const centroid = p?.projectData?.centroid;
-      return {
-        project_id: p.projectData?.project_id,
-        current_project_status: currentPS ? currentPS[0]?.code_phase_type?.code_status_type?.code_status_type_id : null,
-        project_name: p?.projectData?.project_name,
-        centroid: centroid? centroid[0]?.centroid : null
-      };
-    });
-    geojsonData.features = projectsRData.map((p:any) => {
-      return {
-        "type": "Feature",
-        "properties": {
-          "project_name": p.project_name,
-          "project_status": p.current_project_status,
-          "project_id": p.project_id
-        },
-        "geometry": p.centroid ? JSON.parse(p.centroid) : ''
 
-      };
-    });
-    return geojsonData;
-  }
-
-  const splitProjectsIdsByStatuses = (projects: any) => {
-    const projectsRelevantData = projects.map((p: any) => {
-      return {
-        statuses: p.projectData?.project_statuses,
-        current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
-          if (p.projectData?.current_project_status_id) {
-            return ps?.project_status_id == p.projectData?.current_project_status_id
-          } else {
-            return index === 0;
-          }
-        })[0]?.code_phase_type?.code_status_type,
-        project_id: p.projectData?.project_id
-      }
-    });
-    const grouped = groupBy(projectsRelevantData, (item:any) => item.current_project_status ? item.current_project_status?.code_status_type_id : item.statuses[0]?.code_phase_type?.code_status_type?.code_status_type_id);
-    for(let key in grouped) {
-      let uniqueIds: any = [];
-      grouped[key].map((values: any) => values.project_id).forEach((element: any) => {
-          if (!uniqueIds.includes(element)) {
-              uniqueIds.push(element);
-          }
-      });
-      grouped[key] = uniqueIds;
-    }
-    return grouped;
-  } 
   useEffect(() => {
+    console.log(`SHOULD BE CALLED ONCE WITH year = ${year} locality = ${locality} tabKey = ${tabKey}`);
     if (!locality || !tabKey) {
       return;
     }
-    setLoading(true);
-    setColumns(defaultColumns);
-    getBoardData2(currentDataForBoard)
-      .then(
-        (r: any) => {
-          console.log(r);
-          if (!r) return;
-          let { board, projects } = r;
-          ProjectEditService.setProjects(projects);
-          if (board) {
-            setTotalCountyBudget(board.total_county_budget || 0);
-            setBoardStatus(board.status);
-            setBoardSubstatus(board.substatus);
-            setBoardComment(board.comment);
-            setNamespaceId(board.board_id)
-            setReqManager([
-              board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-            ])
-            let justProjects = projects.map((proj:any)=> {
-              return proj.projectData?.cartodb_id;
-            });
-            let idsProjects = projects.map((proj:any)=> {
-              return proj.projectData?.project_id;
-            });
-            let projectAmounts = projects.map((proj:any)=> {
-              return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-              cartodb_id: proj.projectData?.cartodb_id
-              }
-            });
-            const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
-            const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
-            setProjectAmounts(projectAmounts);
-            if(projects.length>0){
-              setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
-            } else {
-              setBoardProjects(['-8885']);
-            }
+    const loadProjects = async () => {
+      setColumns(defaultColumns);
+      let board;
+      try {
+        board = await getBoardData3({
+          type,
+          year: `${year}`,
+          locality,
+          projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
+        })
+      } catch (e) {
+        console.log('e', e)
+      }
+      setBoard(board);
+      loadColumns(board.board_id);
+      /* TODO: this should be replaced */
+      setBoardStatus(board.status);
+      setBoardSubstatus(board.substatus);
+      setBoardComment(board.comment);
+      setNamespaceId(board.board_id);
+      setFlagforScroll(Math.random());
+    }
+    loadProjects();
 
-            let cols = generateColumns(projects, year, tabKey);
-            setColumns(cols);
-          }
-        },
-        (e) => {
-          console.log('e', e);
-        }
-      )
-      let params = [
-        ['year', year],
-        ['locality', locality],
-        ['tabKey', tabKey]
-      ]
-      history.push({
-        pathname: type === "WORK_REQUEST" ? '/work-request' :  '/work-plan',
-        search: `?${params.map(p => p.join('=')).join('&')}`
-      })
-      setLoading(false);
+    // getBoardData2(currentDataForBoard)
+    //   .then(
+    //     (r: any) => {
+    //       console.log(r);
+    //       if (!r) return;
+    //       let { board, projects } = r;
+    //       ProjectEditService.setProjects(projects);
+    //       if (board) {
+    //         setTotalCountyBudget(board.total_county_budget || 0);
+    //         setBoardStatus(board.status);
+    //         setBoardSubstatus(board.substatus);
+    //         setBoardComment(board.comment);
+    //         setNamespaceId(board.board_id)
+    //         setReqManager([
+    //           board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+    //         ])
+    //         let justProjects = projects.map((proj: any) => {
+    //           return proj.projectData?.cartodb_id;
+    //         });
+    //         let idsProjects = projects.map((proj: any) => {
+    //           return proj.projectData?.project_id;
+    //         });
+    //         let projectAmounts = projects.map((proj: any) => {
+    //           return {
+    //             totalAmount: ((proj['req1'] ? proj['req1'] : 0) + (proj['req2'] ? proj['req2'] : 0) + (proj['req3'] ? proj['req3'] : 0) + (proj['req4'] ? proj['req4'] : 0) + (proj['req5'] ? proj['req5'] : 0)),
+    //             cartodb_id: proj.projectData?.cartodb_id
+    //           }
+    //         });
+    //         const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
+    //         const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
+    //         setProjectAmounts(projectAmounts);
+    //         if (projects.length > 0) {
+    //           setBoardProjects({ cartoids: justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson });
+    //         } else {
+    //           setBoardProjects(['-8885']);
+    //         }
+
+    //         let cols = generateColumns(projects, year, tabKey);
+    //         setColumns(cols);
+    //       }
+    //     },
+    //     (e) => {
+    //       console.log('e', e);
+    //     }
+    //   )
+    let params = [
+      ['year', year],
+      ['locality', locality],
+      ['tabKey', tabKey]
+    ]
+    history.push({
+      pathname: type === "WORK_REQUEST" ? '/work-request' : '/work-plan',
+      search: `?${params.map(p => p.join('=')).join('&')}`
+    })
   }, [year, locality, tabKey]);
 
   useEffect(() => {
@@ -447,9 +319,7 @@ const RequestView = ({ type, isFirstRendering }: {
       console.log('connected', socket.id);
     });
     WsService.receiveUpdate((data: any) => {
-        console.log('This is the data after ws', data);
-        setLoading(true);
-        setCallBoard(Math.random());
+      console.log('This is the data after ws', data);
     });
     WsService.receiveReqmanager((data: any) => {
       console.log('receiveReqmanager', data);
@@ -460,163 +330,155 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }, [namespaceId])
 
-  useEffect(() => {
-    setLoading(true);
-    console.log('Get Board now...', tabKey);
-    if (!locality || !tabKey) {
-      return;
-    }
-    getBoardData2({
-        type,
-        year: `${year}`,
-        locality,
-        // the next condition should be removed once all Special element would have been replace by R&D in DB
-        projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
-        position: ''
-      })
-          .then(
-            (r: any) => {
-              if (!r) return;
-              if(r){
-                let { board, projects } = r;
-                // console.log('board', board, 'proj', projects);
-                ProjectEditService.setProjects(projects);
-                if (board) {
-                  if (board.status !== boardStatus) {
-                    setBoardStatus(board.status);
-                  }
-                  if (board.substatus !== boardSubstatus) {
-                    setBoardSubstatus(board.substatus);
-                  }
-                  if (board.comment !== boardComment) {
-                    setBoardComment(board.comment);
-                  }
-                  if (board._id !== namespaceId) {
-                    setNamespaceId(board.board_id)
-                  }
-                  let reqManagerEq = true;
-                  for (var i = 1 ; i <= 5; i++) {
-                    if (board[`targetcost${i}`] != reqManager[i-1]) {
-                      reqManagerEq = false;
-                    }
-                  }
-                  if (!reqManagerEq) {
-                    setReqManager([
-                      board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-                    ])
-                  }
-                }
-                if (projects) {
-                  let cols = generateColumns(projects, year, tabKey);
-                  let areEqual: boolean = compareColumns(columns, cols);
-                  setFlagforScroll(Math.random());
-                  // if (!areEqual) {
-                    setColumns(cols);
-                    let justProjects = projects.map((proj:any)=> {
-                      return proj.projectData?.cartodb_id;
-                    });
-                    let idsProjects = projects.map((proj:any)=> {
-                      return proj.projectData?.project_id;
-                    });
-                    let projectAmounts = projects.map((proj:any)=> {
-                      return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-                      cartodb_id: proj.projectData?.cartodb_id
-                      }
-                    });
-                    const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
-                    const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
-                    buildGeojsonForLabelsProjectsInBoards(projects);
-                    setProjectAmounts(projectAmounts);
-                    if(projects.length>0){
-                      setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
-                    } else {
-                      setBoardProjects(['-8887']);
-                    }
-                  // }
-                }
-              }
-              setLoading(false);
-            },
-            (e) => {
-              console.log('e', e);
-            }
-          )
-      setLoading(false);
-  }, [namespaceId, callBoard]);
+  // getBoardData2({
+  //     type,
+  //     year: `${year}`,
+  //     locality,
+  //     // the next condition should be removed once all Special element would have been replace by R&D in DB
+  //     projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
+  //     position: ''
+  //   })
+  //       .then(
+  //         (r: any) => {
+  //           if (!r) return;
+  //           if(r){
+  //             let { board, projects } = r;
+  //             // console.log('board', board, 'proj', projects);
+  //             ProjectEditService.setProjects(projects);
+  //             if (board) {
+  //               if (board.status !== boardStatus) {
+  //                 setBoardStatus(board.status);
+  //               }
+  //               if (board.substatus !== boardSubstatus) {
+  //                 setBoardSubstatus(board.substatus);
+  //               }
+  //               if (board.comment !== boardComment) {
+  //                 setBoardComment(board.comment);
+  //               }
+  //               if (board._id !== namespaceId) {
+  //                 setNamespaceId(board.board_id)
+  //               }
+  //               let reqManagerEq = true;
+  //               for (var i = 1 ; i <= 5; i++) {
+  //                 if (board[`targetcost${i}`] != reqManager[i-1]) {
+  //                   reqManagerEq = false;
+  //                 }
+  //               }
+  //               if (!reqManagerEq) {
+  //                 setReqManager([
+  //                   board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+  //                 ])
+  //               }
+  //             }
+  //             // if (projects) {
+  //             //   let cols = generateColumns(projects, year, tabKey);
+  //             //   let areEqual: boolean = compareColumns(columns, cols);
+  //             //   setFlagforScroll(Math.random());
+  //             //   // if (!areEqual) {
+  //             //     setColumns(cols);
+  //             //     let justProjects = projects.map((proj:any)=> {
+  //             //       return proj.projectData?.cartodb_id;
+  //             //     });
+  //             //     let idsProjects = projects.map((proj:any)=> {
+  //             //       return proj.projectData?.project_id;
+  //             //     });
+  //             //     let projectAmounts = projects.map((proj:any)=> {
+  //             //       return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
+  //             //       cartodb_id: proj.projectData?.cartodb_id
+  //             //       }
+  //             //     });
+  //             //     const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
+  //             //     const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
+  //             //     buildGeojsonForLabelsProjectsInBoards(projects);
+  //             //     setProjectAmounts(projectAmounts);
+  //             //     if(projects.length>0){
+  //             //       setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
+  //             //     } else {
+  //             //       setBoardProjects(['-8887']);
+  //             //     }
+  //             //   // }
+  //             // }
+  //           }
+  //         },
+  //         (e) => {
+  //           console.log('e', e);
+  //         }
+  //       )
+  // }, [namespaceId]);
 
   useEffect(() => {
-    let [rows, totals] = getTotalsByPropertyV2(columns, 'project_counties');
-    let [a] = getTotalsByPropertyV2(columns, 'project_service_areas');
-    let [c] = getTotalsByPropertyV2(columns, 'project_local_governments');
-    let uniqueServiceArea = a.map((p: any) => p.locality);
-    let uniqueJurisdictions = c.map((p: any) => p.locality).filter((p: any) => p.length > 0);
-    let uniqueCounties = rows.map((p: any) => p.locality);
-    setJurisdictionFilterList(uniqueJurisdictions);
-    setJurisdictionSelected(uniqueJurisdictions);
-    let l = localities.find((p: any) => {
-      return p.name === locality;
-    })
-    if (l) {
-      if (l.type === 'COUNTY') {
-        setCsaFilterList(uniqueCounties);
-        setCsaSelected(uniqueCounties)
-      } else {
-        setCsaFilterList(uniqueServiceArea);
-        setCsaSelected(uniqueServiceArea)
-      }
-    }
-    setSumTotal(totals);
-    if (type === 'WORK_REQUEST') {
-      if (['Capital', 'Maintenance'].includes(tabKey)) {
-        setSumByCounty(rows);
-      } else {
-        setSumByCounty(a);
-      }
-    } else {
-      setSumByCounty(c);
-    }
+    // let [rows, totals] = getTotalsByPropertyV2(columns, 'project_counties');
+    // let [a] = getTotalsByPropertyV2(columns, 'project_service_areas');
+    // let [c] = getTotalsByPropertyV2(columns, 'project_local_governments');
+    // let uniqueServiceArea = a.map((p: any) => p.locality);
+    // let uniqueJurisdictions = c.map((p: any) => p.locality).filter((p: any) => p.length > 0);
+    // let uniqueCounties = rows.map((p: any) => p.locality);
+    // setJurisdictionFilterList(uniqueJurisdictions);
+    // setJurisdictionSelected(uniqueJurisdictions);
+    // let l = localities.find((p: any) => {
+    //   return p.name === locality;
+    // })
+    // if (l) {
+    //   if (l.type === 'COUNTY') {
+    //     setCsaFilterList(uniqueCounties);
+    //     setCsaSelected(uniqueCounties)
+    //   } else {
+    //     setCsaFilterList(uniqueServiceArea);
+    //     setCsaSelected(uniqueServiceArea)
+    //   }
+    // }
+    // setSumTotal(totals);
+    // if (type === 'WORK_REQUEST') {
+    //   if (['Capital', 'Maintenance'].includes(tabKey)) {
+    //     setSumByCounty(rows);
+    //   } else {
+    //     setSumByCounty(a);
+    //   }
+    // } else {
+    //   setSumByCounty(c);
+    // }
   }, [columns, tabKey]);
 
   useEffect(() => {
     let diffTmp = []
-    for(var i = 1; i <= 5 ; i++) {
-      let d = reqManager[i-1] - sumTotal[`req${i}`];
+    for (var i = 1; i <= 5; i++) {
+      let d = reqManager[i - 1] - sumTotal[`req${i}`];
       diffTmp.push(d);
     }
     setDiff(diffTmp);
 
   }, [reqManager, sumTotal]);
 
-  const openEdit = (project:any,event:any) => {
+  const openEdit = (project: any, event: any) => {
     setShowModalEdit(project);
   }
   const getCompleteProjectData = async (data: any) => {
     postData(
       `${SERVER.URL_BASE}/board/projectdata`,
       { projectid: data.project_id, projecttype: tabKey }
-    ).then((value:any)=> {
+    ).then((value: any) => {
       console.log('value', value);
       console.log('data', data);
-      setCompleteProjectData({...data.projectData, tabKey});
-      setTimeout(()=>{
+      setCompleteProjectData({ ...data.projectData, tabKey });
+      setTimeout(() => {
         setShowModalProject(true);
-      },200);
+      }, 200);
     });
   }
   const setShowModalEdit = (project: any) => {
     let projectswithid: any = new Set();
-    console.log('project.id',  project, project.id);
+    console.log('project.id', project, project.id);
 
-    let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.project_id.toString()));
-    if(projectsFiltered.length>0){
+    let projectsFiltered = ProjectEditService.getProjects().filter((proj: any) => (proj.project_id == project.project_id.toString()));
+    if (projectsFiltered.length > 0) {
       projectswithid.add(projectsFiltered[0]);
     }
     let newArray = [...projectswithid.values()];
-    if(newArray[0]){
+    if (newArray[0]) {
       getCompleteProjectData(newArray[0]);
     }
   }
-  const saveData = ({ projectId, amounts, years }:{ projectId: any, amounts: any[], years: any[] }) => {
+  const saveData = ({ projectId, amounts, years }: { projectId: any, amounts: any[], years: any[] }) => {
     let projectData: any;
     columns.forEach((c: any) => {
       c.projects.forEach((p: any) => {
@@ -660,9 +522,8 @@ const RequestView = ({ type, isFirstRendering }: {
         return pos;
       })
       positions.forEach((pos: any, posIdx: number) => {
-        newObj[`position${posIdx+1}`] = pos;
+        newObj[`position${posIdx + 1}`] = pos;
       })
-
       temporalColumns = temporalColumns.map((tc: any) => {
         return {
           ...tc,
@@ -673,13 +534,12 @@ const RequestView = ({ type, isFirstRendering }: {
       })
       positions.forEach((pos: any, posIdx: number) => {
         if (pos != null) {
-          let ref: any = temporalColumns[posIdx+1].projects;
+          let ref: any = temporalColumns[posIdx + 1].projects;
           ref.splice(pos, 0, newObj);
         }
       })
       WsService.sendUpdate(temporalColumns)
       setColumns(temporalColumns)
-
     } else {
       let temporalColumns = columns.map((col: any) => {
         return {
@@ -733,120 +593,73 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
 
-  const renderOption = (item: string) => {
-    return {
-      key: `${item}|${item}`,
-      value: item,
-      label: item
-    };
-  };
   console.log('Rendering Request View');
   return (
     <Layout className="work">
-      { (fakeLoading || loading) && <LoadingViewOverall /> }
+      {(fakeLoading) && <LoadingViewOverall />}
       {
-            <Row>
-            <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{transition:'all 0.7s ease'}}>
-                <WorkRequestMap
-                  isFirstRendering={isFirstRendering}
-                  leftWidth={leftWidth}
-                  change={changes}
-                  locality={{locality: locality, isOnSelected: isOnSelected}}
-                  setProblemId={setProblemId}
-                  openModal={setShowCreateProject}
-                  openEdit={openEdit}
-                  currentTab={tabKey}
-                  projectsAmounts={projectsAmounts}
-                />
-                <ResizableButton />
-            </Col>
+        <Row>
+          <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{ transition: 'all 0.7s ease' }}>
+            <WorkRequestMap
+              isFirstRendering={isFirstRendering}
+              leftWidth={leftWidth}
+              change={changes}
+              locality={{ locality: locality, isOnSelected: isOnSelected }}
+              setProblemId={setProblemId}
+              openModal={setShowCreateProject}
+              openEdit={openEdit}
+              currentTab={tabKey}
+              projectsAmounts={projectsAmounts}
+            />
+            <ResizableButton />
+          </Col>
 
-            <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}>
-              <div className="work-head" >
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                    <div className="auto-complete-map">
-                      {
-                        userInformation.designation !== GOVERNMENT_STAFF ?
-                        <AutoComplete
-                        className={'ant-select-1'}
-                        options={dataAutocomplete.map(renderOption)}
-                        placeholder={localityFilter}
-                        filterOption={(inputValue, option: any) => {
-                          if (dataAutocomplete.includes(inputValue)) {
-                            return true;
-                          }
-                          return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
-                        }}
-                        onSelect={onSelect}
-                        value={localityFilter}
-                        onSearch={(input2: any) => {
-                          setLocalityFilter(input2);
-                          if (localities.map((r: any) => r.name).indexOf(input2) !== -1) {
-                            setLocality(input2)
-                            setIsOnSelected(false);
-                            let l = localities.find((p: any) => {
-                              return p.name === locality;
-                            })
-                            if (l) {
-                              setLocalityType(l.table);
-                            }
-                          }
-                        }}
-                        open={dropdownIsOpen}
-                        onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
-                        onBlur={() => setDropdownIsOpen(false)}
-                      >
-                        <Input ref={ref} className={boardStatus === 'Approved' ? 'approved' : 'not-approved'}
-                          prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '3'}}></i>}
-                          suffix={dropdownIsOpen ? <UpOutlined style={{marginRight: '-18px'}}/> : <DownOutlined style={{marginRight: '-18px'}}/>} style={{border: 'none', boxShadow: 'none', borderBottom: '1px solid rgba(37, 24, 99, 0.3)', marginRight: '-18px', marginLeft: '-6px' }}/>
-                      </AutoComplete> : <Input style={{border:'none'}} className={boardStatus === 'Approved' ? 'approved' : 'not-approved'} value={localityFilter}
-                          readOnly={true} prefix={<i className="mdi mdi-circle" style={{marginLeft: '-6px', zIndex: '3'}}></i>}/>
-                      }
-                      
-                    </div>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
-                    <YearDropdown />
-                    <Toolbar />
-                  </Col>
-                </Row>
-              </div>
-              <div className="work-body">
-                { type === 'WORK_PLAN' &&
-                  <Button className="btn-filter-d" onClick={() => setShowFilters(true)}>
-                    <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src=""/>
-                  </Button>
-                }
-                <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
+          <Col xs={{ span: 24 }} lg={{ span: 24 - leftWidth }}>
+            <div className="work-head" >
+              <Row>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                  <AutoCompleteDropdown />
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ textAlign: 'right' }}>
+                  <YearDropdown />
+                  <Toolbar />
+                </Col>
+              </Row>
+            </div>
+            <div className="work-body">
+              {type === 'WORK_PLAN' &&
+                <Button className="btn-filter-d" onClick={() => setShowFilters(true)}>
+                  <img className="icon-bt" style={{ WebkitMask: "url('/Icons/icon-73.svg') no-repeat center" }} src="" />
+                </Button>
+              }
+              <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[0]}
                 activeKey={tabKey}
-                 onChange={(key) => {
+                onChange={(key) => {
                   setTabKey(key);
                   setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
-                 }} className="tabs-map">
-                  {
-                    displayedTabKey.map((tk: string) => (
-                      <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
-                        <div className="work-table" ref={wrtRef}>
-                          <ColumsTrelloCard
-                            setLoading={setLoading}
-                            deleteProject={deleteProject}
-                            saveData={saveData}
-                            notIsFiltered={notIsFiltered}
-                            flagforScroll={flagforScroll}
-                          />
-                        </div>
-                        <RequestCostRows />
-                      </TabPane>
-                    ))
-                  }
-                </Tabs>
-              </div>
-              <Button className="btn-scroll" onClick={() => scrollToRight()}>
-                <RightOutlined />
-              </Button>
-            </Col>
-          </Row>
+                }} className="tabs-map">
+                {
+                  displayedTabKey.map((tk: string) => (
+                    <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
+                      <div className="work-table" ref={wrtRef}>
+                        <ColumsTrelloCard
+                          deleteProject={deleteProject}
+                          saveData={saveData}
+                          notIsFiltered={notIsFiltered}
+                          flagforScroll={flagforScroll}
+                        />
+                      </div>
+                      <RequestCostRows />
+                    </TabPane>
+                  ))
+                }
+              </Tabs>
+            </div>
+            <Button className="btn-scroll" onClick={() => scrollToRight()}>
+              <RightOutlined />
+            </Button>
+          </Col>
+        </Row>
       }
     </Layout>
   )

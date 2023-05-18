@@ -4,7 +4,6 @@ import { SERVER } from "../../../Config/Server.config";
 import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
-import { Option } from "antd/lib/mentions";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -25,15 +24,13 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   onUpdateHandler: Function
 }) => {
   const [boardStatus, setBoardStatus] = useState(status);//from backend
-  const [boardComment, setBoardComment] = useState(comment);
+  const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [boardsData, setBoardsData] = useState<any[]>([]);
   const [boardsLength, setBoardsLength] = useState<number>(0);
   const [loading, setLoading] = useState(false);
   const [pending, setpending] = useState(false);
-
-  console.log('substatus', substatus);
 
   const save = () => {
     putData(`${SERVER.URL_BASE}/board/${boardId}`, {
@@ -64,7 +61,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
 
   useEffect(() => {
     if (type === 'WORK_REQUEST') {
-      console.log('substatus', substatus);
       let list = substatus ? substatus.split(',') : [];
       let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special']
       setBoardsData(ls.map((l) => {
@@ -162,13 +158,13 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       <h6>Status Management</h6>
       <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={type === 'WORK_PLAN' ? content00WP :content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
       <Select value={boardStatus ? boardStatus : '- Select -'} className="ant-dropdown-link" getPopupContainer={trigger => trigger.parentNode}>
-        <Option value="key-Approved">
+        <Select.Option value="key-Approved">
           <div onClick={() => setBoardStatus('Approved')}>
             <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#29C499' }}></i> Approved</h6>
             <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff approves the Work Request.`}</p>
           </div>
-        </Option>
-        <Option value="key-Under-Review">
+        </Select.Option>
+        <Select.Option value="key-Under-Review">
           <div onClick={() => {
             if (status === 'Approved') {
               alert(`You can't set board to 'Under Review'`)
@@ -179,7 +175,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
             <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#FFC664' }}></i> Under Review</h6>
             <p style={{marginBottom:'0px'}}>{`${type === 'WORK_PLAN' ? 'MHFD' : 'Local Government'} Staff are developing ${type === 'WORK_PLAN' ? 'or reviewing' : ''} the Work Request.`}</p>
           </div>
-        </Option>
+        </Select.Option>
       </Select>
           <Row>
             <Col lg={{ span: 12 }}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { Button } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useLocation } from 'react-router-dom';
@@ -18,13 +18,11 @@ let scrollValues: any = [0, 0, 0, 0, 0, 0];
 let scrollByIds: any = [];
 
 const ColumsTrelloCard = ({
-  setLoading,
   deleteProject,
   saveData,
   notIsFiltered,
   flagforScroll
 }: {
-  setLoading: any;
   deleteProject: any;
   saveData: any;
   notIsFiltered: any;
@@ -33,7 +31,7 @@ const ColumsTrelloCard = ({
   const location = useLocation();
   const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
   const {
-    columns,
+    columns2: columns,
     tabKey,
     locality,
     jurisdictionSelected,
@@ -115,7 +113,7 @@ const ColumsTrelloCard = ({
   }>
     {columns.map((column: any, columnIdx: number) => (
 
-      <div className="container-drag" id={`container_${tabKey}`} key={columnIdx + Math.random()}>
+      <div className="container-drag" id={`container_${tabKey}`} key={column.title}>
         <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
 
         <Droppable droppableId={`${columnIdx}`}>
@@ -170,7 +168,7 @@ const ColumsTrelloCard = ({
                       fixedDragAction[0]
                     ) {
                       return (
-                        <>
+                        <Fragment key={p.project_id}>
                           <div
                             style={{
                               backgroundColor: '#ffff00',
@@ -194,7 +192,6 @@ const ColumsTrelloCard = ({
                                   key={i}
                                   year={year}
                                   type={type}
-                                  setLoading={setLoading}
                                   delProject={deleteProject}
                                   namespaceId={namespaceId}
                                   project={p}
@@ -216,11 +213,11 @@ const ColumsTrelloCard = ({
                               </div>
                             )}
                           </Draggable>
-                        </>
+                        </Fragment>
                       );
                     } else {
                       return (
-                        <>
+                        <Fragment key={p.project_id}>
                           <div
                             style={{
                               backgroundColor: '#d6d8e0',
@@ -244,7 +241,6 @@ const ColumsTrelloCard = ({
                                   key={i}
                                   year={year}
                                   type={type}
-                                  setLoading={setLoading}
                                   delProject={deleteProject}
                                   namespaceId={namespaceId}
                                   project={p}
@@ -266,7 +262,7 @@ const ColumsTrelloCard = ({
                               </div>
                             )}
                           </Draggable>
-                        </>
+                        </Fragment>
                       );
                     }
                   } else {
@@ -277,7 +273,7 @@ const ColumsTrelloCard = ({
                     ) {
                     } else {
                       return (
-                        <>
+                        <Fragment key={p.project_id}>
                           <Draggable key={i} draggableId={`${columnIdx}_${i}`} index={i}>
                             {draggableProvided => (
                               <div
@@ -289,7 +285,6 @@ const ColumsTrelloCard = ({
                                   key={i}
                                   year={year}
                                   type={type}
-                                  setLoading={setLoading}
                                   delProject={deleteProject}
                                   namespaceId={namespaceId}
                                   project={p}
@@ -311,7 +306,7 @@ const ColumsTrelloCard = ({
                               </div>
                             )}
                           </Draggable>
-                        </>
+                        </Fragment>
                       );
                     }
                   }

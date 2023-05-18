@@ -36,6 +36,13 @@ const initialState = {
   columns: defaultColumns,
   reqManager: [null, null, null, null, null],
   diff: [null, null, null, null, null],
+  columns2: defaultColumns,
+  board: {},
+  projectIds: [],
+  loadingColumns: false,
+  localityFilter: '',
+  dataAutocomplete: [],
+  setIsOnSelected: false,
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -204,6 +211,60 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         diff: action.payload
+      };
+    case types.REQUEST_START_LOADING_COLUMNS_2:
+      return {
+        ...state,
+        loadingColumns: true,
+        projectIds: []
+      };
+    case types.REQUEST_SET_COLUMNS_2:
+      return {
+        ...state,
+        columns2: [
+          ...state.columns2.map((column, index) => {
+            if (action.payload.position === index) {
+              return {
+                ...column,
+                projects: action.payload.projects
+              }
+            }
+            return column;
+          })
+        ],
+        projectIds: Array.from(
+          new Set(
+            [
+              state.projectIds,
+              ...action.payload.projects.map((project: any) => project.project_id)
+            ]
+          ).values()
+        )
+      };
+    case types.REQUEST_SET_BOARD:
+      return {
+        ...state,
+        board: action.payload
+      };
+    case types.REQUEST_STOP_LOADING_COLUMNS_2:
+      return {
+        ...state,
+        loadingColumns: false
+      };
+    case types.REQUEST_SET_LOCALITY_FILTER:
+      return {
+        ...state,
+        localityFilter: action.payload
+      };
+    case types.REQUEST_SET_DATA_AUTOCOMPLETE:
+      return {
+        ...state,
+        dataAutocomplete: action.payload
+      };
+    case types.REQUEST_SET_IS_ON_SELECTED:
+      return {
+        ...state,
+        setIsOnSelected: action.payload
       };
     default:
       return state;

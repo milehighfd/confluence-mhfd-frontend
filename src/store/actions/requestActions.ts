@@ -1,4 +1,6 @@
+import { SERVER } from 'Config/Server.config';
 import * as types from '../types/requestTypes';
+import * as datasets from 'Config/datasets';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -162,5 +164,54 @@ export const setReqManager = (payload: any) => ({
 
 export const setDiff = (payload: any) => ({
   type: types.REQUEST_SET_DIFF,
+  payload
+});
+
+export const loadColumns = (board_id: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.REQUEST_START_LOADING_COLUMNS_2
+    });
+    const promises = [];
+    for (let position = 0; position <= 5; position++) {
+      const promise = datasets.postData(
+        `${SERVER.URL_BASE}/board/board-for-positions2`,
+        { board_id, position }
+      ).then((projects) => {
+        dispatch({
+          type: types.REQUEST_SET_COLUMNS_2,
+          payload: {
+            position,
+            projects
+          }
+        })
+      });
+      promises.push(promise);
+    }
+    Promise.all(promises).then(() => {
+      dispatch({
+        type: types.REQUEST_STOP_LOADING_COLUMNS_2
+      });
+    });
+  }
+}
+
+export const setBoard = (payload: any) => ({
+  type: types.REQUEST_SET_BOARD,
+  payload
+});
+
+export const setLocalityFilter = (payload: any) => ({
+  type: types.REQUEST_SET_LOCALITY_FILTER,
+  payload
+});
+
+export const setDataAutocomplete = (payload: any) => ({
+  type: types.REQUEST_SET_DATA_AUTOCOMPLETE,
+  payload
+});
+
+export const setIsOnSelected = (payload: any) => ({
+  type: types.REQUEST_SET_IS_ON_SELECTED,
   payload
 });

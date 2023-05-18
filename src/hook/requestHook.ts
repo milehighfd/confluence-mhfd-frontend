@@ -33,6 +33,11 @@ import {
   setColumns,
   setReqManager,
   setDiff,
+  loadColumns,
+  setBoard,
+  setDataAutocomplete,
+  setLocalityFilter,
+  setIsOnSelected,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -136,6 +141,21 @@ export const useRequestDispatch = () => {
   const _setDiff = useCallback((diff: any) => {
     dispatch(setDiff(diff));
   }, [dispatch]);
+  const _loadColumns = useCallback((board_id: any) => {
+    dispatch(loadColumns(board_id));
+  }, [dispatch]);
+  const _setBoard = useCallback((board: any) => {
+    dispatch(setBoard(board));
+  }, [dispatch]);
+  const _setLocalityFilter = useCallback((localityFilter: any) => {
+    dispatch(setLocalityFilter(localityFilter));
+  }, [dispatch]);
+  const _setDataAutocomplete = useCallback((dataAutocomplete: any) => {
+    dispatch(setDataAutocomplete(dataAutocomplete));
+  }, [dispatch]);
+  const _setIsOnSelected = useCallback((isOnSelected: any) => {
+    dispatch(setIsOnSelected(isOnSelected));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -170,5 +190,10 @@ export const useRequestDispatch = () => {
     setColumns: _setColumns,
     setReqManager: _setReqManager,
     setDiff: _setDiff,
+    loadColumns: _loadColumns,
+    setBoard: _setBoard,
+    setLocalityFilter: _setLocalityFilter,
+    setDataAutocomplete: _setDataAutocomplete,
+    setIsOnSelected: _setIsOnSelected,
   };
 };

@@ -32,5 +32,5 @@ export interface BoardDataRequest {
   year: number | string;
   locality: string;
   projecttype: string;
-  position: string;
+  position?: string | number;
 }

@@ -22,7 +22,11 @@ const useInitializeApp = () => {
       const origConsoleError = console.error;
       console.error = (...args: unknown[]) => {
         const [formatString, child, parent] = args;
-        const isNestingWarning = (arg: unknown) => typeof arg === "string" && arg.includes("Warning: validateDOMNesting(...): %s cannot appear as a descendant of <%s>.%s");
+        const isNestingWarning = (arg: unknown) => typeof arg === "string"
+          && (
+            arg.includes("Warning: validateDOMNesting(...): %s cannot appear as a descendant of <%s>.%s") ||
+            arg.includes("Warning: validateDOMNesting(...): %s cannot appear as a child of <%s>.%s%s%s")
+          );
         const concernsOurElements = (arg: unknown) => typeof arg === "string" && arg.includes("");
 
         if (isNestingWarning(formatString) && (concernsOurElements(child) || concernsOurElements(parent))) {

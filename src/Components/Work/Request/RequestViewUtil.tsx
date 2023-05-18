@@ -715,3 +715,89 @@ export const getTotalsByPropertyV2 = (columns: any[], property: string) => {
   rows.sort((a: any, b: any) => a.locality.localeCompare(b.locality))
   return [rows, totals];
 }
+
+export const buildGeojsonForLabelsProjectsInBoards = (projects: any) => {
+  const geojsonData = {
+    "type": "FeatureCollection",
+    "features": []
+  };
+  console.log('Projects in labels ', projects);
+  const projectsRData = projects.map((p:any) => {
+    const currentPS = p.projectData?.project_statuses?.filter((ps: any, index: number) => {
+      if (p.projectData?.current_project_status_id) {
+        return ps?.project_status_id == p.projectData?.current_project_status_id
+      } else {
+        return index === 0;
+      }
+    });
+    const centroid = p?.projectData?.centroid;
+    return {
+      project_id: p.projectData?.project_id,
+      current_project_status: currentPS ? currentPS[0]?.code_phase_type?.code_status_type?.code_status_type_id : null,
+      project_name: p?.projectData?.project_name,
+      centroid: centroid? centroid[0]?.centroid : null
+    };
+  });
+  geojsonData.features = projectsRData.map((p:any) => {
+    return {
+      "type": "Feature",
+      "properties": {
+        "project_name": p.project_name,
+        "project_status": p.current_project_status,
+        "project_id": p.project_id
+      },
+      "geometry": p.centroid ? JSON.parse(p.centroid) : ''
+
+    };
+  });
+  return geojsonData;
+}
+
+const groupBy = (arr: any, keyGetter: any) => {
+  const out: any = {};
+  for (let item of arr) {
+    const key = keyGetter(item);
+    if (!out[key]) {
+      out[key] = [];
+    }
+    out[key].push(item);
+  }
+  return out;
+};
+
+export const splitProjectsIdsByStatuses = (projects: any) => {
+  const projectsRelevantData = projects.map((p: any) => {
+    return {
+      statuses: p.projectData?.project_statuses,
+      current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
+        if (p.projectData?.current_project_status_id) {
+          return ps?.project_status_id == p.projectData?.current_project_status_id
+        } else {
+          return index === 0;
+        }
+      })[0]?.code_phase_type?.code_status_type,
+      project_id: p.projectData?.project_id
+    }
+  });
+  const grouped = groupBy(projectsRelevantData, (item:any) => {
+    if (item.current_project_status) {
+      return item.current_project_status?.code_status_type_id;
+    } else {
+      if (item.statuses?.length > 0) {
+        return item.statuses[0]?.code_phase_type?.code_status_type?.code_status_type_id;
+      } else {
+        return null;
+      }
+    }
+  });
+  for(let key in grouped) {
+    let uniqueIds: any = [];
+    grouped[key].map((values: any) => values.project_id).forEach((element: any) => {
+        if (!uniqueIds.includes(element)) {
+            uniqueIds.push(element);
+        }
+    });
+    grouped[key] = uniqueIds;
+  }
+  return grouped;
+}
