@@ -235,11 +235,23 @@ const CardInformationView = ({
             : 
             <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
           }
+          {
+            type === 'Problems'
+            ?
+            <h5>{
+              data.componentCost === 0 || data.componentCost === null
+              ? 'No Cost Data'
+              :('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(data.componentCost))
+              }
+                <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
+            </h5>
+            :
             <h5>{
               (getTotalEstimatedCost(data?.project_costs || []) != null ?(new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])) === '0' ? 'No Cost Data' : ('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(getTotalEstimatedCost(data?.project_costs || [])))): 'No Cost Data')
               } 
                 <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
             </h5>
+          }
           <hr />
           {type === 'Problems' ? (
             <div style={{ display: 'flex', width: '100%' }}>
