@@ -64,7 +64,6 @@ import {
   SERVICE_AREA_FILTERS,
   STREAMS_POINT,
   PROJECTS_DRAFT,
-  MAP_RESIZABLE_TRANSITION,
   PROPSPROBLEMTABLES,
   MAPTYPES,
 } from 'constants/constants';
@@ -79,6 +78,7 @@ import { useProfileState, useProfileDispatch } from 'hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
+import useMapResize from 'hook/custom/useMapResize';
 
 let mapid = 'map4';
 let map: any;
@@ -243,14 +243,8 @@ const WorkRequestMap = ({
     cartoid: '',
   });
   const [areTilesLoaded, setAreTilesLoaded] = useState(false);
-  useEffect(() => {
-    if (map) {
-      const mapResize = () => map.resize();
-      for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 10000; i = i + 25) {
-        setTimeout(() => mapResize(), i);
-      }
-    }
-  }, [leftWidth]);
+
+  useMapResize(leftWidth, map);
 
   const setIsMeasuring = (value: boolean) => {
     isMeasuring = value;

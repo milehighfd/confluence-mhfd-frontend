@@ -17,7 +17,9 @@ import {
     COMPONENT_LAYERS,
     STREAMS_FILTERS,
     SELECT_ALL_FILTERS,
-    MAP_RESIZABLE_TRANSITION, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, MHFD_PROJECTS,
+    FILTER_PROBLEMS_TRIGGER,
+    FILTER_PROJECTS_TRIGGER,
+    MHFD_PROJECTS,
     NEARMAP_TOKEN,
     EFFECTIVE_REACHES,
     MENU_OPTIONS,
@@ -67,7 +69,7 @@ import {
   openMarkerOfNoteWithoutAdd
 } from 'routes/map/components/MapFunctionsNotes';
 import DetailModal from 'routes/detail-page/components/DetailModal';
-import { UseDebouncedEffect } from 'routes/Utils/useDebouncedEffect';
+import useMapResize from 'hook/custom/useMapResize';
 
 let map: any = null;
 let hasBeenUpdated = false;
@@ -894,12 +896,7 @@ const Map = ({
         }
     }, [currentPopup, activeMobilePopups]);
 
-    useEffect(() => {
-        const mapResize = () => map.resize();
-        for (let i = 0; i <= MAP_RESIZABLE_TRANSITION * 1000; i = i + 25) {
-            setTimeout(() => mapResize(), i);
-        }
-    }, [leftWidth]);
+    useMapResize(leftWidth, map);
 
     useEffect(() => {
       const [intervalId, promise] = waitingInterval(map);

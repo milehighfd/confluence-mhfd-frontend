@@ -7,10 +7,9 @@ import SidebarView from "../../../Components/Shared/Sidebar/SidebarView";
 import LoadingView from '../../../Components/Loading/LoadingView';
 import {
   COMPLETE_SCREEN,
-  MAP_RESIZABLE_TRANSITION,
   PROJECTS_MAP_STYLES,
   MEDIUM_SCREEN_LEFT
-} from "../constants/layout.constants";
+} from "routes/map/constants/layout.constants";
 import { PROBLEMS_TRIGGER } from '../../../constants/constants';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
@@ -159,7 +158,7 @@ const MapLayout = () => {
                 <Col
                   xs={{ span: 24 }}
                   className={open ? "height-mobile padding-comment" : "height-mobile"}
-                  style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' , zIndex:1, background:'white'}}
+                  style={{ transition: 'all 0.7s' , zIndex:1, background:'white'}}
                   lg={leftWidth}
                 >
                   <Map
@@ -172,7 +171,7 @@ const MapLayout = () => {
                 <Col
                   xs={{ span: 24 }}
                   className="menu-mobile"
-                  style={{ transition: 'all ' + MAP_RESIZABLE_TRANSITION + 's' }}
+                  style={{ transition: 'all 0.7s' }}
                   lg={24 - leftWidth}
                 >
                   <MapView />
