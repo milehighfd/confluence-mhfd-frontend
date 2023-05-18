@@ -7,7 +7,7 @@ import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/cons
 import { saveAs } from 'file-saver';
 import { useDetailedState } from "hook/detailedHook";
 import { useMapDispatch } from "hook/mapHook";
-import { toPng } from 'html-to-image';
+import { toJpeg, toPng } from 'html-to-image';
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
@@ -389,9 +389,9 @@ const DetailModal = ({
     } 
     const roadMapSelector = document.getElementById('get-roadmap-content');
     const widthCustom = roadMapSelector?.scrollWidth ? roadMapSelector?.scrollWidth + 50 : 1250;
-    const heightCustom = roadMapSelector?.scrollHeight ? roadMapSelector?.scrollHeight - 50: 250;
+    const heightCustom = roadMapSelector?.scrollHeight ? roadMapSelector?.scrollHeight + 10: 250;
     if (roadMapSelector) {
-      roadMap = await toPng(roadMapSelector, {width: widthCustom, height: heightCustom, style: {overflow: 'visible', fontFamily: "Ubuntu", border:'none', borderColor:'transparent'}});
+      roadMap = await toJpeg(roadMapSelector, { width: widthCustom, height: heightCustom, style: {overflow: 'visible', fontFamily: "Ubuntu", border:'none', borderColor:'transparent', backgroundColor:'white'}});
     }
     
     let body = { mapImage: map, roadMap };
