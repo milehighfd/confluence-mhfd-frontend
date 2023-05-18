@@ -39,13 +39,11 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   divRef:any,
 }) => {
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
-  const {
-    project_id,
-    project_name,
-    projectsubtype,
-  } = project.projectData;
-  const status = getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name
-  const {id} = project
+  const { project_id } = project;
+  const project_name = project?.projectData?.project_name;
+  const projectsubtype = project?.projectData?.projectsubtype;
+  const status = getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name;
+  const {id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
   const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])
   const [showAmountModal, setShowAmountModal] = useState(false);
