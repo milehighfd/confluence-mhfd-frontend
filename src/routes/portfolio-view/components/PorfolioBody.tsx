@@ -121,7 +121,7 @@ const PortafolioBody = ({
   }, []);
   
   const apply = useCallback((values: any, field: string, resetFilterBy: string) => {
-    let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};    
+    let options = isInit ? {...filterProjectOptionsNoFilter} : {...filterProjectOptions};  
     if (!(resetFilterBy === 'projecttype' && tabKey !== 'All') && resetFilterBy !== '') {
       options[resetFilterBy] = '';
     }    
@@ -160,12 +160,12 @@ const PortafolioBody = ({
   }, [filterProjectOptions]);
 
   useEffect(() => {
+    isInit=true;
+    resetFilterProjectOptionsEmpty();
     if (filterValue != -1) {
-      apply([filterValue], filterby, previousFilterBy);
-      previousFilterBy = filterby;
+      apply([filterValue], filterby, '');     
     } else {
-      apply([], filterby, previousFilterBy);
-      previousFilterBy = filterby;
+      apply([], filterby, '');
     }
   } ,[filterby, filterValue]);
 
