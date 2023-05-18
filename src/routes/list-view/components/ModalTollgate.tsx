@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from '../../../Config/Server.config';
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import {  FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
@@ -22,10 +22,8 @@ const ModalTollgate = ({
   setOpenPiney?: any,
 }) => {
   const { openModalTollgate: visible } = usePortflioState();
-  const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();
-  
+  const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();  
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
-  const defaultDateValue = moment('01/01/2022','MM/DD/YYYY');
   const [dateValue, setDateValue] = useState<any[]>([]);
   const [currentPhase,setCurrentPhase] = useState(-1);
   const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1);
@@ -34,35 +32,7 @@ const ModalTollgate = ({
   const [phasesData,setPhasesData] =useState([]);
   const [phaseIsSet, setPhaseIsSet] = useState(false);
   const [invalidDateIndex, setInvalidDateIndex] = useState(-1);
-  const [detailOpen, setDetailOpen] = useState(false);
-  const [valueInput, setValueInput] = useState({
-    oneL: '0',
-    oneR:'0',
-    twoL: 1,
-    twoR: 0,
-    threeL:'2',
-    threeR:'2',
-    fourL:'3',
-    fourR:'3',
-    fiveL:'4',
-    fiveR:'4',
-    sixL:'5',
-    sixR:'5',
-    sevenL:'6',
-    sevenR:'6',
-    eightL:'7',
-    eightR:'7',
-    nineL:'8',
-    nineR:'8',
-    tenL:'9',
-    tenR:'9',
-    elevenL:'10',
-    elevenR:'10',
-    twelveL:'11',
-    twelveR:'11',
-    thirteenL:'12',
-    thirteenR: '12',
-  })
+  const [detailOpen, setDetailOpen] = useState(false);  
   const colorScale: any = {
     Done: '#5E5FE2',
     Active: '#047CD7',
