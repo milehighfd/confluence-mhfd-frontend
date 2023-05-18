@@ -92,23 +92,23 @@ const TablePortafolio = ({
 
   return (
     <div>
-      <div className="scroll-custom" style={{width:`${widthMax - 5}px`}}  ref={scrollRef}
-        onScrollCapture={(e: any) => {
-          let dr: any = scrollRef.current;
-          if (scrollRef.current) {
-            if (tableRef.current) {
-              tableRef.current.forEach((elem: any, index:number) => {
-                tableRef.current[index].scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
-              })
+        <div className="scroll-custom" style={{width:`${widthMax - 5}px`}}  ref={scrollRef}
+          onScrollCapture={(e: any) => {
+            let dr: any = scrollRef.current;
+            if (scrollRef.current) {
+              if (tableRef.current) {
+                tableRef.current.forEach((elem: any, index:number) => {
+                  tableRef.current[index].scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
+                })
+              }
+              if (headerRef.current) {
+                headerRef.current.scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
+              }
             }
-            if (headerRef.current) {
-              headerRef.current.scrollTo(dr.scrollLeft, headerRef.current?.scrollTop);
-            }
-          }
-        }}
-      >
-        <div className="scroll-bar" style={{ width: `${myDivWidth - 5}px`}}></div>
-      </div>  
+          }}
+        >
+          <div className="scroll-bar" style={{ width: `${myDivWidth - 5}px`}}></div>
+      </div>
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }}>         
           <SearchDropdown />

@@ -691,7 +691,7 @@ const PhaseBody = ({
       type={FILTER_PROJECTS_TRIGGER}
       deleteCallback={deleteFunction}
       addFavorite={addFunction}
-    />}        
+    />}
     <div >
       <Row>
         <Col xs={{ span: 10 }} lg={{ span: 5 }} style={{}}>
