@@ -1878,7 +1878,6 @@ const Map = ({
         let inner = `
         <div class="listofelements" id="currentItemsinList">
           `;
-          console.log('Note clicked??', noteClicked);
         const latestValue = listOfElements?.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b, 0);  
         listOfElements.forEach((el:any , index: any) => {
           inner += ` 

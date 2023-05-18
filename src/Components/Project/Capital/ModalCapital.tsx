@@ -306,7 +306,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.files = files ;
       capital.overheadcost = overheadValues;
       capital.overheadcostdescription = overheadDescription;
-      console.log('my additional cost is ', additionalCost);
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
       capital.components = componentsToSave? JSON.stringify(componentsToSave, null, 2 ): [];

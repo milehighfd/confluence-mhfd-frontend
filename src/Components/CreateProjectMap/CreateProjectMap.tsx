@@ -575,7 +575,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [streamIntersected]);
   useEffect(() => {
-    console.log('Stream IntersectedIds', streamsIntersectedIds);
     if (streamsIntersectedIds.length > 0) {
       let streamsCodes: any = streamsIntersectedIds.filter((fstr:any)=> fstr.mhfd_code).map((str: any) => str.mhfd_code);
       map.isStyleLoaded(() => {
