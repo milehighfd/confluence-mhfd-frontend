@@ -322,12 +322,7 @@ const PhaseBody = ({
               .attr("stroke", function (d: any) {
                 const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
                 let today = moment()
-                let indexStatus;
-                scheduleList.forEach((element: any, index: number) => {
-                  if (d.phaseId === element.code_phase_type_id) {
-                    indexStatus = index;
-                  }
-                });
+                let indexStatus = (scheduleList.findIndex((x: any) => x.code_phase_type_id === d.phaseId));                
                 if (indexStatus === r) {
                   if (endDate) {
                     const diffDates = ((moment(endDate).diff(today, 'M', true)))
@@ -370,14 +365,9 @@ const PhaseBody = ({
             })
             .attr("r", radius)
             .style("fill", function (d: any) {
-              let indexStatus;
+              let indexStatus = (scheduleList.findIndex((x: any) => x.code_phase_type_id === d.phaseId));
               const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
               let today = moment()
-              scheduleList.forEach((element: any, index: number) => {
-                if (d.phaseId === element.code_phase_type_id) {
-                  indexStatus = index;
-                }
-              });
               if (indexStatus === r) {
                 if (endDate) {
                   const diffDates = ((moment(endDate).diff(today, 'M', true)))
@@ -416,14 +406,9 @@ const PhaseBody = ({
             })
             .attr("r", radius - 3)
             .style("fill", function (d: any) {
-              let indexStatus;
+              let indexStatus = (scheduleList.findIndex((x: any) => x.code_phase_type_id === d.phaseId));
               const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
-              let today = moment()
-              scheduleList.forEach((element: any, index: number) => {
-                if (d.phaseId === element.code_phase_type_id) {
-                  indexStatus = index;
-                }
-              });
+              let today = moment()              
               if (indexStatus === r) {
                 if (endDate) {
                   const diffDates = ((moment(endDate).diff(today, 'M', true)))
@@ -580,14 +565,9 @@ const PhaseBody = ({
               setGraphicOpen(false);
               setPositionModalGraphic(10000, 10000)
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-                let indexStatus;
+                let indexStatus = (scheduleList.findIndex((x: any) => x.code_phase_type_id === d.phaseId));
                 const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
-                let today = moment()
-                scheduleList.forEach((element: any, index: number) => {
-                  if (d.phaseId === element.code_phase_type_id) {
-                    indexStatus = index;
-                  }
-                });
+                let today = moment()               
                 if (indexStatus === r) {
                   if (endDate) {
                     const diffDates = ((moment(endDate).diff(today, 'M', true)))
