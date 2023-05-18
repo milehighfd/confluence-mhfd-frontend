@@ -213,6 +213,7 @@ const PortafolioBody = ({
   }, [sortValue]);
 
   useEffect(() => {
+    isInit=false;
     const currentId: number = tabKeysIds[tabKeys.indexOf(tabKey)] || 0;
     if (currentId == 0) {
       apply([], 'projecttype', '');
