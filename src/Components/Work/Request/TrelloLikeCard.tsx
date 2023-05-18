@@ -41,9 +41,9 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const {
     project_id,
-    projectname,
+    project_name,
     projectsubtype,
-  } = project;
+  } = project.projectData;
   const status = getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name
   const {id} = project
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
@@ -145,7 +145,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
     e.dataTransfer.setData('text', JSON.stringify({id, fromColumnIdx: columnIdx}));
   }
 
-  let displayName = projectname || '';
+  let displayName = project_name || '';
   if (displayName.length > 35) {
     displayName = displayName.substr(0,35) + '...';
   }
@@ -235,7 +235,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
         visibleAlert={showDeleteAlert}
         setVisibleAlert={setShowDeleteAlert}
         action={deleteProject}
-        name={projectname}
+        name={project_name}
         />
     }
     {
@@ -284,7 +284,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
       }}>
         <div style={{marginRight:'-10px', width:'100%'}}>
           <Popover placement="top" content={<>
-            <b>{projectname}</b>
+            <b>{project_name}</b>
             <br />
             <b>Project: </b> {project_id}
             <br />
