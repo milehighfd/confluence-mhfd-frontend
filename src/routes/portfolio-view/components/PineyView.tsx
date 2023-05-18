@@ -20,7 +20,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     isDetail:boolean
     }) => {     
   const {setOpenModalTollgate, setDatesData} = usePortfolioDispatch();
-  const { pineyData } = usePortflioState();
+  const { pineyData, updateGroup } = usePortflioState();
   const data = pineyData;
   const appUser = store.getState().profile;
   const userName = appUser.userInformation?.name;
@@ -126,7 +126,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       .catch((e) => {
         console.log(e);
       })
-  }, [data, updateList])
+  }, [data, updateList, updateGroup])
 
   useEffect(() => {
     if (newNote !== note || newStartDate !== actualStartDate || newEndDate !== actualEndDate) {
