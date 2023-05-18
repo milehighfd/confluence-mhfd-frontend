@@ -238,7 +238,7 @@ const RequestView = ({ type, isFirstRendering }: {
         board = await getBoardData3({
           type,
           year: `${year}`,
-          locality,
+          locality: locality === 'Mile High Flood District' ? 'MHFD District Work Plan' : locality,
           projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
         })
       } catch (e) {
