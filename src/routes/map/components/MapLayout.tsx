@@ -50,38 +50,55 @@ const MapLayout = () => {
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
 
-  const loadData = (trigger: any, name?: string) => {
-    return new Promise((resolve) => {
+  const loadData = (trigger: any, name?: string): any => {
+    const controller = new AbortController();
+    return [controller, new Promise((resolve) => {
       const requestData = { table: trigger };
       if (!trigger.includes('milehighfd')) {
-        datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken())
-          .then(tiles => {
+        datasets.postData(
+          SERVER.MAP_TABLES,
+          requestData,
+          datasets.getToken(),
+          controller.signal
+        ).then(tiles => {
             resolve(true);
-            if (name) getMapWithSublayers(trigger, tiles, name);
-            else getMapLayers(trigger, tiles);
+            if (tiles.length > 0) {
+              if (name) getMapWithSublayers(trigger, tiles, name);
+              else getMapLayers(trigger, tiles);
+            }
         });
       } else {
         resolve(true);
       }
-    });
+    })];
   }
 
   useEffect(() => {
     getUserInformation();
     const promises: Promise<any>[] = [];
+    const controllers: AbortController[] = [];
     SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
         layer.tiles.forEach((subKey: string) => {
-          promises.push(loadData(subKey, layer.name));
+          const [controller, promise] = loadData(subKey, layer.name);
+          promises.push(promise);
+          controllers.push(controller);
         });
       } else {
-        promises.push(loadData(layer));
+        const [controller, promise] = loadData(layer);
+        promises.push(promise);
+        controllers.push(controller);
       }
     });
     Promise.all(promises)
       .then(() => {
         setLoaded(true);
       })
+    return () => {
+      controllers.forEach((controller) => {
+        controller.abort();
+      });
+    };
   }, []);
 
   useEffect(() => {

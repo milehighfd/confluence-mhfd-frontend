@@ -7,7 +7,6 @@ import * as constants from 'constants/constants';
 import { OptionProblems, OptionProjects, OptionComponents } from 'Classes/MapTypes';
 import { optionsProjects } from 'routes/portfolio-view/components/ListUtils';
 import store from '..';
-import { useProjectDispatch } from '../../hook/projectHook';
 
 const getAndDispatchAbortableCtrl = (dispatch: Function, key: string): AbortController => {
     const controller = new AbortController();
@@ -38,8 +37,10 @@ export const getMapTables = (trigger: string, name?: string) => {
         if (!layers[trigger] && !trigger.includes('milehighfd')) {
             const requestData = { table: trigger };
             datasets.postData(SERVER.MAP_TABLES, requestData, datasets.getToken()).then(tiles => {
-                if (name) dispatch({ type: types.GET_MAP_WITH_SUBLAYERS, data: { trigger, tiles, name } });
-                else dispatch({ type: types.GET_MAP_LAYERS, data: { trigger, tiles } });
+                if (tiles.length > 0) {
+                    if (name) dispatch({ type: types.GET_MAP_WITH_SUBLAYERS, data: { trigger, tiles, name } });
+                    else dispatch({ type: types.GET_MAP_LAYERS, data: { trigger, tiles } });
+                }
             });
         }
     }
@@ -362,7 +363,7 @@ export const getGalleryProjects = (origin?: any, page?: any) => {
       dispatch({ type: projectTypes.RESET_NEXT_PAGE});
       dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM });
       dispatch({ type: projectTypes.RESET_INFINITE_SCROLL_ITEM_HAS_MORE_ITEMS });
-    if (origin != 'bounds') {
+    if (origin !== 'bounds') {
       dispatch(getProjectsFilteredIds());
     }
   };

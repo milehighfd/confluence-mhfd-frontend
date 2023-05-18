@@ -41,7 +41,7 @@ import { Input, AutoComplete } from 'antd';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
 import { useColorListDispatch, useColorListState } from 'hook/colorListHook';
 import { useProjectDispatch } from 'hook/projectHook';
-import { setOpacityLayer } from 'store/actions/mapActions';
+import { handleAbortError, setOpacityLayer } from 'store/actions/mapActions';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import MapService from 'Components/Map/MapService';
@@ -136,6 +136,18 @@ let listOfElements = [{
   color: "#E45360",
   label:  "Color"
 }];
+
+const waitingInterval = (map: any): any[] => {
+  let intervalId;
+  const promise = new Promise<boolean>((resolve) => {
+    intervalId = setInterval(() => {
+      if (map.isStyleLoaded()) {
+        resolve(true);
+      }
+    }, 250);
+  });
+  return [intervalId, promise];
+};
 
 const Map = ({
     leftWidth
@@ -890,31 +902,30 @@ const Map = ({
     }, [leftWidth]);
 
     useEffect(() => {
-      const waiting = () => {
-        if (!map.isStyleLoaded()) {
-            setTimeout(waiting, 250);
-        } else {
-            applySkyMapLayer();
-            applyMapLayers();
-            if (JSON.stringify(initFilterProblems) == JSON.stringify(filterProblems)) {
-              applyProblemClusterLayer();
-            }
-            setSpinMapLoaded(false);
-            applyNearMapLayer();
-            applyMeasuresLayer();
-            const removedLayers = SWITCHES_MAP.filter((layerElement:any) => !selectedLayers.includes(layerElement))
-            removedLayers.forEach((layerExcluded: any) => {
-              if (typeof layerExcluded === 'object') {
-                layerExcluded.tiles.forEach((subKey: string) => {
-                  hideLayerAfterRender(subKey);
-                });
-              } else {
-                hideLayerAfterRender(layerExcluded);
-              }
-            });
+      const [intervalId, promise] = waitingInterval(map);
+      promise.then(() => {
+        applySkyMapLayer();
+        applyMapLayers();
+        if (JSON.stringify(initFilterProblems) == JSON.stringify(filterProblems)) {
+          applyProblemClusterLayer();
         }
-    };
-    waiting();
+        setSpinMapLoaded(false);
+        applyNearMapLayer();
+        applyMeasuresLayer();
+        const removedLayers = SWITCHES_MAP.filter((layerElement:any) => !selectedLayers.includes(layerElement))
+        removedLayers.forEach((layerExcluded: any) => {
+          if (typeof layerExcluded === 'object') {
+            layerExcluded.tiles.forEach((subKey: string) => {
+              hideLayerAfterRender(subKey);
+            });
+          } else {
+            hideLayerAfterRender(layerExcluded);
+          }
+        });
+      });
+      return () => {
+        clearInterval(intervalId);
+      };
     }, [selectedLayers]);
 
     useEffect(() => {
@@ -1137,16 +1148,24 @@ const Map = ({
     }
 
     const applyProblemClusterLayer = () => {
-      datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
-        addGeojsonSource(map, geoj.geom, isProblemActive);
-        setProblemClusterGeojson(geoj.geom);
-      });
+      const controller = new AbortController();
+      datasets.getData(
+        SERVER.MAP_PROBLEM_TABLES,
+        datasets.getToken(),
+        controller.signal
+      )
+        .then((geoj:any) => {
+          addGeojsonSource(map, geoj.geom, isProblemActive);
+          setProblemClusterGeojson(geoj.geom);
+        })
+        .catch(handleAbortError);
+      return controller;
     }
-    const applyMapLayers = async () => {
-        await SELECT_ALL_FILTERS.forEach(async (layer) => {          
+    const applyMapLayers = () => {
+        SELECT_ALL_FILTERS.forEach((layer) => {          
             if (typeof layer === 'object') {
               if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
-                await selectedLayers.forEach((layer: LayersType) => {
+                selectedLayers.forEach((layer: LayersType) => {
                   if (typeof layer === 'object' && layer.name === USE_LAND_COVER_LABEL) {
                     applyTileSetLayer();
                     layer.tiles.forEach((tile: string) => {
@@ -1167,7 +1186,7 @@ const Map = ({
                 addLayersSource(layer, layerFilters[layer]);
             }
         });
-        await selectedLayers.forEach((layer: LayersType) => {
+        selectedLayers.forEach((layer: LayersType) => {
           if(layer === 'area_based_mask' || layer === 'border') {
             addLayerMask(layer);
             return;
@@ -1199,7 +1218,6 @@ const Map = ({
             if (map.getLayer('borderMASK')) {
               map.moveLayer('borderMASK');
             }
-            
         },300);
     }
     const topHovereableLayers = () => {
@@ -2138,7 +2156,7 @@ const Map = ({
         getZoomGeomProblem(dataProblem.problemid);
       }
     },[visibleCreateProject]);
-    const addMapListeners = async (key: string) => {
+    const addMapListeners = (key: string) => {
         const styles = { ...tileStyles as any };
         const availableLayers: any[] = [];
         if (styles[key]) {

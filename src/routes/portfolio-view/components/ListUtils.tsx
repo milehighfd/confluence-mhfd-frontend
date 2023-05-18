@@ -7,6 +7,16 @@ export const getGroupList = async (groupname: string) => {
   return listgroup;
 }
 
+export const getGroupListWithAbortController = (groupname: string) => {
+  const controller = new AbortController();
+  const promise = datasets.getData(
+    SERVER.GET_LIST_GROUPS(groupname),
+    datasets.getToken(),
+    controller.signal
+  );
+  return [controller, promise];
+}
+
 export const DEFAULT_GROUP = 'status';
 
 export const optionsProjects = (options: OptionProjects, filterComponent: OptionComponents, coordinates: string, applyFilter: any) => {

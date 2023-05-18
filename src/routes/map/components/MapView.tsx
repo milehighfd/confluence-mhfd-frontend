@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
-import { getGroupList } from 'routes/portfolio-view/components/ListUtils';
+import { getGroupList, getGroupListWithAbortController } from 'routes/portfolio-view/components/ListUtils';
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
 import { useLocation } from 'react-router-dom';
 import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
@@ -207,12 +207,15 @@ const MapView = () => {
       }
     }
     setNameZoomArea(zoomarea);
-    getFilterLabels();
+    const controllers = getFilterLabels();
     return () => {
       const user = userInformation;
       user.isSelect = false;
       saveUserInformation(user);
       counterZoomArea = 0;
+      controllers.forEach((controller: any) => {
+        controller.abort();
+      });
     };
   }, []);
   const toCamelCase = (str:string):string => {
@@ -717,18 +720,20 @@ const MapView = () => {
   }, [filterComponentOptions, filterProblemOptions, filterProjectOptions]);
 
   const getFilterLabels = () => {
-    const promises = [
-      getGroupList(SERVICE_AREA),
-      getGroupList(COUNTY),
-      getGroupList(JURISDICTION),
-      getGroupList(CONSULTANT),
-      getGroupList(CONTRACTOR),
-      getGroupList(STATUS),
-      getGroupList(STREAMS),
-      getGroupList(PROJECTTYPE),
-      getGroupList(MHFD_LEAD),
-      getGroupList(LG_LEAD)
+    const requestListWithAbortController = [
+      getGroupListWithAbortController(SERVICE_AREA),
+      getGroupListWithAbortController(COUNTY),
+      getGroupListWithAbortController(JURISDICTION),
+      getGroupListWithAbortController(CONSULTANT),
+      getGroupListWithAbortController(CONTRACTOR),
+      getGroupListWithAbortController(STATUS),
+      getGroupListWithAbortController(STREAMS),
+      getGroupListWithAbortController(PROJECTTYPE),
+      getGroupListWithAbortController(MHFD_LEAD),
+      getGroupListWithAbortController(LG_LEAD)
     ];
+    const promises = requestListWithAbortController.map(r => r[1]);
+    const controllers = requestListWithAbortController.map(r => r[0]);
     Promise.all(promises).then(values => {
       setGroupsLabels({
         ...groupsLabels,
@@ -744,6 +749,7 @@ const MapView = () => {
         lgmanager: values[9]?.groups
       });
     });
+    return controllers;
   };
 
   useEffect(() => {

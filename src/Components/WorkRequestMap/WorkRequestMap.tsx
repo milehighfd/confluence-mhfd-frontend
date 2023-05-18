@@ -458,8 +458,10 @@ const WorkRequestMap = ({
           const promises: Promise<any>[] = [];
           promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
           Promise.all(promises).then(tiles => {
-            updateLayerSource(PROJECTS_DRAFT+'draft', tiles[0]);
-            showLayers(PROJECTS_DRAFT+'draft');
+            if (tiles.length > 0) {
+              updateLayerSource(PROJECTS_DRAFT+'draft', tiles[0]);
+              showLayers(PROJECTS_DRAFT+'draft');
+            }
           });
         });
       });
