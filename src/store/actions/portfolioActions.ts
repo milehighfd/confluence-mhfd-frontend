@@ -53,6 +53,7 @@ export const setCollapsePhase = (value: boolean) => ({
 
 export const getListPMTools = (tabKey: number) => {
   console.log('tabkey action', tabKey)
+  let flag = false;
   return (dispatch: Function) => {
     const controller = new AbortController();
     datasets.postData(
@@ -85,6 +86,7 @@ export const getListPMTools = (tabKey: number) => {
         dispatch({type: types.SCHEDULE_LIST, payload: z});
         
         // setUpdatePhaseList(!updatePhaseList);
+        dispatch({type: types.UPDATE_PHASELIST, payload: !flag});
         const y = rows.map((x: any) => {
           return x.code_status_type;
         })

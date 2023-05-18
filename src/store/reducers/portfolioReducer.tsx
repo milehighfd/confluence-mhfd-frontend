@@ -9,6 +9,7 @@ const initState = {
   phaseList: [],
   statusCounter: 0,
   statusList: [],
+  updatePhaseList: false,
   zoomTimeline: 0,
   zoomTimelineAux: 0,
   isZoomToday: true,

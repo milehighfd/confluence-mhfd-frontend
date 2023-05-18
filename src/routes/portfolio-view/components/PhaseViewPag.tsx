@@ -24,7 +24,7 @@ const PhaseViewPag = ({
   } = usePortflioState();
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
   const [actionsDone,setActionsDone] = useState<any>({});
-  const [updatePhaseList, setUpdatePhaseList] = useState(false);
+  // const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [userBrowser, setUserBrowser] = useState<any>()
   const [updateAction,setUpdateAction] = useState(false);
@@ -70,7 +70,7 @@ const PhaseViewPag = ({
       ]
     });
     setAvailableStatusList(counts)
-  }, [updatePhaseList])
+  }, [statusList])
 
   useEffect(() => {
     const controller = new AbortController();
