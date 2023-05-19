@@ -14,9 +14,8 @@ export const getBoardData2 = async (data: BoardDataRequest) => {
   let totalProjects: Array<any> = [];
   let newBoardData: any = {};
   for (let index = 0; index < 6; index++) {
-    data.position = `${index}`;
-    const parsed = await datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions2`, data);
-    console.log(parsed);
+    data.position = `rank${index}`;
+    const parsed = await datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions`, data);
     totalProjects.push(parsed);
   }
   if (totalProjects.length > 0) {
