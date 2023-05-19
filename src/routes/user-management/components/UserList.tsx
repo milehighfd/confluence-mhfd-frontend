@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Table, Tabs } from 'antd';
-import { ArrowDownOutlined, DownOutlined, MinusCircleTwoTone, MoreOutlined, PlusCircleTwoTone, PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Col, Dropdown, Menu, Select, Table, Tabs } from 'antd';
+import { ArrowDownOutlined, DownOutlined, MoreOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
-import ButtonGroup from "antd/lib/button/button-group";
 import { ColumnsType } from "antd/lib/table";
-import type { MenuProps } from 'antd';
 import ProfileUser from "./ProfileUser";
-import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
+import { DATA_USER_ACTIVITY } from "../constants";
 import * as datasets from "../../../Config/datasets";
 import { OptionsFiltersUser, User } from "Classes/TypeList";
 import { SERVER } from "Config/Server.config";
 import { useUsersDispatch, useUsersState } from "hook/usersHook";
 import { PAGE_USER } from "constants/constants";
-import UserFilters from "Components/User/UserFilters";
 import UserMngFilters from "./UserMngFilters";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
@@ -132,7 +129,6 @@ const UserList = () => {
         </span>
       ),
     },
-    // { title: 'Actions', dataIndex: 'actions', key: 'actions' },
     Table.EXPAND_COLUMN,
   ];
   const {
@@ -141,7 +137,6 @@ const UserList = () => {
   const {
     saveUserActivated,
     saveUserPending,
-    getUserActivity,
     getAllUserActivity
   } = useUsersDispatch();
   const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
@@ -355,7 +350,6 @@ let items = [
           columns={columns}
           expandable={{
             expandedRowRender: record => {
-            // console.log('entra record',userSelected);
             if(userSelected !== undefined){
             if(userSelected.user_id === record.user_id){
               return (
