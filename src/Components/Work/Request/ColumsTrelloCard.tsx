@@ -46,7 +46,8 @@ const ColumsTrelloCard = ({
   const {
     setColumns,
     setVisibleCreateProject,
-    loadOneColumn
+    loadOneColumn,
+    setColumns2Manual
   } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -132,7 +133,9 @@ const ColumsTrelloCard = ({
     if (nextPosition < columns[targetColumnPosition].projects.length) {
       nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
     }
+
     const data = {
+      board_id: namespaceId,
       board_project_id,
       originColumn,
       targetColumn,
@@ -145,14 +148,39 @@ const ColumsTrelloCard = ({
     console.log('data', data);
     WsService.sendUpdate(data);
     if (originColumn === targetColumn) {
-      // TODO send the board_id
-      // loadOneColumn(board_id, originColumn);
-    } else {
-      // TODO send the board_id
-      // loadOneColumn(board_id, originColumn);
-      // loadOneColumn(board_id, targetColumn);
-    }
+      const columnsToUpdate = columns.map((column: any, columnId: number) => {
+        if (columnId !== originColumnPosition) {
+          return column;
+        }
+        const sourceProject = column.projects[sourcePosition];
+        const targetProject = column.projects[targetPosition];
 
+        const projects = column.projects.map((project: any, projectId: number) => {
+          if (projectId === sourcePosition) {
+            return targetProject;
+          }
+          else if (projectId === targetPosition) {
+            return sourceProject;
+          }
+          return project;
+        });
+        return { ...column, projects };
+      });
+      setColumns2Manual(columnsToUpdate);
+      setTimeout(() => {
+        loadOneColumn(namespaceId, originColumnPosition);
+      }, 2000);
+    } else {
+      let _columns = JSON.parse(JSON.stringify(columns));
+      _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
+
+      _columns[originColumnPosition].projects.splice(sourcePosition, 1);
+      setColumns2Manual(_columns);
+      setTimeout(() => {
+        loadOneColumn(namespaceId, originColumnPosition);
+        loadOneColumn(namespaceId, targetColumnPosition);
+      }, 2000);
+    }
   }
   return <DragDropContext onDragEnd={result => {
     const { source, destination } = result;

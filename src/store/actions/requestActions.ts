@@ -174,7 +174,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
-    datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions`, { board_id, position }).then((projects) => {
+    datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions2`, { board_id, position }).then((projects) => {
       dispatch({
         type: types.REQUEST_SET_COLUMNS_2,
         payload: {
@@ -250,5 +250,10 @@ export const setDataAutocomplete = (payload: any) => ({
 
 export const setIsOnSelected = (payload: any) => ({
   type: types.REQUEST_SET_IS_ON_SELECTED,
+  payload
+});
+
+export const setColumns2Manual = (payload: any) => ({
+  type: types.REQUEST_SET_COLUMNS_2_MANUAL,
   payload
 });
