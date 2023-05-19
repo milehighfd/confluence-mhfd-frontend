@@ -1338,7 +1338,7 @@ const CalendarBody = ({
     setIsLoading(true)
     if (zoomSelected === 'Weekly' || zoomSelected === 'Monthly') { 
       setIsLoading(true)    
-      if(currentZScale > 4){      
+      if(currentZScale > 0.2){      
         wasMonthly = false;
       } else {
         wasMonthly = true;
