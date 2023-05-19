@@ -104,9 +104,23 @@ const UserList = () => {
         </span> 
       ),
     },
-    { title: <>Service Area</>, dataIndex: 'serviceArea', key: 'serviceArea',sorter: (a, b) => (a.serviceArea).localeCompare((b.serviceArea)), },
-    { title: <>County</>, dataIndex: 'county', key: 'county', sorter: (a, b) => (a.county).localeCompare((b.county)), },
-    { title: <>City</>, dataIndex: 'city', key: 'city', sorter: (a, b) => (a.city).localeCompare((b.city)), },
+    {
+      title: <>Service Area</>,
+      dataIndex: 'serviceArea',
+      key: 'serviceArea',
+      sorter: (a, b) => (a.serviceArea).localeCompare((b.serviceArea)),
+    },
+    {
+      title: <>County</>,
+      dataIndex: 'county',
+      key: 'county',
+      sorter: (a, b) => (a.county).localeCompare((b.county)), },
+    {
+      title: <>City</>,
+      dataIndex: 'city',
+      key: 'city',
+      sorter: (a, b) => (a.city).localeCompare((b.city)),
+    },
     {
       title: <>Status</>,
       dataIndex: 'statusAccount',
@@ -143,17 +157,13 @@ const UserList = () => {
   const [optionUserActivated, setOptionUserActivated] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserDeleted, setOptionUserDeleted] = useState<OptionsFiltersUser>(PAGE_USER);
-
-  const [tabKey, setTabKey] = useState<any>('Users Management');
-  const [openAction, setOpenAction] = useState(true);
-  const [openFilters, setOpenFilters] = useState(false);
   const [userSelected, setUserSelected] = useState<any>();
   let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
   const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
     datasets.getData(url, datasets.getToken()).then(res => {
-      const arrayUsers = res.users.map((elem: any) => {
-        setIsLoading(false)
+      setIsLoading(false)
+      const arrayUsers = res.users.map((elem: any) => {        
         return {
           ...elem,
           name: [elem.name, elem.email, elem.photo],
@@ -188,7 +198,6 @@ let items = [
       case 'deleted':
         items = [
           { key: 'change-status', label: 'Approve User' },
-          //{ key: 'delete-user-entry', label: 'Delete User' },
         ];
         break;
       case 'pending':
@@ -212,21 +221,17 @@ let items = [
             break;
           {/*case 'message-user':
           break;*/}
-          case 'delete-user':          
+          case 'delete-user':
             deleted(record.user_id)
             break;
-          case 'change-status':            
+          case 'change-status':
             changeStatus(record.user_id)
-            break;
-          case 'delete-user-entry':
-            //deleteEntry(record.user_id)
             break;
         }
       }}
     />
     };
   const urlOptions = (options: OptionsFiltersUser) => {
-    // console.log('options',options, totalUsersActivated)
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
       + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : ''
       + '&sort=' + options.sort) + '&limit=' + 100 + '&page=' + options.page;
@@ -249,19 +254,6 @@ let items = [
     const resetOptions = {...PAGE_USER};
     setOptionUserActivated(resetOptions);
     searchUserActivated(resetOptions);
-  }
-  const deleteUserActivated = (id: string) => { 
-    datasets.putData(SERVER.CHANGE_USER_STATE + '/' + id, {}, datasets.getToken()).then(res => {
-      if (res?.user_id) {
-        getAllUser();
-      }
-    });
-
-  }
-  const deleteUserDatabase = (id: String) => {
-    datasets.deleteData(SERVER.DELETE_USER + '/' + id, datasets.getToken()).then(res => {
-      getAllUser();
-    })
   }
 
   const updateError = (error: string) => {
@@ -295,35 +287,16 @@ let items = [
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
     searchUserActivated(resetOptions);
-    // console.log('activity1',userActivatedState)
   }, []);
   useEffect(() => {
     const resetOptions = {...PAGE_USER};
     searchUserActivated(resetOptions);
     searchUserPending(resetOptions);
     searchUserDelete(resetOptions);
-    // console.log('activity2',userActivatedState)
   }, [optionSelect]);
 
   const deleted = (record : number) => {    
     datasets.putData(SERVER.DELETE_USER + '/' + record, {record}, datasets.getToken()).then(res => { 
-      if (res.message === 'SUCCESS') {        
-        getAllUser();
-        updateSuccessful();
-      } else {
-        if (res?.error) {
-          updateError(res.error);
-          console.log(res.error)
-        }
-        else {
-          updateError(res);
-        }
-      }
-    });
-  }
-
-  const deleteEntry = (record : number) => {       
-    datasets.deleteData(SERVER.DELETE_USER_ENTRY + '/' + record, datasets.getToken()).then(res => { 
       if (res.message === 'SUCCESS') {        
         getAllUser();
         updateSuccessful();
@@ -357,7 +330,6 @@ let items = [
     setIsLoading(false)
   }
 
-  // console.log(optionSelect)
   return <>
   {isLoading && <LoadingViewOverall />}
     <div>
@@ -365,37 +337,20 @@ let items = [
         <div className="list-view-head" >
         <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginTop: '5px', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{setOptionSelect(e); setIsLoading(true)}}>
             <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
-            <Option value="Pending User Requests"><span style={{paddingLeft:'3px'}}>Pending User Requests</span></Option>
+            <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
             <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
         </Select>
         </div>
         <div className='filter-user-management'>
           <UserMngFilters setIsLoading={setIsLoading} option={optionSelect === 'Approved Users' ? optionUserActivated : (optionSelect === 'Pending User Requests' ? optionUserPending : optionUserDeleted)} setOption={optionSelect === 'Approved Users' ? setOptionUserActivated : (optionSelect === 'Pending User Requests' ? setOptionUserPending : setOptionUserDeleted)} search={optionSelect === 'Approved Users' ? searchUserActivated : (optionSelect === 'Pending User Requests' ? searchUserPending : searchUserDelete)}
           reset={resetActivated} title={'activated'}/>
-          {/* <Input
-            style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}
-            placeholder="Search by Name"
-            prefix={<SearchOutlined />}
-          /> */}
-          {/* <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-              <Option value="Organization">Organization</Option>
-          </Select> */}
-          {/* <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-              <Option value="Service Area">Service Area</Option>
-          </Select>
-          <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial', height:'36px'}} >
-              <Option value="User Designation">User Designation</Option>
-          </Select> */}
-          {/* <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'40px', width:'8%'}}>
-            Reset
-          </Button> */}
         </div>
         <div className="button-space">
 
         </div>
       </div>
       <div className="table-user-management">
-        {optionSelect !== 'User Activity' ?  <Table
+        {optionSelect !== 'User Activity' ? <Table
           pagination={{ pageSize: 20 }}
           columns={columns}
           expandable={{
@@ -418,8 +373,8 @@ let items = [
               )
           }}
           dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
+          sticky
         /> : ()=> {getAllUserActivity() 
-          // console.log('userActivity',userActivity);
           return <Table
           columns={columns2}
           dataSource={DATA_USER_ACTIVITY}

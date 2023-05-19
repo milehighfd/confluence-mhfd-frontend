@@ -65,14 +65,11 @@ export const ModalProjectView = ({
         (r: any) => {
           let { projects } = r; 
           if (projects) { 
-            let justProjects = projects.map((proj:any)=> {
-              return proj.projectData?.cartodb_id;
-            });
             let idsProjects = projects.map((proj:any)=> {
               return proj.projectData?.projectid;
             });
             if(projects.length>0){
-              setBoardProjectsCreate({cartoids:justProjects, ids: idsProjects});
+              setBoardProjectsCreate({ ids: idsProjects });
             } else {
               setBoardProjectsCreate(['-7777']);
             }
@@ -160,6 +157,7 @@ export const ModalProjectView = ({
         }
           
       }
+      console.log('data', data);
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5 || data.tabKey === 'Capital'){
         setVisibleCapital(true);
       }

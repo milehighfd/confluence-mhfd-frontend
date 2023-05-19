@@ -46,6 +46,8 @@ const ColumsTrelloCard = ({
   const {
     setColumns,
     setVisibleCreateProject,
+    loadOneColumn,
+    setColumns2Manual
   } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -90,7 +92,96 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
+  
+  /*
+  {
+    board_project_id: 85,
+    originColumn: 'rank1',
+    targetColumn: 'rank0',
+    previousCardId: null,
+    nextCardId: null
+  }
+  */
+  const onDropV2 = (
+    originColumnPosition: number,
+    targetColumnPosition: number,
+    sourcePosition: number,
+    targetPosition: number
+  ) => {
+    const board_project_id = columns[originColumnPosition].projects[sourcePosition].board_project_id;
+    const originColumn = `rank${originColumnPosition}`;
+    const targetColumn = `rank${targetColumnPosition}`;
+    let previousPosition = targetPosition - 1;
+    let nextPosition = targetPosition;
+    // TODO: think and check about the logic of the next if
+    if (originColumn === targetColumn) {
+      if (sourcePosition === targetPosition) {
+        return;
+      }
+      if (sourcePosition > targetPosition) {
+        previousPosition = previousPosition - 1;
+      }
+      else {
+        nextPosition = nextPosition + 1;
+      }
+    }
+    let previousCardId: any = null;
+    if (previousPosition >= 0) {
+      previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
+    }
+    let nextCardId: any = null;
+    if (nextPosition < columns[targetColumnPosition].projects.length) {
+      nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
+    }
 
+    const data = {
+      board_id: namespaceId,
+      board_project_id,
+      originColumn,
+      targetColumn,
+      previousCardId,
+      nextCardId
+    };
+    if (nextCardId === board_project_id) {
+      return;
+    }
+    console.log('data', data);
+    WsService.sendUpdate(data);
+    if (originColumn === targetColumn) {
+      const columnsToUpdate = columns.map((column: any, columnId: number) => {
+        if (columnId !== originColumnPosition) {
+          return column;
+        }
+        const sourceProject = column.projects[sourcePosition];
+        const targetProject = column.projects[targetPosition];
+
+        const projects = column.projects.map((project: any, projectId: number) => {
+          if (projectId === sourcePosition) {
+            return targetProject;
+          }
+          else if (projectId === targetPosition) {
+            return sourceProject;
+          }
+          return project;
+        });
+        return { ...column, projects };
+      });
+      setColumns2Manual(columnsToUpdate);
+      setTimeout(() => {
+        loadOneColumn(namespaceId, originColumnPosition);
+      }, 2000);
+    } else {
+      let _columns = JSON.parse(JSON.stringify(columns));
+      _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
+
+      _columns[originColumnPosition].projects.splice(sourcePosition, 1);
+      setColumns2Manual(_columns);
+      setTimeout(() => {
+        loadOneColumn(namespaceId, originColumnPosition);
+        loadOneColumn(namespaceId, targetColumnPosition);
+      }, 2000);
+    }
+  }
   return <DragDropContext onDragEnd={result => {
     const { source, destination } = result;
     if (!destination) {
@@ -100,8 +191,13 @@ const ColumsTrelloCard = ({
     const destColumn = +destination.droppableId;
     const sPosition = +source.index;
     const dPosition = +destination.index;
-
-    onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
+    onDropV2(
+      sourceColumn,
+      destColumn,
+      sPosition,
+      dPosition
+    );
+    // onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
 
     if (document.getElementById(`column_${tabKey}_1`)) {
       scrollValues.forEach((element: any, index: any) => {

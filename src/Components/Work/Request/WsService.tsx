@@ -27,13 +27,13 @@ class WsService {
   }
 
   sendUpdate(data: any) {
-    this.socket.emit('update', data);
+    this.socket.emit('move', data);
   }
   sendEdit() {
     this.socket.emit('finishedit');
   }
   receiveUpdate(callback: Function) {
-      this.socket.on('update', callback)
+      this.socket.on('move', callback)
   }
 
   sendReqmanager(data: any) {
@@ -42,6 +42,10 @@ class WsService {
 
   receiveReqmanager(callback: Function) {
     this.socket.on('reqmanager', callback);
+  }
+
+  move(data: any) {
+    this.socket.emit('move', data);
   }
 
   disconnect() {

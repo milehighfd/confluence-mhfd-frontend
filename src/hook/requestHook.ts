@@ -34,10 +34,12 @@ import {
   setReqManager,
   setDiff,
   loadColumns,
+  loadOneColumn,
   setBoard,
   setDataAutocomplete,
   setLocalityFilter,
   setIsOnSelected,
+  setColumns2Manual,
 } from 'store/actions/requestActions';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
@@ -144,6 +146,9 @@ export const useRequestDispatch = () => {
   const _loadColumns = useCallback((board_id: any) => {
     dispatch(loadColumns(board_id));
   }, [dispatch]);
+  const _loadOneColumn = useCallback((board_id: any, position: number) => {
+    dispatch(loadOneColumn(board_id, position));
+  }, [dispatch]);
   const _setBoard = useCallback((board: any) => {
     dispatch(setBoard(board));
   }, [dispatch]);
@@ -155,6 +160,9 @@ export const useRequestDispatch = () => {
   }, [dispatch]);
   const _setIsOnSelected = useCallback((isOnSelected: any) => {
     dispatch(setIsOnSelected(isOnSelected));
+  }, [dispatch]);
+  const _setColumns2Manual = useCallback((columns2Manual: any) => {
+    dispatch(setColumns2Manual(columns2Manual));
   }, [dispatch]);
 
   return {
@@ -191,9 +199,11 @@ export const useRequestDispatch = () => {
     setReqManager: _setReqManager,
     setDiff: _setDiff,
     loadColumns: _loadColumns,
+    loadOneColumn: _loadOneColumn,
     setBoard: _setBoard,
     setLocalityFilter: _setLocalityFilter,
     setDataAutocomplete: _setDataAutocomplete,
     setIsOnSelected: _setIsOnSelected,
+    setColumns2Manual: _setColumns2Manual,
   };
 };

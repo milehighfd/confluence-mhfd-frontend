@@ -24,7 +24,7 @@ const Analytics = ({
 }) => {
   const [totalSum, setTotalSum] = useState(0);
   const getLabel = ()=>{
-    if(tabKey == 'Capital' || tabKey == 'Maintenance') {
+    if(tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
     } else {
       return "Service Area"

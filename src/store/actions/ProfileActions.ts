@@ -10,7 +10,7 @@ export const getUserInformation = () => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.ME, datasets.getToken())
       .then(user => {
-        if (user?._id) {
+        if (user?.user_id) {
           dispatch({ type: types.GET_USER_INFORMATION, user });
         }
       })
@@ -43,7 +43,7 @@ export const uploadImage = (files: Array<any>) => {
       }
     }
     datasets.postDataMultipart(SERVER.USER_UPLOAD_PHOTO, dataForm, datasets.getToken()).then(user => {
-      if (user?._id) {
+      if (user?.user_id) {
         dispatch({ type: types.GET_USER_INFORMATION, user });
       }
     })
@@ -53,7 +53,7 @@ export const uploadImage = (files: Array<any>) => {
 export const updateUserInformation = (user: User) => {
   return (dispatch: Function) => {
     datasets.putData(SERVER.UPDATE_USER_INFORMATION, user, datasets.getToken()).then(user => {
-      if (user?._id) {
+      if (user?.user_id) {
         message.success('your data was successfully updated!');
         dispatch(getUserInformation());
       }

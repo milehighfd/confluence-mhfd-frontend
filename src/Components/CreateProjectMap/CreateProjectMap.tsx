@@ -272,8 +272,8 @@ const CreateProjectMap = (type: any) => {
     const equals = (a: any, b: any) =>
       a.length === b.length &&
       a.every((v: any, i: any) => v === b[i]);
-    if (boardProjectsCreate.cartoids && boardProjectsCreate.cartoids[0] != '-8888') {
-      if (!equals(boardProjectsCreate.cartoids, idsBoardProjects)) {
+    if (boardProjectsCreate.ids && boardProjectsCreate.ids[0] != '-8888') {
+      if (!equals(boardProjectsCreate.ids, idsBoardProjects)) {
         setIdsBoardProjects(boardProjectsCreate.ids);
       }
     }

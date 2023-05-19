@@ -1,6 +1,8 @@
 import { SERVER } from 'Config/Server.config';
 import * as types from '../types/requestTypes';
+import * as projectTypes from '../types/ProjectTypes';
 import * as datasets from 'Config/datasets';
+import { buildGeojsonForLabelsProjectsInBoards, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -167,6 +169,23 @@ export const setDiff = (payload: any) => ({
   payload
 });
 
+export const loadOneColumn = (board_id: any, position: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.REQUEST_START_LOADING_COLUMNS_2
+    });
+    datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions2`, { board_id, position }).then((projects) => {
+      dispatch({
+        type: types.REQUEST_SET_COLUMNS_2,
+        payload: {
+          position,
+          projects
+        }
+      });
+    });
+    // TODO: Pachon I noticed you have a postprocessing function here, please check how to use it here
+  }
+}
 export const loadColumns = (board_id: any) => {
   return (dispatch: any) => {
     dispatch({
@@ -184,14 +203,32 @@ export const loadColumns = (board_id: any) => {
             position,
             projects
           }
-        })
+        });
+        return projects;
       });
       promises.push(promise);
     }
-    Promise.all(promises).then(() => {
+    Promise.all(promises).then((dataArray) => {
+      const allProjects = dataArray.flat();
+      const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(allProjects);
+      const geojson: any = buildGeojsonForLabelsProjectsInBoards(allProjects);
+      let ids = Array.from(
+        new Set(
+          allProjects.map((project: any) => project.project_id)
+        )
+      );
+      dispatch({
+        type: projectTypes.SET_BOARD_PROJECTS,
+        boardProjects: {
+          ids,
+          groupedIds: groupedIdsByStatusId,
+          geojsonData: geojson
+        }
+      });
       dispatch({
         type: types.REQUEST_STOP_LOADING_COLUMNS_2
       });
+
     });
   }
 }
@@ -213,5 +250,10 @@ export const setDataAutocomplete = (payload: any) => ({
 
 export const setIsOnSelected = (payload: any) => ({
   type: types.REQUEST_SET_IS_ON_SELECTED,
+  payload
+});
+
+export const setColumns2Manual = (payload: any) => ({
+  type: types.REQUEST_SET_COLUMNS_2_MANUAL,
   payload
 });

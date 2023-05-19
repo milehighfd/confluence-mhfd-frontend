@@ -266,6 +266,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         setIsOnSelected: action.payload
       };
+    case types.REQUEST_SET_COLUMNS_2_MANUAL:
+      return {
+        ...state,
+        columns2: action.payload
+      };
     default:
       return state;
   }
