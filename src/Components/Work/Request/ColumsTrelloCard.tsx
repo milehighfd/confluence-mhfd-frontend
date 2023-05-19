@@ -114,17 +114,6 @@ const ColumsTrelloCard = ({
     let previousPosition = targetPosition - 1;
     let nextPosition = targetPosition;
     // TODO: think and check about the logic of the next if
-    if (originColumn === targetColumn) {
-      if (sourcePosition === targetPosition) {
-        return;
-      }
-      if (sourcePosition > targetPosition) {
-        previousPosition = previousPosition - 1;
-      }
-      else {
-        nextPosition = nextPosition + 1;
-      }
-    }
     let previousCardId: any = null;
     if (previousPosition >= 0) {
       previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
@@ -148,25 +137,10 @@ const ColumsTrelloCard = ({
     console.log('data', data);
     WsService.sendUpdate(data);
     if (originColumn === targetColumn) {
-      const columnsToUpdate = columns.map((column: any, columnId: number) => {
-        if (columnId !== originColumnPosition) {
-          return column;
-        }
-        const sourceProject = column.projects[sourcePosition];
-        const targetProject = column.projects[targetPosition];
-
-        const projects = column.projects.map((project: any, projectId: number) => {
-          if (projectId === sourcePosition) {
-            return targetProject;
-          }
-          else if (projectId === targetPosition) {
-            return sourceProject;
-          }
-          return project;
-        });
-        return { ...column, projects };
-      });
-      setColumns2Manual(columnsToUpdate);
+      let _columns = JSON.parse(JSON.stringify(columns));
+      _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
+      _columns[originColumnPosition].projects.splice(sourcePosition, 1);
+      setColumns2Manual(_columns);
       setTimeout(() => {
         loadOneColumn(namespaceId, originColumnPosition);
       }, 2000);
