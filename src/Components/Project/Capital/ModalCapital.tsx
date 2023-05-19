@@ -263,28 +263,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.locality = _locality;
       capital.isWorkPlan = isWorkPlan;
       capital.year = _year ?? capital.year;
-      // let cservice = "";
-      // serviceArea.forEach((element:any) => {
-      //   cservice= cservice + element + ",";
-      // })
-      // if(cservice.length != 0 ){
-      //   cservice = cservice.substring(0, cservice.length-1)
-      // }
-      // let ccounty = "";
-      // county.forEach((element:any) => {
-      //   ccounty= ccounty + element + ",";
-      // })
-      // if(ccounty.length != 0 ){
-      //   ccounty = ccounty.substring(0, ccounty.length-1)
-      // }
-      // let cjurisdiction = "";
-      // jurisdiction.forEach((element:any) => {
-      //   cjurisdiction= cjurisdiction + element + ",";
-      // })
-      // if(cjurisdiction.length != 0 ){
-      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length-1)
-      // }
-
       let csponsor = "";
       if(cosponsor){
         cosponsor.forEach((element:any) => {
@@ -294,7 +272,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           csponsor = csponsor.substring(0, csponsor.length-1)
         }
       }
-      
       capital.servicearea = serviceAreaIds;
       capital.county = countyIds;
       capital.jurisdiction= jurisdictionIds;
@@ -304,7 +281,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.description = description;
       capital.geom = streamIntersected.geom;
       capital.files = files ;
-      capital.overheadcost = overheadValues;
+      capital.overheadcost = overheadCosts;
       capital.overheadcostdescription = overheadDescription;
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
@@ -964,39 +941,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               </Timeline.Item>
               <Timeline.Item color="purple">
                 <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select placeholder="5%" dropdownClassName="menu-medium" value={overheadValues[6] + '%'} onSelect={(e:any)=>changeValue(e, 6)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[6])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contract Admin / Construction Management</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select placeholder="10%" dropdownClassName="menu-medium" value={overheadValues[7] + '%'} onSelect={(e:any)=>changeValue(e, 7)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
+                    <Select placeholder="10%" dropdownClassName="menu-medium" value={overheadValues[6] + '%'} onSelect={(e:any)=>changeValue(e, 7)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -1020,6 +967,36 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     </Select>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[7])}</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
+                    <Select placeholder="5%" dropdownClassName="menu-medium" value={overheadValues[7] + '%'} onSelect={(e:any)=>changeValue(e, 6)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
+                      <Option value="0">0%</Option>
+                      <Option value="5">5%</Option>
+                      <Option value="10">10%</Option>
+                      <Option value="15">15%</Option>
+                      <Option value="20">20%</Option>
+                      <Option value="25">25%</Option>
+                      <Option value="30">30%</Option>
+                      <Option value="35">35%</Option>
+                      <Option value="40">40%</Option>
+                      <Option value="45">45%</Option>
+                      <Option value="50">50%</Option>
+                      <Option value="55">55%</Option>
+                      <Option value="60">60%</Option>
+                      <Option value="65">65%</Option>
+                      <Option value="70">70%</Option>
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[6])}</Col>
                 </Row>
               </Timeline.Item>
               <Timeline.Item color="purple">
@@ -1105,7 +1082,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           </div>
           <div className="footer-project">
             <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-            <Button className="btn-purple" onClick={handleOk} disabled={disable}>Save Draft Project</Button>
+            <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>
           </div>
         </Col>
       </Row>
