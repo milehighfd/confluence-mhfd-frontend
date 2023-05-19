@@ -646,6 +646,7 @@ const CalendarBody = ({
         });
         scheduleRectsCenter.on("mouseout", (d: any) => {
           setGraphicOpen(false);
+          d3.selectAll('.stackedbarHover').attr('class', 'stackedbar').style('stroke', 'gray')
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
             d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
             d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
