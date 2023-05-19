@@ -364,9 +364,9 @@ let items = [
       <div className="head-list">
         <div className="list-view-head" >
         <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginTop: '5px', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{setOptionSelect(e); setIsLoading(true)}}>
-            <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
-            <Option value="Pending User Requests"><span style={{paddingLeft:'3px'}}>Pending User Requests</span></Option>
-            <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
+            <Option value="Approved Users"><span style={{paddingLeft:'2%'}}>Approved Users</span></Option>
+            <Option value="Pending User Requests"><span style={{paddingLeft:'2%'}}>Pending User Requests</span></Option>
+            <Option value="Deleted Users"><span style={{paddingLeft:'2%'}}>Deleted Users</span></Option>
         </Select>
         </div>
         <div className='filter-user-management'>
