@@ -512,7 +512,15 @@ const CalendarBody = ({
             return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
           })
           .attr('class', 'labels')
-          .style('fill',  'white')
+          .style('fill',  function (d: any) {
+            let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
+            let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phaseId))
+            let state = '';
+            if (currentIndex < phaseIndex) {
+              state = 'NotStarted'
+            }
+            return (state === 'NotStarted' ? 'gray': 'white')
+          })
           .attr('x', function (d: any) {
             return  (xScale(d['from']) || 0);
           })
@@ -625,10 +633,12 @@ const CalendarBody = ({
           let positionTop: any = d3.event.y - heightOfPopup-20;
           let positionLeft: any = d3.event.x - widthOfPopup / 2;
           setPositionModalGraphic(positionLeft, positionTop)
-          d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarHover');
+          let idHovered = `#${d3.event.target.id.slice(0, -7)}`
+          let colorHovered = d3.select(idHovered).style('fill')
+          d3.select(idHovered).attr('class', 'stackedbarHover').style('stroke', colorHovered);
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
             d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
-            d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+            d3.select(idHovered).attr('class', 'stackedbarClicked');
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
           }
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
@@ -861,7 +871,7 @@ const CalendarBody = ({
             .append('text')
             .attr('class', 'name')
 
-            .text(function (d: any) { return (d3.event.transform.k > 30 ? d3.timeFormat('%B')(d) : (d.getMonth() === 8 ? d3.timeFormat('%bt')(d) : d3.timeFormat('%b')(d))) })
+            .text(function (d: any) { return (d3.event.transform.k === 0.9 ? d3.timeFormat('%B (%Y)')(d) : (d.getMonth() === 8 ? d3.timeFormat('%bt')(d) : d3.timeFormat('%b')(d))) })
 
             .call(setTextPositionMonth, zoomedXScale);
           // set text position in the other thread
