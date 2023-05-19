@@ -54,7 +54,7 @@ const GenericTabView = ({
     }
 
     useEffect(() => {
-        if (nextPageOfCards === 1) {
+        if (nextPageOfCards === 1 && type !== FILTER_PROBLEMS_TRIGGER) {
             let div = document.getElementsByClassName('infinite-scroll-component')[0]
             if (div) div.scrollTop = 0;
         }
@@ -73,7 +73,7 @@ const GenericTabView = ({
     }
 
     useEffect(() => {
-        if (cardInformation) {
+        if (cardInformation && type !== FILTER_PROBLEMS_TRIGGER) {
             const a = Math.ceil(cardInformation.length / 20) + 1
             if(( nextPageOfCards + 1 ) === a) {
                 setNextPageOfCards(a)
@@ -166,12 +166,20 @@ const GenericTabView = ({
         }
         tagComponents.push(tag);
     }
-
+    const [state, setState] = useState({
+        items: Array.from({ length: size }),
+        hasMore: true
+    });
     useEffect(() => {
-        setInfiniteScrollHasMoreItems(true);
-        setIsLoading(false);
+
         if(type === FILTER_PROBLEMS_TRIGGER){
             setFilterTabNumber(PROBLEMS_TRIGGER)
+            const auxState = { ...state };
+            auxState.hasMore = true;
+            setState(auxState);
+        } else {
+            setInfiniteScrollHasMoreItems(true);
+            setIsLoading(false);
         }
     }, [totalElement])
 
@@ -179,15 +187,32 @@ const GenericTabView = ({
     const tagProjects = [] as any;
 
     const fetchMoreData = async () => {
-    if (infiniteScrollItems.length < totalElements) {
-        if (!isLoading) {
+      if (type === 'Problems') {
+        if (state.items.length >= totalElement - size) {
+            const auxState = { ...state };
+            if (state.items.length !== totalElements) {
+                auxState.items = state.items.concat(Array.from({ length: totalElement - state.items.length }));
+            }
+            auxState.hasMore = false;
+            setState(auxState);
+            return;
+        }
+        setTimeout(() => {
+            const auxState = { ...state };
+            auxState.items = state.items.concat(Array.from({ length: size }));
+            setState(auxState);
+        }, 500);
+      } else {
+        if (infiniteScrollItems.length < totalElements) {
+          if (!isLoading) {
             setIsLoading(true);
             getExtraProjects(nextPageOfCards);
+          }
+          const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
+          setInfiniteScrollItems(nextItems);
+          setInfiniteScrollHasMoreItems(true);
         }
-        const nextItems = infiniteScrollItems.concat(Array.from({ length: size }));
-        setInfiniteScrollItems(nextItems);
-        setInfiniteScrollHasMoreItems(true);
-    }
+      }
     };
     return (
         <div className="scroll-cards" style={{ height: 'auto', overflowY: 'hidden' }}>
@@ -259,15 +284,15 @@ const GenericTabView = ({
         </div>
         <Row className="card-map" id='card-on-map' gutter={[16, 16]} >
             <InfiniteScroll
-                dataLength={totalElement}
+                dataLength={type !== FILTER_PROBLEMS_TRIGGER ? totalElement : state.items.length}
                 next={fetchMoreData}
-                hasMore={infiniteScrollHasMoreItems}
+                hasMore={type !== FILTER_PROBLEMS_TRIGGER ? infiniteScrollHasMoreItems : state.hasMore}
                 height={window.innerHeight - 245}
                 className="scroll-infinite-mobile"
                 endMessage={''}
                 scrollableTarget="card-on-map"
                 loader={<></>}>
-                {sw ? infiniteScrollItems.map((_: any, index: number) => {
+                {type !== FILTER_PROBLEMS_TRIGGER ? infiniteScrollItems.map((_: any, index: number) => {
                     return data[index] && <CardInformationView  
                         key={index}
                         data={data[index]}
@@ -276,7 +301,17 @@ const GenericTabView = ({
                         setZoomProjectOrProblem={setZoomProjectOrProblem}
                         deleteCallback={deleteFavorite}
                     />
-                }) : ''}
+                }) : 
+                state.items.map((i, index: number) => {
+                    return data[index] && <CardInformationView
+                        key={index}
+                        data={data[index]}
+                        type={type}
+                        selectedOnMap={selectedOnMap}
+                        setZoomProjectOrProblem={setZoomProjectOrProblem}
+                        deleteCallback={deleteFavorite}
+                    />
+                })}
             </InfiniteScroll>
         </Row>
     </div>
