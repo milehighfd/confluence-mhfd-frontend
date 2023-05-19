@@ -34,6 +34,7 @@ import {
   setReqManager,
   setDiff,
   loadColumns,
+  loadOneColumn,
   setBoard,
   setDataAutocomplete,
   setLocalityFilter,
@@ -144,6 +145,9 @@ export const useRequestDispatch = () => {
   const _loadColumns = useCallback((board_id: any) => {
     dispatch(loadColumns(board_id));
   }, [dispatch]);
+  const _loadOneColumn = useCallback((column_id: any, position: number) => {
+    dispatch(loadOneColumn(column_id, position));
+  }, [dispatch]);
   const _setBoard = useCallback((board: any) => {
     dispatch(setBoard(board));
   }, [dispatch]);
@@ -191,6 +195,7 @@ export const useRequestDispatch = () => {
     setReqManager: _setReqManager,
     setDiff: _setDiff,
     loadColumns: _loadColumns,
+    loadOneColumn: _loadOneColumn,
     setBoard: _setBoard,
     setLocalityFilter: _setLocalityFilter,
     setDataAutocomplete: _setDataAutocomplete,

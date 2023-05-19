@@ -169,6 +169,23 @@ export const setDiff = (payload: any) => ({
   payload
 });
 
+export const loadOneColumn = (board_id: any, position: any) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: types.REQUEST_START_LOADING_COLUMNS_2
+    });
+    datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions`, { board_id, position }).then((projects) => {
+      dispatch({
+        type: types.REQUEST_SET_COLUMNS_2,
+        payload: {
+          position,
+          projects
+        }
+      });
+    });
+    // TODO: Pachon I noticed you have a postprocessing function here, please check how to use it here
+  }
+}
 export const loadColumns = (board_id: any) => {
   return (dispatch: any) => {
     dispatch({
