@@ -5,7 +5,6 @@ import SidebarView from "../../Components/Shared/Sidebar/SidebarView";
 import LoadingViewOverall from "../../Components/Loading-overall/LoadingViewOverall";
 import { MEDIUM_SCREEN_LEFT, MEDIUM_SCREEN_RIGHT } from "../../constants/constants";
 import WorkRequestMap from "../../Components/WorkRequestMap/WorkRequestMap";
-import ProjectEditService from "../../Components/Work/Request/ProjectEditService";
 import { AlignCenterOutlined, AppstoreOutlined, DownOutlined, SearchOutlined, UpOutlined } from "@ant-design/icons";
 import ListViewBody from "./components/ListViewBody";
 
@@ -51,7 +50,7 @@ const ListView = () => {
   }
   const setShowModalEdit = (project: any) => {
     let projectswithid: any = new Set();
-    let projectsFiltered = ProjectEditService.getProjects().filter((proj:any) => (proj.project_id == project.id.toString()));
+    let projectsFiltered: any[] = [];
     if(projectsFiltered.length>0){
       projectswithid.add(projectsFiltered[0]);
     }

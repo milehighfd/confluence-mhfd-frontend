@@ -1,6 +1,8 @@
 import { SERVER } from 'Config/Server.config';
 import * as types from '../types/requestTypes';
+import * as projectTypes from '../types/ProjectTypes';
 import * as datasets from 'Config/datasets';
+import { buildGeojsonForLabelsProjectsInBoards, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -184,14 +186,32 @@ export const loadColumns = (board_id: any) => {
             position,
             projects
           }
-        })
+        });
+        return projects;
       });
       promises.push(promise);
     }
-    Promise.all(promises).then(() => {
+    Promise.all(promises).then((dataArray) => {
+      const allProjects = dataArray.flat();
+      const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(allProjects);
+      const geojson: any = buildGeojsonForLabelsProjectsInBoards(allProjects);
+      let ids = Array.from(
+        new Set(
+          allProjects.map((project: any) => project.project_id)
+        )
+      );
+      dispatch({
+        type: projectTypes.SET_BOARD_PROJECTS,
+        boardProjects: {
+          ids,
+          groupedIds: groupedIdsByStatusId,
+          geojsonData: geojson
+        }
+      });
       dispatch({
         type: types.REQUEST_STOP_LOADING_COLUMNS_2
       });
+
     });
   }
 }

@@ -65,8 +65,8 @@ const initState = {
     checked: undefined
   },
   problemid: undefined,
-  boardProjects: {cartoids:['-8888'], ids:['-8888'] },
-  boardProjectsCreate: {cartoids:['-8888'], ids:['-8888'] },
+  boardProjects: { ids:['-8888'] },
+  boardProjectsCreate: { ids:['-8888'] },
   zoomProject: undefined,
   jurisdiction: undefined,
   componentGeom: undefined,

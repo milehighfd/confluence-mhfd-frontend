@@ -8,14 +8,13 @@ import useFakeLoadingHook from 'hook/custom/useFakeLoadingHook';
 import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
-import ProjectEditService from 'Components/Work/Request/ProjectEditService';
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { compareArrays, defaultColumns } from 'Components/Work/Request/RequestViewUtil';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import WsService from 'Components/Work/Request/WsService';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
-import { postData } from 'Config/datasets';
+import * as datasets from 'Config/datasets';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import Toolbar from 'routes/work-request/components/Toolbar';
 import YearDropdown from 'routes/work-request/components/YearDropdown';
@@ -121,14 +120,11 @@ const RequestView = ({ type, isFirstRendering }: {
         })
       }
     });
-    let justProjects = array.map((proj: any) => {
-      return proj.projectData?.cartodb_id;
-    });
     let idsProjects = array.map((proj: any) => {
       return proj.projectData?.projectid;
     });
     if (array.length > 0) {
-      setBoardProjects({ cartoids: justProjects, ids: idsProjects });
+      setBoardProjects({ ids: idsProjects });
     } else {
       setBoardProjects(['-8886']);
     }
@@ -252,6 +248,8 @@ const RequestView = ({ type, isFirstRendering }: {
       setBoardComment(board.comment);
       setNamespaceId(board.board_id);
       setFlagforScroll(Math.random());
+      
+      
     }
     loadProjects();
 
@@ -261,7 +259,6 @@ const RequestView = ({ type, isFirstRendering }: {
     //       console.log(r);
     //       if (!r) return;
     //       let { board, projects } = r;
-    //       ProjectEditService.setProjects(projects);
     //       if (board) {
     //         setTotalCountyBudget(board.total_county_budget || 0);
     //         setBoardStatus(board.status);
@@ -271,9 +268,6 @@ const RequestView = ({ type, isFirstRendering }: {
     //         setReqManager([
     //           board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
     //         ])
-    //         let justProjects = projects.map((proj: any) => {
-    //           return proj.projectData?.cartodb_id;
-    //         });
     //         let idsProjects = projects.map((proj: any) => {
     //           return proj.projectData?.project_id;
     //         });
@@ -287,7 +281,7 @@ const RequestView = ({ type, isFirstRendering }: {
     //         const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
     //         setProjectAmounts(projectAmounts);
     //         if (projects.length > 0) {
-    //           setBoardProjects({ cartoids: justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson });
+    //           setBoardProjects({ ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson });
     //         } else {
     //           setBoardProjects(['-8885']);
     //         }
@@ -344,7 +338,6 @@ const RequestView = ({ type, isFirstRendering }: {
   //           if(r){
   //             let { board, projects } = r;
   //             // console.log('board', board, 'proj', projects);
-  //             ProjectEditService.setProjects(projects);
   //             if (board) {
   //               if (board.status !== boardStatus) {
   //                 setBoardStatus(board.status);
@@ -376,9 +369,6 @@ const RequestView = ({ type, isFirstRendering }: {
   //             //   setFlagforScroll(Math.random());
   //             //   // if (!areEqual) {
   //             //     setColumns(cols);
-  //             //     let justProjects = projects.map((proj:any)=> {
-  //             //       return proj.projectData?.cartodb_id;
-  //             //     });
   //             //     let idsProjects = projects.map((proj:any)=> {
   //             //       return proj.projectData?.project_id;
   //             //     });
@@ -392,7 +382,7 @@ const RequestView = ({ type, isFirstRendering }: {
   //             //     buildGeojsonForLabelsProjectsInBoards(projects);
   //             //     setProjectAmounts(projectAmounts);
   //             //     if(projects.length>0){
-  //             //       setBoardProjects({cartoids:justProjects, ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
+  //             //       setBoardProjects({ ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
   //             //     } else {
   //             //       setBoardProjects(['-8887']);
   //             //     }
@@ -450,34 +440,17 @@ const RequestView = ({ type, isFirstRendering }: {
   }, [reqManager, sumTotal]);
 
   const openEdit = (project: any, event: any) => {
-    setShowModalEdit(project);
-  }
-  const getCompleteProjectData = async (data: any) => {
-    postData(
-      `${SERVER.URL_BASE}/board/projectdata`,
-      { projectid: data.project_id, projecttype: tabKey }
+    datasets.getData(
+      SERVER.V2_DETAILED_PAGE(project.project_id),
+      datasets.getToken()
     ).then((value: any) => {
-      console.log('value', value);
-      console.log('data', data);
-      setCompleteProjectData({ ...data.projectData, tabKey });
+      setCompleteProjectData({...value, tabKey});
       setTimeout(() => {
         setShowModalProject(true);
       }, 200);
     });
   }
-  const setShowModalEdit = (project: any) => {
-    let projectswithid: any = new Set();
-    console.log('project.id', project, project.id);
 
-    let projectsFiltered = ProjectEditService.getProjects().filter((proj: any) => (proj.project_id == project.project_id.toString()));
-    if (projectsFiltered.length > 0) {
-      projectswithid.add(projectsFiltered[0]);
-    }
-    let newArray = [...projectswithid.values()];
-    if (newArray[0]) {
-      getCompleteProjectData(newArray[0]);
-    }
-  }
   const saveData = ({ projectId, amounts, years }: { projectId: any, amounts: any[], years: any[] }) => {
     let projectData: any;
     columns.forEach((c: any) => {
