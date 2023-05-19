@@ -418,6 +418,7 @@ let items = [
               )
           }}
           dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
+          sticky
         /> : ()=> {getAllUserActivity() 
           // console.log('userActivity',userActivity);
           return <Table
