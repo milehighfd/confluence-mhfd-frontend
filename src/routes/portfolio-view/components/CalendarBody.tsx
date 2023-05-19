@@ -75,7 +75,7 @@ const CalendarBody = ({
   const [detailOpen, setDetailOpen] = useState(false);
   const [dataDetail, setDataDetail] = useState();
   const [calendarData, setCalendarData] = useState<any>([]);
-  const [currentZScale, setCurrentZScale] = useState(0.5);
+  const [currentZScale, setCurrentZScale] = useState(0.104);
   const [zoomStatus, setZoomStatus] = useState(0);
   const [toData,setToData] = useState<any>([]);
   const [locations, setLocations] = useState<any>([]);
@@ -219,7 +219,7 @@ const CalendarBody = ({
         xScale = d3
           .scaleTime()
           .domain([timelineStartTime, timelineEndTime])
-          .range([padding.left -10000, width - padding.right + 10000]);
+          .range([padding.left -50000, width - padding.right + 50000]);
         let yScale = d3
           .scaleBand()
           .domain(datasets.map((d: any) => d.id))
@@ -869,7 +869,7 @@ const CalendarBody = ({
           setTimeout(function () {
             d3.select('.topHeaderYear').selectAll('.name').call(setTextPositionMonth, zoomedXScale);
           }, 100);
-          name.attr('transform', function (d: any) { return (d3.event.transform.k < 4 ? 'translate(0,' + separationHeaderAxisInFunction + ')' : 'translate(0,' + 0 + ')') })
+          name.attr('transform', function (d: any) { return (d3.event.transform.k < 0.2 ? 'translate(0,' + separationHeaderAxisInFunction + ')' : 'translate(0,' + 0 + ')') })
           nameUpdate = nameUpdate.transition().duration(300);
           nameExit = nameExit.transition().duration(300);
 
@@ -912,7 +912,7 @@ const CalendarBody = ({
           nameEnter
             .append('text')
             .attr('class', 'nameYear')
-            .attr('transform', (d3.event.transform.k < 35 ? 'translate(0,' + 0 + ')' : 'translate(0,' + 0 + ')'))
+            .attr('transform', (d3.event.transform.k < 0.2 ? 'translate(0,' + 0 + ')' : 'translate(0,' + 0 + ')'))
             .text(function (d: any) { return d3.timeFormat('%Y')(d); })
 
             .call(setTextPositionYear, zoomedXScale);
@@ -978,7 +978,7 @@ const CalendarBody = ({
         
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
-          if (d3.event.transform.k < 4) {
+          if (d3.event.transform.k < 0.2) {
             renderMonthNames();
             renderYearNames();
             // gX.call(xAxisMonth.scale(zoomedXScale));
@@ -1059,7 +1059,7 @@ const CalendarBody = ({
         // setZoomState(zoomed)
         zoom = d3
           .zoom()
-          .scaleExtent([0.5, 300])
+          .scaleExtent([0, 300])
           .translateExtent([
             [0, 0],
             [width, 0],
@@ -1072,9 +1072,9 @@ const CalendarBody = ({
         // moveZoom(zoomTimeline, svg, svgAxis);
         if (zoomSelected === 'Today') {
           zoom.translateTo(svg, xScale(today), 0);
-          zoom.scaleTo(svg, 0.5);
+          zoom.scaleTo(svg, 0.104);
           zoom.translateTo(svgAxis, xScale(today), 0);
-          zoom.scaleTo(svgAxis, 0.5);
+          zoom.scaleTo(svgAxis, 0.104);
           //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
           //setIsZoomToday(false);
           // moveZoom(zoomTimeline, svg, svgAxis);
@@ -1083,18 +1083,18 @@ const CalendarBody = ({
         if (zoomSelected === 'Weekly') {
           // svg
           // .transition().call(zoom.scaleBy, 80);
-          zoom.scaleTo(svg, 4.5);
+          zoom.scaleTo(svg, 0.9);
           // zoom.translateTo(svg, xScale(today),0);
-          zoom.scaleTo(svgAxis, 4.5);
+          zoom.scaleTo(svgAxis, 0.9);
           // zoom.translateTo(svgAxis, xScale(today),0);
           // setIsZoomWeekly(false);
         }
         if (zoomSelected === 'Monthly') {
           // svg
           // .transition().call(zoom.scaleBy, 18);
-          zoom.scaleTo(svg, 0.5);
+          zoom.scaleTo(svg, 0.104);
           // zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-          zoom.scaleTo(svgAxis, 0.5);
+          zoom.scaleTo(svgAxis, 0.104);
           // zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
         }
 
