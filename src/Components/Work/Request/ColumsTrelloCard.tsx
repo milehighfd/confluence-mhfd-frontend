@@ -46,6 +46,7 @@ const ColumsTrelloCard = ({
   const {
     setColumns,
     setVisibleCreateProject,
+    loadOneColumn
   } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -90,7 +91,69 @@ const ColumsTrelloCard = ({
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
+  
+  /*
+  {
+    board_project_id: 85,
+    originColumn: 'rank1',
+    targetColumn: 'rank0',
+    previousCardId: null,
+    nextCardId: null
+  }
+  */
+  const onDropV2 = (
+    originColumnPosition: number,
+    targetColumnPosition: number,
+    sourcePosition: number,
+    targetPosition: number
+  ) => {
+    const board_project_id = columns[originColumnPosition].projects[sourcePosition].board_project_id;
+    const originColumn = `rank${originColumnPosition}`;
+    const targetColumn = `rank${targetColumnPosition}`;
+    let previousPosition = targetPosition - 1;
+    let nextPosition = targetPosition;
+    // TODO: think and check about the logic of the next if
+    if (originColumn === targetColumn) {
+      if (sourcePosition === targetPosition) {
+        return;
+      }
+      if (sourcePosition > targetPosition) {
+        previousPosition = previousPosition - 1;
+      }
+      else {
+        nextPosition = nextPosition + 1;
+      }
+    }
+    let previousCardId: any = null;
+    if (previousPosition >= 0) {
+      previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
+    }
+    let nextCardId: any = null;
+    if (nextPosition < columns[targetColumnPosition].projects.length) {
+      nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
+    }
+    const data = {
+      board_project_id,
+      originColumn,
+      targetColumn,
+      previousCardId,
+      nextCardId
+    };
+    if (nextCardId === board_project_id) {
+      return;
+    }
+    console.log('data', data);
+    WsService.sendUpdate(data);
+    if (originColumn === targetColumn) {
+      // TODO send the board_id
+      // loadOneColumn(board_id, originColumn);
+    } else {
+      // TODO send the board_id
+      // loadOneColumn(board_id, originColumn);
+      // loadOneColumn(board_id, targetColumn);
+    }
 
+  }
   return <DragDropContext onDragEnd={result => {
     const { source, destination } = result;
     if (!destination) {
@@ -100,8 +163,13 @@ const ColumsTrelloCard = ({
     const destColumn = +destination.droppableId;
     const sPosition = +source.index;
     const dPosition = +destination.index;
-
-    onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
+    onDropV2(
+      sourceColumn,
+      destColumn,
+      sPosition,
+      dPosition
+    );
+    // onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
 
     if (document.getElementById(`column_${tabKey}_1`)) {
       scrollValues.forEach((element: any, index: any) => {
