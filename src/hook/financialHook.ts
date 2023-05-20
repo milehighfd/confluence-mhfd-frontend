@@ -7,8 +7,8 @@ export const useFinancialState = () =>
 export const useFinancialDispatch = () => {
   const dispatch = useDispatch();
   return {
-    getFinancialData: (id: number) => {
-      dispatch(getFinancialData(id));
+    getFinancialData: (id: number, filters: any) => {
+      dispatch(getFinancialData(id, filters));
     },
   };
 };
