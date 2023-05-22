@@ -266,7 +266,7 @@ export default forwardRef(({
               }
               if (key === PROBLEMS_TRIGGER) {
                 getComponentCounter(e.features[0].properties.problemid || 0, 'problemid', setCounterPopup);
-                
+                console.log("111111111111111111111111111")
                 const item = {
                   type: MENU_OPTIONS.PROBLEMS,
                   streamname: e.features[0].properties.streamname,
@@ -278,7 +278,7 @@ export default forwardRef(({
                   status: e.features[0].properties.component_status ? (e.features[0].properties.component_status + '%') : '-',
                   priority: e.features[0].properties.problem_severity ? e.features[0].properties.problem_severity + ' Priority' : '-',
                   problemid: e.features[0].properties.problem_id,
-                  component_count: e.features[0].properties.component_count ?? 0,
+                  component_count: 0,
                   popupId: 'popup',
                   image: `gallery/${e.features[0].properties.problem_type}.png`,
               };

@@ -25,6 +25,7 @@ const initState = {
   openGroups: [true, true, true],
   datesData: {},
   pineyData: {},
+  isFromDetailPage: false
 }
 
 const portfolioReducer = (state = initState, action: any) => {
@@ -160,6 +161,12 @@ const portfolioReducer = (state = initState, action: any) => {
         ...state,
         pineyData: action.payload,
       };
+    case types.SET_IS_FROM_DETAIL_PAGE:
+      return {
+        ...state,
+        isFromDetailPage: action.payload,
+      };
+      
     default:
       return state;
   }
