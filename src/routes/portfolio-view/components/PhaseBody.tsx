@@ -555,7 +555,8 @@ const PhaseBody = ({
                 let positionTop: any = d3.event.y - heightOfPopup-20 ; // Delete 120 when the popup is fixed
                 let positionLeft: any = d3.event.x - widthOfPopup / 2; //Delete 35 when the popup is fixed
                 setPositionModalGraphic(positionLeft,positionTop)
-                d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style('fill', 'white');
+                let colorCircle = d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style("fill")
+                d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).attr("r", radius + 4 ).style('fill', colorCircle).style('opacity', 0.5);
                 let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
                 d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
                 d3.select(`#${searchTextId}`).style('text-decoration', 'underline');
@@ -564,28 +565,8 @@ const PhaseBody = ({
             .on("mouseout", () => {
               setGraphicOpen(false);
               setPositionModalGraphic(10000, 10000)
-              d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-                let indexStatus = (scheduleList.findIndex((x: any) => x.code_phase_type_id === d.phaseId));
-                const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
-                let today = moment()               
-                if (indexStatus === r) {
-                  if (endDate) {
-                    const diffDates = ((moment(endDate).diff(today, 'M', true)))
-                    if (diffDates > 0) {
-                      return colorScale['Current'];
-                    } else {
-                      return colorScale['Overdue'];
-                    }
-                  } else {
-                    return colorScale['Current'];
-                  }
-                }
-                if (indexStatus && r < indexStatus) {
-                  return colorScale['Done'];
-                } else {
-                  return colorScale['NotStarted'];
-                }
-              });
+              let colorCircle = d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style("fill")
+                d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).attr("r", radius).style('fill', colorCircle).style('opacity', 1);
               let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
               d3.select(`#${searchTextId}`).style('background-color', 'white');
               d3.select(`#${searchTextId}`).style('text-decoration', 'none');

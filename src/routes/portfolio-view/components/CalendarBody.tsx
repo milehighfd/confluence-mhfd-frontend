@@ -670,7 +670,10 @@ const CalendarBody = ({
             let positionTop: any = d3.event.y - heightOfPopup-20;
             let positionLeft: any = d3.event.x - widthOfPopup / 2;
             setPositionModalGraphic(positionLeft,positionTop)
-            d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarHover');
+            let idHovered = `#${d3.event.target.id.slice(0, -5)}`
+            let colorHovered = d3.select(idHovered).style('fill')
+            d3.select(idHovered).attr('class', 'stackedbarHover').style('stroke', colorHovered);
+            // d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarHover');
             if (d3.event.target.className.animVal === 'nameClicked') {
               d3.selectAll('.nameClicked').attr('class', 'labels');
               d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
@@ -682,6 +685,7 @@ const CalendarBody = ({
         });
         rectNames.on("mouseout", (d: any) => {
           setGraphicOpen(false);
+          d3.selectAll('.stackedbarHover').attr('class', 'stackedbar').style('stroke', 'gray')
           if (d3.event.target.className.animVal === 'nameClicked') {
             d3.selectAll('.nameClicked').attr('class', 'labels');
             d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
