@@ -1124,7 +1124,7 @@ export const SORTED_PROBLEMS = [{
   name: 'problemtype',
   title: 'Type'
 }, {
-  name: 'solutioncost',
+  name: 'component_cost',
   title: 'Cost'
 }];
 export const SORTED_PROJECTS = [{
