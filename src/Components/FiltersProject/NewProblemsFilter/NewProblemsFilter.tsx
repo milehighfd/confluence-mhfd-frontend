@@ -4,7 +4,7 @@ import PieChartProblem from './PieChartProblem';
 import TreeMapProblem from './TreeMapProblem';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { CheckBoxFilters } from '../CheckboxFiltersProblem';
-import { DropdownFilters } from '../DropdownFiltersProblem';
+import { DropdownFilters } from '../DropdownFilters';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -43,6 +43,12 @@ export const NewProblemsFilter = () => {
                 newValue = (newValue || newValue == '0') ? (newValue + ',' + element) : element;
             }
             options[field] = newValue;
+        } else if ('cost' === field) {
+          if(values.length === 0 || values === '') {
+              options[field] = []
+          } else {
+              options[field] = [values[0], values[values.length - 1]];
+          }
         } else {
             options[field] = values;
         }
@@ -175,14 +181,16 @@ export const NewProblemsFilter = () => {
                     {
                         paramProblems.cost &&   
                         <DropdownFilters 
-                        defaultValue={[]} axisLabel={axisLabel}
-                            data={paramProblems.cost}
-                            selected={filterProblemOptions.cost} onSelect={(items: string) => {
-                                console.log(paramProblems.cost);
-                                console.log(items);
-                                apply(items, 'cost');
-                            }}
-                            />
+                          defaultValue={''}
+                          axisLabel={axisLabel}
+                            // data={paramProblems.cost}
+                          selected={filterProblemOptions.cost}
+                          onSelect={(items: string) => {
+                              console.log(paramProblems.cost);
+                              console.log(items);
+                              apply(items, 'cost');
+                          }}
+                        />
                     }
                 </Col>
             </Row>

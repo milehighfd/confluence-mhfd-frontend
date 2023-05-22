@@ -299,23 +299,27 @@ const MapView = () => {
   };
 
   const deleteTagProblems = (tag: string, value: string) => {
+    
     const auxFilterProblems = { ...filterProblemOptions };
     const valueTag = tag === 'cost' ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
+    console.log('Tag ', tag, value, valueTag);
     const auxValueTag = [] as Array<string>;
-    for (let index = 0; index < valueTag.length; index++) {
-      const element = valueTag[index];
-      if (element !== value) {
-        auxValueTag.push(element);
-      }
-    }
     let newValue = '';
-    for (let index = 0; index < auxValueTag.length; index++) {
-      const element = auxValueTag[index];
-      if (element !== '') {
-        newValue = newValue ? newValue + ',' + element : element;
+    if (tag !== 'cost'){
+      for (let index = 0; index < valueTag.length; index++) {
+        const element = valueTag[index];
+        if (element !== value) {
+          auxValueTag.push(element);
+        }
+      }
+      for (let index = 0; index < auxValueTag.length; index++) {
+        const element = auxValueTag[index];
+        if (element !== '') {
+          newValue = newValue ? newValue + ',' + element : element;
+        }
       }
     }
-    auxFilterProblems[tag] = tag === 'cost' ? auxValueTag : newValue;
+    auxFilterProblems[tag] = tag === 'cost' ? [] : newValue;
     setFilterProblemOptions(auxFilterProblems);
     getGalleryProblems();
     getParamFilterProblems(boundsMap, auxFilterProblems);
@@ -470,31 +474,30 @@ const MapView = () => {
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         const elements = [];
         const position = labelsProblems.findIndex((x: any) => x.name === key);
-        for (let index = 0; index < tag.length; index++) {
-          const element = tag[index];
-          if (element) {
-            if (key === 'cost') {
-              const cost = element.split(',');
-              elements.push({
-                tag: key,
-                value: element,
-                display: elementCost(cost[0], cost[1]),
-              });
-            } else {
-                     if (key === 'solutionstatus') {
-                       elements.push({
-                         tag: key,
-                         value: element,
-                         display: getStatus(element),
-                       });
-                     } else {
-                       elements.push({
-                         tag: key,
-                         value: element,
-                         display: element,
-                       });
-                     }
-                   }
+        if (key === 'cost' && tag.length > 0) {
+          elements.push({
+            tag: key,
+            value: `$${tag[0]} - $${tag[1]}`,
+            display: `$${tag[0]} - $${tag[1]}`
+          })
+        } else {
+          for (let index = 0; index < tag.length; index++) {
+            const element = tag[index];
+            if (element) {
+              if (key === 'solutionstatus') {
+                elements.push({
+                  tag: key,
+                  value: element,
+                  display: getStatus(element),
+                });
+              } else {
+                elements.push({
+                  tag: key,
+                  value: element,
+                  display: element,
+                });
+              }
+            }
           }
         }
         labelsProblems[position]['detail'] = elements as any;
@@ -673,12 +676,21 @@ const MapView = () => {
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        for (let index = 0; index < tag.length; index++) {
-          const element = tag[index];
-          if (element) {
-            countTagProblems++;
+        console.log('KEY', key, tag, key);
+        if (key === 'cost') {
+          if (tag?.length > 0) {
+            countTagProblems++;  
           }
+        } else {
+          console.log('KEY', key, tag);
+          for (let index = 0; index < tag.length; index++) {
+            const element = tag[index];
+            if (element) {
+              countTagProblems++;
+            }
+          }  
         }
+        
       }
     }
     for (const key in filterComponentOptions) {
