@@ -16,7 +16,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [viewDropdown, setViewDropdow] = useState(
     {
       income: true,
-      exprense: true
+      expense: true
     }
   );
   const [openDrop, setOpenDrop] = useState(false);
@@ -79,7 +79,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     getFinancialData(projectId, filters)
-  }, [filters[0], filters[1]])
+  }, [filters[0], filters[1], filters[2]])
 
   const columns = [
     {
@@ -148,6 +148,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
     setFilters([])
     setPhase('')
     setPartner('')
+    setViewDropdow({
+      income: true,
+      expense: true
+    });
   }
   const menu = (
     <Menu
@@ -158,10 +162,13 @@ const Financials = ({ projectId }: { projectId: any }) => {
           label:
             <Checkbox
               onChange={() => {
-                if (viewDropdown.income && !viewDropdown.exprense) {
-                  setViewDropdow({ exprense: true, income: false })
+                if (viewDropdown.income && !viewDropdown.expense) {
+                  setViewDropdow({ expense: true, income: false })
+                  filters[2] = { expense: true, income: false }
+
                 } else {
                   setViewDropdow({ ...viewDropdown, income: !viewDropdown.income })
+                  filters[2] = { ...viewDropdown, income: !viewDropdown.income }
                 }
               }
               }
@@ -172,21 +179,23 @@ const Financials = ({ projectId }: { projectId: any }) => {
           label:
             <Checkbox
               onChange={() => {
-                if (!viewDropdown.income && viewDropdown.exprense) {
-                  setViewDropdow({ exprense: false, income: true })
+                if (!viewDropdown.income && viewDropdown.expense) {
+                  setViewDropdow({ expense: false, income: true })
+                  filters[2] = { expense: false, income: true }
                 } else {
-                  setViewDropdow({ ...viewDropdown, exprense: !viewDropdown.exprense })
+                  setViewDropdow({ ...viewDropdown, expense: !viewDropdown.expense })
+                  filters[2] = { ...viewDropdown, expense: !viewDropdown.expense }
                 }
               }
               }
-              checked={viewDropdown.exprense}>Expense</Checkbox>,
+              checked={viewDropdown.expense}>Expense</Checkbox>,
           key: 'Normal',
         },
       ]}
     />
   );
 
-  const findName = (value: any, type: string) => {
+  const findFilterName = (value: any, type: string) => {
     const name = initialData.find((element: any) => {
       if (type === 'phase') {
         if (parseInt(value) === element?.phaseId) {
@@ -206,7 +215,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       className="menu-density"
       onClick={(e) => (
         filters[0] = e.key,
-        setPartner(findName(e.key, 'partner'))
+        setPartner(findFilterName(e.key, 'partner'))
       )}
       items={dropdownPartner}
     />
@@ -216,7 +225,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       className="menu-density"
       onClick={(e) => (
         filters[1] = e.key,
-        setPhase(findName(e.key, 'phase'))
+        setPhase(findFilterName(e.key, 'phase'))
       )}
       items={dropdownPhase}
     />
@@ -235,8 +244,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }}>
           <Dropdown overlayClassName="dropdown-view-menu" overlay={menu} placement="bottomLeft" trigger={['click']} onVisibleChange={() => { setOpenDrop(!openDrop) }} getPopupContainer={(trigger: any) => trigger.parentNode}>
-            <Space className='dropdown-view' style={viewDropdown.exprense && viewDropdown.income ? { borderLeft: '4px solid #9faeb1' } : {}}>
-              <div>View: {viewDropdown.exprense && viewDropdown.income ? 'All' : (viewDropdown.exprense ? 'Expense' : 'Income')}</div>
+            <Space className='dropdown-view' style={viewDropdown.expense && viewDropdown.income ? { borderLeft: '4px solid #9faeb1' } : {}}>
+              <div>View: {viewDropdown.expense && viewDropdown.income ? 'All' : (viewDropdown.expense ? 'Expense' : 'Income')}</div>
               {!openDrop ? <UpOutlined style={{ color: '#251863' }} /> : < DownOutlined style={{ color: '#251863' }} />}
             </Space>
           </Dropdown>
