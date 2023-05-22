@@ -676,13 +676,11 @@ const MapView = () => {
     for (const key in filterProblemOptions) {
       const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
-        console.log('KEY', key, tag, key);
         if (key === 'cost') {
           if (tag?.length > 0) {
             countTagProblems++;  
           }
         } else {
-          console.log('KEY', key, tag);
           for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
             if (element) {
