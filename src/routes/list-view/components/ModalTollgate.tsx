@@ -21,7 +21,7 @@ const ModalTollgate = ({
   saveCB?: any,
   setOpenPiney?: any,
 }) => {
-  const { openModalTollgate: visible } = usePortflioState();
+  const { openModalTollgate: visible, isFromDetailPage } = usePortflioState();
   const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();  
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [dateValue, setDateValue] = useState<any[]>([]);
@@ -461,7 +461,7 @@ let items = [
               </div>
             </Col>
             <Col xs={{ span: 12 }} lg={{ span: 4 }} style={{textAlign: 'end'}}>
-              <Button className="btn-transparent" onClick={() => setDetailOpen(true)} style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>
+              {!isFromDetailPage && <Button className="btn-transparent" onClick={() => setDetailOpen(true)} style={{padding: '0px 8px'}}><img src="/Icons/send.svg" alt="" height="15px" /></Button>}
               <Button className="btn-transparent" onClick={() => setVisible(false)} style={{padding: '0px 8px'}}><img src="/Icons/ic_close.svg" alt="" height="15px" /></Button>
             </Col>
           </Row>
