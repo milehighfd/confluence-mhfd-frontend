@@ -283,7 +283,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateStart}/>
-                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} {!isDetail && <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span>}</p>
+                  : <p className="text-piney-body">{!actualStartDate ? 'No Data Available' : actualStartDate} <span className='span-tollgate' style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span></p>
                 }
               </Col>
             </Row>
@@ -294,7 +294,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>
                 {editView ?
                   <DatePicker className="date-piney-picker" style={{border:'1px solid #eae8f0', borderRadius:'15px', padding:'3px 8px', width:'100%' }} format={dateFormatList} onChange={onSelectDateEnd}/>
-                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} {!isDetail && <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span>}</p>
+                  :<p className="text-piney-body">{!actualEndDate ? 'No Data Available' : actualEndDate} <span className='span-tollgate'  style={{textDecorationLine:'underline'}} onClick={()=>{openTollModal()}}>Edit</span></p>
                 }
               </Col>
             </Row>

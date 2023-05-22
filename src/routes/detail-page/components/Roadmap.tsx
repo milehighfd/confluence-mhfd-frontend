@@ -21,7 +21,7 @@ const Roadmap = ({setOpenPiney,
      updateAction:any,
      setUpdateAction: any
     }) => {
-  const { graphicOpen } = usePortflioState();
+  const { graphicOpen, statusCounter } = usePortflioState();
   const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
@@ -382,7 +382,28 @@ const Roadmap = ({setOpenPiney,
           .on("click", (d: any) => {            
             setOpenPiney(false)
             let searchTextId2 = d3.event.target.id.slice(0, -6);
-            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();       
+            let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();  
+            let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
+            let dataParsed = d?.project_status?.map((z: any, index: number) => {
+              return {
+                project_data: d,
+                objectId: index + 1,
+                type: 'rect',
+                categoryNo: index + 1,
+                from: moment(z?.planned_start_date),
+                to: moment(z?.planned_end_date),
+                status: z?.code_phase_type?.code_status_type?.status_name,
+                name: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
+                phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
+                phaseId: z.code_phase_type_id,
+                tasks: 10,
+                show: (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
+                current: d?.phaseId === z?.code_phase_type_id,
+                isDone: z.is_done,
+                isLocked: z.is_locked
+              }; 
+            })
+            let scheduleParsed = { ...d, schedule: dataParsed }    
             setPineyData({
               project_name: d.rowLabel,
               phase: scheduleList[r].phase,
@@ -392,7 +413,9 @@ const Roadmap = ({setOpenPiney,
               d3_pos: searchTextId2,
               d3_text: actualNumber,
               mhfd: d.mhfd,
-              estimated_cost: d.estimated_cost
+              data: scheduleParsed,
+              estimated_cost: d.estimated_cost,
+              scheduleList: scheduleList
             })
             setOpenPiney(true)
           })
@@ -434,8 +457,10 @@ const Roadmap = ({setOpenPiney,
               let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
               let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
               //let heightOfPopup: any =document.getElementById('popup-phaseview')?.offsetHeight;
-              let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
-              let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
+              let positionTop: any = d3.event.y - heightOfPopup-50 ; // Delete 120 when the popup is fixed
+                let positionLeft: any = d3.event.x - widthOfPopup / 2;
+              // let positionTop: any = d3.event.layerY - heightOfPopup + popupfactorTop;
+              // let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
               setPositionModalGraphic(positionLeft, positionTop)
               //d3.selectAll('.text-search:hover').attr('text-search');
               d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
