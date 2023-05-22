@@ -173,3 +173,8 @@ export const setPineyData = (value: Object) => ({
   type: types.SET_PINEY_DATA,
   payload: value
 });
+
+export const setIsFromDetailPage = (value: boolean) => ({
+  type: types.SET_IS_FROM_DETAIL_PAGE,
+  payload: value
+});

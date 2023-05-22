@@ -19,7 +19,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     updateAction?: any,
     isDetail:boolean
     }) => {     
-  const {setOpenModalTollgate, setDatesData} = usePortfolioDispatch();
+  const {setOpenModalTollgate, setDatesData, setIsFromDetailPage} = usePortfolioDispatch();
   const { pineyData, updateGroup } = usePortflioState();
   const data = pineyData;
   const appUser = store.getState().profile;
@@ -210,7 +210,12 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   }
 
   const openTollModal = () => {
-    setOpenModalTollgate(true);       
+    setOpenModalTollgate(true);
+    if(isDetail){
+      setIsFromDetailPage(true)
+    }else{
+      setIsFromDetailPage(false)
+    }
     let send = {d: data.data, scheduleList: data.scheduleList};
     setDatesData(send);
   }
