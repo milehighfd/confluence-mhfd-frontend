@@ -239,13 +239,13 @@ const PortafolioBody = ({
   }, [setFavorites]);
  
   function enterPhase() {
-    if(optionSelect === 'List'){
+    if(tabKey === 'All'){
       setTabKey('CIP');
     }
     setOptionSelect('Phase');    
   }  
   function enterSchedule() {   
-    if(optionSelect === 'List'){
+    if(tabKey === 'All'){
       setTabKey('CIP');
     }   
     setOptionSelect('Schedule')       
