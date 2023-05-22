@@ -3,17 +3,27 @@ import { Row, Col } from 'antd';
 import { DownOutlined, SearchOutlined, SendOutlined, UpOutlined } from '@ant-design/icons';
 import { getTeam } from '../../../utils/parsers';
 import { useDetailedState } from "hook/detailedHook";
+import * as datasets from "../../../Config/datasets";
+import { SERVER } from 'Config/Server.config';
 
 const TeamModal = () => {
   const [openChat, setOpenChat] = useState(true);
   const [data, setData] = useState<any>([]);
   const { detailed } = useDetailedState();
   useEffect(() => {
-    setData(getTeam(detailed?.project_staffs || []));    
+    if (detailed.problemid) {
+      datasets.postData(SERVER.TEAMS_BY_ENTITYID, {id:detailed.problemid}, datasets.getToken()).then(data => {       
+        const flattenedStaff = data.flatMap((item:any) => item.project_staffs);
+        setData(getTeam(flattenedStaff));
+        console.log(getTeam(flattenedStaff));
+      })
+    } else {
+      setData(getTeam(detailed?.project_staffs || []));
+    }
   }, [detailed]);
   return <>
     {data.map((item: any)=>(
-      <div className='team-item'>
+      <div className='team-item' key={item.key}>
         <img src="/picture/user-default.svg" alt="" />
         <div className='text-team-item'>
           <h6 style={{ fontWeight:500 }}>{item.fullName}</h6>
