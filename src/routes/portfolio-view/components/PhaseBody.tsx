@@ -187,7 +187,7 @@ const PhaseBody = ({
           .attr("width", totalLabelWidth)
           .attr("height", heightContainer)
           .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          .attr("transform", "translate(" + margin.left + "," + (margin.top-2) + ")");
         let datas = [dataDotchart];
         let arrayForCirclesAndLines = [];
         for (var i = 0; i < scheduleList.length; i++) {
@@ -207,7 +207,7 @@ const PhaseBody = ({
         }
         svg
           .append("g")
-          .attr("transform", "translate(0," + height + ")")
+          .attr("transform", "translate(0," + (height-10) + ")")
           .style('visibility', 'hidden')
           .call(d3.axisBottom(x));
 
