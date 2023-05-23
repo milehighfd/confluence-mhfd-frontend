@@ -301,25 +301,34 @@ const MapView = () => {
   const deleteTagProblems = (tag: string, value: string) => {
     
     const auxFilterProblems = { ...filterProblemOptions };
-    const valueTag = tag === 'cost' ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
+    const valueTag = (tag === 'cost' || tag === 'mhfdmanager') ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
     console.log('Tag ', tag, value, valueTag);
     const auxValueTag = [] as Array<string>;
     let newValue = '';
-    if (tag !== 'cost'){
-      for (let index = 0; index < valueTag.length; index++) {
-        const element = valueTag[index];
-        if (element !== value) {
-          auxValueTag.push(element);
+    if (tag !== 'cost') {
+      if (tag === 'mhfdmanager') {
+        for (let index = 0; index < valueTag?.length; index++) {
+          const element = valueTag[index];
+          if (element !== value) {
+            auxValueTag.push(element);
+          }
         }
-      }
-      for (let index = 0; index < auxValueTag.length; index++) {
-        const element = auxValueTag[index];
-        if (element !== '') {
-          newValue = newValue ? newValue + ',' + element : element;
+      } else {
+        for (let index = 0; index < valueTag.length; index++) {
+          const element = valueTag[index];
+          if (element !== value) {
+            auxValueTag.push(element);
+          }
+        }
+        for (let index = 0; index < auxValueTag.length; index++) {
+          const element = auxValueTag[index];
+          if (element !== '') {
+            newValue = newValue ? newValue + ',' + element : element;
+          }
         }
       }
     }
-    auxFilterProblems[tag] = tag === 'cost' ? [] : newValue;
+    auxFilterProblems[tag] = (tag === 'cost') ? [] : ( tag === 'mhfdmanager' ? auxValueTag: newValue);
     setFilterProblemOptions(auxFilterProblems);
     getGalleryProblems();
     getParamFilterProblems(boundsMap, auxFilterProblems);
@@ -470,7 +479,7 @@ const MapView = () => {
     const filterProblems = { ...filterProblemOptions } as any;
     const labelsProblems = [...labelsFiltersProblems];
     for (const key in filterProblemOptions) {
-      const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
+      const tag = (key === 'cost' || key === 'mhfdmanager') ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         const elements = [];
         const position = labelsProblems.findIndex((x: any) => x.name === key);
@@ -489,6 +498,12 @@ const MapView = () => {
                   tag: key,
                   value: element,
                   display: getStatus(element),
+                });
+              } else if (key == 'mhfdmanager') {
+                elements.push({
+                  tag: key,
+                  value: element,
+                  display: getLabel(key, tag[index]),
                 });
               } else {
                 elements.push({
@@ -537,7 +552,6 @@ const MapView = () => {
     for (const key in filterProjectOptions) {
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
-        // const tag = (key === 'mhfddollarsallocated' || key === 'totalcost') ? filterProjects[key] : filterProjects[key].split(',');
         const tag = filterProjects[key];
         const elements = [];
         for (let index = 0; index < tag.length; index++) {
@@ -674,7 +688,7 @@ const MapView = () => {
     const filterComponents = { ...filterComponentOptions } as any;
     const filterProblems = { ...filterProblemOptions } as any;
     for (const key in filterProblemOptions) {
-      const tag = key === 'cost' ? filterProblems[key] : filterProblems[key].split(',');
+      const tag = (key === 'cost' || key === 'mhfdmanager') ? filterProblems[key] : filterProblems[key].split(',');
       if (key !== 'keyword' && key !== 'column' && key !== 'order') {
         if (key === 'cost') {
           if (tag?.length > 0) {

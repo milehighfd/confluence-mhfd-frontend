@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Select, Button, Popover } from 'antd';
 import PieChartProblem from './PieChartProblem';
 import TreeMapProblem from './TreeMapProblem';
 import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { CheckBoxFilters } from '../CheckboxFiltersProblem';
+import { CheckBoxFilters as CheckBoxIds } from '../CheckboxFilters';
 import { DropdownFilters } from '../DropdownFilters';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
@@ -35,14 +36,17 @@ export const NewProblemsFilter = () => {
 
     const apply = (values: any, field: string) => {
         const options = { ...filterProblemOptions };
-        if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field
-    || 'mhfdmanager' === field) {
+        if ('priority' === field || 'components' === field || 'solutionstatus' === field || 'county' === field) {
             let newValue = '';
             for (let index = 0; index < values.length; index++) {
                 const element = 'solutionstatus' === field ? `${values[index]}`: values[index];
                 newValue = (newValue || newValue == '0') ? (newValue + ',' + element) : element;
             }
             options[field] = newValue;
+        } else if (field === 'mhfdmanager') {
+          let newValue = '';
+          newValue = values;
+          options[field] = newValue;
         } else if ('cost' === field) {
           if(values.length === 0 || values === '') {
               options[field] = []
@@ -80,6 +84,9 @@ export const NewProblemsFilter = () => {
         })
     }
 
+    useEffect(() => {
+      console.log('paramProblems', paramProblems);
+    }, [paramProblems]);
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
             <Row className="filt-00">
@@ -161,7 +168,7 @@ export const NewProblemsFilter = () => {
                 <Col span={12}>
                     <h5 className="filter-title">MHFD Lead <Popover content={content07}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                     <>
-                        <CheckBoxFilters
+                        <CheckBoxIds
                             defaultValue={''}
                             selected={filterProblemOptions.mhfdmanager}
                             data={paramProblems.mhfdmanager}

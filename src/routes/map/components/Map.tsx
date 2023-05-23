@@ -1472,6 +1472,7 @@ const Map = ({
                     }
                     if (typeof filters === 'object') {
                         for (const range of filters) {
+                          if(typeof range === 'string'){
                             const [lower, upper] = range.split(',');
                             const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
                             const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
@@ -1480,6 +1481,8 @@ const Map = ({
                               allFilter.push(['has', searchEquivalentinProblemBoundary(filterField)]); 
                             }
                             options.push(allFilter);
+                          }
+                          
                         }
                     } else {                        
                         for (const filter of filters.split(',')) {

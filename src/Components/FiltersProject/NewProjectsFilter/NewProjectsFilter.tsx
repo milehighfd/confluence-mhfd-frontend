@@ -33,7 +33,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
         }
     } = useMapState();
     const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
-
     const {
         getParamFilterProjects,
         setFilterProjectOptions,
