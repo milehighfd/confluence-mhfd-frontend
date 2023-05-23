@@ -95,8 +95,6 @@ const DetailModal = ({
   let displayedTabKey = tabKeys;
   let pageWidth  = document.documentElement.scrollWidth;
   useEffect(() => { 
-    console.log('useeeer', appUser)
-    console.log('should Reach here', type, data);
     resetDetailed();  
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
       console.log('PROBLEM')

@@ -169,7 +169,6 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
         i = 0;
         addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
       }
-      console.log('Detailed ', detailed);
       if (detailed?.coordinates) {
         map.fitBounds([
           detailed?.coordinates[0][0],
