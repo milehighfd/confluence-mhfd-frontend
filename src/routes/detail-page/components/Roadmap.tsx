@@ -21,7 +21,7 @@ const Roadmap = ({setOpenPiney,
      updateAction:any,
      setUpdateAction: any
     }) => {
-  const { graphicOpen, statusCounter } = usePortflioState();
+  const { graphicOpen, statusCounter, updateGroup } = usePortflioState();
   const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData, getListPMTools } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
@@ -427,7 +427,7 @@ const Roadmap = ({setOpenPiney,
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
             const phaseSc = (scheduleList[r].phase)   
             const phaseId = (scheduleList[r].phase_id)              
-            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId }
+            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId,  to:moment((d?.project_status?.find((x: any) => x.code_phase_type_id === phaseId)?.actual_end_date)) }
             setDataModal(sendModal);      
             if (popupVisible !== null) {
               let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 270 : 
@@ -483,12 +483,20 @@ const Roadmap = ({setOpenPiney,
   })
   }}
   }
-  useEffect(() => {
+  const removeAllChildNodes = (parent: any) => {
+    while (parent !== null && parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+  useEffect(() => {          
     if(data.length>0){
+      if(document.getElementById(`dotchart_detailPage`)){
+        removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
+      }
       getListPMTools(data[0].code_project_type_id);
       phaseChart(data);
     }  
-  }, [data,scheduleList]);
+  }, [data,scheduleList, updateGroup]);
 
   useEffect(() => {
     let z = []
