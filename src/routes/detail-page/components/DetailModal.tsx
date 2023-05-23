@@ -30,6 +30,8 @@ import ProblemParts from "./ProblemParts";
 import ProblemsProjects from "./ProblemsProjects";
 import Roadmap from "./Roadmap";
 import Vendors from "./Vendors";
+import ModalTollgate from 'routes/list-view/components/ModalTollgate';
+import { usePortflioState } from "hook/portfolioHook";
 
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
 
@@ -61,6 +63,7 @@ const DetailModal = ({
   const {
     detailed,
   } = useDetailedState();
+  const { datesData } = usePortflioState();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id;
@@ -83,7 +86,7 @@ const DetailModal = ({
   const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
   const [updateAction,setUpdateAction] = useState(false);
   const [nameLinkPage,setNameLinkPage] = useState('#');
-  const appUser = store.getState().profile;
+  const appUser = store.getState().profile.userInformation;
   const [mapImage, setMapImage] = useState<any>(undefined);
 
   let divRef = useRef<null | HTMLDivElement>(null); 
@@ -91,6 +94,7 @@ const DetailModal = ({
   let displayedTabKey = tabKeys;
   let pageWidth  = document.documentElement.scrollWidth;
   useEffect(() => { 
+    console.log('useeeer', appUser)
     console.log('should Reach here', type, data);
     resetDetailed();  
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
@@ -128,7 +132,6 @@ const DetailModal = ({
     const projectType = detailed?.code_project_type?.project_type_name;
     setProjecttypeId(detailed?.code_project_type_id)
     console.log(projectType, 'Project Type NAME')
-    console.log('detailed', detailed, projectTypeId)
     setProjecttype(projectType);
     const roadmapData = [];
     if(detailed && Object.keys(detailed).length !== 0){
@@ -316,7 +319,6 @@ const DetailModal = ({
       ],
     })
   }
-    console.log('updated', roadmapData)
     setDataRoadmap(roadmapData)
   }, [detailed]);
 
@@ -436,6 +438,11 @@ const DetailModal = ({
   }
   return (
     <>
+      <ModalTollgate
+        dataProject={datesData}
+        saveCB={()=>{}}
+        setOpenPiney={setOpenPiney}
+      />
     <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback} addFavorite={addFavorite}/>
     <Modal
       className="detailed-modal modal-detailed-modal"
@@ -780,7 +787,7 @@ const DetailModal = ({
             </div>
           </Col>
           <Col span={7} className="mobile-display" style={{height:'calc(100vh - 183px)', overflowY:'auto', scrollBehavior:'smooth'}}>
-            {openPiney? <div className="piney-modal-detail"><PineyView isDetail={true} setOpenPiney={setOpenPiney} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
+            {appUser.firstName === '' || appUser.firstName === 'guest' ? '' :  openPiney? <div className="piney-modal-detail"><PineyView isDetail={true} setOpenPiney={setOpenPiney} setUpdateAction={setUpdateAction} updateAction={updateAction}/></div>
             :<TeamCollaborator />} 
           </Col>
         </Row>
