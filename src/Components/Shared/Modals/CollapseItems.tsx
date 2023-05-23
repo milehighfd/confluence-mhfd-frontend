@@ -647,7 +647,7 @@ export default forwardRef(({
                 onChange={(pagination, filters, sort) => {
                   const _sort: any = sort;
                   console.log('_sort', _sort);
-                  getComponentsByProblemId({id, typeid: 'projectid', sortby: _sort.columnKey, sorttype: (_sort.order === 'descend' ? 'desc': 'asc')});
+                  getComponentsByProblemId({id, typeid, sortby: _sort.columnKey, sorttype: (_sort.order === 'descend' ? 'desc': 'asc')});
                 }} />
             </Col>
           </Row>
