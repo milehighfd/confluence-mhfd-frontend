@@ -243,7 +243,7 @@ const CardInformationView = ({
               ? 'No Cost Data'
               :('$' + new Intl.NumberFormat("en-EN",{maximumFractionDigits:0}).format(data.componentCost))
               }
-                <span style={{ float: 'right' }}><b>{data.totalComponents ?? 0} Actions</b></span>
+                <span style={{ float: 'right' }}><b>{data.count ?? 0} Actions</b></span>
             </h5>
             :
             <h5>{

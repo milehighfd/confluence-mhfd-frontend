@@ -1205,6 +1205,7 @@ const MapView = () => {
                       value: problem.cartodb_id,
                       totalComponents: problem.totalComponents,
                       coordinates: problem.coordinates[0],
+                      count: problem.count,
                     };
                   });
                   totalElements = cardInformation.length;
