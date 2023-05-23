@@ -45,11 +45,7 @@ const ComponentSolucions = () => {
       key: 'completepercen',
      // render: (completepercen: number) => `${completepercen ? completepercen : 0}%`,
       width:'20%',
-      // render: (status:any) => (
-      //   <span className={'span-' + status}>
-      //     {status}
-      //   </span> 
-      // ),
+      render: (completepercen: any) => `${completepercen}%`,
       sorter: (a:any, b:any) => a?.completepercer - b?.completepercer,
     },
     {
