@@ -22,7 +22,7 @@ const Roadmap = ({setOpenPiney,
      setUpdateAction: any
     }) => {
   const { graphicOpen, statusCounter } = usePortflioState();
-  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData } = usePortfolioDispatch();
+  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData, getListPMTools } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
   const [scheduleList, setScheduleList] = useState<any>({})
@@ -485,6 +485,7 @@ const Roadmap = ({setOpenPiney,
   }
   useEffect(() => {
     if(data.length>0){
+      getListPMTools(data[0].code_project_type_id);
       phaseChart(data);
     }  
   }, [data,scheduleList]);

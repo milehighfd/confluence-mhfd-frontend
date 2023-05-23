@@ -30,6 +30,8 @@ import ProblemParts from "./ProblemParts";
 import ProblemsProjects from "./ProblemsProjects";
 import Roadmap from "./Roadmap";
 import Vendors from "./Vendors";
+import ModalTollgate from 'routes/list-view/components/ModalTollgate';
+import { usePortflioState } from "hook/portfolioHook";
 
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
 
@@ -61,6 +63,7 @@ const DetailModal = ({
   const {
     detailed,
   } = useDetailedState();
+  const { datesData } = usePortflioState();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id;
@@ -435,6 +438,11 @@ const DetailModal = ({
   }
   return (
     <>
+      <ModalTollgate
+        dataProject={datesData}
+        saveCB={()=>{}}
+        setOpenPiney={setOpenPiney}
+      />
     <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback} addFavorite={addFavorite}/>
     <Modal
       className="detailed-modal modal-detailed-modal"
