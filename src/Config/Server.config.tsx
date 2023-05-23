@@ -117,6 +117,7 @@ export const SERVER = (function () {
     const GET_COMPONENTS_WITH_GEOM = 'get-components-by-components-and-geom';
     const GET_COMPONENT_GEOM = 'component-geom';
     const GET_PROBLEM_GEOM = 'problem-geom';
+    const GET_COUNT_FOR_PROBLEM = 'count-for-problem';
     const GET_COMPONENTS_BY_PROBLEMID = 'components-by-problemid';
     const GET_STREAMS_BY_COMPONENTS = 'get-stream-by-components-and-geom';
     const GET_COSTS_BY_ID = 'get-costs-by-id'
@@ -268,6 +269,7 @@ export const SERVER = (function () {
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
+        GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${groupname}/${group}`,
         GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${COUNT}/${groupname}/${group}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,

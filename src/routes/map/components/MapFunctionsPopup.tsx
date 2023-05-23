@@ -511,6 +511,7 @@ export const addPopupsOnClick = async (
           ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
       if (feature.source === MENU_OPTIONS.PROBLEMS_BOUNDARY) {
+        const count = await datasets.getData(SERVER.GET_COUNT_FOR_PROBLEM(feature.properties.problem_id));
         const item = {
             type: MENU_OPTIONS.PROBLEMS,
             streamname: feature.properties.streamname,
@@ -522,7 +523,7 @@ export const addPopupsOnClick = async (
             status: feature.properties.component_status ? (feature.properties.component_status + '%') : '-',
             priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
             problemid: feature.properties.problem_id,
-            component_count: feature.properties.component_count ?? 0,
+            component_count: count.data ?? 0,
             popupId: 'popup',
             image: `gallery/${feature.properties.problem_type}.png`,
         };
