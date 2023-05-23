@@ -34,7 +34,7 @@ const DetailInformationProject = () => {
       </Row>      
       <Row>
       <Col xs={{ span: 24 }} lg={{ span: 4 }} >
-          <label><i>Project Number</i></label>
+          <label><i>Project ID</i></label>
         </Col>
         <Col xs={{ span: 24 }} lg={{ span: 8 }} >
           <p>{detailed?.project_id ? detailed?.project_id : 'N/A'}</p>
