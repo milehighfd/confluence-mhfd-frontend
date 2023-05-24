@@ -512,12 +512,10 @@ const Roadmap = ({setOpenPiney,
     )
       .then((rows) => {  
         setPhaseList(rows)  
-        let counter = 0;
-        z = rows.map((x: any) => {
-          counter++;
+        z = rows.map((x: any, index:number) => {
           return (
             {
-              categoryNo: counter,
+              categoryNo: index,
               from: moment('2023/11/21 00:00:00'),
               to: moment('2023/12/30 00:00:00'),
               status: x?.code_status_type?.status_name,
