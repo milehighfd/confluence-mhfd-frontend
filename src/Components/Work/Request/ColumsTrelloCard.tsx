@@ -111,40 +111,63 @@ const ColumsTrelloCard = ({
     const board_project_id = columns[originColumnPosition].projects[sourcePosition].board_project_id;
     const originColumn = `rank${originColumnPosition}`;
     const targetColumn = `rank${targetColumnPosition}`;
-    let previousPosition = targetPosition - 1;
-    let nextPosition = targetPosition;
-    // TODO: think and check about the logic of the next if
-    let previousCardId: any = null;
-    if (previousPosition >= 0) {
-      previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
-    }
-    let nextCardId: any = null;
-    if (nextPosition < columns[targetColumnPosition].projects.length) {
-      nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
-    }
-
-    const data = {
-      board_id: namespaceId,
-      board_project_id,
-      originColumn,
-      targetColumn,
-      previousCardId,
-      nextCardId
-    };
-    if (nextCardId === board_project_id) {
-      return;
-    }
-    console.log('data', data);
-    WsService.sendUpdate(data);
+    
     if (originColumn === targetColumn) {
+      const copy = JSON.parse(JSON.stringify(columns[targetColumnPosition]));
+      let previousPosition = targetPosition - 1;
+      let nextPosition = targetPosition;
+      if (targetPosition === sourcePosition) return;
+      if (targetPosition > sourcePosition) {
+        previousPosition = targetPosition;
+        nextPosition = targetPosition + 1;
+      }
       let _columns = JSON.parse(JSON.stringify(columns));
-      _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
+      const project = _columns[originColumnPosition].projects[sourcePosition];
       _columns[originColumnPosition].projects.splice(sourcePosition, 1);
+      let previousCardId: any = null;
+      if (previousPosition >= 0) {
+        previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
+      }
+      let nextCardId: any = null;
+      if (nextPosition < columns[targetColumnPosition].projects.length) {
+        nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
+      }
+      const data = {
+        board_id: namespaceId,
+        board_project_id,
+        originColumn,
+        targetColumn,
+        previousCardId,
+        nextCardId
+      };
+      console.log('data', data);
+      WsService.sendUpdate(data);
+      _columns[targetColumnPosition].projects.splice(targetPosition, 0, project);
       setColumns2Manual(_columns);
       setTimeout(() => {
         loadOneColumn(namespaceId, originColumnPosition);
       }, 2000);
     } else {
+      let previousPosition = targetPosition - 1;
+      let nextPosition = targetPosition;
+      let previousCardId: any = null;
+      if (previousPosition >= 0) {
+        previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
+      }
+      let nextCardId: any = null;
+      if (nextPosition < columns[targetColumnPosition].projects.length) {
+        nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
+      }
+      const data = {
+        board_id: namespaceId,
+        board_project_id,
+        originColumn,
+        targetColumn,
+        previousCardId,
+        nextCardId
+      };
+      console.log('data', data);
+      WsService.sendUpdate(data);
       let _columns = JSON.parse(JSON.stringify(columns));
       _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
 
