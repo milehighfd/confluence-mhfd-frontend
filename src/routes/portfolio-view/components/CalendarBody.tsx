@@ -727,7 +727,24 @@ const CalendarBody = ({
           backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
           d3.event.stopPropagation();
         });
-        rectNames.on('click', function () {
+        rectNames.on('click', function (d:any) {
+          let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
+          setPineyData({
+            project_name: d.project_data.rowLabel,
+            phase: d.phase,
+            project_type: d.project_data.project_type,
+            phase_id: d.phaseId,
+            project_id: d.project_data.project_id,
+            d3_pos: 0,
+            d3_text: 0,
+            mhfd: d.mhfd,
+            estimated_cost: d.project_data.estimated_cost,
+            data: dataProject,
+            scheduleList: scheduleList
+          })          
+          const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
+          setEditData(sendTollgate1)
+          setOpenPiney(true);
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
 
           if (d3.event.target.id.includes('text')) {
@@ -739,7 +756,24 @@ const CalendarBody = ({
           }
           d3.event.stopPropagation();
         });
-        scheduleRects.on('click', function () {
+        scheduleRects.on('click', function (d:any) {
+          let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
+          setPineyData({
+            project_name: d.project_data.rowLabel,
+            phase: d.phase,
+            project_type: d.project_data.project_type,
+            phase_id: d.phaseId,
+            project_id: d.project_data.project_id,
+            d3_pos: 0,
+            d3_text: 0,
+            mhfd: d.mhfd,
+            estimated_cost: d.project_data.estimated_cost,
+            data: dataProject,
+            scheduleList: scheduleList
+          })          
+          const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
+          setEditData(sendTollgate1)
+          setOpenPiney(true);
           if (!d3.event.target.id.includes('Title')) {
             d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
