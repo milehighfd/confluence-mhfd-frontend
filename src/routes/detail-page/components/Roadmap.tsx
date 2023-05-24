@@ -229,7 +229,7 @@ const Roadmap = ({setOpenPiney,
       circles
       .append("circle")
       .attr('id',(d: any) => {
-        return `${d.id}_${(scheduleList[r].phase)}`;
+        return `${(d.view).replaceAll(' ','')}_${scheduleList[r].phase_id}${d.project_id}`;
       })
       .attr("cx", xdr(r))
       .attr("cy", (d: any) => {
@@ -463,7 +463,8 @@ const Roadmap = ({setOpenPiney,
               // let positionLeft: any = d3.event.layerX - widthOfPopup / 2 + popupfactorLeft;
               setPositionModalGraphic(positionLeft, positionTop)
               //d3.selectAll('.text-search:hover').attr('text-search');
-              d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', '#454150');
+              let colorCircle = d3.select(`#${d3.event.target.id.slice(0, -6)}`).style("fill")
+              d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).attr("r", radius + 4 ).style('fill', colorCircle).style('opacity', 0.5);
               let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
               d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
               d3.select(`#${searchTextId}`).style('text-decoration','underline');
@@ -472,9 +473,8 @@ const Roadmap = ({setOpenPiney,
           .on("mouseout", (d: any) => {
             setGraphicOpen(false);
             setPositionModalGraphic(10000, 10000)
-            d3.select(`#${d3.event.target.id.slice(0, -6)}`).style('fill', function (d: any) {
-              return colorScale[d.schedule[r].status];
-            });
+            let colorCircle = d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style("fill")
+            d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).attr("r", radius).style('fill', colorCircle).style('opacity', 1);
             let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
             d3.select(`#${searchTextId}`).style('background-color', 'white');
             d3.select(`#${searchTextId}`).style('text-decoration','none');
