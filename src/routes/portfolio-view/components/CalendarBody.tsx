@@ -56,7 +56,7 @@ const CalendarBody = ({
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
   // const [isLoading, setIsLoading] = useState(false);
-  const { currentGroup, favorites,scheduleList,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
+  const { currentGroup, favorites,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
   const { 
     deleteFavorite, 
     addFavorite, 
@@ -149,7 +149,7 @@ const CalendarBody = ({
   const removechartAxis: any = document.getElementById('timeline-chart-axis');
   const timelineChart = (datasets: any) => {
     setIsLoading(true)
-    if (Object.keys(scheduleList).length > 0 && Object.keys(datasets).length > 0) {
+    if (Object.keys(datasets).length > 0) {
       let height = (heightDiv[0].offsetHeight * datasets.length) + padding.bottom + padding.top;
       removeAllChildNodes(removechartAxis);
       if (svg) {
@@ -174,7 +174,18 @@ const CalendarBody = ({
 
       let counterDataForChart: number = 0;
       datasets.forEach((sch: any) => {
-        if (scheduleList.length !== 0) {
+
+        let listDates = sch?.code_phase_types;
+        listDates?.sort((a: any, b: any) => {
+          const aPosition = a.phase_ordinal_position || 0;
+          const bPosition = b.phase_ordinal_position || 0;
+          return aPosition - bPosition;
+        });
+        listDates?.forEach((item: any, index: number) => {
+          item.objectId = index + 1;
+          item.categoryNo = index + 1;
+        });        
+        if (listDates?.length !== 0) {          
           counterDataForChart++;
         }
       });
@@ -192,7 +203,7 @@ const CalendarBody = ({
         let monthsBehind = 85 //(moment(today).diff(moment(fromData[0]?.from?.startOf('month')), 'M')) || 12;
         let monthsAhead = 85 //(moment.max(endDates).diff(moment(today), 'M')) || 12;
         let timelineStartTime: any;
-        let timelineEndTime: any;
+        let timelineEndTime: any;        
         if (monthsAhead > monthsBehind) {
           timelineStartTime = moment(today).subtract(monthsAhead, 'months');
           timelineEndTime = moment(today)
@@ -316,7 +327,7 @@ const CalendarBody = ({
           .append('g')
           .attr('class', 'jurisdiction')
           .selectAll()
-          .data((d: any) => {
+          .data((d: any) => {            
             return d.schedule;
           });
         let scheduleGaxis = svgAxis
@@ -354,7 +365,7 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
-            if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
+            if (d?.code_phase_types?.length === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
               hasDateData = false;
@@ -364,6 +375,7 @@ const CalendarBody = ({
           .attr('stroke', '#251863')
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
+            const scheduleList = d?.project_data?.code_phase_types;
             const sendTollgate = { d, scheduleList }
             setDatesData(sendTollgate);
             setOpenModalTollgate(true);
@@ -392,7 +404,7 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
-            if (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
+            if (d?.code_phase_types?.length === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
               hasDateData = false;
@@ -400,6 +412,7 @@ const CalendarBody = ({
             return hasDateData ? 'visible' : 'hidden'
           })
           .on("click", function (d: any) {
+            const scheduleList = d?.project_data?.code_phase_types;
             const sendTollgate = { d, scheduleList }
             setDatesData(sendTollgate);
             setOpenModalTollgate(true);
@@ -429,9 +442,9 @@ const CalendarBody = ({
             return (xScaleTo - xScaleFrom) < 0 ? 0 : (xScaleTo - xScaleFrom);
           })
           .attr('height', barHeight)
-          .attr('fill', function (d: any) {
-            let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
-            let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phaseId))
+          .attr('fill', function (d: any) {            
+            let currentIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
+            let phaseIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phaseId))           
             let color = '';
             let today = moment()
             if (currentIndex > phaseIndex) {
@@ -478,8 +491,8 @@ const CalendarBody = ({
           })
           .attr('height', barHeight - 2)
           .attr('fill', function (d: any) {
-            let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
-            let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phaseId))
+            let currentIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
+            let phaseIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phaseId))       
             let color = '';
             let today = moment()
             if (currentIndex > phaseIndex) {
@@ -513,8 +526,8 @@ const CalendarBody = ({
           })
           .attr('class', 'labels')
           .style('fill',  function (d: any) {
-            let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
-            let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phaseId))
+            let currentIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
+            let phaseIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phaseId))       
             let state = '';
             if (currentIndex < phaseIndex) {
               state = 'NotStarted'
@@ -612,9 +625,10 @@ const CalendarBody = ({
           d3.selectAll('.labels').call(dotme);
         };
         scheduleRectsCenter.on('mousemove', function (d: any) {
-          let scheduleData = (scheduleList.find((x: any) =>
+          
+          let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
             d.phaseId === x.phase_id
-          ))
+          ));
           let counterdown = 0;
           for (let i = 0; i < Object.keys(actionsDone).length; i++) {
             if (d.project_data.project_id === actionsDone[i].project_id) {
@@ -699,7 +713,7 @@ const CalendarBody = ({
           d3.select(`#${searchTextId}`).style('background-color', 'white');
         })
         scheduleRectsCenter.on('click', function (d: any) {
-          let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
+          let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))          
           setPineyData({
             project_name: d.project_data.rowLabel,
             phase: d.phase,
@@ -711,9 +725,9 @@ const CalendarBody = ({
             mhfd: d.mhfd,
             estimated_cost: d.project_data.estimated_cost,
             data: dataProject,
-            scheduleList: scheduleList
+            scheduleList: d?.project_data?.code_phase_types
           })          
-          const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
+          const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
           setEditData(sendTollgate1)
           setOpenPiney(true);
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
@@ -740,9 +754,9 @@ const CalendarBody = ({
             mhfd: d.mhfd,
             estimated_cost: d.project_data.estimated_cost,
             data: dataProject,
-            scheduleList: scheduleList
+            scheduleList: d?.project_data?.code_phase_types
           })          
-          const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
+          const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
           setEditData(sendTollgate1)
           setOpenPiney(true);
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
@@ -769,9 +783,9 @@ const CalendarBody = ({
             mhfd: d.mhfd,
             estimated_cost: d.project_data.estimated_cost,
             data: dataProject,
-            scheduleList: scheduleList
+            scheduleList: d?.project_data?.code_phase_types
           })          
-          const sendTollgate1 = { d: dataProject, scheduleList: scheduleList }
+          const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
           setEditData(sendTollgate1)
           setOpenPiney(true);
           if (!d3.event.target.id.includes('Title')) {
@@ -1173,17 +1187,16 @@ const CalendarBody = ({
         project_status: x?.project_statuses?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
         phase: getCurrentProjectStatus(x)?.code_phase_type?.phase_name,
         phaseId: getCurrentProjectStatus(x)?.code_phase_type_id,
-        mhfd: x?.project_staffs.reduce((accumulator: string, pl: any) => {
-          const sa = pl?.mhfd_staff?.full_name || '';
-          const sa1 = pl?.code_project_staff_role_type_id || '';
-          let value = accumulator;
-          if (sa && sa1 === 1) {
-            if (value) {
-              value += ',';
+        mhfd: x?.project_staffs.reduce((accumulator: string, staffMember: any) => {
+          const contactName = staffMember?.business_associate_contact?.contact_name || '';
+          const roleTypeId = staffMember?.code_project_staff_role_type_id || '';
+          if (contactName && roleTypeId === 1) {
+            if (accumulator) {
+              accumulator += ', ';
             }
-            value += sa;
+            accumulator += contactName;
           }
-          return value;
+          return accumulator;
         }, ''),
         service_area: getServiceAreas(x?.project_service_areas || []),
         stream: getStreams(x?.project_streams || []).join(' , '),
@@ -1194,6 +1207,32 @@ const CalendarBody = ({
           }
           return false;
         }),
+        code_phase_types: x?.code_phase_types?.map((z: any, index: number) => {
+          const matchingStatus = x?.project_statuses?.find((ps: any) => ps?.code_phase_type_id === z?.code_phase_type_id);
+          const from = matchingStatus?.actual_start_date;
+          const to = matchingStatus?.actual_end_date;
+          return {
+            objectId: index,
+            type: 'rect',
+            code_phase_type_id: z?.code_phase_type_id,
+            code_status_type_id: z?.code_status_type_id,
+            duration: z?.duration,
+            duration_type: z?.duration_type,
+            categoryNo: index,
+            from: moment(from),
+            to: moment(to),
+            tasks: z.code_rule_action_items.length,
+            tasksData: z.code_rule_action_items,
+            status: z?.code_status_type?.status_name,
+            name: z?.phase_name.replaceAll(' ', ''),
+            phase: z?.phase_name.replaceAll(' ', ''),
+            phase_id: z.code_phase_type_id,
+            current: x?.phaseId === z?.code_phase_type_id,
+            phase_ordinal_position: z?.phase_ordinal_position,
+            isDone: false,
+            isLocked: false
+          };
+        })
       }
     }))
     let rawData2 = dataParsed?.map((x: any) => {
@@ -1215,7 +1254,7 @@ const CalendarBody = ({
                 phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
                 phaseId: z.code_phase_type_id,
                 tasks: 10,
-                show: (statusCounter === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
+                show: (x?.code_phase_types?.length === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4)?.length && !flag),
                 current: x?.phaseId === z?.code_phase_type_id,
                 isDone: z.is_done,
                 isLocked: z.is_locked
@@ -1356,7 +1395,7 @@ const CalendarBody = ({
       timelineChart(datas);
       setSvgState(svg);
     }
-  }, [calendarData,scheduleList,windowWidth,datas]);
+  }, [calendarData,windowWidth,datas]);
 
   useEffect(() => {
     setZoomTimelineAux(zoomTimeline)

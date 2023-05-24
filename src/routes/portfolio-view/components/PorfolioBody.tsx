@@ -245,9 +245,6 @@ const PortafolioBody = ({
     setOptionSelect('Phase');    
   }  
   function enterSchedule() {   
-    if(tabKey === 'All'){
-      setTabKey('CIP');
-    }   
     setOptionSelect('Schedule')       
   }
   function enterList (){
@@ -339,7 +336,7 @@ const PortafolioBody = ({
           {
             displayedTabKey.map((tk: string, idx: number) => {
               return (
-                <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(optionSelect === 'Phase' || optionSelect === 'Schedule') && tk === 'All' ? true : false}>
+                <TabPane style={{ marginBottom: '0px', zIndex: 1 }} tab={<span>{tk}</span>} key={tk} disabled={(optionSelect === 'Phase') && tk === 'All' ? true : false}>
                   <div className="protafolio-body">
                     {openFilters && <Filters filtersObject={{ filterby, filterValue, tabKey }} />}
                     {optionSelect === 'List' && <TablePortafolio
