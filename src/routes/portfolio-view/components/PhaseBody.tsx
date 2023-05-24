@@ -589,17 +589,16 @@ const PhaseBody = ({
         project_status: x?.project_statuses?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4 && ps?.code_phase_type?.phase_ordinal_position !== -1),
         phase: getCurrentProjectStatus(x)?.code_phase_type?.phase_name,
         phaseId: getCurrentProjectStatus(x)?.code_phase_type_id,
-        mhfd: x?.project_staffs.reduce((accumulator: string, pl: any) => {
-          const sa = pl?.mhfd_staff?.full_name || '';
-          const sa1 = pl?.code_project_staff_role_type_id || '';
-          let value = accumulator;
-          if (sa && sa1 === 1) {
-            if (value) {
-              value += ',';
+        mhfd: x?.project_staffs.reduce((accumulator: string, staffMember: any) => {
+          const contactName = staffMember?.business_associate_contact?.contact_name || '';
+          const roleTypeId = staffMember?.code_project_staff_role_type_id || '';
+          if (contactName && roleTypeId === 1) {
+            if (accumulator) {
+              accumulator += ', ';
             }
-            value += sa;
+            accumulator += contactName;
           }
-          return value;
+          return accumulator;
         }, ''),
         service_area: getServiceAreas(x?.project_service_areas || []),
         stream: getStreams(x?.project_streams || []).join(' , '),

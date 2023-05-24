@@ -259,7 +259,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
               </Col>
               <Col xs={{ span: 10 }} lg={{ span: 13 }}>               
                   <>
-                    <img src="/picture/user-default.svg" alt="" height="24px" style={{borderRadius: '50%'}}/> <span   className="text-piney-body">{!data.mhfd?'N/A':data.mhfd}</span>
+                    <span   className="text-piney-body">{!data.mhfd?'N/A':data.mhfd}</span>
                   </>               
               </Col>
             </Row>
