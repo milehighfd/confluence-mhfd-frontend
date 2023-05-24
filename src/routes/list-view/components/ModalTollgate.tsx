@@ -9,6 +9,7 @@ import {  FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { OverlappingDatesAlert } from '../../../Components/Alerts/OverlappingAlert';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
+import { useMapDispatch } from 'hook/mapHook';
 
 const { RangePicker }:any = DatePicker;
 
@@ -21,6 +22,7 @@ const ModalTollgate = ({
   saveCB?: any,
   setOpenPiney?: any,
 }) => {
+  const { getDetailedPageProject } = useMapDispatch()
   const { openModalTollgate: visible, isFromDetailPage } = usePortflioState();
   const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();  
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
@@ -404,6 +406,7 @@ let items = [
         setVisible(false);
         setOpenPiney(false); 
         setUpdateGroup({id1: originPhase, id2: currentStatus});
+        getDetailedPageProject(dataProject.d.project_id)
       });
   }
 
