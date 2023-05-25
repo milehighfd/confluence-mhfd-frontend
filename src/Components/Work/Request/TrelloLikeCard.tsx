@@ -22,7 +22,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnIdx, rowIdx, saveData, tabKey, editable, locality, filtered, borderColor, divRef }: {
+const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnIdx, rowIdx, tabKey, editable, locality, filtered, borderColor, divRef }: {
   year: number,
   type: boardType,
   namespaceId: string,
@@ -30,7 +30,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   project: any,
   columnIdx: number,
   rowIdx: number,
-  saveData: Function,
   tabKey: string,
   editable: boolean,
   filtered: boolean,
@@ -41,7 +40,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
-  const projectsubtype = project?.projectData?.projectsubtype;
   const status = getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name;
   const {id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
@@ -256,13 +254,8 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
     }
     <AmountModal
       project={project}
-      projectId={project_id}
       visible={showAmountModal}
       setVisible={setShowAmountModal}
-      startYear={year}
-      saveData={saveData}
-      tabKey={tabKey}
-      projectsubtype={projectsubtype}
       />
     <div ref={divRef} className="card-wr" style={{ borderLeft: `${pageWidth > 2000? (pageWidth > 3000? '6':'5'):'3'}px solid ${borderColor}`, borderRadius: '4px' }} draggable={editable && !filtered}
       onDragStart={e => {

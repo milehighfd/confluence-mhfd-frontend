@@ -126,6 +126,7 @@ export const SERVER = (function () {
     const COLOR = 'color';
     const NOTE_TYPE = 'note';
     const PROJECTS_BBOX = 'projects-bbox';
+    const COST = 'cost';
     const BY_PROJECT = 'by-project';
     const GET_AVAILABLE_COLORS = 'get-available-colors';
     const ORGANIZATIONS = 'organizations';
@@ -337,7 +338,10 @@ export const SERVER = (function () {
         SAVE_BUSINESS_ADRESS_AND_CONTACT: (id: string | number) =>`${URL_BASE.BASE}/${BUSINESS}/business-address-and-contact/${id}`,
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
-          },
-          GET_BBOX_PROJECTS: `${URL_BASE.BASE}/board/${PROJECTS_BBOX}`
-        }
-    })();
+        },
+        GET_BBOX_PROJECTS: `${URL_BASE.BASE}/board/${PROJECTS_BBOX}`,
+        BOARD_PROJECT_COST: (board_project_id: string | number) => {
+            return `${URL_BASE.BASE}/board-project/${board_project_id}/${COST}`
+        },
+    }
+})();

@@ -1,86 +1,67 @@
-import React, { useMemo, useState } from "react";
-import { Modal, Button, InputNumber } from 'antd';
-import { MaintenanceTypes } from "./RequestViewUtil";
+import React, { useEffect, useState } from "react";
+import { Modal, Button } from 'antd';
+import { MaintenanceTypes, formatter } from "./RequestViewUtil";
+import * as datasets from 'Config/datasets';
+import { SERVER } from "Config/Server.config";
+import { useRequestState } from "hook/requestHook";
+import AmountModalField from "./AmountModalField";
+import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
 
-const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveData, tabKey, projectsubtype }: {
+const AmountModal = ({ project, visible, setVisible }: {
   project: any,
-  projectId: any,
   visible: boolean,
-  setVisible: Function,
-  startYear: number,
-  saveData: Function,
-  tabKey: string,
-  projectsubtype: string,
+  setVisible: Function
 }) => {
-  const [year0, setYear0] = useState(project.req1);
-  const [year1, setYear1] = useState(project.req2);
-  const [year2, setYear2] = useState(project.req3);
-  const [year3, setYear3] = useState(project.req4);
-  const [year4, setYear4] = useState(project.req5);
-  const [nextYear1, setNextYear1] = useState(project.year1);
-  const [nextYear2, setNextYear2] = useState(project.year2);
+  const { board_project_id, projectData } = project;
+  const projectsubtype = projectData?.code_project_type?.project_type_name;
+  const {
+    year: startYear,
+    tabKey
+  } = useRequestState();
+  const isMaintenance = tabKey === 'Maintenance';
+  const indexProjectType = MaintenanceTypes.indexOf(projectsubtype);
+
+  const [cost, setCost] = useState<any>({
+    req1: undefined,
+    req2: undefined,
+    req3: undefined,
+    req4: undefined,
+    req5: undefined,
+    year1: undefined,
+    year2: undefined,
+  });
+
   const handleOk = (e: any) => {
-    saveData({
-      projectId,
-      amounts: [year0, year1, year2, year3, year4],
-      years: [nextYear1, nextYear2],
+    datasets.putData(
+      SERVER.BOARD_PROJECT_COST(board_project_id),
+      cost
+    ).then((res: any) => {
+      setCost(res);
     })
+      .catch((err: any) => {
+        console.log(err);
+      });
     setVisible(false);
   };
 
-  const handleCancel = (e: any) => {
-    setYear0(project.req1);
-    setYear1(project.req2);
-    setYear2(project.req3);
-    setYear3(project.req4);
-    setYear4(project.req5);
+  const handleCancel = () => {
     setVisible(false);
   };
-  const priceFormatter = (value: any) => {
-    return `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
 
-  const priceParser = (value: any) => {
-    value = value.replace(/\$\s?|(,*)/g, '');
-    if (value === '0') {
-      return value;
-    }
-    while (value.length > 0 && value[0] === '0') {
-      value = value.substr(1);
-    }
-    return value
-  }
+  const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear);
 
-  let showFirst = true;
-  let showSecond = true;
-  let showThird = true;
-  let showFourth = true;
-  let showFifth = true;
-  if (tabKey === 'Maintenance') {
-    showFirst = projectsubtype === MaintenanceTypes[0];
-    showSecond = projectsubtype === MaintenanceTypes[1];
-    showThird = projectsubtype === MaintenanceTypes[2];
-    showFourth = projectsubtype === MaintenanceTypes[3];
-    showFifth = projectsubtype === MaintenanceTypes[4];
-  }
-
-  let labels = []
-  if (tabKey === 'Maintenance') {
-    labels = [startYear, startYear, startYear, startYear, startYear];
-  } else {
-    labels = [Number(startYear), Number(startYear) + 1, Number(startYear) + 2, Number(startYear) + 3, Number(startYear) + 4]
-  }
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2
-  })
-
-  const [showTwoNextYears, nextYear1Label, nextYear2Label] = useMemo(() => {
-    return [tabKey === 'Maintenance' && Number(startYear) >= 2022, Number(startYear) + 1, Number(startYear) + 2];
-  }, [tabKey]);
-
+  useEffect(() => {
+    if (!visible) return;
+    datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
+      .then((res: any) => {
+        setCost(res);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  }, [board_project_id, visible]);
+  const okayDisabled = isMaintenance && indexProjectType !== -1 &&
+    costDataList[indexProjectType].show && cost[`${costDataList[indexProjectType].key}`] === null;
   return (
     <Modal
       title="How much funding from MHFD is being requested for the following years:"
@@ -92,154 +73,42 @@ const AmountModal = ({ project, projectId, visible, setVisible, startYear, saveD
       width="390px"
       footer={[
         <Button className="btn-transparent" onClick={handleCancel}>
-          {tabKey === 'Maintenance' ? 'Cancel': 'Clear'}
-          </Button>,
+          {isMaintenance ? 'Cancel' : 'Clear'}
+        </Button>,
         <Button
           className="btn-purple"
           onClick={handleOk}
-          disabled={
-            tabKey === 'Maintenance' && (
-              (showFirst && year0 === null) ||
-              (showSecond && year1 === null) ||
-              (showThird && year2 === null) ||
-              (showFourth && year3 === null) ||
-              (showFifth && year4 === null)
-            )
-          }
+          disabled={okayDisabled}
         >
           Save
         </Button>,
       ]}
     >
       {
-        (tabKey === 'Capital') && 
-        <div style={{ marginBottom: '15px',marginTop: '-15px', fontWeight: 'bold'}}>Estimated Project Cost: {formatter.format(project.projectData?.estimatedcost)}</div>
+        (tabKey === 'Capital') &&
+        <div
+          style={{
+            marginBottom: '15px',
+            marginTop: '-15px',
+            fontWeight: 'bold'
+          }}
+        >
+          Estimated Project Cost: {formatter.format(projectData?.estimatedcost)}
+        </div>
       }
       {
-        showFirst &&
-        <>
-      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[0]}
-      {showTwoNextYears && showFirst && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
-      </div>
-      <InputNumber min={0}
-        formatter={priceFormatter}
-        parser={priceParser}
-        value={year0} onChange={setYear0}
-      />
-      
-      <Button className="button-close" onClick={() => setYear0(null)}>
-        <img src="/Icons/icon-23.svg" />
-      </Button>
-        </>
-      }
-      {
-        showSecond &&
-        <>
-      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[1]}
-      {showTwoNextYears && showSecond && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
-      </div>
-      <InputNumber min={0}
-        formatter={priceFormatter}
-        parser={priceParser}
-        value={year1} onChange={setYear1}
-      />
-      <Button className="button-close" onClick={() => setYear1(null)}>
-        <img src="/Icons/icon-23.svg" />
-      </Button>
-        </>
-      }
-      {
-        showThird &&
-        <>
-      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[2]}
-      {showTwoNextYears && showThird && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
-      </div>
-      <InputNumber min={0}
-        formatter={priceFormatter}
-        parser={priceParser}
-        value={year2} onChange={setYear2}
-      />
-      <Button className="button-close" onClick={() => setYear2(null)}>
-        <img src="/Icons/icon-23.svg" />
-      </Button>
-        </>
-      }
-      {
-        showFourth &&
-        <>
-      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[3]}
-      {showTwoNextYears && showFourth && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
-      </div>
-      <InputNumber  min={0}
-        formatter={priceFormatter}
-        parser={priceParser}
-        value={year3} onChange={setYear3}
-      />
-      <Button className="button-close" onClick={() => setYear3(null)}>
-        <img src="/Icons/icon-23.svg" />
-      </Button>
-        </>
-      }
-      {
-        showFifth &&
-        <>
-      <div style={{display: 'flex', fontSize: 16, color: 'rgba(17, 9, 60, 0.5)'}}>{labels[4]}
-      {showTwoNextYears && showFifth && <p style={{color: 'red', whiteSpace: 'break-spaces'}}>{' *'}</p>}
-      </div>
-      <InputNumber min={0}
-        formatter={priceFormatter}
-        parser={priceParser}
-        value={year4} onChange={setYear4}
-      />
-      <Button className="button-close" onClick={() => setYear4(null)}>
-        <img src="/Icons/icon-23.svg" />
-      </Button>
-        </>
-      }
-      {
-        showTwoNextYears && <>
-          {!showFirst && !showSecond && !showThird && !showFourth && !showFifth && <><p>{nextYear1Label - 1}</p>
-          <InputNumber
-            min={0}
-            style={{fontSize: 16}}
-            formatter={priceFormatter}
-            parser={priceParser}
-            value={year0} onChange={setYear0}
-          />
-          <Button className="button-close" onClick={() => setYear0(null)}>
-            <img src="/Icons/icon-23.svg" />
-          </Button></>}
-          <p
-            style={{fontSize: 16}}
-          >
-            {nextYear1Label}
-          </p>
-          <InputNumber
-            min={0}
-            style={{fontSize: 16}}
-            formatter={priceFormatter}
-            parser={priceParser}
-            value={nextYear1} onChange={setNextYear1}
-          />
-          <Button className="button-close" onClick={() => setNextYear1(null)}>
-            <img src="/Icons/icon-23.svg" />
-          </Button>
-          <p
-            style={{fontSize: 16}}
-          >
-            {nextYear2Label}
-          </p>
-          <InputNumber
-            min={0}
-            style={{fontSize: 16}}
-            formatter={priceFormatter}
-            parser={priceParser}
-            value={nextYear2} onChange={setNextYear2}
-          />
-          <Button className="button-close" onClick={() => setNextYear2(null)}>
-            <img src="/Icons/icon-23.svg" />
-          </Button>
-        </>
+        costDataList.map((item: any) => {
+          return (
+            item.show &&
+            <AmountModalField
+              key={item.key}
+              label={item.label}
+              value={cost[item.key]}
+              isRequired={item.isRequired}
+              setter={(value: any) => setCost({ ...cost, [item.key]: value })}
+            />
+          )
+        })
       }
     </Modal>
   )

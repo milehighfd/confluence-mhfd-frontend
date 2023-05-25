@@ -2,7 +2,7 @@ import { SERVER } from 'Config/Server.config';
 import * as types from '../types/requestTypes';
 import * as projectTypes from '../types/ProjectTypes';
 import * as datasets from 'Config/datasets';
-import { buildGeojsonForLabelsProjectsInBoards, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
+import { buildGeojsonForLabelsProjectsInBoards, getColumnTitle, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -170,7 +170,8 @@ export const setDiff = (payload: any) => ({
 });
 
 export const loadOneColumn = (board_id: any, position: any) => {
-  return (dispatch: any) => {
+  return (dispatch: any, getState: Function) => {
+    const { request: { tabKey, year } } = getState();
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
@@ -178,16 +179,18 @@ export const loadOneColumn = (board_id: any, position: any) => {
       dispatch({
         type: types.REQUEST_SET_COLUMNS_2,
         payload: {
+          title: getColumnTitle(position, tabKey, year),
           position,
           projects
         }
       });
     });
-    // TODO: Pachon I noticed you have a postprocessing function here, please check how to use it here
   }
 }
+
 export const loadColumns = (board_id: any) => {
-  return (dispatch: any) => {
+  return (dispatch: any, getState: Function) => {
+    const { request: { tabKey, year } } = getState();
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
@@ -200,6 +203,7 @@ export const loadColumns = (board_id: any) => {
         dispatch({
           type: types.REQUEST_SET_COLUMNS_2,
           payload: {
+            title: getColumnTitle(position, tabKey, year),
             position,
             projects
           }

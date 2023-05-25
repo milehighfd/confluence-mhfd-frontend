@@ -6,7 +6,7 @@ import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
-import { filterByJurisdictionAndCsaSelected, hasPriority, onDropFunction } from 'Components/Work/Request/RequestViewUtil';
+import { filterByJurisdictionAndCsaSelected, hasPriority } from 'Components/Work/Request/RequestViewUtil';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
 import WsService from 'Components/Work/Request/WsService';
 import { ADMIN, STAFF } from 'constants/constants';
@@ -19,12 +19,10 @@ let scrollByIds: any = [];
 
 const ColumsTrelloCard = ({
   deleteProject,
-  saveData,
   notIsFiltered,
   flagforScroll
 }: {
   deleteProject: any;
-  saveData: any;
   notIsFiltered: any;
   flagforScroll: any;
 }) => {
@@ -44,7 +42,6 @@ const ColumsTrelloCard = ({
     boardStatus,
   } = useRequestState();
   const {
-    setColumns,
     setVisibleCreateProject,
     loadOneColumn,
     setColumns2Manual
@@ -78,30 +75,13 @@ const ColumsTrelloCard = ({
     }, 1000);
   }, [flagforScroll]);
 
-  const onDrop = (projectid: number, state: boolean, sourceColumn: number, sourcePosition: number, destColumn: number, destPosition: number) => {
-    let cols = onDropFunction(projectid, columns, tabKey, state, sourceColumn, sourcePosition, destColumn, destPosition, saveData);
-    if (cols) {
-      WsService.sendUpdate(cols);
-      setColumns(cols);
-    }
-  }
-
   const onClickNewProject = () => {
     clear();
     setVisibleCreateProject(true);
     setStreamsIds([]);
     setComponentsFromMap([]);
   };
-  
-  /*
-  {
-    board_project_id: 85,
-    originColumn: 'rank1',
-    targetColumn: 'rank0',
-    previousCardId: null,
-    nextCardId: null
-  }
-  */
+
   const onDropV2 = (
     originColumnPosition: number,
     targetColumnPosition: number,
@@ -113,7 +93,6 @@ const ColumsTrelloCard = ({
     const targetColumn = `rank${targetColumnPosition}`;
     
     if (originColumn === targetColumn) {
-      const copy = JSON.parse(JSON.stringify(columns[targetColumnPosition]));
       let previousPosition = targetPosition - 1;
       let nextPosition = targetPosition;
       if (targetPosition === sourcePosition) return;
@@ -290,7 +269,6 @@ const ColumsTrelloCard = ({
                                   project={p}
                                   columnIdx={columnIdx}
                                   rowIdx={i}
-                                  saveData={saveData}
                                   tabKey={tabKey}
                                   editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
                                   filtered={!notIsFiltered}
@@ -339,7 +317,6 @@ const ColumsTrelloCard = ({
                                   project={p}
                                   columnIdx={columnIdx}
                                   rowIdx={i}
-                                  saveData={saveData}
                                   tabKey={tabKey}
                                   editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
                                   filtered={!notIsFiltered}
@@ -383,7 +360,6 @@ const ColumsTrelloCard = ({
                                   project={p}
                                   columnIdx={columnIdx}
                                   rowIdx={i}
-                                  saveData={saveData}
                                   tabKey={tabKey}
                                   editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
                                   filtered={!notIsFiltered}

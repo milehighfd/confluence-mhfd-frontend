@@ -451,98 +451,6 @@ const RequestView = ({ type, isFirstRendering }: {
     });
   }
 
-  const saveData = ({ projectId, amounts, years }: { projectId: any, amounts: any[], years: any[] }) => {
-    let projectData: any;
-    columns.forEach((c: any) => {
-      c.projects.forEach((p: any) => {
-        if (p.project_id == projectId) {
-          projectData = p;
-        }
-      })
-    })
-    let hasData = amounts.some(r => !!r) || years.some(r => !!r);
-    if (hasData) {
-      let newObj: any = {
-        origin: projectData.origin,
-        project_id: projectId,
-        position0: null,
-        originPosition0: projectData.originPosition0,
-        originPosition1: projectData.originPosition1,
-        originPosition2: projectData.originPosition2,
-        originPosition3: projectData.originPosition3,
-        originPosition4: projectData.originPosition4,
-        originPosition5: projectData.originPosition5,
-        position1: null, position2: null, position3: null, position4: null, position5: null,
-        req1: amounts[0], req2: amounts[1], req3: amounts[2], req4: amounts[3], req5: amounts[4],
-        year1: yearList[0], year2: yearList[1],
-        projectData: projectData.projectData
-      }
-      let temporalColumns = columns.map((r: any) => r);
-      let positions = amounts.map((req: number, index: number) => {
-        let column = temporalColumns[index + 1];
-        let projects = column.projects;
-        let pos = null;
-        if (req) {
-          projects.forEach((p: any, projectIndex: number) => {
-            if (p.project_id == projectId) {
-              pos = projectIndex;
-            }
-          })
-          if (pos === null) {
-            pos = projects.length;
-          }
-        }
-        return pos;
-      })
-      positions.forEach((pos: any, posIdx: number) => {
-        newObj[`position${posIdx + 1}`] = pos;
-      })
-      temporalColumns = temporalColumns.map((tc: any) => {
-        return {
-          ...tc,
-          projects: tc.projects.filter((p: any) => {
-            return p.project_id != projectId;
-          })
-        }
-      })
-      positions.forEach((pos: any, posIdx: number) => {
-        if (pos != null) {
-          let ref: any = temporalColumns[posIdx + 1].projects;
-          ref.splice(pos, 0, newObj);
-        }
-      })
-      WsService.sendUpdate(temporalColumns)
-      setColumns(temporalColumns)
-    } else {
-      let temporalColumns = columns.map((col: any) => {
-        return {
-          ...col,
-          projects: col.projects.filter((p: any) => {
-            return p.project_id != projectId
-          })
-        }
-      })
-      let newProjectData = {
-        origin: projectData.origin,
-        project_id: projectId,
-        position0: 0,
-        position1: null, position2: null, position3: null, position4: null, position5: null,
-        originPosition0: projectData.originPosition0,
-        originPosition1: projectData.originPosition1,
-        originPosition2: projectData.originPosition2,
-        originPosition3: projectData.originPosition3,
-        originPosition4: projectData.originPosition4,
-        originPosition5: projectData.originPosition5,
-        req1: null, req2: null, req3: null, req4: null, req5: null,
-        projectData: projectData.projectData
-      };
-      console.log('new Project Data', newProjectData);
-      temporalColumns[0].projects.push(newProjectData);
-      WsService.sendUpdate(temporalColumns)
-      setColumns(temporalColumns);
-    }
-  }
-
   const scrollToRight = () => {
     let element: any = wrtRef.current;
     let parent = element.parentElement;
@@ -617,7 +525,6 @@ const RequestView = ({ type, isFirstRendering }: {
                       <div className="work-table" ref={wrtRef}>
                         <ColumsTrelloCard
                           deleteProject={deleteProject}
-                          saveData={saveData}
                           notIsFiltered={notIsFiltered}
                           flagforScroll={flagforScroll}
                         />

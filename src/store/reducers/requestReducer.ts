@@ -226,6 +226,7 @@ const requestReducer = (state = initialState, action: any) => {
             if (action.payload.position === index) {
               return {
                 ...column,
+                title: action.payload.title,
                 projects: action.payload.projects
               }
             }

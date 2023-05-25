@@ -143,6 +143,10 @@ export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
 
 export const MaintenanceTypes = ['Routine Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'General Maintenance', 'Restoration'];
 
+export const getColumnTitle =  (position: number, tabKey: string, year: string | number) => {
+  return position === 0 ? 'Workspace' : (tabKey === 'Maintenance' ? MaintenanceTypes[position - 1] : Number(year) + position);
+}
+
 export const generateColumns = (boardProjects: boardProject[], year: number, tabKey: string) => {
   let columns: any[] = defaultColumns.map((dc: any, index: number) => {
     let title = dc.title;
@@ -208,105 +212,6 @@ export const priceParser = (value: any) => {
   return value
 }
 
-export const onDropFunction = (projectid: any, columns: any[], tabKey: string, state: boolean, sourceColumn: number, sourcePosition: number, destColumn:any, destPosition:any, saveData: Function) => { 
-  let id = projectid;
-  let project: any;
-  let destinyColumnHasProject = false;
-  // To check if the destiny Column has the same project
-  columns[destColumn].projects.forEach((p: any) => {
-    if (p.project_id == id) {
-      destinyColumnHasProject = true;
-    }
-  })
-  // To get the current project dragged
-  columns[sourceColumn].projects.forEach((p: any) => {
-    if (p.project_id == id) {
-      project = p;
-    }
-  })
-  console.log('bef columns', columns);
-  // if dropped on the same column 
-  if (sourceColumn === destColumn) {
-    const currentColumn = [...columns[destColumn].projects];
-    const result = Array.from([...currentColumn]);
-    const [removed] = result.splice(sourcePosition, 1);
-    result.splice(destPosition, 0, removed);
-    columns[destColumn].projects = [...result];
-    return columns;
-  }
-  if (tabKey === 'Maintenance') {
-    var destinyColumnMaintenance = MaintenanceTypes.indexOf(project?.projectData?.code_project_type?.project_type_name) + 1;
-    if (!(destColumn === 0 || destColumn === destinyColumnMaintenance)) {
-      return;
-    }
-  }
-  if (destinyColumnHasProject) {
-    const newSumAmountData = {
-      projectId: id,
-      years: [null, null],
-      amounts: []
-    };
-    const newAmounts: any = [];
-    columns[destColumn].projects.forEach((p: any) => {
-      if (p.project_id == id) {
-        const numArray = [1,2,3,4,5];
-        numArray.forEach((num: any) => {
-          newAmounts.push(p[`req${num}`]);
-        });
-        newAmounts[destColumn-1] = newAmounts[destColumn-1] + newAmounts[sourceColumn-1];
-        newAmounts[sourceColumn-1] = 0;
-        newSumAmountData.amounts = newAmounts;
-      }
-    });
-    saveData(newSumAmountData);
-    return;
-  } else {
-    let newObj = {
-      ...project,
-      [`position${destColumn}`]: destPosition === -1 ? columns[destColumn].projects.length : destPosition,
-      [`req${destColumn}`]: destColumn === 0 ? null : project[`req${sourceColumn}`],
-      [`req${sourceColumn}`]: null,
-      [`position${sourceColumn}`]: null,
-    };
-    let temporalColumns: any = columns.map((c, colIdx: number) => {
-      return {
-        ...c,
-        projects: c.projects
-        .filter((p: any) => {
-          if (colIdx == sourceColumn && p.project_id == id) {
-            return false;
-          }
-          return true;
-        })
-        .map((p: any) => {
-          if (p.project_id == id) {
-            return newObj;
-          }
-          return p;
-        })
-      }
-    });
-    if(temporalColumns[destColumn].projects.length === 0){
-      temporalColumns[destColumn].projects.push(newObj);
-    } else {
-      let arr = [];
-      let hasInserted = false;
-        for (var i = 0 ; i < temporalColumns[destColumn].projects.length ; i++) {
-          let p = temporalColumns[destColumn].projects[i];
-          if (destPosition === i) {
-            hasInserted = true;
-            arr.push(newObj);
-          }
-          arr.push(p)
-        } 
-        if (!hasInserted){
-          arr.push(newObj);
-        }
-      temporalColumns[destColumn].projects = arr;
-    }
-    return temporalColumns;
-  }
-}
 export const onDropFn = (txt: any, columns: any[], columnIdx: number, tabKey: string, state:boolean, destColumn:any, destPosition:any, saveData: Function) => {
   let dragAction=[state, destColumn, destPosition]
   let { id, fromColumnIdx } = txt;
