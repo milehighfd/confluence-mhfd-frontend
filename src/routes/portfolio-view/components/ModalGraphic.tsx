@@ -10,7 +10,7 @@ const ModalGraphic = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
   useEffect(() => {
-    const modified_date = dataProject?.d?.project_status?.filter((x: any) => x.code_phase_type_id === dataProject?.phase_id)[0]?.modified_date;
+    const modified_date = dataProject?.data?.project_status?.filter((x: any) => x.code_phase_type_id === dataProject?.phase_id)[0]?.modified_date;
     setModifiedDate(modified_date)
     if (dataProject?.to !== null) {
       let check1 = moment.utc(dataProject?.to, 'YYYY-MM-DD');
@@ -23,8 +23,15 @@ const ModalGraphic = () => {
   }, [dataProject])
 
   const colorStatus = (d:any)=>{
-    let currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.d?.phaseId))
-    let phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phase_id))
+    let currentIndex = 0;
+    let phaseIndex = 0;
+    if (d?.data?.code_phase_types){
+      currentIndex = (d?.data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.data?.phaseId))
+      phaseIndex = (d?.data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phase_id))
+    }else{
+      currentIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.data?.phaseId))
+      phaseIndex = (scheduleList?.findIndex((x: any) => x?.phase_id === d?.phase_id))
+    }
     let color = '';
     let today = moment()
     if (currentIndex > phaseIndex) {
@@ -49,7 +56,7 @@ const ModalGraphic = () => {
     return (
       <div className='modal-graphic' id='popup-phaseview' style={{ left: positionModalGraphic.left, top: positionModalGraphic.top, borderTopColor: colorStatus(dataProject) }}>
         <p className="title">{dataProject.schedulePhase}</p>
-        <p style={{ color: 'white' }}>{dataProject.d.rowLabel}</p>
+        <p style={{ color: 'white' }}>{dataProject?.data.rowLabel}</p>
         <hr></hr>
         <p>{dataProject.actualNumber <= 1 ? `${dataProject.actualNumber} Action Item of ${dataProject.scheduleList} Remaining` :
           `${dataProject.actualNumber} Action Items of ${dataProject.scheduleList} Remaining`}</p>

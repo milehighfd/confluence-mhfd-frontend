@@ -624,7 +624,7 @@ const CalendarBody = ({
           const phaseSc = scheduleData.phase
           const phaseId = scheduleData.phase_id
           const dataProject = d.project_data;
-          const sendModal = { d: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
+          const sendModal = { data: dataProject, actualNumber: counterdown, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:d.to }
           setDataModal(sendModal);
           setGraphicOpen(true);
           let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
