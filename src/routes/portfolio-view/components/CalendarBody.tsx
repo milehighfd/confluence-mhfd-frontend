@@ -1410,6 +1410,11 @@ const CalendarBody = ({
       svgAx.attr('viewBox', `${zoomTimeline} ${initYax} ${boxWidthax} ${boxHeightax}`);
       d3.selectAll('#buttonText').attr('transform', 'translate(' + zoomTimeline + ',0)')
       d3.selectAll('#buttonRect').attr('transform', 'translate(' + zoomTimeline + ',0)')
+      let todayLineDiv: any = document.getElementById('todayLineDiv')
+      var styleDiv = window.getComputedStyle(todayLineDiv);
+      var matrix = new WebKitCSSMatrix(styleDiv.transform);
+      let translateYTodayline = (currentZScale===0.9 ? -332 :-159) + (currentZScale===0.9 ? 800 <= zoomTimeline ? 2000 : zoomTimeline  : 600 <= zoomTimeline ? 2000 : zoomTimeline)
+      d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
     }
     setIsLoading(false)
     // if (svgState) {     

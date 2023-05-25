@@ -76,6 +76,7 @@ const CalendarViewPag = ({
         </div>
       </div>
     )}
+    <div className="dashed-line" id='todayLineDiv'></div> 
     <Row>
       <Col xs={ { span: 10 }} lg={{ span: 5 }}>
         <SearchDropdown />

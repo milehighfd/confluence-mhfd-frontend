@@ -1211,6 +1211,28 @@
     background: $purple00;
     border-radius: 10px;
   }
+
+  .dashed-line {
+    transform: rotate(90deg) translate(288px, -159px);
+    position: relative;
+    width: 499px;
+    z-index: 100;
+    height: 0px;
+    margin: 0 auto;
+  }
+  
+  .dashed-line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(to right, #FF901C 50%, transparent 50%);
+    background-size: 10px 100%;
+  }
+
   .action-items{
     border: 1px solid #E3E5E5;
     border-radius: 5px;
