@@ -2835,6 +2835,23 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 .table-detail-modal {
+  .ant-table-thead{
+    .ant-table-cell{
+      .ant-table-column-sorters{
+        display: inline-flex;
+        flex: inherit;
+        .ant-table-column-title{
+          width: auto;
+        }
+        .ant-table-column-sorter{
+          margin-left: 19px;
+          span{
+            line-height: 10px !important;
+          }
+        }
+      }
+    }
+  }
   .value-total {
     display: flex;
 
