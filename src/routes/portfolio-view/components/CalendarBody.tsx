@@ -174,7 +174,6 @@ const CalendarBody = ({
 
       let counterDataForChart: number = 0;
       datasets.forEach((sch: any) => {
-
         let listDates = sch?.code_phase_types;
         listDates?.sort((a: any, b: any) => {
           const aPosition = a.phase_ordinal_position || 0;
@@ -317,8 +316,6 @@ const CalendarBody = ({
           .attr('transform', 'translate(' + 0 + ',' + (padding.top - 22 + separationHeaderAxisYear) + ')')
           .attr('class', 'topHeaderYearAxis')
           .call(xAxisYear);
-
-
         let scheduleG = svg
           .append('g')
           .selectAll('g')
@@ -327,7 +324,7 @@ const CalendarBody = ({
           .append('g')
           .attr('class', 'jurisdiction')
           .selectAll()
-          .data((d: any) => {            
+          .data((d: any) => {     
             return d.schedule;
           });
         let scheduleGaxis = svgAxis
@@ -340,7 +337,7 @@ const CalendarBody = ({
           .selectAll()
           .data((d: any) => {
             return d.schedule;
-          });
+          });        
         let button = svg.selectAll("button").data(datasets).enter().append("g");
         button
           .append("rect")
@@ -362,10 +359,9 @@ const CalendarBody = ({
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
-          .style('visibility', (d: any) => {
-            let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
+          .style('visibility', (d: any) => {    
             hasDateData = true;
-            if (d?.code_phase_types?.length === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
+            if (d?.flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
               hasDateData = false;
@@ -402,9 +398,8 @@ const CalendarBody = ({
             return yScaleRect + yAddButton
           })
           .style('visibility', (d: any) => {
-            let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
             hasDateData = true;
-            if (d?.code_phase_types?.length === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag) {
+            if (d?.flag) {
               hasDateData = false;
             } else if (d?.id.includes('Title')) {
               hasDateData = false;
@@ -418,7 +413,6 @@ const CalendarBody = ({
             setOpenModalTollgate(true);
           })
           ;
-
         hasDateData = true;
         let scheduleRects = scheduleG
           .enter().append('rect')
@@ -442,14 +436,12 @@ const CalendarBody = ({
             return (xScaleTo - xScaleFrom) < 0 ? 0 : (xScaleTo - xScaleFrom);
           })
           .attr('height', barHeight)
-          .attr('fill', function (d: any) {            
-            let currentIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
-            let phaseIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phaseId))           
+          .attr('fill', function (d: any) {    
             let color = '';
             let today = moment()
-            if (currentIndex > phaseIndex) {
+            if (d.currentIndex > d.phaseIndex) {
               color = 'Done'
-            } else if (currentIndex === phaseIndex) {
+            } else if (d.currentIndex === d.phaseIndex) {
               if (d?.to) {
                 const diffDates = (((d?.to).diff(today, 'M', true)))
                 if (diffDates < 0) {
@@ -468,7 +460,6 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
           })
-
         hasDateData = true;
         let scheduleRectsCenter = scheduleG
           .enter().append('rect')
@@ -491,13 +482,11 @@ const CalendarBody = ({
           })
           .attr('height', barHeight - 2)
           .attr('fill', function (d: any) {
-            let currentIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
-            let phaseIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phaseId))       
             let color = '';
             let today = moment()
-            if (currentIndex > phaseIndex) {
+            if (d.currentIndex > d.phaseIndex) {
               color = 'Done'
-            } else if (currentIndex === phaseIndex) {
+            } else if (d.currentIndex === d.phaseIndex) {
               if (d?.to) {
                 const diffDates = (((d?.to).diff(today, 'M', true)))
                 if (diffDates < 0) {
@@ -516,7 +505,6 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
           });
-
         hasDateData = true
 
         let rectNames = scheduleG
@@ -525,11 +513,9 @@ const CalendarBody = ({
             return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
           })
           .attr('class', 'labels')
-          .style('fill',  function (d: any) {
-            let currentIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.project_data?.phaseId))
-            let phaseIndex = (d?.project_data?.code_phase_types?.findIndex((x: any) => x?.phase_id === d?.phaseId))       
+          .style('fill',  function (d: any) {             
             let state = '';
-            if (currentIndex < phaseIndex) {
+            if (d.currentIndex < d.phaseIndex) {
               state = 'NotStarted'
             }
             return (state === 'NotStarted' ? 'gray': 'white')
@@ -555,7 +541,6 @@ const CalendarBody = ({
         hasDateData = true
 
         yScale.bandwidth();
-
         zoomedXScale = xScale;
         let calctodayX = function (d: any) {
           return zoomedXScale(today);
@@ -588,7 +573,7 @@ const CalendarBody = ({
           let zoomedXScaleTo: any = zoomedXScale(d['to']);
           return (zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0) - 1;
         };
-
+        
         const dotme = (text: any) => {
           text.each((d: any) => {
             const completeLabel = `${d['name']}`;
@@ -612,7 +597,6 @@ const CalendarBody = ({
             }
           });
         };
-
         let updateRects = function () {
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
@@ -624,8 +608,9 @@ const CalendarBody = ({
           d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);          
           d3.selectAll('.labels').call(dotme);
         };
+
         scheduleRectsCenter.on('mousemove', function (d: any) {
-          
+        
           let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
             d.phaseId === x.phase_id
           ));
@@ -1037,79 +1022,45 @@ const CalendarBody = ({
           .style('stroke-width', 2)
           .style('stroke', '#FF901C')
           .style('fill', 'none');
-        zoomed = function () {
-        
+        zoomed = function () { 
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 0.2) {
+            // renderMonthNames();
+            // renderYearNames();  
+            //d3.selectAll('#xDay').call((xAxisMonth as any).scale(zoomedXScale))
+            // gX.attr('class', 'topHeaderMChart');
+            // d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
+            // d3.selectAll('#xYear').call((xAxisYear as any).scale(zoomedXScale)) 
+            // d3.selectAll('#xAxisDay').call((xAxisMonth as any).scale(zoomedXScale))
+            // gXa.attr('class', 'topHeaderM');
+            // d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
+            // d3.selectAll('#xAxisYears').call((xAxisYear as any).scale(zoomedXScale))
             renderMonthNames();
             renderYearNames();
-            // gX.call(xAxisMonth.scale(zoomedXScale));
-            d3.selectAll('#xDay').call((xAxisMonth as any).scale(zoomedXScale))
-
             gX.attr('class', 'topHeaderMChart');
-            //gXamonth.call(xAxisMonthMonthly.scale(zoomedXScale)).call(adjustTextLabelsMonths2)
-
-            // gX1.call(xAxisMonth.scale(zoomedXScale));
-            d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
-
-            // gX2.call(xAxisYear.scale(zoomedXScale));
-            d3.selectAll('#xYear').call((xAxisYear as any).scale(zoomedXScale))
-            
-            // gXa.call(xAxisMonth.scale(zoomedXScale));
-            d3.selectAll('#xAxisDay').call((xAxisMonth as any).scale(zoomedXScale))
-
+            d3.selectAll('#xMonth, #xYear, #xAxisDay, #xAxisMonth, #xAxisYears')
+              .call((xAxisMonth as any).scale(zoomedXScale));
             gXa.attr('class', 'topHeaderM');
-            // gX1a.call(xAxisMonth.scale(zoomedXScale));
-            d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
-
-            //gX2a.call(xAxisYear.scale(zoomedXScale));
-            // gX2aYear.call(xAxisYear.scale(zoomedXScale));
-            d3.selectAll('#xAxisYears').call((xAxisYear as any).scale(zoomedXScale))
           } else {
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
-
-            // gX.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
             d3.selectAll('#xDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
-
             gX.attr('class', 'topHeaderChart');
-            
-            // gX2.call(xAxisMonth.scale(zoomedXScale));
-            d3.selectAll('#xYear').call((xAxisMonth as any).scale(zoomedXScale))
-
-            // gX1.call(xAxisMonth.scale(zoomedXScale));
+            //d3.selectAll('#xYear').call((xAxisMonth as any).scale(zoomedXScale))
             d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
-
-            // gXa.call(xAxisDay.scale(zoomedXScale)).call(adjustTextLabelsDays);
             d3.selectAll('#xAxisDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
-
             gXa.attr('class', 'topHeader');
-            // gX2a.call(xAxisMonth.scale(zoomedXScale));
-            d3.selectAll('#xAxisYear').call((xAxisMonth as any).scale(zoomedXScale))
-
-            // gX1a.call(xAxisMonth.scale(zoomedXScale));
+            //d3.selectAll('#xAxisYear').call((xAxisMonth as any).scale(zoomedXScale))
             d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
-
-            d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
+            //d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
           }
           updateRects();
-          
-          // todayline.attr('x1', calctodayX);
-          // todayline.attr('x2', calctodayX);
           d3.selectAll('#todayLine').attr('x1', calctodayX);
           d3.selectAll('#todayLine').attr('x2', calctodayX);
-          // todaylineaxis.attr('x1', calctodayX);
-          // todaylineaxis.attr('x2', calctodayX);
           d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
           d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
-          // todayCircle.attr('cx', calctodayX);
           d3.selectAll('#todayCircle').attr('cx', calctodayX);
-          // console.log('scheduleRects', scheduleRects._groups)
-          // scheduleRects._groups.forEach((element:any) => {
-          //   console.log('element', element)
-          // });
-          
           const linesAxis:any = document.getElementsByTagName("line")
           if(linesAxis){
             for(let line of linesAxis){
@@ -1119,6 +1070,7 @@ const CalendarBody = ({
             }
           }
         };
+        
         // setZoomState(zoomed)
         zoom = d3
           .zoom()
@@ -1128,41 +1080,30 @@ const CalendarBody = ({
             [width, 0],
           ])
           .on('zoom', zoomed);
-          // svg.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
-          // svg.call(zoom.scaleBy, currentZScale);
-          // svgAxis.call(zoom).on('wheel.zoom', null).on("dblclick.zoom", null);
-          // svgAxis.call(zoom.scaleBy, currentZScale);
-        // moveZoom(zoomTimeline, svg, svgAxis);
         if (zoomSelected === 'Today') {
-          zoom.translateTo(svg, xScale(today), 0);
-          zoom.scaleTo(svg, 0.104);
-          zoom.translateTo(svgAxis, xScale(today), 0);
-          zoom.scaleTo(svgAxis, 0.104);
-          //  zoom.translateTo(svg, 0.9 * width, 0.5 *height)
-          //setIsZoomToday(false);
-          // moveZoom(zoomTimeline, svg, svgAxis);
+          // delete after testing
+          // zoom.translateTo(svg, xScale(today), 0);
+          // zoom.scaleTo(svg, 0.104);
+          // zoom.translateTo(svgAxis, xScale(today), 0);
+          // zoom.scaleTo(svgAxis, 0.104);
+          zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
         }
         if (zoomSelected === 'Weekly') {
-          // svg
-          // .transition().call(zoom.scaleBy, 80);
           zoom.scaleTo(svg, 0.9);
-          // zoom.translateTo(svg, xScale(today),0);
           zoom.scaleTo(svgAxis, 0.9);
-          // zoom.translateTo(svgAxis, xScale(today),0);
-          // setIsZoomWeekly(false);
         }
         if (zoomSelected === 'Monthly') {
-          // svg
-          // .transition().call(zoom.scaleBy, 18);
-          zoom.scaleTo(svg, 0.104);
-          // zoom.translateTo(svg, 0.9 * width, 0.5 * height);
-          zoom.scaleTo(svgAxis, 0.104);
-          // zoom.translateTo(svgAxis, 0.9 * width, 0.5 * height);
+          // delete after testing
+          //zoom.scaleTo(svg, 0.104);
+          //zoom.scaleTo(svgAxis, 0.104);
+          zoom.scaleTo(svg, 0.104).scaleTo(svgAxis, 0.104);
         }
-
+        
       }
     }
+   
     setIsLoading(false)
   }
   const moveZoom = (newZoomValue: any, svg: any, svgAxis: any) => {
@@ -1237,11 +1178,13 @@ const CalendarBody = ({
     }))
     let rawData2 = dataParsed?.map((x: any) => {
       if (x?.project_status?.length) {
-        let flag = ((x?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
+        let flag = ((x?.project_status)?.some((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
         if (x?.project_status?.length > 0) {
           return {
             ...x,
+            flag: (x?.code_phase_types?.length === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4)?.length && !flag),
             schedule: x?.project_status?.map((z: any, index: number) => {
+              const orderPhaseTypes = x?.code_phase_types?.sort((a: any, b: any) => a.phase_ordinal_position - b.phase_ordinal_position);
               return {
                 project_data: x,
                 objectId: index + 1,
@@ -1257,7 +1200,9 @@ const CalendarBody = ({
                 show: (x?.code_phase_types?.length === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4)?.length && !flag),
                 current: x?.phaseId === z?.code_phase_type_id,
                 isDone: z.is_done,
-                isLocked: z.is_locked
+                isLocked: z.is_locked,
+                currentIndex : orderPhaseTypes?.findIndex((z: any) => x?.phaseId === z?.code_phase_type_id),
+                phaseIndex: orderPhaseTypes?.findIndex((y: any) => y?.code_phase_type_id === z?.code_phase_type_id),                
               };
             })
           }
