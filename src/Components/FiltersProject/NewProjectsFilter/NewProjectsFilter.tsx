@@ -30,7 +30,8 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
         filterProjectOptions,
         paramFilters: {
             projects: paramProjects
-        }
+        },
+        applyFilter,
     } = useMapState();
     const { resetNextPageOfCards, resetInfiniteScrollItems, resetInfiniteScrollHasMoreItems } = useProjectDispatch();
     const {
@@ -70,12 +71,13 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 options[field] = values;
             }
         }
-
         setFilterProjectOptions(options);
         if(originpage === 'portfolio' && setApplyFilter) {
           setApplyFilter(Math.random());
         } 
-        getParamFilterProjects(boundsMap, options);
+        let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`; 
+        getParamFilterProjects(applyFilter ? boundsMap : defaultBounds, options);
+        
         resetNextPageOfCards();
         resetInfiniteScrollItems();
         resetInfiniteScrollHasMoreItems();
