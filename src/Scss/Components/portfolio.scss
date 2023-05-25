@@ -1495,9 +1495,25 @@
     }
     .header-table{
       margin-bottom: 0px;
+      .ant-table table {
+        width: max-content;
+      }
       .ant-table-thead {
         height: 52px ;
         border-radius: 7px 7px 0px 0px;
+        .ant-table-cell{
+          display: inline-flex;
+          .ant-table-column-sorters{
+            justify-content: flex-start;
+            flex: inherit;
+            .ant-table-column-title{
+              width: auto;
+            }
+            .ant-table-column-sorter{
+              margin-left: 19px;
+            }
+          }
+        }
       }
       .ant-table-thead > tr > th {
         background: #ffffff;

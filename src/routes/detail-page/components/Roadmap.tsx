@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Empty, Row } from 'antd';
 import * as d3 from 'd3';
 import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
@@ -490,6 +490,7 @@ const Roadmap = ({setOpenPiney,
   };
   useEffect(() => {          
     if(data.length>0){
+      console.log('MOSTRARA')
       if(document.getElementById(`dotchart_detailPage`)){
         removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
       }
@@ -602,49 +603,56 @@ const Roadmap = ({setOpenPiney,
         </Col>
       </Row>
       <Row>
-      <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
-        <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
-        {availableStatusList.map((item: any, index: number) => {
-              return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent', fontFamily: "Ubuntu" } : { display: 'flex', width: item[1], fontFamily: "Ubuntu" }}>
-              <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
-              {/* <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr> */}
-            </p>
-            })}
-        </div>
-          <div id='dotchart_detailPage' style={{display: 'flex', justifyContent: 'center', marginLeft: '21px', border:'transparent'}}></div>
-          {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
-        <div className="phaseview-title" id='phaseviewTitleDetailPage' style={{justifyContent:'center', border:'none',borderColor:'transparent'}}>
-        <div style={{ width: totalLabelWidth, paddingRight:'13px',borderColor:'transparent' ,border:'none' }} className="phaseview-title" id="phaseviewTitlleWidth">
-            {/* <p>Draft</p>
-            <p>
-              Work Request
-              <br />
-              (WR)
-            </p> */}
-            {phaseList.map((item: any) => {
-              return <p style={{ width: labelWidth , fontFamily: "Ubuntu"}}>{item.phase_name}</p>
-            })}
+      { data.length > 0 ? 
+        <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
+          <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
+          {availableStatusList.map((item: any, index: number) => {
+                return <p style={index === 0 ? { display: 'flex', width: item[1], border: 'transparent', fontFamily: "Ubuntu" } : { display: 'flex', width: item[1], fontFamily: "Ubuntu" }}>
+                <hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 48 }}></hr>
+                {/* <hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr>{item[0]}<hr className="hr2" style={{ width: item[1] / 2 - 60 }}></hr> */}
+              </p>
+              })}
+          </div>
+            <div id='dotchart_detailPage' style={{display: 'flex', justifyContent: 'center', marginLeft: '21px', border:'transparent'}}></div>
+            {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
+          <div className="phaseview-title" id='phaseviewTitleDetailPage' style={{justifyContent:'center', border:'none',borderColor:'transparent'}}>
+          <div style={{ width: totalLabelWidth, paddingRight:'13px',borderColor:'transparent' ,border:'none' }} className="phaseview-title" id="phaseviewTitlleWidth">
+              {/* <p>Draft</p>
+              <p>
+                Work Request
+                <br />
+                (WR)
+              </p> */}
+              {phaseList.map((item: any) => {
+                return <p style={{ width: labelWidth , fontFamily: "Ubuntu"}}>{item.phase_name}</p>
+              })}
+            </div>
+          </div>
+          <div style={{textAlign:'center', paddingTop:'10px'}}>
+          <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
+                  </span>
+                  <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
+                  </span>
+                  <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
+                  </span>
+                  <span className="span-dots-heder">
+                    <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
+                    <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
+                  </span>
           </div>
         </div>
-        <div style={{textAlign:'center', paddingTop:'10px'}}>
-        <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
-                </span>
-                <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#047CD7'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Current</span>
-                </span>
-                <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#D4D2D9'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Not Started</span>
-                </span>
-                <span className="span-dots-heder">
-                  <div className="circulo" style={{backgroundColor:'#F5575C'}}/>
-                  <span style={{marginLeft:'1px', marginRight:'15px'}}>Overdue</span>
-                </span>
+        : <>
+        <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         </div>
-      </div>
+        </>
+      }
       </Row>
       <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
