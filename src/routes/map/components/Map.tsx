@@ -733,6 +733,14 @@ const Map = ({
         'custom-sprite/ic-stripered.png',
         'custom-sprite/ic-stripeviolet.png',
         'custom-sprite/Urbanclimbtosafetysign_origclean.png',
+        'custom-sprite/rd-draft_ORANGE.png',
+        'custom-sprite/rd-apprv_GREEN.png',
+        'custom-sprite/rd-rqst_PINK.png',
+        'custom-sprite/prop-acq-rqst_PINK.png',
+        'custom-sprite/prop-acq-apprv_GREEN.png',
+        'custom-sprite/prop-acq-draft_ORANGE.png',
+        'custom-sprite/MEP-X.png',
+        'custom-sprite/floodwaypattern.png'
       ];
       imagesPaths.forEach((imagePath: string) => {
         map.loadImage(imagePath, (error: any, image: any) => {
@@ -1649,7 +1657,7 @@ const Map = ({
         }
     }
     if(key) {
-        map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+      map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
     }
     
     if (!hovereableLayers.includes(key)) {
