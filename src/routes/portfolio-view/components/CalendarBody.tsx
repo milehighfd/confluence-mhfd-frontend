@@ -203,17 +203,16 @@ const CalendarBody = ({
         let monthsAhead = 85 //(moment.max(endDates).diff(moment(today), 'M')) || 12;
         let timelineStartTime: any;
         let timelineEndTime: any;        
-        if (monthsAhead > monthsBehind) {
-          timelineStartTime = moment(today).subtract(monthsAhead, 'months');
-          timelineEndTime = moment(today)
-            .add(monthsAhead, 'months')
-            .startOf('month');
-        } else {
+        // if (monthsAhead > monthsBehind) {
+        //   timelineStartTime = moment(today).subtract(monthsAhead, 'months');
+        //   timelineEndTime = moment(today)
+        //     .add(monthsAhead, 'months')
+        //     .startOf('month');
+        // } else {
           timelineStartTime = moment(today).subtract(monthsBehind, 'months');
-          timelineEndTime = moment(today)
-            .add(monthsBehind, 'months')
-            .startOf('month');
-        }
+          timelineEndTime = moment(today).add(monthsBehind, 'months')
+            // .startOf('month');
+        // }
 
         let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
         width = widhtDiv - 3;
@@ -983,21 +982,21 @@ const CalendarBody = ({
             .remove();
         } // renderMonthNames
 
-        scheduleG
-          .enter().append('line')
-          .attr('id', 'todayLine')
-          .attr('x1', function () {
-            return xScale(today);
-          })
-          .attr('y1', padding.top - 40)
-          .attr('x2', function () {
-            return xScale(today);
-          })
-          .attr('y2', height + padding.top - padding.bottom)
-          .style('stroke-dasharray', 5.5)
-          .style('stroke-width', 2)
-          .style('stroke', '#FF901C')
-          .style('fill', 'none');
+        // scheduleG
+        //   .enter().append('line')
+        //   .attr('id', 'todayLine')
+        //   .attr('x1', function () {
+        //     return xScale(today);
+        //   })
+        //   .attr('y1', padding.top - 40)
+        //   .attr('x2', function () {
+        //     return xScale(today);
+        //   })
+        //   .attr('y2', height + padding.top - padding.bottom)
+        //   .style('stroke-dasharray', 5.5)
+        //   .style('stroke-width', 2)
+        //   .style('stroke', '#FF901C')
+        //   .style('fill', 'none');
 
         scheduleGaxis.enter().append("circle")
           .attr('id', 'todayCircle')
@@ -1007,21 +1006,21 @@ const CalendarBody = ({
           .attr("cy", 10)
           .attr("r", 6)
           .style("fill", '#FF901C')
-        scheduleGaxis
-          .enter().append('line')
-          .attr('id', 'todayLineAxis')
-          .attr('x1', function () {
-            return xScale(today);
-          })
-          .attr('y1', 10)
-          .attr('x2', function () {
-            return xScale(today);
-          })
-          .attr('y2', height + padding.top - padding.bottom)
-          .style('stroke-dasharray', 5.5)
-          .style('stroke-width', 2)
-          .style('stroke', '#FF901C')
-          .style('fill', 'none');
+        // scheduleGaxis
+        //   .enter().append('line')
+        //   .attr('id', 'todayLineAxis')
+        //   .attr('x1', function () {
+        //     return xScale(today);
+        //   })
+        //   .attr('y1', 10)
+        //   .attr('x2', function () {
+        //     return xScale(today);
+        //   })
+        //   .attr('y2', height + padding.top - padding.bottom)
+        //   .style('stroke-dasharray', 5.5)
+        //   .style('stroke-width', 2)
+        //   .style('stroke', '#FF901C')
+        //   .style('fill', 'none');
         zoomed = function () { 
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
@@ -1056,10 +1055,10 @@ const CalendarBody = ({
             //d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
           }
           updateRects();
-          d3.selectAll('#todayLine').attr('x1', calctodayX);
-          d3.selectAll('#todayLine').attr('x2', calctodayX);
-          d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
-          d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
+          // d3.selectAll('#todayLine').attr('x1', calctodayX);
+          // d3.selectAll('#todayLine').attr('x2', calctodayX);
+          // d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
+          // d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
           d3.selectAll('#todayCircle').attr('cx', calctodayX);
           const linesAxis:any = document.getElementsByTagName("line")
           if(linesAxis){
@@ -1074,7 +1073,7 @@ const CalendarBody = ({
         // setZoomState(zoomed)
         zoom = d3
           .zoom()
-          .scaleExtent([0, 300])
+          .scaleExtent([0, 5])
           .translateExtent([
             [0, 0],
             [width, 0],
@@ -1086,7 +1085,8 @@ const CalendarBody = ({
           // zoom.scaleTo(svg, 0.104);
           // zoom.translateTo(svgAxis, xScale(today), 0);
           // zoom.scaleTo(svgAxis, 0.104);
-          zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          zoom.translateTo(svg, xScale(today), 0)
+          // zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
         }
@@ -1358,7 +1358,7 @@ const CalendarBody = ({
       let todayLineDiv: any = document.getElementById('todayLineDiv')
       var styleDiv = window.getComputedStyle(todayLineDiv);
       var matrix = new WebKitCSSMatrix(styleDiv.transform);
-      let translateYTodayline = (currentZScale===0.9 ? -332 :-159) + (currentZScale===0.9 ? 800 <= zoomTimeline ? 2000 : zoomTimeline  : 600 <= zoomTimeline ? 2000 : zoomTimeline)
+      let translateYTodayline = (currentZScale===0.9 ? -115 :-175) + (currentZScale===0.9 ? 800 <= zoomTimeline ? 2000 : zoomTimeline  : 600 <= zoomTimeline ? 2000 : zoomTimeline)
       d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
     }
     setIsLoading(false)
