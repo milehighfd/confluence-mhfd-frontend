@@ -118,7 +118,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
       .enter()
       .append('text')
       .text(function (d: any) {
-        return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : (d.data?.id===1 ? 'Planning' : d.data?.key)) ;
+        return d.data.key == 'Human Connection'? 'Community Values':( isProb ? d.data?.key?.split(' ')[0] : (d.data?.id===1 ? 'Study' : d.data?.key)) ;
       })
       .attr("transform", (d: any, i) => {
         let xo = (i<3 ? -radius + (i * separationJump) - 42 : -radius + ((i-3) * separationJump) - 42);

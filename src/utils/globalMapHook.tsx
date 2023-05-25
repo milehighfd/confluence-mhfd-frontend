@@ -16,7 +16,7 @@ export const GlobalMapHook = () => {
     const currentId = cc;
     lastId = cc++;
     const copy = lastMaps;
-    setTimeout(() => {
+    // setTimeout(() => {
       if (currentId === lastId) {
         const findLocation = copy.find((l: any) => l.id === location.id);
         if (!findLocation) {
@@ -36,9 +36,10 @@ export const GlobalMapHook = () => {
         }
         currentPosition =(copy.length - 1);
         lastMaps = (copy);
+        console.log('New global map set in session');
         sessionStorage.setItem('globalMap', JSON.stringify(copy));
       }
-    }, 1000);
+    // }, 1000);
   }
 
   const getHistoric = () => {
