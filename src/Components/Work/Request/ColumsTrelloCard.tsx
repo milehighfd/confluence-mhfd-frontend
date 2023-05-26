@@ -185,8 +185,8 @@ const ColumsTrelloCard = ({
   }>
     {columns.map((column: any, columnIdx: number) => (
 
-      <div className="container-drag" id={`container_${tabKey}`} key={column.title}>
-        <h3 className="title-panel">{column.title == 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
+      <div className="container-drag" id={`container_${tabKey}`} key={columnIdx}>
+        <h3 className="title-panel">{column.title === 'Debris Management' ? 'Trash & Debris mngt' : column.title}</h3>
 
         <Droppable droppableId={`${columnIdx}`}>
           {droppableProvided => (
