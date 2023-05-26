@@ -25,10 +25,6 @@ const RequestLayout = () => {
     tabKeys,
     showCreateProject,
     problemId,
-    showAnalytics,
-    sumByCounty,
-    sumTotal,
-    totalCountyBudget,
     namespaceId,
     showBoardStatus,
     boardStatus,
@@ -48,7 +44,6 @@ const RequestLayout = () => {
   const {
     setShowModalProject,
     setShowCreateProject,
-    setShowAnalytics,
     setShowBoardStatus,
     setAlertStatus,
     setShowAlert,
@@ -121,14 +116,6 @@ const RequestLayout = () => {
       {
         <Analytics
           type={type}
-          visible={showAnalytics}
-          setVisible={setShowAnalytics}
-          tabKey={tabKey}
-          data={sumByCounty}
-          totals={sumTotal}
-          initialYear={year}
-          totalCountyBudget={totalCountyBudget}
-          boardId={namespaceId}
         />
       }
       {

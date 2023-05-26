@@ -17,7 +17,6 @@ const RequestCostRows = () => {
     sumByCounty,
     tabKey,
     diff,
-    columns,
     jurisdictionSelected,
     csaSelected,
     jurisdictionFilterList,
@@ -50,15 +49,8 @@ const RequestCostRows = () => {
           }
           key="1"
           style={{ backgroundColor: '#F5F7FF' }}
-          extra={
-            <TotalHeader
-              columns={columns}
-              jurisdictionSelected={jurisdictionSelected}
-              csaSelected={csaSelected}
-              jurisdictionFilterList={jurisdictionFilterList}
-              csaFilterList={csaFilterList}
-            />
-          }>
+          extra={<TotalHeader/>}
+        >
           <div className="tab-body-project streams" style={{ backgroundColor: '#f9faff' }}>
             <Timeline>
               {

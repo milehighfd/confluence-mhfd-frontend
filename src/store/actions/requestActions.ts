@@ -212,7 +212,72 @@ export const loadColumns = (board_id: any) => {
       });
       promises.push(promise);
     }
+    const sums: any[] = [];
+    const totals: any[] = [];
     Promise.all(promises).then((dataArray) => {
+      dataArray.forEach((columnProjects: any, columnId: number) => {
+        const requestColumnName = `req${columnId}`;
+        const countColumnName = `cnt${columnId}`;
+        if (columnId === 0) return;
+        const sumByGroupMap: any = {};
+        let groupTotal: any = { [requestColumnName]: 0 };
+        const groupingArray = [
+          ['project_counties', 'county_name'],
+          ['project_service_areas', 'service_area_name'],
+          ['project_local_governments', 'local_government_name'],
+        ];
+
+        columnProjects.forEach((columnProject: any) => {
+          groupTotal[requestColumnName] = groupTotal[requestColumnName] + columnProject[requestColumnName];
+          groupingArray.forEach(([groupProperty, groupPropertyKeyName]) => {
+
+            if (!sumByGroupMap[groupProperty]) sumByGroupMap[groupProperty] = {};
+
+            const { [groupProperty]: groupPropertyValue } = columnProject.projectData;
+            const elementNumberInGroup = groupPropertyValue.length;
+            if (elementNumberInGroup === 0) return;
+
+            groupPropertyValue.forEach((propertyValueElement: any) => {
+              const { [groupPropertyKeyName]: name } = propertyValueElement;
+              if (!sumByGroupMap[groupProperty][name]) {
+                sumByGroupMap[groupProperty][name] = {
+                  [requestColumnName]: 0,
+                  [countColumnName]: 0,
+                };
+              }
+              sumByGroupMap[groupProperty][name] = {
+                ...sumByGroupMap[groupProperty][name],
+                [requestColumnName]: sumByGroupMap[groupProperty][name][requestColumnName] + (columnProject[requestColumnName] / elementNumberInGroup),
+                [countColumnName]: sumByGroupMap[groupProperty][name][countColumnName] + 1,
+              };
+            });
+          });
+        });
+        sums.push(sumByGroupMap);
+        totals.push(groupTotal);
+      });
+
+      const sumByGroupMapTotal = sums.reduce((acc: any, sumByGroupMap: any) => {
+        Object.keys(sumByGroupMap).forEach((groupProperty: any) => {
+          Object.keys(sumByGroupMap[groupProperty]).forEach((groupPropertyKey: any) => {
+            if (!acc[groupProperty]) acc[groupProperty] = {};
+            if (!acc[groupProperty][groupPropertyKey]) acc[groupProperty][groupPropertyKey] = { locality: groupPropertyKey };
+            acc[groupProperty][groupPropertyKey] = {
+              ...acc[groupProperty][groupPropertyKey],
+              ...sumByGroupMap[groupProperty][groupPropertyKey],
+            };
+          });
+        });
+        return acc;
+      }, {});
+      const totalByGroupMap = totals.reduce((acc: any, total: any) => {
+        acc = {
+          ...acc,
+          ...total
+        }
+        return acc;
+      }, {});
+
       const allProjects = dataArray.flat();
       const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(allProjects);
       const geojson: any = buildGeojsonForLabelsProjectsInBoards(allProjects);
@@ -221,6 +286,17 @@ export const loadColumns = (board_id: any) => {
           allProjects.map((project: any) => project.project_id)
         )
       );
+      console.log(sumByGroupMapTotal['project_local_governments'])
+      dispatch({
+        type: types.REQUEST_SET_SUM_BY_COUNTY,
+        payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
+          (key: any) => sumByGroupMapTotal['project_local_governments'][key]
+        )
+      });
+      dispatch({
+        type: types.REQUEST_SET_SUM_TOTAL,
+        payload: totalByGroupMap
+      });
       dispatch({
         type: projectTypes.SET_BOARD_PROJECTS,
         boardProjects: {
