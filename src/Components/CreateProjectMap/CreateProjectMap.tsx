@@ -430,6 +430,27 @@ const CreateProjectMap = (type: any) => {
     }
   };
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
+  const getElementByIdAsync = (id: any) => new Promise(resolve => {
+    const getElement = () => {
+      const element = document.getElementsByClassName(id);
+      if(element) {
+        resolve(element);
+      } else {
+        requestAnimationFrame(getElement);
+      }
+    };
+    getElement();
+  });
+  const pressButtonDraw = (drawEvent: any) => {
+    map.map.once('render', async () => {
+      map.createDraw(drawEvent);
+        const elements: any = await getElementByIdAsync('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_polygon');
+        let element = elements[0] as HTMLElement;
+        if (element) {
+          element.click();
+        }
+    } )
+  }
   useEffect(() => {
     if (isDraw || isDrawCapital) {
       isDrawingCurrently = true;
@@ -448,16 +469,7 @@ const CreateProjectMap = (type: any) => {
         map.addDrawControllerTopLeft();
         let drawEvent = EventService.getRef('oncreatedraw');
         map.deleteDraw(drawEvent);
-        setTimeout(() => {
-          map.createDraw(drawEvent);
-          setTimeout(() => {
-            let elements = document.getElementsByClassName('mapbox-gl-draw_ctrl-draw-btn mapbox-gl-draw_polygon');
-            let element: HTMLElement = elements[0] as HTMLElement;
-            if (element) {
-              element.click();
-            }
-          }, 400);
-        }, 380);
+        pressButtonDraw(drawEvent);
       }
     } else {
       isPopup = true;

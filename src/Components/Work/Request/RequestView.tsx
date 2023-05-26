@@ -223,7 +223,7 @@ const RequestView = ({ type, isFirstRendering }: {
   }, []);
 
   useEffect(() => {
-    console.log(`SHOULD BE CALLED ONCE WITH year = ${year} locality = ${locality} tabKey = ${tabKey}`);
+    // console.log(`SHOULD BE CALLED ONCE WITH year = ${year} locality = ${locality} tabKey = ${tabKey}`);
     if (!locality || !tabKey) {
       return;
     }
@@ -473,8 +473,6 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
-
-  console.log('Rendering Request View');
   return (
     <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}

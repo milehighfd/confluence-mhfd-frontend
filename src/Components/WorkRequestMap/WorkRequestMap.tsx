@@ -766,6 +766,7 @@ const getIdByProjectType = (() => {
 })
 
 useEffect(() => {
+  console.log('Project ids', projectsids);
   getIdByProjectType()
 }, [projectsids]);
 
