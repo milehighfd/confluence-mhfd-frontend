@@ -64,7 +64,7 @@ const ComponentSolucionsByProblems = () => {
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
           <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="component-solutions">PROPOSED ACTIONS</h3>
-          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'68%'}}></div>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'74%'}}></div>
         </Col>
       </Row>
       <Row>

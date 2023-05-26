@@ -354,11 +354,9 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
   return (
     <>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 4 }} className='subtitle-detail'>
-          <h3 style={{ marginBottom: '15px', marginTop: '20px' }} id="maps">MAP</h3>
-        </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{ alignSelf: 'center' }}>
-          <div className="line-01 mapboxgl-canvas"></div>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}} className='subtitle-detail'>
+          <h3 style={{marginBottom:'15px', marginTop:'20px', marginRight:'35px'}} id="maps">MAP</h3>
+          <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'94%'}}></div>
         </Col>
       </Row>
       <Row>
