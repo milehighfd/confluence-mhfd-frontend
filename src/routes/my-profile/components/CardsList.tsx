@@ -67,7 +67,8 @@ const CardsList = ({
                       projectType === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
                         projectType === 'Restoration' ? '/projectImages/restoration.png' :
                           projectType === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
-                            projectType === 'Routine Trash and Debris' ? '/projectImages/debris-management.png' : '/projectImages/watershed-change.png'
+                            projectType === 'Acquisition' ? '/projectImages/acquisition.png' :
+                              projectType === 'Routine Trash and Debris' ? '/projectImages/debris-management.png' : '/projectImages/watershed-change.png'
             ),
             requestName: project.project_name,
             sponsor: project.sponsor,

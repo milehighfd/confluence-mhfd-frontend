@@ -725,8 +725,9 @@ const DetailModal = ({
                                   projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
                                     projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
                                       projectType === 'Restoration' ? '/detailed/restoration.png' :
-                                        projectType === 'General Maintenance' ? '/detailed/minor-repairs.png' :
-                                          projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
+                                        projectType === 'Acquisition' ? '/detailed/acquisition.png' :
+                                          projectType === 'General Maintenance' ? '/detailed/minor-repairs.png' :
+                                            projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
                             }/> </div>
                           )
                           :

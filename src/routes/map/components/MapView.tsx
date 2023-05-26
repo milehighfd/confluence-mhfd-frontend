@@ -1230,6 +1230,8 @@ const MapView = () => {
                           ? '/projectImages/restoration.png'
                           : projectType === 'General Maintenance'
                           ? '/projectImages/minor-repairs.png'
+                          : projectType === 'Acquisition'
+                          ? '/projectImages/acquisition.png'
                           : projectType === 'Routine Trash and Debris'
                           ? '/projectImages/debris-management.png'
                           : '/projectImages/watershed-change.png',
