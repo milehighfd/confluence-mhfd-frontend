@@ -237,7 +237,7 @@ const Roadmap = ({setOpenPiney,
       return ydname;
       })
       .attr("r", radius)
-      .style("fill", function (d: any) {         
+      .style("fill", function (d: any) { 
         const endDate = (d?.project_status?.find((x:any)=>x.code_phase_type_id === d.phaseId)?.actual_end_date)
         let today = moment() 
         let indexStatus;
@@ -245,7 +245,7 @@ const Roadmap = ({setOpenPiney,
           if(d.phaseId === element.code_phase_type_id){
             indexStatus = index;
           }
-        });
+        });        
         if (indexStatus === r) {
           if (endDate) {
             const diffDates = ((moment(endDate).diff(today, 'M', true)))
@@ -426,8 +426,8 @@ const Roadmap = ({setOpenPiney,
             let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ','')}_text`).text();
             const lenghtSc = Object.keys(scheduleList[r].tasksData).length
             const phaseSc = (scheduleList[r].phase)   
-            const phaseId = (scheduleList[r].phase_id)              
-            const sendModal = { d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId,  to:moment((d?.project_status?.find((x: any) => x.code_phase_type_id === phaseId)?.actual_end_date)) }
+            const phaseId = (scheduleList[r].phase_id)  
+            const sendModal = { data:d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId,  to:moment((d?.project_status?.find((x: any) => x.code_phase_type_id === phaseId)?.actual_end_date)) }
             setDataModal(sendModal);      
             if (popupVisible !== null) {
               let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 270 : 
@@ -603,7 +603,7 @@ const Roadmap = ({setOpenPiney,
         </Col>
       </Row>
       <Row>
-      { data.length > 0 ? 
+      { data?.project_status?.length > 0 ? 
         <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
           <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
           {availableStatusList.map((item: any, index: number) => {
@@ -647,11 +647,11 @@ const Roadmap = ({setOpenPiney,
                   </span>
           </div>
         </div>
-        : <>
+        : 
         <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         </div>
-        </>
+        
       }
       </Row>
       <Row style={{opacity:'0.5'}}>

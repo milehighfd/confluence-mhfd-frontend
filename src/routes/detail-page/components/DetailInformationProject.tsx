@@ -17,8 +17,8 @@ const DetailInformationProject = () => {
   } 
   useEffect(() => {
     const staffs = (getTeam(detailed?.project_staffs || [])); 
-    setMhfdManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 1):[{}])
-    setLgManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 10):[{}])
+    setMhfdManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 1):[])
+    setLgManager(staffs.length > 0? staffs.filter((staffs: { roleId: number; }) => staffs.roleId === 10):[])
   }, [detailed]);
 
   return (
