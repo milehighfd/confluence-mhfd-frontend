@@ -748,8 +748,11 @@ const DetailModal = ({
               {typeS === 'Problems' ?
                 <>
                   <DetailInformationProblem />
+                  <br></br>
                   <ProblemParts problemParts={problemPart}/>
+                  <br></br>
                   <ComponentSolucionsByProblems />
+                  <br></br>
                   <Map type={typeS} ref={ciprRef}/>
                   <br></br>
                   <br></br>
