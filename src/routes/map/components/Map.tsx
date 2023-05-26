@@ -1228,6 +1228,9 @@ const Map = ({
     const topHovereableLayers = () => {
       const styles = { ...tileStyles as any };
       hovereableLayers.forEach((key:any) => {
+        if (styles[key]) {
+
+        }
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if (!hovereableLayers.includes(key)) {
             return;

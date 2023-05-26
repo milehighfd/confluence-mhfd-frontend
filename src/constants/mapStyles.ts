@@ -1304,502 +1304,368 @@ export const NEARMAP_STYLE = {
   }
 };
 const MEP_PROJECTS_STYLES = {
-  [MEP_PROJECTS_TEMP_LOCATIONS]: [{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
+  // [MEP_PROJECTS_TEMP_LOCATIONS]: [],
+  [MEP_PROJECTS_DETENTION_BASINS]: [
+  {
+    "type": "fill",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
     "paint": {
-      "circle-color": "#f19b32", 
-      "circle-stroke-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          11,
-          2,
-          22,
-          10
-      ],
-      "circle-stroke-color": "hsla(0, 6%, 56%, 0.41)",
-      "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
-      ],
-      "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13.5,
-          0,
-          13.75,
-          1,
-          22,
-          1
-      ],
-      "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          22,
-          5
-      ]
+        "fill-color": "#613500",
+        "fill-outline-color": "#f08605",
+        "fill-opacity": 0.4
     }
-  }, {
-    type: 'circle',
-    'source-layer': 'pluto15v1',
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {"line-color": "#613500", "line-width": 4}
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {"line-width": 2, "line-color": "#febf71"}
+  },
+  {
+    "type": "fill",
+    "source-layer": "pluto15v1",
+    "maxzoom": 13,
     "paint": {
-      "circle-color": "hsl(33, 87%, 57%)", 
-      "circle-stroke-width": 2,
-      "circle-stroke-color": "#968888",
-      "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
-      ],
-      "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13.5,
-          0,
-          13.75,
-          1,
-          22,
-          1
-      ],
-      "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          22,
-          5
-      ],
+        "fill-color": "#613500",
+        "fill-outline-color": "#f08605",
+        "fill-opacity": 0.4
     }
-  }, {
-    type: 'circle',
-    'source-layer': 'pluto15v1',
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 12,
+      "paint": {"line-color": "#613500", "line-width": 4}
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "paint": {"line-color": "#febf71"}
+  },
+  ],
+  [MEP_PROJECTS_CHANNELS]: [
+    {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "filter": [
+          "match",
+          ["get", "mep_eligibilitystatus"],
+          [
+              "In Design",
+              "Final Acceptance",
+              "Design Approval",
+              "Construction Approval",
+              "Not Applicable"
+          ],
+          true,
+          false
+      ],
+      "paint": {
+          "line-color": "#febf71",
+          "line-width": 2,
+          "line-offset": 2
+      }
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "filter": [
+          "match",
+          ["get", "mep_eligibilitystatus"],
+          [
+              "In Design",
+              "Final Acceptance",
+              "Design Approval",
+              "Construction Approval",
+              "Not Applicable"
+          ],
+          true,
+          false
+      ],
+      "paint": {
+          "line-color": "#febf71",
+          "line-width": 2,
+          "line-offset": -2
+      }
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "filter": [
+          "match",
+          ["get", "mep_eligibilitystatus"],
+          ["Ineligible"],
+          true,
+          false
+      ],
+      "paint": {
+          "line-color": "#febf71",
+          "line-width": 4,
+          "line-dasharray": [0.5, 0.7]
+      }
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "filter": [
+          "match",
+          ["get", "mep_eligibilitystatus"],
+          ["Ineligible"],
+          true,
+          false
+      ],
+      "paint": {
+          "line-color": "#febf71",
+          "line-width": 2,
+          "line-offset": 2
+      }
+  },
+  {
+      "type": "line",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "filter": [
+          "match",
+          ["get", "mep_eligibilitystatus"],
+          ["Ineligible"],
+          true,
+          false
+      ],
+      "paint": {
+          "line-color": "#febf71",
+          "line-width": 2,
+          "line-offset": -2
+      }
+  },
+
+
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        [
+            "In Design",
+            "Final Acceptance",
+            "Design Approval",
+            "Construction Approval",
+            "Not Applicable"
+        ],
+        true,
+        false
+    ],
     "paint": {
-      "circle-color": "hsl(33, 83%, 22%)", 
-      "circle-translate": [1, 1],
-      "circle-radius": 5,
-      "circle-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        0,
-        9,
-        0,
-        14.25,
-        1,
-        22,
-        1
-      ],
-      "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13.5,
-          0,
-          13.75,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#613500",
+        "line-width": 4,
+        "line-offset": 6
     }
-  }, {
-    type: 'circle',
-    'source-layer': 'pluto15v1',
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        [
+            "In Design",
+            "Final Acceptance",
+            "Design Approval",
+            "Construction Approval",
+            "Not Applicable"
+        ],
+        true,
+        false
+    ],
     "paint": {
-      "circle-color": "hsl(33, 97%, 91%)", 
-      "circle-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        0,
-        9,
-        0,
-        14.25,
-        1,
-        22,
-        1
-      ],
-      "circle-stroke-opacity": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        0,
-        13.5,
-        0,
-        13.75,
-        1,
-        22,
-        1
-      ],
-      "circle-radius": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        0,
-        1,
-        22,
-        5
-      ]
+        "line-color": "#613500",
+        "line-width": 4,
+        "line-offset": -6
     }
-  }],
-  [MEP_PROJECTS_DETENTION_BASINS]: [{
-    type: 'fill',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        [
+            "In Design",
+            "Final Acceptance",
+            "Design Approval",
+            "Construction Approval",
+            "Not Applicable"
+        ],
+        true,
+        false
+    ],
     "paint": {
-      "fill-color": "#f7c78d",
-      "fill-outline-color": "#f6c113",
-      "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0.49,
-          14.25,
-          0.5,
-          16,
-          0.28,
-          22,
-          0
-      ]
+        "line-color": "#febf71",
+        "line-width": 2,
+        "line-offset": 6
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        [
+            "In Design",
+            "Final Acceptance",
+            "Design Approval",
+            "Construction Approval",
+            "Not Applicable"
+        ],
+        true,
+        false
+    ],
     "paint": {
-      "line-color": "hsl(0, 3%, 25%)",
-      "line-width": 3,
-      "line-translate": [2, 2],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#febf71",
+        "line-width": 2,
+        "line-offset": -6
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        ["Ineligible"],
+        true,
+        false
+    ],
     "paint": {
-      "line-color": "hsl(44, 84%, 75%)",
-      "line-width": 3,
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#febf71",
+        "line-width": 12,
+        "line-dasharray": [0.1, 0.4],
+        "line-pattern": "MEP-X"
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        ["Ineligible"],
+        true,
+        false
+    ],
     "paint": {
-      "line-color": "hsl(44, 56%, 13%)",
-      "line-width": 3,
-      "line-dasharray": [4, 4],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          14.25,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#613500",
+        "line-width": 4,
+        "line-offset": 6
     }
-  }],
-  [MEP_PROJECTS_CHANNELS]: [{
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        ["Ineligible"],
+        true,
+        false
+    ],
     "paint": {
-      "line-color": "hsl(0, 6%, 16%)",
-      "line-width": 5,
-      "line-gap-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          14,
-          6,
-          14.25,
-          5,
-          22,
-          66
-      ],
-      "line-translate": [1.5, 1.5],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          12,
-          0.2,
-          14.25,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#613500",
+        "line-width": 4,
+        "line-offset": -6
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        ["Ineligible"],
+        true,
+        false
+    ],
     "paint": {
-      "line-color": "hsl(0, 6%, 16%)",
-      "line-width": 5,
-      "line-gap-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          14,
-          6,
-          14.25,
-          5,
-          22,
-          66
-      ],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          12,
-          0.2,
-          14.25,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#febf71",
+        "line-width": 2,
+        "line-offset": 6
     }
-  }, {
-    type: 'line',
-    'source-layer': 'pluto15v1',
-    layout: {},
+},
+{
+    "type": "line",
+    "source-layer": "pluto15v1",
+    "minzoom": 13,
+    "filter": [
+        "match",
+        ["get", "mep_eligibilitystatus"],
+        ["Ineligible"],
+        true,
+        false
+    ],
     "paint": {
-      "line-color": "#f7c78d",
-      "line-width": 3,
-      "line-gap-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          14,
-          6,
-          14.25,
-          5,
-          22,
-          66
-      ],
-      "line-dasharray": [1, 1],
-      "line-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          9,
-          0,
-          12,
-          0.2,
-          14.25,
-          1,
-          22,
-          1
-      ]
+        "line-color": "#febf71",
+        "line-width": 2,
+        "line-offset": -6
     }
-  }],
-  [MEP_PROJECTS_STORM_OUTFALLS]: [{
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "circle-color": "hsl(5, 43%, 16%)",
-      "circle-stroke-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          22,
-          4
-      ],
-      "circle-stroke-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(23, 76%, 64%, 0.13)",
-          22,
-          "hsla(23, 48%, 16%, 0.37)"
-      ],
-      "circle-translate": [3, 3],
-      "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0.5,
-          22,
-          5
-      ],
-      "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          10.5,
-          0,
-          11,
-          0.5,
-          22,
-          1
-      ],
-      "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          10.5,
-          0,
-          11,
-          1,
-          22,
-          1
-      ]
-    }
-  }, {
-    type: 'circle',
-    'source-layer': 'pluto15v1',
-    "paint": {
-      "circle-color": "hsl(42, 93%, 54%)",
-      "circle-stroke-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          13.3,
-          4,
-          22,
-          12
-      ],
-      "circle-stroke-color": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          "hsla(23, 76%, 64%, 0)",
-          12,
-          "hsla(23, 89%, 47%, 0.15)",
-          18,
-          "hsla(23, 89%, 47%, 0.28)",
-          22,
-          "hsla(23, 89%, 47%, 0.59)"
-      ],
-      "circle-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          1,
-          22,
-          4
-      ],
-      "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          10.5,
-          0,
-          11,
-          1,
-          22,
-          1
-      ],
-      "circle-stroke-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0,
-          0,
-          10.5,
-          0,
-          11,
-          1,
-          22,
-          1
-      ]
-    }
-  }]
+},
+  ],
+  [MEP_PROJECTS_STORM_OUTFALLS]: [
+    {
+      "type": "circle",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {
+          "circle-color": "#613500",
+          "circle-blur": 1,
+          "circle-radius": 10
+      }
+  },
+  {
+      "type": "circle",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {"circle-color": "#613500", "circle-radius": 5.5}
+  },
+  {
+      "type": "circle",
+      "source-layer": "pluto15v1",
+      "minzoom": 13,
+      "paint": {"circle-color": "#febf71", "circle-radius": 4}
+  },
+  {
+    "type": "circle",
+    "source-layer": "pluto15v1",
+    "maxzoom": 13,
+    "paint": {"circle-color": "#613500", "circle-radius": 4}
+  },
+  {
+      "type": "circle",
+      "source-layer": "pluto15v1",
+      "maxzoom": 13,
+      "paint": {"circle-color": "#febf71", "circle-radius": 3}
+  }
+  ]
 }
 
 const ROUTINE_MAINTENANCE_STYLES = {
