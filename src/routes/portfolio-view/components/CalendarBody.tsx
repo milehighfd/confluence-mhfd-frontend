@@ -1395,10 +1395,10 @@ const CalendarBody = ({
       const svg = d3.select(svgDivWrapperId).select('svg');
       if (!svg.empty()) {
         if (zoomSelected === 'Weekly' && wasMonthly === true ){
-          const newValuePan = (zoomTimelineAux === 0 ? 100: (((zoomTimelineAux/100)*10)-5)* 100)
+          const newValuePan = (zoomTimelineAux === 0 ? 100: (8.8333333 * zoomTimelineAux + 33.333333))
           setZoomTimeline(newValuePan )
         } else if (zoomSelected === 'Monthly'&& wasMonthly === false){
-          const newValuePan = (((zoomTimelineAux/100)+5)/10)* 100
+          const newValuePan = ((zoomTimelineAux -33.3333333)/8.8333333)
           setZoomTimeline(newValuePan)
         }
       }
