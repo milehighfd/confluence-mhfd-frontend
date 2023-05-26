@@ -31,6 +31,7 @@ const Roadmap = ({setOpenPiney,
   const [actionsDone,setActionsDone] = useState<any>({})
   const [userBrowser, setUserBrowser] = useState<any>()
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
+  const [show,setShow] = useState<any>(false)
 
   const windowWidth: any = window.innerWidth;
   const labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
@@ -490,6 +491,7 @@ const Roadmap = ({setOpenPiney,
   };
   useEffect(() => {          
     if(data.length>0){
+      setShow(data[0]?.project_status?.length > 0 ? true : false)
       console.log('MOSTRARA')
       if(document.getElementById(`dotchart_detailPage`)){
         removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
@@ -498,6 +500,7 @@ const Roadmap = ({setOpenPiney,
       phaseChart(data);
     }  
   }, [data,scheduleList, updateGroup]);
+  
 
   useEffect(() => {
     let z = []
@@ -592,7 +595,6 @@ const Roadmap = ({setOpenPiney,
 
 
 // }, [ windowWidth]);
-
   return (
     <>
     {graphicOpen && <ModalGraphic/>}
@@ -603,7 +605,7 @@ const Roadmap = ({setOpenPiney,
         </Col>
       </Row>
       <Row>
-      { data?.project_status?.length > 0 ? 
+      { show ? 
         <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
           <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
           {availableStatusList.map((item: any, index: number) => {
