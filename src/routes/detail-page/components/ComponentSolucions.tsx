@@ -66,7 +66,7 @@ const ComponentSolucions = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal"  style={{paddingRight: '8px'}}>
           <Table dataSource={componentsOfProblems ?  dataSolution : {}} columns={columns} pagination={false}/>
           {componentsOfProblems.length > 0 && <div className="value-total">
             <p className="table-total" style={{width:'calc(30% + 0px)'}}>{`Total Proposed Cost (${totalComponents})`}</p><p style={{width:'calc(20% + 0px)'}}>${new Intl.NumberFormat("en-EN").format(total)}</p>

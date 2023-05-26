@@ -34,7 +34,7 @@ const Vendors = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal">
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-detail-modal"  style={{paddingRight: '8px'}}>
           {/* <Table dataSource={detailed?.contractors.length &&  detailed?.consultants.length ?  problemPartsData : {}} columns={columns} pagination={false}/> */}
 
           <Table dataSource={data} columns={columns} pagination={false}  rowKey={(record) => record.key} />
