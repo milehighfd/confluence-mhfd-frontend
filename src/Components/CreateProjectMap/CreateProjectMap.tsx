@@ -60,6 +60,7 @@ let componentsList: any[] = [];
 let marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 let currentDraw = 'polygon';
 let firstCallDraw = false;
+let flagInit = true;
 type LayersType = string | ObjectLayerType;
 let magicAddingVariable = false;
 const CreateProjectMap = (type: any) => {
@@ -126,6 +127,9 @@ const CreateProjectMap = (type: any) => {
     magicAddingVariable = isAddLocation;
   }, [isAddLocation])
   useEffect(() => {
+    
+    setLoading(true);
+    
     const waiting = () => {
       html = document.getElementById('map3');
       if (!html) {
@@ -206,7 +210,9 @@ const CreateProjectMap = (type: any) => {
     }
   }, [editLocation]);
   useEffect(() => {
-    setLoading(false);
+    if (!flagInit) {
+      setLoading(false);
+    }
   }, [listStreams]);
   useEffect(() => {
     if (zoomGeom && zoomGeom.geom) {
@@ -373,7 +379,6 @@ const CreateProjectMap = (type: any) => {
         value = type.locality;
       }
       if (groupOrganization.length > 0) {
-        console.log('SET BOUNDSS?', value, groupOrganization);
         wait(() => setBounds(value));
       }
     }, 500);
@@ -394,7 +399,9 @@ const CreateProjectMap = (type: any) => {
     } else {
       setStreamIntersected({ geom: null });
       setStreamsIds([]);
-      setLoading(false);
+      if (!flagInit){
+        setLoading(false);
+      }
     }
   }, [listComponents]);
 
@@ -637,10 +644,15 @@ const CreateProjectMap = (type: any) => {
     } else {
       if (JSON.stringify(selectedLayersCP) !== compareSL) {
         if (map) {
+          setLoading(true);
           if (selectedLayersCP.length === 0) {
           } else {
             map.isStyleLoaded(() => {
               applyMapLayers();
+              map.map.once('idle', () => {
+                setLoading(false);
+                flagInit = false;
+              });
               applyProblemClusterLayer();
               topStreams();
             });
@@ -959,7 +971,7 @@ const CreateProjectMap = (type: any) => {
           }
           if (typeof filters === 'object') {
             for (const range of filters) {
-              const [lower, upper] = range.split(',');
+              const [lower, upper] = range?.split(',');
               const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
               const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
               const allFilter = ['all', lowerArray, upperArray];
@@ -1046,76 +1058,81 @@ const CreateProjectMap = (type: any) => {
 
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes(PROJECTS_DRAFT)) {
-        map.map.addLayer({
-          id: key + '_' + index,
-          source: key,
-          filter: ['in', ['get', 'projectid'], ['literal', []]],
-          ...style
-        });
-      } else {
-        if (style.source_name) {
-          map.map.addLayer({
-            id: key + '_' + index,
-            source: style.source_name,
-            ...style
-          });
-        } else {
+    if (styles[key] && !key.includes('milehighfd.')) {
+      styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (key.includes(PROJECTS_DRAFT)) {
           map.map.addLayer({
             id: key + '_' + index,
             source: key,
+            filter: ['in', ['get', 'projectid'], ['literal', []]],
             ...style
           });
+        } else {
+          if (style.source_name) {
+            map.map.addLayer({
+              id: key + '_' + index,
+              source: style.source_name,
+              ...style
+            });
+          } else {
+            map.map.addLayer({
+              id: key + '_' + index,
+              source: key,
+              ...style
+            });
+          }
         }
-      }
-      if (!key.includes('streams') && !key.includes(STREAMS_POINT)) {
-        map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-      }
-
-      if (!hovereableLayers.includes(key)) {
-        return;
-      }
-      if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-        let filter = ['in', 'cartodb_id'];
-        if (key == PROBLEMS_TRIGGER) {
-          filter = ['in', 'problemid'];
-        } else if (key == MHFD_STREAMS_FILTERS) {
-          filter = ['in', 'mhfd_code'];
+        if (!key.includes('streams') && !key.includes(STREAMS_POINT)) {
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
         }
-        map.map.addLayer({
-          id: key + '_highlight_' + index,
-          source: key,
-          type: 'line',
-          'source-layer': 'pluto15v1',
-          layout: {
-            visibility: 'visible'
-          },
-          paint: {
-            'line-color': '#fff',
-            'line-width': 7,
-          },
-          filter: filter
-        });
-      }
-      if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
-        map.map.addLayer({
-          id: key + '_highlight_' + index,
-          type: 'circle',
-          'source-layer': 'pluto15v1',
-          source: key,
-          layout: {
-            visibility: 'visible'
-          },
-          paint: {
-            'circle-color': '#FFF',
-            'circle-radius': 7,
-            'circle-opacity': 1
-          },
-          filter: ['in', 'cartodb_id']
-        });
-      }
-    });
+  
+        if (!hovereableLayers.includes(key)) {
+          return;
+        }
+        if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
+          let filter = ['in', 'cartodb_id'];
+          if (key == PROBLEMS_TRIGGER) {
+            filter = ['in', 'problemid'];
+          } else if (key == MHFD_STREAMS_FILTERS) {
+            filter = ['in', 'mhfd_code'];
+          }
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            source: key,
+            type: 'line',
+            'source-layer': 'pluto15v1',
+            layout: {
+              visibility: 'visible'
+            },
+            paint: {
+              'line-color': '#fff',
+              'line-width': 7,
+            },
+            filter: filter
+          });
+        }
+        if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            type: 'circle',
+            'source-layer': 'pluto15v1',
+            source: key,
+            layout: {
+              visibility: 'visible'
+            },
+            paint: {
+              'circle-color': '#FFF',
+              'circle-radius': 7,
+              'circle-opacity': 1
+            },
+            filter: ['in', 'cartodb_id']
+          });
+        }
+      });
+    } else {
+      // console.log('No style for ', key);
+    }
+    
     addMapListeners(key);
   }
   const addMapListeners = async (key: string) => {
