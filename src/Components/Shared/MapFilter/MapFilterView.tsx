@@ -281,7 +281,7 @@ const MapFilterView = ({
       <div key="B0TxnkWrSaQy" style={switches[CLIMB_TO_SAFETY] || switches[DWR_DAM_SAFETY] ? weightStyle : emptyStyle}>COMMUNITY VALUES</div>
       <Switch key="G4JLgeipeBlQ" checked={groups['humanConnection']} size="small" onClick={(value, event) => {
           event.stopPropagation();
-          changeGroup(value, [CLIMB_TO_SAFETY, DWR_DAM_SAFETY], 'humanConnection')
+          changeGroup(value, [USE_LAND_COVER, CLIMB_TO_SAFETY, DWR_DAM_SAFETY], 'humanConnection')
         }}/>
     </div>
   );
