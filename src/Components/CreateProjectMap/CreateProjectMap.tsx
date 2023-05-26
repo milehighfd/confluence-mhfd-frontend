@@ -379,6 +379,7 @@ const CreateProjectMap = (type: any) => {
     }, 500);
   }, [groupOrganization, type.locality, localAOI]);
   useEffect(() => {
+    console.log('List Components', listComponents);
     if (listComponents && listComponents.result && listComponents.result.length > 0) {
       let componentsHovers: any = {};
       for (let i of listComponents.result) {
@@ -393,6 +394,7 @@ const CreateProjectMap = (type: any) => {
     } else {
       setStreamIntersected({ geom: null });
       setStreamsIds([]);
+      setLoading(false);
     }
   }, [listComponents]);
 
