@@ -850,7 +850,8 @@ const CalendarBody = ({
             }
             opacity =1;
             d3.select(this)
-              .attr('x', (x >= 0 && x <= widthMonth / 2 + 15 ? widthMonth / 2 + 15 : x))
+              // .attr('x', (x >= 0 && x <= widthMonth / 2 + 15 ? widthMonth / 2 + 15 : x))
+              .attr('x', x)
               .attr('opacity', opacity);
           });
         }
@@ -1035,12 +1036,13 @@ const CalendarBody = ({
             // gXa.attr('class', 'topHeaderM');
             // d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
             // d3.selectAll('#xAxisYears').call((xAxisYear as any).scale(zoomedXScale))
-            renderMonthNames();
-            renderYearNames();
+
             gX.attr('class', 'topHeaderMChart');
             d3.selectAll('#xMonth, #xYear, #xAxisDay, #xAxisMonth, #xAxisYears')
               .call((xAxisMonth as any).scale(zoomedXScale));
             gXa.attr('class', 'topHeaderM');
+            renderMonthNames();
+            renderYearNames();
           } else {
             renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
@@ -1085,8 +1087,8 @@ const CalendarBody = ({
           // zoom.scaleTo(svg, 0.104);
           // zoom.translateTo(svgAxis, xScale(today), 0);
           // zoom.scaleTo(svgAxis, 0.104);
-          zoom.translateTo(svg, xScale(today), 0)
-          // zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          // zoom.translateTo(svg, xScale(today), 0)
+          zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
         }
@@ -1098,7 +1100,10 @@ const CalendarBody = ({
           // delete after testing
           //zoom.scaleTo(svg, 0.104);
           //zoom.scaleTo(svgAxis, 0.104);
-          zoom.scaleTo(svg, 0.104).scaleTo(svgAxis, 0.104);
+          // zoom.scaleTo(svg, 0.104);
+          // zoom.scaleTo(svgAxis, 0.104);
+          zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
         }
         
       }
