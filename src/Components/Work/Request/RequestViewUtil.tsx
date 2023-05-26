@@ -706,3 +706,69 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
   }
   return grouped;
 }
+
+export const getColumnSumAndTotals = (columnProjects: any, position: number) => {
+  const requestColumnName = `req${position}`;
+  const countColumnName = `cnt${position}`;
+  const sumByGroupMap: any = {};
+  const groupTotal: any = { [requestColumnName]: 0 };
+  const groupingArray = [
+    ['project_counties', 'county_name'],
+    ['project_service_areas', 'service_area_name'],
+    ['project_local_governments', 'local_government_name'],
+  ];
+
+  columnProjects.forEach((columnProject: any) => {
+    groupTotal[requestColumnName] = groupTotal[requestColumnName] + columnProject[requestColumnName];
+    groupingArray.forEach(([groupProperty, groupPropertyKeyName]) => {
+
+      if (!sumByGroupMap[groupProperty]) sumByGroupMap[groupProperty] = {};
+
+      const { [groupProperty]: groupPropertyValue } = columnProject.projectData;
+      const elementNumberInGroup = groupPropertyValue.length;
+      if (elementNumberInGroup === 0) return;
+
+      groupPropertyValue.forEach((propertyValueElement: any) => {
+        const { [groupPropertyKeyName]: name } = propertyValueElement;
+        if (!sumByGroupMap[groupProperty][name]) {
+          sumByGroupMap[groupProperty][name] = {
+            [requestColumnName]: 0,
+            [countColumnName]: 0,
+          };
+        }
+        sumByGroupMap[groupProperty][name] = {
+          ...sumByGroupMap[groupProperty][name],
+          [requestColumnName]: sumByGroupMap[groupProperty][name][requestColumnName] + (columnProject[requestColumnName] / elementNumberInGroup),
+          [countColumnName]: sumByGroupMap[groupProperty][name][countColumnName] + 1,
+        };
+      });
+    });
+  });
+  return [sumByGroupMap, groupTotal];
+};
+
+export const mergeSumByGroupMaps = (sums: any[]) => {
+  return sums.reduce((acc: any, sumByGroupMap: any) => {
+    Object.keys(sumByGroupMap).forEach((groupProperty: any) => {
+      Object.keys(sumByGroupMap[groupProperty]).forEach((groupPropertyKey: any) => {
+        if (!acc[groupProperty]) acc[groupProperty] = {};
+        if (!acc[groupProperty][groupPropertyKey]) acc[groupProperty][groupPropertyKey] = { locality: groupPropertyKey };
+        acc[groupProperty][groupPropertyKey] = {
+          ...acc[groupProperty][groupPropertyKey],
+          ...sumByGroupMap[groupProperty][groupPropertyKey],
+        };
+      });
+    });
+    return acc;
+  }, {});
+};
+
+export const mergeTotalByGroupMaps = (totals: any[]) => {
+  return totals.reduce((acc: any, total: any) => {
+    acc = {
+      ...acc,
+      ...total
+    }
+    return acc;
+  }, {});
+};

@@ -227,7 +227,9 @@ const requestReducer = (state = initialState, action: any) => {
               return {
                 ...column,
                 title: action.payload.title,
-                projects: action.payload.projects
+                projects: action.payload.projects,
+                sumByGroupMap: action.payload.sumByGroupMap,
+                groupTotal: action.payload.groupTotal
               }
             }
             return column;

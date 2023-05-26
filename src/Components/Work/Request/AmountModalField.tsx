@@ -39,7 +39,7 @@ const AmountModalField = ({
         parser={priceParser}
         value={value} onChange={setter}
       />
-      <Button className="button-close" onClick={() => setter(undefined)}>
+      <Button className="button-close" onClick={() => setter(null)}>
         <img src="/Icons/icon-23.svg" alt='Clear' />
       </Button>
     </Fragment>

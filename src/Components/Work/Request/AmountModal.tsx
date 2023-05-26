@@ -22,13 +22,13 @@ const AmountModal = ({ project, visible, setVisible }: {
   const indexProjectType = MaintenanceTypes.indexOf(projectsubtype);
 
   const [cost, setCost] = useState<any>({
-    req1: undefined,
-    req2: undefined,
-    req3: undefined,
-    req4: undefined,
-    req5: undefined,
-    year1: undefined,
-    year2: undefined,
+    req1: null,
+    req2: null,
+    req3: null,
+    req4: null,
+    req5: null,
+    year1: null,
+    year2: null,
   });
 
   const handleOk = (e: any) => {
