@@ -19,7 +19,7 @@ const Toolbar = () => {
     sumByCounty,
     leftWidth,
     localities,
-    columns,
+    columns2: columns,
     diff,
     reqManager,
   } = useRequestState();

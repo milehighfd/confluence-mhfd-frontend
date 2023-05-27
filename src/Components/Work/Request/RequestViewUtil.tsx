@@ -418,10 +418,12 @@ export const getCsv = (
         if (!project.projectData) {
           continue;
         }
-        dataByYear[i].push([project.projectData.project_name,
-          project?.projectData?.project_local_governments?.map(( e :any )=> e?.CODE_LOCAL_GOVERNMENT?.local_government_name).join(""),
+        dataByYear[i].push([
+          project?.projectData?.project_name,
+          project?.projectData?.project_local_governments?.map((e: any) => e.local_government_name).join(","),
           getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name,
-          formatter.format(project['req' + i])]);
+          formatter.format(project['req' + i])
+        ]);
       }
     }
     csvData.push(row);
@@ -721,10 +723,10 @@ export const getColumnSumAndTotals = (columnProjects: any, position: number) => 
   columnProjects.forEach((columnProject: any) => {
     groupTotal[requestColumnName] = groupTotal[requestColumnName] + columnProject[requestColumnName];
     groupingArray.forEach(([groupProperty, groupPropertyKeyName]) => {
-
       if (!sumByGroupMap[groupProperty]) sumByGroupMap[groupProperty] = {};
 
-      const { [groupProperty]: groupPropertyValue } = columnProject.projectData;
+      if (!columnProject?.projectData) return;
+      const { [groupProperty]: groupPropertyValue } = columnProject?.projectData;
       const elementNumberInGroup = groupPropertyValue.length;
       if (elementNumberInGroup === 0) return;
 
