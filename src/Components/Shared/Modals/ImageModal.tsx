@@ -95,29 +95,14 @@ const ImageModal = (
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
-              {detailed?.attachments && detailed?.attachments?.length !== 0  ? detailed?.attachments.map((image: string, index: number) => {
-                if(index % 3){
-                  return <img src={image} alt="" className='img-list-big' onClick={carouselRef.current.goTo(index)}/>
-                }else {
-                  if(index % 2){
-                    return <img src={image} alt="" className='img-list'/>
-                  }else{
-                    return <img src={image} alt="" style={{marginRight:'5%'}} className='img-list'/>
-                  }
-                }
-                }):
-                <>
-
-                    <img src="/picture/no-image.png" alt="" style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent' }} className='img-list'/>
-                    <img src="/picture/no-image.png" alt="" style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent' }} className='img-list'/>
-                    <img src="/picture/no-image.png" alt="" className='img-list-big' style={{background:'#f5f7ff', borderRadius:'15px', border:'transparent'}}/>
-                    {/* <br></br> */}
-                    <img src="/picture/no-image.png" alt="" style={{marginRight:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent'}} className='img-list'/>
-                    <img src="/picture/no-image.png" alt="" style={{marginLeft:'2.5%', background:'#f5f7ff', borderRadius:'15px', border:'transparent'}} className='img-list'/>
-                </>
-               
-              }
-              </Col>
+              <div className='grid-modal-image'>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+              </div>
+            </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden'}}>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
                 {detailed?.problemid ? (

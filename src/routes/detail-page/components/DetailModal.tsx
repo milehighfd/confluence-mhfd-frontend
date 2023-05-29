@@ -33,6 +33,7 @@ import Vendors from "./Vendors";
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
 import { usePortflioState } from "hook/portfolioHook";
 import { Link } from "react-router-dom";
+import { useAttachmentDispatch, useAttachmentState } from "hook/attachmentHook";
 
 const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
 
@@ -94,6 +95,11 @@ const DetailModal = ({
   let carouselRef = useRef<undefined | any>(undefined);
   let displayedTabKey = tabKeys;
   let pageWidth  = document.documentElement.scrollWidth;
+  const {getAttachmentProjectId} = useAttachmentDispatch();
+  const { attachments } = useAttachmentState();
+  useEffect(() => {
+    getAttachmentProjectId(detailed.project_id);    
+  }, [detailed]);
   useEffect(() => { 
     resetDetailed();  
     if (typeS === FILTER_PROBLEMS_TRIGGER) {

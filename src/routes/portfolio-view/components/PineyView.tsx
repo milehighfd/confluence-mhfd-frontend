@@ -215,9 +215,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
       setIsFromDetailPage(true)
     }else{
       setIsFromDetailPage(false)
-    }
-    let send = {d: data.data, scheduleList: data.scheduleList};
-    setDatesData(send);
+    }    
   }
   return (
     <>

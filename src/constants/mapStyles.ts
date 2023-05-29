@@ -2698,7 +2698,27 @@ export const PROJECTS_STYLES = {
       ],
       "layout": {"line-cap": "round"},
       "paint": {"line-color": "#ffe83d", "line-width": 3}
-  }
+  },
+  {
+    type: "line",
+    'source-layer': 'pluto15v1',
+    metadata: {projecttype: [999]},
+    "layout": {"line-cap": "round"},
+    'paint': {
+      'line-color': '#ffe83d',
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        3,
+        10,
+        3,
+        14,
+        7
+      ]
+      }
+},
   //   {
   //     type: 'symbol',
   //     'source-layer': 'pluto15v1',
@@ -3646,7 +3666,27 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       ],
       "layout": {"line-cap": "round"},
       "paint": {"line-color": "#ffe83d", "line-width": 3}
-  }
+  },
+  {
+    type: "line",
+    'source-layer': 'pluto15v1',
+    metadata: {projecttype: [999]},
+    "layout": {"line-cap": "round"},
+    'paint': {
+      'line-color': '#ffe83d',
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        3,
+        10,
+        3,
+        14,
+        7
+      ]
+      }
+},
   ]
 }
 export const PROJECTS_STYLES_WR = {
@@ -12299,7 +12339,27 @@ export const tileStyles_WR = {
       ],
       "layout": {"line-cap": "round"},
       "paint": {"line-color": "#ffe83d", "line-width": 3}
-  }
+  },
+  {
+    type: "line",
+    'source-layer': 'pluto15v1',
+    metadata: {projecttype: [999]},
+    "layout": {"line-cap": "round"},
+    'paint': {
+      'line-color': '#ffe83d',
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        3,
+        10,
+        3,
+        14,
+        7
+      ]
+      }
+  },
   ],
   [FLOODPLAINS_FEMA_FILTERS]: [{
     type: 'fill',

@@ -23,8 +23,8 @@ const ModalTollgate = ({
   setOpenPiney?: any,
 }) => {
   const { getDetailedPageProject } = useMapDispatch()
-  const { openModalTollgate: visible, isFromDetailPage } = usePortflioState();
-  const { setOpenModalTollgate: setVisible, setUpdateGroup } = usePortfolioDispatch();  
+  const { openModalTollgate: visible, isFromDetailPage, datesData } = usePortflioState();
+  const { setOpenModalTollgate: setVisible, setUpdateGroup, setDatesData } = usePortfolioDispatch();  
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [dateValue, setDateValue] = useState<any[]>([]);
   const [currentPhase,setCurrentPhase] = useState(-1);
@@ -171,11 +171,11 @@ const ModalTollgate = ({
     return 'NotStarted';
   };
   useEffect(() => {
-    const currentId = dataProject?.d?.phaseId;
-    const currentStatus = dataProject?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;
+    const currentId = datesData?.d?.phaseId;
+    const currentStatus = datesData?.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;
     setOriginPhase(currentStatus);
-    setDates(dataProject?.scheduleList?.map((x:any)=>{
-      const date = dataProject?.d?.schedule.find((z:any) => z.phaseId === x.phase_id);   
+    setDates(datesData?.scheduleList?.map((x:any)=>{
+      const date = datesData?.d?.schedule?.find((z:any) => z.phaseId === x.phase_id);   
       let duration = 0;
       if (date?.from && moment(date?.from).isValid() && date?.to && moment(date?.to).isValid()){
         duration =  Math.round(Math.abs(moment(date?.from).diff(moment(date?.to), 'M')));
@@ -194,7 +194,7 @@ const ModalTollgate = ({
          && date?.to && moment(date?.to).isValid() ? true : (date?.isLocked ?? false)
       };
     }));    
-  }, [visible]);
+  }, [visible,datesData]);
   useEffect(() => {
     if (Object.keys(phasesData).length > 0) {
       const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
@@ -227,7 +227,7 @@ const ModalTollgate = ({
     let lockedDown = false;
     if (!phaseIsSet) {
       if (codePhaseTypeId === calendarPhase) {
-        if (Object.keys(dataProject).length > 0) {
+        if (Object.keys(datesData).length > 0) {
           const current = moment(calendarValue);
           const currentPast = moment(calendarValue);
           const indexPhase = (phasesData?.findIndex((x: any) => x.phase_id === codePhaseTypeId));
@@ -237,7 +237,7 @@ const ModalTollgate = ({
               const now = moment(current);
               current.add(x.duration, 'M');
               return {
-                project_id: dataProject?.d?.project_id,
+                project_id: datesData?.d?.project_id,
                 current: index === indexPhase ? 1 : 0,
                 key: x.categoryNo,
                 name: x.name,
@@ -252,7 +252,7 @@ const ModalTollgate = ({
               const now1 = moment(currentPast);
               currentPast.subtract(x.duration, 'M');
               return {
-                project_id: dataProject?.d?.project_id,
+                project_id: datesData?.d?.project_id,
                 current: 0,
                 key: x.categoryNo,
                 name: x.name,
@@ -324,7 +324,7 @@ const ModalTollgate = ({
               const now1 = moment(currentPast);
               currentPast.subtract(x.duration, 'M');
               return {
-                project_id: dataProject?.d?.project_id,
+                project_id: datesData?.d?.project_id,
                 current: 0,
                 key: x.key,
                 name: x.name,
@@ -395,18 +395,34 @@ let items = [
     setCalendarPhase(0)
   }
   function sendData() {
+    const newDates = datesData.d.schedule?.map((x: any) => {
+      const date = dates?.find((y: any) => y.phase_id === x.phaseId);
+      return {
+        ...x,
+        from: date?.from,
+        to: date?.to,
+      }
+    });
+    const newDataProject = {
+      ...datesData,
+      d: {
+        ...datesData.d,
+        schedule: newDates
+      }
+    }
     const currentId = dates?.find((x: any) => x.current)?.phase_id;
-    const currentStatus = dataProject.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;  
+    const currentStatus = datesData.scheduleList?.find((x: any) => x.phase_id === currentId)?.code_status_type_id || null;  
     datasets.postData(SERVER.CREATE_STATUS_GROUP, 
       {
-        project_id: dataProject.d.project_id,
+        project_id: datesData.d.project_id,
         phases: dates
       }, datasets.getToken()).then(async res => {
         saveCB();
         setVisible(false);
         setOpenPiney(false); 
         setUpdateGroup({id1: originPhase, id2: currentStatus});
-        getDetailedPageProject(dataProject.d.project_id)
+        getDetailedPageProject(datesData.d.project_id)
+        setDatesData(newDataProject)
       });
   }
 
@@ -420,7 +436,7 @@ let items = [
       {detailOpen && <DetailModal
         visible={detailOpen}
         setVisible={setDetailOpen}
-        data={dataProject?.d}
+        data={datesData?.d}
         type={FILTER_PROJECTS_TRIGGER}
       />}
       {
@@ -441,8 +457,8 @@ let items = [
         <div className="detailed">
           <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor:'white', paddingBottom:'10px', paddingTop:'10px'}}>
             <Col xs={{ span: 12 }} lg={{ span: 20 }}>
-              <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>{`${(dataProject?.d?.project_type==='Study'?'Study':dataProject?.d?.project_type + ' Project')}` || 'N/A'}</p>
-              <h1>{dataProject?.d?.rowLabel||'Tollgate Creek'}</h1>
+              <p style={{marginTop: '15px',color: '#11093C', fontWeight: '500'}}>{`${(datesData?.d?.project_type==='Study'?'Study':datesData?.d?.project_type + ' Project')}` || 'N/A'}</p>
+              <h1>{datesData?.d?.rowLabel||'Tollgate Creek'}</h1>
               <p>Define the time period for each phase.</p>
               <div style={{display:'flex', paddingTop:'10px'}}>
                 <span className="span-dots-heder">

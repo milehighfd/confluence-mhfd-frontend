@@ -34,9 +34,14 @@ const Roadmap = ({setOpenPiney,
   const [show,setShow] = useState<any>(false)
 
   const windowWidth: any = window.innerWidth;
-  const labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
+  let labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
   let projectTypeOffset = 0;
+  let projectType, marginLeftChart = '21px', fontSizeLabels='11px';
   if(data.length > 0){
+    projectType = data[0].code_project_type_id;
+    labelWidth = projectType >= 8 && projectType <= 11 ? 48.8 : (projectType === 13 ? 70: 65)
+    marginLeftChart = projectType >= 8 && projectType <= 11 ? '-10px' : '21px'
+    fontSizeLabels= projectType >= 8 && projectType <= 11 ? '10px' : '11px'
     projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
   }  
   let totalLabelWidth = (phaseList.length * labelWidth);
@@ -615,7 +620,7 @@ const Roadmap = ({setOpenPiney,
               </p>
               })}
           </div>
-            <div id='dotchart_detailPage' style={{display: 'flex', justifyContent: 'center', marginLeft: '21px', border:'transparent'}}></div>
+            <div id='dotchart_detailPage' style={{display: 'flex', justifyContent: 'center', marginLeft: marginLeftChart, border:'transparent'}}></div>
             {/* <img src="/picture/calendar.png" width='100%' onClick={()=>{setOpenPiney(true)}}/> */}
           <div className="phaseview-title" id='phaseviewTitleDetailPage' style={{justifyContent:'center', border:'none',borderColor:'transparent'}}>
           <div style={{ width: totalLabelWidth, paddingRight:'13px',borderColor:'transparent' ,border:'none' }} className="phaseview-title" id="phaseviewTitlleWidth">
@@ -626,7 +631,7 @@ const Roadmap = ({setOpenPiney,
                 (WR)
               </p> */}
               {phaseList.map((item: any) => {
-                return <p style={{ width: labelWidth , fontFamily: "Ubuntu"}}>{item.phase_name}</p>
+                return <p style={{ width: labelWidth , fontFamily: "Ubuntu", fontSize: fontSizeLabels}}>{item.phase_name}</p>
               })}
             </div>
           </div>

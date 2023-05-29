@@ -157,8 +157,15 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
         let idProjectLine = 0;
         for (const project of tileStyles[MHFD_PROJECTS]) {
           let projecttypes = project.metadata.projecttype;
-          if (projecttypes.includes(+detailed.code_project_type_id)) {
-            map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
+          if(detailed.code_project_type_id !== undefined ){
+          if( +detailed.code_project_type_id !== 5 && +detailed.code_project_type_id !== 7 && +detailed.code_project_type_id !== 1 && +detailed.code_project_type_id !== 4){
+            if(projecttypes.includes(999)){
+              map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
+            }
+          }else{
+            if (projecttypes.includes(+detailed.code_project_type_id)) {
+              map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
+            }
           }
           if (detailed?.project_id) {
             map.setFilter(MHFD_PROJECTS + idProjectLine, ['in', 'projectid', detailed?.project_id]);
@@ -168,6 +175,7 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
         }
         i = 0;
         addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
+        }
       }
       if (detailed?.coordinates) {
         map.fitBounds([
