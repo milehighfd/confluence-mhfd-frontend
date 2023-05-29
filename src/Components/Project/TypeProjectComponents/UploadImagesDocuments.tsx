@@ -120,7 +120,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             saveAs(record.file, record.file_name);
           }
         }}>
-          <img className="icon-bt" src='/Icons/icon-01.svg' style={{transform:'rotate(-180deg)'}}/>
+          <img className="icon-bt" src='/Icons/icon-01.svg' style={{height: '14px'}}/>
         </Button>
       ),
       width: "5%"
