@@ -115,10 +115,10 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       dataIndex: "download",
       render: (id:string, record: any) => (
         <Button className="user-download " onClick={() => {
-          if (record.value) {
+          if (record.attachment_url) {
             saveAs(record.attachment_url, record.file_name);
           } else {
-            saveAs(record.attachment_url, record.file_name);
+            saveAs(record.file, record.file_name);
           }
         }}>
           <img className="icon-bt" src='/Icons/icon-01.svg' style={{height: '14px'}}/>
@@ -190,10 +190,10 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       dataIndex: "download",
       render: (id:string, record: any) => (
         <Button className="user-download " onClick={() => {
-          if (record.value) {
+          if (record.attachment_url) {  
             saveAs(record.attachment_url, record.file_name);
           } else {
-            saveAs(record.attachment_url, record.file_name);
+            saveAs(record.file, record.file_name);
           }
         }}>
           <img className="icon-bt" src='/Icons/icon-01.svg'  style={{height: '14px'}}/>
