@@ -346,6 +346,25 @@ export class MapService {
             this.map.addImage('Urbanclimbtosafetysign_origclean', image);
         }
     });
+    const imagesPaths = [
+      'custom-sprite/propacq_ORANGE_bold_small.png',
+      'custom-sprite/RD_ORANGE_bold_small.png',
+      'custom-sprite/propacq_PINK_bold_small.png',
+      'custom-sprite/RD_PINK_bold_small.png',
+      'custom-sprite/propacq_GREEN_bold_small.png',
+      'custom-sprite/RD_GREEN_bold_small.png'
+    ];
+    imagesPaths.forEach((imagePath: string) => {
+      this.map.loadImage(imagePath, (error: any, image: any) => {
+        if (error) {
+          console.log('error on load ', error);
+          return;
+        }
+        if (!this.map.hasImage(imagePath.split('/')[1].split('.')[0])) {
+            this.map.addImage(imagePath.split('/')[1].split('.')[0], image);
+        }
+      })
+    });
   }
   removePopUpOffset() {
     this.popupOffset.remove();

@@ -628,7 +628,6 @@ export const buildGeojsonForLabelsProjectsInBoards = (projects: any) => {
     "type": "FeatureCollection",
     "features": []
   };
-  console.log('Projects in labels ', projects);
   const projectsRData = projects.map((p:any) => {
     const currentPS = p.projectData?.project_statuses?.filter((ps: any, index: number) => {
       if (p.projectData?.current_project_status_id) {
@@ -675,38 +674,44 @@ const groupBy = (arr: any, keyGetter: any) => {
 export const splitProjectsIdsByStatuses = (projects: any) => {
   const projectsRelevantData = projects.map((p: any) => {
     return {
-      statuses: p.projectData?.project_statuses,
-      current_project_status: p.projectData?.project_statuses?.filter((ps: any, index: number) => {
-        if (p.projectData?.current_project_status_id) {
-          return ps?.project_status_id == p.projectData?.current_project_status_id
-        } else {
-          return index === 0;
-        }
-      })[0]?.code_phase_type?.code_status_type,
+      current_project_status: p.projectData?.currentId,
       project_id: p.projectData?.project_id
     }
   });
   const grouped = groupBy(projectsRelevantData, (item:any) => {
-    if (item.current_project_status) {
-      return item.current_project_status?.code_status_type_id;
-    } else {
-      if (item.statuses?.length > 0) {
-        return item.statuses[0]?.code_phase_type?.code_status_type?.code_status_type_id;
-      } else {
-        return null;
-      }
-    }
+    if (item.current_project_status[0]) {
+      return item.current_project_status[0]?.code_phase_type?.code_status_type?.code_status_type_id;
+    } 
   });
-  for(let key in grouped) {
+  let newGroups: any = {};
+  for( let key in grouped) {
     let uniqueIds: any = [];
-    grouped[key].map((values: any) => values.project_id).forEach((element: any) => {
-        if (!uniqueIds.includes(element)) {
-            uniqueIds.push(element);
+    let uniqueValues: any = [];
+    grouped[key].forEach((element: any) => {
+        if (!uniqueIds.includes(element.project_id)) {
+          uniqueIds.push(element.project_id);
+          uniqueValues.push(element);
         }
     });
-    grouped[key] = uniqueIds;
+    grouped[key] = uniqueValues;
   }
-  return grouped;
+  for(let key in grouped) {
+    const groupedByProjectType = groupBy(grouped[key], (item: any) => {
+      if(item.current_project_status[0]) {
+        return item.current_project_status[0]?.code_phase_type?.code_project_type?.code_project_type_id;
+      }
+    });
+    newGroups[key] = groupedByProjectType
+  }
+  for(let key in newGroups){
+    for(let subkey in newGroups[key]){
+      newGroups[key][subkey] = newGroups[key][subkey].map((value:any) => value.project_id);
+    }
+  }
+  // first is by project statys
+  // second is by project stype 
+  // reminder, for project type is always only one for the moment
+  return newGroups;
 }
 
 export const getColumnSumAndTotals = (columnProjects: any, position: number) => {

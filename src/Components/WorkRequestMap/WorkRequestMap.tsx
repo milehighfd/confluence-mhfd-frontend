@@ -766,7 +766,6 @@ const getIdByProjectType = (() => {
 })
 
 useEffect(() => {
-  console.log('Project ids', projectsids);
   getIdByProjectType()
 }, [projectsids]);
 
@@ -971,17 +970,21 @@ useEffect(() => {
   const showLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (map.map.getLayer(key + '_' + index)) {
+      const currentLayer: any = map.map.getLayer(key + '_' + index);
+      if (currentLayer) {
         if (key === PROJECTS_DRAFT+'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
-          if (idsBoardProjects && idsBoardProjects.length > 0) {
-            let boardids = idsBoardProjects;
-            allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...boardids]]]];
-          }
+          const statusLayer = currentLayer?.metadata?.project_status;
+          const typeLayer = currentLayer?.metadata?.project_type;
+          let idsToFilter: any = [];
+          typeLayer.forEach((type: any) => {
+            let idsCurrent = groupedIdsBoardProjects[statusLayer];
+            if (idsCurrent && idsCurrent[type]?.length > 0) {
+              idsToFilter = [...idsToFilter, ...groupedIdsBoardProjects[statusLayer][type]];
+            }
+          });
+          allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
           map.map.setFilter(key + '_' + index, allFilters);
-          if (groupedIdsBoardProjects) {
-            map.changePaintPropertyColors(key + '_' + index, groupedIdsBoardProjects );
-          }
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
@@ -1250,74 +1253,76 @@ useEffect(() => {
   };
   const addTilesLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (key.includes(PROJECTS_DRAFT+'draft')) {
-        if (map.map.getLayer(key + '_' + index)) {
-          return;
-        }
-        map.map.addLayer({
-          id: key + '_' + index,
-          source: key,
-          filter: ['in', ['get', 'projectid'], ['literal', []]],
-          ...style,
-        });
-      } else {
-        if (style.source_name) {
-          map.map.addLayer({
-            id: key + '_' + index,
-            source: style.source_name,
-            ...style,
-          });
-        } else {
+    if (!key.includes('milehighfd') && styles[key]) {
+      styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (key.includes(PROJECTS_DRAFT+'draft')) {
+          if (map.map.getLayer(key + '_' + index)) {
+            return;
+          }
           map.map.addLayer({
             id: key + '_' + index,
             source: key,
+            filter: ['in', ['get', 'projectid'], ['literal', []]],
             ...style,
           });
+        } else {
+          if (style.source_name) {
+            map.map.addLayer({
+              id: key + '_' + index,
+              source: style.source_name,
+              ...style,
+            });
+          } else {
+            map.map.addLayer({
+              id: key + '_' + index,
+              source: key,
+              ...style,
+            });
+          }
         }
+        if (key) {
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+        }
+        if (!hovereableLayers.includes(key)) {
+          return;
+        }
+        if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            source: key,
+            type: 'line',
+            'source-layer': 'pluto15v1',
+            layout: {
+              visibility: 'visible',
+            },
+            paint: {
+              'line-color': '#fff',
+              'line-width': 7,
+            },
+            filter: ['in', 'cartodb_id'],
+          });
+        }
+        if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+          map.map.addLayer({
+            id: key + '_highlight_' + index,
+            type: 'circle',
+            'source-layer': 'pluto15v1',
+            source: key,
+            layout: {
+              visibility: 'visible',
+            },
+            paint: {
+              'circle-color': '#FFF',
+              'circle-radius': 7,
+              'circle-opacity': 1,
+            },
+            filter: ['in', 'cartodb_id'],
+          });
+        }
+      });
+      if (map) {
+        addMapListeners(key);
       }
-      if (key) {
-        map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-      }
-      if (!hovereableLayers.includes(key)) {
-        return;
-      }
-      if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-        map.map.addLayer({
-          id: key + '_highlight_' + index,
-          source: key,
-          type: 'line',
-          'source-layer': 'pluto15v1',
-          layout: {
-            visibility: 'visible',
-          },
-          paint: {
-            'line-color': '#fff',
-            'line-width': 7,
-          },
-          filter: ['in', 'cartodb_id'],
-        });
-      }
-      if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
-        map.map.addLayer({
-          id: key + '_highlight_' + index,
-          type: 'circle',
-          'source-layer': 'pluto15v1',
-          source: key,
-          layout: {
-            visibility: 'visible',
-          },
-          paint: {
-            'circle-color': '#FFF',
-            'circle-radius': 7,
-            'circle-opacity': 1,
-          },
-          filter: ['in', 'cartodb_id'],
-        });
-      }
-    });
-    if (map) {
-      addMapListeners(key);
     }
   };
 
