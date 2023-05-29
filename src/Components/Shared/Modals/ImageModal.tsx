@@ -52,6 +52,13 @@ const ImageModal = (
     });
 
   }
+
+  const listAttach = attachments?.data?.map((element: any, index: number) => {
+    if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
+      return element.attachment_url
+    }
+  })
+  console.log(listAttach, 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLI')
   const addFunction = (id: number, email: string, table: string) => {
     if (addFavorite) {
       addFavorite(email, id, false);
@@ -98,7 +105,7 @@ const ImageModal = (
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
               <div className='grid-modal-image'>
-                {attachments.data.map((element:any, index:number) => {
+                {attachments?.data?.map((element:any, index:number) => {
                 if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
                   return <>
                     <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" /></div>

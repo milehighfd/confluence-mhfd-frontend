@@ -19,7 +19,7 @@ const GalleryDetail = () => {
       <Row style={{marginBottom:'0px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{display:'flex', justifyContent: 'space-between'}}>
           <div className="grid">
-            {attachments.data.map((element:any, index:number) => {
+            {attachments && attachments.data && attachments.data?.map((element:any, index:number) => {
               if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
                 return <>
                   <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" /></div>
