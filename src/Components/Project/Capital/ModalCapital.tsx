@@ -14,6 +14,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { UploadImagesDocuments } from "../TypeProjectComponents/UploadImagesDocuments";
 import store from "../../../store";
 import { ADMIN, STAFF } from "../../../constants/constants";
+import { getProjectOverheadCost } from "utils/parsers";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -173,26 +174,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setAdditionalDescription(aditionalCostObject?.cost_description);
 
       if (data.project_costs.length > 0) {
-        const filtered = data.project_costs.map((element: any) => {
-          if (
-            element.code_cost_type_id === 2 ||
-            element.code_cost_type_id === 6 ||
-            element.code_cost_type_id === 7 ||
-            element.code_cost_type_id === 8 ||
-            element.code_cost_type_id === 9 ||
-            element.code_cost_type_id === 10 ||
-            element.code_cost_type_id === 12 ||
-            element.code_cost_type_id === 11 ||
-            element.code_cost_type_id === 13
-            ) 
-            {
-              if(element.code_cost_type_id === 2) {
-                setOverheadDescription(element.cost_description);
-              }
-              return element.cost
-            }
-        }).filter((e:any)=> e >= 0);
-        setOverheadValues(filtered);
+        const parsed = getProjectOverheadCost(data.project_costs);
+        setOverheadCosts(parsed);
       }
       setSponsor(sponsor);
       setTimeout(()=>{
@@ -423,21 +406,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
   const updateOverheadCosts = () => {
-    let newOverheadCosts = [...overheadCosts];
-    overheadValues.forEach((element:any, index:any) => {
-      newOverheadCosts[index] = (element*getSubTotalCost())/100;
-      newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
-    });
-    setOverheadCosts(newOverheadCosts);
+ 
   }
   useEffect(()=>{
-    let newOverheadCosts = [...overheadCosts];
-    overheadValues.forEach((element:any, index:any) => {
-      newOverheadCosts[index] = (element*getSubTotalCost())/100;
-      newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
-    });
-    setOverheadCosts(newOverheadCosts);
+
   },[overheadValues, thisIndependentComponents, listComponents]);
+
+  
   const changeValue = (e:any, index:any) => {
     let newoverhead = [...overheadValues];
     newoverhead[index] = parseInt(e);
