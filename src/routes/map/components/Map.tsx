@@ -1378,15 +1378,17 @@ const Map = ({
       const maintenanceProjects = projectsids.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
       const studyProjects = projectsids.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
       const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
-      const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
-      const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
+      // const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
+      // const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
+      const projectsWithoutStyle = projectsids.filter((project:any) => project.code_project_type_id !== 5 && project.code_project_type_id !== 7 && project.code_project_type_id !== 1 && project.code_project_type_id !== 4).map((project:any) => project.project_id);
       const groupedProjectsByType ={
         5: capitalProjects,
         7: maintenanceProjects,
         1: studyProjects,
         4: studyProjectsFHAD,
-        13: acquisitionProjects,
-        6: developementImprProjects
+        999: projectsWithoutStyle
+        // 13: acquisitionProjects,
+        // 6: developementImprProjects
       };
       setGroupedProjectIdsType(groupedProjectsByType)
     })
