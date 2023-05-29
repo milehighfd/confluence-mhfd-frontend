@@ -122,3 +122,18 @@ export const getCurrentProjectStatus = (project:any) => {
   const current = project?.project_statuses?.find((ps:any) => ps.project_status_id === project.current_project_status_id); 
   return current;
 }
+
+  export const getProjectOverheadCost = (costs: any) => {
+  const currentOverheadIds = [2,6,7,8,9,10,11,12,13];
+  const filteredDataOverhead = costs.filter((element: any) => currentOverheadIds.includes(element.code_cost_type_id));
+  //validator for all values
+  const validator = currentOverheadIds.map( (element: any)=> {
+  const validation = filteredDataOverhead.find((value: any) => value.code_cost_type_id === element);
+    if (validation) {
+      return validation.cost;
+    } else {
+      return 0;
+    }
+  })
+  return validator;
+};
