@@ -3,8 +3,10 @@ import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "ant
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, FileOutlined, PlusOutlined } from "@ant-design/icons";
+import { useAttachmentState } from "hook/attachmentHook";
 
 const GalleryDetail = () => {
+  const { attachments } = useAttachmentState();
   return (
     <>
       <Row>
@@ -16,21 +18,13 @@ const GalleryDetail = () => {
       <Row style={{marginBottom:'0px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{display:'flex', justifyContent: 'space-between'}}>
           <div className="grid">
-            {/* //Example Use grid  */}
-            {/* <div><img src="/picture/img-1.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-2.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-3.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-4.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-5.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-6.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-1.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-2.png" alt="" height="100%" /></div>
-            <div><img src="/picture/img-3.png" alt="" height="100%" /></div> */}
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            {attachments.data.map((element:any, index:number) => {
+              if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
+                return <>
+                  <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.file_name} alt="" height="100%" /></div>
+                </>
+              }
+            })}
           </div> 
         </Col>
       </Row>

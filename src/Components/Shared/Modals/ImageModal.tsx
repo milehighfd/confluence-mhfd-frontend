@@ -10,6 +10,7 @@ import * as datasets from "../../../Config/datasets";
 import { SERVER } from 'Config/Server.config';
 import store from "../../../store";
 import { useMapDispatch } from 'hook/mapHook';
+import { useAttachmentState } from 'hook/attachmentHook';
 
 const ImageModal = (
   {
@@ -40,6 +41,7 @@ const ImageModal = (
   const appUser = store.getState().profile;
   const email = appUser.userInformation?.email
   const [favorite,setFavorite] = useState(false);
+  const { attachments } = useAttachmentState();
 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {      
@@ -96,11 +98,13 @@ const ImageModal = (
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
               <div className='grid-modal-image'>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
+                {attachments.data.map((element:any, index:number) => {
+                if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
+                  return <>
+                    <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.file_name} alt="" height="100%" /></div>
+                  </>
+                }
+            })}
               </div>
             </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden'}}>
