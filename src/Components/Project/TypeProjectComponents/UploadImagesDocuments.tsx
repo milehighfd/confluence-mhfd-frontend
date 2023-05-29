@@ -49,7 +49,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return {
           ...img,
           type: getTypeImage(img.mime_type),
-          size: formatBytes(img.filesize, 2),
+          size: formatBytes(img.size, 2),
           key: img._id,
           file: img,
           value: img.value,
@@ -61,7 +61,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return {
           ...file,
           type: getTypeImage(file.mime_type),
-          size: formatBytes(file.filesize, 1),
+          size: formatBytes(file.size, 1),
           key: file._id,
           date: formatDate(file.created_date),
           file: file,
@@ -82,7 +82,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       width: "40%",
       render: (text: any) => (
         <>
-           {typeof text.file_name === 'string' && text.file_name.substring(0, text.file_name.indexOf('.'))}
+           {typeof text === 'string' && text.substring(0, text.indexOf('.'))}
         </>
       )
     },
@@ -147,7 +147,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       width: "47%",
       render: (text: any) => (
         <>
-          {typeof text.file_name === 'string' && text.file_name.substring(0, text.file_name.indexOf('.'))}
+          {typeof text === 'string' && text.substring(0, text.indexOf('.'))}
         </>
       )
     },
@@ -257,7 +257,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return [...oldData, {
           ...file,
           description: description,
-          filename: newFile.name,
+          file_name: newFile.name.replace(' ', ''),
           type: file.type.replace('image/', '').toUpperCase(),
           size: formatBytes(file.size, 2),
           key: file.name + file.lastModified,
@@ -272,7 +272,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return [...oldData, {
           ...file,
           description: description,
-          filename: newFile.name,
+          file_name: newFile.name.replace(' ', ''),
           type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
           size: formatBytes(file.size, 1),
           key: file.name + file.lastModified,
