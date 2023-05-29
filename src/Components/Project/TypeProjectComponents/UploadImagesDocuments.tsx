@@ -4,6 +4,7 @@ import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachm
 import { saveAs } from 'file-saver';
 import { CloudDownloadOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
+import { SERVER } from "Config/Server.config";
 
 interface DataType {
   key: React.Key;
@@ -50,7 +51,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           ...img,
           type: getTypeImage(img.mime_type),
           size: formatBytes(img.size, 2),
-          key: img._id,
+          key: img.project_attachment_id,
           file: img,
           value: img.value,
         };
@@ -62,7 +63,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           ...file,
           type: getTypeImage(file.mime_type),
           size: formatBytes(file.size, 1),
-          key: file._id,
+          key: file.project_attachment_id,
           date: formatDate(file.created_date),
           file: file,
           value: file.value,
@@ -115,9 +116,9 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       render: (id:string, record: any) => (
         <Button className="user-download " onClick={() => {
           if (record.value) {
-            saveAs(record.value, record.file_name);
+            saveAs(record.attachment_url, record.file_name);
           } else {
-            saveAs(record.file, record.file_name);
+            saveAs(record.attachment_url, record.file_name);
           }
         }}>
           <img className="icon-bt" src='/Icons/icon-01.svg' style={{height: '14px'}}/>
@@ -190,9 +191,9 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       render: (id:string, record: any) => (
         <Button className="user-download " onClick={() => {
           if (record.value) {
-            saveAs(record.value, record.file_name);
+            saveAs(record.attachment_url, record.file_name);
           } else {
-            saveAs(record.file, record.file_name);
+            saveAs(record.attachment_url, record.file_name);
           }
         }}>
           <img className="icon-bt" src='/Icons/icon-01.svg'  style={{height: '14px'}}/>
@@ -201,12 +202,18 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       width: "5%"
     },
   ];
+  const downloadImages = () => {
+    console.log('downloadFiles')
+  }
+  const downloadFiles = () => {
+    console.log('downloadFiles')
+  }
  
   useEffect(() => {
     setFiles([...dataImages, ...dataFiles]);
   }, [dataImages, dataFiles]);
   const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {     
       setToDelete(selectedRowKeys);
     },
     getCheckboxProps: (record: DataType) => ({
@@ -332,7 +339,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           }}
           columns={COLUMNS_UPLOAD}
           dataSource={dataImages}
-
         />
       </Row>
       {modal &&
