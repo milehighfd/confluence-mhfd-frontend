@@ -11,6 +11,7 @@ import { getAllowedBasedOnLocality } from 'Components/Work/Request/RequestViewUt
 import { postData } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { getCurrentProjectStatus } from 'utils/parsers';
+import { useAttachmentDispatch } from 'hook/attachmentHook';
 
 const content00 = (<div className="popver-info">Collection and removal of trash and debris that could prevent the system from functioning as intended.</div>);
 const content01 = (<div className="popver-info">Planting, seeding, thinning, weed control, adaptive management, and other vegetation-related activities.</div>);
@@ -42,6 +43,7 @@ export const ModalProjectView = ({
   year?: number
 }) => {
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setBoardProjectsCreate} = useProjectDispatch();
+  const {getAttachmentProjectId} = useAttachmentDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
@@ -157,7 +159,7 @@ export const ModalProjectView = ({
         }
           
       }
-      console.log('data', data);
+      
       if(getCurrentProjectStatus(data)?.code_phase_type?.code_project_type?.code_project_type_id === 5 || data.tabKey === 'Capital'){
         setVisibleCapital(true);
       }
@@ -181,6 +183,10 @@ export const ModalProjectView = ({
       }
     }
   },[showDefaultTab]);
+
+  useEffect(() => {
+    getAttachmentProjectId(data.project_id);
+  }, [data]);
 
   useEffect(() => {
     setAllowed(getAllowedBasedOnLocality(locality, year));
