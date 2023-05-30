@@ -82,8 +82,20 @@ export const getData = (url: any, token?: any, signal?: AbortSignal) => {
     .then(handleErrors);
 }
 
-export const getDataOctet = (url: any, token: any) => {
-    const headers = JSONOptions(token);
+export const getDataNoJSON = (url: any, token?: any) => {
+    const headers = token ? JSONOptions(token) : JSONDefault();
+    return fetch(url, {
+        method: 'GET',
+        headers
+    })
+    .then(data => (data))
+    .catch((err) => {
+        console.log(err);
+    });
+}
+
+export const getDataOctet = (url: any, token?: any) => {
+    const headers = token ? JSONOptions(token) : JSONDefault();
     return fetch(url, {
         method: 'GET',
         headers

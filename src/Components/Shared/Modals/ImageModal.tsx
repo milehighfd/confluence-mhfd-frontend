@@ -53,6 +53,9 @@ const ImageModal = (
 
   }
   useEffect(() =>{
+    setNumberCarousel(1)
+  },[])
+  useEffect(() =>{
     const listAttachAux = attachments?.data?.filter((element:any) => {
       return element.mime_type === 'image/png' ||
              element.mime_type === 'image/jpg' ||
@@ -134,7 +137,7 @@ const ImageModal = (
                 }):
                 <>
                 <div className="detailed-c">
-                  <div className='img-modal' style={{background:'#f5f7ff'}}/>
+                  <div className='img-modal proto-img' style={{background:'#f5f7ff'}}/>
                 </div>
                 </>
               }

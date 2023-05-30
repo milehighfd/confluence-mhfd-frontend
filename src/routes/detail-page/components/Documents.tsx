@@ -33,7 +33,7 @@ const Documents = () => {
       <Row style={{marginBottom:'40px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
           {docs.map((doc: any) => {
-            return <><span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> {doc.name}</span><br></br></>
+            return <><p style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> {doc.name}</p></>
           })}
         </Col>
       </Row>

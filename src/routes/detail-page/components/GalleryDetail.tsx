@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
@@ -7,6 +7,17 @@ import { useAttachmentState } from "hook/attachmentHook";
 
 const GalleryDetail = () => {
   const { attachments } = useAttachmentState();
+  const [listAttach, setListAttachment] = useState([]) 
+
+  useEffect(() =>{
+    const listAttachAux = attachments?.data?.filter((element:any) => {
+      return element.mime_type === 'image/png' ||
+             element.mime_type === 'image/jpg' ||
+             element.mime_type === 'image/jpeg' ||
+             element.mime_type === 'image/gif';
+    });
+    setListAttachment(listAttachAux);
+  }, [attachments]);
   return (
     <>
       <Row>
@@ -18,13 +29,19 @@ const GalleryDetail = () => {
       <Row style={{marginBottom:'0px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{display:'flex', justifyContent: 'space-between'}}>
           <div className="grid">
-            {attachments && attachments.data && attachments.data?.map((element:any, index:number) => {
+            {listAttach && listAttach.length > 0 ? attachments.data?.map((element:any, index:number) => {
               if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
                 return <>
                   <div><img src={element.attachment_url} alt="" height="100%" /></div>
                 </>
               }
-            })}
+            }):<>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            </>}
           </div> 
         </Col>
       </Row>

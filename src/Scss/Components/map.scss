@@ -2774,11 +2774,12 @@ hr.filters-line {
 
 
 .img-measure-00 {
-  -webkit-mask: url('../../Icons/fi_play-circle.svg') no-repeat center;
+  // -webkit-mask: url('../../Icons/fi_play-circle.svg') no-repeat center;
   height: 18px;
   width: 18px;
-  background: black;
+  // background: black;
   margin-bottom: 2px;
+  margin-right: 10px;
 }
 
 .img-measure-01 {
