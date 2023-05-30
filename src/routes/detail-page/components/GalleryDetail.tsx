@@ -7,7 +7,6 @@ import { useAttachmentState } from "hook/attachmentHook";
 
 const GalleryDetail = () => {
   const { attachments } = useAttachmentState();
-  console.log(attachments, 'AAAAAAAAAAAAAAAAATAAAAAAAA')
   return (
     <>
       <Row>

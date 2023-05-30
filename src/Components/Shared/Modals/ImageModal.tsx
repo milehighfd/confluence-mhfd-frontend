@@ -61,6 +61,7 @@ const ImageModal = (
     });
     setListAttachment(listAttachAux);
     setNnumberElementCarousel(listAttachAux? listAttachAux.length : 0)
+    setNumberCarousel(1)
   }, [attachments]);
   const addFunction = (id: number, email: string, table: string) => {
     if (addFavorite) {
@@ -106,7 +107,7 @@ const ImageModal = (
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           {active === 0 &&<>
-            <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
+            <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{height: '524px', overflowY:'auto'}}>
               <div className='grid-modal-image'>
                 {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
@@ -123,11 +124,11 @@ const ImageModal = (
               </div>
             </Col>
             <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden', height:'100%'}}>
-              <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
+              <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'62px'}} >
                {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
                   <div key={index} className="detailed-c">
-                  <img src={element.attachment_url} alt="" height="100%" style={{marginTop: '38px'}} />
+                  <img className='img-modal' src={element.attachment_url} alt="" height="100%" style={{marginTop: '28px'}} />
                   </div>
                   </>
                 }):
@@ -136,7 +137,6 @@ const ImageModal = (
                   <div className='img-modal' style={{background:'#f5f7ff'}}/>
                 </div>
                 </>
-                
               }
               </Carousel>
               <div className='tag-div'>
