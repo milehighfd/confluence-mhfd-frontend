@@ -497,7 +497,6 @@ const Roadmap = ({setOpenPiney,
   useEffect(() => {          
     if(data.length>0){
       setShow(data[0]?.project_status?.length > 0 ? true : false)
-      console.log('MOSTRARA')
       if(document.getElementById(`dotchart_detailPage`)){
         removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
       }

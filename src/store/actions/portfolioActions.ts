@@ -52,7 +52,6 @@ export const setCollapsePhase = (value: boolean) => ({
 });
 
 export const getListPMTools = (tabKey: number) => {
-  console.log('tabkey action', tabKey)
   let flag = false;
   return (dispatch: Function) => {
     const controller = new AbortController();
