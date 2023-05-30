@@ -220,7 +220,7 @@ const addLayer = () => {
       let idProjectLine = 0;
       for (const project of tileStyles[MHFD_PROJECTS]) {
         let projecttypes = project.metadata.projecttype;
-        if(+detailed.code_project_type_id !== 5 && +detailed.code_project_type_id !== 7 && +detailed.code_project_type_id !== 1 && +detailed.code_project_type_id !== 4){
+        if(+detailed.code_project_type_id !== 5 && !(+detailed.code_project_type_id >= 7 && +detailed.code_project_type_id <= 11) && +detailed.code_project_type_id !== 17 && +detailed.code_project_type_id !== 1 && +detailed.code_project_type_id !== 4){
           if(projecttypes.includes(999)){
             map.addLayer(MHFD_PROJECTS + idProjectLine, MHFD_PROJECTS, project);
           }
