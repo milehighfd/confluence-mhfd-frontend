@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Carousel, Col, Modal, Progress, Row, Table, Tooltip } from "antd";
 import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, FileOutlined, PlusOutlined } from "@ant-design/icons";
+import { useAttachmentState } from "hook/attachmentHook";
+
 
 const Documents = () => {
+  const [docs, setDocs] = useState<any[]>([]); 
+  const { attachments } = useAttachmentState();
+  useEffect(()=>{
+    if (attachments.data){
+      const docs = attachments?.data?.filter(
+        (_: any) => !(_.mime_type?.includes('png') || _.mime_type?.includes('jpeg') || _.mime_type?.includes('jpg'))
+      ).map((file: any) => {
+        return {
+          key: file.project_attachment_id,         
+          name: file.file_name,
+        }
+      });
+      setDocs(docs)
+    }   
+  },[attachments])
   return (
     <>
       <Row>
@@ -15,9 +32,9 @@ const Documents = () => {
       </Row>
       <Row style={{marginBottom:'40px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
-          <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> Little Dry Creek_report.pdf</span><br></br>
-          <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}} /> Little Dry Creek_report.pdf</span>
-          {/* <Button className="btn-purple"><PlusOutlined /> Add Documents</Button> */}
+          {docs.map((doc: any) => {
+            return <><span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> {doc.name}</span><br></br></>
+          })}
         </Col>
       </Row>
     </>
