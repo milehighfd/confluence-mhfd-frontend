@@ -719,7 +719,6 @@ const DetailModal = ({
             ref={divRef}
           >
             <div className="placeholder-carousel">
-
             </div>
             <div style={{background:'#f5f7ff', zIndex:'1', height:'266px', width:'100%', position:'absolute', top:'0'}} className='placeholder-carousel'>
             {/* <div className="detailed-c"></div> */}
@@ -737,7 +736,7 @@ const DetailModal = ({
                       ) : (
                         projectType ?
                           (
-                            <div className="detailed-c" onClick={() => { setOpenImage(true); setActive(0) }}> <img alt="" src={
+                            <div className="detailed-c" onClick={() => { setOpenImage(true); setActive(0) }}> <img alt=""  className='img-carousel-backgraund' src={
                               coverImage !== '' ? coverImage:
                                 projectType === 'CIP' ? '/detailed/capital.png' :
                                   projectType === 'Study' ? '/detailed/study.png' :
