@@ -4633,7 +4633,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "propacq_RQST",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 3,"project_type":[15]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 2,"project_type":[13]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
