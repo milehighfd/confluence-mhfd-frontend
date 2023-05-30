@@ -220,7 +220,7 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input onChange={(e) => setFirstName(e.target.value)} className="input-profile" type="text" placeholder={isNull(firstName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setFirstName(e.target.value)} className="input-profile" type="text" value={isNull(firstName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(firstName)}</p>
             }
           </Col>
@@ -229,7 +229,7 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input onChange={(e) => setLastName(e.target.value)} className="input-profile" type="text" placeholder={isNull(lastName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setLastName(e.target.value)} className="input-profile" type="text" value={isNull(lastName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(lastName)}</p>
             }
           </Col>
@@ -238,7 +238,7 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input onChange={(e) => setEmail(e.target.value)} className="input-profile" type="text" placeholder={isNull(email)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setEmail(e.target.value)} className="input-profile" type="text" value={isNull(email)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(email)}</p>
             }
           </Col>
@@ -247,7 +247,7 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 15 }}>
             {editProfile ?
-              <input onChange={(e) => setPhone(e.target.value)} className="input-profile" type="text" placeholder={isNull(phone)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setPhone(e.target.value)} className="input-profile" type="text" value={isNull(phone)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(phone)}</p>
             }
           </Col>
@@ -256,7 +256,7 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 15 }}>
           {editProfile ?
-              <input onChange={(e) => setOrganization(e.target.value)} className="input-profile" type="text" placeholder={isNull(organization)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setOrganization(e.target.value)} className="input-profile" type="text" value={isNull(organization)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(organization)}</p>
             }
             {/* <SelectOrganization
@@ -265,7 +265,6 @@ const Profile = ({
               disable={true}
               defaultValue={organization}
               value={organization}/> */}
-              <p style={{ paddingBottom: '10px' }}>{contactInfo?.business_address?.business_associate?.business_associate_name || 'N/A'}</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
