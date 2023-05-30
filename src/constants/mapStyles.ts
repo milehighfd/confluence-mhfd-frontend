@@ -7166,7 +7166,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "paint": {
           "line-width": [
@@ -7184,7 +7184,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "layout": {"line-join": "round"},
       "paint": {
@@ -7203,7 +7203,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "layout": {"line-join": "round"},
       "paint": {
@@ -7222,7 +7222,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "paint": {
           "line-width": [
@@ -7240,7 +7240,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "paint": {
           "line-width": [
@@ -7258,7 +7258,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "layout": {"line-join": "round"},
       "paint": {
@@ -7277,7 +7277,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "paint": {
           "line-width": [
@@ -7295,7 +7295,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "paint": {
           "line-width": [
@@ -7313,7 +7313,7 @@ export const tileStyles = {
       "type": "line",
       "metadata": {"mapbox:group": "df41d07fd67122c6ced8498a3202ef22"},
       "source-layer": "pluto15v1",
-      "minzoom": 10,
+      "minzoom": 11,
       "maxzoom": 13,
       "layout": {"line-join": "round"},
       "paint": {

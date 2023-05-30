@@ -61,12 +61,12 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
           "interpolate",
           ["linear"],
           ["zoom"],
-          11.2, 0.01,
-          11.22, 0,
+          10.9, 0.01,
+          11.0, 0,
         ],
         'circle-radius': 12
       },
-      'maxzoom': 11.2
+      'maxzoom': 11.0
     });
   }
   if (!map.getLayer('clusterproblem_label')) {
@@ -87,7 +87,7 @@ export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolea
         'text-color': 'black',
         'text-opacity': 0.01
       },
-      'maxzoom': 11.2
+      'maxzoom': 11.0
     });
   }
   
