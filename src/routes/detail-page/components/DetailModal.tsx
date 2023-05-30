@@ -90,6 +90,7 @@ const DetailModal = ({
   const [nameLinkPage,setNameLinkPage] = useState('#');
   const appUser = store.getState().profile.userInformation;
   const [mapImage, setMapImage] = useState<any>(undefined);
+  const [coverImage, setCoverImage] = useState<any>('');
 
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
@@ -98,8 +99,22 @@ const DetailModal = ({
   const {getAttachmentProjectId} = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
   useEffect(() => {
-    getAttachmentProjectId(detailed.project_id);    
-  }, [detailed]);
+    if (detailed?.project_id) {
+      getAttachmentProjectId(detailed.project_id);    
+    }    
+  }, [detailed]);  
+  useEffect(()=>{
+    if (attachments.data){
+      const cover = attachments?.data?.filter(
+        (_: any) => (_.mime_type?.includes('png') || _.mime_type?.includes('jpeg') || _.mime_type?.includes('jpg'))
+      ).map((file: any) => {
+        if(file.is_cover){
+          setCoverImage(file.attachment_url);
+        }
+      });
+      
+    }   
+  },[attachments])
   useEffect(() => { 
     resetDetailed();  
     if (typeS === FILTER_PROBLEMS_TRIGGER) {
@@ -126,7 +141,6 @@ const DetailModal = ({
         setProblemPart(t);
       });
     } else {
-      console.log('PROJECT', data)
       const project_id = project_idS ? +project_idS : ( +problem_idS ? +problem_idS : 0) ;
       getDetailedPageProject(project_id);
       getComponentsByProblemId({id: data?.on_base || project_id || data?.id  || data?.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
@@ -135,8 +149,7 @@ const DetailModal = ({
   }, []);
   useEffect(() => {
     const projectType = detailed?.code_project_type?.project_type_name;
-    setProjecttypeId(detailed?.code_project_type_id)
-    console.log(projectType, 'Project Type NAME')
+    setProjecttypeId(detailed?.code_project_type_id);
     setProjecttype(projectType);
     const roadmapData = [];
     if(detailed && Object.keys(detailed).length !== 0){
@@ -724,17 +737,18 @@ const DetailModal = ({
                       ) : (
                         projectType ?
                           (
-                            <div className="detailed-c" onClick={()=>{setOpenImage(true); setActive(0)}}> <img alt="" src={
-                              projectType === 'CIP' ? '/detailed/capital.png' :
-                                projectType === 'Study' ? '/detailed/study.png' :
-                                projectType === 'Special' ? '/detailed/special.png' :
-                                  projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
-                                    projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
-                                      projectType === 'Restoration' ? '/detailed/restoration.png' :
-                                        projectType === 'Acquisition' ? '/detailed/acquisition.png' :
-                                          projectType === 'General Maintenance' ? '/detailed/minor-repairs.png' :
-                                            projectType === 'Routine Trash and Debris' ?'/detailed/debris-management.png': '/detailed/watershed-change.png'
-                            }/> </div>
+                            <div className="detailed-c" onClick={() => { setOpenImage(true); setActive(0) }}> <img alt="" src={
+                              coverImage !== '' ? coverImage:
+                                projectType === 'CIP' ? '/detailed/capital.png' :
+                                  projectType === 'Study' ? '/detailed/study.png' :
+                                    projectType === 'Special' ? '/detailed/special.png' :
+                                      projectType === 'Vegetation Management' ? '/detailed/vegetation-management.png' :
+                                        projectType === 'Sediment Removal' ? '/detailed/sediment-removal.png' :
+                                          projectType === 'Restoration' ? '/detailed/restoration.png' :
+                                            projectType === 'Acquisition' ? '/detailed/acquisition.png' :
+                                              projectType === 'General Maintenance' ? '/detailed/minor-repairs.png' :
+                                                projectType === 'Routine Trash and Debris' ? '/detailed/debris-management.png' : '/detailed/watershed-change.png'
+                            } /> </div>
                           )
                           :
                           (<></>)
