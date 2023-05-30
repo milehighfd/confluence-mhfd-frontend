@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Table, Tag } from 'antd';
 import { useAttachmentDispatch, useAttachmentState } from "../../../hook/attachmentHook";
 import { saveAs } from 'file-saver';
+import b64ToBlob from "b64-to-blob";
 import { CloudDownloadOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 import { SERVER } from "Config/Server.config";
+import { getData } from '../../../Config/datasets';
 
 interface DataType {
   key: React.Key;
@@ -202,11 +204,15 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       width: "5%"
     },
   ];
-  const downloadImages = () => {
-    console.log('downloadFiles')
-  }
-  const downloadFiles = () => {
-    console.log('downloadFiles')
+
+  const downloadZip = (images: boolean) => {
+    const PUT_PROJECT_ID_HERE = '400353';
+    getData(`${SERVER.URL_BASE}/projects/download/${PUT_PROJECT_ID_HERE}${images ? '?images=1' : ''}`)
+      .then((b: any) => b.text()).then((r: any) => {
+        const dataBlob = b64ToBlob(r, 'application/zip')
+        saveAs(dataBlob, `project_${PUT_PROJECT_ID_HERE}.zip`);
+      });
+
   }
  
   useEffect(() => {
@@ -319,7 +325,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
-            <Button className="bottomn-heder">
+            <Button className="bottomn-heder" onClick={() => downloadZip(true)}>
               <CloudDownloadOutlined />Download All 
             </Button>
           </span>
@@ -358,7 +364,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
               <span className="ic-document"/>Add Document
             </Button>
-            <Button className="bottomn-heder">
+            <Button className="bottomn-heder" onClick={() => downloadZip(false)}>
               <CloudDownloadOutlined />Download All 
             </Button>
           </span>
