@@ -80,7 +80,7 @@ export const saveCapital = (data: any) => {
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
         });

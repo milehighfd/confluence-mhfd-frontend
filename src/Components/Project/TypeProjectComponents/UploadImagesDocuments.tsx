@@ -45,7 +45,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   }
   useEffect(() => {    
     if (attachments.data) {
-      console.log(attachments.data)
       const images = attachments?.data?.filter(
         (_: any) => _.mime_type?.includes('png') || _.mime_type?.includes('jpeg') || _.mime_type?.includes('jpg')
       ).map((img: any) => {
@@ -73,8 +72,6 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       });
       setDataImages(images);
       setDataFiles(docs);
-      console.log(images);
-      console.log(docs);
     }    
   }, [attachments.data]);
   const COLUMNS_UPLOAD02:any = [
@@ -264,13 +261,12 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
 }
   const addFile = (file: any, description: any, type: string) => {
     const newFile = renameFile(file, description ? description : file.name);
-    console.log(file, description, type, "aca" )
     if (type === 'images') {
       setDataImages((oldData) => {
         return [...oldData, {
           ...file,
           description: description,
-          file_name: newFile.name.replace(' ', ''),
+          file_name: newFile.name,
           type: file.type.replace('image/', '').toUpperCase(),
           size: formatBytes(file.size, 2),
           key: file.name + file.lastModified,
@@ -285,7 +281,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return [...oldData, {
           ...file,
           description: description,
-          file_name: newFile.name.replace(' ', ''),
+          file_name: newFile.name,
           type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
           size: formatBytes(file.size, 1),
           key: file.name + file.lastModified,
