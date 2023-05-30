@@ -712,7 +712,8 @@ const CalendarBody = ({
             scheduleList: d?.project_data?.code_phase_types
           })          
           const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
-          setEditData(sendTollgate1)
+          setDatesData(sendTollgate1);     
+          setEditData(sendTollgate1)      
           setOpenPiney(true);
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
           if (d3.event.target.id.includes('center')) {
@@ -742,6 +743,7 @@ const CalendarBody = ({
           })          
           const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
           setEditData(sendTollgate1)
+          setDatesData(sendTollgate1);
           setOpenPiney(true);
           d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
 
@@ -770,7 +772,8 @@ const CalendarBody = ({
             scheduleList: d?.project_data?.code_phase_types
           })          
           const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
-          setEditData(sendTollgate1)
+          setEditData(sendTollgate1)   
+          setDatesData(sendTollgate1);   
           setOpenPiney(true);
           if (!d3.event.target.id.includes('Title')) {
             d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
