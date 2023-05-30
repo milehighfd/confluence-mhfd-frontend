@@ -1746,7 +1746,8 @@ useEffect(() => {
                 <hr style={{ opacity: 0.4, width: '96%' }}></hr>
                 <div className="bodymap" onClick={() => setIsMeasuring(true)}>
                   <b>
-                    <img className="img-measure-00"></img>Create a new measurement
+                  <img className='img-measure-00'  src='/Icons/fi_play-circle.svg' alt="Create new measurement"></img>
+                    Create a new measurement
                   </b>
                 </div>
               </div>
