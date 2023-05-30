@@ -6,7 +6,7 @@ import b64ToBlob from "b64-to-blob";
 import { CloudDownloadOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 import { SERVER } from "Config/Server.config";
-import { getData } from '../../../Config/datasets';
+import { getDataNoJSON } from '../../../Config/datasets';
 
 interface DataType {
   key: React.Key;
@@ -203,9 +203,11 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   ];
 
   const downloadZip = (images: boolean) => {
-    const PUT_PROJECT_ID_HERE = '400353';
-    getData(`${SERVER.URL_BASE}/projects/download/${PUT_PROJECT_ID_HERE}${images ? '?images=1' : ''}`)
+    console.log('enter');
+    const PUT_PROJECT_ID_HERE = '20001167';
+    getDataNoJSON(`${SERVER.URL_BASE}/attachments/download/${PUT_PROJECT_ID_HERE}${images ? '?images=1' : ''}`)
       .then((b: any) => b.text()).then((r: any) => {
+        console.log('lalalala ', r);
         const dataBlob = b64ToBlob(r, 'application/zip')
         saveAs(dataBlob, `project_${PUT_PROJECT_ID_HERE}.zip`);
       });
