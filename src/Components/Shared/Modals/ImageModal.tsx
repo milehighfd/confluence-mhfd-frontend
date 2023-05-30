@@ -110,7 +110,7 @@ const ImageModal = (
               <div className='grid-modal-image'>
                 {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
-                    <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" /></div>
+                    <div><img src={element.attachment_url} alt="" height="100%" /></div>
                   </>
                 }) :<>
                 <div></div>
@@ -127,7 +127,7 @@ const ImageModal = (
                {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
                   <div key={index} className="detailed-c">
-                  <img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" style={{marginTop: '38px'}} />
+                  <img src={element.attachment_url} alt="" height="100%" style={{marginTop: '38px'}} />
                   </div>
                   </>
                 }):

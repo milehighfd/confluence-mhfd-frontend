@@ -22,7 +22,7 @@ const GalleryDetail = () => {
             {attachments && attachments.data && attachments.data?.map((element:any, index:number) => {
               if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
                 return <>
-                  <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" /></div>
+                  <div><img src={element.attachment_url} alt="" height="100%" /></div>
                 </>
               }
             })}

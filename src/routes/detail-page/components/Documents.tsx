@@ -15,7 +15,7 @@ const Documents = () => {
       </Row>
       <Row style={{marginBottom:'40px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
-          <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> Little Dry Creek_report.pdf</span>
+          <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> Little Dry Creek_report.pdf</span><br></br>
           <span style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}} /> Little Dry Creek_report.pdf</span>
           {/* <Button className="btn-purple"><PlusOutlined /> Add Documents</Button> */}
         </Col>
