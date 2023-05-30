@@ -1216,7 +1216,8 @@ const MapView = () => {
                       cartodb_id: project.project_id,
                       project_id: project.project_id,
                       image:
-                        projectType === 'CIP'
+                        project?.attachments?.length > 0 ? project?.attachments[0]?.attachment_url :
+                          projectType === 'CIP'
                           ? '/projectImages/capital.png'
                           : projectType === 'Study'
                           ? '/projectImages/study.png'
