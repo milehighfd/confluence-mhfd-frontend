@@ -85,7 +85,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   }, [updateList,note])
 
   useEffect(() => {
-    console.log('data',data)
+    const scrollPosition = document.getElementById('pineyBody')
+    if(scrollPosition){
+      scrollPosition.scrollTop = 0
+    }
     datasets.postData(`${SERVER.STATUS}`, { code_phase_type_id: data.phase_id, project_id: data.project_id })
       .then((rows) => {
         if (Object.keys(rows).length > 0) {
@@ -247,7 +250,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
         <div style={{ marginBottom: '15px' }}>
           <span className="tag-blue">{data.phase}</span>
         </div>
-        <div className="body-piney-body" style={{ paddingBottom: '30px' }}>
+        <div className="body-piney-body" id='pineyBody' style={{ paddingBottom: '30px' }}>
           <p style={{ marginBottom: '5px', fontWeight: '700', opacity: '0.6' }}>Notes</p>
           <TextArea rows={4} style={{ marginBottom: '15px', color: '#706b8a', resize:'none'}} className='text-area-piney' onChange={handleOnchange} value={newNote} placeholder="Add note here"/>
           <div className="form-text-calendar">
