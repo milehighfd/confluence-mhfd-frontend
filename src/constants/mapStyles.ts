@@ -1341,7 +1341,7 @@ const MEP_PROJECTS_STYLES = {
   {
       "type": "line",
       "source-layer": "pluto15v1",
-      "maxzoom": 12,
+      "maxzoom": 13,
       "paint": {"line-color": "#613500", "line-width": 4}
   },
   {
