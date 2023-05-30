@@ -370,9 +370,9 @@ const CalendarBody = ({
           .attr('stroke', '#251863')
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
-            const scheduleList = d?.project_data?.code_phase_types;
-            const sendTollgate = { d, scheduleList }
-            setDatesData(sendTollgate);
+            const sendTollgate1 = { d, scheduleList: d?.code_phase_types }
+            console.log(d)
+            setDatesData(sendTollgate1);
             setOpenModalTollgate(true);
           })
         hasDateData = true;
@@ -405,10 +405,10 @@ const CalendarBody = ({
             }
             return hasDateData ? 'visible' : 'hidden'
           })
-          .on("click", function (d: any) {
-            const scheduleList = d?.project_data?.code_phase_types;
-            const sendTollgate = { d, scheduleList }
-            setDatesData(sendTollgate);
+          .on("click", function (d: any) {            
+            const sendTollgate1 = { d, scheduleList: d?.code_phase_types }
+            console.log(d)
+            setDatesData(sendTollgate1);
             setOpenModalTollgate(true);
           })
           ;
