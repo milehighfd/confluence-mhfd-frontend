@@ -37,12 +37,12 @@ const ImageModal = (
   const {detailed} = useDetailedState();
   let carouselRef = useRef<undefined | any>(undefined);
   const [numberCarousel, setNumberCarousel] = useState(1);
-  const numberElementCarousel = detailed?.attachments?.length;
+  const [numberElementCarousel, setNnumberElementCarousel] = useState(0);
   const appUser = store.getState().profile;
   const email = appUser.userInformation?.email
   const [favorite,setFavorite] = useState(false);
   const { attachments } = useAttachmentState();
-
+  const [listAttach, setListAttachment] = useState([]) 
   const deleteFunction = (id: number, email: string, table: string) => {
     datasets.deleteDataWithBody(SERVER.DELETE_FAVORITE, { email: email, id: id, table: table }, datasets.getToken()).then(favorite => {      
       setFavorite(false)
@@ -52,13 +52,16 @@ const ImageModal = (
     });
 
   }
-
-  const listAttach = attachments?.data?.map((element: any, index: number) => {
-    if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
-      return element.attachment_url
-    }
-  })
-  console.log(listAttach, 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLI')
+  useEffect(() =>{
+    const listAttachAux = attachments?.data?.filter((element:any) => {
+      return element.mime_type === 'image/png' ||
+             element.mime_type === 'image/jpg' ||
+             element.mime_type === 'image/jpeg' ||
+             element.mime_type === 'image/gif';
+    });
+    setListAttachment(listAttachAux);
+    setNnumberElementCarousel(listAttachAux? listAttachAux.length : 0)
+  }, [attachments]);
   const addFunction = (id: number, email: string, table: string) => {
     if (addFavorite) {
       addFavorite(email, id, false);
@@ -105,35 +108,40 @@ const ImageModal = (
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{maxHeight:'calc(100vh - 166px)', overflowY:'auto'}}>
               <div className='grid-modal-image'>
-                {attachments?.data?.map((element:any, index:number) => {
-                if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
+                {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
                     <div><img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" /></div>
                   </>
+                }) :<>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                </>
                 }
-            })}
               </div>
             </Col>
-            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden'}}>
+            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden', height:'100%'}}>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'85px'}} >
-                {detailed?.problemid ? (
-                  <div className="detailed-c" > <img  src={"detailed/" + detailed?.problemtype + ".png"}/> </div>
-                ) : (
-                detailed?.attachments?.length !== 0 &&
-                  detailed?.attachments ? detailed?.attachments.map((image: string, index: number) => {
-                  return <div key={index} className="detailed-c">
-                    <img  className='img-modal' src={image} alt=""/>
+               {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
+                  return <>
+                  <div key={index} className="detailed-c">
+                  <img src={process.env.REACT_APP_API_URI +'/images/' + element.attachment_url} alt="" height="100%" style={{marginTop: '38px'}} />
                   </div>
+                  </>
                 }):
+                <>
                 <div className="detailed-c">
-                  <div className='img-modal' style={{background:'#f5f7ff'}}>
-                  </div>
+                  <div className='img-modal' style={{background:'#f5f7ff'}}/>
                 </div>
-                )}
+                </>
+                
+              }
               </Carousel>
               <div className='tag-div'>
                 <div className={detailed?.attachments?.length !== 0 && detailed?.attachments ? 'tag-carousel' : 'tag-carousel no-image'}>
-                  {detailed?.attachments?.length !== 0 && detailed?.attachments ?
+                  {numberElementCarousel !== 0  ?
                   `${numberCarousel} of ${numberElementCarousel}`
                   :
                   'No Image Available'
@@ -141,10 +149,10 @@ const ImageModal = (
                 </div>
               </div>
               <div className='btn-left-carousel'>
-                <LeftOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}}/>
+                <LeftOutlined className="button-next" onClick={()=>{if(listAttach.length > 0){carouselRef.current.prev(); if(numberCarousel=== 1){setNumberCarousel(numberElementCarousel)}else{setNumberCarousel(numberCarousel - 1)}}}}/>
               </div>
               <div className='btn-right-carousel'>
-                <RightOutlined className="button-next" onClick={()=>{if(detailed?.attachments?.length > 0){carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}}/>
+                <RightOutlined className="button-next" onClick={()=>{if(listAttach.length > 0){carouselRef.current.next(); if(numberCarousel=== numberElementCarousel){setNumberCarousel(1)}else{setNumberCarousel(numberCarousel + 1)}}}}/>
               </div>
             </Col>
           </>}
