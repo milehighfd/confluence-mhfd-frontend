@@ -23,6 +23,7 @@ import { useDetailedState } from 'hook/detailedHook';
 import MapAutoComplete from 'routes/map/components/MapAutoComplete';
 import { getCurrentProjectStatus } from 'utils/parsers';
 import { useProjectDispatch } from 'hook/projectHook';
+import { SERVER } from '../../../Config/Server.config';
 
 const STATUS = 'status',
   JURISDICTION = 'jurisdiction',
@@ -1216,7 +1217,7 @@ const MapView = () => {
                       cartodb_id: project.project_id,
                       project_id: project.project_id,
                       image:
-                        project?.attachments?.length > 0 ? project?.attachments[0]?.attachment_url :
+                      project?.project_attachments?.length > 0 ? `${SERVER.BASE_URL_IMAGES}/${project?.project_attachments[0]?.attachment_url}`:
                           projectType === 'CIP'
                           ? '/projectImages/capital.png'
                           : projectType === 'Study'
