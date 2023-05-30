@@ -43,7 +43,7 @@ export const ModalProjectView = ({
   year?: number
 }) => {
   const {getStreamsByProjectId, getIndependentComponentsByProjectId, getComponentsByProjectId, setBoardProjectsCreate} = useProjectDispatch();
-  const {getAttachmentProjectId} = useAttachmentDispatch();
+  const {getAttachmentProjectId,setProjectId} = useAttachmentDispatch();
   const [typeProject, setTypeProyect] = useState('');
   const [subType, setSubType] = useState('');
   const [disable, setDisable] = useState(true);
@@ -185,7 +185,10 @@ export const ModalProjectView = ({
   },[showDefaultTab]);
 
   useEffect(() => {
-    getAttachmentProjectId(data.project_id);
+    if (data.project_id) {
+      getAttachmentProjectId(data.project_id);
+      setProjectId(data.project_id);
+    }    
   }, [data]);
 
   useEffect(() => {

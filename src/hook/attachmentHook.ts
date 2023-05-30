@@ -9,7 +9,8 @@ import {
   setLoading,
   toggleAttachment,
   toggleAttachmentCover,
-  uploadFile
+  uploadFile,
+  setProjectId
 } from '../store/actions/uploadAttachmentActions';
 
 export const useAttachmentState = () => useSelector(
@@ -51,6 +52,9 @@ export const useAttachmentDispatch = () => {
     },
     setLoading(loading: boolean) {
       dispatch(setLoading(loading))
+    },
+    setProjectId(project_id: any) {
+      dispatch(setProjectId(project_id))
     }
   };
 };

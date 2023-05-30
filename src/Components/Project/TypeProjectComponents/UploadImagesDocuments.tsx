@@ -26,7 +26,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   
   const [toDelete, setToDelete] = useState<any[]>([]);
   const [toDeleteFiles, setToDeleteFiles] = useState<any[]>([]);
-  const { attachments } = useAttachmentState();
+  const { attachments, project_id } = useAttachmentState();
   const { deleteAttachment } = useAttachmentDispatch();
   const getTypeImage = (mime_type: any) => {
     if ( mime_type.includes('png') ) {
@@ -203,15 +203,11 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
   ];
 
   const downloadZip = (images: boolean) => {
-    console.log('enter');
-    const PUT_PROJECT_ID_HERE = '20001167';
-    getDataNoJSON(`${SERVER.URL_BASE}/attachments/download/${PUT_PROJECT_ID_HERE}${images ? '?images=1' : ''}`)
+    getDataNoJSON(`${SERVER.URL_BASE}/attachments/download/${project_id}${images ? '?images=1' : ''}`)
       .then((b: any) => b.text()).then((r: any) => {
-        console.log('lalalala ', r);
         const dataBlob = b64ToBlob(r, 'application/zip')
-        saveAs(dataBlob, `project_${PUT_PROJECT_ID_HERE}.zip`);
+        saveAs(dataBlob, `project_${project_id}.zip`);
       });
-
   }
  
   useEffect(() => {
@@ -323,7 +319,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
-            <Button className="bottomn-heder" onClick={() => downloadZip(true)}>
+            <Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
               <CloudDownloadOutlined />Download All 
             </Button>
           </span>
@@ -362,7 +358,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
               <span className="ic-document"/>Add Document
             </Button>
-            <Button className="bottomn-heder" onClick={() => downloadZip(false)}>
+            <Button className="bottomn-heder" onClick={() => downloadZip(false)} disabled={!dataFiles.length}>
               <CloudDownloadOutlined />Download All 
             </Button>
           </span>

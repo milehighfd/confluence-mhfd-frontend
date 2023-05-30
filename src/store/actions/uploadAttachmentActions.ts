@@ -105,3 +105,9 @@ export const setLoading = (loading: boolean) => {
     dispatch({ type: types.LOADING, loading });
   }
 }
+
+export const setProjectId = (project_id: number) => {
+  return (dispatch: Function) => {
+    dispatch({ type: types.SET_PROJECT_ID, project_id });
+  }
+}

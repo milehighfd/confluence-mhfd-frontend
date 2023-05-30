@@ -12,10 +12,10 @@ const initState = {
   user_id: "",
   register_date: "",
   filesize: 0,
-  project_id: "",
+  project_id: -1,
   createdAt: "",
   updatedAt: "",
-  attachment: {}
+  attachment: {},
 };
 
 const attachmentReducer = (state = initState, action : any) => {
@@ -49,6 +49,11 @@ const attachmentReducer = (state = initState, action : any) => {
       }
     case types.CLEAR:
       return initState;
+    case types.SET_PROJECT_ID:
+      return {
+        ...state,
+        project_id: action.project_id,
+      }
     case types.TOGGLE:
       return {
         ...state,
