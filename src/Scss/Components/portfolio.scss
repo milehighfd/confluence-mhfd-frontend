@@ -645,7 +645,7 @@
 .piney-text{
   position: absolute;
   background: white;
-  z-index: 3;
+  z-index: 5;
   right: 0px;
   width: 300px;
   height: 100%;
@@ -1269,10 +1269,10 @@
   }
 
   .dashed-line {
-    transform: rotate(90deg) translate(288px, -175px);
+    transform: rotate(90deg) translate(288px, -136px);
     position: relative;
     width: 499px;
-    z-index: 100;
+    z-index: 3;
     height: 0px;
     margin: 0 auto;
   }
@@ -1775,7 +1775,7 @@
     .piney-text{
       position: absolute;
       background: white;
-      z-index: 3;
+      z-index: 5;
       right: 0px;
       width: 300px;
       height: 100%;
@@ -2130,7 +2130,7 @@
     .piney-text{
       position: absolute;
       background: white;
-      z-index: 3;
+      z-index: 5;
       right: 0px;
       width: 300px;
       height: 100%;

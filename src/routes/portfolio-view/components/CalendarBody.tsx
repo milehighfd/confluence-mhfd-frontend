@@ -1088,14 +1088,16 @@ const CalendarBody = ({
           // delete after testing
           // zoom.translateTo(svg, xScale(today), 0);
           // zoom.scaleTo(svg, 0.104);
-          // zoom.translateTo(svgAxis, xScale(today), 0);
           // zoom.scaleTo(svgAxis, 0.104);
-          // zoom.translateTo(svg, xScale(today), 0)
+          
           zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
+          zoom.translateTo(svgAxis, xScale(today), 0);
+          zoom.translateTo(svg, xScale(today), 0)
         }
         if (zoomSelected === 'Weekly') {
+
           zoom.scaleTo(svg, 0.9);
           zoom.scaleTo(svgAxis, 0.9);
         }
@@ -1107,6 +1109,8 @@ const CalendarBody = ({
           // zoom.scaleTo(svgAxis, 0.104);
           zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          zoom.translateTo(svgAxis, xScale(today), 0);
+          zoom.translateTo(svg, xScale(today), 0)
         }
         
       }
@@ -1366,7 +1370,7 @@ const CalendarBody = ({
       let todayLineDiv: any = document.getElementById('todayLineDiv')
       var styleDiv = window.getComputedStyle(todayLineDiv);
       var matrix = new WebKitCSSMatrix(styleDiv.transform);
-      let translateYTodayline = (currentZScale===0.9 ? -115 :-175) + (currentZScale===0.9 ? 800 <= zoomTimeline ? 2000 : zoomTimeline  : 600 <= zoomTimeline ? 2000 : zoomTimeline)
+      let translateYTodayline = (currentZScale===0.9 ? -132 :-136) + (currentZScale===0.9 ? 800 <= zoomTimeline ? 2000 : zoomTimeline  : 600 <= zoomTimeline ? 2000 : zoomTimeline)
       d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
     }
     setIsLoading(false)
