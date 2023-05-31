@@ -3,7 +3,7 @@ import { Button, Checkbox, Col, Dropdown, Menu, Row, Space, Table } from "antd";
 import { DeleteOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import AddAmountModal from "Components/Shared/Modals/AddAmountModal";
 import { useFinancialDispatch, useFinancialState } from "hook/financialHook";
-
+// import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 const Financials = ({ projectId }: { projectId: any }) => {
   const { financialInformation } = useFinancialState();
   const { getFinancialData } = useFinancialDispatch();
@@ -30,20 +30,34 @@ const Financials = ({ projectId }: { projectId: any }) => {
     getFinancialData(projectId, []);
   }, [])
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  });
+
   useEffect(() => {
+
+    const sortedProducts = financialInformation.sort(
+      (e1: any, e2: any) => (e1.sortValue > e2.sortValue) ? 1 : (e1.sortValue < e2.sortValue) ? -1 : 0);
+    console.log(sortedProducts)
     const mappingDataForDataSource = financialInformation.map((element: any, index: number) => {
-      const key = `${index}`;
-      const agreement = [element?.agreement_number, ''];
-      const amendment = element?.amendment_number || '';
-      const partner = element?.project_partner_name || '';
-      const partnerId = element?.project_partner_id || '';
-      const phase = element?.code_phase_type_name || '';
-      const phaseId = element?.code_phase_type_id || '';
-      const projected = ['$0', 'purple'];
-      const encumbered = ['$0', 'purple'];
-      const tyler = ['$0', 'purple'];
-      const available = ['$0', 'purple'];
-      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId }
+
+        const key = `${index}`;
+        const agreement = [element?.agreement_number, ''];
+        const amendment = element?.amendment_number === 'ORIGINAL' || element?.amendment_number === null ? '' : element?.amendment_number;
+        const partner = element?.project_partner_name || '';
+        const partnerId = element?.project_partner_id || '';
+        const phase = element?.code_phase_type_name || '';
+        const phaseId = element?.code_phase_type_id || '';
+
+        const projected = [element?.projected ? formatter.format(element?.cost) : '$0', 'purple'];
+        const encumbered = [element?.encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
+        const tyler = [element?.tyler_encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
+        const available = ['$0', 'purple'];
+        return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId }
+      
     });
     setFinalData(mappingDataForDataSource);
     if (filters.length === 0) {
@@ -266,7 +280,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal"  style={{paddingRight: '8px'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{ paddingRight: '8px' }}>
           <div style={{ width: '100%', overflowX: 'hidden' }}>
             <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
             <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
