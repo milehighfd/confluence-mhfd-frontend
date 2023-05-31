@@ -215,71 +215,71 @@ const Profile = ({
       <div style={{margin:'0px'}} className="line-01"></div>
       <div style={{textAlign:'initial', padding:'10px', marginTop:'10px'}} className="profile">
         <Row >
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>First Name</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
               <input onChange={(e) => setFirstName(e.target.value)} className="input-profile" type="text" value={isNull(firstName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(firstName)}</p>
             }
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Last Name</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
               <input onChange={(e) => setLastName(e.target.value)} className="input-profile" type="text" value={isNull(lastName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(lastName)}</p>
             }
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Email</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
               <input onChange={(e) => setEmail(e.target.value)} className="input-profile" type="text" value={isNull(email)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(email)}</p>
             }
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Phone</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
               <input onChange={(e) => setPhone(e.target.value)} className="input-profile" type="text" value={isNull(phone)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(phone)}</p>
             }
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 9 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 10 }}>
             <p className="color-sub" style={{ paddingBottom: '10px' }}>Business Associate</p>
           </Col>
-          <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           {editProfile ?
               <input onChange={(e) => setOrganization(e.target.value)} disabled={true} className="input-profile" type="text" value={isNull(organization)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(organization)}</p>
             }            
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             <Select onChange={(value) => setCity(value)} disabled={disable} value={isNull(city)} options={jurisdictionList}  style={{ width: '100%', marginBottom:'15px', borderRadius:'25px' }} getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option >{isNull(city)}</Option>             
             </Select>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>County</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             <Select onChange={(value) => setCounty(value)} disabled={disable} options={countyList} value={isNull(county)} style={{ width: '100%', marginBottom:'15px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option value="Douglas">{isNull(county)}</Option>
             </Select>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Service Area</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
           <SelectServiceArea
               serviceArea={serviceArea}
               setServiceArea={setServiceArea}
@@ -287,10 +287,10 @@ const Profile = ({
               defaultValue={serviceArea}
               value={serviceArea}/>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 9 }}>
+          <Col xs={{ span: 24}} lg={{ span: 10 }}>
             <p className="color-sub" style={{paddingBottom:'10px' }}>Default Map</p>
           </Col>
-          <Col xs={{ span: 24}} lg={{ span: 15 }}>
+          <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {/* {editProfile ? */}
             <SelectZoomArea
               zoomArea={zoomarea}
