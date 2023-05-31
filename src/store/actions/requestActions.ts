@@ -1,6 +1,7 @@
 import { SERVER } from 'Config/Server.config';
-import * as types from '../types/requestTypes';
-import * as projectTypes from '../types/ProjectTypes';
+import * as types from 'store/types/requestTypes';
+import * as projectTypes from 'store/types/ProjectTypes';
+import { DragAndDropCards } from 'store/types/requestTypes';
 import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
 
@@ -293,5 +294,15 @@ export const setIsOnSelected = (payload: any) => ({
 
 export const setColumns2Manual = (payload: any) => ({
   type: types.REQUEST_SET_COLUMNS_2_MANUAL,
+  payload
+});
+
+export const swapProjectsManual = (payload: DragAndDropCards) => ({
+  type: types.REQUEST_SWAP_PROJECTS_MANUAL,
+  payload
+});
+
+export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => ({
+  type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
   payload
 });

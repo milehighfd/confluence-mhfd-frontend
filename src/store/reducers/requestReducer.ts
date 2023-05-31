@@ -45,6 +45,62 @@ const initialState = {
   setIsOnSelected: false,
 };
 
+const handleMoveFromColumnToColumn = (columns2: any[], action: any) => {
+  const sourceProject = columns2[action.payload.originColumnPosition].projects[action.payload.sourcePosition];
+
+  const targetColumnProjects: any[] = columns2[action.payload.targetColumnPosition].projects;
+  const targetColumnSameProjectIndex = targetColumnProjects.reduce((index: any, project: any, currentIndex: number) => {
+    if (index === -1 && project.project_id === sourceProject.project_id) {
+      index = currentIndex;
+    }
+    return index;
+  }, -1);
+
+  let newRequestValue = sourceProject[`req${action.payload.originColumnPosition}`];
+  if (targetColumnSameProjectIndex !== -1) {
+    const currentRequest = targetColumnProjects[targetColumnSameProjectIndex][`req${action.payload.targetColumnPosition}`];
+    newRequestValue = currentRequest + newRequestValue;
+  }
+  const newProject = {
+    ...sourceProject,
+    [`req${action.payload.targetColumnPosition}`]: newRequestValue,
+    [`req${action.payload.originColumnPosition}`]: null
+  };
+
+  return columns2.map((column: any, columnId: number) => {
+    if (action.payload.originColumnPosition === columnId) {
+      return {
+        ...column,
+        projects: column.projects.filter((_: any, positionId: number) => {
+          return positionId !== action.payload.sourcePosition;
+        })
+      }
+    } else if (action.payload.targetColumnPosition === columnId) {
+      if (targetColumnSameProjectIndex === -1) {  
+        return {
+          ...column,
+          projects: [
+            ...column.projects.slice(0, action.payload.targetPosition),
+            newProject,
+            ...column.projects.slice(action.payload.targetPosition)
+          ]
+        }
+      } else {
+        return {
+          ...column,
+          projects: column.projects.map((project: any, positionId: number) => {
+            if (positionId === targetColumnSameProjectIndex) {
+              return newProject;
+            }
+            return project;
+          })
+        }
+      }
+    }
+    return column;
+  });
+};
+
 const requestReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case types.REQUEST_SHOW_MODAL_PROJECT:
@@ -273,6 +329,31 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         columns2: action.payload
+      };
+    case types.REQUEST_SWAP_PROJECTS_MANUAL:
+      return {
+        ...state,
+        columns2: state.columns2.map((column: any, columnId: number) => {
+          if (action.payload.originColumnPosition === columnId) {
+            return {
+              ...column,
+              projects: column.projects.map((project: any, positionId: number, array: any[]) => {
+                if (positionId === action.payload.sourcePosition) {
+                  return array[action.payload.targetPosition];
+                } else if (positionId === action.payload.targetPosition) {
+                  return array[action.payload.sourcePosition];
+                }
+                return project;
+              })
+            }
+          }
+          return column;
+        })
+      };
+    case types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL:
+      return {
+        ...state,
+        columns2: handleMoveFromColumnToColumn(state.columns2, action),
       };
     default:
       return state;

@@ -40,7 +40,10 @@ import {
   setLocalityFilter,
   setIsOnSelected,
   setColumns2Manual,
+  swapProjectsManual,
+  handleMoveFromColumnToColumn,
 } from 'store/actions/requestActions';
+import { DragAndDropCards } from 'store/types/requestTypes';
 
 export const useRequestState = () => useSelector((state: { request: any }) => state.request);
 
@@ -164,6 +167,12 @@ export const useRequestDispatch = () => {
   const _setColumns2Manual = useCallback((columns2Manual: any) => {
     dispatch(setColumns2Manual(columns2Manual));
   }, [dispatch]);
+  const _swapProjectsManual = useCallback((payload: DragAndDropCards) => {
+    dispatch(swapProjectsManual(payload));
+  }, [dispatch]);
+  const _handleMoveFromColumnToColumn = useCallback((payload: DragAndDropCards) => {
+    dispatch(handleMoveFromColumnToColumn(payload));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -205,5 +214,7 @@ export const useRequestDispatch = () => {
     setDataAutocomplete: _setDataAutocomplete,
     setIsOnSelected: _setIsOnSelected,
     setColumns2Manual: _setColumns2Manual,
+    swapProjectsManual: _swapProjectsManual,
+    handleMoveFromColumnToColumn: _handleMoveFromColumnToColumn,
   };
 };
