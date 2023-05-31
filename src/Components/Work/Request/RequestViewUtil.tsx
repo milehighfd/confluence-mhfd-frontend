@@ -679,9 +679,9 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
     }
   });
   const grouped = groupBy(projectsRelevantData, (item:any) => {
-    if (item.current_project_status[0]) {
+    if (item.current_project_status?.lenght > 0 &&  item.current_project_status[0]) {
       return item.current_project_status[0]?.code_phase_type?.code_status_type?.code_status_type_id;
-    } 
+    }
   });
   let newGroups: any = {};
   for( let key in grouped) {
@@ -697,7 +697,7 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
   }
   for(let key in grouped) {
     const groupedByProjectType = groupBy(grouped[key], (item: any) => {
-      if(item.current_project_status[0]) {
+      if(item.current_project_status?.length > 0 && item.current_project_status[0]) {
         return item.current_project_status[0]?.code_phase_type?.code_project_type?.code_project_type_id;
       }
     });
