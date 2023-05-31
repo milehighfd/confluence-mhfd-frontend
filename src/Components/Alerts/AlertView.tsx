@@ -16,6 +16,7 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
 
 
   useEffect(() => {
+    
     if (isWorkPlan) {
       setWorkPlanString(locality.join(','));
     } else {
@@ -43,6 +44,7 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
   useEffect(() => {
     console.log('Am i editing', isEdit);
   }, [isEdit]);
+  console.log(isWorkPlan, "  console.log(isWorkPlan);");
  return (
   <>
   {visibleAlert}
@@ -87,7 +89,7 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
                 </p>
               </Col>}
               {
-                (showCheckBox && !isEdit && !locality.includes('MHFD District')) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                (isWorkPlan && showCheckBox && !isEdit && !locality.includes('MHFD District')) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div>
                     <Checkbox
                       style={{paddingRight:'10px', paddingTop:'10px'}}
