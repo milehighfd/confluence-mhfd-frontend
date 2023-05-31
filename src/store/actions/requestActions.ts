@@ -297,12 +297,99 @@ export const setColumns2Manual = (payload: any) => ({
   payload
 });
 
-export const swapProjectsManual = (payload: DragAndDropCards) => ({
-  type: types.REQUEST_SWAP_PROJECTS_MANUAL,
-  payload
-});
+const swapProjectsManualReducer = (columns2: any[], action: any) => {
+  return columns2.map((column: any, columnId: number) => {
+    if (action.payload.originColumnPosition === columnId) {
+      return {
+        ...column,
+        projects: column.projects.map((project: any, positionId: number, array: any[]) => {
+          if (positionId === action.payload.sourcePosition) {
+            return array[action.payload.targetPosition];
+          } else if (positionId === action.payload.targetPosition) {
+            return array[action.payload.sourcePosition];
+          }
+          return project;
+        })
+      }
+    }
+    return column;
+  });
+};
 
-export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => ({
-  type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
-  payload
-});
+export const swapProjectsManual = (payload: DragAndDropCards) => {
+  return (dispatch: any, getState: Function) => {
+    const { request: { columns2 } } = getState();
+    dispatch(
+      {
+      type: types.REQUEST_SWAP_PROJECTS_MANUAL,
+      payload: swapProjectsManualReducer(columns2, { payload })
+      }
+    )
+  }
+};
+
+const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any) => {
+  const sourceProject = columns2[action.payload.originColumnPosition].projects[action.payload.sourcePosition];
+
+  const targetColumnProjects: any[] = columns2[action.payload.targetColumnPosition].projects;
+  const targetColumnSameProjectIndex = targetColumnProjects.reduce((index: any, project: any, currentIndex: number) => {
+    if (index === -1 && project.project_id === sourceProject.project_id) {
+      index = currentIndex;
+    }
+    return index;
+  }, -1);
+
+  let newRequestValue = sourceProject[`req${action.payload.originColumnPosition}`];
+  if (targetColumnSameProjectIndex !== -1) {
+    const currentRequest = targetColumnProjects[targetColumnSameProjectIndex][`req${action.payload.targetColumnPosition}`];
+    newRequestValue = currentRequest + newRequestValue;
+  }
+  const newProject = {
+    ...sourceProject,
+    [`req${action.payload.targetColumnPosition}`]: newRequestValue,
+    [`req${action.payload.originColumnPosition}`]: null
+  };
+
+  return columns2.map((column: any, columnId: number) => {
+    if (action.payload.originColumnPosition === columnId) {
+      return {
+        ...column,
+        projects: column.projects.filter((_: any, positionId: number) => {
+          return positionId !== action.payload.sourcePosition;
+        })
+      }
+    } else if (action.payload.targetColumnPosition === columnId) {
+      if (targetColumnSameProjectIndex === -1) {  
+        return {
+          ...column,
+          projects: [
+            ...column.projects.slice(0, action.payload.targetPosition),
+            newProject,
+            ...column.projects.slice(action.payload.targetPosition)
+          ]
+        }
+      } else {
+        return {
+          ...column,
+          projects: column.projects.map((project: any, positionId: number) => {
+            if (positionId === targetColumnSameProjectIndex) {
+              return newProject;
+            }
+            return project;
+          })
+        }
+      }
+    }
+    return column;
+  });
+};
+
+export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
+  return (dispatch: any, getState: Function) => {
+    const { request: { columns2 } } = getState();
+    dispatch({
+      type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
+      payload: handleMoveFromColumnToColumnReducer(columns2, { payload })
+    });
+  }
+};
