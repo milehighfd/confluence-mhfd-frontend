@@ -89,7 +89,7 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
                 </p>
               </Col>}
               {
-                (isWorkPlan && showCheckBox && !isEdit && !locality.includes('MHFD District')) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
+                (isWorkPlan &&showCheckBox && !isEdit && !locality.includes('MHFD District')) && <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
                   <div>
                     <Checkbox
                       style={{paddingRight:'10px', paddingTop:'10px'}}
