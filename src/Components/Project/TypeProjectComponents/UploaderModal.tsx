@@ -7,6 +7,7 @@ export const UploaderModal = (
   const [selectedFile, setSelectedFile] = useState<any>(undefined);
   const [descriptionFile, setDescriptionFile] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const IMAGES = 'images'
   const handleFileUpload = (event: any) => {
     if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
       return;
@@ -14,7 +15,7 @@ export const UploaderModal = (
     const name = event.target.files[0].name;
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
-    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'mp4') {
+    if ((type === IMAGES && (!ext || ext === 'jpg' || ext === 'jpeg' || ext === 'png'))  || (type !== IMAGES && (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'mp4'))) {
       setSelectedFile(event.target.files[0]);
       setErrorMessage('')
     }

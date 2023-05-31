@@ -305,24 +305,24 @@ const RequestView = ({ type, isFirstRendering }: {
     })
   }, [year, locality, tabKey]);
 
-  useEffect(() => {
-    if (!namespaceId) {
-      return;
-    }
-    WsService.connect(namespaceId, (socket: any) => {
-      console.log('connected', socket.id);
-    });
-    WsService.receiveUpdate((data: any) => {
-      console.log('This is the data after ws', data);
-    });
-    WsService.receiveReqmanager((data: any) => {
-      console.log('receiveReqmanager', data);
-      setReqManager(data);
-    })
-    return () => {
-      WsService.disconnect();
-    }
-  }, [namespaceId])
+  // useEffect(() => {
+  //   if (!namespaceId) {
+  //     return;
+  //   }
+  //   WsService.connect(namespaceId, (socket: any) => {
+  //     console.log('connected', socket.id);
+  //   });
+  //   WsService.receiveUpdate((data: any) => {
+  //     console.log('This is the data after ws', data);
+  //   });
+  //   WsService.receiveReqmanager((data: any) => {
+  //     console.log('receiveReqmanager', data);
+  //     setReqManager(data);
+  //   })
+  //   return () => {
+  //     WsService.disconnect();
+  //   }
+  // }, [namespaceId])
 
   // getBoardData2({
   //     type,

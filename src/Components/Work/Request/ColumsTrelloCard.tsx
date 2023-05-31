@@ -8,7 +8,6 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
 import { filterByJurisdictionAndCsaSelected, hasPriority } from 'Components/Work/Request/RequestViewUtil';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
-import WsService from 'Components/Work/Request/WsService';
 import { ADMIN, STAFF } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
 
@@ -44,7 +43,9 @@ const ColumsTrelloCard = ({
   const {
     setVisibleCreateProject,
     loadOneColumn,
-    setColumns2Manual
+    setColumns2Manual,
+    moveProjectsManual,
+    handleMoveFromColumnToColumn,
   } = useRequestDispatch();
   const { userInformation } = useProfileState();
   const { clear } = useAttachmentDispatch();
@@ -88,76 +89,114 @@ const ColumsTrelloCard = ({
     sourcePosition: number,
     targetPosition: number
   ) => {
-    const board_project_id = columns[originColumnPosition].projects[sourcePosition].board_project_id;
-    const originColumn = `rank${originColumnPosition}`;
-    const targetColumn = `rank${targetColumnPosition}`;
-    
-    if (originColumn === targetColumn) {
-      let previousPosition = targetPosition - 1;
-      let nextPosition = targetPosition;
-      if (targetPosition === sourcePosition) return;
-      if (targetPosition > sourcePosition) {
-        previousPosition = targetPosition;
-        nextPosition = targetPosition + 1;
-      }
-      let _columns = JSON.parse(JSON.stringify(columns));
-      const project = _columns[originColumnPosition].projects[sourcePosition];
-      _columns[originColumnPosition].projects.splice(sourcePosition, 1);
-      let previousCardId: any = null;
-      if (previousPosition >= 0) {
-        previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
-      }
-      let nextCardId: any = null;
-      if (nextPosition < columns[targetColumnPosition].projects.length) {
-        nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
-      }
-      const data = {
-        board_id: namespaceId,
-        board_project_id,
-        originColumn,
-        targetColumn,
-        previousCardId,
-        nextCardId
-      };
-      console.log('data', data);
-      WsService.sendUpdate(data);
-      _columns[targetColumnPosition].projects.splice(targetPosition, 0, project);
-      setColumns2Manual(_columns);
-      setTimeout(() => {
-        loadOneColumn(namespaceId, originColumnPosition);
-      }, 2000);
+    console.log('onDropV2');
+    console.log('originColumnPosition', originColumnPosition);
+    console.log('targetColumnPosition', targetColumnPosition);
+    console.log('sourcePosition', sourcePosition);
+    console.log('targetPosition', targetPosition);
+    if (originColumnPosition === targetColumnPosition) {
+      moveProjectsManual({
+        originColumnPosition,
+        targetColumnPosition,
+        sourcePosition,
+        targetPosition
+      });
     } else {
-      let previousPosition = targetPosition - 1;
-      let nextPosition = targetPosition;
-      let previousCardId: any = null;
-      if (previousPosition >= 0) {
-        previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
-      }
-      let nextCardId: any = null;
-      if (nextPosition < columns[targetColumnPosition].projects.length) {
-        nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
-      }
-      const data = {
-        board_id: namespaceId,
-        board_project_id,
-        originColumn,
-        targetColumn,
-        previousCardId,
-        nextCardId
-      };
-      console.log('data', data);
-      WsService.sendUpdate(data);
-      let _columns = JSON.parse(JSON.stringify(columns));
-      _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
-
-      _columns[originColumnPosition].projects.splice(sourcePosition, 1);
-      setColumns2Manual(_columns);
-      setTimeout(() => {
-        loadOneColumn(namespaceId, originColumnPosition);
-        loadOneColumn(namespaceId, targetColumnPosition);
-      }, 2000);
+      handleMoveFromColumnToColumn({
+        originColumnPosition,
+        targetColumnPosition,
+        sourcePosition,
+        targetPosition
+      });
     }
+
+
+
+    // const board_project_id = columns[originColumnPosition].projects[sourcePosition].board_project_id;
+    // const originColumn = `rank${originColumnPosition}`;
+    // const targetColumn = `rank${targetColumnPosition}`;
+    
+    // if (originColumn === targetColumn) {
+    //   let previousPosition = targetPosition - 1;
+    //   let nextPosition = targetPosition;
+    //   if (targetPosition === sourcePosition) return;
+    //   if (targetPosition > sourcePosition) {
+    //     previousPosition = targetPosition;
+    //     nextPosition = targetPosition + 1;
+    //   }
+    //   let _columns = JSON.parse(JSON.stringify(columns));
+    //   const project = _columns[originColumnPosition].projects[sourcePosition];
+    //   _columns[originColumnPosition].projects.splice(sourcePosition, 1);
+    //   let previousCardId: any = null;
+    //   if (previousPosition >= 0) {
+    //     previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
+    //   }
+    //   let nextCardId: any = null;
+    //   if (nextPosition < columns[targetColumnPosition].projects.length) {
+    //     nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
+    //   }
+    //   const data = {
+    //     board_id: namespaceId,
+    //     board_project_id,
+    //     originColumn,
+    //     targetColumn,
+    //     previousCardId,
+    //     nextCardId
+    //   };
+    //   console.log('data', data);
+    //   // WsService.sendUpdate(data);
+    //   datasets.putData(
+    //     SERVER.BOARD_PROJECT_WS(board_project_id),
+    //     data
+    //   ).then((res: any) => {
+    //     console.log('res', res)
+    //   })
+    //   _columns[targetColumnPosition].projects.splice(targetPosition, 0, project);
+    //   setColumns2Manual(_columns);
+    //   setTimeout(() => {
+    //     loadOneColumn(namespaceId, originColumnPosition);
+    //   }, 2000);
+    // } else {
+    //   let previousPosition = targetPosition - 1;
+    //   let nextPosition = targetPosition;
+    //   let previousCardId: any = null;
+    //   if (previousPosition >= 0) {
+    //     previousCardId = columns[targetColumnPosition].projects[previousPosition].board_project_id;
+    //   }
+    //   let nextCardId: any = null;
+    //   if (nextPosition < columns[targetColumnPosition].projects.length) {
+    //     nextCardId = columns[targetColumnPosition].projects[nextPosition].board_project_id;
+    //   }
+    //   const data = {
+    //     board_id: namespaceId,
+    //     board_project_id,
+    //     originColumn,
+    //     targetColumn,
+    //     previousCardId,
+    //     nextCardId
+    //   };
+    //   console.log('data', data);
+    //   // WsService.sendUpdate(data);
+    //   datasets.putData(
+    //     SERVER.BOARD_PROJECT_WS(board_project_id),
+    //     data
+    //   ).then((res: any) => {
+    //     console.log('res', res)
+    //   })
+    //   let _columns = JSON.parse(JSON.stringify(columns));
+    //   _columns[targetColumnPosition].projects.splice(targetPosition, 0, _columns[originColumnPosition].projects[sourcePosition])
+
+    //   _columns[originColumnPosition].projects.splice(sourcePosition, 1);
+    //   setColumns2Manual(_columns);
+    //   setTimeout(() => {
+    //     loadOneColumn(namespaceId, originColumnPosition);
+    //     loadOneColumn(namespaceId, targetColumnPosition);
+    //   }, 2000);
+    // }
   }
+  columns[2].projects.forEach((project: any, index: number) => {
+    console.log(`${index}: ${project?.projectData?.project_name}`);
+  });
   return <DragDropContext onDragEnd={result => {
     const { source, destination } = result;
     if (!destination) {
@@ -173,10 +212,9 @@ const ColumsTrelloCard = ({
       sPosition,
       dPosition
     );
-    // onDrop(columns[sourceColumn].projects[sPosition].project_id, true, sourceColumn, sPosition, destColumn, dPosition);
 
     if (document.getElementById(`column_${tabKey}_1`)) {
-      scrollValues.forEach((element: any, index: any) => {
+      scrollValues.forEach((_: any, index: any) => {
         scrollValues[index] = document.getElementById(`column_${tabKey}_${index}`)?.scrollTop
         setOnScrollValue(scrollValues)
       });

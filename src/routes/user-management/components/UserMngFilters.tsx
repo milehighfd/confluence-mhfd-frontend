@@ -134,7 +134,6 @@ const UserMngFilters = ({setIsLoading, option, setOption, search, reset, title }
             setOption(auxOption);
             search(auxOption);
             setIsLoading(true);
-            console.log(auxOption);
           }}
           style={{ width: '30%', marginRight:'10px', height: '36px', borderRadius:'5px'}}
           // style={{ width: '30%', marginRight:'10px', height: '40px', borderRadius:'5px'}}

@@ -34,14 +34,31 @@ const Roadmap = ({setOpenPiney,
   const [show,setShow] = useState<any>(false)
 
   const windowWidth: any = window.innerWidth;
-  let labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? 72 : windowWidth > 2550 && windowWidth <= 2999 ? 87 : windowWidth >= 3001 && windowWidth <= 3999 ? 115 : 65;
+  let labelWidth: any;
   let projectTypeOffset = 0;
   let projectType, marginLeftChart = '21px', fontSizeLabels='11px';
+  let paddingTopLegend = windowWidth > 1900 && windowWidth <= 2549 ? '24px' 
+  : windowWidth > 2550 && windowWidth <= 2999 ? '24px' 
+  : windowWidth >= 3001 && windowWidth <= 3999 ? '24px' 
+  : '10px';
+
   if(data.length > 0){
     projectType = data[0].code_project_type_id;
-    labelWidth = projectType >= 8 && projectType <= 11 ? 48.8 : (projectType === 13 ? 70: 65)
-    marginLeftChart = projectType >= 8 && projectType <= 11 ? '-10px' : '21px'
-    fontSizeLabels= projectType >= 8 && projectType <= 11 ? '10px' : '11px'
+    labelWidth = windowWidth > 1900 && windowWidth <= 2549 ? projectType >= 8 && projectType <= 11 ? 59 : (projectType === 13 ? 80: 72)
+  : windowWidth > 2550 && windowWidth <= 2999 ? projectType >= 8 && projectType <= 11 ? 71 : (projectType === 13 ? 95: 87) 
+  : windowWidth >= 3001 && windowWidth <= 3999 ? projectType >= 8 && projectType <= 11 ? 90 : (projectType === 13 ? 125: 115) 
+  : projectType >= 8 && projectType <= 11 ? 48.7 : (projectType === 13 ? 70: 65);
+    // marginLeftChart = projectType >= 8 && projectType <= 11 ? '-10px' : '21px'
+    fontSizeLabels=windowWidth > 1900 && windowWidth <= 2549 ? projectType >= 8 && projectType <= 11 ? '0px' : '10px' 
+    : windowWidth > 2550 && windowWidth <= 2999 ? projectType >= 8 && projectType <= 11 ? '-5px' : '10px' 
+    : windowWidth >= 3001 && windowWidth <= 3999 ? projectType >= 8 && projectType <= 11 ? '14.5px' : (projectType === 13 ? '18px': '18px')
+    : projectType >= 8 && projectType <= 11 ? '8.7px' : '11px'; 
+   
+    marginLeftChart = windowWidth > 1900 && windowWidth <= 2549 ? projectType >= 8 && projectType <= 11 ? '0px' : (projectType === 13 ? '32px': '22px') 
+    : windowWidth > 2550 && windowWidth <= 2999 ? projectType >= 8 && projectType <= 11 ? '-5px' : (projectType === 13 ? '35px': '28px') 
+    : windowWidth >= 3001 && windowWidth <= 3999 ? projectType >= 8 && projectType <= 11 ? '-4px' : (projectType === 13 ? '53px': '40px')
+    : projectType >= 8 && projectType <= 11 ? '-10px' : (projectType === 13 ? '28px': '10px');
+   
     projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
   }  
   let totalLabelWidth = (phaseList.length * labelWidth);
@@ -634,7 +651,7 @@ const Roadmap = ({setOpenPiney,
               })}
             </div>
           </div>
-          <div style={{textAlign:'center', paddingTop:'10px'}}>
+          <div style={{textAlign:'center', paddingTop:paddingTopLegend}}>
           <span className="span-dots-heder">
                     <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
                     <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>
