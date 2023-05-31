@@ -57,7 +57,7 @@ const Profile = ({
   useEffect(() => {
     setContactInfo(user.business_associate_contact)
     if (user.organization) {
-      setOrganization(user.organization);
+      setOrganization(user?.business_associate_contact?.business_address?.business_associate?.business_name);
     }    
     if (user.serviceArea) {
       setServiceArea(user.serviceArea);
@@ -252,19 +252,13 @@ const Profile = ({
             }
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 9 }}>
-            <p className="color-sub" style={{ paddingBottom: '10px' }}>Organization</p>
+            <p className="color-sub" style={{ paddingBottom: '10px' }}>Business Associate</p>
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 15 }}>
           {editProfile ?
-              <input onChange={(e) => setOrganization(e.target.value)} className="input-profile" type="text" value={isNull(organization)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setOrganization(e.target.value)} disabled={true} className="input-profile" type="text" value={isNull(organization)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(organization)}</p>
-            }
-            {/* <SelectOrganization
-              organization={organization}
-              setOrganization={setOrganization}
-              disable={true}
-              defaultValue={organization}
-              value={organization}/> */}
+            }            
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 9 }}>
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
