@@ -513,7 +513,7 @@ const Roadmap = ({setOpenPiney,
   };
   useEffect(() => {          
     if(data.length>0){
-      setShow(data[0]?.project_status?.length > 0 ? true : true)
+      setShow(data[0]?.project_status?.length > 0 ? true : false)
       if(document.getElementById(`dotchart_detailPage`)){
         removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
       }
