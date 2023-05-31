@@ -1,8 +1,8 @@
 export interface DragAndDropCards {
-  originColumnPosition: number | null;
-  targetColumnPosition: number | null;
-  sourcePosition: number | null;
-  targetPosition: number | null;
+  originColumnPosition: number;
+  targetColumnPosition: number;
+  sourcePosition: number;
+  targetPosition: number;
 }
 
 export const REQUEST_SHOW_MODAL_PROJECT = 'REQUEST_SHOW_MODAL_PROJECT';
@@ -46,5 +46,5 @@ export const REQUEST_SET_LOCALITY_FILTER = 'REQUEST_SET_LOCALITY_FILTER';
 export const REQUEST_SET_DATA_AUTOCOMPLETE = 'REQUEST_SET_DATA_AUTOCOMPLETE';
 export const REQUEST_SET_IS_ON_SELECTED = 'REQUEST_SET_IS_ON_SELECTED';
 export const REQUEST_SET_COLUMNS_2_MANUAL = 'REQUEST_SET_COLUMNS_2_MANUAL';
-export const REQUEST_SWAP_PROJECTS_MANUAL = 'REQUEST_SWAP_PROJECTS_MANUAL';
+export const REQUEST_MOVE_PROJECTS_MANUAL = 'REQUEST_MOVE_PROJECTS_MANUAL';
 export const REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL = 'REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL';

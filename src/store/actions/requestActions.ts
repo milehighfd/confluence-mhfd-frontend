@@ -297,34 +297,48 @@ export const setColumns2Manual = (payload: any) => ({
   payload
 });
 
-const swapProjectsManualReducer = (columns2: any[], action: any) => {
+const moveProjectsManualReducer = (columns2: any[], action: any) => {
   return columns2.map((column: any, columnId: number) => {
     if (action.payload.originColumnPosition === columnId) {
+      const projectArray = [...column.projects];
+      const removedProject = projectArray.splice(action.payload.sourcePosition, 1)[0];
+      projectArray.splice(action.payload.targetPosition, 0, removedProject);
       return {
         ...column,
-        projects: column.projects.map((project: any, positionId: number, array: any[]) => {
-          if (positionId === action.payload.sourcePosition) {
-            return array[action.payload.targetPosition];
-          } else if (positionId === action.payload.targetPosition) {
-            return array[action.payload.sourcePosition];
-          }
-          return project;
-        })
+        projects: projectArray
       }
     }
     return column;
   });
 };
 
-export const swapProjectsManual = (payload: DragAndDropCards) => {
+export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2 } } = getState();
-    dispatch(
+    const { originColumnPosition, targetPosition } = payload;
+    const updatedColumns = moveProjectsManualReducer(columns2, { payload });
+    const projectsUpdated = updatedColumns[originColumnPosition].projects;
+    const before = targetPosition === 0 ? null : projectsUpdated[targetPosition - 1][`rank${originColumnPosition}`];
+    const after = targetPosition === projectsUpdated.length - 1 ? null : projectsUpdated[targetPosition + 1][`rank${originColumnPosition}`];
+    dispatch({
+      type: types.REQUEST_MOVE_PROJECTS_MANUAL,
+      payload: updatedColumns
+    });
+    datasets.putData(
+      SERVER.BOARD_UPDATE_RANK(projectsUpdated[targetPosition].board_project_id),
       {
-      type: types.REQUEST_SWAP_PROJECTS_MANUAL,
-      payload: swapProjectsManualReducer(columns2, { payload })
+        before,
+        after,
+        columnNumber: originColumnPosition,
+        beforeIndex: targetPosition - 1,
+        afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
       }
-    )
+    ).then((res: any) => {
+        console.log('res', res)
+    })
+    .catch((err: any) => {
+        console.log('err', err)
+    })
   }
 };
 

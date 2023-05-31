@@ -274,10 +274,11 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         columns2: action.payload
       };
-    case types.REQUEST_SWAP_PROJECTS_MANUAL:
+    case types.REQUEST_MOVE_PROJECTS_MANUAL:
       return {
         ...state,
-        columns2: action.payload
+        columns2: action.payload,
+        loadingColumns: true
       };
     case types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL:
       return {

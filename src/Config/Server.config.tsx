@@ -343,5 +343,6 @@ export const SERVER = (function () {
         BOARD_PROJECT_COST: (board_project_id: string | number) => {
             return `${URL_BASE.BASE}/board-project/${board_project_id}/${COST}`
         },
+        BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/board-project/${board_project_id}/update-rank`
     }
 })();
