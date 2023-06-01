@@ -86,9 +86,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
-      onClick={(event:any) => {     
-        console.log((dataMenu.find((elm) => +elm.key === +event.key)))         
-        console.log(itemMenu)
+      onClick={(event:any) => {
         if (event.key === 'Create_1') {
           setDisabled(false)
           setContactData({})
