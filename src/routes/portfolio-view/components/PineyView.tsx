@@ -159,6 +159,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     }).then((e) => { 
       setupdateList(!updateList) 
       d3.selectAll(`#${data.d3_pos}_text`).text(+counterD-1);
+      if(+counterD===10){
+        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
+        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos+3.3)
+      }
       setCounterD(counterD-1);
     }).catch((e) => {
       console.log(e);
@@ -171,6 +175,10 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
     }).then((e) => { 
       setupdateList(!updateList) 
       d3.selectAll(`#${data.d3_pos}_text`).text(+counterD+1);
+      if(+counterD===9){
+        let xPos = d3.select(`#${data.d3_pos}_text`).attr('x')
+        d3.select(`#${data.d3_pos}_text`).attr('x', +xPos-3.3)
+      }
       setCounterD(counterD+1);
     }).catch((e) => {
       console.log(e);

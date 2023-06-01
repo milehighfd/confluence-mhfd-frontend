@@ -380,10 +380,18 @@ const Roadmap = ({setOpenPiney,
         return scheduleList[r].tasks-counterdown
       })
       .attr("x", function (d: any) {
+        let counterdown = 0;  
+        let pendingTasks;         
+        for (let i = 0; i < Object.keys(actionsDone).length ; i++){
+          if (d.project_id === actionsDone[i].project_id){   
+            counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
+          }              
+        }
+        pendingTasks = scheduleList[r].tasks-counterdown;
         const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 :(windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2)))))
         let offset = 0;
           offset =
-            +scheduleList[r].tasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;            
+            +pendingTasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;            
         return offset;
       })
       .attr("y", (d: any) => {
