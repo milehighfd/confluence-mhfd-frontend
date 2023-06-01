@@ -1002,7 +1002,7 @@ export const addPopupsOnClick = async (
           let effectiveDateType = new Date(feature.properties.effective_date);
           effectiveDateType.setDate(effectiveDateType.getDate() + 1);
           const item = {
-            layer: 'Active LOMCs',
+            layer: 'LOMCs',
             lomc_case: feature.properties.lomc_case || '-',
             lomc_type: feature.properties.lomc_type || '-',
             lomc_identifier: feature.properties.lomc_identifier || '-',
@@ -1011,7 +1011,7 @@ export const addPopupsOnClick = async (
             effective_date: feature.properties.effective_date ? `${effectiveDateType.getMonth() + 1}/${effectiveDateType.getDate()}/${effectiveDateType.getFullYear()}` : '-',
             ...extraProperties
           }
-          menuOptions.push('Active LOMCs');
+          menuOptions.push('LOMCs');
           mobile.push({...item});
           mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
           popups.push(item);

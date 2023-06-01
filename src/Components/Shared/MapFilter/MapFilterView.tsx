@@ -545,7 +545,7 @@ const MapFilterView = ({
 
             <p>
               <img key="NCGp0AJGgFYA" src="/Icons/lomcs_main.png" width="18px" alt="" style={{borderRadius:'2px'}} />
-                  Active LOMCs
+                  LOMCs
                   <Popover key="hPnIxvgndJmg" arrowPointAtCenter overlayClassName="popover-filter-map" content={contentPopOver(popUps.active_lomcs)}>
                 <img key="fTqKGbHenWRl" className="info-pop" src="/Icons/icon-19.svg" alt="" width="12px" style={{ marginLeft: '3px' }} />
               </Popover>

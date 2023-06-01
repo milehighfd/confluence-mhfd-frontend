@@ -274,22 +274,22 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-pattern3.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Active')) {
+  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Active')) {
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_active.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')) {
+  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')) {
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_suspended.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Violation')) {
+  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Violation')) {
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_violation.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Active LOMCs" && popups.status !== undefined && (popups.status === 'Completed')) {
+  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Completed')) {
     return (
       <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_completed.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
