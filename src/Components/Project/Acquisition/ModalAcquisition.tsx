@@ -418,7 +418,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
             </div>
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-              <Button key="submit" className="btn-purple" disabled={disable} onClick={handleOk}>Save Draft Project</Button>
+              <Button key="submit" className="btn-purple" disabled={disable} onClick={handleOk}><span className="text-color-disable">Save Draft Project</span></Button>
             </div>
           </Col>
         </Row>

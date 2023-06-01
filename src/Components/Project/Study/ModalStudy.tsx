@@ -547,7 +547,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
             </div>
             <div className="footer-project">
               <Button className="btn-borde" onClick={handleCancel}>Cancel</Button>
-              <Button className="btn-purple" onClick={handleOk} disabled={disable}>Save Draft Project</Button>
+              <Button className="btn-purple" onClick={handleOk} disabled={disable}><span className="text-color-disable">Save Draft Project</span></Button>
             </div>
           </Col>
         </Row>
