@@ -57,7 +57,7 @@ const Roadmap = ({setOpenPiney,
     marginLeftChart = windowWidth > 1900 && windowWidth <= 2549 ? projectType >= 8 && projectType <= 11 ? '0px' : (projectType === 13 ? '32px': '22px') 
     : windowWidth > 2550 && windowWidth <= 2999 ? projectType >= 8 && projectType <= 11 ? '-5px' : (projectType === 13 ? '35px': '28px') 
     : windowWidth >= 3001 && windowWidth <= 3999 ? projectType >= 8 && projectType <= 11 ? '-4px' : (projectType === 13 ? '53px': '40px')
-    : projectType >= 8 && projectType <= 11 ? '-10px' : (projectType === 13 ? '28px': '10px');
+    : projectType >= 8 && projectType <= 11 ? '-10px' : (projectType === 13 ? '28px': '20px');
    
     projectTypeOffset = data[0].code_project_type_id === 5 ? 65 : data[0].code_project_type_id === 7 || data[0].code_project_type_id === 13 ? 120 : data[0].code_project_type_id === 1 ? 260 :  data[0].code_project_type_id === 6 ? 280 : 0;
   }  
