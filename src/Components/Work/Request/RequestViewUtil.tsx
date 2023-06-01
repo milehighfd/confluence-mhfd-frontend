@@ -679,8 +679,8 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
     }
   });
   const grouped = groupBy(projectsRelevantData, (item:any) => {
-    if (item.current_project_status?.lenght > 0 &&  item.current_project_status[0]) {
-      return item.current_project_status[0]?.code_phase_type?.code_status_type?.code_status_type_id;
+    if (item.current_project_status?.length > 0 &&  item.current_project_status[0]) {
+      return item.current_project_status[0]?.code_status_type_id;
     }
   });
   let newGroups: any = {};
@@ -698,7 +698,7 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
   for(let key in grouped) {
     const groupedByProjectType = groupBy(grouped[key], (item: any) => {
       if(item.current_project_status?.length > 0 && item.current_project_status[0]) {
-        return item.current_project_status[0]?.code_phase_type?.code_project_type?.code_project_type_id;
+        return item.current_project_status[0]?.code_project_type_id;
       }
     });
     newGroups[key] = groupedByProjectType
@@ -708,9 +708,6 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
       newGroups[key][subkey] = newGroups[key][subkey].map((value:any) => value.project_id);
     }
   }
-  // first is by project statys
-  // second is by project stype 
-  // reminder, for project type is always only one for the moment
   return newGroups;
 }
 
