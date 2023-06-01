@@ -39,25 +39,25 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
 
-    const sortedProducts = financialInformation.sort(
+    financialInformation.sort(
       (e1: any, e2: any) => (e1.sortValue > e2.sortValue) ? 1 : (e1.sortValue < e2.sortValue) ? -1 : 0);
-    console.log(sortedProducts)
+
     const mappingDataForDataSource = financialInformation.map((element: any, index: number) => {
 
-        const key = `${index}`;
-        const agreement = [element?.agreement_number, ''];
-        const amendment = element?.amendment_number === 'ORIGINAL' || element?.amendment_number === null ? '' : element?.amendment_number;
-        const partner = element?.project_partner_name || '';
-        const partnerId = element?.project_partner_id || '';
-        const phase = element?.code_phase_type_name || '';
-        const phaseId = element?.code_phase_type_id || '';
+      const key = `${index}`;
+      const agreement = [element?.agreement_number, ''];
+      const amendment = element?.amendment_number.includes('ORIGINAL') || element?.amendment_number === null ? '' : element?.amendment_number;
+      const partner = element?.project_partner_name || '';
+      const partnerId = element?.project_partner_id || '';
+      const phase = element?.code_phase_type_name || '';
+      const phaseId = element?.code_phase_type_id || '';
 
-        const projected = [element?.projected ? formatter.format(element?.cost) : '$0', 'purple'];
-        const encumbered = [element?.encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
-        const tyler = [element?.tyler_encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
-        const available = ['$0', 'purple'];
-        return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId }
-      
+      const projected = [element?.projected ? formatter.format(element?.cost) : '$0', 'purple'];
+      const encumbered = [element?.encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
+      const tyler = [element?.tyler_encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
+      const available = ['$0', 'purple'];
+      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId }
+
     });
     setFinalData(mappingDataForDataSource);
     if (filters.length === 0) {
