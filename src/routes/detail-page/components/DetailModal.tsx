@@ -574,7 +574,7 @@ const DetailModal = ({
             className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
             style={!activeScroll ? {cursor:'default'}:{cursor:'pointer'}}
           >Project Financials</p>
-          <p style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</p>
+          {/* <p style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</p> */}
           <p
             onClick={()=>{
               activeTab(8, "#maps");
@@ -786,7 +786,7 @@ const DetailModal = ({
                   <br></br>
                   <Financials projectId={project_idS}/>
                   <br></br>
-                  <Management />
+                  {/* <Management /> */}
                   <Map type={typeS} ref={cipjRef} />
                   <br></br>
                   <GalleryDetail/>

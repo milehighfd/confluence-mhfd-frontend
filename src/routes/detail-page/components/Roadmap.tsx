@@ -657,7 +657,7 @@ const Roadmap = ({setOpenPiney,
               })}
             </div>
           </div>
-          <div style={{textAlign:'center', paddingTop:paddingTopLegend}}>
+          <div style={{textAlign:'center', paddingTop:paddingTopLegend, display:'flex',justifyContent:'center'}}>
           <span className="span-dots-heder">
                     <div className="circulo" style={{backgroundColor:'#5E5FE2'}}/>
                     <span style={{marginLeft:'1px', marginRight:'15px'}}>Done</span>

@@ -633,12 +633,13 @@
   font-style: normal;
   color:#858F94;
   font-size: 12px;
+  display: flex;
+  align-items: center;
   .circulo {
     width: 9px;
     height: 9px;
     border-radius: 50%;
     background: #5cb85c;
-    margin-top: 4px;
     margin-right: 3px;
   }
 }
@@ -3221,7 +3222,6 @@
     .circulo{
       width: 14px;
       height: 14px;
-      margin-top: 5px;
     }
   }
 }
@@ -3817,7 +3817,7 @@
     .circulo{
       width: 18px;
       height: 18px;
-      margin-top: 7px !important;
+      // margin-top: 7px !important;
     }
   }
   // .ant-btn {
@@ -4724,7 +4724,7 @@
       height: 23px;
       margin-right: 8px;
       margin-left: 16px;
-      margin-top: 9px;
+      // margin-top: 9px;
     }
   }
   // .ant-btn {
