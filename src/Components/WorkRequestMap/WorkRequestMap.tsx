@@ -90,7 +90,6 @@ let componentsList: any[] = [];
 let popup = new mapboxgl.Popup({ closeButton: true });
 let globalMapId: any = null;
 let mapMoved = true;
-let amounts: any = [];
 type LayersType = string | ObjectLayerType;
 let isMeasuring = false;
 const geojsonMeasures = {
@@ -124,7 +123,6 @@ const WorkRequestMap = ({
   openModal,
   openEdit,
   currentTab,
-  projectsAmounts,
 }: {
   isFirstRendering: any;
   leftWidth: any;
@@ -134,7 +132,6 @@ const WorkRequestMap = ({
   openModal: any;
   openEdit: any;
   currentTab: any;
-  projectsAmounts: any;
 }) => {
   let html = document.getElementById(mapid);
   const [measuringState, setMeasuringState] = useState(isMeasuring);
@@ -1454,23 +1451,7 @@ useEffect(() => {
       }
     }
   }, [currentTab]);
-  useEffect(() => {
-    amounts = projectsAmounts;
-  }, [projectsAmounts]);
-  const getTotalAmount = (cartodb_id: any) => {
-    if (projectsAmounts.length > 0) {
-      let newAmounts = [...amounts];
-      let value = newAmounts.filter((val: any) => val.cartodb_id === cartodb_id);
-      if (value[0]) {
-        let res = value[0].totalAmount;
-        return res;
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
-    }
-  };
+
   useEffect(() => {
     let buttonElement = document.getElementById('popup');
     if (buttonElement != null) {
@@ -1551,7 +1532,7 @@ useEffect(() => {
           isEditPopup,
           getComponentsByProjid,
           setCounterPopup,
-          getTotalAmount,
+          null,
           componentsList,
           MAPTYPES.WORKREQUEST
         );

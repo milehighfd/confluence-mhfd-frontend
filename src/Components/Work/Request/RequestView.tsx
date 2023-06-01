@@ -488,7 +488,6 @@ const RequestView = ({ type, isFirstRendering }: {
               openModal={setShowCreateProject}
               openEdit={openEdit}
               currentTab={tabKey}
-              projectsAmounts={projectsAmounts}
             />
             <ResizableButton />
           </Col>

@@ -84,7 +84,6 @@ const ListView = () => {
                   isFirstRendering={true}
                   locality={{locality: locality, isOnSelected: isOnSelected}}
                   openEdit={openEdit}
-                  projectsAmounts={projectsAmounts}
                   currentTab={tabKey}
                   change={changes}
                   openModal={setShowCreateProject}
