@@ -31,7 +31,6 @@ const Roadmap = ({setOpenPiney,
   const [actionsDone,setActionsDone] = useState<any>({})
   const [userBrowser, setUserBrowser] = useState<any>()
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
-  const [show,setShow] = useState<any>(false)
 
   const windowWidth: any = window.innerWidth;
   let labelWidth: any;
@@ -521,7 +520,6 @@ const Roadmap = ({setOpenPiney,
   };
   useEffect(() => {          
     if(data.length>0){
-      setShow(data[0]?.project_status?.length > 0 ? true : false)
       if(document.getElementById(`dotchart_detailPage`)){
         removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
       }
@@ -634,7 +632,7 @@ const Roadmap = ({setOpenPiney,
         </Col>
       </Row>
       <Row>
-      { show ? 
+      
         <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
           <div className="phaseview-title-label-roadmap" id='phaseviewTitleDetailPage' style={{justifyContent:'center',borderColor:'transparent', border:'none', color: 'white'}}>
           {availableStatusList.map((item: any, index: number) => {
@@ -678,12 +676,12 @@ const Roadmap = ({setOpenPiney,
                   </span>
           </div>
         </div>
-        : 
+        {/* : 
         <div className="phaseview-content" id="get-roadmap-content" style={{border:'transparent'}}>
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-        </div>
+        </div> */}
         
-      }
+      
       </Row>
       <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
