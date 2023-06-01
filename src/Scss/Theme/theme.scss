@@ -49,7 +49,6 @@ body {
     display: none !important;
   }
 }
-
 .arrow-popover-delete {
   .ant-popover-placement-bottomRight .ant-popover-arrow {
     display: none !important;
@@ -3804,11 +3803,14 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 .ant-btn-disabled.active,
 .ant-btn.disabled.active,
 .ant-btn[disabled].active {
-  color: rgba(0, 0, 0, 0.75) !important;
+  // color: rgba(0, 0, 0, 0.75) !important;
   border-color: #d9d9d9 !important;
   text-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+.btn-purple, .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active {
+  color: white !important;
 }
 
 // OTHERS END
