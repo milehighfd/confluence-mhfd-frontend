@@ -79,9 +79,7 @@ export const SERVER = (function () {
     const PARAM_FILTER_PROJECTS = 'card-filters';
     const DELETE_ENTRY = 'delete-entry';
     const MODIFY_USER_STATUS = 'modify-user-status';
-    // const PARAM_FILTER_PROJECTS = 'params-filter-projects';
     const PARAM_FILTER_PROBLEMS = 'params-filter-problems';
-    const PARAM_FILTER_COMPONENTS = 'params-filter-components';
     const PARAM_FILTER_COMPONENTS_DB = 'params-filter-components-db';
     const COUNTER_PROJECTS = 'projects-counter';
     const COUNTER_PROBLEMS = 'problems-counter';
@@ -138,6 +136,8 @@ export const SERVER = (function () {
     const BUSINESS = 'business';
     const STATUS = 'status';
     const FINANCIAL = 'financial';
+    const BOARD = 'board';
+    const BOARD_PROJECT = 'board-project';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -209,7 +209,7 @@ export const SERVER = (function () {
         FILTER_BY_COMPONENTS: `${URL_BASE.BASE}/${FILTERS}/${V2}/${BY_COMPONENTS}`,
         MAP_SEARCH: `${URL_BASE.BASE}/${MAP}/${SEARCH}`,
         MAP_CENTER_SEARCH: `${URL_BASE.BASE}/${MAP}/${GET_AOI_CENTER}`,
-        GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/all-localities`,// `${URL_BASE.BASE}/${ZOOMAREA}/complete`,
+        GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/all-localities`,
         GROUP_ORGANIZATION_NO_GEOM: `${URL_BASE.BASE}/v2/locality/all-localities?nogeom=1`,
         ALL_GROUP_ORGANIZATION: `${URL_BASE.BASE}/v2/locality/${ALL_ORGANIZATION}`,
         PHASE_TYPE: `${URL_BASE.BASE}/phasetype`,
@@ -223,9 +223,7 @@ export const SERVER = (function () {
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${PARAM_FILTER_PROJECTS}`,
         DELETE_USER_ENTRY: `${URL_BASE.BASE}/${ADMIN}/${DELETE_ENTRY}`,
         CHANGE_USER_STATUS: `${URL_BASE.BASE}/${ADMIN}/${MODIFY_USER_STATUS}`,
-        // PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROJECTS}`,
         PARAM_FILTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_PROBLEMS}`,
-        // PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS}`,
         PARAM_FILTER_COMPONENTS: `${URL_BASE.BASE}/${GALLERY}/${PARAM_FILTER_COMPONENTS_DB}`,
         COUNTER_PROJECTS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROJECTS}`,
         COUNTER_PROBLEMS: `${URL_BASE.BASE}/${GALLERY}/${COUNTER_PROBLEMS}`,
@@ -246,22 +244,22 @@ export const SERVER = (function () {
         CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
         CREATE_SPECIAL:`${URL_BASE.BASE}/${CREATE}/${SPECIAL}`,
         CREATE_STUDY:`${URL_BASE.BASE}/${CREATE}/${STUDY}`,
-        GET_STREAM_INTERSECTED: `${URL_BASE.BASE}/create/${GET_STREAM_INTERSECTED}`,
-        GET_STREAM_INTERSECTION: `${URL_BASE.BASE}/create/${GET_STREAM_INTERSECTION}`,
-        GET_STREAM_POLYGON: `${URL_BASE.BASE}/create/${GET_STREAM_POLYGON}`,
-        GET_LIST_COMPONENTS: `${URL_BASE.BASE}/create/${GET_LIST_COMPONENTS}`,
-        GET_LIST_COMPONENTS_SORTED: `${URL_BASE.BASE}/create/${GET_LIST_COMPONENTS_SORTED}`,
-        ADD_COMPONENTS_POLYGON: `${URL_BASE.BASE}/create/${ADD_COMPONENTS_POLYGON}`,
-        GET_SERVICEAREA_COUNTY_POINT: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_POINT}`,
-        GET_SERVICEAREA_COUNTY_STREAMS: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_STREAMS}`,
-        GET_SERVICEAREA_COUNTY_GEOM: `${URL_BASE.BASE}/create/${GET_SERVICEAREA_COUNTY_GEOM}`,
-        GET_JURISDICTION_POLYGON: `${URL_BASE.BASE}/create/${GET_JURISDICTION_POLYGON}`,
-        GET_LIST_STREAMS: `${URL_BASE.BASE}/create/${GET_LIST_STREAMS}`,
-        GET_COMPONENT_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENT_GEOM}`,
-        GET_PROBLEM_GEOM: `${URL_BASE.BASE}/create/${GET_PROBLEM_GEOM}`,
-        GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/create/${GET_COMPONENTS_WITH_GEOM}`,
-        GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/create/${GET_COMPONENTS_BY_PROBLEMID}`,
-        GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/create/${GET_STREAMS_BY_COMPONENTS}`,
+        GET_STREAM_INTERSECTED: `${URL_BASE.BASE}/${CREATE}/${GET_STREAM_INTERSECTED}`,
+        GET_STREAM_INTERSECTION: `${URL_BASE.BASE}/${CREATE}/${GET_STREAM_INTERSECTION}`,
+        GET_STREAM_POLYGON: `${URL_BASE.BASE}/${CREATE}/${GET_STREAM_POLYGON}`,
+        GET_LIST_COMPONENTS: `${URL_BASE.BASE}/${CREATE}/${GET_LIST_COMPONENTS}`,
+        GET_LIST_COMPONENTS_SORTED: `${URL_BASE.BASE}/${CREATE}/${GET_LIST_COMPONENTS_SORTED}`,
+        ADD_COMPONENTS_POLYGON: `${URL_BASE.BASE}/${CREATE}/${ADD_COMPONENTS_POLYGON}`,
+        GET_SERVICEAREA_COUNTY_POINT: `${URL_BASE.BASE}/${CREATE}/${GET_SERVICEAREA_COUNTY_POINT}`,
+        GET_SERVICEAREA_COUNTY_STREAMS: `${URL_BASE.BASE}/${CREATE}/${GET_SERVICEAREA_COUNTY_STREAMS}`,
+        GET_SERVICEAREA_COUNTY_GEOM: `${URL_BASE.BASE}/${CREATE}/${GET_SERVICEAREA_COUNTY_GEOM}`,
+        GET_JURISDICTION_POLYGON: `${URL_BASE.BASE}/${CREATE}/${GET_JURISDICTION_POLYGON}`,
+        GET_LIST_STREAMS: `${URL_BASE.BASE}/${CREATE}/${GET_LIST_STREAMS}`,
+        GET_COMPONENT_GEOM: `${URL_BASE.BASE}/${CREATE}/${GET_COMPONENT_GEOM}`,
+        GET_PROBLEM_GEOM: `${URL_BASE.BASE}/${CREATE}/${GET_PROBLEM_GEOM}`,
+        GET_COMPONENTS_WITH_GEOM: `${URL_BASE.BASE}/${CREATE}/${GET_COMPONENTS_WITH_GEOM}`,
+        GET_COMPONENTS_BY_PROBLEMID: `${URL_BASE.BASE}/${CREATE}/${GET_COMPONENTS_BY_PROBLEMID}`,
+        GET_STREAMS_BY_COMPONENTS: `${URL_BASE.BASE}/${CREATE}/${GET_STREAMS_BY_COMPONENTS}`,
         CREATE_NOTE: `${URL_BASE.BASE}/${NEW_NOTES}/${NOTE_TYPE}`,
         CREATE_GROUP: `${URL_BASE.BASE}/${NEW_NOTES}/${GROUP_TYPE}`,
         GET_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/color-list`,
@@ -274,7 +272,7 @@ export const SERVER = (function () {
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${groupname}/${group}`,
         GET_COUNT_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${COUNT}/${groupname}/${group}`,
         GET_LIST_GROUPS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/groups/${groupname}`,
-        UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/board/update-budget/${id}`,
+        UPDATE_BUDGET: (id: any) => `${URL_BASE.BASE}/${BOARD}/update-budget/${id}`,
         GET_CONFIGURATIONS: (key: string) => {
             return `${URL_BASE.BASE}/${CONFIGURATIONS}/${key}`;
         },
@@ -324,7 +322,7 @@ export const SERVER = (function () {
           return  `${URL_BASE.BASE}/${CREATE}/${GET_INDEPENDENTCOMPONENTS_BY_PROJ_ID}/${projectId}`
         }, 
         GET_GEOM_BY_PROJECTID: (projectId: any) => {
-          return `${URL_BASE.BASE}/board/coordinates/${projectId}`
+          return `${URL_BASE.BASE}/${BOARD}/coordinates/${projectId}`
         },
         GET_BBOX_PROJECTID: (projectId: any) => {
             return `${URL_BASE.BASE}/${PROJECT}/${BBOX}/${projectId}`
@@ -339,10 +337,10 @@ export const SERVER = (function () {
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
         },
-        GET_BBOX_PROJECTS: `${URL_BASE.BASE}/board/${PROJECTS_BBOX}`,
+        GET_BBOX_PROJECTS: `${URL_BASE.BASE}/${BOARD}/${PROJECTS_BBOX}`,
         BOARD_PROJECT_COST: (board_project_id: string | number) => {
-            return `${URL_BASE.BASE}/board-project/${board_project_id}/${COST}`
+            return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}`
         },
-        BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/board-project/${board_project_id}/update-rank`
+        BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`
     }
 })();
