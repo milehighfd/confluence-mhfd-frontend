@@ -342,7 +342,7 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
   }
 };
 
-const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any) => {
+const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[] => {
   const sourceProject = columns2[action.payload.originColumnPosition].projects[action.payload.sourcePosition];
 
   const targetColumnProjects: any[] = columns2[action.payload.targetColumnPosition].projects;
@@ -358,13 +358,16 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any) => {
     const currentRequest = targetColumnProjects[targetColumnSameProjectIndex][`req${action.payload.targetColumnPosition}`];
     newRequestValue = currentRequest + newRequestValue;
   }
-  const newProject = {
-    ...sourceProject,
+  const requestFields = {
     [`req${action.payload.targetColumnPosition}`]: newRequestValue,
     [`req${action.payload.originColumnPosition}`]: null
   };
+  const newProject = {
+    ...sourceProject,
+    ...requestFields
+  };
 
-  return columns2.map((column: any, columnId: number) => {
+  const columns = columns2.map((column: any, columnId: number) => {
     if (action.payload.originColumnPosition === columnId) {
       return {
         ...column,
@@ -396,14 +399,42 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any) => {
     }
     return column;
   });
+  return [columns, requestFields, targetColumnSameProjectIndex];
 };
 
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
     const { request: { columns2 } } = getState();
+    const { originColumnPosition, targetColumnPosition, targetPosition } = payload;
+    const [
+      updatedColumns,
+      requestFields,
+      targetColumnSameProjectIndex
+    ] = handleMoveFromColumnToColumnReducer(columns2, { payload });
+    const projectsUpdated = updatedColumns[targetColumnPosition].projects;
+    const projectPosition = targetColumnSameProjectIndex === -1 ? targetPosition : targetColumnSameProjectIndex;
+    const before = projectPosition === 0 ? null : projectsUpdated[projectPosition - 1][`rank${targetColumnPosition}`];
+    const after = projectPosition >= projectsUpdated.length - 1 ? null : projectsUpdated[projectPosition + 1][`rank${targetColumnPosition}`];
     dispatch({
       type: types.REQUEST_HANDLE_MOVE_FROM_COLUMN_TO_COLUMN_MANUAL,
-      payload: handleMoveFromColumnToColumnReducer(columns2, { payload })
+      payload: updatedColumns
     });
+    datasets.putData(
+      SERVER.BOARD_UPDATE_RANK(projectsUpdated[projectPosition].board_project_id),
+      {
+        before: !before ? null : before,
+        after: !after ? null : after,
+        columnNumber: targetColumnPosition,
+        beforeIndex: projectPosition - 1,
+        afterIndex: projectPosition === projectsUpdated.length - 1 ? -1 : projectPosition + 1,
+        targetPosition: projectPosition,
+        otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null }
+      }
+    ).then((res: any) => {
+        console.log('res', res)
+    })
+    .catch((err: any) => {
+        console.log('err', err)
+    })
   }
 };
