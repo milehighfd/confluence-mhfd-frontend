@@ -192,6 +192,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
           groupTotal
         }
       });
+      dispatch(recalculateTotals())
     });
   }
 }
@@ -314,7 +315,7 @@ const moveProjectsManualReducer = (columns2: any[], action: any) => {
 
 export const moveProjectsManual = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2 } } = getState();
+    const { request: { columns2, namespaceId } } = getState();
     const { originColumnPosition, targetPosition } = payload;
     const updatedColumns = moveProjectsManualReducer(columns2, { payload });
     const projectsUpdated = updatedColumns[originColumnPosition].projects;
@@ -333,8 +334,8 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         beforeIndex: targetPosition - 1,
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
       }
-    ).then((res: any) => {
-        console.log('res', res)
+    ).then(() => {
+        dispatch(loadOneColumn(namespaceId, originColumnPosition));
     })
     .catch((err: any) => {
         console.log('err', err)
@@ -404,7 +405,7 @@ const handleMoveFromColumnToColumnReducer = (columns2: any[], action: any): any[
 
 export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2 } } = getState();
+    const { request: { columns2, namespaceId } } = getState();
     const { originColumnPosition, targetColumnPosition, targetPosition } = payload;
     const [
       updatedColumns,
@@ -431,10 +432,36 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null }
       }
     ).then((res: any) => {
-        console.log('res', res)
+      dispatch(loadOneColumn(namespaceId, originColumnPosition));
+      dispatch(loadOneColumn(namespaceId, targetColumnPosition));
     })
     .catch((err: any) => {
         console.log('err', err)
     })
+  }
+};
+
+export const recalculateTotals = () => {
+  return (dispatch: any, getState: Function) => {
+    const { request: { columns2 } } = getState();
+    const sums: any[] = [];
+    const totals: any[] = [];
+    columns2.forEach((column: any, columnId: number) => {
+      if (columnId === 0) return;
+      sums.push(column.sumByGroupMap);
+      totals.push(column.groupTotal);
+    });
+    const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
+    const totalByGroupMap = mergeTotalByGroupMaps(totals);
+    dispatch({
+      type: types.REQUEST_SET_SUM_BY_COUNTY,
+      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
+        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
+      )
+    });
+    dispatch({
+      type: types.REQUEST_SET_SUM_TOTAL,
+      payload: totalByGroupMap
+    });
   }
 };
