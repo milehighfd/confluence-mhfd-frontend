@@ -29,7 +29,10 @@ export const getJurisdictions = (projectLocalGovernment: any) => {
     }  
     return value;
   }, '');
-  return jurisdictions;
+  const namesArray = jurisdictions.split(', ');
+  namesArray.sort();
+  const sortedString = namesArray.join(', ');
+  return sortedString;
 };
 
 export const getServiceAreas = (serviceAreas: any) => {
