@@ -3,7 +3,7 @@ import { Modal, Button } from 'antd';
 import { MaintenanceTypes, formatter } from "./RequestViewUtil";
 import * as datasets from 'Config/datasets';
 import { SERVER } from "Config/Server.config";
-import { useRequestState } from "hook/requestHook";
+import { useRequestDispatch, useRequestState } from "hook/requestHook";
 import AmountModalField from "./AmountModalField";
 import useCostDataFormattingHook from "hook/custom/useCostDataFormattingHook";
 
@@ -16,8 +16,10 @@ const AmountModal = ({ project, visible, setVisible }: {
   const projectsubtype = projectData?.code_project_type?.project_type_name;
   const {
     year: startYear,
-    tabKey
+    tabKey,
+    namespaceId
   } = useRequestState();
+  const { loadOneColumn } = useRequestDispatch();
   const isMaintenance = tabKey === 'Maintenance';
   const indexProjectType = MaintenanceTypes.indexOf(projectsubtype);
 
@@ -36,7 +38,10 @@ const AmountModal = ({ project, visible, setVisible }: {
       SERVER.BOARD_PROJECT_COST(board_project_id),
       cost
     ).then((res: any) => {
-      setCost(res);
+      setCost(res.newCost);
+      res.columnsChanged.forEach((columnNumber: number) => {
+        loadOneColumn(namespaceId, columnNumber);
+      });
     })
       .catch((err: any) => {
         console.log(err);
