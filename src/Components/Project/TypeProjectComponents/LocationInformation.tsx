@@ -134,7 +134,14 @@ export const LocationInformation = ({
               if (element.includes(data)) { service = false; }
             });
           }
-          if (service) { SA = [...SA, element]; }
+          if (service) { 
+            if(originModal ==='Acquisition' || originModal ==='Special'){
+              SA = [element];
+            }else{
+              SA = [...SA, element]; 
+            }
+          
+          }
         });
         setServiceArea(SA);
       }
@@ -148,7 +155,13 @@ export const LocationInformation = ({
               if (element.includes(data)) { service = false; }
             });
           }
-          if (service) { C = [...C, element]; }
+          if (service) { 
+            if(originModal ==='Acquisition' || originModal ==='Special'){
+              C = [element];
+            }else{
+              C = [...C, element]; 
+            }
+          }
         });
         setCounty(C);
       }
@@ -162,7 +175,14 @@ export const LocationInformation = ({
               if (data === element) { service = false; }
             });
           }
-          if (service) { J = [...J, element]; }
+          if (service) { 
+            if(originModal ==='Acquisition' || originModal ==='Special'){
+              J = [element];
+            }else{
+              J = [...J, element]; 
+            }
+          }
+         
         });
         setjurisdiction(J);
       }
