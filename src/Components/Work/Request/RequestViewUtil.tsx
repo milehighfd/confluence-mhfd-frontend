@@ -418,10 +418,11 @@ export const getCsv = (
         if (!project.projectData) {
           continue;
         }
+        const statusArray = project?.projectData?.currentId;
         dataByYear[i].push([
           project?.projectData?.project_name,
           project?.projectData?.project_local_governments?.map((e: any) => e.local_government_name).join(","),
-          getCurrentProjectStatus(project?.projectData)?.code_phase_type?.code_status_type?.status_name,
+          statusArray && statusArray.length > 0 ? statusArray[0].status_name : null,
           formatter.format(project['req' + i])
         ]);
       }

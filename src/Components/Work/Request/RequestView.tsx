@@ -84,7 +84,6 @@ const RequestView = ({ type, isFirstRendering }: {
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
   const { setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
-  const [projectsAmounts, setProjectAmounts] = useState([]);
   const wrtRef = useRef(null);
   const { userInformation } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
@@ -223,7 +222,6 @@ const RequestView = ({ type, isFirstRendering }: {
   }, []);
 
   useEffect(() => {
-    // console.log(`SHOULD BE CALLED ONCE WITH year = ${year} locality = ${locality} tabKey = ${tabKey}`);
     if (!locality || !tabKey) {
       return;
     }
@@ -248,52 +246,19 @@ const RequestView = ({ type, isFirstRendering }: {
       setBoardComment(board.comment);
       setNamespaceId(board.board_id);
       setFlagforScroll(Math.random());
-      
-      
+      // let reqManagerEq = true;
+      // for (var i = 1 ; i <= 5; i++) {
+      //   if (board[`targetcost${i}`] != reqManager[i-1]) {
+      //     reqManagerEq = false;
+      //   }
+      // }
+      // if (!reqManagerEq) {
+      //   setReqManager([
+      //     board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+      //   ])
+      // }
     }
     loadProjects();
-
-    // getBoardData2(currentDataForBoard)
-    //   .then(
-    //     (r: any) => {
-    //       console.log(r);
-    //       if (!r) return;
-    //       let { board, projects } = r;
-    //       if (board) {
-    //         setTotalCountyBudget(board.total_county_budget || 0);
-    //         setBoardStatus(board.status);
-    //         setBoardSubstatus(board.substatus);
-    //         setBoardComment(board.comment);
-    //         setNamespaceId(board.board_id)
-    //         setReqManager([
-    //           board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-    //         ])
-    //         let idsProjects = projects.map((proj: any) => {
-    //           return proj.projectData?.project_id;
-    //         });
-    //         let projectAmounts = projects.map((proj: any) => {
-    //           return {
-    //             totalAmount: ((proj['req1'] ? proj['req1'] : 0) + (proj['req2'] ? proj['req2'] : 0) + (proj['req3'] ? proj['req3'] : 0) + (proj['req4'] ? proj['req4'] : 0) + (proj['req5'] ? proj['req5'] : 0)),
-    //             cartodb_id: proj.projectData?.cartodb_id
-    //           }
-    //         });
-    //         const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
-    //         const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
-    //         setProjectAmounts(projectAmounts);
-    //         if (projects.length > 0) {
-    //           setBoardProjects({ ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson });
-    //         } else {
-    //           setBoardProjects(['-8885']);
-    //         }
-
-    //         let cols = generateColumns(projects, year, tabKey);
-    //         setColumns(cols);
-    //       }
-    //     },
-    //     (e) => {
-    //       console.log('e', e);
-    //     }
-    //   )
     let params = [
       ['year', year],
       ['locality', locality],
@@ -305,129 +270,6 @@ const RequestView = ({ type, isFirstRendering }: {
     })
   }, [year, locality, tabKey]);
 
-  // useEffect(() => {
-  //   if (!namespaceId) {
-  //     return;
-  //   }
-  //   WsService.connect(namespaceId, (socket: any) => {
-  //     console.log('connected', socket.id);
-  //   });
-  //   WsService.receiveUpdate((data: any) => {
-  //     console.log('This is the data after ws', data);
-  //   });
-  //   WsService.receiveReqmanager((data: any) => {
-  //     console.log('receiveReqmanager', data);
-  //     setReqManager(data);
-  //   })
-  //   return () => {
-  //     WsService.disconnect();
-  //   }
-  // }, [namespaceId])
-
-  // getBoardData2({
-  //     type,
-  //     year: `${year}`,
-  //     locality,
-  //     // the next condition should be removed once all Special element would have been replace by R&D in DB
-  //     projecttype: tabKey ? (tabKey === 'R&D' ? 'Special' : tabKey) : tabKeys[0],
-  //     position: ''
-  //   })
-  //       .then(
-  //         (r: any) => {
-  //           if (!r) return;
-  //           if(r){
-  //             let { board, projects } = r;
-  //             // console.log('board', board, 'proj', projects);
-  //             if (board) {
-  //               if (board.status !== boardStatus) {
-  //                 setBoardStatus(board.status);
-  //               }
-  //               if (board.substatus !== boardSubstatus) {
-  //                 setBoardSubstatus(board.substatus);
-  //               }
-  //               if (board.comment !== boardComment) {
-  //                 setBoardComment(board.comment);
-  //               }
-  //               if (board._id !== namespaceId) {
-  //                 setNamespaceId(board.board_id)
-  //               }
-  //               let reqManagerEq = true;
-  //               for (var i = 1 ; i <= 5; i++) {
-  //                 if (board[`targetcost${i}`] != reqManager[i-1]) {
-  //                   reqManagerEq = false;
-  //                 }
-  //               }
-  //               if (!reqManagerEq) {
-  //                 setReqManager([
-  //                   board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-  //                 ])
-  //               }
-  //             }
-  //             // if (projects) {
-  //             //   let cols = generateColumns(projects, year, tabKey);
-  //             //   let areEqual: boolean = compareColumns(columns, cols);
-  //             //   setFlagforScroll(Math.random());
-  //             //   // if (!areEqual) {
-  //             //     setColumns(cols);
-  //             //     let idsProjects = projects.map((proj:any)=> {
-  //             //       return proj.projectData?.project_id;
-  //             //     });
-  //             //     let projectAmounts = projects.map((proj:any)=> {
-  //             //       return { totalAmount: ((proj['req1']?proj['req1']:0) + (proj['req2']?proj['req2']:0) + (proj['req3']?proj['req3']:0) + (proj['req4']?proj['req4']:0) + (proj['req5']?proj['req5']:0)),
-  //             //       cartodb_id: proj.projectData?.cartodb_id
-  //             //       }
-  //             //     });
-  //             //     const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(projects);
-  //             //     const geojson: any = buildGeojsonForLabelsProjectsInBoards(projects);
-  //             //     buildGeojsonForLabelsProjectsInBoards(projects);
-  //             //     setProjectAmounts(projectAmounts);
-  //             //     if(projects.length>0){
-  //             //       setBoardProjects({ ids: idsProjects, groupedIds: groupedIdsByStatusId, geojsonData: geojson});
-  //             //     } else {
-  //             //       setBoardProjects(['-8887']);
-  //             //     }
-  //             //   // }
-  //             // }
-  //           }
-  //         },
-  //         (e) => {
-  //           console.log('e', e);
-  //         }
-  //       )
-  // }, [namespaceId]);
-
-  useEffect(() => {
-    // let [rows, totals] = getTotalsByPropertyV2(columns, 'project_counties');
-    // let [a] = getTotalsByPropertyV2(columns, 'project_service_areas');
-    // let [c] = getTotalsByPropertyV2(columns, 'project_local_governments');
-    // let uniqueServiceArea = a.map((p: any) => p.locality);
-    // let uniqueJurisdictions = c.map((p: any) => p.locality).filter((p: any) => p.length > 0);
-    // let uniqueCounties = rows.map((p: any) => p.locality);
-    // setJurisdictionFilterList(uniqueJurisdictions);
-    // setJurisdictionSelected(uniqueJurisdictions);
-    // let l = localities.find((p: any) => {
-    //   return p.name === locality;
-    // })
-    // if (l) {
-    //   if (l.type === 'COUNTY') {
-    //     setCsaFilterList(uniqueCounties);
-    //     setCsaSelected(uniqueCounties)
-    //   } else {
-    //     setCsaFilterList(uniqueServiceArea);
-    //     setCsaSelected(uniqueServiceArea)
-    //   }
-    // }
-    // setSumTotal(totals);
-    // if (type === 'WORK_REQUEST') {
-    //   if (['Capital', 'Maintenance'].includes(tabKey)) {
-    //     setSumByCounty(rows);
-    //   } else {
-    //     setSumByCounty(a);
-    //   }
-    // } else {
-    //   setSumByCounty(c);
-    // }
-  }, [columns, tabKey]);
 
   useEffect(() => {
     let diffTmp = []
@@ -436,7 +278,6 @@ const RequestView = ({ type, isFirstRendering }: {
       diffTmp.push(d);
     }
     setDiff(diffTmp);
-
   }, [reqManager, sumTotal]);
 
   const openEdit = (project: any, event: any) => {
