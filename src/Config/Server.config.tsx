@@ -28,6 +28,7 @@ export const SERVER = (function () {
     const GALLERY_PROJECTS = 'gallery?';
     const GALLERY_PROJECTS_V2 = 'projects';
     const GALLERY = 'gallery';
+    const GENERATE_SIGNUP_URL = 'generate-signup-url';
     const ZOOMAREA = 'zoomarea'
     const COMPONENT_COUNTER = 'component-counter';
     const GRAPHQL = 'graphql';
@@ -267,6 +268,7 @@ export const SERVER = (function () {
         CREATE_NOTES_LIST: `${URL_BASE.BASE}/${NEW_NOTES}/${COLOR}`,
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
+        GENERATE_SIGNUP_URL: `${URL_BASE.BASE}/${USER}/${GENERATE_SIGNUP_URL}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${groupname}/${group}`,
