@@ -1,10 +1,11 @@
-import * as types from '../types/ProjectTypes';
-import * as datasets from "../../Config/datasets";
-import { SERVER } from "../../Config/Server.config";
-import WsService from './../../Components/Work/Request/WsService';
+import * as types from 'store/types/ProjectTypes';
+import * as datasets from "Config/datasets";
+import { SERVER } from "Config/Server.config";
+import { loadOneColumn } from 'store/actions/requestActions';
 
 export const saveSpecial = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -30,14 +31,15 @@ export const saveSpecial = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 
 export const saveAcquisition = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -63,14 +65,15 @@ export const saveAcquisition = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 
 export const saveCapital = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     console.log(Object.keys(data));
@@ -97,13 +100,14 @@ export const saveCapital = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 export const saveMaintenance = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -129,13 +133,14 @@ export const saveMaintenance = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 export const saveOverheadCost = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     console.log('FORMDATA', data)
     datasets.postDataMultipart(SERVER.PROJECT_COST_OVERHEAD, data, datasets.getToken()).then(res => {
       let status ; 
@@ -144,13 +149,14 @@ export const saveOverheadCost = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 export const saveStudy = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -176,13 +182,14 @@ export const saveStudy = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_SAVE, status });
     })
   };
 };
 export const editSpecial = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -208,13 +215,14 @@ export const editSpecial = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
 };
 export const editAcquisition = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -241,13 +249,14 @@ export const editAcquisition = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
 };
 export const editStudy = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -274,13 +283,14 @@ export const editStudy = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
 };
 export const editMaintenance = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -307,13 +317,14 @@ export const editMaintenance = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
 };
 export const editCapital = (data: any) => {
-  return ( dispatch: Function) => {
+  return ( dispatch: Function, getState: Function) => {
+    const { request: { namespaceId } } = getState();
     const formData = new FormData();
     let covername = '';
     Object.keys(data).forEach((key: string) => {
@@ -340,7 +351,7 @@ export const editCapital = (data: any) => {
       }else{
         status = 0;
       }
-      WsService.sendEdit();
+      dispatch(loadOneColumn(namespaceId, 0));
       dispatch({ type: types.SET_EDIT, status });
     })
   };
