@@ -409,7 +409,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
  
   }
   useEffect(()=>{
-
+    if(data === 'no data'){
+      let newOverheadCosts = [...overheadCosts];
+      overheadValues.forEach((element:any, index:any) => {
+        newOverheadCosts[index] = (element*getSubTotalCost())/100;
+        newOverheadCosts[index] = parseInt(newOverheadCosts[index]);
+      });
+      setOverheadCosts(newOverheadCosts);
+    }
   },[overheadValues, thisIndependentComponents, listComponents]);
 
   
