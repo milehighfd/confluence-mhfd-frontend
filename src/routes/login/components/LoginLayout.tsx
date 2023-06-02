@@ -7,7 +7,7 @@ import ContinueAsGuest from 'routes/login/components/ContinueAsGuest';
 
 const LoginLayout = () => {
   const [visible, setVisible] = useState(false);
-  const pageWidth  = document.documentElement.scrollWidth;
+  const pageWidth = document.documentElement.scrollWidth;
   return (
     <Layout style={{ background: '#fff' }}>
       <Row>
@@ -15,9 +15,14 @@ const LoginLayout = () => {
           pageWidth < 700 && <CarouselAutoPlayView />
         }
         <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
+          <div style={{ height: '100px' }}>
+            <iframe src="https://countingdownto.com/w4/Ug1WexoD" style={{ position: 'relative', width: '100%', height: '100%', zIndex: '1', backgroundColor: '#008000', backgroundImage: 'linear-gradient(135deg, #008000, #408000)', overflow: 'hidden    !important' }}>
+            </iframe>
+          </div>
           <div className="login-step01" id="login-form">
+
             {
-              pageWidth < 700 &&<ContinueAsGuest />
+              pageWidth < 700 && <ContinueAsGuest />
             }
             <LoginForm />
           </div>
@@ -29,7 +34,7 @@ const LoginLayout = () => {
             Release Notes
           </span>
           {
-            visible && <VersionNumber visible={visible} setVisible={setVisible}/>
+            visible && <VersionNumber visible={visible} setVisible={setVisible} />
           }
         </Col>
         {
