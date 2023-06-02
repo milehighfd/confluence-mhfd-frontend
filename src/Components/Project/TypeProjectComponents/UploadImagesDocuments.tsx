@@ -53,7 +53,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return {
           ...img,
           type: getTypeImage(img.mime_type),
-          size: formatBytes(img.size, 2),
+          size: formatBytes(img.size, 0),
           key: img.project_attachment_id,
           file: img,
           value: img.value,
@@ -65,7 +65,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return {
           ...file,
           type: getTypeImage(file.mime_type),
-          size: formatBytes(file.size, 1),
+          size: formatBytes(file.size, 0),
           key: file.project_attachment_id,
           date: formatDate(file.created_date),
           file: file,
@@ -268,7 +268,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           description: description,
           file_name: newFile.name,
           type: file.type.replace('image/', '').toUpperCase(),
-          size: formatBytes(file.size, 2),
+          size: formatBytes(file.size, 0),
           key: file.name + file.lastModified,
           file: newFile,
           cover: oldData.length === 0 ? true: false
@@ -283,7 +283,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           description: description,
           file_name: newFile.name,
           type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
-          size: formatBytes(file.size, 1),
+          size: formatBytes(file.size, 0),
           key: file.name + file.lastModified,
           date: formatDate(file.lastModified),
           file: newFile
