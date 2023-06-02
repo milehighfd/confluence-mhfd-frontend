@@ -63,7 +63,8 @@ import {
   setInfiniteScrollItems,
   resetInfiniteScrollItems,
   setInfiniteScrollHasMoreItems,
-  resetInfiniteScrollHasMoreItems
+  resetInfiniteScrollHasMoreItems,
+  setIsEdit,
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -75,6 +76,9 @@ export const useProjectDispatch = () => {
   return {
     setSave: (status: number) => {
       dispatch(setSave(status));
+    },
+    setIsEdit: (isEdit: boolean) => {
+      dispatch(setIsEdit(isEdit));
     },
     saveProjectSpecial: (special: any) => {
       dispatch(saveSpecial(special));

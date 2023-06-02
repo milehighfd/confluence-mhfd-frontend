@@ -351,6 +351,11 @@ export const setSave = (status: any) => {
     dispatch({type: types.SET_SAVE, status});
   };
 }
+export const setIsEdit = (isEdit: boolean) => {
+  return ( dispatch: Function ) => {
+    dispatch({type: types.SET_IS_EDIT, isEdit});
+  };
+}
 export const saveSpecialLocation = (specialLocation: any) => {
   return ( dispatch: Function ) => {
     dispatch({type: types.SET_PROJECT_LOCATION, specialLocation});

@@ -73,7 +73,8 @@ const initState = {
   zoomGeom: undefined,
   nextPageOfCards: 1,
   infiniteScrollItems: Array.from({ length: 20 }),
-  infiniteScrollHasMoreItems: true
+  infiniteScrollHasMoreItems: true,
+  isEdit: false,
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -121,6 +122,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         status: action.status
+      }
+    }
+    case types.SET_IS_EDIT:{
+      return {
+        ...state,
+        isEdit: action.isEdit
       }
     }
     case types.ADD_LOCATION: {

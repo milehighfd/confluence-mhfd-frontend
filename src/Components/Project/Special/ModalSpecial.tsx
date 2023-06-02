@@ -28,7 +28,7 @@ const stateValue = {
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
-  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor} = useProjectDispatch();
+  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor, setIsEdit} = useProjectDispatch();
   const {getAttachmentByProject} = useAttachmentDispatch();
   const {organization, groupOrganization} = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -94,6 +94,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
 }
 
   useEffect(()=>{
+    setIsEdit(false);
     if(data!== 'no data' ) {
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
@@ -110,7 +111,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
         }
         return undefined;
       }).filter((e:any)=> !!e).join("");
-
+      setIsEdit(true);
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.project_name);

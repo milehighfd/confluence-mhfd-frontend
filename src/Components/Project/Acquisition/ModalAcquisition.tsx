@@ -43,7 +43,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     editable: boolean
   }) => {
 
-  const { saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor } = useProjectDispatch();
+  const { saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor,setIsEdit } = useProjectDispatch();
   const { organization, groupOrganization } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
@@ -175,6 +175,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     }
   }, [organization]);
   useEffect(() => {
+    setIsEdit(false);
     if (data !== 'no data') {
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
@@ -191,6 +192,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
         }
         return undefined;
       }).filter((e:any)=> !!e).join("");
+      setIsEdit(true);
       setSwSave(true);
       setDescription(data.description);
       setNameProject(data.project_name);

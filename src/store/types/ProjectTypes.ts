@@ -1,5 +1,6 @@
 export const SET_SAVE = 'SET_SAVE';
 export const SET_EDIT = 'SET_EDIT';
+export const SET_IS_EDIT = 'SET_IS_EDIT';
 export const SET_PROJECT_LOCATION = 'SET_PROJECT_LOCATION';
 export const GET_LOCATION = 'GET_LOCATION';
 export const SET_ACQUISITION_LOCATION = 'SET_ACQUISITION_LOCATION';

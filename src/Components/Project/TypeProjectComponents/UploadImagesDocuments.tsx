@@ -7,6 +7,7 @@ import { CloudDownloadOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 import { SERVER } from "Config/Server.config";
 import { getDataNoJSON } from '../../../Config/datasets';
+import { useProjectState } from "hook/projectHook";
 
 interface DataType {
   key: React.Key;
@@ -17,6 +18,7 @@ interface DataType {
 export const UploadImagesDocuments = ({isCapital, setFiles }: {
   isCapital?: any, setFiles: any
 }) => {
+  const {isEdit} = useProjectState(); 
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
   const [dataImages, setDataImages] = useState<any[]>([
@@ -319,9 +321,9 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             <Button className="bottomn-heder" onClick={() => (setModal(true))}>
               <span className="ic-document"/>Add Image
             </Button>
-            <Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
+            {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(true)} disabled={!dataImages.length}>
               <CloudDownloadOutlined />Download All 
-            </Button>
+            </Button>:<></>}
           </span>
         </Col>
       </Row>
@@ -358,9 +360,9 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
               <span className="ic-document"/>Add Document
             </Button>
-            <Button className="bottomn-heder" onClick={() => downloadZip(false)} disabled={!dataFiles.length}>
+            {isEdit?<Button className="bottomn-heder" onClick={() => downloadZip(false)} disabled={!dataFiles.length}>
               <CloudDownloadOutlined />Download All 
-            </Button>
+            </Button>:<></>}
           </span>
         </Col>
       </Row>

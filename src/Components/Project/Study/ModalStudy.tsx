@@ -37,7 +37,7 @@ const genTitleUnnamed = (streamName: any, streamData: any, setHighlightedStreams
 
 export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable }:
   { visibleStudy: boolean, setVisibleStudy: Function, nameProject: string, setNameProject: Function, typeProject: string, setVisible: Function, locality?: any, data: any, editable: boolean }) => {
-  const { saveProjectStudy, setStreamsList, setStreamIntersected, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream, setHighlightedStreams } = useProjectDispatch();
+  const { saveProjectStudy, setStreamsList, setStreamIntersected, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream, setHighlightedStreams, setIsEdit } = useProjectDispatch();
   const { streamsIntersectedIds, isDraw } = useProjectState();
   const { organization, groupOrganization } = useProfileState();
   const { listStreams } = useProjectState();
@@ -195,7 +195,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   }
 
   useEffect(() => {
+    setIsEdit(false);
     if (data !== 'no data') {
+      setIsEdit(true);
       setSwSave(true);
       setDescription(data.description);
       setCounty(parseCountiesToArray(data.project_counties));

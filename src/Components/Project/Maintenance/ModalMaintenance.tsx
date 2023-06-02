@@ -35,7 +35,7 @@ const stateValue = {
 export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, nameProject, setNameProject, subType, typeProject, setVisible, locality, data, editable }:
   { visibleMaintenance: boolean, setVisibleMaintenance: Function, nameProject: string, setNameProject: Function, subType: string, typeProject: string, setVisible: Function, locality?: any, data: any, editable: boolean }) => {
 
-  const { saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId, setServiceAreaCounty, setJurisdictionSponsor } = useProjectDispatch();
+  const { saveProjectMaintenance, setStreamIntersected, setEditLocation, editProjectMainetnance, setStreamsIds, getGEOMByProjectId, setServiceAreaCounty, setJurisdictionSponsor,setIsEdit } = useProjectDispatch();
   const { streamIntersected } = useProjectState();
   const { organization, groupOrganization } = useProfileState();
   const [state, setState] = useState(stateValue);
@@ -166,7 +166,9 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }
 
   useEffect(() => {
+    setIsEdit(false);
     if (data !== 'no data') {
+      setIsEdit(true);
       setSwSave(true);
       setDescription(data?.description);
       setNameProject(data?.project_name);
