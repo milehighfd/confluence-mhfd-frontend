@@ -3448,8 +3448,40 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     justify-content: space-between;
   }
 
-  .dropdown-view {
+  .dropdown-view-income {
     width: 17%;
+    margin-right: 8px;
+    justify-content: space-between;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid rgba(37, 24, 99, 0.1);
+    border-radius: 3px;
+    color: #251863;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    padding: 8px 12px;
+  }
+
+  .dropdown-view-partner {
+    width: 50%;
+    margin-right: 8px;
+    justify-content: space-between;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid rgba(37, 24, 99, 0.1);
+    border-radius: 3px;
+    color: #251863;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    padding: 8px 12px;
+  }
+
+  .dropdown-view-phase {
+    width: 21%;
     margin-right: 8px;
     justify-content: space-between;
     gap: 8px;
