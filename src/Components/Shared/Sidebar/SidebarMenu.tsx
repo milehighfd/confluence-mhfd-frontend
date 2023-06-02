@@ -38,15 +38,15 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>work request</span>
     </Link>
   },
-  //  {
-  //   key: '3',
-  //   className: Number(indexOf) === 3 ? 'menu-sidebar-hover':'',
-  //   label: <Link to={userApproved ? '/work-plan' : '#'}>
-  //     <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
-  //     <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
-  //     <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>work plan</span>
-  //   </Link>
-  // },
+  {
+    key: '3',
+    className: Number(indexOf) === 3 ? 'menu-sidebar-hover':'',
+    label: <Link to={userApproved ? '/work-plan' : '#'}>
+      <img className="img-h anticon" src="/Icons/menu-white-13.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <img className="img-a anticon" src="/Icons/menu-green-13.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+      <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>work plan</span>
+    </Link>
+  },
   {
     className: Number(indexOf) === 5 ? 'menu-sidebar-hover':'',
     key: '5',
