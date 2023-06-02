@@ -74,8 +74,8 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
  
-  const {saveProjectCapital,saveOverheadCost, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem} = useProjectDispatch();
-  const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents} = useProjectState();
+  const {saveProjectCapital,saveOverheadCost, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem, setIsEdit} = useProjectDispatch();
+  const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents, isEdit} = useProjectState();
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -117,9 +117,11 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const isWorkPlan = location.pathname.includes('work-plan');
   const { groupOrganization } = useProfileState();
   useEffect(() => {
-    if (userInformation?.designation === GOVERNMENT_STAFF) {
-      if (userInformation?.organization) {
-        setSponsor(userInformation?.organization);
+    console.log(userInformation)
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
       }
     }
   }, [userInformation]);
@@ -141,8 +143,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setIndependentComponents([]);
     }
   },[]);
-  
   useEffect(()=>{
+    setIsEdit(false);
     if(data !== 'no data' ) {
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
@@ -162,6 +164,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }).filter((e:any)=> !!e).join("");
       setComponentIntersected(data.project_proposed_actions || []);
       setSwSave(true);
+      setIsEdit(true);
       setCounty(counties);
       setServiceArea(serviceAreas);
       setjurisdiction(localJurisdiction);
