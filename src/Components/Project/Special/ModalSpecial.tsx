@@ -38,7 +38,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [year, setYear] = useState(2023);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
-  const [sponsor, setSponsor] = useState(organization+"");
+  const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [save, setSave] = useState(false);
   const [geom, setGeom] = useState();
@@ -50,6 +50,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const history = useHistory();
   const location = useLocation();
   const isWorkPlan = location.pathname.includes('work-plan');
+  const { userInformation } = useProfileState();
 
   useEffect(() => {
     const params = new URLSearchParams(history.location.search);
@@ -203,14 +204,14 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
-  useEffect(()=>{
-    let juris = JURISDICTION.find((elem:any) => elem.includes(organization));
-    if(juris) {
-      setSponsor(organization);
-    } else {
-      setSponsor(locality);
+  useEffect(() => {
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }
     }
-  },[organization]);
+  }, [userInformation]);
   const handleOk = (e: any) => {
      setVisibleAlert( true);
   };

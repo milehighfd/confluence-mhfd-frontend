@@ -51,7 +51,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const { changeDrawState } = useProjectDispatch();
   const [files, setFiles] = useState<any[]>([]);
   const [streamsList, setThisStreamsList] = useState<any>([]);
-  const [sponsor, setSponsor] = useState(organization + "");
+  const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
   const [projectid, setProjectId] = useState(-1);
@@ -72,6 +72,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
+  const { userInformation } = useProfileState();
 
   useEffect(() => {
     setServiceAreaCounty({});
@@ -379,13 +380,13 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
 
   }
   useEffect(() => {
-    let juris = JURISDICTION.find((elem: any) => elem.includes(organization));
-    if (juris) {
-      setSponsor(organization);
-    } else {
-      setSponsor(locality);
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }
     }
-  }, [organization]);
+  }, [userInformation]);
   useEffect(() => {
     changeDrawState(isDrawState);
   }, [isDrawState]);

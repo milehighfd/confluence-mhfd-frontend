@@ -51,7 +51,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
-  const [sponsor, setSponsor] = useState(organization + "");
+  const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [progress, setProgress] = useState('');
   const [purchaseDate, setPurchaseDate] = useState('');
@@ -73,6 +73,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
+  const { userInformation } = useProfileState();
   
   useEffect(() => {
     const params = new URLSearchParams(history.location.search);
@@ -167,13 +168,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     }
   }
   useEffect(() => {
-    let juris = JURISDICTION.find((elem: any) => elem.includes(organization));
-    if (juris) {
-      setSponsor(organization);
-    } else {
-      setSponsor(locality);
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }
     }
-  }, [organization]);
+  }, [userInformation]);
   useEffect(() => {
     setIsEdit(false);
     if (data !== 'no data') {

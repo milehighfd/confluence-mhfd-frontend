@@ -126,6 +126,7 @@ export const SERVER = (function () {
     const NOTE_TYPE = 'note';
     const PROJECTS_BBOX = 'projects-bbox';
     const COST = 'cost';
+    const SPONSOR_LIST = 'sponsor-list';
     const BY_PROJECT = 'by-project';
     const GET_AVAILABLE_COLORS = 'get-available-colors';
     const ORGANIZATIONS = 'organizations';
@@ -269,6 +270,7 @@ export const SERVER = (function () {
         GET_ORGANIZATIONS: `${URL_BASE.BASE}/${ORGANIZATIONS}`,
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GENERATE_SIGNUP_URL: `${URL_BASE.BASE}/${USER}/${GENERATE_SIGNUP_URL}`,
+        GET_SPONSOR: `${URL_BASE.BASE}/${BUSINESS}/${SPONSOR_LIST}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
         GET_LIST_PMTOOLS_PAGE: (groupname: string, group : number) => `${URL_BASE.BASE}/${PMTOOLS}/groupsFilter/${groupname}/${group}`,

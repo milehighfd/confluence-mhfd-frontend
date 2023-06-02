@@ -44,7 +44,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [disable, setDisable] = useState(true);
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
-  const [sponsor, setSponsor] = useState(organization + "");
+  const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [frequency, setFrequency] = useState('');
   const [eligibility, setEligibility] = useState('');
@@ -68,6 +68,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
+  const { userInformation } = useProfileState();
 
   
   const parseStringToArray = (list: string) => {
@@ -100,13 +101,13 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }
 
   useEffect(() => {
-    let juris = JURISDICTION.find((elem: any) => elem.includes(organization));
-    if (juris) {
-      setSponsor(organization);
-    } else {
-      setSponsor(locality);
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }
     }
-  }, [organization]);
+  }, [userInformation]);
 
   function titleCase(str:any) {
     var splitStr = str.toLowerCase().split(' ');

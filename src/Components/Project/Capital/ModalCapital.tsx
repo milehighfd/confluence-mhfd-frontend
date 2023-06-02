@@ -85,7 +85,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [isDrawState, setIsDraw] = useState(false);
   const [isDrawStateCapital, setIsDrawCapital] = useState(false);
   const {changeDrawState, changeDrawStateCapital, setEditLocation} = useProjectDispatch();
-  const [sponsor, setSponsor] = useState("Select a Sponsor");
+  const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
   const [projectid, setProjectId ] = useState(-1);
@@ -117,7 +117,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const isWorkPlan = location.pathname.includes('work-plan');
   const { groupOrganization } = useProfileState();
   useEffect(() => {
-    console.log(userInformation)
     const CODE_LOCAL_GOVERNMENT = 3;
     if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
       if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
