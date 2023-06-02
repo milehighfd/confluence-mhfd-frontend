@@ -108,15 +108,21 @@ export const LocationInformation = ({
   }, []);
 
   useEffect(() => {
-    datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
+    // datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
+    //   .then((rows) => {
+    //     const localitiesData = rows.localities.map((l: any) => l.name);
+    //     localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
+    //     setLocalities(localitiesData);
+    //   }).catch((e) => {
+    //     console.log(e);
+    //   })
+    datasets.getData(`${SERVER.GET_SPONSOR}`)
       .then((rows) => {
-        const localitiesData = rows.localities.map((l: any) => l.name);
-        localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
-        setLocalities(localitiesData);
+        const sponsor = rows.map((row:any) => row.business_name);
+        setLocalities(sponsor);
       }).catch((e) => {
         console.log(e);
-      })
-
+    })
     return () => {
       setServiceAreaCounty({});
     }
@@ -135,7 +141,7 @@ export const LocationInformation = ({
             });
           }
           if (service) { 
-            if(originModal ==='Acquisition' || originModal ==='Special'){
+            if(originModal !=='Study'){
               SA = [element];
             }else{
               SA = [...SA, element]; 
@@ -156,7 +162,7 @@ export const LocationInformation = ({
             });
           }
           if (service) { 
-            if(originModal ==='Acquisition' || originModal ==='Special'){
+            if(originModal !=='Study'){
               C = [element];
             }else{
               C = [...C, element]; 
@@ -176,7 +182,7 @@ export const LocationInformation = ({
             });
           }
           if (service) { 
-            if(originModal ==='Acquisition' || originModal ==='Special'){
+            if(originModal !=='Study'){
               J = [element];
             }else{
               J = [...J, element]; 
@@ -198,7 +204,6 @@ export const LocationInformation = ({
     }
     return name;
   }
-
   return (
     <>
       <h5>{isCapital ? '5.' : '3.'} Location Information <Popover content={contentLocInf}><img src="/Icons/icon-19.svg" alt="" height="14px" /></Popover></h5>
@@ -232,12 +237,12 @@ export const LocationInformation = ({
       </Row>
       <Row gutter={[16, 16]} style={{marginTop:'10px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-          <label className="sub-title">Jurisdiction <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
+          <label className="sub-title">Local Government <Popover content={contentJuris}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           {(isMaintenance || isStudy) && !isWorkPlan && <>
             <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="jurisdictionid">
-            <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Jurisdiction"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
+            <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Local Government"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
               {JURISDICTION.map((element: string) => {
                 return <Option key={element} value={element}>{filterName(element)}</Option>
               })}
@@ -249,7 +254,7 @@ export const LocationInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div id="sponsorid">
-            <Select style={{ width: '100%' }} placeholder={sponsor !== 'Select a Sponsor' ? sponsor: 'Select a Sponsor'} value={sponsor} disabled={isLocalGovernment || isEdit} onChange={setSponsor} getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
+            <Select style={{ width: '100%' }} placeholder={'Select a Sponsor'} value={sponsor === "" ? undefined : sponsor} disabled={isLocalGovernment || isEdit} onChange={setSponsor} getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
                 isLocalGovernment ? (
                   <Option value={sponsor + ""}>{sponsor + ""}</Option>
