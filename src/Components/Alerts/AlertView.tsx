@@ -44,7 +44,7 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
   useEffect(() => {
     console.log('Am i editing', isEdit);
   }, [isEdit]);
-  console.log(isWorkPlan, "  console.log(isWorkPlan);");
+  console.log(showCheckBox, "  console.log(isWorkPlan);");
  return (
   <>
   {visibleAlert}
@@ -76,7 +76,9 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
                 <p className="title">
                   Work Request
                 </p>
-                <p className={`information ${(!sendToWr && showCheckBox)  ? 'disabled':''}`}>
+                {/* Delete after testing in workplan*/}
+                {/* <p className={`information ${(!sendToWr && showCheckBox)  ? 'disabled':''}`}></p> */}
+                <p className={`information ${(showCheckBox)  ? '':'disabled'}`}>
                   {jurisdictions.join(', ')}
                 </p>
               </Col>}
