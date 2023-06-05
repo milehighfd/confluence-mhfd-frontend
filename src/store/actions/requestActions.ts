@@ -199,7 +199,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
 
 export const loadColumns = (board_id: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year } } = getState();
+    const { request: { tabKey, year }, router: { location } } = getState();
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
@@ -247,10 +247,12 @@ export const loadColumns = (board_id: any) => {
           allProjects.map((project: any) => project.project_id)
         )
       );
+      
+      const mainKey = location.pathname.includes('work-plan') ?  (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
       dispatch({
         type: types.REQUEST_SET_SUM_BY_COUNTY,
-        payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
-          (key: any) => sumByGroupMapTotal['project_local_governments'][key]
+        payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
+          (key: any) => sumByGroupMapTotal[mainKey][key]
         )
       });
       dispatch({

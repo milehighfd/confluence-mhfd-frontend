@@ -89,7 +89,7 @@ const Analytics = ({
   if (type === 'WORK_REQUEST') {
     groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County' : 'Service Area';
   } else {
-    groupingType = 'Jurisdiction';
+    groupingType = ['Study'].includes(tabKey) ? 'Service Area': 'County';
   }
   // 2000 is default value for all subtypes in maintenance
   if (year === 2000) {
