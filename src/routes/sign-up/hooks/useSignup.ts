@@ -8,18 +8,6 @@ export const useSignup = () => {
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [openCheckYourEmailModal, setOpenCheckYourEmailModal] = useState(false);
   
-  const onGenerateSignupLink = () => {
-    console.log('onGenerateSignupLink');
-    datasets.postData(SERVER.GENERATE_SIGNUP_URL, { email: email })
-    .then((res) => {
-      console.log(res);
-      setOpenCheckYourEmailModal(true);
-    }).catch((err) => {
-      console.log(err);
-      setOpenCheckYourEmailModal(false);
-    });
-  }
-
   useEffect(() => {
     const isValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     setIsValidEmail(!!isValid);
@@ -30,7 +18,7 @@ export const useSignup = () => {
     isValidEmail,
     emailOnBlur,
     openCheckYourEmailModal,
-    onGenerateSignupLink,
+    setOpenCheckYourEmailModal,
     setEmail,
     setEmailOnBlur,
   };
