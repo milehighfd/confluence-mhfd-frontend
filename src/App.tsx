@@ -15,6 +15,7 @@ import ListView from 'routes/list-view';
 import DetailPage from 'routes/detail-page';
 import PreSignUp from 'routes/sign-up/components/PreSignUp';
 import PreSignUpLayout from 'routes/sign-up/components/PreSignUpLayout';
+import ConfSignUpLayout from 'routes/sign-up/components/ConfSignUpLayout';
 const LoginRoute = lazy(() => import('./routes/login'));
 const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
@@ -51,6 +52,7 @@ const App = () => {
         <Route path={`/pm-tools`} component={PortfolioView} />
         <Route path={`/detail-page`} component={DetailPage} />
         <Route path={`/pre-signup`} component={PreSignUpLayout} />
+        <Route path={`/conf-signup`} component={ConfSignUpLayout} />
         <Route exact path="/" render={() => (
           <Redirect to="/login" />
         )} />

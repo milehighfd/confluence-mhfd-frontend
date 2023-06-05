@@ -616,6 +616,50 @@
     height: 50px;
   }
 }
+
+.main-conf {
+
+  .group{
+    width: 600px;
+    text-align: center;
+  }
+
+  .letter-conf {
+    margin-top: 60px;
+    margin-bottom: 37.86px;
+  }
+
+  .all-text-conf {
+    margin-left: 30px;
+    width: 538px;
+  }
+
+  .title-conf {
+    height: 41px;
+    left: 13.28%;
+    right: 13.28%;
+    top: calc(50% - 41px/2 - 144.5px);
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 41px;
+    color: #11093C;
+    margin-bottom: 65px;
+  }
+
+  .text-conf {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #11093C;
+    opacity: 0.8;
+  }
+}
+
+
 // RESPONSIVE
 @media (max-width: 575.98px) {
   html{
