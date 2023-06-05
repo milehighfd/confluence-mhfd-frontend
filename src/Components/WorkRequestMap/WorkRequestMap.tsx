@@ -462,40 +462,41 @@ const WorkRequestMap = ({
   useEffect(() => {
     let mask;
     setTimeout(() => {
-      map.isStyleLoaded(() => {
-        if (coordinatesJurisdiction.length > 0) {
-          const DEPTH = depth(coordinatesJurisdiction);
-          if (DEPTH == 4) {
-            mask = turf.multiPolygon(coordinatesJurisdiction);
-          } else {
-            mask = turf.polygon(coordinatesJurisdiction);
+      if (map) {
+        map.isStyleLoaded(() => {
+          if (coordinatesJurisdiction.length > 0) {
+            const DEPTH = depth(coordinatesJurisdiction);
+            if (DEPTH == 4) {
+              mask = turf.multiPolygon(coordinatesJurisdiction);
+            } else {
+              mask = turf.polygon(coordinatesJurisdiction);
+            }
+            let misbounds =
+              -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
+            var arrayBounds = misbounds.split(',');
+            let poly = polyMask(mask, arrayBounds);
+            map.isStyleLoaded(() => {
+              map.addSourceOpacity(poly);
+            });
           }
-          let misbounds =
-            -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-          var arrayBounds = misbounds.split(',');
-          let poly = polyMask(mask, arrayBounds);
-          map.isStyleLoaded(() => {
-            map.addSourceOpacity(poly);
-          });
-        }
-      });
+        });
+      }
     }, 1200);
   }, [coordinatesJurisdiction]);
   const addGeojsonLayer = (geojsonData: any) => {
-    console.log('geojsonData', geojsonData);
-    if (map.map.getLayer('project_board_layer')) {
-      map.map.removeLayer('project_board_layer');
+    if (map?.map.getLayer('project_board_layer')) {
+      map?.map.removeLayer('project_board_layer');
     }
-    if (map.map.getSource('project_board')) {
-      map.map.removeSource('project_board');
+    if (map?.map.getSource('project_board')) {
+      map?.map.removeSource('project_board');
     }
-    map.map.addSource('project_board', {
+    map?.map.addSource('project_board', {
       type: 'geojson',
       // Use a URL for the value for the `data` property.
       data: geojsonData
     });
        
-    map.map.addLayer({
+    map?.map.addLayer({
       'id': 'project_board_layer',
       'type': 'symbol',
       'source': 'project_board',
@@ -549,7 +550,11 @@ const WorkRequestMap = ({
       setIdsBoardProjects(boardProjects.ids);
       setGroupedIdsBoardProjects(boardProjects.groupedIds);
     }
-    addGeojsonLayer(boardProjects.geojsonData);
+    if (map){
+      map.isStyleLoaded(() => {
+        addGeojsonLayer(boardProjects.geojsonData);
+      });
+    }
   }, [boardProjects]);
 
   const polyMask = (mask: any, bounds: any) => {
