@@ -232,7 +232,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       let newOverheadValue:any= [];
       parsed.forEach((overheadcost:any, index:number) => {
         if(index > 0){
-          console.log('aaa', subtotalCost, overheadcost, index)
           newOverheadValue[index] = (overheadcost * 100)/subtotalCost
         }else{
           newOverheadValue[index] = 0
@@ -646,9 +645,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                         <div className="tab-body-project">
                           <Timeline>
                             {
-                              groups[key].components.map((component:any) => {
+                              groups[key].components.map((component:any, index: number) => {
                                 return (
-                                  <div>
+                                  <div key={component.type + component.status+ index}>
                                   <Timeline.Item color="green">
                                     <Row style={{marginLeft:'-18px'}}
                                     onMouseEnter={() => setValuesComp(component)}
