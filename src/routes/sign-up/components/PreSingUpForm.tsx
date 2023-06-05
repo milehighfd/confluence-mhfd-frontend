@@ -4,14 +4,14 @@ import { useSignup } from '../hooks/useSignup';
 import { onGenerateSignupLink } from '../utils';
 
 type PreSignUpFormProps = {
-  sucessCallback: () => void;
+  email: string;
+  isValidEmail: boolean;
   errorCallback: () => void;
+  sucessCallback: () => void;
+  setEmail: (email: string) => void;
 };
-export const PreSignUpForm = ({ sucessCallback, errorCallback }: PreSignUpFormProps) => {
+export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallback, setEmail }: PreSignUpFormProps) => {
   const {
-    isValidEmail,
-    email,
-    setEmail,
     emailOnBlur,
     setEmailOnBlur
   } = useSignup();

@@ -4,10 +4,11 @@ import { useSignup } from '../hooks/useSignup';
 import CheckYourEmailModal from './CheckYourEmailModal';
 import { PreSignUpForm } from './PreSingUpForm';
 
-
-
 const PreSignUp = () => {
   const {
+    email,
+    isValidEmail,
+    setEmail,
     openCheckYourEmailModal,
     setOpenCheckYourEmailModal
   } = useSignup();
@@ -16,10 +17,13 @@ const PreSignUp = () => {
       {
         !openCheckYourEmailModal ? 
         <PreSignUpForm
+          {...{email, isValidEmail, setEmail}}
           sucessCallback={() => setOpenCheckYourEmailModal(true)}
           errorCallback={() => setOpenCheckYourEmailModal(false)}
         /> : 
-        <CheckYourEmailModal />
+        <CheckYourEmailModal
+          email={email}
+        />
       }
     </>
   )
