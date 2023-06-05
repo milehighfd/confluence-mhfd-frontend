@@ -44,7 +44,6 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
   useEffect(() => {
     console.log('Am i editing', isEdit);
   }, [isEdit]);
-  console.log(showCheckBox, "  console.log(isWorkPlan);");
  return (
   <>
   {visibleAlert}

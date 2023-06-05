@@ -53,7 +53,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return {
           ...img,
           type: getTypeImage(img.mime_type),
-          size: formatBytes(img.size, 0),
+          size: formatBytes(img.size, 1),
           key: img.project_attachment_id,
           file: img,
           value: img.value,
@@ -65,7 +65,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         return {
           ...file,
           type: getTypeImage(file.mime_type),
-          size: formatBytes(file.size, 0),
+          size: formatBytes(file.size, 1),
           key: file.project_attachment_id,
           date: formatDate(file.created_date),
           file: file,
@@ -234,12 +234,10 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     }),
   };
   const formatBytes = (bytes: number, decimals = 2) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
+    if (bytes === 0) return '0 MB';
     const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    const sizeInMB = bytes / 1048576;
+    return parseFloat(sizeInMB.toFixed(dm)) + ' MB';
   }
 
   const formatDate = (timestamp: number) => {
@@ -268,7 +266,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           description: description,
           file_name: newFile.name,
           type: file.type.replace('image/', '').toUpperCase(),
-          size: formatBytes(file.size, 0),
+          size: formatBytes(file.size, 1),
           key: file.name + file.lastModified,
           file: newFile,
           cover: oldData.length === 0 ? true: false
@@ -283,7 +281,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           description: description,
           file_name: newFile.name,
           type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
-          size: formatBytes(file.size, 0),
+          size: formatBytes(file.size, 1),
           key: file.name + file.lastModified,
           date: formatDate(file.lastModified),
           file: newFile
