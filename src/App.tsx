@@ -37,7 +37,7 @@ const App = () => {
     <Switch>
       <Suspense fallback={<div>...</div>}>
         <Route path={`/login`} component={LoginRoute} />
-        <Route path={`/sign-up`} component={SignUpRoute} />
+        <Route path={`/signup/:id`} component={SignUpRoute} />
         <Route path={`/reset-password`} component={ResetPasswordRoute} />
         <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
         <Route path={'/404'} component={Unauthorized} />
