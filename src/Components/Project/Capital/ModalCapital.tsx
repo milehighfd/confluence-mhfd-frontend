@@ -226,18 +226,19 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         return { table: c.table, objectid: c.objectid}
       })
       setComponentsToSave(newC);
-
-      const subtotalCost = getSubTotalCost();
-      const parsed = overheadCosts
-      let newOverheadValue:any= [];
-      parsed.forEach((overheadcost:any, index:number) => {
-        if(index > 0){
-          newOverheadValue[index] = (overheadcost * 100)/subtotalCost
-        }else{
-          newOverheadValue[index] = 0
-        }
-      });
-      setOverheadValues(newOverheadValue)
+      if(data !=='no data'){
+        const subtotalCost = getSubTotalCost();
+        const parsed = overheadCosts
+        let newOverheadValue:any= [];
+        parsed.forEach((overheadcost:any, index:number) => {
+          if(index > 0){
+            newOverheadValue[index] = (overheadcost * 100)/subtotalCost
+          }else{
+            newOverheadValue[index] = 0
+          }
+        });
+        setOverheadValues(newOverheadValue)
+      }
     } else {
       setGroups({});
     }
@@ -939,37 +940,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                 <Row>
                   <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contract Admin / Construction Management</label></Col>
                   <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select placeholder={overheadValues[6] + '%'} dropdownClassName="menu-medium" value={overheadValues[6] + '%'} onSelect={(e:any)=>changeValue(e, 7)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[7])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select placeholder={overheadValues[7] + '%'} dropdownClassName="menu-medium" value={overheadValues[7] + '%'} onSelect={(e:any)=>changeValue(e, 6)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
+                    <Select placeholder={overheadValues[6] + '%'} dropdownClassName="menu-medium" value={overheadValues[6] + '%'} onSelect={(e:any)=>changeValue(e, 6)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
                       <Option value="0">0%</Option>
                       <Option value="5">5%</Option>
                       <Option value="10">10%</Option>
@@ -993,6 +964,36 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                     </Select>
                   </Col>
                   <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[6])}</Col>
+                </Row>
+              </Timeline.Item>
+              <Timeline.Item color="purple">
+                <Row>
+                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
+                    <Select placeholder={overheadValues[7] + '%'} dropdownClassName="menu-medium" value={overheadValues[7] + '%'} onSelect={(e:any)=>changeValue(e, 7)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
+                      <Option value="0">0%</Option>
+                      <Option value="5">5%</Option>
+                      <Option value="10">10%</Option>
+                      <Option value="15">15%</Option>
+                      <Option value="20">20%</Option>
+                      <Option value="25">25%</Option>
+                      <Option value="30">30%</Option>
+                      <Option value="35">35%</Option>
+                      <Option value="40">40%</Option>
+                      <Option value="45">45%</Option>
+                      <Option value="50">50%</Option>
+                      <Option value="55">55%</Option>
+                      <Option value="60">60%</Option>
+                      <Option value="65">65%</Option>
+                      <Option value="70">70%</Option>
+                      <Option value="75">75%</Option>
+                      <Option value="80">80%</Option>
+                      <Option value="85">85%</Option>
+                      <Option value="90">90%</Option>
+                      <Option value="95">95%</Option>
+                    </Select>
+                  </Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[7])}</Col>
                 </Row>
               </Timeline.Item>
               <Timeline.Item color="purple">
