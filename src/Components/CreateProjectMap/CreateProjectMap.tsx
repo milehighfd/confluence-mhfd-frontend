@@ -970,13 +970,14 @@ const CreateProjectMap = (type: any) => {
             continue;
           }
           if (typeof filters === 'object') {
-            for (const range of filters) {
-              const [lower, upper] = range?.split(',');
-              const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
-              const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
-              const allFilter = ['all', lowerArray, upperArray];
-              options.push(allFilter);
-            }
+            // TODO: find why is not used anymore
+            // for (const range of filters) {
+            //   const [lower, upper] = range?.split(',');
+            //   const lowerArray: any[] = ['>=', ['to-number', ['get', filterField]], +lower];
+            //   const upperArray: any[] = ['<=', ['to-number', ['get', filterField]], +upper];
+            //   const allFilter = ['all', lowerArray, upperArray];
+            //   options.push(allFilter);
+            // }
           } else {
             for (const filter of filters.split(',')) {
               if (isNaN(+filter)) {
