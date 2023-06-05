@@ -26,7 +26,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   const {specialLocation, acquisitionLocation, isAddLocation} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
-  const {changeAddLocationState} = useProjectDispatch();
+  const {changeAddLocationState, setServiceAreaCounty} = useProjectDispatch();
   const dataSource = [
     {
       latitude: latitude,
@@ -45,6 +45,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
     changeAddLocationState(!isLocation);
     setIsLocation(!isLocation);
     setGeom(location);
+    setServiceAreaCounty({});
   }
   useEffect(()=>{
     if(specialLocation.geom) {

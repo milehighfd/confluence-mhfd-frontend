@@ -129,6 +129,11 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             let coordinates = coor.coordinates[0];
             setGeom(coordinates);
             setEditLocation(coordinates);
+            setServiceAreaCounty({
+              'Service Area': serviceAreas,
+              'County': counties,
+              'jurisdiction': localJurisdiction
+            });
           },
           (e) => {
             console.log('e', e);

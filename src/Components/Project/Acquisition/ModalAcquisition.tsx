@@ -221,6 +221,11 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
               let coordinates = coor.coordinates[0];
               setGeom(coordinates);
               setEditLocation(coordinates);
+              setServiceAreaCounty({
+                'Service Area': serviceAreas,
+                'County': counties,
+                'jurisdiction': localJurisdiction
+              });
             },
             (e) => {
               console.log('e', e);

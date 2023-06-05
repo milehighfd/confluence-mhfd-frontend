@@ -108,14 +108,6 @@ export const LocationInformation = ({
   }, []);
 
   useEffect(() => {
-    // datasets.getData(`${SERVER.URL_BASE}/locality/WORK_REQUEST`)
-    //   .then((rows) => {
-    //     const localitiesData = rows.localities.map((l: any) => l.name);
-    //     localitiesData.push(localitiesData.splice(localitiesData.indexOf('MHFD District Work Plan'), 1)[0]);
-    //     setLocalities(localitiesData);
-    //   }).catch((e) => {
-    //     console.log(e);
-    //   })
     datasets.getData(`${SERVER.GET_SPONSOR}`)
       .then((rows) => {
         const sponsor = rows.map((row:any) => row.business_name);
@@ -150,6 +142,8 @@ export const LocationInformation = ({
           }
         });
         setServiceArea(SA);
+      } else {
+        setServiceArea([]);
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
@@ -170,6 +164,8 @@ export const LocationInformation = ({
           }
         });
         setCounty(C);
+      } else {
+        setCounty([]);
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
         let J = jUrisdiction;
@@ -191,6 +187,8 @@ export const LocationInformation = ({
          
         });
         setjurisdiction(J);
+      } else {
+        setjurisdiction([]);
       }
     }
   }, [currentServiceAreaCounty]);
