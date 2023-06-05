@@ -1604,7 +1604,7 @@ const CreateProjectMap = (type: any) => {
                   content={<div className='popoveer-00'>
                     <p style={{fontWeight:'600'}}>Problem Types</p>
                     <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems related to existing flood or fluvial hazard to life and property.</p>
-                    <p><span style={{fontWeight:'600'}}>Stream Function </span> Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
+                    <p><span style={{fontWeight:'600'}}>Stream Condition </span> Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
                     <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p>
                   </div>}
                 >
@@ -1620,7 +1620,7 @@ const CreateProjectMap = (type: any) => {
               </div>
               <div className="legendprob">
                 <div className="iconstreamfunction" />
-                Stream Function
+                Stream Condition
               </div>
             </div> : ''
           }

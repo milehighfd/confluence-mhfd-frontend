@@ -56,13 +56,13 @@ export const getTitleOfProblemsPart = (feature: any) => {
     title = 'Flood Hazard Point' ;
   }
   if ( feature.source.includes('function_line')) {
-    title = 'Stream Function Line' ;
+    title = 'Stream Condition Line' ;
   }
   if ( feature.source.includes('function_polygon')) {
-    title = 'Stream Function Polygon' ;
+    title = 'Stream Condition Polygon' ;
   }
   if ( feature.source.includes('function_point')) {
-    title = 'Stream Function Point' ;
+    title = 'Stream Condition Point' ;
   }
   if ( feature.source.includes('development_polygon')) {
     title = 'Watershed Change Polygon' ;

@@ -228,13 +228,13 @@ export const ComponentPopup = ({ id, item, isComponent, maptype } : any) => {
   else if (item.layer.includes('Flood Hazard Line')) {
     isComponent = false;
   }
-  else if (item.layer.includes('Stream Function Point')) {
+  else if (item.layer.includes('Stream Condition Point')) {
     isComponent = false;
   }
-  else if (item.layer.includes('Stream Function Polygon')) {
+  else if (item.layer.includes('Stream Condition Polygon')) {
     isComponent = false;
   }
-  else if (item.layer.includes('Stream Function Line')) {
+  else if (item.layer.includes('Stream Condition Line')) {
     isComponent = false;
   }
   else if (item.layer.includes('Watershed Change Polygon')) {

@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { Button } from 'antd';
 
 const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
+  console.log(data,'AQQQQ', type, selected, onSelect, defaultValue, 'AQUIIIIIIIIIIIIIIIIIIIIIIIII')
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [selectedData, setSelectedData] = useState<any[]>([]);
@@ -19,7 +20,7 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
     total = data.reduce((a: number, x: any) => a + x.counter, 0);
     pieChartData = data.map((d: any) => {
       return {
-        key: d.value,
+        key: d.value === 'Stream Function' ? 'Stream Condition': d.value,
         counter: d.counter,
         value: d.counter / total
       }
