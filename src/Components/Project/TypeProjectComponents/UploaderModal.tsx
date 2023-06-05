@@ -13,11 +13,17 @@ export const UploaderModal = (
       return;
     }
     const name = event.target.files[0].name;
+    const file = event.target.files[0];
+    const sizeInMB = file.size / 1048576; 
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
     if ((type === IMAGES && (!ext || ext === 'jpg' || ext === 'jpeg' || ext === 'png'))  || (type !== IMAGES && (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'mp4'))) {
-      setSelectedFile(event.target.files[0]);
-      setErrorMessage('')
+      if (sizeInMB <= 99.9) {
+        setSelectedFile(file);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('File size not allowed');
+      }
     }
     else {
       setErrorMessage('File type not allowed')
