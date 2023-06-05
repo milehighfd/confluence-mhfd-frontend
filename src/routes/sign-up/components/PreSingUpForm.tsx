@@ -32,6 +32,7 @@ export const PreSignUpForm = ({ sucessCallback, errorCallback }: PreSignUpFormPr
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          style={isValidEmail ? {paddingLeft:'10px'}:{paddingLeft:'10px', borderBottom: '1px solid rgb(255 0 0)'}}
         />
         <span className="highlight"></span>
         <span className="bar"></span>
