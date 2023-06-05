@@ -122,7 +122,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
         setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
       }
-    }
+    }    
   }, [userInformation]);
   useEffect(()=>{
     setServiceAreaCounty({});
@@ -245,7 +245,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   },[listComponents]);
 
   useEffect(()=>{
-
     if (save === true){
       let serviceAreaIds:any=[];
     let countyIds:any=[];
@@ -416,7 +415,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const removeComponent = (component: any) => {
     let newComponents: any = [];
     let currentComponents = listComponents.result;
-    newComponents = currentComponents.filter( (comp: any) => ( ! (comp.cartodb_id == component.cartodb_id && comp.table == component.table)));
+    newComponents = currentComponents
+      .filter((comp: any) => !(comp.cartodb_id === component.cartodb_id && comp.table === component.table))
+      .map((comp: any) => ({
+        ...comp,
+        source_table_name: comp.table,
+        object_id: comp.objectid
+      }));
     getListComponentsByComponentsAndPolygon(newComponents, null);
   }
   const updateOverheadCosts = () => {
