@@ -17,8 +17,8 @@ const columns = [
   },
 ];
 
-export const DropPin = ({typeProject, geom, setGeom}:
-  {typeProject: string, geom: any, setGeom: Function}) => {
+export const DropPin = ({typeProject, geom, setGeom, setIsEditingPosition}:
+  {typeProject: string, geom: any, setGeom: Function, setIsEditingPosition?: any}) => {
   const content05 = (<div className="popver-info">If the Special Project does not have a physical location (i.e. research study, criteria update, etc.), please drop a pin on the Local Government's City Hall or MHFD Office.</div>);
   const [latitude, setLatitude] = useState('--');
   const [longitude, setLongitude] = useState('--');
@@ -26,7 +26,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
   const {specialLocation, acquisitionLocation, isAddLocation} = useProjectState();
   const [location, setLocation] =useState();
   const [isLocation, setIsLocation] = useState(false);
-  const {changeAddLocationState, setServiceAreaCounty} = useProjectDispatch();
+  const {changeAddLocationState} = useProjectDispatch();
   const dataSource = [
     {
       latitude: latitude,
@@ -45,7 +45,7 @@ export const DropPin = ({typeProject, geom, setGeom}:
     changeAddLocationState(!isLocation);
     setIsLocation(!isLocation);
     setGeom(location);
-    setServiceAreaCounty({});
+
   }
   useEffect(()=>{
     if(specialLocation.geom) {
@@ -68,6 +68,12 @@ export const DropPin = ({typeProject, geom, setGeom}:
     setGeom(location);
   },[location]);
   useEffect(()=>{
+    console.log('nnnnnnnnnnn', isAddLocation)
+    if(isAddLocation === true ){
+      setIsEditingPosition(true);
+    } else {
+      setIsEditingPosition(false);
+    }
     if(!isAddLocation) {
       setIsLocation(isAddLocation);
     }
@@ -77,6 +83,15 @@ export const DropPin = ({typeProject, geom, setGeom}:
   useEffect(()=>{
     changeAddLocationState(false);
   },[]);
+
+  useEffect(()=> {
+    console.log('latitude',latitude, latitude === '--', isAddLocation === false)
+    if(latitude === '--' && isAddLocation === false){
+      setIsEditingPosition(true);
+    }else {
+      setIsEditingPosition(false);
+    }
+  }, [latitude])
   return(
     <>
     <h5>

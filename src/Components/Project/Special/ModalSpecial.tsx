@@ -51,6 +51,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const location = useLocation();
   const isWorkPlan = location.pathname.includes('work-plan');
   const { userInformation } = useProfileState();
+  const [isEditingPosition,setIsEditingPosition ]= useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(history.location.search);
@@ -129,11 +130,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
             let coordinates = coor.coordinates[0];
             setGeom(coordinates);
             setEditLocation(coordinates);
-            setServiceAreaCounty({
-              'Service Area': serviceAreas,
-              'County': counties,
-              'jurisdiction': localJurisdiction
-            });
           },
           (e) => {
             console.log('e', e);
@@ -198,7 +194,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setDisable(true);
     }
   },[geom, description, county, serviceArea, sponsor, jurisdiction]);
-
+  useEffect(()=> {
+    if(isEditingPosition ){
+      setServiceArea([])
+      setCounty([])
+      setjurisdiction([])
+    }
+  },[isEditingPosition])
   useEffect(()=>{
     setStreamIntersected({geom:null});
     setJurisdictionSponsor(undefined);
@@ -301,6 +303,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
               typeProject= {typeProject}
               geom= {geom}
               setGeom= {setGeom}
+              setIsEditingPosition={setIsEditingPosition}
             />
 
             <LocationInformation

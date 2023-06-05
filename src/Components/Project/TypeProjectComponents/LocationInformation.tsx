@@ -142,8 +142,6 @@ export const LocationInformation = ({
           }
         });
         setServiceArea(SA);
-      } else {
-        setServiceArea([]);
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
@@ -164,8 +162,6 @@ export const LocationInformation = ({
           }
         });
         setCounty(C);
-      } else {
-        setCounty([]);
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
         let J = jUrisdiction;
@@ -187,8 +183,6 @@ export const LocationInformation = ({
          
         });
         setjurisdiction(J);
-      } else {
-        setjurisdiction([]);
       }
     }
   }, [currentServiceAreaCounty]);

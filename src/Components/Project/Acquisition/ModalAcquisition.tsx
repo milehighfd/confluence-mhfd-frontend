@@ -74,7 +74,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
   const { userInformation } = useProfileState();
-  
+  const [isEditingPosition,setIsEditingPosition ]= useState(false)
   useEffect(() => {
     const params = new URLSearchParams(history.location.search);
     if (params.get('year')) {
@@ -221,11 +221,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
               let coordinates = coor.coordinates[0];
               setGeom(coordinates);
               setEditLocation(coordinates);
-              setServiceAreaCounty({
-                'Service Area': serviceAreas,
-                'County': counties,
-                'jurisdiction': localJurisdiction
-              });
             },
             (e) => {
               console.log('e', e);
@@ -246,15 +241,22 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     }
   }, [nameProject, geom, description, serviceArea, county, jurisdiction, sponsor]);
 
+  useEffect(()=> {
+    if(isEditingPosition ){
+      setServiceArea([])
+      setCounty([])
+      setjurisdiction([])
+    }
+  },[isEditingPosition])
 
   useEffect(() => {
     setServiceAreaCounty({});
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
     setStreamsIds([]);
-    return () => {
-      setGeom('');
-    }
+    // return () => {
+    //   setGeom('');
+    // }
   }, []);
 
   const getTextWidth = (text: any) => {
@@ -400,6 +402,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                 typeProject={typeProject}
                 geom={geom}
                 setGeom={setGeom}
+                setIsEditingPosition={setIsEditingPosition}
               />
 
               <LocationInformation
