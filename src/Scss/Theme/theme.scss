@@ -4906,6 +4906,18 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   .detailed-info {
     padding: 20px 40px 0px 40px;
     font-size: 26px !important;
+    .dropdown-view-income{
+      margin-right: 25px;
+    }
+    .dropdown-view-partner{
+      margin-right: 25px;
+    }
+    .dropdown-view-phase{
+      margin-right: 25px;
+    }
+    .group-dropdown-financial{
+      margin-bottom: 30px;
+    }
     p {
       font-size: 26px !important;
     }
@@ -5049,6 +5061,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   }
 
   .table-financials-modal {
+    .ant-table{
+      font-size: 26px !important;
+    }
     .ant-table-tbody>tr>td {
       font-size: 26px !important;
     }

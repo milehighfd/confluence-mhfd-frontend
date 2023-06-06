@@ -38,8 +38,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
   });
 
   useEffect(() => {
-    income[0] = 0; income[1] = 0; income[2] = 0; 
-    expense[0] = 0; expense[1] = 0; expense[2] = 0; 
+    income[0] = 0; income[1] = 0; income[2] = 0;
+    expense[0] = 0; expense[1] = 0; expense[2] = 0;
     setIncome([0, 0, 0]);
     setExpense([0, 0, 0]);
     financialInformation.sort((e1: any, e2: any) =>
@@ -146,8 +146,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     if (filters[0] || (filters[1]) || (filters[2])) {
-      income[0] = 0; income[1] = 0; income[2] = 0; 
-      expense[0] = 0; expense[1] = 0; expense[2] = 0; 
+      income[0] = 0; income[1] = 0; income[2] = 0;
+      expense[0] = 0; expense[1] = 0; expense[2] = 0;
       setIncome([0, 0, 0]);
       setExpense([0, 0, 0]);
       getFinancialData(projectId, filters);
@@ -204,7 +204,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
     },
   ];
   const reset = () => {
-    income[0] = 0; income[1] = 0; income[2] = 0; 
+    income[0] = 0; income[1] = 0; income[2] = 0;
     expense[0] = 0; expense[1] = 0; expense[2] = 0;
     setIncome([0, 0, 0]);
     setExpense([0, 0, 0]);
@@ -319,7 +319,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }}>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial'>
           <Dropdown
             overlayClassName="dropdown-view-menu"
             overlay={menu}
