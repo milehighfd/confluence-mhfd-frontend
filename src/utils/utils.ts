@@ -131,6 +131,19 @@ export const getUserBrowser = () => {
   return browser;
 };
 
+
+export const formatPhoneNumber = (value:any) => {
+  console.log(value, 'value: PHONE')
+  if(!value) return value;
+  const phoneNumber = value.replace(/[^\d]/g,'');
+  const phoneNumberLength = phoneNumber.length;
+  if(phoneNumberLength < 4) return phoneNumber
+  if(phoneNumberLength < 7) {
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+  }
+  return `(${phoneNumber.slice(0 , 3)}) ${phoneNumber.slice(3,6)}-${phoneNumber.slice(6 , 10)}`;
+};
+
 export const onRender = (id: any, phase: any, actualDuration: any, baseDuration: any, startTime: any, commitTime: any) => {
   console.log('id', id);
   console.log('phase', phase);

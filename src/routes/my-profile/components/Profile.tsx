@@ -9,6 +9,7 @@ import { useMapDispatch } from 'hook/mapHook';
 import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
 import SelectZoomArea from "routes/Utils/SelectZoomArea";
+import { formatPhoneNumber } from "utils/utils";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
@@ -247,7 +248,7 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
-              <input onChange={(e) => setPhone(e.target.value)} className="input-profile" type="text" value={isNull(phone)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <input onChange={(e) => setPhone(formatPhoneNumber(e.target.value))} className="input-profile" type="text" value={isNull(phone)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
               :<p style={{paddingBottom:'10px' }}>{isNull(phone)}</p>
             }
           </Col>
