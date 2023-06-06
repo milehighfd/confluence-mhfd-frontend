@@ -15,6 +15,7 @@ import Alert from 'Components/Shared/Alert';
 import SelectJurisdiction from 'routes/Utils/SelectJurisdiction';
 import { BusinessAssociatesDropdownMemoized } from 'routes/user-management/components/BusinessAssociateDropdown';
 import RadioDesignation from 'routes/user-management/components/RadioDesignation';
+import { formatPhoneNumber } from 'utils/utils';
 
 const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function }) => {
   const [organization, setOrganization] = useState('');
@@ -219,6 +220,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     }
   });
   const handleChangeData = (value : any, setValue?: any) => {
+    console.log(value, 'VVVVVVVVVVVVVVVVV')
     setValue(value)
   }
 
@@ -370,10 +372,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           <Col xs={{ span: 24 }} lg={{ span: 9 }}>
             <h1>PHONE NUMBER</h1>
             <Input
-              placeholder="Phone"
+              type='text'
+              placeholder="(XXX) XXX-XXXX"
               value={phone}
               name="phone"
-              onChange={(e) => {handleChangeData(e.target.value, setPhone)}}
+              onChange={(e) => {handleChangeData(formatPhoneNumber(e.target.value), setPhone)}}
             />
           </Col>
         </Row>
