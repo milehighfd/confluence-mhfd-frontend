@@ -81,7 +81,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       title: "Filename",
       dataIndex: "file_name",
       className: "user-name-upload",
-      width: "40%",
+      width: "35%",
       render: (text: any) => (
         <>
            {typeof text === 'string' && text.substring(0, text.indexOf('.'))}
@@ -92,12 +92,12 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       title: "Size",
       dataIndex: "size",
       className: "user-text",
-      width: "10%"
+      width: "17%"
     },
     {
       title: "Date",
       dataIndex: "date",
-      width: "27%",
+      width: "25%",
       className: "user-text",
     },
     {
@@ -157,7 +157,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
       title: "Size",
       dataIndex: "size",
       className: "user-text",
-      width: "10%"
+      width: "20%"
     },
     {
       title: "Cover",
@@ -172,7 +172,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         record,
         handle
       }),
-      width: "15%",
+      width: "10%",
       className: "user-cover",
     },
     {
