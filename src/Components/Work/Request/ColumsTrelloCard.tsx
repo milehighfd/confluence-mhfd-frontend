@@ -83,6 +83,22 @@ const ColumsTrelloCard = ({
     setComponentsFromMap([]);
   };
 
+  const getColumnProjectType = (code_project_type_id: number) => {
+    switch (code_project_type_id) {
+      case 8:
+        return 1;
+      case 11:
+        return 2;
+      case 9:
+        return 3;
+      case 10:
+        return 4;
+      case 7:
+        return 5;
+      default:
+        return 0;
+    }
+  }
   const onDropV2 = (
     originColumnPosition: number,
     targetColumnPosition: number,
@@ -94,24 +110,35 @@ const ColumsTrelloCard = ({
     console.log('targetColumnPosition', targetColumnPosition);
     console.log('sourcePosition', sourcePosition);
     console.log('targetPosition', targetPosition);
-    if (originColumnPosition === targetColumnPosition) {
-      moveProjectsManual({
-        originColumnPosition,
-        targetColumnPosition,
-        sourcePosition,
-        targetPosition
-      });
-    } else {
-      handleMoveFromColumnToColumn({
-        originColumnPosition,
-        targetColumnPosition,
-        sourcePosition,
-        targetPosition
-      });
+    let moveMaintenance = false; 
+    if (tabKey === 'Maintenance') {
+      const currentSubType = columns[originColumnPosition].projects[sourcePosition]?.projectData?.code_project_type?.code_project_type_id;
+      const posibleTargetColumn = getColumnProjectType(currentSubType);
+      if (
+        (originColumnPosition === 0 && (targetColumnPosition === originColumnPosition || targetColumnPosition === posibleTargetColumn)) // from 0 to subtype column
+        ||
+        (targetColumnPosition === 0 || targetColumnPosition === originColumnPosition) // from subtype to subtype or 0
+      ) {
+        moveMaintenance = true;
+      } 
     }
-
-
-
+    if (tabKey !== 'Maintenance' || moveMaintenance) {
+      if (originColumnPosition === targetColumnPosition) {
+        moveProjectsManual({
+          originColumnPosition,
+          targetColumnPosition,
+          sourcePosition,
+          targetPosition
+        });
+      } else {
+        handleMoveFromColumnToColumn({
+          originColumnPosition,
+          targetColumnPosition,
+          sourcePosition,
+          targetPosition
+        });
+      }
+    }
     // const board_project_id = columns[originColumnPosition].projects[sourcePosition].board_project_id;
     // const originColumn = `rank${originColumnPosition}`;
     // const targetColumn = `rank${targetColumnPosition}`;
@@ -195,7 +222,7 @@ const ColumsTrelloCard = ({
     // }
   }
   columns[2].projects.forEach((project: any, index: number) => {
-    console.log(`${index}: ${project?.projectData?.project_name}`);
+    // console.log(`${index}: ${project?.projectData?.project_name}`);
   });
   return <DragDropContext onDragEnd={result => {
     const { source, destination } = result;

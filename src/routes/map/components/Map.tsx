@@ -1229,16 +1229,15 @@ const Map = ({
       const styles = { ...tileStyles as any };
       hovereableLayers.forEach((key:any) => {
         if (styles[key]) {
-
+          styles[key].forEach((style: LayerStylesType, index: number) => {
+            if (!hovereableLayers.includes(key)) {
+              return;
+            }
+            if(map.getLayer(key + '_highlight_' + index)) {
+              map.moveLayer( key + '_highlight_' + index, )  
+            }
+          })
         }
-        styles[key].forEach((style: LayerStylesType, index: number) => {
-          if (!hovereableLayers.includes(key)) {
-            return;
-          }
-          if(map.getLayer(key + '_highlight_' + index)) {
-            map.moveLayer( key + '_highlight_' + index, )  
-          }
-        })
       })
     }
     const topFemaFH = () => {
