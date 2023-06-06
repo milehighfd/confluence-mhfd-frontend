@@ -128,7 +128,7 @@ const LoginView = () => {
         <div className="marbot-4">
           <span>Don't have an account?</span>
           <Link
-            to={'/sign-up'}
+            to={'/pre-signup'}
             className="login-form-forgot"
           >
             Sign-Up

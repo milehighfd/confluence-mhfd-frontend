@@ -208,8 +208,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     }
   }, [data]);
   useEffect(() => {
-    if (save === true) {
-
+    if (save === true) {      
       let serviceAreaIds:any=[];
       let countyIds:any=[];
       let jurisdictionIds:any=[];
@@ -224,31 +223,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.locality = _locality;
       maintenance.isWorkPlan = isWorkPlan;
       maintenance.year = _year ?? maintenance.year;
-      // let cservice = "";
-      // if (serviceArea && serviceArea.length) {
-      //   serviceArea.forEach((element: any) => {
-      //     cservice = cservice + element + ",";
-      //   });
-      // }
-      // if (cservice.length != 0) {
-      //   cservice = cservice.substring(0, cservice.length - 1);
-      // }
-      // let ccounty = "";
-      // if (county && county.length) {
-      //   county.forEach((element: any) => {
-      //     ccounty = ccounty + element + ",";
-      //   })
-      // }
-      // if (ccounty.length != 0) {
-      //   ccounty = ccounty.substring(0, ccounty.length - 1);
-      // }
-      // let cjurisdiction = "";
-      // jurisdiction.forEach((element: any) => {
-      //   cjurisdiction = cjurisdiction + element + ",";
-      // });
-      // if (cjurisdiction.length != 0) {
-      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
-      // }
       let csponsor = "";
       if (cosponsor) {
         cosponsor.forEach((element: any) => {
@@ -300,7 +274,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   }, [projectReturn.state.project.userPolygon]);
 
   useEffect(() => {
-    if (description != '' && county.length && serviceArea.length && jurisdiction.length && sponsor !== '' && nameProject !== '' && sponsor !== undefined) {
+    if (description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
       setDisable(false);
     }
     else {

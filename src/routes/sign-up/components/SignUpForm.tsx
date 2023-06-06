@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button, Menu, Dropdown, MenuProps } from 'antd';
 import { ROLES, GOVERNMENT_STAFF, CONSULTANT, OTHER, STAFF, ADMIN } from "../../../constants/constants";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useParams } from "react-router-dom";
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
 import { useFormik } from "formik";
@@ -9,13 +9,15 @@ import { VALIDATION_SIGN_UP } from "../../../constants/validation";
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useAppUserDispatch } from "../../../hook/useAppUser";
 import { MILE_HIGH_FLOOD_DISTRICT, STAFF_CONSTANT, COLOR } from "./constantsSignUp";
-import TextArea from "antd/lib/input/TextArea";
+import { useSignup } from '../hooks/useSignup';
 
 const SignUpForm = () => {
   const {
     replaceAppUser,
     getUserInformation
   } = useAppUserDispatch();
+  const params = useParams();
+  const id = (params as any).id; 
   const roles = ROLES;
   const validationSchema = VALIDATION_SIGN_UP;
   const [message, setMessage] = useState({ message: '', color: COLOR });
@@ -23,6 +25,22 @@ const SignUpForm = () => {
   const [redirect, setRedirect] = useState(false);
   const [targetButton, setTargetButton] = useState(STAFF_CONSTANT);
   const [other, setOther] = useState({ value: '', visible: false });
+  const [isValidSignup, setIsValidSignup] = useState(true);
+  const { email, setEmail } = useSignup();
+
+  useEffect(() => {
+    if (id) {
+      datasets.getData(SERVER.GET_SIGNUP_EMAIL(id)).then(res => {
+        if (res?.email) {
+          setEmail(res.email);
+        }
+      }).catch(err => {
+        console.log(err);
+        setIsValidSignup(false);
+        setRedirect(true);
+      });
+    }
+  }, [id]);
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues: {
@@ -63,8 +81,18 @@ const SignUpForm = () => {
       })
     }
   });
+
+  useEffect(() => {
+    console.log(email);
+    values.email = email;
+  }, [email, values]);
+
   if (redirect) {
-    return <Redirect to="/map" />
+    if (isValidSignup) {
+      return <Redirect to="/map" />
+    } else {
+      return <Redirect to="/pre-signup" />
+    }
   }
 
   return (
@@ -103,8 +131,15 @@ const SignUpForm = () => {
         <span className="bar"></span>
       </div>
       <div className="group">
-        <input placeholder="Email" type="email" name="email" onChange={handleChange}
-          style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} />
+        <input
+          placeholder="Email"
+          disabled
+          type="email"
+          name="email"
+          onChange={handleChange}
+          style={(errors.email && touched.email) ? { borderBottom: 'solid red 1px', paddingLeft: '10px' } : { paddingLeft: '10px' }} 
+          value={values.email}
+        />
         <span className="highlight"></span>
         <span className="bar"></span>
       </div>

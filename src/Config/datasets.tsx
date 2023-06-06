@@ -1,8 +1,16 @@
 import UnauthorizedError from 'Errors/UnauthorizedError';
+import ServerError from '../Errors/ServerError';
+import EntityError from '../Errors/EntityError';
 
 const handleErrors = (response: any) => {
     if (response.status === 401) {
         throw new UnauthorizedError();
+    }
+    if (response.status === 500) {
+        throw new ServerError(response.code);
+    }
+    if (response.status === 422) {
+        throw new EntityError(response.error);
     }
     return response.json();
 }
