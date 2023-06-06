@@ -226,19 +226,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         return { table: c.table, objectid: c.objectid}
       })
       setComponentsToSave(newC);
-      if(data !=='no data'){
-        const subtotalCost = getSubTotalCost();
-        const parsed = overheadCosts
-        let newOverheadValue:any= [];
-        parsed.forEach((overheadcost:any, index:number) => {
-          if(index > 0){
-            newOverheadValue[index] = (overheadcost * 100)/subtotalCost
-          }else{
-            newOverheadValue[index] = 0
-          }
-        });
-        setOverheadValues(newOverheadValue)
-      }
     } else {
       setGroups({});
     }
@@ -428,8 +415,31 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const updateOverheadCosts = () => {
  
   }
+
   useEffect(()=>{
-    if(data === 'no data'){
+      console.log(data)
+      
+      if(data !=='no data'){
+        const subtotalCost = getSubTotalCost();
+        const parsed = getProjectOverheadCost(data.project_costs);
+        let newOverheadValue:any= [];
+        if(subtotalCost!==0 && (overheadCosts.every((elem:any)=> elem ===0))){
+          parsed.forEach((overheadcost:any, index:number) => {
+            if(index > 0){
+              newOverheadValue[index] = (overheadcost * 100)/subtotalCost
+            }else{
+              newOverheadValue[index] = 0
+            }
+          });
+          setOverheadValues(newOverheadValue)
+        }
+      }
+    
+  },[listComponents])
+
+  useEffect(()=>{
+    console.log(overheadValues,!(overheadValues.every((elem:any)=> elem ===0)), getSubTotalCost())
+    if(!(overheadValues.every((elem:any)=> elem ===0))){
       let newOverheadCosts = [...overheadCosts];
       overheadValues.forEach((element:any, index:any) => {
         newOverheadCosts[index] = (element*getSubTotalCost())/100;
