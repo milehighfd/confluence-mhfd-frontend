@@ -37,14 +37,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
   });
 
   useEffect(() => {
-    income[0] = 0
-    income[1] = 0
-    income[2] = 0
-    income[3] = 0
-    expense[0] = 0
-    expense[1] = 0
-    expense[2] = 0
-    expense[3] = 0
+    income[0] = 0; income[1] = 0; income[2] = 0; income[3] = 0
+    expense[0] = 0; expense[1] = 0; expense[2] = 0; expense[3] = 0
     setIncome([0, 0, 0, 0]);
     setExpense([0, 0, 0, 0]);
     financialInformation.sort((e1: any, e2: any) =>
@@ -103,10 +97,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
       });
 
       const dropdownPhaseFiltered = dropdownPhase.filter((element: any) => {
-        return element !== undefined || element !== null;
+        return element !== undefined && element !== null;
       });
 
-      const uniquedropdownPhase = dropdownPhaseFiltered.filter(
+      let uniquedropdownPhase = dropdownPhaseFiltered.filter(
         (value: any, index: any, self: any) => index === self.findIndex((t: any) => t?.key === value?.key),
       );
 
@@ -122,32 +116,42 @@ const Financials = ({ projectId }: { projectId: any }) => {
       });
 
       const dropdownPartnerFiltered = dropdownPartner.filter((element: any) => {
-        return element !== undefined || element !== null;
+        return element !== undefined && element !== null;
       });
 
-      const uniquedropdownPartner = dropdownPartnerFiltered.filter(
+      let uniquedropdownPartner = dropdownPartnerFiltered.filter(
         (value: any, index: any, self: any) => index === self.findIndex((t: any) => t?.key === value?.key),
       );
 
       uniquedropdownPartner.sort((e1: any, e2: any) => (e1.name > e2.name ? 1 : e1.name < e2.name ? -1 : 0));
 
+      if (uniquedropdownPartner.length === 0) {
+        uniquedropdownPartner = [{
+          key: '',
+          label: <span>None Available</span>,
+        }]
+      }
+
+      if (uniquedropdownPhase.length === 0) {
+        uniquedropdownPhase = [{
+          key: '',
+          label: <span>None Available</span>,
+        }]
+      }
       setDropdownPartner(uniquedropdownPartner);
       setDropdownPhase(uniquedropdownPhase);
     }
   }, [financialInformation]);
 
   useEffect(() => {
-    income[0] = 0
-    income[1] = 0
-    income[2] = 0
-    income[3] = 0
-    expense[0] = 0
-    expense[1] = 0
-    expense[2] = 0
-    expense[3] = 0
-    setIncome([0, 0, 0, 0]);
-    setExpense([0, 0, 0, 0]);
-    getFinancialData(projectId, filters);
+    if (filters[0] || (filters[1]) || (filters[2])) {
+      income[0] = 0; income[1] = 0; income[2] = 0; income[3] = 0
+      expense[0] = 0; expense[1] = 0; expense[2] = 0; expense[3] = 0
+      setIncome([0, 0, 0, 0]);
+      setExpense([0, 0, 0, 0]);
+      getFinancialData(projectId, filters);
+    }
+
   }, [filters[0], filters[1], filters[2]]);
 
   const columns = [
@@ -199,14 +203,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
     },
   ];
   const reset = () => {
-    income[0] = 0
-    income[1] = 0
-    income[2] = 0
-    income[3] = 0
-    expense[0] = 0
-    expense[1] = 0
-    expense[2] = 0
-    expense[3] = 0
+    income[0] = 0; income[1] = 0; income[2] = 0; income[3] = 0
+    expense[0] = 0; expense[1] = 0; expense[2] = 0; expense[3] = 0
     setIncome([0, 0, 0, 0]);
     setExpense([0, 0, 0, 0]);
     getFinancialData(projectId, []);
@@ -391,26 +389,26 @@ const Financials = ({ projectId }: { projectId: any }) => {
             <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
             <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
               <p style={{ color: '#28c499', fontWeight: '400', width: '50%' }}>Subtotal Income</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%' }}>{formatter.format(income[0])}</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%' }}>{formatter.format(income[1])}</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%' }}>{formatter.format(income[2])}</p>
-              <p style={{ color: '#28c499', fontWeight: '400' }}>{formatter.format(income[3])}</p>
+              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0])}</p>
+              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1])}</p>
+              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2])}</p>
+              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[3])}</p>
             </div>
             <div style={{ display: 'flex', paddingTop: '5px' }}>
               <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '50%' }}>Subtotal Expense</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%' }}>{formatter.format(expense[0])}</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%' }}>{formatter.format(expense[1])}</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%' }}>{formatter.format(expense[2])}</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400' }}>{formatter.format(income[3])}</p>
+              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[0])}</p>
+              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[1])}</p>
+              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[2])}</p>
+              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[3])}</p>
             </div>
             <div
               style={{ display: 'flex', paddingTop: '5px', borderBottom: '1px solid #d7d3e2', paddingBottom: '5px' }}
             >
               <p style={{ color: '#11093c', fontWeight: 'bolder', width: '50%' }}>Total</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%' }}>{formatter.format(income[0] - expense[0])}</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%' }}>{formatter.format(income[1] - expense[1])}</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%' }}>{formatter.format(income[2] - expense[2])}</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder' }}>{formatter.format(income[3] - expense[3])}</p>
+              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0] - expense[0])}</p>
+              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1] - expense[1])}</p>
+              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2] - expense[2])}</p>
+              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[3] - expense[3])}</p>
             </div>
           </div>
         </Col>
