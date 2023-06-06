@@ -475,8 +475,9 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               </div>
               <Row className="streams">
                 <Col xs={{ span: 24 }} lg={{ span: 11 }}>Stream Name</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 5 }}>Length (mi)</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 8 }}>Drainage Area (sq mi)</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 5 }} style={{textAlign:'center'}}>Length (mi)</Col>
+                <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{textAlign:'center'}}>Drainage Area (sq mi)</Col>
+                <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}></Col>
               </Row>
               {keys !== 0 && keys.length &&
                 <div key={'code'}>
@@ -501,8 +502,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                       <Timeline.Item color="green" key={index}>
                                         <Row style={{ marginLeft: '-18px' }}>
                                           <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
-                                          <Col className="second" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>
-                                          <Col className="third" xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
+                                          <Col className="second" style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>
+                                          <Col className="third" style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
                                           <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                         </Row>
                                       </Timeline.Item>
@@ -522,8 +523,8 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
               <hr />
               <Row className="cost-project">
                 <Col xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}>TOTAL</Col>
-                <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}><b>{getTotalLength()} mi</b></Col>
-                <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}><b>{getTotalDreinage()} sq mi</b></Col>
+                <Col xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{textAlign:'center'}}><b>{getTotalLength()} mi</b></Col>
+                <Col xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }} style={{textAlign:'center'}}><b>{getTotalDreinage()} sq mi</b></Col>
               </Row>
               <br></br>
               <LocationInformation

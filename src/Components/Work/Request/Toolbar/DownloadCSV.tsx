@@ -43,7 +43,7 @@ const DownloadCSV = ({
       >
         <img
           className="icon-bt"
-          style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" }}
+          style={{ WebkitMask: "url('/Icons/icon-01.svg') no-repeat center" , WebkitMaskSize:'74%'}}
           alt=""
           src=""
         />
