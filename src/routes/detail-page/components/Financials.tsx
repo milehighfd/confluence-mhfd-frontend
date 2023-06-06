@@ -37,6 +37,14 @@ const Financials = ({ projectId }: { projectId: any }) => {
   });
 
   useEffect(() => {
+    income[0] = 0
+    income[1] = 0
+    income[2] = 0
+    income[3] = 0
+    expense[0] = 0
+    expense[1] = 0
+    expense[2] = 0
+    expense[3] = 0
     setIncome([0, 0, 0, 0]);
     setExpense([0, 0, 0, 0]);
     financialInformation.sort((e1: any, e2: any) =>
@@ -51,26 +59,34 @@ const Financials = ({ projectId }: { projectId: any }) => {
           : element?.amendment_number;
       const partner = element?.project_partner_name || '';
       const partnerId =
-        // todo update 0 project_partner_id to mhfd partner id
-        element?.project_partner_id || element?.project_partner_id === 0 ? element?.project_partner_id : '';
-      const phase = element?.code_phase_type_name || '';
+        // todo update 0 business_associates_id to mhfd partner id
+        element?.business_associates_id || element?.business_associates_id === 0 ? element?.business_associates_id : '';
+      const phase = element?.code_phase_type?.name || '';
       const phaseId = element?.code_phase_type_id || '';
-
-      const projected = [element?.projected ? formatter.format(element?.cost) : '$0', 'purple'];
-      const encumbered = [element?.encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
-      const tyler = [element?.tyler_encumbered ? formatter.format(element?.cost) : '$0', 'purple'];
+      const phaseSortValue = element?.code_phase_type?.sort_value || 0;
+      const projected = [element?.projected ? formatter.format(element?.projected?.cost) : '$0', element?.projected && element?.projected.cost !== 0 ? element?.projected?.is_income ? 'green' : 'red' : 'purple'];
+      const encumbered = [element?.encumbered ? formatter.format(element?.encumbered?.cost) : '$0', element?.encumbered && element?.encumbered.cost !== 0 ? element?.encumbered?.is_income ? 'green' : 'red' : 'purple'];
+      const tyler = [element?.tyler_encumbered ? formatter.format(element?.tyler_encumbered?.cost) : '$0', element?.tyler_encumbered && element?.tyler_encumbered.cost !== 0 ? element?.tyler_encumbered?.is_income ? 'green' : 'red' : 'purple'];
       const available = ['$0', 'purple'];
-      if (element.code_cost_type.is_income) {
+      if (element?.projected?.is_income) {
         income[0] += element?.projected?.cost || 0;
-        income[1] += element?.encumbered?.cost || 0;
-        income[2] += element?.tyler_encumbered?.cost || 0;
       } else {
         expense[0] += element?.projected?.cost || 0;
+      }
+      if (element?.encumbered?.is_income) {
+        income[1] += element?.encumbered?.cost || 0;
+      } else {
         expense[1] += element?.encumbered?.cost || 0;
+      }
+      if (element?.tyler_encumbered?.is_income) {
+        income[2] += element?.tyler_encumbered?.cost || 0;
+      } else {
         expense[2] += element?.tyler_encumbered?.cost || 0;
       }
-      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId };
+
+      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId, phaseSortValue };
     });
+
     setIncome(income)
     setExpense(expense)
     setFinalData(mappingDataForDataSource);
@@ -78,13 +94,24 @@ const Financials = ({ projectId }: { projectId: any }) => {
     if (filters.length === 0) {
       setInitialData(mappingDataForDataSource);
       const dropdownPhase = mappingDataForDataSource.map((element: any) => {
-        if (element.phase) {
+        if (element?.phase) {
           const key = element?.phaseId;
           const label = <span>{element?.phase}</span>;
-          const name = element?.partner;
-          return { key, label, name };
+          const sortValue = element?.phaseSortValue;
+          return { key, label, sortValue };
         }
       });
+
+      const dropdownPhaseFiltered = dropdownPhase.filter((element: any) => {
+        return element !== undefined || element !== null;
+      });
+
+      const uniquedropdownPhase = dropdownPhaseFiltered.filter(
+        (value: any, index: any, self: any) => index === self.findIndex((t: any) => t?.key === value?.key),
+      );
+
+      uniquedropdownPhase.sort((e1: any, e2: any) => (e1.sortValue > e2.sortValue ? 1 : e1.sortValue < e2.sortValue ? -1 : 0));
+
       const dropdownPartner = mappingDataForDataSource.map((element: any) => {
         if (element.partner) {
           const key = element?.partnerId;
@@ -93,11 +120,12 @@ const Financials = ({ projectId }: { projectId: any }) => {
           return { key, label, name };
         }
       });
-      let uniquedropdownPhase = dropdownPhase.filter(
-        (value: any, index: any, self: any) => index === self.findIndex((t: any) => t?.key === value?.key),
-      );
 
-      let uniquedropdownPartner = dropdownPartner.filter(
+      const dropdownPartnerFiltered = dropdownPartner.filter((element: any) => {
+        return element !== undefined || element !== null;
+      });
+
+      const uniquedropdownPartner = dropdownPartnerFiltered.filter(
         (value: any, index: any, self: any) => index === self.findIndex((t: any) => t?.key === value?.key),
       );
 
@@ -109,6 +137,14 @@ const Financials = ({ projectId }: { projectId: any }) => {
   }, [financialInformation]);
 
   useEffect(() => {
+    income[0] = 0
+    income[1] = 0
+    income[2] = 0
+    income[3] = 0
+    expense[0] = 0
+    expense[1] = 0
+    expense[2] = 0
+    expense[3] = 0
     setIncome([0, 0, 0, 0]);
     setExpense([0, 0, 0, 0]);
     getFinancialData(projectId, filters);
@@ -163,6 +199,14 @@ const Financials = ({ projectId }: { projectId: any }) => {
     },
   ];
   const reset = () => {
+    income[0] = 0
+    income[1] = 0
+    income[2] = 0
+    income[3] = 0
+    expense[0] = 0
+    expense[1] = 0
+    expense[2] = 0
+    expense[3] = 0
     setIncome([0, 0, 0, 0]);
     setExpense([0, 0, 0, 0]);
     getFinancialData(projectId, []);
@@ -236,6 +280,13 @@ const Financials = ({ projectId }: { projectId: any }) => {
     return name;
   };
 
+  const partnerValidator = (partner: any) => {
+    if (partner.length > 30) {
+      return (partner.substring(0, 30) + '...')
+    } else {
+      return partner
+    }
+  }
   const menu2 = (
     <Menu
       className="menu-density"
@@ -302,7 +353,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
             getPopupContainer={(trigger: any) => trigger.parentNode}
           >
             <Space className="dropdown-view-partner">
-              <div>{partner?.partner ? partner.partner : 'Partner'}</div>
+              <div>{partnerValidator(partner?.partner || 'Partner')}</div>
               {!openDropPhatner ? (
                 <UpOutlined style={{ color: '#251863' }} />
               ) : (
