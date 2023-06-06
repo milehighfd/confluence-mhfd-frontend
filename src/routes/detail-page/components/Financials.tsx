@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { Button, Checkbox, Col, Dropdown, Menu, Row, Space, Table } from 'antd';
 import { DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import AddAmountModal from 'Components/Shared/Modals/AddAmountModal';
@@ -23,8 +24,8 @@ const Financials = ({ projectId }: { projectId: any }) => {
   const [filters, setFilters] = useState<any>([]);
   const [phase, setPhase] = useState<any>();
   const [partner, setPartner] = useState<any>();
-  const [income, setIncome] = useState([0, 0, 0, 0]);
-  const [expense, setExpense] = useState([0, 0, 0, 0]);
+  const [income, setIncome] = useState([0, 0, 0]);
+  const [expense, setExpense] = useState([0, 0, 0]);
   useEffect(() => {
     getFinancialData(projectId, []);
   }, []);
@@ -37,10 +38,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
   });
 
   useEffect(() => {
-    income[0] = 0; income[1] = 0; income[2] = 0; income[3] = 0
-    expense[0] = 0; expense[1] = 0; expense[2] = 0; expense[3] = 0
-    setIncome([0, 0, 0, 0]);
-    setExpense([0, 0, 0, 0]);
+    income[0] = 0; income[1] = 0; income[2] = 0; 
+    expense[0] = 0; expense[1] = 0; expense[2] = 0; 
+    setIncome([0, 0, 0]);
+    setExpense([0, 0, 0]);
     financialInformation.sort((e1: any, e2: any) =>
       e1.sortValue > e2.sortValue ? 1 : e1.sortValue < e2.sortValue ? -1 : 0,
     );
@@ -61,7 +62,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       const projected = [element?.projected ? formatter.format(element?.projected?.cost) : '$0', element?.projected && element?.projected.cost !== 0 ? element?.projected?.is_income ? 'green' : 'red' : 'purple'];
       const encumbered = [element?.encumbered ? formatter.format(element?.encumbered?.cost) : '$0', element?.encumbered && element?.encumbered.cost !== 0 ? element?.encumbered?.is_income ? 'green' : 'red' : 'purple'];
       const tyler = [element?.tyler_encumbered ? formatter.format(element?.tyler_encumbered?.cost) : '$0', element?.tyler_encumbered && element?.tyler_encumbered.cost !== 0 ? element?.tyler_encumbered?.is_income ? 'green' : 'red' : 'purple'];
-      const available = ['$0', 'purple'];
+      const date = moment(element?.effective_date).format('MM-DD-YYYY') || '';
       if (element?.projected?.is_income) {
         income[0] += element?.projected?.cost || 0;
       } else {
@@ -78,7 +79,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
         expense[2] += element?.tyler_encumbered?.cost || 0;
       }
 
-      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, available, partnerId, phaseId, phaseSortValue };
+      return { key, agreement, amendment, partner, phase, projected, encumbered, tyler, partnerId, phaseId, phaseSortValue, date };
     });
 
     setIncome(income)
@@ -145,10 +146,10 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   useEffect(() => {
     if (filters[0] || (filters[1]) || (filters[2])) {
-      income[0] = 0; income[1] = 0; income[2] = 0; income[3] = 0
-      expense[0] = 0; expense[1] = 0; expense[2] = 0; expense[3] = 0
-      setIncome([0, 0, 0, 0]);
-      setExpense([0, 0, 0, 0]);
+      income[0] = 0; income[1] = 0; income[2] = 0; 
+      expense[0] = 0; expense[1] = 0; expense[2] = 0; 
+      setIncome([0, 0, 0]);
+      setExpense([0, 0, 0]);
       getFinancialData(projectId, filters);
     }
 
@@ -196,17 +197,17 @@ const Financials = ({ projectId }: { projectId: any }) => {
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
-      title: 'Available',
-      dataIndex: 'available',
-      key: 'available',
-      render: (available: string[]) => <p className={'table-' + available[1]}>{available[0]}</p>,
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      render: (date: string) => <p >{date}</p>,
     },
   ];
   const reset = () => {
-    income[0] = 0; income[1] = 0; income[2] = 0; income[3] = 0
-    expense[0] = 0; expense[1] = 0; expense[2] = 0; expense[3] = 0
-    setIncome([0, 0, 0, 0]);
-    setExpense([0, 0, 0, 0]);
+    income[0] = 0; income[1] = 0; income[2] = 0; 
+    expense[0] = 0; expense[1] = 0; expense[2] = 0;
+    setIncome([0, 0, 0]);
+    setExpense([0, 0, 0]);
     getFinancialData(projectId, []);
     setFilters([]);
     setPhase('');
@@ -385,30 +386,29 @@ const Financials = ({ projectId }: { projectId: any }) => {
       </Row>
       <Row>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{ paddingRight: '8px' }}>
-          <div style={{ width: '100%', overflowX: 'hidden' }}>
-            <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
-            <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '50%' }}>Subtotal Income</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0])}</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1])}</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2])}</p>
-              <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[3])}</p>
-            </div>
-            <div style={{ display: 'flex', paddingTop: '5px' }}>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '50%' }}>Subtotal Expense</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[0])}</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[1])}</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[2])}</p>
-              <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[3])}</p>
-            </div>
-            <div
-              style={{ display: 'flex', paddingTop: '5px', borderBottom: '1px solid #d7d3e2', paddingBottom: '5px' }}
-            >
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '50%' }}>Total</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0] - expense[0])}</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1] - expense[1])}</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2] - expense[2])}</p>
-              <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[3] - expense[3])}</p>
+          <div className="scroll-table" style={{ width: '100%', overflowX: 'hidden' }}>
+            <div className="body-scroll-table">
+              <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
+              <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '47%' }}>Subtotal Income</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2])}</p>
+              </div>
+              <div style={{ display: 'flex', paddingTop: '5px' }}>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '47%' }}>Subtotal Expense</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[0])}</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[1])}</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[2])}</p>
+              </div>
+              <div
+                style={{ display: 'flex', paddingTop: '5px', borderBottom: '1px solid #d7d3e2', paddingBottom: '5px' }}
+              >
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '47%' }}>Total</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0] - expense[0])}</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1] - expense[1])}</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2] - expense[2])}</p>
+              </div>
             </div>
           </div>
         </Col>
