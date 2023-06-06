@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { SERVER } from 'Config/Server.config';
 import moment from 'moment';
 import ModalGraphic from 'routes/portfolio-view/components/ModalGraphic';
-import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
+import { colorScale, rawData } from 'routes/portfolio-view/constants/PhaseViewData';
 import { getUserBrowser } from 'utils/utils';
 import * as datasets from 'Config/datasets';
 import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
@@ -22,7 +22,7 @@ const Roadmap = ({setOpenPiney,
      setUpdateAction: any
     }) => {
   const { graphicOpen, statusCounter, updateGroup } = usePortflioState();
-  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData, getListPMTools } = usePortfolioDispatch();
+  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData, getListPMTools, setDatesData } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
   const [scheduleList, setScheduleList] = useState<any>({})
@@ -411,6 +411,9 @@ const Roadmap = ({setOpenPiney,
           .style('opacity', 0)
           .on("click", (d: any) => {            
             setOpenPiney(false)
+            const sendTollgate = { d, scheduleList }
+            console.log(d)
+            setDatesData(sendTollgate);      
             let searchTextId2 = d3.event.target.id.slice(0, -6);
             let actualNumber = d3.selectAll(`#${searchTextId2}_text`).text();  
             let flag = ((d?.project_status)?.find((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
@@ -524,7 +527,80 @@ const Roadmap = ({setOpenPiney,
         removeAllChildNodes(document.getElementById(`dotchart_detailPage`))
       }
       getListPMTools(data[0].code_project_type_id);
-      phaseChart(data);
+      let rawData2 = data?.map((x: any,index:number) => {
+        if (x?.project_status?.length) {
+          let flag = ((x?.project_status)?.some((ps: any) => !ps?.planned_start_date || !ps?.planned_end_date))
+          if (x?.project_status?.length > 0) {
+            return {
+              ...x,
+              flag: (x?.code_phase_types?.length === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4)?.length && !flag),
+              schedule: x?.project_status?.map((z: any, index: number) => {
+                const orderPhaseTypes = x?.code_phase_types?.sort((a: any, b: any) => a.phase_ordinal_position - b.phase_ordinal_position);
+                return {
+                  project_data: x,
+                  objectId: index + 1,
+                  type: 'rect',
+                  categoryNo: index + 1,
+                  from: moment(z?.planned_start_date).isValid()?moment(z?.planned_start_date):undefined,
+                  to: moment(z?.planned_end_date).isValid()?moment(z?.planned_end_date):undefined,
+                  status: z?.code_phase_type?.code_status_type?.status_name,
+                  name: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
+                  phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
+                  phaseId: z.code_phase_type_id,
+                  tasks: 10,
+                  show: (x?.code_phase_types?.length === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4)?.length && !flag),
+                  current: x?.phaseId === z?.code_phase_type_id,
+                  isDone: z.is_done,
+                  isLocked: z.is_locked,
+                  currentIndex : orderPhaseTypes?.findIndex((z: any) => x?.phaseId === z?.code_phase_type_id),
+                  phaseIndex: orderPhaseTypes?.findIndex((y: any) => y?.code_phase_type_id === z?.code_phase_type_id),                
+                };
+              })
+            }
+          } else {
+            return {
+              ...x,schedule:[{
+                project_data: {},
+                objectId: index + 1,
+                type: 'rect',
+                categoryNo: index + 1,
+                from: undefined,
+                to: undefined,
+                status: '',
+                name: '',
+                phase: 0,
+                phaseId: 0,
+                tasks: 10,
+                show: false,
+                current: false,
+                isDone: false,
+                isLocked: false
+              }]
+            }
+          }
+        } else {
+          return {
+            ...x,schedule:[{
+              project_data: {},
+              objectId: index + 1,
+              type: 'rect',
+              categoryNo: index + 1,
+              from: undefined,
+              to: undefined,
+              status: '',
+              name: '',
+              phase: 0,
+              phaseId: 0,
+              tasks: 10,
+              show: false,
+              current: false,
+              isDone: false,
+              isLocked: false
+            }]
+          }
+        }
+      })
+      phaseChart(rawData2);
     }  
   }, [data,scheduleList, updateGroup]);
   
