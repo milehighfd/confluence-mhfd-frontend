@@ -503,7 +503,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
                                         <Row style={{ marginLeft: '-18px' }}>
                                           <Col className="first" xs={{ span: 24 }} lg={{ span: 11 }} xxl={{ span: 11 }}><label>{stream?.code_local_goverment.length > 0 ? stream.code_local_goverment[0].local_government_name: ''}</label></Col>
                                           <Col className="second" style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{swSave ? stream.length : formatterDec.format(stream.length * 0.000621371)}</Col>
-                                          <Col className="third" style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
+                                          <Col className="third" style={{textAlign:'center',paddingLeft: '0px'}} xs={{ span: 24 }} lg={{ span: 7 }} xxl={{ span: 7 }}>{swSave ? stream.drainage : formatterDec.format(stream.drainage)}</Col>
                                           <Col className="fourth" xs={{ span: 24 }} lg={{ span: 1 }} xxl={{ span: 1 }}><Button className="btn-transparent" onClick={() => removeStream(stream)} ><img src="/Icons/icon-16.svg" alt="" height="15px" /></Button></Col>
                                         </Row>
                                       </Timeline.Item>
