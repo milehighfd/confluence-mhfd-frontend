@@ -65,6 +65,7 @@ import {
   setInfiniteScrollHasMoreItems,
   resetInfiniteScrollHasMoreItems,
   setIsEdit,
+  setDeleteAttachmentsIds,
 } from '../store/actions/ProjectActions';
 
 export const useProjectState = () => useSelector(
@@ -268,6 +269,9 @@ export const useProjectDispatch = () => {
     },
     resetInfiniteScrollHasMoreItems: () => {
       dispatch(resetInfiniteScrollHasMoreItems())
+    },
+    setDeleteAttachmentsIds: (deleteAttachmentsIds: Array<any>) => {
+      dispatch(setDeleteAttachmentsIds(deleteAttachmentsIds))
     }
   };
 };

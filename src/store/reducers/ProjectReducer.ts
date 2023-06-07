@@ -75,6 +75,7 @@ const initState = {
   infiniteScrollItems: Array.from({ length: 20 }),
   infiniteScrollHasMoreItems: true,
   isEdit: false,
+  deleteAttachmentsIds: [],
 }
 
 const projectReducer = (state = initState, action: any) => {
@@ -373,6 +374,12 @@ const projectReducer = (state = initState, action: any) => {
       return {
         ...state,
         infiniteScrollHasMoreItems: initState.infiniteScrollHasMoreItems
+      }
+    }
+    case types.SET_DELETE_ATTACHMENTS_IDS: {
+      return {
+        ...state,
+        deleteAttachmentsIds: action.deleteAttachmentsIds
       }
     }
     default: 

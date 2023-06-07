@@ -12,12 +12,12 @@ export const saveSpecial = (data: any) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -46,12 +46,12 @@ export const saveAcquisition = (data: any) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -81,7 +81,7 @@ export const saveCapital = (data: any) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
             covername = o.file_name;
           }
@@ -114,12 +114,12 @@ export const saveMaintenance = (data: any) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -163,12 +163,12 @@ export const saveStudy = (data: any) => {
       if (key === 'geom' || key === 'ids' || key === 'streams') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -196,12 +196,12 @@ export const editSpecial = (data: any) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -229,9 +229,9 @@ export const editAcquisition = (data: any) => {
       if (key === 'geom') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
         });
@@ -263,12 +263,12 @@ export const editStudy = (data: any) => {
       if (key === 'geom' || key === 'ids' || key === 'streams') {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -297,12 +297,12 @@ export const editMaintenance = (data: any) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -331,12 +331,12 @@ export const editCapital = (data: any) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {
+        data[key].forEach((o: any, i: number) => {          
           if (o.cover) {
-            covername = o.filename;
+            covername = o.file_name;
           }
           formData.append(key, o.file);
-        })
+        });
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
@@ -735,5 +735,11 @@ export const getGEOMByProjectId = ( projectid : any) => {
         dispatch(setStreamIntersected({geom:res.createdCoordinates} ));
       }
     });
+  }
+}
+
+export const setDeleteAttachmentsIds = (deleteAttachmentsIds: Array<any>) => {
+  return (dispatch: Function) => {
+    dispatch({type: types.SET_DELETE_ATTACHMENTS_IDS, deleteAttachmentsIds});
   }
 }

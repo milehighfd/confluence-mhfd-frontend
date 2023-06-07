@@ -47,8 +47,8 @@ export const useAttachmentDispatch = () => {
     uploadFile(files: any, url: string) {
       dispatch(uploadFile(files, url))
     },
-    removeAttachment(id: string, url: string) {
-      dispatch(removeAttachment(id, url))
+    removeAttachment(ids: Array<any>) {
+      dispatch(removeAttachment(ids))
     },
     setLoading(loading: boolean) {
       dispatch(setLoading(loading))

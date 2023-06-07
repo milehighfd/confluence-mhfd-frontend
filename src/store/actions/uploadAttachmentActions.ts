@@ -87,15 +87,10 @@ export const uploadFile = (files: Array<any>, url: string) => {
 }
 
 
-export const removeAttachment = (id: string, url: string) => {
+export const removeAttachment = (ids: Array<any>) => {
   return (dispatch: Function) => {
-    datasets.deleteData(SERVER.DELETE_ATTACHMENT + '/' + id, datasets.getToken()).then(res => {
-      if (res?.message) {
-        message.info('File removed succesfully');
-        dispatch(getAllAttachment(url));
-      } else {
-        dispatch(setLoading(false));
-      }
+    datasets.deleteDataWithBody(SERVER.DELETE_ATTACHMENT , {ids} , datasets.getToken()).then(res => {      
+      dispatch({ type: types.DELETE_ATTACHMENT, ids });
     });
   }
 }
