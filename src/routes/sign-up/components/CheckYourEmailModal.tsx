@@ -11,7 +11,7 @@ const confirmEmail = (email: string) => ({
 
 const resetPasswordEmail = (email: string) => ({
   title: 'Please reset your password',
-  text: <>We have sent a password reset email to <strong>{email}.</strong>  Check your email and click on the confirmation link to reset your password.',</>,
+  text: <>We have sent a password reset email to <strong>{email}.</strong> with next steps to reset your password.</>,
   buttonText: 'Send password reset email',
   onClickButton: () => onGenerateResetAndConfirm(email, () => console.log('success'), () => console.log('error'))
 });
