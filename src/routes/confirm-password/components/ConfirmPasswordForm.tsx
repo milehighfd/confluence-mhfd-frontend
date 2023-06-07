@@ -30,7 +30,7 @@ const ConfirmPasswordForm = () => {
     },
     validationSchema,
     onSubmit(values: { id: string, password: string, passwordConfirm: string }) {
-      datasets.postData(SERVER.RESET_PASSWORD, values).then(res => {
+      datasets.postData(SERVER.RESET_PASSWORD + (params.get('confirm') ? '?confirmation=1' : ''), values).then(res => {
         if (res) {
           setRedirect(true);
         }
