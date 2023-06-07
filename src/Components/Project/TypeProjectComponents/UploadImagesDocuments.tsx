@@ -7,7 +7,7 @@ import { CloudDownloadOutlined } from "@ant-design/icons";
 import { UploaderModal } from "./UploaderModal";
 import { SERVER } from "Config/Server.config";
 import { getDataNoJSON } from '../../../Config/datasets';
-import { useProjectState } from "hook/projectHook";
+import { useProjectDispatch, useProjectState } from "hook/projectHook";
 
 interface DataType {
   key: React.Key;
@@ -18,6 +18,12 @@ interface DataType {
 export const UploadImagesDocuments = ({isCapital, setFiles }: {
   isCapital?: any, setFiles: any
 }) => {
+  const {
+    setDeleteAttachmentsIds,
+  } = useProjectDispatch();
+  const {
+    deleteAttachmentsIds
+  } = useProjectState();
   const {isEdit} = useProjectState(); 
   const [modal, setModal] = useState(false);
   const [modal02, setModal02] = useState(false);
@@ -234,9 +240,12 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     }),
   };
   const formatBytes = (bytes: number, decimals = 2) => {
-    if (bytes === 0) return '0 MB';
+    const minSizeInMB = 0.1;
     const dm = decimals < 0 ? 0 : decimals;
     const sizeInMB = bytes / 1048576;
+    if (sizeInMB < minSizeInMB) {
+      return minSizeInMB.toFixed(dm) + ' MB';
+    }
     return parseFloat(sizeInMB.toFixed(dm)) + ' MB';
   }
 
@@ -291,19 +300,15 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
     }
   }
   const deleteImages = () => {
-    setDataImages((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));
-    const imagesToDelete = dataImages.filter((d:any) => toDelete.includes(d.key) && d._id);
-    imagesToDelete.forEach((d:any) => {
-      const indexDelete = attachments.attachments.findIndex((elem:any) => elem._id === d._id);
-      deleteAttachment(indexDelete, d._id);
-    });
+    const deleteIds = [...deleteAttachmentsIds,...toDelete];
+    setDeleteAttachmentsIds(deleteIds);
+    setDataImages((oldData: any) => oldData.filter((d: any) => !toDelete.includes(d.key)));   
   };
   const deleteFiles = () => {
-    setDataFiles((oldData: any) => oldData.filter((d: any) => !toDeleteFiles.includes(d.key)));
-    const filesToDelete = dataFiles.filter((d:any) => toDelete.includes(d.key) && d._id);
-    filesToDelete.forEach((d:any) => {
-      deleteAttachment(0, d._id);
-    });
+    const deleteIds = [...deleteAttachmentsIds,...toDeleteFiles];
+    console.log(toDeleteFiles)
+    setDeleteAttachmentsIds(deleteIds);
+    setDataFiles((oldData: any) => oldData.filter((d: any) => !toDeleteFiles.includes(d.key)));    
   }
   return (
     <>

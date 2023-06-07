@@ -19,8 +19,12 @@ export const UploaderModal = (
     const ext = name.substring(lastDot + 1);
     if ((type === IMAGES && (!ext || ext === 'jpg' || ext === 'jpeg' || ext === 'png'))  || (type !== IMAGES && (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'mp4'))) {
       if (sizeInMB <= 99.9) {
-        setSelectedFile(file);
-        setErrorMessage('');
+        if (name.length <= 50) {
+          setSelectedFile(file);
+          setErrorMessage('');
+        } else {
+          setErrorMessage('File name is too long');
+        }
       } else {
         setErrorMessage('File size not allowed');
       }
