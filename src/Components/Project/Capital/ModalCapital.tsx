@@ -423,10 +423,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         const subtotalCost = getSubTotalCost();
         const parsed = getProjectOverheadCost(data.project_costs);
         let newOverheadValue:any= [];
-        if(subtotalCost!==0 && (overheadCosts.every((elem:any)=> elem ===0))){
+        if(listComponents && listComponents.result && subtotalCost!==0 && !(parsed.every((elem:any)=> elem ===0))){
           parsed.forEach((overheadcost:any, index:number) => {
             if(index > 0){
-              newOverheadValue[index] = (overheadcost * 100)/subtotalCost
+              newOverheadValue[index] = Math.round((overheadcost * 100)/subtotalCost)
             }else{
               newOverheadValue[index] = 0
             }
@@ -435,7 +435,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         }
       }
     
-  },[listComponents])
+  },[listComponents, thisIndependentComponents])
 
   useEffect(()=>{
     console.log(overheadValues,!(overheadValues.every((elem:any)=> elem ===0)), getSubTotalCost())
