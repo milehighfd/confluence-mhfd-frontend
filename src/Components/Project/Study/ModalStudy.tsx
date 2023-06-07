@@ -37,8 +37,20 @@ const genTitleUnnamed = (streamName: any, streamData: any, setHighlightedStreams
 
 export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setNameProject, typeProject, setVisible, locality, data, editable }:
   { visibleStudy: boolean, setVisibleStudy: Function, nameProject: string, setNameProject: Function, typeProject: string, setVisible: Function, locality?: any, data: any, editable: boolean }) => {
-  const { saveProjectStudy, setStreamsList, setStreamIntersected, setStreamsIds, editProjectStudy, setServiceAreaCounty, setJurisdictionSponsor, setHighlightedStream, setHighlightedStreams, setIsEdit } = useProjectDispatch();
-  const { streamsIntersectedIds, isDraw } = useProjectState();
+  const { 
+    saveProjectStudy, 
+    setStreamsList, 
+    setStreamIntersected, 
+    setStreamsIds, 
+    editProjectStudy, 
+    setServiceAreaCounty, 
+    setJurisdictionSponsor, 
+    setHighlightedStream, 
+    setHighlightedStreams, 
+    setIsEdit,
+    setDeleteAttachmentsIds,
+  } = useProjectDispatch();
+  const { streamsIntersectedIds, isDraw , deleteAttachmentsIds} = useProjectState();
   const { organization, groupOrganization } = useProfileState();
   const { listStreams } = useProjectState();
   const [state, setState] = useState(stateValue);
@@ -66,7 +78,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const [studyreason, setStudyReason] = useState<any>();
   const history = useHistory();
   const location = useLocation();
-  const { toggleAttachmentCover} = useAttachmentDispatch();
+  const { toggleAttachmentCover,removeAttachment} = useAttachmentDispatch();
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
@@ -262,6 +274,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];
       }
       study.streams = newStreamsArray;
+      removeAttachment(deleteAttachmentsIds);
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);

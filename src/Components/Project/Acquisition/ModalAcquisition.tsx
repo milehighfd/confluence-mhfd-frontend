@@ -8,7 +8,7 @@ import { DropPin } from "../TypeProjectComponents/DropPin";
 import { PROJECT_INFORMATION, PROGRESS_ACQUISITION } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { getData, getToken } from "../../../Config/datasets";
-import { useProjectDispatch } from "../../../hook/projectHook";
+import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Project } from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { JURISDICTION, ADMIN, STAFF } from "../../../constants/constants";
@@ -43,8 +43,19 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     editable: boolean
   }) => {
 
-  const { saveProjectAcquisition, setStreamIntersected, editProjectAcquisition, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor,setIsEdit } = useProjectDispatch();
+  const { 
+    saveProjectAcquisition, 
+    setStreamIntersected, 
+    editProjectAcquisition, 
+    setEditLocation, 
+    setStreamsIds, 
+    setServiceAreaCounty, 
+    setJurisdictionSponsor,
+    setIsEdit,
+    setDeleteAttachmentsIds,
+  } = useProjectDispatch();
   const { organization, groupOrganization } = useProfileState();
+  const { deleteAttachmentsIds } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] = useState('');
@@ -69,7 +80,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const { toggleAttachmentCover} = useAttachmentDispatch();
+  const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
@@ -145,7 +156,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.editProject = editprojectid;
       acquisition.locality = locality ? locality : '';
       acquisition.cover = '';
-      acquisition.sendToWR = sendToWR;
+      acquisition.sendToWR = sendToWR;      
+      removeAttachment(deleteAttachmentsIds);
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);

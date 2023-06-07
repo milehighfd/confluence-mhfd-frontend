@@ -7,7 +7,7 @@ import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation"
 import { DropPin } from "../TypeProjectComponents/DropPin";
 import { getData, getToken } from "../../../Config/datasets";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
-import { useProjectDispatch } from "../../../hook/projectHook";
+import { useProjectDispatch,useProjectState } from "../../../hook/projectHook";
 import { Project} from "../../../Classes/Project";
 import { useProfileState } from "../../../hook/profileHook";
 import { useAttachmentDispatch } from "../../../hook/attachmentHook";
@@ -28,9 +28,20 @@ const stateValue = {
 export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, setNameProject, typeProject, setVisible, locality, data, editable}:
   {visibleSpecial: boolean, setVisibleSpecial: Function, nameProject: string , setNameProject: Function, typeProject:string, setVisible: Function, locality?:any,data:any, editable:boolean}) => {
 
-  const {saveProjectSpecial, setStreamIntersected, editProjectSpecial, setEditLocation, setStreamsIds, setServiceAreaCounty, setJurisdictionSponsor, setIsEdit} = useProjectDispatch();
+  const {
+    saveProjectSpecial, 
+    setStreamIntersected, 
+    editProjectSpecial, 
+    setEditLocation, 
+    setStreamsIds, 
+    setServiceAreaCounty, 
+    setJurisdictionSponsor, 
+    setIsEdit,
+    setDeleteAttachmentsIds,
+  } = useProjectDispatch();
   const {getAttachmentByProject} = useAttachmentDispatch();
-  const {organization, groupOrganization} = useProfileState();
+  const { organization, groupOrganization } = useProfileState();
+  const { deleteAttachmentsIds } = useProjectState();
   const [state, setState] = useState(stateValue);
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [description, setDescription] =useState('');
@@ -60,7 +71,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setYear(+t);
     }
   }, [history]);
-  const { toggleAttachmentCover} = useAttachmentDispatch();
+  const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
   const pageWidth  = document.documentElement.scrollWidth;
 
   const parseStringToArray = (list:string) => {
@@ -171,6 +182,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.locality = locality? locality:'';
       special.cover = '';
       special.sendToWR = sendToWR;
+      removeAttachment(deleteAttachmentsIds);
       files.forEach((file:any) => {
         if(file._id) {
           toggleAttachmentCover(0, file._id, file.isCover);

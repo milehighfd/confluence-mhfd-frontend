@@ -74,8 +74,34 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
 export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, setNameProject, typeProject, setVisible, locality, data, editable, problemId}:
   {visibleCapital: boolean, setVisibleCapital: Function, nameProject: string , setNameProject: Function, typeProject: string, setVisible: Function, locality?:any, data:any, editable:boolean, problemId?: any}) => {
  
-  const {saveProjectCapital,saveOverheadCost, setComponentIntersected, getListComponentsByComponentsAndPolygon, setStreamIntersected, setHighlightedComponent, setStreamsIds, setIndComponents, getGEOMByProjectId, editProjectCapital, setServiceAreaCounty, setJurisdictionSponsor, getZoomGeomComp, getZoomGeomProblem, setHighlightedProblem, setIsEdit} = useProjectDispatch();
-  const {listComponents, componentsFromMap, userPolygon, streamIntersected, independentComponents, isEdit} = useProjectState();
+  const {
+    saveProjectCapital,
+    saveOverheadCost, 
+    setComponentIntersected, 
+    getListComponentsByComponentsAndPolygon, 
+    setStreamIntersected, 
+    setHighlightedComponent, 
+    setStreamsIds, 
+    setIndComponents, 
+    getGEOMByProjectId, 
+    editProjectCapital, 
+    setServiceAreaCounty, 
+    setJurisdictionSponsor, 
+    getZoomGeomComp, 
+    getZoomGeomProblem, 
+    setHighlightedProblem, 
+    setIsEdit,
+    setDeleteAttachmentsIds
+  } = useProjectDispatch();
+  const {
+    listComponents, 
+    componentsFromMap, 
+    userPolygon, 
+    streamIntersected, 
+    independentComponents, 
+    isEdit,
+    deleteAttachmentsIds
+  } = useProjectState();
   const { userInformation } = useProfileState();
   const [state, setState] = useState(stateValue);
   const [description, setDescription] =useState('');
@@ -111,7 +137,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [lengthName, setlengthName] = useState(0);
   const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const { toggleAttachmentCover } = useAttachmentDispatch();
+  const { toggleAttachmentCover , removeAttachment } = useAttachmentDispatch();
   const [sendToWR,setsendToWR] = useState(!showCheckBox);
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
@@ -282,6 +308,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
           toggleAttachmentCover(0, file._id, file.isCover);
         }
       });
+      removeAttachment(deleteAttachmentsIds);
       if(swSave){
         editProjectCapital(capital);
       }
