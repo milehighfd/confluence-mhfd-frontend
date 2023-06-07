@@ -36,7 +36,8 @@ export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallba
         <span className="bar"></span>
       </div>
             
-      <Button  disabled={!isValidEmail}
+      <Button  
+        disabled={!isValidEmail}
         className="btn-purple"
         block
         htmlType="submit"
