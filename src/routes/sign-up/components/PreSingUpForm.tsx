@@ -23,7 +23,7 @@ export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallba
   return (
     <>
     <ModalNotificationSignUp visible={visible} setVisible={setVisible} message='The email was unable to be sent. Please try again.'/>
-    <Form style={{ width: '420px' }} className="login-step01" id='login-form'>
+    <Form style={{ width: '420px' }} className="login-form" id='login-form'>
       <h1>
         Welcome to MHFD's Confluence
       </h1>

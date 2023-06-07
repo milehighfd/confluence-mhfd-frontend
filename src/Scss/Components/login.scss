@@ -330,6 +330,9 @@
   color: $opacity;
   padding: 0px 20px;
 }
+.pre-signup{
+  font-size: 14px;
+}
 // END Reset password
 
 // login-labels
@@ -813,6 +816,13 @@
 }
 
 @media (min-width: 1900px) and (max-width: 2499px){
+  .main-conf {
+    .pre-signup{
+      p{
+        margin-bottom: 20px !important;
+      }
+    }
+  }
   .logo-partner{
     bottom: 30px;
     right: 30px;
@@ -841,6 +851,19 @@
 }
 
 @media (min-width: 2500px) and (max-width: 2999px){
+  .main-conf {
+    .letter-conf{
+      img{
+        width: 200px !important;
+      }
+    }
+    .pre-signup{
+      p{
+        margin-bottom: 35px !important;
+        margin-top: 31px !important;
+      }
+    }
+  }
   .text-logo {
     width: 400px;
     font-size: 16px;
@@ -897,6 +920,20 @@
   }
 }
 @media (min-width: 3000px) and (max-width: 3999px){
+  .main-conf {
+    .letter-conf{
+      img{
+        width: 350px !important;
+        margin-bottom: 30px !important;
+      }
+    }
+    .pre-signup{
+      p{
+        margin-bottom: 56px !important;
+        margin-top: 43px !important;
+      }
+    }
+  }
   .text-logo {
     width: 400px;
     font-size: 20px;

@@ -29,9 +29,15 @@
     font-size: 14px;
     padding: 3px 6px;
   }
+  .pre-signup{
+    font-size: 16px;
+  }
  }
 // 2K DISPLAY
 @media (min-width: 2500px) and (max-width: 3999px){
+  .pre-signup{
+    font-size: 16px;
+  }
   .tutorial-000{
     width: 1400px !important;
 
@@ -167,7 +173,7 @@
   }
   .login-form{
     img{
-      width: 200px;
+      width: 330px;
       margin-bottom: 20px;
     }
     h1 {
@@ -220,6 +226,9 @@
 
  // 4K DISPLAY
 @media (min-width: 3000px) {
+  .pre-signup{
+    font-size: 18px;
+  }
   // LOGIN
   .img-banner {
     width: 195vh;
