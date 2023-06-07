@@ -43,6 +43,7 @@ const initialState = {
   localityFilter: '',
   dataAutocomplete: [],
   setIsOnSelected: false,
+  filterMap: {}
 };
 
 const requestReducer = (state = initialState, action: any) => {
@@ -284,6 +285,11 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         columns2: action.payload
+      };
+    case types.REQUEST_SET_FILTER_MAP:
+      return {
+        ...state,
+        filterMap: action.payload
       };
     default:
       return state;

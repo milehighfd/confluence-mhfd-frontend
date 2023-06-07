@@ -11,7 +11,6 @@ import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
 import { compareArrays, defaultColumns } from 'Components/Work/Request/RequestViewUtil';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
-import WsService from 'Components/Work/Request/WsService';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
@@ -43,9 +42,7 @@ const RequestView = ({ type, isFirstRendering }: {
     tabKeys,
     tabKey,
     year,
-    yearList,
     sumTotal,
-    namespaceId,
     jurisdictionFilterList,
     csaFilterList,
     jurisdictionSelected,
@@ -79,6 +76,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setLocalityFilter,
     setIsOnSelected,
     setDataAutocomplete,
+    loadFilters,
   } = useRequestDispatch();
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [showCreateProject, setShowCreateProject] = useState(false);
@@ -240,6 +238,9 @@ const RequestView = ({ type, isFirstRendering }: {
       }
       setBoard(board);
       loadColumns(board.board_id);
+      if (type === "WORK_PLAN") {
+        loadFilters(board.board_id);
+      }
       /* TODO: this should be replaced */
       setBoardStatus(board.status);
       setBoardSubstatus(board.substatus);

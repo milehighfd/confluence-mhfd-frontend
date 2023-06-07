@@ -4,6 +4,7 @@ import * as projectTypes from 'store/types/ProjectTypes';
 import { DragAndDropCards } from 'store/types/requestTypes';
 import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
+import { GET_FILTER } from 'Config/endpoints/board';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -467,3 +468,19 @@ export const recalculateTotals = () => {
     });
   }
 };
+
+export const loadFilters = (board_id: any) => {
+  return (dispatch: any) => {
+    datasets.getData(
+      GET_FILTER(board_id),
+    ).then((res: any) => {
+      dispatch({
+        type: types.REQUEST_SET_FILTER_MAP,
+        payload: res
+      });
+    })
+    .catch((err: any) => {
+        console.log('err', err)
+    })
+  }
+}

@@ -135,19 +135,7 @@ const RequestLayout = () => {
         />
       }
       {
-        showFilters && <Filter
-          visible={showFilters}
-          setVisible={setShowFilters}
-          jurisdictionFilterList={jurisdictionFilterList}
-          csaFilterList={csaFilterList}
-          selPS={prioritySelected}
-          selJS={jurisdictionSelected}
-          selCS={csaSelected}
-          setJS={setJurisdictionSelected}
-          setCS={setCsaSelected}
-          setPS={setPrioritySelected}
-          l={localityType}
-        />
+        showFilters && <Filter/>
       }
       {
         visibleCreateProject &&
