@@ -100,6 +100,7 @@ export const SERVER = (function () {
     const SPECIAL = 'special';
     const STUDY = 'study';
     const GET_SIGNUP_EMAIL = 'get-signup-email';
+    const GET_RESET_AND_CONFIRM = 'generate-reset-confirm';
     const GET_STREAMS_BY_PROJ_ID = 'get-streams-by-projectid';
     const GET_COMPONENTS_BY_PROJ_ID = 'get-components-by-projectid';
     const GET_INDEPENDENTCOMPONENTS_BY_PROJ_ID = 'get-independent-components-by-projectid';
@@ -272,6 +273,7 @@ export const SERVER = (function () {
         GET_CONSULTANTS: `${URL_BASE.BASE}/${CONSULTANTS}`,
         GENERATE_SIGNUP_URL: `${URL_BASE.BASE}/${USER}/${GENERATE_SIGNUP_URL}`,
         GET_SPONSOR: `${URL_BASE.BASE}/${BUSINESS}/${SPONSOR_LIST}`,
+        GET_RESET_AND_CONFIRM: `${URL_BASE.BASE}/${USER}/${GET_RESET_AND_CONFIRM}`,
         GET_SIGNUP_EMAIL: (token: string) => `${URL_BASE.BASE}/${USER}/${GET_SIGNUP_EMAIL}?token=${token}`,
         GET_LIST_PMTOOLS: (groupname: string) => `${URL_BASE.BASE}/${PMTOOLS}/list?group=${groupname}`,
         GET_COUNT_FOR_PROBLEM: (problemid: string) => `${URL_BASE.BASE}/${GALLERY}/${GET_COUNT_FOR_PROBLEM}/${problemid}`,
