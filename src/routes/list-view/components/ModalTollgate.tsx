@@ -89,7 +89,7 @@ const ModalTollgate = ({
           if (i + 1 < dates.length) {
             if (x.to.isAfter(dates[i + 1].from)) {
               setInvalidDateIndex(i);
-              setViewOverlappingAlert(true);
+              // setViewOverlappingAlert(true);
               setOverlapping(true);
               isOverlap = false;
             } else {
@@ -549,6 +549,9 @@ let items = [
                         
                         onCalendarChange={(e:any)=>{
                           if (!x?.from || e[0].format('DD/MM/YYYY') !== x.from?.format('DD/MM/YYYY')) {
+                            if(!e[0] && e[1]){
+                              updateDate(index, e[1]);
+                            }
                             updateDate(index, e[0]);
                           }
                           if (e[1]) {
