@@ -686,7 +686,16 @@ export const setEditLocation = (editLocation: any) => {
 }
 export const setIndComponents = (independentComponents: any) => {
   return (dispatch: Function) => {
-    dispatch({type: types.SET_IND_COMPONENTS, independentComponents})
+    const componentsParsed = independentComponents.map((component: any) => {      
+      return {
+        cost: component.cost,
+        index: component.independent_action_id,
+        name: component.action_name,
+        status: component.action_status,
+      }
+    })
+    console.log(componentsParsed,'component')
+    dispatch({type: types.SET_IND_COMPONENTS, componentsParsed})
   }
 }
 

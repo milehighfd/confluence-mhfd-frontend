@@ -325,7 +325,7 @@ const projectReducer = (state = initState, action: any) => {
     case types.SET_IND_COMPONENTS: {
       return {
         ...state, 
-        independentComponents: action.independentComponents
+        independentComponents: action.componentsParsed
       }
     }
     case types.SET_JURISDICTION_SPONSOR: {
