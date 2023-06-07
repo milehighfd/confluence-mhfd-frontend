@@ -301,6 +301,15 @@ export const setColumns2Manual = (payload: any) => ({
   payload
 });
 
+export const updateTargetCost = (board_id: any, targetCosts: any) => {
+  return (dispatch: any) => {
+    datasets.putData(
+      SERVER.BOARD_UPDATE_TARGET_COST(board_id),
+      targetCosts
+    );
+  }
+}
+
 const moveProjectsManualReducer = (columns2: any[], action: any) => {
   return columns2.map((column: any, columnId: number) => {
     if (action.payload.originColumnPosition === columnId) {
@@ -336,7 +345,8 @@ export const moveProjectsManual = (payload: DragAndDropCards) => {
         columnNumber: originColumnPosition,
         beforeIndex: targetPosition - 1,
         afterIndex: targetPosition === projectsUpdated.length - 1 ? -1 : targetPosition + 1,
-      }
+      },
+      datasets.getToken()
     ).then(() => {
         dispatch(loadOneColumn(namespaceId, originColumnPosition));
     })
@@ -433,7 +443,8 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
         afterIndex: projectPosition === projectsUpdated.length - 1 ? -1 : projectPosition + 1,
         targetPosition: projectPosition,
         otherFields: { ...requestFields, [`rank${originColumnPosition}`]: null }
-      }
+      },
+      datasets.getToken()
     ).then((res: any) => {
       dispatch(loadOneColumn(namespaceId, originColumnPosition));
       dispatch(loadOneColumn(namespaceId, targetColumnPosition));

@@ -43,6 +43,7 @@ import {
   moveProjectsManual,
   handleMoveFromColumnToColumn,
   loadFilters,
+  updateTargetCost,
 } from 'store/actions/requestActions';
 import { DragAndDropCards } from 'store/types/requestTypes';
 
@@ -177,6 +178,9 @@ export const useRequestDispatch = () => {
   const _loadFilters = useCallback((board_id: any) => {
     dispatch(loadFilters(board_id));
   }, [dispatch]);
+  const _updateTargetCost = useCallback((board_id: any, targetCosts: any) => {
+    dispatch(updateTargetCost(board_id, targetCosts));
+  }, [dispatch]);
 
   return {
     setShowModalProject: _setShowModalProject,
@@ -221,5 +225,6 @@ export const useRequestDispatch = () => {
     moveProjectsManual: _moveProjectsManual,
     handleMoveFromColumnToColumn: _handleMoveFromColumnToColumn,
     loadFilters: _loadFilters,
+    updateTargetCost: _updateTargetCost
   };
 };

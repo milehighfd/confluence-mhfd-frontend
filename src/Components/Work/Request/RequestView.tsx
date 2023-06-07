@@ -236,6 +236,7 @@ const RequestView = ({ type, isFirstRendering }: {
       } catch (e) {
         console.log('e', e)
       }
+      
       setBoard(board);
       loadColumns(board.board_id);
       if (type === "WORK_PLAN") {
@@ -254,9 +255,9 @@ const RequestView = ({ type, isFirstRendering }: {
       //   }
       // }
       // if (!reqManagerEq) {
-      //   setReqManager([
-      //     board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-      //   ])
+        setReqManager([
+          board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+        ])
       // }
     }
     loadProjects();

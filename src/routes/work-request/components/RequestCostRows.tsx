@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Collapse, InputNumber, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { compareArrays, priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import WsService from 'Components/Work/Request/WsService';
 import { DownSquareOutlined, UpSquareOutlined } from '@ant-design/icons';
+import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
 const { Panel } = Collapse;
 
@@ -21,12 +22,26 @@ const RequestCostRows = () => {
     csaSelected,
     jurisdictionFilterList,
     csaFilterList,
-    reqManager
+    reqManager,
+    board
   } = useRequestState();
-  const { setReqManager } = useRequestDispatch();
+  const { setReqManager, updateTargetCost } = useRequestDispatch();
+  const [ targetCosts, setTargetCosts ] = useState([]);
   const [openCollaps, setOpenCollaps] = useState(false);
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
   const Icon = openCollaps ? UpSquareOutlined : DownSquareOutlined;
+  UseDebouncedEffect(() => {
+    if (targetCosts.length > 0) {
+      const formattedTargetCosts = {
+        targetcost1: targetCosts[0],
+        targetcost2: targetCosts[1],
+        targetcost3: targetCosts[2],
+        targetcost4: targetCosts[3],
+        targetcost5: targetCosts[4]
+      }
+      updateTargetCost(board.board_id, formattedTargetCosts);
+    }
+  }, [targetCosts], 1000);
   return (
     <div className="cost-wr">
       <Collapse
@@ -75,7 +90,8 @@ const RequestCostRows = () => {
                   readOnly={!notIsFiltered}
                   formatter={priceFormatter}
                   parser={priceParser}
-                  value={val} onChange={(e: any) => {
+                  value={val}
+                  onChange={(e: any) => {
                     let v = e;
                     let nv = reqManager.map((vl: any, i: number) => {
                       if (i === index) {
@@ -83,8 +99,8 @@ const RequestCostRows = () => {
                       }
                       return vl;
                     })
-                    WsService.sendReqmanager(nv);
                     setReqManager(nv);
+                    setTargetCosts(nv);
                   }} />
               </div>
             ))
