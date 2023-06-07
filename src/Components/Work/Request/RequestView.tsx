@@ -77,6 +77,7 @@ const RequestView = ({ type, isFirstRendering }: {
     setIsOnSelected,
     setDataAutocomplete,
     loadFilters,
+    setTotalCountyBudget
   } = useRequestDispatch();
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [showCreateProject, setShowCreateProject] = useState(false);
@@ -248,6 +249,7 @@ const RequestView = ({ type, isFirstRendering }: {
       setBoardComment(board.comment);
       setNamespaceId(board.board_id);
       setFlagforScroll(Math.random());
+      setTotalCountyBudget(board.total_county_budget);
       // let reqManagerEq = true;
       // for (var i = 1 ; i <= 5; i++) {
       //   if (board[`targetcost${i}`] != reqManager[i-1]) {
