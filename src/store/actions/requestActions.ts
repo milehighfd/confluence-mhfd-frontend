@@ -198,7 +198,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
   }
 }
 
-export const loadColumns = (board_id: any) => {
+export const loadColumns = (board_id: any, filters?: any) => {
   return (dispatch: any, getState: Function) => {
     const { request: { tabKey, year }, router: { location } } = getState();
     dispatch({
@@ -208,7 +208,7 @@ export const loadColumns = (board_id: any) => {
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
         `${SERVER.URL_BASE}/board/board-for-positions2`,
-        { board_id, position }
+        { board_id, position, filters }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
         if (position !== 0) {

@@ -7,13 +7,14 @@ const Filter = () => {
   const {
     showFilters,
     localityType: l,
-    filterMap
+    filterMap,
+    namespaceId,
   } = useRequestState();
-  const { setShowFilters } = useRequestDispatch();
+  const { setShowFilters, loadColumns } = useRequestDispatch();
 
-  const jurisdictionFilterList = filterMap['project_local_governments'];
-  const countiesFilterList = filterMap['project_counties'];
-  const serviceAreasFilterList = filterMap['project_service_areas'];
+  const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
+  const countiesFilterList: any[] = filterMap['project_counties'];
+  const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
   const priorityFilterList = useMemo(() => [
     { label: '1', value: 1 },
     { label: '2', value: 2 },
@@ -47,7 +48,21 @@ const Filter = () => {
     let sas = serviceAreasFilterList.filter((_: any, index: number) => {
       return serviceAreasSelected[index];
     });
-    console.log(js, ps, cs, sas);
+    const filter = {
+      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList.filter((_: any, index: number) => {
+        return countiesSelected[index];
+      }).map((r: any) => r.state_county_id),
+      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList.filter((_: any, index: number) => {
+        return jurisdictionSelected[index];
+      }).map((r: any) => r.code_local_government_id),
+      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList.filter((_: any, index: number) => {
+        return serviceAreasSelected[index];
+      }).map((r: any) => r.code_service_area_id),
+      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
+        return prioritySelected[index];
+      }).map((r: any) => r.value),
+    }
+    loadColumns(namespaceId, filter);
   }
   const reset = (value: boolean) => {
     setJurisdictionSelected(jurisdictionSelected.map(elem => value));
