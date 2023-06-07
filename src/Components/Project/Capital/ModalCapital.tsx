@@ -419,7 +419,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[thisIndependentComponents, listComponents])
   const applyIndependentComponent = () => {
-    const index = thisIndependentComponents[thisIndependentComponents.length - 1].index;
+    let index = 0;
+    if(thisIndependentComponents.length > 0) {      
+      index = thisIndependentComponents[thisIndependentComponents.length - 1].index;
+    }
     let component = {
       index: index + 1,
       name:undefined,
@@ -755,7 +758,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                   {
                     thisIndependentComponents.map((indComp:any) => {
                       return (
-                        <div className="tab-body-project">
+                        <div className="tab-body-project" key={indComp?.index}>
                           <Timeline>
                             <Timeline.Item color="green">
                               <Row style={{marginLeft:'-18px'}}>
