@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Row } from "antd";
-import { useSignup } from '../hooks/useSignup';
 import { onGenerateSignupLink } from '../utils';
 import ModalNotificationSignUp from './ModalNotificationSignUp';
 
@@ -12,14 +11,8 @@ type PreSignUpFormProps = {
   sucessCallback: () => void;
   setEmail: (email: string) => void;
 };
-export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallback, setEmail }: PreSignUpFormProps) => {
-  const {
-    emailOnBlur,
-    setEmailOnBlur
-  } = useSignup();
-  
+export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallback, setEmail }: PreSignUpFormProps) => {  
   const [visible, setVisible] = useState(false);
-
   return (
     <>
     <ModalNotificationSignUp visible={visible} setVisible={setVisible} message='The email was unable to be sent. Please try again.'/>
@@ -31,8 +24,10 @@ export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallba
         <p>Let's begin the adventure</p>
       </Row>
       <div className="group">
-        <input placeholder="Email Address" type="email" name="email" onBlur={() => setEmailOnBlur(false)}
-          onClick={() => setEmailOnBlur(true)}
+        <input
+          placeholder="Email Address"
+          type="email"
+          name="email"
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)} 
@@ -41,13 +36,14 @@ export const PreSignUpForm = ({ email, isValidEmail, sucessCallback, errorCallba
         <span className="bar"></span>
       </div>
             
-        <Button  disabled={!isValidEmail}
+      <Button  disabled={!isValidEmail}
         className="btn-purple"
         block
         htmlType="submit"
-        onClick={() => onGenerateSignupLink(email, sucessCallback, errorCallback )}>
+        onClick={() => onGenerateSignupLink(email, sucessCallback, () => { errorCallback(); setVisible(true) } )}
+      >
           Register by Email
-        </Button>
+      </Button>
       
     </Form>
     </>
