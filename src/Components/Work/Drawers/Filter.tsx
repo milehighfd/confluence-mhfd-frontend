@@ -60,7 +60,7 @@ const Filter = () => {
       }).map((r: any) => r.code_service_area_id),
       project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
         return prioritySelected[index];
-      }).map((r: any) => r.value),
+      }).map((r: any) => r.value + 1),
     }
     loadColumns(namespaceId, filter);
   }
