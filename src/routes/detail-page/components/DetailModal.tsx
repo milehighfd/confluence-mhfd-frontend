@@ -566,14 +566,14 @@ const DetailModal = ({
             className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
             style={!activeScroll ? {cursor:'default'}:{cursor:'pointer'}}
           >Project Roadmap</p>
-          <a style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</a>
-          <p
+          <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</p>
+          {appUser && appUser.designation && (appUser.designation === 'admin' || appUser.designation === 'staff')  && <p
             onClick={()=>{
               activeTab(6, "#project-financials");
             }}
             className={openSecction === 6 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
             style={!activeScroll ? {cursor:'default'}:{cursor:'pointer'}}
-          >Project Financials</p>
+          >Project Financials</p>}
           {/* <p style={{opacity:'0.25'}} className={openSecction === 7 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Project Management</p> */}
           <p
             onClick={()=>{
@@ -784,7 +784,7 @@ const DetailModal = ({
                   <ComponentSolucions />
                   <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
                   <br></br>
-                  <Financials projectId={project_idS}/>
+                  {appUser && appUser.designation && (appUser.designation === 'admin' || appUser.designation === 'staff') && <Financials projectId={project_idS}/>}
                   <br></br>
                   {/* <Management /> */}
                   <Map type={typeS} ref={cipjRef} />
