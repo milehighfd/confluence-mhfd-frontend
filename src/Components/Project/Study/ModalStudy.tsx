@@ -92,7 +92,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     setJurisdictionSponsor(undefined);
     setStreamIntersected({ geom: null });
     return () => {
-      setServiceArea({});
+      setServiceArea([]);
       setStreamsList([]);
       setStreamIntersected({ geom: null });
       setStreamsIds([]);
@@ -231,10 +231,29 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       let serviceAreaIds:any=[];
       let countyIds:any=[];
       let jurisdictionIds:any=[];
-      serviceAreaIds = groupOrganization.filter((service:any) => serviceArea.includes(service.name)).map((service:any) => service.id);
-      countyIds = groupOrganization.filter((countylist:any) => county.includes(countylist.name)).map((countylist:any) => countylist.id);
-      jurisdictionIds = groupOrganization.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
-
+      const jurisdictionList:any = [];
+      const countyList:any = [];
+      const serviceAreaList:any = [];
+      
+      groupOrganization.forEach((item:any) => {
+        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
+          jurisdictionList.push(item);
+        } else if (item.table === 'CODE_STATE_COUNTY') {
+          item.name = item.name.replace(' County', '');
+          countyList.push(item);
+        } else if (item.table === 'CODE_SERVICE_AREA') {
+          item.name = item.name.replace(' Service Area', '');
+          serviceAreaList.push(item);
+        }
+      });
+  
+      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
+      let countyA = county.map((element:any) => element.replace(' County', ''));
+        
+      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
+      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
+      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
+       
       let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');

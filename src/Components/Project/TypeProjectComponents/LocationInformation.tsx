@@ -132,16 +132,13 @@ export const LocationInformation = ({
               if (element.includes(data)) { service = false; }
             });
           }
-          if (service) { 
-            if(originModal !=='Study'){
-              SA = [element];
-            }else{
-              SA = [...SA, element]; 
-            }
-          
-          }
+          if (service) { SA = [...SA, element]; }
         });
-        setServiceArea(SA);
+        if(serviceArea.length>0 && originModal !== 'Study'){
+          setServiceArea(serviceArea);
+        }else{
+          setServiceArea(SA);
+        }
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['County']) {
         setSCounty(currentServiceAreaCounty['County']);
@@ -153,15 +150,13 @@ export const LocationInformation = ({
               if (element.includes(data)) { service = false; }
             });
           }
-          if (service) { 
-            if(originModal !=='Study'){
-              C = [element];
-            }else{
-              C = [...C, element]; 
-            }
-          }
+          if (service) { C = [...C, element]; }
         });
-        setCounty(C);
+        if(county.length>0 && originModal !== 'Study'){
+          setCounty(county);
+        }else{
+          setCounty(C);
+        }
       }
       if (currentServiceAreaCounty && currentServiceAreaCounty['jurisdiction']) {
         let J = jUrisdiction;
@@ -173,18 +168,18 @@ export const LocationInformation = ({
               if (data === element) { service = false; }
             });
           }
-          if (service) { 
-            if(originModal !=='Study'){
-              J = [element];
-            }else{
-              J = [...J, element]; 
-            }
-          }
+          if (service) {J = [...J, element]; }
          
         });
-        setjurisdiction(J);
+        if(jUrisdiction.length>0 && originModal !== 'Study'){
+          setjurisdiction(jUrisdiction);
+        }
+        else{
+          setjurisdiction(J);
+        }
       }
     }
+    
   }, [currentServiceAreaCounty]);
 
   const filterName = (name: string) => {
