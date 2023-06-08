@@ -414,7 +414,7 @@ const DetailModal = ({
       roadMap = await toJpeg(roadMapSelector, { width: widthCustom, height: heightCustom, style: {overflow: 'visible', fontFamily: "Ubuntu", border:'none', borderColor:'transparent', backgroundColor:'white'}});
     }
     
-    let body = { mapImage: map, roadMap };
+    let body = { mapImage: map, roadMap ,appUser};
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     fetch(url, {
