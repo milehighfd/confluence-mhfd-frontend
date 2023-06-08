@@ -75,11 +75,9 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
                 <p className="title">
                   Work Request
                 </p>
-                {/* Delete after testing in workplan*/}
-                {/* <p className={`information ${(!sendToWr && showCheckBox)  ? 'disabled':''}`}></p> */}
-                <p className={`information ${(showCheckBox)  ? '':'disabled'}`}>
-                  {jurisdictions.join(', ')}
-                </p>
+                 <p className={`information ${(isWorkPlan && !sendToWr && showCheckBox) ? 'disabled' : ''}`}>
+                   {jurisdictions.join(', ')}
+                 </p>
               </Col>}
               {!isEdit && <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
                 <p className="title">
