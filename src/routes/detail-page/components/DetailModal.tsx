@@ -3,7 +3,7 @@ import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 import ImageModal from "Components/Shared/Modals/ImageModal";
 import { SERVER } from "Config/Server.config";
 import { Button, Carousel, Col, Modal, Progress, Row, Tooltip, message } from "antd";
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER } from "constants/constants";
+import { ADMIN, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, STAFF } from "constants/constants";
 import { saveAs } from 'file-saver';
 import { useDetailedState } from "hook/detailedHook";
 import { useMapDispatch } from "hook/mapHook";
@@ -567,7 +567,7 @@ const DetailModal = ({
             style={!activeScroll ? {cursor:'default'}:{cursor:'pointer'}}
           >Project Roadmap</p>
           <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</p>
-          {appUser && appUser.designation && (appUser.designation === 'admin' || appUser.designation === 'staff')  && <p
+          {appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)  && <p
             onClick={()=>{
               activeTab(6, "#project-financials");
             }}
@@ -784,7 +784,7 @@ const DetailModal = ({
                   <ComponentSolucions />
                   <Roadmap data={dataRoadmap} setOpenPiney={setOpenPiney} openPiney={openPiney} updateAction={updateAction} setUpdateAction={setUpdateAction}/>
                   <br></br>
-                  {appUser && appUser.designation && (appUser.designation === 'admin' || appUser.designation === 'staff') && <Financials projectId={project_idS}/>}
+                  {appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF) && <Financials projectId={project_idS}/>}
                   <br></br>
                   {/* <Management /> */}
                   <Map type={typeS} ref={cipjRef} />
