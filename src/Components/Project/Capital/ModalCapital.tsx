@@ -351,15 +351,16 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[save]);
 
-  const onChangeAdditionalCost = (e: any) =>{
-        let newValue=e.target.value
-        let vAlue = newValue.replace("$", "");
-        vAlue = vAlue.replace(",", "");
-        if(vAlue){
-          setAdditionalCost(parseInt(vAlue));
-        }else{
-          setAdditionalCost(parseInt ('0'));
-        }
+  const onChangeAdditionalCost = (e: any) => {
+    let newValue = e.target.value
+    newValue = newValue.replace(/-/g, '');
+    let value = newValue.replace("$", "");
+    value = value.replace(",", "");
+    if (value) {
+      setAdditionalCost(parseInt(value));
+    } else {
+      setAdditionalCost(parseInt('0'));
+    }
   };
   const onChangeAdditionalDescription = (e: any) =>{
     setAdditionalDescription(e.target.value);
@@ -470,26 +471,26 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
  
   }
 
-  useEffect(()=>{
-      console.log(data)
-      
-      if(data !=='no data'){
-        const subtotalCost = getSubTotalCost();
-        const parsed = getProjectOverheadCost(data.project_costs);
-        let newOverheadValue:any= [];
-        if(listComponents && listComponents.result && subtotalCost!==0 && !(parsed.every((elem:any)=> elem ===0))){
-          parsed.forEach((overheadcost:any, index:number) => {
-            if(index > 0){
-              newOverheadValue[index] = Math.round((overheadcost * 100)/subtotalCost)
-            }else{
-              newOverheadValue[index] = 0
-            }
-          });
-          setOverheadValues(newOverheadValue)
-        }
+  useEffect(() => {
+    const subtotalCost = getSubTotalCost();
+    if (data !== 'no data') {
+      const parsed = getProjectOverheadCost(data.project_costs);
+      let newOverheadValue: any = [];
+      if (listComponents && listComponents.result && subtotalCost !== 0 && !(parsed.every((elem: any) => elem === 0))) {
+        parsed.forEach((overheadcost: any, index: number) => {
+          if (index > 0) {
+            newOverheadValue[index] = Math.round((overheadcost * 100) / subtotalCost)
+          } else {
+            newOverheadValue[index] = 0
+          }
+        });
+        setOverheadValues(newOverheadValue)
       }
-    
-  },[listComponents, thisIndependentComponents])
+    }
+    if (subtotalCost === 0) {
+      setOverheadValues([0, 5, 0, 0, 5, 15, 5, 10, 25])
+    }
+  }, [listComponents, thisIndependentComponents])
 
   useEffect(()=>{
     console.log(overheadValues,!(overheadValues.every((elem:any)=> elem ===0)), getSubTotalCost())
