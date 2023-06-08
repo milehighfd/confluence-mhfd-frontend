@@ -3483,7 +3483,8 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   }
 
   .dropdown-view-partner {
-    width: 37%;
+    display: flex;
+    width: 39%;
     margin-right: 8px;
     justify-content: space-between;
     gap: 8px;
@@ -3496,6 +3497,13 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     font-weight: 400;
     line-height: 14px;
     padding: 8px 12px;
+    align-items: center;
+    .body-dropdown-view-partner{
+      width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   .dropdown-view-phase {
@@ -4926,6 +4934,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
       margin-right: 25px;
     }
     .group-dropdown-financial{
+      display: flex;
       margin-bottom: 30px;
     }
     p {

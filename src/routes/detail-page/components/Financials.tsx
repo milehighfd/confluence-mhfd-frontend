@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import { Button, Checkbox, Col, Dropdown, Menu, Row, Space, Table } from 'antd';
 import { DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import AddAmountModal from 'Components/Shared/Modals/AddAmountModal';
@@ -47,9 +46,9 @@ const Financials = ({ projectId }: { projectId: any }) => {
     );
     const mappingDataForDataSource = financialInformation.map((element: any, index: number) => {
       const key = `${index}`;
-      const agreement = [element?.agreement_number, ''];
+      const agreement = [element?.agreement_number || '', ''];
       const amendment =
-        element?.amendment_number.includes('ORIGINAL') || element?.amendment_number === null
+        element?.amendment_number && (element?.amendment_number.includes('ORIGINAL') || element?.amendment_number === null)
           ? ''
           : element?.amendment_number;
       const partner = element?.project_partner_name || '';
@@ -62,7 +61,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
       const projected = [element?.projected ? formatter.format(element?.projected?.cost) : '$0', element?.projected && element?.projected.cost !== 0 ? element?.projected?.is_income ? 'green' : 'red' : 'purple'];
       const encumbered = [element?.encumbered ? formatter.format(element?.encumbered?.cost) : '$0', element?.encumbered && element?.encumbered.cost !== 0 ? element?.encumbered?.is_income ? 'green' : 'red' : 'purple'];
       const tyler = [element?.tyler_encumbered ? formatter.format(element?.tyler_encumbered?.cost) : '$0', element?.tyler_encumbered && element?.tyler_encumbered.cost !== 0 ? element?.tyler_encumbered?.is_income ? 'green' : 'red' : 'purple'];
-      const date = moment(element?.effective_date).format('MM-DD-YYYY') || '';
+      const date = element?.effective_date || '';
       if (element?.projected?.is_income) {
         income[0] += element?.projected?.cost || 0;
       } else {
@@ -279,13 +278,6 @@ const Financials = ({ projectId }: { projectId: any }) => {
     return name;
   };
 
-  const partnerValidator = (partner: any) => {
-    if (partner.length > 30) {
-      return (partner.substring(0, 30) + '...')
-    } else {
-      return partner
-    }
-  }
   const menu2 = (
     <Menu
       className="menu-density"
@@ -319,7 +311,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial'>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial' style={{ display: 'flex' }}>
           <Dropdown
             overlayClassName="dropdown-view-menu"
             overlay={menu}
@@ -351,14 +343,18 @@ const Financials = ({ projectId }: { projectId: any }) => {
             }}
             getPopupContainer={(trigger: any) => trigger.parentNode}
           >
-            <Space className="dropdown-view-partner">
-              <div>{partnerValidator(partner?.partner || 'Partner')}</div>
-              {!openDropPhatner ? (
-                <UpOutlined style={{ color: '#251863' }} />
-              ) : (
-                <DownOutlined style={{ color: '#251863' }} />
-              )}
-            </Space>
+            <div className="dropdown-view-partner">
+              <div style={{ width: '90%' }}>
+                <div className='body-dropdown-view-partner'>{partner?.partner || 'Partner'}</div>
+              </div>
+              <div style={{ width: '10%', textAlign: 'end', alignItems: 'center', display: 'flex', justifyContent: 'flex-end' }}>
+                {!openDropPhatner ? (
+                  <UpOutlined style={{ color: '#251863', alignItems: 'center', display: 'flex' }} />
+                ) : (
+                  <DownOutlined style={{ color: '#251863', alignItems: 'center', display: 'flex' }} />
+                )}
+              </div>
+            </div>
           </Dropdown>
           <Dropdown
             overlayClassName="dropdown-view-menu"
