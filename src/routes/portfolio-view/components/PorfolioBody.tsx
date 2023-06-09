@@ -91,12 +91,6 @@ const PortafolioBody = ({
       getParamFilterProjectsNoBounds(updateFilter);
     }
   }, [updateFilter]);   
-
- 
-
-  useEffect(() => {
-    console.log('teams')
-  }, [openProjects]);
   
   useEffect(() => {
     filterProjectOptions.name = searchWord;
@@ -184,7 +178,7 @@ const PortafolioBody = ({
   useEffect(() => {
     if (openProjects){
       const auxOptions = { ...filterProjectOptions };
-      auxOptions.teams = appUser.userInformation?.business_associate_contact?.business_associate_contact_id;
+      auxOptions.teams = appUser.userInformation?.business_associate_contact?.business_associate_contact_id || -1;
       setFilterProjectOptions(auxOptions);
     }else{
       const auxOptions = { ...filterProjectOptions };
