@@ -2139,11 +2139,11 @@ const Map = ({
             cartodb_id: details.cartodb_id?details.cartodb_id:'',
             jurisdiction: details.jurisdiction?details.jurisdiction:'',
             original_cost: details.original_cost?details.original_cost:'',
-            problemid: null,
+            problem_id: details.problemid ? details.problemid : '',
             status: details.status?details.status:'',
-            table: details.table?details.table:'',
+            source_table_name: details.table?details.table:'',
             type: details.type?details.type:'',
-            objectid: details.type?details.objectid:''
+            object_id: details.type?details.objectid:''
           }];
           setComponentsFromMap(newComponents);
           getComponentGeom(details.table, details.objectid);
