@@ -110,7 +110,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const [serviceArea, setServiceArea] = useState<any>([]);
   const [isDrawState, setIsDraw] = useState(false);
   const [isDrawStateCapital, setIsDrawCapital] = useState(false);
-  const {changeDrawState, changeDrawStateCapital, setEditLocation} = useProjectDispatch();
+  const {changeDrawState, changeDrawStateCapital, setEditLocation,setComponentsFromMap } = useProjectDispatch();
   const [sponsor, setSponsor] = useState("");
   const [cosponsor, setCosponsor] = useState<any>([]);
   const [county, setCounty] = useState<any>([]);
@@ -152,7 +152,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }, [userInformation]);
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {
-
+      
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
@@ -169,6 +169,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setStreamsIds([]); 
     return () => {
       setIndependentComponents([]);
+      setComponentsFromMap([]);
     }
   },[]);
   useEffect(()=>{
