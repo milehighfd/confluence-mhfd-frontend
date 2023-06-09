@@ -496,7 +496,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }, [listComponents, thisIndependentComponents])
 
   useEffect(()=>{
-    console.log(overheadValues,!(overheadValues.every((elem:any)=> elem ===0)), getSubTotalCost())
     if(!(overheadValues.every((elem:any)=> elem ===0))){
       let newOverheadCosts = [...overheadCosts];
       overheadValues.forEach((element:any, index:any) => {

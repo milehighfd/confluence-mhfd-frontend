@@ -88,7 +88,7 @@ const CreateProjectMap = (type: any) => {
   } = useMapDispatch();
   const { saveSpecialLocation, saveAcquisitionLocation, getStreamIntersectionPolygon, getStreamsIntersectedPolygon, changeAddLocationState, getServiceAreaPoint,
     getServiceAreaStreams, getStreamsList, setUserPolygon, changeDrawState, changeDrawStateCapital, getListComponentsByComponentsAndPolygon, setStreamsIds, setStreamIntersected, updateSelectedLayersCP, getJurisdictionPolygon, getServiceAreaPolygonofStreams, setZoomGeom, setComponentIntersected, setComponentGeom, setEditLocation } = useProjectDispatch();
-  const { streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayersCP, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
+  const { userPolygon, streamIntersected, isDraw, isDrawCapital, streamsIntersectedIds, isAddLocation, listComponents, selectedLayersCP, highlightedComponent, editLocation, componentGeom, zoomGeom, highlightedProblem, listStreams, boardProjectsCreate, highlightedStream, highlightedStreams } = useProjectState();
   const { groupOrganization } = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
@@ -434,6 +434,12 @@ const CreateProjectMap = (type: any) => {
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
+      if(userPolygon){
+        let bboxBounds = turf.bbox(userPolygon);
+        map.isStyleLoaded(() => {
+          map.map.fitBounds(bboxBounds, { padding: 80 });
+        });
+      }
     }
   };
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
