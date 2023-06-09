@@ -229,6 +229,7 @@ export const loadColumns = (board_id: any, filters?: any) => {
       promises.push(promise);
     }
     Promise.all(promises).then((dataArray) => {
+      console.log('Data array ', dataArray);
       const sums: any[] = [];
       const totals: any[] = [];
       dataArray.forEach(([sumByGroupMap, groupTotal]: any[], columnId: number) => {
@@ -241,13 +242,7 @@ export const loadColumns = (board_id: any, filters?: any) => {
       const totalByGroupMap = mergeTotalByGroupMaps(totals);
 
       const allProjects = dataArray.map(r => r[2]).flat();
-      const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(allProjects);
-      const geojson: any = buildGeojsonForLabelsProjectsInBoards(allProjects);
-      let ids = Array.from(
-        new Set(
-          allProjects.map((project: any) => project.project_id)
-        )
-      );
+      dispatch(groupProjects(allProjects));    
       
       const mainKey = location.pathname.includes('work-plan') ?  (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
       dispatch({
@@ -260,18 +255,30 @@ export const loadColumns = (board_id: any, filters?: any) => {
         type: types.REQUEST_SET_SUM_TOTAL,
         payload: totalByGroupMap
       });
-      dispatch({
-        type: projectTypes.SET_BOARD_PROJECTS,
-        boardProjects: {
-          ids,
-          groupedIds: groupedIdsByStatusId,
-          geojsonData: geojson
-        }
-      });
+
       dispatch({
         type: types.REQUEST_STOP_LOADING_COLUMNS_2
       });
 
+    });
+  }
+}
+const groupProjects = (allProjects: any) => {
+  return (dispatch: any) => {
+    const groupedIdsByStatusId: any = splitProjectsIdsByStatuses(allProjects);
+    const geojson: any = buildGeojsonForLabelsProjectsInBoards(allProjects);
+    let ids = Array.from(
+      new Set(
+        allProjects.map((project: any) => project.project_id)
+      )
+    );
+    dispatch({
+      type: projectTypes.SET_BOARD_PROJECTS,
+      boardProjects: {
+        ids,
+        groupedIds: groupedIdsByStatusId,
+        geojsonData: geojson
+      }
     });
   }
 }
@@ -460,11 +467,14 @@ export const recalculateTotals = () => {
     const { request: { columns2 } } = getState();
     const sums: any[] = [];
     const totals: any[] = [];
+    const allProjects: any = [];
     columns2.forEach((column: any, columnId: number) => {
+      allProjects.push(...column.projects);
       if (columnId === 0) return;
       sums.push(column.sumByGroupMap);
       totals.push(column.groupTotal);
     });
+    dispatch(groupProjects(allProjects));
     const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
     const totalByGroupMap = mergeTotalByGroupMaps(totals);
     dispatch({

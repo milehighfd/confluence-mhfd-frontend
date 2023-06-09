@@ -57,7 +57,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
     deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
-        WsService.sendEdit();
+        // WsService.sendEdit();
       })
       .catch((e) => {
         console.log('e', e)

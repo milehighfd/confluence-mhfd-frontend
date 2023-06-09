@@ -400,6 +400,7 @@ export const SEMSWA_SERVICE_AREA =
 export const BORDER = 'border';
 export const AREA_BASED_MASK = 'area_based_mask';
 export const SELECT_ALL_FILTERS = [
+  USE_LAND_COVER,
   MHFD_STREAMS_FILTERS,
   STREAMS_FILTERS,
   FLOOD_HAZARDS,
@@ -428,7 +429,6 @@ export const SELECT_ALL_FILTERS = [
   STREAMS_POINT,
   BORDER,
   AREA_BASED_MASK,
-  USE_LAND_COVER,
   TEST_LINE
 ];
 export const SWITCHES_MAP = [

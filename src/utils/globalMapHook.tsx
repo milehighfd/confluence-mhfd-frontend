@@ -36,7 +36,6 @@ export const GlobalMapHook = () => {
         }
         currentPosition =(copy.length - 1);
         lastMaps = (copy);
-        console.log('New global map set in session');
         sessionStorage.setItem('globalMap', JSON.stringify(copy));
       }
     // }, 1000);

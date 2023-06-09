@@ -538,7 +538,6 @@ const WorkRequestMap = ({
   }
   useEffect(() => {
     popup.remove();
-
     if (firstRendering) {
       setFirstRendering(false);
       return;
