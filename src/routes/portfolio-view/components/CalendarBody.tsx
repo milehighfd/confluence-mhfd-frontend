@@ -1069,7 +1069,7 @@ const CalendarBody = ({
           if(linesAxis){
             for(let line of linesAxis){
               if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
-                line.setAttribute('y2', 600) 
+                line.setAttribute('y2', 1000) 
               }
             }
           }
@@ -1370,7 +1370,36 @@ const CalendarBody = ({
       let todayLineDiv: any = document.getElementById('todayLineDiv')
       var styleDiv = window.getComputedStyle(todayLineDiv);
       var matrix = new WebKitCSSMatrix(styleDiv.transform);
-      let translateYTodayline = (currentZScale===0.9 ? -132 :-136) + (currentZScale===0.9 ? 800 <= zoomTimeline ? 2000 : zoomTimeline  : 600 <= zoomTimeline ? 2000 : zoomTimeline)
+
+      let factorTranslateMonthly = 
+      (windowWidth >= 3001 && windowWidth <= 3999 ? -382 : 
+        (windowWidth >= 2550 && windowWidth <= 3000 ? -252 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? -196 : 
+            (windowWidth >= 1450 && windowWidth <= 2000 ? -186 : 
+              (windowWidth >= 1199 && windowWidth <= 1449 ? -136 : -136)))));
+
+      let factorTranslateDaily = 
+      (windowWidth >= 3001 && windowWidth <= 3999 ? -378 : 
+        (windowWidth >= 2550 && windowWidth <= 3000 ? -249 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+            (windowWidth >= 1450 && windowWidth <= 2000 ? -182 : 
+              (windowWidth >= 1199 && windowWidth <= 1449 ? -132 : -132)))));
+
+      let factorToShowTodaylineDaily = 
+      (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
+        (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+            (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 
+              (windowWidth >= 1199 && windowWidth <= 1449 ? 800 : 800)))));
+
+      let factorToShowTodaylineMonthly = 
+        (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 
+                (windowWidth >= 1199 && windowWidth <= 1449 ? 600 : 600)))));
+
+      let translateYTodayline = (currentZScale===0.9 ? factorTranslateDaily :factorTranslateMonthly) + (currentZScale===0.9 ? zoomTimeline >= factorToShowTodaylineDaily ? 3000 : zoomTimeline  : factorToShowTodaylineMonthly <= zoomTimeline ? 3000 : zoomTimeline)
       d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
     }
     setIsLoading(false)

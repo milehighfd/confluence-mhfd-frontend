@@ -1270,9 +1270,9 @@
   }
 
   .dashed-line {
-    transform: rotate(90deg) translate(288px, -136px);
+    transform: rotate(90deg) translate(400px, -136px);
     position: relative;
-    width: 499px;
+    width: 700px;
     z-index: 3;
     height: 0px;
     margin: 0 auto;
@@ -3216,6 +3216,13 @@
         border-color: $purple !important;
       }
     }
+    .dashed-line {
+      transform: rotate(90deg) translate(460px, -186px);
+      width: 850px !important;
+    }
+    .dashed-line::before {
+      background-size: 14px 100% !important;
+    }
   }
   .span-dots-heder {
     font-size: 16px;
@@ -3979,6 +3986,13 @@
         border-color: $purple !important;
       }
     }
+    .dashed-line {
+      transform: rotate(90deg) translate(630px, -252px);
+      width: 1170px !important;
+    }
+    .dashed-line::before {
+      background-size: 16px 100% !important;
+    }
   }
   .col-name-team-organization {
     line-height: 20px;
@@ -4140,6 +4154,13 @@
       .ic-dots{
         height: 36px !important;
       }
+    }
+    .dashed-line {
+      transform: rotate(90deg) translate(1000px, -382px);
+      width: 1860px !important;
+    }
+    .dashed-line::before {
+      background-size: 16px 100% !important;
     }
   }
   .ant-input{
