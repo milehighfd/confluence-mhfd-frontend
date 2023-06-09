@@ -3140,18 +3140,19 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     font-weight: 700;
   }
   .table-purple{
-    padding-right: 20%;
-    text-align: right;
+    // padding-right: 20%;
+    // text-align: right;
+    text-align: center;
   }
   .table-green {
-    padding-right: 20%;
-    text-align: right;
+    // padding-right: 20%;
+    text-align: center;
     color: #28c499 !important;
   }
 
   .table-red {
-    padding-right: 20%;
-    text-align: right;
+    // padding-right: 20%;
+    text-align: center;
     color: #FF0000 !important;
   }
 
@@ -3464,6 +3465,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+  .group-dropdown-financial{
+    margin-bottom: 20px ;
   }
 
   .dropdown-view-income {
@@ -4928,7 +4932,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
       margin-right: 25px;
     }
     .dropdown-view-partner{
-      margin-right: 25px;
+      margin-right: 25px;.body-dropdown-view-partner {
+        line-height: 20px;
+      }
     }
     .dropdown-view-phase{
       margin-right: 25px;

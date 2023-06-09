@@ -156,50 +156,58 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   const columns = [
     {
-      title: 'Agreement',
+      title:  <p>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
+      width:'10%',
       render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
     },
     {
-      title: 'Amendment',
+      title:  <p>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
+      width:'15%',
     },
     {
-      title: 'Partner',
+      title:  <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
+      width:'10%',
     },
     {
-      title: 'Phase',
+      title: <p>Phase</p>,
       dataIndex: 'phase',
       key: 'phase',
+      width:'10%',
       render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
     },
     {
-      title: 'Projected',
+      title: <p style={{textAlign:'center'}}>Projected</p>,
       dataIndex: 'projected',
       key: 'projected',
+      width:'14%',
       render: (projected: string[]) => <p className={'table-' + projected[1]}>{projected[0]}</p>,
     },
     {
-      title: 'Encumbered',
+      title:<p style={{textAlign:'center'}}>Encumbered</p>,
       dataIndex: 'encumbered',
       key: 'encumbered',
+      width:'14%',
       render: (encumbered: string[]) => <p className={'table-' + encumbered[1]}>{encumbered[0]}</p>,
     },
     {
-      title: 'Tyler Encumbered',
+      title: <p style={{textAlign:'center'}}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
+      width:'14%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
-      title: 'Date',
+      title: <p style={{textAlign:'center'}}>Date</p>,
       dataIndex: 'date',
       key: 'date',
-      render: (date: string) => <p >{date}</p>,
+      width:'13%',
+      render: (date: string) => <p style={{textAlign:'center'}}>{date}</p>,
     },
   ];
   const reset = () => {
@@ -386,24 +394,27 @@ const Financials = ({ projectId }: { projectId: any }) => {
             <div className="body-scroll-table">
               <Table dataSource={finalData} columns={columns} pagination={{ pageSize: 50 }} scroll={{ y: 350 }} />
               <div style={{ display: 'flex', paddingTop: '5px', borderTop: '1px solid #d7d3e2', marginTop: '5px' }}>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '47%' }}>Subtotal Income</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1])}</p>
-                <p style={{ color: '#28c499', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '45%' }}>Subtotal Income</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[0])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[1])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(income[2])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
               </div>
               <div style={{ display: 'flex', paddingTop: '5px' }}>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '47%' }}>Subtotal Expense</p>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[0])}</p>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[1])}</p>
-                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '12.5%', textAlign: 'right' }}>{formatter.format(expense[2])}</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '45%' }}>Subtotal Expense</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[0])}</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[1])}</p>
+                <p style={{ color: 'rgb(255 55 55)', fontWeight: '400', width: '14%', textAlign: 'center' }}>{formatter.format(expense[2])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
               </div>
               <div
                 style={{ display: 'flex', paddingTop: '5px', borderBottom: '1px solid #d7d3e2', paddingBottom: '5px' }}
               >
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '47%' }}>Total</p>
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[0] - expense[0])}</p>
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[1] - expense[1])}</p>
-                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '12.5%', textAlign: 'right' }}>{formatter.format(income[2] - expense[2])}</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '45%' }}>Total</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[0] - expense[0])}</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[1] - expense[1])}</p>
+                <p style={{ color: '#11093c', fontWeight: 'bolder', width: '14%', textAlign: 'center' }}>{formatter.format(income[2] - expense[2])}</p>
+                <p style={{ color: '#28c499', fontWeight: '400', width: '13%', textAlign: 'center' }}></p>
               </div>
             </div>
           </div>
