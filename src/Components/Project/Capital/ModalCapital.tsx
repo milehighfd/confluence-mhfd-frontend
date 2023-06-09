@@ -150,6 +150,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }
     }    
   }, [userInformation]);
+  useEffect(() => {
+    if(componentsFromMap.length > 0 ) {
+
+      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
+    } else {
+      setComponentIntersected([]);
+    }
+  }, [componentsFromMap]);
   useEffect(()=>{
     setServiceAreaCounty({});
     setServiceArea([]);
@@ -157,11 +165,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setjurisdiction([]);
     setJurisdictionSponsor(undefined);
     setDescription('');
-    if(componentsFromMap.length > 0 ) {
-      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
-    } else {
-      setComponentIntersected([]);
-    }
     setStreamIntersected({geom:null});
     setStreamsIds([]); 
     return () => {
