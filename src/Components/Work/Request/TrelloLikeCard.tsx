@@ -12,8 +12,7 @@ import { DeleteAlert } from './DeleteAlert';
 import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
-import { getCurrentProjectStatus } from '../../../utils/parsers';
-import WsService from './WsService';
+import { loadColumns } from 'store/actions/requestActions';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -57,7 +56,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
     deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
       .then((r) => {
         console.log('r', r)
-        // WsService.sendEdit();
+        loadColumns(namespaceId, year)
       })
       .catch((e) => {
         console.log('e', e)

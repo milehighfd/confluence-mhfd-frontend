@@ -97,8 +97,10 @@ const Analytics = ({
       let totalCounter = 0;
       for (let i = 0; i < years.length; ++i) {
         const currYear = +years[i];
-        totalCounter += d[`cnt${currYear - initialYear + 1}`];
-        maxiQ = Math.max(maxiQ, +d[`cnt${currYear - initialYear + 1}`]);
+        let counter = d[`cnt${currYear - initialYear + 1}`] || 0;
+        if (counter !== 0) counter = +counter;
+        totalCounter += counter;
+        maxiQ = Math.max(maxiQ, counter);
       }
       return {
         value: d.locality,
@@ -110,8 +112,10 @@ const Analytics = ({
       let totalCounter = 0;
       for (let i = 0; i < years.length; ++i) {
         const currYear = +years[i];
-        totalCounter += d[`req${currYear - initialYear + 1}`];
-        maxiA = Math.max(maxiA, +d[`req${currYear - initialYear + 1}`]);
+        let amount = d[`req${currYear - initialYear + 1}`] || 0;
+        if (amount !== 0) amount = +amount;
+        totalCounter += amount;
+        maxiA = Math.max(maxiA, amount);
       }
       return {
         value: d.locality,

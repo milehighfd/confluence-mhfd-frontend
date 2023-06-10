@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Collapse, InputNumber, Timeline } from 'antd';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
 import { useLocation } from 'react-router-dom';
 import { compareArrays, priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
-import WsService from 'Components/Work/Request/WsService';
 import { DownSquareOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
