@@ -17,7 +17,7 @@ export const UploaderModal = (
     const sizeInMB = file.size / 1048576; 
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
-    if ((type === IMAGES && (!ext || ext === 'jpg' || ext === 'jpeg' || ext === 'png'))  || (type !== IMAGES && (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'mp4'))) {
+    if ((type === IMAGES && (!ext || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'bmp'))  || (type !== IMAGES && (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'mp4'))) {
       if (sizeInMB <= 99.9) {
         if (name.length <= 50) {
           setSelectedFile(file);
@@ -58,12 +58,22 @@ export const UploaderModal = (
     const name = event.dataTransfer.files[0].name;
     const lastDot = name.lastIndexOf('.');
     const ext = name.substring(lastDot + 1);
-    if (!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'mp4') {
-      setSelectedFile(event.dataTransfer.files[0]);
-      setErrorMessage('')
+    if (type === IMAGES){
+      if (!ext || ext === 'jpg' || ext === 'jpeg' || ext === 'png' || ext === 'bmp'){
+        setSelectedFile(event.dataTransfer.files[0]);
+        setErrorMessage('')
+      } else {
+        setErrorMessage('File type not allowed')
+        return;
+      }
     } else {
-      setErrorMessage('File type not allowed')
-      return;
+      if((!ext || ext === 'pdf' || ext === 'docx' || ext === 'xlsx' || ext === 'mp4')){
+        setSelectedFile(event.dataTransfer.files[0]);
+        setErrorMessage('')
+      } else {
+        setErrorMessage('File type not allowed')
+        return;
+      }
     }
   }
   return (
