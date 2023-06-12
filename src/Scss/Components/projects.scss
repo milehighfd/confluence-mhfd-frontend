@@ -224,6 +224,9 @@
         color: $purple00;
       }
     }
+    .overcost-capital{
+      margin-bottom: 10px;
+    }
     .sub-project{
       .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
         border-color: transparent !important;
@@ -805,6 +808,9 @@
         .cost-project, .sub-project {
           font-size: 16px !important;
         }
+        .overcost-capital{
+          margin-bottom: 20px;
+        }
         .sub-project{
           .ant-input {
             font-size: 16px !important;
@@ -1065,6 +1071,9 @@
         .cost-project, .sub-project {
           font-size: 21px !important;
         }
+        .overcost-capital{
+          margin-bottom: 25px;
+        }
         .sub-project{
           .ant-input {
             font-size: 21px !important;
@@ -1196,4 +1205,296 @@
   .ant-modal .new-project {
     width: 1500px !important;
   }
+}
+
+@media (min-width: 3000px) and (max-width: 5999px){
+// CAPITAL
+  .tab-cost{
+    padding-left: 66px !important;
+  }
+  .tab-cost-independent{
+    padding-left: 25px !important;
+  }
+  .projects{
+    width: 1955px !important;
+
+    .head-project{
+      padding: 20px 20px 10px 20px;
+
+      .input-sizer {
+        font-size: 32px !important;
+
+        &::after, input {
+          max-width: 778px;
+          height: 45px;
+        }
+      }
+      button img{
+        height: 30px;
+        margin-top: 8px;
+      }
+      p{
+        font-size: 24px !important;
+      }
+      .tag-name{
+        font-size: 21px !important;
+      }
+      .hh-img {
+       margin-top: 8px;
+       height: 30px;
+     }
+     .btn-transparent{
+       height: 45px;
+
+       img{
+         height: 28px;
+       }
+     }
+    }
+    .body-project{
+      height: calc(100vh - 300px);
+      .span-project-text{
+        font-size: 16px;
+      }
+      h5{
+        font-size: 24px;
+
+        img{
+          height: 24px;
+        }
+      }
+      .required-text{
+        font-size: 14px;
+      }
+      .sub-title {
+        font-size: 18px !important;
+
+        img{
+          height: 20px;
+        }
+      }
+      textarea.ant-input {
+        height: 165px;
+        font-size: 24px;
+      }
+      .ant-select-selection {
+        height: 74px;
+        font-size: 24px;
+      }
+      .ant-select-selection--single .ant-select-selection__rendered {
+        height: 74px;
+      }
+      .ant-select-selection__rendered {
+       line-height: 78px;
+      }
+      .draw{
+        height: 140px;
+        padding: 36px 0px;
+        margin-bottom: 25px;
+        border: 2px dashed $opacity04;
+
+        img {
+          height: 32px;
+        }
+        p{
+          font-size: 24px;
+        }
+      }
+      .tab-titles{
+        font-size: 21px !important;
+      }
+
+      .tab-head-project{
+        font-size: 21px !important;
+        line-height: 1;
+      }
+      .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
+        height: 70px;
+        padding: 25px 20px;
+      }
+      .tab-body-project{
+        font-size: 21px !important;
+
+        .second{
+          .ant-input {
+            font-size: 21px;
+            padding: 8px 0px;
+            height: 38px;
+          }
+        }
+        .third{
+          padding-left: 0px !important;
+          .ant-input {
+            font-size: 21px;
+            padding: 8px 0px;
+            width: 80%;
+            height: 38px;
+          }
+        }
+        .fourth{
+          width: inherit;
+
+          button {
+            height: 25px;
+            top:-8px;
+
+            img{
+              height: 20px;
+            }
+          }
+        }
+      }
+        .ant-timeline-item{
+          font-size: 21px !important;
+
+          img{
+            height: 20px;
+          }
+          .ant-input {
+            font-size: 21px;
+            width: 300px;
+            padding: 8px 0px;
+            height: 38px;
+          }
+        }
+        .ant-timeline-item-content {
+          top: -9px;
+        }
+        .btn-transparent-green, .btn-transparent-green:hover, .btn-transparent-green:focus {
+          font-size: 21px !important;
+        }
+        .btn-transparent-green .anticon, .btn-transparent-green:hover .anticon, .btn-transparent-green:focus .anticon {
+          font-size: 21px;
+        }
+        .cost-project, .sub-project {
+          font-size: 21px !important;
+        }
+        .overcost-capital{
+          margin-bottom: 25px;
+        }
+        .sub-project{
+          .ant-input {
+            font-size: 21px !important;
+          }
+          p{
+            font-size: 21px;
+          }
+          .ant-select-selection {
+            font-size: 21px;
+            width: 80px;
+          }
+          .ant-timeline-item{
+            padding-bottom: 10px !important;
+          }
+          .ant-timeline-item{
+            label{
+              padding-left: 40px;
+            }
+          }
+        }
+        .btn-green {
+          width: 200px;
+          font-size: 21px;
+          height: 54px;
+        }
+        .ant-upload{
+          button {
+           height: 140px;
+           box-shadow: none;
+           border: 2px dashed $opacity04;
+
+           img{
+             height: 32px;
+           }
+         }
+         p{
+           font-size: 24px;
+         }
+       }
+       .title-galery{
+         font-size: 21px;
+         margin-bottom: 8px;
+       }
+       .card-image{
+         img{
+           height: 50px;
+         }
+         p{
+           font-size: 21px;
+         }
+         label{
+           font-size: 16px;
+         }
+         .btn-transparent{
+           height: 50px;
+
+           img{
+             height: 26px;
+           }
+         }
+         .ant-checkbox-inner {
+           width: 28px;
+           height: 28px;
+         }
+         .ant-checkbox-inner::after {
+            top: 50%;
+            left: 27%;
+            width: 8.714286px;
+            height: 13.142857px;
+          }
+       }
+       .switch-option{
+         font-size: 18px;
+         line-height: 38px;
+       }
+       // STUDY
+       .streams{
+         font-size: 21px;
+       }
+
+       // ACQUISITION AND SPECIAL
+       .ant-table-thead > tr > th {
+         font-size: 21px;
+         padding: 6px 16px;
+       }
+       .ant-table-bordered .ant-table-tbody > tr > td{
+         font-size: 21px;
+         padding: 16px 16px;
+       }
+       .btn-location,.btn-location:hover{
+         height: 54px;
+         width: 205px;
+         font-size: 21px;
+         margin-top: 52px;
+       }
+    }
+    .footer-project{
+      button{
+        height: 78px;
+        font-size: 24px;
+        padding: 0px 50px;
+      }
+    }
+  }
+  .ant-select-dropdown-menu-item{
+    font-size: 18px !important;
+  }
+  .sponsor-select{
+    .ant-select-selection {
+      padding: 23px 15px !important;
+    }
+    .ant-select-selection--multiple .ant-select-selection__choice__content {
+      font-size: 20px;
+    }
+  }
+}
+
+
+.project-name:focus{
+  border-bottom: 1.6px solid $green !important;
+  border-radius: 0px;
+}
+
+.ant-select-arrow {
+  align-items: right;
 }

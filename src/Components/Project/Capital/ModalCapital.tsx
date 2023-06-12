@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Input, Row, Col, Popover, Select, Collapse, Timeline , Tooltip, Checkbox } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
+import { InfoCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
@@ -50,8 +50,8 @@ const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
 
   return (
   <Row className="tab-head-project" onClick={()=>{setKeyOpenClose(-1)}}>
-    <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>No Problem Group Available</Col>
-    <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col>
+    <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>No Problem Group Available</Col>
+    {/* <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col> */}
     <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
   <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{ whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
   </Row>
@@ -64,8 +64,8 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
   }
   return (
     <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
-      <Col xs={{ span: 24 }} lg={{ span: 10 }} xxl={{ span: 10 }}>{problem.problemname}</Col>
-      <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col>
+      <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>{problem.problemname}</Col>
+      {/* <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col> */}
       <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus ? problem.solutionstatus + '%' : ''}</Col>
       <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
@@ -820,13 +820,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
               <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><b>{formatter.format( getSubTotalCost())}</b></Col>
             </Row>
             <hr/>
-            <Row className="sub-project">
+            <Row className="sub-project overcost-capital">
               <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}>
-                <p>Overhead Cost <Popover content={contentOverheadCost}><img src="/Icons/icon-19.svg" alt="" height="10px" style={{marginBottom: '2px'}} /></Popover></p>
+                <p style={{fontWeight:'600'}}>Overhead Cost &nbsp;&nbsp;<Popover content={contentOverheadCost}><InfoCircleOutlined style={{color:'#c5c2d5'}} /></Popover></p>
               </Col>
               <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }}>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(getOverheadCost())}</Col>
+              <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}><p style={{fontWeight:'600'}}>{formatter.format(getOverheadCost())}</p></Col>
             </Row>
 
             <Timeline className="sub-project" style={{marginTop:'10px'}}>
