@@ -1097,34 +1097,35 @@ export const addPopupsOnClick = async (
                   objectid: feature.properties.objectid?feature.properties.objectid:'-',
                   table: feature.source ? feature.source : '-',
                   problem: problemname,
+                  status: feature.properties.status ? feature.properties.status : '-',
                   ...volume
                 }
               } else {
-                  item= {
-                    layer: MENU_OPTIONS.COMPONENTS,
-                    type: feature.properties.type ? feature.properties.type : '-',
-                    subtype: feature.properties.subtype ? feature.properties.subtype : '-',
-                    status: feature.properties.status ? feature.properties.status : '-',
-                    estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                    studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
-                    studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
-                    jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
-                    original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
-                    table: feature.source ? feature.source : '-',
-                    cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
-                    problem: problemname,
-                    problemid: problemid,
-                    objectid: feature.properties.objectid?feature.properties.objectid:'-',
-                    streamname: feature.properties.drainageway,
-                    ...volume,
-                  };
-                  if (mapType === MAPTYPES.WORKREQUEST || mapType === MAPTYPES.CREATEPROJECTMAP) {
-                    item = {
-                      ...item,
-                      added: status
-                    };
-                  }
-              }                        
+                item= {
+                  layer: MENU_OPTIONS.COMPONENTS,
+                  type: feature.properties.type ? feature.properties.type : '-',
+                  subtype: feature.properties.subtype ? feature.properties.subtype : '-',
+                  status: feature.properties.status ? feature.properties.status : '-',
+                  estimatedcost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                  studyname: feature.properties.mdp_osp_study_name ? feature.properties.mdp_osp_study_name : '-',
+                  studyyear: feature.properties.year_of_study ? feature.properties.year_of_study: '-',
+                  jurisdiction: feature.properties.jurisdiction ? feature.properties.jurisdiction : '-',
+                  original_cost: feature.properties.original_cost ? feature.properties.original_cost : '-',
+                  table: feature.source ? feature.source : '-',
+                  cartodb_id: feature.properties.cartodb_id? feature.properties.cartodb_id: '-',
+                  problem: problemname,
+                  problemid: problemid,
+                  objectid: feature.properties.objectid?feature.properties.objectid:'-',
+                  streamname: feature.properties.drainageway,
+                  ...volume,
+                };
+              }     
+              if (mapType === MAPTYPES.WORKREQUEST || mapType === MAPTYPES.CREATEPROJECTMAP) {
+                item = {
+                  ...item,
+                  added: status
+                };
+              }                   
               const name = feature.source.split('_').map((word: string) => word[0].toUpperCase() + word.slice(1)).join(' ');
               menuOptions.push(name);
               mobile.push({
