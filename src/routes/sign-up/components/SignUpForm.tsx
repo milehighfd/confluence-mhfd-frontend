@@ -63,7 +63,7 @@ const SignUpForm = () => {
       }
       setTitle(title);
       values.zoomarea = values.designation === GOVERNMENT_STAFF ? values.organization : MILE_HIGH_FLOOD_DISTRICT;
-      datasets.postData(SERVER.SIGN_UP, values).then(res => {
+      datasets.postData(SERVER.SIGN_UP, {...values, tokenId: id}).then(res => {
         if (res?.token) {
           const auxMessage = { ...message };
           auxMessage.message = 'Successful Registration';
