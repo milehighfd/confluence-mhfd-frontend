@@ -266,6 +266,15 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
         lastModified: originalFile.lastModified,
     });
 }
+const mimeToExtension = (mimeType:any) => {
+  const mimeMap:any = {
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+    'application/vnd.ms-excel': 'xls',
+    'application/msword': 'doc'
+  };
+  return mimeMap[mimeType] || null;
+}
   const addFile = (file: any, description: any, type: string) => {
     const newFile = renameFile(file, description ? description : file.name);
     if (type === 'images') {
@@ -289,7 +298,7 @@ export const UploadImagesDocuments = ({isCapital, setFiles }: {
           ...file,
           description: description,
           file_name: newFile.name,
-          type: file.type.substring(lastI+1, file.type.length).toUpperCase(),
+          type: (file.type.includes('msword')|| file.type.includes('vnd') ? mimeToExtension(file.type).toUpperCase() :file.type.substring(lastI+1, file.type.length).toUpperCase()),
           size: formatBytes(file.size, 1),
           key: file.name + file.lastModified,
           date: formatDate(file.lastModified),
