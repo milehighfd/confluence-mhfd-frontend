@@ -144,11 +144,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const { groupOrganization } = useProfileState();
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
-    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
-      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
-        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+    if (!swSave) {
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {        
+        if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {     
+          setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+        }
       }
-    }    
+    }       
   }, [userInformation]);
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {
