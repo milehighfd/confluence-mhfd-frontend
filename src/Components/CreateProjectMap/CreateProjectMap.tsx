@@ -434,7 +434,8 @@ const CreateProjectMap = (type: any) => {
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
-      if(userPolygon){
+      console.log('userPolygon', userPolygon)
+      if(userPolygon.length !==0 || Object.keys(userPolygon).length !== 0){
         let bboxBounds = turf.bbox(userPolygon);
         map.isStyleLoaded(() => {
           map.map.fitBounds(bboxBounds, { padding: 80 });
