@@ -141,7 +141,7 @@ export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   }
 }
 
-export const MaintenanceTypes = ['Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'General Maintenance', 'Restoration'];
+export const MaintenanceTypes = ['Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
 
 export const getColumnTitle =  (position: number, tabKey: string, year: string | number) => {
   return position === 0 ? 'Workspace' : (tabKey === 'Maintenance' ? MaintenanceTypes[position - 1] : Number(year) + position - 1);
@@ -152,7 +152,7 @@ export const generateColumns = (boardProjects: boardProject[], year: number, tab
     let title = dc.title;
     if (index > 0) {
       if (tabKey === 'Maintenance') {
-        title = MaintenanceTypes[index - 1];
+        title = MaintenanceTypes[index - 1] ;
       } else {
         title = +year + index - 1;
       }

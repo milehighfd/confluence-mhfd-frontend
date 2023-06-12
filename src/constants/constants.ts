@@ -1219,7 +1219,7 @@ export const NEW_PROJECT_TYPES = {
     Debris_Management: "Routine Trash and Debris",
     Vegetation_Management: "Vegetation Management",
     Sediment_Removal: "Sediment Removal",
-    Minor_Repairs: "General Maintenance",
+    Minor_Repairs: "Minor Repairs",
     Restoration: "Restoration"
   }
 }
