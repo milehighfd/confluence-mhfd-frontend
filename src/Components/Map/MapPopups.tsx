@@ -121,7 +121,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
         <div className="bodymap">
           <h4>{item.name}</h4>
           {
-              (item.jurisdiction.length + item.streamname.length > 39) ? 
+              (item?.jurisdiction?.length + item?.streamname?.length > 39) ? 
               (<><h6>{item.jurisdiction} </h6><h6>{item.streamname}</h6></>) :
               (<h6>{item.jurisdiction} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
           }
