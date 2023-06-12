@@ -1578,9 +1578,9 @@ useEffect(() => {
         cartodb_id: item.cartodb_id?item.cartodb_id:'',
         jurisdiction: item.jurisdiction?item.jurisdiction:'',
         original_cost: item.original_cost?item.original_cost:'',
-        problemid: null,
+        problem_id: null,
         status: item.status?item.status:'',
-        table: item.table?item.table:'',
+        source_table_name: item.table?item.table:'',
         type: item.type?item.type:''
       }];
     } else {

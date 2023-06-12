@@ -1474,9 +1474,9 @@ const CreateProjectMap = (type: any) => {
         original_cost: item.original_cost ? item.original_cost : '',
         problemid: null,
         status: item.status ? item.status : '',
-        table: item.table ? item.table : '',
+        source_table_name: item.table ? item.table : '',
         type: item.type ? item.type : '',
-        objectid: item.objectid ? item.objectid : ''
+        object_id: item.objectid ? item.objectid : ''
       }];
     } else {
       newComponents = componentsList.filter((comp: any) => (!(comp.cartodb_id == item.cartodb_id && comp.table == item.table)));
