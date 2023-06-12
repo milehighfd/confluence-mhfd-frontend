@@ -984,7 +984,7 @@ export const ROUTER_TITLE = {
   USER: 'Confluence   |   User Management',
   PROJECT_MAINTENANCE_DEBRIS: 'Confluence   |   Create Project - Maintenance - Debris Management',
   PROJECT_MAINTENANCE_VEGETATION: 'Confluence   |   Create Project - Maintenance - Vegetation Management',
-  PROJECT_MAINTENANCE_MINOR_REPAIR: 'Confluence   |   Create Project - Maintenance - Minor Repairs',
+  PROJECT_MAINTENANCE_MINOR_REPAIR: 'Confluence   |   Create Project - Maintenance - Minor Repair',
   PROJECT_MAINTENANCE_SEDIMENT: 'Confluence   |   Create Project - Maintenance - Sediment',
   PROJECT_MAINTENANCE_RESTORATION: 'Confluence   |   Create Project - Maintenance - Restoration',
   PROJECT_STUDY_FHAD: 'Confluence   |   Create Project Study FHAD',
@@ -1219,7 +1219,7 @@ export const NEW_PROJECT_TYPES = {
     Debris_Management: "Routine Trash and Debris",
     Vegetation_Management: "Vegetation Management",
     Sediment_Removal: "Sediment Removal",
-    Minor_Repairs: "Minor Repairs",
+    Minor_Repairs: "Minor Repair",
     Restoration: "Restoration"
   }
 }
