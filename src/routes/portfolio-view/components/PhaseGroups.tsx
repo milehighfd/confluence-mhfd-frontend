@@ -33,7 +33,7 @@ const PhaseGroups = ({
   headerRef: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase, openGroups } = usePortflioState();
+  const { currentGroup, collapsePhase, openGroups, updateGroup } = usePortflioState();
   const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
@@ -51,7 +51,7 @@ const PhaseGroups = ({
     datasets.postData(SERVER.GET_COUNT_PMTOOLS_PAGE(currentGroup, dataId) + `?code_project_type_id=${tabKey}`, sendfilter).then((res: any) => {
       setCounter(res.count)
     })
-  }, [tabKey, filterProjectOptions])
+  }, [tabKey, filterProjectOptions,updateGroup])
   
   const getActiveKeys = () => {
     const indices = openGroups.reduce(

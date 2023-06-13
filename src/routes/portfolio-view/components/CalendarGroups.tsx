@@ -28,7 +28,7 @@ const CalendarGroups = ({
   setEditData: any,
   dataId: any,
 }) => {
-  const { currentGroup, collapsePhase, openGroups } = usePortflioState();
+  const { currentGroup, collapsePhase, openGroups, updateGroup } = usePortflioState();
   const { setCollapsePhase, setOpenGroups } = usePortfolioDispatch();
   const {
     filterProjectOptions,
@@ -56,7 +56,7 @@ const CalendarGroups = ({
     return () => {
       controller.abort();
     };
-  },[tabKey,filterProjectOptions])
+  },[tabKey,filterProjectOptions,updateGroup])
 
   const getActiveKeys = () => {
     const indices = openGroups.reduce(
