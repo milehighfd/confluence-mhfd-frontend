@@ -651,7 +651,9 @@ const CreateProjectMap = (type: any) => {
     } else {
       if (JSON.stringify(selectedLayersCP) !== compareSL) {
         if (map) {
-          setLoading(true);
+          // Commented to avoid loader when hovering problems in capital modal
+          // setLoading(true);
+
           if (selectedLayersCP.length === 0) {
           } else {
             map.isStyleLoaded(() => {
