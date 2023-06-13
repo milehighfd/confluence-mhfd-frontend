@@ -23,30 +23,11 @@ const VersionNumber = ({visible, setVisible}: {visible: boolean, setVisible: Rea
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c', overflowY: 'scroll', height: '400px'}} className='scroll-version'>
-          <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.3 - May 16, 2023 (for testing purposes only)</p>
-            <ul>
-                <li>The following views are availalable for Review: Main Map (except sorting), PM Tools (incl. groupings, filters, favorites and sorting)</li>
-                <li>Enhancements include: in-app notifications; teams and project numbers (in the project detail page); more precise search qualifiers (in Main Map and PM Tools); general memory optimization; and user database reconciliation; and design clean-up in preparation for the "Work Plan Debrief"</li>
-                <li>The next release will include the work request, work plan, and the already-complete create project workflows; and the financial section</li>
-            </ul>
-            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>V2.2 - May 1, 2023</p>
-            <ul>
-                <li>The following views are open for Review: My Confluence, Main Map (except for Action Filters), PM tools (except for Filters and List View Sort)</li>
-                <li>New features and functionality include: redesigned guide overlay for each view, progress bar for each group within the PM Tools, expanded 'Vendor' table within the Detail Page, new icon for the Stream Improvement layer, and new terminology for Proposed Actions, Problem Groups, and Problems </li>
-            </ul>
-            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>V2.1 - March 31, 2023</p>
-            <ul>
-                <li>The following views are open for review: Main Map, My Confluence, Problem Detail Page, Project Detail Page, User Settings, Work Request, Work Plan, Create Project (x5), List View (PM Tools), Phase View, Schedule View</li>
-                <li>Functionality under development include: Map Notes, Project map style, and the Schedule View (Editing dates), Detail Page Exports, the Attachments, and Notifications</li>
-            </ul>
-            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.0 - March 17, 2023</p>
+            <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v2.0 - June 14, 2023</p>
             <ul>
                 <li>First beta release with the following views sourced from the new Confluence Data Hub: Sign-Up, Main Map, My Confluence, User Settings, Project Detail Page, Problem Detail Page, Create Project (Capital, Maintenance, Studies, Acquisition, R&D), Work Request, Work Plan and List View (PM Tools)</li>
                 <li>Browser Review based on Chrome, Firefox, Edge, and Safari</li>
                 <li>Screen Resolution Review based on 1920x1080, 1440x700, 1440x900, 2560x1080, 2560x1440, 3840x2160</li>
-                <li>The following views remain under development: the Phase View and the Calendar View</li>
-                <li>The following features remain under development: Share URL, Export Detail Pages, the Financial Section (Detail Pages), Attachments, and Notifications</li>
-                <li>Notable issues to be addressed include project routing between the Work Request and Work Plan; project status update when approving the Work Request and Work Plan; password reset; year completed filter for projects; group by stream in the List View</li>
             </ul>
             <p style={{color: '#11093c', fontWeight: '500', paddingBottom: '10px'}}>v1.5 - January 12, 2023</p>
             <ul>
