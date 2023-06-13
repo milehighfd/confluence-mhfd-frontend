@@ -54,7 +54,7 @@ const AmountModal = ({ project, visible, setVisible }: {
     setVisible(false);
   };
 
-  const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear);
+  const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear, board_project_id, visible);
 
   useEffect(() => {
     if (!visible) return;

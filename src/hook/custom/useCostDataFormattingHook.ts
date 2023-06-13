@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { MaintenanceTypes } from 'Components/Work/Request/RequestViewUtil';
 
-const useCostDataFormattingHook = (tabKey: any, projectsubtype: any, startYear: any) => {
+const useCostDataFormattingHook = (tabKey: any, projectsubtype: any, startYear: any, board_project_id: any, visible:any) => {
   const costFormatList = useMemo(() => {
     const isMaintenance = tabKey === 'Maintenance';
     let showFirst = true;
@@ -39,7 +39,7 @@ const useCostDataFormattingHook = (tabKey: any, projectsubtype: any, startYear: 
     }
 
     return costFormat;
-  }, [projectsubtype, startYear, tabKey]);
+  }, [projectsubtype, startYear, tabKey, board_project_id, visible]);
 
   return costFormatList;
 }
