@@ -56,6 +56,13 @@ const AmountModal = ({ project, visible, setVisible }: {
 
   const costDataList = useCostDataFormattingHook(tabKey, projectsubtype, startYear, board_project_id, visible);
 
+  const getSumOfcosts = () => {
+    let totalSum = 0;
+    for(let key in cost) {
+      totalSum += cost[key];
+    }
+    return totalSum;
+  }
   useEffect(() => {
     if (!visible) return;
     datasets.getData(SERVER.BOARD_PROJECT_COST(board_project_id))
@@ -99,7 +106,7 @@ const AmountModal = ({ project, visible, setVisible }: {
             fontWeight: 'bold'
           }}
         >
-          Estimated Project Cost: {formatter.format(projectData?.estimatedcost)}
+          Estimated Project Cost: {formatter.format(getSumOfcosts())}
         </div>
       }
       {
