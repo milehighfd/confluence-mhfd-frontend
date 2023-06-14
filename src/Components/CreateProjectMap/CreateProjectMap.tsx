@@ -37,7 +37,7 @@ import {
   STREAMS_POINT,
   PROJECTS_DRAFT,
   XSTREAMS,
-  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, MAPTYPES
+  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, MAPTYPES, MAINTENANCE_TRAILS
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -102,7 +102,7 @@ const CreateProjectMap = (type: any) => {
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
-    CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
+    CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MAINTENANCE_TRAILS,
     FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
     PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, COMPONENT_LAYERS.tiles, MHFD_STREAMS_FILTERS, STREAMS_FILTERS];
   const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
@@ -115,6 +115,7 @@ const CreateProjectMap = (type: any) => {
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
+  const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -246,9 +247,17 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (map) {
       if (highlightedComponent.table && !magicAddingVariable) {
-        showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
-      } else {
+        setFlagtoDraw(false)
         hideHighlighted();
+        if(highlightedComponent.table.includes('stream_improvement_measure_copy')){
+          showHighlighted(highlightedComponent.table, (highlightedComponent.objectid));
+        }else{
+          showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
+        }
+      } 
+      else {
+        // hideHighlighted();
+        setFlagtoDraw(true)
       }
     }
   }, [highlightedComponent]);
@@ -387,8 +396,12 @@ const CreateProjectMap = (type: any) => {
     console.log('List Components', listComponents);
     if (listComponents && listComponents.result && listComponents.result.length > 0) {
       let componentsHovers: any = {};
-      for (let i of listComponents.result) {
-        componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.cartodb_id] : [i.cartodb_id];
+      for (let i of listComponents.result) { 
+        if(i.table.includes('stream_improvement_measure')){
+          componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.objectid] : [i.objectid];
+        }else{
+          componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.cartodb_id] : [i.cartodb_id];
+        }
       }
       setComponentsHover(componentsHovers);
       setTimeout(() => {
@@ -404,6 +417,12 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [listComponents]);
+
+  useEffect(() => {
+    if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+      showHoverComponents();
+    }
+  }, [componentsHover, flagtoDraw]);
 
   useEffect(() => {
     if (data.problemid || data.cartoid) {
@@ -434,13 +453,6 @@ const CreateProjectMap = (type: any) => {
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
-      console.log('userPolygon', userPolygon)
-      if(userPolygon.length !==0 || Object.keys(userPolygon).length !== 0){
-        let bboxBounds = turf.bbox(userPolygon);
-        map.isStyleLoaded(() => {
-          map.map.fitBounds(bboxBounds, { padding: 80 });
-        });
-      }
     }
   };
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
@@ -471,7 +483,14 @@ const CreateProjectMap = (type: any) => {
       currentDraw = isDraw ? 'polygon' : (isDrawCapital ? 'capitalpolygon' : 'polygon');
       if (isDrawCapital) {
         showHoverComponents();
-      } else {
+        if(userPolygon.length !==0 || Object.keys(userPolygon).length !== 0){
+          let bboxBounds = turf.bbox(userPolygon);
+          map.isStyleLoaded(() => {
+            map.map.fitBounds(bboxBounds, { padding: 80 });
+          });
+        }
+      } 
+      else {
         hideHighlighted();
       }
       if (isAlreadyDraw) {
@@ -790,6 +809,7 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('pipe_appurtenances');
         map.map.moveLayer('grade_control_structure');
+        map.map.moveLayer('maintenance_trails');
         map.map.moveLayer('stream_improvement_measure_copy');
         map.map.moveLayer('removal_line');
         map.map.moveLayer('removal_area');
@@ -1068,6 +1088,9 @@ const CreateProjectMap = (type: any) => {
 
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
+    if(key == 'stream_improvement_measure') {
+      key += '_copy'; 
+    }
     if (styles[key] && !key.includes('milehighfd.')) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (key.includes(PROJECTS_DRAFT)) {
@@ -1160,7 +1183,14 @@ const CreateProjectMap = (type: any) => {
               return;
             }
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon' && !magicAddingVariable) {
-              showHighlighted(key, e.features[0].properties.cartodb_id);
+              setFlagtoDraw(false)
+              if(key.includes('stream_improvement_measure_copy')){
+                hideHighlighted()
+                showHighlighted(key, e.features[0].properties.objectid);
+              }else{
+                hideHighlighted()
+                showHighlighted(key, e.features[0].properties.cartodb_id);
+              }
             }
             if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
               map.map.getCanvas().style.cursor = 'pointer';
@@ -1175,6 +1205,7 @@ const CreateProjectMap = (type: any) => {
             }
             map.map.getCanvas().style.cursor = '';
             setSelectedOnMap(-1, '');
+            setFlagtoDraw(true)
           });
         }
       });
@@ -1236,7 +1267,11 @@ const CreateProjectMap = (type: any) => {
     }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
-        map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+        if(key.includes('stream_improvement_measure_copy')){
+          map.setFilter(key + '_highlight_' + index, ['in', 'objectid', cartodb_id])
+        }else{
+          map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+        }
       }
     });
   };
@@ -1247,7 +1282,12 @@ const CreateProjectMap = (type: any) => {
     }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
-        let filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
+        let filter;
+        if(key.includes('stream_improvement_measure_copy')){
+          filter = ['in', ['get', 'objectid'], ['literal', [...cartodb_ids]]];
+        }else{
+          filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
+        }
         map.setFilter(key + '_highlight_' + index, filter);
       }
     });
