@@ -75,7 +75,8 @@ const CreateProjectMap = (type: any) => {
     componentDetailIds,
     filterComponents,
     galleryProjects,
-    detailed
+    detailed,
+    projectsids
   } = useMapState();
 
   const {
@@ -116,6 +117,7 @@ const CreateProjectMap = (type: any) => {
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
+  const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -836,6 +838,30 @@ const CreateProjectMap = (type: any) => {
       setProblemClusterGeojson(geoj.geom);
     });
   }
+
+  const getIdByProjectType = (() => {
+    const capitalProjects = projectsids.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
+    const maintenanceProjects = projectsids.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
+    const studyProjects = projectsids.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
+    const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
+    const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
+    const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
+  
+    const groupedProjectsByType ={
+      5: capitalProjects,
+      7: maintenanceProjects,
+      1: studyProjects,
+      4: studyProjectsFHAD,
+      13: acquisitionProjects,
+      6: developementImprProjects
+    };
+    setGroupedProjectIdsType(groupedProjectsByType)
+  })
+  
+  useEffect(() => {
+    getIdByProjectType()
+  }, [projectsids]);
+  
   const applyMapLayers = useCallback( async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
@@ -918,6 +944,7 @@ const CreateProjectMap = (type: any) => {
         return;
       }
       const allFilters: any[] = ['all'];
+      if (key !== MHFD_PROJECTS){
       for (const filterField in toFilter) {
         const filters = toFilter[filterField];
         if(filterField === 'status' && type.type === 'CAPITAL') {
@@ -1020,6 +1047,22 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
+            
+    }else{
+      const currentLayer = map.getLayer(key + '_' + index)
+      let projecttypes = currentLayer.metadata.projecttype;
+      let combinedProjects:any=[];
+      for (let type in groupedProjectIdsType){
+        if(projecttypes.includes(+type)){
+          combinedProjects.push(...groupedProjectIdsType[type]);
+          }
+      }
+      if(combinedProjects.length === 0){
+        allFilters.push(['in', ['get','projectid'], ['literal', [-1]]]);
+      }else{
+        allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
+      }
+    }
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
@@ -1032,7 +1075,7 @@ const CreateProjectMap = (type: any) => {
         map.setFilter(key + '_' + index, allFilters);
       }
     });
-  }, [problemClusterGeojson]);
+  }, [problemClusterGeojson, groupedProjectIdsType]);
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersCP.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
