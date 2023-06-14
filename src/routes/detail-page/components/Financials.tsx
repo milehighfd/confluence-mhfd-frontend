@@ -333,7 +333,7 @@ const Financials = ({ projectId }: { projectId: any }) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial' style={{ display: 'flex' }}>
+        <Col xs={{ span: 24 }} lg={{ span: 24 }} className='group-dropdown-financial' style={{ display: 'flex', alignItems:'center' }}>
           <Dropdown
             overlayClassName="dropdown-view-menu"
             overlay={menu}
@@ -397,9 +397,9 @@ const Financials = ({ projectId }: { projectId: any }) => {
               )}
             </Space>
           </Dropdown>
-          <Button className="btn-clear" onClick={reset}>
-            <DeleteOutlined />
-          </Button>
+          {(partner || phase || !viewDropdown.expense || !viewDropdown.income) &&  <p onClick={reset} style={{color:'red', margin:'0px'}}>
+            Reset
+          </p>}
         </Col>
       </Row>
       <Row>
