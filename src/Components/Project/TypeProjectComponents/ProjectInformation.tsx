@@ -56,7 +56,7 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
                 ) ? STUDY_REASON[2].id : reason} onChange={handleChange}>
                           <Option key={STUDY_REASON[0].id} value={STUDY_REASON[0].id}>{STUDY_REASON[0].name}</Option>
                           <Option key={STUDY_REASON[1].id} value={STUDY_REASON[1].id}>{STUDY_REASON[1].name}</Option>
-                          <Option key={STUDY_REASON[2].id} value={STUDY_REASON[2].id}>{STUDY_REASON[0].name}</Option>
+                          <Option key={STUDY_REASON[2].id} value={STUDY_REASON[2].id}>{STUDY_REASON[2].name}</Option>
                           <Option key={STUDY_REASON[3].id} value={STUDY_REASON[3].id}>{STUDY_REASON[3].name}</Option>
                         </Select>
                       </div>

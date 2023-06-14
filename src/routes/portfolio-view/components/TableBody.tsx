@@ -1,6 +1,6 @@
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import store from 'store';
-import { Col, Row, Table } from 'antd';
+import { Col, Row, Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
@@ -270,10 +270,12 @@ const TableBody = ({
                 }}
                 style={rowActive === d.project_id ? {background:'#fafafa', transition: 'background .3s'}:{transition: 'background .3s'}}
                 >
-                <p onClick={() => {
-                  setDetailOpen(true); 
-                  setDataDetail(d) 
-                }} className="title-project" >{d.rowLabel}</p>
+                <Tooltip placement="top" title={d.rowLabel}>
+                  <p onClick={() => {
+                    setDetailOpen(true); 
+                    setDataDetail(d) 
+                  }} className="title-project" >{d.rowLabel}</p>
+                </Tooltip>
                 {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
               </div>
             ))
