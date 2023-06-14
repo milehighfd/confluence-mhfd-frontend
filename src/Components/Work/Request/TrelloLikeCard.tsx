@@ -53,7 +53,15 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   const pageWidth  = document.documentElement.scrollWidth;
   const deleteProject = () => {
     delProject(project_id)
-    deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
+    // deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
+    //   .then((r) => {
+    //     console.log('r', r)
+    //     loadColumns(namespaceId, year)
+    //   })
+    //   .catch((e) => {
+    //     console.log('e', e)
+    //   })
+    deleteData(`${SERVER.URL_BASE}/projects/${project_id}`, getToken())
       .then((r) => {
         console.log('r', r)
         loadColumns(namespaceId, year)
