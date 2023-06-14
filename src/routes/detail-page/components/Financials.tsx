@@ -3,6 +3,7 @@ import { Button, Checkbox, Col, Dropdown, Menu, Row, Space, Table } from 'antd';
 import { DeleteOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import AddAmountModal from 'Components/Shared/Modals/AddAmountModal';
 import { useFinancialDispatch, useFinancialState } from 'hook/financialHook';
+import moment from 'moment';
 // import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 const Financials = ({ projectId }: { projectId: any }) => {
   const { financialInformation } = useFinancialState();
@@ -41,9 +42,22 @@ const Financials = ({ projectId }: { projectId: any }) => {
     expense[0] = 0; expense[1] = 0; expense[2] = 0;
     setIncome([0, 0, 0]);
     setExpense([0, 0, 0]);
-    financialInformation.sort((e1: any, e2: any) =>
-      e1.sortValue > e2.sortValue ? 1 : e1.sortValue < e2.sortValue ? -1 : 0,
-    );
+
+    //sort of financial data
+    financialInformation.sort((e1: any, e2: any) => {
+      let res = 0;
+      res = moment(e1.effective_date, "MM-DD-YYYY") < moment(e2.effective_date, "MM-DD-YYYY") ? 1 : moment(e1.effective_date, "MM-DD-YYYY") > moment(e2.effective_date, "MM-DD-YYYY") ? -1 : 0
+      if (res === 0) {
+        if (e1.project_partner_name === 'MHFD') {
+          return -1
+        } else {
+          return 1
+        }
+      } else {
+        return res
+      }
+    });
+
     const mappingDataForDataSource = financialInformation.map((element: any, index: number) => {
       const key = `${index}`;
       const agreement = [element?.agreement_number || '', ''];
@@ -156,58 +170,58 @@ const Financials = ({ projectId }: { projectId: any }) => {
 
   const columns = [
     {
-      title:  <p>Agreement</p>,
+      title: <p>Agreement</p>,
       dataIndex: 'agreement',
       key: 'agreement',
-      width:'10%',
+      width: '10%',
       render: (agreement: any, index: any) => <p className={'table-' + agreement[1]}>{agreement[0]}</p>,
     },
     {
-      title:  <p>Amendment</p>,
+      title: <p>Amendment</p>,
       dataIndex: 'amendment',
       key: 'amendment',
-      width:'15%',
+      width: '15%',
     },
     {
-      title:  <p>Partner</p>,
+      title: <p>Partner</p>,
       dataIndex: 'partner',
       key: 'partner',
-      width:'10%',
+      width: '10%',
     },
     {
       title: <p>Phase</p>,
       dataIndex: 'phase',
       key: 'phase',
-      width:'10%',
+      width: '10%',
       render: (phase: any) => <span className={phase !== '' ? 'span-Phase' : 'span'}>{phase}</span>,
     },
     {
-      title: <p style={{textAlign:'center'}}>Projected</p>,
+      title: <p style={{ textAlign: 'center' }}>Projected</p>,
       dataIndex: 'projected',
       key: 'projected',
-      width:'14%',
+      width: '14%',
       render: (projected: string[]) => <p className={'table-' + projected[1]}>{projected[0]}</p>,
     },
     {
-      title:<p style={{textAlign:'center'}}>Encumbered</p>,
+      title: <p style={{ textAlign: 'center' }}>Encumbered</p>,
       dataIndex: 'encumbered',
       key: 'encumbered',
-      width:'14%',
+      width: '14%',
       render: (encumbered: string[]) => <p className={'table-' + encumbered[1]}>{encumbered[0]}</p>,
     },
     {
-      title: <p style={{textAlign:'center'}}>Tyler Encumbered</p>,
+      title: <p style={{ textAlign: 'center' }}>Tyler Encumbered</p>,
       dataIndex: 'tyler',
       key: 'tyler',
-      width:'14%',
+      width: '14%',
       render: (tyler: string[]) => <p className={'table-' + tyler[1]}>{tyler[0]}</p>,
     },
     {
-      title: <p style={{textAlign:'center'}}>Date</p>,
+      title: <p style={{ textAlign: 'center' }}>Date</p>,
       dataIndex: 'date',
       key: 'date',
-      width:'13%',
-      render: (date: string) => <p style={{textAlign:'center'}}>{date}</p>,
+      width: '13%',
+      render: (date: string) => <p style={{ textAlign: 'center' }}>{date}</p>,
     },
   ];
   const reset = () => {
