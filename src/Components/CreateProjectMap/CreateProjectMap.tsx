@@ -237,6 +237,7 @@ const CreateProjectMap = (type: any) => {
           let poly = turf.multiPolygon(cg.coordinates);
           let bboxBounds = turf.bbox(poly);
           if (map.map) {
+            setFlagtoDraw(true)
             map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
           }
         } else {
@@ -350,7 +351,7 @@ const CreateProjectMap = (type: any) => {
         poly = turf.polygon(zoomareaSelected[0].coordinates?.coordinates, { name: 'zoomarea' });
       }
       let bboxBounds = turf.bbox(poly);
-      if (map.map) {
+      if (map.map && zoomGeom!==undefined) {
         map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
       }
     }
