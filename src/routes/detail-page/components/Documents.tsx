@@ -4,6 +4,7 @@ import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator
 import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, FileOutlined, PlusOutlined } from "@ant-design/icons";
 import { useAttachmentState } from "hook/attachmentHook";
+import { saveAs } from 'file-saver';
 
 
 const Documents = () => {
@@ -17,11 +18,17 @@ const Documents = () => {
         return {
           key: file.project_attachment_id,         
           name: file.file_name,
+          url: file.attachment_url
         }
       });
       setDocs(docs)
     }   
   },[attachments])
+
+  function downloadAttachment(attachment: any) {
+    saveAs(attachment.url, attachment.name);
+  }
+
   return (
     <>
       <Row>
@@ -33,7 +40,13 @@ const Documents = () => {
       <Row style={{marginBottom:'40px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal">
           {docs.map((doc: any) => {
-            return <><p style={{color:'#11093C', marginRight:'10px'}}><FileOutlined style={{opacity:'0.35'}}/> {doc.name}</p></>
+            return (
+              <a onClick={() => downloadAttachment(doc)}>
+                <p style={{ color: '#11093C', marginRight: '10px' }}>
+                  <FileOutlined style={{ opacity: '0.35' }} /> {doc.name}
+                </p>
+              </a>
+            )
           })}
         </Col>
       </Row>
