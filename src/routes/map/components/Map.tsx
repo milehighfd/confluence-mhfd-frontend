@@ -623,7 +623,7 @@ const Map = ({
         // PREVIOUS SQUARE OF MHFD 
         // let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
         // LARGER BECAUSE SOME COUNTIES AND SERVICE AREAS ARE BIGGER 
-        let misbounds = -109.10771487514684 + ',' + 36.094858978187546 + ',' + -100.58537218284262 + ',' + 43.470609601267824;
+        let misbounds = -111.10771487514684 + ',' + 34.094858978187546 + ',' + -98.58537218284262 + ',' + 45.470609601267824;
         var arrayBounds = misbounds.split(',');
         let poly = polyMask(mask, arrayBounds);
         setOpacityLayer(true);
