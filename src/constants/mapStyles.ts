@@ -4046,7 +4046,9 @@ export const PROJECTS_STYLES_WR = {
       "layout": {
           "icon-image": "propacq_ORANGE_bold_small",
           "icon-size": 0.5,
-          "visibility": "none"
+          "visibility": "none",
+          'icon-ignore-placement': true,
+          'icon-allow-overlap':true
       },
       "paint": {}
   },
@@ -4069,7 +4071,9 @@ export const PROJECTS_STYLES_WR = {
       "layout": {
           "icon-size": 0.6,
           "icon-image": "RD_ORANGE_bold_small",
-          "visibility": "none"
+          "visibility": "none",
+          'icon-ignore-placement': true,
+          'icon-allow-overlap':true
       },
       "paint": {}
   },
@@ -4607,7 +4611,9 @@ export const PROJECTS_STYLES_WR = {
       // ],
       "layout": {
           "icon-image": "propacq_ORANGE_bold_small",
-          "icon-size": 0.5
+          "icon-size": 0.5,
+          'icon-ignore-placement': true,
+          'icon-allow-overlap':true
       },
       "paint": {}
   },
@@ -4627,7 +4633,11 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
-      "layout": {"icon-size": 0.6, "icon-image": "RD_ORANGE_bold_small"},
+      "layout": {
+        "icon-size": 0.6, "icon-image": "RD_ORANGE_bold_small",
+        'icon-ignore-placement': true,
+        'icon-allow-overlap':true
+      },
       "paint": {}
   },
   {
@@ -4648,7 +4658,9 @@ export const PROJECTS_STYLES_WR = {
       // ],
       "layout": {
           "icon-image": "propacq_PINK_bold_small",
-          "icon-size": 0.5
+          "icon-size": 0.5,
+          'icon-ignore-placement': true,
+          'icon-allow-overlap':true
       },
       "paint": {}
   },
@@ -4668,7 +4680,11 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
-      "layout": {"icon-image": "RD_PINK_bold_small", "icon-size": 0.6},
+      "layout": {
+        "icon-image": "RD_PINK_bold_small", "icon-size": 0.6,
+        'icon-ignore-placement': true,
+        'icon-allow-overlap':true
+      },
       "paint": {}
   },
   {
@@ -4689,7 +4705,9 @@ export const PROJECTS_STYLES_WR = {
       // ],
       "layout": {
           "icon-image": "propacq_GREEN_bold_small",
-          "icon-size": 0.5
+          "icon-size": 0.5,
+          'icon-ignore-placement': true,
+          'icon-allow-overlap':true
       },
       "paint": {}
   },
@@ -4709,7 +4727,11 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
-      "layout": {"icon-size": 0.6, "icon-image": "RD_GREEN_bold_small"},
+      "layout": {
+        "icon-size": 0.6, "icon-image": "RD_GREEN_bold_small",
+        'icon-ignore-placement': true,
+        'icon-allow-overlap':true
+      },
       "paint": {}
   }
     // {
