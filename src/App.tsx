@@ -47,7 +47,8 @@ const App = () => {
         <Route path={`/user-settings`} component={UserManagement} />
         <Route path={`/my-profile-edit-search`} component={MyProfile} />
         <Route path={`/list-view`} component={ListView} />
-        <Route path={`/pm-tools`} component={PortfolioView} />
+        {(appUser.designation === 'admin' ||
+          appUser.designation === 'staff') && (appUser.status === 'approved') && <Route path={`/pm-tools`} component={PortfolioView} />}
         <Route path={`/detail-page`} component={DetailPage} />
         <Route path={`/pre-signup`} component={PreSignUpLayout} />
         <Route exact path="/" render={() => (
