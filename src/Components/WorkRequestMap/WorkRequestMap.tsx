@@ -79,6 +79,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import useMapResize from 'hook/custom/useMapResize';
+import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
 
 let mapid = 'map4';
 let map: any;
@@ -140,6 +141,9 @@ const WorkRequestMap = ({
   const [distanceValue, setDistanceValue] = useState('0');
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
+  const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
+  const [showDefault, setShowDefault ] = useState(false);
+  const [problemid, setProblemIdLocal ] = useState<any>(undefined);    
   const user = store.getState().profile.userInformation;
   const {
     layers,
@@ -149,7 +153,8 @@ const WorkRequestMap = ({
     componentDetailIds,
     filterComponents,
     galleryProjects,
-    projectsids
+    projectsids,
+    autocomplete,
   } = useMapState();
   const { detailed } = useDetailedState();
   const { clear } = useAttachmentDispatch();
@@ -693,13 +698,15 @@ const WorkRequestMap = ({
   }, [map]);
 
   const createProject = (details: any, event: any) => {
-    clear();
+    console.log('create project')
+    //clear();
     popup.remove();
     if (details.problemid) {
       setTimeout(() => {
         getZoomGeomProblem(details.problemid);
       }, 4500);
     }
+    
     if (details.layer === 'Components') {
       let newComponents = [
         {
@@ -716,18 +723,21 @@ const WorkRequestMap = ({
       setComponentsFromMap(newComponents);
       getComponentGeom(details.table, details.objectid);
       setProblemId('-1');
+      setProblemIdLocal('-1');
       setTimeout(() => {
         getZoomGeomComp(details.table, details.objectid);
       }, 4500);
+      setShowDefault(true);
     } else if (details.type === 'problems') {
       getAllComponentsByProblemId(details.problemid);
       setProblemId(details.problemid);
+      setProblemIdLocal(details.problemid);
+      setShowDefault(true);
     } else {
+      setShowDefault(false);
       setComponentsFromMap([]);
     }
-    setTimeout(() => {
-      openModal(true);
-    }, 35);
+    setVisibleCreateProject(true);
   };
   const applyNearMapLayer = () => {
     if (!map.getSource('raster-tiles')) {
@@ -1641,11 +1651,21 @@ useEffect(() => {
   };
   return (
     <>
+      {visibleCreateProject && <ModalProjectView
+        visible={visibleCreateProject}
+        setVisible={setVisibleCreateProject}
+        data={"no data"}
+        showDefaultTab={showDefault}
+        locality={autocomplete}
+        editable={true}
+        problemId={problemid}
+      />
+      }
       <div className="map">
-      {
-            isProblemActive === true ? <div className="legendProblemTypemap">
-              <h5>
-                Problem Type
+        {
+          isProblemActive === true ? <div className="legendProblemTypemap">
+            <h5>
+              Problem Type
                 <Popover
                   content={<div className='popoveer-00'>
                     <p style={{fontWeight:'600'}}>Problem Types</p>

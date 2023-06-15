@@ -8152,7 +8152,7 @@ export const tileStyles = {
               "#000000"
           ]
       }
-    }, , {
+    }, {
       "type": "fill",
       "source-layer": 'pluto15v1',
       "paint": {

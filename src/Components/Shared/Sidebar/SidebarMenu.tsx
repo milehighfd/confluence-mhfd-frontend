@@ -98,6 +98,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   }
   if (!((appUser.designation === 'admin' || appUser.designation === 'staff') && (appUser.status === 'approved'))) {
     removeItemArray('6');
+    removeItemArray('5');
   }
   if (!(appUser?.designation?.toLocaleLowerCase() !== 'guest')) {
     removeItemArray('0');

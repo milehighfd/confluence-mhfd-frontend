@@ -37,7 +37,7 @@ import {
   STREAMS_POINT,
   PROJECTS_DRAFT,
   XSTREAMS,
-  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, MAPTYPES
+  MEP_PROJECTS, AREA_BASED_MASK, BORDER, FLOODPLAINS, FEMA_FLOOD_HAZARD, MAPTYPES, MAINTENANCE_TRAILS
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
@@ -75,7 +75,8 @@ const CreateProjectMap = (type: any) => {
     componentDetailIds,
     filterComponents,
     galleryProjects,
-    detailed
+    detailed,
+    projectsids
   } = useMapState();
 
   const {
@@ -102,7 +103,7 @@ const CreateProjectMap = (type: any) => {
     MEP_PROJECTS_DETENTION_BASINS, MEP_PROJECTS_CHANNELS, MEP_PROJECTS_STORM_OUTFALLS, ROUTINE_NATURAL_AREAS,
     ROUTINE_WEED_CONTROL, ROUTINE_DEBRIS_AREA, ROUTINE_DEBRIS_LINEAR,
     LANDSCAPING_AREA, LAND_ACQUISITION, DETENTION_FACILITIES, STORM_DRAIN, CHANNEL_IMPROVEMENTS_AREA,
-    CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT,
+    CHANNEL_IMPROVEMENTS_LINEAR, SPECIAL_ITEM_AREA, SPECIAL_ITEM_LINEAR, SPECIAL_ITEM_POINT, MAINTENANCE_TRAILS,
     FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
     PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, COMPONENT_LAYERS.tiles, MHFD_STREAMS_FILTERS, STREAMS_FILTERS];
   const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
@@ -115,6 +116,8 @@ const CreateProjectMap = (type: any) => {
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const [zoomEndCounter, setZoomEndCounter] = useState(0);
   const [dragEndCounter, setDragEndCounter] = useState(0);
+  const [flagtoDraw, setFlagtoDraw] = useState(false);
+  const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
   const [data, setData] = useState({
     problemid: '',
     id: '',
@@ -234,6 +237,7 @@ const CreateProjectMap = (type: any) => {
           let poly = turf.multiPolygon(cg.coordinates);
           let bboxBounds = turf.bbox(poly);
           if (map.map) {
+            setFlagtoDraw(true)
             map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
           }
         } else {
@@ -246,9 +250,17 @@ const CreateProjectMap = (type: any) => {
   useEffect(() => {
     if (map) {
       if (highlightedComponent.table && !magicAddingVariable) {
-        showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
-      } else {
+        setFlagtoDraw(false)
         hideHighlighted();
+        if(highlightedComponent.table.includes('stream_improvement_measure_copy')){
+          showHighlighted(highlightedComponent.table, (highlightedComponent.objectid));
+        }else{
+          showHighlighted(highlightedComponent.table, highlightedComponent.cartodb_id);
+        }
+      } 
+      else {
+        // hideHighlighted();
+        setFlagtoDraw(true)
       }
     }
   }, [highlightedComponent]);
@@ -339,7 +351,7 @@ const CreateProjectMap = (type: any) => {
         poly = turf.polygon(zoomareaSelected[0].coordinates?.coordinates, { name: 'zoomarea' });
       }
       let bboxBounds = turf.bbox(poly);
-      if (map.map) {
+      if (map.map && zoomGeom!==undefined) {
         map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
       }
     }
@@ -387,8 +399,12 @@ const CreateProjectMap = (type: any) => {
     console.log('List Components', listComponents);
     if (listComponents && listComponents.result && listComponents.result.length > 0) {
       let componentsHovers: any = {};
-      for (let i of listComponents.result) {
-        componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.cartodb_id] : [i.cartodb_id];
+      for (let i of listComponents.result) { 
+        if(i.table.includes('stream_improvement_measure')){
+          componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.objectid] : [i.objectid];
+        }else{
+          componentsHovers[i.table] = componentsHovers[i.table] ? [...componentsHovers[i.table], i.cartodb_id] : [i.cartodb_id];
+        }
       }
       setComponentsHover(componentsHovers);
       setTimeout(() => {
@@ -404,6 +420,12 @@ const CreateProjectMap = (type: any) => {
       }
     }
   }, [listComponents]);
+
+  useEffect(() => {
+    if (flagtoDraw && listComponents && listComponents.result && listComponents.result.length > 0) {
+      showHoverComponents();
+    }
+  }, [componentsHover, flagtoDraw]);
 
   useEffect(() => {
     if (data.problemid || data.cartoid) {
@@ -434,13 +456,6 @@ const CreateProjectMap = (type: any) => {
       Object.keys(componentsHover).forEach((key: any) => {
         showHighlightedArray(key, componentsHover[key]);
       });
-      console.log('userPolygon', userPolygon)
-      if(userPolygon.length !==0 || Object.keys(userPolygon).length !== 0){
-        let bboxBounds = turf.bbox(userPolygon);
-        map.isStyleLoaded(() => {
-          map.map.fitBounds(bboxBounds, { padding: 80 });
-        });
-      }
     }
   };
   const [isAlreadyDraw, setIsAlreadyDraw] = useState(false);
@@ -471,7 +486,14 @@ const CreateProjectMap = (type: any) => {
       currentDraw = isDraw ? 'polygon' : (isDrawCapital ? 'capitalpolygon' : 'polygon');
       if (isDrawCapital) {
         showHoverComponents();
-      } else {
+        if(userPolygon.length !==0 || Object.keys(userPolygon).length !== 0){
+          let bboxBounds = turf.bbox(userPolygon);
+          map.isStyleLoaded(() => {
+            map.map.fitBounds(bboxBounds, { padding: 80 });
+          });
+        }
+      } 
+      else {
         hideHighlighted();
       }
       if (isAlreadyDraw) {
@@ -790,6 +812,7 @@ const CreateProjectMap = (type: any) => {
         map.map.moveLayer('storm_drain');
         map.map.moveLayer('pipe_appurtenances');
         map.map.moveLayer('grade_control_structure');
+        map.map.moveLayer('maintenance_trails');
         map.map.moveLayer('stream_improvement_measure_copy');
         map.map.moveLayer('removal_line');
         map.map.moveLayer('removal_area');
@@ -816,6 +839,30 @@ const CreateProjectMap = (type: any) => {
       setProblemClusterGeojson(geoj.geom);
     });
   }
+
+  const getIdByProjectType = (() => {
+    const capitalProjects = projectsids.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
+    const maintenanceProjects = projectsids.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
+    const studyProjects = projectsids.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
+    const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
+    const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
+    const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
+  
+    const groupedProjectsByType ={
+      5: capitalProjects,
+      7: maintenanceProjects,
+      1: studyProjects,
+      4: studyProjectsFHAD,
+      13: acquisitionProjects,
+      6: developementImprProjects
+    };
+    setGroupedProjectIdsType(groupedProjectsByType)
+  })
+  
+  useEffect(() => {
+    getIdByProjectType()
+  }, [projectsids]);
+  
   const applyMapLayers = useCallback( async () => {
     await SELECT_ALL_FILTERS.forEach((layer) => {
       if (typeof layer === 'object') {
@@ -898,6 +945,7 @@ const CreateProjectMap = (type: any) => {
         return;
       }
       const allFilters: any[] = ['all'];
+      if (key !== MHFD_PROJECTS){
       for (const filterField in toFilter) {
         const filters = toFilter[filterField];
         if(filterField === 'status' && type.type === 'CAPITAL') {
@@ -1000,6 +1048,22 @@ const CreateProjectMap = (type: any) => {
           allFilters.push(options);
         }
       }
+            
+    }else{
+      const currentLayer = map.getLayer(key + '_' + index)
+      let projecttypes = currentLayer.metadata.projecttype;
+      let combinedProjects:any=[];
+      for (let type in groupedProjectIdsType){
+        if(projecttypes.includes(+type)){
+          combinedProjects.push(...groupedProjectIdsType[type]);
+          }
+      }
+      if(combinedProjects.length === 0){
+        allFilters.push(['in', ['get','projectid'], ['literal', [-1]]]);
+      }else{
+        allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
+      }
+    }
       if (componentDetailIds && componentDetailIds[key]) {
         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
       }
@@ -1012,7 +1076,7 @@ const CreateProjectMap = (type: any) => {
         map.setFilter(key + '_' + index, allFilters);
       }
     });
-  }, [problemClusterGeojson]);
+  }, [problemClusterGeojson, groupedProjectIdsType]);
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersCP.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
@@ -1068,6 +1132,9 @@ const CreateProjectMap = (type: any) => {
 
   const addTilesLayers = (key: string) => {
     const styles = { ...tileStyles as any };
+    if(key == 'stream_improvement_measure') {
+      key += '_copy'; 
+    }
     if (styles[key] && !key.includes('milehighfd.')) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
         if (key.includes(PROJECTS_DRAFT)) {
@@ -1160,7 +1227,14 @@ const CreateProjectMap = (type: any) => {
               return;
             }
             if (hovereableLayers.includes(key) && currentDraw != 'capitalpolygon' && !magicAddingVariable) {
-              showHighlighted(key, e.features[0].properties.cartodb_id);
+              setFlagtoDraw(false)
+              if(key.includes('stream_improvement_measure_copy')){
+                hideHighlighted()
+                showHighlighted(key, e.features[0].properties.objectid);
+              }else{
+                hideHighlighted()
+                showHighlighted(key, e.features[0].properties.cartodb_id);
+              }
             }
             if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
               map.map.getCanvas().style.cursor = 'pointer';
@@ -1175,6 +1249,7 @@ const CreateProjectMap = (type: any) => {
             }
             map.map.getCanvas().style.cursor = '';
             setSelectedOnMap(-1, '');
+            setFlagtoDraw(true)
           });
         }
       });
@@ -1236,7 +1311,11 @@ const CreateProjectMap = (type: any) => {
     }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
-        map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+        if(key.includes('stream_improvement_measure_copy')){
+          map.setFilter(key + '_highlight_' + index, ['in', 'objectid', cartodb_id])
+        }else{
+          map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id])
+        }
       }
     });
   };
@@ -1247,7 +1326,12 @@ const CreateProjectMap = (type: any) => {
     }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none' && !magicAddingVariable) {
-        let filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
+        let filter;
+        if(key.includes('stream_improvement_measure_copy')){
+          filter = ['in', ['get', 'objectid'], ['literal', [...cartodb_ids]]];
+        }else{
+          filter = ['in', ['get', 'cartodb_id'], ['literal', [...cartodb_ids]]];
+        }
         map.setFilter(key + '_highlight_' + index, filter);
       }
     });

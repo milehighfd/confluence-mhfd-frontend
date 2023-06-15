@@ -141,7 +141,7 @@ export const getAllowedBasedOnLocality = (locality: string, year?: number) => {
   }
 }
 
-export const MaintenanceTypes = ['Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'Minor Repair', 'Restoration'];
+export const MaintenanceTypes = ['Routine Trash and Debris', 'Vegetation Management', 'Sediment Removal', 'Minor Repairs', 'Restoration'];
 
 export const getColumnTitle =  (position: number, tabKey: string, year: string | number) => {
   return position === 0 ? 'Workspace' : (tabKey === 'Maintenance' ? MaintenanceTypes[position - 1] : Number(year) + position - 1);

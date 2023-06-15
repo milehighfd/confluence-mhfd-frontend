@@ -583,6 +583,10 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     return(n);
   }
   const setValuesComp = (comp: any) => {
+    if(comp.source_table_name === "stream_improvement_measure"){
+      comp.source_table_name = 'stream_improvement_measure_copy'
+      comp.table = 'stream_improvement_measure_copy'
+    }
     setHighlightedComponent(comp);
   }
   const setValueZoomComp = (comp: any) => {
