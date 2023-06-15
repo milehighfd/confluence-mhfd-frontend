@@ -2257,7 +2257,7 @@ const Map = ({
         key: `${item.text}|${item.place_name}`,
         value: `${item.center[0]},${item.center[1]}?${item.text}|${item.place_name}`,
         label: <div className="global-search-item">
-          <h6>{item.text}</h6>
+          <h6 style={{ whiteSpace: 'normal' }}>{item.text}</h6>
           <p>{item.place_name}</p>
         </div>
       };
