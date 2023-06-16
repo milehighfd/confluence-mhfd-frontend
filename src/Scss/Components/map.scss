@@ -1033,9 +1033,6 @@
     margin-top: 5px;
     color: $opacity;
     width: 245px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 
   i {
@@ -1116,9 +1113,12 @@
     left: 250px;
     .headmap{
       width: 281px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      height: auto;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
       overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: break-spaces;
     }
   }
 
