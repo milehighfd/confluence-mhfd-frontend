@@ -1053,7 +1053,7 @@ export const addPopupsOnClick = async (
       for (const component of COMPONENT_LAYERS.tiles) {
           if (feature.source === component)  {
             let isAdded = false;
-            if (mapType === MAPTYPES.WORKREQUEST) {
+            if (mapType === MAPTYPES.WORKREQUEST || mapType === MAPTYPES.CREATEPROJECTMAP) {
                isAdded = componentsList.find((i: any) => i.cartodb_id === feature.properties.cartodb_id);
             }
             
