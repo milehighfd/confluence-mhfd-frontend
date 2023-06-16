@@ -11,6 +11,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   const indexOf = '' + ROUTERS_SIDEBAR.indexOf(location.pathname);
   const showWorkRequestPlan = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff' || appUser.designation === 'government_staff'))
   const userApproved = appUser.status === 'approved';
+  const pmToolsAccess = (appUser?.designation?.toLocaleLowerCase() !== 'guest' && (appUser.designation === 'admin' || appUser.designation === 'staff') && appUser.status === 'approved');
 
   const itemMenuSidebar: MenuProps['items'] = [{
     className: Number(indexOf) === 0 ? 'menu-sidebar-hover':'',
@@ -50,9 +51,9 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   {
     className: Number(indexOf) === 5 ? 'menu-sidebar-hover':'',
     key: '5',
-    label: <Link to={userApproved ? '/pm-tools' : '#'}>
-      <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2'}} />
-      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: userApproved ? '1' : '0.2' }} />
+    label: <Link to={pmToolsAccess ? '/pm-tools' : '#'}>
+      <img className="img-h anticon" src="/Icons/menu-white-11.svg" alt="" width="22px" height="22px" style={{ opacity: pmToolsAccess ? '1' : '0.2'}} />
+      <img className="img-a anticon" src="/Icons/menu-green-11.svg" alt="" width="22px" height="22px" style={{ opacity: pmToolsAccess ? '1' : '0.2' }} />
       <span style={{ marginLeft: collapsed ? '-20px' : '-2px' }}>pm tools</span>
     </Link>
   }, {
@@ -98,7 +99,6 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   }
   if (!((appUser.designation === 'admin' || appUser.designation === 'staff') && (appUser.status === 'approved'))) {
     removeItemArray('6');
-    removeItemArray('5');
   }
   if (!(appUser?.designation?.toLocaleLowerCase() !== 'guest')) {
     removeItemArray('0');
