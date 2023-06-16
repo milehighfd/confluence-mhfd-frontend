@@ -53,8 +53,8 @@ const ImageModal = (
 
   }
   useEffect(() =>{
-    setNumberCarousel(1)
-  },[])
+    setNumberCarousel(1);
+  },[visible])
   useEffect(() =>{
     const listAttachAux = attachments?.data?.filter((element:any) => {
       return element.mime_type === 'image/png' ||
@@ -97,23 +97,25 @@ const ImageModal = (
     });
   },[visible])
   const moveImage = (event:any) => {
-    if (event.key === 'ArrowLeft') {
-      if(listAttach.length > 0){
-        carouselRef.current.prev();
-        if(numberCarousel=== 1)
-        {
-          setNumberCarousel(numberElementCarousel)
-        }else{
-          setNumberCarousel(numberCarousel - 1)
+    if(active === 0){
+      if (event.key === 'ArrowLeft') {
+        if(listAttach.length > 0){
+          carouselRef.current.prev();
+          if(numberCarousel=== 1)
+          {
+            setNumberCarousel(numberElementCarousel)
+          }else{
+            setNumberCarousel(numberCarousel - 1)
+          }
         }
-      }
-    } else if (event.key === 'ArrowRight') {
-      if(listAttach.length > 0){
-        carouselRef.current.next();
-        if(numberCarousel=== numberElementCarousel){
-          setNumberCarousel(1)
-        }else{
-          setNumberCarousel(numberCarousel + 1)
+      } else if (event.key === 'ArrowRight') {
+        if(listAttach.length > 0){
+          carouselRef.current.next();
+          if(numberCarousel=== numberElementCarousel){
+            setNumberCarousel(1)
+          }else{
+            setNumberCarousel(numberCarousel + 1)
+          }
         }
       }
     }
@@ -123,7 +125,7 @@ const ImageModal = (
       className="detailed-image"
       style={{ width: '455px' }}
       visible={visible}
-      onCancel={() => setVisible(false)}
+      onCancel={() => {setVisible(false); setNumberCarousel(1);}}
       forceRender={false}
       destroyOnClose>
       <div className="detailed">
@@ -143,13 +145,13 @@ const ImageModal = (
             </div>
           </Col>
         </Row>
-        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
+        <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}} tabIndex={0} onKeyDown={moveImage} onClick={() =>{console.log('HACEcLI')}}>
           {active === 0 &&<>
             <Col xs={{ span: 48 }} lg={{ span: 7 }} className='body-modal-team image-modal-body' style={{height: '524px', overflowY:'auto'}}>
               <div className='grid-modal-image'>
                 {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
-                    <div><img src={element.attachment_url} alt="" height="100%" style={index === (numberCarousel - 1) ? {border: '3px solid #62b596'} : {}}/></div>
+                    <div onClick={()=>{carouselRef.current.goTo(index, false);setNumberCarousel(index+1)}}><img src={element.attachment_url} alt="" height="100%" style={index === (numberCarousel - 1) ? {border: '3px solid #62b596'} : {}}/></div>
                   </>
                 }) :<>
                 <div></div>
