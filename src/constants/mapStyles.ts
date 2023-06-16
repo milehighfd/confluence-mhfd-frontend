@@ -7037,7 +7037,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               15,
               0
           ],
@@ -7055,7 +7055,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               5,
               0
           ],
@@ -7073,7 +7073,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -7090,7 +7090,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -7194,7 +7194,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Fucntion", "Stream Function", "Stream function"],
+              ['Stream Condition'],
               8,
               0
           ],
@@ -7213,7 +7213,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               3,
               0
           ],
@@ -7232,7 +7232,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -7250,7 +7250,7 @@ export const tileStyles = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -10940,7 +10940,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               15,
               0
           ],
@@ -10958,7 +10958,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               5,
               0
           ],
@@ -10976,7 +10976,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -10993,7 +10993,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -11097,7 +11097,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Fucntion", "Stream Function", "Stream function"],
+              ['Stream Condition'],
               8,
               0
           ],
@@ -11116,7 +11116,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               3,
               0
           ],
@@ -11135,7 +11135,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -11153,7 +11153,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -15176,7 +15176,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               15,
               0
           ],
@@ -15194,7 +15194,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               5,
               0
           ],
@@ -15212,7 +15212,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -15229,7 +15229,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -15333,7 +15333,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Fucntion", "Stream Function", "Stream function"],
+              ["Stream Condition"],
               8,
               0
           ],
@@ -15352,7 +15352,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               3,
               0
           ],
@@ -15371,7 +15371,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -15389,7 +15389,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Function", "Stream Fucntion", "Stream function"],
+              ["Stream Condition"],
               1.5,
               0
           ],

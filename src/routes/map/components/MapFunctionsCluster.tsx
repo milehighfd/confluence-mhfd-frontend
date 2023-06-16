@@ -3,7 +3,7 @@ import * as mapboxgl from 'mapbox-gl';
 export const addGeojsonSource = (map: any, geojson: any, isProblemActive: boolean, allFilters?: any) => {
   
   let mag1 =  ['==', ['get', 'problem_type'], 'Watershed Change'];
-  let mag2 = ['==', ['get', 'problem_type'], 'Stream Function'];
+  let mag2 = ['==', ['get', 'problem_type'], 'Stream Condition'];
   let mag3 =  ['==', ['get', 'problem_type'], 'Flood Hazard'];
   if (allFilters) {
     mag1 = [...allFilters, mag1];
