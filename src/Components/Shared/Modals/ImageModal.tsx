@@ -62,6 +62,16 @@ const ImageModal = (
              element.mime_type === 'image/jpeg' ||
              element.mime_type === 'image/gif';
     });
+    let indexCover = 0;
+    listAttachAux.map((element:any, index:number) => {
+      if(element.is_cover){
+        indexCover = index;
+      }
+      return index
+    })
+    const temp = listAttachAux[indexCover];
+    listAttachAux[indexCover] = listAttachAux[0];
+    listAttachAux[0] = temp;
     setListAttachment(listAttachAux);
     setNnumberElementCarousel(listAttachAux? listAttachAux.length : 0)
     setNumberCarousel(1)
@@ -83,6 +93,28 @@ const ImageModal = (
       }
     });
   },[visible])
+  const moveImage = (event:any) => {
+    if (event.key === 'ArrowLeft') {
+      if(listAttach.length > 0){
+        carouselRef.current.prev();
+        if(numberCarousel=== 1)
+        {
+          setNumberCarousel(numberElementCarousel)
+        }else{
+          setNumberCarousel(numberCarousel - 1)
+        }
+      }
+    } else if (event.key === 'ArrowRight') {
+      if(listAttach.length > 0){
+        carouselRef.current.next();
+        if(numberCarousel=== numberElementCarousel){
+          setNumberCarousel(1)
+        }else{
+          setNumberCarousel(numberCarousel + 1)
+        }
+      }
+    }
+  }
   return (
     <Modal
       className="detailed-image"
@@ -114,7 +146,7 @@ const ImageModal = (
               <div className='grid-modal-image'>
                 {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>
-                    <div><img src={element.attachment_url} alt="" height="100%" /></div>
+                    <div><img src={element.attachment_url} alt="" height="100%" style={index === (numberCarousel - 1) ? {border: '3px solid #62b596'} : {}}/></div>
                   </>
                 }) :<>
                 <div></div>
@@ -126,7 +158,7 @@ const ImageModal = (
                 }
               </div>
             </Col>
-            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden', height:'100%'}}>
+            <Col xs={{ span: 48 }} lg={{ span: 17 }} className='body-modal-team image-modal-body' style={{overflowX:'hidden', height:'100%'}} onKeyDown={moveImage}>
               <Carousel className="detail-carousel" ref={carouselRef} style={{paddingTop:'0px', width:'85.1%', marginTop:'-20px', marginLeft:'62px'}} >
                {listAttach && listAttach.length > 0 ? listAttach.map((element:any, index:number) => {
                   return <>

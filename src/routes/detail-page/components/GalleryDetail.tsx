@@ -16,6 +16,16 @@ const GalleryDetail = () => {
              element.mime_type === 'image/jpeg' ||
              element.mime_type === 'image/gif';
     });
+    let indexCover = 0;
+    listAttachAux.map((element:any, index:number) => {
+      if(element.is_cover){
+        indexCover = index;
+      }
+      return index
+    })
+    const temp = listAttachAux[indexCover];
+    listAttachAux[indexCover] = listAttachAux[0];
+    listAttachAux[0] = temp;
     setListAttachment(listAttachAux);
   }, [attachments]);
   return (
@@ -29,7 +39,7 @@ const GalleryDetail = () => {
       <Row style={{marginBottom:'0px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} className="table-financials-modal" style={{display:'flex', justifyContent: 'space-between'}}>
           <div className="grid">
-            {listAttach && listAttach.length > 0 ? attachments.data?.map((element:any, index:number) => {
+            {listAttach && listAttach.length > 0 ? listAttach?.map((element:any, index:number) => {
               if(element.mime_type === 'image/png' || element.mime_type === 'image/jpg' || element.mime_type === 'image/jpeg' || element.mime_type === 'image/gif'){
                 return <>
                   <div><img src={element.attachment_url} alt="" height="100%" /></div>
