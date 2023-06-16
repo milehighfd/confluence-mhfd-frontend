@@ -1727,7 +1727,7 @@ useEffect(() => {
           <AutoComplete
             dropdownMatchSelectWidth={true}
             style={{ width: 200 }}
-            options={mapSearch > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
+            options={mapSearch.length  > 0 ? ([...mapSearch.map(renderOption), {}]) : mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}

@@ -1742,7 +1742,7 @@ const CreateProjectMap = (type: any) => {
         <AutoComplete
           dropdownMatchSelectWidth={true}
           style={{ width: 200, backgroundColor: '#fafafa', borderRadius: '5px', height: '36px' }}
-          options={mapSearch > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
+          options={mapSearch.length  > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
           onSelect={onSelect}
           onSearch={handleSearch}
           value={keyword}
