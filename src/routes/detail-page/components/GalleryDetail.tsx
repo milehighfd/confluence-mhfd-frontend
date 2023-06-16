@@ -17,15 +17,17 @@ const GalleryDetail = () => {
              element.mime_type === 'image/gif';
     });
     let indexCover = 0;
-    listAttachAux.map((element:any, index:number) => {
+    listAttachAux?.map((element:any, index:number) => {
       if(element.is_cover){
         indexCover = index;
       }
       return index
     })
-    const temp = listAttachAux[indexCover];
-    listAttachAux[indexCover] = listAttachAux[0];
-    listAttachAux[0] = temp;
+    if(listAttachAux && listAttachAux.length > 0){
+      const temp = listAttachAux[indexCover];
+      listAttachAux[indexCover] = listAttachAux[0];
+      listAttachAux[0] = temp;
+    }
     setListAttachment(listAttachAux);
   }, [attachments]);
   return (
