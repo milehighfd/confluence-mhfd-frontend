@@ -12,7 +12,7 @@ import { DeleteAlert } from './DeleteAlert';
 import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
-import { loadColumns } from 'store/actions/requestActions';
+import { useRequestDispatch } from 'hook/requestHook';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -37,6 +37,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   divRef:any,
 }) => {
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
+  const { loadColumns } = useRequestDispatch();
   const { project_id } = project;
   const project_name = project?.projectData?.project_name;
   const statusArray = project?.projectData?.currentId;
