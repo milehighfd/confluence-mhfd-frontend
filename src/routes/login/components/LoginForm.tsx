@@ -40,7 +40,7 @@ const LoginView = () => {
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState({ message: '', color: '#28C499' });
   const { getGroupOrganization, resetTimesLogin } = useProfileDispatch();
-  const { callMaps } = GlobalMapHook();
+  const { callMaps, deleteMaps } = GlobalMapHook();
   useEffect(() => {
     resetMap();
     resetAppUser();
@@ -60,7 +60,10 @@ const LoginView = () => {
       .then(async res => {
         resetTimesLogin();
         if (res?.token) {
+
           callMaps();
+          deleteMaps();
+          
           setMessage({
             message: 'Successful Connection',
             color: '#28C499'
