@@ -97,6 +97,11 @@ const ImageModal = (
       }
     });
   },[visible])
+  useEffect(() =>{
+    setTimeout(() =>{
+      carouselRef.current.goTo(numberCarousel - 1, false);
+    },300);
+  },[numberCarousel])
   const moveImage = (event:any) => {
     event.stopPropagation();
     if(active === 0){
@@ -104,36 +109,17 @@ const ImageModal = (
         if(listAttach.length > 0){
           if(numberCarousel=== 1) 
           {
-            carouselRef.current.goTo(numberElementCarousel - 2, false);
-              console.log('va a :', numberElementCarousel - 2)
-            setTimeout(() => {
-              setNumberCarousel(numberElementCarousel);
-            }, 500);
-            carouselRef.current.prev();
+            setNumberCarousel(numberElementCarousel);
           }else{
-            carouselRef.current.goTo(numberCarousel - 2, false);
-            console.log('va a :', numberCarousel - 2)
-            setTimeout(() => {
-            
             setNumberCarousel(numberCarousel - 1);
-          }, 500);
           }
         }
       } else if (event.key === 'ArrowRight') {
         if(listAttach.length > 0){
           if(numberCarousel === numberElementCarousel){
-            carouselRef.current.goTo( 0, false);
-            console.log('va a :', 0)
-            setTimeout(() => {
-            
             setNumberCarousel(1);
-          }, 500);
           }else{
-            carouselRef.current.goTo(numberCarousel, false);
-            console.log('va a :', numberCarousel);
-            setTimeout(() => {
-              setNumberCarousel(numberCarousel + 1);
-            }, 500);
+            setNumberCarousel(numberCarousel + 1);
           }
         }
       }
