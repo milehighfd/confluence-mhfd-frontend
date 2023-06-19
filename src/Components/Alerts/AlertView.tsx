@@ -100,10 +100,10 @@ export const AlertView = ({isWorkPlan, visibleAlert, setVisibleAlert, setSave, s
                   </div>
                 </Col>
               }
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', paddingLeft:'none'}}>
                 <button className="btn-borde" onClick={handleCancel} style={{width: '95%'}}>Cancel</button>
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end', paddingLeft:'none'}}>
                 <button className="btn-purple"  style={{width: '95%'}} onClick={handleOk}><span>{isEdit? 'Save':'Submit'} Project</span></button>
               </Col>
             </Row>
