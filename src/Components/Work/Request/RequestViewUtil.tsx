@@ -679,25 +679,25 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
       project_id: p.projectData?.project_id
     }
   });
-  const grouped = groupBy(projectsRelevantData, (item:any) => {
+  const groupedByStatusId = groupBy(projectsRelevantData, (item:any) => {
     if (item.current_project_status?.length > 0 &&  item.current_project_status[0]) {
       return item.current_project_status[0]?.code_status_type_id;
     }
   });
   let newGroups: any = {};
-  for( let key in grouped) {
+  for( let key in groupedByStatusId) {
     let uniqueIds: any = [];
     let uniqueValues: any = [];
-    grouped[key].forEach((element: any) => {
+    groupedByStatusId[key].forEach((element: any) => {
         if (!uniqueIds.includes(element.project_id)) {
           uniqueIds.push(element.project_id);
           uniqueValues.push(element);
         }
     });
-    grouped[key] = uniqueValues;
+    groupedByStatusId[key] = uniqueValues;
   }
-  for(let key in grouped) {
-    const groupedByProjectType = groupBy(grouped[key], (item: any) => {
+  for(let key in groupedByStatusId) {
+    const groupedByProjectType = groupBy(groupedByStatusId[key], (item: any) => {
       if(item.current_project_status?.length > 0 && item.current_project_status[0]) {
         return item.current_project_status[0]?.code_project_type_id;
       }
@@ -709,6 +709,8 @@ export const splitProjectsIdsByStatuses = (projects: any) => {
       newGroups[key][subkey] = newGroups[key][subkey].map((value:any) => value.project_id);
     }
   }
+  // first key is STATUS  
+  // second key is PROJECT TYPE
   return newGroups;
 }
 

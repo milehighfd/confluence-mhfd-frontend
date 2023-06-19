@@ -2091,7 +2091,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2121,7 +2121,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2151,7 +2151,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2181,7 +2181,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2211,7 +2211,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2236,7 +2236,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2261,7 +2261,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2286,7 +2286,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2311,7 +2311,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2340,7 +2340,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -2369,7 +2369,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2399,7 +2399,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -2429,7 +2429,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2453,7 +2453,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2477,7 +2477,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2502,7 +2502,7 @@ export const PROJECTS_STYLES = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2528,7 +2528,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2552,7 +2552,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2576,7 +2576,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -2612,7 +2612,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -2648,7 +2648,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -2672,7 +2672,7 @@ export const PROJECTS_STYLES = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -2702,7 +2702,7 @@ export const PROJECTS_STYLES = {
   {
     type: "line",
     'source-layer': 'pluto15v1',
-    metadata: {projecttype: [999]},
+    metadata: { project_status: [5,7,8,9,10,11], projecttype: [999]},
     "layout": {"line-cap": "round"},
     'paint': {
       'line-color': '#ffe83d',
@@ -3059,7 +3059,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -3089,7 +3089,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -3119,7 +3119,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -3149,7 +3149,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -3179,7 +3179,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3204,7 +3204,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3229,7 +3229,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3254,7 +3254,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3279,7 +3279,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -3308,7 +3308,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -3337,7 +3337,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -3367,7 +3367,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -3397,7 +3397,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3421,7 +3421,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3445,7 +3445,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3470,7 +3470,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3496,7 +3496,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3520,7 +3520,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3544,7 +3544,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -3580,7 +3580,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -3616,7 +3616,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -3640,7 +3640,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -3670,7 +3670,7 @@ export const PROJECTS_STYLES_DETAIL_PAGE = {
   {
     type: "line",
     'source-layer': 'pluto15v1',
-    metadata: {projecttype: [999]},
+    metadata: { project_status: [5,7,8,9,10,11], projecttype: [999]},
     "layout": {"line-cap": "round"},
     'paint': {
       'line-color': '#ffe83d',
@@ -3823,7 +3823,7 @@ export const PROJECTS_STYLES_WR = {
     // {
     //   type: 'line',
     //   'source-layer': 'pluto15v1',
-    //   'metadata': {status: 'DRAFT', projecttype: 'CIP'},
+    //    project_status: [5,7,8,9,10,11], 'metadata': {status: 'DRAFT', projecttype: 'CIP'},
     //   "layout": {
     //     "line-miter-limit": [
     //         "interpolate",
@@ -3874,7 +3874,7 @@ export const PROJECTS_STYLES_WR = {
     // }, {
     //   "type": "line",
     //   "source-layer": "pluto15v1",
-    //   'metadata': {status: 'APPROVED', projecttype: 'CIP'},
+    //    project_status: [5,7,8,9,10,11], 'metadata': {status: 'APPROVED', projecttype: 'CIP'},
     //   "layout": {"line-cap": "round", "line-join": "round"},
     //   "paint": {
     //     "line-color":  "#00ff00",
@@ -3895,7 +3895,7 @@ export const PROJECTS_STYLES_WR = {
     // }, {
     //   type: 'line',
     //   'source-layer': 'pluto15v1',
-    //   'metadata': {status: 'APPROVED', projecttype: 'STUDY'},
+    //    project_status: [5,7,8,9,10,11], 'metadata': {status: 'APPROVED', projecttype: 'STUDY'},
     //   "layout": {"line-join": "round"},
     //   "paint": {
     //     "line-color":  "#00ff00",
@@ -3921,7 +3921,7 @@ export const PROJECTS_STYLES_WR = {
     // }, {
     //   type: 'line',
     //   'source-layer': 'pluto15v1',
-    //   'metadata': {status: 'DRAFT', projecttype: 'MAINTENANCE'},
+    //    project_status: [5,7,8,9,10,11], 'metadata': {status: 'DRAFT', projecttype: 'MAINTENANCE'},
     //   "paint": {
     //     "line-color":  "#00ff00",
     //     "line-blur": 1,
@@ -3948,7 +3948,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_neg_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[1] },
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[1] },
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3957,7 +3957,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_pos_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[1] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[1] },
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -3966,7 +3966,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_neg_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[18] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[18] },
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -3980,7 +3980,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_pos_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[18] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[18] },
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -3994,7 +3994,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_neg_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[5] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[5] },
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -4003,7 +4003,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_pos_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[5] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[5] },
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -4012,7 +4012,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_neg_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[7, 8,9,10,11,17] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[7, 8,9,10,11,17] },
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -4021,7 +4021,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_pos_DRAFT_shdw",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[7, 8,9,10,11,17]},
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[7, 8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "layout": {"line-cap": "round"},
@@ -4030,7 +4030,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "propacq_DRAFT copy",
       "type": "symbol",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": 1,"project_type":[13]},
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[13]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4055,7 +4055,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "RD_DRAFT copy",
       "type": "symbol",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5",  "project_status": 1,"project_type":[15]},
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5",  "project_status": [1],"project_type":[15]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4080,7 +4080,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e" , "project_status": 1,"project_type":[1]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e" , "project_status": [1],"project_type":[1]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4094,7 +4094,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[1]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[1]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4108,7 +4108,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[18]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[18]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4123,7 +4123,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[18]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[18]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4138,7 +4138,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[5]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[5]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4152,7 +4152,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[5]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[5]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4166,7 +4166,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[7,8,9,10,11,17]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[7,8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4181,7 +4181,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[7,8,9,10,11,17]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[7,8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4196,7 +4196,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[1]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[1]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4210,7 +4210,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[1]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[1]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4224,7 +4224,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": 1,"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4238,7 +4238,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": 1,"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4252,7 +4252,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_neg_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[1]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[1]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4266,7 +4266,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_pos_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f","project_status": 2,"project_type":[1]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f","project_status": [2],"project_type":[1]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4280,7 +4280,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_neg_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[18]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[18]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4295,7 +4295,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_pos_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[18]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[18]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4310,7 +4310,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_neg_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[5]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[5]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4324,7 +4324,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_pos_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[5]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[5]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4338,7 +4338,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_neg_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[7,8,9,10,11,17]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[7,8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4353,7 +4353,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_pos_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[7,8,9,10,11,17]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[7,8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4368,7 +4368,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_neg_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[1]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[1]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4382,7 +4382,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_pos_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[1]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[1]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4396,7 +4396,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_neg_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": 2,"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f", "project_status": [2],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4410,7 +4410,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_pos_RQST_test",
       "type": "line",
-      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f",  "project_status": 2,"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "134ad0ebf1081482372fd5c17b6b822f",  "project_status": [2],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["rqstd"], true, false],
@@ -4424,7 +4424,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_neg_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880",  "project_status": 3,"project_type":[1]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880",  "project_status": [3],"project_type":[1]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4438,7 +4438,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-MDP_pos_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[1]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[1]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4452,7 +4452,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_neg_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[18]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[18]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4467,7 +4467,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "study-FHAD_pos_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[18]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[18]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4482,7 +4482,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_neg_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[5]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[5]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4496,7 +4496,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "capital_pos_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[5]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[5]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4510,7 +4510,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_neg_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[7,8,9,10,11,17]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[7,8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4525,7 +4525,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "maintenance_pos_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[7,8,9,10,11,17]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[7,8,9,10,11,17]},
       "source-layer": "pluto15v1",
       "minzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4540,7 +4540,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_neg_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[1]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[1]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4554,7 +4554,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_pos_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[1]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[1]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4568,7 +4568,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_neg_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4582,7 +4582,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_pos_APRVD_test",
       "type": "line",
-      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": 3,"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "ad742fba24a74c724837d82e41ee6880", "project_status": [3],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       "filter": ["match", ["get", "teddy_stat"], ["aprvd"], true, false],
@@ -4596,7 +4596,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "propacq_DRAFT",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 3,"project_type":[13]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [3],"project_type":[13]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4620,7 +4620,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "RD_DRAFT",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 1,"project_type":[15]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [1],"project_type":[15]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4643,7 +4643,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "propacq_RQST",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 2,"project_type":[13]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [2],"project_type":[13]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4667,7 +4667,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "RD_RQST",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 2,"project_type":[15]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [2],"project_type":[15]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4690,7 +4690,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "propacq_APRVD ",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 3,"project_type":[13]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [3],"project_type":[13]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4714,7 +4714,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "RD_APRVD",
       "type": "symbol",
-      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": 3,"project_type":[15]},
+      "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [3],"project_type":[15]},
       "source-layer": "pluto15v1",
       // "filter": [
       //     "all",
@@ -4733,7 +4733,8 @@ export const PROJECTS_STYLES_WR = {
         'icon-allow-overlap':true
       },
       "paint": {}
-  }
+  },
+  ...PROJECTS_STYLES[MHFD_PROJECTS]
     // {
     //   type: 'symbol',
     //   'source-layer': 'pluto15v1',
@@ -4755,6 +4756,7 @@ export const PROJECTS_STYLES_WR = {
     //       "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
     //   }
     // }
+
   ]
 }
 
@@ -12526,7 +12528,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -12556,7 +12558,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -12586,7 +12588,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -12616,7 +12618,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -12646,7 +12648,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12671,7 +12673,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12696,7 +12698,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12721,7 +12723,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12746,7 +12748,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -12775,7 +12777,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [5]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Capital"], true, false],
@@ -12804,7 +12806,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -12834,7 +12836,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [7,8,9,10,11,17]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Maintenance"], true, false],
@@ -12864,7 +12866,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12888,7 +12890,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [1]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12912,7 +12914,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12937,7 +12939,7 @@ export const tileStyles_WR = {
       type: "line",
       'source-layer': 'pluto15v1',
       "minzoom": 14.01,
-      metadata: {projecttype: [4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12963,7 +12965,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -12987,7 +12989,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -13011,7 +13013,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -13047,7 +13049,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       "minzoom": 12,
       "maxzoom": 14.01,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -13083,7 +13085,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: [1,4]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [1,4]},
       "filter": [
           "all",
           ["match", ["get", "projecttype"], ["Study"], true, false],
@@ -13107,7 +13109,7 @@ export const tileStyles_WR = {
       'source-layer': 'pluto15v1',
       "minzoom": 0,
       "maxzoom": 12,
-      metadata: {projecttype: [5,7,8,9,10,11,17]},
+      metadata: { project_status: [5,7,8,9,10,11], projecttype: [5,7,8,9,10,11,17]},
       "filter": [
           "all",
           [
@@ -13137,7 +13139,7 @@ export const tileStyles_WR = {
   {
     type: "line",
     'source-layer': 'pluto15v1',
-    metadata: {projecttype: [999]},
+    metadata: { project_status: [5,7,8,9,10,11], projecttype: [999]},
     "layout": {"line-cap": "round"},
     'paint': {
       'line-color': '#ffe83d',

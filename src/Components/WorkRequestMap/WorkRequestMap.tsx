@@ -986,12 +986,16 @@ useEffect(() => {
         if (key === PROJECTS_DRAFT+'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           const statusLayer = currentLayer?.metadata?.project_status;
-          const typeLayer = currentLayer?.metadata?.project_type;
+          const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
           let idsToFilter: any = [];
           typeLayer.forEach((type: any) => {
-            let idsCurrent = groupedIdsBoardProjects[statusLayer];
-            if (idsCurrent && idsCurrent[type]?.length > 0) {
-              idsToFilter = [...idsToFilter, ...groupedIdsBoardProjects[statusLayer][type]];
+            if (statusLayer.length > 0) {
+              statusLayer.forEach((currentStatus: any) => {
+                let idsCurrent = groupedIdsBoardProjects[currentStatus];
+                if (idsCurrent && idsCurrent[type]?.length > 0) {
+                  idsToFilter = [...idsToFilter, ...groupedIdsBoardProjects[currentStatus][type]];
+                }  
+              });
             }
           });
           allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
