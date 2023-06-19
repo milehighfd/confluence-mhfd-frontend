@@ -64,7 +64,6 @@ export const NewProblemsFilter = () => {
 
     ['mhfdmanager', 'jurisdiction']
         .forEach((key: string) => {
-            console.log(key, 'KEEEY', paramProblems[key])
             if (paramProblems[key]) {
                 paramProblems[key].sort((a: any, b: any) => {
                     return a?.value?.localeCompare(b?.value)
@@ -75,7 +74,6 @@ export const NewProblemsFilter = () => {
     const axisLabel = 'Number of Problems';
     if (paramProblems.problemtype) {
         paramProblems.problemtype.sort((a: any, b: any) => {
-            console.log(a, 'AAAAAAAAAAAAA', b, 'BNBBBBBBBBBB')
             if (a.value === 'Human Connection') {
                 return 1;
             } else if (b.value === 'Human Connection') {
@@ -86,9 +84,6 @@ export const NewProblemsFilter = () => {
         })
     }
 
-    useEffect(() => {
-      console.log('paramProblems', paramProblems);
-    }, [paramProblems]);
     return (
         <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
             <Row className="filt-00">
@@ -142,10 +137,10 @@ export const NewProblemsFilter = () => {
                          selected={filterProblemOptions.solutionstatus}
                          defaultValue={''}
                          onSelect={(items: any) => {
-                             console.log(items);
-                             console.log(paramProblems);
-                             console.log(paramProblems.solutionstatus);
-                             console.log(filterProblemOptions, ' filtered');
+                            //  console.log(items);
+                            //  console.log(paramProblems);
+                            //  console.log(paramProblems.solutionstatus);
+                            //  console.log(filterProblemOptions, ' filtered');
                              apply(items, 'solutionstatus');
                          }}
                      />
@@ -195,8 +190,6 @@ export const NewProblemsFilter = () => {
                             // data={paramProblems.cost}
                           selected={filterProblemOptions.cost}
                           onSelect={(items: string) => {
-                              console.log(paramProblems.cost);
-                              console.log(items);
                               apply(items, 'cost');
                           }}
                         />

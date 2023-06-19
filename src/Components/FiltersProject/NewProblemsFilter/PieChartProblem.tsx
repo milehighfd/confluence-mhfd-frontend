@@ -4,7 +4,6 @@ import * as d3 from 'd3';
 import { Button } from 'antd';
 
 const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
-  console.log(data,'AQQQQ', type, selected, onSelect, defaultValue, 'AQUIIIIIIIIIIIIIIIIIIIIIIIII')
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [selectedData, setSelectedData] = useState<any[]>([]);
@@ -167,14 +166,11 @@ const PieChart = ({ data, type, selected, onSelect, defaultValue }: any) => {
   }, [data, selectedData]);
 
   const apply = () => {
-    console.log('type', type);
-    console.log('selectedData', selectedData);
     if (isProb) {
       onSelect(selectedData.join(','))
     } else if (type === 'projecttype') {
       onSelect(selectedData)
     }
-    console.log('selected data with no effect', selectedData);
   }
 
   const reset = () => {
