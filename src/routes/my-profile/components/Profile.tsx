@@ -84,7 +84,7 @@ const Profile = ({
     if (user.county) {
       setCounty(user.county);
     }
-  }, [user,save]);
+  }, [user]);
 
   useEffect(() => {   
     if (editProfile) {
@@ -141,14 +141,14 @@ const Profile = ({
     }, datasets.getToken()).then((data) => {
       //console.log(data);
     }).then(() => {
-      setsave(!save)
+      //setsave(!save)
       getMe();
     })
       .catch((e) => {
         console.log(e);
       });
   };
-
+  
   useEffect(() => {
     handleClick();
   }, [serviceArea, zoomarea, county, city, organization, email, phone, firstName, lastName]);
@@ -175,7 +175,8 @@ const Profile = ({
       message.error('Image must smaller than 5MB!');
     }
     return isLt2M;
-  }
+  };
+
 
   return (
     <div className="profile-myprofile">
