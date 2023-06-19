@@ -1303,7 +1303,7 @@ export const NEARMAP_STYLE = {
         ]
   }
 };
-const MEP_PROJECTS_STYLES = {
+export const MEP_PROJECTS_STYLES = {
   // [MEP_PROJECTS_TEMP_LOCATIONS]: [],
   [MEP_PROJECTS_DETENTION_BASINS]: [
   {
@@ -1668,7 +1668,7 @@ const MEP_PROJECTS_STYLES = {
   ]
 }
 
-const ROUTINE_MAINTENANCE_STYLES = {
+export const ROUTINE_MAINTENANCE_STYLES = {
   [ROUTINE_NATURAL_AREAS]: [{
     type: 'fill',
     'source-layer': 'pluto15v1',
