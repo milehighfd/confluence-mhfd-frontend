@@ -818,10 +818,9 @@ useEffect(() => {
       }
     });
     applyFilters(PROBLEMS_TRIGGER, filterProblems);
-    let filterProjectsNew = { ...filterProjects };
+    let filterProjectsNew = { ...filterProjects, keyword: '' };
     let filterProjectsDraft = { ...filterProjects };
-
-    setFilterProjectOptions(filterProjectsNew)
+    setFilterProjectOptions(filterProjectsNew);
     getProjectsFilteredIds();
     applyFilters(MHFD_PROJECTS, filterProjectsNew);
 
