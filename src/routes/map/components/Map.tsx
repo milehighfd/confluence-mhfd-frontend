@@ -101,6 +101,23 @@ const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let markerNotes_global: any = [];
 let isMeasuring = false;
+const actionListNames = [
+  'Grade Control Structure',
+  'Pipe Appurtenances',
+  'Special Item Point',
+  'Special Item Linear',
+  'Special Item Area',
+  'Channel Improvements Linear',
+  'Channel Improvements Area',
+  'Removal Line',
+  'Removal Area',
+  'Storm Drain',
+  'Detention Facilities',
+  'Maintenance Trails',
+  'Land Acquisition',
+  'Landscaping Area',
+  'Stream Improvement Measure Copy'
+];
 type GeoJSONMeasures = {
   type: string;
   features: any[]
@@ -701,12 +718,12 @@ const Map = ({
     useEffect(() => {
         if (map) {
             for (const component of COMPONENT_LAYERS.tiles) {
-                applyFilters(component, filterComponents);
+                applyFilters(component, filterComponentOptions);
             }
             applyFilters(MHFD_PROJECTS, filterProjectOptions);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
-    }, [filterComponents, paramComponents]);
+    }, [filterComponentOptions, paramComponents]);
 
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
@@ -1294,7 +1311,20 @@ const Map = ({
         }
       })
     }
+<<<<<<< Updated upstream
     const topFemaFH = () => {
+=======
+    const topLandUseCover = () => {
+      const useLandCover = USE_LAND_COVER as any
+      useLandCover.tiles.forEach((element:any) => {
+        if (map.getLayer(`${element}_0`)) {
+          map.moveLayer(`${element}_0`);
+        }
+      });
+    }
+
+    const topProblems = () => {
+>>>>>>> Stashed changes
       const styles = { ...tileStyles as any };   
         styles[FEMA_FLOOD_HAZARD].forEach((style: LayerStylesType, index: number) => {
           map.moveLayer(`${FEMA_FLOOD_HAZARD}_${index}`);
@@ -1603,7 +1633,12 @@ const Map = ({
               }
             } else{
               paramComponents?.actionsIds?.forEach((component:any) => {
-                  allFilters.push({type: component.component_type.toLowerCase().replace(/ /g,"_"),filter: ['in', ['get','component_id'], ['literal', component.actions]]});
+                for (const componentLayer of COMPONENT_LAYERS.tiles) {
+                  const ComponentParsed = component.component_type.toLowerCase().replace(/ /g,"_")
+                  if(componentLayer.includes(ComponentParsed)){
+                    allFilters.push({type: componentLayer,filter: ['in', ['get','component_id'], ['literal', component.actions]]});
+                  }
+                }
               });
             }
             if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
