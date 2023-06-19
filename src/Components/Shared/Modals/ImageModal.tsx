@@ -11,6 +11,7 @@ import { SERVER } from 'Config/Server.config';
 import store from "../../../store";
 import { useMapDispatch } from 'hook/mapHook';
 import { useAttachmentState } from 'hook/attachmentHook';
+import { combine } from '@turf/turf';
 
 const ImageModal = (
   {
@@ -97,27 +98,42 @@ const ImageModal = (
     });
   },[visible])
   const moveImage = (event:any) => {
+    event.stopPropagation();
     if(active === 0){
       if (event.key === 'ArrowLeft') {
         if(listAttach.length > 0){
-          // carouselRef.current.prev();
           if(numberCarousel=== 1) 
           {
-            setNumberCarousel(numberElementCarousel);
+            carouselRef.current.goTo(numberElementCarousel - 2, false);
+              console.log('va a :', numberElementCarousel - 2)
+            setTimeout(() => {
+              setNumberCarousel(numberElementCarousel);
+            }, 500);
             carouselRef.current.prev();
           }else{
+            carouselRef.current.goTo(numberCarousel - 2, false);
+            console.log('va a :', numberCarousel - 2)
+            setTimeout(() => {
+            
             setNumberCarousel(numberCarousel - 1);
-            carouselRef.current.prev();
+          }, 500);
           }
         }
       } else if (event.key === 'ArrowRight') {
         if(listAttach.length > 0){
-          if(numberCarousel=== numberElementCarousel){
+          if(numberCarousel === numberElementCarousel){
+            carouselRef.current.goTo( 0, false);
+            console.log('va a :', 0)
+            setTimeout(() => {
+            
             setNumberCarousel(1);
-            carouselRef.current.next();
+          }, 500);
           }else{
-            setNumberCarousel(numberCarousel + 1);
-            carouselRef.current.next();
+            carouselRef.current.goTo(numberCarousel, false);
+            console.log('va a :', numberCarousel);
+            setTimeout(() => {
+              setNumberCarousel(numberCarousel + 1);
+            }, 500);
           }
         }
       }
