@@ -120,14 +120,14 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
         Zoom to
       </span>,
       onClick: (() => { setZoomProject(project.projectData);})
-    }, {
+    }, /*{
       key: '3',
       label: <span style={{borderBottom: '1px solid transparent'}}>
         <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px', marginRight: '6.8px' }} />
         Delete
       </span>,
       onClick: (() => setShowDeleteAlert(true))
-    }];
+    }*/];
     if (!editable) {
       items.pop();
       items.splice(1, 1);
