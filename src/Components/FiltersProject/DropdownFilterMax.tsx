@@ -35,7 +35,6 @@ export const DropdownFiltersYearsMax = ({ type, selected, onSelect, defaultValue
     {"value":2000,"counter":0},
   {"value":2001,"counter":0},{"value":2002,"counter":0},{"value":2003,"counter":0},{"value":2004,"counter":null},{"value":2005,"counter":0},{"value":2006,"counter":0},{"value":2007,"counter":0},{"value":2008,"counter":null},{"value":2009,"counter":null},{"value":2010,"counter":0},{"value":2011,"counter":null},{"value":2012,"counter":null},{"value":2013,"counter":null},{"value":2014,"counter":null},{"value":2015,"counter":null},{"value":2016,"counter":null},{"value":2017,"counter":null},{"value":2018,"counter":null},{"value":2019,"counter":null},{"value":2020,"counter":null},{"value":2021,"counter":null},{"value":2022,"counter":null},{"value":2023,"counter":0},{"value":2024,"counter":0},{"value":2025,"counter":0},{"value":2026,"counter":null},{"value":2027,"counter":null},{"value":2028,"counter":null},{"value":2029,"counter":null},{"value":2030,"counter":null}];
   const apply = () => {
-    console.log('Selected data year', selectedData);
     // if (type === 'yearofstudy') {
       onSelect([selectedData[0], selectedData[selectedData.length -1]]);
     // } else {
@@ -52,8 +51,10 @@ export const DropdownFiltersYearsMax = ({ type, selected, onSelect, defaultValue
 
   useEffect(() => {
     const sData: any[] = [];
-    if (minIndex !== -1 && maxIndex !== -1) {
-      for(let i = minIndex; i <= maxIndex; i++ ) {
+    if (minIndex !== -1 || maxIndex !== -1) {
+      let minValue = minIndex !== -1 ? minIndex : 0;
+      let maxValue = maxIndex !== -1 ? maxIndex : data.length -1 ;
+      for(let i = minValue; i <= maxValue; i++ ) {
         if (data[i]) {
           sData.push(data[i].value);
         }
@@ -61,6 +62,11 @@ export const DropdownFiltersYearsMax = ({ type, selected, onSelect, defaultValue
       setSelectedData(sData);
     }
   }, [minIndex, maxIndex]);
+  useEffect(() => {
+    const valuesSelected = selected.split(',');
+    setMinIndex(data.findIndex( (d:any) => d.value == valuesSelected[0]) );
+    setMaxIndex(data.findIndex( (d:any) => d.value == valuesSelected[1]) );
+  }, [selected]);
   return (
     <>
       {showControls ? (
