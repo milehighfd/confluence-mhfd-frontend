@@ -88,7 +88,7 @@
       background-color: #fff;
       border: 1px solid #ffffff !important;
     }
-  }
+  }  
   .filter-user-management{
     background-color: #f9f8fa;
     padding: 5px;
@@ -97,8 +97,11 @@
     height: 47px;
     display: flex;
     justify-content: space-between;
-    width: 980px;
+    width: 960px;
     z-index: 20;
+    .ant-select-dropdown{
+      width: auto !important;
+    }
     .ant-select-item-option {
       margin: 3px 3px;
       padding: 5px 12px;
@@ -113,8 +116,7 @@
     }
     .filter-area{
       margin-right:10px;
-      width: auto;
-      min-width: 161px;
+      width: 19%;
       text-align: initial;
       height:36px;
     }
@@ -178,7 +180,7 @@
     width: 100%;
   }
   .button-space{
-    width: 70px;
+    width: 90px;
   }
   .list-view-head {
     width: 276px;
