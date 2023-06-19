@@ -100,21 +100,24 @@ const ImageModal = (
     if(active === 0){
       if (event.key === 'ArrowLeft') {
         if(listAttach.length > 0){
-          carouselRef.current.prev();
-          if(numberCarousel=== 1)
+          // carouselRef.current.prev();
+          if(numberCarousel=== 1) 
           {
-            setNumberCarousel(numberElementCarousel)
+            setNumberCarousel(numberElementCarousel);
+            carouselRef.current.prev();
           }else{
-            setNumberCarousel(numberCarousel - 1)
+            setNumberCarousel(numberCarousel - 1);
+            carouselRef.current.prev();
           }
         }
       } else if (event.key === 'ArrowRight') {
         if(listAttach.length > 0){
-          carouselRef.current.next();
           if(numberCarousel=== numberElementCarousel){
-            setNumberCarousel(1)
+            setNumberCarousel(1);
+            carouselRef.current.next();
           }else{
-            setNumberCarousel(numberCarousel + 1)
+            setNumberCarousel(numberCarousel + 1);
+            carouselRef.current.next();
           }
         }
       }
@@ -127,8 +130,9 @@ const ImageModal = (
       visible={visible}
       onCancel={() => {setVisible(false); setNumberCarousel(1);}}
       forceRender={false}
-      destroyOnClose>
-      <div className="detailed">
+      destroyOnClose
+      >
+      <div className="detailed" onKeyDown={moveImage}>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white', borderBottom:'1px solid #eae8f0', paddingBottom:'0px', minHeight:'71px'}}>
           <Col xs={{ span: 12 }} lg={{ span: 12 }} style={{paddingTop:'15px'}}>
             <span className={active===0 ? 'active title' : 'title'} onClick={()=>{setActive(0)}}>Photos</span>
