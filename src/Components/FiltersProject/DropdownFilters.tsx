@@ -92,6 +92,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
   }
 
   const apply = () => {
+    console.log('Selected ',selectedData);
     onSelect(transformSelectedData(selectedData));
   };
 
@@ -106,8 +107,10 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
   }
   useEffect(() => {
     const sData: any[] = [];
-    if (minIndex !== -1 && maxIndex !== -1) {
-      for(let i = minIndex; i <= maxIndex; i++ ) {
+    if (minIndex !== -1 || maxIndex !== -1) {
+      let minValue = minIndex !== -1 ? minIndex : 0;
+      let maxValue = maxIndex !== -1 ? maxIndex : data.length -1 ;
+      for(let i = minValue; i <= maxValue; i++ ) {
         let value = data[i].min;
         sData.push(value);
       }    
