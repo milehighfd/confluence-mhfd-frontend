@@ -488,7 +488,7 @@ const MapView = () => {
           elements.push({
             tag: key,
             value: `$${tag[0]} - $${tag[1]}`,
-            display: `$${tag[0]} - $${tag[1]}`
+            display: `$${tag[0]} - $${tag[1]}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           })
         } else {
           for (let index = 0; index < tag.length; index++) {
@@ -610,7 +610,7 @@ const MapView = () => {
     );
   }, [groupsLabels, filterProjectOptions]);
 
-  const showFilterLabels = (element: any, index: number) => {
+  const showFilterLabels = (element: any, index: number) => {        
     if (element.detail[0].length === 0) {
       return null;
     } else {
