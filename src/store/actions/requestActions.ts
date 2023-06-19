@@ -4,7 +4,7 @@ import * as projectTypes from 'store/types/ProjectTypes';
 import { DragAndDropCards } from 'store/types/requestTypes';
 import * as datasets from 'Config/datasets';
 import { buildGeojsonForLabelsProjectsInBoards, getColumnSumAndTotals, getColumnTitle, mergeSumByGroupMaps, mergeTotalByGroupMaps, splitProjectsIdsByStatuses } from 'Components/Work/Request/RequestViewUtil';
-import { GET_FILTER } from 'Config/endpoints/board';
+import { BOARD_FOR_POSITIONS, GET_FILTER } from 'Config/endpoints/board';
 
 export const setShowModalProject = (payload: boolean) => ({
   type: types.REQUEST_SHOW_MODAL_PROJECT,
@@ -177,7 +177,7 @@ export const loadOneColumn = (board_id: any, position: any) => {
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
-    datasets.postData(`${SERVER.URL_BASE}/board/board-for-positions2`, { board_id, position })
+    datasets.postData(BOARD_FOR_POSITIONS, { board_id, position })
     .then((projects) => {
       let sumByGroupMap = {}, groupTotal = {};
       if (position !== 0) {
@@ -207,7 +207,7 @@ export const loadColumns = (board_id: any, filters?: any) => {
     const promises = [];
     for (let position = 0; position <= 5; position++) {
       const promise = datasets.postData(
-        `${SERVER.URL_BASE}/board/board-for-positions2`,
+        BOARD_FOR_POSITIONS,
         { board_id, position, filters }
       ).then((projects) => {
         let sumByGroupMap = {}, groupTotal = {};
