@@ -9,3 +9,4 @@ const ENDPOINT_GET_OR_CREATE = 'get-or-create';
 export const GET_FILTER = (id: number) => `${BASE_URL}/${RESOURCE}/${id}/${ENDPOINT_FILTERS}`;
 export const BOARD_FOR_POSITIONS = `${BASE_URL}/${RESOURCE}/${ENDPOINT_BOARD_FOR_POSITIONS}`;
 export const GET_OR_CREATE = `${BASE_URL}/${RESOURCE}/${ENDPOINT_GET_OR_CREATE}`;
+export const UPDATE_BOARD_BY_ID = (id: number) => `${BASE_URL}/${RESOURCE}/${id}`;
