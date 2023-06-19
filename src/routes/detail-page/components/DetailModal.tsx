@@ -603,7 +603,7 @@ const DetailModal = ({
               }
             }}
             className={openSecction === 11 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
-            style={!activeScroll ? {cursor:'default', opacity:'0.25'}:{cursor:'pointer', opacity:'0.25'}}
+            style={!activeScroll ? {cursor:'default'}:{cursor:'pointer'}}
           >History</p>
         </div>}
         <Row
