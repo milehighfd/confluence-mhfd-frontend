@@ -22,7 +22,7 @@ const Profile = ({
   counterProjects: number,
   counterProblems: number,
 }) => {
-  const [editProfile, setEditProfile] = useState(false);
+  const [editProfile, setEditProfile] = useState(true);
   
   const { userInformation: user } = useProfileState();
   const { groupOrganization } = useProfileState();
@@ -128,33 +128,30 @@ const Profile = ({
   } 
 
   const handleClick = () => {
-    setEditProfile(!editProfile)
-    if (!save) {
+    datasets.putData(SERVER.USER_UPDATE, {
+      email,
+      phone,
+      organization,
+      city,
+      county,
+      serviceArea,
+      zoomarea,
+      firstName,
+      lastName
+    }, datasets.getToken()).then((data) => {
+      //console.log(data);
+    }).then(() => {
       setsave(!save)
-      //console.log("ENTER EDIT")
-    } else {
-      //console.log("Upload data");
-      datasets.putData(SERVER.USER_UPDATE, {
-        email,
-        phone,
-        organization,
-        city,
-        county,
-        serviceArea,
-        zoomarea,
-        firstName,
-        lastName
-      }, datasets.getToken()).then((data) => {
-        //console.log(data);
-      }).then(() => {
-        setsave(!save)
-        getMe();
-      })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
+      getMe();
+    })
+      .catch((e) => {
+        console.log(e);
+      });
   };
+
+  useEffect(() => {
+    handleClick();
+  }, [serviceArea, zoomarea, county, city, organization, email, phone, firstName, lastName]);
 
   const uploadImage = (files: Array<any>) => {
     console.log(files)
@@ -302,9 +299,6 @@ const Profile = ({
             {/* } */}
           </Col>
         </Row>
-        <div className="foot-profile">
-          <Button style={{width:'100%'}} className="btn-purple" onClick={handleClick}>{editProfile ? 'Save':'Edit Profile'}</Button>
-        </div>
       </div>
     </div>
   )
