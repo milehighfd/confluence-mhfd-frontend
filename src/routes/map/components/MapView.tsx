@@ -378,19 +378,20 @@ const MapView = () => {
           key === 'estimatedcost'
             ? filterComponents[key]
             : filterComponents[key].split(',');
+            console.log('Tag', tag);
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
           const elements = [];
           const position = labelsProblems.findIndex((x: any) => x.name === key);
           for (let index = 0; index < tag.length; index++) {
             const element = tag[index];
             if (element) {
-              if (key === 'estimatedcost') {
-                const cost = element.split(',');
+              if (key === 'estimatedcost' || key === 'yearofstudy') {
                 elements.push({
                   tag: key,
                   value: element,
-                  display: elementCost(cost[0], cost[1]),
+                  display: elementCost(tag[0], tag[1]),
                 });
+                break;
               } else if (key === 'component_type') {
                 elements.push({
                   tag: key,
@@ -569,6 +570,7 @@ const MapView = () => {
               display: elementCost(tag[0], tag[1]),
               value: tag[index],
             });
+            break;
           } else {
             
             if (tag[index]) {
@@ -708,23 +710,30 @@ const MapView = () => {
     }
     for (const key in filterComponentOptions) {
       const tag = key === 'estimatedcost' ? filterComponents[key] : filterComponents[key].split(',');
-      for (let index = 0; index < tag.length; index++) {
-        const element = tag[index];
-        if (element) {
-          countTagComponents += 1;
+      if (key !== 'estimatedcost' && key !== 'yearofstudy') {
+        for (let index = 0; index < tag.length; index++) {
+          const element = tag[index];
+          if (element) {
+            countTagComponents += 1;
+          }
         }
+      } else if ((key === 'estimatedcost' || key === 'yearofstudy')  && tag.length) {
+        countTagComponents += 1;
       }
+      
     }
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
       const tag = filterProjects[key];
-      if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name') {
+      if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
         for (let index = 0; index < tag.length; index++) {
           const element = tag[index];
           if (element) {
             countTagProjets += 1;
           }
         }
+      } else if (key === 'totalcost' && tag.length) {
+        countTagProjets += 1;
       }
       const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
       if (position >= 0) {
