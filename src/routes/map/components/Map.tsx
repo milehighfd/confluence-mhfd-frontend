@@ -30,10 +30,27 @@ import {
     initFilterProblems,
     USE_LAND_COVER_LABEL,
     USE_LAND_COVER_MAP,
-    FEMA_FLOOD_HAZARD
+    FEMA_FLOOD_HAZARD,
+    USE_LAND_COVER,
+    COUNTIES_FILTERS,
+    MUNICIPALITIES_FILTERS,
+    SEMSWA_SERVICE_AREA,
+    WATERSHED_FILTERS,
+    NRCS_SOILS,
+    FLOODPLAINS_NON_FEMA_FILTERS,
+    ACTIVE_LOMS,
+    STREAM_MANAGEMENT_CORRIDORS,
+    ROUTINE_MAINTENANCE,
+    MEP_PROJECTS,
+    FLOOD_HAZARDS,
+    DWR_DAM_SAFETY,
+    RESEARCH_MONITORING,
+    CLIMB_TO_SAFETY
 } from "constants/constants";
 import { 
   COMPONENT_LAYERS_STYLE,
+  ROUTINE_MAINTENANCE_STYLES,
+  MEP_PROJECTS_STYLES,
   tileStyles, widthLayersStream,
   NEARMAP_STYLE,
   USE_LAND_TILES_STYLE
@@ -1224,14 +1241,14 @@ const Map = ({
         SELECT_ALL_FILTERS.forEach((layer) => {          
             if (typeof layer === 'object') {
               if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
-                selectedLayers.forEach((layer: LayersType) => {
-                  if (typeof layer === 'object' && layer.name === USE_LAND_COVER_LABEL) {
+                // selectedLayers.forEach((layer: LayersType) => {
+                  // if (typeof layer === 'object' && layer.name === USE_LAND_COVER_LABEL) {
                     applyTileSetLayer();
                     layer.tiles.forEach((tile: string) => {
                       addTileSource(tile);
                     });
-                  }
-                })
+                  // }
+                // })
               } 
               else if (layer.tiles) {
                   layer.tiles.forEach((subKey: string) => {
@@ -1262,15 +1279,22 @@ const Map = ({
         getProjectsFilteredIds();
         applyFilters(MHFD_PROJECTS, filterProjectOptions);
         setTimeout(()=>{
-            topStreams()
+            topLandUseCover();
+            topCounties();
+            topMunicipalities();
+            topServiceArea();
+            topAdditionalLayers();
+            topStreams();
             topEffectiveReaches();
+            toMEPproject();
             topProjects();
+            topComponents();
+            toProblemParts();
+            topAddLayers();
+            topProblems();
             topHovereableLayers();
             topStreamLabels();
             topLabels();
-            topServiceArea();
-            topComponents();
-            topFemaFH();
             if (map.getLayer('area_based_maskMASK')) {
               map.moveLayer('area_based_maskMASK');
             }
@@ -1294,10 +1318,32 @@ const Map = ({
         }
       })
     }
-    const topFemaFH = () => {
+    const topLandUseCover = () => {
+      const useLandCover = USE_LAND_COVER as any
+      useLandCover.tiles.forEach((element:any) => {
+        if (map.getLayer(`${element}_0`)) {
+          console.log('entra')
+          map.moveLayer(`${element}_0`);
+        }
+      });
+    }
+
+    const topProblems = () => {
       const styles = { ...tileStyles as any };   
-        styles[FEMA_FLOOD_HAZARD].forEach((style: LayerStylesType, index: number) => {
-          map.moveLayer(`${FEMA_FLOOD_HAZARD}_${index}`);
+        styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
+        })
+    }
+    const topAddLayers = () => {
+      const styles = { ...tileStyles as any };   
+        styles[DWR_DAM_SAFETY].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
+        })
+        styles[RESEARCH_MONITORING].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
+        })
+        styles[CLIMB_TO_SAFETY].forEach((style: LayerStylesType, index: number) => {
+          map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
         })
     }
     const topProjects = () => {
@@ -1316,13 +1362,99 @@ const Map = ({
         })
       }
     }
+    const toMEPproject = () => {
+      const styles = { ...MEP_PROJECTS_STYLES as any };
+      for (const component of MEP_PROJECTS.tiles) {
+        styles[component].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${component}_${index}`)) {
+            map.moveLayer(`${component}_${index}`);
+          }
+        })
+      }
+    }
+
+    const toProblemParts = () => {
+      const styles = { ...tileStyles as any };
+      for (const problemsParts of FLOOD_HAZARDS.tiles) {
+        styles[problemsParts].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${problemsParts}_${index}`)) {
+            map.moveLayer(`${problemsParts}_${index}`);
+          }
+        })
+      }
+    }
+
+    const topMunicipalities = () => {
+      const styles = { ...tileStyles as any };
+        styles[MUNICIPALITIES_FILTERS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${MUNICIPALITIES_FILTERS}_${index}`)) {
+            map.moveLayer(`${MUNICIPALITIES_FILTERS}_${index}`);  
+          }
+        })
+    }
+
+    const topCounties = () => {
+      const styles = { ...tileStyles as any };
+        styles[COUNTIES_FILTERS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${COUNTIES_FILTERS}_${index}`)) {
+            map.moveLayer(`${COUNTIES_FILTERS}_${index}`);  
+          }
+        })
+    }
+
     const topServiceArea = () => {
       const styles = { ...tileStyles as any };
+      styles[SEMSWA_SERVICE_AREA].forEach((style: LayerStylesType, index: number) => {
+        if (map.getLayer(`${SEMSWA_SERVICE_AREA}_${index}`)) {
+          map.moveLayer(`${SEMSWA_SERVICE_AREA}_${index}`);  
+        }
+      })
         styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
           if (map.getLayer(`${SERVICE_AREA_FILTERS}_${index}`)) {
             map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);  
           }
         })
+    }
+    const topAdditionalLayers = () => {
+      const styles = { ...tileStyles as any };
+        styles[WATERSHED_FILTERS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${WATERSHED_FILTERS}_${index}`)) {
+            map.moveLayer(`${WATERSHED_FILTERS}_${index}`);  
+          }
+        })
+        styles[NRCS_SOILS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${NRCS_SOILS}_${index}`)) {
+            map.moveLayer(`${NRCS_SOILS}_${index}`);  
+          }
+        })
+        styles[FEMA_FLOOD_HAZARD].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${FEMA_FLOOD_HAZARD}_${index}`)) {
+            map.moveLayer(`${FEMA_FLOOD_HAZARD}_${index}`);  
+          }
+        })
+        styles[FLOODPLAINS_NON_FEMA_FILTERS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${FLOODPLAINS_NON_FEMA_FILTERS}_${index}`)) {
+            map.moveLayer(`${FLOODPLAINS_NON_FEMA_FILTERS}_${index}`);  
+          }
+        })
+        styles[ACTIVE_LOMS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${ACTIVE_LOMS}_${index}`)) {
+            map.moveLayer(`${ACTIVE_LOMS}_${index}`);  
+          }
+        })
+        styles[STREAM_MANAGEMENT_CORRIDORS].forEach((style: LayerStylesType, index: number) => {
+          if (map.getLayer(`${STREAM_MANAGEMENT_CORRIDORS}_${index}`)) {
+            map.moveLayer(`${STREAM_MANAGEMENT_CORRIDORS}_${index}`);  
+          }
+        })
+        const stylesMaintenanceRoutine = { ...ROUTINE_MAINTENANCE_STYLES as any }
+        for (const component of ROUTINE_MAINTENANCE.tiles) {
+          stylesMaintenanceRoutine[component].forEach((style: LayerStylesType, index: number) => {
+            if (map.getLayer(`${component}_${index}`)) {
+              map.moveLayer(`${component}_${index}`);
+            }
+          })
+        }
     }
     const topEffectiveReaches = () => {
       const styles = { ...tileStyles as any };   
