@@ -1633,8 +1633,10 @@ const Map = ({
                         continue;
                     }
                     if (filterField === 'estimatedcost') {
+                      console.log('filter field estimated', filters);
                         for (const range of filters) {
                             const [lower, upper] = range.split(',');
+                            console.log('filters', lower, upper);
                             const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +lower];
                             const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +upper];
                             const allFilter = ['all', lowerArray, upperArray];
@@ -1669,6 +1671,17 @@ const Map = ({
                         continue;
                     }
                     if (typeof filters === 'object') {
+                      if (filterField === 'solutioncost') {
+                        const lower = filters[0];
+                        const upper = filters[1];
+                        const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
+                        const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
+                        const allFilter = ['all', lowerArray, upperArray];
+                        if (searchEquivalentinProblemBoundary(filterField) === 'component_status' || searchEquivalentinProblemBoundary(filterField) === 'estimated_cost') {
+                          allFilter.push(['has', searchEquivalentinProblemBoundary(filterField)]); 
+                        }
+                        options.push(allFilter);
+                      } else {
                         for (const range of filters) {
                           if(typeof range === 'string'){
                             const [lower, upper] = range.split(',');
@@ -1682,6 +1695,7 @@ const Map = ({
                           }
                           
                         }
+                      }
                     } else {                        
                         for (const filter of filters.split(',')) {
                             if (isNaN(+filter)) {
