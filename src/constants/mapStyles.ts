@@ -4225,7 +4225,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_neg_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e",  "project_status": [1],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
@@ -4239,7 +4239,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allproj_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[1,2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+      "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       // "filter": ["match", ["get", "teddy_stat"], ["drft"], true, false],
