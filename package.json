@@ -64,6 +64,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-clear-cache": "^1.4.12",
     "react-csv": "^2.0.3",
+    "react-debounce-input": "^3.3.0",
     "react-dev-utils": "^12.0.1",
     "react-dom": "^16.12.0",
     "react-ga": "^3.1.2",
