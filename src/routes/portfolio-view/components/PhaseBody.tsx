@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Tooltip } from 'antd';
 import * as d3 from 'd3';
 import moment from 'moment';
 import store from 'store';
@@ -752,10 +752,12 @@ const PhaseBody = ({
                 onMouseEnter={(e: any) => {
                   //setHoverTable(elem.values[index_elem].project_id)
                 }}>
-                <p onClick={() => {
-                  setDetailOpen(true);
-                  setDataDetail(d)
-                }} className="title-project" >{d.rowLabel}</p>
+                <Tooltip placement="top" title={d.rowLabel}>
+                  <p onClick={() => {
+                    setDetailOpen(true);
+                    setDataDetail(d)
+                  }} className="title-project" >{d.rowLabel}</p>
+                </Tooltip>
                 {d.isFavorite ? <HeartFilled style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }} onClick={() => (deleteFunction(d.project_id, email, ''))} /> : <HeartOutlined style={{ marginLeft: '7px', color: '#706B8A', marginRight: '10px' }} onClick={() => addFunction(email, d.project_id, '')} />}
               </div>
             ))

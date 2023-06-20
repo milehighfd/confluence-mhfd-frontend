@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Tooltip } from 'antd';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import * as d3 from 'd3';
 import moment from 'moment';
@@ -1488,10 +1488,12 @@ const CalendarBody = ({
           {
             calendarData.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}>
-                <p onClick={() => {
-                  setDetailOpen(true);
-                  setDataDetail(d)
-                }} className="title-project" >{d.rowLabel}</p>
+                <Tooltip placement="top" title={d.rowLabel}>
+                  <p onClick={() => {
+                    setDetailOpen(true);
+                    setDataDetail(d)
+                  }} className="title-project" >{d.rowLabel}</p>
+                </Tooltip>
                 {
                   d.isFavorite ? <HeartFilled
                     style={{ marginLeft: '7px', color: '#F5575C', marginRight: '10px' }}
