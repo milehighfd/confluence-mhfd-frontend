@@ -34,7 +34,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   const [pending, setpending] = useState(false);
 
   const save = () => {
-    putData(UPDATE_BOARD_BY_ID, {
+    putData(UPDATE_BOARD_BY_ID(boardId), {
       status: boardStatus,
       comment: boardComment,
       substatus: boardSubstatus
