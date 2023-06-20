@@ -303,7 +303,6 @@ const MapView = () => {
     
     const auxFilterProblems = { ...filterProblemOptions };
     const valueTag = (tag === 'cost' || tag === 'mhfdmanager') ? filterProblemOptions[tag] : filterProblemOptions[tag].split(',');
-    console.log('Tag ', tag, value, valueTag);
     const auxValueTag = [] as Array<string>;
     let newValue = '';
     if (tag !== 'cost') {
@@ -338,21 +337,22 @@ const MapView = () => {
   const deleteTagProjects = useCallback(
     (tag: string, value: string) => {
       const auxFilterProjects = { ...filterProjectOptions };
-      const valueTag =
-        tag === 'mhfddollarsallocated' || tag === 'totalcost' ? filterProjectOptions[tag] : filterProjectOptions[tag];
+      const valueTag = filterProjectOptions[tag];
       const auxValueTag = [] as Array<string>;
-      for (let index = 0; index < valueTag?.length; index++) {
-        const element = valueTag[index];
-        if (element !== value) {
-          auxValueTag.push(element);
+      if (tag !== 'totalcost') {
+        for (let index = 0; index < valueTag?.length; index++) {
+          const element = valueTag[index];
+          if (element !== value) {
+            auxValueTag.push(element);
+          }
         }
       }
-    auxFilterProjects[tag] = auxValueTag;
-    setFilterProjectOptions(auxFilterProjects);
-    getParamFilterProjects(boundsMap, auxFilterProjects)
-    resetNextPageOfCards();
-    resetInfiniteScrollItems();
-    resetInfiniteScrollHasMoreItems();
+      auxFilterProjects[tag] = auxValueTag;
+      setFilterProjectOptions(auxFilterProjects);
+      getParamFilterProjects(boundsMap, auxFilterProjects)
+      resetNextPageOfCards();
+      resetInfiniteScrollItems();
+      resetInfiniteScrollHasMoreItems();
   }, [filterProjectOptions]);
 
   const getFiltersPopoverContent = () => {
@@ -378,7 +378,6 @@ const MapView = () => {
           key === 'estimatedcost'
             ? filterComponents[key]
             : filterComponents[key].split(',');
-            console.log('Tag', tag);
         if (key !== 'keyword' && key !== 'column' && key !== 'order') {
           const elements = [];
           const position = labelsProblems.findIndex((x: any) => x.name === key);
@@ -459,10 +458,12 @@ const MapView = () => {
     const auxFilterComponents: any = { ...filterComponentOptions };
     const valueTag = tag === 'estimatedcost' ? filterComponentOptions[tag] : auxFilterComponents[tag].split(',');
     const auxValueTag = [] as Array<string>;
-    for (let index = 0; index < valueTag.length; index++) {
-      const element = valueTag[index];
-      if (element !== value) {
-        auxValueTag.push(element);
+    if ( tag !== 'estimatedcost' && tag !== 'yearofstudy') {
+      for (let index = 0; index < valueTag.length; index++) {
+        const element = valueTag[index];
+        if (element !== value) {
+          auxValueTag.push(element);
+        }
       }
     }
     let newValue = '';
