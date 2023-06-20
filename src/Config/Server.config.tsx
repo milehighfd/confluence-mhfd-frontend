@@ -347,7 +347,7 @@ export const SERVER = (function () {
         },
         GET_BBOX_PROJECTS: `${URL_BASE.BASE}/${BOARD}/${PROJECTS_BBOX}`,
         BOARD_PROJECT_COST: (board_project_id: string | number) => {
-            return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}`
+            return `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/${COST}?rnd=${Math.random()}`
         },
         BOARD_UPDATE_RANK: (board_project_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_project_id}/update-rank`,
         BOARD_UPDATE_TARGET_COST: (board_id: string) => `${URL_BASE.BASE}/${BOARD_PROJECT}/${board_id}/update-target-cost`
