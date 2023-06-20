@@ -96,7 +96,7 @@ const AutoCompleteDropdown = () => {
         userInformation.designation !== GOVERNMENT_STAFF ? (
           <AutoComplete
             className={'ant-select-1'}
-            options={dataAutocomplete.map(renderOption)}
+            options={renderOption.length > 0 ? [...dataAutocomplete.map(renderOption), {}]: dataAutocomplete.map(renderOption)}
             placeholder={localityFilter}
             filterOption={(inputValue, option: any) => {
               if (dataAutocomplete.includes(inputValue)) {
