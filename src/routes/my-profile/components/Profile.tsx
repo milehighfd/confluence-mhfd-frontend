@@ -1,4 +1,5 @@
 import { Button, Col, Dropdown, message, Row, Select, Upload } from "antd";
+import { DebounceInput } from "react-debounce-input";
 import React, { useEffect, useState } from "react";
 import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../../Config/datasets";
@@ -43,7 +44,7 @@ const Profile = ({
   const [serviceArea,setServiceArea] = useState('');
   const [zoomarea,setZoomArea] = useState('');
   const [disable,setDisable] = useState(false);
-  const [save,setsave] = useState(false);
+  //deferred values
   const {
     replaceAppUser,
     saveUserInformation,   
@@ -221,7 +222,14 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
-              <input onChange={(e) => setFirstName(e.target.value)} className="input-profile" type="text" value={isNull(firstName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={1000}
+                onChange={(e: any) => setFirstName(e.target.value)}
+                type="text"
+                className="input-profile"
+                value={isNull(firstName)}
+              />
               :<p style={{paddingBottom:'10px' }}>{isNull(firstName)}</p>
             }
           </Col>
@@ -230,7 +238,14 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
-              <input onChange={(e) => setLastName(e.target.value)} className="input-profile" type="text" value={isNull(lastName)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={1000}
+                onChange={(e: any) => setLastName(e.target.value)}
+                type="text"
+                className="input-profile"
+                value={isNull(lastName)}
+              />
               :<p style={{paddingBottom:'10px' }}>{isNull(lastName)}</p>
             }
           </Col>
@@ -239,7 +254,14 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
-              <input onChange={(e) => setEmail(e.target.value)} className="input-profile" type="text" value={isNull(email)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={1000}
+                onChange={(e: any) => setEmail(e.target.value)}
+                type="text"
+                className="input-profile"
+                value={isNull(email)}
+              />
               :<p style={{paddingBottom:'10px' }}>{isNull(email)}</p>
             }
           </Col>
@@ -248,7 +270,14 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
             {editProfile ?
-              <input onChange={(e) => setPhone(formatPhoneNumber(e.target.value))} className="input-profile" type="text" value={isNull(phone)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={1000}
+                onChange={(e: any) => setPhone(formatPhoneNumber(e.target.value))}
+                type="text"
+                className="input-profile"
+                value={isNull(formatPhoneNumber(phone))}
+              />
               :<p style={{paddingBottom:'10px' }}>{isNull(formatPhoneNumber(phone))}</p>
             }
           </Col>
@@ -257,7 +286,14 @@ const Profile = ({
           </Col>
           <Col xs={{ span: 24 }} lg={{ span: 14 }}>
           {editProfile ?
-              <input onChange={(e) => setOrganization(e.target.value)} disabled={true} className="input-profile" type="text" value={isNull(organization)} style={{border:'1px solid #d9d9d9', borderRadius:'15px', padding:'3px 8px', width:'100%',marginBottom:'15px'}}></input>
+              <DebounceInput
+                minLength={2}
+                debounceTimeout={1000}
+                onChange={(e: any) => setOrganization(e.target.value)}
+                type="text"
+                className="input-profile"
+                value={isNull(organization)}
+              />
               :<p style={{paddingBottom:'10px' }}>{isNull(organization)}</p>
             }            
           </Col>
