@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Drawer, Button,  List, Row, Col, Checkbox, Popover, Select } from 'antd';
-import { SERVER } from "../../../Config/Server.config";
 import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
-import { UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
+import { GET_BOARD_DEPENDENCIES, UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -74,7 +73,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       setBoardsLength(ls.length);
     } else {
       setLoading(true);
-      getData(`${SERVER.URL_BASE}/board/${boardId}/boards/${'WORK_REQUEST'}`, getToken())
+      getData(GET_BOARD_DEPENDENCIES(boardId), getToken())
         .then((r) => {
           let list = substatus ? substatus.split(',') : [];
           let newBoardsSorted = [...r.boards];
