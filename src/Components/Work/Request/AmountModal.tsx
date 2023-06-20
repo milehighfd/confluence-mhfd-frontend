@@ -91,7 +91,7 @@ const AmountModal = ({ project, visible, setVisible }: {
         <Button
           className="btn-purple"
           onClick={handleOk}
-          disabled={okayDisabled}
+          // disabled={okayDisabled}
         >
           Save
         </Button>,
