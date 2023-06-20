@@ -74,7 +74,7 @@ export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: 
           {
               ( item.jurisdiction?.length + item.streamname?.length > 39) ? 
               (<><h6>{item.jurisdiction} </h6><h6>{item.streamname}</h6></>) :
-              (<h6>{item.jurisdiction} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
+              (item.jurisdiction ? <h6>{item.jurisdiction} <span style={{float: 'right'}}>{item.streamname}</span></h6> : <></>)
           }
           <h5>{item.value != -1 ? '$':''}{item.value ? numberWithCommas(item.value) : '0'} <span style={{float: 'right'}}><b>{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Actions</span></h5>
         </div>}
@@ -123,7 +123,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
           {
               (item?.jurisdiction?.length + item?.streamname?.length > 39) ? 
               (<><h6>{item.jurisdiction} </h6><h6>{item.streamname}</h6></>) :
-              (<h6>{item.jurisdiction} <span style={{float: 'right'}}>{item.streamname}</span></h6>)
+              (item.jurisdiction ? <h6>{item.jurisdiction} <span style={{float: 'right'}}>{item.streamname}</span></h6> : <></>)
           }
           <h5>${numberWithCommas(item.value)} <span style={{float: 'right'}}><b >{item.component_count ? (item.component_count != '-' ? item.component_count : 0) : 0}</b> Actions</span></h5>
           <hr/>

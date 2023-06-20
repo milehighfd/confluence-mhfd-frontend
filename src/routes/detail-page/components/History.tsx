@@ -5,11 +5,7 @@ import { DATA_FINANCIALS, DATA_SOLUTIONS } from "../constants";
 import { ArrowDownOutlined, FileOutlined, PlusOutlined } from "@ant-design/icons";
 
 const History = () => {
-  const [editedDates, setEditedDates] = useState([
-    "Jon Villines edited 'vendor' on Dec 9 2022 at 4:30pm.",
-    "Katie Evers edited the geometry on Dec 8 2022 at 1:24pm.",
-    "Megam Leonard edited 'status' on Dec 7 2022 at 10:48am."
-  ])
+  const [editedDates, setEditedDates] = useState([])
   return (
     <>
       <Row>
