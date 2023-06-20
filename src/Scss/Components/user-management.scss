@@ -593,11 +593,15 @@
     opacity: 0.6;
   }
   .profile{
-    height:  calc(100vh - 440px);
+    height:  calc(100vh - 396px);
     overflow-y: auto;
     .input-profile{
       height: 32px !important;
       margin-top: -10px;
+      border: 1px solid #d9d9d9;
+      border-radius: 16px;
+      padding: 0px 10px;
+      width: 100%;
     }
   }
   .profile::-webkit-scrollbar {
@@ -840,7 +844,7 @@
     }
     .profile{
       padding: 20px !important;
-      height: calc(100vh - 504px) !important;
+      height: calc(100vh - 444px) !important;
       .input-profile{
         height: 34px !important;
         font-size: 17px !important;
