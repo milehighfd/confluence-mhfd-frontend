@@ -304,15 +304,20 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let displayedTabKey = tabKeys;
   if (type === "WORK_PLAN") {
-    if (localityType === 'CODE_STATE_COUNTY') {
-      displayedTabKey = ['Capital', 'Maintenance']
-    } else if (localityType === 'CODE_SERVICE_AREA') {
-      displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+    if (year < 2022) {
+      if (localityType === 'CODE_STATE_COUNTY') {
+        displayedTabKey = ['Capital', 'Maintenance']
+      } else if (localityType === 'CODE_SERVICE_AREA') {
+        displayedTabKey = ['Study', 'Acquisition', 'R&D'];
+      }
+    } else {
+      if (localityType === 'CODE_STATE_COUNTY') {
+        displayedTabKey = ['Capital', 'Maintenance', 'Acquisition', 'R&D']
+      } else if (localityType === 'CODE_SERVICE_AREA') {
+        displayedTabKey = ['Study'];
+      }
     }
     if (locality === 'MHFD District Work Plan' || locality === 'Mile High Flood District') {
-      displayedTabKey = tabKeys;
-    }
-    if (locality.includes('South Platte River County')) {
       displayedTabKey = tabKeys;
     }
   }

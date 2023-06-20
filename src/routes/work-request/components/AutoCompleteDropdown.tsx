@@ -102,6 +102,7 @@ const AutoCompleteDropdown = () => {
               if (dataAutocomplete.includes(inputValue)) {
                 return true;
               }
+              if (!option.value) return false;
               return option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
             }}
             onSelect={onSelect}
