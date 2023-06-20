@@ -23,6 +23,7 @@ const Profile = ({
   counterProblems: number,
 }) => {
   const [editProfile, setEditProfile] = useState(true);
+  const [isFromSave, setIsFromSave] = useState(false);
   
   const { userInformation: user } = useProfileState();
   const { groupOrganization } = useProfileState();
@@ -41,7 +42,6 @@ const Profile = ({
   const [county,setCounty] = useState('');
   const [serviceArea,setServiceArea] = useState('');
   const [zoomarea,setZoomArea] = useState('');
-  const [contactInfo,setContactInfo] =useState<any>({});
   const [disable,setDisable] = useState(false);
   const [save,setsave] = useState(false);
   const {
@@ -56,35 +56,36 @@ const Profile = ({
     }
   }, []); 
   useEffect(() => {
-    setContactInfo(user.business_associate_contact)
-    if (user.organization) {
-      setOrganization(user?.business_associate_contact?.business_address?.business_associate?.business_name);
-    }    
-    if (user.serviceArea) {
-      setServiceArea(user.serviceArea);
-    }   
-    if (user.zoomarea) {
-      setZoomArea(user.zoomarea);
+    if (!isFromSave) {
+      if (user?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setOrganization(user?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }    
+      if (user.serviceArea) {
+        setServiceArea(user.serviceArea);
+      }   
+      if (user.zoomarea) {
+        setZoomArea(user.zoomarea);
+      }
+      if (user.email) {
+        setEmail(user.email);
+      }
+      if (user.firstName) {
+        setFirstName(user.firstName);
+      }
+      if (user.lastName) {
+        setLastName(user.lastName);
+      }
+      if (user.phone) {
+        setPhone(user.phone);
+      }
+      if (user.city) {
+        setCity(user.city);
+      }
+      if (user.county) {
+        setCounty(user.county);
+      }
     }
-    if (user.email) {
-      setEmail(user.email);
-    }
-    if (user.firstName) {
-      setFirstName(user.firstName);
-    }
-    if (user.lastName) {
-      setLastName(user.lastName);
-    }
-    if (user.phone) {
-      setPhone(user.phone);
-    }
-    if (user.city) {
-      setCity(user.city);
-    }
-    if (user.county) {
-      setCounty(user.county);
-    }
-  }, [user]);
+  }, [user, isFromSave]);
 
   useEffect(() => {   
     if (editProfile) {
@@ -142,6 +143,7 @@ const Profile = ({
       //console.log(data);
     }).then(() => {
       //setsave(!save)
+      setIsFromSave(true);
       getMe();
     })
       .catch((e) => {
