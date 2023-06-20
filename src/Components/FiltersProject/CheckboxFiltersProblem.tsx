@@ -2,6 +2,7 @@ import { Button, Checkbox } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const solutionstatus = 'solutionstatus';
+const componentsType = 'componentsType'
 
 export const CheckBoxFilters = ({
   data, type, selected, onSelect, defaultValue,
@@ -27,6 +28,10 @@ export const CheckBoxFilters = ({
     }
   }, [selected]);
 
+  // useEffect(()=>{
+  //   console.log('data',data)
+  // },[data])
+
   const apply = () => {
     onSelect(selectedData)
   }
@@ -37,7 +42,16 @@ export const CheckBoxFilters = ({
   }
 
   const showLabel = (label: string) => {
-    return (labels && labels[label]) ? labels[label] : (label ? label : '');
+    if(type === componentsType){
+      if(label==='Channel Improvements Lin'){
+        label = 'Channel Improvements Linear'
+      }else if (label==='Stream Improvement'){
+        label = 'Stream Improvement Measure'
+      }
+      return (labels && labels[label]) ? labels[label] : (label ? label : '');
+    }else{
+      return (labels && labels[label]) ? labels[label] : (label ? label : '');
+    }
   }
   return (
     <>

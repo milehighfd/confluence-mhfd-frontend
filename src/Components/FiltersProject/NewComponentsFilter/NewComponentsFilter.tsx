@@ -121,6 +121,7 @@ export const NewComponentsFilter = () => {
                 {
                     paramComponents?.filtersData?.component_type &&
                     <CheckBoxFiltersProblem defaultValue={''}
+                        type={'componentsType'}
                         data={paramComponents.filtersData.component_type.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterComponentOptions.component_type}
                         onSelect={(items: any) => apply(items, 'component_type')} />

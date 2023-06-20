@@ -118,23 +118,6 @@ const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
 let markerNotes_global: any = [];
 let isMeasuring = false;
-const actionListNames = [
-  'Grade Control Structure',
-  'Pipe Appurtenances',
-  'Special Item Point',
-  'Special Item Linear',
-  'Special Item Area',
-  'Channel Improvements Linear',
-  'Channel Improvements Area',
-  'Removal Line',
-  'Removal Area',
-  'Storm Drain',
-  'Detention Facilities',
-  'Maintenance Trails',
-  'Land Acquisition',
-  'Landscaping Area',
-  'Stream Improvement Measure Copy'
-];
 type GeoJSONMeasures = {
   type: string;
   features: any[]
