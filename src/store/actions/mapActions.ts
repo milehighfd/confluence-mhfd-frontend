@@ -605,6 +605,27 @@ export const getParamFilterComponents = (bounds: string, data?: any) => {
         })
     }
 }
+
+export const getParamFilterComponentsDefaultBounds = (data?: any) => {
+    return (dispatch: Function) => {
+        const controller = getAndDispatchAbortableCtrl(dispatch, 'PARAM_FILTER_COMPONENTS_NOBOUNDS');
+        datasets.postData(
+            SERVER.PARAM_FILTER_COMPONENTS_DB_NOBOUNDS,
+            data || {},
+            datasets.getToken(),
+            controller.signal
+        ).then(params => {
+            if (params) {
+                dispatch({ type: types.GET_PARAM_FILTER_COMPONENTS_NOBOUNDS, params });
+            }
+        }).catch(err => {
+            if (!isAbortError(err)) {
+                console.log('getParamFilterComponents', err);
+            }
+        })
+    }
+}
+
 export const getComponentsByProblemId = (data: any) => {
     return (dispatch: Function) => {
         dispatch({ type: types.LOADER_TABLE_COMPONENTS, spin: true })

@@ -7,6 +7,7 @@ import {
   getParamFilterProblems,
   getParamFilterProjectsNoBounds,
   getParamFilterComponents,
+  getParamFilterComponentsDefaultBounds,
   setTabCards,
   setFilterTabNumber,
   setBoundMap,
@@ -108,6 +109,9 @@ export const useMapDispatch = () => {
     },
     getParamFilterComponents: (bounds: string, data?: any) => {
       dispatch(getParamFilterComponents(bounds, data));
+    },
+    getParamFilterComponentsDefaultBounds: (data:any)=> {
+      dispatch(getParamFilterComponentsDefaultBounds(data));
     },
     setTabCards: (tab: string) => {
       dispatch(setTabCards(tab));

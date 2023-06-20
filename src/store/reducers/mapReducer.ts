@@ -220,7 +220,8 @@ const initState = {
     paramFilters: {
         problems: {},
         projects: {},
-        components: {}
+        components: {},
+        componentsNoBounds: {}
     },
     componentsByProblemId: [],
     spinFilters: false,
@@ -785,6 +786,16 @@ const mapReducer = (state = initState, action: any) => {
                 }
             }
         }
+        case types.GET_PARAM_FILTER_COMPONENTS_NOBOUNDS: {
+            return {
+                ...state,
+                paramFilters: {
+                    ...state.paramFilters,
+                    componentsNoBounds: action.params
+                }
+            }
+        }
+        
         case types.FAVORITE_LIST: {
             return {
                 ...state,

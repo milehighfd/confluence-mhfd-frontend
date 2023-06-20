@@ -4043,6 +4043,7 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
+      "minzoom": 0,
       "layout": {
           "icon-image": "propacq_ORANGE_bold_small",
           "icon-size": 0.5,
@@ -4609,6 +4610,7 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
+      "minzoom": 8,
       "layout": {
           "icon-image": "propacq_ORANGE_bold_small",
           "icon-size": 0.5,
@@ -4656,6 +4658,7 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
+      "minzoom": 0,
       "layout": {
           "icon-image": "propacq_PINK_bold_small",
           "icon-size": 0.5,
@@ -4703,6 +4706,7 @@ export const PROJECTS_STYLES_WR = {
       //         false
       //     ]
       // ],
+      "minzoom": 0,
       "layout": {
           "icon-image": "propacq_GREEN_bold_small",
           "icon-size": 0.5,

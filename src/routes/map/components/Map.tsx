@@ -179,6 +179,7 @@ const Map = ({
     mapSearchQuery,
     setBoundMap,
     getParamFilterComponents,
+    getParamFilterComponentsDefaultBounds,
     getParamFilterProblems,
     getParamFilterProjects,
     setCoordinatesJurisdiction,
@@ -205,7 +206,8 @@ const Map = ({
     highlighted,
     filterComponentOptions,
     paramFilters: {
-      components: paramComponents
+      components: paramComponents,
+      componentsNoBounds: componentsNobounds
     },
     filterProblems,
     filterComponents,
@@ -723,7 +725,7 @@ const Map = ({
             applyFilters(MHFD_PROJECTS, filterProjectOptions);
             applyFilters(PROBLEMS_TRIGGER, filterProblems);
         }
-    }, [filterComponentOptions, paramComponents]);
+    }, [filterComponentOptions, paramComponents, componentsNobounds]);
 
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
@@ -893,6 +895,9 @@ const Map = ({
           setFilterCoordinates(applyFilter ? boundingBox : defaultBounds, tabCards);
         }
     }, [applyFilter, zoomEndCounter, dragEndCounter, filterTabNumber]);
+    useEffect(()=>{
+      getParamFilterComponentsDefaultBounds(filterComponentOptions)
+    },[filterComponentOptions])
     useEffect(() => {
         if (zoom?.length > 0) {
             map.fitBounds([zoom[0], zoom[2]], { padding: 100 });
@@ -1738,7 +1743,7 @@ const Map = ({
                 allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
               }
             } else{
-              paramComponents?.actionsIds?.forEach((component:any) => {
+              componentsNobounds?.actionsIds?.forEach((component:any) => {
                 for (const componentLayer of COMPONENT_LAYERS.tiles) {
                   const ComponentParsed = component.component_type.toLowerCase().replace(/ /g,"_")
                   if(componentLayer.includes(ComponentParsed)){
@@ -1767,7 +1772,7 @@ const Map = ({
               }
             }
         });
-    }, [problemClusterGeojson, projectsids,filterProjectOptions, groupedProjectIdsType, paramComponents]);
+    }, [problemClusterGeojson, projectsids,filterProjectOptions, groupedProjectIdsType, paramComponents, componentsNobounds]);
 
     const hideLayerAfterRender = async (key: string,) => {
       const styles = { ...(tileStyles as any) };
