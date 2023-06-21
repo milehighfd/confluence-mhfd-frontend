@@ -28,7 +28,8 @@ const MapLayout = () => {
   } = useMapDispatch();
 
   const {
-    selectedLayers
+    selectedLayers,
+    galleryProjectsV2,
   } = useMapState();
   const {
     userInformation: {
@@ -109,6 +110,15 @@ const MapLayout = () => {
       openWidth();
     }
   }, [open]);
+  useEffect(() => {
+    if(galleryProjectsV2.length === 0){
+      setLoaded(false);
+    }else{
+      setTimeout(() =>{
+        setLoaded(true);
+      }, 5000);
+    }
+  },[galleryProjectsV2])
   useEffect(() => {
     if (status === 1 || status === 0) {
       setSave(2);
