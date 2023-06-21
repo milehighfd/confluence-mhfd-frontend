@@ -836,10 +836,14 @@
     }
   }
   .detailed-upload{
+    top: 400px !important;
+    .sub-title{
+      font-size: 24px !important;
+    }
     .draw{
       height: 301px !important;
       img{
-        height: 84px;
+        height: 84px !important;
         margin-bottom: 23px;
       }
     }
