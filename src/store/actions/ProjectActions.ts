@@ -123,6 +123,9 @@ export const saveMaintenance = (data: any) => {
       } else if (key === 'cover') {
         formData.append(key, covername);
       } else {
+        if (key === 'frequency' && data[key] === 'None') {
+          data[key] = 0;
+        }
         formData.append(key, data[key]);
       }
     })
