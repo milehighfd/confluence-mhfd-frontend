@@ -199,7 +199,12 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       if (data?.project_details[0]?.maintenance_frequency === null) {
         setFrequency('');
       } else {
-        setFrequency(data?.project_details[0]?.maintenance_frequency);
+        console.log(data?.project_details[0]?.maintenance_frequency, 'frequency')
+        if (data?.project_details[0]?.maintenance_frequency === 0) {
+          setFrequency('None');
+        }else{
+          setFrequency(data?.project_details[0]?.maintenance_frequency);
+        }        
       }
       if (data?.project_details[0]?.is_public_ownership === true) {
         console.log(data?.project_details[0]?.is_public_ownership === true);
