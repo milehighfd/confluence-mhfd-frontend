@@ -328,7 +328,7 @@ const CreateProjectMap = (type: any) => {
       }
       let bboxBounds = turf.bbox(poly);
       if (map.map && zoomGeom!==undefined) {
-        map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
+        // map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
       }
     }
   }
