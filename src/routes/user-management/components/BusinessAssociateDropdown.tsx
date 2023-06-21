@@ -44,6 +44,7 @@ const BusinessAssociatesDropdown = ({
       array = businessAssociate.filter((element: any) => element.code_business_associates_type_id === LOCAL_GOVERNMENT);
       console.log(array);
     }
+    array.sort((a: any, b: any) => a.label.localeCompare(b.label));
     array.forEach((element: any) => {
       m.push({
         key: element.key,
