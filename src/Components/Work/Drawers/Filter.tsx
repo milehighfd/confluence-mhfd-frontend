@@ -36,18 +36,6 @@ const Filter = () => {
   }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList]);
 
   const applyFilters = () => {
-    let js = jurisdictionFilterList.filter((_: any, index: number) => {
-      return jurisdictionSelected[index];
-    });
-    let ps = priorityFilterList.filter((_, index) => {
-      return prioritySelected[index];
-    });
-    let cs = countiesFilterList.filter((_: any, index: number) => {
-      return countiesSelected[index];
-    });
-    let sas = serviceAreasFilterList.filter((_: any, index: number) => {
-      return serviceAreasSelected[index];
-    });
     const filter = {
       project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList.filter((_: any, index: number) => {
         return countiesSelected[index];
@@ -60,7 +48,7 @@ const Filter = () => {
       }).map((r: any) => r.code_service_area_id),
       project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
         return prioritySelected[index];
-      }).map((r: any) => r.value + 1),
+      }).map((r: any) => r.value),
     }
     loadColumns(namespaceId, filter);
   }
