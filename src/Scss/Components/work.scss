@@ -1483,7 +1483,7 @@
       font-size: 21px !important ;
     }
     .ant-tabs-tabpane-active {
-      height: calc(100vh - 224px) !important;
+      height: calc(100vh - 275px) !important;
     }
     .col-bg {
       height: 70px !important;
@@ -1889,6 +1889,7 @@
     }
     img{
       width: 16px !important;
+      margin-right: 12px !important;
     }
     span {
       font-size: 21px !important;
@@ -1908,6 +1909,9 @@
   }
 }
 @media (min-width: 3000px) and (max-width: 5999px){
+  .mdi-circle {
+    font-size: 26px !important;
+  }
   .cost-wr{
     .tab-head-project {
       font-size: 21px !important;

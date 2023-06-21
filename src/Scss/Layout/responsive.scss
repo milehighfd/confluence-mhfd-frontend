@@ -489,7 +489,7 @@
   .ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item, .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item, .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
     height: 80px !important;
     line-height: 80px !important;
-    margin-left: 15px !important;
+    // margin-left: 15px !important;
   }
   .ant-layout-sider-trigger {
     min-width: 100px !important;
@@ -833,6 +833,15 @@
     .information{
       color:'#11093C' !important;
       font-weight:'700' !important;
+    }
+  }
+  .detailed-upload{
+    .draw{
+      height: 301px;
+      img{
+        height: 84px;
+        margin-bottom: 23px;
+      }
     }
   }
   .detailed-modal {

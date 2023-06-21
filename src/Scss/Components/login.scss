@@ -919,7 +919,11 @@
     border-radius: 0px !important;
   }
 }
-@media (min-width: 3000px) and (max-width: 3999px){
+@media (min-width: 3000px) and (max-width: 5999px){
+  .js-mm-00 .ant-menu-item {
+    margin: 0px !important;
+    padding: 0px 15px !important;
+  }
   .main-conf {
     .letter-conf{
       img{
