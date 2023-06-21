@@ -2435,6 +2435,12 @@
   top: 71px;
   display: none; 
 }
+
+
+  .dropdown-menu{
+  width: auto !important;  
+  }
+
 @media (min-width: 1900px) and (max-width: 2549px){
   .team-item{
     display: flex;
