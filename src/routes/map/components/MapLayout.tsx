@@ -91,7 +91,9 @@ const MapLayout = () => {
     });
     Promise.all(promises)
       .then(() => {
-        setLoaded(true);
+        setTimeout(() =>{
+          setLoaded(true);
+        }, 5000);
       })
     return () => {
       controllers.forEach((controller) => {
@@ -153,7 +155,7 @@ const MapLayout = () => {
         <SidebarView></SidebarView>
         <Layout className="map-00">
           {
-            (longitude && latitude && loaded) ? (
+            (longitude && latitude) && (
               <Row>
                 <Col
                   xs={{ span: 24 }}
@@ -177,7 +179,10 @@ const MapLayout = () => {
                   <MapView />
                 </Col>
               </Row>
-            ) : <LoadingView />
+            )
+          }
+          {!loaded &&
+            <LoadingView />
           }
         </Layout>
       </Layout>
