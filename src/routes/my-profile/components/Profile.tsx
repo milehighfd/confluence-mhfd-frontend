@@ -293,6 +293,8 @@ const Profile = ({
                 type="text"
                 className="input-profile"
                 value={isNull(organization)}
+                disabled={true}
+                style={{cursor: 'not-allowed'}}
               />
               :<p style={{paddingBottom:'10px' }}>{isNull(organization)}</p>
             }            

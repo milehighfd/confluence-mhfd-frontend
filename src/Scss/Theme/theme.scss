@@ -3885,6 +3885,11 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   display: flex;
 }
 
+.ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+  align-items: center;
+  display: flex;
+}
+
 @media (min-width: 1900px) and (max-width: 2550px) {
   .scroll-filters {
     padding: 0px 20px;
