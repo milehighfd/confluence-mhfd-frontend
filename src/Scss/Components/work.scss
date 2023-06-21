@@ -1907,7 +1907,7 @@
     }
   }
 }
-@media (min-width: 3000px) and (max-width: 4999px){
+@media (min-width: 3000px) and (max-width: 5999px){
   .cost-wr{
     .tab-head-project {
       font-size: 21px !important;
@@ -2017,7 +2017,7 @@
       width: 285px !important;
       height: calc(100vh - 403px) !important;
       margin-right: 15px !important;
-      padding: 20px 15px !important;
+      padding: 20px 15px ;
       margin-top: 10px !important;
   }
   .ant-tabs>.ant-tabs-nav .ant-tabs-nav-list, .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-list {
