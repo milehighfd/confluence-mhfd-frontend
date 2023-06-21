@@ -62,7 +62,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   useEffect(() => {
     if (type === 'WORK_REQUEST') {
       let list = substatus ? substatus.split(',') : [];
-      let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'Special']
+      let ls = ['Capital', 'Study', 'Maintenance', 'Acquisition', 'R&D']
       setBoardsData(ls.map((l) => {
         return {
           locality: l,
@@ -218,7 +218,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       <br />
       <p>Notes <Popover content={content02}>  <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></p>
       <textarea className="note" rows={8} value={boardComment} onChange={e => {
-        if (status === 'Approved') return;
         setBoardComment(e.target.value)
       }} style={{width:'100%'}}>
       </textarea>
