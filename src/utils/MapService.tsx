@@ -348,7 +348,11 @@ export class MapService {
       'custom-sprite/propacq_PINK_bold_small.png',
       'custom-sprite/RD_PINK_bold_small.png',
       'custom-sprite/propacq_GREEN_bold_small.png',
-      'custom-sprite/RD_GREEN_bold_small.png'
+      'custom-sprite/RD_GREEN_bold_small.png',
+      'custom-sprite/rd_YELLOW.png',
+      'custom-sprite/prop-acq_YELLOW.png',
+      'custom-sprite/rd_RED.png',
+      'custom-sprite/prop-acq_RED.png'
     ];
     imagesPaths.forEach((imagePath: string) => {
       this.map.loadImage(imagePath, (error: any, image: any) => {

@@ -449,7 +449,7 @@ const WorkRequestMap = ({
     let filterProjectsDraft = { ...filterProjects };
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
-    if (idsBoardProjects.length) {
+    // if (idsBoardProjects.length) {
       wait(() => {
         map.isRendered(() => {
           let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
@@ -463,7 +463,7 @@ const WorkRequestMap = ({
           });
         });
       });
-    }
+    // }
   }, [idsBoardProjects]);
 
   useEffect(() => {
@@ -549,10 +549,11 @@ const WorkRequestMap = ({
       setFirstRendering(false);
       return;
     }
+    console.log('Board projects', boardProjects);
     if (boardProjects && !boardProjects.ids) {
       setIdsBoardProjects(boardProjects);
     }
-    if (boardProjects && boardProjects.ids) {
+    if (boardProjects) {
       setIdsBoardProjects(boardProjects.ids);
       setGroupedIdsBoardProjects(boardProjects.groupedIds);
     }
@@ -989,7 +990,7 @@ useEffect(() => {
           const statusLayer = currentLayer?.metadata?.project_status;
           const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
           let idsToFilter: any = [];
-          typeLayer.forEach((type: any) => {
+          typeLayer?.forEach((type: any) => {
             if (statusLayer.length > 0) {
               statusLayer.forEach((currentStatus: any) => {
                 let idsCurrent = groupedIdsBoardProjects[currentStatus];
@@ -999,6 +1000,7 @@ useEffect(() => {
               });
             }
           });
+          
           allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
           map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
