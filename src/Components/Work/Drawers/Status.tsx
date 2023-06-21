@@ -111,7 +111,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   }, [])
 
   const onCheck = (val: string) => {
-    console.log('boardSubstatus');
     let ls = boardSubstatus ? boardSubstatus.split(',') : [];
     let index = ls.indexOf(val);
     if (index === -1) {
@@ -199,7 +198,6 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                     <List.Item.Meta
                       title={
                         <h6>
-                          { item.status !== 'Approved' ? setpending(true) : pending }
                           <i className="mdi mdi-circle" style={{color: item.status === 'Approved' ? '#29C499' : '#ffdd00' , background:'transparent'}}>
                           </i>
                           &nbsp; {item.locality}
