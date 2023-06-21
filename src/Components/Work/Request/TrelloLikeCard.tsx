@@ -38,7 +38,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
 }) => {
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
   const { loadColumns } = useRequestDispatch();
-  const { project_id } = project;
+  const { project_id, sponsor } = project;
   const project_name = project?.projectData?.project_name;
   const statusArray = project?.projectData?.currentId;
   let status = statusArray && statusArray.length > 0 ? statusArray[0].status_name : null;
@@ -229,7 +229,16 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
       color= '#FF8938';
       backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
-  let labelOrigin = project.origin;
+
+  const getSponsor = (project: any) => {
+    if (project?.projectData?.project_partners?.length > 0) {
+      return project?.projectData?.project_partners[0]?.business_associate?.business_name;
+    } else {
+      return 'No Sponsor';
+    }
+  }
+  
+  let labelOrigin =getSponsor(project);
   if (labelOrigin.length > 9) {
     labelOrigin = labelOrigin.substr(0, 9) + '...';
   }
