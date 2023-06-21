@@ -175,13 +175,13 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[]);
 
-  function titleCase(str:any) {
+  function titleCase(str: any) {
     var splitStr = str.toLowerCase().split(' ');
     for (var i = 0; i < splitStr.length; i++) {
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
-    return splitStr.join(' '); 
- }
+    return splitStr.join(' ');
+  }
 
   useEffect(()=>{
     setIsEdit(false);

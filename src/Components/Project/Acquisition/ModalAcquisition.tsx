@@ -96,7 +96,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
 
   useEffect(() => {
     if (save === true) {
-
+      
       let serviceAreaIds:any=[];
       let countyIds:any=[];
       let jurisdictionIds:any=[];
@@ -206,21 +206,32 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       }
     }
   }, [userInformation]);
+
+  function titleCase(str: any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }
+
   useEffect(() => {
     setIsEdit(false);
     if (data !== 'no data') {
+      setIsEditingPosition(false);   
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
+      console.log(counties, serviceAreas, localJurisdiction)
       const coEsponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 12) {
-          return e.business_associate.business_name
+          return titleCase(e.business_associate.business_name)
         }
         return undefined;
       }).filter((e:any)=> !!e);
       const sponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 11) {
-          return e.business_associate.business_name
+          return titleCase(e.business_associate.business_name)
         }
         return undefined;
       }).filter((e:any)=> !!e).join("");
@@ -333,7 +344,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     const auxState = { ...state };
     setVisibleAcquisition(false);
     setState(auxState);
-    setVisible(false);
+    setVisible(false);    
   };
 
   return (

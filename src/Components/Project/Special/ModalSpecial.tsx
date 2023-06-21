@@ -106,21 +106,30 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   }
 }
 
+  function titleCase(str: any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }
+
   useEffect(()=>{
     setIsEdit(false);
-    if(data!== 'no data' ) {
+    if(data!== 'no data' ) {      
+      setIsEditingPosition(false);
       const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
       const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
       const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
       const coEsponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 12) {
-          return e.business_associate.business_name
+          return titleCase(e.business_associate.business_name)
         }
         return undefined;
       }).filter((e:any)=> !!e);
       const sponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 11) {
-          return e.business_associate.business_name
+          return titleCase(e.business_associate.business_name)
         }
         return undefined;
       }).filter((e:any)=> !!e).join("");
