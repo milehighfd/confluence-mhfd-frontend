@@ -310,7 +310,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.servicearea = serviceAreaIds;
       capital.county = countyIds;
       capital.jurisdiction= jurisdictionIds;
-      capital.sponsor = sponsor;
+      capital.sponsor = sponsor === 'Select a Sponsor' ? '' : sponsor;
       capital.cosponsor = csponsor;
       capital.projectname = nameProject;
       capital.description = description;
