@@ -1336,7 +1336,9 @@ const Map = ({
     const topProblems = () => {
       const styles = { ...tileStyles as any };   
       styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
-        map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
+        if (map.getLayer(`${PROBLEMS_TRIGGER}_${index}`)) {
+          map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
+        }
       })
     }
 

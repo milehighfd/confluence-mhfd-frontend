@@ -47,7 +47,6 @@ const capitalize = (s : string) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
 export const MainPopup = ({id, item, test, sw, ep, detailPage, mapType } : {id: number, item: any, test: (e: any) => void, sw?: any, ep?: any, detailPage?:any, mapType:any}) => {
-  console.log('item', item, mapType)
   if(detailPage === undefined){
     detailPage =false;
   }
