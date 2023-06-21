@@ -16,6 +16,7 @@ import SelectJurisdiction from 'routes/Utils/SelectJurisdiction';
 import { BusinessAssociatesDropdownMemoized } from 'routes/user-management/components/BusinessAssociateDropdown';
 import RadioDesignation from 'routes/user-management/components/RadioDesignation';
 import { formatPhoneNumber } from 'utils/utils';
+import { useAppUserDispatch } from "../../../hook/useAppUser";
 
 const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function }) => {
   const [organization, setOrganization] = useState('');
@@ -49,6 +50,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [businessAssociate, setBusinessAssociate] = useState<any>([]); 
   const [listAssociates, setListAssociates] = useState<any>([]); 
   const [listContacts, setListContacts] = useState<any>([]); 
+
+  const {
+    replaceAppUser,
+    getUserInformation
+  } = useAppUserDispatch();
 
   const menuContactAssociate = () => {
     const itemMenu: MenuProps['items'] = [];
@@ -263,6 +269,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     }, 10000);
     return () => clearTimeout(timer);
   }
+
   const result = () => {
     const newUser: any = {
       firstName,
@@ -292,10 +299,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         newUser.business_associate_contact_id = +res?.businessContact?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
           if (res.message === 'SUCCESS') {        
-            saveUser();
+            saveUser();           
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
+            getUserInformation();
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -311,6 +319,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         if (res.message === 'SUCCESS') {        
           saveUser();
           updateSuccessful();
+          getUserInformation();
         } else {
           if (res?.error) {
             updateError(res.error);
