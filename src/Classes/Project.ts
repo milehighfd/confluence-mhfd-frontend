@@ -20,7 +20,7 @@ export class Project {
     additionalcost: number;
     additionalcostdescription: string;
     projectsubtype: string;
-    frequency: string;
+    frequency: string | number;
     maintenanceeligibility: string;
     ownership: string ;
     attachment: any;

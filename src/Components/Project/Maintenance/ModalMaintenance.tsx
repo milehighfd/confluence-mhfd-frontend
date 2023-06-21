@@ -278,7 +278,11 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
         maintenance.geom = streamIntersected.geom;
       }
       maintenance.projectsubtype = subType;
-      maintenance.frequency = frequency;
+      if (frequency === 'None') {
+        maintenance.frequency = 0;
+      } else {
+        maintenance.frequency = frequency;
+      }
       maintenance.maintenanceeligibility = eligibility;
       maintenance.ownership = "" + ownership;
       maintenance.files = files;
