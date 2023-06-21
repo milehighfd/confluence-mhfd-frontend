@@ -149,7 +149,7 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          {tabKey !== 'Maintenance' && <Select style={{ marginLeft: '11px' }} defaultValue={year} value={year} onChange={setYear}>
+          {tabKey !== 'Maintenance' && <Select dropdownClassName='dropdown-menu' style={{ marginLeft: '11px' }} defaultValue={year} value={year} onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{
@@ -200,9 +200,9 @@ const Analytics = ({
           </div>
         </div>
       }
-      <div className="line-01" style={{ marginLeft: '0px' }}></div>
+      <div className="line-01" style={{ marginLeft: '0px'}}></div>
       {tabKey === 'Maintenance' &&
-        <Select style={{ marginLeft: '-9px' }} defaultValue={year} value={year} onChange={setYear}>
+        <Select dropdownClassName='dropdown-menu' style={{ marginLeft: '-9px'}} defaultValue={year} value={year} onChange={setYear}>
           {
             <Option key={2000} value={2000}> All Subtypes</Option>
           }
