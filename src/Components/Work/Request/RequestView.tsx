@@ -324,7 +324,7 @@ const RequestView = ({ type, isFirstRendering }: {
 
   let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
   return (
-    <Layout className="work">
+    <Layout className="work" style={{ zIndex:1}}>
       {(fakeLoading) && <LoadingViewOverall />}
       {
         <Row>

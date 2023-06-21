@@ -46,7 +46,7 @@ const UserFilterYear = () => {
       <div id={"filter-organization"}>
         <span style={{ color: '#11093C', paddingRight: '10px' }}>Most recent board year:</span>
         <Dropdown trigger={['click']} overlay={MenuOrganization} getPopupContainer={() => document.getElementById("filter-organization") as HTMLElement}
-          overlayClassName="dropdown-special-bottomLeft">
+          overlayClassName="dropdown-special-bottomLeft dropdown-year-management">
           <Button className="btn-borde">
             {year ? year : ''}  <img src="/Icons/icon-12.svg" alt="" />
           </Button>

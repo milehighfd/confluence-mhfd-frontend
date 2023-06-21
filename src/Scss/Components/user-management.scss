@@ -240,9 +240,9 @@
       min-height: 34px !important;
       color: $purple;
       font-weight: 300 !important;
-      .ant-select-selection-placeholder {
-        color: $purple00;
-      }
+    }
+    .dropdown-year-management .ant-select-selection-placeholder {
+      color: $purple00; /* Cambia el color del placeholder a rojo */
     }
     .ant-pagination-options-size-changer.ant-select {
       display: none;
