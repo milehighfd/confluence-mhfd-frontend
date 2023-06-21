@@ -3,6 +3,7 @@ import { AutoComplete } from 'antd';
 
 const BusinessAssociatesDropdown = ({
   businessAssociate,
+  designation,
   setSelectAssociate,
   setAssociateLabel,
   associateLabel,
@@ -10,6 +11,7 @@ const BusinessAssociatesDropdown = ({
   setContactLabel,
 }: {
   businessAssociate: any,
+  designation: any,
   setSelectAssociate: any,
   setAssociateLabel: any,
   associateLabel: any,
@@ -34,7 +36,15 @@ const BusinessAssociatesDropdown = ({
 
   useEffect(() => {
     const m: any[] = [], dm: any[] = [];
-    businessAssociate.forEach((element: any) => {
+    let array = businessAssociate;
+    if (designation === 'government_staff') {
+      const LOCAL_GOVERNMENT = 3;
+      console.log('apply ');
+      console.log(businessAssociate);
+      array = businessAssociate.filter((element: any) => element.code_business_associates_type_id === LOCAL_GOVERNMENT);
+      console.log(array);
+    }
+    array.forEach((element: any) => {
       m.push({
         key: element.key,
         label: <span style={{border:'transparent'}}>{element.label}</span>,
@@ -47,7 +57,7 @@ const BusinessAssociatesDropdown = ({
     setMenu(m);
     setDataMenu(dm);
     setKeyword(associateLabel)
-  }, [businessAssociate]);
+  }, [businessAssociate, designation]);
   useEffect(() => {   
     setKeyword(associateLabel)
   }, [associateLabel]);

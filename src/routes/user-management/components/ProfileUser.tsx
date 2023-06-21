@@ -175,8 +175,13 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   useEffect(() => {
     datasets.getData(SERVER.BUSINESS_ASSOCIATES).then(res => {
       const businessAssociates = res.map((x: any) => {
-        return ({ label: x.business_name, key: x.business_associates_id, primary_business_associate_contact_id: x.primary_business_associate_contact_id })
-      })
+        return ({
+          label: x.business_name,
+          key: x.business_associates_id,
+          primary_business_associate_contact_id: x.primary_business_associate_contact_id,
+          code_business_associates_type_id: x.code_business_associates_type_id 
+        });
+      });
       setBusinessAssociate(businessAssociates)
       setListAssociates(res)
     });
@@ -396,6 +401,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               name="designation"
               value={designation}
               onChange={event => {
+                console.log(event.target.value);
                 values.designation = event.target.value;
                 setDesignation(event.target.value);
               }}
@@ -429,8 +435,9 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               </div>
               <div className="gutter-row"  id={("ba" + values.user_id)}>
                 <p>BUSINESS ASSOCIATE</p>
-                <BusinessAssociatesDropdownMemoized 
+                <BusinessAssociatesDropdownMemoized
                   businessAssociate={businessAssociate}
+                  designation={values.designation}
                   setAssociateLabel={setAssociateLabel}
                   setPrimary={setPrimary}
                   setSelectAssociate={setSelectAssociate}
