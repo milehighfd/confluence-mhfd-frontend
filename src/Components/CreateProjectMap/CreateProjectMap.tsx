@@ -154,7 +154,6 @@ const CreateProjectMap = (type: any) => {
       }
     };
     map = undefined;
-    setZoomGeom(undefined);
     waiting();
     EventService.setRef('click', eventClick);
     EventService.setRef('move', eventMove);
@@ -218,35 +217,12 @@ const CreateProjectMap = (type: any) => {
     }
   }, [listStreams]);
   useEffect(() => {
-    if (zoomGeom && zoomGeom.geom) {
-      let cg = zoomGeom.geom ? JSON.parse(zoomGeom.geom) : undefined;
-      map.map.once('render', () => {
-        if (cg.type === 'MultiLineString') {
-          let poly = turf.multiLineString(cg.coordinates);
-          let bboxBounds = turf.bbox(poly);
-          if (map.map) {
-            map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
-          }
-        } else if (cg.type === 'Point') {
-          let poly = turf.point(cg.coordinates);
-          let bboxBounds = turf.bbox(poly);
-          if (map.map) {
-            map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
-          }
-        } else if (cg.type === 'MultiPolygon') {
-          let poly = turf.multiPolygon(cg.coordinates);
-          let bboxBounds = turf.bbox(poly);
-          if (map.map) {
-            setFlagtoDraw(true)
-            map.map.fitBounds(bboxBounds, { padding: 80, maxZoom: 16 });
-          }
-        } else {
-          console.log("DIFF", cg);
-        }
+    if (zoomGeom && map) {
+      map.map.once('load', () => {
+        map.map.fitBounds(zoomGeom);
       });
-
     }
-  }, [zoomGeom])
+  }, [zoomGeom, map])
   useEffect(() => {
     if (map) {
       if (highlightedComponent.table && !magicAddingVariable) {

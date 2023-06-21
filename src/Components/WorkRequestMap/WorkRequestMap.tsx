@@ -178,6 +178,7 @@ const WorkRequestMap = ({
     setBoardProjects,
     getZoomGeomProblem,
     getZoomGeomComp,
+    setZoomGeom
   } = useProjectDispatch();
   const { selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const { groupOrganization } = useProfileState();
@@ -359,6 +360,7 @@ const WorkRequestMap = ({
   useEffect(() => {
     if (map && map.map) {
       const bounds = map.getBoundingBox();
+      setZoomGeom(bounds);
       if (markerGeocoder) {
         let lnglat = markerGeocoder.getLngLat();
         let swInside = true;
