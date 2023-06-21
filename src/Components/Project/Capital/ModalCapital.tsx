@@ -174,6 +174,15 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setComponentsFromMap([]);
     }
   },[]);
+
+  function titleCase(str:any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+ }
+
   useEffect(()=>{
     setIsEdit(false);
     if(data !== 'no data' ) {
@@ -183,7 +192,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       const aditionalCostObject = data.project_costs.filter((e:any) => e.code_cost_type_id === 4)[0];
       const coEsponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 12) {
-          return e.business_associate.business_name
+          return titleCase(e.business_associate.business_name)
         }
         return undefined;
       }).filter((e:any)=> !!e);
@@ -211,7 +220,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         const parsed = getProjectOverheadCost(data.project_costs);
         setOverheadCosts(parsed);
       }
-      setSponsor(sponsor);
+      setSponsor(titleCase(sponsor));
       setTimeout(()=>{
         getGEOMByProjectId(data.project_id)
       },2200);
