@@ -178,6 +178,7 @@ const CreateProjectMap = (type: any) => {
       setComponentIntersected([]);
       setComponentGeom(undefined);
       updateSelectedLayersCP([]);
+      setUserPolygon([]);
       setEditLocation([]);
       marker.remove();
     }
