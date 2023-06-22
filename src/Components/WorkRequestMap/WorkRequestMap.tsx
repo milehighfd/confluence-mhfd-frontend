@@ -644,19 +644,22 @@ const WorkRequestMap = ({
     }
   };
   useEffect(() => {
-    let historicBounds = getCurrent();
+    // let historicBounds = getCurrent();
     if (locality.isOnSelected) {
       getGroupOrganizationZoomWithouBounds();
-    } else if (historicBounds && historicBounds.bbox) {
-      globalMapId = historicBounds.id;
-      map.map.fitBounds([
-        [historicBounds.bbox[0], historicBounds.bbox[1]],
-        [historicBounds.bbox[2], historicBounds.bbox[3]],
-      ]);
-      getGroupOrganizationZoomWithouBounds();
-    } else {
-      groupOrganizationZoom();
-    }
+    } 
+    // else if (historicBounds && historicBounds.bbox) {
+    //   globalMapId = historicBounds.id;
+    //   map.map.fitBounds([
+    //     [historicBounds.bbox[0], historicBounds.bbox[1]],
+    //     [historicBounds.bbox[2], historicBounds.bbox[3]],
+    //   ]);
+    //   // getGroupOrganizationZoomWithouBounds();
+    // } 
+    // else {
+    //   console.log('qqqqqqqqqqq')
+    //   groupOrganizationZoom();
+    // }
   }, [groupOrganization, locality.locality]);
   useEffect(() => {
     if (data.problemid || data.cartoid) {
