@@ -271,7 +271,6 @@ body {
 
 .ant-modal-content {
   border-radius: 10px;
-  height: auto;
 }
 
 .menu-active-active {
@@ -1372,7 +1371,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 .detailed-upload {
-  width: 760px !important;
+  width: 960px !important;
 
   /* Default close button */
   .ant-modal-close {
@@ -2211,7 +2210,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
 // DETAILED PROBLEM
 .upload {
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   border-radius: 4px;
   box-shadow: $shadow;
@@ -2321,7 +2320,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 .upload02 {
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   border-radius: 4px;
   box-shadow: $shadow;
