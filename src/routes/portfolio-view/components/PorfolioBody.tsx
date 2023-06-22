@@ -76,7 +76,7 @@ const PortafolioBody = ({
       const sortedData = [...newData].filter((elem: any) => elem.id.includes('Title'));
       setOpenGroups(new Array(sortedData.length).fill(true));
     }
-    setOpenGroups([true, true, true]);
+    setOpenGroups([true]);
     setTimeout(() => {
       isInit = false;
       resetFilterProjectOptionsEmpty();

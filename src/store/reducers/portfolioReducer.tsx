@@ -22,7 +22,7 @@ const initState = {
   openModalTollgate: false,
   updateGroup: {id1: null,id2: null},
   isLoading: false,
-  openGroups: [true, true, true],
+  openGroups: [true],
   datesData: {},
   pineyData: {},
   isFromDetailPage: false

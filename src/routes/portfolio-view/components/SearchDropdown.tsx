@@ -31,7 +31,7 @@ const SearchDropdown = () => {
             return {
               key: `1-${index + 1}`,
               label: <div className={index === activeDrop ? "menu-drop-sub menu-sub-drop menu-active" : "menu-drop-sub menu-sub-drop"} 
-              onClick={() => { gb !== 'MHFD Lead' ? setCurrentGroup(gb.toLowerCase().replace(' ', '')) : setCurrentGroup('staff'); setActiveDrop(index); setOpenDrop(false); setOpenGroups([true, true, true]) }}>{gb === 'Jurisdiction' ? 'Local Government' : gb}</div>,
+              onClick={() => { gb !== 'MHFD Lead' ? setCurrentGroup(gb.toLowerCase().replace(' ', '')) : setCurrentGroup('staff'); setActiveDrop(index); setOpenDrop(false); setOpenGroups([true])}}>{gb === 'Jurisdiction' ? 'Local Government' : gb}</div>,
               className: index === activeDrop ? " menu-active" : ""
             }
           })
