@@ -645,7 +645,10 @@ const WorkRequestMap = ({
   };
   useEffect(() => {
     // let historicBounds = getCurrent();
-    if (locality.isOnSelected) {
+    // if(locality){
+    //   setCoordinatesJurisdiction(locality.locality)
+    // }
+    if (locality) {
       getGroupOrganizationZoomWithouBounds();
     } 
     // else if (historicBounds && historicBounds.bbox) {
