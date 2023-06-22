@@ -317,8 +317,8 @@ const CreateProjectMap = (type: any) => {
       }
     });
     if (zoomareaSelected[0]) {
-      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
-      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates);
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates?.coordinates);
+      setCoordinatesJurisdiction(zoomareaSelected[0].coordinates?.coordinates);
       const DEPTH = depth(zoomareaSelected[0].coordinates?.coordinates);
       let poly;
       if (DEPTH == 4) {
