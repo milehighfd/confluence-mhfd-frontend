@@ -241,7 +241,7 @@ export const LocationInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div id="sponsorid">
-            <Select style={{ width: '100%' }} placeholder={'Select a Sponsor'} value={sponsor === "" ? undefined : sponsor} disabled={isLocalGovernment || isEdit} onChange={setSponsor} getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
+            <Select style={{ width: '100%' }} placeholder={'Select a Sponsor'} value={sponsor === "" ? undefined : sponsor} disabled={isLocalGovernment} onChange={setSponsor} getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
                 isLocalGovernment ? (
                   <Option value={sponsor + ""}>{sponsor + ""}</Option>
