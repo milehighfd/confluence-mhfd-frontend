@@ -250,23 +250,15 @@ const RequestView = ({ type, isFirstRendering }: {
       setNamespaceId(board.board_id);
       setFlagforScroll(Math.random());
       setTotalCountyBudget(board.total_county_budget);
-      // let reqManagerEq = true;
-      // for (var i = 1 ; i <= 5; i++) {
-      //   if (board[`targetcost${i}`] != reqManager[i-1]) {
-      //     reqManagerEq = false;
-      //   }
-      // }
-      // if (!reqManagerEq) {
-        setReqManager([
-          board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
-        ])
-      // }
+      setReqManager([
+        board.targetcost1, board.targetcost2, board.targetcost3, board.targetcost4, board.targetcost5
+      ]);
     }
     loadProjects();
     let params = [
       ['year', year],
       ['locality', locality],
-      ['tabKey', tabKey]
+      ['tabKey', encodeURIComponent(tabKey)]
     ]
     history.push({
       pathname: type === "WORK_REQUEST" ? '/work-request' : '/work-plan',
