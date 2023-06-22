@@ -86,13 +86,13 @@ const CalendarViewPag = ({
           <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
             <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
               <div className='calendar-text-header'>
-                <Button
+                {/* <Button
                   className={zoomSelected === 'Today' ? "btn-view btn-view-active" : "btn-view"}
                   onClick={() => { setIsZoomToday(true); setZoomSelected('Today'); setZoomTimeline(0); setZoomTimelineAux(0) }}
                 >
                   Today
                 </Button>
-                <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span>
+                <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span> */}
                 <Button
                   className={zoomSelected === 'Weekly' ? "btn-view btn-view-active" : "btn-view"}
 

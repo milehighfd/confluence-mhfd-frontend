@@ -15,7 +15,7 @@ const initState = {
   isZoomToday: true,
   isZoomWeekly: false,
   isZoomMonthly: false,
-  zoomSelected: 'Today',
+  zoomSelected: 'Monthly',
   positionModalGraphic: {left: 500, top:500},
   dataModal: {},
   graphicOpen: false,
