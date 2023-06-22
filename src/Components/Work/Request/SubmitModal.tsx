@@ -62,7 +62,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
           <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
           <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{color: '#11093c'}}>
             {
-              (!isPending) && <h2>{ currentApproved ? 'Only notes will be updated.' : <div>
+              (!isPending) && <h2>{ currentApproved ? 'Only notes will be updated.' : <div style={{fontSize:'16px !important'}}>
                 By Approving, you are submitting your jurisdiction's {type === 'WORK_REQUEST' ? 'Work Request' : 'Work Plan'} to MHFD for review. You will no longer be able to edit.
               </div> } </h2>
             }
