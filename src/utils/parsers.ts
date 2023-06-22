@@ -17,7 +17,6 @@ export const getSponsors = (projectPartners: any) => {
 };
 
 export const getMainSponsor = (projectPartners: any) => {
-  console.log('fuck ', projectPartners);
   return projectPartners.find((pp: any) => pp?.code_partner_type_id === SPONSOR_ID)?.business_associate?.business_name || '';
 };
 
