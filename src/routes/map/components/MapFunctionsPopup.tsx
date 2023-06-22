@@ -135,6 +135,7 @@ export const addPopupAndListeners = (
   isEditPopup? :any,
   getComponentsFromProjProb?: any
 ) => {
+  console.log('HTML BEFORE POPUP', popups);
   const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup, undefined, maptype);
   setMobilePopups(mobile);
   setActiveMobilePopups(mobileIds);
@@ -974,17 +975,17 @@ export const addPopupsOnClick = async (
           ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
       if(feature.source === 'streams') {
-        const objectidstream = feature.properties.objectid;
+        const objectidstream = feature.properties.mhfd_code;
         const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
           const item = {
               type: 'streams-reaches',
               layer: 'Streams',
               title: dataFromDBforStreams[0].stream_name ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
               streamname: dataFromDBforStreams[0].stream_name,
-              mhfd_code: dataFromDBforStreams[0].MHFD_Code,
-              catch_sum: dataFromDBforStreams[0].catchment_sum,
-              str_ft: dataFromDBforStreams[0].stream_length_feet,
-              slope: dataFromDBforStreams[0].Slope 
+              mhfd_code: dataFromDBforStreams[0].mhfd_code,
+              catch_sum: dataFromDBforStreams[0].catchment_area_sum_ac,
+              str_ft: dataFromDBforStreams[0].stream_length_ft,
+              slope: dataFromDBforStreams[0].slope_ft 
           };
           menuOptions.push('Stream');
           mobile.push({...item});
