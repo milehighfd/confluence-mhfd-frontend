@@ -21,7 +21,7 @@ import RheoStatService from 'Components/FiltersProject/NewProblemsFilter/RheoSta
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useDetailedState } from 'hook/detailedHook';
 import MapAutoComplete from 'routes/map/components/MapAutoComplete';
-import { getCurrentProjectStatus } from 'utils/parsers';
+import { getCurrentProjectStatus, getMainSponsor } from 'utils/parsers';
 import { useProjectDispatch } from 'hook/projectHook';
 import { SERVER } from '../../../Config/Server.config';
 
@@ -1248,7 +1248,7 @@ const MapView = () => {
                           ? '/projectImages/debris-management.png'
                           : '/projectImages/watershed-change.png',
                       requestName: project.project_name,
-                      sponsor: project.sponsor,
+                      sponsor: getMainSponsor(project.project_partners),
                       project_costs: project.project_costs,
                       estimatedCost: project.estimatedcost ? project.estimatedcost : project.finalcost,
                       componentCost: project.component_cost ? project.component_cost : 0,
