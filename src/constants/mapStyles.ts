@@ -3738,13 +3738,15 @@ export const PROJECTS_STYLES_WR = {
       "type": "symbol",
       "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1,2,3],"project_type":[13]},
       "source-layer": "pluto15v1",
-      "minzoom": 0,
+      // "minzoom": 0,
       "layout": {
           "icon-image": "propacq_ORANGE_bold_small",
           "icon-size": 0.5,
           "visibility": "none",
           'icon-ignore-placement': true,
-          'icon-allow-overlap':true
+          'text-allow-overlap': true,
+          'icon-allow-overlap':true,
+          'text-ignore-placement': true
       },
       "paint": {}
   },
@@ -3756,9 +3758,11 @@ export const PROJECTS_STYLES_WR = {
       "layout": {
           "icon-size": 0.6,
           "icon-image": "RD_ORANGE_bold_small",
-          "visibility": "none",
+          // "visibility": "none",
           'icon-ignore-placement': true,
-          'icon-allow-overlap':true
+          'text-allow-overlap': true,
+          'icon-allow-overlap':true,
+          'text-ignore-placement': true
       },
       "paint": {}
   },
@@ -3767,12 +3771,14 @@ export const PROJECTS_STYLES_WR = {
     "type": "symbol",
     "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [1,2,3],"project_type":[13]},
     "source-layer": "pluto15v1",
-    "minzoom": 8,
+    // "minzoom": 8,
     "layout": {
         "icon-image": "propacq_ORANGE_bold_small",
         "icon-size": 0.5,
         'icon-ignore-placement': true,
-        'icon-allow-overlap':true
+        'text-allow-overlap': true,
+        'icon-allow-overlap':true,
+        'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3784,7 +3790,9 @@ export const PROJECTS_STYLES_WR = {
       "layout": {
         "icon-size": 0.6, "icon-image": "RD_ORANGE_bold_small",
         'icon-ignore-placement': true,
-        'icon-allow-overlap':true
+        'text-allow-overlap': true,
+        'icon-allow-overlap':true,
+        'text-ignore-placement': true
       },
       "paint": {}
   },
@@ -3793,12 +3801,14 @@ export const PROJECTS_STYLES_WR = {
     "type": "symbol",
     "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [5],"project_type":[13]},
     "source-layer": "pluto15v1",
-    "minzoom": 0,
+    // "minzoom": 0,
     "layout": {
         "icon-image": "propacq_GREEN_bold_small",
         "icon-size": 0.5,
         'icon-ignore-placement': true,
-        'icon-allow-overlap':true
+        'text-allow-overlap': true,
+        'icon-allow-overlap':true,
+        'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3810,7 +3820,9 @@ export const PROJECTS_STYLES_WR = {
     "layout": {
       "icon-size": 0.6, "icon-image": "RD_GREEN_bold_small",
       'icon-ignore-placement': true,
-      'icon-allow-overlap':true
+      'text-allow-overlap': true,
+      'icon-allow-overlap':true,
+      'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3819,12 +3831,14 @@ export const PROJECTS_STYLES_WR = {
     "type": "symbol",
     "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [7,8],"project_type":[13]},
     "source-layer": "pluto15v1",
-    "minzoom": 0,
+    // "minzoom": 0,
     "layout": {
         "icon-image": "prop-acq_RED",
         "icon-size": 0.5,
         'icon-ignore-placement': true,
-        'icon-allow-overlap':true
+        'text-allow-overlap': true,
+        'icon-allow-overlap':true,
+        'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3836,7 +3850,9 @@ export const PROJECTS_STYLES_WR = {
     "layout": {
       "icon-size": 0.6, "icon-image": "rd_RED",
       'icon-ignore-placement': true,
-      'icon-allow-overlap':true
+      'text-allow-overlap': true,
+      'icon-allow-overlap':true,
+      'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3845,12 +3861,14 @@ export const PROJECTS_STYLES_WR = {
     "type": "symbol",
     "metadata": {"mapbox:group": "bdf3db001830c897392db56b343f448b", "project_status": [9,10],"project_type":[13]},
     "source-layer": "pluto15v1",
-    "minzoom": 0,
+    // "minzoom": 0,
     "layout": {
         "icon-image": "propacq_PINK_bold_small",
         "icon-size": 0.5,
         'icon-ignore-placement': true,
-        'icon-allow-overlap':true
+        'text-allow-overlap': true,
+        'icon-allow-overlap':true,
+        'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3862,7 +3880,9 @@ export const PROJECTS_STYLES_WR = {
     "layout": {
       "icon-size": 0.6, "icon-image": "RD_PINK_bold_small",
       'icon-ignore-placement': true,
-      'icon-allow-overlap':true
+      'text-allow-overlap': true,
+      'icon-allow-overlap':true,
+      'text-ignore-placement': true
     },
     "paint": {}
   },
@@ -3870,7 +3890,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "z13_allstudy_neg_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[1, 18] },
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1,2,3],"project_type":[1, 18] },
     "source-layer": "pluto15v1",
     "maxzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3883,7 +3903,7 @@ export const PROJECTS_STYLES_WR = {
   {
       // "id": "z13_allstudy_pos_DRAFT_test",
       "type": "line",
-      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[1, 18] },
+      "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1,2,3],"project_type":[1, 18] },
       "source-layer": "pluto15v1",
       "maxzoom": 13,
       "layout": {"line-cap": "round"},
@@ -3896,7 +3916,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_neg_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[1] },
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1,2,3],"project_type":[1] },
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3909,7 +3929,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_pos_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[1]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[1]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3922,7 +3942,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-FHAD_neg_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[18]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[18]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3936,7 +3956,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-FHAD_pos_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[18]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[18]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3950,7 +3970,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "capital_neg_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[5]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[5]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3963,7 +3983,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "capital_pos_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[5]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[5]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3976,7 +3996,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "maintenance_neg_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[7,8,9,10,11,17]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[7,8,9,10,11,17]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -3990,7 +4010,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "maintenance_pos_DRAFT_shdw",
     "type": "line",
-    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1],"project_type":[7,8,9,10,11,17]},
+    "metadata": {"mapbox:group": "c953f4f9eab20c7654f1d85461b346e5", "project_status": [1, 2, 3],"project_type":[7,8,9,10,11,17]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4004,7 +4024,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_neg_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[1]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[1]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4017,7 +4037,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_pos_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[1]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[1]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4030,7 +4050,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-FHAD_neg_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[18]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[18]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4044,7 +4064,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-FHAD_pos_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[18]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[18]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4058,7 +4078,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "capital_neg_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[5]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[5]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4071,7 +4091,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "capital_pos_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[5]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[5]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4084,7 +4104,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "maintenance_neg_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e","project_status": [1],"project_type":[7, 8,9,10,11,17]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e","project_status": [1, 2, 3],"project_type":[7, 8,9,10,11,17]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4098,7 +4118,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "maintenance_pos_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[7, 8,9,10,11,17]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[7, 8,9,10,11,17]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4138,7 +4158,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "z13_allproj_neg_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
     "source-layer": "pluto15v1",
     "maxzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4151,7 +4171,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "z13_allproj_pos_DRAFT_test",
     "type": "line",
-    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+    "metadata": {"mapbox:group": "cf08e6682ac5c524c0eb9c365153091e", "project_status": [1, 2, 3],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
     "source-layer": "pluto15v1",
     "maxzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4325,7 +4345,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_neg_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[1]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[1]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4338,7 +4358,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-MDP_pos_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[1]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[1]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4351,7 +4371,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-FHAD_neg_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[18]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[18]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4365,7 +4385,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "study-FHAD_pos_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[18]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[18]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4379,7 +4399,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "capital_neg_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[5]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[5]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4392,7 +4412,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "capital_pos_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[5]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[5]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4405,7 +4425,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "maintenance_neg_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[7, 8,9,10,11,17]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[7, 8,9,10,11,17]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4419,7 +4439,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "maintenance_pos_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[7, 8,9,10,11,17]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[7, 8,9,10,11,17]},
     "source-layer": "pluto15v1",
     "minzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4459,7 +4479,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "z13_allproj_neg_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
     "source-layer": "pluto15v1",
     "maxzoom": 13,
     "layout": {"line-cap": "round"},
@@ -4472,7 +4492,7 @@ export const PROJECTS_STYLES_WR = {
   {
     // "id": "z13_allproj_pos_CNCL",
     "type": "line",
-    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [8],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
+    "metadata": {"mapbox:group": "7d739a5929d10c2c1a030d5dc22ffeda", "project_status": [7,8],"project_type":[2,3,4,5,6,7,8,9,10,11,17,12,14,16,17]},
     "source-layer": "pluto15v1",
     "maxzoom": 13,
     "layout": {"line-cap": "round"},
