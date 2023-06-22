@@ -196,16 +196,6 @@ const ColumsTrelloCard = ({
                 </Button>
               )}
               {column.projects
-                .filter((p: any) =>
-                  filterByJurisdictionAndCsaSelected(
-                    jurisdictionSelected,
-                    csaSelected,
-                    jurisdictionFilterList,
-                    csaFilterList,
-                    p,
-                  ),
-                )
-                .filter((p: any) => { return hasPriority(p, prioritySelected, columnIdx) })
                 .map((p: any, i: number, arr: any[]) => {
                   columDragAction = fixedDragAction;
                   const valuePosition: number = Number(columDragAction[2]);

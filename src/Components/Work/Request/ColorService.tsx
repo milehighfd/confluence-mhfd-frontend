@@ -13,18 +13,7 @@ class ColorService {
                 }
             })
         } else {
-          const positions = [0,1,2,3,4,5];
-          positions.forEach((pos) => {
-            if (project[`originPosition${pos}`] !== null) {
-              index = project[`originPosition${pos}`];
-            }
-            if (columnIdx === 0){
-              index = 100;
-            }
-          });
-          if (index === -1) {
-            index = project[`originPosition${columnIdx}`];
-          }
+          index = project[`originPosition${columnIdx}`];
         }
         switch(index) {
             case 0:

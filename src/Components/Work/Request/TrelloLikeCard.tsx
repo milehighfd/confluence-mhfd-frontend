@@ -161,23 +161,23 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
     setAmount(project[`req${columnIdx}`])
   }, [project, columnIdx]);
 
-  useEffect(() => {
-    if (type === 'WORK_REQUEST') {
-      setPriority(project[`originPosition${columnIdx}`]);  
-    } else {
-      const positions = [0,1,2,3,4,5];
-      let newPriority = -1;
-      positions.forEach((pos) => {
-        if (project[`originPosition${pos}`]) {
-          newPriority = project[`originPosition${pos}`];
-        }
-      });
-      if (newPriority === -1) {
-        newPriority = project[`originPosition${columnIdx}`];
-      }
-      setPriority(newPriority);
-    }
-  }, [project, columnIdx]);
+  // useEffect(() => {
+  //   if (type === 'WORK_REQUEST') {
+  //     setPriority(project[`originPosition${columnIdx}`]);  
+  //   } else {
+  //     const positions = [0,1,2,3,4,5];
+  //     let newPriority = -1;
+  //     positions.forEach((pos) => {
+  //       if (project[`originPosition${pos}`]) {
+  //         newPriority = project[`originPosition${pos}`];
+  //       }
+  //     });
+  //     if (newPriority === -1) {
+  //       newPriority = project[`originPosition${columnIdx}`];
+  //     }
+  //     setPriority(newPriority);
+  //   }
+  // }, [project, columnIdx]);
 
   
   useEffect(() => {
@@ -311,7 +311,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
               type === 'WORK_PLAN' &&
               <label className="purple-priority"style={{marginRight:'-10px'}}>
                 {
-                  priority === -1 ? 'Work Plan' :`No. ${priority + 1}`
+                  priority === null ? 'Work Plan' :`No. ${priority + 1}`
                 }
               </label>
             }
