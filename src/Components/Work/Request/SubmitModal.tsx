@@ -27,7 +27,7 @@ export const SubmitModal = ({ locality, boardsLength, boardSubstatus, type, visi
   let isPending = null;
   if (hasChecks) {
     let ls = boardSubstatus ? boardSubstatus.split(',') : [];
-    ls = ls.map(l => l?.toLowerCase()).filter(r => (r !== 'INTEG.SYNC'.toLowerCase() && r !== 'special'));
+    ls = ls.map(l => l?.toLowerCase()).filter(r => (r !== 'INTEG.SYNC'.toLowerCase() && r !== 'special' && r !== 'null'));
     isPending = ls.length !== boardsLength;
   } else {
     isPending = pending;

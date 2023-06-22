@@ -114,9 +114,7 @@ const MapLayout = () => {
     if(galleryProjectsV2.length === 0){
       setLoaded(false);
     }else{
-      setTimeout(() =>{
-        setLoaded(true);
-      }, 5000);
+      setLoaded(true);
     }
   },[galleryProjectsV2])
   useEffect(() => {
@@ -165,7 +163,7 @@ const MapLayout = () => {
         <SidebarView></SidebarView>
         <Layout className="map-00">
           {
-            (longitude && latitude) && (
+            (longitude && latitude && loaded) ? (
               <Row>
                 <Col
                   xs={{ span: 24 }}
@@ -189,10 +187,7 @@ const MapLayout = () => {
                   <MapView />
                 </Col>
               </Row>
-            )
-          }
-          {!loaded &&
-            <LoadingView />
+           ) : <LoadingView />
           }
         </Layout>
       </Layout>

@@ -4,6 +4,7 @@ import { getData, getToken, putData } from "../../../Config/datasets";
 import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 import { GET_BOARD_DEPENDENCIES, UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
+import { useRequestDispatch } from "hook/requestHook";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -23,6 +24,12 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
   setShowAlert: Function,
   onUpdateHandler: Function
 }) => {
+  const {
+    setBoardComment: _setBoardComment,
+    setBoardStatus: _setBoardStatus,
+    setBoardSubstatus: _setBoardSubstatus,
+    loadColumns
+  } = useRequestDispatch();
   const [boardStatus, setBoardStatus] = useState(status);//from backend
   const [boardComment, setBoardComment] = useState(comment || '');
   const [boardSubstatus, setBoardSubstatus] = useState(substatus);
@@ -39,6 +46,13 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
       substatus: boardSubstatus
     }, getToken())
         .then((r) => {
+
+          _setBoardStatus(boardStatus)
+          _setBoardComment(boardComment);
+          _setBoardSubstatus(boardSubstatus);
+          setBoardStatus(boardStatus)
+          setBoardComment(boardComment);
+          setBoardSubstatus(boardSubstatus);
           let alertStatus: { type: 'success' | 'error', message: string } = {
             type: 'error',
             message: 'An error has ocurred, please try again later.'
@@ -52,6 +66,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
           setTimeout(() => {
             setShowAlert(false);
             onUpdateHandler();
+            loadColumns(boardId);
           }, 4000);
         })
         .catch((e) => {
@@ -91,7 +106,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
                 return 1;
               }
             }
-         });;
+         });
           setBoardsData(newBoardsSorted.map((b: any) => {
             return {
               ...b,
@@ -108,7 +123,7 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
           setLoading(false);
         })
     }
-  }, [])
+  }, [substatus])
 
   const onCheck = (val: string) => {
     let ls = boardSubstatus ? boardSubstatus.split(',') : [];
