@@ -19,6 +19,7 @@ import { useAppUserDispatch } from '../../../hook/useAppUser';
 import { SELECT_ALL_FILTERS } from '../../../constants/constants';
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 
 const MapLayout = () => {
   const {
@@ -49,6 +50,7 @@ const MapLayout = () => {
   const { open } = useNotesState();
   const { setSave } = useProjectDispatch();
   const { getUserInformation } = useAppUserDispatch();
+  const [safeLoading, setSafeLoading] = useState(false);
 
   const loadData = (trigger: any, name?: string): any => {
     const controller = new AbortController();
@@ -92,9 +94,11 @@ const MapLayout = () => {
     });
     Promise.all(promises)
       .then(() => {
+        setLoaded(true);
+        setSafeLoading(true);
         setTimeout(() =>{
-          setLoaded(true);
-        }, 5000);
+          setSafeLoading(false);
+        }, 10000);
       })
     return () => {
       controllers.forEach((controller) => {
@@ -161,6 +165,7 @@ const MapLayout = () => {
       <Navbar />
       <Layout>
         <SidebarView></SidebarView>
+        {safeLoading && <LoadingViewOverall />}
         <Layout className="map-00">
           {
             (longitude && latitude && loaded) ? (
