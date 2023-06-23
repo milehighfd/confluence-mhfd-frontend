@@ -64,7 +64,6 @@ const requestReducer = (state = initialState, action: any) => {
         locality: action.payload
       };
     case types.REQUEST_SET_YEAR:
-      console.log('trololol', action.payload);
       return {
         ...state,
         year: action.payload
