@@ -986,6 +986,7 @@ useEffect(() => {
       }
     });
   };
+
   const showLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -995,13 +996,48 @@ useEffect(() => {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           const statusLayer = currentLayer?.metadata?.project_status;
           const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
+          let verifiedStatus
+          typeLayer?.forEach((type: any) => {
+            if (statusLayer.length > 0) {
+              statusLayer.forEach((currentStatus: any) => {
+                verifiedStatus = currentStatus;
+                      switch (currentTab) {
+                        case 'Capital':
+                          verifiedStatus = 5;
+                          break;
+                        case 'Maintenance':
+                          verifiedStatus = 8;
+                          break;
+                        case 'Study':
+                          verifiedStatus = 1;
+                          break;
+                        case 'Acquisition':
+                          verifiedStatus = 13;
+                          break;
+                        case 'R&D':
+                          verifiedStatus = 15;
+                          break;
+                        default:
+                          break;
+                      }
+                    })}})
+          const undefinedValues = groupedIdsBoardProjects.undefined?.undefined ?? [];
+          const newValues = [...(groupedIdsBoardProjects[1]?.[1] ?? []), ...undefinedValues];
+          const result = {
+            ...groupedIdsBoardProjects,
+            1: {
+              ...groupedIdsBoardProjects[1],
+              [Number(verifiedStatus)] : newValues
+            }
+          };
+          // delete result.undefined;
           let idsToFilter: any = [];
           typeLayer?.forEach((type: any) => {
             if (statusLayer.length > 0) {
               statusLayer.forEach((currentStatus: any) => {
-                let idsCurrent = groupedIdsBoardProjects[currentStatus];
+                let idsCurrent = result[currentStatus];
                 if (idsCurrent && idsCurrent[type]?.length > 0) {
-                  idsToFilter = [...idsToFilter, ...groupedIdsBoardProjects[currentStatus][type]];
+                  idsToFilter = [...idsToFilter, ...result[currentStatus][type]];
                 }  
               });
             }
