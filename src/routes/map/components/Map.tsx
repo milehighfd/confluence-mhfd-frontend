@@ -1246,43 +1246,39 @@ const Map = ({
     }
     const applyMapLayers = () => {
         SELECT_ALL_FILTERS.forEach((layer) => {          
-            if (typeof layer === 'object') {
-              if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
-                // selectedLayers.forEach((layer: LayersType) => {
-                //   if (typeof layer === 'object' && layer.name === USE_LAND_COVER_LABEL) {
-                    applyTileSetLayer();
-                    layer.tiles.forEach((tile: string) => {
-                      addTileSource(tile);
-                    });
-                //   }
-                // })
-              } 
-              else if (layer.tiles) {
-                  layer.tiles.forEach((subKey: string) => {
-                      const tiles = layerFilters[layer.name] as any;
-                      if (tiles) {
-                          addLayersSource(subKey, tiles[subKey]);
-                      }
-                  });
-              }
-            } else {
-              if(layer !== 'area_based_mask' && layer !== 'border') {
-                addLayersSource(layer, layerFilters[layer]);
-              }
+          if (typeof layer === 'object') {
+            if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
+              applyTileSetLayer();
+              layer.tiles.forEach((tile: string) => {
+                addTileSource(tile);
+              });
+            } 
+            else if (layer.tiles) {
+              layer.tiles.forEach((subKey: string) => {
+                  const tiles = layerFilters[layer.name] as any;
+                  if (tiles) {
+                      addLayersSource(subKey, tiles[subKey]);
+                  }
+              });
             }
+          } else {
+            if(layer !== 'area_based_mask' && layer !== 'border') {
+              addLayersSource(layer, layerFilters[layer]);
+            }
+          }
         });
         selectedLayers.forEach((layer: LayersType) => {
           if(layer === 'area_based_mask' || layer === 'border') {
             addLayerMask(layer);
             return;
           }
-            if (typeof layer === 'object') {
-              layer.tiles.forEach((subKey: string) => {
-                  showLayers(subKey);
-              });
-            } else {
-              showLayers(layer);
-            }
+          if (typeof layer === 'object') {
+            layer.tiles.forEach((subKey: string) => {
+              showLayers(subKey);
+            });
+          } else {
+            showLayers(layer);
+          }
         });
         applyFilters(PROBLEMS_TRIGGER, filterProblems);
         getProjectsFilteredIds();
@@ -1304,13 +1300,13 @@ const Map = ({
           topHovereableLayers();
           topStreamLabels();
           topLabels();
-            if (map.getLayer('area_based_maskMASK')) {
-              map.moveLayer('area_based_maskMASK');
-            }
-            if (map.getLayer('borderMASK')) {
-              map.moveLayer('borderMASK');
-            }
-        },300);
+          if (map.getLayer('area_based_maskMASK')) {
+            map.moveLayer('area_based_maskMASK');
+          }
+          if (map.getLayer('borderMASK')) {
+            map.moveLayer('borderMASK');
+          }
+        }, 300);
     }
     const topHovereableLayers = () => {
       const styles = { ...tileStyles as any };
