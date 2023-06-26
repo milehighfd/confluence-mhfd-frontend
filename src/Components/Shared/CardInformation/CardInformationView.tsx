@@ -233,8 +233,7 @@ const CardInformationView = ({
             ? 
               <h6>{data.jurisdiction ? data.jurisdiction : 'No County'}</h6>
             : 
-            <h6></h6>
-            // <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
+              <h6>{data.sponsor ? data.sponsor : 'No Sponsor'}</h6>
           }
           {
             type === 'Problems'
