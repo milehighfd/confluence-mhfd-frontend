@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Checkbox, Col, Collapse, Popover, Row, Tabs } from 'antd';
-import GenericTabView from '../../../Components/Shared/GenericTab/GenericTabView';
-import { useMapDispatch, useMapState } from '../../../hook/mapHook';
-import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_TRIGGER, PROJECTS_TRIGGER } from '../constants/tabs.constants';
+import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, PROBLEMS_TRIGGER, PROJECTS_TRIGGER } from 'routes/map/constants/tabs.constants';
 import { getCurrentProjectStatus } from 'utils/parsers';
 
 let contents: any = [];

@@ -87,6 +87,7 @@ import {
 } from 'routes/map/components/MapFunctionsNotes';
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import useMapResize from 'hook/custom/useMapResize';
+import useIsMobile from 'hook/custom/useIsMobile';
 
 let map: any = null;
 let hasBeenUpdated = false;
@@ -279,7 +280,7 @@ const Map = ({
         cartoid: ''
     });
     const [ showDefault, setShowDefault ] = useState(false);
-
+    const isMobile = useIsMobile();
 
     const handleColor = () => {
       let color = '';
@@ -2820,8 +2821,11 @@ const Map = ({
               map={map}
               setCommentVisible={setCommentVisible}
               mapService={mapService}
+              isMobile={isMobile}
             />
-            <MobileMenu />
+            {
+              isMobile && <MobileMenu />
+            }
         </div>
     </>
     )

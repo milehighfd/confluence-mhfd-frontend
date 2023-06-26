@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
+import MapService from 'Components/Map/MapService';
 
 const coordinatesMHFD = [
   [-105.3236581, 39.4057815],
@@ -12,7 +13,17 @@ const coordinatesMHFD = [
   [-105.3236581, 39.4057815]
 ];
 
-const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
+const SideMenuTools = ({
+  map,
+  setCommentVisible,
+  mapService,
+  isMobile
+}: {
+  map: any,
+  setCommentVisible: Function,
+  mapService: MapService,
+  isMobile: boolean
+}) => {
   const {
     setFilterProblemOptions,
     setFilterProjectOptions,
@@ -37,16 +48,6 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
     filterProjectOptions,
   } = useMapState();
   const [displayPrevNext, setDisplayPrevNext] = useState(false);
-  const [width, setWidth] = useState<number>(window.innerWidth);
-  const handleWindowSizeChange = () => {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
-    }
-  }, []);
   const changeCenter = (name: string, coordinates: any, isSelect?: any) => {
     const user = userInformation;
     user.polygon = coordinates;
@@ -128,7 +129,6 @@ const SideMenuTools = ({ map, setCommentVisible, mapService }: any) => {
     onSelect('Mile High Flood District');
     setBBOXComponents({ bbox: [], centroids: [] })
   }
-  const isMobile = width <= 768;
 
   return (
     <div className="m-zoom">
