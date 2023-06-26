@@ -25,6 +25,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [saveAlert, setSaveAlert] = useState(false);
   const validationSchema = VALIDATION_USER;
   const [disabled, setDisabled] = useState(true);
+  const [disabledContact, setDisabledContact] = useState(false);
+  const [disabledAddress, setDisabledAddress] = useState(false);
   const [selectAssociate, setSelectAssociate] = useState(-1);
   const [associateLabel, setAssociateLabel] = useState<any> ('');
   const [contactData, setContactData] = useState<any> ({});
@@ -85,7 +87,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       });
       itemMenu.push({
         key: 'Create_1',
-        label: <span style={{ border: 'transparent' }}>{'Create Contact'}</span>
+        label: <span style={{ border: 'transparent' }}>{'Add New Address'}</span>
       });
     };
     generateItemMenu(listContacts);
@@ -105,6 +107,68 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setContactLabel('')
         } else {
           setDisabled(true);
+          setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
+          setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
+          setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
+          setAdressLine1((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_1)
+          setAdressLine2((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_2)
+          setState((dataMenu.find((elm) => +elm.key === +event.key)).state)
+          setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
+          setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
+        }
+      }}>
+    </Menu>
+  };
+
+  const menuContactAssociate2 = () => {
+    const itemMenu: MenuProps['items'] = [];
+    let dataMenu: any[] = [];
+    const generateItemMenu = (content: Array<any>) => {
+      content.forEach((element, index: number) => {
+        if (element.key === primary) {          
+          itemMenu.push({
+            key: element.key,
+            label: <span style={{ border: 'transparent' }}>{element.label + ' (primary)'}</span>
+          });
+          dataMenu.push({
+            ...element
+          });
+
+        }
+      });
+      content.forEach((element, index: number) => {
+        if (element.key !== primary) {
+          itemMenu.push({
+            key: element.key,
+            label: <span style={{ border: 'transparent' }}>{element.label}</span>
+          });
+          dataMenu.push({
+            ...element
+          });
+        }
+      });
+      itemMenu.push({
+        key: 'Create_1',
+        label: <span style={{ border: 'transparent' }}>{'Add New Contact'}</span>
+      });
+    };
+    generateItemMenu(listContacts);
+    return <Menu
+      key={'organization'}
+      className="js-mm-00 sign-menu-organization"
+      items={itemMenu}
+      onClick={(event:any) => {
+        if (event.key === 'Create_1') {
+          setDisabledContact(true)
+          setContactData({})
+          setZip('')
+          setCity('')
+          setAdressLine1('')
+          setAdressLine2('')
+          setState('')
+          setContactLabel('')
+        } else {
+          setDisabledContact(false);
           setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
           setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
@@ -442,6 +506,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 <p>ORGANIZATION</p>
                 <Input placeholder="Enter Organization" value={values.organization} name="organization" onChange={handleChange} style={{marginBottom:'15px'}}/>
               </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
               <div className="gutter-row"  id={("ba" + values.user_id)}>
                 <p>BUSINESS ASSOCIATE</p>
                 <BusinessAssociatesDropdownMemoized
@@ -455,23 +523,87 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 />
               </div>
             </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-              <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0'}}>
-                <p>FIELD FOR DESIGN</p>
-                <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
-              </div>
-              <div className="gutter-row"  id={("poc" + values.user_id)}>
-                <p>POINT OF CONTACT</p>
-                <Dropdown trigger={['click']} overlay={menuContactAssociate}
-                  getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
-                  <Button className="btn-borde-management">
-                    {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Create Contact':'Select Contact'))}  <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
+            </Row>
+            <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
+                <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0', display: 'none'}}>
+                  <p>FIELD FOR DESIGN</p>
+                  <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
+                </div>
+                <div className="gutter-row"  id={("poc" + values.user_id)}>
+                  <p>BUSINESS ASSOCIATE ADDRESS </p>
+                  <Dropdown trigger={['click']} overlay={menuContactAssociate}
+                    getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
+                    <Button className="btn-borde-management">
+                      {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Add New Address':'Select Business Associates Address'))}  <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </Col>
+            </Row>
+            {disabled && <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
+                <div className="gutter-row">
+                  <p>BUSINESS ASSOCIATE  CONTACT </p>
+                  <Dropdown trigger={['click']} overlay={menuContactAssociate2}
+                    getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
+                    <Button className="btn-borde-management">
+                      {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Add New Contact':'Select Business Associate Contact'))}  <DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </Col>
+          </Row> }
+          {disabledContact && <Row>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
+              <p>FIRST NAME</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="Enter First Name"
+                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
+                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+              />
             </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+              <p>LAST NAME</p>
+              <Input
+                placeholder="Enter Last Name"
+                value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
+                onChange= {(e) => {handleZipChange(e.target.value, setZip)}}
+                style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+              />
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
+              <p>EMAIL</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="Enter Email"
+                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
+                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+              />
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+              <p>TITLE</p>
+              <Input
+                placeholder="Enter Title"
+                value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
+                onChange= {(e) => {handleZipChange(e.target.value, setZip)}}
+                style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+              />
+            </Col>
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
+              <p>PHONE NUMBER</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="Phone"
+                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
+                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+              />
+            </Col>
+          </Row> }
+          <Row style={{paddingLeft:'20px'}}>
             {
-              !disabled &&
+              disabledAddress &&
               <>
               <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
               <p>ADDRESS LINE 1</p>
