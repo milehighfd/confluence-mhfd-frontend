@@ -15,10 +15,6 @@ const LoginLayout = () => {
           pageWidth < 700 && <CarouselAutoPlayView />
         }
         <Col xs={{ span: 24 }} lg={{ span: 11 }} className="login-hh">
-          {/* <div style={{ height: '100px' }}>
-            <iframe src="https://countingdownto.com/w4/Ug1WexoD" style={{ position: 'relative', width: '100%', height: '100%', zIndex: '1', backgroundColor: '#008000', backgroundImage: 'linear-gradient(135deg, #008000, #408000)', overflow: 'hidden    !important' }}>
-            </iframe>
-          </div> */}
           <div className="login-step01" id="login-form">
 
             {
