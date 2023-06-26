@@ -2018,7 +2018,7 @@ const Map = ({
         if (item.problemid) {
             existDetailedPageProblem(item.problemid);
         } else {
-            getDetailedPageProject(item.projectid || item.iditem.projectid || item.project_id)
+            getDetailedPageProject(item.project_id || item.iditem.projectid || item.project_id)
         }
     }
     const highlithOnTap = (id: any) => {
