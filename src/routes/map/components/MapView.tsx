@@ -557,29 +557,31 @@ const MapView = () => {
       if (position >= 0) {
         const tag = filterProjects[key];
         const elements = [];
-        for (let index = 0; index < tag.length; index++) {
-          if (key === 'mhfddollarsallocated') {
-            const cost = tag[index].split(',');
-            elements.push({
-              tag: key,
-              display: elementCost(cost[0], cost[1]),
-              value: tag[index],
-            });
-          } else if (key === 'totalcost') {
-            elements.push({
-              tag: key,
-              display: elementCost(tag[0], tag[1]),
-              value: tag[index],
-            });
-            break;
-          } else {
-            
-            if (tag[index]) {
+        if(tag!== undefined){
+          for (let index = 0; index < tag.length; index++) {
+            if (key === 'mhfddollarsallocated') {
+              const cost = tag[index].split(',');
               elements.push({
                 tag: key,
+                display: elementCost(cost[0], cost[1]),
                 value: tag[index],
-                display: getLabel(key, tag[index]),
               });
+            } else if (key === 'totalcost') {
+              elements.push({
+                tag: key,
+                display: elementCost(tag[0], tag[1]),
+                value: tag[index],
+              });
+              break;
+            } else {
+              
+              if (tag[index]) {
+                elements.push({
+                  tag: key,
+                  value: tag[index],
+                  display: getLabel(key, tag[index]),
+                });
+              }
             }
           }
         }
