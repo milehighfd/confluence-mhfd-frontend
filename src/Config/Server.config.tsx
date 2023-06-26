@@ -223,6 +223,7 @@ export const SERVER = (function () {
         CREATE_STATUS_GROUP: `${URL_BASE.BASE}/${STATUS}/create-group`,
         PROJECT_ACTION_ITEM:`${URL_BASE.BASE}/actionitem`,
         BUSINESS_ASSOCIATES:`${URL_BASE.BASE}/${BUSINESS}/business-associates`,
+        CREATE_CONTACT:`${URL_BASE.BASE}/${BUSINESS}/create-contact`,
         BBOX_ORGANIZATION: `${URL_BASE.BASE}/${ZOOMAREA}/`,
         DELETE_USER: `${URL_BASE.BASE}/${ADMIN}/${DELETE_USER}`,
         PARAM_FILTER_PROJECTS: `${URL_BASE.BASE}/${PARAM_FILTER_PROJECTS}`,

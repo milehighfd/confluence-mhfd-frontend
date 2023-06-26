@@ -9,6 +9,11 @@ const BusinessAssociatesDropdown = ({
   associateLabel,
   setPrimary,
   setContactLabel,
+  setShowAdress,
+  setCreateAdress,
+  setCreateContact,
+  setDisableAdress,
+  setDisableContact,
 }: {
   businessAssociate: any,
   designation: any,
@@ -16,7 +21,12 @@ const BusinessAssociatesDropdown = ({
   setAssociateLabel: any,
   associateLabel: any,
   setPrimary: any,
-  setContactLabel: any
+  setContactLabel: any,
+  setShowAdress: any,
+  setCreateAdress: any,
+  setCreateContact: any,
+  setDisableAdress: any,
+  setDisableContact: any,
 }) => {
   const [menu, setMenu] = useState<any>([]);
   const [keyword, setKeyword] = useState(associateLabel);
@@ -28,6 +38,11 @@ const BusinessAssociatesDropdown = ({
     setContactLabel('')
     setKeyword((dataMenu.find((elm: any) => +elm.key === +value))?.label);  
     setPrimary((dataMenu.find((elm: any) => +elm.key === +value))?.primary_business_associate_contact_id);
+    setShowAdress(true);
+    setCreateAdress(false);
+    setCreateContact(false);
+    setDisableAdress(false);
+    setDisableContact(false);
   }
 
   const onSearch = (value: string) => {

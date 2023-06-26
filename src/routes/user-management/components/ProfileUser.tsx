@@ -52,14 +52,25 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [businessAssociate, setBusinessAssociate] = useState<any>([]); 
   const [listAssociates, setListAssociates] = useState<any>([]); 
   const [listContacts, setListContacts] = useState<any>([]); 
+  const [addressId, setAddressId] = useState<any>(0);
+  const [adressLabel, setAdressLabel] = useState<any>('');
+  const [showAdress, setShowAdress] = useState<any>(false);
+  const [showContact, setShowContact] = useState<any>(false);
+  const [createAdress, setCreateAdress] = useState<any>(false);
+  const [createContact, setCreateContact] = useState<any>(false);
+  const [createFirstName, setCreateFirstName] = useState<any>('');
+  const [createLastName, setCreateLastName] = useState<any>('');
+  const [createMail, setCreateMail] = useState<any>('');
+  const [createTitle, setCreateTitle] = useState<any>('');
+  const [createPhone, setCreatePhone] = useState<any>('');
 
   const {
     replaceAppUser,
     getUserInformation
   } = useAppUserDispatch();
 
-  const menuContactAssociate = () => {
-    const itemMenu: MenuProps['items'] = [];
+  const menuAdressAssociate = () => {
+    const itemMenu: MenuProps['items'] = [];   
     let dataMenu: any[] = [];
     const generateItemMenu = (content: Array<any>) => {
       content.forEach((element, index: number) => {
@@ -90,7 +101,12 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         label: <span style={{ border: 'transparent' }}>{'Add New Address'}</span>
       });
     };
-    generateItemMenu(listContacts);
+    generateItemMenu(listAssociates.filter((elm: any) => elm.business_associates_id === selectAssociate)[0]
+    .business_addresses.map((x: any) => ({
+      key: x?.business_address_id,
+      label: x?.full_address
+    })));
+    const adressFiltered = listAssociates.filter((elm: any) => elm.business_associates_id === selectAssociate)[0]
     return <Menu
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
@@ -106,7 +122,9 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setAdressLine1('')
           setAdressLine2('')
           setState('')
-          setContactLabel('')
+          setAdressLabel('')
+          setAddressId(0)
+          setCreateAdress(true)
         } else {
           setDisabled(true);
           setDisabledAddress(false);
@@ -116,14 +134,18 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setAdressLine1((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_1)
           setAdressLine2((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_2)
           setState((dataMenu.find((elm) => +elm.key === +event.key)).state)
-          setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
+          setAdressLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
+          setContactLabel('');
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
+          setAddressId((adressFiltered.business_addresses.find((elm: any) => +elm.business_address_id === +event.key)).business_address_id)
+          setCreateAdress(false)
+          setShowContact(true)
         }
       }}>
     </Menu>
   };
 
-  const menuContactAssociate2 = () => {
+  const menuContactAssociate = () => {
     const itemMenu: MenuProps['items'] = [];
     let dataMenu: any[] = [];
     const generateItemMenu = (content: Array<any>) => {
@@ -163,16 +185,17 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       onClick={(event:any) => {
         if (event.key === 'Create_1') {
           setDisabledContact(true)
-          setContactData({})
+          //setContactData({})
           setZip('')
           setCity('')
           setAdressLine1('')
           setAdressLine2('')
           setState('')
           setContactLabel('')
+          setCreateContact(true)
         } else {
           setDisabledContact(false);
-          setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
+          //setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
           setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
           setAdressLine1((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_1)
@@ -180,6 +203,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setState((dataMenu.find((elm) => +elm.key === +event.key)).state)
           setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
+          setCreateContact(false)
         }
       }}>
     </Menu>
@@ -242,7 +266,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     setJurisdiction(record.city);
     setAssociateLabel(auxUser?.business_associate_contact?.business_address?.business_associate.business_name)
     setSelectAssociate(auxUser?.business_associate_contact?.business_address?.business_associate.business_associates_id)
-    setContactLabel(auxUser?.business_associate_contact?.contact_name)    
+    setContactLabel(auxUser?.business_associate_contact?.contact_name)
+    setAdressLabel(auxUser?.business_associate_contact?.business_address?.full_address)
+    setAddressId(auxUser?.business_associate_contact?.business_address?.business_address_id)
+    setContactId(auxUser?.business_associate_contact_id)
   }, [record]);
 
   useEffect(() => {
@@ -259,27 +286,29 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       setListAssociates(res)
     });
   }, []);
+
   useEffect(() => {
-    if (Object.keys(listAssociates).length > 0) {
-      const associates = listAssociates.find((f:any)=> +f.business_associates_id === +selectAssociate)
+    const addressFiltered = (listAssociates.filter((elm: any) => elm.business_associates_id === selectAssociate)[0])?.business_addresses;
+    if (addressFiltered && Object.keys(addressFiltered).length > 0) {
+      const associates = addressFiltered.find((f: any) => +f.business_address_id === +addressId)
       let aux: any[] = [];
-      associates?.business_addresses?.forEach((ba: any) => {
-        aux = [...aux, ...ba.business_associate_contacts.map((contact: any) => {
+      if (associates) {
+        aux = associates.business_associate_contacts?.map((contact: any) => {
           return {
-            business_address_id: ba.business_address_id,
-            business_address_line_1: ba.business_address_line_1,
-            business_address_line_2: ba.business_address_line_2,
-            city: ba.city,
-            state: ba.state,
-            zip: ba.zip,
+            business_address_id: associates.business_address_id,
+            business_address_line_1: associates.business_address_line_1,
+            business_address_line_2: associates.business_address_line_2,
+            city: associates.city,
+            state: associates.state,
+            zip: associates.zip,
             key: contact.business_associate_contact_id,
             label: contact.contact_name
           }
-        })];
-      });
+        });
+      }
       setListContacts(aux);
     }
-  }, [selectAssociate,listAssociates]);
+  }, [selectAssociate,listAssociates,addressId]);
 
   useEffect(() => {      
     const auxUser = { ...record };
@@ -298,7 +327,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     }
   });
   const handleChangeData = (value : any, setValue?: any) => {
-    console.log(value, 'VVVVVVVVVVVVVVVVV')
     setValue(value)
   }
 
@@ -352,7 +380,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       zoomarea,
       business_associate_contact_id: +contactId
     };
-    if (!disabled) {
+    if (createAdress) {
       datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociate), {
         business_address_line_1: addressLine1,
         business_address_line_2: addressLine2,
@@ -364,6 +392,31 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         email: email
       }, datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +res?.businessContact?.business_associate_contact_id;
+        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
+          if (res.message === 'SUCCESS') {        
+            saveUser();           
+            updateSuccessful();
+            setDisabled(true);
+            setUpdate(!update);
+            getUserInformation();
+          } else {
+            if (res?.error) {
+              updateError(res.error);
+            }
+            else {
+              updateError(res);
+            }
+          }
+        });
+      });
+    } else if (createContact) {
+      datasets.postData(SERVER.CREATE_CONTACT, {
+        contact_name: createFirstName + ' ' + createLastName,
+        contact_email: createMail,
+        contact_phone_number: createPhone,
+        business_address_id: addressId
+      }, datasets.getToken()).then(res => {
+        newUser.business_associate_contact_id = +res?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
           if (res.message === 'SUCCESS') {        
             saveUser();           
@@ -477,7 +530,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               name="designation"
               value={designation}
               onChange={event => {
-                console.log(event.target.value);
                 values.designation = event.target.value;
                 setDesignation(event.target.value);
               }}
@@ -522,39 +574,44 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                   setPrimary={setPrimary}
                   setSelectAssociate={setSelectAssociate}
                   associateLabel={associateLabel}
-                  setContactLabel = {setContactLabel}
+                  setContactLabel = {setAdressLabel}
+                  setShowAdress = {setShowAdress}
+                  setCreateAdress = {setCreateAdress}
+                  setCreateContact = {setCreateContact}
+                  setDisableContact = {setDisabledContact}
+                  setDisableAdress = {setDisabledAddress}
                 />
               </div>
             </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
                 <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0', display: 'none'}}>
                   <p>FIELD FOR DESIGN</p>
                   <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
                 </div>
-                <div className="gutter-row"  id={("poc" + values.user_id)}>
+                {showAdress?<div className="gutter-row"  id={("poc" + values.user_id)}>
                   <p>BUSINESS ASSOCIATE ADDRESS </p>
-                  <Dropdown trigger={['click']} overlay={menuContactAssociate}
+                  <Dropdown trigger={['click']} overlay={menuAdressAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
-                      {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Add New Address':'Select Business Associates Address'))}  <DownOutlined />
+                      {Object.keys(contactData).length > 0? contactData.label : (adressLabel ? adressLabel:(!disabled?'Add New Address':'Select Business Associates Address'))}  <DownOutlined />
                     </Button>
                   </Dropdown>
-                </div>
+                </div>:<></>}
               </Col>
             </Row>
             {disabled && <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
-                <div className="gutter-row">
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
+                {showContact?<div className="gutter-row">
                   <p>BUSINESS ASSOCIATE  CONTACT </p>
-                  <Dropdown trigger={['click']} overlay={menuContactAssociate2}
+                  <Dropdown trigger={['click']} overlay={menuContactAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
-                      {Object.keys(contactData).length > 0? contactData.label : (contactLabel ? contactLabel:(!disabled?'Add New Contact':'Select Business Associate Contact'))}  <DownOutlined />
+                      {(contactLabel ? contactLabel:(!disabled?'Add New Contact':'Select Business Associate Contact'))}  <DownOutlined />
                     </Button>
                   </Dropdown>
-                </div>
+                </div>:<></>}
               </Col>
           </Row> }
           {disabledContact && <Row>
@@ -563,16 +620,16 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               <Input
                 style={{marginBottom:'15px'}}
                 placeholder="Enter First Name"
-                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
-                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+                value={createFirstName}
+                onChange= {(e) => {handleChangeData(e.target.value, setCreateFirstName)}}
               />
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
               <p>LAST NAME</p>
               <Input
                 placeholder="Enter Last Name"
-                value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
-                onChange= {(e) => {handleZipChange(e.target.value, setZip)}}
+                value={createLastName}
+                onChange= {(e) => {handleChangeData(e.target.value, setCreateLastName)}}
                 style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
               />
             </Col>
@@ -581,16 +638,16 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               <Input
                 style={{marginBottom:'15px'}}
                 placeholder="Enter Email"
-                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
-                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+                value={createMail}
+                onChange= {(e) => {handleChangeData(e.target.value, setCreateMail)}}
               />
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
               <p>TITLE</p>
               <Input
                 placeholder="Enter Title"
-                value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
-                onChange= {(e) => {handleZipChange(e.target.value, setZip)}}
+                value={createTitle}
+                onChange= {(e) => {handleChangeData(e.target.value, setCreateTitle)}}
                 style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
               />
             </Col>
@@ -599,8 +656,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               <Input
                 style={{marginBottom:'15px'}}
                 placeholder="Phone"
-                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
-                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
+                value={createPhone}
+                onChange= {(e) => {handleChangeData(formatPhoneNumber(e.target.value), setCreatePhone)}}
               />
             </Col>
           </Row> }
