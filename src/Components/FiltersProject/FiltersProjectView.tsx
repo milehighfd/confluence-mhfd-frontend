@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Tabs, Row, Col, Checkbox, Popover } from 'antd';
+import { Tabs, Popover } from 'antd';
 
 import { FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER, COMPONENT_LAYERS, PROBLEMS_TRIGGER, PROJECTS_TRIGGER, COMPONENTS_TRIGGER } from '../../constants/constants';
 import { FiltersProjectTypes } from "../../Classes/MapTypes";
@@ -7,6 +7,7 @@ import { useMapDispatch, useMapState } from "../../hook/mapHook";
 import { NewProblemsFilter } from "./NewProblemsFilter/NewProblemsFilter";
 import { NewProjectsFilter } from "./NewProjectsFilter/NewProjectsFilter";
 import { NewComponentsFilter } from "./NewComponentsFilter/NewComponentsFilter";
+import ApplyMapViewFilter from "routes/map/components/ApplyMapViewFilter";
 
 const tabs = [FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, FILTER_COMPONENTS_TRIGGER];
 
@@ -26,15 +27,10 @@ const FiltersProjectView = ({
         getGalleryProblems, 
         getGalleryProjects,
         updateSelectedLayers,
-        setApplyFilter
     } = useMapDispatch();
     const {
         galleryProblems,
         boundsMap,
-        spinCardProblems,
-        spinCardProjects,
-        totals,
-        spinMapLoaded,
         paramFilters: {
             components: paramComponents
           },
@@ -43,31 +39,22 @@ const FiltersProjectView = ({
         selectedLayers,
         filterProblemOptions,
         filterProjectOptions,
-        filterComponentOptions,
-        applyFilter,
         spinFilters: spinFilter,
         galleryProjectsV2
       } = useMapState();
     const genExtra = () => (
-        <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-            <Col>
-            <div className={(spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded ) ? "apply-filter" : 'apply-filter-no-effect' } style={{ borderColor:'transparent', fontSize: '12px', marginTop: '-6px', color: 'rgba(17, 9, 60, 0.5)' }}>
-                Apply map view to filters
-              <Checkbox style={{ paddingLeft: 6 }} checked={applyFilter} onChange={() => {
-                      setApplyFilter(!applyFilter);
-                      getGalleryProblems();
-                                           console.log('get gallery'); 
-                      getGalleryProjects();;
-                  }}></Checkbox>
-                <div className="progress">
-                    <div className="progress-value"></div>
-              </div>
-            </div>
-            </Col>
-        </Row>
+        <ApplyMapViewFilter
+            onCheck={() => {
+                getGalleryProblems();
+                getGalleryProjects();
+            }}
+        />
     );
-    const { setFilterTabNumber, getParamFilterComponents,
-        getParamFilterProblems, getParamFilterProjects, getTabCounters } = useMapDispatch();
+    const {
+        setFilterTabNumber,
+        getParamFilterProblems,
+        getParamFilterProjects
+    } = useMapDispatch();
     const getFilterBody = (trigger: string) => {
         switch (trigger) {
             case FILTER_PROBLEMS_TRIGGER:
@@ -111,7 +98,6 @@ const FiltersProjectView = ({
                 } else {
                     setTabActive('2');
                     setFilterTabNumber(COMPONENTS_TRIGGER);
-                    // getParamFilterComponents(boundsMap, filterComponentOptions);
                     const copySelectedLayers = [...selectedLayers];
                     if (!copySelectedLayers.includes(COMPONENT_LAYERS)) {
                         copySelectedLayers.push(COMPONENT_LAYERS);

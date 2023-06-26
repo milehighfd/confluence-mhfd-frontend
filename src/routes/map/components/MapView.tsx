@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
-import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
+import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, MenuProps } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { getGroupListWithAbortController } from 'routes/portfolio-view/components/ListUtils';
 import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
@@ -20,6 +20,7 @@ import { useDetailedState } from 'hook/detailedHook';
 import { getCurrentProjectStatus, getMainSponsor } from 'utils/parsers';
 import { useProjectDispatch } from 'hook/projectHook';
 import { SERVER } from 'Config/Server.config';
+import ApplyMapViewFilter from './ApplyMapViewFilter';
 
 const DetailedModal = React.lazy(() => import('Components/Shared/Modals/DetailedModal'));
 const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
@@ -82,7 +83,6 @@ const MapView = () => {
     setProjectKeyword,
     existDetailedPageProject,
     existDetailedPageProblem,
-    setApplyFilter,
   } = useMapDispatch();
   const { saveUserInformation } = useProfileDispatch();
   const {
@@ -91,15 +91,10 @@ const MapView = () => {
     filterProblemOptions,
     filterProjectOptions,
     filterComponentOptions,
-    applyFilter,
-    spinFilters: spinFilter,
-    spinMapLoaded,
     tabCards,
     labelsFiltersProjects,
     labelsFiltersProblems,
     labelsFiltersComponents,
-    spinCardProblems,
-    spinCardProjects,
     boundsMap,
     toggleModalFilter,
     filterTabNumber,
@@ -908,35 +903,15 @@ const MapView = () => {
   };
 
   const genExtra = () => (
-    <Row justify="space-around" align="middle" style={{ cursor: 'pointer' }}>
-      <Col>
-        <div
-          className={
-            spinFilter || spinCardProblems || spinCardProjects || spinMapLoaded
-              ? 'apply-filter'
-              : 'apply-filter-no-effect'
-          }
-          style={{ borderColor: 'transparent', fontSize: '12px', marginTop: '-6px', color: 'rgba(17, 9, 60, 0.5)' }}
-        >
-          Apply map view to filters
-          <Checkbox
-            style={{ paddingLeft: 6 }}
-            checked={applyFilter}
-            onChange={() => {
-              setApplyFilter(!applyFilter);
-              getGalleryProblems();
-              getGalleryProjects();
-              resetNextPageOfCards();
-              resetInfiniteScrollItems();
-              resetInfiniteScrollHasMoreItems();
-            }}
-          ></Checkbox>
-          <div className="progress">
-            <div className="progress-value"></div>
-          </div>
-        </div>
-      </Col>
-    </Row>
+    <ApplyMapViewFilter
+      onCheck={() => {
+        getGalleryProblems();
+        getGalleryProjects();
+        resetNextPageOfCards();
+        resetInfiniteScrollItems();
+        resetInfiniteScrollHasMoreItems();
+      }}
+    />
   );
 
   const isActiveDrop = (element: any) =>{
