@@ -1946,7 +1946,6 @@ const Map = ({
         })
       } else {
         const styles = { ...tileStyles as any };
-        console.log('first error', styles[key], styles,key)
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if(style)
           if(style.source_name){
