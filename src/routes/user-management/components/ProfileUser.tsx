@@ -97,7 +97,9 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       items={itemMenu}
       onClick={(event:any) => {
         if (event.key === 'Create_1') {
-          setDisabled(false)
+          setDisabled(false);
+          setDisabledAddress(true);
+          setDisabledContact(false);
           setContactData({})
           setZip('')
           setCity('')
@@ -107,6 +109,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setContactLabel('')
         } else {
           setDisabled(true);
+          setDisabledAddress(false);
           setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
           setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
