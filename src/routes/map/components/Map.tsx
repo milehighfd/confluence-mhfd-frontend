@@ -66,7 +66,6 @@ import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import MapService from 'Components/Map/MapService';
 import MobilePopup from 'Components/MobilePopup/MobilePopup';
 import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
-import SideBarComment from 'Components/Map/SideBarComment';
 import { useNoteDispatch, useNotesState } from 'hook/notesHook';
 import { useProfileState } from 'hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
@@ -88,6 +87,8 @@ import {
 import DetailModal from 'routes/detail-page/components/DetailModal';
 import useMapResize from 'hook/custom/useMapResize';
 import useIsMobile from 'hook/custom/useIsMobile';
+
+const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 
 let map: any = null;
 let hasBeenUpdated = false;
@@ -2662,14 +2663,18 @@ const Map = ({
     }
     return (
         <>
-        <SideBarComment
-          visible={commentVisible}
-          setVisible={setSideBarStatus}
-          flyTo={flyTo}
-          openEditNote={openEditNote}
-          addToMap={addToMap}
-          changeFilter={setNotesFilter}
-          setSwSave={setSwSave} />
+        {
+          commentVisible &&
+          <SideBarComment
+            visible={commentVisible}
+            setVisible={setSideBarStatus}
+            flyTo={flyTo}
+            openEditNote={openEditNote}
+            addToMap={addToMap}
+            changeFilter={setNotesFilter}
+            setSwSave={setSwSave}
+          />
+        }
         <div>
             {visibleCreateProject && <ModalProjectView
                 visible= {visibleCreateProject}
