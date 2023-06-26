@@ -1068,13 +1068,15 @@ const MapView = () => {
       </div>
       <div className="count" style={{ paddingBottom: '0px', marginTop: '1px' }}>
         {displayModal && visible && (
-          <DetailedModal
-            detailed={detailed}
-            type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-            data={data}
-            visible={visible}
-            setVisible={setVisible}
-          />
+          <React.Suspense fallback={<div>...</div>}>
+            <DetailedModal
+              detailed={detailed}
+              type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
+              data={data}
+              visible={visible}
+              setVisible={setVisible}
+            />
+          </React.Suspense>
         )}
         {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} />}
         <div className="head-filter mobile-display">
