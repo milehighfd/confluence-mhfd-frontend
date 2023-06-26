@@ -708,9 +708,9 @@ const Map = ({
   }, [coordinatesJurisdiction]);
 
     useEffect(() => {
-        if (map) {
-            applyFilters(PROBLEMS_TRIGGER, filterProblems);
-        }
+      if (map) {
+        applyFilters(PROBLEMS_TRIGGER, filterProblems);
+      }
     }, [filterProblems,zoomEndCounter, dragEndCounter]);
     useEffect(() => {
       applyFilters(MHFD_PROJECTS, filterProjectOptions);
@@ -720,13 +720,13 @@ const Map = ({
     }, [groupedProjectIdsType]);
 
     useEffect(() => {
-        if (map) {
-            for (const component of COMPONENT_LAYERS.tiles) {
-                applyFilters(component, filterComponentOptions);
-            }
-            applyFilters(MHFD_PROJECTS, filterProjectOptions);
-            applyFilters(PROBLEMS_TRIGGER, filterProblems);
+      if (map) {
+        for (const component of COMPONENT_LAYERS.tiles) {
+          applyFilters(component, filterComponentOptions);
         }
+        applyFilters(MHFD_PROJECTS, filterProjectOptions);
+        applyFilters(PROBLEMS_TRIGGER, filterProblems);
+      }
     }, [filterComponentOptions, paramComponents, componentsNobounds]);
 
     useEffect(() => {
@@ -1595,6 +1595,7 @@ const Map = ({
 
     const applyFilters = useCallback((key: string, toFilter: any) => {
         const styles = { ...tileStyles as any };
+        let clusterAdded = false;
         styles[key].forEach((style: LayerStylesType, index: number) => {
             if (!map?.getLayer(key + '_' + index)) {
                 return;
@@ -1754,8 +1755,11 @@ const Map = ({
                 }
               });
             }
-            if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
-              addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
+            if (key === PROBLEMS_TRIGGER && problemClusterGeojson) {
+              if (!clusterAdded) {
+                addGeojsonSource(map, problemClusterGeojson, isProblemActive, allFilters);
+                clusterAdded = true;
+              }
             }
             if (map.getLayer(key + '_' + index)) {
               if(key !== MHFD_PROJECTS && key !== PROBLEMS_TRIGGER){
