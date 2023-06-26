@@ -6,13 +6,14 @@ import store from 'store';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
 import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
-import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
+
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 const PhaseBody = ({
   dataId,

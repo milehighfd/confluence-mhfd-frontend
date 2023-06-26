@@ -6,11 +6,11 @@ import TextArea from "antd/lib/input/TextArea";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as d3 from 'd3';
-import DetailModal from "routes/detail-page/components/DetailModal";
 
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 import store from 'store';
 import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 const { Step } = Steps;
 const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }: 

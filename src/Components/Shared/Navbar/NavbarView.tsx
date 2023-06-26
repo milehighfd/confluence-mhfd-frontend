@@ -12,8 +12,9 @@ import { useUsersState } from 'hook/usersHook';
 import ModalEditUserView from 'Components/Profile/ProfileComponents/ModalEditUserView';
 import { useAppUserDispatch, useAppUserState } from 'hook/useAppUser';
 import moment from 'moment';
-import DetailModal from 'routes/detail-page/components/DetailModal';
 import { SERVER } from 'Config/Server.config';
+
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 const { TabPane } = Tabs;
 const { Header } = Layout;

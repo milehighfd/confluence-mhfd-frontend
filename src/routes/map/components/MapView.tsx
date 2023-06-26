@@ -1,9 +1,8 @@
 import React, { useState, useEffect, Fragment, useCallback } from 'react';
-import { getGroupList, getGroupListWithAbortController } from 'routes/portfolio-view/components/ListUtils';
 import { Row, Col, Dropdown, Button, Tabs, Input, Menu, Popover, Checkbox, MenuProps } from 'antd';
 import { useLocation } from 'react-router-dom';
+import { getGroupListWithAbortController } from 'routes/portfolio-view/components/ListUtils';
 import GenericTabView from 'Components/Shared/GenericTab/GenericTabView';
-import FiltersProjectView from 'Components/FiltersProject/FiltersProjectView';
 import {
   FILTER_PROBLEMS_TRIGGER,
   FILTER_PROJECTS_TRIGGER,
@@ -14,16 +13,17 @@ import {
   COMPONENTS_TRIGGER,
   SELECT_ALL_FILTERS
 } from 'constants/constants';
-import DetailedModal from 'Components/Shared/Modals/DetailedModal';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { capitalLetter, elementCost, getStatus } from 'utils/utils';
-import RheoStatService from 'Components/FiltersProject/NewProblemsFilter/RheoStatService';
 import { useProfileDispatch, useProfileState } from 'hook/profileHook';
 import { useDetailedState } from 'hook/detailedHook';
-import MapAutoComplete from 'routes/map/components/MapAutoComplete';
 import { getCurrentProjectStatus, getMainSponsor } from 'utils/parsers';
 import { useProjectDispatch } from 'hook/projectHook';
-import { SERVER } from '../../../Config/Server.config';
+import { SERVER } from 'Config/Server.config';
+
+const DetailedModal = React.lazy(() => import('Components/Shared/Modals/DetailedModal'));
+const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
+const FiltersProjectView = React.lazy(() => import('Components/FiltersProject/FiltersProjectView'));
 
 const STATUS = 'status',
   JURISDICTION = 'jurisdiction',
@@ -991,7 +991,6 @@ const MapView = () => {
   };
 
   const onResetClick = () => {
-    RheoStatService.reset();
     if (toggleModalFilter) {
       switch (filterTabNumber) {
         case PROBLEMS_TRIGGER:

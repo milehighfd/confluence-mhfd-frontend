@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { SERVER } from 'Config/Server.config';
 import { COMPONENT_LAYERS, MENU_OPTIONS, MHFD_PROJECTS } from 'constants/constants';
 import { useMapDispatch } from 'hook/mapHook';
-import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { useProfileState } from 'hook/profileHook';
+
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 const CardInformationView = ({
   data,
@@ -127,7 +128,7 @@ const CardInformationView = ({
       },
       {
         key: 'popup-favorite',
-        label: <span className="menu-item-text" /* style={{ cursor: 'auto', opacity: 0.5 }} */>{data.isFavorite ? 'Unfavorite Card':'Favorite Card'}</span>
+        label: <span className="menu-item-text">{data.isFavorite ? 'Unfavorite Card':'Favorite Card'}</span>
       },
       {
         key: 'popup-comment',
@@ -138,9 +139,6 @@ const CardInformationView = ({
         label: <span className="menu-item-text" style={{ cursor: 'auto', opacity: 0.5 }}>Add Team Member</span>
       }
     ];
-    // if (!data.totalComponents) {
-    //   menuPopupItem.splice(1, 1);
-    // }
     return <Menu
       className="menu-dropdown-map"
       style={{ backgroundColor: 'white', border: 0, paddingTop: '0px' }}
@@ -168,15 +166,17 @@ const CardInformationView = ({
   const style : any = isProfile ? { width: '100%', display: 'inline-flex', alignSelf: 'stretch', paddingBottom: '15px', paddingLeft:'0px', paddingRight:'0px' } : {display: 'inline-flex', alignSelf: 'stretch', width: '100%', paddingLeft: '0px'}
   return (
     <>
-      {visible && <DetailModal
-        visible={visible}
-        setVisible={setVisible}
-        data={data}
-        type={type}
-        deleteCallback={deleteCallback}
-        addFavorite={addFavorite}
-      />}
-      
+      {
+        visible &&
+        <DetailModal
+          visible={visible}
+          setVisible={setVisible}
+          data={data}
+          type={type}
+          deleteCallback={deleteCallback}
+          addFavorite={addFavorite}
+        />
+      }
        <Col xs={xs} lg={lg} md={md} style={style}>
        <div className="border-line-green" style={{ width: '100%'}}>
         <Card

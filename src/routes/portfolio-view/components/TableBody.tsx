@@ -5,12 +5,13 @@ import React, { useEffect, useState } from 'react';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
-import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCounties, getCurrentProjectStatus, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import { AllValueTable, CIPValueTable, DIPValueTable, PlanningValueTable, PropertyAcquisitionValueTable, RDValueTable, RestorationValueTable } from "../constants/tableHeader";
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
 import { handleAbortError } from 'store/actions/mapActions';
+
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 const TableBody = ({
   dataId,

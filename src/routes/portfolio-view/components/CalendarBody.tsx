@@ -5,7 +5,6 @@ import * as d3 from 'd3';
 import moment from 'moment';
 import { SERVER } from 'Config/Server.config';
 import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
-import DetailModal from 'routes/detail-page/components/DetailModal';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
 import { LIMIT_PAGINATION } from 'constants/constants';
@@ -13,7 +12,7 @@ import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { useMapState } from "hook/mapHook";
 import { handleAbortError } from 'store/actions/mapActions';
-import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 const CalendarBody = ({
   dataId,
