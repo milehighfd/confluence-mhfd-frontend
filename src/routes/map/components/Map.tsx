@@ -1264,7 +1264,9 @@ const Map = ({
                   });
               }
             } else {
+              if(layer !== 'area_based_mask' && layer !== 'border') {
                 addLayersSource(layer, layerFilters[layer]);
+              }
             }
         });
         selectedLayers.forEach((layer: LayersType) => {
@@ -1944,6 +1946,7 @@ const Map = ({
         })
       } else {
         const styles = { ...tileStyles as any };
+        console.log('first error', styles[key], styles,key)
         styles[key].forEach((style: LayerStylesType, index: number) => {
           if(style)
           if(style.source_name){
