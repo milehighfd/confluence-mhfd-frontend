@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Button } from 'antd';
-import Map from './Map';
-import MapView from './MapView';
-import Navbar from "../../../Components/Shared/Navbar/NavbarContainer";
-import SidebarView from "../../../Components/Shared/Sidebar/SidebarView";
-import LoadingView from '../../../Components/Loading/LoadingView';
+import Navbar from 'Components/Shared/Navbar/NavbarContainer';
+import SidebarView from 'Components/Shared/Sidebar/SidebarView';
+import LoadingView from 'Components/Loading/LoadingView';
 import {
   COMPLETE_SCREEN,
   PROJECTS_MAP_STYLES,
   MEDIUM_SCREEN_LEFT
-} from "routes/map/constants/layout.constants";
-import { PROBLEMS_TRIGGER } from '../../../constants/constants';
-import { useMapDispatch, useMapState } from '../../../hook/mapHook';
-import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
-import { useNotesState } from '../../../hook/notesHook';
-import { useProfileState } from '../../../hook/profileHook';
-import { useAppUserDispatch } from '../../../hook/useAppUser';
-import { SELECT_ALL_FILTERS } from '../../../constants/constants';
-import { SERVER } from "../../../Config/Server.config";
-import * as datasets from "../../../Config/datasets";
+} from 'routes/map/constants/layout.constants';
+import { PROBLEMS_TRIGGER } from 'constants/constants';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { useProjectDispatch, useProjectState } from 'hook/projectHook';
+import { useNotesState } from 'hook/notesHook';
+import { useProfileState } from 'hook/profileHook';
+import { useAppUserDispatch } from 'hook/useAppUser';
+import { SELECT_ALL_FILTERS } from 'constants/constants';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from 'Config/datasets';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+
+const Map = React.lazy(() => import('routes/map/components/Map'));
+const MapView = React.lazy(() => import('routes/map/components/MapView'));
 
 const MapLayout = () => {
   const {
