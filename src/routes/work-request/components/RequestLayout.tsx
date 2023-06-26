@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import RequestView from 'Components/Work/Request/RequestView';
-import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import Analytics from 'Components/Work/Drawers/Analytics';
 import Status from 'Components/Work/Drawers/Status';
 import Filter from 'Components/Work/Drawers/Filter';

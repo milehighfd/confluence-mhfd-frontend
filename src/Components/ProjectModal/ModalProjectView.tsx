@@ -19,7 +19,7 @@ const content02 = (<div className="popver-info">Removal of accumulated sediment 
 const content03 = (<div className="popver-info">Upkeep of aging or failing drop structures, outfalls, and other eligible flood control features.</div>);
 const content04 = (<div className="popver-info">Re-establishing the natural processes of a stream to promote high functioning and low maintenance systems.</div>);
 
-export const ModalProjectView = ({
+const ModalProjectView = ({
   visible,
   setVisible,
   data,
@@ -400,3 +400,5 @@ export const ModalProjectView = ({
     </div>
   );
 }
+
+export default ModalProjectView;

@@ -79,7 +79,7 @@ import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import useMapResize from 'hook/custom/useMapResize';
-import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 
 let mapid = 'map4';
 let map: any;

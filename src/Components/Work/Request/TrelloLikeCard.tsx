@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
 import { useProjectDispatch } from '../../../hook/projectHook';
-import { ModalProjectView } from './../../ProjectModal/ModalProjectView'
+import ModalProjectView from 'Components/ProjectModal/ModalProjectView'
 import { deleteData, getToken, postData, getData } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
 

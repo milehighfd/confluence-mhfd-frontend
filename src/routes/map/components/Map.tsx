@@ -64,8 +64,6 @@ import { handleAbortError, setOpacityLayer } from 'store/actions/mapActions';
 import {MapboxLayer} from '@deck.gl/mapbox';
 import {ArcLayer, ScatterplotLayer} from '@deck.gl/layers';
 import MapService from 'Components/Map/MapService';
-import MobilePopup from 'Components/MobilePopup/MobilePopup';
-import { ModalProjectView } from 'Components/ProjectModal/ModalProjectView';
 import { useNoteDispatch, useNotesState } from 'hook/notesHook';
 import { useProfileState } from 'hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
@@ -84,11 +82,13 @@ import {
   addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from 'routes/map/components/MapFunctionsNotes';
-import DetailModal from 'routes/detail-page/components/DetailModal';
 import useMapResize from 'hook/custom/useMapResize';
 import useIsMobile from 'hook/custom/useIsMobile';
 
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
+const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+const MobilePopup =  React.lazy(() => import('Components/MobilePopup/MobilePopup'));
 
 let map: any = null;
 let hasBeenUpdated = false;
@@ -2676,21 +2676,23 @@ const Map = ({
           />
         }
         <div>
-            {visibleCreateProject && <ModalProjectView
-                visible= {visibleCreateProject}
-                setVisible= {setVisibleCreateProject}
-                data={"no data"}
-                showDefaultTab={showDefault}
-                locality= {autocomplete}
-                editable = {true}
-                problemId= {problemid}
+          {
+            visibleCreateProject &&
+            <ModalProjectView
+              visible= {visibleCreateProject}
+              setVisible= {setVisibleCreateProject}
+              data={"no data"}
+              showDefaultTab={showDefault}
+              locality= {autocomplete}
+              editable = {true}
+              problemId= {problemid}
             />
             }
         </div>
 
         <div className="map">
           {
-            isProblemActive === true ? <div className="legendProblemTypemap">
+            isProblemActive && <div className="legendProblemTypemap">
               <h5>
                 Problem Type
                 <Popover
@@ -2715,17 +2717,25 @@ const Map = ({
                 <div className="iconstreamfunction" />
                 Stream Condition
               </div>
-            </div> : ''
+            </div>
           }
-          
+
           <span className="zoomvaluemap"><b>Nearmap: March 19, 2023</b><b style={{paddingLeft:'10px'}}>Zoom Level: {zoomValue}</b></span>
-            {visible && <DetailModal
-              visible={visible}
-              setVisible={setVisible}
-              data={data}
-              type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-            />}
-              {(mobilePopups.length && window.innerWidth < 700) ? <MobilePopup seeDetails={seeDetails} items={mobilePopups}></MobilePopup> : <></>}
+            {
+              visible &&
+              <DetailModal
+                visible={visible}
+                setVisible={setVisible}
+                data={data}
+                type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
+              />
+            }
+            {
+              (mobilePopups.length && window.innerWidth < 700) &&
+              <MobilePopup
+                seeDetails={seeDetails}
+                items={mobilePopups} />
+            }
             <div id="map">
             </div>
             <div className="m-head">
@@ -2752,7 +2762,7 @@ const Map = ({
                 </AutoComplete>
             </div>
             <div className="measure-button">
-              {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" /></Button>}
+              {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" alt="measuring" /></Button>}
               {measuringState && 
               <div className='measurecontainer'> 
                 <div id={'measure-block'} className="measure-block" onClick={()=> setMeasuringState(false)}>
