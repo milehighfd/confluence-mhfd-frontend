@@ -162,7 +162,7 @@ const waitingInterval = (map: any): any[] => {
   let intervalId;
   const promise = new Promise<boolean>((resolve) => {
     intervalId = setInterval(() => {
-      if (map.isStyleLoaded()) {
+      if (map && map.isStyleLoaded()) {
         resolve(true);
       }
     }, 250);
@@ -624,14 +624,7 @@ const Map = ({
         });
       }
     },[markersNotes, commentVisible]);
-    
-    const waitForMap = () => {
-      if (!map || !map.isStyleLoaded()) {
-        setTimeout(waitForMap, 200);
-      } else {
-        addFunction();
-      }
-    };
+
     const addFunction = () => {
       let mask;   
       if (coordinatesJurisdiction?.length > 0) {
@@ -641,9 +634,6 @@ const Map = ({
         } else {
           mask = turf.polygon(coordinatesJurisdiction);
         }
-        // PREVIOUS SQUARE OF MHFD 
-        // let misbounds = -105.44866830999993 + ',' + 39.13673489846491 + ',' + -104.36395751000016 + ',' + 40.39677734100488;
-        // LARGER BECAUSE SOME COUNTIES AND SERVICE AREAS ARE BIGGER 
         let misbounds = -111.10771487514684 + ',' + 34.094858978187546 + ',' + -98.58537218284262 + ',' + 45.470609601267824;
         var arrayBounds = misbounds.split(',');
         let poly = polyMask(mask, arrayBounds);
@@ -691,43 +681,40 @@ const Map = ({
           }
         },4000);
       } else {
-          if (opacityLayer) {
-              if  (map.loaded()) {
-                  if (map.getLayer('mask')) {
-                      map.setLayoutProperty('mask', 'visibility', 'visible');
-                      map.removeLayer('mask');
-                      map.removeSource('mask');
-                  }
-              }
-          }
-
+        if (opacityLayer && map.loaded() && map.getLayer('mask')) {
+          map.removeLayer('mask');
+          map.removeSource('mask');
+        }
       }
     }
-    useEffect(() => {   
-        waitForMap();
+
+  useEffect(() => {   
+    const [intervalId, promise] = waitingInterval(map);
+    promise.then(() => {
+      addFunction()
+    });
+    return () => {
+      clearInterval(intervalId);
+    }
   }, [coordinatesJurisdiction]);
 
-    useEffect(() => {
-      if (map) {
-        applyFilters(PROBLEMS_TRIGGER, filterProblems);
-      }
-    }, [filterProblems,zoomEndCounter, dragEndCounter]);
-    useEffect(() => {
-      applyFilters(MHFD_PROJECTS, filterProjectOptions);
-    }, [projectsids,zoomEndCounter, dragEndCounter]);
-    useEffect(() => {
-      applyFilters(MHFD_PROJECTS, filterProjectOptions);
-    }, [groupedProjectIdsType]);
+  useEffect(() => {
+    applyFilters(PROBLEMS_TRIGGER, filterProblems);
+  }, [filterProblems,zoomEndCounter, dragEndCounter]);
+  useEffect(() => {
+    applyFilters(MHFD_PROJECTS, filterProjectOptions);
+  }, [projectsids,zoomEndCounter, dragEndCounter]);
+  useEffect(() => {
+    applyFilters(MHFD_PROJECTS, filterProjectOptions);
+  }, [groupedProjectIdsType]);
 
-    useEffect(() => {
-      if (map) {
-        for (const component of COMPONENT_LAYERS.tiles) {
-          applyFilters(component, filterComponentOptions);
-        }
-        applyFilters(MHFD_PROJECTS, filterProjectOptions);
-        applyFilters(PROBLEMS_TRIGGER, filterProblems);
-      }
-    }, [filterComponentOptions, paramComponents, componentsNobounds]);
+  useEffect(() => {
+    for (const component of COMPONENT_LAYERS.tiles) {
+      applyFilters(component, filterComponentOptions);
+    }
+    applyFilters(MHFD_PROJECTS, filterProjectOptions);
+    applyFilters(PROBLEMS_TRIGGER, filterProblems);
+  }, [filterComponentOptions, paramComponents, componentsNobounds]);
 
     useEffect(() => {
       /// UNCOMMENT WHEN NOTES IS READY
@@ -1594,6 +1581,7 @@ const Map = ({
     }, [projectsids]);
 
     const applyFilters = useCallback((key: string, toFilter: any) => {
+      if (!map) return;
         const styles = { ...tileStyles as any };
         let clusterAdded = false;
         styles[key].forEach((style: LayerStylesType, index: number) => {
