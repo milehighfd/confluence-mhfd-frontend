@@ -229,7 +229,7 @@ let items = [
   const urlOptions = (options: OptionsFiltersUser) => {
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
       + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : ''
-      + '&sort=' + options.sort) + '&limit=' + 100 + '&page=' + options.page;
+      + '&sort=' + options.sort) + '&limit=' + 100000 + '&page=' + options.page;
   }
   const getAllUser = () => {
     getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated), setTotalUsersActivated);
