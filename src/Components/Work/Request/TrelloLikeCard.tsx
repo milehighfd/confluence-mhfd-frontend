@@ -230,15 +230,15 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
       backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
 
-  const getSponsor = (project: any) => {
-    if (project?.projectData?.project_partners?.length > 0) {
-      return project?.projectData?.project_partners[0]?.business_associate?.business_name;
-    } else {
-      return 'No Sponsor';
-    }
-  }
+  // const getSponsor = (project: any) => {
+  //   if (project?.projectData?.project_partners?.length > 0) {
+  //     return project?.projectData?.project_partners[0]?.business_associate?.business_name;
+  //   } else {
+  //     return 'No Sponsor';
+  //   }
+  // }
   
-  let labelOrigin = getSponsor(project);
+  let labelOrigin = project.origin;
   if (labelOrigin.length > 9) {
     labelOrigin = labelOrigin.substr(0, 9) + '...';
   }
@@ -315,7 +315,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
                 }
               </label>
             }
-            <Popover placement="top" content={<>{getSponsor(project)}</>} style={{marginRight:'-10px'}}>
+            <Popover placement="top" content={<>{project.origin}</>} style={{marginRight:'-10px'}}>
               <label className="purple" >{labelOrigin}</label>
             </Popover>
             <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
