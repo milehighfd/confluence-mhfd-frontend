@@ -14,6 +14,8 @@ const BusinessAssociatesDropdown = ({
   setCreateContact,
   setDisableAdress,
   setDisableContact,
+  setDisabled,
+  setContactData,
 }: {
   businessAssociate: any,
   designation: any,
@@ -27,6 +29,8 @@ const BusinessAssociatesDropdown = ({
   setCreateContact: any,
   setDisableAdress: any,
   setDisableContact: any,
+  setDisabled: any,
+  setContactData: any,
 }) => {
   const [menu, setMenu] = useState<any>([]);
   const [keyword, setKeyword] = useState(associateLabel);
@@ -43,6 +47,8 @@ const BusinessAssociatesDropdown = ({
     setCreateContact(false);
     setDisableAdress(false);
     setDisableContact(false);
+    setDisabled(false);
+    setContactData({});
   }
 
   const onSearch = (value: string) => {

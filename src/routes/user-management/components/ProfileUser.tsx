@@ -182,7 +182,9 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
-      onClick={(event:any) => {
+      onClick={(event:any) => {    
+        console.log(showAdress)
+        console.log(showContact)    
         if (event.key === 'Create_1') {
           setDisabledContact(true)
           //setContactData({})
@@ -192,6 +194,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setAdressLine2('')
           setState('')
           setContactLabel('')
+          setShowAdress(true)
+          setShowContact(true)
           setCreateContact(true)
         } else {
           setDisabledContact(false);
@@ -580,6 +584,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                   setCreateContact = {setCreateContact}
                   setDisableContact = {setDisabledContact}
                   setDisableAdress = {setDisabledAddress}
+                  setDisabled = {setDisabled}
+                  setContactData = {setContactData}
                 />
               </div>
             </Col>
@@ -590,31 +596,31 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                   <p>FIELD FOR DESIGN</p>
                   <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
                 </div>
-                {showAdress?<div className="gutter-row"  id={("poc" + values.user_id)}>
+                {(showAdress || contactLabel)?<div className="gutter-row"  id={("poc" + values.user_id)}>
                   <p>BUSINESS ASSOCIATE ADDRESS </p>
                   <Dropdown trigger={['click']} overlay={menuAdressAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
-                      {Object.keys(contactData).length > 0? contactData.label : (adressLabel ? adressLabel:(!disabled?'Add New Address':'Select Business Associates Address'))}  <DownOutlined />
+                      {Object.keys(contactData).length > 0? contactData.label : (adressLabel ? adressLabel:'Select Business Associates Address')}  <DownOutlined />
                     </Button>
                   </Dropdown>
                 </div>:<></>}
               </Col>
             </Row>
-            {disabled && <Row>
+            {(disabled) && <Row>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
-                {showContact?<div className="gutter-row">
+                {(showContact || contactLabel)?<div className="gutter-row">
                   <p>BUSINESS ASSOCIATE  CONTACT </p>
                   <Dropdown trigger={['click']} overlay={menuContactAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
-                      {(contactLabel ? contactLabel:(!disabled?'Add New Contact':'Select Business Associate Contact'))}  <DownOutlined />
+                      {(contactLabel ? contactLabel:(createContact?'Add New Contact':'Select Business Associate Contact'))}  <DownOutlined />
                     </Button>
                   </Dropdown>
                 </div>:<></>}
               </Col>
           </Row> }
-          {disabledContact && <Row>
+          {(disabledContact) && <Row>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
               <p>FIRST NAME</p>
               <Input
