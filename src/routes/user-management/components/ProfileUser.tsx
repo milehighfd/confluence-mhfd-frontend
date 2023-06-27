@@ -323,7 +323,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       business_addresses?.filter((address: any) => address.business_associate_contacts?.
       findIndex((contact: any) => contact.business_associate_contact_id === contactId) !== -1) || [];
       if (contact && Object.keys(contact).length > 0) {
-        setContactId(contact[0].business_associate_contacts[0].business_associate_contact_id);
         setDisabledAddress(true);
         setAdressLabel(contact[0].full_address);
         setAddressId(contact[0].business_address_id);
