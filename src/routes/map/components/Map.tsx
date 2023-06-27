@@ -2762,7 +2762,7 @@ const Map = ({
                 </AutoComplete>
             </div>
             <div className="measure-button">
-              {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" alt="measuring" /></Button>}
+              {!measuringState && <Button style={{ borderRadius: '4px' }} onClick={()=>setMeasuringState(true)} ><img className="img-icon" alt="" /></Button>}
               {measuringState && 
               <div className='measurecontainer'> 
                 <div id={'measure-block'} className="measure-block" onClick={()=> setMeasuringState(false)}>
