@@ -1,5 +1,23 @@
 import * as turf from '@turf/turf';
 
+/**
+  Creates an interval that waits until the `map` is loaded.
+  the interval is referenced with `intervalId` and the resolution is done by `promise`
+  @param map mapboxgl.Map
+  @returns [intervalId, promise]
+ */
+export const waitingInterval = (map: any): any[] => {
+  let intervalId;
+  const promise = new Promise<boolean>((resolve) => {
+    intervalId = setInterval(() => {
+      if (map && map.isStyleLoaded()) {
+        resolve(true);
+      }
+    }, 250);
+  });
+  return [intervalId, promise];
+};
+
 export const flytoBoundsCoor = (
   getCurrent : any, 
   userInformation : any,

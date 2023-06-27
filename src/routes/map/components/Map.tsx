@@ -67,7 +67,7 @@ import MapService from 'Components/Map/MapService';
 import { useNoteDispatch, useNotesState } from 'hook/notesHook';
 import { useProfileState } from 'hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
-import { flytoBoundsCoor, getTitle, polyMask, depth} from 'routes/map/components/MapFunctionsUtilities';
+import { flytoBoundsCoor, getTitle, polyMask, depth, waitingInterval} from 'routes/map/components/MapFunctionsUtilities';
 import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from 'Components/Map/commetsFunctions';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import MobileMenu from 'routes/map/components/MobileMenu';
@@ -157,18 +157,6 @@ let listOfElements = [{
   color: "#E45360",
   label:  "Color"
 }];
-
-const waitingInterval = (map: any): any[] => {
-  let intervalId;
-  const promise = new Promise<boolean>((resolve) => {
-    intervalId = setInterval(() => {
-      if (map && map.isStyleLoaded()) {
-        resolve(true);
-      }
-    }, 250);
-  });
-  return [intervalId, promise];
-};
 
 const Map = ({
     leftWidth
