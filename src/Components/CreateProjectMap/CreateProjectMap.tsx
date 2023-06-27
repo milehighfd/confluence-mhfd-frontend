@@ -809,8 +809,10 @@ const CreateProjectMap = (type: any) => {
     }, 1000);
   }
   const applyProblemClusterLayer = () => {
-    datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
-      if (!map.map.getSource('clusterproblem')) {
+    const controller = new AbortController();
+    datasets.getData(SERVER.MAP_PROBLEM_TABLES,datasets.getToken(),
+    controller.signal).then((geoj:any) => {
+      if ( map && !map.map.getSource('clusterproblem')) {
         addGeojsonSource(map.map, geoj.geom, isProblemActive);
       }
       setProblemClusterGeojson(geoj.geom);
@@ -917,6 +919,7 @@ const CreateProjectMap = (type: any) => {
   };
   const applyFilters = useCallback((key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
+    let clusterAdded = false;
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (!map.getLayer(key + '_' + index)) {
         return;
@@ -1046,7 +1049,10 @@ const CreateProjectMap = (type: any) => {
       }
       if (key == PROBLEMS_TRIGGER && problemClusterGeojson) {
         if (!map.map.getSource('clusterproblem')) {
-          addGeojsonSource(map.map, problemClusterGeojson, isProblemActive, allFilters);
+          if (!clusterAdded) {
+            addGeojsonSource(map.map, problemClusterGeojson, isProblemActive, allFilters);
+            clusterAdded = true;
+          }
         }
       }
       if (map.getLayer(key + '_' + index)) {

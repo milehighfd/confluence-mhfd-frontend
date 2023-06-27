@@ -759,7 +759,9 @@ const WorkRequestMap = ({
     }
 }
 const applyProblemClusterLayer = () => {
-  datasets.getData(SERVER.MAP_PROBLEM_TABLES).then((geoj:any) => {
+  const controller = new AbortController();
+  datasets.getData(SERVER.MAP_PROBLEM_TABLES,datasets.getToken(),
+  controller.signal).then((geoj:any) => {
     if ( map && !map.map.getSource('clusterproblem')) {
       addGeojsonSource(map.map, geoj.geom, isProblemActive);
     }
@@ -1088,6 +1090,7 @@ useEffect(() => {
   }
   const applyFilters = useCallback((key: string, toFilter: any) => {
     const styles = { ...tileStyles as any };
+    let clusterAdded = false;
     styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!map.getLayer(key + '_' + index)) {
             return;
@@ -1216,7 +1219,10 @@ useEffect(() => {
             allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
         }
         if (key == PROBLEMS_TRIGGER && problemClusterGeojson && !map.map.getSource('clusterproblem')) {
-          addGeojsonSource(map.map, problemClusterGeojson, isProblemActive, allFilters);
+          if (!clusterAdded) {
+            addGeojsonSource(map.map, problemClusterGeojson, isProblemActive, allFilters);
+            clusterAdded = true;
+          }
         }
         if (map.getLayer(key + '_' + index)) {
             map.setFilter(key + '_' + index, allFilters);
