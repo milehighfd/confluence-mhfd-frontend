@@ -672,16 +672,16 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
               disabledAddress &&
               <>
               <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
-              <p>ADDRESS LINE 1</p>
+              <p>ADDRESS</p>
               <Input
                 style={{marginBottom:'15px'}}
-                placeholder="Address Line 1"
+                placeholder="Address"
                 value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
                 name="address_line_1"
                 onChange = {(e) => {handleChangeData(e.target.value, setAdressLine1)}}
                 disabled={disabled}
               />
-              <p>ADDRESS LINE 2</p>
+              {/* <p>ADDRESS LINE 2</p>
               <Input
                 style={{marginBottom:'15px'}}
                 placeholder="Address Line 2"
@@ -689,7 +689,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 name="address_line_1" 
                 onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
                 disabled = {disabled}
-              />
+              /> */}
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
               <p>CITY</p>
