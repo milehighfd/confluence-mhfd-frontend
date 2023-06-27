@@ -1229,31 +1229,7 @@ useEffect(() => {
         }
     });
 }, [problemClusterGeojson, groupedProjectIdsType]);
-  const applyFiltersIDs = (key: string, toFilter: any) => {
-    const styles = { ...(tileStyles as any) };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (!map.getLayer(key + '_' + index)) {
-        return;
-      }
-      const allFilters: any[] = ['all'];
-      if (key === PROJECTS_DRAFT+'draft') {
-        if (idsBoardProjects && idsBoardProjects.length > 0 && idsBoardProjects[0] != '-8888') {
-          let boardids = idsBoardProjects;
-          allFilters.push(['in', ['get', 'projectid'], ['literal', [...boardids]]]);
-        } else {
-          allFilters.push(['in', ['get', 'projectid'], ['literal', ['-1111']]]);
-        }
-        if (groupedIdsBoardProjects) {
-          console.log('map.map.getLayer()', map.map.getLayer(key+"_"+index));
-          map.changePaintPropertyColors(key+"_"+index, groupedIdsBoardProjects );
-        }
-      }
 
-      if (map.getLayer(key + '_' + index)) {
-        map.setFilter(key + '_' + index, allFilters);
-      }
-    });
-  };
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersWR.filter((layer: any) => !selectedItems.includes(layer as string));
     deleteLayers.forEach((layer: LayersType) => {
