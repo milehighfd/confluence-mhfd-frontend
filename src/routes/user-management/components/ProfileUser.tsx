@@ -44,7 +44,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [county, setCounty] = useState('');
   const [contactId,setContactId] = useState('');
   const [contactLabel,setContactLabel] = useState('');
-  const [update, setUpdate] = useState(false);
+  const [update, setUpdate] = useState(true);
   const [jurisdiction, setJurisdiction] = useState('');
   const [designation, setDesignation] = useState<string>(record.designation);
   const [initialValues, setInitialValues] = useState<any>(record);
@@ -54,8 +54,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [listContacts, setListContacts] = useState<any>([]); 
   const [addressId, setAddressId] = useState<any>(0);
   const [adressLabel, setAdressLabel] = useState<any>('');
-  const [showAdress, setShowAdress] = useState<any>(false);
-  const [showContact, setShowContact] = useState<any>(false);
   const [createAdress, setCreateAdress] = useState<any>(false);
   const [createContact, setCreateContact] = useState<any>(false);
   const [createFirstName, setCreateFirstName] = useState<any>('');
@@ -63,6 +61,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [createMail, setCreateMail] = useState<any>('');
   const [createTitle, setCreateTitle] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
+  const [flagAddress, setFlagAddress] = useState<any>(false);
+  const [flagContact, setFlagContact] = useState<any>(false);
 
   const {
     replaceAppUser,
@@ -101,11 +101,15 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         label: <span style={{ border: 'transparent' }}>{'Add New Address'}</span>
       });
     };
-    generateItemMenu(listAssociates.filter((elm: any) => elm.business_associates_id === selectAssociate)[0]
-    .business_addresses.map((x: any) => ({
-      key: x?.business_address_id,
-      label: x?.full_address
-    })));
+    const selectedAssociate = listAssociates?.filter((elm: any) => elm.business_associates_id === selectAssociate)[0];
+    if (selectedAssociate && selectedAssociate.business_addresses) {
+      generateItemMenu(selectedAssociate.business_addresses.map((x: any) => ({
+        key: x?.business_address_id,
+        label: x?.full_address
+      })));
+    } else {
+      generateItemMenu([]);
+    }
     const adressFiltered = listAssociates.filter((elm: any) => elm.business_associates_id === selectAssociate)[0]
     return <Menu
       key={'organization'}
@@ -122,9 +126,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setAdressLine1('')
           setAdressLine2('')
           setState('')
-          setAdressLabel('')
           setAddressId(0)
           setCreateAdress(true)
+          setDisabledContact(true)
+          setAdressLabel('Add New Address')
+          setContactLabel('Add New Contact')
         } else {
           setDisabled(true);
           setDisabledAddress(false);
@@ -139,7 +145,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
           setAddressId((adressFiltered.business_addresses.find((elm: any) => +elm.business_address_id === +event.key)).business_address_id)
           setCreateAdress(false)
-          setShowContact(true)
+          setFlagAddress(true);
         }
       }}>
     </Menu>
@@ -182,9 +188,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       key={'organization'}
       className="js-mm-00 sign-menu-organization"
       items={itemMenu}
-      onClick={(event:any) => {    
-        console.log(showAdress)
-        console.log(showContact)    
+      onClick={(event:any) => {     
         if (event.key === 'Create_1') {
           setDisabledContact(true)
           //setContactData({})
@@ -194,8 +198,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setAdressLine2('')
           setState('')
           setContactLabel('')
-          setShowAdress(true)
-          setShowContact(true)
           setCreateContact(true)
         } else {
           setDisabledContact(false);
@@ -208,6 +210,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
           setCreateContact(false)
+          setFlagContact(true);
         }
       }}>
     </Menu>
@@ -283,36 +286,81 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           label: x.business_name,
           key: x.business_associates_id,
           primary_business_associate_contact_id: x.primary_business_associate_contact_id,
-          code_business_associates_type_id: x.code_business_associates_type_id 
+          code_business_associates_type_id: x.code_business_associates_type_id
         });
       });
       setBusinessAssociate(businessAssociates)
-      setListAssociates(res)
+      setListAssociates(res ? res : []);
     });
-  }, []);
+  }, [update]);
 
   useEffect(() => {
-    const addressFiltered = (listAssociates.filter((elm: any) => elm.business_associates_id === selectAssociate)[0])?.business_addresses;
+    const addressFiltered = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.business_addresses;
     if (addressFiltered && Object.keys(addressFiltered).length > 0) {
-      const associates = addressFiltered.find((f: any) => +f.business_address_id === +addressId)
-      let aux: any[] = [];
-      if (associates) {
-        aux = associates.business_associate_contacts?.map((contact: any) => {
+      const aux = addressFiltered.map((address: any) => {
+        return address.business_associate_contacts?.map((contact: any) => {
           return {
-            business_address_id: associates.business_address_id,
-            business_address_line_1: associates.business_address_line_1,
-            business_address_line_2: associates.business_address_line_2,
-            city: associates.city,
-            state: associates.state,
-            zip: associates.zip,
+            business_address_id: address.business_address_id,
+            business_address_line_1: address.business_address_line_1,
+            business_address_line_2: address.business_address_line_2,
+            city: address.city,
+            state: address.state,
+            zip: address.zip,
             key: contact.business_associate_contact_id,
             label: contact.contact_name
           }
         });
-      }
+      }).flat();
       setListContacts(aux);
+      setFlagAddress(false);
     }
-  }, [selectAssociate,listAssociates,addressId]);
+  }, [selectAssociate, listAssociates]);
+
+  useEffect(()=>{
+    if(flagContact && !flagAddress){
+      const contact = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.
+      business_addresses?.filter((address: any) => address.business_associate_contacts?.
+      findIndex((contact: any) => contact.business_associate_contact_id === contactId) !== -1) || [];
+      if (contact && Object.keys(contact).length > 0) {
+        setContactId(contact[0].business_associate_contacts[0].business_associate_contact_id);
+        setDisabledAddress(true);
+        setAdressLabel(contact[0].full_address);
+        setAddressId(contact[0].business_address_id);
+        setFlagContact(false);
+        setAdressLine1(contact[0].full_address);
+        setCity(contact[0].city);
+        setZip(contact[0].zip);
+        setState(contact[0].state);
+        setDisabled(false);
+        setCreateContact(false);
+        setCreateAdress(true);
+      }
+    }    
+  },[contactId])
+
+  useEffect(()=>{
+    if (flagAddress){
+      const addressFiltered = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.business_addresses;
+      if (addressFiltered && Object.keys(addressFiltered).length > 0) {
+        const addressAssociates = addressFiltered.filter((elm: any) => elm.business_address_id === addressId);
+        const aux = addressAssociates.map((address: any) => {
+          return address.business_associate_contacts?.map((contact: any) => {
+            return {
+              business_address_id: address.business_address_id,
+              business_address_line_1: address.business_address_line_1,
+              business_address_line_2: address.business_address_line_2,
+              city: address.city,
+              state: address.state,
+              zip: address.zip,
+              key: contact.business_associate_contact_id,
+              label: contact.contact_name
+            }
+          });
+        }).flat();
+        setListContacts(aux);
+      }
+    }    
+  },[addressId])
 
   useEffect(() => {      
     const auxUser = { ...record };
@@ -339,7 +387,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       setValue(value)
     }    
   }
-
 
   const updateSuccessful = () => {
     const auxMessageError = { ...messageError };
@@ -384,7 +431,35 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       zoomarea,
       business_associate_contact_id: +contactId
     };
-    if (createAdress) {
+    if (createAdress && !createContact) {
+      datasets.putData(SERVER.UPDATE_ADDRESS + '/' + addressId, {
+        full_address: addressLine1,
+        business_address_line_1: addressLine1,
+        state: state,
+        city: city,
+        zip: zip,
+      },datasets.getToken()).then(res => {
+        newUser.business_associate_contact_id = +contactId;
+        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
+          if (res.message === 'SUCCESS') {   
+            setDisabledContact(false);     
+            setDisabledAddress(false);
+            saveUser();           
+            updateSuccessful();
+            setDisabled(true);
+            setUpdate(!update);
+            getUserInformation();       
+          } else {
+            if (res?.error) {
+              updateError(res.error);
+            }
+            else {
+              updateError(res);
+            }
+          }
+        })
+      });
+    } else if (createAdress) {
       datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociate), {
         business_address_line_1: addressLine1,
         business_address_line_2: addressLine2,
@@ -393,16 +468,26 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         city,
         zip,
         name: firstName + ' ' + lastName,
-        email: email
+        email: email,
+        contact_name: createFirstName + ' ' + createLastName,
+        contact_email: createMail,
+        contact_phone_number: createPhone,
+        business_address_id: addressId
       }, datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +res?.businessContact?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {        
+          if (res.message === 'SUCCESS') {   
+            setDisabledContact(false);     
+            setDisabledAddress(false);
             saveUser();           
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();
+            setCreateFirstName('');
+            setCreateLastName('');
+            setCreateMail('');
+            setCreatePhone('');            
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -422,12 +507,18 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       }, datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +res?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
-          if (res.message === 'SUCCESS') {        
+          if (res.message === 'SUCCESS') {     
+            setDisabledContact(false);     
+            setDisabledAddress(false);   
             saveUser();           
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();
+            setCreateFirstName('');
+            setCreateLastName('');
+            setCreateMail('');
+            setCreatePhone('');         
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -579,7 +670,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                   setSelectAssociate={setSelectAssociate}
                   associateLabel={associateLabel}
                   setContactLabel = {setAdressLabel}
-                  setShowAdress = {setShowAdress}
                   setCreateAdress = {setCreateAdress}
                   setCreateContact = {setCreateContact}
                   setDisableContact = {setDisabledContact}
@@ -596,7 +686,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                   <p>FIELD FOR DESIGN</p>
                   <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
                 </div>
-                {(showAdress || contactLabel)?<div className="gutter-row"  id={("poc" + values.user_id)}>
+                <div className="gutter-row"  id={("poc" + values.user_id)}>
                   <p>BUSINESS ASSOCIATE ADDRESS </p>
                   <Dropdown trigger={['click']} overlay={menuAdressAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
@@ -604,12 +694,65 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                       {Object.keys(contactData).length > 0? contactData.label : (adressLabel ? adressLabel:'Select Business Associates Address')}  <DownOutlined />
                     </Button>
                   </Dropdown>
-                </div>:<></>}
+                </div>
               </Col>
             </Row>
-            {(disabled) && <Row>
+          <Row style={{ paddingLeft: '20px' }}>
+            {
+              disabledAddress &&
+              <>
+                <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
+                  <p>ADDRESS</p>
+                  <Input
+                    style={{ marginBottom: '15px' }}
+                    placeholder="Address"
+                    value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
+                    name="address_line_1"
+                    onChange={(e) => { handleChangeData(e.target.value, setAdressLine1) }}
+                    disabled={disabled}
+                  />
+                  {/* <p>ADDRESS LINE 2</p>
+              <Input
+                style={{marginBottom:'15px'}}
+                placeholder="Address Line 2"
+                value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
+                name="address_line_1" 
+                onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
+                disabled = {disabled}
+              /> */}
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+                  <p>CITY</p>
+                  <Input
+                    style={{ marginBottom: '15px' }}
+                    placeholder="City"
+                    value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
+                    onChange={(e) => { handleChangeData(e.target.value, setCity) }}
+                    disabled={disabled}
+                  />
+                  <p>ZIP CODE</p>
+                  <Input
+                    placeholder="Zip Code"
+                    value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
+                    onChange={(e) => { handleZipChange(e.target.value, setZip) }}
+                    style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+                    disabled={disabled}
+                  />
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+                  <p>STATE</p>
+                  <Dropdown trigger={['click']} overlay={menuStates} >
+                    <Button className="btn-borde-management">
+                      {state === '' ? 'State' : state}<DownOutlined />
+                    </Button>
+                  </Dropdown>
+                </Col>
+              </>
+            }
+          </Row>
+            <Row>
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
-                {(showContact || contactLabel)?<div className="gutter-row">
+                <div className="gutter-row">
                   <p>BUSINESS ASSOCIATE  CONTACT </p>
                   <Dropdown trigger={['click']} overlay={menuContactAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
@@ -617,10 +760,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                       {(contactLabel ? contactLabel:(createContact?'Add New Contact':'Select Business Associate Contact'))}  <DownOutlined />
                     </Button>
                   </Dropdown>
-                </div>:<></>}
+                </div>
               </Col>
-          </Row> }
-          {(disabledContact) && <Row>
+            </Row> 
+          {disabledContact && <Row>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
               <p>FIRST NAME</p>
               <Input
@@ -666,60 +809,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 onChange= {(e) => {handleChangeData(formatPhoneNumber(e.target.value), setCreatePhone)}}
               />
             </Col>
-          </Row> }
-          <Row style={{paddingLeft:'20px'}}>
-            {
-              disabledAddress &&
-              <>
-              <Col xs={{ span: 24 }} lg={{ span: 18 }} style={{ paddingRight: '0px' }}>
-              <p>ADDRESS</p>
-              <Input
-                style={{marginBottom:'15px'}}
-                placeholder="Address"
-                value={(addressLine1 === '' && disabled ? (addressLine1 !== '' ? addressLine1 : values.business_associate_contact?.business_address?.business_address_line_1) : addressLine1)}
-                name="address_line_1"
-                onChange = {(e) => {handleChangeData(e.target.value, setAdressLine1)}}
-                disabled={disabled}
-              />
-              {/* <p>ADDRESS LINE 2</p>
-              <Input
-                style={{marginBottom:'15px'}}
-                placeholder="Address Line 2"
-                value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
-                name="address_line_1" 
-                onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
-                disabled = {disabled}
-              /> */}
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-              <p>CITY</p>
-              <Input
-                style={{marginBottom:'15px'}}
-                placeholder="City"
-                value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
-                onChange= {(e) => {handleChangeData(e.target.value, setCity)}}
-                disabled={disabled}
-              />
-              <p>ZIP CODE</p>
-              <Input
-                placeholder="Zip Code"
-                value={(zip === '' && disabled ? (zip !== '' ? zip : values.business_associate_contact?.business_address?.zip) : zip)}
-                onChange= {(e) => {handleZipChange(e.target.value, setZip)}}
-                style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
-                disabled={disabled}
-              />
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-              <p>STATE</p>
-              <Dropdown trigger={['click']} overlay={menuStates} >
-                  <Button className="btn-borde-management">
-                      {state===''?'State':state}<DownOutlined />
-                  </Button>
-              </Dropdown>
-            </Col>
-            </>
-            }
-          </Row>
+          </Row> }          
           <br />
           </>
         }
