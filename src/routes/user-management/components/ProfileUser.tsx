@@ -128,6 +128,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setState('')
           setAddressId(0)
           setCreateAdress(true)
+          setCreateContact(true)
           setDisabledContact(true)
           setAdressLabel('Add New Address')
           setContactLabel('Add New Contact')
@@ -414,7 +415,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       setMessageError(auxMessageError);
     }, 10000);
     return () => clearTimeout(timer);
-  }
+  } 
 
   const result = () => {
     const newUser: any = {
@@ -459,7 +460,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           }
         })
       });
-    } else if (createAdress) {
+    } else if (createAdress && createContact) {
       datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociate), {
         business_address_line_1: addressLine1,
         business_address_line_2: addressLine2,
@@ -498,7 +499,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           }
         });
       });
-    } else if (createContact) {
+    } else if (!createAdress && createContact) {
       datasets.postData(SERVER.CREATE_CONTACT, {
         contact_name: createFirstName + ' ' + createLastName,
         contact_email: createMail,
@@ -548,6 +549,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     setSaveAlert(false)
   }
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
+
+  
 
   return (
     <>
@@ -669,7 +672,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                   setPrimary={setPrimary}
                   setSelectAssociate={setSelectAssociate}
                   associateLabel={associateLabel}
-                  setContactLabel = {setAdressLabel}
+                  setContactLabel = {setContactLabel}
+                  setAddressLabel = {setAdressLabel}
                   setCreateAdress = {setCreateAdress}
                   setCreateContact = {setCreateContact}
                   setDisableContact = {setDisabledContact}
