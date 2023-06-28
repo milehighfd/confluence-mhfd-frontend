@@ -58,7 +58,6 @@ import {
 import { addMapGeocoder, getMapBoundingBoxTrimmed } from 'utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
-import { useColorListDispatch, useColorListState } from 'hook/colorListHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import { handleAbortError, setOpacityLayer } from 'store/actions/mapActions';
 import {MapboxLayer} from '@deck.gl/mapbox';
@@ -68,7 +67,6 @@ import { useNoteDispatch, useNotesState } from 'hook/notesHook';
 import { useProfileState } from 'hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
 import { flytoBoundsCoor, getTitle, polyMask, depth, waitingInterval} from 'routes/map/components/MapFunctionsUtilities';
-import { rotateIcon } from 'Components/Map/commetsFunctions';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import MobileMenu from 'routes/map/components/MobileMenu';
 import SideMenuTools from 'routes/map/components/SideMenuTools';
@@ -78,6 +76,7 @@ import EventService from 'services/EventService';
 import {
   createNoteWithElem,
   editNoteWithElem,
+  handleColor,
   // addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from 'routes/map/components/MapFunctionsNotes';
@@ -134,19 +133,6 @@ let canAdd = {value: false};
 let isProblemActive = true;
 
 let commentAvailable = false;
-let listOfElements = [{
-  color: '#FFE120',
-  label: `Jon's issue`
-},{
-  color: "#66D4FF",
-  label:  "New projects"
-},{
-  color: "#6FC699",
-  label: "Previous Works"
-},{
-  color: "#E45360",
-  label:  "Color"
-}];
 
 const Map = ({
     leftWidth
@@ -211,13 +197,6 @@ const Map = ({
     const [zoomValue, setZoomValue] = useState(0);
     const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
-    const colorsCodes = {
-      YELLOW: 'rgb(255, 221, 0)', 
-      RED: 'rgb(255, 90, 95)',
-      BLUE: 'rgb(37, 24, 99)',
-      GREEN: 'rgb(41, 196, 153)',
-      SKY:  'rgb(102, 212, 255)',
-    }
     const [markersNotes, setMarkerNotes] = useState([]) ;
     const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
     const { userInformation, groupOrganization } = useProfileState();
@@ -249,29 +228,9 @@ const Map = ({
     const [ showDefault, setShowDefault ] = useState(false);
     const isMobile = useIsMobile();
 
-    const handleColor = () => {
-      let color = '';
-      const colorable = document.getElementById('colorable');
-      if (colorable != null) {
-        if (colorable.style.color === colorsCodes.RED) {
-            color = 'red';
-        } else if (colorable.style.color === colorsCodes.BLUE) {
-            color = 'blue';
-        } else if (colorable.style.color === colorsCodes.GREEN) {
-            color = 'green';
-        } else if (colorable.style.color === colorsCodes.SKY) {
-            color = 'sky';
-        }
-          else {
-            color = 'red2';
-        }
-      }
-      const currentColor = availableColors.find((element: any) => element.label === color);
-      return currentColor ? currentColor.color_id : null;
-    }
     const handleComments = (event: any, note? :any) => {
       const getText = event?.target?.value ? event.target.value : event ;
-      const getColorId = handleColor();
+      const getColorId = handleColor(availableColors);
        if (!note) {
       const note = {
         color_id: getColorId,
@@ -410,14 +369,6 @@ const Map = ({
             }
         }
     }, [highlighted]);
-    const [counterPopup] = useState({ componentes: 0 });
-
-    useEffect(() => {
-        const div = document.getElementById('popup');
-        if (div != null) {
-            div.innerHTML = `${counterPopup.componentes}`;
-        }
-    }, [counterPopup]);
 
     useEffect(() => {
         if(data.problemid || data.cartoid) {

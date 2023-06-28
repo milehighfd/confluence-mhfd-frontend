@@ -1,3 +1,11 @@
+const colorsCodes = {
+  YELLOW: 'rgb(255, 221, 0)', 
+  RED: 'rgb(255, 90, 95)',
+  BLUE: 'rgb(37, 24, 99)',
+  GREEN: 'rgb(41, 196, 153)',
+  SKY:  'rgb(102, 212, 255)',
+}
+
 export const createNoteWithElem = (note: any, createNote: Function) => {
 
   const contentTitle:any = document.getElementById('color-text');
@@ -39,4 +47,25 @@ export const openMarkerOfNoteWithoutAdd = (
       // eventsOnClickNotes(filterMarker[0].note);
     },300);
   }
+}
+
+export const handleColor = (availableColors: any) => {
+  let color = '';
+  const colorable = document.getElementById('colorable');
+  if (colorable != null) {
+    if (colorable.style.color === colorsCodes.RED) {
+        color = 'red';
+    } else if (colorable.style.color === colorsCodes.BLUE) {
+        color = 'blue';
+    } else if (colorable.style.color === colorsCodes.GREEN) {
+        color = 'green';
+    } else if (colorable.style.color === colorsCodes.SKY) {
+        color = 'sky';
+    }
+      else {
+        color = 'red2';
+    }
+  }
+  const currentColor = availableColors.find((element: any) => element.label === color);
+  return currentColor ? currentColor.color_id : null;
 }
