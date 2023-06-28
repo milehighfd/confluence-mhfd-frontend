@@ -6,8 +6,7 @@ class MapService {
   isAutocompleteUsed = false;
 
   hideAndRemoveLayer() {
-    if (this.map.getLayer('mask')) {
-      this.map.setLayoutProperty('mask', 'visibility', 'visible');
+    if (this.map && this.map.getLayer('mask')) {
       this.map.removeLayer('mask');
       this.map.removeSource('mask');
     }
@@ -19,18 +18,9 @@ class MapService {
         this.isAutocompleteUsed = true;
         return;
       }
-      const waiting = () => {
-        if (this.map.loaded()) {
-          this.hideAndRemoveLayer();
-        } else {
-          setTimeout(waiting, 50);
-        }
-      }
-      waiting();
-    } else {
-      if (this.map.loaded()) {
-        this.hideAndRemoveLayer();
-      }
+    }
+    if (this.map.loaded()) {
+      this.hideAndRemoveLayer();
     }
   }
 
