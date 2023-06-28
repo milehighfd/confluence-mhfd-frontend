@@ -785,7 +785,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 onChange= {(e) => {handleChangeData(e.target.value, setCreateMail)}}
               />
             </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
+            {/* <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
               <p>TITLE</p>
               <Input
                 placeholder="Enter Title"
@@ -793,8 +793,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 onChange= {(e) => {handleChangeData(e.target.value, setCreateTitle)}}
                 style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
               />
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
+            </Col> */}
+            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
               <p>PHONE NUMBER</p>
               <Input
                 style={{marginBottom:'15px'}}
