@@ -56,8 +56,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [adressLabel, setAdressLabel] = useState<any>('');
   const [createAdress, setCreateAdress] = useState<any>(false);
   const [createContact, setCreateContact] = useState<any>(false);
-  const [createFirstName, setCreateFirstName] = useState<any>('');
-  const [createLastName, setCreateLastName] = useState<any>('');
+  const [createFullName, setCreateFullName] = useState<any>('');
   const [createMail, setCreateMail] = useState<any>('');
   const [createTitle, setCreateTitle] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
@@ -103,7 +102,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     if (selectedAssociate && selectedAssociate.business_addresses) {
       generateItemMenu(selectedAssociate.business_addresses.map((x: any) => ({
         key: x?.business_address_id,
-        label: x?.full_address
+        label: x?.full_address + ', ' + x?.city + ', ' + x?.state + ', ' + x?.zip_code
       })));
     } else {
       generateItemMenu([]);
@@ -180,8 +179,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           //setContactData({})
           setContactLabel('')
           setCreateContact(true)
+          setCreateFullName('')
+          setCreateMail('')
+          setCreatePhone('')
         } else {
-          setDisabledContact(false);
+          setDisabledContact(true);
           //setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
           setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
@@ -249,14 +251,20 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     setAssociateLabel(auxUser?.business_associate_contact?.business_address?.business_associate.business_name)
     setSelectAssociate(auxUser?.business_associate_contact?.business_address?.business_associate.business_associates_id)
     setContactLabel(auxUser?.business_associate_contact?.contact_name)
-    setAdressLabel(auxUser?.business_associate_contact?.business_address?.full_address)
+    setAdressLabel(auxUser?.business_associate_contact?.business_address?.full_address
+      + ', ' + auxUser?.business_associate_contact?.business_address?.city
+      + ', ' + auxUser?.business_associate_contact?.business_address?.state
+      + ', ' + auxUser?.business_associate_contact?.business_address?.zip)
     setAddressId(auxUser?.business_associate_contact?.business_address?.business_address_id)
     setContactId(auxUser?.business_associate_contact_id)
-    setAdressLine1(auxUser?.business_associate_contact?.business_address?.address_line_1)
+    setAdressLine1(auxUser?.business_associate_contact?.business_address?.full_address)
     setAdressLine2(auxUser?.business_associate_contact?.business_address?.address_line_2)
     setZip(auxUser?.business_associate_contact?.business_address?.zip)
     setState(auxUser?.business_associate_contact?.business_address?.state) 
     setCity(auxUser?.business_associate_contact?.business_address?.city)
+    setCreateFullName(auxUser?.business_associate_contact?.contact_name)
+    setCreateMail(auxUser?.business_associate_contact?.contact_email)
+    setCreatePhone(auxUser?.business_associate_contact?.contact_phone_number)
   }, [record]);
 
   useEffect(() => {
@@ -287,7 +295,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             state: address.state,
             zip: address.zip,
             key: contact.business_associate_contact_id,
-            label: contact.contact_name
+            label: contact.contact_name,
+            contact_name: contact.contact_name,
+            contact_email: contact.contact_email,
+            contact_phone_number: contact.contact_phone_number,
           }
         });
       }).flat();
@@ -304,12 +315,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   }, [organization,zoomarea,serviceArea]);
 
   useEffect(() => {
-    console.log(addressId)
     const contact = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.
       business_addresses?.filter((address: any) => address.business_address_id === addressId)?.[0];
     if (contact && Object.keys(contact).length > 0) {
       setDisabledAddress(true);
-      setAdressLabel(contact.full_address);
+      setAdressLabel(contact.full_address+ ', ' + contact.city+ ', ' + contact.state+ ', ' + contact.zip);
       setAdressLine1(contact.full_address);
       setCity(contact.city);
       setZip(contact.zip);
@@ -317,6 +327,15 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       setDisabled(false);
     }
   }, [addressId])
+
+  useEffect(() => {
+    const contact = listContacts?.find((elm: any) => elm.key === contactId);
+    if (contact && Object.keys(contact).length > 0) {
+      setCreateFullName(contact.contact_name);
+      setCreateMail(contact.contact_email);
+      setCreatePhone(contact.contact_phone_number);
+    }
+  }, [contactId])
 
   const handleCityChange = (value:any) => {
     if (value.length <= 25) {
@@ -384,13 +403,19 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       zoomarea,
       business_associate_contact_id: +contactId
     };
+    const newAddress: any = {
+      business_address_line_1: addressLine1,
+      full_address: addressLine1,
+      state: state,
+      city: city,
+      zip: zip,
+    };
     if (createAdress && !createContact) {
       datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
-        full_address: addressLine1,
-        business_address_line_1: addressLine1,
-        state: state,
-        city: city,
-        zip: zip,
+        ...newAddress,
+        contact_name: createFullName,
+        contact_email: createMail,
+        contact_phone_number: createPhone,
         business_associate_contact_id: +selectAssociate
       },datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +contactId;
@@ -415,15 +440,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       });
     } else if (createAdress && createContact) {
       datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociate), {
-        business_address_line_1: addressLine1,
-        business_address_line_2: addressLine2,
-        full_address: addressLine1,
-        state,
-        city,
-        zip,
-        name: firstName + ' ' + lastName,
-        email: email,
-        contact_name: createFirstName + ' ' + createLastName,
+        ...newAddress,
+        contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
         business_address_id: addressId
@@ -437,11 +455,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
-            getUserInformation();
-            setCreateFirstName('');
-            setCreateLastName('');
-            setCreateMail('');
-            setCreatePhone('');            
+            getUserInformation();     
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -454,16 +468,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       });
     } else if (!createAdress && createContact) {
       datasets.postData(SERVER.CREATE_CONTACT  + '/' + addressId, {
-        contact_name: createFirstName + ' ' + createLastName,
+        ...newAddress,
+        contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
-        business_address_id: addressId,
-        business_address_line_1: addressLine1,
-        business_address_line_2: addressLine2,
-        full_address: addressLine1,
-        state,
-        city,
-        zip,
+        business_address_id: addressId,        
       }, datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +res?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
@@ -475,10 +484,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();
-            setCreateFirstName('');
-            setCreateLastName('');
-            setCreateMail('');
-            setCreatePhone('');         
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -491,11 +496,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       });
     } else {
       datasets.putData(SERVER.UPDATE_BUSINESS_ADRESS_AND_CONTACT(addressId,contactId), {
-        business_address_line_1: addressLine1,
-        full_address: addressLine1,
-        state,
-        city,
-        zip
+        ...newAddress,
+        contact_name: createFullName,
+        contact_email: createMail,
+        contact_phone_number: createPhone,
       }, datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +contactId;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
@@ -506,11 +510,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
-            getUserInformation();
-            setCreateFirstName('');
-            setCreateLastName('');
-            setCreateMail('');
-            setCreatePhone('');            
+            getUserInformation();       
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -759,21 +759,12 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             </Row> 
           {disabledContact && <Row>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
-              <p>FIRST NAME</p>
+              <p>CONTACT NAME</p>
               <Input
                 style={{marginBottom:'15px'}}
-                placeholder="Enter First Name"
-                value={createFirstName}
-                onChange= {(e) => {handleChangeData(e.target.value, setCreateFirstName)}}
-              />
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-              <p>LAST NAME</p>
-              <Input
-                placeholder="Enter Last Name"
-                value={createLastName}
-                onChange= {(e) => {handleChangeData(e.target.value, setCreateLastName)}}
-                style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
+                placeholder="Enter Contact Name"
+                value={createFullName}
+                onChange= {(e) => {handleChangeData(e.target.value, setCreateFullName)}}
               />
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px', paddingRight: '20px'  }}>
@@ -785,15 +776,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                 onChange= {(e) => {handleChangeData(e.target.value, setCreateMail)}}
               />
             </Col>
-            {/* <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
-              <p>TITLE</p>
-              <Input
-                placeholder="Enter Title"
-                value={createTitle}
-                onChange= {(e) => {handleChangeData(e.target.value, setCreateTitle)}}
-                style={errors.email && touched.email ? { border: 'solid red', marginBottom: '15px' } : { marginBottom: '15px' }}
-              />
-            </Col> */}
             <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingLeft: '20px' }}>
               <p>PHONE NUMBER</p>
               <Input
