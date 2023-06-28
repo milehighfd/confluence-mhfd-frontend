@@ -75,7 +75,6 @@ export  const addListonPopupNotes = (
   colorsCodes: any,
   createNote: any,
   rotateIcon: Function, 
-  addListToPopupNotes: Function,
   popup: any,
   canAdd: any, // watch out is value not reference  
   setSwSave: Function,

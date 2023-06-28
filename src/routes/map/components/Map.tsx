@@ -91,16 +91,9 @@ const DetailModal = React.lazy(() => import('routes/detail-page/components/Detai
 const MobilePopup =  React.lazy(() => import('Components/MobilePopup/MobilePopup'));
 
 let map: any = null;
-let hasBeenUpdated = false;
 let searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
 let searchPopup = new mapboxgl.Popup({closeButton: true,});
 let popup = new mapboxgl.Popup({closeButton: true,});
-let currentElement: any = {
-  label: 'Map Note', 
-  color: "#F6BE0F",
-  opacity: 1, 
-  color_id: undefined
-}
 let isEdit = false;
 let newNote:any = undefined;
 let currentNote :any=undefined;
@@ -220,8 +213,7 @@ const Map = ({
     const [problemid, setProblemId ] = useState<any>(undefined);
     const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
     const [notesFilter, setNotesFilter] = useState('all');
-    const { colorsList, updated } = useColorListState();
-    const { getColorsList, createColorList, updateColorList, deleteColorList} = useColorListDispatch();
+    const { updated } = useColorListState();
     const [zoomValue, setZoomValue] = useState(0);
     const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
@@ -322,9 +314,6 @@ const Map = ({
       markerNote.remove();
       popup.remove();
     }
-    useEffect(() => {
-      hasBeenUpdated = updated;
-    }, [updated]);
     useEffect(()=>{
       const user = userInformation;
       if (user?.polygon[0]) {
@@ -509,7 +498,7 @@ const Map = ({
                     rotateIcon('down');
                 }
             });
-            addListToPopupNotes(ul,div,noteClicked);
+            // addListToPopupNotes(ul,div,noteClicked);
             
 
             const colorable = document.getElementById('colorable');
@@ -807,7 +796,6 @@ const Map = ({
       map.on('dragend', dragEndFn);
       map.on('load', updateZoom);
       map.on('move', updateZoom);
-      getColorsList();
       getProjectsFilteredIds();
       return () => {
         map.off('dragend', dragEndFn);
@@ -817,25 +805,7 @@ const Map = ({
         map.off('render', mapOnRenderFn);
       };
     }, []);
-    const removeAllChildNodes = (parent:any) => {
-      while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
-      }
-    }
-    const updateColorsList = () => {
-      let ul = document.getElementById('id-list-popup');
-      let div = document.getElementById('color-list');
-      if(ul != null && div != null){ 
-        removeAllChildNodes(ul);
-        addListToPopupNotes(ul, div);
-      }
-    }
-    useEffect(() => {
-      listOfElements = colorsList;
-      updateColorsList();
-      // uncomment when notes is ready
-      getNotes();
-    },[colorsList]);
+
     useEffect(() => {
         const bounds = map.getBounds();
         if(markerGeocoder) {
@@ -2084,49 +2054,6 @@ const Map = ({
       }
 
     }
-    
-    const addListToPopupNotes = (ul: any, div: any, noteClicked?:any) => {
-        let inner = `
-        <div class="listofelements" id="currentItemsinList">
-          `;
-        const latestValue = listOfElements?.reduce((a:any,b: any) => a.created_date > b.created_date ? a : b, 0);  
-        listOfElements.forEach((el:any , index: any) => {
-          inner += ` 
-          <li id="color${index}" value=${JSON.stringify(el.color_id)}>
-            <img id="circle${index}" class="img-circle ${noteClicked?.color_id == el.color_id?' selected':''}" style="background:${el.color}"/> 
-              <input id="input${index}" class="inputlabel${noteClicked?.color_id == el.color_id?' underlined':''} ${latestValue.color_id === el.color_id ? 'toeditinput': ''}" value="${el.label}" readonly>
-            <img id="editopt${index}" class="img-edit" />
-            <img id="saveopt${index}" class="img-check" />
-            <img id="options${index}" src="/Icons/icon-60.svg" alt=""  class='menu-wr'> 
-          </li>`
-        });
-        inner += '</div>'
-        const addLabelButton = `
-          <li id="addLabelButton" style="padding-right:12px">
-            <button 
-                id="addLabelButton-btn"
-                type="button"
-                class="addlabelbutton"
-            >
-                Add Label
-            </button>
-          </li>`;
-        inner = inner + addLabelButton;
-  
-        ul.innerHTML = inner;
-  
-        let c= div.childNodes;
-        if(!c[3]){
-          div.appendChild(ul);
-        }            
-        clickingCircleColor(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
-        clickingOptions(listOfElements, deleteColorList, noteClicked, updateColorList, openMarkerOfNote, changeContentWithListUpdates);
-        clickingAddLabelButton(createColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
-        clickingUnFocusInput(listOfElements, updateColorList, noteClicked, openMarkerOfNote, changeContentWithListUpdates);
-        clickingColorElement(listOfElements, currentElement);
-    }
-
-
    
     useEffect(() => {
       EventService.setRef('click', eventclick);
@@ -2199,11 +2126,9 @@ const Map = ({
                     e,
                     listOfElements,
                     colors,
-                    colorsCodes,
-                    // un comment when notes is ready                    
+                    colorsCodes,                
                     createNote,
                     rotateIcon, 
-                    addListToPopupNotes,
                     popup,
                     canAdd, // watch out is value not reference  
                     setSwSave,
@@ -2560,50 +2485,6 @@ const Map = ({
             center: [longitude, latitude],
             zoom: zoom ?? 15 
             });
-    }
-
-    const openMarkerOfNote = (note:any, draftText: any, changeContentTitleData?: any) => {
-      markerNotes_global.forEach((marker:any) => {
-        marker.marker.addTo(map);
-      });
-      markerNotes_global.forEach((marker:any) => {
-        let popupC = marker.marker.getPopup();
-        popupC.remove();
-      });
-      setTimeout(()=>{
-        const noteid = note.id?note.id:note.newnotes_id; 
-        const filterMarker: any = markerNotes_global.filter((marker:any) => marker.note.newnotes_id == noteid  );
-        if(filterMarker.length > 0) {
-          filterMarker[0].marker.togglePopup();
-          setTimeout(()=>{
-            const textarea = (document.getElementById('textarea') as HTMLInputElement);
-              if (textarea != null) {
-               textarea.value = draftText; 
-              }
-            eventsOnClickNotes(filterMarker[0].note);
-            setTimeout(()=>{
-              const isList = document.getElementById('id-list-popup');
-              if(isList != null) {
-                isList.style.display = 'block';
-                clickoutsideList(listOfElements, rotateIcon);
-                if(changeContentTitleData && hasBeenUpdated) {
-                  setTimeout(()=>{
-                    changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
-                  },600);
-                }
-              }
-            },440);
-          },450);
-        }
-      },780);
-      
-    }
-    const changeContentWithListUpdates = (changeContentTitleData: any) => {
-      if(changeContentTitleData) {
-        setTimeout(()=>{
-          changeContentTitleData[2](changeContentTitleData[0],changeContentTitleData[1],listOfElements);
-        },600);
-      }
     }
 
     const openEditNote = (note: any) => {
