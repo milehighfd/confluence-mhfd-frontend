@@ -347,6 +347,7 @@ export const SERVER = (function () {
             return `${URL_BASE.BASE}/${FINANCIAL}/${GET_COSTS_BY_ID}/${projectId}`
         },
         SAVE_BUSINESS_ADRESS_AND_CONTACT: (id: string | number) =>`${URL_BASE.BASE}/${BUSINESS}/business-address-and-contact/${id}`,
+        UPDATE_BUSINESS_ADRESS_AND_CONTACT: (idaddress: string | number, idcontact: string|number) =>`${URL_BASE.BASE}/${BUSINESS}/business-address-and-contact/${idaddress}/${idcontact}`,
         GET_ATTACHMENTS_BY_PROJECT: (projectId: any) => {
             return `${URL_BASE.BASE}/${ATTACHMENT}/${BY_PROJECT}/${projectId}`
         },

@@ -61,8 +61,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [createMail, setCreateMail] = useState<any>('');
   const [createTitle, setCreateTitle] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
-  const [flagAddress, setFlagAddress] = useState<any>(false);
-  const [flagContact, setFlagContact] = useState<any>(false);
 
   const {
     replaceAppUser,
@@ -117,8 +115,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       items={itemMenu}
       onClick={(event:any) => {
         if (event.key === 'Create_1') {
-          setDisabled(false);
-          setDisabledAddress(true);
           setDisabledContact(false);
           setContactData({})
           setZip('')
@@ -128,25 +124,14 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           setState('')
           setAddressId(0)
           setCreateAdress(true)
-          setCreateContact(true)
-          setDisabledContact(true)
           setAdressLabel('Add New Address')
-          setContactLabel('Add New Contact')
-        } else {
-          setDisabled(true);
-          setDisabledAddress(false);
-          setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
-          setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
-          setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
-          setAdressLine1((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_1)
-          setAdressLine2((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_2)
-          setState((dataMenu.find((elm) => +elm.key === +event.key)).state)
-          setAdressLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
-          setContactLabel('');
-          setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
+          setDisabledAddress(true);
+          setDisabled(false);
+        } else {          
           setAddressId((adressFiltered.business_addresses.find((elm: any) => +elm.business_address_id === +event.key)).business_address_id)
           setCreateAdress(false)
-          setFlagAddress(true);
+          setDisabledAddress(true);
+          setDisabled(false);
         }
       }}>
     </Menu>
@@ -193,25 +178,14 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         if (event.key === 'Create_1') {
           setDisabledContact(true)
           //setContactData({})
-          setZip('')
-          setCity('')
-          setAdressLine1('')
-          setAdressLine2('')
-          setState('')
           setContactLabel('')
           setCreateContact(true)
         } else {
           setDisabledContact(false);
           //setContactData(((dataMenu.find((elm) => +elm.key === +event.key))))
-          setZip(((dataMenu.find((elm) => +elm.key === +event.key)).zip))
-          setCity((dataMenu.find((elm) => +elm.key === +event.key)).city)
-          setAdressLine1((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_1)
-          setAdressLine2((dataMenu.find((elm) => +elm.key === +event.key)).business_address_line_2)
-          setState((dataMenu.find((elm) => +elm.key === +event.key)).state)
           setContactLabel((dataMenu.find((elm) => +elm.key === +event.key)).label)
           setContactId((dataMenu.find((elm) => +elm.key === +event.key)).key)
           setCreateContact(false)
-          setFlagContact(true);
         }
       }}>
     </Menu>
@@ -313,54 +287,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         });
       }).flat();
       setListContacts(aux);
-      setFlagAddress(false);
     }
   }, [selectAssociate, listAssociates]);
-
-  useEffect(()=>{
-    if(flagContact && !flagAddress){
-      const contact = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.
-      business_addresses?.filter((address: any) => address.business_associate_contacts?.
-      findIndex((contact: any) => contact.business_associate_contact_id === contactId) !== -1) || [];
-      if (contact && Object.keys(contact).length > 0) {
-        setDisabledAddress(true);
-        setAdressLabel(contact[0].full_address);
-        setAddressId(contact[0].business_address_id);
-        setFlagContact(false);
-        setAdressLine1(contact[0].full_address);
-        setCity(contact[0].city);
-        setZip(contact[0].zip);
-        setState(contact[0].state);
-        setDisabled(false);
-        setCreateContact(false);
-        setCreateAdress(true);
-      }
-    }    
-  },[contactId])
-
-  useEffect(()=>{
-    if (flagAddress){
-      const addressFiltered = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.business_addresses;
-      if (addressFiltered && Object.keys(addressFiltered).length > 0) {
-        const addressAssociates = addressFiltered.filter((elm: any) => elm.business_address_id === addressId);
-        const aux = addressAssociates.map((address: any) => {
-          return address.business_associate_contacts?.map((contact: any) => {
-            return {
-              business_address_id: address.business_address_id,
-              business_address_line_1: address.business_address_line_1,
-              business_address_line_2: address.business_address_line_2,
-              city: address.city,
-              state: address.state,
-              zip: address.zip,
-              key: contact.business_associate_contact_id,
-              label: contact.contact_name
-            }
-          });
-        }).flat();
-        setListContacts(aux);
-      }
-    }    
-  },[addressId])
 
   useEffect(() => {      
     const auxUser = { ...record };
@@ -370,6 +298,26 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     values.organization = organization;
   }, [organization,zoomarea,serviceArea]);
 
+  useEffect(() => {
+    console.log(addressId)
+    const contact = listAssociates?.find((elm: any) => elm.business_associates_id === selectAssociate)?.
+      business_addresses?.filter((address: any) => address.business_address_id === addressId)?.[0];
+    if (contact && Object.keys(contact).length > 0) {
+      setDisabledAddress(true);
+      setAdressLabel(contact.full_address);
+      setAdressLine1(contact.full_address);
+      setCity(contact.city);
+      setZip(contact.zip);
+      setState(contact.state);
+      setDisabled(false);
+    }
+  }, [addressId])
+
+  const handleCityChange = (value:any) => {
+    if (value.length <= 25) {
+      setCity(value);
+    }
+  };  
 
   const { values, handleSubmit, handleChange, errors, touched } = useFormik({
     initialValues,
@@ -432,12 +380,13 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       business_associate_contact_id: +contactId
     };
     if (createAdress && !createContact) {
-      datasets.putData(SERVER.UPDATE_ADDRESS + '/' + addressId, {
+      datasets.postData(SERVER.UPDATE_ADDRESS + '/' + contactId, {
         full_address: addressLine1,
         business_address_line_1: addressLine1,
         state: state,
         city: city,
         zip: zip,
+        business_associate_contact_id: +selectAssociate
       },datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +contactId;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
@@ -499,11 +448,17 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         });
       });
     } else if (!createAdress && createContact) {
-      datasets.postData(SERVER.CREATE_CONTACT, {
+      datasets.postData(SERVER.CREATE_CONTACT  + '/' + addressId, {
         contact_name: createFirstName + ' ' + createLastName,
         contact_email: createMail,
         contact_phone_number: createPhone,
-        business_address_id: addressId
+        business_address_id: addressId,
+        business_address_line_1: addressLine1,
+        business_address_line_2: addressLine2,
+        full_address: addressLine1,
+        state,
+        city,
+        zip,
       }, datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +res?.business_associate_contact_id;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
@@ -530,20 +485,51 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         });
       });
     } else {
-      datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
-        if (res.message === 'SUCCESS') {        
-          saveUser();
-          updateSuccessful();
-          getUserInformation();
-        } else {
-          if (res?.error) {
-            updateError(res.error);
+      datasets.putData(SERVER.UPDATE_BUSINESS_ADRESS_AND_CONTACT(addressId,contactId), {
+        business_address_line_1: addressLine1,
+        full_address: addressLine1,
+        state,
+        city,
+        zip
+      }, datasets.getToken()).then(res => {
+        newUser.business_associate_contact_id = +contactId;
+        datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
+          if (res.message === 'SUCCESS') {   
+            setDisabledContact(false);     
+            setDisabledAddress(false);
+            saveUser();           
+            updateSuccessful();
+            setDisabled(true);
+            setUpdate(!update);
+            getUserInformation();
+            setCreateFirstName('');
+            setCreateLastName('');
+            setCreateMail('');
+            setCreatePhone('');            
+          } else {
+            if (res?.error) {
+              updateError(res.error);
+            }
+            else {
+              updateError(res);
+            }
           }
-          else {
-            updateError(res);
-          }
-        }
+        });
       });
+      // datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
+      //   if (res.message === 'SUCCESS') {        
+      //     saveUser();
+      //     updateSuccessful();
+      //     getUserInformation();
+      //   } else {
+      //     if (res?.error) {
+      //       updateError(res.error);
+      //     }
+      //     else {
+      //       updateError(res);
+      //     }
+      //   }
+      // });
     }
     setSaveAlert(false)
   }
@@ -730,7 +716,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                     style={{ marginBottom: '15px' }}
                     placeholder="City"
                     value={(city === '' && disabled ? (city !== '' ? city : values.business_associate_contact?.business_address?.city) : city)}
-                    onChange={(e) => { handleChangeData(e.target.value, setCity) }}
+                    onChange={(e) => { handleCityChange(e.target.value) }}
                     disabled={disabled}
                   />
                   <p>ZIP CODE</p>
