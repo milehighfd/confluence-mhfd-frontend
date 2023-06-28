@@ -252,6 +252,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     setAdressLabel(auxUser?.business_associate_contact?.business_address?.full_address)
     setAddressId(auxUser?.business_associate_contact?.business_address?.business_address_id)
     setContactId(auxUser?.business_associate_contact_id)
+    setAdressLine1(auxUser?.business_associate_contact?.business_address?.address_line_1)
+    setAdressLine2(auxUser?.business_associate_contact?.business_address?.address_line_2)
+    setZip(auxUser?.business_associate_contact?.business_address?.zip)
+    setState(auxUser?.business_associate_contact?.business_address?.state) 
+    setCity(auxUser?.business_associate_contact?.business_address?.city)
   }, [record]);
 
   useEffect(() => {
