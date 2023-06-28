@@ -68,7 +68,7 @@ import { useNoteDispatch, useNotesState } from 'hook/notesHook';
 import { useProfileState } from 'hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
 import { flytoBoundsCoor, getTitle, polyMask, depth, waitingInterval} from 'routes/map/components/MapFunctionsUtilities';
-import {clickingCircleColor, clickingOptions, clickingAddLabelButton, clickingUnFocusInput, clickingColorElement, rotateIcon} from 'Components/Map/commetsFunctions';
+import { rotateIcon } from 'Components/Map/commetsFunctions';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import MobileMenu from 'routes/map/components/MobileMenu';
 import SideMenuTools from 'routes/map/components/SideMenuTools';
@@ -78,7 +78,6 @@ import EventService from 'services/EventService';
 import {
   createNoteWithElem,
   editNoteWithElem,
-  clickoutsideList,
   addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from 'routes/map/components/MapFunctionsNotes';
@@ -453,24 +452,21 @@ const Map = ({
               doc.style.backgroundColor = colorOfMarker;
               const newmarker = new mapboxgl.Marker(doc);     
               const html = commentPopup(handleComments,handleDeleteNote, note);
-                  let newpopup = new mapboxgl.Popup({
-                    closeButton: false,
-                    offset: { 
-                      'top': [0, 10],
-                      'bottom': [0, -10],
-                      'left': [10,0],
-                      'right': [-10,0]
-                    }
-                  });
-                  newpopup.on('close', (e: any)=> {
-                    momentaryMarker.remove();
-                  });
-                  newmarker.setPopup(newpopup);
-                  newpopup.setDOMContent(html);
-                  newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
-                  newmarker.getElement().addEventListener('click', () => {
-                    addEvents(note, [note.longitude, note.latitude]);
-                  });
+              let newpopup = new mapboxgl.Popup({
+                closeButton: false,
+                offset: { 
+                  'top': [0, 10],
+                  'bottom': [0, -10],
+                  'left': [10,0],
+                  'right': [-10,0]
+                }
+              });
+              newpopup.on('close', (e: any)=> {
+                momentaryMarker.remove();
+              });
+              newmarker.setPopup(newpopup);
+              newpopup.setDOMContent(html);
+              newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
               totalmarkers.push({ marker: newmarker, note: note});
             }
           });
@@ -478,117 +474,6 @@ const Map = ({
         }
     }, [notes, notesFilter]);
  
-    const eventsOnClickNotes = (noteClicked:any) => {
-      const div = document.getElementById('color-list');
-        if (div != null) {
-            momentaryMarker.remove(); 
-            document.getElementById('id-list-popup')?.remove();
-            const ul = document.createElement('ul');
-                  ul.style.display = 'none';
-                  ul.classList.add("list-popup-comment");
-                  ul.classList.add('legend');
-                  ul.setAttribute('id','id-list-popup');
-            div.addEventListener('click', () => {
-                if (ul.style.display === 'none') {
-                    ul.style.display = 'block';
-                    rotateIcon('up');
-                    clickoutsideList(listOfElements, rotateIcon);
-                } else {
-                    ul.style.display = 'none';
-                    rotateIcon('down');
-                }
-            });
-            // addListToPopupNotes(ul,div,noteClicked);
-            
-
-            const colorable = document.getElementById('colorable');
-           
-            
-            const save = document.getElementById('save-comment');
-            if (save != null) {
-                save.addEventListener('click', () => {
-                    const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                    if (textarea != null) {
-                        let color = '';
-                        if (colorable != null) {
-                            if (colorable.style.color === colorsCodes.RED) {
-                                color = 'red';
-                            } else if (colorable.style.color === colorsCodes.BLUE) {
-                                color = 'blue';
-                            } else if (colorable.style.color === colorsCodes.GREEN) {
-                                color = 'green';
-                            } else {
-                                color = 'yellow';
-                            }
-                        }
-                        const note = {
-                            color: color,
-                            note_text: textarea.value,
-                            latitude: noteClicked.latitude,
-                            longitude: noteClicked.longitude
-                        };
-                        // UN COMMENT FOR NOTES
-                        createNoteWithElem(note, createNote);
-                        
-                        popup.remove();
-                        marker.remove();
-                        markerNote.remove();
-                    }
-                });
-            }
-            const edit = document.getElementById('edit-comment');
-            if (edit != null) {
-              edit.addEventListener('click', () => {
-                  const textarea = (document.getElementById('textarea') as HTMLInputElement);
-                  if (textarea != null) {
-                    let color = '';
-                    if (colorable != null) {
-                        if (colorable.style.color === colorsCodes.RED) {
-                            color = 'red';
-                        } else if (colorable.style.color === colorsCodes.BLUE) {
-                            color = 'blue';
-                        } else if (colorable.style.color === colorsCodes.GREEN) {
-                            color = 'green';
-                        } else {
-                            color = 'yellow';
-                        }
-                    }
-                    const note = {
-                        newnotes_id: noteClicked.newnotes_id,
-                        color: color,
-                        note_text: textarea.value,
-                        latitude: noteClicked.latitude,
-                        longitude: noteClicked.longitude
-                    };
-                    // UNCOMMENT WHEN NOTES IS READY
-                    editNoteWithElem(note, editNote);
-
-                  }
-              });
-            }
-            const del = document.getElementById('delete-comment');
-            if (del != null) {
-              del.addEventListener('click', () => {
-                let noteId = del.getAttribute('value');
-                // UN COMMENT WHEN NOTES IS READY 
-                deleteNote(noteId);
-              });
-            }
-        }
-    }
-    const addEvents = (noteClicked: any, coord:any) => {
-      
-      
-      setTimeout(()=>{
-        eventsOnClickNotes(noteClicked);
-          const div = document.getElementById('id-list-popup');
-          if (div != null){
-              div.style.display = 'none';
-          }
-
-        return;
-      },1000);
-    }
     useEffect(()=>{
       markerNotes_global = markersNotes;
       if(commentVisible && markersNotes.length > 0) {
@@ -2489,12 +2374,11 @@ const Map = ({
 
     const openEditNote = (note: any) => {
       flyTo(note.longitude, note.latitude, 16.5);
-      eventsOnClickNotes(note);
       popup.remove();
       openMarkerOfNoteWithoutAdd(
         note,
         markersNotes,
-        eventsOnClickNotes
+        // eventsOnClickNotes
       );
     }
 

@@ -189,7 +189,7 @@ export  const addListonPopupNotes = (
 export const openMarkerOfNoteWithoutAdd = (
   note:any,
   markersNotes: any,
-  eventsOnClickNotes: Function
+  // eventsOnClickNotes: Function
 ) => {
   markersNotes.forEach((marker:any) => {
     let popupC = marker.marker.getPopup();
@@ -200,7 +200,7 @@ export const openMarkerOfNoteWithoutAdd = (
   if(filterMarker.length > 0) {
     filterMarker[0].marker.togglePopup();
     setTimeout(()=>{
-      eventsOnClickNotes(filterMarker[0].note);
+      // eventsOnClickNotes(filterMarker[0].note);
     },300);
   }
 }
