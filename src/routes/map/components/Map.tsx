@@ -105,12 +105,10 @@ const factorm2toacre = 0.00024710538146717;
 let itMoved = false;
 let globalMapId: string | null = null;
 
-const marker = new mapboxgl.Marker({ color: "#ffbf00", scale: 0.7 });
 const docNote = document.createElement('div');
       docNote.className = 'marker-note';
 const markerNote = new mapboxgl.Marker(docNote);
 let momentaryMarker = new mapboxgl.Marker({color:'#FFFFFF', scale: 0.7});
-let markerNotes_global: any = [];
 let isMeasuring = false;
 type GeoJSONMeasures = {
   type: string;
@@ -201,7 +199,6 @@ const Map = ({
     let geocoderRef = useRef<HTMLDivElement>(null);
 
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
-    // uncomment on NOTES ready
     const { notes , availableColors} = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
@@ -214,13 +211,6 @@ const Map = ({
     const [zoomValue, setZoomValue] = useState(0);
     const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
-    const colors = {
-      YELLOW: 'rgb(255, 221, 0)', 
-      RED: 'rgb(255, 90, 95)',
-      BLUE: 'rgb(37, 24, 99)',
-      GREEN: 'rgb(41, 196, 153)',
-      SKY:  'rgb(102, 212, 255)',
-    };
     const colorsCodes = {
       YELLOW: 'rgb(255, 221, 0)', 
       RED: 'rgb(255, 90, 95)',
@@ -236,8 +226,7 @@ const Map = ({
     const [dragEndCounter, setDragEndCounter] = useState(0);
     const [allLayers, setAllLayers] = useState<any[]>([]);
     const [mapService] = useState<MapService>(new MapService());
-    const [commentVisible, setCommentVisible] = useState(false);
-    const [, setSwSave] = useState(false);
+    const [commentVisible, setCommentVisible] = useState(false); // is set on open notes sidebar
     const coorBounds: any[][] = [];
 
     const [data, setData] = useState({
@@ -471,7 +460,6 @@ const Map = ({
     }, [notes]);
  
     useEffect(()=>{
-      markerNotes_global = markersNotes;
       if(commentVisible && markersNotes.length > 0) {
         markersNotes.forEach((marker:any) => {
           marker.marker.addTo(map)
@@ -1999,13 +1987,9 @@ const Map = ({
                     'right': [-10,0]
                   }
                 });
-                setTimeout(()=>{
-                  // CALLED ON CREATE NOTE
-                  markerNote.setPopup(popup);
-                  popup.setDOMContent(html);
-                  markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
-                  console.log('Agrga el marker ');
-                }, 200);
+                markerNote.setPopup(popup);
+                popup.setDOMContent(html);
+                markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
                 canAdd.value = false;
                 return;
               }
@@ -2397,7 +2381,6 @@ const Map = ({
             flyTo={flyTo}
             openEditNote={openEditNote}
             addToMap={addToMap}
-            setSwSave={setSwSave}
           />
         }
         <div>
