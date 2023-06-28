@@ -10,7 +10,6 @@ const SideBarComment = ({
   flyTo,
   openEditNote,
   addToMap,
-  changeFilter,
   setSwSave
 }: {
   visible: boolean,
@@ -18,7 +17,6 @@ const SideBarComment = ({
   flyTo: Function,
   openEditNote: Function,
   addToMap: Function,
-  changeFilter: Function,
   setSwSave: Function
 }) => {
   const DEFAULT_COLOR = '#FFE121';
@@ -117,9 +115,6 @@ const SideBarComment = ({
     setTree(newTree);
   }, [notes, groups]);
 
-  useEffect(() => {
-    changeFilter('all');
-  }, [changeFilter]);
   const resetFilters = () => {
     const newValues = currentSelected.map((elem: any) => {
       elem.selected = false;

@@ -78,7 +78,7 @@ import EventService from 'services/EventService';
 import {
   createNoteWithElem,
   editNoteWithElem,
-  addListonPopupNotes,
+  // addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from 'routes/map/components/MapFunctionsNotes';
 import useMapResize from 'hook/custom/useMapResize';
@@ -211,8 +211,6 @@ const Map = ({
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
     const [problemid, setProblemId ] = useState<any>(undefined);
     const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
-    const [notesFilter, setNotesFilter] = useState('all');
-    const { updated } = useColorListState();
     const [zoomValue, setZoomValue] = useState(0);
     const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
     const { addHistoric, getCurrent } = GlobalMapHook();
@@ -445,34 +443,32 @@ const Map = ({
             marker.marker.remove()
           });
           notes?.forEach( (note: any) => {
-            if(!(notesFilter != 'all' && notesFilter != note.color)) {
-              let colorOfMarker = note?.color?.color?note?.color?.color:'#F6BE0F';
-              const doc = document.createElement('div');
-              doc.className = 'marker-note';
-              doc.style.backgroundColor = colorOfMarker;
-              const newmarker = new mapboxgl.Marker(doc);     
-              const html = commentPopup(handleComments,handleDeleteNote, note);
-              let newpopup = new mapboxgl.Popup({
-                closeButton: false,
-                offset: { 
-                  'top': [0, 10],
-                  'bottom': [0, -10],
-                  'left': [10,0],
-                  'right': [-10,0]
-                }
-              });
-              newpopup.on('close', (e: any)=> {
-                momentaryMarker.remove();
-              });
-              newmarker.setPopup(newpopup);
-              newpopup.setDOMContent(html);
-              newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
-              totalmarkers.push({ marker: newmarker, note: note});
-            }
+            let colorOfMarker = note?.color?.color?note?.color?.color:'#F6BE0F';
+            const doc = document.createElement('div');
+            doc.className = 'marker-note';
+            doc.style.backgroundColor = colorOfMarker;
+            const newmarker = new mapboxgl.Marker(doc);     
+            const html = commentPopup(handleComments,handleDeleteNote, note);
+            let newpopup = new mapboxgl.Popup({
+              closeButton: false,
+              offset: { 
+                'top': [0, 10],
+                'bottom': [0, -10],
+                'left': [10,0],
+                'right': [-10,0]
+              }
+            });
+            newpopup.on('close', (e: any)=> {
+              momentaryMarker.remove();
+            });
+            newmarker.setPopup(newpopup);
+            newpopup.setDOMContent(html);
+            newmarker.setLngLat([note?.longitude, note?.latitude]).setPopup(newpopup);
+            totalmarkers.push({ marker: newmarker, note: note});
           });
           setMarkerNotes(totalmarkers);
         }
-    }, [notes, notesFilter]);
+    }, [notes]);
  
     useEffect(()=>{
       markerNotes_global = markersNotes;
@@ -2004,22 +2000,11 @@ const Map = ({
                   }
                 });
                 setTimeout(()=>{
+                  // CALLED ON CREATE NOTE
                   markerNote.setPopup(popup);
                   popup.setDOMContent(html);
                   markerNote.setLngLat([e.lngLat.lng, e.lngLat.lat]).setPopup(popup).addTo(map).togglePopup();
-                  addListonPopupNotes(
-                    e,
-                    listOfElements,
-                    colors,
-                    colorsCodes,                
-                    createNote,
-                    rotateIcon, 
-                    popup,
-                    canAdd, // watch out is value not reference  
-                    setSwSave,
-                    marker,
-                    markerNote
-                  );
+                  console.log('Agrga el marker ');
                 }, 200);
                 canAdd.value = false;
                 return;
@@ -2412,7 +2397,6 @@ const Map = ({
             flyTo={flyTo}
             openEditNote={openEditNote}
             addToMap={addToMap}
-            changeFilter={setNotesFilter}
             setSwSave={setSwSave}
           />
         }
