@@ -9,15 +9,13 @@ const SideBarComment = ({
   setVisible,
   flyTo,
   openEditNote,
-  addToMap,
-  setSwSave
+  addToMap
 }: {
   visible: boolean,
   setVisible: Function,
   flyTo: Function,
   openEditNote: Function,
-  addToMap: Function,
-  setSwSave: Function
+  addToMap: Function
 }) => {
   const DEFAULT_COLOR = '#FFE121';
   const { notes, groups, availableColors, isnewnote } = useNotesState();
@@ -147,7 +145,6 @@ const SideBarComment = ({
       resetFilters();
     } else {
       addToMap();
-      setSwSave(true);
     }
   }
   const items = [
