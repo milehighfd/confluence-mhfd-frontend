@@ -228,7 +228,7 @@ const Map = ({
     const [ showDefault, setShowDefault ] = useState(false);
     const isMobile = useIsMobile();
 
-    const handleComments = (event: any, note? :any) => {
+    const handleComments = useCallback((event: any, note? :any) => {
       const getText = event?.target?.value ? event.target.value : event ;
       const getColorId = handleColor(availableColors);
        if (!note) {
@@ -252,7 +252,8 @@ const Map = ({
         isEdit =true
         return;
       }
-    }
+    }, [availableColors]);
+
     const handleDeleteNote = (note: any) => {
       let noteId = note.newnotes_id
       deleteNote(noteId);
