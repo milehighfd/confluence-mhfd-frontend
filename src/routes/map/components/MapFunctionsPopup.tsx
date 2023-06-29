@@ -154,9 +154,6 @@ export const addPopupServiceCountyMunicipality = (
   popups: any,
   userInformation: any,
   titleObject: any,
-  setMobilePopups: any,
-  setSelectedPopup: any,
-  mobile: any,
   searchPopup: any,
   map: any,
   showPopup: any,
@@ -169,8 +166,6 @@ export const addPopupServiceCountyMunicipality = (
   setMarkerGeocoder: any
 ) => {
   const html = loadMenuPopupWithData(menuOptions, popups, titleObject, userInformation);
-  setMobilePopups(mobile);
-  setSelectedPopup(0);
   if (html) {
     searchPopup.remove();
     searchPopup = new mapboxgl.Popup({closeButton: true,});

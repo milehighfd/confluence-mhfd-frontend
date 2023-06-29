@@ -33,8 +33,6 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
   const [, setZoomValue] = useState(0);
   const { userInformation } = useProfileState();
   const [allLayers, setAllLayers] = useState<any[]>([]);
-  const [mobilePopups, setMobilePopups] = useState<any>([]);
-  const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const layers = store.getState().map.layers;
   let html = document.getElementById('map2');
   const applyNearMapLayer = () => {
@@ -227,8 +225,6 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
     const ids: any = [];
     const mobileIds: any = [];
     const bbox = [e.point.x, e.point.y, e.point.x, e.point.y];
-    setMobilePopups([]);
-    setActiveMobilePopups([]);
     setSelectedPopup(-1);
     await addPopupsOnClick(
       map.map,
@@ -254,8 +250,6 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
     if (popups.length) {
       popup.remove();
       popup = new mapboxgl.Popup({ closeButton: true });
-      setMobilePopups(mobile);
-      setActiveMobilePopups(mobileIds);
       setSelectedPopup(0);
       addPopupAndListeners(
         'detail_map',

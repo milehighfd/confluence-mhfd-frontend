@@ -76,7 +76,6 @@ import { useDetailedState } from 'hook/detailedHook';
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useProfileState, useProfileDispatch } from 'hook/profileHook';
 import MapFilterView from '../Shared/MapFilter/MapFilterView';
-import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import useMapResize from 'hook/custom/useMapResize';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
@@ -157,7 +156,6 @@ const WorkRequestMap = ({
     autocomplete,
   } = useMapState();
   const { detailed } = useDetailedState();
-  const { clear } = useAttachmentDispatch();
   const {
     mapSearchQuery,
     setSelectedPopup,
@@ -227,8 +225,6 @@ const WorkRequestMap = ({
   ];
   const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
   const [zoomValue, setZoomValue] = useState(0);
-  const [, setMobilePopups] = useState<any>([]);
-  const [, setActiveMobilePopups] = useState<any>([]);
   const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
@@ -1535,8 +1531,6 @@ useEffect(() => {
       const ids: any = [];
       const mobileIds: any = [];
       const bbox = [e.point.x, e.point.y, e.point.x, e.point.y];
-      setMobilePopups([]);
-      setActiveMobilePopups([]);
       setSelectedPopup(-1);
       const measureFeature = map.map.queryRenderedFeatures(bbox, {
         layers: ['measuresSaved', 'measuresSaved-border', 'measuresSaved-border-invisible'],
@@ -1586,8 +1580,6 @@ useEffect(() => {
       if (popups && popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true,});
-        setMobilePopups(mobile);
-        setActiveMobilePopups(mobileIds);
         setSelectedPopup(0);
         addPopupAndListeners(
           MAPTYPES.WORKREQUEST,

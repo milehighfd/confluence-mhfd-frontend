@@ -2259,14 +2259,13 @@ const Map = ({
             }
           }
           if (popups.length) {
+            setMobilePopups(mobile);
+            setSelectedPopup(0);
             addPopupServiceCountyMunicipality(
               menuOptions,
               popups,
               userInformation,
               titleObject,
-              setMobilePopups,
-              setSelectedPopup,
-              mobile,
               searchPopup,
               map,
               showPopup,

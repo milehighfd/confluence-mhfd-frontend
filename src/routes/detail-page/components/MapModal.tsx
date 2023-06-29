@@ -29,8 +29,6 @@ const MapModal = ({
   const { galleryProjectsV2, layers } = useMapState();
   const { userInformation } = useProfileState();
   const [allLayers, setAllLayers] = useState<any[]>([]);
-  const [mobilePopups, setMobilePopups] = useState<any>([]);
-  const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   let html = document.getElementById('map3');
   useEffect(() => {
     const waiting = () => {
@@ -275,8 +273,6 @@ const eventclick = async (e: any) => {
   const ids: any = [];
   const mobileIds: any = [];
   const bbox = [e.point.x, e.point.y, e.point.x, e.point.y];
-  setMobilePopups([]);
-  setActiveMobilePopups([]);
   setSelectedPopup(-1);
   await addPopupsOnClick(
     map.map,
@@ -302,8 +298,6 @@ const eventclick = async (e: any) => {
   if (popups.length) {
     popup.remove();
     popup = new mapboxgl.Popup({ closeButton: true });
-    setMobilePopups(mobile);
-    setActiveMobilePopups(mobileIds);
     setSelectedPopup(0);
     addPopupAndListeners(
       'detail_map',

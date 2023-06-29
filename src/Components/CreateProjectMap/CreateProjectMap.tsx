@@ -107,8 +107,6 @@ const CreateProjectMap = (type: any) => {
     FLOOD_HAZARD_POLYGON, FLOOD_HAZARD_LINE, FLOOD_HAZARD_POINT, STREAM_FUNCTION_POLYGON, STREAM_FUNCTION_POINT, STREAM_FUNCTION_LINE, FUTURE_DEVELOPMENT_POLYGON, FUTURE_DEVELOPMENT_LINE,
     PIPE_APPURTENANCES, GRADE_CONTROL_STRUCTURE, STREAM_IMPROVEMENT_MEASURE, COMPONENT_LAYERS.tiles, MHFD_STREAMS_FILTERS, STREAMS_FILTERS];
   const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
-  const [mobilePopups, setMobilePopups] = useState<any>([]);
-  const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
   const empty: any[] = [];
   const [allLayers, setAllLayers] = useState(empty);
   const [counterPopup, setCounterPopup] = useState({ componentes: 0 });
@@ -1463,8 +1461,6 @@ const CreateProjectMap = (type: any) => {
     const mobileIds: any = [];
     const bbox = [e.point.x, e.point.y,
     e.point.x, e.point.y];
-    setMobilePopups([]);
-    setActiveMobilePopups([]);
     setSelectedPopup(-1);
 
     let layersToClick = [...allLayers];
@@ -1496,8 +1492,6 @@ const CreateProjectMap = (type: any) => {
       if (popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true});
-        setMobilePopups(mobile);
-        setActiveMobilePopups(mobileIds);
         setSelectedPopup(0);
         addPopupAndListeners(
           MAPTYPES.CREATEPROJECTMAP,
