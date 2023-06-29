@@ -41,14 +41,14 @@ import {
 } from "../../constants/constants";
 import { ObjectLayerType, LayerStylesType } from '../../Classes/MapTypes';
 import store from '../../store';
-import { Dropdown, Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
+import { Button, Popover, Modal, Input, AutoComplete, Col, Row } from 'antd';
 import { tileStyles, NEARMAP_STYLE } from '../../constants/mapStyles';
 import { useMapState, useMapDispatch } from '../../hook/mapHook';
 import { useProjectState, useProjectDispatch } from '../../hook/projectHook';
 import { useProfileState } from '../../hook/profileHook';
-import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import LoadingViewOverall from "../Loading-overall/LoadingViewOverall";
 import { polyMask } from "../../routes/map/components/MapFunctionsUtilities";
+import MapDropdownLayers from "routes/map/components/MapDropdownLayers";
 
 let map: any;
 let isProblemActive = false;
@@ -93,7 +93,6 @@ const CreateProjectMap = (type: any) => {
   const { groupOrganization } = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
-  const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [localAOI, setLocalAOI] = useState(type.locality);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
@@ -1702,18 +1701,12 @@ const CreateProjectMap = (type: any) => {
         setVisible={setVisible}
       />}
       <div className="m-head">
-        <Dropdown overlayClassName="dropdown-map-layers"
-          visible={visibleDropdown}
-          onVisibleChange={(flag: boolean) => {
-            setVisibleDropdown(flag);
-
-          }}
-          overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers: selectedLayersCP, removePopup, isWR: true })}
-          trigger={['click']}>
-          <Button>
-            <span className="btn-02"></span>
-          </Button>
-        </Dropdown>
+        <MapDropdownLayers
+          selectCheckboxes={selectCheckboxes}
+          selectedLayers={selectedLayersCP}
+          removePopup={removePopup}
+          isWR={true}
+        />
         <AutoComplete
           dropdownMatchSelectWidth={true}
           style={{ width: 200, backgroundColor: '#fafafa', borderRadius: '5px', height: '36px' }}

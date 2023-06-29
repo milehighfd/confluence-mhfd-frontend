@@ -69,16 +69,16 @@ import {
 } from 'constants/constants';
 import { ObjectLayerType, LayerStylesType } from 'Classes/MapTypes';
 import store from 'store';
-import { Dropdown, Button, Popover } from 'antd';
+import { Button, Popover } from 'antd';
 import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from 'constants/mapStyles';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
 import { useDetailedState } from 'hook/detailedHook';
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useProfileState, useProfileDispatch } from 'hook/profileHook';
-import MapFilterView from '../Shared/MapFilter/MapFilterView';
 import { GlobalMapHook } from 'utils/globalMapHook';
 import useMapResize from 'hook/custom/useMapResize';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
+import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
 
 let mapid = 'map4';
 let map: any;
@@ -184,7 +184,6 @@ const WorkRequestMap = ({
   const [idsBoardProjects, setIdsBoardProjects] = useState<any>([]);
   const [groupedIdsBoardProjects, setGroupedIdsBoardProjects] = useState<any>([]);
   const [layerFilters, setLayerFilters] = useState(layers);
-  const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
   const [firstRendering, setFirstRendering] = useState(isFirstRendering);
@@ -1726,25 +1725,12 @@ useEffect(() => {
           />
         )}
         <div className="m-head">
-          <Dropdown
-            overlayClassName="dropdown-map-layers"
-            visible={visibleDropdown}
-            onVisibleChange={(flag: boolean) => {
-              setVisibleDropdown(flag);
-            }}
-            overlay={MapFilterView({
-              selectCheckboxes,
-              setVisibleDropdown,
-              selectedLayers: selectedLayersWR,
-              removePopup,
-              isWR: true,
-            })}
-            trigger={['click']}
-          >
-            <Button>
-              <span className="btn-02"></span>
-            </Button>
-          </Dropdown>
+          <MapDropdownLayers
+            selectCheckboxes={selectCheckboxes}
+            selectedLayers={selectedLayersWR}
+            removePopup={removePopup}
+            isWR={true}
+          />
           <AutoComplete
             dropdownMatchSelectWidth={true}
             style={{ width: 200 }}

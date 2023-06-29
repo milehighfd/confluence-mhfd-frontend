@@ -5,8 +5,7 @@ import * as mapboxgl from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import { measureFunction, addPopupAndListeners, addPopupServiceCountyMunicipality, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
 import { InfoCircleOutlined } from "@ant-design/icons";
-import MapFilterView from 'Components/Shared/MapFilter/MapFilterView';
-import { Dropdown,  Button, Popover } from 'antd';
+import { Button, Popover } from 'antd';
 import { MapProps, ObjectLayerType, LayerStylesType } from 'Classes/MapTypes';
 import {
     SWITCHES_MAP,
@@ -81,6 +80,7 @@ import {
 import useMapResize from 'hook/custom/useMapResize';
 import useIsMobile from 'hook/custom/useIsMobile';
 import { areObjectsDifferent } from 'utils/comparators';
+import MapDropdownLayers from './MapDropdownLayers';
 
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
@@ -187,7 +187,6 @@ const Map = ({
     const { notes , availableColors} = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
     const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
-    const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [mobilePopups, setMobilePopups] = useState<any>([]);
     const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
     const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
@@ -2393,17 +2392,11 @@ const Map = ({
             }
             <div ref={divMapRef} className='map-style' />
             <div className="m-head">
-                <Dropdown overlayClassName="dropdown-map-layers"
-                    visible={visibleDropdown}
-                    onVisibleChange={(flag: boolean) => {
-                        setVisibleDropdown(flag);
-                    }}
-                    overlay={MapFilterView({ selectCheckboxes, setVisibleDropdown, selectedLayers, removePopup })}
-                    trigger={['click']}>
-                    <Button>
-                    <span className="btn-02"></span>
-                    </Button>
-                </Dropdown>
+                <MapDropdownLayers
+                  selectCheckboxes={selectCheckboxes}
+                  selectedLayers={selectedLayers}
+                  removePopup={removePopup}
+                />
                 <AutoComplete
                     dropdownMatchSelectWidth={true}
                     style={{ width: 240 }}
