@@ -1496,17 +1496,15 @@ const CreateProjectMap = (type: any) => {
       if (popups.length) {
         popup.remove();
         popup = new mapboxgl.Popup({closeButton: true});
+        setMobilePopups(mobile);
+        setActiveMobilePopups(mobileIds);
+        setSelectedPopup(0);
         addPopupAndListeners(
           MAPTYPES.CREATEPROJECTMAP,
           menuOptions,
           popups,
           user,
           test,
-          setMobilePopups,
-          setActiveMobilePopups,
-          setSelectedPopup,
-          mobile,
-          mobileIds,
           popup,
           map.map,
           showPopup,

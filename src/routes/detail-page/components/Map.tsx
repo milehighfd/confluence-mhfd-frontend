@@ -256,17 +256,15 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
     if (popups.length) {
       popup.remove();
       popup = new mapboxgl.Popup({ closeButton: true });
+      setMobilePopups(mobile);
+      setActiveMobilePopups(mobileIds);
+      setSelectedPopup(0);
       addPopupAndListeners(
         'detail_map',
         menuOptions,
         popups,
         userInformation,
         () => { },
-        setMobilePopups,
-        setActiveMobilePopups,
-        setSelectedPopup,
-        mobile,
-        mobileIds,
         popup,
         map.map,
         showPopup,

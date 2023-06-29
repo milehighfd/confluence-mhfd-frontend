@@ -117,11 +117,6 @@ export const addPopupAndListeners = (
   popups: any,
   userInformation: any,
   test: any,
-  setMobilePopups: any,
-  setActiveMobilePopups: any,
-  setSelectedPopup: any,
-  mobile: any,
-  mobileIds: any,
   popup: any,
   map: any,
   showPopup: any,
@@ -137,9 +132,6 @@ export const addPopupAndListeners = (
 ) => {
   console.log('HTML BEFORE POPUP', popups);
   const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup, undefined, maptype);
-  setMobilePopups(mobile);
-  setActiveMobilePopups(mobileIds);
-  setSelectedPopup(0);
   if (html) {
       popup.setLngLat(e.lngLat)
           .setDOMContent(html)

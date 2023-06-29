@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'antd';
-import { MAPTYPES, MENU_OPTIONS } from '../../constants/constants';
-import Item from 'antd/lib/list/Item';
+import { MAPTYPES, MENU_OPTIONS } from 'constants/constants';
+
 const problemStyle: any = {
     status: {
         'Low': {
