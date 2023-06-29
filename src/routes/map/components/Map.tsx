@@ -1989,8 +1989,6 @@ const Map = ({
                 mobileIds,
                 ids,
                 userInformation,
-                false,
-                () => {},
                 () => {},
                 () => {},
                 [],

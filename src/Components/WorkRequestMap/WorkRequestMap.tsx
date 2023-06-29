@@ -1567,10 +1567,8 @@ useEffect(() => {
           mobileIds,
           ids,
           user,
-          isEditPopup,
           getComponentsByProjid,
           setCounterPopup,
-          null,
           componentsList,
           MAPTYPES.WORKREQUEST
         );

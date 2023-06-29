@@ -207,10 +207,8 @@ export const addPopupsOnClick = async (
   mobileIds: any,
   ids: any,
   userInformation: any,
-  isEditPopup: boolean,
   getComponentsByProjid: any,
   setCounterPopup: any,
-  getTotalAmount: any,
   componentsList: any,
   mapType?: any
 ) => {
@@ -233,7 +231,6 @@ export const addPopupsOnClick = async (
   if (mapType !== MAPTYPES.WORKREQUEST) {
     const popupsClassess = document.getElementsByClassName('mapboxgl-popup');
     if ( popupsClassess.length ) {
-      //erase all popups in DOM
         for(let i = 0 ; i < popupsClassess.length ; ++i) {
           popupsClassess[i].remove();
         }
@@ -282,29 +279,14 @@ export const addPopupsOnClick = async (
         const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
         const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
         console.log('galleryProjects', galleryProjects)
-        // const filtered = galleryProjects.filter((item: any) =>
-        //   item.cartodb_id === feature.properties.cartodb_id
-        // );
-        const projecttypename = dataFromDB?.code_project_type?.project_type_name
         console.log('mapType', mapType)
         console.log(estimatedcost)
         console.log(componentcost)
         console.log('data from db', dataFromDB);
 
         if(feature.source === PROJECTS_DRAFT+'draft') {
-          isEditPopup =true;
-         
           item = {
           type: 'projectDraft',
-              // title:
-              //   feature.source === PROJECTS_DRAFT
-              //     ? feature.properties.projecttype + ' ' + MENU_OPTIONS.PROJECT
-              //     : MENU_OPTIONS.PROJECT,
-              // name: feature.properties.projectname
-              //   ? feature.properties.projectname
-              //   : feature.properties.requestedname
-              //   ? feature.properties.requestedname
-              //   : '-',
               title:
                     (
                       dataFromDB?.code_project_type?.project_type_name
@@ -314,31 +296,9 @@ export const addPopupsOnClick = async (
                 name: (dataFromDB.project_name
                   ? dataFromDB.project_name
                   : '-'),
-              // organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-              // value:
-              //   feature.source === PROJECTS_DRAFT
-              //     ? feature.properties.projecttype.toLowerCase() === 'capital'
-              //       ? feature.properties.estimatedcost
-              //       : getTotalAmount(feature.properties.cartodb_id)
-              //     : feature.properties.estimatedcost
-              //     ? feature.properties.estimatedcost
-              //     : feature.properties.component_cost
-              //     ? feature.properties.component_cost
-              //     : '-1',
-              // projecctype:
-              //   feature.source === PROJECTS_DRAFT
-              //     ? feature.properties.projecttype
-              //     : feature.properties.projectsubtype
-              //     ? feature.properties.projectsubtype
-              //     : feature.properties.projecttype
-              //     ? feature.properties.projecttype
-              //     : '-',
               organization: sponsors.join(','),
               value: estimatedcost ? estimatedcost : ( componentcost ? componentcost : 0),
               projecctype: dataFromDB?.code_project_type?.project_type_name,
-              // status: feature.properties.status ? feature.properties.status : '-',
-              // objectid: feature.properties.objectid,
-              // component_count: feature.properties.component_count,
               status: getCurrentProjectStatus(dataFromDB)?.code_phase_type?.code_status_type?.status_name,
               objectid: dataFromDB?.codeStateCounty?.objectid,
               // TODO component_count
@@ -358,31 +318,14 @@ export const addPopupsOnClick = async (
                 dataFromDB?.LAND_ACQUISITION +
                 dataFromDB?.LANDSCAPING_AREA
               ),
-
-              // valueid: feature.properties.cartodb_id,
-              // id: feature.properties.projectid,
-              // streamname: feature.properties.streamname,
-              // isEditPopup: feature.source === PROJECTS_DRAFT,
               valueid: feature.properties.cartodb_id,
               project_id: dataFromDB.project_id,
               streamname: feature.properties.streamname, // TODO streamname
               isEditPopup: feature.source === PROJECTS_DRAFT+'draft',
               popupId: 'popupWR',
               mapType: mapType ? mapType : 'MAINMAP',
-              // image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-              //   projecttypename === 'CIP' ? '/projectImages/capital.png' :
-              //     projecttypename === 'Study' ? '/projectImages/study.png' :
-              //       projecttypename === 'Special' ? '/projectImages/special.png' :
-              //         projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-              //           projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-              //             projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
-              //               projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
-              //                 projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
           }
         }else{
-
-          const projecttypename = dataFromDB?.code_project_type?.project_type_name;
-         
           item = {
             type: 'project',
                         title:
@@ -422,71 +365,13 @@ export const addPopupsOnClick = async (
                         streamname: feature.properties.streamname, // TODO streamname
                         isEditPopup: feature.source === PROJECTS_DRAFT,
                         popupId: 'popup',
-                        // image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-                        //   projecttypename === 'CIP' ? '/projectImages/capital.png' :
-                        //     projecttypename === 'Study' ? '/projectImages/study.png' :
-                        //       projecttypename === 'Special' ? '/projectImages/special.png' :
-                        //         projecttypename === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-                        //           projecttypename === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-                        //             projecttypename === 'Restoration' ? '/projectImages/restoration.png' :
-                        //               projecttypename === 'General Maintenance' ? '/projectImages/minor-repairs.png' :
-                        //                 projecttypename === 'Routine Trash and Debris' ?'/projectImages/debris-management.png': '/Icons/eje.png')
                     };
-              // type: 'project',
-              // title:
-              //   feature.source === PROJECTS_DRAFT
-              //     ? feature.properties.projecttype + ' ' + MENU_OPTIONS.PROJECT
-              //     : MENU_OPTIONS.PROJECT,
-              // name: feature.properties.projectname
-              //   ? feature.properties.projectname
-              //   : feature.properties.requestedname
-              //   ? feature.properties.requestedname
-              //   : '-',
-              // organization: feature.properties.sponsor ? feature.properties.sponsor : 'No sponsor',
-              // value:
-              //   feature.source === PROJECTS_DRAFT
-              //     ? feature.properties.projecttype.toLowerCase() === 'capital'
-              //       ? feature.properties.estimatedcost
-              //       : getTotalAmount(feature.properties.cartodb_id)
-              //     : feature.properties.estimatedcost
-              //     ? feature.properties.estimatedcost
-              //     : feature.properties.component_cost
-              //     ? feature.properties.component_cost
-              //     : '-1',
-              // projecctype:
-              //   feature.source === PROJECTS_DRAFT
-              //     ? feature.properties.projecttype
-              //     : feature.properties.projectsubtype
-              //     ? feature.properties.projectsubtype
-              //     : feature.properties.projecttype
-              //     ? feature.properties.projecttype
-              //     : '-',
-              // status: feature.properties.status ? feature.properties.status : '-',
-              // objectid: feature.properties.objectid,
-              // component_count: feature.properties.component_count,
-              // valueid: feature.properties.cartodb_id,
-              // id: feature.properties.projectid,
-              // streamname: feature.properties.streamname,
-              // isEditPopup: feature.source === PROJECTS_DRAFT,
-              // popupId: 'popup',
-              // mapType: mapType ? mapType : 'MAINMAP',
-              // image: filtered.length  && filtered[0].attachments ? filtered[0].attachments : (
-              //   feature.properties.projecttype === 'Capital' ? '/projectImages/capital.png' :
-              //     feature.properties.projecttype === 'Study' ? '/projectImages/study.png' :
-              //       feature.properties.projecttype === 'Maintenance' ?
-              //         (feature.properties.projectsubtype === 'Vegetation Management' ? '/projectImages/vegetation-management.png' :
-              //           feature.properties.projectsubtype === 'Sediment Removal' ? '/projectImages/sediment-removal.png' :
-              //             feature.properties.projectsubtype === 'Restoration' ? '/projectImages/restoration.png' :
-              //               feature.properties.projectsubtype === 'Minor Repairs' ? '/projectImages/minor-repairs.png' :
-              //                 '/projectImages/debris_management.png') : '/Icons/eje.png')
-              // };
             }
           mobile.push({
               type: 'project',
               name: item.name,
               value: item.value,
               projecttype: item.projecctype,
-              // image: item.image,
               id: item.project_id,
               objectid: item.objectid,
               valueid: item.valueid,

@@ -288,8 +288,6 @@ const eventclick = async (e: any) => {
     mobileIds,
     ids,
     userInformation,
-    false,
-    () => {},
     () => {},
     () => {},
     [],

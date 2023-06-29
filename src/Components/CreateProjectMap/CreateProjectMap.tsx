@@ -1480,10 +1480,8 @@ const CreateProjectMap = (type: any) => {
       mobileIds,
       ids,
       user,
-      false,
       getComponentsByProjid,
       setCounterPopup,
-      () => {},
       componentsList,
       MAPTYPES.CREATEPROJECTMAP
     );

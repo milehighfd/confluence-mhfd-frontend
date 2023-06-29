@@ -240,8 +240,6 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
       mobileIds,
       ids,
       userInformation,
-      false,
-      () => { },
       () => { },
       () => { },
       [],
