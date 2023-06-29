@@ -4,7 +4,7 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import TotalHeader from 'Components/Work/Request/TotalHeader';
 import CostTableBody from 'Components/Work/Request/CostTableBody';
 import { useLocation } from 'react-router-dom';
-import { compareArrays, priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
+import { priceFormatter, priceParser, formatter } from 'Components/Work/Request/RequestViewUtil';
 import { DownSquareOutlined, UpSquareOutlined } from '@ant-design/icons';
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 
@@ -17,17 +17,13 @@ const RequestCostRows = () => {
     sumByCounty,
     tabKey,
     diff,
-    jurisdictionSelected,
-    csaSelected,
-    jurisdictionFilterList,
-    csaFilterList,
     reqManager,
-    board
+    board,
+    showFilters: isFiltered,
   } = useRequestState();
   const { setReqManager, updateTargetCost } = useRequestDispatch();
   const [ targetCosts, setTargetCosts ] = useState([]);
   const [openCollaps, setOpenCollaps] = useState(false);
-  let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
   const Icon = openCollaps ? UpSquareOutlined : DownSquareOutlined;
   UseDebouncedEffect(() => {
     if (targetCosts.length > 0) {
@@ -70,7 +66,7 @@ const RequestCostRows = () => {
               {
                 tabKey !== 'Maintenance' && sumByCounty.map((countySum: any) => (
                   <Timeline.Item color="purple" key={Math.random()}>
-                    <CostTableBody type={type} countySum={countySum} isFiltered={!notIsFiltered} tabKey={tabKey} />
+                    <CostTableBody type={type} countySum={countySum} tabKey={tabKey} />
                   </Timeline.Item>
                 ))
               }
@@ -85,8 +81,8 @@ const RequestCostRows = () => {
             reqManager.map((val: any, index: number) => (
               <div key={index}>
                 <InputNumber placeholder="Enter target cost"
-                  style={{ opacity: !notIsFiltered ? 0.5 : 1 }}
-                  readOnly={!notIsFiltered}
+                  style={{ opacity: isFiltered ? 0.5 : 1 }}
+                  readOnly={isFiltered}
                   formatter={priceFormatter}
                   parser={priceParser}
                   value={val}
@@ -109,7 +105,7 @@ const RequestCostRows = () => {
           <div><h5>Contingency</h5></div>
           {
             diff.map((d: any, i: number) => (
-              <div key={i} style={{ opacity: !notIsFiltered ? 0.5 : 1 }} className="differential">
+              <div key={i} style={{ opacity: isFiltered ? 0.5 : 1 }} className="differential">
                 {d ? formatter.format(Math.floor(d)) : ''}
               </div>
             ))

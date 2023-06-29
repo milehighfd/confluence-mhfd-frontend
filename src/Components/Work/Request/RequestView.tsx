@@ -9,7 +9,7 @@ import { useMyUser, useProfileDispatch, useProfileState } from 'hook/profileHook
 import { useProjectDispatch } from 'hook/projectHook';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
 import { boardType } from 'Components/Work/Request/RequestTypes';
-import { compareArrays, defaultColumns } from 'Components/Work/Request/RequestViewUtil';
+import { defaultColumns } from 'Components/Work/Request/RequestViewUtil';
 import WorkRequestMap from 'Components/WorkRequestMap/WorkRequestMap';
 import ColumsTrelloCard from 'Components/Work/Request/ColumsTrelloCard';
 import { SERVER } from 'Config/Server.config';
@@ -43,13 +43,8 @@ const RequestView = ({ type, isFirstRendering }: {
     tabKey,
     year,
     sumTotal,
-    jurisdictionFilterList,
-    csaFilterList,
-    jurisdictionSelected,
-    csaSelected,
     localityType,
     leftWidth,
-    columns,
     reqManager,
     isOnSelected,
   } = useRequestState();
@@ -82,7 +77,7 @@ const RequestView = ({ type, isFirstRendering }: {
   const [flagforScroll, setFlagforScroll] = useState(0);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const history = useHistory();
-  const { setBoardProjects, setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
+  const { setZoomProject, setComponentsFromMap, setStreamIntersected, setComponentIntersected } = useProjectDispatch();
   const wrtRef = useRef(null);
   const { userInformation } = useProfileState();
   const { saveBoardProjecttype } = useProfileDispatch();
@@ -104,30 +99,6 @@ const RequestView = ({ type, isFirstRendering }: {
       resetOnClose();
     }
   }, [showCreateProject]);
-
-  const deleteProject = (pid: string) => {
-    let array: any[] = [];
-    let newcols = columns.map((col: any) => {
-      return {
-        ...col,
-        projects: col.projects.filter((p: any) => {
-          if (!array.map((x: any) => x.project_id).includes(p.project_id) && p.project_id != pid) {
-            array.push(p);
-          }
-          return p.project_id != pid;
-        })
-      }
-    });
-    let idsProjects = array.map((proj: any) => {
-      return proj.projectData?.projectid;
-    });
-    if (array.length > 0) {
-      setBoardProjects({ ids: idsProjects });
-    } else {
-      setBoardProjects(['-8886']);
-    }
-    setColumns(newcols);
-  }
 
   const [changes, setChanges] = useState(0);
   useEffect(() => {
@@ -314,7 +285,6 @@ const RequestView = ({ type, isFirstRendering }: {
     }
   }
 
-  let notIsFiltered = compareArrays(jurisdictionSelected, jurisdictionFilterList) && compareArrays(csaSelected, csaFilterList);
   return (
     <Layout className="work" style={{ zIndex:1}}>
       {(fakeLoading) && <LoadingViewOverall />}
@@ -363,8 +333,6 @@ const RequestView = ({ type, isFirstRendering }: {
                     <TabPane tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="topLeft" overlayClassName="tabs-style">{tk} </Popover> </span>} key={tk}>
                       <div className="work-table" ref={wrtRef}>
                         <ColumsTrelloCard
-                          deleteProject={deleteProject}
-                          notIsFiltered={notIsFiltered}
                           flagforScroll={flagforScroll}
                         />
                       </div>

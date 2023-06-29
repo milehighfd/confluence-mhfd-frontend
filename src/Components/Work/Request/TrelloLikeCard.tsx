@@ -4,15 +4,14 @@ import { Menu, MenuProps, Popover } from 'antd';
 import AmountModal from './AmountModal';
 import { useProjectDispatch } from '../../../hook/projectHook';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView'
-import { deleteData, getToken, postData, getData } from '../../../Config/datasets';
+import { getToken, postData, getData } from '../../../Config/datasets';
 import { SERVER } from '../../../Config/Server.config';
 
 import CardStatService from './CardService';
-import { DeleteAlert } from './DeleteAlert';
 import { boardType } from './RequestTypes';
 import { MoreOutlined } from '@ant-design/icons';
 import { CopyProjectAlert } from './CopyProjectAlert';
-import { useRequestDispatch } from 'hook/requestHook';
+import { useRequestState } from 'hook/requestHook';
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -21,58 +20,34 @@ const formatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 2
 });
 
-const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnIdx, rowIdx, tabKey, editable, locality, filtered, borderColor, divRef }: {
+const TrelloLikeCard = ({ year, type, namespaceId, project, columnIdx, rowIdx, tabKey, editable, locality, borderColor, divRef }: {
   year: number,
   type: boardType,
   namespaceId: string,
-  delProject: Function,
   project: any,
   columnIdx: number,
   rowIdx: number,
   tabKey: string,
   editable: boolean,
-  filtered: boolean,
   locality: any,
   borderColor: string,
   divRef:any,
 }) => {
+  const { showFilters: filtered } = useRequestState();
   const {setZoomProject, updateSelectedLayers} = useProjectDispatch();
-  const { loadColumns } = useRequestDispatch();
-  const { project_id, sponsor } = project;
+  const { project_id } = project;
   const project_name = project?.projectData?.project_name;
   const statusArray = project?.projectData?.currentId;
   let status = statusArray && statusArray.length > 0 ? statusArray[0].status_name : null;
   const {id} = project;
   const [amount, setAmount] = useState(project[`req${columnIdx}`]);
-  const [priority, setPriority] = useState(project[`originPosition${columnIdx}`])
+  const priority = project[`originPosition${columnIdx}`];
   const [showAmountModal, setShowAmountModal] = useState(false);
   const [showModalProject, setShowModalProject] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [completeProjectData, setCompleteProjectData] = useState<any>(null);
-  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showCopyToCurrentYearAlert, setShowCopyToCurrentYearAlert] = useState(false);
   const pageWidth  = document.documentElement.scrollWidth;
-  const deleteProject = () => {
-    delProject(project_id)
-    // DELETE PROJECT FROM BOARD
-    // deleteData(`${SERVER.URL_BASE}/board/project/${project_id}/${namespaceId}`, getToken())
-    //   .then((r) => {
-    //     console.log('r', r)
-    //     loadColumns(namespaceId, year)
-    //   })
-    //   .catch((e) => {
-    //     console.log('e', e)
-    //   })
-    // DELETE COMPLETE PROJECT
-    // deleteData(`${SERVER.URL_BASE}/projects/${project_id}`, getToken())
-    //   .then((r) => {
-    //     console.log('r', r)
-    //     loadColumns(namespaceId, year)
-    //   })
-    //   .catch((e) => {
-    //     console.log('e', e)
-    //   })
-  }
   const getCompleteProjectData = async () => {
     let dataForBoard = {...project.projectData};
     const dataFromDB = await getData(SERVER.V2_DETAILED_PAGE(dataForBoard.project_id), getToken());
@@ -122,14 +97,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
         Zoom to
       </span>,
       onClick: (() => { setZoomProject(project.projectData);})
-    }, /*{
-      key: '3',
-      label: <span style={{borderBottom: '1px solid transparent'}}>
-        <img src="/Icons/icon-16.svg" alt="" width="10px" style={{ marginTop: '-3px', marginRight: '6.8px' }} />
-        Delete
-      </span>,
-      onClick: (() => setShowDeleteAlert(true))
-    }*/];
+    }];
     if (!editable) {
       items.pop();
       items.splice(1, 1);
@@ -144,8 +112,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
         onClick: (() => setShowCopyToCurrentYearAlert(true))
       });
     }
-    return <Menu className="js-mm-00" items={items}>
-    </Menu>
+    return (<Menu className="js-mm-00" items={items} />)
   };
 
   const onDragStart = (e: any, id: any) => {
@@ -160,25 +127,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
   useEffect(() => {
     setAmount(project[`req${columnIdx}`])
   }, [project, columnIdx]);
-
-  // useEffect(() => {
-  //   if (type === 'WORK_REQUEST') {
-  //     setPriority(project[`originPosition${columnIdx}`]);  
-  //   } else {
-  //     const positions = [0,1,2,3,4,5];
-  //     let newPriority = -1;
-  //     positions.forEach((pos) => {
-  //       if (project[`originPosition${pos}`]) {
-  //         newPriority = project[`originPosition${pos}`];
-  //       }
-  //     });
-  //     if (newPriority === -1) {
-  //       newPriority = project[`originPosition${columnIdx}`];
-  //     }
-  //     setPriority(newPriority);
-  //   }
-  // }, [project, columnIdx]);
-
   
   useEffect(() => {
     if (completeProjectData) {
@@ -229,14 +177,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
       color= '#FF8938';
       backgroundColor = 'rgba(255, 221, 0, 0.3)';
   }
-
-  // const getSponsor = (project: any) => {
-  //   if (project?.projectData?.project_partners?.length > 0) {
-  //     return project?.projectData?.project_partners[0]?.business_associate?.business_name;
-  //   } else {
-  //     return 'No Sponsor';
-  //   }
-  // }
   
   let labelOrigin = project.origin;
   if (labelOrigin.length > 9) {
@@ -245,15 +185,6 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
 
   return (
     <>
-    {
-      showDeleteAlert &&
-      <DeleteAlert
-        visibleAlert={showDeleteAlert}
-        setVisibleAlert={setShowDeleteAlert}
-        action={deleteProject}
-        name={project_name}
-        />
-    }
     {
       showCopyToCurrentYearAlert &&
       <CopyProjectAlert
@@ -320,7 +251,7 @@ const TrelloLikeCard = ({ year, type, namespaceId, delProject, project, columnId
             </Popover>
             <label className="yellow" style={{color, backgroundColor,marginRight:'-10px'}}>{status}</label>
             {
-              !(showAmountModal || showModalProject || showDeleteAlert || showCopyToCurrentYearAlert) &&
+              !(showAmountModal || showModalProject || showCopyToCurrentYearAlert) &&
               <Popover placement="bottom" overlayClassName="work-popover menu-item-custom dots-menu" content={content} trigger="click" style={{marginRight:'-10px',cursor: 'pointer'}}>
                 <div className="dot-position" onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
                   <MoreOutlined className="menu-wr" style={{marginTop:'3px', width:'3px', cursor: 'pointer'}}>

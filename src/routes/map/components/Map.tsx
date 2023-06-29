@@ -77,11 +77,11 @@ import {
   createNoteWithElem,
   editNoteWithElem,
   handleColor,
-  // addListonPopupNotes,
   openMarkerOfNoteWithoutAdd
 } from 'routes/map/components/MapFunctionsNotes';
 import useMapResize from 'hook/custom/useMapResize';
 import useIsMobile from 'hook/custom/useIsMobile';
+import { areObjectsDifferent } from 'utils/comparators';
 
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
@@ -755,7 +755,7 @@ const Map = ({
       promise.then(() => {
         applySkyMapLayer();
         applyMapLayers();
-        if (JSON.stringify(initFilterProblems) == JSON.stringify(filterProblems)) {
+        if (areObjectsDifferent(initFilterProblems, filterProblems)) {
           applyProblemClusterLayer();
         }
         setSpinMapLoaded(false);

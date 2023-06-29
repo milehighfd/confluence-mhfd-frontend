@@ -6,7 +6,6 @@ import { useAttachmentDispatch } from 'hook/attachmentHook';
 import { useProjectDispatch } from 'hook/projectHook';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useProfileState } from 'hook/profileHook';
-import { filterByJurisdictionAndCsaSelected, hasPriority } from 'Components/Work/Request/RequestViewUtil';
 import TrelloLikeCard from 'Components/Work/Request/TrelloLikeCard';
 import { ADMIN, STAFF } from 'constants/constants';
 import ColorService from 'Components/Work/Request/ColorService';
@@ -16,34 +15,19 @@ let fixedDragAction = [false, 0, 0];
 let scrollValues: any = [0, 0, 0, 0, 0, 0];
 let scrollByIds: any = [];
 
-const ColumsTrelloCard = ({
-  deleteProject,
-  notIsFiltered,
-  flagforScroll
-}: {
-  deleteProject: any;
-  notIsFiltered: any;
-  flagforScroll: any;
-}) => {
+const ColumsTrelloCard = ({ flagforScroll }: { flagforScroll: any }) => {
   const location = useLocation();
   const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
   const {
     columns2: columns,
     tabKey,
     locality,
-    jurisdictionSelected,
-    csaSelected,
-    jurisdictionFilterList,
-    csaFilterList,
-    prioritySelected,
     year,
     namespaceId,
     boardStatus,
   } = useRequestState();
   const {
     setVisibleCreateProject,
-    loadOneColumn,
-    setColumns2Manual,
     moveProjectsManual,
     handleMoveFromColumnToColumn,
   } = useRequestDispatch();
@@ -236,14 +220,12 @@ const ColumsTrelloCard = ({
                                   key={i}
                                   year={year}
                                   type={type}
-                                  delProject={deleteProject}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
                                   rowIdx={i}
                                   tabKey={tabKey}
                                   editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
-                                  filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
                                     type,
@@ -284,14 +266,12 @@ const ColumsTrelloCard = ({
                                   key={i}
                                   year={year}
                                   type={type}
-                                  delProject={deleteProject}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
                                   rowIdx={i}
                                   tabKey={tabKey}
                                   editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
-                                  filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
                                     type,
@@ -327,14 +307,12 @@ const ColumsTrelloCard = ({
                                   key={i}
                                   year={year}
                                   type={type}
-                                  delProject={deleteProject}
                                   namespaceId={namespaceId}
                                   project={p}
                                   columnIdx={columnIdx}
                                   rowIdx={i}
                                   tabKey={tabKey}
                                   editable={boardStatus !== 'Approved' || (userInformation.designation === ADMIN || userInformation.designation === STAFF)}
-                                  filtered={!notIsFiltered}
                                   locality={locality}
                                   borderColor={ColorService.getColor(
                                     type,
