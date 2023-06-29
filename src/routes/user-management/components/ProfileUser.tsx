@@ -102,7 +102,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     if (selectedAssociate && selectedAssociate.business_addresses) {
       generateItemMenu(selectedAssociate.business_addresses.map((x: any) => ({
         key: x?.business_address_id,
-        label: x?.full_address + ', ' + x?.city + ', ' + x?.state + ', ' + x?.zip_code
+        label: x?.full_address + ', ' + x?.city + ', ' + x?.state + ', ' + x?.zip
       })));
     } else {
       generateItemMenu([]);
@@ -405,6 +405,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     };
     const newAddress: any = {
       business_address_line_1: addressLine1,
+      business_address_line_2: addressLine1,
       full_address: addressLine1,
       state: state,
       city: city,
