@@ -183,7 +183,7 @@ const Map = ({
     projectsids
   } = useMapState();
     let geocoderRef = useRef<HTMLDivElement>(null);
-
+    const divMapRef = useRef<HTMLDivElement>(null);
     const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
     const { notes , availableColors} = useNotesState();
     const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
@@ -519,7 +519,7 @@ const Map = ({
       getNotes();
       (mapboxgl as typeof mapboxgl).accessToken = MAPBOX_TOKEN;
       map = new mapboxgl.Map({
-          container: 'map',
+          container: divMapRef.current as HTMLElement,
           dragRotate: true,
           touchZoomRotate: true,
           style: dropdownItems.items[dropdownItems.default].style,
@@ -2394,8 +2394,7 @@ const Map = ({
                 seeDetails={seeDetails}
                 items={mobilePopups} />
             }
-            <div id="map">
-            </div>
+            <div ref={divMapRef} className='map-style' />
             <div className="m-head">
                 <Dropdown overlayClassName="dropdown-map-layers"
                     visible={visibleDropdown}
