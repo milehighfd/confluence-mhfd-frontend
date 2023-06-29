@@ -9,7 +9,6 @@ import { useDetailedState } from 'hook/detailedHook';
 import { useMapDispatch, useMapState } from 'hook/mapHook';
 import { useProfileState } from 'hook/profileHook';
 import { addPopupAndListeners, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
-import EventService from 'services/EventService';
 import store from 'store/index';
 import { MapService } from 'utils/MapService';
 import * as datasets from 'Config/datasets';
@@ -213,8 +212,7 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
 
   useEffect(() => {
     if (map) {
-      EventService.setRef('click', eventclick);
-      let eventToClick = EventService.getRef('click');
+      let eventToClick = eventclick;
       map.map.on('click', eventToClick);
       return () => {
         map.map.off('click', eventToClick);

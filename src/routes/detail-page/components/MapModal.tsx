@@ -10,7 +10,6 @@ import { useProfileState } from 'hook/profileHook';
 import mapboxgl from 'mapbox-gl';
 import React, { useEffect, useState } from 'react';
 import { addPopupAndListeners, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
-import EventService from 'services/EventService';
 import { MapService } from 'utils/MapService';
 import * as datasets from 'Config/datasets';
 
@@ -261,8 +260,7 @@ const addLayer = () => {
 }
 useEffect(() => {
   if (map) {
-    EventService.setRef('click', eventclick);
-    let eventToClick = EventService.getRef('click');
+    let eventToClick = eventclick;
     map.map.on('click', eventToClick);
     return () => {
       map && map.map.off('click', eventToClick);

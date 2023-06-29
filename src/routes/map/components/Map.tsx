@@ -72,7 +72,6 @@ import MobileMenu from 'routes/map/components/MobileMenu';
 import SideMenuTools from 'routes/map/components/SideMenuTools';
 import { commentPopup } from 'routes/map/components/MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
-import EventService from 'services/EventService';
 import {
   createNoteWithElem,
   editNoteWithElem,
@@ -1877,8 +1876,7 @@ const Map = ({
     }
    
     useEffect(() => {
-      EventService.setRef('click', eventclick);
-      let eventToClick = EventService.getRef('click');
+      const eventToClick = eventclick;
       map.on('click', eventToClick);
       return () => {
         map.off('click', eventToClick);
