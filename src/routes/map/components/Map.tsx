@@ -1853,7 +1853,9 @@ const Map = ({
       }
     }
 
-    const measureCenterAndDelete = (type: any, item: any, event: any) => {
+    // TODO: Move this function to service
+    const measureCenterAndDelete = (type: any, item: any) => {
+      console.log('Shoud enter here', type, item);
       if(type == 'center'){
         const coords = JSON.parse(item.coordinates);
         if (item.type == 'line') {

@@ -299,7 +299,8 @@ const WorkRequestMap = ({
       setIsMeasuring(false);
     }
   };
-  const measureCenterAndDelete = (type: any, item: any, event: any) => {
+  // TODO: Move this function to a service
+  const measureCenterAndDelete = (type: any, item: any) => {
     if (type == 'center') {
       const coords = JSON.parse(item.coordinates);
       if (item.type == 'line') {

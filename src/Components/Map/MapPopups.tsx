@@ -159,8 +159,8 @@ export const StreamPopupFull = ({ id, item } : any) => {
     </div>
 };
 
-export const MeasurePopup = ({ id, item, isComponent } : any) => { 
-
+export const MeasurePopup = ({ id, item, eventFunctions } : any) => { 
+console.trace('Evenr function', eventFunctions);
   return <div className='measurecontainer'  > 
       <div id={'measure-block'} className="measure-block">
         <div className="headmap">
@@ -175,8 +175,8 @@ export const MeasurePopup = ({ id, item, isComponent } : any) => {
         </div>
         <hr style={{opacity: 0.4, width: '96%'}}></hr>
         <p className='paragraph'> 
-          <span id={"buttonzoom-" + id} style={{paddingRight:'5px'}} className="button-c"><a style={{color:'#11093C'}}><img className='img-measure-03'></img> <b>Center on this area</b></a></span >
-          <span id={"buttondelete-" + id} style={{paddingLeft:'22px'}} className="button-c"><a style={{color:'#11093C'}}><img className='img-measure-04'></img> <b>Delete</b></a></span >
+          <span id={"buttonzoom-" + id} onClick={() => eventFunctions['measureCenterAndDelete']('center', item)} style={{paddingRight:'5px'}} className="button-c"><a style={{color:'#11093C'}}><img className='img-measure-03'></img> <b>Center on this area</b></a></span >
+          <span id={"buttondelete-" + id} onClick={() => eventFunctions['measureCenterAndDelete']('delete', item)} style={{paddingLeft:'22px'}} className="button-c"><a style={{color:'#11093C'}}><img className='img-measure-04'></img> <b>Delete</b></a></span >
         </p>
       </div>
     </div>
@@ -356,12 +356,12 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.notes_floodplains ? <p><i>Notes:</i>  {item.notes_floodplains}</p> : ''}
             {item.volume ? <p><i>Volume:</i>  {item.volume} acre-ft</p> : ''}
             {(isComponent && maptype !== 'detail_map') && item.projectid === undefined && <Button id={"buttonCreate-" + id} onClick={() => eventFunctions['createProject'](item)} style={{ width: '100%', marginTop: '10px'}} className="btn-purple">Create Project</Button>}
-            {item.layer == MENU_OPTIONS.MEASURES && 
+            {/* {item.layer == MENU_OPTIONS.MEASURES && 
               <div style={{ padding: '10px', marginTop: '15px', color: '#28C499', display:'flex'}}>
                 <Button id={"buttonzoom-" + id} style={{ width: '50%', height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', marginRight: '10px'}} className="btn-purple" >Center to this area</Button>
                 <Button id={"buttondelete-" + id} style={{ width: '50%',height: '43px', whiteSpace: 'normal', wordWrap: 'break-word', color: '#28C499' }} className="btn-borde">Delete</Button>
               </div>
-            }
+            } */}
         </div>
         </Card>
     </div>
