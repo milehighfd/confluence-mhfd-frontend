@@ -152,7 +152,7 @@ export const addPopupAndListeners = (
         // document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
         // document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
         // document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
-        document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
+        // document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
         document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
         document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit?.bind(popups[index], popups[index]));
         document.getElementById('buttonComponents-' + index)?.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
@@ -976,6 +976,7 @@ export const addPopupsOnClick = async (
                 status = 'Remove';
               }
               if(feature.source === STREAM_IMPROVEMENT_MEASURE ) {
+                console.log('features stream', feature.properties);
                 item = {
                   layer: MENU_OPTIONS.COMPONENTS,
                   type: getTitleOfStreamImprovements(feature.properties),
@@ -988,6 +989,7 @@ export const addPopupsOnClick = async (
                   objectid: feature.properties.objectid?feature.properties.objectid:'-',
                   table: feature.source ? feature.source : '-',
                   problem: problemname,
+                  problemid: problemid,
                   status: feature.properties.status ? feature.properties.status : '-',
                   ...volume
                 }

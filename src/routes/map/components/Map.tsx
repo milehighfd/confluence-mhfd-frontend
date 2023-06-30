@@ -1791,7 +1791,6 @@ const Map = ({
         showHighlighted(id.layer, id.id);
     }
     const showPopup = (index: any, size: number, id: any) => {
-      console.trace('Show popup func', index, size, id);
         hideHighlighted();
         showHighlighted(id.layer, id.id);
         for (let i = 0; i < size; i++) {
@@ -1855,7 +1854,6 @@ const Map = ({
 
     // TODO: Move this function to service
     const measureCenterAndDelete = (type: any, item: any) => {
-      console.log('Shoud enter here', type, item);
       if(type == 'center'){
         const coords = JSON.parse(item.coordinates);
         if (item.type == 'line') {

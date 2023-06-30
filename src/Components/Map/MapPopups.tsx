@@ -160,7 +160,6 @@ export const StreamPopupFull = ({ id, item } : any) => {
 };
 
 export const MeasurePopup = ({ id, item, eventFunctions } : any) => { 
-console.trace('Evenr function', eventFunctions);
   return <div className='measurecontainer'  > 
       <div id={'measure-block'} className="measure-block">
         <div className="headmap">
@@ -263,7 +262,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
             {item.contract ? <p><i>Contract:</i>  {item.contract}</p> : ''}
             {item.contractor ? <p><i>Contractor:</i>  {item.contractor}</p> : ''}
             {item.local_gov ? <p><i>Local Government:</i>  {item.local_gov}</p> : ''}
-            {item.problem ? <p><i>Problem:</i>  <a href="#" id={"problemdetail"+id}>{item.problem}</a></p> : ''}
+            {item.problem ? <p><i>Problem:</i>  <a href="#" id={"problemdetail"+id} onClick={() => eventFunctions['seeDetails'](item, item)}>{item.problem}</a></p> : ''}
             {item.mow_frequency ? <p><i>Frequency:</i>  {item.mow_frequency}</p> : ''}
             {item.debris_frequency ? <p><i>Frequency:</i>  {item.debris_frequency}</p> : ''}
             {item.acreage ? <p><i>Acreage:</i>  {item.acreage}</p> : ''}
