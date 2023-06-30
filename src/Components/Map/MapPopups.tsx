@@ -367,7 +367,7 @@ export const ComponentPopup = ({ id, item, isComponent, maptype, eventFunctions 
 };
 
 
-export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
+export const ComponentPopupCreate = ({ id, item, isComponent, isWR, eventFunctions } : any) => {
     return <div id={'popup-' + id} className="map-pop-01">
       <Card hoverable>
       <div className="headmap">
@@ -443,7 +443,7 @@ export const ComponentPopupCreate = ({ id, item, isComponent, isWR } : any) => {
           {item.county ? <p><i>County:</i>  {item.county}</p> : ''}
           {item.service_area ? <p><i>Service Area:</i>  {item.service_area}</p> : ''}
           {item.notes_floodplains ? <p><i>Notes:</i>  {item.notes_floodplains}</p> : ''}
-          {isComponent && !isWR && item.projectid === undefined && <Button id={'component-'+id}  style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
+          {isComponent && !isWR && item.projectid === undefined && <Button id={'component-'+id} onClick={() => eventFunctions['addRemoveComponent'](item)} style={{ width: '100%', marginTop: '10px'}} className="btn-purple" >{item.added}</Button>}
       </div>
       </Card>
   </div>

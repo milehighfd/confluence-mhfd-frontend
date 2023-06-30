@@ -84,6 +84,7 @@ export const loadMenuPopupWithData = (
   ids?: any
 ) => {
   const popupNode = document.createElement("div");
+  console.log('eventFunctions', eventFunctions);
   ReactDOM.render(
   (
   <>
@@ -122,7 +123,7 @@ export const loadMenuPopupWithData = (
                             menu == MENU_OPTIONS.MEASURES ?
                               loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation, eventFunctions) :
                               (maptype === MAPTYPES.CREATEPROJECTMAP ?
-                              loadComponentPopupCreate(index, popups[index],!notComponentOptions.includes(menuOptions[index]))  :
+                              loadComponentPopupCreate(index, popups[index],!notComponentOptions.includes(menuOptions[index]), eventFunctions)  :
                               loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation, maptype, eventFunctions) // TODO: CHECK FOR FUNCTIONS 
                               )
                           )
@@ -154,11 +155,13 @@ const loadMainPopupCreateMap = (id: number, item: any, test: Function, sw?: bool
     <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
   </>
 );
-const loadComponentPopupCreate = (index: number, item: any, isComponent: boolean) => (
-  <>
-    <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false}></ComponentPopupCreate>
-  </>
-);
+const loadComponentPopupCreate = (index: number, item: any, isComponent: boolean, eventFunctions: any) => {
+  return (
+    <>
+      <ComponentPopupCreate id={index} item={item} isComponent={isComponent} isWR={false} eventFunctions={eventFunctions}></ComponentPopupCreate>
+    </>
+  )
+};
 const loadStreamPopup = (index: number, item: any) => (
   <>
     <StreamPopupFull id={index} item={item} ></StreamPopupFull>
