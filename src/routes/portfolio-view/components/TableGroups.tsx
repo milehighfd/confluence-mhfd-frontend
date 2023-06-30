@@ -39,10 +39,11 @@ const TableGroups = ({
   } = useMapState();
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
-  const [counter, setCounter] = useState([]);
+  const [counter, setCounter] = useState(0);
   const scrollHeaderScrollRef = useRef<null | HTMLDivElement>(null);
   const [page, setPage] = useState(1);
   const [sendfilter, setSendFilter] = useState(filterProjectOptions); 
+  const [counterParsed, setCounterParsed] = useState('');
  
   useEffect(() => {
     const sendfiltercopy = {...filterProjectOptions};
@@ -82,6 +83,12 @@ const TableGroups = ({
   let myDiv = drr?.querySelector('.ant-table-thead');
   let myDivWidth = myDiv? myDiv.clientWidth :0;
 
+  useEffect(() => {
+    const start = (page - 1) * LIMIT_PAGINATION;
+    const end = Math.min(start + LIMIT_PAGINATION, counter);
+    setCounterParsed(`${start} - ${end} of ${counter}`);
+  }, [page, counter]);
+
   return <>
     <div  className="table-body2" id={data.id} key={data.id}>
       <Collapse
@@ -104,7 +111,7 @@ const TableGroups = ({
               <span style={{width: '100%',
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counter})`}</span>
+                  textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counterParsed})`}</span>
             </div>
               <div className="btn-collapse" onClick={(e) => {e.stopPropagation(); }}>
                 <LeftOutlined onClick={(e) => {

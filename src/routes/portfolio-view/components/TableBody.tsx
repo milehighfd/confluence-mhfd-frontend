@@ -40,7 +40,7 @@ const TableBody = ({
   tableRef: any,
   tabKeyId: any,
   headerRef: any,
-  counter:  never[],
+  counter:  any,
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
