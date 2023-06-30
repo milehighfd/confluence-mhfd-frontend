@@ -116,7 +116,7 @@ export const addPopupAndListeners = (
   menuOptions: any,
   popups: any,
   userInformation: any,
-  test: any,
+  getDetailPage: any,
   popup: any,
   map: any,
   showPopup: any,
@@ -130,23 +130,33 @@ export const addPopupAndListeners = (
   isEditPopup? :any,
   getComponentsFromProjProb?: any
 ) => {
-  console.log('HTML BEFORE POPUP', popups);
-  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, test, isEditPopup, undefined, maptype);
+  const eventFunctions = {
+    showPopup,
+    seeDetails,
+    createProject,
+    measureCenterAndDelete,
+    addRemoveComponent,
+    openEdit,
+    getComponentsFromProjProb,
+    getDetailPage
+  };
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, eventFunctions, isEditPopup, undefined, maptype, ids);
   if (html) {
-      popup.setLngLat(e.lngLat)
-          .setDOMContent(html)
-          .addTo(map);
-      for (const index in popups) {
-          document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-          document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-          document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-          document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
-          document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
-          document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
-          document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
-          document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit?.bind(popups[index], popups[index]));
-          document.getElementById('buttonComponents-' + index)?.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
-      }
+    popup.setLngLat(e.lngLat)
+        .setDOMContent(html)
+        .addTo(map);
+    for (const index in popups) {
+
+        // document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
+        document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
+        document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
+        document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
+        document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
+        document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
+        document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
+        document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit?.bind(popups[index], popups[index]));
+        document.getElementById('buttonComponents-' + index)?.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
+    }
   }
 }
 export const addPopupServiceCountyMunicipality = (
@@ -165,7 +175,12 @@ export const addPopupServiceCountyMunicipality = (
   setKeyword: any, 
   setMarkerGeocoder: any
 ) => {
-  const html = loadMenuPopupWithData(menuOptions, popups, titleObject, userInformation);
+  const eventFunctions = {
+    showPopup,
+    seeDetails,
+    createProject
+  };
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, eventFunctions);
   if (html) {
     searchPopup.remove();
     searchPopup = new mapboxgl.Popup({closeButton: true,});
@@ -849,21 +864,24 @@ export const addPopupsOnClick = async (
       if(feature.source === 'streams') {
         const objectidstream = feature.properties.mhfd_code;
         const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
+        if (dataFromDBforStreams.length > 0) {
+          console.log('DATA FROM DB', dataFromDBforStreams);
           const item = {
-              type: 'streams-reaches',
-              layer: 'Streams',
-              title: dataFromDBforStreams[0].stream_name ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
-              streamname: dataFromDBforStreams[0].stream_name,
-              mhfd_code: dataFromDBforStreams[0].mhfd_code,
-              catch_sum: dataFromDBforStreams[0].catchment_area_sum_ac,
-              str_ft: dataFromDBforStreams[0].stream_length_ft,
-              slope: dataFromDBforStreams[0].slope_ft 
+            type: 'streams-reaches',
+            layer: 'Streams',
+            title: dataFromDBforStreams[0] ? dataFromDBforStreams[0].stream_name : 'Unnamed Stream',
+            streamname: dataFromDBforStreams[0].stream_name,
+            mhfd_code: dataFromDBforStreams[0].mhfd_code,
+            catch_sum: dataFromDBforStreams[0].catchment_area_sum_ac,
+            str_ft: dataFromDBforStreams[0].stream_length_ft,
+            slope: dataFromDBforStreams[0].slope_ft 
           };
           menuOptions.push('Stream');
           mobile.push({...item});
           mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
           popups.push(item);
           ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
+        }
       }
       if (feature.source === ACTIVE_LOMS) {
           let extraProperties = {};

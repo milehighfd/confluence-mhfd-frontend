@@ -267,6 +267,7 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
     }
   };
   const showPopup = (index: any, size: number, id: any, event: any) => {
+    console.log('index', index, size, id, event);
     for (let i = 0; i < size; i++) {
       const div = document.getElementById('popup-' + i);
       if (div != null) {

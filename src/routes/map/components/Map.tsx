@@ -1777,7 +1777,7 @@ const Map = ({
         }
     };
 
-    const test = (item: any) => {
+    const getDetailPage = (item: any) => {
         setVisible(true);
         setData(item);
         if (item.problemid) {
@@ -1790,7 +1790,8 @@ const Map = ({
         hideHighlighted();
         showHighlighted(id.layer, id.id);
     }
-    const showPopup = (index: any, size: number, id: any, event:any) => {
+    const showPopup = (index: any, size: number, id: any) => {
+      console.trace('Show popup func', index, size, id);
         hideHighlighted();
         showHighlighted(id.layer, id.id);
         for (let i = 0; i < size; i++) {
@@ -2006,7 +2007,7 @@ const Map = ({
                   menuOptions,
                   popups,
                   userInformation,
-                  test,
+                  getDetailPage,
                   popup,
                   map,
                   showPopup,

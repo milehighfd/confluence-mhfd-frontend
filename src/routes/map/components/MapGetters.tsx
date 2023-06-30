@@ -77,10 +77,11 @@ export const loadMenuPopupWithData = (
   menuOptions: any[],
   popups: any[],
   userInformation: any,
-  test: any,
+  eventFunctions?: any,
   ep?: any,
   title?: any,
-  maptype?:any
+  maptype?:any,
+  ids?: any
 ) => {
   const popupNode = document.createElement("div");
   ReactDOM.render(
@@ -112,7 +113,7 @@ export const loadMenuPopupWithData = (
               menuOptions.map((menu: any, index: number) => {
                 return (
                   <div>
-                    {loadIconsPopup(menu, popups[index], index)}
+                    {loadIconsPopup(menu, popups, index, eventFunctions['showPopup'], ids)}
                     {(menu !== 'Project' && !menu.includes('Problem')) ?
                       (
                         menu == 'Stream' ?
@@ -127,10 +128,10 @@ export const loadMenuPopupWithData = (
                           )
                       )
                       :(maptype === MAPTYPES.CREATEPROJECTMAP ?
-                        loadMainPopupCreateMap(index, popups[index], test,undefined ,userInformation) :
+                        loadMainPopupCreateMap(index, popups[index], eventFunctions['getDetailPage'],undefined ,userInformation) :
                       (menu === 'Project' ? 
-                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup, maptype) : 
-                      loadMainPopup(index, popups[index], test, userInformation, true, popups[index].isEditPopup, maptype)))
+                      loadMainPopup(index, popups[index], eventFunctions['getDetailPage'], userInformation, true, popups[index].isEditPopup, maptype) : 
+                      loadMainPopup(index, popups[index], eventFunctions['getDetailPage'], userInformation, true, popups[index].isEditPopup, maptype)))
                       }
                   </div>
                 )
@@ -173,160 +174,161 @@ const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userIn
     <MeasurePopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ></MeasurePopup>
   </>
 );
-export const loadIconsPopup = (menu: any, popups: any, index: any) => {
+export const loadIconsPopup = (menu: any, popups: any, index: any, showPopup: any, ids: any) => {
   // console.log(menu,'menu', popups,'popups', index,'index')
+  const popup = popups[index];
   let icon
   ICON_POPUPS.forEach((element) => {
     if (element[0] === menu) {
-      icon = <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={element[1]} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      icon = <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={element[1]} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     }
   })
   if (menu.includes('roblem')) {
-    return <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_problems.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>;
+    return <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_problems.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>;
   }
-  if (menu.includes('roject') && popups.projecctype !== undefined && (popups.mapType==='WORKREQUEST' && (popups.status === 'Active' || popups.status === 'Approved' || popups.status === 'Requested' || popups.status === 'Submitted'))) {
+  if (menu.includes('roject') && popup.projecctype !== undefined && (popup.mapType==='WORKREQUEST' && (popup.status === 'Active' || popup.status === 'Approved' || popup.status === 'Requested' || popup.status === 'Submitted'))) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={`/Icons/icon-projects-${popups.status.toLowerCase()}.png`} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src={`/Icons/icon-projects-${popup.status.toLowerCase()}.png`} alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu.includes('roject') && popups.projecctype !== undefined && (popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popups.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration || popups.projecctype.includes(NEW_PROJECT_TYPES.Maintenance) || popups.projecctype.includes('Capital') || popups.projecctype === "Fee in Lieu")) {
+  if (menu.includes('roject') && popup.projecctype !== undefined && (popup.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || popup.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || popup.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal || popup.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Minor_Repairs || popup.projecctype === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Restoration || popup.projecctype.includes(NEW_PROJECT_TYPES.Maintenance) || popup.projecctype.includes('Capital') || popup.projecctype === "Fee in Lieu")) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_restoration.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_restoration.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Project" && popups.projecctype !== undefined && (popups.name.includes('FHAD'))) {
+  if (menu === "Project" && popup.projecctype !== undefined && (popup.name.includes('FHAD'))) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_FHAD@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_FHAD@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype.includes('Study'))) {
+  if (menu === "Project" && popup.projecctype !== undefined && (popup.projecctype.includes('Study'))) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_MasterPlan@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_Project_MasterPlan@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Project" && popups.projecctype !== undefined && (popups.projecctype.includes('CIP'))) {
+  if (menu === "Project" && popup.projecctype !== undefined && (popup.projecctype.includes('CIP'))) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_capital.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_capital.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'A')) {
+  if (menu === "NCRS Soils" && popup.hydgrpdcd !== undefined && (popup.hydgrpdcd === 'A')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupA@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupA@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'B')) {
+  if (menu === "NCRS Soils" && popup.hydgrpdcd !== undefined && (popup.hydgrpdcd === 'B')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupB@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupB@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'C')) {
+  if (menu === "NCRS Soils" && popup.hydgrpdcd !== undefined && (popup.hydgrpdcd === 'C')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupC@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupC@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "NCRS Soils" && popups.hydgrpdcd !== undefined && (popups.hydgrpdcd === 'D')) {
+  if (menu === "NCRS Soils" && popup.hydgrpdcd !== undefined && (popup.hydgrpdcd === 'D')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupD@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_NRCS_GroupD@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === '-')) {
+  if (menu === "FEMA Flood Hazard" && popup.fld_zone !== undefined && (popup.fld_zone === 'AE' && popup.zone_subty === '-')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_ZoneAE@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AE' && popups.zone_subty === 'FLOODWAY')) {
+  if (menu === "FEMA Flood Hazard" && popup.fld_zone !== undefined && (popup.fld_zone === 'AE' && popup.zone_subty === 'FLOODWAY')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_Floodway@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_Floodway@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'X')) {
+  if (menu === "FEMA Flood Hazard" && popup.fld_zone !== undefined && (popup.fld_zone === 'X')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_ZoneX@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_ZoneX@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "FEMA Flood Hazard" && popups.fld_zone !== undefined && (popups.fld_zone === 'AO')) {
+  if (menu === "FEMA Flood Hazard" && popup.fld_zone !== undefined && (popup.fld_zone === 'AO')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_FEMA_ZoneAO@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')) {
+  if (menu === "Active Stream Corridor" && popup.scale !== undefined && (popup.scale === 'Stream Corridor')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_SMC_StreamCorridor@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Stream Corridor')) {
+  if (menu === "Fluvial Hazard Buffer" && popup.scale !== undefined && (popup.scale === 'Stream Corridor')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-pattern2.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-pattern2.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Active Stream Corridor" && popups.scale !== undefined && (popups.scale === 'Watershed')) {
+  if (menu === "Active Stream Corridor" && popup.scale !== undefined && (popup.scale === 'Watershed')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_SMC_Watershed@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic_SMC_Watershed@2x.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Fluvial Hazard Buffer" && popups.scale !== undefined && (popups.scale === 'Watershed')) {
+  if (menu === "Fluvial Hazard Buffer" && popup.scale !== undefined && (popup.scale === 'Watershed')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-pattern3.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-pattern3.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Active')) {
+  if (menu === "LOMCs" && popup.status !== undefined && (popup.status === 'Active')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_active.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_active.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Suspended')) {
+  if (menu === "LOMCs" && popup.status !== undefined && (popup.status === 'Suspended')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_suspended.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_suspended.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Violation')) {
+  if (menu === "LOMCs" && popup.status !== undefined && (popup.status === 'Violation')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_violation.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_violation.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "LOMCs" && popups.status !== undefined && (popups.status === 'Completed')) {
+  if (menu === "LOMCs" && popup.status !== undefined && (popup.status === 'Completed')) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_completed.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/lomcs_completed.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Effective Reaches" && popups.studyname !== 'unknown') {
+  if (menu === "Effective Reaches" && popup.studyname !== 'unknown') {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-effective-reaches-studyunkown.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-effective-reaches-studyunkown.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
-  if (menu === "Effective Reaches" && popups.studyname === 'unknown') {
+  if (menu === "Effective Reaches" && popup.studyname === 'unknown') {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-effective-reaches-study.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-effective-reaches-study.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
   if (menu === MENU_OPTIONS.MEP_DETENTION_BASIN) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-mep-detention-basin.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-mep-detention-basin.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
   if (menu === MENU_OPTIONS.MEP_STORM_OUTFALL) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-mep-storm-outfall.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-mep-storm-outfall.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
   if (menu === MENU_OPTIONS.MEP_CHANNEL) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-mep-channel.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon-mep-channel.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
-  if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Continuous Improvement') {
+  if (menu === "Stream Improvement Measure" && popup.type === 'Stream Improvement - Continuous Improvement') {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-continuous.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-continuous.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
-  if (menu === "Stream Improvement Measure" && popups.type === 'Stream Improvement - Bank Stabilization') {
+  if (menu === "Stream Improvement Measure" && popup.type === 'Stream Improvement - Bank Stabilization') {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/ic-stream-bank.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
   if(menu.includes('Stream Improvement Measure')){
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_streamimprovmentmeasure.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img style={{ width: '18px', borderRadius: '2px' }} src="/Icons/icon_streamimprovmentmeasure.png" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     );
   }
   if (icon !== undefined) {
@@ -334,7 +336,7 @@ export const loadIconsPopup = (menu: any, popups: any, index: any) => {
   }
   if (menu) {
     return (
-      <Button id={'menu-' + index} className="btn-transparent"><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
+      <Button id={'menu-' + index} onClick={() => showPopup(index, popups.length, ids[index])} className="btn-transparent"><img src="/Icons/icon-75.svg" alt="" /><span className="text-popup-00"> {menu}</span> <RightOutlined /></Button>
     )
   }
 };
