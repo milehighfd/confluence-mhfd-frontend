@@ -1,41 +1,36 @@
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
-import ImageModal from "Components/Shared/Modals/ImageModal";
-import { SERVER } from "Config/Server.config";
-import { Button, Carousel, Col, Modal, Progress, Row, Tooltip, message } from "antd";
-import { ADMIN, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, STAFF } from "constants/constants";
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import ImageModal from 'Components/Shared/Modals/ImageModal';
+import { SERVER } from 'Config/Server.config';
+import { Button, Carousel, Col, Modal, Progress, Row, Tooltip, message } from 'antd';
+import { ADMIN, FILTER_PROBLEMS_TRIGGER, FILTER_PROJECTS_TRIGGER, STAFF } from 'constants/constants';
 import { saveAs } from 'file-saver';
-import { useDetailedState } from "hook/detailedHook";
-import { useMapDispatch } from "hook/mapHook";
-import { toJpeg, toPng } from 'html-to-image';
-import moment from "moment";
-import React, { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router";
-import PineyView from "routes/portfolio-view/components/PineyView";
-import store from "store/index";
-import TeamCollaborator from "../../../Components/Shared/Modals/TeamCollaborator";
-import * as datasets from "../../../Config/datasets";
-import { getCounties, getCurrentProjectStatus, getJurisdictions, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from '../../../utils/parsers';
-import ComponentSolucions from "./ComponentSolucions";
-import ComponentSolucionsByProblems from "./ComponentSolutionByProblems";
-import DetailInformationProblem from "./DetailInformationProblem";
-import DetailInformationProject from "./DetailInformationProject";
-import Documents from "./Documents";
-import Financials from "./Financials";
-import GalleryDetail from "./GalleryDetail";
-import History from "./History";
-import Management from "./Management";
-import Map from "./Map";
-import ProblemParts from "./ProblemParts";
-import ProblemsProjects from "./ProblemsProjects";
-import Roadmap from "./Roadmap";
-import Vendors from "./Vendors";
+import { useDetailedState } from 'hook/detailedHook';
+import { useMapDispatch } from 'hook/mapHook';
+import { toJpeg } from 'html-to-image';
+import moment from 'moment';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router';
+import PineyView from 'routes/portfolio-view/components/PineyView';
+import store from 'store/index';
+import TeamCollaborator from 'Components/Shared/Modals/TeamCollaborator';
+import * as datasets from 'Config/datasets';
+import { getCounties, getCurrentProjectStatus, getJurisdictions, getServiceAreas, getSponsors, getStreams, getTotalEstimatedCost } from 'utils/parsers';
+import ComponentSolucions from './ComponentSolucions';
+import ComponentSolucionsByProblems from './ComponentSolutionByProblems';
+import DetailInformationProblem from './DetailInformationProblem';
+import DetailInformationProject from './DetailInformationProject';
+import Documents from './Documents';
+import Financials from './Financials';
+import GalleryDetail from './GalleryDetail';
+import History from './History';
+import Map from './Map';
+import ProblemParts from './ProblemParts';
+import ProblemsProjects from './ProblemsProjects';
+import Roadmap from './Roadmap';
+import Vendors from './Vendors';
 import ModalTollgate from 'routes/list-view/components/ModalTollgate';
-import { usePortflioState } from "hook/portfolioHook";
-import { Link } from "react-router-dom";
-import { useAttachmentDispatch, useAttachmentState } from "hook/attachmentHook";
-
-const tabKeys = ['Project Basics','Problem', 'Vendors', 'Component & Solutions', 'Project Roadmap', 'Graphical View', 'Project Financials', 'Project Management', 'Maps', 'Attachments'];
+import { useAttachmentDispatch, useAttachmentState } from 'hook/attachmentHook';
 
 const DetailModal = ({
   visible, 
@@ -59,13 +54,10 @@ const DetailModal = ({
     getDetailedPageProject,
     getComponentsByProblemId,
     resetDetailed,
-    existDetailedPageProject,
-    existDetailedPageProblem,
   } = useMapDispatch();
   const {
     detailed,
   } = useDetailedState();
-  const { datesData } = usePortflioState();
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
   const project_idS = query.get('project_id') || data?.project_id;
@@ -74,28 +66,20 @@ const DetailModal = ({
   const cipjRef = useRef(null);
   const typeS = query.get('type') || type;   
   const [isLoading, setIsLoading] = useState(true);
-  const [tabKey, setTabKey] = useState<any>('Project Basics');
   const [openSecction, setOpenSecction] = useState(0);
   const [projectType, setProjecttype] = useState('');
-  const [projectTypeId, setProjecttypeId] = useState('');
   const [active, setActive] = useState(0);
   const [openPiney, setOpenPiney] = useState(false);
   const [activeScroll, setActiveScroll] = useState(true);
   const [openImage, setOpenImage] = useState(false);
-  const [scrollOpen, setscrollOpen] = useState(0)
-  const [typeDetail, setTypeDetail] = useState('');
   const [problemPart, setProblemPart] = useState<any[]>([]);
   const [dataRoadmap, setDataRoadmap] = useState<any[]>([]);
   const [updateAction,setUpdateAction] = useState(false);
-  const [nameLinkPage,setNameLinkPage] = useState('#');
   const appUser = store.getState().profile.userInformation;
-  const [mapImage, setMapImage] = useState<any>(undefined);
   const [coverImage, setCoverImage] = useState<any>('');
 
   let divRef = useRef<null | HTMLDivElement>(null); 
   let carouselRef = useRef<undefined | any>(undefined);
-  let displayedTabKey = tabKeys;
-  let pageWidth  = document.documentElement.scrollWidth;
   const {getAttachmentProjectId} = useAttachmentDispatch();
   const { attachments } = useAttachmentState();
   useEffect(() => {
@@ -105,15 +89,14 @@ const DetailModal = ({
   }, [detailed]);  
   useEffect(()=>{
     if (attachments.data){
-      const cover = attachments?.data?.filter(
+      attachments?.data?.filter(
         (_: any) => (_.mime_type?.includes('png') || _.mime_type?.includes('jpeg') || _.mime_type?.includes('jpg'))
-      ).map((file: any) => {
+      ).forEach((file: any) => {
         if(file.is_cover){
           setCoverImage(file.attachment_url);
         }
       });
-      
-    }   
+    }
   },[attachments])
   useEffect(() => { 
     resetDetailed();  
@@ -121,7 +104,6 @@ const DetailModal = ({
       console.log('PROBLEM')
       getDetailedPageProblem(problem_idS);
       getComponentsByProblemId({id: problem_idS, typeid: 'problemid', sortby: 'type', sorttype: 'asc'});
-      setTypeDetail(typeS);
       datasets.getData(SERVER.PROBLEM_PARTS_BY_ID + '/' + problem_idS, datasets.getToken()).then(data => {
         const t: any[] = [];
         data.data.forEach((element: any) => {
@@ -144,12 +126,10 @@ const DetailModal = ({
       const project_id = project_idS ? +project_idS : ( +problem_idS ? +problem_idS : 0) ;
       getDetailedPageProject(project_id);
       getComponentsByProblemId({id: data?.on_base || project_id || data?.id  || data?.cartodb_id, typeid: 'projectid', sortby: 'type', sorttype: 'asc'});
-      setTypeDetail(typeS);
     }
   }, []);
   useEffect(() => {
     const projectType = detailed?.code_project_type?.project_type_name;
-    setProjecttypeId(detailed?.code_project_type_id);
     setProjecttype(projectType);
     const roadmapData = [];
     if(detailed && Object.keys(detailed).length !== 0){
@@ -343,12 +323,9 @@ const DetailModal = ({
  
 
   useEffect(()=>{
-    let img = new Image();
     let mapCanvas: any;
     mapCanvas = document.querySelector('.mapboxgl-canvas');
     if (mapCanvas instanceof HTMLCanvasElement) {
-      const urlOfMap = img.src = mapCanvas.toDataURL();
-      setMapImage(urlOfMap);
       if (detailed?.problemname || detailed?.project_name) {
         setIsLoading(false);
       }else{
@@ -431,13 +408,6 @@ const DetailModal = ({
       setIsLoading(false);
     })
   }
-  // useEffect(() => {
-  //   if(type === PROBLEMS_MODAL){
-  //     existDetailedPageProblem(data.problemid);
-  //   }else{
-  //     existDetailedPageProject(data.project_id);
-  //   }
-  // },[])
   const toCamelCase = (str:string):string => {
     return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
   }
@@ -445,9 +415,7 @@ const DetailModal = ({
     if(activeScroll){
         window.location.href = nameLink;
         setActiveScroll(false);
-        setscrollOpen(numberTab);
         setOpenSecction(numberTab);
-        setNameLinkPage(nameLink)
       setTimeout(() => {
         setActiveScroll(true);
       }, 1850);
@@ -456,8 +424,6 @@ const DetailModal = ({
   return (
     <>
       <ModalTollgate
-        dataProject={datesData}
-        saveCB={()=>{}}
         setOpenPiney={setOpenPiney}
       />
     <ImageModal visible={openImage} setVisible={setOpenImage} type={typeS} active={active} setActive={setActive} copyUrl={copyUrl} deleteCallback={deleteCallback} addCallback={addCallback} addFavorite={addFavorite}/>
@@ -615,7 +581,6 @@ const DetailModal = ({
               if(activeScroll){
                   const projectDiv = document.getElementById('project-basics');
                 const rectProject = projectDiv?.getBoundingClientRect();
-                // console.log(rectProject?.bottom, rectProject?.top)
                 if ((rectProject &&
                   rectProject.top >= 0 &&
                   rectProject.left >= 0 &&

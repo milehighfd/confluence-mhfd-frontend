@@ -15,11 +15,9 @@ const DetailModal = React.lazy(() => import('routes/detail-page/components/Detai
 const { RangePicker }:any = DatePicker;
 
 const ModalTollgate = ({
-  dataProject,
   saveCB,
   setOpenPiney,  
 }: {
-  dataProject?:any,
   saveCB?: any,
   setOpenPiney?: any,
 }) => {
@@ -418,9 +416,9 @@ let items = [
         project_id: datesData.d.project_id,
         phases: dates
       }, datasets.getToken()).then(async res => {
-        saveCB();
+        saveCB && saveCB();
         setVisible(false);
-        setOpenPiney(false); 
+        setOpenPiney && setOpenPiney(false); 
         setUpdateGroup({id1: originPhase, id2: currentStatus});
         getDetailedPageProject(datesData.d.project_id)
         setDatesData(newDataProject)

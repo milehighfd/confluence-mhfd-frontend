@@ -18,7 +18,6 @@ import { handleAbortError } from 'store/actions/mapActions';
 
 const { TabPane } = Tabs;
 let isInit = true;
-let previousFilterBy = '';
 const tabKeys = ['All','CIP', 'Restoration', 'Study', 'DIP', 'R&D', 'Acquisition'];
 const tabKeysIds = [0, 5, 7, 1, 6, 15, 13];
 
@@ -42,9 +41,9 @@ const PortafolioBody = ({
     filterProjectOptionsNoFilter
   } = useMapState();
   const {
-    searchWord, graphicOpen, datesData
+    searchWord, graphicOpen
   } = usePortflioState();
-  const { setFavorites, getListPMTools, setOpenGroups, setDatesData } = usePortfolioDispatch();
+  const { setFavorites, getListPMTools, setOpenGroups } = usePortfolioDispatch();
 
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -59,8 +58,6 @@ const PortafolioBody = ({
   const [newData, setNewData] = useState<any>([]);
   const [sortValue, setSortValue] = useState({columnKey: null, order: undefined});
   const appUser = store.getState().profile;
-  // const [dataModal,setDataModal] = useState<any>([]);
-  const [openPiney, setOpenPiney] = useState(false);
   const [updateFilter, setUpdateFilter] = useState([]);
 
   useEffect(() => {
@@ -245,22 +242,16 @@ const PortafolioBody = ({
     setOptionSelect('List')
   }
   function changeTabkey (key : any){   
-    setOpenPiney(false)
     setTabKey(key)
   }
   function openFavs (){
-    setOpenPiney(false)    
     setOpenFavorites(!openFavorites)   
   }
 
   return <>
     {graphicOpen && <ModalGraphic/>}
     {openModalTable && <ModalFields visible={openModalTable} setVisible={setOpenModalTable}/>}
-    <ModalTollgate
-      dataProject={datesData}
-      saveCB={()=>{}}
-      setOpenPiney={setOpenPiney}
-    />
+    <ModalTollgate />
     <div>
       <div className="portafolio-head">
         <Row>

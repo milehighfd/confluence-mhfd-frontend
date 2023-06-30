@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Button, Card, Col, Dropdown, Input, Layout, Menu, Popover, Row, Select, Switch, Table, Tabs, Tooltip } from 'antd';
-import { AlignCenterOutlined, AppstoreOutlined, ArrowDownOutlined, CloseOutlined, EditOutlined, SearchOutlined } from "@ant-design/icons";
-import { ColumnsType } from "antd/lib/table";
-import ProfileUser from "../../user-management/components/ProfileUser";
-import { DATA_LIST_VIEW } from "../constants";
-import ListViewBodyTable from "./ListViewTable";
-import ModalFields from "./ModalFields";
-import ModalTollgate from "./ModalTollgate";
-import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
+import React, { useState } from 'react';
+import { AlignCenterOutlined, AppstoreOutlined, ArrowDownOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Col, Input, Popover, Row, Select, Table, Tabs } from 'antd';
+import { ColumnsType } from 'antd/lib/table';
+import { usePortflioState, usePortfolioDispatch } from 'hook/portfolioHook';
+import { DATA_LIST_VIEW } from '../constants';
+import ListViewBodyTable from './ListViewTable';
+import ModalFields from './ModalFields';
+import ModalTollgate from './ModalTollgate';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -44,7 +43,6 @@ const ListViewBody = () => {
   const { setOpenModalTollgate: setTollgate } = usePortfolioDispatch();
   const [tabKey, setTabKey] = useState<any>('Project Type');
   const [fields, setFields] = useState(false);
-  // const [tollgate, setTollgate] = useState(false);
   let displayedTabKey = tabKeys;
   const columns: ColumnsType<any> = [
     {
