@@ -16,24 +16,18 @@ const CalendarViewPag = ({
   tabKey: any,
 }) => {
   const { currentGroup, zoomTimeline, zoomTimelineAux, zoomSelected, isLoading } = usePortflioState();
-  const { setZoomTimeline, setZoomTimelineAux, setIsZoomToday,setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading, setDatesData} = usePortfolioDispatch();
+  const { setZoomTimeline, setZoomTimelineAux, setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading, setDatesData} = usePortfolioDispatch();
   const [actionsDone, setActionsDone] = useState<any>({});
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
   const [openPiney, setOpenPiney] = useState(false);
-  let pageWidth  = document.documentElement.scrollWidth;
+  const pageWidth  = document.documentElement.scrollWidth;
   const windowWidth: any = window.innerWidth;
-  let heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
-  let heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
-  let heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest-heightSearchHeader
-  let marginReducerHeaderAxis =
-    (windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' :
-      (windowWidth >= 2550 && windowWidth <= 3000 ? '-5.9px' :
-        (windowWidth >= 1450 && windowWidth <= 1500 ? '-5.9px' :
-          (windowWidth >= 1501 && windowWidth <= 1700 ? '-5.9px' :
-            (windowWidth >= 2001 && windowWidth <= 2549 ? '-5.9px' :
-              (windowWidth >= 1199 && windowWidth <= 1449 ? '-5.9px' : '-5.9px'))))));
+  const heightSearchHeader = document.getElementById('searchPortfolio')?.offsetHeight
+  const heightSearchtest = document.getElementById('tabsPM')?.offsetHeight
+  const heightSearch = (heightSearchtest && heightSearchHeader) && heightSearchtest - heightSearchHeader
+  const marginReducerHeaderAxis = windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' : '-5.9px';
 
   useEffect(() => {
     const controller = new AbortController();
@@ -62,9 +56,13 @@ const CalendarViewPag = ({
       controller.abort();
     };
   }, [currentGroup]);
-  return <>
-      {isLoading && <LoadingViewOverall></LoadingViewOverall>}
-    {openPiney && (
+  return (
+    <>
+    {
+      isLoading && <LoadingViewOverall />
+    }
+    {
+      openPiney && (
       <div className="phaseview-body">
         <div className="piney-text">
           <PineyView
@@ -75,10 +73,11 @@ const CalendarViewPag = ({
           />
         </div>
       </div>
-    )}
+      )
+    }
     <div className="dashed-line" id='todayLineDiv'></div> 
     <Row>
-      <Col xs={ { span: 10 }} lg={{ span: 5 }}>
+      <Col xs={{ span: 10 }} lg={{ span: 5 }}>
         <SearchDropdown />
       </Col>
       <Col xs={{ span: 34 }} lg={{ span: 19 }}>
@@ -86,16 +85,8 @@ const CalendarViewPag = ({
           <Row id='zoomButtons' style={{ margin: '9px 10px', marginBottom: '-6px' }} className='zoom-buttons'>
             <Col xs={{ span: 10 }} lg={{ span: 12 }} className='calendar-header'>
               <div className='calendar-text-header'>
-                {/* <Button
-                  className={zoomSelected === 'Today' ? "btn-view btn-view-active" : "btn-view"}
-                  onClick={() => { setIsZoomToday(true); setZoomSelected('Today'); setZoomTimeline(0); setZoomTimelineAux(0) }}
-                >
-                  Today
-                </Button>
-                <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span> */}
                 <Button
                   className={zoomSelected === 'Weekly' ? "btn-view btn-view-active" : "btn-view"}
-
                   onClick={() => { setIsZoomWeekly(true); setZoomSelected('Weekly'); setZoomTimeline(0); setIsLoading(true)}}
                 >
                   Daily
@@ -103,7 +94,6 @@ const CalendarViewPag = ({
                 <span style={{ marginRight: '0px', color: '#11093c', opacity: 0.6 }}> |</span>
                 <Button
                   className={zoomSelected === 'Monthly' ? "btn-view btn-view-active" : "btn-view"}
-
                   onClick={() => { setIsZoomMonthly(true); setZoomSelected('Monthly'); setZoomTimeline(0); setIsLoading(true)}}
                 >
                   Monthly
@@ -112,14 +102,19 @@ const CalendarViewPag = ({
             </Col>
             <Col xs={{ span: 10 }} lg={{ span: 12 }} style={openPiney ? (pageWidth > 1900 ? (pageWidth > 2550 ? ((pageWidth > 3800 ? { textAlign: 'end', paddingRight: '638px' } : { textAlign: 'end', paddingRight: '465px' })) : { textAlign: 'end', paddingRight: '396px' }) : { textAlign: 'end', paddingRight: '305px' }) : { textAlign: 'end', paddingRight: '15px' }} className='header-zoom'>
               <div>
-                {openPiney ? <><Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setDatesData(editData); setOpenModalTollgate(true); }}>
-                  <CalendarOutlined /> Edit Dates
-                </Button>
-                  <span style={{ marginRight: '10px', color: '#DBDBE1' }}></span>
-                </> : ''}
+                {
+                  openPiney &&
+                  <>
+                    <Button style={{ border: '1px solid transparent', background: 'none', color: '#11093C', opacity: '0.6', paddingRight: '10px', paddingTop: '0px', paddingBottom: '0px' }} onClick={() => { setDatesData(editData); setOpenModalTollgate(true); }}>
+                      <CalendarOutlined /> Edit Dates
+                    </Button>
+                    <span style={{ marginRight: '10px', color: '#DBDBE1' }}></span>
+                  </>
+                }
               </div>
-              {!openPiney && 
-                <div className="btn-collapse" >
+              {
+                !openPiney && 
+                <div className="btn-collapse">
                   <LeftOutlined onClick={(e) => {
                     e.stopPropagation();
                     setZoomTimeline(zoomTimeline -100)
@@ -128,13 +123,14 @@ const CalendarViewPag = ({
                   className="btn-arrow-porfolio"
                   />
                   <RightOutlined onClick={(e) => {
-                    e.stopPropagation();
-                    setZoomTimeline(zoomTimeline +100)
-                    setZoomTimelineAux(zoomTimelineAux +100)
-                  }}
-                  className="btn-arrow-porfolio"
+                      e.stopPropagation();
+                      setZoomTimeline(zoomTimeline +100)
+                      setZoomTimelineAux(zoomTimelineAux +100)
+                    }}
+                    className="btn-arrow-porfolio"
                   />
-                </div>}
+                </div>
+              }
             </Col>
           </Row>
           <Row>
@@ -145,30 +141,30 @@ const CalendarViewPag = ({
         </div>
       </Col>
     </Row>
-    {
-      <div
-        className="search"
-        style={{overflowY:'auto', height:heightSearch}}
-      >{
-          detailGroup?.map((elem: any, index: number) => {
-            return (
-              <div id={elem.id} key={elem.id}>
-                <CalendarGroups
-                  data={elem}
-                  index={index}
-                  tabKey={tabKey}
-                  actionsDone={actionsDone}
-                  setOpenPiney={setOpenPiney}
-                  setEditData={setEditData}
-                  dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
-                />
-              </div>
-            )
-          })
-        }
-      </div>
-    }
+    <div
+      className="search"
+      style={{overflowY:'auto', height:heightSearch}}
+    >
+      {
+        detailGroup?.map((elem: any, index: number) => {
+          return (
+            <div id={elem.id} key={elem.id}>
+              <CalendarGroups
+                data={elem}
+                index={index}
+                tabKey={tabKey}
+                actionsDone={actionsDone}
+                setOpenPiney={setOpenPiney}
+                setEditData={setEditData}
+                dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
+              />
+            </div>
+          )
+        })
+      }
+    </div>
   </>
+  );
 };
 
 export default CalendarViewPag;

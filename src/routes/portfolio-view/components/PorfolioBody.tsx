@@ -316,7 +316,6 @@ const PortafolioBody = ({
         <Tabs destroyInactiveTabPane={true} defaultActiveKey={displayedTabKey[1]}
           id="tabsPM"
           activeKey={tabKey}
-          // style={{zIndex:1}}
           onChange={(key) => changeTabkey(key)} className="tabs-map">
           {
             displayedTabKey.map((tk: string, idx: number) => {
