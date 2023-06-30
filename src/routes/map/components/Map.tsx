@@ -2200,6 +2200,9 @@ const Map = ({
         searchMarker.remove();        
         searchMarker = new mapboxgl.Marker({ color: "#F4C754", scale: 0.7 });
         searchMarker.setLngLat(coord);
+        map.on('flyend', function(){
+          console.log('flying = false;');
+        });
         map.once('moveend', (e:any) => { 
           const point = map.project(coord);
           const features = map.queryRenderedFeatures(point, { layers: ['counties-background', 'municipalities-background', 'watershed_service_areas-background'] });
@@ -2256,6 +2259,7 @@ const Map = ({
               ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
             }
           }
+          console.log('opups ', popups);
           if (popups.length) {
             setMobilePopups(mobile);
             setSelectedPopup(0);

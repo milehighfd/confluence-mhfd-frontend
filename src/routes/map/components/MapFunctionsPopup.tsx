@@ -180,19 +180,13 @@ export const addPopupServiceCountyMunicipality = (
     seeDetails,
     createProject
   };
-  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, eventFunctions);
+  const html = loadMenuPopupWithData(menuOptions, popups, userInformation, eventFunctions, undefined, undefined, undefined, ids);
   if (html) {
     searchPopup.remove();
     searchPopup = new mapboxgl.Popup({closeButton: true,});
     searchPopup.setLngLat(coord)
         .setDOMContent(html)
         .addTo(map);
-    for (const index in popups) {
-        document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-        document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-        document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-        document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
-    }
     let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
     closebuttons.forEach((element:any) => {
         element.addEventListener('click', () => {

@@ -175,7 +175,7 @@ const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userIn
   </>
 );
 export const loadIconsPopup = (menu: any, popups: any, index: any, showPopup: any, ids: any) => {
-  // console.log(menu,'menu', popups,'popups', index,'index')
+  console.log(menu,'menu', popups,'popups', index,'index', ids)
   const popup = popups[index];
   let icon
   ICON_POPUPS.forEach((element) => {
