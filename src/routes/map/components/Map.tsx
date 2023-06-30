@@ -499,17 +499,12 @@ const Map = ({
   }, [filterProblems,zoomEndCounter, dragEndCounter]);
   useEffect(() => {
     applyFilters(MHFD_PROJECTS, filterProjectOptions);
-  }, [projectsids,zoomEndCounter, dragEndCounter]);
-  useEffect(() => {
-    applyFilters(MHFD_PROJECTS, filterProjectOptions);
-  }, [groupedProjectIdsType]);
+  }, [groupedProjectIdsType,zoomEndCounter, dragEndCounter]);
 
   useEffect(() => {
     for (const component of COMPONENT_LAYERS.tiles) {
       applyFilters(component, filterComponentOptions);
     }
-    applyFilters(MHFD_PROJECTS, filterProjectOptions);
-    applyFilters(PROBLEMS_TRIGGER, filterProblems);
   }, [filterComponentOptions, paramComponents, componentsNobounds]);
 
     useEffect(() => {

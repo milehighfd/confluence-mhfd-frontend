@@ -129,10 +129,10 @@ export const loadMenuPopupWithData = (
                           )
                       )
                       :(maptype === MAPTYPES.CREATEPROJECTMAP ?
-                        loadMainPopupCreateMap(index, popups[index], eventFunctions['getDetailPage'],undefined ,userInformation) :
+                        loadMainPopupCreateMap(index, popups[index], eventFunctions,undefined ,userInformation) :
                       (menu === 'Project' ? 
-                      loadMainPopup(index, popups[index], eventFunctions['getDetailPage'], userInformation, true, popups[index].isEditPopup, maptype) : 
-                      loadMainPopup(index, popups[index], eventFunctions['getDetailPage'], userInformation, true, popups[index].isEditPopup, maptype)))
+                      loadMainPopup(index, popups[index], eventFunctions, userInformation, true, popups[index].isEditPopup, maptype) : 
+                      loadMainPopup(index, popups[index], eventFunctions, userInformation, true, popups[index].isEditPopup, maptype)))
                       }
                   </div>
                 )
@@ -145,9 +145,9 @@ export const loadMenuPopupWithData = (
 return popupNode;
 };
 
-const loadMainPopup = (id: number, item: any, getDetailPage: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean, mapType?:any) => (
+const loadMainPopup = (id: number, item: any, eventFunctions: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean, mapType?:any) => (
   <>
-    <MainPopup id={id} item={item} getDetailPage={getDetailPage} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false} mapType={mapType}></MainPopup>
+    <MainPopup id={id} item={item} eventFunctions={eventFunctions} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false} mapType={mapType}></MainPopup>
   </>
 );
 const loadMainPopupCreateMap = (id: number, item: any, test: Function, sw?: boolean, user?: any) => (
