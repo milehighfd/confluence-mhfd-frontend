@@ -701,7 +701,7 @@ const WorkRequestMap = ({
     }
   }, [map]);
 
-  const createProject = (details: any, event: any) => {
+  const createProject = (details: any) => {
     console.log('create project')
     //clear();
     popup.remove();

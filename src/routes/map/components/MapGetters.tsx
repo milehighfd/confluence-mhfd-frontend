@@ -95,7 +95,7 @@ export const loadMenuPopupWithData = (
             (
               menuOptions[0] == MENU_OPTIONS.MEASURES ?
                 loadMeasurePopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation)
-                : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation, maptype)
+                : loadComponentPopup(0, popups[0], !notComponentOptions.includes(menuOptions[0]), userInformation, maptype, eventFunctions)
             )
           )
           :(maptype === MAPTYPES.CREATEPROJECTMAP ?
@@ -123,7 +123,7 @@ export const loadMenuPopupWithData = (
                               loadMeasurePopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation) :
                               (maptype === MAPTYPES.CREATEPROJECTMAP ?
                               loadComponentPopupCreate(index, popups[index],!notComponentOptions.includes(menuOptions[index]))  :
-                              loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation, maptype)
+                              loadComponentPopup(index, popups[index], !notComponentOptions.includes(menuOptions[index]), userInformation, maptype, eventFunctions) // TODO: CHECK FOR FUNCTIONS 
                               )
                           )
                       )
@@ -164,9 +164,9 @@ const loadStreamPopup = (index: number, item: any) => (
     <StreamPopupFull id={index} item={item} ></StreamPopupFull>
   </>
 );
-const loadComponentPopup = (index: number, item: any, isComponent: boolean, userInformation: any, maptype: any) => (
+const loadComponentPopup = (index: number, item: any, isComponent: boolean, userInformation: any, maptype: any, eventFunctions: any) => (
   <>
-    <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} maptype={maptype} ></ComponentPopup>
+    <ComponentPopup id={index} item={item} isComponent={isComponent && (userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} maptype={maptype} eventFunctions={eventFunctions}></ComponentPopup>
   </>
 );
 const loadMeasurePopup = (index: number, item: any, isComponent: boolean, userInformation: any) => (

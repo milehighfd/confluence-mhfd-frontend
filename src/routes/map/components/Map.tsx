@@ -2043,7 +2043,7 @@ const Map = ({
         }
 
     }
-    const createProject = (details: any, event: any) => {
+    const createProject = (details: any) => {
       popup.remove();
         if (details.problemid) {
             setDataProblem({
