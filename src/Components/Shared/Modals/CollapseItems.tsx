@@ -122,7 +122,7 @@ export default forwardRef(({
   );
   const loadMainPopup = (item: any) => ReactDOMServer.renderToStaticMarkup (
       <>
-          <MainPopup id={-1} item={item} test={() => {}} detailPage={true} mapType={undefined}></MainPopup>
+          <MainPopup id={-1} item={item} getDetailPage={() => {}} detailPage={true} mapType={undefined}></MainPopup>
       </>
   );
   const updateZoom = () => {

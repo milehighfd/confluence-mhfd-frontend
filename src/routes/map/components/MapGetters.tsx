@@ -144,9 +144,9 @@ export const loadMenuPopupWithData = (
 return popupNode;
 };
 
-const loadMainPopup = (id: number, item: any, test: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean, mapType?:any) => (
+const loadMainPopup = (id: number, item: any, getDetailPage: (e: any) => void, userInformation: any, sw?: boolean, ep?: boolean, mapType?:any) => (
   <>
-    <MainPopup id={id} item={item} test={test} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false} mapType={mapType}></MainPopup>
+    <MainPopup id={id} item={item} getDetailPage={getDetailPage} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false} mapType={mapType}></MainPopup>
   </>
 );
 const loadMainPopupCreateMap = (id: number, item: any, test: Function, sw?: boolean, user?: any) => (
