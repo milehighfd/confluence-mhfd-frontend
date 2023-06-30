@@ -101,7 +101,7 @@ export const MainPopup = ({id, item, eventFunctions, sw, ep, detailPage, mapType
     </div>
 };
 
-export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
+export const MainPopupCreateMap = ({id, item, eventFunctions, sw, ep } : any) => {
   
   for (const key in item) {
         if (!item[key]) {
@@ -132,7 +132,7 @@ export const MainPopupCreateMap = ({id, item, test, sw, ep } : any) => {
           </div>
         </div>
         { !ep && <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display:'flex'}}>
-            {  (item.type != 'project') && <Button id={"buttonComponents-" + id} style={{ width: '50%', marginRight: '10px'}} className="btn-purple" >Add Actions</Button>}
+            {  (item.type != 'project') && <Button id={"buttonComponents-" + id} style={{ width: '100%', marginRight: '10px'}} onClick={() => eventFunctions['getComponentsFromProjProb'](item)} className="btn-purple" >Add Actions</Button>}
             {/* <Button id={"buttonPopup-" + id} style={{ width: item.type == 'project'? '100%' : '50%', color: '#28C499' }} className="btn-borde">See Details</Button> */}
         </div>} 
         

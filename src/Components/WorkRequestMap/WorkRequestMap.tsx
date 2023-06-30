@@ -1019,7 +1019,7 @@ useEffect(() => {
                           break;
                       }
                     })}})
-          const undefinedValues = groupedIdsBoardProjects.undefined?.undefined ?? [];
+          const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
           const newValues = [...(groupedIdsBoardProjects[1]?.[1] ?? []), ...undefinedValues];
           const result = {
             ...groupedIdsBoardProjects,

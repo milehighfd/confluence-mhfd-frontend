@@ -145,18 +145,6 @@ export const addPopupAndListeners = (
     popup.setLngLat(e.lngLat)
         .setDOMContent(html)
         .addTo(map);
-    for (const index in popups) {
-
-        // document.getElementById('menu-' + index)?.addEventListener('click', showPopup.bind(index, index, popups.length, ids[index]));
-        // document.getElementById('buttonPopup-' + index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index]));
-        // document.getElementById('buttonCreate-' + index)?.addEventListener('click', createProject.bind(popups[index], popups[index]));
-        // document.getElementById('buttonzoom-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'center',popups[index]));
-        // document.getElementById('buttondelete-'+index)?.addEventListener('click', measureCenterAndDelete.bind(popups[index], 'delete',popups[index]));
-        // document.getElementById('problemdetail'+ index)?.addEventListener('click', seeDetails.bind(popups[index], popups[index])) ;
-        // document.getElementById('component-' + index)?.addEventListener('click', addRemoveComponent.bind(popups[index], popups[index]));
-        // document.getElementById('buttonEdit-' + index)?.addEventListener('click', openEdit?.bind(popups[index], popups[index]));
-        document.getElementById('buttonComponents-' + index)?.addEventListener('click', getComponentsFromProjProb.bind(popups[index], popups[index]));
-    }
   }
 }
 export const addPopupServiceCountyMunicipality = (

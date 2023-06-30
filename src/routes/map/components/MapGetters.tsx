@@ -150,9 +150,9 @@ const loadMainPopup = (id: number, item: any, eventFunctions: (e: any) => void, 
     <MainPopup id={id} item={item} eventFunctions={eventFunctions} sw={sw || !(userInformation.designation === ADMIN || userInformation.designation === STAFF || userInformation.designation === GOVERNMENT_ADMIN || userInformation.designation === GOVERNMENT_STAFF)} ep={ep?ep:false} mapType={mapType}></MainPopup>
   </>
 );
-const loadMainPopupCreateMap = (id: number, item: any, test: Function, sw?: boolean, user?: any) => (
+const loadMainPopupCreateMap = (id: number, item: any, eventFunctions: any, sw?: boolean, user?: any) => (
   <>
-    <MainPopupCreateMap id={id} item={item} test={test} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
+    <MainPopupCreateMap id={id} item={item} eventFunctions={eventFunctions} sw={sw || !(user.designation === ADMIN || user.designation === STAFF)} ep={false}></MainPopupCreateMap>
   </>
 );
 const loadComponentPopupCreate = (index: number, item: any, isComponent: boolean, eventFunctions: any) => {
