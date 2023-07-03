@@ -21,6 +21,7 @@ import { getCurrentProjectStatus, getMainSponsor } from 'utils/parsers';
 import { useProjectDispatch } from 'hook/projectHook';
 import { SERVER } from 'Config/Server.config';
 import ApplyMapViewFilter from './ApplyMapViewFilter';
+import { useFilterContext } from 'utils/filterContext';
 
 const DetailedModal = React.lazy(() => import('Components/Shared/Modals/DetailedModal'));
 const MapAutoComplete = React.lazy(() => import('routes/map/components/MapAutoComplete'));
@@ -100,6 +101,11 @@ const MapView = () => {
     filterTabNumber,
     tutorialStatus,
   } = useMapState();
+
+  const {
+    setStaffValues
+  } = useFilterContext();
+
   const { detailed, displayModal } = useDetailedState();
   const [tabPosition, setTabPosition] = useState('1');
   const [toggleFilters, setToggleFilters] = useState(false);
@@ -540,7 +546,6 @@ const MapView = () => {
   const getLabel = useCallback(
     (key: any, value: any) => {
       const valueGroup = groupsLabels[key]?.filter((g: any) => g.id === value);
-      // console.log('here is the label', valueGroup, key, value, groupsLabels);
       return valueGroup[0]?.value;
     },
     [groupsLabels],
@@ -780,6 +785,7 @@ const MapView = () => {
         mhfdmanager: values[8]?.groups,
         lgmanager: values[9]?.groups
       });
+      setStaffValues(values[8]?.groups);
     });
     return controllers;
   };

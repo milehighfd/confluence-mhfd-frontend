@@ -81,6 +81,7 @@ import useMapResize from 'hook/custom/useMapResize';
 import useIsMobile from 'hook/custom/useIsMobile';
 import { areObjectsDifferent } from 'utils/comparators';
 import MapDropdownLayers from './MapDropdownLayers';
+import { useFilterContext } from 'utils/filterContext';
 
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
@@ -181,83 +182,86 @@ const Map = ({
     zoomProblemOrProject: zoom,
     projectsids
   } = useMapState();
-    let geocoderRef = useRef<HTMLDivElement>(null);
-    const divMapRef = useRef<HTMLDivElement>(null);
-    const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
-    const { notes , availableColors} = useNotesState();
-    const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
-    const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
-    const [mobilePopups, setMobilePopups] = useState<any>([]);
-    const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
-    const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
-    const [problemid, setProblemId ] = useState<any>(undefined);
-    const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
-    const [zoomValue, setZoomValue] = useState(0);
-    const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
-    const { addHistoric, getCurrent } = GlobalMapHook();
-    const [markersNotes, setMarkerNotes] = useState([]) ;
-    const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
-    const { userInformation, groupOrganization } = useProfileState();
-    const [visible, setVisible] = useState(false);
-    const [zoomEndCounter, setZoomEndCounter] = useState(0);
-    const [dragEndCounter, setDragEndCounter] = useState(0);
-    const [allLayers, setAllLayers] = useState<any[]>([]);
-    const [mapService] = useState<MapService>(new MapService());
-    const [commentVisible, setCommentVisible] = useState(false); // is set on open notes sidebar
-    const coorBounds: any[][] = [];
+  const {
+    mhfdmanagers
+  } = useFilterContext();
+  let geocoderRef = useRef<HTMLDivElement>(null);
+  const divMapRef = useRef<HTMLDivElement>(null);
+  const dropdownItems = { default: 1, items: MAP_DROPDOWN_ITEMS };
+  const { notes , availableColors} = useNotesState();
+  const { getNotes, createNote, editNote, setOpen, deleteNote } = useNoteDispatch();
+  const {setComponentsFromMap, getAllComponentsByProblemId, getComponentGeom, getZoomGeomProblem, getZoomGeomComp} = useProjectDispatch();
+  const [mobilePopups, setMobilePopups] = useState<any>([]);
+  const [activeMobilePopups, setActiveMobilePopups] = useState<any>([]);
+  const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
+  const [problemid, setProblemId ] = useState<any>(undefined);
+  const [problemClusterGeojson, setProblemClusterGeojson] = useState(undefined);
+  const [zoomValue, setZoomValue] = useState(0);
+  const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
+  const { addHistoric, getCurrent } = GlobalMapHook();
+  const [markersNotes, setMarkerNotes] = useState([]) ;
+  const [markerGeocoder, setMarkerGeocoder] = useState<any>(undefined);
+  const { userInformation, groupOrganization } = useProfileState();
+  const [visible, setVisible] = useState(false);
+  const [zoomEndCounter, setZoomEndCounter] = useState(0);
+  const [dragEndCounter, setDragEndCounter] = useState(0);
+  const [allLayers, setAllLayers] = useState<any[]>([]);
+  const [mapService] = useState<MapService>(new MapService());
+  const [commentVisible, setCommentVisible] = useState(false); // is set on open notes sidebar
+  const coorBounds: any[][] = [];
 
-    const [data, setData] = useState({
-        problemid: '',
-        id: '',
-        objectid: '',
-        value: '',
-        type: '',
-        cartoid: ''
-    });
+  const [data, setData] = useState({
+      problemid: '',
+      id: '',
+      objectid: '',
+      value: '',
+      type: '',
+      cartoid: ''
+  });
 
-    const [dataProblem, setDataProblem] = useState({
-        problemid: '',
-        id: '',
-        objectid: '',
-        value: '',
-        type: '',
-        cartoid: ''
-    });
-    const [ showDefault, setShowDefault ] = useState(false);
-    const isMobile = useIsMobile();
+  const [dataProblem, setDataProblem] = useState({
+      problemid: '',
+      id: '',
+      objectid: '',
+      value: '',
+      type: '',
+      cartoid: ''
+  });
+  const [ showDefault, setShowDefault ] = useState(false);
+  const isMobile = useIsMobile();
 
-    const handleComments = useCallback((event: any, note? :any) => {
-      const getText = event?.target?.value ? event.target.value : event ;
-      const getColorId = handleColor(availableColors);
-       if (!note) {
-      const note = {
+  const handleComments = useCallback((event: any, note? :any) => {
+    const getText = event?.target?.value ? event.target.value : event ;
+    const getColorId = handleColor(availableColors);
+      if (!note) {
+    const note = {
+      color_id: getColorId,
+      note_text: getText,
+      latitude: popup.getLngLat().lat,
+      longitude: popup.getLngLat().lng
+    }; 
+      newNote = note;
+      return;
+    }else {
+      const noteEdit = {
+        newnotes_id: note.newnotes_id,
         color_id: getColorId,
         note_text: getText,
-        latitude: popup.getLngLat().lat,
-        longitude: popup.getLngLat().lng
-      }; 
-        newNote = note;
-        return;
-      }else {
-        const noteEdit = {
-          newnotes_id: note.newnotes_id,
-          color_id: getColorId,
-          note_text: getText,
-          latitude: note.latitude,
-          longitude: note.longitude
-      };
-        currentNote = noteEdit;
-        isEdit =true
-        return;
-      }
-    }, [availableColors]);
-
-    const handleDeleteNote = (note: any) => {
-      let noteId = note.newnotes_id
-      deleteNote(noteId);
-      markerNote.remove();
-      popup.remove();
+        latitude: note.latitude,
+        longitude: note.longitude
+    };
+      currentNote = noteEdit;
+      isEdit =true
+      return;
     }
+  }, [availableColors]);
+
+  const handleDeleteNote = (note: any) => {
+    let noteId = note.newnotes_id
+    deleteNote(noteId);
+    markerNote.remove();
+    popup.remove();
+  }
     useEffect(()=>{
       const user = userInformation;
       if (user?.polygon[0]) {
@@ -1391,7 +1395,8 @@ const Map = ({
                         allFilters.push(['in', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[5] : PROPSPROBLEMTABLES.problems[5])], ['literal', [...filters]]]);
                         continue;
                     }
-                    if (typeof filters === 'object') {
+                    if (typeof filters === 'object' && filterField !== 'mhfdmanager') {
+                      console.log('yxxFilters', filters,filterField, mhfdmanagers);
                       if (filterField === 'solutioncost') {
                         const lower = filters[0];
                         const upper = filters[1];
@@ -1416,8 +1421,17 @@ const Map = ({
                           }
                         }
                       }
-                    } else {                        
-                      for (const filter of filters.split(',')) {
+                    } else {             
+                      let managers;
+                      if (filterField === 'mhfdmanager' && mhfdmanagers) {
+                          const mhfdmanagersArray = filters.map((mhfdmanager: any) => {
+                            const mhfdmanagerObject = (mhfdmanagers as any).find((mhfdmanagerObject: any) => mhfdmanagerObject.id === mhfdmanager);
+                            return mhfdmanagerObject?.value;
+                          });
+                          managers = mhfdmanagersArray.join(',');
+                      }    
+                      const filterToCheck = filterField !== 'mhfdmanager' ? filters : managers;      
+                      for (const filter of filterToCheck.split(',')) {
                         if (isNaN(+filter)) {
                           options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
                         } else {

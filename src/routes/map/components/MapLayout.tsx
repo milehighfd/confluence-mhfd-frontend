@@ -18,6 +18,7 @@ import { SELECT_ALL_FILTERS } from 'constants/constants';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
 import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import { FiltersContext } from 'utils/filterContext';
 
 const Map = React.lazy(() => import('routes/map/components/Map'));
 const MapView = React.lazy(() => import('routes/map/components/MapView'));
@@ -164,6 +165,7 @@ const MapLayout = () => {
   return (
     <Layout>
       <Navbar />
+      <FiltersContext>
       <Layout>
         <SidebarView></SidebarView>
         {safeLoading && <LoadingViewOverall />}
@@ -197,6 +199,7 @@ const MapLayout = () => {
           }
         </Layout>
       </Layout>
+      </FiltersContext>
     </Layout>
   );
 };
