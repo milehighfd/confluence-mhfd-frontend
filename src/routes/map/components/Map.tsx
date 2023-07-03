@@ -1367,9 +1367,6 @@ const Map = ({
                 if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
                   filters = 'Active,Closeout,Closed';
                 }
-                if (filterField === 'component_type') {
-                    showSelectedComponents(filters.split(','));
-                }
                 if (filterField === 'keyword') {
                     if (filters[key]) {
                         allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
@@ -1377,69 +1374,21 @@ const Map = ({
                 }
                 if (filters && filters.length) {
                     const options: any[] = ['any'];
-                    if (filterField === 'keyword') {
-                        continue;
-                    }
-                    if (filterField === 'component_type') {
-                        continue;
-                    }
-                    if (filterField === 'year_of_study') {
-                        for (const years of filters.split(',')) {
-                            const lowerArray: any[] = ['>=', ['get', filterField], +years];
-                            const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
-                            options.push(['all', lowerArray, upperArray]);
-
-                        }
-                        allFilters.push(options);
+                    if (
+                      filterField === 'keyword' ||
+                      filterField === 'completedyear' ||
+                      filterField === 'component_type' ||
+                      filterField === 'year_of_study' ||
+                      filterField === 'problemname' ||
+                      filterField === 'projectname' ||
+                      filterField === 'finalcost' ||
+                      filterField === 'projecttype' || 
+                      filterField === 'problemtypeProjects'
+                    ) {
                         continue;
                     }
                     if (filterField === 'components') {
                         allFilters.push(['in', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[5] : PROPSPROBLEMTABLES.problems[5])], ['literal', [...filters]]]);
-                        continue;
-                    }
-                    if (filterField === 'problemtypeProjects') {
-                        allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
-                        continue;
-                    }
-                    if (filterField === 'problemname' || filterField === 'projectname') {
-                        continue;
-                    }
-                    if (filterField === 'estimatedcost') {
-                      console.log('filter field estimated', filters);
-                        for (const range of filters) {
-                            const [lower, upper] = range.split(',');
-                            console.log('filters', lower, upper);
-                            const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +lower];
-                            const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +upper];
-                            const allFilter = ['all', lowerArray, upperArray];
-                            options.push(allFilter);
-                        }
-                        for (const range of toFilter['finalcost']) {
-                            const [lower, upper] = range.split(',');
-                            const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
-                            const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
-                            const allFilter = ['all', lowerArray, upperArray];
-                            options.push(allFilter);
-                        }
-                        allFilters.push(options);
-                        continue;
-                    }
-                    if (filterField === 'finalcost') {
-                        continue;
-                    }
-                    if (filterField === 'startyear') {
-                        const lowerArray: any[] = ['>=', ['get', filterField], +filters];
-                        const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
-                        if (+toFilter['completedyear'] !== 9999) {
-                            allFilters.push(['all', lowerArray, upperArray]);
-                        } else {
-                            if (+filters) {
-                                allFilters.push(lowerArray);
-                            }
-                        }
-                        continue;
-                    }
-                    if (filterField === 'completedyear') {
                         continue;
                     }
                     if (typeof filters === 'object') {
@@ -1455,7 +1404,7 @@ const Map = ({
                         options.push(allFilter);
                       } else {
                         for (const range of filters) {
-                          if(typeof range === 'string'){
+                          if(typeof range === 'string') {
                             const [lower, upper] = range.split(',');
                             const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +lower];
                             const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +upper];
@@ -1465,27 +1414,17 @@ const Map = ({
                             }
                             options.push(allFilter);
                           }
-                          
                         }
                       }
                     } else {                        
-                        for (const filter of filters.split(',')) {
-                            if (isNaN(+filter)) {
-                                if(filterField == 'projecttype') {
-                                  if(JSON.stringify(style.filter).includes(filter)) {
-                                    options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
-                                  }
-                                } else {
-                                  options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
-                                }
-                                
-                                  
-                                
-                            } else {
-                                const equalFilter: any[] = ['==', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +filter];
-                                options.push(equalFilter);
-                            }
+                      for (const filter of filters.split(',')) {
+                        if (isNaN(+filter)) {
+                          options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
+                        } else {
+                            const equalFilter: any[] = ['==', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +filter];
+                            options.push(equalFilter);
                         }
+                      }
                     }
                     
                     allFilters.push(options);
@@ -1533,7 +1472,7 @@ const Map = ({
                     }
                   }
                 });
-              }else{
+              } else {
                 map.setFilter(key + '_' + index, allFilters);
               }
             }
