@@ -525,9 +525,7 @@ const CalendarBody = ({
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarClicked').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.nameClicked').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-          d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-          d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);          
+          d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);         
           d3.selectAll('.labels').call(dotme);
         };
 
@@ -557,28 +555,13 @@ const CalendarBody = ({
           let idHovered = `#${d3.event.target.id}`;
           let colorHovered = d3.select(idHovered).style('fill')
           d3.select(idHovered).attr('class', 'stackedbarHover').style('stroke', colorHovered);
-          if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
-            d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
-            d3.select(idHovered).attr('class', 'stackedbarClicked');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
-          }
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
         });
         scheduleRects.on("mouseout", function (d: any) {
           setGraphicOpen(false);
           d3.selectAll('.stackedbarHover').attr('class', 'stackedbar').style('stroke', 'gray')
-          if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
-            d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
-            if (d3.select('.stackedbarClicked')) {
-              d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-            }
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
-          } else {
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar');
-          }
+          d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar');
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', 'white');
         });
@@ -594,11 +577,6 @@ const CalendarBody = ({
             let idHovered = `#${d3.event.target.id.slice(0, -5)}`
             let colorHovered = d3.select(idHovered).style('fill')
             d3.select(idHovered).attr('class', 'stackedbarHover').style('stroke', colorHovered);
-            if (d3.event.target.className.animVal === 'nameClicked') {
-              d3.selectAll('.nameClicked').attr('class', 'labels');
-              d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
-              d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked')
-            }
             let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
             d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
           }
@@ -606,15 +584,6 @@ const CalendarBody = ({
         rectNames.on("mouseout", (d: any) => {
           setGraphicOpen(false);
           d3.selectAll('.stackedbarHover').attr('class', 'stackedbar').style('stroke', 'gray')
-          if (d3.event.target.className.animVal === 'nameClicked') {
-            d3.selectAll('.nameClicked').attr('class', 'labels');
-            d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked')
-            if (d3.select('.stackedbarClicked')) {
-              d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-            }
-            d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
-          }
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', 'white');
         })
@@ -642,8 +611,6 @@ const CalendarBody = ({
 
           if (d3.event.target.id.includes('text')) {
             d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
-            d3.select(`#${d3.event.target.id.slice(0, -5)}_center`).attr('class', 'stackedbarCenterClicked');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'nameClicked');
           } else {
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
           }
@@ -668,22 +635,12 @@ const CalendarBody = ({
           setEditData(sendTollgate1)   
           setDatesData(sendTollgate1);   
           setOpenPiney(true);
-          if (!d3.event.target.id.includes('Title')) {
-            d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
-            backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
-          }
+          backgroundRects.attr('y', d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
           d3.event.stopPropagation();
         });
         svg.on('click', function () {
           d3.selectAll('.backgroundRectvisible').attr('class', 'backgroundRecthidden');
-          d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
-          d3.selectAll('.nameClicked').attr('class', 'labels');
-          if (d3.event.target.id.includes('center')) {
             d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-          } else {
-            d3.select('.stackedbarClicked').attr('class', 'stackedbar');
-          }
         });
 
         let MonthsToPixels = function (months: any) {
