@@ -45,6 +45,7 @@ const CalendarBody = ({
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
+  let shouldCallZoomed = true;
   const {
     filterProjectOptions,
   } = useMapState();
@@ -54,8 +55,7 @@ const CalendarBody = ({
   groupName = groupName === '?' ? '#questionMark' : groupName;
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
-  // const [isLoading, setIsLoading] = useState(false);
-  const { currentGroup, favorites,statusCounter, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
+  const { currentGroup, favorites, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
   const { 
     deleteFavorite, 
     addFavorite, 
@@ -75,11 +75,9 @@ const CalendarBody = ({
   const [dataDetail, setDataDetail] = useState();
   const [calendarData, setCalendarData] = useState<any>([]);
   const [currentZScale, setCurrentZScale] = useState(0.104);
-  const [zoomStatus, setZoomStatus] = useState(0);
   const [toData,setToData] = useState<any>([]);
   const [locations, setLocations] = useState<any>([]);
   const [datas, setDatas] = useState<any>([]);
-  const [svgState, setSvgState] = useState<any>();
   const [updateForDates, setUpdateForDates] = useState<any>(false);
   const windowWidth: any = window.innerWidth;
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
@@ -92,12 +90,7 @@ const CalendarBody = ({
   let today = new Date();
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
   let hasDateData = true;
-  let factortransformSVG = 
-  (windowWidth >= 3001 && windowWidth <= 3999 ? 8 : 
-    (windowWidth >= 2550 && windowWidth <= 3000 ? 8 : 
-      (windowWidth >= 1450 && windowWidth <= 2000 ? 8 : 
-        (windowWidth >= 2001 && windowWidth <= 2549 ? 8 : 
-          (windowWidth >= 1199 && windowWidth <= 1449 ? 8 : 8)))));
+  let factortransformSVG = 8;
   let heigthOfHeaderAxis =
     (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
       (windowWidth >= 2550 && windowWidth <= 3000 ? 70 :
@@ -198,20 +191,11 @@ const CalendarBody = ({
             }
           }
         });
-        let monthsBehind = 85 //(moment(today).diff(moment(fromData[0]?.from?.startOf('month')), 'M')) || 12;
-        let monthsAhead = 85 //(moment.max(endDates).diff(moment(today), 'M')) || 12;
+        let monthsBehind = 85;
         let timelineStartTime: any;
         let timelineEndTime: any;        
-        // if (monthsAhead > monthsBehind) {
-        //   timelineStartTime = moment(today).subtract(monthsAhead, 'months');
-        //   timelineEndTime = moment(today)
-        //     .add(monthsAhead, 'months')
-        //     .startOf('month');
-        // } else {
-          timelineStartTime = moment(today).subtract(monthsBehind, 'months');
-          timelineEndTime = moment(today).add(monthsBehind, 'months')
-            // .startOf('month');
-        // }
+        timelineStartTime = moment(today).subtract(monthsBehind, 'months');
+        timelineEndTime = moment(today).add(monthsBehind, 'months')
 
         let widhtDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
         width = widhtDiv - 3;
@@ -335,8 +319,17 @@ const CalendarBody = ({
           .selectAll()
           .data((d: any) => {
             return d.schedule;
-          });        
-        let button = svg.selectAll("button").data(datasets).enter().append("g");
+          });
+        const datasetFiltered = datasets.filter((d: any) => {
+          hasDateData = true;
+          if (d?.flag) {
+            hasDateData = false;
+          } else if (d?.id.includes('Title')) {
+            hasDateData = false;
+          }
+          return hasDateData;
+        });
+        let button = svg.selectAll("button").data(datasetFiltered).enter().append("g");
         button
           .append("rect")
           .attr('id', 'buttonRect')
@@ -357,27 +350,17 @@ const CalendarBody = ({
           })
           .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
           .style("fill", "#251863")
-          .style('visibility', (d: any) => {    
-            hasDateData = true;
-            if (d?.flag) {
-              hasDateData = false;
-            } else if (d?.id.includes('Title')) {
-              hasDateData = false;
-            }
-            return hasDateData ? 'visible' : 'hidden'
-          })
           .attr('stroke', '#251863')
           .style('stroke-linecap', 'round')
           .on("click", function (d: any) {
             const sendTollgate1 = { d, scheduleList: d?.code_phase_types }
-            console.log(d)
             setDatesData(sendTollgate1);
             setOpenModalTollgate(true);
           })
         hasDateData = true;
         svg
           .selectAll("editText")
-          .data(datasets)
+          .data(datasetFiltered)
           .enter()
           .append("text")
           .attr('id', 'buttonText')
@@ -395,15 +378,6 @@ const CalendarBody = ({
             let yScaleRect: any = yScale(d['id']);
             return yScaleRect + yAddButton
           })
-          .style('visibility', (d: any) => {
-            hasDateData = true;
-            if (d?.flag) {
-              hasDateData = false;
-            } else if (d?.id.includes('Title')) {
-              hasDateData = false;
-            }
-            return hasDateData ? 'visible' : 'hidden'
-          })
           .on("click", function (d: any) {            
             const sendTollgate1 = { d, scheduleList: d?.code_phase_types }
             console.log(d)
@@ -412,6 +386,7 @@ const CalendarBody = ({
           })
           ;
         hasDateData = true;
+
         let scheduleRects = scheduleG
           .enter().append('rect')
           .attr('id', function (d: any) {
@@ -458,51 +433,6 @@ const CalendarBody = ({
           .style('visibility', (d: any) => {
             return d.show ? 'visible' : 'hidden'
           })
-        hasDateData = true;
-        let scheduleRectsCenter = scheduleG
-          .enter().append('rect')
-          .attr('id', function (d: any) {
-            return `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_center`;
-          })
-          .attr('class', 'stackedbarCenter')
-          .attr('x', function (d: any) {
-            return (xScale(d['from']) || 0);
-          })
-          .attr('y', function (d: any) {
-            let yScaleId: any = (yScale(d['id']) || 0);
-            let yScaleParam = (windowWidth > 1501 && windowWidth < 1700 ? 9 : 0)
-            return yScaleId + 1 + yScaleParam;
-          })
-          .attr('width', function (d: any) {
-            let xScaleTo: any = (xScale(d['to']) || 0);
-            let xScaleFrom: any = (xScale(d['from']) || 0);
-            return  xScaleTo - xScaleFrom
-          })
-          .attr('height', barHeight - 2)
-          .attr('fill', function (d: any) {
-            let color = '';
-            let today = moment()
-            if (d.currentIndex > d.phaseIndex) {
-              color = 'Done'
-            } else if (d.currentIndex === d.phaseIndex) {
-              if (d?.to) {
-                const diffDates = (((d?.to).diff(today, 'M', true)))
-                if (diffDates < 0) {
-                  color = 'Overdue'
-                } else {
-                  color = 'Current'
-                }
-              } else {
-                color = 'Current'
-              }
-            } else {
-              color = 'NotStarted'
-            }
-            return colorScale[color]
-          })
-          .style('visibility', (d: any) => {
-            return d.show ? 'visible' : 'hidden'
-          });
         hasDateData = true
 
         let rectNames = scheduleG
@@ -547,10 +477,6 @@ const CalendarBody = ({
           let zoomedXScaleFrom: any = zoomedXScale((d['from']));
           return zoomedXScaleFrom || 0;
         };
-        let calcScheduleXInner = function (d: any) {
-          let zoomedXScaleFrom: any = zoomedXScale((d['from']));
-          return (zoomedXScaleFrom || 0) + 12;
-        };
         let calcScheduleXCenter = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale((d['from']));
           return (zoomedXScaleFrom || 0) + offsetBar
@@ -559,12 +485,6 @@ const CalendarBody = ({
           let zoomedXScaleFrom: any = zoomedXScale(d['from']);
           let zoomedXScaleTo: any = zoomedXScale(d['to']);
           return ((zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0)) > 0 ? (zoomedXScaleTo || 0) - (zoomedXScaleFrom || 0) : 0;
-        };
-        let calcScheduleWidthInner = function (d: any) {
-          let zoomedXScaleFrom: any = zoomedXScale(d['from']);
-          let zoomedXScaleTo: any = zoomedXScale(d['to']);
-          let widthcenter = zoomedXScaleTo - zoomedXScaleFrom - 24;
-          return widthcenter >= 0 ? widthcenter : 0;
         };
         let calcScheduleWidthText = function (d: any) {
           let zoomedXScaleFrom: any = zoomedXScale(d['from']);
@@ -576,38 +496,42 @@ const CalendarBody = ({
           text.each((d: any) => {
             const completeLabel = `${d['name']}`;
             const idText = `${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}_text`;
+            const rectElemId = `#${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') :d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`;
             const textElem: any = d3.select(`#${idText}`);
-            const rectElem = d3.select(`#${startsWithNumber(d.id) ? d.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : d.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}_${d.categoryNo}`);
+            const rectElem = d3.select(rectElemId);
             const padding = 15;
-            const rectElemWidth: any = rectElem.attr('width');
-            const totalWidth = rectElemWidth - padding;
-            textElem.text(completeLabel);
-            let it = 1;
-            if (totalWidth < 25) {
-              textElem.text('');
-            } else {
-              if (textElem.node()?.getComputedTextLength() > totalWidth - padding) {
-                while (textElem.node()?.getComputedTextLength() > totalWidth - padding && it < completeLabel.length) {
-                  textElem.text(completeLabel.slice(0, -it) + '...');
-                  it++;
+            if (rectElem === null) return;
+            try {
+              const rectElemWidth: any = rectElem.attr('width');
+              const totalWidth = rectElemWidth - padding;
+              textElem.text(completeLabel);
+              let it = 1;
+              if (totalWidth < 25) {
+                textElem.text('');
+              } else {
+                if (textElem.node()?.getComputedTextLength() > totalWidth - padding) {
+                  while (textElem.node()?.getComputedTextLength() > totalWidth - padding && it < completeLabel.length) {
+                    textElem.text(completeLabel.slice(0, -it) + '...');
+                    it++;
+                  }
                 }
               }
+            } catch(e) {
+              console.log(e);
             }
           });
         };
         let updateRects = function () {
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.stackedbarCenterClicked').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
           d3.selectAll('.stackedbarClicked').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
           d3.selectAll('.nameClicked').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
-          d3.selectAll('.stackedbarCenter').attr('x', calcScheduleXInner).attr('width', calcScheduleWidthInner);
           d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);
           d3.selectAll('.labelsAgrupation').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);          
           d3.selectAll('.labels').call(dotme);
         };
 
-        scheduleRectsCenter.on('mousemove', function (d: any) {
+        scheduleRects.on('mousemove', function (d: any) {
         
           let scheduleData = (d?.project_data?.code_phase_types?.find((x: any) =>
             d.phaseId === x.phase_id
@@ -630,7 +554,7 @@ const CalendarBody = ({
           let positionTop: any = d3.event.y - heightOfPopup-20;
           let positionLeft: any = d3.event.x - widthOfPopup / 2;
           setPositionModalGraphic(positionLeft, positionTop)
-          let idHovered = `#${d3.event.target.id.slice(0, -7)}`
+          let idHovered = `#${d3.event.target.id}`;
           let colorHovered = d3.select(idHovered).style('fill')
           d3.select(idHovered).attr('class', 'stackedbarHover').style('stroke', colorHovered);
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
@@ -641,36 +565,35 @@ const CalendarBody = ({
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', '#fafafa');
         });
-        scheduleRectsCenter.on("mouseout", (d: any) => {
+        scheduleRects.on("mouseout", function (d: any) {
           setGraphicOpen(false);
           d3.selectAll('.stackedbarHover').attr('class', 'stackedbar').style('stroke', 'gray')
           if (d3.event.target.className.animVal === 'stackedbarCenterClicked') {
             d3.selectAll('.stackedbarCenterClicked').attr('class', 'stackedbarCenter');
-            d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
             d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked')
             if (d3.select('.stackedbarClicked')) {
               d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
             }
-            d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
+            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
           } else {
-            d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbar');
+            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbar');
           }
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', 'white');
-        })
+        });
 
-        rectNames.on('mousemove', function () {
+        rectNames.on('mousemove', function (d: any) {
           if (d3.event.target.className.animVal !== 'labelsAgrupation') {
             setGraphicOpen(true);
             let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
             let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
             let positionTop: any = d3.event.y - heightOfPopup-20;
             let positionLeft: any = d3.event.x - widthOfPopup / 2;
-            setPositionModalGraphic(positionLeft,positionTop)
+            setPositionModalGraphic(positionLeft,positionTop);
             let idHovered = `#${d3.event.target.id.slice(0, -5)}`
             let colorHovered = d3.select(idHovered).style('fill')
             d3.select(idHovered).attr('class', 'stackedbarHover').style('stroke', colorHovered);
-            // d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarHover');
             if (d3.event.target.className.animVal === 'nameClicked') {
               d3.selectAll('.nameClicked').attr('class', 'labels');
               d3.select(`#${d3.event.target.id.slice(0, -5)}`).attr('class', 'stackedbarClicked');
@@ -695,36 +618,7 @@ const CalendarBody = ({
           let searchTextId = d3.event.target.id.substring(0, d3.event.target.id.indexOf('_'));
           d3.select(`#${searchTextId}`).style('background-color', 'white');
         })
-        scheduleRectsCenter.on('click', function (d: any) {
-          let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))          
-          setPineyData({
-            project_name: d.project_data.rowLabel,
-            phase: d.phase,
-            project_type: d.project_data.project_type,
-            phase_id: d.phaseId,
-            project_id: d.project_data.project_id,
-            d3_pos: 0,
-            d3_text: 0,
-            mhfd: d.mhfd,
-            estimated_cost: d.project_data.estimated_cost,
-            data: dataProject,
-            scheduleList: d?.project_data?.code_phase_types
-          })          
-          const sendTollgate1 = { d: dataProject, scheduleList: d?.project_data?.code_phase_types }
-          setDatesData(sendTollgate1);     
-          setEditData(sendTollgate1)      
-          setOpenPiney(true);
-          d3.selectAll('.stackedbarClicked').attr('class', 'stackedbar');
-          if (d3.event.target.id.includes('center')) {
-            d3.select(`#${d3.event.target.id.slice(0, -7)}`).attr('class', 'stackedbarClicked');
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarCenterClicked');
-            d3.select(`#${d3.event.target.id.slice(0, -7)}_text`).attr('class', 'nameClicked');
-          } else {
-            d3.select(`#${d3.event.target.id}`).attr('class', 'stackedbarClicked');
-          }
-          backgroundRects.attr('y', (d: any) => d3.event.target.y.animVal.value).attr('class', 'backgroundRectvisible');
-          d3.event.stopPropagation();
-        });
+
         rectNames.on('click', function (d:any) {
           let dataProject = (calendarData.find((x: any) => x.project_id === d.project_data.project_id))
           setPineyData({
@@ -832,16 +726,9 @@ const CalendarBody = ({
         let setTextPositionMonth = function (selection: any) {
           selection.each(function (this: any, d: any) {
             var widthMonth = this.getBBox().width,
-              nextMonthPos = zoomedXScale(d3.timeMonth.offset(d, 1)),
-              padding = 3,
               minPos = 0, maxPos = zoomedXScale.range()[1],
               x, opacity;
             x = zoomedXScale(d) + (MonthsToPixels(1) / 2); // center
-            // x = Math.max(minPos, x); // left-left
-            // x = Math.min(x, nextMonthPos - widthMonth - padding);  // left-right
-
-            // x = Math.min(x, maxPos - widthMonth); // right-right
-            // x = Math.max(x, zoomedXScale(d) + padding); // right-left
 
             if (x < minPos) {
               opacity = (x + widthMonth - minPos) / widthMonth;
@@ -852,7 +739,6 @@ const CalendarBody = ({
             }
             opacity =1;
             d3.select(this)
-              // .attr('x', (x >= 0 && x <= widthMonth / 2 + 15 ? widthMonth / 2 + 15 : x))
               .attr('x', x)
               .attr('opacity', opacity);
           });
@@ -860,17 +746,10 @@ const CalendarBody = ({
         let setTextPositionYear = function (selection: any) {
           selection.each(function (this: any, d: any) {
             var width = this.getBBox().width,
-              nextMonthPos = zoomedXScale(d3.timeYear.offset(d, 1)),
-              padding = 3,
               minPos = 0, maxPos = zoomedXScale.range()[1],
               x, opacity;
 
             x = zoomedXScale(d) + DaysToPixels(182) - width / 2; // center
-            // x = Math.max(minPos, x); // left-left
-            // x = Math.min(x, nextMonthPos - width - padding);  // left-right
-
-            // x = Math.min(x, maxPos - width); // right-right
-            // x = Math.max(x, zoomedXScale(d) + padding); // right-left
 
             if (x < minPos) {
               opacity = (x + width - minPos) / width;
@@ -972,34 +851,14 @@ const CalendarBody = ({
           nameUpdate = nameUpdate.transition().duration(300);
           nameExit = nameExit.transition().duration(300);
 
-          // UPDATE
-          // 
           nameUpdate
             .call(setTextPositionYear, zoomedXScale);
 
-          // EXIT
-          //
           nameExit
             .attr('opacity', 1e-6)
             .call(setTextPositionYear, zoomedXScale)
             .remove();
-        } // renderMonthNames
-
-        // scheduleG
-        //   .enter().append('line')
-        //   .attr('id', 'todayLine')
-        //   .attr('x1', function () {
-        //     return xScale(today);
-        //   })
-        //   .attr('y1', padding.top - 40)
-        //   .attr('x2', function () {
-        //     return xScale(today);
-        //   })
-        //   .attr('y2', height + padding.top - padding.bottom)
-        //   .style('stroke-dasharray', 5.5)
-        //   .style('stroke-width', 2)
-        //   .style('stroke', '#FF901C')
-        //   .style('fill', 'none');
+        }
 
         scheduleGaxis.enter().append("circle")
           .attr('id', 'todayCircle')
@@ -1009,36 +868,12 @@ const CalendarBody = ({
           .attr("cy", 10)
           .attr("r", 6)
           .style("fill", '#FF901C')
-        // scheduleGaxis
-        //   .enter().append('line')
-        //   .attr('id', 'todayLineAxis')
-        //   .attr('x1', function () {
-        //     return xScale(today);
-        //   })
-        //   .attr('y1', 10)
-        //   .attr('x2', function () {
-        //     return xScale(today);
-        //   })
-        //   .attr('y2', height + padding.top - padding.bottom)
-        //   .style('stroke-dasharray', 5.5)
-        //   .style('stroke-width', 2)
-        //   .style('stroke', '#FF901C')
-        //   .style('fill', 'none');
         zoomed = function () { 
+          if (!shouldCallZoomed) return;
+          console.log('before', new Date());
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 0.2) {
-            // renderMonthNames();
-            // renderYearNames();  
-            //d3.selectAll('#xDay').call((xAxisMonth as any).scale(zoomedXScale))
-            // gX.attr('class', 'topHeaderMChart');
-            // d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
-            // d3.selectAll('#xYear').call((xAxisYear as any).scale(zoomedXScale)) 
-            // d3.selectAll('#xAxisDay').call((xAxisMonth as any).scale(zoomedXScale))
-            // gXa.attr('class', 'topHeaderM');
-            // d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
-            // d3.selectAll('#xAxisYears').call((xAxisYear as any).scale(zoomedXScale))
-
             gX.attr('class', 'topHeaderMChart');
             d3.selectAll('#xMonth, #xYear, #xAxisDay, #xAxisMonth, #xAxisYears')
               .call((xAxisMonth as any).scale(zoomedXScale));
@@ -1050,19 +885,12 @@ const CalendarBody = ({
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
             d3.selectAll('#xDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
             gX.attr('class', 'topHeaderChart');
-            //d3.selectAll('#xYear').call((xAxisMonth as any).scale(zoomedXScale))
             d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
             d3.selectAll('#xAxisDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
             gXa.attr('class', 'topHeader');
-            //d3.selectAll('#xAxisYear').call((xAxisMonth as any).scale(zoomedXScale))
             d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
-            //d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'hidden');
           }
           updateRects();
-          // d3.selectAll('#todayLine').attr('x1', calctodayX);
-          // d3.selectAll('#todayLine').attr('x2', calctodayX);
-          // d3.selectAll('#todayLineAxis').attr('x1', calctodayX);
-          // d3.selectAll('#todayLineAxis').attr('x2', calctodayX);
           d3.selectAll('#todayCircle').attr('cx', calctodayX);
           const linesAxis:any = document.getElementsByTagName("line")
           if(linesAxis){
@@ -1072,6 +900,9 @@ const CalendarBody = ({
               }
             }
           }
+          console.log('after', new Date());
+          const stack = new Error().stack;
+          console.log(stack);
         };
         
         // setZoomState(zoomed)
@@ -1101,15 +932,20 @@ const CalendarBody = ({
           zoom.scaleTo(svgAxis, 0.9);
         }
         if (zoomSelected === 'Monthly') {
-          // delete after testing
-          //zoom.scaleTo(svg, 0.104);
-          //zoom.scaleTo(svgAxis, 0.104);
-          // zoom.scaleTo(svg, 0.104);
-          // zoom.scaleTo(svgAxis, 0.104);
+          // shouldCallZoomed = false;
           zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          shouldCallZoomed = false;
           zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          // shouldCallZoomed = true;
           zoom.translateTo(svgAxis, xScale(today), 0);
+          // shouldCallZoomed = false;
           zoom.translateTo(svg, xScale(today), 0)
+          shouldCallZoomed = true;
+
+          //TODO: Cesar revisar si es necesario registrar la funcion callback `zoomed` en el d3.zoom
+          // o es mejor usar esa funcion y llamarla programaticamente aqui.
+          // O tambien separar la funcion zoomed, en las cosas que depende de la escala y las cosas que no dependen.
+          // mantener una en el callback y el resto, llamarla 1 vez
         }
         
       }
@@ -1117,14 +953,6 @@ const CalendarBody = ({
    
     setIsLoading(false)
   }
-  const moveZoom = (newZoomValue: any, svg: any, svgAxis: any) => {
-    
-    if (zoomStatus !== newZoomValue) {
-      svg.transition().call(zoom.translateBy, newZoomValue,0);
-      svgAxis.transition().call(zoom.translateBy, newZoomValue,0);
-      setZoomStatus(newZoomValue);
-    }
-  };
 
   useEffect(() => {
     setIsLoading(true)
@@ -1349,7 +1177,6 @@ const CalendarBody = ({
         removeAllChildNodes(removechart);
       setZoomTimeline(0)
       timelineChart(datas);
-      setSvgState(svg);
     }
   }, [calendarData,windowWidth,datas]);
 
@@ -1402,14 +1229,6 @@ const CalendarBody = ({
       d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)
     }
     setIsLoading(false)
-    // if (svgState) {     
-    //   const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
-    //   const removechartAxis: any = document.getElementById('timeline-chart-axis');
-    //   removeAllChildNodes(removechart);
-    //   removeAllChildNodes(removechartAxis);
-    //   console.log('end2',datas)
-    //   timelineChart(datas);
-    // }
   }, [zoomTimeline]);
 
   useEffect(() => {
@@ -1457,7 +1276,7 @@ const CalendarBody = ({
     return () => {
       controller.abort();
     };
-  }, [ page, filterProjectOptions,updateForDates])
+  }, [page, filterProjectOptions, updateForDates])
 
   const deleteFunction = (id: number) => {
     deleteFavorite(id);
