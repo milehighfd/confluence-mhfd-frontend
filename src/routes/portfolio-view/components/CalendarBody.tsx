@@ -309,16 +309,17 @@ const CalendarBody = ({
           .data((d: any) => {     
             return d.schedule;
           });
+        let dataforAxis = [{toDraw:'1'}];
         let scheduleGaxis = svgAxis
           .append('g')
           .selectAll('g')
-          .data(datasets)
+          .data(dataforAxis)
           .enter()
           .append('g')
-          .attr('class', 'jurisdiction')
+          .attr('class', 'axis')
           .selectAll()
           .data((d: any) => {
-            return d.schedule;
+            return d.toDraw;
           });
         const datasetFiltered = datasets.filter((d: any) => {
           hasDateData = true;
@@ -1159,7 +1160,7 @@ const CalendarBody = ({
         (windowWidth >= 2550 && windowWidth <= 3000 ? -252 : 
           (windowWidth >= 2001 && windowWidth <= 2549 ? -196 : 
             (windowWidth >= 1450 && windowWidth <= 2000 ? -186 : 
-              (windowWidth >= 1199 && windowWidth <= 1449 ? -136 : -136)))));
+              (windowWidth >= 1199 && windowWidth <= 1449 ? -174 : -174)))));
 
       let factorTranslateDaily = 
       (windowWidth >= 3001 && windowWidth <= 3999 ? -378 : 
