@@ -524,10 +524,7 @@ const CalendarBody = ({
         };
         let updateRects = function () {
           d3.selectAll('.stackedbar').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.stackedbarHover').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.stackedbarClicked').attr('x', calcScheduleX).attr('width', calcScheduleWidth);
-          d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText);         
-          d3.selectAll('.labels').call(dotme);
+          d3.selectAll('.labels').attr('x', calcScheduleXCenter).attr('width', calcScheduleWidthText).call(dotme);
         };
 
         scheduleRects.on('mousemove', function (d: any) {
@@ -756,7 +753,7 @@ const CalendarBody = ({
           setTimeout(function () {
             d3.select('.topHeaderYear').selectAll('.name').call(setTextPositionMonth, zoomedXScale);
           }, 100);
-          name.attr('transform', function (d: any) { return (d3.event.transform.k < 0.2 ? 'translate(0,' + separationHeaderAxisInFunction + ')' : 'translate(0,' + 0 + ')') })
+          d3.selectAll('.name').attr('transform', (d3.event.transform.k < 0.2 ? 'translate(0,' + separationHeaderAxisInFunction + ')' : 'translate(0,' + 0 + ')'));
           nameUpdate = nameUpdate.transition().duration(300);
           nameExit = nameExit.transition().duration(300);
 
@@ -839,14 +836,12 @@ const CalendarBody = ({
             renderMonthNames();
             renderYearNames();
           } else {
-            renderMonthNames();
             d3.selectAll('.topHeaderMonth text').attr('visibility', 'hidden');
-            d3.selectAll('#xDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
+            d3.selectAll('#xDay, #xAxisDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
             gX.attr('class', 'topHeaderChart');
-            d3.selectAll('#xMonth').call((xAxisMonth as any).scale(zoomedXScale))
-            d3.selectAll('#xAxisDay').call((xAxisDay as any).scale(zoomedXScale)).call(adjustTextLabelsDays);
+            d3.selectAll('#xMonth, #xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
             gXa.attr('class', 'topHeader');
-            d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
+            renderMonthNames();
           }
           updateRects();
           d3.select('#todayCircle').attr('cx', calctodayX);
@@ -872,38 +867,15 @@ const CalendarBody = ({
             [width, 0],
           ])
           .on('zoom', zoomed);
-        if (zoomSelected === 'Today') {
-          // delete after testing
-          // zoom.translateTo(svg, xScale(today), 0);
-          // zoom.scaleTo(svg, 0.104);
-          // zoom.scaleTo(svgAxis, 0.104);
-          
-          zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
-          zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
-          d3.select('.topHeaderYearAxis').selectAll('.nameYear').attr('visibility', 'visible');
-          zoom.translateTo(svgAxis, xScale(today), 0);
-          zoom.translateTo(svg, xScale(today), 0)
-        }
+
         if (zoomSelected === 'Weekly') {
           zoom.transform(svg, d3.zoomIdentity.translate(0, 0).scale(0.9));
-          // zoom.scaleTo(svg, 0.9);
-          // zoom.scaleTo(svgAxis, 0.9);
+        
         }
         if (zoomSelected === 'Monthly') {
-          // shouldCallZoomed = false;
+          
           zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           shouldCallZoomed = false;
-          // zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
-          // // shouldCallZoomed = true;
-          // zoom.translateTo(svgAxis, xScale(today), 0);
-          // // shouldCallZoomed = false;
-          // zoom.translateTo(svg, xScale(today), 0)
-          // shouldCallZoomed = true;
-
-          //TODO: Cesar revisar si es necesario registrar la funcion callback `zoomed` en el d3.zoom
-          // o es mejor usar esa funcion y llamarla programaticamente aqui.
-          // O tambien separar la funcion zoomed, en las cosas que depende de la escala y las cosas que no dependen.
-          // mantener una en el callback y el resto, llamarla 1 vez
         }
         
       }
