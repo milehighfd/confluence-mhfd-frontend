@@ -1131,14 +1131,14 @@ const CalendarBody = ({
       (windowWidth >= 3001 && windowWidth <= 3999 ? -382 : 
         (windowWidth >= 2550 && windowWidth <= 3000 ? -252 : 
           (windowWidth >= 2001 && windowWidth <= 2549 ? -196 : 
-            (windowWidth >= 1450 && windowWidth <= 2000 ? -186 : 
+            (windowWidth >= 1450 && windowWidth <= 2000 ? -244 : 
               (windowWidth >= 1199 && windowWidth <= 1449 ? -174 : -174)))));
 
       let factorTranslateDaily = 
       (windowWidth >= 3001 && windowWidth <= 3999 ? -378 : 
         (windowWidth >= 2550 && windowWidth <= 3000 ? -249 : 
           (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
-            (windowWidth >= 1450 && windowWidth <= 2000 ? -182 : 
+            (windowWidth >= 1450 && windowWidth <= 2000 ? -99 : 
               (windowWidth >= 1199 && windowWidth <= 1449 ? -68 : -68)))));
 
       let factorToShowTodaylineDaily = 
@@ -1146,7 +1146,7 @@ const CalendarBody = ({
         (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
           (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
             (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 
-              (windowWidth >= 1199 && windowWidth <= 1449 ? 800 : 800)))));
+              (windowWidth >= 1199 && windowWidth <= 1449 ? 500 : 500)))));
 
       let factorToShowTodaylineMonthly = 
         (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
