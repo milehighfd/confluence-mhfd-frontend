@@ -759,7 +759,7 @@ const Roadmap = ({setOpenPiney,
         
       
       </Row>
-      <Row style={{opacity:'0.5'}}>
+      {/* <Row style={{opacity:'0.5'}}>
         <Col xs={{ span: 24 }} lg={{ span: 24 }} style={{display:'flex', alignItems:'center'}}>
           <h3 style={{paddingBottom:'15px', paddingTop:'20px', marginRight:'35px'}} id="graphical-view">GRAPHICAL VIEW</h3>
           <div className="line-01" style={{marginBottom:'15px', marginTop:'20px', width:'77%'}}></div>
@@ -779,7 +779,7 @@ const Roadmap = ({setOpenPiney,
             
           ): (<img src="/picture/phase.png" width='100%'/>)}
         </Col>
-      </Row>
+      </Row> */}
     </>
   )
 }
