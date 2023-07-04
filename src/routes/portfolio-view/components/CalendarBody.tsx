@@ -849,20 +849,20 @@ const CalendarBody = ({
             d3.selectAll('#xAxisMonth').call((xAxisMonth as any).scale(zoomedXScale))
           }
           updateRects();
-          d3.selectAll('#todayCircle').attr('cx', calctodayX);
-          const linesAxis:any = document.getElementsByTagName("line")
-          if(linesAxis){
-            for(let line of linesAxis){
-              if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
-                line.setAttribute('y2', 1000) 
-              }
-            }
-          }
+          d3.select('#todayCircle').attr('cx', calctodayX);
           console.log('after', new Date());
           const stack = new Error().stack;
           console.log(stack);
         };
         
+        const linesAxis:any = document.getElementsByTagName("line")
+        if(linesAxis){
+          for(let line of linesAxis){
+            if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
+              line.setAttribute('y2', 1000) 
+            }
+          }
+        }
         // setZoomState(zoomed)
         zoom = d3
           .zoom()
@@ -885,20 +885,20 @@ const CalendarBody = ({
           zoom.translateTo(svg, xScale(today), 0)
         }
         if (zoomSelected === 'Weekly') {
-
-          zoom.scaleTo(svg, 0.9);
-          zoom.scaleTo(svgAxis, 0.9);
+          zoom.transform(svg, d3.zoomIdentity.translate(0, 0).scale(0.9));
+          // zoom.scaleTo(svg, 0.9);
+          // zoom.scaleTo(svgAxis, 0.9);
         }
         if (zoomSelected === 'Monthly') {
           // shouldCallZoomed = false;
           zoom.transform(svg, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
           shouldCallZoomed = false;
-          zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          // zoom.transform(svgAxis, d3.zoomIdentity.translate(xScale(today), 0).scale(0.104));
+          // // shouldCallZoomed = true;
+          // zoom.translateTo(svgAxis, xScale(today), 0);
+          // // shouldCallZoomed = false;
+          // zoom.translateTo(svg, xScale(today), 0)
           // shouldCallZoomed = true;
-          zoom.translateTo(svgAxis, xScale(today), 0);
-          // shouldCallZoomed = false;
-          zoom.translateTo(svg, xScale(today), 0)
-          shouldCallZoomed = true;
 
           //TODO: Cesar revisar si es necesario registrar la funcion callback `zoomed` en el d3.zoom
           // o es mejor usar esa funcion y llamarla programaticamente aqui.
@@ -1167,7 +1167,7 @@ const CalendarBody = ({
         (windowWidth >= 2550 && windowWidth <= 3000 ? -249 : 
           (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
             (windowWidth >= 1450 && windowWidth <= 2000 ? -182 : 
-              (windowWidth >= 1199 && windowWidth <= 1449 ? -132 : -132)))));
+              (windowWidth >= 1199 && windowWidth <= 1449 ? -68 : -68)))));
 
       let factorToShowTodaylineDaily = 
       (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
@@ -1207,7 +1207,7 @@ const CalendarBody = ({
       const svg = d3.select(svgDivWrapperId).select('svg');
       if (!svg.empty()) {
         if (zoomSelected === 'Weekly' && wasMonthly === true ){
-          const newValuePan = (zoomTimelineAux === 0 ? 100: (8.8333333 * zoomTimelineAux + 33.333333))
+          const newValuePan = (zoomTimelineAux === 0 ? 0.1: (8.8333333 * zoomTimelineAux + 33.333333))
           setZoomTimeline(newValuePan )
         } else if (zoomSelected === 'Monthly'&& wasMonthly === false){
           const newValuePan = ((zoomTimelineAux -33.3333333)/8.8333333)
