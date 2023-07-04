@@ -156,10 +156,10 @@ export const MenuPopup = ({title, menuOptions, popups, ids, eventFunctions, user
       case menu === MENU_OPTIONS.MEP_CHANNEL:
         iconLocation = '/Icons/icon-mep-channel.png';
         break;
-      case menu === 'Stream Improvement Measure' && popup.type === 'Stream Improvement - Continuous Improvement':
+      case menu.includes('Stream Improvement Measure') && popup.type === 'Stream Improvement - Continuous Improvement':
         iconLocation = '/Icons/ic-stream-continuous.png';
         break;
-      case menu === 'Stream Improvement Measure' && popup.type === 'Stream Improvement - Bank Stabilization':
+      case menu.includes('Stream Improvement Measure') && popup.type === 'Stream Improvement - Bank Stabilization':
         iconLocation = '/Icons/ic-stream-bank.png';
         break;
       case menu.includes('Stream Improvement Measure'):
@@ -168,6 +168,7 @@ export const MenuPopup = ({title, menuOptions, popups, ids, eventFunctions, user
         iconLocation = '/Icons/icon-75.svg';
         break;
     }
+    console.log('This is the icon supossed', menu, iconLocation);
     if (menu) {
       return (
         <Button
