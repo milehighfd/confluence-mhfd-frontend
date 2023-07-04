@@ -327,70 +327,49 @@ export default forwardRef(({
 
               if (COMPONENT_LAYERS.tiles.includes( key)) {
                 const problemid = (e.features[0].properties.problem_id ? e.features[0].properties.problem_id :'');
-                          let problemname = '';
-                          // if(problemid) {
-                          //   if (e.source === STREAM_IMPROVEMENT_MEASURE){
-                          //     let aw = await datasets.getData(SERVER.PROBLEMNNAMECOMP+problemid, datasets.getToken());
-                          //     problemname = aw.problem_name;
-                          //   } else {
-                          //     let aw = await datasets.getData(SERVER.PROBLEMNAME+"/"+problemid, datasets.getToken());
-                          //     problemname = aw[0]?.problemname;
-                          //   }
-                          // }
-
-                let volume 
-              if(e.features[0].source === 'detention_facilities'){
+                let problemname = '';
+                let volume ;
+                if(e.features[0].source === 'detention_facilities'){
                   volume = {volume:e.features[0].properties.detention_volume? e.features[0].properties.detention_volume : '-'}
-              }
-              let item;
-
-              if(e.features[0].source === STREAM_IMPROVEMENT_MEASURE ) {
-                item = {
-                  layer: MENU_OPTIONS.COMPONENTS,
-                  type: getTitleOfStreamImprovements(e.features[0].properties),
-                  subtype: e.features[0].properties.complexity_subtype ? e.features[0].properties.complexity_subtype : '-',
-                  estimatedcost: e.features[0].properties.estimated_cost_base ? e.features[0].properties.estimated_cost_base : '-',
-                  studyname: e.features[0].properties.source_name ? e.features[0].properties.source_name : '-',
-                  studyyear: e.features[0].properties.source_complete_year ? e.features[0].properties.source_complete_year: '-',
-                  streamname: e.features[0].properties.stream_name ? e.features[0].properties.stream_name : '-',
-                  local_gov: e.features[0].properties.local_government ? e.features[0].properties.local_government: '-',
-                  objectid: e.features[0].properties.objectid?e.features[0].properties.objectid:'-',
-                  table: e.features[0].source ? e.features[0].source : '-',
-                  problem: problemname,
-                  ...volume
                 }
-              } else {
-                  item= {
+                let item;
+                if(e.features[0].source === STREAM_IMPROVEMENT_MEASURE ) {
+                  item = {
                     layer: MENU_OPTIONS.COMPONENTS,
-                    type: e.features[0].properties.type ? e.features[0].properties.type : '-',
-                    subtype: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
-                    status: e.features[0].properties.status ? e.features[0].properties.status : '-',
-                    estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
-                    studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
-                    studyyear: e.features[0].properties.year_of_study ? e.features[0].properties.year_of_study: '-',
-                    jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                    original_cost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
-                    table: e.features[0].source ? e.features[0].source : '-',
-                    cartodb_id: e.features[0].properties.cartodb_id? e.features[0].properties.cartodb_id: '-',
-                    problem: problemname,
-                    problemid: problemid,
+                    type: getTitleOfStreamImprovements(e.features[0].properties),
+                    subtype: e.features[0].properties.complexity_subtype ? e.features[0].properties.complexity_subtype : '-',
+                    estimatedcost: e.features[0].properties.estimated_cost_base ? e.features[0].properties.estimated_cost_base : '-',
+                    studyname: e.features[0].properties.source_name ? e.features[0].properties.source_name : '-',
+                    studyyear: e.features[0].properties.source_complete_year ? e.features[0].properties.source_complete_year: '-',
+                    streamname: e.features[0].properties.stream_name ? e.features[0].properties.stream_name : '-',
+                    local_gov: e.features[0].properties.local_government ? e.features[0].properties.local_government: '-',
                     objectid: e.features[0].properties.objectid?e.features[0].properties.objectid:'-',
-                    streamname: e.features[0].properties.drainageway,
-                    ...volume,
-                  };
-                }
-
-                // const item = {
-                //     layer: MENU_OPTIONS.COMPONENTS,
-                //     subtype: e.features[0]?.properties?.type ? e.features[0]?.properties?.type : '-',
-                //     status: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
-                //     estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
-                //     studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
-                //     jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
-                //     problem: problemname
-                // };
+                    table: e.features[0].source ? e.features[0].source : '-',
+                    problem: problemname,
+                    ...volume
+                  }
+                } else {
+                    item= {
+                      layer: MENU_OPTIONS.COMPONENTS,
+                      type: e.features[0].properties.type ? e.features[0].properties.type : '-',
+                      subtype: e.features[0].properties.subtype ? e.features[0].properties.subtype : '-',
+                      status: e.features[0].properties.status ? e.features[0].properties.status : '-',
+                      estimatedcost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                      studyname: e.features[0].properties.mdp_osp_study_name ? e.features[0].properties.mdp_osp_study_name : '-',
+                      studyyear: e.features[0].properties.year_of_study ? e.features[0].properties.year_of_study: '-',
+                      jurisdiction: e.features[0].properties.jurisdiction ? e.features[0].properties.jurisdiction : '-',
+                      original_cost: e.features[0].properties.original_cost ? e.features[0].properties.original_cost : '-',
+                      table: e.features[0].source ? e.features[0].source : '-',
+                      cartodb_id: e.features[0].properties.cartodb_id? e.features[0].properties.cartodb_id: '-',
+                      problem: problemname,
+                      problemid: problemid,
+                      objectid: e.features[0].properties.objectid?e.features[0].properties.objectid:'-',
+                      streamname: e.features[0].properties.drainageway,
+                      ...volume,
+                    };
+                  }
                 html = loadComponentPopup(item);
-            }
+              }
               if (key === MEP_PROJECTS_TEMP_LOCATIONS) {
                   const item = {
                       layer: MENU_OPTIONS.MEP_TEMPORARY_LOCATION,
