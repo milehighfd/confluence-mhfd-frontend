@@ -532,7 +532,7 @@ const DetailModal = ({
             className={openSecction === 4 ? "header-body-modal header-body-modal-active" : "header-body-modal"}
             style={!activeScroll ? {cursor:'default'}:{cursor:'pointer'}}
           >Project Roadmap</p>
-          <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</p>
+          {/* <p style={{opacity:'0.25'}} className={openSecction === 5 ? "header-body-modal header-body-modal-active" : "header-body-modal"} >Graph</p> */}
           {appUser && appUser.designation && (appUser.designation === ADMIN || appUser.designation === STAFF)  && <p
             onClick={()=>{
               activeTab(6, "#project-financials");
