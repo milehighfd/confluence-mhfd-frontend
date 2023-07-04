@@ -2032,6 +2032,7 @@ const Map = ({
         setVisibleCreateProject(true);
     }
     useEffect(()=>{
+      console.log('data robot', dataProblem, visibleCreateProject);
       if(visibleCreateProject && dataProblem.problemid){
         getZoomGeomProblem(dataProblem.problemid);
       }

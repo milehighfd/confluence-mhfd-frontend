@@ -2,6 +2,8 @@ import * as types from 'store/types/ProjectTypes';
 import * as datasets from "Config/datasets";
 import { SERVER } from "Config/Server.config";
 import { loadOneColumn } from 'store/actions/requestActions';
+import * as turf from '@turf/turf';
+import { depth } from 'routes/map/components/MapFunctionsUtilities';
 
 export const saveSpecial = (data: any) => {
   return ( dispatch: Function, getState: Function) => {
@@ -543,7 +545,16 @@ export const setComponentGeom = (componentGeom: any) => {
 export const getZoomGeomComp = (table:any, objectid: any) => {
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_COMPONENT_GEOM,{table, objectid}, datasets.getToken()).then( zoomGeom => {
-      dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
+      const geom = JSON.parse(zoomGeom.geom);
+      const DEPTH = depth(geom?.coordinates);
+      let poly;
+      if (DEPTH == 4) {
+        poly = turf.multiPolygon(geom?.coordinates, { name: 'zoomarea' });
+      } else {
+        poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+      }
+      let bboxBounds = turf.bbox(poly);
+      dispatch({type: types.SET_ZOOM_GEOM, zoomGeom: [[bboxBounds[0], bboxBounds[1]], [bboxBounds[2], bboxBounds[3]]]})
     })
   }
 }
@@ -551,7 +562,16 @@ export const getZoomGeomProblem = (problemid: any) => {
   
   return (dispatch: Function) => {
     datasets.postData(SERVER.GET_PROBLEM_GEOM,{problemid}, datasets.getToken()).then( zoomGeom => {
-      dispatch({type: types.SET_ZOOM_GEOM, zoomGeom})
+      const geom = JSON.parse(zoomGeom.geom);
+      const DEPTH = depth(geom?.coordinates);
+      let poly;
+      if (DEPTH == 4) {
+        poly = turf.multiPolygon(geom?.coordinates, { name: 'zoomarea' });
+      } else {
+        poly = turf.polygon(geom?.coordinates, { name: 'zoomarea' });
+      }
+      let bboxBounds = turf.bbox(poly);
+      dispatch({type: types.SET_ZOOM_GEOM, zoomGeom: [[bboxBounds[0], bboxBounds[1]], [bboxBounds[2], bboxBounds[3]]]})
     })
   }
 }

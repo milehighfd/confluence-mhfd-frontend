@@ -72,16 +72,17 @@ export const loadMenuPopupWithData = (
   maptype?: any,
   ids?: any,
 ) => {
+  const firstItemOfMenu = menuOptions[0];
   const popupNode = document.createElement('div');
   console.log('eventFunctions', eventFunctions, menuOptions);
   ReactDOM.render(
     <>
-      {menuOptions[0] === MENU_OPTIONS.MEASURES ? (
+      {firstItemOfMenu === MENU_OPTIONS.MEASURES ? (
         <MeasurePopup
           id={0}
           item={popups[0]}
           isComponent={
-            !notComponentOptions.includes(menuOptions[0]) &&
+            !notComponentOptions.includes(firstItemOfMenu) &&
             (userInformation.designation === ADMIN ||
               userInformation.designation === STAFF ||
               userInformation.designation === GOVERNMENT_ADMIN ||
