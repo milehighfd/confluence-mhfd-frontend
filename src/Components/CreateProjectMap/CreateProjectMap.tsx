@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import ReactDOMServer from 'react-dom/server';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../../utils/MapService';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -157,7 +156,6 @@ const CreateProjectMap = (type: any) => {
   const { groupOrganization } = useProfileState();
   const [idsBoardProjects, setIdsBoardProjects] = useState(boardProjectsCreate);
   const [layerFilters, setLayerFilters] = useState(layers);
-  const [visible, setVisible] = useState(false);
   const [localAOI, setLocalAOI] = useState(type.locality);
   const [coordinatesJurisdiction, setCoordinatesJurisdiction] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -497,11 +495,6 @@ const CreateProjectMap = (type: any) => {
     }
   }, [componentsHover, flagtoDraw]);
 
-  useEffect(() => {
-    if (data.problemid || data.cartoid) {
-      setVisible(true);
-    }
-  }, [data]);
   useEffect(() => {
     if (isAddLocation) {
       isPopup = false;
@@ -1352,7 +1345,6 @@ const CreateProjectMap = (type: any) => {
     }
   };
   const test = (item: any) => {
-    setVisible(true);
     setData(item);
     if (item.problemid) {
       existDetailedPageProblem(item.problemid);
@@ -1776,16 +1768,6 @@ const CreateProjectMap = (type: any) => {
           ''
         )}
         <div id="map3" style={{ height: '100%', width: '100%' }}></div>
-
-        {visible && (
-          <DetailedModal
-            detailed={detailed}
-            type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-            data={data}
-            visible={visible}
-            setVisible={setVisible}
-          />
-        )}
         <div className="m-head">
           <MapDropdownLayers
             selectCheckboxes={selectCheckboxes}

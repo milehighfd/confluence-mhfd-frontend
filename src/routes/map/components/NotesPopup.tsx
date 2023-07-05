@@ -4,7 +4,7 @@ import { divListOfColors, divDelete } from 'Components/Map/commetsFunctions';
 import { MoreOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
 
-export const CommentPopupDiv = ({note, handleClick, handleDelete, handleComments}: any) => (
+export const NotesPopupDiv = ({note, handleClick, handleDelete, handleComments}: any) => (
   <div className="popup-comment">
     <div className="headmap">
       <Button

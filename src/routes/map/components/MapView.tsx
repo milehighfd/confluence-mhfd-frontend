@@ -137,7 +137,6 @@ const MapView = () => {
   const [keywordProject, setKeywordProject] = useState(
     filterProjectOptions.keyword ? filterProjectOptions.keyword : '',
   );
-  const [visible, setVisible] = useState(useLocation().search ? true : false);
   const location = useLocation().search;
   const [data, setData] = useState({
     problemid: '',
@@ -1048,17 +1047,6 @@ const MapView = () => {
         </p>
       </div>
       <div className="count" style={{ paddingBottom: '0px', marginTop: '1px' }}>
-        {displayModal && visible && (
-          <React.Suspense fallback={<div>...</div>}>
-            <DetailedModal
-              detailed={detailed}
-              type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-              data={data}
-              visible={visible}
-              setVisible={setVisible}
-            />
-          </React.Suspense>
-        )}
         {groupOrganization && <MapAutoComplete onAutoCompleteSelected={onSelect} />}
         <div className="head-filter mobile-display">
           <Row justify="space-around" align="middle">

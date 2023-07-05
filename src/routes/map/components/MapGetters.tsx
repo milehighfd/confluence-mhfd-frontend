@@ -10,7 +10,7 @@ import {
   GOVERNMENT_ADMIN,
   GOVERNMENT_STAFF
 } from '../../../constants/constants';
-import { CommentPopupDiv } from './CommentPopup';
+import { NotesPopupDiv } from './NotesPopup';
 import { MenuPopup } from './MenuPopup';
 
 const notComponentOptions: any[] = [
@@ -37,7 +37,7 @@ const notComponentOptions: any[] = [
   MENU_OPTIONS.MEASURES,
 ];
 
-export const commentPopup = (handleComments: any, handleDeleteNote?: any, note?: any) => {
+export const notesPopup = (handleComments: any, handleDeleteNote?: any, note?: any) => {
   const handleClick = (e: any) => {
     let colorCurrent = document.getElementById('colorable');
     let currentText = document.getElementById('textarea');
@@ -51,7 +51,7 @@ export const commentPopup = (handleComments: any, handleDeleteNote?: any, note?:
   };
   const popupNode = document.createElement('div');
   ReactDOM.render(
-    <CommentPopupDiv
+    <NotesPopupDiv
       note={note}
       handleClick={handleClick}
       handleDelete={handleDelete}

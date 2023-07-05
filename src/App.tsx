@@ -19,7 +19,6 @@ const SignUpRoute = lazy(() => import('./routes/sign-up'));
 const ResetPasswordRoute = lazy(() => import('./routes/reset-password'));
 const MapRoute = lazy(() => import('./routes/map'));
 const Unauthorized = lazy(() => import('./Components/Unauthorized/Unauthorized'));
-const DetailedPageView = lazy(() => import('./Components/DetailedPage/DetailedPageView'));
 const RequestRoute = lazy(() => import('./routes/work-request/index'));
 const maptest = lazy(() => import('./routes/maptest'));
 const DetailedModal = lazy(() => import('./routes/detail-page/components/DetailModal'));
@@ -41,7 +40,6 @@ const App = () => {
         <Route path={`/reset-password`} component={ResetPasswordRoute} />
         <Route path={`/confirm-password`} component={ConfirmPasswordLayout} />
         <Route path={'/404'} component={Unauthorized} />
-        <Route path={`/detailed-page`} component={DetailedPageView} />
         <Route path={`/detailed-modal`} component={DetailedModal} />
         <Route path={`/maptest`} component={maptest} />
         <Route path={`/user-settings`} component={UserManagement} />

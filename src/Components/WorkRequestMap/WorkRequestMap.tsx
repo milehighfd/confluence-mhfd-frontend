@@ -4,7 +4,6 @@ import { Input, AutoComplete } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import * as turf from '@turf/turf';
 import { MapService } from 'utils/MapService';
-import DetailedModal from 'Components/Shared/Modals/DetailedModal';
 import EventService from 'services/EventService';
 import { getData, getToken, postDataAsyn, postData } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
@@ -155,7 +154,6 @@ const WorkRequestMap = ({
     projectsids,
     autocomplete,
   } = useMapState();
-  const { detailed } = useDetailedState();
   const {
     mapSearchQuery,
     setSelectedPopup,
@@ -1714,15 +1712,6 @@ useEffect(() => {
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
         </span>
         <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
-        {visible && (
-          <DetailedModal
-            detailed={detailed}
-            type={data?.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-            data={data}
-            visible={visible}
-            setVisible={setVisible}
-          />
-        )}
         <div className="m-head">
           <MapDropdownLayers
             selectCheckboxes={selectCheckboxes}

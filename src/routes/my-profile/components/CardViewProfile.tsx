@@ -16,7 +16,6 @@ const CardsViewProfile = ({
   detailed: any,
   deleted: Function
 }) => {
-  const [visible, setVisible] = useState(false);
   const [clicked, setClicked] = useState(true);
   const getComponentSizes = (components: Array<ComponentType>) => {
     if (components && components.length) {
@@ -29,25 +28,9 @@ const CardsViewProfile = ({
       return '';
     }
   }
-  const dataInformation = {
-    problemid: data.problemid,
-    id: data.projectid,
-    objectid: data.objectid,
-    value: data.cartodb_id,
-    type: data.type
-  };
-
   return <>
-  {visible && <DetailedModal
-  detailed={detailed}
-  type={type}
-  data={dataInformation}
-  visible={visible}
-  setVisible={setVisible}
-  />}
     <Col xs={{ span: 24 }} lg={{ span: 8 }} style={{ width: '100%', display: 'inline-flex', alignSelf: 'stretch', paddingBottom: '15px', paddingLeft:'0px', paddingRight:'0px' }}>
       <Card
-        onClick={() => setVisible(true)}
         // hoverable
         style={{ width: '100%' }}
         className="card-information"

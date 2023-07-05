@@ -69,7 +69,7 @@ import { flytoBoundsCoor, getTitle, polyMask, depth, waitingInterval} from 'rout
 import { GlobalMapHook } from 'utils/globalMapHook';
 import MobileMenu from 'routes/map/components/MobileMenu';
 import SideMenuTools from 'routes/map/components/SideMenuTools';
-import { commentPopup } from 'routes/map/components/MapGetters';
+import { notesPopup } from 'routes/map/components/MapGetters';
 import { hovereableLayers } from '../constants/layout.constants';
 import {
   createNoteWithElem,
@@ -391,7 +391,7 @@ const Map = ({
             doc.className = 'marker-note';
             doc.style.backgroundColor = colorOfMarker;
             const newmarker = new mapboxgl.Marker(doc);     
-            const html = commentPopup(handleComments,handleDeleteNote, note);
+            const html = notesPopup(handleComments,handleDeleteNote, note);
             let newpopup = new mapboxgl.Popup({
               closeButton: false,
               offset: { 
@@ -1875,7 +1875,7 @@ const Map = ({
                 });
               }
               if (commentAvailable && canAdd.value) {
-                const html = commentPopup(handleComments,handleDeleteNote);
+                const html = notesPopup(handleComments,handleDeleteNote);
                 popup = new mapboxgl.Popup({
                   closeButton: false, 
                   offset: { 
