@@ -37,7 +37,14 @@ const CalendarGroups = ({
   const [next, setNext] = useState(false);
   const [prev, setPrev] = useState(false);
   const [page, setPage] = useState(1);
-  const [counter, setCounter] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [counterParsed, setCounterParsed] = useState('');
+
+  useEffect(() => {
+    const start = (page - 1) * LIMIT_PAGINATION;
+    const end = Math.min(start + LIMIT_PAGINATION, counter);
+    setCounterParsed(`${start} - ${end} of ${counter}`);
+  }, [page, counter]);
 
   useEffect(() => {
     const sendfilter = {...filterProjectOptions};
@@ -90,7 +97,7 @@ const CalendarGroups = ({
             <span style={{width: '100%',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counter})`}</span>
+                textOverflow: 'ellipsis',}}>{`${data.value==='NoGroupAvailable'?'No Group Available':data.value} (${counterParsed})`}</span>
            </div>
            <div className="btn-collapse" onClick={(e) => {e.stopPropagation(); }}>
               <LeftOutlined onClick={(e) => {

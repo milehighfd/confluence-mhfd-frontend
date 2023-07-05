@@ -41,7 +41,7 @@ const CalendarBody = ({
   setOpenPiney: Function,
   groupName: string,
   setEditData: any,
-  counter:  never[],
+  counter:  any,
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {

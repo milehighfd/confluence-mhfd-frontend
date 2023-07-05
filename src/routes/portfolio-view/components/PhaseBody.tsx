@@ -48,7 +48,7 @@ const PhaseBody = ({
   groupName: string,
   setOpenPiney: Function,
   headerRef: any,
-  counter:  never[],
+  counter:  any,
   page: number,
   setPage: React.Dispatch<React.SetStateAction<number>>,
 }) => {
