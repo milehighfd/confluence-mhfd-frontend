@@ -273,11 +273,6 @@ export const addPopupsOnClick = async (
         })?.map((sps: any) => sps.business_associate?.business_name);
         const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
         const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
-        console.log('galleryProjects', galleryProjects)
-        console.log('mapType', mapType)
-        console.log(estimatedcost)
-        console.log(componentcost)
-        console.log('data from db', dataFromDB);
 
         if(feature.source === PROJECTS_DRAFT+'draft') {
           item = {
@@ -845,7 +840,6 @@ export const addPopupsOnClick = async (
         const objectidstream = feature.properties.mhfd_code;
         const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
         if (dataFromDBforStreams.length > 0) {
-          console.log('DATA FROM DB', dataFromDBforStreams);
           const item = {
             type: 'streams-reaches',
             layer: 'Streams',
@@ -956,7 +950,6 @@ export const addPopupsOnClick = async (
                 status = 'Remove';
               }
               if(feature.source === STREAM_IMPROVEMENT_MEASURE ) {
-                console.log('features stream', feature.properties);
                 item = {
                   layer: MENU_OPTIONS.COMPONENTS,
                   type: getTitleOfStreamImprovements(feature.properties),
