@@ -26,7 +26,6 @@ const PhaseBody = ({
   phaseRef,
   totalLabelWidth,
   actionsDone,
-  userBrowser,
   groupName,
   setOpenPiney,
   headerRef,
@@ -44,7 +43,6 @@ const PhaseBody = ({
   phaseRef: any,
   totalLabelWidth: number,
   actionsDone: any,
-  userBrowser: any,
   groupName: string,
   setOpenPiney: Function,
   headerRef: any,
@@ -64,7 +62,6 @@ const PhaseBody = ({
     setPositionModalGraphic, 
     setDataModal, 
     setGraphicOpen, 
-    setOpenModalTollgate, 
     setDatesData,
     setPineyData,
   } = usePortfolioDispatch();
@@ -80,7 +77,7 @@ const PhaseBody = ({
   const marginRight = (windowWidth >= 1900 && windowWidth <= 2549 ? 30 : (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : 30)))
   const marginTop = (windowWidth >= 3001 && windowWidth <= 3999 ? -41.2 : (windowWidth >= 1900 && windowWidth <= 2549 ? -27 : (windowWidth >= 2550 && windowWidth <= 3000 ? -31 : -22)))
   const marginBottom = (windowWidth >= 3001 && windowWidth <= 3999 ? -40.5 : (windowWidth >= 2550 && windowWidth <= 3000 ? -43 : (windowWidth >= 1900 && windowWidth <= 2549 ? -35 : -26)))
- 
+  const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
     completedtoActive
@@ -148,21 +145,28 @@ const PhaseBody = ({
       setUpdateForPhase(!updateForPhase);
     }
   }, [updateGroup])
+  
+  const removeSpaces = (str:string) => {
+    return str.replace(/\s/g, '');
+  }
 
   useEffect(() => {
     if (Object.keys(phaseData).length > 0) {
-      phaseData.map((elem: any, index: number) => (
-        elem.values.map((value: any) => (
-          removeAllChildNodes(document.getElementById(`dotchart_${value.id.replace(/\s/g, '')}`))          
-        ))
+      phaseData.map((elem: any) => (
+        // elem.values.map((value: any) => (
+          removeAllChildNodes(document.getElementById(`dotchart_${removeSpaces(elem.id)}`))          
+        // ))
       ));
     }
-    if (phaseData.length > 0) {     
+    if (phaseData.length > 0) {  
+      console.log('before', phaseData);
+      console.log('before', new Date());   
       phaseData.forEach((element:any) => {
-        element.values.forEach((value:any) => {
-          phaseChart(value);
-        })
+        // element.values.forEach((value:any) => {
+          phaseChart(element);
+        // })
       });
+      console.log('after', new Date());
     }    
   }, [phaseData, windowWidth]);
 
@@ -171,7 +175,7 @@ const PhaseBody = ({
   }
   //Start of phase chart generation
   const phaseChart = (dataDotchart: any) => {
-    dataDotchart.id = dataDotchart.id.includes('?')? 'questionMark' : startsWithNumber(dataDotchart.id)? dataDotchart.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : dataDotchart.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')
+    dataDotchart.id = dataDotchart.id.includes('?')? 'questionMark' : startsWithNumber(dataDotchart.id)? removeSpaces(dataDotchart.id).replace(/[^a-zA-Z]/g, '') : removeSpaces(dataDotchart.id).replace(/[^a-zA-Z0-9]/g, '')
     if (Object.keys(scheduleList).length > 0) {
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;
@@ -218,7 +222,7 @@ const PhaseBody = ({
           .range([0, height])
           .domain(
             datas.map((d: any) => {
-              return d.id.replace(/\s/g, '')
+              return removeSpaces(d.id)
             })
           )
           .padding(1);
@@ -226,78 +230,9 @@ const PhaseBody = ({
           .style('visibility', 'hidden')
           .call(d3.axisLeft(y));
 
-        let hasDateData = true;
-        let button = svg.selectAll("button").data(datas).enter().append("g");
-        button
-          .append("rect")
-          .attr('rx', 3)
-          .attr('ry', 3)
-          .attr("x", () => {
-            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -25 : (windowWidth >= 2001 && windowWidth <= 2549 ? -23 : (windowWidth >= 2550 && windowWidth <= 3000 ? -20 : (windowWidth >= 1450 && windowWidth <= 2000 ? -13 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10)))));
-            return xdr(0) + xAddButton
-          })
-          .attr("width", () => {
-            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 25 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? -10 : 10)))));
-            return xdr(0 + 1) - xdr(0) + widthAddButton;
-          })
-          .attr("y", (d: any) => {
-            let ydname: any = y(d.id.replace(/\s/g, ''));
-            // console.log('ydname', ydname, ydname + 10)
-            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? -15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? -15 : (windowWidth >= 1450 && windowWidth <= 2000 ? -12 : (windowWidth >= 1199 && windowWidth <= 1449 ? -9 : 10)))));
-            return ydname + yAddButton;
-          })
-          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32 : (windowWidth >= 1450 && windowWidth <= 2000 ? 28 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 25))))))
-          .style("fill", "#251863")
-          .style('visibility', (d: any) => {
-            if (statusCounter === (d?.project_status).filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length) {
-              hasDateData = false;
-            }
-            //return hasDateData ? 'visible':'hidden'})
-            return 'hidden'
-          })
-          .attr('stroke', '#251863')
-          .style('stroke-linecap', 'round')
-          .on("click", function (d: any) {
-            // const sendTollgate = { d, scheduleList } 
-            // setDatesData(sendTollgate);
-            // setOpenModalTollgate(true);
-          })
-        hasDateData = true;
-        svg
-          .selectAll("editText")
-          .data(datas)
-          .enter()
-          .append("text")
-          .attr("class", "circletext")
-          .attr('fill', '#ffffff')
-          .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
-          .attr('font-weight', 600)
-          .text('Add Dates')
-          .attr("x", () => {
-            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 14 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 4 : 2)))));
-            return xdr(0) + xAddButton
-          })
-          .attr("y", (d: any) => {
-            let ydname: any = y(d.id.replace(/\s/g, ''));
-            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 13 : (windowWidth >= 2550 && windowWidth <= 3000 ? 9 : (windowWidth >= 1450 && windowWidth <= 2000 ? 7 : (windowWidth >= 1199 && windowWidth <= 1449 ? 7 : 2)))));
-            return ydname + yAddButton;
-          })
-          .style('visibility', (d: any) => {
-            if (statusCounter === (d?.project_status).filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length) {
-              hasDateData = false;
-            }
-            return 'hidden'
-          })
-          .on("click", function (d: any) {
-            // const sendTollgate = { d, scheduleList }
-            // setDatesData(sendTollgate);
-            // setOpenModalTollgate(true);
-          })
-          ;
-
         // Lines
         arrayForCirclesAndLines.forEach((r) => {
-          hasDateData = true
+
           if (r < arrayForCirclesAndLines.length - 1) {
             svg
               .selectAll("myline")
@@ -307,19 +242,10 @@ const PhaseBody = ({
               .attr("x", xdr(r))
               .attr("width", xdr(r + 1) - xdr(r))
               .attr("y", (d: any) => {
-                let ydname: any = y(d.id.replace(/\s/g, ''));
+                let ydname: any = y(removeSpaces(d.id));
                 return ydname;
               })
               .attr("height", 2)
-              .attr("stroke", (d: any) => {
-                if (d.phaseId === scheduleList[r].code_phase_type_id) {
-                  return colorScale['Current'];
-                } else if (d.project_status[r]?.is_done) {
-                  return colorScale['Done'];
-                } else {
-                  return colorScale['NotStarted'];
-                }
-              })
               .attr("stroke", function (d: any) {
                 const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
                 let today = moment()
@@ -349,19 +275,18 @@ const PhaseBody = ({
               .attr("stroke-width", "2.5px")
           }
         });
-        const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
+        
         let circles = svg.selectAll("mycircle").data(datas).enter();
+       
         arrayForCirclesAndLines.forEach((r) => {
-          hasDateData = true
           circles
             .append("circle")
             .attr('id', (d: any) => {             
-              return `${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}`
-              // return `${d.id.replace(/\s/g, '')}_${(scheduleList[r].phase)}`;
+              return `${removeSpaces(d.id)}_${scheduleList[r].phase_id}${d.project_id}`
             })
             .attr("cx", xdr(r))
             .attr("cy", (d: any) => {
-              let ydname: any = y(d.id.replace(/\s/g, ''));
+              let ydname: any = y(removeSpaces(d.id));
               return ydname;
             })
             .attr("r", radius)
@@ -391,7 +316,7 @@ const PhaseBody = ({
             .append("circle")
             .attr("cx", xdr(r))
             .attr("cy", (d: any) => {
-              let ydname: any = y(d.id.replace(/\s/g, ''));
+              let ydname: any = y(removeSpaces(d.id));
               return ydname;
             })
             .attr("r", radius - 1)
@@ -402,43 +327,20 @@ const PhaseBody = ({
             .append("circle")
             .attr("cx", xdr(r))
             .attr("cy", (d: any) => {
-              let ydname: any = y(d.id.replace(/\s/g, ''));
+              let ydname: any = y(removeSpaces(d.id));
               return ydname;
             })
             .attr("r", radius - 3)
             .style("fill", function (d: any) {
-              let indexStatus = (scheduleList.findIndex((x: any) => x.code_phase_type_id === d.phaseId));
-              const endDate = (d?.project_status?.find((x: any) => x.code_phase_type_id === d.phaseId)?.actual_end_date)
-              let today = moment()              
-              if (indexStatus === r) {
-                if (endDate) {
-                  const diffDates = ((moment(endDate).diff(today, 'M', true)))
-                  if (diffDates > 0) {
-                    return colorScale['Current'];
-                  } else {
-                    return colorScale['Overdue'];
-                  }
-                } else {
-                  return colorScale['Current'];
-                }
-              }
-              if (indexStatus && r < indexStatus) {
-                return colorScale['Done'];
-              } else {
-                return colorScale['NotStarted'];
-              }
+              return d3.select(`#${removeSpaces(d.id)}_${scheduleList[r].phase_id}${d.project_id}`).style("fill")
             })
-          hasDateData = true
           svg
             .selectAll("myText")
             .data(datas)
             .enter()
             .append("text")
             .attr('id', (d: any) => {
-              return `${(d.id).replaceAll(' ', '')}_${scheduleList[r].phase_id}${d.project_id}_text`
-            })
-            .attr('id2', (d: any) => {
-              return `${(d.id).replaceAll(' ', '')}_${scheduleList[r].phase_id}${d.project_id}_text`
+              return `${removeSpaces(d.id)}_${scheduleList[r].phase_id}${d.project_id}_text`
             })
             .attr("class", "circletext")
             .attr('fill', '#ffffff')
@@ -468,16 +370,15 @@ const PhaseBody = ({
               return offset;
             })
             .attr("y", (d: any) => {
-              let ydname: any = y(d.id.replace(/\s/g, ''));
+              let ydname: any = y(removeSpaces(d.id));
               return ydname + radius / 3;
             })
-          hasDateData = true
           circles
             .append("circle")
-            .attr('id', (d: any) => { return `${d.id.replace(/\s/g, '')}_${scheduleList[r].phase_id}${d.project_id}_outer` })
+            .attr('id', (d: any) => { return `${removeSpaces(d.id)}_${scheduleList[r].phase_id}${d.project_id}_outer` })
             .attr("cx", xdr(r))
             .attr("cy", (d: any) => {
-              let ydname: any = y(d.id.replace(/\s/g, ''));
+              let ydname: any = y(removeSpaces(d.id));
               return ydname;
             })
             .attr("r", radius + 0.5)
@@ -499,8 +400,8 @@ const PhaseBody = ({
                   from: moment(z?.planned_start_date),
                   to: moment(z?.planned_end_date),
                   status: z?.code_phase_type?.code_status_type?.status_name,
-                  name: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
-                  phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
+                  name: removeSpaces(z?.code_phase_type?.phase_name),
+                  phase: removeSpaces(z?.code_phase_type?.phase_name),
                   phaseId: z.code_phase_type_id,
                   tasks: 10,
                   show: (statusCounter === (d?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4).length && !flag),
@@ -529,42 +430,17 @@ const PhaseBody = ({
               let popupVisible: any = document.getElementById('popup-phaseview');
               setGraphicOpen(true);
               let searchTextId2 = d3.event.target.id.slice(0, -6);
-              let actualNumber = d3.selectAll(`#${searchTextId2.replaceAll(' ', '')}_text`).text();
+              let actualNumber = d3.selectAll(`#${removeSpaces(searchTextId2)}_text`).text();
               const lenghtSc = Object.keys(scheduleList[r].tasksData).length
               const phaseSc = (scheduleList[r].phase)
               const phaseId = (scheduleList[r].phase_id)
               const sendModal = { data: d, actualNumber: actualNumber, scheduleList: lenghtSc, schedulePhase: phaseSc, phase_id: phaseId, to:moment((d?.project_status?.find((x: any) => x.code_phase_type_id === phaseId)?.actual_end_date))}
               setDataModal(sendModal);
               if (popupVisible !== null) {
-                let popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 280 :
-                  (windowWidth >= 2550 && windowWidth <= 3000 ? 215 :
-                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 :
-                      (windowWidth >= 1450 && windowWidth <= 2000 ? 170 :
-                        (windowWidth >= 1199 && windowWidth <= 1449 ? 140 : 140)))))
-                if (userBrowser === 'Safari') {
-                  popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 400 :
-                    (windowWidth >= 2550 && windowWidth <= 3000 ? 335 :
-                      (windowWidth >= 2001 && windowWidth <= 2549 ? 60 :
-                        (windowWidth >= 1450 && windowWidth <= 2000 ? 285 :
-                          (windowWidth >= 1199 && windowWidth <= 1449 ? 250 : 140)))))
-                }
-                if (userBrowser === 'Edge') {
-                  popupfactorTop = (windowWidth >= 3001 && windowWidth <= 3999 ? 245 :
-                    (windowWidth >= 2550 && windowWidth <= 3000 ? 180 :
-                      (windowWidth >= 2001 && windowWidth <= 2549 ? 60 :
-                        (windowWidth >= 1450 && windowWidth <= 2000 ? 170 :
-                          (windowWidth >= 1199 && windowWidth <= 1449 ? 155 : 140)))))
-                }
-                let popupfactorLeft = 
-                (windowWidth >= 3001 && windowWidth <= 3999 ? 910 : 
-                  (windowWidth >= 2550 && windowWidth <= 3000 ? 620 : 
-                    (windowWidth >= 2001 && windowWidth <= 2549 ? 60 : 
-                      (windowWidth >= 1450 && windowWidth <= 2000 ? 475 : 
-                        (windowWidth >= 1199 && windowWidth <= 1449 ? 380 : 345)))))
                 let widthOfPopup: any = document.getElementById('popup-phaseview')?.offsetWidth;
                 let heightOfPopup: any = document.getElementById('popup-phaseview')?.offsetHeight;
-                let positionTop: any = d3.event.y - heightOfPopup-20 ; // Delete 120 when the popup is fixed
-                let positionLeft: any = d3.event.x - widthOfPopup / 2; //Delete 35 when the popup is fixed
+                let positionTop: any = d3.event.y - heightOfPopup-20 ;
+                let positionLeft: any = d3.event.x - widthOfPopup / 2;
                 setPositionModalGraphic(positionLeft,positionTop)
                 let colorCircle = d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).style("fill")
                 d3.selectAll(`#${d3.event.target.id.slice(0, -6)}`).attr("r", radius + 4 ).style('fill', colorCircle).style('opacity', 0.5);
@@ -639,8 +515,8 @@ const PhaseBody = ({
                 from: moment(z?.planned_start_date).isValid()?moment(z?.planned_start_date):undefined,
                 to: moment(z?.planned_end_date).isValid()?moment(z?.planned_end_date):undefined,
                 status: z?.code_phase_type?.code_status_type?.status_name,
-                name: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
-                phase: z?.code_phase_type?.phase_name.replaceAll(' ', ''),
+                name: removeSpaces(z?.code_phase_type?.phase_name),
+                phase: removeSpaces(z?.code_phase_type?.phase_name),
                 phaseId: z.code_phase_type_id,
                 tasks: 10,
                 show: (x?.code_phase_types?.length === (x?.project_status)?.filter((ps: any) => ps?.code_phase_type?.code_status_type?.code_status_type_id > 4)?.length && !flag),
@@ -781,16 +657,18 @@ const PhaseBody = ({
             }}>
             <div className="container-timeline"
               style={{ paddingLeft: '5px' }}>
-              {phaseData.map((elem: any, index: number) => (
-                elem.values.map((value: any, indexinside: number) => {
+              {
+              // phaseData.map((elem: any, index: number) => (
+                phaseData.map((value: any, indexinside: number) => {
                   return <div key={`value.id${indexinside}`}>
                     <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
-                      <div id={`dotchart_${value.id.includes('?')? 'questionMark' : startsWithNumber(value.id)? value.id.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : value.id.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`}></div>
+                      <div id={`dotchart_${value.id.includes('?')? 'questionMark' : startsWithNumber(value.id)? removeSpaces(value.id).replace(/[^a-zA-Z]/g, '') : removeSpaces(value.id).replace(/[^a-zA-Z0-9]/g, '')}`}></div>
                     </div>
-                    {elem.values.length - 1 === indexinside && phaseData.length - 1 !== index ? <div className="header-timeline" style={{ width: totalLabelWidth }}></div> : ''}
+                    {value.values.length - 1 === indexinside && phaseData.length - 1 !== index ? <div className="header-timeline" style={{ width: totalLabelWidth }}></div> : ''}
                   </div>
                 })
-              ))}
+              // ))
+              }
             </div>
           </div>
         </Col>

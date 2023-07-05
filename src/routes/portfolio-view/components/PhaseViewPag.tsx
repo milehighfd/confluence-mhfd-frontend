@@ -5,7 +5,6 @@ import * as datasets from 'Config/datasets';
 import PhaseGroups from 'routes/portfolio-view/components/PhaseGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
-import { getUserBrowser } from 'utils/utils';
 import { usePortflioState } from '../../../hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
 
@@ -26,7 +25,6 @@ const PhaseViewPag = ({
   const [actionsDone,setActionsDone] = useState<any>({});
   // const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
-  const [userBrowser, setUserBrowser] = useState<any>()
   const [updateAction,setUpdateAction] = useState(false);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const scrollRef = useRef<null | HTMLDivElement>(null);
@@ -38,8 +36,6 @@ const PhaseViewPag = ({
   const [openPiney, setOpenPiney] = useState(false);
 
   useEffect(() => {
-    console.log('tabKeyy',tabKey)
-    setUserBrowser(getUserBrowser());
     const controller = new AbortController();
     datasets.getData(
       `${SERVER.PROJECT_ACTION_ITEM}`,
@@ -178,7 +174,6 @@ const PhaseViewPag = ({
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
                     actionsDone={actionsDone}
-                    userBrowser={userBrowser}
                     setOpenPiney={setOpenPiney}
                     headerRef={headerRef}
                     dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}

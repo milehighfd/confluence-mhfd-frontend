@@ -17,7 +17,6 @@ const PhaseGroups = ({
   phaseRef,
   totalLabelWidth,
   actionsDone,
-  userBrowser,
   setOpenPiney,
   headerRef,
   dataId,
@@ -28,7 +27,6 @@ const PhaseGroups = ({
   phaseRef: any,
   totalLabelWidth: any,
   actionsDone: any,
-  userBrowser: any,
   setOpenPiney: any,
   headerRef: any,
   dataId: any,
@@ -122,7 +120,6 @@ const PhaseGroups = ({
             phaseRef={phaseRef}
             totalLabelWidth={totalLabelWidth}
             actionsDone={actionsDone}
-            userBrowser={userBrowser}
             groupName={data.value}
             setOpenPiney={setOpenPiney}
             headerRef={headerRef}
