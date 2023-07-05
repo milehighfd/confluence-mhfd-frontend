@@ -170,23 +170,21 @@ export const addPopupServiceCountyMunicipality = (
   };
   const html = loadMenuPopupWithData(menuOptions, popups, userInformation, eventFunctions, undefined, undefined, undefined, ids);
   if (html) {
-    searchPopup.remove();
+    if(searchPopup.isOpen()){
+      searchPopup.remove();
+    }
     searchPopup = new mapboxgl.Popup({closeButton: true,});
     searchPopup.setLngLat(coord)
         .setDOMContent(html)
         .addTo(map);
-    let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
-    closebuttons.forEach((element:any) => {
-        element.addEventListener('click', () => {
-          searchMarker.remove();
-          setKeyword('');
-          setMarkerGeocoder(undefined);
-        })
-    });
-
     searchMarker.setPopup(searchPopup);
     searchMarker.addTo(map);
     searchMarker.togglePopup();
+    searchPopup.once('close', () => {
+        searchMarker.remove();
+        setKeyword('');
+        setMarkerGeocoder(undefined);
+      });
     setMarkerGeocoder(searchMarker);
   }
 }
