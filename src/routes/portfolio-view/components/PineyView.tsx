@@ -6,7 +6,7 @@ import TextArea from "antd/lib/input/TextArea";
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
 import * as d3 from 'd3';
-
+import { FILTER_PROJECTS_TRIGGER } from "constants/constants";
 import { UseDebouncedEffect } from "routes/Utils/useDebouncedEffect";
 import store from 'store';
 import { usePortflioState, usePortfolioDispatch } from "hook/portfolioHook";
@@ -224,7 +224,7 @@ const PineyView = ({ isDetail,setOpenPiney, setUpdateAction, updateAction }:
   return (
     <>
       {
-        visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type='project' />
+        visibleDetail && <DetailModal visible={visibleDetail} setVisible={setVisibleDetail} data={data} type={FILTER_PROJECTS_TRIGGER} />
       }
       <div className="header-piney" style={{ marginBottom: '20px' }}>
         <Button
