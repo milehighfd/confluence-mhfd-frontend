@@ -1484,34 +1484,9 @@ const CreateProjectMap = (type: any) => {
       });
     }
   };
-  const addPopupMarker = (point: any, html: any) => {
-    popup.remove();
-    map.addPopUpOffset(point, html);
-    let menuElement = document.getElementById('menu-marker');
-    if (menuElement != null) {
-      menuElement.addEventListener('click', () => {
-        map.removePopUpOffset();
-        marker.remove();
-        marker = new mapboxgl.Marker({ color: '#ffbf00', scale: 0.7 });
-        changeAddLocationState(false);
-      });
-    }
-    let closeElement = document.getElementById('closepopupmarker');
-    if (closeElement != null) {
-      closeElement.addEventListener('click', () => {
-        map.removePopUpOffset();
-      });
-    }
-  };
   const AddMarkerEdit = (e: any) => {
-    const html = loadPopupMarker();
-    if (html) {
       popup.remove();
       marker.setLngLat([e.lng, e.lat]).addTo(map.map);
-      let point = { lng: e.lng, lat: e.lat };
-      marker.getElement().addEventListener('click', () => {
-        addPopupMarker(point, html);
-      });
       let sendLine = {
         geom: {
           type: 'MultiLineString',
@@ -1529,20 +1504,13 @@ const CreateProjectMap = (type: any) => {
         saveAcquisitionLocation(sendLine);
       }
       isPopup = true;
-    }
   };
   const addMarker = (e: any) => {
     removeProjectLayer();
-    const html = loadPopupMarker();
     e.originalEvent.stopPropagation();
-    if (html) {
       map.removePopUpOffset();
       popup.remove();
       marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
-      let point = e.lngLat;
-      marker.getElement().addEventListener('click', () => {
-        addPopupMarker(point, html);
-      });
       let sendLine = {
         geom: {
           type: 'MultiLineString',
@@ -1565,7 +1533,6 @@ const CreateProjectMap = (type: any) => {
       let eventToAddMarker = EventService.getRef('addmarker');
       map.map.off('click', eventToAddMarker);
       isPopup = true;
-    }
   };
   const eventMove = (e: any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
@@ -1691,32 +1658,6 @@ const CreateProjectMap = (type: any) => {
       }
     };
   }, [allLayers]);
-
-  const loadPopupMarker = () =>
-    ReactDOMServer.renderToStaticMarkup(
-      <>
-        <div className="map-pop-02">
-          <div className="headmap">
-            PROPOSED PROJECT{' '}
-            <div
-              id="closepopupmarker"
-              style={{ float: 'right', paddingRight: '4px', height: '16px', cursor: 'pointer' }}
-            >
-              &#x2716;
-            </div>
-          </div>
-          <div className="layer-popup" style={{ padding: '21px 13px 0px 10px' }}>
-            <div>
-              <div style={{ padding: '10px', marginTop: '-15px', color: '#28C499', display: 'flex' }}>
-                <Button style={{ color: '#28C499', width: '100%' }} id="menu-marker" className="btn-borde">
-                  Remove Marker
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </>,
-    );
 
   const renderOption = (item: any) => {
     return {

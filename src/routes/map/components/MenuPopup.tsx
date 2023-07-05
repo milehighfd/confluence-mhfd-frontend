@@ -33,7 +33,7 @@ export const MenuPopup = ({title, menuOptions, popups, ids, eventFunctions, user
       </div>
     );
   };
-  const loadIconsPopup = (menu: any, popups: any, index: any, showPopup: any, ids: any) => {
+  const menuListWithIcons = (menu: any, popups: any, index: any, showPopup: any, ids: any) => {
     console.log(menu, 'menu', popups, 'popups', index, 'index', ids);
     const popup = popups[index];
     let icon;
@@ -189,7 +189,7 @@ export const MenuPopup = ({title, menuOptions, popups, ids, eventFunctions, user
         {menuOptions.map((menu: any, index: number) => {
           return (
             <div key={index}>
-              {loadIconsPopup(menu, popups, index, eventFunctions['showPopup'], ids)}
+              {menuListWithIcons(menu, popups, index, eventFunctions['showPopup'], ids)}
               {menu !== 'Project' && !menu.includes('Problem')
                 ? menu == 'Stream'
                   ? <StreamPopupFull id={index} item={popups[index]}></StreamPopupFull>
