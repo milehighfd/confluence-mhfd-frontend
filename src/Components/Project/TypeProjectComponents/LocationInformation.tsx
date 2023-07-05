@@ -87,7 +87,6 @@ export const LocationInformation = ({
     setCounty(e);
     setSCounty(e);
   };
-
   //fill jurisdiction,service area and county list with db
   useEffect(() => {
     datasets.getData(`${SERVER.ALL_GROUP_ORGANIZATION}`)
@@ -202,8 +201,8 @@ export const LocationInformation = ({
             </>}
           <div className="sponsor-select" id="serviceid">
             <Select mode="multiple" placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a Service Area"} style={{ width: '100%' }} onChange={(serviceArea: any) => setServiceArea(serviceArea)} value={serviceArea} disabled={disable} getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
-              {officialS_A.map((element) => 
-                element != 'None' && element != 'Boulder Service Area' && <Option key={element} value={element}>{filterName(element)}</Option>
+              {serviceAreaList.map((element) => 
+                element != 'None' && element != 'Boulder Service Area' && <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               )}
             </Select>
           </div>
@@ -215,8 +214,8 @@ export const LocationInformation = ({
             </>}
           <div className="sponsor-select" id="countyid">
             <Select mode="multiple" placeholder={county?.length !== 0 ? county : "Select a County"} style={{ width: '100%' }} value={county} onChange={(county: any) => apllyCounty(county)} disabled={disable} getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
-              {PROJECT_INFORMATION.COUNTRY_PROJECT.map((element) => {
-                return <Option key={element} value={element}>{filterName(element)}</Option>
+              {countyList.map((element) => {
+                return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
             </Select>
           </div>
@@ -230,8 +229,8 @@ export const LocationInformation = ({
             </>}
           <div className="sponsor-select" id="jurisdictionid">
             <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Local Government"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
-              {JURISDICTION.map((element: string) => {
-                return <Option key={element} value={element}>{filterName(element)}</Option>
+              {jurisdictionList.map((element) => {
+                return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
             </Select>
           </div>
