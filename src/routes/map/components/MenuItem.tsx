@@ -12,7 +12,6 @@ import {
 import {
   ComponentPopup,
   MainPopup,
-  MeasurePopup,
   MainPopupCreateMap,
   ComponentPopupCreate,
   StreamPopupFull

@@ -171,7 +171,7 @@ const MapLayout = () => {
         {safeLoading && <LoadingViewOverall />}
         <Layout className="map-00">
           {
-            (longitude && latitude && loaded) ? (
+            !!(longitude && latitude && loaded) ? (
               <Row>
                 <Col
                   xs={{ span: 24 }}
