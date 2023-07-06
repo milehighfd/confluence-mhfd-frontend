@@ -89,25 +89,106 @@ const CalendarBody = ({
   let widthofDiv: any = document.getElementById('widthDivforChart')?.offsetWidth;
   let hasDateData = true;
   let factortransformSVG = 8;
-  let heigthOfHeaderAxis =
-    (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
-      (windowWidth >= 2550 && windowWidth <= 3000 ? 70 :
-        (windowWidth >= 1450 && windowWidth <= 1500 ? 93.06 :
-          (windowWidth >= 1501 && windowWidth <= 2000 ? 50 :
-            (windowWidth >= 2001 && windowWidth <= 2549 ? 100 :
-              (windowWidth >= 1199 && windowWidth <= 1449 ? 50 : 79))))));
-  let separationHeaderAxisYear = (windowWidth >= 3001 && windowWidth <= 3999 ? 3 : (windowWidth >= 2550 && windowWidth <= 3000 ? 6 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
-  let separationHeaderAxisMonth = (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : (windowWidth >= 2550 && windowWidth <= 3000 ? 13 : (windowWidth >= 1450 && windowWidth <= 2000 ? 0 : (windowWidth >= 2001 && windowWidth <= 2549 ? 0 : (windowWidth >= 1199 && windowWidth <= 1449 ? 0 : 0)))));
-  let separationHeaderAxisInFunction = (windowWidth >= 3001 && windowWidth <= 3999 ? 20 : (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 2001 && windowWidth <= 2549 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 20 : 20)))));
-  let marginTopFactor = 
-  (windowWidth >= 3001 && windowWidth <= 3999 ? '-55px' : 
-  (windowWidth >= 2550 && windowWidth <= 3000 ? '-45px' : 
-  (windowWidth >= 1450 && windowWidth <= 2000 ? '-40px' : 
-  (windowWidth >= 2001 && windowWidth <= 2549 ? '-28px' : 
-  (windowWidth >= 1199 && windowWidth <= 1449 ? '-45px' : '-45px')))));
-  let barHeightDefault = (windowWidth >= 3001 && windowWidth <= 3999 ? 42 : (windowWidth >= 2550 && windowWidth <= 3000 ? 40 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 15 : 27)))));
+  const valuesForResolutions = (value: any) => {
+    switch (value) {
+      case 'heigthOfHeaderAxis':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 60:
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 70 :
+            (windowWidth >= 1450 && windowWidth <= 1500 ? 93.06 :
+              (windowWidth >= 1501 && windowWidth <= 2000 ? 50 :
+                (windowWidth >= 2001 && windowWidth <= 2549 ? 100 :
+                  (windowWidth >= 1199 && windowWidth <= 1449 ? 50 : 79))))))
+      case 'separationHeaderAxisYear':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 3 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 6 : 0))
+      case 'separationHeaderAxisMonth':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 10 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 13 : 0))
+      case 'separationHeaderAxisInFunction':
+        return (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : 20)
+      case 'marginTopFactor':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? '-55px' : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? '-45px' : 
+            (windowWidth >= 1450 && windowWidth <= 2000 ? '-40px' : 
+              (windowWidth >= 2001 && windowWidth <= 2549 ? '-28px' : '-45px'))))
+      case 'barHeightDefault': 
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 42 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 40 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : 15))))
+      case 'screenOffset':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : 5))))
+      case 'xAddButtonRect':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 28 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 25 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : 16))))
+      case 'widthAddButtonRect':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 190 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 130 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 140 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 120 : 100))))
+      case 'yAddButtonRect':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 12 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 11 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 9 : 2))));
+      case 'heightAddButtonRect':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : 25))))
+      case 'xAddButtonText':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 55 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 50 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 45 : 35)))
+      case 'yAddButtonText':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : 18))))
+      case 'fontSizeAddButtonText':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 26 : 
+          (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : 13))))
+      case 'yearOffset':
+        return (windowWidth >= 2550 && windowWidth <= 3999 ? 15 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 17 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : 15)))
+      case 'factorTranslateMonthly':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? -382 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -252 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? -196 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -244 : -174))))
+      case 'factorTranslateDaily':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? -378 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -249 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? -99 : -68))))
+      case 'factorToShowTodaylineDaily':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 500))))
+      case 'factorToShowTodaylineMonthly':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 600))))
+    }
+  }
+  let heigthOfHeaderAxis = valuesForResolutions('heigthOfHeaderAxis') || 0;
+  let separationHeaderAxisYear: any = valuesForResolutions('separationHeaderAxisYear') || 0;
+  let separationHeaderAxisMonth: any = valuesForResolutions('separationHeaderAxisMonth') || 0;
+  let separationHeaderAxisInFunction : any = valuesForResolutions('separationHeaderAxisInFunction') || 0;
+  let marginTopFactor = valuesForResolutions('marginTopFactor') || 0;
+  let barHeightDefault = valuesForResolutions('barHeightDefault') || 0;
   let width = widthofDiv - 20;
-  let screenOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 64 : (windowWidth >= 1450 && windowWidth <= 2000 ? 6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 5 : 21.5)))));
+  let screenOffset: any = valuesForResolutions('screenOffset') || 0; 
 
   useEffect(() => {
     let idF = dataId.id;
@@ -335,19 +416,19 @@ const CalendarBody = ({
           .attr('rx', 3)
           .attr('ry', 3)
           .attr("x", (d: any) => {
-            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 28 : (windowWidth >= 2001 && windowWidth <= 2549 ? 25 : (windowWidth >= 2550 && windowWidth <= 3000 ? 25 : (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : (windowWidth >= 1199 && windowWidth <= 1449 ? 16 : 10)))));
+            let xAddButton: any = valuesForResolutions('xAddButtonRect')
             return xAddButton;
           })
           .attr("width", () => {
-            let widthAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 190 : (windowWidth >= 2001 && windowWidth <= 2549 ? 130 : (windowWidth >= 2550 && windowWidth <= 3000 ? 140 : (windowWidth >= 1450 && windowWidth <= 2000 ? 120 : (windowWidth >= 1199 && windowWidth <= 1449 ? 100 : 100)))));
+            let widthAddButton: any = valuesForResolutions('widthAddButtonRect')
             return widthAddButton;
           })
           .attr("y", (d: any) => {
-            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 12 : (windowWidth >= 2001 && windowWidth <= 2549 ? 11 : (windowWidth >= 2550 && windowWidth <= 3000 ? 12 : (windowWidth >= 1450 && windowWidth <= 2000 ? 9 : (windowWidth >= 1199 && windowWidth <= 1449 ? 2 : 2)))));
+            let yAddButton: any = valuesForResolutions('yAddButtonRect')
             let yScaleRect: any = yScale(d['id']);
             return yScaleRect + yAddButton
           })
-          .attr("height", (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2001 && windowWidth <= 2549 ? 36 : (windowWidth >= 2550 && windowWidth <= 3000 ? 38 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 25 : 40))))))
+          .attr("height", valuesForResolutions('heightAddButtonRect'))
           .style("fill", "#251863")
           .attr('stroke', '#251863')
           .style('stroke-linecap', 'round')
@@ -365,15 +446,15 @@ const CalendarBody = ({
           .attr('id', 'buttonText')
           .attr("class", "circletext")
           .attr('fill', 'white')
-          .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 26 : (windowWidth >= 2001 && windowWidth <= 2549 ? 23 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 18 : (windowWidth >= 1199 && windowWidth <= 1449 ? 13 : 11))))))
+          .attr('font-size', valuesForResolutions('fontSizeAddButtonText'))
           .attr('font-weight', 600)
           .text('Add Dates')
           .attr("x", (d: any) => {
-            let xAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 55 : (windowWidth >= 2001 && windowWidth <= 2549 ? 50 : (windowWidth >= 2550 && windowWidth <= 3000 ? 45 : (windowWidth >= 1450 && windowWidth <= 2000 ? 35 : (windowWidth >= 1199 && windowWidth <= 1449 ? 35 : 10)))));
+            let xAddButton: any = valuesForResolutions('xAddButtonText')
             return xAddButton;
           })
           .attr("y", (d: any) => {
-            let yAddButton: any = (windowWidth >= 3001 && windowWidth <= 3999 ? 46 : (windowWidth >= 2001 && windowWidth <= 2549 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 37 : (windowWidth >= 1450 && windowWidth <= 2000 ? 30 : (windowWidth >= 1199 && windowWidth <= 1449 ? 18 : 18)))));
+            let yAddButton: any = valuesForResolutions('yAddButtonText')
             let yScaleRect: any = yScale(d['id']);
             return yScaleRect + yAddButton
           })
@@ -683,7 +764,7 @@ const CalendarBody = ({
           }
           return times;
         }
-        let yearOffset = (windowWidth >= 3001 && windowWidth <= 3999 ? 15 : (windowWidth >= 2550 && windowWidth <= 3000 ? 15 : (windowWidth >= 2001 && windowWidth <= 2549 ? 17 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 15 : 15)))));
+        let yearOffset:any = valuesForResolutions('yearOffset');
         let setTextPositionMonth = function (selection: any) {
           selection.each(function (this: any, d: any) {
             var widthMonth = this.getBBox().width,
@@ -1133,33 +1214,10 @@ const CalendarBody = ({
       var styleDiv = window.getComputedStyle(todayLineDiv);
       var matrix = new WebKitCSSMatrix(styleDiv.transform);
 
-      let factorTranslateMonthly = 
-      (windowWidth >= 3001 && windowWidth <= 3999 ? -382 : 
-        (windowWidth >= 2550 && windowWidth <= 3000 ? -252 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? -196 : 
-            (windowWidth >= 1450 && windowWidth <= 2000 ? -244 : 
-              (windowWidth >= 1199 && windowWidth <= 1449 ? -174 : -174)))));
-
-      let factorTranslateDaily = 
-      (windowWidth >= 3001 && windowWidth <= 3999 ? -378 : 
-        (windowWidth >= 2550 && windowWidth <= 3000 ? -249 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
-            (windowWidth >= 1450 && windowWidth <= 2000 ? -99 : 
-              (windowWidth >= 1199 && windowWidth <= 1449 ? -68 : -68)))));
-
-      let factorToShowTodaylineDaily = 
-      (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
-        (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
-          (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
-            (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 
-              (windowWidth >= 1199 && windowWidth <= 1449 ? 500 : 500)))));
-
-      let factorToShowTodaylineMonthly = 
-        (windowWidth >= 3001 && windowWidth <= 3999 ? 1500 : 
-          (windowWidth >= 2550 && windowWidth <= 3000 ? 1000 : 
-            (windowWidth >= 2001 && windowWidth <= 2549 ? -229 : 
-              (windowWidth >= 1450 && windowWidth <= 2000 ? 800 : 
-                (windowWidth >= 1199 && windowWidth <= 1449 ? 600 : 600)))));
+      let factorTranslateMonthly = valuesForResolutions('factorTranslateMonthly');
+      let factorTranslateDaily = valuesForResolutions('factorTranslateDaily');
+      let factorToShowTodaylineDaily:any = valuesForResolutions('factorToShowTodaylineDaily');
+      let factorToShowTodaylineMonthly:any = valuesForResolutions('factorToShowTodaylineMonthly');
 
       let translateYTodayline = (currentZScale===0.9 ? factorTranslateDaily :factorTranslateMonthly) + (currentZScale===0.9 ? zoomTimeline >= factorToShowTodaylineDaily ? 3000 : zoomTimeline  : factorToShowTodaylineMonthly <= zoomTimeline ? 3000 : zoomTimeline)
       d3.select('.dashed-line').attr('style', `transform: rotate(90deg) translate(${matrix.m42}px,${translateYTodayline}px)`)

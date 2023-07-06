@@ -70,11 +70,54 @@ const PhaseBody = ({
   let limitPage = Number(counter) % LIMIT_PAGINATION > 0 ?  Math.floor(Number(counter) / LIMIT_PAGINATION + 1) : Number(counter) / LIMIT_PAGINATION;
   let svg: any;
   const windowWidth: any = window.innerWidth;
-  const marginLeft = (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : (windowWidth >= 1450 && windowWidth <= 2000 ? 20 : (windowWidth >= 1199 && windowWidth <= 1449 ? 22 : 20)))))
-  const marginRight = (windowWidth >= 1900 && windowWidth <= 2549 ? 30 : (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : 30)))
-  const marginTop = (windowWidth >= 3001 && windowWidth <= 3999 ? -41.2 : (windowWidth >= 1900 && windowWidth <= 2549 ? -27 : (windowWidth >= 2550 && windowWidth <= 3000 ? -31 : -22)))
-  const marginBottom = (windowWidth >= 3001 && windowWidth <= 3999 ? -40.5 : (windowWidth >= 2550 && windowWidth <= 3000 ? -43 : (windowWidth >= 1900 && windowWidth <= 2549 ? -35 : -26)))
-  const radius = (windowWidth >= 3001 && windowWidth <= 3999 ? 24 : (windowWidth >= 2001 && windowWidth <= 2549 ? 14 : (windowWidth >= 2550 && windowWidth <= 3000 ? 20 : (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : (windowWidth >= 1199 && windowWidth <= 1449 ? 12 : 12)))));
+  const valuesForResolutions = (value: any) => {
+    switch (value) {
+      case 'marginLeft':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 45 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 32.5 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 29 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 20 :22))))
+      case 'marginRight':
+        return (windowWidth >= 1900 && windowWidth <= 2549 ? 30 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 50 : 
+            (windowWidth >= 3001 && windowWidth <= 3999 ? 40 : 30)))
+      case 'marginTop':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? -41.2 : 
+          (windowWidth >= 1900 && windowWidth <= 2549 ? -27 : 
+            (windowWidth >= 2550 && windowWidth <= 3000 ? -31 : -22)))
+      case 'marginBottom':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? -40.5 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? -43 : 
+            (windowWidth >= 1900 && windowWidth <= 2549 ? -35 : -26)))
+      case 'radius':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 24 :
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 20 :
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 18 :
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 15 : 12))))
+      case 'heightDiv':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 146.6 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 127.56 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 105 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 106.12 : 78))))
+      case 'fontSize':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : 
+          (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : 
+            (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : 
+              (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : 11))))
+      case 'factorCenter':
+        return (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 :
+                 (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : 
+                   (windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : 
+                     (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2))))
+      
+    }
+  }
+  const marginLeft = valuesForResolutions('marginLeft') || 0;
+  const marginRight = valuesForResolutions('marginRight') || 0;
+  const marginTop = valuesForResolutions('marginTop') || 0;
+  const marginBottom = valuesForResolutions('marginBottom') || 0;
+  const radius = valuesForResolutions('radius') || 0;
+  
   const gradientLinesClass = (svgDefinitions: any) => {
     let completedtoActive = svgDefinitions.append("linearGradient");
     completedtoActive
@@ -170,9 +213,8 @@ const PhaseBody = ({
       let margin = { top: marginTop, right: marginRight, bottom: marginBottom, left: marginLeft };
       let width: any = totalLabelWidth;
       let heightDiv: any;
-      heightDiv = (windowWidth >= 3001 && windowWidth <= 3999 ? 146.6 : (windowWidth >= 2550 && windowWidth <= 3000 ? 127.56 : (windowWidth >= 2001 && windowWidth <= 2549 ? 105 : (windowWidth >= 1450 && windowWidth <= 2000 ? 106.12 : (windowWidth >= 1199 && windowWidth <= 1449 ? 78 : 78)))))
-      let factorHeight = (windowWidth >= 3001 && windowWidth <= 3999 ? 0 : 0);
-      let height: any = factorHeight + heightDiv + 3;
+      heightDiv = valuesForResolutions('heightDiv') || 0;
+      let height: any =  heightDiv + 3;
       let heightContainer: any = height + margin.top + margin.bottom;
       if (heightContainer > 0) {
         removeAllChildNodes(document.getElementById(`dotchart_${dataDotchart.id}`))
@@ -334,7 +376,7 @@ const PhaseBody = ({
             })
             .attr("class", "circletext")
             .attr('fill', '#ffffff')
-            .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
+            .attr('font-size', valuesForResolutions('fontSize'))
             .text(function (d: any) {
               let counterdown = 0;
               const projectId = d.project_id;
@@ -357,7 +399,7 @@ const PhaseBody = ({
                 }
               }
               pendingTasks = scheduleList[r].tasks-counterdown;
-              const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 : (windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2)))))
+              const factorCenter: any = valuesForResolutions('factorCenter');
               let offset = 0;
               offset =
                 +pendingTasks > 9 ? xdr(r) - radius / factorCenter : xdr(r) - radius / 4;
