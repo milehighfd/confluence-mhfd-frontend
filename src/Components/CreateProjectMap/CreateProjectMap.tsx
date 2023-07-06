@@ -6,7 +6,6 @@ import * as turf from '@turf/turf';
 import { getData, getToken } from '../../Config/datasets';
 import * as datasets from '../../Config/datasets';
 import { SERVER } from '../../Config/Server.config';
-import DetailedModal from '../Shared/Modals/DetailedModal';
 import { addGeojsonSource, removeGeojsonCluster } from './../../routes/map/components/MapFunctionsCluster';
 import { addPopupAndListeners, addPopupsOnClick } from '../../routes/map/components/MapFunctionsPopup';
 import { depth } from '../../routes/map/components/MapFunctionsUtilities';

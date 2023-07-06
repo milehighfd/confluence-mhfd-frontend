@@ -170,23 +170,21 @@ export const addPopupServiceCountyMunicipality = (
   };
   const html = loadMenuPopupWithData(menuOptions, popups, userInformation, eventFunctions, undefined, undefined, undefined, ids);
   if (html) {
-    searchPopup.remove();
+    if(searchPopup.isOpen()){
+      searchPopup.remove();
+    }
     searchPopup = new mapboxgl.Popup({closeButton: true,});
     searchPopup.setLngLat(coord)
         .setDOMContent(html)
         .addTo(map);
-    let closebuttons = Array.from(document.getElementsByClassName('mapboxgl-popup-close-button'));
-    closebuttons.forEach((element:any) => {
-        element.addEventListener('click', () => {
-          searchMarker.remove();
-          setKeyword('');
-          setMarkerGeocoder(undefined);
-        })
-    });
-
     searchMarker.setPopup(searchPopup);
     searchMarker.addTo(map);
     searchMarker.togglePopup();
+    searchPopup.once('close', () => {
+        searchMarker.remove();
+        setKeyword('');
+        setMarkerGeocoder(undefined);
+      });
     setMarkerGeocoder(searchMarker);
   }
 }
@@ -275,11 +273,6 @@ export const addPopupsOnClick = async (
         })?.map((sps: any) => sps.business_associate?.business_name);
         const estimatedcost = dataFromDB?.estimatedCost?.length? dataFromDB?.estimatedCost[0]: '-'
         const componentcost = dataFromDB?.componentcost?.length? dataFromDB?.componentcost[0]: '-'
-        console.log('galleryProjects', galleryProjects)
-        console.log('mapType', mapType)
-        console.log(estimatedcost)
-        console.log(componentcost)
-        console.log('data from db', dataFromDB);
 
         if(feature.source === PROJECTS_DRAFT+'draft') {
           item = {
@@ -847,7 +840,6 @@ export const addPopupsOnClick = async (
         const objectidstream = feature.properties.mhfd_code;
         const dataFromDBforStreams = await datasets.getData(SERVER.STREAM_BY_ID(objectidstream), datasets.getToken());
         if (dataFromDBforStreams.length > 0) {
-          console.log('DATA FROM DB', dataFromDBforStreams);
           const item = {
             type: 'streams-reaches',
             layer: 'Streams',
@@ -958,7 +950,6 @@ export const addPopupsOnClick = async (
                 status = 'Remove';
               }
               if(feature.source === STREAM_IMPROVEMENT_MEASURE ) {
-                console.log('features stream', feature.properties);
                 item = {
                   layer: MENU_OPTIONS.COMPONENTS,
                   type: getTitleOfStreamImprovements(feature.properties),
