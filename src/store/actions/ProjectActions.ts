@@ -26,7 +26,7 @@ export const saveSpecial = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.CREATE_SPECIAL, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -60,7 +60,7 @@ export const saveAcquisition = (data: any) => {
         formData.append(key, data[key]);
       }
     });
-    datasets.postDataMultipart(SERVER.CREATE_ACQUISITION, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -95,7 +95,7 @@ export const saveCapital = (data: any) => {
         formData.append(key, data[key]);
       }
     });
-    datasets.postDataMultipart(SERVER.CREATE_CAPITAL, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -131,7 +131,7 @@ export const saveMaintenance = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.CREATE_MAINTENANCE, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -180,7 +180,7 @@ export const saveStudy = (data: any) => {
         formData.append(key, data[key]);
       }
     });
-    datasets.postDataMultipart(SERVER.CREATE_STUDY, formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.CREATE_PROJECT_GENERAL, formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;

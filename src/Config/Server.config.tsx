@@ -143,6 +143,7 @@ export const SERVER = (function () {
     const FINANCIAL = 'financial';
     const BOARD = 'board';
     const BOARD_PROJECT = 'board-project';
+    const CREATE_PROJECT_GENERAL = 'createproject';
     return {
         URL_BASE: URL_BASE.BASE,
         BASE_URL_IMAGES: URL_BASE.IMAGES,
@@ -252,6 +253,7 @@ export const SERVER = (function () {
         CREATE_MAINTENANCE:`${URL_BASE.BASE}/${CREATE}/${MAINTENANCE}`,
         CREATE_SPECIAL:`${URL_BASE.BASE}/${CREATE}/${SPECIAL}`,
         CREATE_STUDY:`${URL_BASE.BASE}/${CREATE}/${STUDY}`,
+        CREATE_PROJECT_GENERAL: `${URL_BASE.BASE}/${CREATE}/${CREATE_PROJECT_GENERAL}`,
         GET_STUDIES: `${URL_BASE.BASE}/${STUDY}`,
         GET_STREAM_INTERSECTED: `${URL_BASE.BASE}/${CREATE}/${GET_STREAM_INTERSECTED}`,
         GET_STREAM_INTERSECTION: `${URL_BASE.BASE}/${CREATE}/${GET_STREAM_INTERSECTION}`,
