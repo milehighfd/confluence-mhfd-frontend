@@ -5,10 +5,9 @@ import moment from 'moment';
 import store from 'store';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { SERVER } from 'Config/Server.config';
-import { FILTER_PROJECTS_TRIGGER } from 'constants/constants';
+import { FILTER_PROJECTS_TRIGGER, LIMIT_PAGINATION } from 'constants/constants';
 import { getCurrentProjectStatus, getServiceAreas, getStreams, getTotalEstimatedCost } from 'utils/parsers';
 import * as datasets from 'Config/datasets';
-import { LIMIT_PAGINATION } from 'constants/constants';
 import { colorScale } from 'routes/portfolio-view/constants/PhaseViewData';
 import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { useMapState } from 'hook/mapHook';
@@ -153,20 +152,13 @@ const PhaseBody = ({
   useEffect(() => {
     if (Object.keys(phaseData).length > 0) {
       phaseData.map((elem: any) => (
-        // elem.values.map((value: any) => (
           removeAllChildNodes(document.getElementById(`dotchart_${removeSpaces(elem.id)}`))          
-        // ))
       ));
     }
-    if (phaseData.length > 0) {  
-      console.log('before', phaseData);
-      console.log('before', new Date());   
+    if (phaseData.length > 0) {   
       phaseData.forEach((element:any) => {
-        // element.values.forEach((value:any) => {
           phaseChart(element);
-        // })
       });
-      console.log('after', new Date());
     }    
   }, [phaseData, windowWidth]);
 
@@ -571,13 +563,7 @@ const PhaseBody = ({
         }
       }
     })
-    let phaseD = rawData2.map((elem: any) => {
-      return {
-        ...elem,
-        values: rawData2.filter((elemRaw: any) => !elemRaw.id.includes('Title') && elemRaw.headerLabel === elem.headerLabel)
-      }
-    });
-    setPhaseData(phaseD)
+    setPhaseData(rawData2)
   }, [dataBody, favorites])
 
   useEffect(() => {
@@ -626,9 +612,7 @@ const PhaseBody = ({
           {
             phaseData.map((d: any, index_elem: number) => (
               <div className="text-search" key={d.id} id={d.id}
-                onMouseEnter={(e: any) => {
-                  //setHoverTable(elem.values[index_elem].project_id)
-                }}>
+                >
                 <Tooltip placement="top" title={d.rowLabel}>
                   <p onClick={() => {
                     setDetailOpen(true);
@@ -658,16 +642,13 @@ const PhaseBody = ({
             <div className="container-timeline"
               style={{ paddingLeft: '5px' }}>
               {
-              // phaseData.map((elem: any, index: number) => (
                 phaseData.map((value: any, indexinside: number) => {
                   return <div key={`value.id${indexinside}`}>
                     <div className="phaseview-timeline" style={{ width: totalLabelWidth }}>
                       <div id={`dotchart_${value.id.includes('?')? 'questionMark' : startsWithNumber(value.id)? removeSpaces(value.id).replace(/[^a-zA-Z]/g, '') : removeSpaces(value.id).replace(/[^a-zA-Z0-9]/g, '')}`}></div>
                     </div>
-                    {value.values.length - 1 === indexinside && phaseData.length - 1 !== index ? <div className="header-timeline" style={{ width: totalLabelWidth }}></div> : ''}
                   </div>
                 })
-              // ))
               }
             </div>
           </div>
