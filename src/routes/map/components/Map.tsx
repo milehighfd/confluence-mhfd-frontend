@@ -959,22 +959,22 @@ const Map = ({ leftWidth }: MapProps) => {
     getProjectsFilteredIds();
     applyFilters(MHFD_PROJECTS, filterProjectOptions);
     setTimeout(() => {
-      topLandUseCover();
-      topCounties();
-      topMunicipalities();
-      topServiceArea();
-      topAdditionalLayers();
-      topStreams();
-      topEffectiveReaches();
-      toMEPproject();
-      topProjects();
-      topComponents();
-      toProblemParts();
-      topAddLayers();
-      topProblems();
-      topHovereableLayers();
-      topStreamLabels();
-      topLabels();
+      mapService.topLandUseCover();
+      mapService.topCounties();
+      mapService.topMunicipalities();
+      mapService.topServiceArea();
+      mapService.topAdditionalLayers();
+      mapService.topStreams();
+      mapService.topEffectiveReaches();
+      mapService.topMEPproject();
+      mapService.topProjects();
+      mapService.topComponents();
+      mapService.topProblemParts();
+      mapService.topAddLayers();
+      mapService.topProblems();
+      mapService.topHovereableLayers();
+      mapService.topStreamLabels();
+      mapService.topLabels();
       if (map.getLayer('area_based_maskMASK')) {
         map.moveLayer('area_based_maskMASK');
       }
@@ -983,221 +983,7 @@ const Map = ({ leftWidth }: MapProps) => {
       }
     }, 300);
   };
-  const topHovereableLayers = () => {
-    const styles = { ...(tileStyles as any) };
-    hovereableLayers.forEach((key: any) => {
-      if (styles[key]) {
-        styles[key].forEach((_: LayerStylesType, index: number) => {
-          if (map.getLayer(key + '_highlight_' + index)) {
-            map.moveLayer(key + '_highlight_' + index);
-          }
-        });
-      }
-    });
-  };
-
-  const topLandUseCover = () => {
-    const useLandCover = USE_LAND_COVER as any;
-    useLandCover.tiles.forEach((element: any) => {
-      if (map.getLayer(`${element}_0`)) {
-        map.moveLayer(`${element}_0`);
-      }
-    });
-  };
-
-  const topProblems = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[PROBLEMS_TRIGGER].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${PROBLEMS_TRIGGER}_${index}`)) {
-        map.moveLayer(`${PROBLEMS_TRIGGER}_${index}`);
-      }
-    });
-  };
-
-  const topAddLayers = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[DWR_DAM_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      map.moveLayer(`${DWR_DAM_SAFETY}_${index}`);
-    });
-    styles[RESEARCH_MONITORING].forEach((style: LayerStylesType, index: number) => {
-      map.moveLayer(`${RESEARCH_MONITORING}_${index}`);
-    });
-    styles[CLIMB_TO_SAFETY].forEach((style: LayerStylesType, index: number) => {
-      map.moveLayer(`${CLIMB_TO_SAFETY}_${index}`);
-    });
-  };
-
-  const topProjects = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[MHFD_PROJECTS].forEach((style: LayerStylesType, index: number) => {
-      map.moveLayer(`${MHFD_PROJECTS}_${index}`);
-    });
-  };
-  const topComponents = () => {
-    const styles = { ...(COMPONENT_LAYERS_STYLE as any) };
-    for (const component of COMPONENT_LAYERS.tiles) {
-      styles[component].forEach((style: LayerStylesType, index: number) => {
-        if (map.getLayer(`${component}_${index}`)) {
-          map.moveLayer(`${component}_${index}`);
-        }
-      });
-    }
-  };
-
-  const toMEPproject = () => {
-    const styles = { ...(MEP_PROJECTS_STYLES as any) };
-    for (const component of MEP_PROJECTS.tiles) {
-      styles[component].forEach((style: LayerStylesType, index: number) => {
-        if (map.getLayer(`${component}_${index}`)) {
-          map.moveLayer(`${component}_${index}`);
-        }
-      });
-    }
-  };
-
-  const toProblemParts = () => {
-    const styles = { ...(tileStyles as any) };
-    for (const problemsParts of FLOOD_HAZARDS.tiles) {
-      styles[problemsParts].forEach((style: LayerStylesType, index: number) => {
-        if (map.getLayer(`${problemsParts}_${index}`)) {
-          map.moveLayer(`${problemsParts}_${index}`);
-        }
-      });
-    }
-  };
-
-  const topMunicipalities = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[MUNICIPALITIES_FILTERS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${MUNICIPALITIES_FILTERS}_${index}`)) {
-        map.moveLayer(`${MUNICIPALITIES_FILTERS}_${index}`);
-      }
-    });
-  };
-
-  const topCounties = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[COUNTIES_FILTERS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${COUNTIES_FILTERS}_${index}`)) {
-        map.moveLayer(`${COUNTIES_FILTERS}_${index}`);
-      }
-    });
-  };
-
-  const topServiceArea = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[SEMSWA_SERVICE_AREA].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${SEMSWA_SERVICE_AREA}_${index}`)) {
-        map.moveLayer(`${SEMSWA_SERVICE_AREA}_${index}`);
-      }
-    });
-    styles[SERVICE_AREA_FILTERS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${SERVICE_AREA_FILTERS}_${index}`)) {
-        map.moveLayer(`${SERVICE_AREA_FILTERS}_${index}`);
-      }
-    });
-  };
-
-  const topAdditionalLayers = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[WATERSHED_FILTERS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${WATERSHED_FILTERS}_${index}`)) {
-        map.moveLayer(`${WATERSHED_FILTERS}_${index}`);
-      }
-    });
-    styles[NRCS_SOILS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${NRCS_SOILS}_${index}`)) {
-        map.moveLayer(`${NRCS_SOILS}_${index}`);
-      }
-    });
-    styles[FEMA_FLOOD_HAZARD].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${FEMA_FLOOD_HAZARD}_${index}`)) {
-        map.moveLayer(`${FEMA_FLOOD_HAZARD}_${index}`);
-      }
-    });
-    styles[FLOODPLAINS_NON_FEMA_FILTERS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${FLOODPLAINS_NON_FEMA_FILTERS}_${index}`)) {
-        map.moveLayer(`${FLOODPLAINS_NON_FEMA_FILTERS}_${index}`);
-      }
-    });
-    styles[ACTIVE_LOMS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${ACTIVE_LOMS}_${index}`)) {
-        map.moveLayer(`${ACTIVE_LOMS}_${index}`);
-      }
-    });
-    styles[STREAM_MANAGEMENT_CORRIDORS].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${STREAM_MANAGEMENT_CORRIDORS}_${index}`)) {
-        map.moveLayer(`${STREAM_MANAGEMENT_CORRIDORS}_${index}`);
-      }
-    });
-    const stylesMaintenanceRoutine = { ...(ROUTINE_MAINTENANCE_STYLES as any) };
-    for (const component of ROUTINE_MAINTENANCE.tiles) {
-      stylesMaintenanceRoutine[component].forEach((style: LayerStylesType, index: number) => {
-        if (map.getLayer(`${component}_${index}`)) {
-          map.moveLayer(`${component}_${index}`);
-        }
-      });
-    }
-  };
-  const topEffectiveReaches = () => {
-    const styles = { ...(tileStyles as any) };
-    styles[EFFECTIVE_REACHES].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(`${EFFECTIVE_REACHES}_${index}`)) {
-        map.moveLayer(`${EFFECTIVE_REACHES}_${index}`);
-      }
-    });
-  };
-  const topLabels = () => {
-    setTimeout(() => {
-      if (
-        map.getLayer('measuresSaved') &&
-        map.getLayer('measure-lines') &&
-        map.getLayer('poi-label') &&
-        map.getLayer('state-label') &&
-        map.getLayer('country-label') &&
-        map.getLayer('munis-centroids-shea-plusother') &&
-        map.getLayer('munis-centroids-district-view-dkc40e')
-      ) {
-        map.moveLayer('measuresSaved');
-        map.moveLayer('measure-lines');
-        map.moveLayer('measuresSaved-border');
-        map.moveLayer('poi-label');
-        map.moveLayer('state-label');
-        map.moveLayer('country-label');
-        map.moveLayer('munis-centroids-shea-plusother');
-        map.moveLayer('munis-centroids-district-view-dkc40e');
-      } else {
-        topLabels();
-      }
-    }, 1000);
-  };
-  const topStreams = () => {
-    if (map.getLayer('streams_0')) {
-      map.moveLayer('streams_0');
-    }
-    if (map.getLayer('streams_1')) {
-      map.moveLayer('streams_1');
-    }
-    if (map.getLayer('streams_2')) {
-      map.moveLayer('streams_2');
-    }
-    if (map.getLayer('streams_3')) {
-      map.moveLayer('streams_3');
-    }
-    if (map.getLayer('mhfd_flow_points_0')) {
-      map.moveLayer('mhfd_flow_points_0');
-    }
-    if (map.getLayer('mhfd_flow_points_1')) {
-      map.moveLayer('mhfd_flow_points_1');
-    }
-    if (map.getLayer('mhfd_flow_points_2')) {
-      map.moveLayer('mhfd_flow_points_2');
-    }
-  };
-  const topStreamLabels = () => {
-    map.moveLayer('streams_4');
-    map.moveLayer('streams_5');
-  };
+ 
   const addTileSource = (sourceName: string) => {
     if (!map.getSource(sourceName)) {
       map.addSource(sourceName, {
