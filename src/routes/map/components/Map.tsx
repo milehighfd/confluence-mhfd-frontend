@@ -328,33 +328,6 @@ const Map = ({ leftWidth }: MapProps) => {
     }
   }, [userInformation.polygon]);
 
-  const addLayerMask = (id: any) => {
-    if (map.getSource('mask')) {
-      if (id == 'border' && !map.getLayer(id + 'MASK')) {
-        map.addLayer({
-          id: id + 'MASK',
-          source: 'mask',
-          type: 'line',
-          paint: {
-            'line-color': '#28c499',
-            'line-width': 1,
-          },
-          'z-index': 10,
-        });
-      } else if (id == 'area_based_mask' && !map.getLayer(id + 'MASK')) {
-        map.addLayer({
-          id: id + 'MASK',
-          source: 'mask',
-          type: 'fill',
-          paint: {
-            'fill-color': 'black',
-            'fill-opacity': 0.8,
-          },
-          'z-index': 10,
-        });
-      }
-    }
-  };
   const removeLayerMask = (id: any) => {
     map.removeLayer(id + 'MASK');
   };
@@ -736,11 +709,34 @@ const Map = ({ leftWidth }: MapProps) => {
 
   useMapResize(leftWidth, map);
 
+  const showLayers = (key: string) => {
+
+    const styles = { ...tileStyles as any };
+    styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (map.getLayer(key + '_' + index)) {
+            map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+            if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
+                mapService.showSelectedComponents(filterComponents.component_type.split(','));
+            }
+            if (key === PROBLEMS_TRIGGER) {
+              isProblemActive = true;
+            }
+        }
+    });
+    if (key === STREAMS_FILTERS) {
+      styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+        if (map && map.getLayer(STREAMS_POINT + '_' + index)) {
+          map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       applySkyMapLayer();
-      applyMapLayers();
+      mapService.applyMapLayers(layerFilters,selectedLayers, showLayers, applyFilters, getProjectsFilteredIds, filterProblems, filterProjectOptions, addMapListeners);
       if (areObjectsDifferent(initFilterProblems, filterProblems)) {
         applyProblemClusterLayer();
       }
@@ -864,50 +860,7 @@ const Map = ({ leftWidth }: MapProps) => {
     }
   };
 
-  const applyTileSetLayer = () => {
-    const sourceNameTile = 'milehighfd.create';
-    const tileName = 'Adams1_LULC';
-    if (!map.getSource(sourceNameTile)) {
-      map.addSource(sourceNameTile, {
-        url: `mapbox://${sourceNameTile}`,
-        type: 'vector',
-      });
-      map.addLayer({
-        id: 'douglas',
-        type: 'fill',
-        source: sourceNameTile,
-        'source-layer': tileName,
-        layout: {
-          visibility: 'visible',
-        },
-        paint: {
-          'fill-color': [
-            'match',
-            ['get', 'gridcode'],
-            [1],
-            '#ffffff',
-            [2],
-            '#b2b2b2',
-            [3],
-            '#73b2ff',
-            [4],
-            '#cdf57a',
-            [5],
-            '#728944',
-            [6],
-            '#abcd66',
-            [7],
-            '#734c00',
-            [8],
-            '#cdaa66',
-            [9],
-            '#ffaa00',
-            'hsla(0, 0%, 0%, 0)',
-          ],
-        },
-      });
-    }
-  };
+
 
   const applyProblemClusterLayer = () => {
     const controller = new AbortController();
@@ -920,103 +873,6 @@ const Map = ({ leftWidth }: MapProps) => {
       .catch(handleAbortError);
     return controller;
   };
-  const applyMapLayers = () => {
-    SELECT_ALL_FILTERS.forEach(layer => {
-      if (typeof layer === 'object') {
-        if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
-          applyTileSetLayer();
-          layer.tiles.forEach((tile: string) => {
-            addTileSource(tile);
-          });
-        } else if (layer.tiles) {
-          layer.tiles.forEach((subKey: string) => {
-            const tiles = layerFilters[layer.name] as any;
-            if (tiles) {
-              addLayersSource(subKey, tiles[subKey]);
-            }
-          });
-        }
-      } else {
-        if (layer !== 'area_based_mask' && layer !== 'border') {
-          addLayersSource(layer, layerFilters[layer]);
-        }
-      }
-    });
-    selectedLayers.forEach((layer: LayersType) => {
-      if (layer === 'area_based_mask' || layer === 'border') {
-        addLayerMask(layer);
-        return;
-      }
-      if (typeof layer === 'object') {
-        layer.tiles.forEach((subKey: string) => {
-          showLayers(subKey);
-        });
-      } else {
-        showLayers(layer);
-      }
-    });
-    applyFilters(PROBLEMS_TRIGGER, filterProblems);
-    getProjectsFilteredIds();
-    applyFilters(MHFD_PROJECTS, filterProjectOptions);
-    setTimeout(() => {
-      mapService.topLandUseCover();
-      mapService.topCounties();
-      mapService.topMunicipalities();
-      mapService.topServiceArea();
-      mapService.topAdditionalLayers();
-      mapService.topStreams();
-      mapService.topEffectiveReaches();
-      mapService.topMEPproject();
-      mapService.topProjects();
-      mapService.topComponents();
-      mapService.topProblemParts();
-      mapService.topAddLayers();
-      mapService.topProblems();
-      mapService.topHovereableLayers();
-      mapService.topStreamLabels();
-      mapService.topLabels();
-      if (map.getLayer('area_based_maskMASK')) {
-        map.moveLayer('area_based_maskMASK');
-      }
-      if (map.getLayer('borderMASK')) {
-        map.moveLayer('borderMASK');
-      }
-    }, 300);
-  };
- 
-  const addTileSource = (sourceName: string) => {
-    if (!map.getSource(sourceName)) {
-      map.addSource(sourceName, {
-        url: `mapbox://${sourceName}`,
-        type: 'vector',
-      });
-      addTilesLayers(sourceName);
-    }
-  };
-  const addLayersSource = (key: string, tiles: Array<string>) => {
-    if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
-      map.addSource(key, {
-        type: 'vector',
-        tiles: tiles,
-      });
-      addTilesLayers(key);
-    }
-  };
-
-  const showSelectedComponents = (components: string[]): void => {
-    if (!components.length || components[0] === '') {
-      return;
-    }
-    const styles = { ...(tileStyles as any) };
-    for (const key of COMPONENT_LAYERS.tiles) {
-      styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (!components.includes(key)) {
-          map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
-        }
-      });
-    }
-  };
-
   const searchEquivalentinProblemBoundary = (key: string) => {
     if (PROPSPROBLEMTABLES.problems.includes(key)) {
       const index = PROPSPROBLEMTABLES.problems.indexOf(key);
@@ -1361,144 +1217,16 @@ const Map = ({ leftWidth }: MapProps) => {
     }
     canAdd.value = true;
   };
-  const addLayerProperties = (key: string, index: number, style: any) => {
-    if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
-      if (!map.getLayer(key + '-background')) {
-        map.addLayer({
-          id: key + '-background',
-          type: 'fill',
-          source: key,
-          'source-layer': 'pluto15v1',
-          layout: {
-            visibility: 'visible',
-          },
-          paint: {
-            'fill-color': '#ffffff',
-            'fill-opacity': 0,
-          },
-        });
-      }
-    }
-    if (key) {
-      map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
-    }
-
-    if (!hovereableLayers.includes(key)) {
-      return;
-    }
-
-    if (style.type === 'line' && key == STREAMS_FILTERS) {
-      map.addLayer({
-        id: key + '_highlight_' + index,
-        source: key,
-        type: 'line',
-        'source-layer': 'pluto15v1',
-        layout: {
-          visibility: 'visible',
-        },
-        paint: {
-          'line-color': '#fff',
-          'line-width': style.source_name ? widthLayersStream[0] : widthLayersStream[1],
-        },
-        filter: ['in', 'cartodb_id'],
-      });
-    } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
-      map.addLayer({
-        id: key + '_highlight_' + index,
-        source: key,
-        type: 'line',
-        'source-layer': 'pluto15v1',
-        layout: {
-          visibility: 'visible',
-        },
-        paint: {
-          'line-color': '#fff',
-          'line-width': 7,
-        },
-        filter: ['in', 'cartodb_id'],
-      });
-    } else if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
-      map.addLayer({
-        id: key + '_highlight_' + index,
-        type: 'circle',
-        'source-layer': 'pluto15v1',
-        source: key,
-        layout: {
-          visibility: 'visible',
-        },
-        paint: {
-          'circle-color': '#FFF',
-          'circle-radius': 7,
-          'circle-opacity': 1,
-        },
-        filter: ['in', 'cartodb_id'],
-      });
-    }
-  };
-  const addTilesLayers = (key: string) => {
-    if (key.includes('milehighfd') && process.env.REACT_APP_NODE_ENV !== 'prod') {
-      const tileName: string = USE_LAND_COVER_MAP[key];
-      const style = USE_LAND_TILES_STYLE;
-      map.addLayer({
-        id: key + '_0',
-        source: key,
-        'source-layer': tileName,
-        ...style,
-      });
-    } else {
-      const styles = { ...(tileStyles as any) };
-      styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (style)
-          if (style.source_name) {
-            map.addLayer({
-              id: key + '_' + index,
-              source: style.source_name,
-              ...style,
-            });
-          } else {
-            map.addLayer({
-              id: key + '_' + index,
-              source: key,
-              ...style,
-            });
-          }
-        addLayerProperties(key, index, style);
-      });
-    }
-    addMapListeners(key);
-  };
-
-  const showLayers = (key: string) => {
-    const styles = { ...(tileStyles as any) };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
-      if (map.getLayer(key + '_' + index)) {
-        map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-        if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
-          showSelectedComponents(filterComponents.component_type.split(','));
-        }
-        if (key === PROBLEMS_TRIGGER) {
-          isProblemActive = true;
-        }
-      }
-    });
-    if (key === STREAMS_FILTERS) {
-      styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
-        if (map && map.getLayer(STREAMS_POINT + '_' + index)) {
-          map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'visible');
-        }
-      });
-    }
-  };
 
   const hideLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
+    styles[key].forEach((_: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index)) {
         map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
       }
     });
     if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
-      styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+      styles[STREAMS_POINT].forEach((_: LayerStylesType, index: number) => {
         if (map.getLayer(STREAMS_POINT + '_' + index)) {
           map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
         }

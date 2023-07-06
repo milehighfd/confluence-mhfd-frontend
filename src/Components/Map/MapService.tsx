@@ -47,7 +47,8 @@ import {
   USE_LAND_TILES_STYLE,
 } from 'constants/mapStyles';
 import { hovereableLayers } from '../../routes/map/constants/layout.constants';
-import { LayerStylesType } from 'Classes/MapTypes';
+import { LayerStylesType, ObjectLayerType } from 'Classes/MapTypes';
+type LayersType = string | ObjectLayerType;
 class MapService {
 
   private _map: any;
@@ -324,6 +325,287 @@ class MapService {
   topStreamLabels () {
     this.map.moveLayer('streams_4');
     this.map.moveLayer('streams_5');
+  };
+  applyTileSetLayer() {
+    const sourceNameTile = 'milehighfd.create';
+    const tileName = 'Adams1_LULC';
+    if (!this.map.getSource(sourceNameTile)) {
+      this.map.addSource(sourceNameTile, {
+        url: `mapbox://${sourceNameTile}`,
+        type: 'vector',
+      });
+      this.map.addLayer({
+        id: 'douglas',
+        type: 'fill',
+        source: sourceNameTile,
+        'source-layer': tileName,
+        layout: {
+          visibility: 'visible',
+        },
+        paint: {
+          'fill-color': [
+            'match',
+            ['get', 'gridcode'],
+            [1],
+            '#ffffff',
+            [2],
+            '#b2b2b2',
+            [3],
+            '#73b2ff',
+            [4],
+            '#cdf57a',
+            [5],
+            '#728944',
+            [6],
+            '#abcd66',
+            [7],
+            '#734c00',
+            [8],
+            '#cdaa66',
+            [9],
+            '#ffaa00',
+            'hsla(0, 0%, 0%, 0)',
+          ],
+        },
+      });
+    }
+  };
+  
+  addLayerMask(id: any) {
+    if (this.map.getSource('mask')) {
+      if (id == 'border' && !this.map.getLayer(id + 'MASK')) {
+        this.map.addLayer({
+          id: id + 'MASK',
+          source: 'mask',
+          type: 'line',
+          paint: {
+            'line-color': '#28c499',
+            'line-width': 1,
+          },
+          'z-index': 10,
+        });
+      } else if (id == 'area_based_mask' && !this.map.getLayer(id + 'MASK')) {
+        this.map.addLayer({
+          id: id + 'MASK',
+          source: 'mask',
+          type: 'fill',
+          paint: {
+            'fill-color': 'black',
+            'fill-opacity': 0.8,
+          },
+          'z-index': 10,
+        });
+      }
+    }
+  };
+  showSelectedComponents(components: string[]){
+    if (!components.length || components[0] === '') {
+        return;
+    }
+    const styles = { ...tileStyles as any };
+    for (const key of COMPONENT_LAYERS.tiles) {
+        styles[key].forEach((_: LayerStylesType, index: number) => {
+            if (!components.includes(key)) {
+                this.map.setFilter(key + '_' + index, ['in', 'cartodb_id', -1]);
+            }
+        });
+    }
+}
+  applyMapLayers(
+    layerFilters: any,
+    selectedLayers: any,
+    showLayers: any,
+    applyFilters: any,
+    getProjectsFilteredIds: any,
+    filterProblems: any,
+    filterProjectOptions: any,
+    addMapListeners: any
+  ) {
+    SELECT_ALL_FILTERS.forEach(layer => {
+      if (typeof layer === 'object') {
+        if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
+          this.applyTileSetLayer();
+          layer.tiles.forEach((tile: string) => {
+            this.addTileSource(tile, addMapListeners);
+          });
+        } else if (layer.tiles) {
+          layer.tiles.forEach((subKey: string) => {
+            const tiles = layerFilters[layer.name] as any;
+            if (tiles) {
+              this.addLayersSource(subKey, tiles[subKey], addMapListeners);
+            }
+          });
+        }
+      } else {
+        if (layer !== 'area_based_mask' && layer !== 'border') {
+          this.addLayersSource(layer, layerFilters[layer], addMapListeners);
+        }
+      }
+    });
+    selectedLayers.forEach((layer: LayersType) => {
+      if (layer === 'area_based_mask' || layer === 'border') {
+        this.addLayerMask(layer);
+        return;
+      }
+      if (typeof layer === 'object') {
+        layer.tiles.forEach((subKey: string) => {
+          showLayers(subKey);
+        });
+      } else {
+        showLayers(layer);
+      }
+    });
+    applyFilters(PROBLEMS_TRIGGER, filterProblems);
+    getProjectsFilteredIds();
+    applyFilters(MHFD_PROJECTS, filterProjectOptions);
+    setTimeout(() => {
+      this.topLandUseCover();
+      this.topCounties();
+      this.topMunicipalities();
+      this.topServiceArea();
+      this.topAdditionalLayers();
+      this.topStreams();
+      this.topEffectiveReaches();
+      this.topMEPproject();
+      this.topProjects();
+      this.topComponents();
+      this.topProblemParts();
+      this.topAddLayers();
+      this.topProblems();
+      this.topHovereableLayers();
+      this.topStreamLabels();
+      this.topLabels();
+      if (this.map.getLayer('area_based_maskMASK')) {
+        this.map.moveLayer('area_based_maskMASK');
+      }
+      if (this.map.getLayer('borderMASK')) {
+        this.map.moveLayer('borderMASK');
+      }
+    }, 300);
+  };
+  addLayerProperties(key: string, index: number, style: any) {
+    if (key === 'counties' || key === 'municipalities' || key === 'watershed_service_areas') {
+      if (!this.map.getLayer(key + '-background')) {
+        this.map.addLayer({
+          id: key + '-background',
+          type: 'fill',
+          source: key,
+          'source-layer': 'pluto15v1',
+          layout: {
+            visibility: 'visible',
+          },
+          paint: {
+            'fill-color': '#ffffff',
+            'fill-opacity': 0,
+          },
+        });
+      }
+    }
+    if (key) {
+      this.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+    }
+
+    if (!hovereableLayers.includes(key)) {
+      return;
+    }
+
+    if (style.type === 'line' && key == STREAMS_FILTERS) {
+      this.map.addLayer({
+        id: key + '_highlight_' + index,
+        source: key,
+        type: 'line',
+        'source-layer': 'pluto15v1',
+        layout: {
+          visibility: 'visible',
+        },
+        paint: {
+          'line-color': '#fff',
+          'line-width': style.source_name ? widthLayersStream[0] : widthLayersStream[1],
+        },
+        filter: ['in', 'cartodb_id'],
+      });
+    } else if (style.type === 'line' || style.type === 'fill' || style.type === 'heatmap') {
+      this.map.addLayer({
+        id: key + '_highlight_' + index,
+        source: key,
+        type: 'line',
+        'source-layer': 'pluto15v1',
+        layout: {
+          visibility: 'visible',
+        },
+        paint: {
+          'line-color': '#fff',
+          'line-width': 7,
+        },
+        filter: ['in', 'cartodb_id'],
+      });
+    } else if ((style.type === 'circle' || style.type === 'symbol') && key != 'streams') {
+      this.map.addLayer({
+        id: key + '_highlight_' + index,
+        type: 'circle',
+        'source-layer': 'pluto15v1',
+        source: key,
+        layout: {
+          visibility: 'visible',
+        },
+        paint: {
+          'circle-color': '#FFF',
+          'circle-radius': 7,
+          'circle-opacity': 1,
+        },
+        filter: ['in', 'cartodb_id'],
+      });
+    }
+  };
+  addTilesLayers(key: string, addMapListeners: any) {
+    if (key.includes('milehighfd') && process.env.REACT_APP_NODE_ENV !== 'prod') {
+      const tileName: string = USE_LAND_COVER_MAP[key];
+      const style = USE_LAND_TILES_STYLE;
+      this.map.addLayer({
+        id: key + '_0',
+        source: key,
+        'source-layer': tileName,
+        ...style,
+      });
+    } else {
+      const styles = { ...(tileStyles as any) };
+      styles[key].forEach((style: LayerStylesType, index: number) => {
+        if (style)
+          if (style.source_name) {
+            this.map.addLayer({
+              id: key + '_' + index,
+              source: style.source_name,
+              ...style,
+            });
+          } else {
+            this.map.addLayer({
+              id: key + '_' + index,
+              source: key,
+              ...style,
+            });
+          }
+        this.addLayerProperties(key, index, style);
+      });
+    }
+    addMapListeners(key);
+  };
+  addTileSource(sourceName: string, addMapListeners: any) {
+    if (!this.map.getSource(sourceName)) {
+      this.map.addSource(sourceName, {
+        url: `mapbox://${sourceName}`,
+        type: 'vector',
+      });
+      this.addTilesLayers(sourceName, addMapListeners);
+    }
+  };
+  addLayersSource(key: string, tiles: Array<string>, addMapListeners: any) {
+    if (!this.map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
+      this.map.addSource(key, {
+        type: 'vector',
+        tiles: tiles,
+      });
+      this.addTilesLayers(key, addMapListeners);
+    }
   };
 
   get map(): any {
