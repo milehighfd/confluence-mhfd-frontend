@@ -21,14 +21,13 @@ const Roadmap = ({setOpenPiney,
      updateAction:any,
      setUpdateAction: any
     }) => {
-  const { graphicOpen, statusCounter, updateGroup } = usePortflioState();
-  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData, getListPMTools, setDatesData } = usePortfolioDispatch();
+  const { graphicOpen, statusCounter, updateGroup, actionsDone } = usePortflioState();
+  const { setPositionModalGraphic, setDataModal, setGraphicOpen, setPineyData, getListPMTools, setDatesData, getActionsDone } = usePortfolioDispatch();
   const [timeOpen, setTimeOpen] = useState(true);
   const [phaseList, setPhaseList] = useState<any>([])
   const [scheduleList, setScheduleList] = useState<any>({})
   const [statusList, setStatusList] = useState<any>([])
   const [updatePhaseList, setUpdatePhaseList] = useState(false);
-  const [actionsDone,setActionsDone] = useState<any>({})
   const [userBrowser, setUserBrowser] = useState<any>()
   const [availableStatusList, setAvailableStatusList] = useState<any>([])
 
@@ -363,28 +362,25 @@ const Roadmap = ({setOpenPiney,
       .attr('fill', '#ffffff')
       .attr('font-size',(windowWidth>=3001 && windowWidth<=3999 ? 23 :(windowWidth>=2001 && windowWidth<=2549 ? 18 : (windowWidth>=2550 && windowWidth<=3000 ? 21: (windowWidth>=1450 && windowWidth<=2000 ? 16 :(windowWidth>=1199 && windowWidth<=1449 ? 11 :11))))))
       .text(function (d: any) {                 
-        let counterdown = 0;           
-        for (let i = 0; i < Object.keys(actionsDone).length ; i++){
-          if (d.project_id === actionsDone[i].project_id){
-            // for (let j = 0; j < Object.keys(scheduleList[r].tasksData).length ; j++){
-            //   if(scheduleList[r].tasksData[j].code_rule_action_item_id === actionsDone[i].code_rule_action_item_id){                    
-            //     counterdown = counterdown + 1;
-            //     break;
-            //   }                 
-            // }    
-            counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
-          }              
+        let counterdown = 0;     
+        const projectId = d.project_id;
+        const arrayToCompare = actionsDone[projectId]
+        if (arrayToCompare !== undefined) {
+          for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
+            counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
+          }
         }
-        //console.log(scheduleList[r].tasks)
         return scheduleList[r].tasks-counterdown
       })
       .attr("x", function (d: any) {
         let counterdown = 0;  
         let pendingTasks;         
-        for (let i = 0; i < Object.keys(actionsDone).length ; i++){
-          if (d.project_id === actionsDone[i].project_id){   
-            counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
-          }              
+        const projectId = d.project_id;
+        const arrayToCompare = actionsDone[projectId]
+        if (arrayToCompare !== undefined) {
+          for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
+            counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
+          }
         }
         pendingTasks = scheduleList[r].tasks-counterdown;
         const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 :(windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2)))))
@@ -654,19 +650,7 @@ const Roadmap = ({setOpenPiney,
 
   useEffect(() => {
     setUserBrowser(getUserBrowser())
-    const controller = new AbortController();
-    datasets.getData(
-      `${SERVER.PROJECT_ACTION_ITEM}`,
-      datasets.getToken(),
-      controller.signal
-    ).then((e) => {
-      setActionsDone(e);
-    }).catch((e) => {
-      console.log(e);
-    });
-    return () => {
-      controller.abort();
-    };
+    getActionsDone();
   }, [data?.code_project_type_id,updateAction])
 
   useEffect(() => {

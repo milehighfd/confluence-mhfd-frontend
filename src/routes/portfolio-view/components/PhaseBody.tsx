@@ -337,9 +337,11 @@ const PhaseBody = ({
             .attr('font-size', (windowWidth >= 3001 && windowWidth <= 3999 ? 23 : (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 21 : (windowWidth >= 1450 && windowWidth <= 2000 ? 16 : (windowWidth >= 1199 && windowWidth <= 1449 ? 11 : 11))))))
             .text(function (d: any) {
               let counterdown = 0;
-              for (let i = 0; i < Object.keys(actionsDone).length; i++) {
-                if (d.project_id === actionsDone[i].project_id) {
-                  counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);
+              const projectId = d.project_id;
+              const arrayToCompare = actionsDone[projectId]
+              if (arrayToCompare !== undefined) {
+                for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
+                  counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
                 }
               }
               return scheduleList[r].tasks - counterdown
@@ -347,10 +349,12 @@ const PhaseBody = ({
             .attr("x", function (d:any) {
               let counterdown = 0;  
               let pendingTasks;         
-              for (let i = 0; i < Object.keys(actionsDone).length ; i++){
-                if (d.project_id === actionsDone[i].project_id){   
-                  counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);            
-                }              
+              const projectId = d.project_id;
+              const arrayToCompare = actionsDone[projectId]
+              if (arrayToCompare !== undefined) {
+                for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
+                  counterdown += scheduleList[r].tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
+                }
               }
               pendingTasks = scheduleList[r].tasks-counterdown;
               const factorCenter: any = (windowWidth >= 2001 && windowWidth <= 2549 ? 18 : (windowWidth >= 2550 && windowWidth <= 3000 ? 1.65 : (windowWidth >= 3001 && windowWidth <= 3999 ? 1.8 : (windowWidth >= 1450 && windowWidth <= 2000 ? 1.6 : (windowWidth >= 1199 && windowWidth <= 1449 ? 1.8 : 2)))))

@@ -531,9 +531,17 @@ const CalendarBody = ({
             d.phaseId === x.phase_id
           ));
           let counterdown = 0;
-          for (let i = 0; i < Object.keys(actionsDone).length; i++) {
-            if (d.project_data.project_id === actionsDone[i].project_id) {
-              counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);
+          // for (let i = 0; i < Object.keys(actionsDone).length; i++) {
+          //   if (d.project_data.project_id === actionsDone[i].project_id) {
+          //     counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);
+          //   }
+          // }
+
+          const projectId = d.project_data.project_id;
+          const arrayToCompare = actionsDone[projectId]
+          if (arrayToCompare !== undefined) {
+            for (let i = 0; i < Object.keys(arrayToCompare).length; i++) {
+              counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === arrayToCompare[i].code_rule_action_item_id);
             }
           }
           const lenghtSc = Object.keys(scheduleData.tasksData).length

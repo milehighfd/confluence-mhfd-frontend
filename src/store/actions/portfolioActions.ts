@@ -186,7 +186,15 @@ export const getActionsDone = () => {
       datasets.getToken(),
       controller.signal
     ).then((res) => {
-      dispatch({type: types.GET_ACTIONS_DONE, payload: res});
+      const sortedRes:any = {};
+    for (const item of res) {
+      const projectId = item.project_id;
+      if (!sortedRes[projectId]) {
+        sortedRes[projectId] = [];
+      }
+      sortedRes[projectId].push(item);
+    }
+      dispatch({type: types.GET_ACTIONS_DONE, payload: sortedRes});
     }).catch((error: any) => {
       console.log('Error on action done', error);
     });
