@@ -175,7 +175,8 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       acquisition.editProject = editprojectid;
       acquisition.locality = locality ? locality : '';
       acquisition.cover = '';
-      acquisition.sendToWR = sendToWR;      
+      acquisition.sendToWR = sendToWR;     
+      acquisition.type = 'acquisition'; 
       removeAttachment(deleteAttachmentsIds);
       files.forEach((file:any) => {
         if(file._id) {

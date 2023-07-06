@@ -210,6 +210,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       special.locality = locality? locality:'';
       special.cover = '';
       special.sendToWR = sendToWR;
+      special.type = 'special';
       removeAttachment(deleteAttachmentsIds);
       files.forEach((file:any) => {
         if(file._id) {

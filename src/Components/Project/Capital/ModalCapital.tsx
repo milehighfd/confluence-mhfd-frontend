@@ -153,8 +153,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }       
   }, [userInformation]);
   useEffect(() => {
-    if(componentsFromMap.length > 0 ) {
-      
+    if(componentsFromMap.length > 0 ) {      
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
     } else {
       setComponentIntersected([]);
@@ -186,9 +185,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
     setIsEdit(false);
     if(data !== 'no data' ) {
-      const counties = data.project_counties.map(( e :any ) => e.CODE_STATE_COUNTY.county_name);
-      const serviceAreas = data.project_service_areas.map((e: any) => e.CODE_SERVICE_AREA.service_area_name);
-      const localJurisdiction = data.project_local_governments.map((e:any) => e.CODE_LOCAL_GOVERNMENT.local_government_name);
+      const counties = data.project_counties.map(( e :any ) => e?.CODE_STATE_COUNTY?.county_name);
+      const serviceAreas = data.project_service_areas.map((e: any) => e?.CODE_SERVICE_AREA?.service_area_name);
+      const localJurisdiction = data.project_local_governments.map((e:any) => e?.CODE_LOCAL_GOVERNMENT?.local_government_name);
       const aditionalCostObject = data.project_costs.filter((e:any) => e.code_cost_type_id === 4)[0];
       const coEsponsor = data.project_partners.map((e:any) => {
         if (e.code_partner_type_id === 12) {
@@ -304,8 +303,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       const _year = params.get('year');
       const _locality = params.get('locality');
       var capital = new Project();
-      capital.locality = _locality;
-      capital.isWorkPlan = isWorkPlan;
+      capital.locality = _locality;      
       capital.year = _year ?? capital.year;
       let csponsor = "";
       if(cosponsor){
@@ -330,12 +328,14 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       capital.additionalcost = additionalCost;
       capital.additionalcostdescription = additionalDescription;
       capital.components = componentsToSave? JSON.stringify(componentsToSave, null, 2 ): [];
-      capital.independetComponent = JSON.stringify(thisIndependentComponents, null,2);
+      capital.independentComponent = JSON.stringify(thisIndependentComponents, null,2);
       capital.editProject = editprojectid;
       capital.cover = '';
       capital.estimatedcost = getTotalCost();
       capital.sendToWR = sendToWR;
+      capital.isWorkPlan = isWorkPlan;
       capital.componentcost = getSubTotalCost();
+      capital.type = 'capital';
       capital.componentcount = (componentsToSave?.length > 0 ? componentsToSave.length : 0) + (thisIndependentComponents?.length > 0 ? thisIndependentComponents.length : 0);
       files.forEach((file:any) => {
         if(file._id) {

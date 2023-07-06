@@ -289,6 +289,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       maintenance.editProject = editprojectid;
       maintenance.cover = '';
       maintenance.sendToWR = sendToWR;
+      maintenance.type = 'maintenance';
       removeAttachment(deleteAttachmentsIds);
       files.forEach((file:any) => {
         if(file._id) {

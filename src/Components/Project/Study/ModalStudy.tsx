@@ -162,7 +162,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     let counties:any = [];
     if (list) {
     list.forEach((county : any) => {
-      counties.push(county.CODE_STATE_COUNTY.county_name +' County')
+      counties.push(county?.CODE_STATE_COUNTY?.county_name +' County')
     });
     }
     return counties;
@@ -171,7 +171,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     let serviceAreas:any = [];
     if (list) {
     list.forEach((serviceArea : any) => {
-      serviceAreas.push(serviceArea.CODE_SERVICE_AREA.service_area_name +' Service Area')
+      serviceAreas.push(serviceArea?.CODE_SERVICE_AREA?.service_area_name +' Service Area')
     });
     }
     return serviceAreas;
@@ -227,14 +227,12 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   }, [data]);
   useEffect(() => {
     if (save === true) {
-
       let serviceAreaIds:any=[];
       let countyIds:any=[];
       let jurisdictionIds:any=[];
       const jurisdictionList:any = [];
       const countyList:any = [];
       const serviceAreaList:any = [];
-      
       groupOrganization.forEach((item:any) => {
         if (item.table === 'CODE_LOCAL_GOVERNMENT') {
           jurisdictionList.push(item);
@@ -288,6 +286,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       study.studyreason = studyreason ?? 1;
       study.sendToWR = sendToWR;
       study.otherReason = otherReason;
+      study.type = 'study';
       let newStreamsArray: any = [];
       for (let str in listStreams) {
         newStreamsArray = [...newStreamsArray, ...listStreams[str]];

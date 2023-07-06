@@ -29,7 +29,7 @@ export class Project {
     sponsor: string;
     cosponsor: string; 
     components: any;
-    independetComponent: any;
+    independentComponent: any;
     editProject: any;
     streams: any;
     locality: any;
@@ -42,6 +42,7 @@ export class Project {
     componentcount?: any;
     otherReason? : any;
     isWorkPlan: boolean;
+    type: string;
     constructor() {
         this.year = '2023';
         this.projectname = "special";
@@ -62,7 +63,7 @@ export class Project {
         this.sponsor = "";
         this.cosponsor = "";
         this.components = [];
-        this.independetComponent=[];
+        this.independentComponent=[];
         this.editProject = "";
         this.locality = '';
         this.jurisdiction = '';
@@ -73,5 +74,6 @@ export class Project {
         this.studyreason = 1;
         this.sendToWR = false;
         this.isWorkPlan = false;
+        this.type = '';
     }
 }
