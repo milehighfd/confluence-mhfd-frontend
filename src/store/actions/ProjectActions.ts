@@ -15,7 +15,7 @@ export const saveSpecial = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -49,7 +49,7 @@ export const saveAcquisition = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -83,8 +83,9 @@ export const saveCapital = (data: any) => {
       if (key === 'geom') {
         formData.append(key, data[key]);
       } else if (key === 'files') {
-        data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+        data[key].forEach((o: any, i: number) => {  
+          console.log(o, 'O')        
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -117,7 +118,7 @@ export const saveMaintenance = (data: any) => {
         formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -169,7 +170,7 @@ export const saveStudy = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -202,7 +203,7 @@ export const editSpecial = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -213,7 +214,7 @@ export const editSpecial = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.EDIT_SPECIAL(data.editProject), formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
         status = 1;
@@ -235,7 +236,7 @@ export const editAcquisition = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -246,7 +247,7 @@ export const editAcquisition = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.EDIT_ACQUISITION(data.editProject), formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
@@ -269,7 +270,7 @@ export const editStudy = (data: any) => {
         formData.append(key, JSON.stringify(data[key]));
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -280,7 +281,7 @@ export const editStudy = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.EDIT_STUDY(data.editProject), formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
@@ -303,7 +304,7 @@ export const editMaintenance = (data: any) => {
         formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
@@ -314,7 +315,7 @@ export const editMaintenance = (data: any) => {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.EDIT_MAINTENANCE(data.editProject), formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
@@ -337,18 +338,19 @@ export const editCapital = (data: any) => {
         formData.append(key, data[key]);
       } else if (key === 'files') {
         data[key].forEach((o: any, i: number) => {          
-          if (o.cover) {
+          console.log(o, 'O')                
+          if (o.is_cover || o.cover) {
             covername = o.file_name;
           }
           formData.append(key, o.file);
         });
-      } else if (key === 'cover') {
+      } else if (key === 'cover') {        
         formData.append(key, covername);
       } else {
         formData.append(key, data[key]);
       }
     })
-    datasets.postDataMultipart(SERVER.EDIT_CAPITAL(data.editProject), formData, datasets.getToken()).then(res => {
+    datasets.postDataMultipart(SERVER.EDIT_PROJECT(data.editProject), formData, datasets.getToken()).then(res => {
       
       let status ; 
       if(res && res.total_rows && res.total_rows > 0 ){
