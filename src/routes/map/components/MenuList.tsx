@@ -76,7 +76,7 @@ export const MenuList = ({menu, popups, index, showPopup, ids} : {menu: any, pop
       break;
     case menu === 'FEMA Flood Hazard' &&
       popup.fld_zone !== undefined &&
-      popup.fld_zone === 'AE' && popup.zone_subty === '-':
+      (popup.fld_zone === 'AE' || popup.fld_zone === 'A') && popup.zone_subty === '-':
       iconLocation = '/Icons/ic_FEMA_ZoneAE@2x.png';
       break;
     case menu === 'FEMA Flood Hazard' &&

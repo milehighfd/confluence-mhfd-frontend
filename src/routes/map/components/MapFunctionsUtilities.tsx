@@ -93,7 +93,7 @@ export const getTitleOfProblemsPart = (feature: any) => {
   if (feature.source.includes('development_line')) {
     title = 'Watershed Change Line';
   }
-
+  console.log('Hello ', feature, title);
   return title;
 };
 export const getTitleOfLandUse = (feature: any) => {

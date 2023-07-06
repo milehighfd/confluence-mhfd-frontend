@@ -211,6 +211,7 @@ export const addPopupsOnClick = async (
   let features = map.queryRenderedFeatures(bbox, { layers: allLayers });
   coordX = e.point.x;
   coordY = e.point.y;
+  console.log('Features on click', features);
   const search = (id: number, source: string) => {
     // Gets only the first feature of the layers
     // one feature may be in multiple layers
@@ -509,7 +510,7 @@ export const addPopupsOnClick = async (
           mobileIds.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
           ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
       }
-      if (feature.source.includes('flood_hazard')||feature.source.includes('stream_function')||feature.source.includes('future_development')) {
+      if ((feature.source.includes('flood_hazard') && !feature.source.includes('fema_'))||feature.source.includes('stream_function')||feature.source.includes('future_development')) {
         const item = {
           layer: getTitleOfProblemsPart(feature),
           feature: getTitleOfProblemsPart(feature),
@@ -524,6 +525,7 @@ export const addPopupsOnClick = async (
         mobile.push({
           layer: item.layer
         });
+        console.log('getTitleOfProblemsPart(feature)', getTitleOfProblemsPart(feature));
         menuOptions.push(getTitleOfProblemsPart(feature));
         popups.push(item);
         ids.push({layer: feature.layer.id.replace(/_\d+$/, ''), id: feature.properties.cartodb_id});
