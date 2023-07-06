@@ -24,6 +24,41 @@ class MapService {
     }
   }
 
+  loadImages() {
+    const imagesPaths = [
+      'custom-sprite/30x30px.png',
+      'custom-sprite/dollar.png',
+      'custom-sprite/fema-floodway.png',
+      'custom-sprite/Levee.png',
+      'custom-sprite/Frame13a.png',
+      'custom-sprite/Frame17m2t.png',
+      'custom-sprite/Frame21C.png',
+      'custom-sprite/pjm2.png',
+      'custom-sprite/ic-stripered.png',
+      'custom-sprite/ic-stripeviolet.png',
+      'custom-sprite/Urbanclimbtosafetysign_origclean.png',
+      'custom-sprite/rd-draft_ORANGE.png',
+      'custom-sprite/rd-apprv_GREEN.png',
+      'custom-sprite/rd-rqst_PINK.png',
+      'custom-sprite/prop-acq-rqst_PINK.png',
+      'custom-sprite/prop-acq-apprv_GREEN.png',
+      'custom-sprite/prop-acq-draft_ORANGE.png',
+      'custom-sprite/MEP-X.png',
+      'custom-sprite/floodwaypattern.png',
+    ];
+    imagesPaths.forEach((imagePath: string) => {
+      this.map.loadImage(imagePath, (error: any, image: any) => {
+        if (error) {
+          console.log('error on load ', error);
+          return;
+        }
+        if (!this.map.hasImage(imagePath.split('/')[1].split('.')[0])) {
+          this.map.addImage(imagePath.split('/')[1].split('.')[0], image);
+        }
+      });
+    });
+  }
+
   get map(): any {
     return this._map;
   }

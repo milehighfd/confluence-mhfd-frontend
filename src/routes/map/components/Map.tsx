@@ -537,40 +537,8 @@ const Map = ({ leftWidth }: MapProps) => {
       zoom: 8,
       attributionControl: false,
     });
-    const imagesPaths = [
-      'custom-sprite/30x30px.png',
-      'custom-sprite/dollar.png',
-      'custom-sprite/fema-floodway.png',
-      'custom-sprite/Levee.png',
-      'custom-sprite/Frame13a.png',
-      'custom-sprite/Frame17m2t.png',
-      'custom-sprite/Frame21C.png',
-      'custom-sprite/pjm2.png',
-      'custom-sprite/ic-stripered.png',
-      'custom-sprite/ic-stripeviolet.png',
-      'custom-sprite/Urbanclimbtosafetysign_origclean.png',
-      'custom-sprite/rd-draft_ORANGE.png',
-      'custom-sprite/rd-apprv_GREEN.png',
-      'custom-sprite/rd-rqst_PINK.png',
-      'custom-sprite/prop-acq-rqst_PINK.png',
-      'custom-sprite/prop-acq-apprv_GREEN.png',
-      'custom-sprite/prop-acq-draft_ORANGE.png',
-      'custom-sprite/MEP-X.png',
-      'custom-sprite/floodwaypattern.png',
-    ];
-    imagesPaths.forEach((imagePath: string) => {
-      map.loadImage(imagePath, (error: any, image: any) => {
-        if (error) {
-          console.log('error on load ', error);
-          return;
-        }
-        if (!map.hasImage(imagePath.split('/')[1].split('.')[0])) {
-          map.addImage(imagePath.split('/')[1].split('.')[0], image);
-        }
-      });
-    });
-
     mapService.map = map;
+    mapService.loadImages();
     flytoBoundsCoor(
       getCurrent,
       userInformation,
@@ -1019,10 +987,7 @@ const Map = ({ leftWidth }: MapProps) => {
     const styles = { ...(tileStyles as any) };
     hovereableLayers.forEach((key: any) => {
       if (styles[key]) {
-        styles[key].forEach((style: LayerStylesType, index: number) => {
-          if (!hovereableLayers.includes(key)) {
-            return;
-          }
+        styles[key].forEach((_: LayerStylesType, index: number) => {
           if (map.getLayer(key + '_highlight_' + index)) {
             map.moveLayer(key + '_highlight_' + index);
           }
