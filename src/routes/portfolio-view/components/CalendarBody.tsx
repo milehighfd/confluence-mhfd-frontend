@@ -22,7 +22,6 @@ const CalendarBody = ({
   setNext,
   setPrev,
   index,
-  actionsDone,
   setOpenPiney,
   groupName,
   setEditData,
@@ -37,7 +36,6 @@ const CalendarBody = ({
   setNext: Function,
   setPrev: Function,
   index: number,
-  actionsDone: any,
   setOpenPiney: Function,
   groupName: string,
   setEditData: any,
@@ -55,7 +53,7 @@ const CalendarBody = ({
   groupName = groupName === '?' ? '#questionMark' : groupName;
   const svgDivWrapperId = `#timeline-chart-${startsWithNumber(groupName)? groupName.replaceAll(' ', '').replace(/[^a-zA-Z]/g, '') : groupName.replaceAll(' ', '').replace(/[^a-zA-Z0-9]/g, '')}`;
   const svgAxisDivWrapperId = `#timeline-chart-axis`;
-  const { currentGroup, favorites, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup } = usePortflioState();
+  const { currentGroup, favorites, zoomTimeline, zoomTimelineAux, zoomSelected, updateGroup, actionsDone } = usePortflioState();
   const { 
     deleteFavorite, 
     addFavorite, 

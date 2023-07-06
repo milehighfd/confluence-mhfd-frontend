@@ -43,7 +43,7 @@ const PortafolioBody = ({
   const {
     searchWord, graphicOpen
   } = usePortflioState();
-  const { setFavorites, getListPMTools, setOpenGroups } = usePortfolioDispatch();
+  const { setFavorites, getListPMTools, setOpenGroups, getActionsDone } = usePortfolioDispatch();
 
   const [filterby, setFilterby] = useState('');
   const [filterValue, setFilterValue] = useState(-1);
@@ -211,6 +211,7 @@ const PortafolioBody = ({
     } else {
       console.log('antes de action')
       getListPMTools(currentId)
+      getActionsDone()
       apply([currentId], 'projecttype', '');
     }
   } ,[ tabKey ]);

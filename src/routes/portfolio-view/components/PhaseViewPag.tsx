@@ -5,7 +5,7 @@ import * as datasets from 'Config/datasets';
 import PhaseGroups from 'routes/portfolio-view/components/PhaseGroups';
 import PineyView from 'routes/portfolio-view/components/PineyView';
 import SearchDropdown from 'routes/portfolio-view/components/SearchDropdown';
-import { usePortflioState } from '../../../hook/portfolioHook';
+import { usePortflioState, usePortfolioDispatch } from '../../../hook/portfolioHook';
 import { handleAbortError } from 'store/actions/mapActions';
 
 const PhaseViewPag = ({  
@@ -15,15 +15,11 @@ const PhaseViewPag = ({
 }) => {
   const {
     currentGroup,
-    scheduleList,
   phaseList,
-  statusCounter,
-  // updatePhaseList,
   statusList,
   } = usePortflioState();
+  const { getActionsDone } = usePortfolioDispatch();
   const [availableStatusList, setAvailableStatusList] = useState<any>([]);
-  const [actionsDone,setActionsDone] = useState<any>({});
-  // const [updatePhaseList, setUpdatePhaseList] = useState(false);
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction,setUpdateAction] = useState(false);
   const headerRef = useRef<null | HTMLDivElement>(null);
@@ -36,17 +32,7 @@ const PhaseViewPag = ({
   const [openPiney, setOpenPiney] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
-    datasets.getData(
-      `${SERVER.PROJECT_ACTION_ITEM}`,
-      datasets.getToken(),
-      controller.signal
-    ).then((e) => {
-      setActionsDone(e);
-    }).catch(handleAbortError);
-    return () => {
-      controller.abort();
-    };
+    getActionsDone();
   }, [tabKey, updateAction])
 
   useEffect(() => {
@@ -173,7 +159,6 @@ const PhaseViewPag = ({
                     tabKey={tabKey}
                     phaseRef={phaseRef}
                     totalLabelWidth={totalLabelWidth}
-                    actionsDone={actionsDone}
                     setOpenPiney={setOpenPiney}
                     headerRef={headerRef}
                     dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}

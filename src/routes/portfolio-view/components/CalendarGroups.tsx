@@ -15,7 +15,6 @@ const CalendarGroups = ({
   data,
   index,
   tabKey,
-  actionsDone,
   setOpenPiney,
   setEditData,
   dataId,
@@ -23,7 +22,6 @@ const CalendarGroups = ({
   data: any,
   index: any,
   tabKey: any,
-  actionsDone: any,
   setOpenPiney: any,
   setEditData: any,
   dataId: any,
@@ -125,7 +123,6 @@ const CalendarGroups = ({
             setNext={setNext}
             setPrev={setPrev}
             index={index}
-            actionsDone={actionsDone}
             setOpenPiney={setOpenPiney}
             groupName={data.value}
             setEditData={setEditData}

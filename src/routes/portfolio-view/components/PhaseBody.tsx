@@ -24,7 +24,6 @@ const PhaseBody = ({
   index,
   phaseRef,
   totalLabelWidth,
-  actionsDone,
   groupName,
   setOpenPiney,
   headerRef,
@@ -41,7 +40,6 @@ const PhaseBody = ({
   index: number,
   phaseRef: any,
   totalLabelWidth: number,
-  actionsDone: any,
   groupName: string,
   setOpenPiney: Function,
   headerRef: any,
@@ -54,7 +52,7 @@ const PhaseBody = ({
   const {
     filterProjectOptions,
   } = useMapState();
-  const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup } = usePortflioState();
+  const { currentGroup, favorites, scheduleList, phaseList, statusCounter, updateGroup, actionsDone } = usePortflioState();
   const { 
     deleteFavorite, 
     addFavorite, 

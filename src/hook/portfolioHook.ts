@@ -23,7 +23,8 @@ import {
   setOpenGroups,
   setDatesData,
   setPineyData,
-  setIsFromDetailPage
+  setIsFromDetailPage,
+  getActionsDone
 } from 'store/actions/portfolioActions';
 
 export const usePortflioState = () => useSelector(
@@ -102,6 +103,10 @@ export const usePortfolioDispatch = () => {
   const _setIsFromDetailPage = useCallback((value: boolean) => {
     dispatch(setIsFromDetailPage(value));
   }, [dispatch]);
+  const _getActionsDone = useCallback(() => {
+    dispatch(getActionsDone());
+  }, [dispatch]);
+
   return {
     setSearchWord: _setSearchWord,
     setCurrentGroup: _setCurrentGroup,
@@ -125,6 +130,7 @@ export const usePortfolioDispatch = () => {
     setOpenGroups: _setOpenGroups,
     setDatesData: _setDatesData,
     setPineyData: _setPineyData,
-    setIsFromDetailPage: _setIsFromDetailPage
+    setIsFromDetailPage: _setIsFromDetailPage,
+    getActionsDone: _getActionsDone
   };
 };

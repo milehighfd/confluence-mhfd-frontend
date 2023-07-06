@@ -177,3 +177,18 @@ export const setIsFromDetailPage = (value: boolean) => ({
   type: types.SET_IS_FROM_DETAIL_PAGE,
   payload: value
 });
+
+export const getActionsDone = () => {
+  return (dispatch: Function) => {
+    const controller = new AbortController();
+    datasets.getData(
+      `${SERVER.PROJECT_ACTION_ITEM}`,
+      datasets.getToken(),
+      controller.signal
+    ).then((res) => {
+      dispatch({type: types.GET_ACTIONS_DONE, payload: res});
+    }).catch((error: any) => {
+      console.log('Error on action done', error);
+    });
+  }
+};

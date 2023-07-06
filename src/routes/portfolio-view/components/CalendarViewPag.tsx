@@ -16,8 +16,7 @@ const CalendarViewPag = ({
   tabKey: any,
 }) => {
   const { currentGroup, zoomTimeline, zoomTimelineAux, zoomSelected, isLoading } = usePortflioState();
-  const { setZoomTimeline, setZoomTimelineAux, setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading, setDatesData} = usePortfolioDispatch();
-  const [actionsDone, setActionsDone] = useState<any>({});
+  const { setZoomTimeline, setZoomTimelineAux, setIsZoomWeekly,setIsZoomMonthly, setZoomSelected, setOpenModalTollgate, setIsLoading, setDatesData, getActionsDone} = usePortfolioDispatch();
   const [detailGroup, setDetailGroup] = useState<any>(null);
   const [updateAction, setUpdateAction] = useState(false);
   const [editData,setEditData] = useState<any>({});
@@ -30,17 +29,7 @@ const CalendarViewPag = ({
   const marginReducerHeaderAxis = windowWidth >= 3001 && windowWidth <= 3999 ? '-5.3px' : '-5.9px';
 
   useEffect(() => {
-    const controller = new AbortController();
-    datasets.getData(
-      `${SERVER.PROJECT_ACTION_ITEM}`,
-      datasets.getToken(),
-      controller.signal
-    ).then((e) => {
-      setActionsDone(e);
-    }).catch(handleAbortError);
-    return () => {
-      controller.abort();
-    };
+    getActionsDone();
   }, [tabKey, updateAction])
 
   useEffect(() => {
@@ -153,7 +142,6 @@ const CalendarViewPag = ({
                 data={elem}
                 index={index}
                 tabKey={tabKey}
-                actionsDone={actionsDone}
                 setOpenPiney={setOpenPiney}
                 setEditData={setEditData}
                 dataId={currentGroup === 'streams' && elem.value!==''? elem.value : elem.id}
