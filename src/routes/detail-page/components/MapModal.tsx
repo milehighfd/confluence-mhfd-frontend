@@ -44,7 +44,7 @@ const MapModal = ({
     };
     waiting();
     return () => {
-      map.remove();
+      map.map.remove();
       map = undefined;
     }
   }, []);

@@ -6681,262 +6681,6 @@ export const tileStyles = {
     }
   }], 
   [PROBLEMS_TRIGGER]: [
-    //Flood Hazard
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-miter-limit': 1.05,
-    //     'line-join': "miter"
-    //   },
-    //   paint: {
-    //     'line-color': "#000000",
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 0.5,
-    //     ],
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       [
-    //         "Flood Hazard",
-    //         "Flood Hazard "
-    //       ],
-    //       15,
-    //       0
-    //     ],
-    //     'line-blur': 5
-    //   },
-    // },
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-round-limit': 1.05,
-    //     'line-join': "round"
-    //   },
-    //   paint: {
-    //     'line-color': "#a80000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       [
-    //         "Flood Hazard"
-    //       ],
-    //       7.5,
-    //       0
-    //     ],
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 1,
-    //     ],
-    //   },
-    // },
-    // // STREAM FUNCTION
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-miter-limit': 2,
-    //     'line-join': "miter"
-    //   },
-    //   paint: {
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 0.5,
-    //     ],
-    //     'line-offset': 0,
-    //     'line-color': "#000000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       [
-    //         "Stream Function",
-    //         "Stream Fucntion",
-    //         "Stream function"
-    //       ],
-    //       15,
-    //       0
-    //     ],
-    //     'line-blur': 5
-    //   },
-    // },
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-miter-limit': 2,
-    //     'line-join': "miter"
-    //   },
-    //   paint: {
-    //     'line-offset': 3,
-    //     'line-color': "#a80000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       [
-    //         "Stream Function",
-    //         "Stream Fucntion",
-    //         "Stream function"
-    //       ],
-    //       2.5,
-    //       0
-    //     ],
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 1,
-    //     ],
-    //   },
-    // },
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-round-limit': 1.05,
-    //     'line-join': "round"
-    //   },
-    //   paint: {
-    //     'line-offset': -3,
-    //     'line-color': "#a80000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       [
-    //         "Stream Function",
-    //         "Stream Fucntion",
-    //         "Stream function"
-    //       ],
-    //       2.5,
-    //       0
-    //     ],
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 1,
-    //     ],
-    //   },
-    // },
-    // // WATER
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-miter-limit': 2,
-    //     'line-join': "miter"
-    //   },
-    //   paint: {
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 0.5,
-    //     ],
-    //     'line-offset': 0,
-    //     'line-color': "#000000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       ["Stream Condition"],
-    //       15,
-    //       0
-    //     ],
-    //     'line-blur': 5
-    //   },
-    // },
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-round-limit': 1.05,
-    //     'line-join': "round"
-    //   },
-    //   paint: {
-    //     'line-dasharray': [0.9, 1.1],
-    //     'line-offset': 0,
-    //     'line-color': "#a80000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       ["Stream Condition"],
-    //       5,
-    //       0
-    //     ],
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 1,
-    //     ],
-    //   },
-    // },
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-miter-limit': 2,
-    //     'line-join': "miter"
-    //   },
-    //   paint: {
-    //     'line-offset': 3,
-    //     'line-color': "#a80000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       ["Stream Condition"],
-    //       2.5,
-    //       0
-    //     ],
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 1,
-    //     ],
-    //   },
-    // },
-    // {
-    //   type:'line',
-    //   'source-layer': 'pluto15v1',
-    //   layout: {
-    //     'line-round-limit': 1.05,
-    //     'line-join': "round"
-    //   },
-    //   paint: {
-    //     'line-offset': -3,
-    //     'line-color': "#a80000",
-    //     'line-width': [
-    //       "match",
-    //       ["get", "problem_type"],
-    //       ["Stream Condition"],
-    //       2.5,
-    //       0
-    //     ],
-    //     "line-opacity": [
-    //       "interpolate",
-    //       ["linear"],
-    //       ["zoom"],
-    //       10.2, 0.0,
-    //       11.22, 1,
-    //     ],
-    //   },
-    // }
     {
       "type": "line",
       "metadata": {"mapbox:group": "e64fb8f33e44c06f07e4142aa41a8907"},
@@ -10849,7 +10593,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               15,
               0
           ],
@@ -10867,7 +10611,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               5,
               0
           ],
@@ -10885,7 +10629,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -10902,7 +10646,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -10919,7 +10663,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               15,
               0
           ],
@@ -10937,7 +10681,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               2.5,
               0
           ],
@@ -10954,7 +10698,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               2.5,
               0
           ],
@@ -11006,7 +10750,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ['Watershed Change'],
+              ['Stream Condition'],
               8,
               0
           ],
@@ -11025,7 +10769,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               3,
               0
           ],
@@ -11044,7 +10788,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -11062,7 +10806,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -11080,7 +10824,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               8,
               0
           ],
@@ -11099,7 +10843,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               1.5,
               0
           ],
@@ -11117,7 +10861,7 @@ export const tileStylesDetailPage = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               1.5,
               0
           ],
@@ -15085,7 +14829,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               15,
               0
           ],
@@ -15103,7 +14847,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               5,
               0
           ],
@@ -15121,7 +14865,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               2.5,
               0
           ],
@@ -15138,7 +14882,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               2.5,
               0
           ],
@@ -15155,7 +14899,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               15,
               0
           ],
@@ -15173,7 +14917,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -15190,7 +14934,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               2.5,
               0
           ],
@@ -15242,7 +14986,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               8,
               0
           ],
@@ -15261,7 +15005,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               3,
               0
           ],
@@ -15280,7 +15024,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               1.5,
               0
           ],
@@ -15298,7 +15042,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Stream Condition"],
+              ["Watershed Change"],
               1.5,
               0
           ],
@@ -15316,7 +15060,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               8,
               0
           ],
@@ -15335,7 +15079,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               1.5,
               0
           ],
@@ -15353,7 +15097,7 @@ export const tileStyles_WR = {
           "line-width": [
               "match",
               ["get", "problem_type"],
-              ["Watershed Change"],
+              ["Stream Condition"],
               1.5,
               0
           ],
