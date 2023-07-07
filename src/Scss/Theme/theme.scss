@@ -3961,7 +3961,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       line-height: 26px;
     }
 
@@ -4471,7 +4471,24 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
       font-size: 21px !important;
     }
   }
-
+  .detailed-upload-save{
+    width: 470px !important;
+    h1{
+      font-size: 26px !important;
+      line-height: 29px !important;
+    }
+    .detailed-h{
+       button{
+        font-size: 22px !important;
+        line-height: 24px !important;
+        padding: 19px !important;
+      }
+      .btn-transparent{
+        padding: 0px 12px !important;
+      }
+    }
+   
+  }
   .modal-graphic {
     width: 296px !important;
 

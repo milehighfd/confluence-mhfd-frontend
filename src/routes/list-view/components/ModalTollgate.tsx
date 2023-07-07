@@ -588,8 +588,8 @@ let items = [
                 <Col xs={{ span: 12 }} lg={{ span: 12}}>
                 </Col>
                 <Col xs={{ span: 12 }} lg={{ span: 12}} style={{textAlign:'end', marginTop:'10px'}}>
-                  <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
-                  <Button style={{width:'49%', height:'40px',fontSize:'17.5px'}} className='btn-purple btn-tollgate' onClick={overlapping?()=>setViewOverlappingAlert(true):()=>sendData()}>Save</Button>
+                  <Button style={{width:'49%', fontSize:'17.5px', opacity:'0.6', mixBlendMode: 'normal',padding:'10px', height:'auto'}} className="btn-transparent btn-tollgate" onClick={()=>resetData()}>Clear</Button>
+                  <Button style={{width:'49%', height:'auto',fontSize:'17.5px' ,padding:'10px'}} className='btn-purple btn-tollgate' onClick={overlapping?()=>setViewOverlappingAlert(true):()=>sendData()}>Save</Button>
                 </Col>
               </Row>
             </Col>

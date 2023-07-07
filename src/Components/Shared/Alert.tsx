@@ -27,10 +27,10 @@ const Alert = ({ save, visible, setVisible, message }: { save: Function, visible
         </Row>
         <Row className="detailed-h" gutter={[16, 8]} style={{backgroundColor: 'white'}}>
            <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c'}}>
-              <button className="btn-borde" onClick={handleCancel} style={{width: '95%', height:'auto', padding: '6px'}}>Cancel</button>
+              <button className="btn-borde" onClick={handleCancel} style={{width: '95%', height:'auto', padding: '10px'}}>Cancel</button>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{color: '#11093c', textAlign:'end'}}>
-              <button className="btn-purple"  style={{width: '95%', height:'auto', padding: '6px'}} onClick={()=>{save()}}>Update</button>
+              <button className="btn-purple"  style={{width: '95%', height:'auto', padding: '10px'}} onClick={()=>{save()}}>Update</button>
             </Col>
         </Row>
       </div>
