@@ -7,6 +7,7 @@ import { boardType } from 'Components/Work/Request/RequestTypes';
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
+import { WINDOW_WIDTH } from 'constants/constants';
 
 const { Option } = Select;
 
@@ -149,7 +150,14 @@ const Analytics = ({
       title={
         <h5>
           <img src="/Icons/work/chat.svg" alt="" className="menu-wr" /> Analytics
-          {tabKey !== 'Maintenance' && <Select dropdownClassName='dropdown-menu' style={{ marginLeft: '11px' }} defaultValue={year} value={year} onChange={setYear}>
+          {tabKey !== 'Maintenance' &&
+          <Select
+            dropdownClassName='dropdown-menu'
+            style={{ marginLeft: '11px' }}
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+            defaultValue={year}
+            value={year}
+            onChange={setYear}>
             {
               years.map((y, i) => (
                 <Option key={i} value={y}>{
@@ -202,7 +210,13 @@ const Analytics = ({
       }
       <div className="line-01" style={{ marginLeft: '0px'}}></div>
       {tabKey === 'Maintenance' &&
-        <Select dropdownClassName='dropdown-menu' style={{ marginLeft: '-9px'}} defaultValue={year} value={year} onChange={setYear}>
+        <Select
+          dropdownClassName='dropdown-menu'
+          style={{ marginLeft: '-9px'}}
+          listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+          defaultValue={year}
+          value={year}
+          onChange={setYear}>
           {
             <Option key={2000} value={2000}> All Subtypes</Option>
           }

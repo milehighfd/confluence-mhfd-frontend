@@ -5,6 +5,7 @@ import { SubmitModal } from "../Request/SubmitModal";
 import { boardType } from "../Request/RequestTypes";
 import { GET_BOARD_DEPENDENCIES, UPDATE_BOARD_BY_ID } from "Config/endpoints/board";
 import { useRequestDispatch } from "hook/requestHook";
+import { WINDOW_WIDTH } from "constants/constants";
 
 const content00 = (<div className="popver-info">When Work Request Status is changed to "Approved" and saved, the Work Request is sent to MHFD for review and the Work Request is locked. All Project Types must be checked as "Reviewed" in the list below and saved prior to changing Work Request Status.</div>);
 const content01 = (<div className="popver-info">This is an internal QA/QC workspace for Local Governments. All Project Types on the Work Request must be checked as "Reviewed" and saved before the overall Work Request Status can be changed to "Approved."</div>);
@@ -171,7 +172,11 @@ const Status = ({ locality, boardId, visible, setVisible, status, comment, type,
     >
       <h6>Status Management</h6>
       <p>{type === 'WORK_REQUEST'? 'Work Request Status': 'Work Plan Status'} <Popover content={type === 'WORK_PLAN' ? content00WP :content00}><img src="/Icons/icon-19.svg" alt="" height="10px" />  </Popover></p>
-      <Select value={boardStatus ? boardStatus : '- Select -'} className="ant-dropdown-link" getPopupContainer={trigger => trigger.parentNode}>
+      <Select
+        value={boardStatus ? boardStatus : '- Select -'}
+        className="ant-dropdown-link"
+        listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+        getPopupContainer={trigger => trigger.parentNode}>
         <Select.Option value="key-Approved">
           <div onClick={() => setBoardStatus('Approved')}>
             <h6 style={{marginBottom:'0px'}}><i className="mdi mdi-circle" style={{ color: '#29C499' }}></i> Approved</h6>

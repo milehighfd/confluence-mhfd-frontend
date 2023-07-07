@@ -3,6 +3,7 @@ import { Select } from 'antd';
 import DownOutlined from '@ant-design/icons/lib/icons/DownOutlined';
 import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import UpOutlined from '@ant-design/icons/lib/icons/UpOutlined';
+import { WINDOW_WIDTH } from 'constants/constants';
 const { Option } = Select;
 
 const YearDropdown = () => {
@@ -14,6 +15,7 @@ const YearDropdown = () => {
       defaultValue={year}
       value={`Year ${year}`}
       suffixIcon={openYearDropdown ? < DownOutlined /> : <UpOutlined />}
+      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
       onClick={() => (setOpenYearDropdown(!openYearDropdown))}
       onChange={(y: any) => {
         setYear(y);

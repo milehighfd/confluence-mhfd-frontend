@@ -7,6 +7,7 @@ import { ColumnsType } from "antd/lib/table";
 import ProfileUser from "./ProfileUser";
 import { DATA_USER_ACTIVITY, DATA_USER_LIST } from "../constants";
 import CardsProjects from "./CardsProjects";
+import { WINDOW_WIDTH } from "constants/constants";
 
 const { TabPane } = Tabs;
 const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
@@ -25,13 +26,22 @@ const ProjectsList = () => {
             placeholder="Search by Name"
             prefix={<SearchOutlined />}
           />
-          <Select placeholder="Organization" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
+          <Select
+            placeholder="Organization"
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+            placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
               <Option value="Organization">Organization</Option>
           </Select>
-          <Select placeholder="Service Area" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
+          <Select
+            placeholder="Service Area"
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+            placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
               <Option value="Service Area">Service Area</Option>
           </Select>
-          <Select placeholder="User Designation" placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
+          <Select
+            placeholder="User Designation"
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+            placement="bottomLeft" style={{marginRight:'10px', width: '19%', textAlign: 'initial'}} >
               <Option value="User Designation">User Designation</Option>
           </Select>
           <Button className="btn-purple" onClick={()=>{setOpenFilters(true)}} style={{height:'38px', width:'8%'}}>

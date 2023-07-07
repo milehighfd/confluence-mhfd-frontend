@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Input, Row, Col, Popover, Select } from 'antd';
-import {  NEW_PROJECT_TYPES,  STUDY_REASON } from "../../../constants/constants";
+import {  NEW_PROJECT_TYPES,  STUDY_REASON, WINDOW_WIDTH } from "../../../constants/constants";
 import { SERVER } from "../../../Config/Server.config";
 import * as datasets from "../../../Config/datasets";
 
@@ -76,7 +76,12 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
             <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '8px' }}>
               <label className="sub-title">Reason for Study<Popover content={content01}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
               <div id="reason">
-                <Select style={{ width: '100%' }} placeholder={"Select a Reason"} value={getValue(reason)} onChange={handleChange}>
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder={"Select a Reason"}
+                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                  value={getValue(reason)}
+                  onChange={handleChange}>
                   {studyReasons.filter((x: any) => !x.isSubreason).map((x: any) => {
                     return (<Option key={x.id} value={x.id}>{x.name}</Option>)
                   })}
@@ -93,7 +98,12 @@ export const ProjectInformation = ({type, description, setDescription, reason, s
               <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ padding: '0px 8px' }}>
                 <label className="sub-title">Sub-Reason for Study</label>
                 <div id="subReason">
-                <Select style={{ width: '100%' }} placeholder={"Select a Sub-Reason"} value={studyReasons.filter((x: any) => x.isSubreason).find(d => reason === d.id) ? reason : 'Select a Sub-Reason'} onChange={handleChange}>
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder={"Select a Sub-Reason"}
+                  listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                  value={studyReasons.filter((x: any) => x.isSubreason).find(d => reason === d.id) ? reason : 'Select a Sub-Reason'}
+                  onChange={handleChange}>
                     {studyReasons.filter((x: any) => x.isSubreason).map((x: any) => {
                       return (<Option key={x.id} value={x.id}>{x.name}</Option>)
                     })}

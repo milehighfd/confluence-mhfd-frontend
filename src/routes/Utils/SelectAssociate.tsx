@@ -6,6 +6,7 @@ import { SERVER } from "../../Config/Server.config";
 import { getGroupList } from "routes/portfolio-view/components/ListUtils";
 import { useUsersDispatch } from "hook/usersHook";
 import { User } from "Classes/User";
+import { WINDOW_WIDTH } from "constants/constants";
 const CONSULTANT = 'consultant',
   CONTRACTOR = 'contractor';
 const { Option } = Select;
@@ -63,7 +64,15 @@ const SelectAssociate = ({
   }
 
   return (
-    <Select value={value} disabled={disable} onChange={(value) => setOrganization(value)} options={optionAssociate} placeholder={defaultValue} style={{ width: '100%', marginBottom: '20px' }} getPopupContainer={(trigger: any) => trigger.parentNode} />
+    <Select
+      value={value}
+      disabled={disable}
+      onChange={(value) => setOrganization(value)}
+      options={optionAssociate}
+      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+      placeholder={defaultValue}
+      style={{ width: '100%', marginBottom: '20px' }}
+      getPopupContainer={(trigger: any) => trigger.parentNode} />
   )
 };
 

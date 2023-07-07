@@ -2,6 +2,7 @@ import { Select } from "antd";
 import React, { useEffect, useState } from "react";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
+import { WINDOW_WIDTH } from "constants/constants";
 
 const SelectJurisdiction = ({
   setJurisdiction,
@@ -31,7 +32,15 @@ const SelectJurisdiction = ({
   }
 
   return (
-    <Select value={value} onChange={(value) => setJurisdiction(value)} disabled={disable} options={jurisdictionList}  placeholder={defaultValue} style={{ width: '100%', marginBottom:'20px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}/>
+    <Select
+      value={value}
+      onChange={(value) => setJurisdiction(value)}
+      disabled={disable}
+      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+      options={jurisdictionList}
+      placeholder={defaultValue}
+      style={{ width: '100%', marginBottom:'20px'  }}
+      getPopupContainer={(trigger:any) => trigger.parentNode}/>
 
   )
 };

@@ -6,6 +6,7 @@ import { useMapDispatch, useMapState } from '../../../hook/mapHook';
 import { CheckBoxFilters } from '../CheckboxFiltersProblem';
 import { CheckBoxFilters as CheckBoxIds } from '../CheckboxFilters';
 import { DropdownFilters } from '../DropdownFilters';
+import { WINDOW_WIDTH } from 'constants/constants';
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Solution Cost</b> is the total estimated cost to solve a problem.</div>);
 const content01 = (<div className="popoveer-00"><b>Priority</b> is the severity of a problem relative to other problems of the same type.</div>);
@@ -211,7 +212,9 @@ export const NewProblemsFilter = () => {
                         </Button>
                         </div>
                         <Select placeholder="- Select -" value={filterProblemOptions.jurisdiction ? filterProblemOptions.jurisdiction : '- Select -'}
-                            style={{ width: '100%', borderRadius: '5px', fontSize: '12px' }} onChange={(e: string) => {
+                            style={{ width: '100%', borderRadius: '5px', fontSize: '12px' }}
+                            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                            onChange={(e: string) => {
                                 apply(e, 'jurisdiction');
                             }}>
                             {(paramProblems.jurisdiction || []).map((element: any, index: number) => {

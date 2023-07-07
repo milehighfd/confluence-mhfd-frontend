@@ -4,7 +4,7 @@ import { Modal, Button, Row, Col, Popover, Select, Switch, Checkbox } from 'antd
 import { AlertView } from "../../Alerts/AlertView";
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
-import { NEW_PROJECT_TYPES, MAINTENANCE_ELIGIBILITY } from "../../../constants/constants";
+import { NEW_PROJECT_TYPES, MAINTENANCE_ELIGIBILITY, WINDOW_WIDTH } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
 import { Project } from "../../../Classes/Project";
@@ -446,7 +446,13 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
               <Row gutter={[16, 16]} style={{marginTop: '-5px'}}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Frequency <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <div id="freqid"><Select placeholder={frequency != '' ? frequency + "" : "Select a Frequency"} style={{ width: '100%' }} onChange={(frequency) => apllyFrequency(frequency)} getPopupContainer={() => (document.getElementById("freqid") as HTMLElement)}>
+                  <div id="freqid">
+                    <Select
+                      placeholder={frequency != '' ? frequency + "" : "Select a Frequency"}
+                      style={{ width: '100%' }}
+                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                      onChange={(frequency) => apllyFrequency(frequency)}
+                      getPopupContainer={() => (document.getElementById("freqid") as HTMLElement)}>
                     {selec.map((element) => {
                       return <Option key={element} value={element}>{element}</Option>
                     })}
@@ -464,7 +470,12 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Maintenance Eligibility <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <div id="elegid">
-                    <Select placeholder={eligibility != '' ? MAINTENANCE_ELIGIBILITY.find((el: any) => parseInt(el.id) === parseInt(eligibility))?.name + "" : "Select a Eligibility"} style={{ width: '100%' }} onChange={(eligibilit) => apllyEligibility(eligibilit)} getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
+                    <Select
+                      placeholder={eligibility != '' ? MAINTENANCE_ELIGIBILITY.find((el: any) => parseInt(el.id) === parseInt(eligibility))?.name + "" : "Select a Eligibility"}
+                      style={{ width: '100%' }}
+                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                      onChange={(eligibilit) => apllyEligibility(eligibilit)}
+                      getPopupContainer={() => (document.getElementById("elegid") as HTMLElement)}>
                       {MAINTENANCE_ELIGIBILITY.map((element) => {
                         return <Option key={element.id} value={element.id}>{element.name}</Option>
                       })}

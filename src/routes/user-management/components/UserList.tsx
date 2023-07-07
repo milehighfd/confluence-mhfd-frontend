@@ -9,7 +9,7 @@ import * as datasets from "../../../Config/datasets";
 import { OptionsFiltersUser, User } from "Classes/TypeList";
 import { SERVER } from "Config/Server.config";
 import { useUsersDispatch, useUsersState } from "hook/usersHook";
-import { PAGE_USER } from "constants/constants";
+import { PAGE_USER, WINDOW_WIDTH } from "constants/constants";
 import UserMngFilters from "./UserMngFilters";
 import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
 
@@ -330,7 +330,14 @@ let items = [
     <div>
       <div className="head-list">
         <div className="list-view-head" >
-        <Select className="select-type" placeholder="Approved Users" placement="bottomLeft" style={{marginTop: '5px', marginLeft:'2px'}} value={optionSelect?? optionSelect} onChange={(e)=>{setOptionSelect(e); setIsLoading(true)}}>
+        <Select
+          className="select-type"
+          placeholder="Approved Users"
+          placement="bottomLeft"
+          listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+          style={{marginTop: '5px', marginLeft:'2px'}}
+          value={optionSelect?? optionSelect}
+          onChange={(e)=>{setOptionSelect(e); setIsLoading(true)}}>
             <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
             <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
             <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>

@@ -4,6 +4,7 @@ import { useProfileState } from "hook/profileHook";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import { getGroupList } from "routes/portfolio-view/components/ListUtils";
+import { WINDOW_WIDTH } from "constants/constants";
 const CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor';
 const { Option } = Select;
@@ -81,7 +82,14 @@ const SelectOrganization = ({
   }
 
   return (
-    <Select value={value} disabled={disable} onChange={(value) => setOrganization(value)} options={[optionCounty, optionJurisdiction, optionConsultant, optionContractor]} placeholder={defaultValue} style={{ width: '100%', marginBottom: '20px' }} getPopupContainer={(trigger: any) => trigger.parentNode} />
+    <Select
+      value={value}
+      disabled={disable}
+      onChange={(value) => setOrganization(value)}
+      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+      options={[optionCounty, optionJurisdiction, optionConsultant, optionContractor]}
+      placeholder={defaultValue} style={{ width: '100%', marginBottom: '20px' }}
+      getPopupContainer={(trigger: any) => trigger.parentNode} />
   )
 };
 

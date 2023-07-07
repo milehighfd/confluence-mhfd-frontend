@@ -1,4 +1,5 @@
 import { Button, Select, Col } from 'antd';
+import { WINDOW_WIDTH } from 'constants/constants';
 import React, { useEffect, useState } from 'react';
 
 const { Option } = Select;
@@ -55,6 +56,7 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
             placeholder="Min year"
             value={minIndex === -1 ? 'Min year' : data[minIndex]?.value}
             style={{ width: '100%', fontSize: '12px' }}
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
                 setMinIndex(e);
@@ -78,6 +80,7 @@ export const DropdownFiltersYears = ({ data, type, selected, onSelect, defaultVa
             placeholder="Max year"
             value={maxIndex === -1 ? 'Max year' : data[maxIndex]?.value}
             style={{ width: '100%', fontSize: '12px' }}
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
             onChange={(e: number) => {
               if ( e > minIndex ) {
                 setMaxIndex(e);

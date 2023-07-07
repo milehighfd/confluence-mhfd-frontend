@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Popover, Select } from 'antd';
 import '../../../Scss/Components/projects.scss';
-import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF } from "../../../constants/constants";
+import { JURISDICTION, PROJECT_INFORMATION, SERVICE_AREA, GOVERNMENT_STAFF, WINDOW_WIDTH } from "../../../constants/constants";
 import { useProjectDispatch, useProjectState } from '../../../hook/projectHook';
 import * as datasets from "../../../Config/datasets";
 import { SERVER } from "../../../Config/Server.config";
@@ -200,7 +200,14 @@ export const LocationInformation = ({
             <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="serviceid">
-            <Select mode="multiple" placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a Service Area"} style={{ width: '100%' }} onChange={(serviceArea: any) => setServiceArea(serviceArea)} value={serviceArea} disabled={disable} getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
+            <Select
+              mode="multiple"
+              placeholder={serviceArea?.length !== 0 ? serviceArea : "Select a Service Area"}
+              style={{ width: '100%' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              onChange={(serviceArea: any) => setServiceArea(serviceArea)}
+              value={serviceArea} disabled={disable}
+              getPopupContainer={() => (document.getElementById("serviceid") as HTMLElement)}>
               {serviceAreaList.map((element) => 
                 element != 'None' && element != 'Boulder Service Area' && <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               )}
@@ -213,7 +220,15 @@ export const LocationInformation = ({
             <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="countyid">
-            <Select mode="multiple" placeholder={county?.length !== 0 ? county : "Select a County"} style={{ width: '100%' }} value={county} onChange={(county: any) => apllyCounty(county)} disabled={disable} getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
+            <Select
+              mode="multiple"
+              placeholder={county?.length !== 0 ? county : "Select a County"}
+              style={{ width: '100%' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              value={county}
+              onChange={(county: any) => apllyCounty(county)}
+              disabled={disable}
+              getPopupContainer={() => (document.getElementById("countyid") as HTMLElement)}>
               {countyList.map((element) => {
                 return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
@@ -228,7 +243,14 @@ export const LocationInformation = ({
             <span style={{ color: '#df3232' }} className="requiered">&nbsp;*&nbsp;</span>
             </>}
           <div className="sponsor-select" id="jurisdictionid">
-            <Select mode="multiple" placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Local Government"} style={{ width: '100%' }} value={jUrisdiction} onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)} getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
+            <Select
+              mode="multiple"
+              placeholder={jUrisdiction?.length != 0 ? jUrisdiction : "Select a Local Government"}
+              style={{ width: '100%' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              value={jUrisdiction}
+              onChange={(jUrisdiction: any) => setjurisdiction(jUrisdiction)}
+              getPopupContainer={() => (document.getElementById("jurisdictionid") as HTMLElement)} >
               {jurisdictionList.map((element) => {
                 return <Option key={element.key} value={element.value}>{filterName(element.label)}</Option>
               })}
@@ -240,7 +262,14 @@ export const LocationInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Sponsor <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div id="sponsorid">
-            <Select style={{ width: '100%' }} placeholder={'Select a Sponsor'} value={sponsor === "" ? undefined : sponsor} disabled={isLocalGovernment} onChange={setSponsor} getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
+            <Select
+              style={{ width: '100%' }}
+              placeholder={'Select a Sponsor'}
+              value={sponsor === "" ? undefined : sponsor}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              disabled={isLocalGovernment}
+              onChange={setSponsor}
+              getPopupContainer={() => (document.getElementById("sponsorid") as HTMLElement)}>
               {
                 isLocalGovernment ? (
                   <Option value={sponsor + ""}>{sponsor + ""}</Option>
@@ -256,7 +285,14 @@ export const LocationInformation = ({
         <Col xs={{ span: 24 }} lg={{ span: 12 }}>
           <label className="sub-title">Potential Co-Sponsor <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
           <div className="sponsor-select" id="cosponsorid">
-            <Select mode="multiple" placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Sponsor"} style={{ width: '100%' }} onChange={(coSponsor: any) => setCoSponsor(coSponsor)} value={cosponsor} getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
+            <Select
+              mode="multiple"
+              placeholder={cosponsor?.length != 0 ? cosponsor : "Select a Co-Sponsor"}
+              style={{ width: '100%' }}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              onChange={(coSponsor: any) => setCoSponsor(coSponsor)}
+              value={cosponsor}
+              getPopupContainer={() => (document.getElementById("cosponsorid") as HTMLElement)}>
               {localities.map((element: string) => {
                 return <Option key={element} value={element}>{element}</Option>
               })}

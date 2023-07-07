@@ -7,6 +7,7 @@ import { DATA_LIST_VIEW } from '../constants';
 import ListViewBodyTable from './ListViewTable';
 import ModalFields from './ModalFields';
 import ModalTollgate from './ModalTollgate';
+import { WINDOW_WIDTH } from 'constants/constants';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -86,6 +87,7 @@ const ListViewBody = () => {
                 <div className="auto-complete-map">
                   <Select
                     className={'user-list-dropdown'}
+                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                     defaultValue="Adams County"
                   >
                     <Option value="None">Adams County</Option>

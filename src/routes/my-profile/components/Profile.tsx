@@ -11,6 +11,7 @@ import SelectOrganization from "routes/Utils/SelectOrganization";
 import SelectServiceArea from "routes/Utils/SelectServiceArea";
 import SelectZoomArea from "routes/Utils/SelectZoomArea";
 import { formatPhoneNumber } from "utils/utils";
+import { WINDOW_WIDTH } from "constants/constants";
 
 const STATUS = 'status', JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
@@ -303,7 +304,14 @@ const Profile = ({
             <p className="color-sub" style={{paddingBottom:'15px' }}>Jurisdiction</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
-            <Select onChange={(value) => setCity(value)} disabled={disable} value={isNull(city)} options={jurisdictionList}  style={{ width: '100%', marginBottom:'15px', borderRadius:'25px' }} getPopupContainer={(trigger:any) => trigger.parentNode}>
+            <Select
+              onChange={(value) => setCity(value)}
+              disabled={disable}
+              value={isNull(city)}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              options={jurisdictionList}
+              style={{ width: '100%', marginBottom:'15px', borderRadius:'25px' }}
+              getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option >{isNull(city)}</Option>             
             </Select>
           </Col>
@@ -311,7 +319,14 @@ const Profile = ({
             <p className="color-sub" style={{paddingBottom:'15px' }}>County</p>
           </Col>
           <Col xs={{ span: 24}} lg={{ span: 14 }}>
-            <Select onChange={(value) => setCounty(value)} disabled={disable} options={countyList} value={isNull(county)} style={{ width: '100%', marginBottom:'15px'  }} getPopupContainer={(trigger:any) => trigger.parentNode}>
+            <Select
+              onChange={(value) => setCounty(value)}
+              disabled={disable}
+              options={countyList}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              value={isNull(county)}
+              style={{ width: '100%', marginBottom:'15px'  }}
+              getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option value="Douglas">{isNull(county)}</Option>
             </Select>
           </Col>

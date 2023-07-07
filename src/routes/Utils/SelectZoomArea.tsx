@@ -4,6 +4,7 @@ import { useProfileState, useProfileDispatch } from "hook/profileHook";
 import * as datasets from "../../Config/datasets";
 import { SERVER } from "../../Config/Server.config";
 import { getGroupList } from "routes/portfolio-view/components/ListUtils";
+import { WINDOW_WIDTH } from "constants/constants";
 
 const CONSULTANT = 'consultant',
 CONTRACTOR = 'contractor';
@@ -42,7 +43,14 @@ const SelectZoomArea = ({
 
 
   return (
-      <Select onChange={(value) => setZoomArea(value)} disabled={disable} options={dataAutocomplete} value={value} style={{ width: '100%', marginBottom: '20px' }} getPopupContainer={(trigger: any) => trigger.parentNode}>
+      <Select
+        onChange={(value) => setZoomArea(value)}
+        disabled={disable}
+        options={dataAutocomplete}
+        value={value}
+        listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+        style={{ width: '100%', marginBottom: '20px' }}
+        getPopupContainer={(trigger: any) => trigger.parentNode}>
           <Option value="Mile High Flood District">{value}</Option>
       </Select>
   )

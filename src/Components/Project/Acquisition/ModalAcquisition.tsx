@@ -5,7 +5,7 @@ import { AlertView } from "../../Alerts/AlertView";
 import CreateProjectMap from './../../CreateProjectMap/CreateProjectMap';
 import { ProjectInformation } from "../TypeProjectComponents/ProjectInformation";
 import { DropPin } from "../TypeProjectComponents/DropPin";
-import { PROJECT_INFORMATION, PROGRESS_ACQUISITION } from "../../../constants/constants";
+import { PROJECT_INFORMATION, PROGRESS_ACQUISITION, WINDOW_WIDTH } from "../../../constants/constants";
 import { LocationInformation } from "../TypeProjectComponents/LocationInformation";
 import { getData, getToken } from "../../../Config/datasets";
 import { useProjectState, useProjectDispatch } from '../../../hook/projectHook';
@@ -421,7 +421,13 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Progress <Popover content={content03}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
-                  <div id="progreid"><Select placeholder={progress != '' ? PROGRESS_ACQUISITION.find((el: any) => parseInt(el.id) === parseInt(progress))?.name + "" : "Select a Status"} style={{ width: '100%' }} onChange={(progress) => apllyProgress(progress)} getPopupContainer={() => (document.getElementById("progreid") as HTMLElement)}>
+                  <div id="progreid">
+                    <Select
+                      placeholder={progress != '' ? PROGRESS_ACQUISITION.find((el: any) => parseInt(el.id) === parseInt(progress))?.name + "" : "Select a Status"}
+                      style={{ width: '100%' }}
+                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                      onChange={(progress) => apllyProgress(progress)}
+                      getPopupContainer={() => (document.getElementById("progreid") as HTMLElement)}>
                     {PROGRESS_ACQUISITION.map((element) => {
                       return <Option key={element.id} value={element.id}>{element.name}</Option>
                     })}
@@ -430,7 +436,11 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
                 <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                   <label className="sub-title">Anticipated Purchase Date <Popover content={content04}><img src="/Icons/icon-19.svg" alt="" height="10px" /></Popover></label>
                   <div id="antid">
-                    <Select placeholder={purchaseDate != '' ? purchaseDate + "" : "Select a Purchase Date"} style={{ width: '100%' }} onChange={(purchaseDate) => apllyPurchaseDate(purchaseDate)} getPopupContainer={() => (document.getElementById("antid") as HTMLElement)}>
+                    <Select
+                      placeholder={purchaseDate != '' ? purchaseDate + "" : "Select a Purchase Date"}
+                      style={{ width: '100%' }} onChange={(purchaseDate) => apllyPurchaseDate(purchaseDate)}
+                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+                      getPopupContainer={() => (document.getElementById("antid") as HTMLElement)}>
                       {selec.map((element) => {
                         var newYear = year + element;
                         return <Option key={newYear} value={newYear}>{newYear}</Option>

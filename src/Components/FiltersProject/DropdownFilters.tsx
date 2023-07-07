@@ -1,4 +1,5 @@
 import { Button, Select, Col } from 'antd';
+import { WINDOW_WIDTH } from 'constants/constants';
 import React, { useEffect, useState } from 'react';
 
 const transformSelectedData = (sData: any) => {
@@ -142,6 +143,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
             placeholder="No min"
             value={minIndex === -1 ? 'No min' : moneyFormat(data[minIndex])}
             style={{ width: '100%', fontSize: '12px' }}
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
             onChange={(e: number) => {
               if (e < maxIndex || maxIndex === -1) {
                 setMinIndex(e);
@@ -165,6 +167,7 @@ export const DropdownFilters = ({ onSelect, defaultValue, labels, showControls =
             placeholder="No max"
             value={maxIndex === -1 ? 'No max' : moneyFormat(data[maxIndex])}
             style={{ width: '100%', fontSize: '12px' }}
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
             onChange={(e: number) => {
               if ( e > minIndex ) {
                 setMaxIndex(e);

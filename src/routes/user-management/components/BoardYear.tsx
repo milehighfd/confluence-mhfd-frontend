@@ -4,6 +4,7 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Option } from "antd/lib/mentions";
 import * as datasets from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
+import { WINDOW_WIDTH } from "constants/constants";
 
 const BoardYear = () => {
   const [openDropYear, setOpenDropYear] = useState(false);
@@ -42,6 +43,7 @@ const BoardYear = () => {
         <Select
           placeholder="2022"
           value={year}
+          listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
           suffixIcon={openDropYear? < UpOutlined/> :< DownOutlined  />}
           onClick={()=>(setOpenDropYear(!openDropYear))}
           onChange={(e) => changeConfigurationYear(e)}
