@@ -60,8 +60,16 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
   const [createContact, setCreateContact] = useState<any>(false);
   const [createFullName, setCreateFullName] = useState<any>('');
   const [createMail, setCreateMail] = useState<any>('');
-  const [createTitle, setCreateTitle] = useState<any>('');
+  const [createAssociate, setCreateAssociate] = useState<any>(false);
+  const [createAssociateName, setCreateAssociateName] = useState<any>('');
   const [createPhone, setCreatePhone] = useState<any>('');
+
+  interface Contact {
+    full_address: string;
+    city: string;
+    state: string;
+    zip: string;
+  }
 
   const {
     replaceAppUser,
@@ -104,7 +112,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     if (selectedAssociate && selectedAssociate.business_addresses) {
       generateItemMenu(selectedAssociate.business_addresses.map((x: any) => ({
         key: x?.business_address_id,
-        label: x?.full_address + ', ' + x?.city + ', ' + x?.state + ', ' + x?.zip
+        label: parseAddress(x)
       })));
     } else {
       generateItemMenu([]);
@@ -253,10 +261,9 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     setAssociateLabel(auxUser?.business_associate_contact?.business_address?.business_associate.business_name)
     setSelectAssociate(auxUser?.business_associate_contact?.business_address?.business_associate.business_associates_id)
     setContactLabel(auxUser?.business_associate_contact?.contact_name)
-    setAdressLabel(auxUser?.business_associate_contact?.business_address?.full_address
-      + ', ' + auxUser?.business_associate_contact?.business_address?.city
-      + ', ' + auxUser?.business_associate_contact?.business_address?.state
-      + ', ' + auxUser?.business_associate_contact?.business_address?.zip)
+    const address = auxUser?.business_associate_contact?.business_address;
+    const formattedAddress = address ? parseAddress(address) : '';
+    setAdressLabel(formattedAddress);
     setAddressId(auxUser?.business_associate_contact?.business_address?.business_address_id)
     setContactId(auxUser?.business_associate_contact_id)
     setAdressLine1(auxUser?.business_associate_contact?.business_address?.full_address)
@@ -306,6 +313,9 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       }).flat();
       setListContacts(aux);
     }
+    if (selectAssociate === -1) {
+      setListContacts([]);
+    }
   }, [selectAssociate, listAssociates]);
 
   useEffect(() => {      
@@ -321,7 +331,8 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
       business_addresses?.filter((address: any) => address.business_address_id === addressId)?.[0];
     if (contact && Object.keys(contact).length > 0) {
       setDisabledAddress(true);
-      setAdressLabel(contact.full_address+ ', ' + contact.city+ ', ' + contact.state+ ', ' + contact.zip);
+      const formattedAddress = parseAddress(contact);
+      setAdressLabel(formattedAddress);
       setAdressLine1(contact.full_address);
       setCity(contact.city);
       setZip(contact.zip);
@@ -360,7 +371,22 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     if (value.length <= 5 && (value === '' || !isNaN(value))) {
       setValue(value)
     }    
-  }
+  }  
+
+  const parseAddress = (contact: Contact): string => {
+    const { full_address, city, state, zip } = contact;
+    let address = full_address;
+    if (city) {
+      address += `, ${city}`;
+    }
+    if (state) {
+      address += `, ${state}`;
+    }
+    if (zip) {
+      address += `, ${zip}`;
+    }
+    return address;
+  };
 
   const updateSuccessful = () => {
     const auxMessageError = { ...messageError };
@@ -390,7 +416,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
     return () => clearTimeout(timer);
   } 
 
-  const result = () => {
+  const save = (selectAssociateId: any) => {
     const newUser: any = {
       firstName,
       lastName,
@@ -419,7 +445,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         contact_name: createFullName,
         contact_email: createMail,
         contact_phone_number: createPhone,
-        business_associate_contact_id: +selectAssociate
+        business_associate_contact_id: +selectAssociateId
       },datasets.getToken()).then(res => {
         newUser.business_associate_contact_id = +contactId;
         datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => { 
@@ -430,6 +456,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
+            setCreateAssociate(false);
             getUserInformation();     
             setConfirmation(true);
             setTimeout(() => {
@@ -446,7 +473,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         })
       });
     } else if (createAdress && createContact) {
-      datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociate), {
+      datasets.postData(SERVER.SAVE_BUSINESS_ADRESS_AND_CONTACT(selectAssociateId), {
         ...newAddress,
         contact_name: createFullName,
         contact_email: createMail,
@@ -460,6 +487,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             setDisabledAddress(false);
             saveUser();           
             updateSuccessful();
+            setCreateAssociate(false);
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();     
@@ -492,6 +520,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             setDisabledAddress(false);   
             saveUser();           
             updateSuccessful();
+            setCreateAssociate(false);
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();
@@ -523,6 +552,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             setDisabledAddress(false);
             saveUser();           
             updateSuccessful();
+            setCreateAssociate(false);
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();
@@ -540,22 +570,18 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
           }
         });
       });
-      // datasets.putData(SERVER.EDIT_USER + '/' + record.user_id, {...newUser}, datasets.getToken()).then(res => {   
-      //   if (res.message === 'SUCCESS') {        
-      //     saveUser();
-      //     updateSuccessful();
-      //     getUserInformation();
-      //   } else {
-      //     if (res?.error) {
-      //       updateError(res.error);
-      //     }
-      //     else {
-      //       updateError(res);
-      //     }
-      //   }
-      // });
     }
     setSaveAlert(false)
+  }
+
+  const result = () => {
+    if (createAssociate) {
+      datasets.postData(SERVER.BUSINESS_ASSOCIATES, { name: createAssociateName }, datasets.getToken()).then(res => {
+        save(res.business_associates_id);
+      });
+    }else{
+      save(selectAssociate);
+    }
   }
   const message = 'Are you sure you want to update the record ' + values.firstName + ' ' + values.lastName + '?';
 
@@ -654,58 +680,68 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
         <br />
         
         {designation !== 'other' &&
-        <>
-          <Row>
-            <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{ paddingRight: '20px' }}>
-              <h3>ORGANIZATION</h3>
-            </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{ paddingRight: '20px' }}>
-              <div className="line-01"></div>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-              <div className="gutter-row" id={("city" + values.user_id)}>
-                <p>ORGANIZATION</p>
-                <Input placeholder="Enter Organization" value={values.organization} name="organization" onChange={handleChange} style={{marginBottom:'15px'}}/>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
-              <div className="gutter-row"  id={("ba" + values.user_id)}>
-                <p>BUSINESS ASSOCIATE</p>
-                <BusinessAssociatesDropdownMemoized
-                  businessAssociate={businessAssociate}
-                  designation={values.designation}
-                  setAssociateLabel={setAssociateLabel}
-                  setPrimary={setPrimary}
-                  setSelectAssociate={setSelectAssociate}
-                  associateLabel={associateLabel}
-                  setContactLabel = {setContactLabel}
-                  setAddressLabel = {setAdressLabel}
-                  setCreateAdress = {setCreateAdress}
-                  setCreateContact = {setCreateContact}
-                  setDisableContact = {setDisabledContact}
-                  setDisableAdress = {setDisabledAddress}
-                  setDisabled = {setDisabled}
-                  setContactData = {setContactData}
-                />
-              </div>
-            </Col>
+          <>
+            <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 4 }} style={{ paddingRight: '20px' }}>
+                <h3>ORGANIZATION</h3>
+              </Col>
+              <Col xs={{ span: 24 }} lg={{ span: 20 }} style={{ paddingRight: '20px' }}>
+                <div className="line-01"></div>
+              </Col>
+            </Row>            
+            <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
+                <div className="gutter-row" id={("ba" + values.user_id)}>
+                  <p>BUSINESS ASSOCIATE</p>
+                  <BusinessAssociatesDropdownMemoized
+                    businessAssociate={businessAssociate}
+                    designation={values.designation}
+                    setAssociateLabel={setAssociateLabel}
+                    setPrimary={setPrimary}
+                    setSelectAssociate={setSelectAssociate}
+                    associateLabel={associateLabel}
+                    setContactLabel={setContactLabel}
+                    setAddressLabel={setAdressLabel}
+                    setCreateAdress={setCreateAdress}
+                    setCreateContact={setCreateContact}
+                    setDisableContact={setDisabledContact}
+                    setDisableAdress={setDisabledAddress}
+                    setDisabled={setDisabled}
+                    setContactData={setContactData}
+                    setCreateAssociate={setCreateAssociate}
+                  />
+                </div>
+              </Col>
             </Row>
             <Row>
-              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{paddingLeft: '20px',paddingTop: '20px', paddingRight: '20px' }}>
-                <div className="gutter-row" id={("design" + values.user_id)} style={{opacity:'0', display: 'none'}}>
+             { createAssociate &&
+              <>
+                <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px',paddingTop: '20px' }}>
+                  <p>BUSINESS ASSOCIATE NAME</p>
+                  <Input
+                    style={{ marginBottom: '15px' }}
+                    placeholder="Business Associate Name"
+                    value={createAssociateName}
+                    name="address_line_1"
+                    onChange={(e) => { handleChangeData(e.target.value, setCreateAssociateName) }}
+                    disabled={disabled}
+                  />
+                </Col>
+              </>
+            }
+            </Row>            
+            <Row>
+              <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ paddingLeft: '20px', paddingTop: '20px', paddingRight: '20px' }}>
+                <div className="gutter-row" id={("design" + values.user_id)} style={{ opacity: '0', display: 'none' }}>
                   <p>FIELD FOR DESIGN</p>
-                  <Input placeholder="Enter Organization" style={{marginBottom:'15px', cursor: 'auto'}} disabled={true}/>
+                  <Input placeholder="Enter Organization" style={{ marginBottom: '15px', cursor: 'auto' }} disabled={true} />
                 </div>
-                <div className="gutter-row"  id={("poc" + values.user_id)}>
+                <div className="gutter-row" id={("poc" + values.user_id)}>
                   <p>BUSINESS ASSOCIATE ADDRESS </p>
                   <Dropdown trigger={['click']} overlay={menuAdressAssociate}
                     getPopupContainer={() => document.getElementById(("county" + values.user_id)) as HTMLElement}>
                     <Button className="btn-borde-management">
-                      {Object.keys(contactData).length > 0? contactData.label : (adressLabel ? adressLabel:'Select Business Associates Address')}  <DownOutlined />
+                      {Object.keys(contactData).length > 0 ? contactData.label : (adressLabel ? adressLabel : 'Select Business Associates Address')}  <DownOutlined />
                     </Button>
                   </Dropdown>
                 </div>
@@ -725,15 +761,6 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
                     onChange={(e) => { handleChangeData(e.target.value, setAdressLine1) }}
                     disabled={disabled}
                   />
-                  {/* <p>ADDRESS LINE 2</p>
-              <Input
-                style={{marginBottom:'15px'}}
-                placeholder="Address Line 2"
-                value={(addressLine2 === '' && disabled ? (addressLine2 !== '' ? addressLine2 : values.business_associate_contact?.business_address?.business_address_line_2) : addressLine2)} 
-                name="address_line_1" 
-                onChange= {(e) => {handleChangeData(e.target.value, setAdressLine2)}}
-                disabled = {disabled}
-              /> */}
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 9 }} style={{ paddingRight: '20px' }}>
                   <p>CITY</p>

@@ -15,7 +15,8 @@ const BusinessAssociatesDropdown = ({
   setDisableContact,
   setDisabled,
   setContactData,
-  setAddressLabel
+  setAddressLabel,
+  setCreateAssociate,
 }: {
   businessAssociate: any,
   designation: any,
@@ -30,18 +31,24 @@ const BusinessAssociatesDropdown = ({
   setDisableContact: any,
   setDisabled: any,
   setContactData: any,
-  setAddressLabel: any
+  setAddressLabel: any,
+  setCreateAssociate: any,
 }) => {
   const [menu, setMenu] = useState<any>([]);
   const [keyword, setKeyword] = useState(associateLabel);
   const [dataMenu, setDataMenu] = useState<any>([]);
 
   const onSelect = (value: any) => {
+    if (value === -1) {
+      setCreateAssociate(true);
+    }else{
+      setCreateAssociate(false);
+    }
     setSelectAssociate(value);
-    setAssociateLabel((dataMenu.find((elm: any) => +elm.key === +value))?.label);
+    setAssociateLabel(value === -1 ? 'Add Business Associate' : (dataMenu.find((elm: any) => +elm.key === +value))?.label);
     setContactLabel('')
     setAddressLabel('')
-    setKeyword((dataMenu.find((elm: any) => +elm.key === +value))?.label);  
+    setKeyword(value === -1 ? 'Add Business Associate' : (dataMenu.find((elm: any) => +elm.key === +value))?.label);
     setPrimary((dataMenu.find((elm: any) => +elm.key === +value))?.primary_business_associate_contact_id);
     setCreateAdress(false);
     setCreateContact(false);
@@ -56,7 +63,13 @@ const BusinessAssociatesDropdown = ({
   }
 
   useEffect(() => {
-    const m: any[] = [], dm: any[] = [];
+    const m: any[] = [
+      {
+        key: -1,
+        label: <span style={{border:'transparent'}}>Add Business Associate</span>,
+        value: -1
+      }
+    ], dm: any[] = [];
     let array = businessAssociate;
     if (designation === 'government_staff') {
       const LOCAL_GOVERNMENT = 3;
