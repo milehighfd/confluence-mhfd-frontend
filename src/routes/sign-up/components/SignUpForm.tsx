@@ -101,7 +101,7 @@ const SignUpForm = () => {
         Sign Up!
       </h1>
       <Row style={{ marginTop: '15px', marginRight: '-20px' }}>
-        <span className="loginLabels">Define your user role:</span>
+        <span className="loginLabels">Define your user role:</span><br/>
         <Col className="signup">
           {roles.map((role: { value: string, style: string, title: string, options: Array<string> }, index: number) => {
             return <Button key={index} style={{ width: role.style, marginRight: '10px' }} className={targetButton === role.value ? 'button-dropdown' : 'btn-responsive'} onClick={() => {

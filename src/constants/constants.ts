@@ -735,9 +735,9 @@ export const CONSULTANT_CONTRACTOR = [
 ];
 
 export const ROLES = [
-  { title: 'MHFD Staff', style: '80px', value: 'staff', options: CITIES },
-  { title: 'Consultant / Contractor', style: '115px', value: 'consultant', options: CONSULTANT_CONTRACTOR },
-  { title: 'Local Government', style: '117px', value: 'government_staff', options: ORGANIZATION },
+  // { title: 'MHFD Staff', style: '80px', value: 'staff', options: CITIES },
+  { title: 'Consultant / Contractor', style: '132px', value: 'consultant', options: CONSULTANT_CONTRACTOR },
+  { title: 'Local Government', style: '143px', value: 'government_staff', options: ORGANIZATION },
   //{ title: 'Public', style: '80px', value: 'other', options: [] }
 ]
 
