@@ -17,12 +17,14 @@ import { BusinessAssociatesDropdownMemoized } from 'routes/user-management/compo
 import RadioDesignation from 'routes/user-management/components/RadioDesignation';
 import { formatPhoneNumber } from 'utils/utils';
 import { useAppUserDispatch } from "../../../hook/useAppUser";
+import ConfirmationSave from './ConfirmationSave';
 
 const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function }) => {
   const [organization, setOrganization] = useState('');
   const [zoomarea, setZoomArea] = useState('');
   const [serviceArea, setServiceArea] = useState('');
   const [saveAlert, setSaveAlert] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
   const validationSchema = VALIDATION_USER;
   const [disabled, setDisabled] = useState(true);
   const [disabledContact, setDisabledContact] = useState(false);
@@ -428,7 +430,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
-            getUserInformation();       
+            getUserInformation();     
+            setConfirmation(true);
+            setTimeout(() => {
+              setConfirmation(false);
+            }, 3000);
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -457,6 +463,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();     
+            setConfirmation(true);
+            setTimeout(() => {
+              setConfirmation(false);
+            }, 3000);
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -485,6 +495,10 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             setDisabled(true);
             setUpdate(!update);
             getUserInformation();
+            setConfirmation(true);
+            setTimeout(() => {
+              setConfirmation(false);
+            }, 3000);
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -511,7 +525,11 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
             updateSuccessful();
             setDisabled(true);
             setUpdate(!update);
-            getUserInformation();       
+            getUserInformation();
+            setConfirmation(true);
+            setTimeout(() => {
+              setConfirmation(false);
+            }, 3000);
           } else {
             if (res?.error) {
               updateError(res.error);
@@ -545,6 +563,7 @@ const ProfileUser = ({ record, saveUser }: { record: User, saveUser: Function })
 
   return (
     <>
+    <ConfirmationSave visible={confirmation} setVisible={setConfirmation} />
     <Alert save={result} visible={{visible:saveAlert}} setVisible={setSaveAlert} message={message}/>
       <div className="profile-user">
         <Row>
