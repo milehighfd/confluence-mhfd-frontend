@@ -460,7 +460,6 @@ const CalendarBody = ({
           })
           .on("click", function (d: any) {            
             const sendTollgate1 = { d, scheduleList: d?.code_phase_types }
-            console.log(d)
             setDatesData(sendTollgate1);
             setOpenModalTollgate(true);
           })
@@ -612,12 +611,6 @@ const CalendarBody = ({
             d.phaseId === x.phase_id
           ));
           let counterdown = 0;
-          // for (let i = 0; i < Object.keys(actionsDone).length; i++) {
-          //   if (d.project_data.project_id === actionsDone[i].project_id) {
-          //     counterdown += scheduleData.tasksData.some((option: any) => option.code_rule_action_item_id === actionsDone[i].code_rule_action_item_id);
-          //   }
-          // }
-
           const projectId = d.project_data.project_id;
           const arrayToCompare = actionsDone[projectId]
           if (arrayToCompare !== undefined) {
@@ -912,7 +905,6 @@ const CalendarBody = ({
           .style("fill", '#FF901C')
         zoomed = function () { 
           if (!shouldCallZoomed) return;
-          console.log('before', new Date());
           setCurrentZScale(d3.event.transform.k);
           zoomedXScale = d3.event.transform.rescaleX(xScale);
           if (d3.event.transform.k < 0.2) {
@@ -932,20 +924,16 @@ const CalendarBody = ({
           }
           updateRects();
           d3.select('#todayCircle').attr('cx', calctodayX);
-          console.log('after', new Date());
-          const stack = new Error().stack;
-          console.log(stack);
-        };
-        
-        const linesAxis:any = document.getElementsByTagName("line")
-        if(linesAxis){
-          for(let line of linesAxis){
-            if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
-              line.setAttribute('y2', 1000) 
+          const linesAxis:any = document.getElementsByTagName("line")
+          if(linesAxis){
+            for(let line of linesAxis){
+              if(line?.id !=='todayLineAxis' && line?.id !== 'todayLine' ){
+                line.setAttribute('y2', 1000) 
+              }
             }
           }
-        }
-        // setZoomState(zoomed)
+        };
+        
         zoom = d3
           .zoom()
           .scaleExtent([0, 5])
@@ -1189,7 +1177,6 @@ const CalendarBody = ({
   useEffect(() => {
     if (datas.length !== 0){
       setIsLoading(true)
-      //collapseItemStatus();
         const removechart: any = document.getElementById(`timeline-chart-${groupName}`);
         removeAllChildNodes(removechart);
       setZoomTimeline(0)

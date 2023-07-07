@@ -3,9 +3,9 @@ import { Menu } from 'antd';
 import { getGroupList } from "./ListUtils";
 import { useMapDispatch } from "hook/mapHook";
 
-const STATUS = 'status', JURISDICTION = 'jurisdiction',
+const JURISDICTION = 'jurisdiction',
 COUNTY = 'county', SERVICE_AREA = 'servicearea', CONSULTANT = 'consultant',
-CONTRACTOR = 'contractor', STREAMS = 'streams' , STAFF = 'staff';
+CONTRACTOR = 'contractor', STAFF = 'staff';
 export const FilterByGroupName = ({
   setFilterby, setFiltervalue, setFiltername
 }: {
@@ -43,7 +43,6 @@ export const FilterByGroupName = ({
         }} className="menu-drop-sub">{element.value +" "+ post}</div>,
         filterby: filterby,
         id: element.id,
-        // className: activeDrop === element.value ? 'menu-active ':'',
       };
     });
   }
@@ -74,10 +73,6 @@ export const FilterByGroupName = ({
       setStaffList(parseToMenuItem(groups, STAFF));
     });
   }, []);
-
-  // useEffect(()=>{
-  //   console.log(activeDrop, 'ACTIVEDROP')
-  // }, [activeDrop])
 
   return (
     <Menu
