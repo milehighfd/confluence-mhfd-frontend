@@ -9,7 +9,6 @@ const Filters = ({
   return <div className="filters">
     <div className="filters-body">
       <NewProjectsFilter
-        originpage="portfolio"
         filtersObject={filtersObject}
       />
     </div>

@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from 'react';
 import { Button, Row, Col, Popover, Select } from 'antd';
-import PieChart from "../NewProblemsFilter/PieChart";
-import TreeMap from "../NewProblemsFilter/TreeMap";
-import { useMapDispatch, useMapState } from "../../../hook/mapHook";
-import { CheckBoxFilters } from '../CheckboxFilters';
-import { DropdownFilters } from "../DropdownFilters";
-import { DropdownFiltersYears } from "../DropdownFiltersYears";
-import { useProjectDispatch } from "hook/projectHook";
-import { WINDOW_WIDTH } from "constants/constants";
+import PieChart from 'Components/FiltersProject/NewProblemsFilter/PieChart';
+import TreeMap from 'Components/FiltersProject/NewProblemsFilter/TreeMap';
+import { useMapDispatch, useMapState } from 'hook/mapHook';
+import { CheckBoxFilters } from 'Components/FiltersProject/CheckboxFilters';
+import { DropdownFilters } from 'Components/FiltersProject/DropdownFilters';
+import { useProjectDispatch } from 'hook/projectHook';
+import { WINDOW_WIDTH } from 'constants/constants';
+import { FILTERS } from 'constants/filter';
 
 const { Option } = Select;
 const content = (<div className="popoveer-00"><b>Service Area</b> is the MHFD Watershed Service Area where the project is located.</div>);
@@ -17,16 +17,12 @@ const content3 = (<div className="popoveer-00"><b>MHFD Lead</b> is the MHFD PM w
 const content4 = (<div className="popoveer-00"><b>Project Type</b> is the MHFD program of which the project is a part.</div>);
 const content05 = (<div className="popoveer-00"><b>Estimated Project Cost</b> is the estimated total cost of the project based on the cost of the underlying components.</div>);
 const content06 = (<div className="popoveer-00"><b>Project Status</b> is the current status of the Project. Some statuses are only applicable to certain project types.</div>);
-const content07 = (<div className="popoveer-00"><b>Year Initiated</b> is the year a Project was initiated (i.e. provided MHFD funding). For Projects that have not been initiated, use the "Work Plan Year" filter.</div>);
-const content08 = (<div className="popoveer-00"><b>Year Completed</b> is the year a project was closed out by MHFD.</div>);
-const content09 = (<div className="popoveer-00"><b>MHFD Dollars Allocated</b> is the amount of funding that MHFD has budgeted or encumbered for a particular Project. For Capital projects and Master Plans, this is the number that must at least be matched by a local government.</div>);
-const content10 = (<div className="popoveer-00"><b>Work Plan Year</b> is the year that a proposed Project is on the approved MHFD Work Plan.</div>);
 const content11 = (<div className="popoveer-00"><b>Consultant</b> is the primary civil engineering design consultant on the project.</div>);
 const content12 = (<div className="popoveer-00"><b>Local Government Lead</b> is the local government's project manager assigned to the project.</div>);
 const content13 = (<div className="popoveer-00"><b>Contractor</b> is the primary civil engineering construction contractor on the project.</div>);
 const content14 = (<div className="popoveer-00"><b>Stream Name</b> is the name or ID of the stream where the project is located.</div>);
 
-export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {originpage?:string, setApplyFilter?:Function, filtersObject?:any}) => {
+export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) => {
     const {
         filterProjectOptions,
         paramFilters: {
@@ -43,18 +39,26 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
     const apply = (values: any, field: string) => {
         const options = { ...filterProjectOptions };
         console.log('Values at new project filter', values, field);
-        if ('projecttype' === field || 'status' === field || 'workplanyear' === field || 'problemtype' === field
-        || 'consultant' === field || 'contractor' === field || 'jurisdiction' === field 
-        || 'mhfdmanager' === field) {
+        const filters = [
+            FILTERS.PROJECT.PROJECTTYPE,
+            FILTERS.PROJECT.STATUS,
+            FILTERS.PROJECT.WORKPLANYEAR,
+            FILTERS.PROJECT.PROBLEMTYPE,
+            FILTERS.PROJECT.CONSULTANT,
+            FILTERS.PROJECT.CONTRACTOR,
+            FILTERS.PROJECT.JURISDICTION,
+            FILTERS.PROJECT.MHFDMANAGER,
+        ];
+        if (filters.includes(field)) {
             let newValue = '';
-            if ('workplanyear' === field) {
-                options['status'] = [...options['status'], 'Complete'];
+            if (FILTERS.PROJECT.WORKPLANYEAR === field) {
+                options[FILTERS.PROJECT.STATUS] = [...options[FILTERS.PROJECT.STATUS], 'Complete'];
             }
             newValue = values;
             options[field] = newValue;
         } else {
             if ('completedyear' === field) {
-                options['status'] = [...options['status'], 'Complete'];
+                options[FILTERS.PROJECT.STATUS] = [...options[FILTERS.PROJECT.STATUS], 'Complete'];
                 options[field] = values;
             } else if ('streamname' === field || 'lgmanager' === field) {
               if (values === '') {
@@ -73,9 +77,6 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
             }
         }
         setFilterProjectOptions(options);
-        if(originpage === 'portfolio' && setApplyFilter) {
-          setApplyFilter(Math.random());
-        } 
         let defaultBounds = `${-105.3236683149282},${39.274174328991904},${-104.48895750946532},${40.26156304805423}`; 
         getParamFilterProjects(applyFilter ? boundsMap : defaultBounds, options);
         
@@ -104,22 +105,22 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
     const axisLabel = 'Number of Projects';
     return <>  <div className="scroll-filters" style={{ height: window.innerHeight - 280 }}>
         <Row className="filt-00">
-            <Col span={12} className={filtersObject?.filterby === 'servicearea' ? 'disabledchart': ''}>
+            <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.SERVICEAREA ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Service Area <Popover content={content}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects?.servicearea &&
-                    <TreeMap data={paramProjects.servicearea} type={'servicearea'} tab={'project'}
+                    <TreeMap data={paramProjects.servicearea} type={FILTERS.PROJECT.SERVICEAREA} tab={'project'}
                         selected={filterProjectOptions.servicearea} defaultValue={''}
-                        onSelect={(e: string) => apply(e, 'servicearea')} />
+                        onSelect={(e: string) => apply(e, FILTERS.PROJECT.SERVICEAREA)} />
                 }
             </Col>
-            <Col span={12} className={filtersObject?.filterby === 'county' ? 'disabledchart': ''}>
+            <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.COUNTY ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">County <Popover content={content1}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.county &&
-                    <TreeMap data={paramProjects.county} type={'county'} tab={'project'}
+                    <TreeMap data={paramProjects.county} type={FILTERS.PROJECT.COUNTY} tab={'project'}
                         selected={filterProjectOptions.county} defaultValue={''}
-                        onSelect={(items: any) => apply(items, 'county')} />
+                        onSelect={(items: any) => apply(items, FILTERS.PROJECT.COUNTY)} />
                 }
             </Col>
         </Row>
@@ -129,13 +130,13 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 <h5 className="filter-title chart-filter-title">Project type <Popover content={content4}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects?.projecttype &&
-                    <PieChart type={'projecttype'} defaultValue={''}
+                    <PieChart type={FILTERS.PROJECT.PROJECTTYPE} defaultValue={''}
                         data={paramProjects.projecttype}
                         selected={filterProjectOptions.projecttype}
-                        onSelect={(e: string) => apply(e, 'projecttype')} />
+                        onSelect={(e: string) => apply(e, FILTERS.PROJECT.PROJECTTYPE)} />
                 }
             </Col>
-            <Col span={12} className={filtersObject?.filterby === 'status' ? 'disabledchart': ''}>
+            <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.STATUS ? 'disabledchart': ''}>
                 <h5 className="filter-title chart-filter-title">Project Status <Popover content={content06}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects?.status &&
@@ -162,7 +163,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                             return getValue(a.value) - getValue(b.value);
                         })}
                         selected={filterProjectOptions.status}
-                        onSelect={(items: any) => apply(items, 'status')} />
+                        onSelect={(items: any) => apply(items, FILTERS.PROJECT.STATUS)} />
                 }
             </Col>
         </Row>
@@ -172,46 +173,45 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                 <h5 className="filter-title chart-filter-title">Estimated Project Cost <Popover content={content05}><img src="/Icons/icon-19.svg" alt="" /></Popover></h5>
                 {
                     paramProjects?.estimatedCost &&
-                    <DropdownFilters type={'totalcost'} axisLabel={axisLabel} defaultValue={''}
-                        // data={paramProjects.estimatedCost}
+                    <DropdownFilters type={FILTERS.PROJECT.TOTALCOST} axisLabel={axisLabel} defaultValue={''}
                         selected={filterProjectOptions.totalcost}
-                        onSelect={(items: string) => apply(items, 'totalcost')} />
+                        onSelect={(items: string) => apply(items, FILTERS.PROJECT.TOTALCOST)} />
                 }
             </Col>
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00" style={{ paddingRight: '0px', paddingLeft:'14px', marginBottom: 25 }} gutter={[24, 16]}>
-            <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === 'consultant' ? 'disabledchart': ''}>
+            <Col span={12} style={{paddingLeft:'0px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONSULTANT ? 'disabledchart': ''}>
                 <h5 className="filter-title">Consultant <Popover content={content11}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.consultant &&
                     <CheckBoxFilters defaultValue={""}
                     data={paramProjects.consultant.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.consultant}
-                    onSelect={(items: any) => apply(items, 'consultant')} />
+                    onSelect={(items: any) => apply(items, FILTERS.PROJECT.CONSULTANT)} />
                 }
             </Col>
-            <Col span={12}  style={{paddingLeft:'6px'}} className={filtersObject?.filterby === 'contractor' ? 'disabledchart': ''}>
+            <Col span={12}  style={{paddingLeft:'6px'}} className={filtersObject?.filterby === FILTERS.PROJECT.CONTRACTOR ? 'disabledchart': ''}>
                 <h5 className="filter-title">Contractor <Popover content={content13}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.contractor &&
                     <CheckBoxFilters defaultValue={""}
                     data={paramProjects.contractor.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                     selected={filterProjectOptions.contractor}
-                    onSelect={(items: any) => apply(items, 'contractor')} />
+                    onSelect={(items: any) => apply(items, FILTERS.PROJECT.CONTRACTOR)} />
                 }
             </Col>
         </Row>
         <hr className='filters-line'></hr>
         <Row className="filt-00" gutter={[24, 16]} style={{marginBottom: 25}}>
-            <Col span={12} className={filtersObject?.filterby === 'jurisdiction' ? 'disabledchart': ''}>
+            <Col span={12} className={filtersObject?.filterby === FILTERS.PROJECT.JURISDICTION ? 'disabledchart': ''}>
                 <h5 className="filter-title">Local Government <Popover content={content2}><img src="/Icons/icon-19.svg" alt="" width="12px" /></Popover> </h5>
                 {
                     paramProjects?.jurisdiction &&
                     <CheckBoxFilters defaultValue={''}
                         data={paramProjects.jurisdiction.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterProjectOptions.jurisdiction}
-                        onSelect={(items: any) => apply(items, 'jurisdiction')} />
+                        onSelect={(items: any) => apply(items, FILTERS.PROJECT.JURISDICTION)} />
                 }
             </Col>
             <Col span={12}>
@@ -221,7 +221,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                     <CheckBoxFilters defaultValue={''}
                         data={paramProjects.mhfdmanager.sort((a: any, b: any) => a.value.localeCompare(b.value))}
                         selected={filterProjectOptions.mhfdmanager}
-                        onSelect={(items: any) => apply(items, 'mhfdmanager')} />
+                        onSelect={(items: any) => apply(items, FILTERS.PROJECT.MHFDMANAGER)} />
                 }
             </Col>
         </Row>
@@ -236,7 +236,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                             <u>Apply</u>
                         </Button>
                         &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'lgmanager') }}>
+                        <Button className="btn-svg" onClick={() => apply('', FILTERS.PROJECT.LGMANAGER)}>
                             <u>Reset</u>
                         </Button>
                         <Select
@@ -244,7 +244,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                             listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                             style={{ width: '100%', fontSize: '12px' }}
                             onChange={(e: string) => {
-                            apply(e, 'lgmanager');
+                            apply(e, FILTERS.PROJECT.LGMANAGER);
                         }}>
                             {paramProjects.lgmanager.map((element: any, index: number) => {
                                 return element && <Option key={index} value={element.id}>{`${element.value} `}</Option>
@@ -262,7 +262,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                             <u>Apply</u>
                         </Button>
                         &nbsp;|&nbsp;
-                        <Button className="btn-svg" onClick={() => { apply('', 'streamname') }}>
+                        <Button className="btn-svg" onClick={() => { apply('', FILTERS.PROJECT.STREAMNAME) }}>
                             <u>Reset</u>
                         </Button>
                         <Select
@@ -270,7 +270,7 @@ export const NewProjectsFilter = ({originpage, setApplyFilter, filtersObject}: {
                             style={{ width: '100%', fontSize: '12px' }}
                             listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
                             onChange={(e: string) => {
-                            apply(e, 'streamname');
+                            apply(e, FILTERS.PROJECT.STREAMNAME);
                         }}>
                             {paramProjects.streamname.map((element: any, index: number) => {
                                 return element && <Option key={index} value={element.id}>{`${element.value} `}</Option>
