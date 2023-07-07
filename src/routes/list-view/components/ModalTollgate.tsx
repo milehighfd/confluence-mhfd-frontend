@@ -1,5 +1,5 @@
-import { LockOutlined, MoreOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Col, DatePicker, InputNumber, Row, Menu,Dropdown } from 'antd';
+import { LockOutlined, MoreOutlined } from '@ant-design/icons';
+import { Button, Col, DatePicker, InputNumber, Row, Menu,Dropdown } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
@@ -26,7 +26,6 @@ const ModalTollgate = ({
   const { setOpenModalTollgate: setVisible, setUpdateGroup, setDatesData } = usePortfolioDispatch();  
   const dateFormatList = ['MM/DD/YYYY', 'MM/DD/YY'];
   const [dateValue, setDateValue] = useState<any[]>([]);
-  const [currentPhase,setCurrentPhase] = useState(-1);
   const [codePhaseTypeId,setCodePhaseTypeId] =useState(-1);
   const [calendarValue,setCalendarValue] =useState('');
   const [calendarPhase,setCalendarPhase] =useState(0);
@@ -388,7 +387,6 @@ let items = [
     setDates(copy);
 
     setDateValue([])
-    setCurrentPhase(-1);
     setCodePhaseTypeId(-1)
     setCalendarValue('')
     setCalendarPhase(0)
