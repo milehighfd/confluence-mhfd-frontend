@@ -42,7 +42,6 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         const filters = [
             FILTERS.PROJECT.PROJECTTYPE,
             FILTERS.PROJECT.STATUS,
-            FILTERS.PROJECT.WORKPLANYEAR,
             FILTERS.PROJECT.PROBLEMTYPE,
             FILTERS.PROJECT.CONSULTANT,
             FILTERS.PROJECT.CONTRACTOR,
@@ -51,22 +50,16 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         ];
         if (filters.includes(field)) {
             let newValue = '';
-            if (FILTERS.PROJECT.WORKPLANYEAR === field) {
-                options[FILTERS.PROJECT.STATUS] = [...options[FILTERS.PROJECT.STATUS], 'Complete'];
-            }
             newValue = values;
             options[field] = newValue;
         } else {
-            if ('completedyear' === field) {
-                options[FILTERS.PROJECT.STATUS] = [...options[FILTERS.PROJECT.STATUS], 'Complete'];
-                options[field] = values;
-            } else if ('streamname' === field || 'lgmanager' === field) {
+            if (FILTERS.PROJECT.STREAMNAME === field || FILTERS.PROJECT.LGMANAGER === field) {
               if (values === '') {
                 options[field] = values;
               } else {
                 options[field] = [values];
               }
-            } else if ('totalcost' === field) {
+            } else if (FILTERS.PROJECT.TOTALCOST === field) {
                 if(values.length === 0 || values === ''){
                     options[field] = []
                 }else {
@@ -85,15 +78,16 @@ export const NewProjectsFilter = ({ filtersObject }: { filtersObject?: any }) =>
         resetInfiniteScrollHasMoreItems();
     }
 
-    ['startyear', 'completedyear', 'workplanyear'].forEach((key: string) => {
-        if (paramProjects[key]) {
-            paramProjects.completedyear.sort((a: any, b: any) => {
-                return a.value - b.value;
-            })
-        }
-    });
+    const filtersSortByLocaleCompare = [
+        FILTERS.PROJECT.CONSULTANT,
+        FILTERS.PROJECT.CONTRACTOR,
+        FILTERS.PROJECT.JURISDICTION,
+        FILTERS.PROJECT.MHFDMANAGER,
+        FILTERS.PROJECT.LGMANAGER,
+        FILTERS.PROJECT.STREAMNAME,
+    ];
 
-    ['consultant', 'contractor', 'jurisdiction', 'mhfdmanager', 'lgmanager', 'streamname']
+    filtersSortByLocaleCompare
         .forEach((key: string) => {
             if (paramProjects[key]) {
                 paramProjects[key].sort((a: any, b: any) => {
