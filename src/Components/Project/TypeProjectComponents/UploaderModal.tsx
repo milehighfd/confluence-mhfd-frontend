@@ -87,11 +87,11 @@ export const UploaderModal = (
       destroyOnClose>
       <div className="upload">
         <Row className="detailed-h" gutter={[16, 8]}>
-          <Col xs={{ span: 12 }} lg={{ span: 13 }}>
+          <Col xs={{ span: 16 }} lg={{ span: 16 }}>
             <h1 style={{marginTop: '15px'}}>{ type === 'images' ? 'Upload Images' : 'Upload Documents'}
             </h1>
           </Col>
-          <Col xs={{ span: 12 }} lg={{ span: 11 }} style={{textAlign: 'end'}}>
+          <Col xs={{ span: 8 }} lg={{ span: 8 }} style={{textAlign: 'end'}}>
             <Button className="btn-transparent" onClick={() => setModal(false)}><img src="/Icons/icon-62.svg" alt="" height="15px" /></Button>
           </Col>
         </Row>
@@ -123,7 +123,7 @@ export const UploaderModal = (
         {
           selectedFile && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '7px 20px'}}>
           <div style={{width: '100%', padding: '8px'}}>
-            <span style={{
+            <span className="tag-upload" style={{
               background: '#282363',
               borderRadius: '16px',              
               color: 'white',
@@ -135,7 +135,7 @@ export const UploaderModal = (
         {
           errorMessage && <Row className="detailed-h" gutter={[16, 16]} style={{backgroundColor: 'white', minHeight: '25px', padding: '7px 20px'}}>
           <div style={{width: '100%', padding: '8px'}}>
-            <span style={{
+            <span className="tag-upload" style={{
               background: 'white',
               borderRadius: '16px',              
               color: 'red',

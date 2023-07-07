@@ -909,7 +909,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
                       <Option value="95">95%</Option>
                     </Select>
                   </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[1])}</Col>
+                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }} style={{display: 'flex', alignItems: 'center'}}>{formatter.format(overheadCosts[1])}</Col>
                 </Row>
               </Timeline.Item>
               <Timeline.Item color="purple">

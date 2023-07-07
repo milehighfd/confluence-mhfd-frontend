@@ -325,7 +325,7 @@ const Profile = ({
               options={countyList}
               listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
               value={isNull(county)}
-              style={{ width: '100%', marginBottom:'15px'  }}
+              style={{ width: '100%', marginBottom:'15px', borderRadius:'25px'  }}
               getPopupContainer={(trigger:any) => trigger.parentNode}>
               <Option value="Douglas">{isNull(county)}</Option>
             </Select>

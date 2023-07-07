@@ -1371,7 +1371,8 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 .detailed-upload {
-  width: 960px !important;
+  width: 1047px !important;
+  top: 17% !important;
 
   /* Default close button */
   .ant-modal-close {
@@ -4278,6 +4279,76 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 @media (min-width: 2550px) and (max-width: 3799px) {
+  .user-name-upload {
+    font-size: 22px !important;
+    line-height: 22px !important;
+  }
+  .user-text{
+    font-size: 22px !important;
+    line-height: 22px !important;
+  }
+  .user-cover{
+    .cover-active{
+      height: auto;
+      padding: 5px 10px;
+      font-size: 18px;
+    }
+    .cover{
+      height: auto;
+      padding: 5px 10px;
+      font-size: 18px;
+    }
+  }
+  .user-type .type {
+    height: auto;
+      padding: 5px 10px;
+      font-size: 18px;
+  }
+  .user-download{
+    padding: 10px 20px;
+    height: auto;
+    img{
+      height: 18px !important;
+    }
+  }
+  .detailed-upload{
+    label{
+      font-size: 24px !important;
+    }
+    .upload .draw {
+      height: 295px !important;
+    }
+    .draw{
+      img{
+        height: 86px !important;
+      }
+      h1{
+        font-size: 26px !important;
+        margin: 10px 0px !important;
+      }
+      p{
+        font-size: 20px !important;
+      }
+    }
+    input{
+    height: auto !important;
+      padding: 10px 20px !important;
+    }
+    button{
+      font-size: 22px !important;
+      line-height: 24px !important;
+      padding: 19px 59px !important;
+      height: auto;
+      margin-left: -42px;
+    }
+    .btn-transparent{
+      padding: 0px 12px !important;
+    }
+    .tag-upload{
+      padding: 8px 22px !important;
+      font-size: 20px !important;
+    }
+  }
   .detailed-b {
     .body-detail-modal {
       height: calc(100vh - 283px) !important;
@@ -4488,6 +4559,25 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
       }
     }
    
+  }
+  .modal-confirm{
+    width: 470px !important;
+    h1{
+      font-size: 26px !important;
+      line-height: 29px !important;
+    }
+    .detailed-h{
+      font-size: 20px !important;
+      line-height: 26px !important;
+      button{
+        font-size: 22px !important;
+        line-height: 24px !important;
+        padding: 19px !important;
+      }
+      .btn-transparent{
+        padding: 0px 12px !important;
+      }
+    }
   }
   .modal-graphic {
     width: 296px !important;
@@ -4729,7 +4819,103 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 @media (min-width: 3800px) and (max-width: 5999px) {
-  .piney-modal-detail {}
+  .user-name-upload {
+    font-size: 28px !important;
+    line-height: 34px !important;
+  }
+  .user-text{
+    font-size: 28px !important;
+    line-height: 34px !important;
+  }
+  .user-cover{
+    .cover-active{
+      height: auto;
+      padding: 12px 10px;
+      font-size: 24px;
+    }
+    .cover{
+      height: auto;
+      padding: 12px 10px;
+      font-size: 24px;
+    }
+  }
+  .user-type .type {
+    height: auto;
+    padding: 12px 10px;
+    font-size: 24px;
+  }
+  .user-download{
+    padding: 10px 20px;
+    height: auto;
+    img{
+      height: 24px !important;
+    }
+  }
+  .detailed-upload{
+    label{
+      font-size: 30px !important;
+    }
+    .upload .draw {
+      height: 342px !important;
+    }
+    .draw{
+      img{
+        height: 115px !important;
+      }
+      h1{
+        font-size: 30px !important;
+        margin: 10px 0px !important;
+      }
+      p{
+        font-size: 26px !important;
+      }
+    }
+    input{
+      height: auto !important;
+      padding: 10px 20px !important;
+    } 
+    button{
+      font-size: 32px !important;
+      line-height: 36px !important;
+      padding: 24px 52px !important;
+      margin: 3px 0px;
+      margin-left: -52px;
+    }
+    .btn-transparent{
+      padding: 0px 12px !important;
+      margin-top: 19px !important;
+      img{
+        height: 24px !important;
+      }
+    }
+    .tag-upload{
+      padding: 13px 22px !important;
+      font-size: 28px !important;
+    }
+  }
+
+  .detailed-upload-save {
+    width: 795px !important;
+    h1{
+      font-size: 34px !important;
+      line-height: 45px !important;
+    }
+    .detailed-h{
+       button{
+        font-size: 32px !important;
+        line-height: 36px !important;
+        padding: 32px !important;
+        margin: 22px 0px;
+      }
+      .btn-transparent{
+        padding: 0px 12px !important;
+        margin-top: 19px !important;
+        img{
+          height: 24px !important;
+        }
+      }
+    }
+  }
   .detailed-c{
     .img-carousel-backgraund{
       height: 479px !important;

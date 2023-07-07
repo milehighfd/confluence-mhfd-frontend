@@ -920,7 +920,6 @@
   }
   .projects{
     width: 1955px !important;
-
     .head-project{
       padding: 20px 20px 10px 20px;
 
@@ -941,6 +940,8 @@
       }
       .tag-name{
         font-size: 21px !important;
+        padding: 14px 20px !important;
+        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
@@ -956,11 +957,48 @@
     }
     .body-project{
       height: calc(100vh - 300px);
+      .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        width: 70px !important;
+       }
+      .ant-select-selector {
+        padding: 6px 0px !important;
+        margin: 10px 0px !important;
+       
+       }
+      #sponsorid{
+        .ant-select-selector {
+          padding: 25px 16px !important;
+          margin: 10px 0px !important;
+         }
+       }
+      .project-name{
+        font-size: 32px !important;
+        line-height: 39px !important;
+        height: 48px !important;
+      }
+      .uploaded-span{
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 26px;
+      }
+      .requiered-text{
+        font-size: 18px !important;
+      }
+      .bottomn-heder{
+        padding: 10px 22px;
+        height: auto;
+        font-size: 22px;
+        .ic-document{
+          height: 20px !important;
+          margin-right: 10px !important;
+        }
+      }
       .span-project-text{
         font-size: 16px;
       }
       h5{
-        font-size: 24px;
+        font-size: 26px;
+        margin: 20px 0px !important;
 
         img{
           height: 24px;
@@ -970,7 +1008,7 @@
         font-size: 14px;
       }
       .sub-title {
-        font-size: 18px !important;
+        font-size: 20px !important;
 
         img{
           height: 20px;
@@ -978,7 +1016,9 @@
       }
       textarea.ant-input {
         height: 165px;
-        font-size: 24px;
+        font-size: 24px !important;
+        padding: 10px 15px;
+        line-height: 28px !important;
       }
       .ant-select-selection {
         height: 74px;
@@ -1001,6 +1041,9 @@
         }
         p{
           font-size: 24px;
+          img {
+            height: 20px;
+          }
         }
       }
       .tab-titles{
@@ -1038,8 +1081,10 @@
           width: inherit;
 
           button {
-            height: 25px;
-            top:-8px;
+            height: 37px;
+            top: -8px;
+            display: flex;
+            align-items: flex-end;
 
             img{
               height: 20px;
@@ -1048,7 +1093,8 @@
         }
       }
         .ant-timeline-item{
-          font-size: 21px !important;
+          font-size: 24px !important;
+          line-height: 26px !important;
 
           img{
             height: 20px;
@@ -1077,10 +1123,16 @@
         }
         .sub-project{
           .ant-input {
-            font-size: 21px !important;
+            font-size: 24px !important;
+            line-height: 26px !important;
           }
           p{
-            font-size: 21px;
+            font-size: 24px !important;
+            line-height: 26px !important;
+            margin: 12px 0px;
+            img{
+              height: 18px;
+            }
           }
           .ant-select-selection {
             font-size: 21px;
@@ -1217,8 +1269,7 @@
     padding-left: 25px !important;
   }
   .projects{
-    width: 1955px !important;
-
+    width: 2014px !important;
     .head-project{
       padding: 20px 20px 10px 20px;
 
@@ -1238,7 +1289,9 @@
         font-size: 24px !important;
       }
       .tag-name{
-        font-size: 21px !important;
+        font-size: 25px !important;
+        padding: 14px 20px !important;
+        margin-right: 15px;
       }
       .hh-img {
        margin-top: 8px;
@@ -1254,29 +1307,68 @@
     }
     .body-project{
       height: calc(100vh - 300px);
+      font-size: 28px !important;
+      line-height: 32px !important;
+      .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        width: 112px !important;
+       }
+       .ant-select-selector {
+        padding: 6px 0px !important;
+        margin: 10px 0px !important;
+       }
+      #sponsorid{
+        .ant-select-selector {
+          padding: 25px 16px !important;
+          margin: 10px 0px !important;
+         }
+       }
+      .project-name{
+        font-size: 32px !important;
+        line-height: 39px !important;
+        height: 48px !important;
+      }
+      .uploaded-span{
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 26px;
+      }
+      .requiered-text{
+        font-size: 23px !important;
+      }
+      .bottomn-heder{
+        padding: 10px 22px;
+        height: auto;
+        font-size: 28px;
+        .ic-document{
+          height: 24px !important;
+          margin-right: 15px !important;
+        }
+      }
       .span-project-text{
         font-size: 16px;
       }
       h5{
-        font-size: 24px;
+        font-size: 30px;
+        margin: 42px 0px !important;
 
         img{
           height: 24px;
         }
       }
       .required-text{
-        font-size: 14px;
+        font-size: 30px;
       }
       .sub-title {
-        font-size: 18px !important;
+        font-size: 26px !important;
 
         img{
           height: 20px;
         }
       }
       textarea.ant-input {
-        height: 165px;
-        font-size: 24px;
+        height: 217px !important;
+        font-size: 30px !important;
+        padding: 15px 15px;
       }
       .ant-select-selection {
         height: 74px;
@@ -1290,23 +1382,26 @@
       }
       .draw{
         height: 140px;
-        padding: 36px 0px;
+        padding: 40px 0px;
         margin-bottom: 25px;
         border: 2px dashed $opacity04;
 
         img {
-          height: 32px;
+          height: 50px !important;
         }
         p{
-          font-size: 24px;
+          font-size: 28px !important;
+          img {
+            height: 26px !important;
+          }
         }
       }
       .tab-titles{
-        font-size: 21px !important;
+        font-size: 28px !important;
       }
 
       .tab-head-project{
-        font-size: 21px !important;
+        font-size: 28px !important;
         line-height: 1;
       }
       .ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
@@ -1314,11 +1409,11 @@
         padding: 25px 20px;
       }
       .tab-body-project{
-        font-size: 21px !important;
+        font-size: 28px !important;
 
         .second{
           .ant-input {
-            font-size: 21px;
+            font-size: 28px;
             padding: 8px 0px;
             height: 38px;
           }
@@ -1326,7 +1421,7 @@
         .third{
           padding-left: 0px !important;
           .ant-input {
-            font-size: 21px;
+            font-size: 28px;
             padding: 8px 0px;
             width: 80%;
             height: 38px;
@@ -1336,23 +1431,26 @@
           width: inherit;
 
           button {
-            height: 25px;
-            top:-8px;
+            height: 37px;
+            top: -8px;
+            display: flex;
+            align-items: flex-end;
 
             img{
-              height: 20px;
+              height: 26px;
             }
           }
         }
       }
         .ant-timeline-item{
-          font-size: 21px !important;
+          font-size: 28px !important;
+          line-height: 36px !important;
 
           img{
             height: 20px;
           }
           .ant-input {
-            font-size: 21px;
+            font-size: 28px;
             width: 300px;
             padding: 8px 0px;
             height: 38px;
@@ -1362,26 +1460,32 @@
           top: -9px;
         }
         .btn-transparent-green, .btn-transparent-green:hover, .btn-transparent-green:focus {
-          font-size: 21px !important;
+          font-size: 28px !important;
         }
         .btn-transparent-green .anticon, .btn-transparent-green:hover .anticon, .btn-transparent-green:focus .anticon {
-          font-size: 21px;
+          font-size: 28px;
         }
         .cost-project, .sub-project {
-          font-size: 21px !important;
+          font-size: 28px !important;
         }
         .overcost-capital{
           margin-bottom: 25px;
         }
         .sub-project{
           .ant-input {
-            font-size: 21px !important;
+            font-size: 30px !important;
+            line-height: 35px !important;
           }
           p{
-            font-size: 21px;
+            font-size: 30px !important;
+            line-height: 36px !important;
+            margin: 12px 0px;
+            img{
+              height: 18px;
+            }
           }
           .ant-select-selection {
-            font-size: 21px;
+            font-size: 28px;
             width: 80px;
           }
           .ant-timeline-item{
@@ -1390,12 +1494,13 @@
           .ant-timeline-item{
             label{
               padding-left: 40px;
+              font-size: 30px;
             }
           }
         }
         .btn-green {
           width: 200px;
-          font-size: 21px;
+          font-size: 28px;
           height: 54px;
         }
         .ant-upload{
@@ -1455,8 +1560,8 @@
 
        // ACQUISITION AND SPECIAL
        .ant-table-thead > tr > th {
-         font-size: 21px;
-         padding: 6px 16px;
+        font-size: 30px !important;
+        padding: 17px 16px;
        }
        .ant-table-bordered .ant-table-tbody > tr > td{
          font-size: 21px;
@@ -1471,9 +1576,10 @@
     }
     .footer-project{
       button{
-        height: 78px;
-        font-size: 24px;
+        height: 99px;
+        font-size: 30px;
         padding: 0px 50px;
+        margin-left: 30px !important;
       }
     }
   }

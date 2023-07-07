@@ -341,7 +341,7 @@ const mimeToExtension = (mimeType:any) => {
       </Row>
       <Row style={{padding: '8px', marginTop: '25px'}}>
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{marginBottom: '-25px'}}>
-          <span style={{color: '#11093C'}}>Uploaded</span>
+          <span style={{color: '#11093C'}} className="uploaded-span">Uploaded</span>
         </Col>
       </Row>
       <Row gutter={[16, 16]} style={{padding: '8px', marginTop: '10px', marginLeft: '0px', paddingLeft: '0px'}}>
@@ -361,12 +361,12 @@ const mimeToExtension = (mimeType:any) => {
       <br></br>
 
       <Row style={{marginTop:'5px'}}>
-        <Col xs={{ span: 24 }} lg={{ span: 7 }} style={{marginBottom: '-25px', alignSelf:'center'}} >
+        <Col xs={{ span: 24 }} lg={{ span: 14 }} style={{marginBottom: '-25px', alignSelf:'center'}} >
           <h5 style={{marginBottom: '0px'}}>{isCapital?'7':'5'}
           . Upload documents<img src="/Icons/icon-19.svg" alt="" height="14px" style={{marginLeft:'5px'}}/>
           </h5>
         </Col>
-        <Col xs={{ span: 24 }} lg={{ span: 17 }} style={{marginBottom: '-25px', textAlign:'end'}}>
+        <Col xs={{ span: 24 }} lg={{ span: 10 }} style={{marginBottom: '-25px', textAlign:'end'}}>
           <span>
           {toDeleteFiles.length ?  <span onClick={deleteFiles} style={{color:'red'}}>Delete</span> : null }
             <Button className="bottomn-heder" onClick={() => (setModal02(true))}>
