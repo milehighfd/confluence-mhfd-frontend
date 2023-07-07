@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Button, Col, Dropdown, Menu, Select, Table, Tabs } from 'antd';
-import { ArrowDownOutlined, DownOutlined, MoreOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
-import { ColumnsType } from "antd/lib/table";
-import ProfileUser from "./ProfileUser";
-import { DATA_USER_ACTIVITY } from "../constants";
-import * as datasets from "../../../Config/datasets";
-import { OptionsFiltersUser, User } from "Classes/TypeList";
-import { SERVER } from "Config/Server.config";
-import { useUsersDispatch, useUsersState } from "hook/usersHook";
-import { PAGE_USER, WINDOW_WIDTH } from "constants/constants";
-import UserMngFilters from "./UserMngFilters";
-import LoadingViewOverall from "Components/Loading-overall/LoadingViewOverall";
-
-const { TabPane } = Tabs;
-const tabKeys = ['Roles Management', 'Users Management', 'Project Management'];
-
+import React, { useEffect, useState } from 'react';
+import { Dropdown, Menu, Select, Table } from 'antd';
+import { DownOutlined, MoreOutlined } from '@ant-design/icons';
+import { OptionsFiltersUser, User } from 'Classes/TypeList';
+import LoadingViewOverall from 'Components/Loading-overall/LoadingViewOverall';
+import { SERVER } from 'Config/Server.config';
+import * as datasets from 'Config/datasets';
+import { ColumnsType } from 'antd/lib/table';
+import { PAGE_USER, WINDOW_WIDTH } from 'constants/constants';
+import { useUsersDispatch } from 'hook/usersHook';
+import ProfileUser from 'routes/user-management/components/ProfileUser';
+import UserMngFilters from 'routes/user-management/components/UserMngFilters';
 
 const titleCase = (str:any)=> {
   str = str.replaceAll('_', ' ');
@@ -25,7 +19,6 @@ const titleCase = (str:any)=> {
   }
   return splitStr.join(' '); 
 }
-
 
 const UserList = () => {
   interface DataType {
@@ -62,12 +55,7 @@ const UserList = () => {
     }
     return span;
   }
-  const columns2: ColumnsType<any> = [
-    { title: <>Date and Time <ArrowDownOutlined/></>, dataIndex: 'dateTime', key: 'dateTime' },
-    { title: <>User <ArrowDownOutlined/></>, dataIndex: 'user', key: 'user' },
-    { title: <>City <ArrowDownOutlined/></>, dataIndex: 'city', key: 'city' },
-    { title: <>Change <ArrowDownOutlined/></>, dataIndex: 'change', key: 'change' },
-  ];
+
   const columns: ColumnsType<DataType|any> = [
     {
       title: <>Name</>,
@@ -132,19 +120,12 @@ const UserList = () => {
     Table.EXPAND_COLUMN,
   ];
   const {
-    userActivity
-  } = useUsersState();
-  const {
     saveUserActivated,
     saveUserPending,
-    getAllUserActivity
   } = useUsersDispatch();
-  const [totalUsersPending, setTotalUsersPending] = useState<number>(0);
-  const [totalUsersDeleted, setTotalUsersDeleted] = useState<number>(0);
   const [userPendingState, setUserPendingState] = useState<Array<User>>([]);
   const [userDeleted, setUserDeleted] = useState<Array<User>>([]);
   const [userActivatedState, setUserActivatedState] = useState<Array<User>>([]);
-  const [totalUsersActivated, setTotalUsersActivated] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const [messageError, setMessageError] = useState({ message: '', color: '#28C499' });
@@ -153,9 +134,8 @@ const UserList = () => {
   const [optionUserPending, setOptionUserPending] = useState<OptionsFiltersUser>(PAGE_USER);
   const [optionUserDeleted, setOptionUserDeleted] = useState<OptionsFiltersUser>(PAGE_USER);
   const [userSelected, setUserSelected] = useState<any>();
-  let displayedTabKey = tabKeys;
   const [optionSelect, setOptionSelect] = useState('Approved Users')
-  const getUser = (saveUser: Function, setUser: Function, url: string, setTotal: Function) => {
+  const getUser = (saveUser: Function, setUser: Function, url: string) => {
     datasets.getData(url, datasets.getToken()).then(res => {
       setIsLoading(false)
       const arrayUsers = res.users.map((elem: any) => {        
@@ -172,13 +152,11 @@ const UserList = () => {
       if (res.users) {
         saveUser(res.users);
         setUser(arrayUsers);
-        setTotal(res.totalPages * 10);
       }
     });
   }
-let items = [
+  let items = [
     { key: 'edit-user', label: 'Edit User' },
-    //{ key: 'message-user', label: 'Message User' },
     { key: 'delete-user', label: 'Delete User' },
     { key: 'change-status', label: 'Approve User' },
   ];
@@ -214,8 +192,6 @@ let items = [
             setUserSelected(record);
             onExpand(record, key)
             break;
-          {/*case 'message-user':
-          break;*/}
           case 'delete-user':
             deleted(record.user_id)
             break;
@@ -225,25 +201,25 @@ let items = [
         }
       }}
     />
-    };
+  };
   const urlOptions = (options: OptionsFiltersUser) => {
     return 'name=' + (options.name ? options.name : '') + '&organization=' + (options.organization ? options.organization : '')
       + '&serviceArea=' + (options.serviceArea ? options.serviceArea : '') + '&designation=' + (options.designation ? options.designation : ''
       + '&sort=' + options.sort) + '&limit=' + 100000 + '&page=' + options.page;
   }
   const getAllUser = () => {
-    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated), setTotalUsersActivated);
-    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(optionUserPending), setTotalUsersPending);
-    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(optionUserDeleted), setTotalUsersDeleted);
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(optionUserActivated));
+    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(optionUserPending));
+    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(optionUserDeleted));
   }
   const searchUserActivated = (option: OptionsFiltersUser) => {
-    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(option), setTotalUsersActivated);
+    getUser(saveUserActivated, setUserActivatedState, SERVER.LIST_USERS_ACTIVATED + 'status=approved&' + urlOptions(option));
   }
   const searchUserPending = (option: OptionsFiltersUser) => {
-    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(option), setTotalUsersPending);
+    getUser(saveUserPending, setUserPendingState, SERVER.LIST_USERS_PENDING + 'status=pending&' + urlOptions(option));
   }
   const searchUserDelete = (option: OptionsFiltersUser) => {
-    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(option), setTotalUsersDeleted);
+    getUser(saveUserPending, setUserDeleted, SERVER.LIST_USERS_ACTIVATED + 'status=deleted&' + urlOptions(option));
   }
   const resetActivated = () => {
     const resetOptions = {...PAGE_USER};
@@ -299,8 +275,7 @@ let items = [
         if (res?.error) {
           updateError(res.error);
           console.log(res.error)
-        }
-        else {
+        } else {
           updateError(res);
         }
       }
@@ -326,7 +301,7 @@ let items = [
   }
 
   return <>
-  {isLoading && <LoadingViewOverall />}
+    { isLoading && <LoadingViewOverall /> }
     <div>
       <div className="head-list">
         <div className="list-view-head" >
@@ -338,9 +313,9 @@ let items = [
           style={{marginTop: '5px', marginLeft:'2px'}}
           value={optionSelect?? optionSelect}
           onChange={(e)=>{setOptionSelect(e); setIsLoading(true)}}>
-            <Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Option>
-            <Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Option>
-            <Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Option>
+            <Select.Option value="Approved Users"><span style={{paddingLeft:'10px'}}>Approved Users</span></Select.Option>
+            <Select.Option value="Pending User Requests"><span style={{paddingLeft:'10px'}}>Pending User Requests</span></Select.Option>
+            <Select.Option value="Deleted Users"><span style={{paddingLeft:'10px'}}>Deleted Users</span></Select.Option>
         </Select>
         </div>
         <div className='filter-user-management'>
@@ -352,7 +327,7 @@ let items = [
         </div>
       </div>
       <div className="table-user-management">
-        {optionSelect !== 'User Activity' ? <Table
+        <Table
           pagination={{ pageSize: 20 }}
           columns={columns}
           expandable={{
@@ -375,11 +350,7 @@ let items = [
           }}
           dataSource={optionSelect === 'Approved Users' ? userActivatedState:(optionSelect === 'Pending User Requests'? userPendingState:userDeleted )}
           sticky
-        /> : ()=> {getAllUserActivity() 
-          return <Table
-          columns={columns2}
-          dataSource={DATA_USER_ACTIVITY}
-        /> }}
+        />
       </div>
     </div>
   </>

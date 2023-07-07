@@ -31,7 +31,12 @@ export const getUserActivity = ( url: string) => {
   return (dispatch: Function) => {
     datasets.getData(SERVER.USER_ACTIVITY + url, datasets.getToken()).then(res => {
       if(res?.data) {
-        dispatch({ type: types.USER_ACTIVITY, res });
+        const _res = {
+          ...res,
+          data: res.data.map((r: any, index: number) => ({...r, id: index }))
+        };
+        console.log(_res);
+        dispatch({ type: types.USER_ACTIVITY, res: _res });
       }
     });
   }

@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Layout } from 'antd';
 import NavbarContainer from "../../Components/Shared/Navbar/NavbarContainer";
 import SidebarView from "../../Components/Shared/Sidebar/SidebarView";
 import UserManagementBody from "./components/UserManagementBody";
 
 const UserManagement = () => {
-
-
   return <>
     <Layout>
       <NavbarContainer/>

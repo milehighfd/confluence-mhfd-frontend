@@ -1,46 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { Button, Col, Input, Layout, Popover, Row, Select, Tabs } from 'antd';
-import { DownOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import { Option } from "antd/lib/mentions";
-import ButtonGroup from "antd/lib/button/button-group";
-import UserList from "./UserList";
-import ProjectsList from "./ProjectsList";
-import UserActivity from "./UserActivity";
-import BoardYear from "./BoardYear";
+import { Popover, Tabs } from 'antd';
+import React, { useState } from 'react';
+import BoardYear from 'routes/user-management/components/BoardYear';
+import UserActivity from 'routes/user-management/components/UserActivity';
+import UserList from 'routes/user-management/components/UserList';
 
-const { TabPane } = Tabs;
-const tabKeys = ['Users Management', 'User Activity', 'Board Year' ];
-const popovers: any = [
-  // <div className="popoveer-00"><b>Users Management:</b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
-  // <div className="popoveer-00"><b>User Activity:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
-  // <div className="popoveer-00"><b>Board Year:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>,
-]
+const USER_MANAGEMENT = 'Users Management';
+const USER_ACTIVITY = 'User Activity';
+const BOARD_YEAR = 'Board Year';
+  
+const tabKeyComponentMap = {
+  [USER_MANAGEMENT]: UserList,
+  [USER_ACTIVITY]: UserActivity,
+  [BOARD_YEAR]: BoardYear,
+};
+
+const tabKeys = [USER_MANAGEMENT, USER_ACTIVITY, BOARD_YEAR];
 const UserManagementBody = () => {
-  const [tabKey, setTabKey] = useState<any>('Users Management');
-  const [openAction, setOpenAction] = useState(true);
-  const [openFilters, setOpenFilters] = useState(false);
+  const [tabKey, setTabKey] = useState<keyof typeof tabKeyComponentMap>(USER_MANAGEMENT);
   let displayedTabKey = tabKeys;
-  const [optionSelect, setOptionSelect] = useState('List View')
-  return <>
+  const TabComponent = tabKeyComponentMap[tabKey];
+  return (
     <div className="work-body user-management">
       <Tabs defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
-          onChange={(key) => setTabKey(key)} className="tabs-map">
-          {
-            displayedTabKey.map((tk: string) => (
-            <TabPane style={{marginBottom:'0px'}} tab={<span><Popover content={popovers[tabKeys.indexOf(tk)]} placement="rightBottom">{tk} </Popover> </span>} key={tk}>
+        onChange={(key) => setTabKey(key as any)} className="tabs-map"
+      >
+        {
+          displayedTabKey.map((tk: string) => (
+            <Tabs.TabPane
+              key={tk}
+              style={{marginBottom:'0px'}}
+              tab={
+                <span>
+                  <Popover placement="rightBottom">
+                    {tk}
+                  </Popover>
+                </span>
+              }
+            >
               <div className="user-management-body">
-                {tabKey === 'Users Management' &&<UserList/>}
-                {tabKey === 'User Activity' &&<UserActivity/>}
-                {tabKey === 'Board Year' &&<BoardYear/>}
-                {tabKey === 'Project Management' && <ProjectsList/>}
+                <TabComponent />
               </div>
-            </TabPane>
+            </Tabs.TabPane>
           ))
         }
       </Tabs>
     </div>
-  </>
+  );
 };
 
 export default UserManagementBody;
