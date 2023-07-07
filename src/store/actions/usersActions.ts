@@ -35,7 +35,6 @@ export const getUserActivity = ( url: string) => {
           ...res,
           data: res.data.map((r: any, index: number) => ({...r, id: index }))
         };
-        console.log(_res);
         dispatch({ type: types.USER_ACTIVITY, res: _res });
       }
     });
