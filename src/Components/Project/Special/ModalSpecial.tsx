@@ -65,54 +65,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
 
   useEffect(() => {
-    const params = new URLSearchParams(history.location.search);
-    if (params.get('year')) {
-      const t = params.get('year') ?? '2023';
-      setYear(+t);
-    }
-  }, [history]);
-  const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
-  const pageWidth  = document.documentElement.scrollWidth;
-
-  const parseStringToArray = (list:string) => {
-    if( list ){
-      return list.split(',');
-    }
- }
- const appUser = store.getState().appUser;
-  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [sendToWR,setsendToWR] = useState(!showCheckBox);
-
- useEffect(() => {
-  getTextWidth(nameProject);
-},[nameProject]);
- const getTextWidth = (text: any) => {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
-  let fontType = "16px sans-serif";
-  try {
-    if(context) {
-      context.font = fontType;
-      let length = context.measureText(text).width;
-      if(!isNaN(length)) {
-        setlengthName(length);
-      } else {
-        setlengthName(0);
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
       }
     }
-  } catch (e) {
-    console.log("Error in getting width", context);
-    return 0;
-  }
-}
-
-  function titleCase(str: any) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    return splitStr.join(' ');
-  }
+  }, [userInformation]);
 
   useEffect(()=>{
     setIsEdit(false);
@@ -161,16 +120,15 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setEditLocation(undefined);
     }
   },[data]);
+
   useEffect(()=>{
     if (save === true){
-
       let serviceAreaIds:any=[];
       let countyIds:any=[];
       let jurisdictionIds:any=[];
       const jurisdictionList:any = [];
       const countyList:any = [];
-      const serviceAreaList:any = [];
-      
+      const serviceAreaList:any = [];      
       groupOrganization.forEach((item:any) => {
         if (item.table === 'CODE_LOCAL_GOVERNMENT') {
           jurisdictionList.push(item);
@@ -181,15 +139,12 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
           item.name = item.name.replace(' Service Area', '');
           serviceAreaList.push(item);
         }
-      });
-  
+      });  
       let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
-      let countyA = county.map((element:any) => element.replace(' County', ''));
-        
+      let countyA = county.map((element:any) => element.replace(' County', ''));        
       serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
       countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
-      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
-       
+      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);       
       const params = new URLSearchParams(history.location.search)
       const _year = params.get('year');
       const _locality = params.get('locality');
@@ -235,6 +190,59 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setDisable(true);
     }
   },[geom, description, county, serviceArea, sponsor, jurisdiction]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(history.location.search);
+    if (params.get('year')) {
+      const t = params.get('year') ?? '2023';
+      setYear(+t);
+    }
+  }, [history]);
+
+  const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
+  const pageWidth  = document.documentElement.scrollWidth;
+
+  const parseStringToArray = (list:string) => {
+    if( list ){
+      return list.split(',');
+    }
+ }
+ const appUser = store.getState().appUser;
+  const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
+  const [sendToWR,setsendToWR] = useState(!showCheckBox);
+
+ useEffect(() => {
+  getTextWidth(nameProject);
+},[nameProject]);
+
+ const getTextWidth = (text: any) => {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  let fontType = "16px sans-serif";
+  try {
+    if(context) {
+      context.font = fontType;
+      let length = context.measureText(text).width;
+      if(!isNaN(length)) {
+        setlengthName(length);
+      } else {
+        setlengthName(0);
+      }
+    }
+  } catch (e) {
+    console.log("Error in getting width", context);
+    return 0;
+  }
+}
+
+  function titleCase(str: any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }  
+
   useEffect(()=> {
     if(isEditingPosition ){
       setServiceArea([])
@@ -252,14 +260,7 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
   };
-  useEffect(() => {
-    const CODE_LOCAL_GOVERNMENT = 3;
-    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
-      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
-        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
-      }
-    }
-  }, [userInformation]);
+  
   const handleOk = (e: any) => {
      setVisibleAlert( true);
   };

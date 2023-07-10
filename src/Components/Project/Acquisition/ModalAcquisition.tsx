@@ -86,119 +86,7 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const isWorkPlan = location.pathname.includes('work-plan');
   const { userInformation } = useProfileState();
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
-  useEffect(() => {
-    const params = new URLSearchParams(history.location.search);
-    if (params.get('year')) {
-      const t = params.get('year') ?? '2023';
-      setCurrentYear(+t);
-    }
-  }, [history]);
 
-  useEffect(() => {
-    if (save === true) {
-      
-      let serviceAreaIds:any=[];
-      let countyIds:any=[];
-      let jurisdictionIds:any=[];
-      const jurisdictionList:any = [];
-      const countyList:any = [];
-      const serviceAreaList:any = [];
-      
-      groupOrganization.forEach((item:any) => {
-        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
-          jurisdictionList.push(item);
-        } else if (item.table === 'CODE_STATE_COUNTY') {
-          item.name = item.name.replace(' County', '');
-          countyList.push(item);
-        } else if (item.table === 'CODE_SERVICE_AREA') {
-          item.name = item.name.replace(' Service Area', '');
-          serviceAreaList.push(item);
-        }
-      });
-  
-      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
-      let countyA = county.map((element:any) => element.replace(' County', ''));
-        
-      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
-      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
-      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
-       
-      const params = new URLSearchParams(history.location.search)
-      const _year = params.get('year');
-      const _locality = params.get('locality');
-      var acquisition = new Project();
-      acquisition.locality = _locality;
-      acquisition.isWorkPlan = isWorkPlan;
-      acquisition.year = _year ?? acquisition.year;
-      // let cservice = "";
-      // serviceArea.forEach((element: any) => {
-      //   cservice = cservice + element + ",";
-      // });
-      // if (cservice.length != 0) {
-      //   cservice = cservice.substring(0, cservice.length - 1);
-      // }
-      // let ccounty = "";
-      // county.forEach((element: any) => {
-      //   ccounty = ccounty + element + ",";
-      // });
-      // if (ccounty.length != 0) {
-      //   ccounty = ccounty.substring(0, ccounty.length - 1);
-      // }
-      // let cjurisdiction = "";
-      // jurisdiction.forEach((element: any) => {
-      //   cjurisdiction = cjurisdiction + element + ",";
-      // })
-      // if (cjurisdiction.length != 0) {
-      //   cjurisdiction = cjurisdiction.substring(0, cjurisdiction.length - 1);
-      // }
-
-      let csponsor = "";
-      if (cosponsor) {
-        cosponsor.forEach((element: any) => {
-          csponsor = csponsor + element + ",";
-        });
-        if (cosponsor.length != 0) {
-          csponsor = csponsor.substring(0, csponsor.length - 1);
-        }
-      }
-      acquisition.servicearea = serviceAreaIds;
-      acquisition.county = countyIds;
-      acquisition.jurisdiction = jurisdictionIds;
-      acquisition.sponsor = sponsor;
-      acquisition.cosponsor = csponsor;
-      acquisition.projectname = nameProject;
-      acquisition.description = description;
-      acquisition.geom = geom;
-      acquisition.acquisitionprogress = progress;
-      acquisition.acquisitionanticipateddate = purchaseDate;
-      acquisition.files = files;
-      acquisition.editProject = editprojectid;
-      acquisition.locality = locality ? locality : '';
-      acquisition.cover = '';
-      acquisition.sendToWR = sendToWR;     
-      acquisition.type = 'acquisition'; 
-      removeAttachment(deleteAttachmentsIds);
-      files.forEach((file:any) => {
-        if(file._id) {
-          toggleAttachmentCover(0, file._id, file.isCover);
-        }
-      });
-      if (swSave) {
-        editProjectAcquisition(acquisition);
-      } else {
-        saveProjectAcquisition(acquisition);
-      }
-      setVisibleAcquisition(false);
-      setVisible(false);
-    }
-  }, [save]);
-
-
-  const parseStringToArray = (list: string) => {
-    if (list) {
-      return list.split(',');
-    }
-  }
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
     if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
@@ -207,14 +95,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       }
     }
   }, [userInformation]);
-
-  function titleCase(str: any) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    return splitStr.join(' ');
-  }
 
   useEffect(() => {
     setIsEdit(false);
@@ -276,6 +156,79 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   }, [data]);
 
   useEffect(() => {
+    if (save === true) {      
+      let serviceAreaIds:any=[];
+      let countyIds:any=[];
+      let jurisdictionIds:any=[];
+      const jurisdictionList:any = [];
+      const countyList:any = [];
+      const serviceAreaList:any = [];
+      
+      groupOrganization.forEach((item:any) => {
+        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
+          jurisdictionList.push(item);
+        } else if (item.table === 'CODE_STATE_COUNTY') {
+          item.name = item.name.replace(' County', '');
+          countyList.push(item);
+        } else if (item.table === 'CODE_SERVICE_AREA') {
+          item.name = item.name.replace(' Service Area', '');
+          serviceAreaList.push(item);
+        }
+      });  
+      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
+      let countyA = county.map((element:any) => element.replace(' County', ''));        
+      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
+      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
+      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);       
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      var acquisition = new Project();
+      acquisition.locality = _locality;
+      acquisition.isWorkPlan = isWorkPlan;
+      acquisition.year = _year ?? acquisition.year;
+      let csponsor = "";
+      if (cosponsor) {
+        cosponsor.forEach((element: any) => {
+          csponsor = csponsor + element + ",";
+        });
+        if (cosponsor.length != 0) {
+          csponsor = csponsor.substring(0, csponsor.length - 1);
+        }
+      }
+      acquisition.servicearea = serviceAreaIds;
+      acquisition.county = countyIds;
+      acquisition.jurisdiction = jurisdictionIds;
+      acquisition.sponsor = sponsor;
+      acquisition.cosponsor = csponsor;
+      acquisition.projectname = nameProject;
+      acquisition.description = description;
+      acquisition.geom = geom;
+      acquisition.acquisitionprogress = progress;
+      acquisition.acquisitionanticipateddate = purchaseDate;
+      acquisition.files = files;
+      acquisition.editProject = editprojectid;
+      acquisition.locality = locality ? locality : '';
+      acquisition.cover = '';
+      acquisition.sendToWR = sendToWR;     
+      acquisition.type = 'acquisition'; 
+      removeAttachment(deleteAttachmentsIds);
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
+      if (swSave) {
+        editProjectAcquisition(acquisition);
+      } else {
+        saveProjectAcquisition(acquisition);
+      }
+      setVisibleAcquisition(false);
+      setVisible(false);
+    }
+  }, [save]);
+
+  useEffect(() => {
     if (nameProject !== '' && geom != undefined && description != '') {
       setDisable(false);
     }
@@ -283,6 +236,28 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       setDisable(true);
     }
   }, [nameProject, geom, description, serviceArea, county, jurisdiction, sponsor]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(history.location.search);
+    if (params.get('year')) {
+      const t = params.get('year') ?? '2023';
+      setCurrentYear(+t);
+    }
+  }, [history]);
+
+  const parseStringToArray = (list: string) => {
+    if (list) {
+      return list.split(',');
+    }
+  }  
+
+  function titleCase(str: any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }  
 
   useEffect(()=> {
     if(isEditingPosition ){

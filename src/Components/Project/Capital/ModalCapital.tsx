@@ -141,6 +141,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const isWorkPlan = location.pathname.includes('work-plan');
   const { groupOrganization } = useProfileState();
 
+  //Load Sponsor with Local Government if user is Local Government
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
     if (!swSave) {
@@ -152,37 +153,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }       
   }, [userInformation]);
 
-  useEffect(() => {
-    if(componentsFromMap.length > 0 ) {      
-      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
-    } else {
-      setComponentIntersected([]);
-    }
-  }, [componentsFromMap]);
-
-  useEffect(()=>{
-    setServiceAreaCounty({});
-    setServiceArea([]);
-    setCounty([]);
-    setjurisdiction([]);
-    setJurisdictionSponsor(undefined);
-    setDescription('');
-    setStreamIntersected({geom:null});
-    setStreamsIds([]); 
-    return () => {
-      setIndependentComponents([]);
-      setComponentsFromMap([]);
-    }
-  },[]);
-
-  function titleCase(str: any) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-    }
-    return splitStr.join(' ');
-  }
-
+  //Load Data if is Edit
   useEffect(()=>{
     setIsEdit(false);
     if(data !== 'no data' ) {
@@ -215,7 +186,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setEditsetprojectid(data.project_id);
       setAdditionalCost(parseInt(aditionalCostObject?.cost || '0'));
       setAdditionalDescription(aditionalCostObject?.cost_description);
-
       if (data.project_costs.length > 0) {
         const parsed = getProjectOverheadCost(data.project_costs);
         setOverheadCosts(parsed);
@@ -232,48 +202,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     }
   },[data]);
 
-  useEffect(()=>{
-      setIndependentComponents(independentComponents);
-  },[independentComponents]);
-
-  useEffect(()=>{
-    if(componentsFromMap?.length > 0 ) {
-      if(componentsFromMap.length > 0  && listComponents.length > 0){
-        getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
-      } else if(listComponents.length == 0 && componentsFromMap.length > 0) {
-        getListComponentsByComponentsAndPolygon([ ...componentsFromMap], null);
-      } else if(listComponents.length > 0 && componentsFromMap.length == 0) {
-        getListComponentsByComponentsAndPolygon([ ...listComponents], null);
-      }
-    }
-  },[componentsFromMap]);
-
-  useEffect(()=>{
-    setGeom(userPolygon);
-  },[userPolygon]);
-  
-  useEffect(()=>{
-    if(listComponents && listComponents.groups && listComponents.result.length > 0){
-      const myset = new Set(keys);
-      Object.keys(listComponents.groups).forEach((key:any, id:any) => {
-        if(!groups[key]){
-          myset.add(key+'-collapse1');
-        } else if( listComponents.groups[key].components.length != groups[key].components.length){
-          myset.add(key+'-collapse1');
-        }
-      });
-      setKeys(Array.from(myset));
-      setGroups(listComponents.groups);
-      let newC = listComponents.result.map((c:any) => {
-        return { table: c.table, objectid: c.objectid}
-      })
-      setComponentsToSave(newC);
-    } else {
-      setGroups({});
-    }
-    updateOverheadCosts();
-  },[listComponents]);
-
+  //Send for Create Data or Edit Data
   useEffect(()=>{
     if (save === true){
       let serviceAreaIds:any=[];
@@ -281,8 +210,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     let jurisdictionIds:any=[];
     const jurisdictionList:any = [];
     const countyList:any = [];
-    const serviceAreaList:any = [];
-    
+    const serviceAreaList:any = [];    
     groupOrganization.forEach((item:any) => {
       if (item.table === 'CODE_LOCAL_GOVERNMENT') {
         jurisdictionList.push(item);
@@ -294,10 +222,8 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         serviceAreaList.push(item);
       }
     });
-
     let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
-    let countyA = county.map((element:any) => element.replace(' County', ''));
-      
+    let countyA = county.map((element:any) => element.replace(' County', ''));      
     serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
     countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
     jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
@@ -349,17 +275,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         editProjectCapital(capital);
       }
       else{
-        const costOverhead={
-          "6":overheadCosts[1],
-          "7":overheadCosts[2],
-          "8":overheadCosts[3],
-          "9":overheadCosts[4],
-          "10":overheadCosts[5],
-          "12":overheadCosts[6],
-          "11":overheadCosts[7],
-          "13":overheadCosts[8],
-        }
-        // saveOverheadCost(costOverhead);
         saveProjectCapital(capital);
       }
       setVisibleCapital(false);
@@ -367,6 +282,86 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setVisible(false);
     }
   },[save]);
+
+  //Check if required fields are filled to enable save button
+  useEffect(()=>{
+    let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
+    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0 && componentsToSave.length > 0){
+        setDisable(false);
+    }
+    else{setDisable(true);}
+  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction]);
+
+  useEffect(() => {
+    if(componentsFromMap.length > 0 ) {      
+      getListComponentsByComponentsAndPolygon(componentsFromMap, null);
+    } else {
+      setComponentIntersected([]);
+    }
+  }, [componentsFromMap]);
+
+  useEffect(()=>{
+    setServiceAreaCounty({});
+    setServiceArea([]);
+    setCounty([]);
+    setjurisdiction([]);
+    setJurisdictionSponsor(undefined);
+    setStreamIntersected({geom:null});
+    setStreamsIds([]); 
+    return () => {
+      setIndependentComponents([]);
+      setComponentsFromMap([]);
+    }
+  },[]);
+
+  function titleCase(str: any) {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }  
+
+  useEffect(()=>{
+      setIndependentComponents(independentComponents);
+  },[independentComponents]);
+
+  useEffect(()=>{
+    if(componentsFromMap?.length > 0 ) {
+      if(componentsFromMap.length > 0  && listComponents.length > 0){
+        getListComponentsByComponentsAndPolygon([...listComponents, ...componentsFromMap], null);
+      } else if(listComponents.length == 0 && componentsFromMap.length > 0) {
+        getListComponentsByComponentsAndPolygon([ ...componentsFromMap], null);
+      } else if(listComponents.length > 0 && componentsFromMap.length == 0) {
+        getListComponentsByComponentsAndPolygon([ ...listComponents], null);
+      }
+    }
+  },[componentsFromMap]);
+
+  useEffect(()=>{
+    setGeom(userPolygon);
+  },[userPolygon]);
+  
+  useEffect(()=>{
+    if(listComponents && listComponents.groups && listComponents.result.length > 0){
+      const myset = new Set(keys);
+      Object.keys(listComponents.groups).forEach((key:any, id:any) => {
+        if(!groups[key]){
+          myset.add(key+'-collapse1');
+        } else if( listComponents.groups[key].components.length != groups[key].components.length){
+          myset.add(key+'-collapse1');
+        }
+      });
+      setKeys(Array.from(myset));
+      setGroups(listComponents.groups);
+      let newC = listComponents.result.map((c:any) => {
+        return { table: c.table, objectid: c.objectid}
+      })
+      setComponentsToSave(newC);
+    } else {
+      setGroups({});
+    }
+  },[listComponents]);  
 
   const onChangeAdditionalCost = (e: any) => {
     let newValue = e.target.value
@@ -386,14 +381,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     setOverheadDescription(e.target.value);
   };
 
-  useEffect(()=>{
-    let streamValidation = streamIntersected.geom ? JSON.parse(streamIntersected.geom): undefined;
-    if(geom != undefined && description !== '' && county.length !== 0 && serviceArea.length !== 0 && nameProject !== ''   && streamValidation != undefined && streamValidation.coordinates.length > 0  && jurisdiction.length > 0 && componentsToSave.length > 0){
-        setDisable(false);
-    }
-    else{setDisable(true);}
-  },[geom, description, county, serviceArea , sponsor, nameProject, componentsToSave, streamIntersected, jurisdiction]);
-
   useEffect(() => {
     getTextWidth(nameProject);
   },[nameProject]);
@@ -406,11 +393,9 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
 
   const handleCancel = (e: any) => {
-    console.log(e);
     const auxState = {...state};
     setVisibleCapital (false);
     setState(auxState);
-    console.log('or this one');
     setVisible(false);
   };
 
@@ -452,7 +437,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
     } else {
       setVisibleUnnamedComponent(false);
     }
-    updateOverheadCosts();
   },[thisIndependentComponents]);
   useEffect(()=>{
     if((((listComponents && listComponents.groups && listComponents.result.length > 0)) || thisIndependentComponents.length > 0) && !flagInit) {
@@ -484,9 +468,6 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
         object_id: comp.objectid
       }));
     getListComponentsByComponentsAndPolygon(newComponents, null);
-  }
-  const updateOverheadCosts = () => {
- 
   }
 
   useEffect(() => {
