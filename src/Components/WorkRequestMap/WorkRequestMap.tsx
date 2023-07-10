@@ -8,14 +8,8 @@ import EventService from 'services/EventService';
 import { getData, getToken, postDataAsyn, postData } from 'Config/datasets';
 import { SERVER } from 'Config/Server.config';
 import * as datasets from 'Config/datasets';
-import {
-  addPopupAndListeners,
-  measureFunction,
-  addPopupsOnClick
-} from 'routes/map/components/MapFunctionsPopup';
-import {
-  depth 
-} from 'routes/map/components/MapFunctionsUtilities';
+import { addPopupAndListeners, measureFunction, addPopupsOnClick } from 'routes/map/components/MapFunctionsPopup';
+import { depth } from 'routes/map/components/MapFunctionsUtilities';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
 import {
   PROBLEMS_TRIGGER,
@@ -99,8 +93,8 @@ const geojsonMeasures = {
 };
 type GeoJSONMeasures = {
   type: string;
-  features: any[]
-}
+  features: any[];
+};
 const geojsonMeasuresSaved: GeoJSONMeasures = {
   type: 'FeatureCollection',
   features: [],
@@ -141,9 +135,9 @@ const WorkRequestMap = ({
   const [distanceValue, setDistanceValue] = useState('0');
   const [distanceValueMi, setDistanceValueMi] = useState('0');
   const [areaValue, setAreaValue] = useState('0');
-  const [visibleCreateProject, setVisibleCreateProject ] = useState(false);
-  const [showDefault, setShowDefault ] = useState(false);
-  const [problemid, setProblemIdLocal ] = useState<any>(undefined);    
+  const [visibleCreateProject, setVisibleCreateProject] = useState(false);
+  const [showDefault, setShowDefault] = useState(false);
+  const [problemid, setProblemIdLocal] = useState<any>(undefined);
   const user = store.getState().profile.userInformation;
   const {
     layers,
@@ -164,7 +158,7 @@ const WorkRequestMap = ({
     getMapLayers,
     getComponentsByProjid,
     getProjectsFilteredIds,
-    setFilterProjectOptions
+    setFilterProjectOptions,
   } = useMapDispatch();
   const {
     changeAddLocationState,
@@ -176,7 +170,7 @@ const WorkRequestMap = ({
     setBoardProjects,
     getZoomGeomProblem,
     getZoomGeomComp,
-    setZoomGeom
+    setZoomGeom,
   } = useProjectDispatch();
   const { selectedLayersWR, highlightedComponent, boardProjects, zoomProject } = useProjectState();
   const { groupOrganization } = useProfileState();
@@ -324,12 +318,12 @@ const WorkRequestMap = ({
     }
   }, [layers, areTilesLoaded]);
   useEffect(() => {
-      if (map && selectedLayersWR.length > 0) {
-          map.isStyleLoaded(() => {
-            applyMapLayers();
-            applyProblemClusterLayer();
-          });
-      }
+    if (map && selectedLayersWR.length > 0) {
+      map.isStyleLoaded(() => {
+        applyMapLayers();
+        applyProblemClusterLayer();
+      });
+    }
   }, [layerFilters, selectedLayersWR]);
 
   const { getNext, getCurrent, getPrevious, getPercentage, addHistoric, hasNext, hasPrevious } = GlobalMapHook();
@@ -348,8 +342,7 @@ const WorkRequestMap = ({
             }
           }
         },
-        (e: any) => {
-        },
+        (e: any) => {},
       );
     }
   }, [zoomProject]);
@@ -446,19 +439,19 @@ const WorkRequestMap = ({
     filterProjectsDraft.projecttype = '';
     filterProjectsDraft.status = '';
     // if (idsBoardProjects.length) {
-      wait(() => {
-        map.isRendered(() => {
-          let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
-          const promises: Promise<any>[] = [];
-          promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
-          Promise.all(promises).then(tiles => {
-            if (tiles.length > 0) {
-              updateLayerSource(PROJECTS_DRAFT+'draft', tiles[0]);
-              showLayers(PROJECTS_DRAFT+'draft');
-            }
-          });
+    wait(() => {
+      map.isRendered(() => {
+        let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
+        const promises: Promise<any>[] = [];
+        promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
+        Promise.all(promises).then(tiles => {
+          if (tiles.length > 0) {
+            updateLayerSource(PROJECTS_DRAFT + 'draft', tiles[0]);
+            showLayers(PROJECTS_DRAFT + 'draft');
+          }
         });
       });
+    });
     // }
   }, [idsBoardProjects]);
 
@@ -496,49 +489,49 @@ const WorkRequestMap = ({
     map?.map.addSource('project_board', {
       type: 'geojson',
       // Use a URL for the value for the `data` property.
-      data: geojsonData
+      data: geojsonData,
     });
-       
+
     map?.map.addLayer({
-      'id': 'project_board_layer',
-      'type': 'symbol',
-      'source': 'project_board',
-      'layout': {
-        "text-field": ["to-string", ["get", "project_name"]],
-        'icon-ignore-placement': true
+      id: 'project_board_layer',
+      type: 'symbol',
+      source: 'project_board',
+      layout: {
+        'text-field': ['to-string', ['get', 'project_name']],
+        'icon-ignore-placement': true,
       },
-      "paint": {
-        "text-color": [
-          "match",
-          ["get", "project_status"],
+      paint: {
+        'text-color': [
+          'match',
+          ['get', 'project_status'],
           [4],
-          "#139660",   //INITIATED  verde
+          '#139660', //INITIATED  verde
           [2],
-          "#9309EA",   //REQUESTED violeta
+          '#9309EA', //REQUESTED violeta
           [3],
-          "#497BF3",   // APPROVED azul
+          '#497BF3', // APPROVED azul
           [8],
-          "#FF0000",     // CANCELLED   rojo
+          '#FF0000', // CANCELLED   rojo
           [6],
-          "#06242D",    //COMPLETED  casi negro
+          '#06242D', //COMPLETED  casi negro
           [5],
-          '#416EDA',      // ACTIVE   AZUL
+          '#416EDA', // ACTIVE   AZUL
           [7],
-          '#A4BCF8',      //INACTIVE   celeste 
+          '#A4BCF8', //INACTIVE   celeste
           [9],
-          '#DAE4FC',     //CLOSED  casi blanco
+          '#DAE4FC', //CLOSED  casi blanco
           [10],
-          '#ECF1FD',     //CLOSED OUT casi blanco
-          "#b36304"
+          '#ECF1FD', //CLOSED OUT casi blanco
+          '#b36304',
         ],
-        'text-halo-color': "#ffffff",
+        'text-halo-color': '#ffffff',
         'text-halo-width': 1,
         'text-halo-blur': 0,
 
-        "text-opacity": ["step", ["zoom"], 0.9, 14, 1, 22, 1]
-      }
+        'text-opacity': ['step', ['zoom'], 0.9, 14, 1, 22, 1],
+      },
     });
-  }
+  };
   useEffect(() => {
     popup.remove();
     if (firstRendering) {
@@ -553,7 +546,7 @@ const WorkRequestMap = ({
       setIdsBoardProjects(boardProjects.ids);
       setGroupedIdsBoardProjects(boardProjects.groupedIds);
     }
-    if (map){
+    if (map) {
       map.isStyleLoaded(() => {
         addGeojsonLayer(boardProjects.geojsonData);
       });
@@ -570,7 +563,7 @@ const WorkRequestMap = ({
   const setBounds = (value: any) => {
     if (!value) return;
     const zoomareaSelected = groupOrganization
-      .filter((x: any) => (x.name === value))
+      .filter((x: any) => x.name === value)
       .map((element: any) => {
         return {
           aoi: element.name,
@@ -588,7 +581,7 @@ const WorkRequestMap = ({
       } else {
         poly = turf.polygon(zoomareaSelected[0].coordinates, { name: 'zoomarea' });
       }
-      
+
       let bboxBounds = turf.bbox(poly);
       if (map.map) {
         map.map.fitBounds(bboxBounds, { padding: 20, maxZoom: 14 });
@@ -646,7 +639,7 @@ const WorkRequestMap = ({
     // }
     if (locality) {
       getGroupOrganizationZoomWithouBounds();
-    } 
+    }
     // else if (historicBounds && historicBounds.bbox) {
     //   globalMapId = historicBounds.id;
     //   map.map.fitBounds([
@@ -654,7 +647,7 @@ const WorkRequestMap = ({
     //     [historicBounds.bbox[2], historicBounds.bbox[3]],
     //   ]);
     //   // getGroupOrganizationZoomWithouBounds();
-    // } 
+    // }
     // else {
     //   console.log('qqqqqqqqqqq')
     //   groupOrganizationZoom();
@@ -703,7 +696,7 @@ const WorkRequestMap = ({
   }, [map]);
 
   const createProject = (details: any) => {
-    console.log('create project')
+    console.log('create project');
     //clear();
     popup.remove();
     if (details.problemid) {
@@ -711,7 +704,7 @@ const WorkRequestMap = ({
         getZoomGeomProblem(details.problemid);
       }, 4500);
     }
-    
+
     if (details.layer === 'Components') {
       let newComponents = [
         {
@@ -753,56 +746,67 @@ const WorkRequestMap = ({
       });
       map.map.addLayer(NEARMAP_STYLE, 'aerialway');
     }
-}
-const applyProblemClusterLayer = () => {
-  const controller = new AbortController();
-  datasets.getData(SERVER.MAP_PROBLEM_TABLES,datasets.getToken(),
-  controller.signal).then((geoj:any) => {
-    if ( map && !map.map.getSource('clusterproblem')) {
-      addGeojsonSource(map.map, geoj.geom, isProblemActive);
-    }
-    setProblemClusterGeojson(geoj.geom);
-  });
-}
-const getIdByProjectType = (() => {
-  const capitalProjects = projectsids.filter((project:any) => project.code_project_type_id === 5).map((project:any) => project.project_id);
-  const maintenanceProjects = projectsids.filter((project:any) => project.code_project_type_id === 7).map((project:any) => project.project_id);
-  const studyProjects = projectsids.filter((project:any) => project.code_project_type_id === 1).map((project:any) => project.project_id);
-  const studyProjectsFHAD = projectsids.filter((project:any) => project.code_project_type_id === 4).map((project:any) => project.project_id);
-  const acquisitionProjects = projectsids.filter((project:any) => project.code_project_type_id === 13).map((project:any) => project.project_id);
-  const developementImprProjects = projectsids.filter((project:any) => project.code_project_type_id === 6).map((project:any) => project.project_id);
-
-  const groupedProjectsByType ={
-    5: capitalProjects,
-    7: maintenanceProjects,
-    1: studyProjects,
-    4: studyProjectsFHAD,
-    13: acquisitionProjects,
-    6: developementImprProjects
   };
-  setGroupedProjectIdsType(groupedProjectsByType)
-})
+  const applyProblemClusterLayer = () => {
+    const controller = new AbortController();
+    datasets.getData(SERVER.MAP_PROBLEM_TABLES, datasets.getToken(), controller.signal).then((geoj: any) => {
+      if (map && !map.map.getSource('clusterproblem')) {
+        addGeojsonSource(map.map, geoj.geom, isProblemActive);
+      }
+      setProblemClusterGeojson(geoj.geom);
+    });
+  };
+  const getIdByProjectType = () => {
+    const capitalProjects = projectsids
+      .filter((project: any) => project.code_project_type_id === 5)
+      .map((project: any) => project.project_id);
+    const maintenanceProjects = projectsids
+      .filter((project: any) => project.code_project_type_id === 7)
+      .map((project: any) => project.project_id);
+    const studyProjects = projectsids
+      .filter((project: any) => project.code_project_type_id === 1)
+      .map((project: any) => project.project_id);
+    const studyProjectsFHAD = projectsids
+      .filter((project: any) => project.code_project_type_id === 4)
+      .map((project: any) => project.project_id);
+    const acquisitionProjects = projectsids
+      .filter((project: any) => project.code_project_type_id === 13)
+      .map((project: any) => project.project_id);
+    const developementImprProjects = projectsids
+      .filter((project: any) => project.code_project_type_id === 6)
+      .map((project: any) => project.project_id);
 
-useEffect(() => {
-  getIdByProjectType()
-}, [projectsids]);
+    const groupedProjectsByType = {
+      5: capitalProjects,
+      7: maintenanceProjects,
+      1: studyProjects,
+      4: studyProjectsFHAD,
+      13: acquisitionProjects,
+      6: developementImprProjects,
+    };
+    setGroupedProjectIdsType(groupedProjectsByType);
+  };
+
+  useEffect(() => {
+    getIdByProjectType();
+  }, [projectsids]);
 
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-          if (layer.tiles) {
-            layer.tiles.forEach((subKey: string) => {
-              const tiles = layerFilters[layer.name] as any;
-              if (tiles) {
-                addLayersSource(subKey, tiles[subKey]);
-              }
-            });
-        }   
+        if (layer.tiles) {
+          layer.tiles.forEach((subKey: string) => {
+            const tiles = layerFilters[layer.name] as any;
+            if (tiles) {
+              addLayersSource(subKey, tiles[subKey]);
+            }
+          });
+        }
       } else {
         addLayersSource(layer, layerFilters[layer]);
       }
     });
-    
+
     const deleteLayers = SELECT_ALL_FILTERS.filter((layer: any) => !selectedLayersWR.includes(layer as string));
     await deleteLayers.forEach((layer: LayersType) => {
       if (layer === 'border' || layer === 'area_based_mask') {
@@ -817,9 +821,9 @@ useEffect(() => {
         return;
       }
       if (typeof layer === 'object') {
-          layer.tiles.forEach((subKey: string) => {
+        layer.tiles.forEach((subKey: string) => {
           showLayers(subKey);
-          });
+        });
       } else {
         showLayers(layer);
       }
@@ -837,7 +841,7 @@ useEffect(() => {
     setTimeout(() => {
       map.isStyleLoaded(() => {
         map.map.moveLayer('munis-centroids-shea-plusother');
-        topEffectiveReaches();        
+        topEffectiveReaches();
         topServiceArea();
         topComponents();
         topStreamLabels();
@@ -930,13 +934,13 @@ useEffect(() => {
       }
     });
     styles[PROJECTS_DRAFT].forEach((style: LayerStylesType, index: number) => {
-      if (map.map.getLayer(`${PROJECTS_DRAFT+'draft'}_${index}`)) {
-        map.map.moveLayer(`${PROJECTS_DRAFT+'draft'}_${index}`);
+      if (map.map.getLayer(`${PROJECTS_DRAFT + 'draft'}_${index}`)) {
+        map.map.moveLayer(`${PROJECTS_DRAFT + 'draft'}_${index}`);
       }
     });
-    styles[`${PROJECTS_DRAFT+'draft'}`].forEach((style: LayerStylesType, index: number) => {
-      if (map.map.getLayer(`${PROJECTS_DRAFT+'draft'}_${index}`)) {
-        map.map.moveLayer(`${PROJECTS_DRAFT+'draft'}_${index}`);
+    styles[`${PROJECTS_DRAFT + 'draft'}`].forEach((style: LayerStylesType, index: number) => {
+      if (map.map.getLayer(`${PROJECTS_DRAFT + 'draft'}_${index}`)) {
+        map.map.moveLayer(`${PROJECTS_DRAFT + 'draft'}_${index}`);
       }
     });
   };
@@ -990,43 +994,45 @@ useEffect(() => {
     styles[key].forEach((style: LayerStylesType, index: number) => {
       const currentLayer: any = map.map.getLayer(key + '_' + index);
       if (currentLayer) {
-        if (key === PROJECTS_DRAFT+'draft') {
+        if (key === PROJECTS_DRAFT + 'draft') {
           let allFilters: any = ['in', ['get', 'projectid'], ['literal', []]];
           const statusLayer = currentLayer?.metadata?.project_status;
           const typeLayer = currentLayer?.metadata?.project_type || currentLayer?.metadata?.projecttype;
-          let verifiedStatus
+          let verifiedStatus;
           typeLayer?.forEach((type: any) => {
             if (statusLayer.length > 0) {
               statusLayer.forEach((currentStatus: any) => {
                 verifiedStatus = currentStatus;
-                      switch (currentTab) {
-                        case 'Capital':
-                          verifiedStatus = 5;
-                          break;
-                        case 'Maintenance':
-                          verifiedStatus = 8;
-                          break;
-                        case 'Study':
-                          verifiedStatus = 1;
-                          break;
-                        case 'Acquisition':
-                          verifiedStatus = 13;
-                          break;
-                        case 'R&D':
-                          verifiedStatus = 15;
-                          break;
-                        default:
-                          break;
-                      }
-                    })}})
+                switch (currentTab) {
+                  case 'Capital':
+                    verifiedStatus = 5;
+                    break;
+                  case 'Maintenance':
+                    verifiedStatus = 8;
+                    break;
+                  case 'Study':
+                    verifiedStatus = 1;
+                    break;
+                  case 'Acquisition':
+                    verifiedStatus = 13;
+                    break;
+                  case 'R&D':
+                    verifiedStatus = 15;
+                    break;
+                  default:
+                    break;
+                }
+              });
+            }
+          });
           const undefinedValues = groupedIdsBoardProjects?.undefined?.undefined ?? [];
           const newValues = [...(groupedIdsBoardProjects[1]?.[1] ?? []), ...undefinedValues];
           const result = {
             ...groupedIdsBoardProjects,
             1: {
               ...groupedIdsBoardProjects[1],
-              [Number(verifiedStatus)] : newValues
-            }
+              [Number(verifiedStatus)]: newValues,
+            },
           };
           // delete result.undefined;
           let idsToFilter: any = [];
@@ -1036,11 +1042,11 @@ useEffect(() => {
                 let idsCurrent = result[currentStatus];
                 if (idsCurrent && idsCurrent[type]?.length > 0) {
                   idsToFilter = [...idsToFilter, ...result[currentStatus][type]];
-                }  
+                }
               });
             }
           });
-          
+
           allFilters = ['all', ['in', ['get', 'projectid'], ['literal', [...idsToFilter]]]];
           map.map.setFilter(key + '_' + index, allFilters);
           map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
@@ -1078,141 +1084,183 @@ useEffect(() => {
     }
   };
   const searchEquivalentinProblemBoundary = (key: string) => {
-    if ( PROPSPROBLEMTABLES.problems.includes(key)) {
+    if (PROPSPROBLEMTABLES.problems.includes(key)) {
       const index = PROPSPROBLEMTABLES.problems.indexOf(key);
       return PROPSPROBLEMTABLES.problem_boundary[index];
     }
     return key;
-  }
-  const applyFilters = useCallback((key: string, toFilter: any) => {
-    const styles = { ...tileStyles as any };
-    let clusterAdded = false;
-    styles[key].forEach((style: LayerStylesType, index: number) => {
+  };
+  const applyFilters = useCallback(
+    (key: string, toFilter: any) => {
+      const styles = { ...(tileStyles as any) };
+      let clusterAdded = false;
+      styles[key].forEach((style: LayerStylesType, index: number) => {
         if (!map.getLayer(key + '_' + index)) {
-            return;
+          return;
         }
         const allFilters: any[] = ['all'];
         if (key !== MHFD_PROJECTS) {
-        for (const filterField in toFilter) {
+          for (const filterField in toFilter) {
             let filters = toFilter[filterField];
             if (key === MHFD_PROJECTS && filterField === 'status' && !filters) {
               filters = 'Active,Closeout,Closed';
             }
             if (filterField === 'component_type') {
-                showSelectedComponents(filters.split(','));
+              showSelectedComponents(filters.split(','));
             }
             if (filterField === 'keyword') {
-                if (filters[key]) {
-                    allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
-                }
+              if (filters[key]) {
+                allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...filters[key]]]]);
+              }
             }
             if (filters && filters.length) {
-                const options: any[] = ['any'];
-                if (filterField === 'keyword') {
-                    continue;
-                }
-                if (filterField === 'component_type') {
-                    continue;
-                }
-                if (filterField === 'year_of_study') {
-                    for (const years of filters.split(',')) {
-                        const lowerArray: any[] = ['>=', ['get', filterField], +years];
-                        const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
-                        options.push(['all', lowerArray, upperArray]);
-
-                    }
-                    allFilters.push(options);
-                    continue;
-                }
-                if (filterField === 'components') {
-                    allFilters.push(['in', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[5] : PROPSPROBLEMTABLES.problems[5])], ['literal', [...filters]]]);
-                    continue;
-                }
-                if (filterField === 'problemtypeProjects') {
-                    allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
-                    continue;
-                }
-                if (filterField === 'problemname' || filterField === 'projectname') {
-                    continue;
-                }
-                if (filterField === 'estimatedcost') {
-                    for (const range of filters) {
-                        const [lower, upper] = range.split(',');
-                        const lowerArray: any[] = ['>=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +lower];
-                        const upperArray: any[] = ['<=', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField)]], +upper];
-                        const allFilter = ['all', lowerArray, upperArray];
-                        options.push(allFilter);
-                    }
-                    for (const range of toFilter['finalcost']) {
-                        const [lower, upper] = range.split(',');
-                        const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
-                        const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
-                        const allFilter = ['all', lowerArray, upperArray];
-                        options.push(allFilter);
-                    }
-                    allFilters.push(options);
-                    continue;
-                }
-                if (filterField === 'finalcost') {
-                    continue;
-                }
-                if (filterField === 'startyear') {
-                    const lowerArray: any[] = ['>=', ['get', filterField], +filters];
-                    const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
-                    if (+toFilter['completedyear'] !== 9999) {
-                        allFilters.push(['all', lowerArray, upperArray]);
-                    } else {
-                        if (+filters) {
-                            allFilters.push(lowerArray);
-                        }
-                    }
-                    continue;
-                }
-                if (filterField === 'completedyear') {
-                    continue;
-                }
-                if (typeof filters !== 'object') {                        
-                    for (const filter of filters.split(',')) {
-                        if (isNaN(+filter)) {
-                            if(filterField == 'projecttype') {
-                              if(JSON.stringify(style.filter).includes(filter)) {
-                                options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
-                              }
-                            } else {
-                              options.push(['==', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)], filter]);
-                            }
-                            
-                              
-                            
-                        } else {
-                            const equalFilter: any[] = ['==', ['to-number', ['get', (key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField)]], +filter];
-                            options.push(equalFilter);
-                        }
-                    }
+              const options: any[] = ['any'];
+              if (filterField === 'keyword') {
+                continue;
+              }
+              if (filterField === 'component_type') {
+                continue;
+              }
+              if (filterField === 'year_of_study') {
+                for (const years of filters.split(',')) {
+                  const lowerArray: any[] = ['>=', ['get', filterField], +years];
+                  const upperArray: any[] = ['<=', ['get', filterField], +years + 9];
+                  options.push(['all', lowerArray, upperArray]);
                 }
                 allFilters.push(options);
-            } 
-        }
-        if(!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
-          allFilters.push(style.filter);
-        }
-      }else{
-          const currentLayer = map.getLayer(key + '_' + index)
-              let projecttypes = currentLayer.metadata.projecttype;
-              let combinedProjects:any=[];
-              for (let type in groupedProjectIdsType){
-                if(projecttypes.includes(+type)){
-                  combinedProjects.push(...groupedProjectIdsType[type]);
+                continue;
+              }
+              if (filterField === 'components') {
+                allFilters.push([
+                  'in',
+                  [
+                    'get',
+                    key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[5] : PROPSPROBLEMTABLES.problems[5],
+                  ],
+                  ['literal', [...filters]],
+                ]);
+                continue;
+              }
+              if (filterField === 'problemtypeProjects') {
+                allFilters.push(['in', ['get', 'projectid'], ['literal', [...filters]]]);
+                continue;
+              }
+              if (filterField === 'problemname' || filterField === 'projectname') {
+                continue;
+              }
+              if (filterField === 'estimatedcost') {
+                for (const range of filters) {
+                  const [lower, upper] = range.split(',');
+                  const lowerArray: any[] = [
+                    '>=',
+                    [
+                      'to-number',
+                      ['get', key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField],
+                    ],
+                    +lower,
+                  ];
+                  const upperArray: any[] = [
+                    '<=',
+                    [
+                      'to-number',
+                      ['get', key === PROBLEMS_TRIGGER ? PROPSPROBLEMTABLES.problem_boundary[17] : filterField],
+                    ],
+                    +upper,
+                  ];
+                  const allFilter = ['all', lowerArray, upperArray];
+                  options.push(allFilter);
+                }
+                for (const range of toFilter['finalcost']) {
+                  const [lower, upper] = range.split(',');
+                  const lowerArray: any[] = ['>=', ['to-number', ['get', 'finalcost']], +lower];
+                  const upperArray: any[] = ['<=', ['to-number', ['get', 'finalcost']], +upper];
+                  const allFilter = ['all', lowerArray, upperArray];
+                  options.push(allFilter);
+                }
+                allFilters.push(options);
+                continue;
+              }
+              if (filterField === 'finalcost') {
+                continue;
+              }
+              if (filterField === 'startyear') {
+                const lowerArray: any[] = ['>=', ['get', filterField], +filters];
+                const upperArray: any[] = ['<=', ['get', 'completedyear'], +toFilter['completedyear']];
+                if (+toFilter['completedyear'] !== 9999) {
+                  allFilters.push(['all', lowerArray, upperArray]);
+                } else {
+                  if (+filters) {
+                    allFilters.push(lowerArray);
                   }
+                }
+                continue;
               }
-              if(combinedProjects.length === 0){
-                allFilters.push(['in', ['get','projectid'], ['literal', [-1]]]);
-              }else{
-                allFilters.push(['in', ['get','projectid'], ['literal', combinedProjects]]);
+              if (filterField === 'completedyear') {
+                continue;
               }
-      }
+              if (typeof filters !== 'object') {
+                for (const filter of filters.split(',')) {
+                  if (isNaN(+filter)) {
+                    if (filterField == 'projecttype') {
+                      if (JSON.stringify(style.filter).includes(filter)) {
+                        options.push([
+                          '==',
+                          [
+                            'get',
+                            key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                          ],
+                          filter,
+                        ]);
+                      }
+                    } else {
+                      options.push([
+                        '==',
+                        [
+                          'get',
+                          key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                        ],
+                        filter,
+                      ]);
+                    }
+                  } else {
+                    const equalFilter: any[] = [
+                      '==',
+                      [
+                        'to-number',
+                        [
+                          'get',
+                          key === PROBLEMS_TRIGGER ? searchEquivalentinProblemBoundary(filterField) : filterField,
+                        ],
+                      ],
+                      +filter,
+                    ];
+                    options.push(equalFilter);
+                  }
+                }
+              }
+              allFilters.push(options);
+            }
+          }
+          if (!(toFilter['projecttype'] && toFilter['projecttype']) && style.filter) {
+            allFilters.push(style.filter);
+          }
+        } else {
+          const currentLayer = map.getLayer(key + '_' + index);
+          let projecttypes = currentLayer.metadata.projecttype;
+          let combinedProjects: any = [];
+          for (let type in groupedProjectIdsType) {
+            if (projecttypes.includes(+type)) {
+              combinedProjects.push(...groupedProjectIdsType[type]);
+            }
+          }
+          if (combinedProjects.length === 0) {
+            allFilters.push(['in', ['get', 'projectid'], ['literal', [-1]]]);
+          } else {
+            allFilters.push(['in', ['get', 'projectid'], ['literal', combinedProjects]]);
+          }
+        }
         if (componentDetailIds && componentDetailIds[key] && key != MHFD_PROJECTS && key != PROBLEMS_TRIGGER) {
-            allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
+          allFilters.push(['in', ['get', 'cartodb_id'], ['literal', [...componentDetailIds[key]]]]);
         }
         if (key == PROBLEMS_TRIGGER && problemClusterGeojson && !map.map.getSource('clusterproblem')) {
           if (!clusterAdded) {
@@ -1221,10 +1269,12 @@ useEffect(() => {
           }
         }
         if (map.getLayer(key + '_' + index)) {
-            map.setFilter(key + '_' + index, allFilters);
+          map.setFilter(key + '_' + index, allFilters);
         }
-    });
-}, [problemClusterGeojson, groupedProjectIdsType]);
+      });
+    },
+    [problemClusterGeojson, groupedProjectIdsType],
+  );
 
   const selectCheckboxes = (selectedItems: Array<LayersType>) => {
     const deleteLayers = selectedLayersWR.filter((layer: any) => !selectedItems.includes(layer as string));
@@ -1274,7 +1324,6 @@ useEffect(() => {
     }
   };
   const updateLayerSource = (key: string, tiles: Array<string>) => {
-  
     if (!map.getSource(key) && tiles && !tiles.hasOwnProperty('error')) {
       map.addVectorSource(key, tiles);
       addTilesLayers(key);
@@ -1293,7 +1342,7 @@ useEffect(() => {
     const styles = { ...(tileStyles as any) };
     if (!key.includes('milehighfd') && styles[key]) {
       styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (key.includes(PROJECTS_DRAFT+'draft')) {
+        if (key.includes(PROJECTS_DRAFT + 'draft')) {
           if (map.map.getLayer(key + '_' + index)) {
             return;
           }
@@ -1364,55 +1413,58 @@ useEffect(() => {
     }
   };
 
-  const addMapListeners = useCallback(async (key: string) => {
-    const styles = { ...(tileStyles as any) };
-    const availableLayers: any[] = [];
-    if (styles[key]) {
-      styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (!map.map.getLayer(key + '_' + index)) {
-          return;
-        }
-        availableLayers.push(key + '_' + index);
-        if (style.type != 'symbol') {
-          map.map.on('mousemove', key + '_' + index, (e: any) => {
-            if (hovereableLayers.includes(key)) {
-              showHighlighted(key, e.features[0].properties.cartodb_id);
-            }
-            if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
-              map.map.getCanvas().style.cursor = 'pointer';
-              setSelectedOnMap(e.features[0].properties.cartodb_id, key);
-            } else {
+  const addMapListeners = useCallback(
+    async (key: string) => {
+      const styles = { ...(tileStyles as any) };
+      const availableLayers: any[] = [];
+      if (styles[key]) {
+        styles[key].forEach((style: LayerStylesType, index: number) => {
+          if (!map.map.getLayer(key + '_' + index)) {
+            return;
+          }
+          availableLayers.push(key + '_' + index);
+          if (style.type != 'symbol') {
+            map.map.on('mousemove', key + '_' + index, (e: any) => {
+              if (hovereableLayers.includes(key)) {
+                showHighlighted(key, e.features[0].properties.cartodb_id);
+              }
+              if (key.includes('projects') || key === PROBLEMS_TRIGGER) {
+                map.map.getCanvas().style.cursor = 'pointer';
+                setSelectedOnMap(e.features[0].properties.cartodb_id, key);
+              } else {
+                setSelectedOnMap(-1, '');
+              }
+            });
+            map.map.on('mouseleave', key + '_' + index, (e: any) => {
+              if (hovereableLayers.includes(key)) {
+                hideOneHighlighted(key);
+              }
+              map.map.getCanvas().style.cursor = '';
               setSelectedOnMap(-1, '');
-            }
-          });
-          map.map.on('mouseleave', key + '_' + index, (e: any) => {
-            if (hovereableLayers.includes(key)) {
-              hideOneHighlighted(key);
-            }
-            map.map.getCanvas().style.cursor = '';
-            setSelectedOnMap(-1, '');
-          });
-        }
-      });
-      setAllLayers((oldLayers:any) => {
-        return [...oldLayers, ...availableLayers]
-      });
+            });
+          }
+        });
+        setAllLayers((oldLayers: any) => {
+          return [...oldLayers, ...availableLayers];
+        });
 
-      map.map.on('mouseenter', key, () => {
-        map.map.getCanvas().style.cursor = 'pointer';
-      });
-      map.map.on('mouseleave', key, () => {
-        map.map.getCanvas().style.cursor = '';
-      });
-      map.map.on('mousemove', () => {
-        map.map.getCanvas().style.cursor = !isMeasuring ? 'default' : 'crosshair';
-      });
-    }
-  }, [allLayers]);
+        map.map.on('mouseenter', key, () => {
+          map.map.getCanvas().style.cursor = 'pointer';
+        });
+        map.map.on('mouseleave', key, () => {
+          map.map.getCanvas().style.cursor = '';
+        });
+        map.map.on('mousemove', () => {
+          map.map.getCanvas().style.cursor = !isMeasuring ? 'default' : 'crosshair';
+        });
+      }
+    },
+    [allLayers],
+  );
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...(tileStyles as any) };
-    if(key == 'stream_improvement_measure') {
-      key += '_copy'; 
+    if (key == 'stream_improvement_measure') {
+      key += '_copy';
     }
     styles[key].forEach((style: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
@@ -1515,7 +1567,7 @@ useEffect(() => {
         finishMeasure,
         setDistanceValue,
         setAreaValue,
-        setDistanceValueMi
+        setDistanceValueMi,
       );
     } else {
       if (!isPopup) {
@@ -1555,7 +1607,7 @@ useEffect(() => {
       } else {
         await addPopupsOnClick(
           map.map,
-          bbox, 
+          bbox,
           allLayers,
           coordX,
           coordY,
@@ -1570,13 +1622,13 @@ useEffect(() => {
           getComponentsByProjid,
           setCounterPopup,
           componentsList,
-          MAPTYPES.WORKREQUEST
+          MAPTYPES.WORKREQUEST,
         );
       }
-      
+
       if (popups && popups.length) {
         popup.remove();
-        popup = new mapboxgl.Popup({closeButton: true,});
+        popup = new mapboxgl.Popup({ closeButton: true });
         setSelectedPopup(0);
         addPopupAndListeners(
           MAPTYPES.WORKREQUEST,
@@ -1594,23 +1646,26 @@ useEffect(() => {
           ids,
           addRemoveComponent,
           openEdit,
-          isEditPopup
-        )
+          isEditPopup,
+        );
       }
     }
   };
-  const addRemoveComponent = (item: any, event: any)=> {
-    let newComponents:any = [];
-    if(item.added === 'Add') {
-      newComponents = [...componentsList, {
-        cartodb_id: item.cartodb_id?item.cartodb_id:'',
-        jurisdiction: item.jurisdiction?item.jurisdiction:'',
-        original_cost: item.original_cost?item.original_cost:'',
-        problem_id: null,
-        status: item.status?item.status:'',
-        source_table_name: item.table?item.table:'',
-        type: item.type?item.type:''
-      }];
+  const addRemoveComponent = (item: any, event: any) => {
+    let newComponents: any = [];
+    if (item.added === 'Add') {
+      newComponents = [
+        ...componentsList,
+        {
+          cartodb_id: item.cartodb_id ? item.cartodb_id : '',
+          jurisdiction: item.jurisdiction ? item.jurisdiction : '',
+          original_cost: item.original_cost ? item.original_cost : '',
+          problem_id: null,
+          status: item.status ? item.status : '',
+          source_table_name: item.table ? item.table : '',
+          type: item.type ? item.type : '',
+        },
+      ];
     } else {
       newComponents = componentsList.filter(
         (comp: any) => !(comp.cartodb_id == item.cartodb_id && comp.table == item.table),
@@ -1669,66 +1724,74 @@ useEffect(() => {
   };
   return (
     <>
-      {visibleCreateProject && <ModalProjectView
-        visible={visibleCreateProject}
-        setVisible={setVisibleCreateProject}
-        data={"no data"}
-        showDefaultTab={showDefault}
-        locality={autocomplete}
-        editable={true}
-        problemId={problemid}
-      />
-      }
+      {visibleCreateProject && (
+        <ModalProjectView
+          visible={visibleCreateProject}
+          setVisible={setVisibleCreateProject}
+          data={'no data'}
+          showDefaultTab={showDefault}
+          locality={autocomplete}
+          editable={true}
+          problemId={problemid}
+        />
+      )}
       <div className="map">
-        {
-          isProblemActive === true ? <div className="legendProblemTypemap">
+        {isProblemActive === true ? (
+          <div className="legendProblemTypemap">
             <h5>
               Problem Type
-                <Popover
-                  content={<div className='popoveer-00'>
-                    <p style={{fontWeight:'600'}}>Problem Types</p>
-                    <p><span style={{fontWeight:'600'}}>Flood Hazard </span> Problems related to existing flood or fluvial hazard to life and property.</p>
-                    <p><span style={{fontWeight:'600'}}>Stream Condition </span> Problems related to the physical, environmental, and social function or condition of the stream in an urban context.</p>
-                    <p><span style={{fontWeight:'600'}}>Watershed Change </span>  Problems related to flood waters that may pose safety or functional concerns related to people, property, and the environment due to changing watershed conditions (land use, topography, regional detention, etc).</p>
-                  </div>}
-                >
-                  <InfoCircleOutlined style={{marginLeft: '35px', color: '#bfbfbf'}}/>
-                </Popover>              </h5>
-              <div className="legendprob">
-                <div className="iconfloodhazard" />
-                Flood Hazard
-              </div>
-              <div className="legendprob">
-                <div className="iconwatershed" />
-                Watershed Change
-              </div>
-              <div className="legendprob">
-                <div className="iconstreamfunction" />
-                Stream Condition
-              </div>
-            </div> : ''
-          }
+              <Popover
+                content={
+                  <div className="popoveer-00">
+                    <p style={{ fontWeight: '600' }}>Problem Types</p>
+                    <p>
+                      <span style={{ fontWeight: '600' }}>Flood Hazard </span> Problems related to existing flood or
+                      fluvial hazard to life and property.
+                    </p>
+                    <p>
+                      <span style={{ fontWeight: '600' }}>Stream Condition </span> Problems related to the physical,
+                      environmental, and social function or condition of the stream in an urban context.
+                    </p>
+                    <p>
+                      <span style={{ fontWeight: '600' }}>Watershed Change </span> Problems related to flood waters that
+                      may pose safety or functional concerns related to people, property, and the environment due to
+                      changing watershed conditions (land use, topography, regional detention, etc).
+                    </p>
+                  </div>
+                }
+              >
+                <InfoCircleOutlined style={{ marginLeft: '35px', color: '#bfbfbf' }} />
+              </Popover>{' '}
+            </h5>
+            <div className="legendprob">
+              <div className="iconfloodhazard" />
+              Flood Hazard
+            </div>
+            <div className="legendprob">
+              <div className="iconwatershed" />
+              Watershed Change
+            </div>
+            <div className="legendprob">
+              <div className="iconstreamfunction" />
+              Stream Condition
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
         <span className="zoomvaluemap">
           <b>Nearmap: March 19, 2023</b>
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
         </span>
         <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
         {visible && (
-          // <DetailedModal
-          //   detailed={detailed}
-          //   type={data?.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
-          //   data={data}
-          //   visible={visible}
-          //   setVisible={setVisible}
-          // />
           <DetailModal
             visible={visible}
             setVisible={setVisible}
             data={data}
             type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
           />
-        )
-        }
+        )}
         <div className="m-head">
           <MapDropdownLayers
             selectCheckboxes={selectCheckboxes}
@@ -1739,7 +1802,7 @@ useEffect(() => {
           <AutoComplete
             dropdownMatchSelectWidth={true}
             style={{ width: 200 }}
-            options={mapSearch.length  > 0 ? ([...mapSearch.map(renderOption), {}]) : mapSearch.map(renderOption)}
+            options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
@@ -1763,7 +1826,7 @@ useEffect(() => {
                 <hr style={{ opacity: 0.4, width: '96%' }}></hr>
                 <div className="bodymap" onClick={() => setIsMeasuring(true)}>
                   <b>
-                  <img className='img-measure-00'  src='/Icons/fi_play-circle.svg' alt="Create new measurement"></img>
+                    <img className="img-measure-00" src="/Icons/fi_play-circle.svg" alt="Create new measurement"></img>
                     Create a new measurement
                   </b>
                 </div>
@@ -1822,7 +1885,7 @@ useEffect(() => {
               </div>
             </div>
           )}
-        {/* <Button style={{ top:'50px'}} onClick={() => createRandomGeomOnARCGIS()}>
+          {/* <Button style={{ top:'50px'}} onClick={() => createRandomGeomOnARCGIS()}>
           <span className="btn-02"  id='asasas'></span>
         </Button> */}
         </div>

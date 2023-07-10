@@ -176,10 +176,19 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
           addMapListeners(MHFD_PROJECTS, MHFD_PROJECTS);
         }
       }
-      if (detailed?.project_id) {
-        datasets
-          .getData(`${SERVER.BBOX_COMPONENTS}?table=${MHFD_PROJECTS}&id=${detailed?.project_id}&activetab=1`)
-          .then((coordinates: any) => {
+      if (detailed?.coordinates) {
+        map.fitBounds([
+          detailed?.coordinates[0][0],
+          detailed?.coordinates[0][2]
+        ],
+          {
+            duration: 10
+          });
+      } else {
+        if (detailed?.project_id) {
+          console.log('project id', detailed?.project_id);
+          datasets.getData(`${SERVER.BBOX_COMPONENTS}?table=${MHFD_PROJECTS}&id=${detailed?.project_id}&activetab=1`).then((coordinates: any) => {
+            console.log('coordinates', coordinates);
             if (coordinates.bbox) {
               map.fitBounds(
                 [
@@ -188,11 +197,12 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
                 ],
                 {
                   padding: 0,
-                  duration: 10,
-                },
+                  duration: 10
+                }
               );
             }
           });
+        }
       }
       map.getLoadZoom(updateZoom);
       map.getMoveZoom(updateZoom);
