@@ -73,6 +73,8 @@ import useMapResize from 'hook/custom/useMapResize';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
 
+const windowWidth: any = window.innerWidth;
+
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
 
 let mapid = 'map4';
@@ -1806,6 +1808,7 @@ const WorkRequestMap = ({
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
           >
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>

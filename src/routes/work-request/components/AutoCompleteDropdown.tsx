@@ -6,6 +6,8 @@ import { useRequestDispatch, useRequestState } from 'hook/requestHook';
 import { useLocation } from 'react-router-dom';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
+const windowWidth: any = window.innerWidth;
+
 const AutoCompleteDropdown = () => {
   const location = useLocation();
   const type = location.pathname === '/work-request' ? 'WORK_REQUEST' : 'WORK_PLAN';
@@ -123,6 +125,7 @@ const AutoCompleteDropdown = () => {
             open={dropdownIsOpen}
             onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
             onBlur={() => setDropdownIsOpen(false)}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
           >
             <Input
               className={inputClassName}

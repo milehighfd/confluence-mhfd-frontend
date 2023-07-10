@@ -96,6 +96,8 @@ import { areObjectsDifferent } from 'utils/comparators';
 import MapDropdownLayers from './MapDropdownLayers';
 import { useFilterContext } from 'utils/filterContext';
 
+const windowWidth: any = window.innerWidth;
+
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
@@ -1885,6 +1887,7 @@ const Map = ({ leftWidth }: MapProps) => {
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
           >
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>

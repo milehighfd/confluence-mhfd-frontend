@@ -73,6 +73,8 @@ import LoadingViewOverall from '../Loading-overall/LoadingViewOverall';
 import { polyMask } from '../../routes/map/components/MapFunctionsUtilities';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
 
+const windowWidth: any = window.innerWidth;
+
 let map: any;
 let isProblemActive = false;
 let isPopup = true;
@@ -1781,6 +1783,7 @@ const CreateProjectMap = (type: any) => {
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
           >
             <Input.Search size="large" placeholder="Stream or Location" className="style-input" />
           </AutoComplete>

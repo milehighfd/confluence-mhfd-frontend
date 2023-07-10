@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AutoComplete } from 'antd';
 
+const windowWidth: any = window.innerWidth;
+
 const BusinessAssociatesDropdown = ({
   businessAssociate,
   designation,
@@ -110,6 +112,7 @@ const BusinessAssociatesDropdown = ({
         }
       }
       placeholder="Select Business Associates"
+      listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
     />
   </>
 };

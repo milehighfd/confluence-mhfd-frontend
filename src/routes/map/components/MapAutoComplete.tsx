@@ -4,6 +4,8 @@ import { useProfileState } from '../../../hook/profileHook';
 import { useMapState } from '../../../hook/mapHook';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
+const windowWidth: any = window.innerWidth;
+
 const MapAutoComplete = ({
   onAutoCompleteSelected
 }: {
@@ -60,6 +62,7 @@ const MapAutoComplete = ({
             open={dropdownIsOpen}
             onClick={() => setDropdownIsOpen(!dropdownIsOpen)}
             onBlur={() => setDropdownIsOpen(false)}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
           >
             <Input
             ref={ref}
