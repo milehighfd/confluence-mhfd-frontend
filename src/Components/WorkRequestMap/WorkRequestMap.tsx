@@ -59,11 +59,13 @@ import {
   PROJECTS_DRAFT,
   PROPSPROBLEMTABLES,
   MAPTYPES,
+  USE_LAND_COVER_LABEL,
+  USE_LAND_COVER_MAP,
 } from 'constants/constants';
 import { ObjectLayerType, LayerStylesType } from 'Classes/MapTypes';
 import store from 'store';
 import { Button, Popover } from 'antd';
-import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE } from 'constants/mapStyles';
+import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE, USE_LAND_TILES_STYLE } from 'constants/mapStyles';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
 import { useDetailedState } from 'hook/detailedHook';
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
@@ -407,9 +409,11 @@ const WorkRequestMap = ({
     const promises: Promise<any>[] = [];
     SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-        layer.tiles.forEach((subKey: string) => {
-          promises.push(loadData(subKey, layer.name));
-        });
+        if (layer.name !== USE_LAND_COVER_LABEL){
+          layer.tiles.forEach((subKey: string) => {
+            promises.push(loadData(subKey, layer.name));
+          });
+        }
       } else {
         promises.push(loadData(layer));
       }
@@ -796,16 +800,31 @@ const WorkRequestMap = ({
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
+<<<<<<< Updated upstream
         if (layer.tiles) {
+=======
+        if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
+          applyTileSetLayer();
+          layer.tiles.forEach((tile: string) => {
+            addTileSource(tile, addMapListeners);
+          });
+        } else if (layer.tiles) {
+>>>>>>> Stashed changes
           layer.tiles.forEach((subKey: string) => {
             const tiles = layerFilters[layer.name] as any;
             if (tiles) {
               addLayersSource(subKey, tiles[subKey]);
             }
           });
+<<<<<<< Updated upstream
         }
+=======
+        } 
+>>>>>>> Stashed changes
       } else {
-        addLayersSource(layer, layerFilters[layer]);
+        if (layer !== 'border' && layer !== 'area_based_mask') {
+          addLayersSource(layer, layerFilters[layer]);
+        }
       }
     });
 
@@ -858,6 +877,61 @@ const WorkRequestMap = ({
     }, 500);
     applyMeasuresLayer();
   }, [selectedLayersWR, projectsids]);
+
+  const applyTileSetLayer = () => {
+    const sourceNameTile = 'milehighfd.create';
+    const tileName = 'Adams1_LULC';
+    if (!map.map.getSource(sourceNameTile)) {
+      map.map.addSource(sourceNameTile, {
+        url: `mapbox://${sourceNameTile}`,
+        type: 'vector',
+      });
+      map.map.addLayer({
+        id: 'douglas',
+        type: 'fill',
+        source: sourceNameTile,
+        'source-layer': tileName,
+        layout: {
+          visibility: 'visible',
+        },
+        paint: {
+          'fill-color': [
+            'match',
+            ['get', 'gridcode'],
+            [1],
+            '#ffffff',
+            [2],
+            '#b2b2b2',
+            [3],
+            '#73b2ff',
+            [4],
+            '#cdf57a',
+            [5],
+            '#728944',
+            [6],
+            '#abcd66',
+            [7],
+            '#734c00',
+            [8],
+            '#cdaa66',
+            [9],
+            '#ffaa00',
+            'hsla(0, 0%, 0%, 0)',
+          ],
+        },
+      });
+    }
+  };
+
+  const addTileSource = (sourceName: string, addMapListeners: any) => {
+    if (!map.map.getSource(sourceName)) {
+      map.map.addSource(sourceName, {
+        url: `mapbox://${sourceName}`,
+        type: 'vector',
+      });
+      addTilesLayers(sourceName);
+    }
+  };
 
   const applyMeasuresLayer = () => {
     if (!map.map.getSource('geojsonMeasure')) {
@@ -1409,9 +1483,18 @@ const WorkRequestMap = ({
           });
         }
       });
-      if (map) {
-        addMapListeners(key);
-      }
+    } else {
+      const tileName: string = USE_LAND_COVER_MAP[key];
+      const style = USE_LAND_TILES_STYLE;
+      map.map.addLayer({
+        id: key + '_0',
+        source: key,
+        'source-layer': tileName,
+        ...style,
+      });
+    }
+    if (map) {
+      addMapListeners(key);
     }
   };
 
