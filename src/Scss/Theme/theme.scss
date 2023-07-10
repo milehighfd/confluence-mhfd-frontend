@@ -1371,7 +1371,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 .detailed-upload {
-  width: 1047px !important;
+  width: 650px !important;
   top: 17% !important;
 
   /* Default close button */
@@ -4279,6 +4279,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 @media (min-width: 2550px) and (max-width: 3799px) {
+  .detailed-upload {
+    width: 850px !important;
+  }
   .user-name-upload {
     font-size: 22px !important;
     line-height: 22px !important;
@@ -4824,6 +4827,9 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 }
 
 @media (min-width: 3800px) and (max-width: 5999px) {
+  .detailed-upload {
+    width: 1050px !important;
+  }
   .user-name-upload {
     font-size: 28px !important;
     line-height: 34px !important;
@@ -4928,11 +4934,14 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
       line-height: 45px !important;
     }
     .detailed-h{
+      font-size: 28px !important;
+      line-height: 42px !important;
        button{
         font-size: 32px !important;
         line-height: 36px !important;
         padding: 32px !important;
         margin: 22px 0px;
+        height: auto !important;
       }
       .btn-transparent{
         padding: 0px 12px !important;
@@ -5296,7 +5305,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   .detailed-h {
     .title {
-      font-size: 21px;
+      font-size: 26px !important;
       padding-bottom: 8px;
     }
 
