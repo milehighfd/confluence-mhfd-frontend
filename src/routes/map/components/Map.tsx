@@ -1887,7 +1887,7 @@ const Map = ({ leftWidth }: MapProps) => {
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
-            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 500 : 320) : 256}
+            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 530 : 300) : 256}
           >
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>
