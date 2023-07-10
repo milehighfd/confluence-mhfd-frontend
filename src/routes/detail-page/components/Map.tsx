@@ -102,9 +102,9 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
       }
       if (type === PROBLEMS_MODAL) {
         i = 0;
-        map.addVectorSource(MENU_OPTIONS.PROBLEMS, layers.problem_boundary, tileStyles.problem_boundary);
+        map.addVectorSource(MENU_OPTIONS.PROBLEMS_BOUNDARY, layers.problem_boundary, tileStyles.problem_boundary);
         for (const problem of tileStyles.problem_boundary) {
-          map.addLayer(`${PROBLEMS_TRIGGER}` + i, MENU_OPTIONS.PROBLEMS, problem);
+          map.addLayer(`${PROBLEMS_TRIGGER}` + i, MENU_OPTIONS.PROBLEMS_BOUNDARY, problem);
           if (detailed?.cartodb_id) {
             map.setFilter(`${PROBLEMS_TRIGGER}` + i, ['in', 'cartodb_id', detailed?.cartodb_id]);
           }
