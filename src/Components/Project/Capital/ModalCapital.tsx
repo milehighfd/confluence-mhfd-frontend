@@ -51,7 +51,6 @@ const genTitleNoAvailable = (groups:any, setKeyOpenClose: Function) => {
   return (
   <Row className="tab-head-project" onClick={()=>{setKeyOpenClose(-1)}}>
     <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>No Problem Group Available</Col>
-    {/* <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}></Col> */}
     <Col style={{textAlign:'center'}} xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}></Col>
   <Col className="tab-cost" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }} style={{ whiteSpace:'nowrap', textOverflow:'ellipsis'}}>{formatter.format(totalSumCost)}</Col>
   </Row>
@@ -65,7 +64,6 @@ const genTitleProblem = (problem: any, key:any, setValuesProblem:Function, setVa
   return (
     <Row className="tab-head-project" onMouseEnter={()=> setValuesProblem(key, problem.problemname)} onMouseLeave={()=>setValuesProblem(undefined,undefined)} onClick={()=>{setValueZoomProb(key); setKeyOpenClose(key)}} >
       <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 14 }}>{problem.problemname}</Col>
-      {/* <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 4 }}>{problem.jurisdiction}</Col> */}
       <Col style={{textAlign:'center'}} className='col-cost-geom' xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{problem.solutionstatus ? problem.solutionstatus + '%' : ''}</Col>
       <Col className="tab-cost cost-position" xs={{ span: 24 }} lg={{ span: 5 }} xxl={{ span: 5 }}>{formatter.format(totalSumCost)}</Col>
     </Row>
@@ -142,6 +140,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const pageWidth  = document.documentElement.scrollWidth;
   const isWorkPlan = location.pathname.includes('work-plan');
   const { groupOrganization } = useProfileState();
+
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
     if (!swSave) {
@@ -152,6 +151,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       }
     }       
   }, [userInformation]);
+
   useEffect(() => {
     if(componentsFromMap.length > 0 ) {      
       getListComponentsByComponentsAndPolygon(componentsFromMap, null);
@@ -159,6 +159,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setComponentIntersected([]);
     }
   }, [componentsFromMap]);
+
   useEffect(()=>{
     setServiceAreaCounty({});
     setServiceArea([]);
@@ -234,6 +235,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   useEffect(()=>{
       setIndependentComponents(independentComponents);
   },[independentComponents]);
+
   useEffect(()=>{
     if(componentsFromMap?.length > 0 ) {
       if(componentsFromMap.length > 0  && listComponents.length > 0){
@@ -632,6 +634,44 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       return 0;
     }
   }
+
+  const timelineItems = [
+    { label: 'Mobilization', index: 1 },
+    { label: 'Traffic Control', index: 2 },
+    { label: 'Utility Coordination / Relocation', index: 3 },
+    { label: 'Stormwater Management / Erosion Contro', index: 4 },
+    { label: 'Engineering', index: 5 },
+    { label: 'Contract Admin / Construction Management', index: 6 },
+    { label: 'Legal / Administrative', index: 7 },
+    { label: 'Contingency', index: 8 },
+  ];
+
+  function renderTimelineItem(label: string, index: number) {
+    return (
+      <Timeline.Item color="purple" key={index}>
+        <Row>
+          <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>{label}</label></Col>
+          <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
+            <Select
+              placeholder={overheadValues[index] + '%'}
+              dropdownClassName="menu-medium"
+              value={overheadValues[index] + '%'}
+              listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
+              onSelect={(e:any)=>changeValue(e, index)}
+              bordered={false}
+              style={{fontSize: '12px', marginTop: '-2px'}}
+            >
+              {Array.from({ length: 20 }, (_, i) => i * 5).map((value) => (
+                <Option key={value} value={value}>{value}%</Option>
+              ))}
+            </Select>
+          </Col>
+          <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[index])}</Col>
+        </Row>
+      </Timeline.Item>
+    );
+  }
+
   return (
     <>
     {visibleAlert && <AlertView
@@ -846,326 +886,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
             </Row>
 
             <Timeline className="sub-project" style={{marginTop:'10px'}}>
-              {/* <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Overhead Cost</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select placeholder="0%" dropdownClassName="menu-medium border-select" value={overheadValues[0] + '%'} onSelect={(e:any)=>changeValue(e, 0)} bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[0])}</Col>
-                </Row>
-              </Timeline.Item> */}
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Mobilization</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                  <Select
-                    placeholder={overheadValues[1] + '%'}
-                    dropdownClassName="menu-medium"
-                    value={overheadValues[1] + '%'}
-                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                    onSelect={(e:any)=>changeValue(e, 1)}
-                    bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }} style={{display: 'flex', alignItems: 'center'}}>{formatter.format(overheadCosts[1])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Traffic Control</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                  <Select
-                    placeholder={overheadValues[2] + '%'}
-                    dropdownClassName="menu-medium"
-                    value={overheadValues[2] + '%'}
-                    onSelect={(e:any)=>changeValue(e, 2)}
-                    listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                    bordered={false}
-                    style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[2])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Utility Coordination / Relocation</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select
-                      placeholder={overheadValues[3] + '%'}
-                      dropdownClassName="menu-medium"
-                      value={overheadValues[3] + '%'}
-                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                      onSelect={(e:any)=>changeValue(e, 3)}
-                      bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[3])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Stormwater Management / Erosion Control</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select
-                      placeholder={overheadValues[4] + '%'}
-                      dropdownClassName="menu-medium"
-                      value={overheadValues[4] + '%'}
-                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                      onSelect={(e:any)=>changeValue(e, 4)}
-                      bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[4])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Engineering</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select
-                      placeholder={overheadValues[5] + '%'}
-                      dropdownClassName="menu-medium"
-                      value={overheadValues[5] + '%'}
-                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                      onSelect={(e:any)=>changeValue(e, 5)}
-                      bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[5])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contract Admin / Construction Management</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select
-                      placeholder={overheadValues[6] + '%'}
-                      dropdownClassName="menu-medium"
-                      value={overheadValues[6] + '%'}
-                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                      onSelect={(e:any)=>changeValue(e, 6)}
-                      bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[6])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Legal / Administrative</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select
-                      placeholder={overheadValues[7] + '%'}
-                      dropdownClassName="menu-medium"
-                      value={overheadValues[7] + '%'}
-                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                      onSelect={(e:any)=>changeValue(e, 7)}
-                      bordered={false}
-                      style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[7])}</Col>
-                </Row>
-              </Timeline.Item>
-              <Timeline.Item color="purple">
-                <Row>
-                  <Col xs={{ span: 24 }} lg={{ span: 14 }} xxl={{ span: 17 }}><label>Contingency</label></Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 4 }} xxl={{ span: 3 }} style={{marginTop:'-7.5px'}}>
-                    <Select
-                      placeholder={overheadValues[8] + '%'}
-                      dropdownClassName="menu-medium"
-                      value={overheadValues[8] + '%'}
-                      listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 500 : 320) : 256}
-                      onSelect={(e:any)=>changeValue(e, 8)}
-                      bordered={false} style={{fontSize: '12px', marginTop: '-2px'}}>
-                      <Option value="0">0%</Option>
-                      <Option value="5">5%</Option>
-                      <Option value="10">10%</Option>
-                      <Option value="15">15%</Option>
-                      <Option value="20">20%</Option>
-                      <Option value="25">25%</Option>
-                      <Option value="30">30%</Option>
-                      <Option value="35">35%</Option>
-                      <Option value="40">40%</Option>
-                      <Option value="45">45%</Option>
-                      <Option value="50">50%</Option>
-                      <Option value="55">55%</Option>
-                      <Option value="60">60%</Option>
-                      <Option value="65">65%</Option>
-                      <Option value="70">70%</Option>
-                      <Option value="75">75%</Option>
-                      <Option value="80">80%</Option>
-                      <Option value="85">85%</Option>
-                      <Option value="90">90%</Option>
-                      <Option value="95">95%</Option>
-                    </Select>
-                  </Col>
-                  <Col xs={{ span: 24 }} lg={{ span: 6 }} xxl={{ span: 4 }}>{formatter.format(overheadCosts[8])}</Col>
-                </Row>
-              </Timeline.Item>
+              {timelineItems.map(({ label, index }) => renderTimelineItem(label, index))}              
             </Timeline>
 
             <Row className="sub-project">
