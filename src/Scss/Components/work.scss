@@ -1483,7 +1483,7 @@
       font-size: 21px !important ;
     }
     .ant-tabs-tabpane-active {
-      height: calc(100vh - 275px) !important;
+      height: calc(100vh - 227px) !important;
     }
     .col-bg {
       height: 70px !important;
@@ -1550,7 +1550,7 @@
       line-height: 26px !important;
     }
     h6{
-      font-size: 19px !important;
+      font-size: 24px !important;
     }
     .purple, .purple-priority, .yellow{
       font-size: 17px !important;
@@ -1615,7 +1615,7 @@
       }
     }
     h5{
-      font-size: 21px !important;
+      font-size: 24px !important;
     }
     .ant-input, .ant-input-number {
       height: 40px !important;
@@ -1708,7 +1708,7 @@
       }
       .ant-select{
         font-size: 24px;
-        min-width: 100px;
+        min-width: 122px;
         max-width: 320px;
         margin-left: 26px !important;
       }
@@ -1726,7 +1726,7 @@
       margin-top: 10px !important;
     }
     p{
-      font-size: 20px !important;
+      font-size: 22px !important;
       margin-bottom: 10px !important;
       img{
         height: 18px !important;
@@ -1784,8 +1784,8 @@
       overflow-y: auto !important;
 
       p{
-        font-size: 21px !important;
-        line-height: 24px !important;
+        font-size: 24px !important;
+        line-height: 27px !important;
         margin-bottom: 40px !important;
       }
     }
@@ -1797,7 +1797,7 @@
       padding: 12px !important
     }
     h6{
-      font-size: 21px !important;
+      font-size: 24px !important;
       margin-bottom: 0px !important;
     }
     p{
@@ -1913,6 +1913,9 @@
     font-size: 26px !important;
   }
   .cost-wr{
+    .ant-collapse{
+      width: 65vw !important;
+    }
     .tab-head-project {
       font-size: 21px !important;
       line-height: 18px !important;
@@ -1942,7 +1945,7 @@
       }
     }
     .ant-timeline-item{
-      padding: 0px 0 16px;
+      padding: 0px 0 36px;
     }
   }
   .work-table{
@@ -1971,7 +1974,7 @@
       }
     }
     .btn-transparent {
-      font-size: 16px;
+      font-size: 26px !important;
 
       img{
         height: 18px;
@@ -1989,7 +1992,7 @@
       font-size: 14px;
     }
     .purple, .purple-priority, .yellow{
-      font-size: 19px !important;
+      font-size: 26px !important;
     }
     .purple-priority{
       bottom: 45px !important;
@@ -2013,13 +2016,13 @@
   }
   .work-table .card-wr {
     width: 100% !important;
-    height: 160px !important;
+    height: 185px !important;
     margin-bottom: 15px !important;
   }
   .work-table .col-wr {
       min-width: 400px !important;
       width: 285px !important;
-      height: calc(100vh - 403px) !important;
+      height: calc(100vh - 428px) !important;
       margin-right: 15px !important;
       padding: 20px 15px ;
       margin-top: 10px !important;

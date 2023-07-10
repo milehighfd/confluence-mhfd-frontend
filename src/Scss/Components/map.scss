@@ -3099,6 +3099,9 @@ hr.filters-line {
 }
 
 @media(min-width: 3800px) and (max-width: 5999px) {
+  .tabs-map .ant-collapse > .ant-collapse-item:last-child, .tabs-map .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+    padding: 10px 9px;
+  }
   .m-head{
     padding: 6px 0px !important;
     margin: 10px 0px !important;

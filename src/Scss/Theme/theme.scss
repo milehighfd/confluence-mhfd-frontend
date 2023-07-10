@@ -4543,7 +4543,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
     }
   }
   .detailed-upload-save{
-    width: 470px !important;
+    width: 515px !important;
     h1{
       font-size: 26px !important;
       line-height: 29px !important;
@@ -4561,7 +4561,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
    
   }
   .modal-confirm{
-    width: 470px !important;
+    width: 515px !important;
     h1{
       font-size: 26px !important;
       line-height: 29px !important;
@@ -4573,9 +4573,14 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
         font-size: 22px !important;
         line-height: 24px !important;
         padding: 19px !important;
+        height: auto;
+        // width: 135% !important;
+        // margin-left: -35%;
       }
       .btn-transparent{
         padding: 0px 12px !important;
+        width: auto !important;
+        margin-left: 0px;
       }
     }
   }
@@ -4647,7 +4652,7 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
 
   .detailed-h {
     .title {
-      font-size: 21px;
+      font-size: 21px !important;
       padding-bottom: 8px;
     }
 
@@ -4895,6 +4900,28 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child:after {
   }
 
   .detailed-upload-save {
+    width: 795px !important;
+    h1{
+      font-size: 34px !important;
+      line-height: 45px !important;
+    }
+    .detailed-h{
+       button{
+        font-size: 32px !important;
+        line-height: 36px !important;
+        padding: 32px !important;
+        margin: 22px 0px;
+      }
+      .btn-transparent{
+        padding: 0px 12px !important;
+        margin-top: 19px !important;
+        img{
+          height: 24px !important;
+        }
+      }
+    }
+  }
+  .modal-confirm{
     width: 795px !important;
     h1{
       font-size: 34px !important;

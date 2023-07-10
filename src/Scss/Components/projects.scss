@@ -958,10 +958,10 @@
     .body-project{
       height: calc(100vh - 300px);
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-        width: 70px !important;
+        width: 100px !important;
        }
       .ant-select-selector {
-        padding: 6px 0px !important;
+        padding: 6px 13px !important;
         margin: 10px 0px !important;
        
        }
@@ -1107,6 +1107,7 @@
           }
         }
         .ant-timeline-item-content {
+          height: 40px !important;
           top: -9px;
         }
         .btn-transparent-green, .btn-transparent-green:hover, .btn-transparent-green:focus {
@@ -1228,6 +1229,7 @@
         height: 78px;
         font-size: 24px;
         padding: 0px 50px;
+        margin-left: 23px;
       }
     }
   }
@@ -1269,9 +1271,9 @@
     padding-left: 25px !important;
   }
   .projects{
-    width: 2014px !important;
+    width: 2514px !important;
     .head-project{
-      padding: 20px 20px 10px 20px;
+      padding: 35px 35px 10px 35px;
 
       .input-sizer {
         font-size: 32px !important;
@@ -1309,6 +1311,7 @@
       height: calc(100vh - 300px);
       font-size: 28px !important;
       line-height: 32px !important;
+      padding: 20px 35px;
       .sub-project .ant-select:not(.ant-select-customize-input) .ant-select-selector {
         width: 112px !important;
        }
@@ -1345,7 +1348,7 @@
         }
       }
       .span-project-text{
-        font-size: 16px;
+        font-size: 26px !important;
       }
       h5{
         font-size: 30px;
@@ -1458,6 +1461,7 @@
         }
         .ant-timeline-item-content {
           top: -9px;
+          height: 52px !important;
         }
         .btn-transparent-green, .btn-transparent-green:hover, .btn-transparent-green:focus {
           font-size: 28px !important;
@@ -1479,7 +1483,7 @@
           p{
             font-size: 30px !important;
             line-height: 36px !important;
-            margin: 12px 0px;
+            margin: 25px 0px;
             img{
               height: 18px;
             }
