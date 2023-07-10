@@ -800,27 +800,21 @@ const WorkRequestMap = ({
   const applyMapLayers = useCallback(async () => {
     await SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-<<<<<<< Updated upstream
         if (layer.tiles) {
-=======
-        if (layer.name === USE_LAND_COVER_LABEL && process.env.REACT_APP_NODE_ENV !== 'prod') {
-          applyTileSetLayer();
-          layer.tiles.forEach((tile: string) => {
-            addTileSource(tile, addMapListeners);
-          });
-        } else if (layer.tiles) {
->>>>>>> Stashed changes
-          layer.tiles.forEach((subKey: string) => {
-            const tiles = layerFilters[layer.name] as any;
-            if (tiles) {
-              addLayersSource(subKey, tiles[subKey]);
-            }
-          });
-<<<<<<< Updated upstream
-        }
-=======
+          if (layer.name === USE_LAND_COVER_LABEL) {
+            applyTileSetLayer();
+            layer.tiles.forEach((tile: string) => {
+              addTileSource(tile);
+            });
+          } else {
+            layer.tiles.forEach((subKey: string) => {
+              const tiles = layerFilters[layer.name] as any;
+              if (tiles) {
+                addLayersSource(subKey, tiles[subKey]);
+              }
+            });
+          }
         } 
->>>>>>> Stashed changes
       } else {
         if (layer !== 'border' && layer !== 'area_based_mask') {
           addLayersSource(layer, layerFilters[layer]);
@@ -923,7 +917,7 @@ const WorkRequestMap = ({
     }
   };
 
-  const addTileSource = (sourceName: string, addMapListeners: any) => {
+  const addTileSource = (sourceName: string) => {
     if (!map.map.getSource(sourceName)) {
       map.map.addSource(sourceName, {
         url: `mapbox://${sourceName}`,
