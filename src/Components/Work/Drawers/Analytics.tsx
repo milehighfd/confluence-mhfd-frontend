@@ -88,7 +88,7 @@ const Analytics = ({
   let barsColor = '#261964';
   let groupingType = null;
   if (type === 'WORK_REQUEST') {
-    groupingType = ['Capital', 'Maintenance'].includes(tabKey) ? 'County' : 'Service Area';
+    groupingType = 'Local Government'
   } else {
     groupingType = ['Study'].includes(tabKey) ? 'Service Area': 'County';
   }
