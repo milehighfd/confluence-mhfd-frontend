@@ -79,6 +79,8 @@ import useMapResize from 'hook/custom/useMapResize';
 import ModalProjectView from 'Components/ProjectModal/ModalProjectView';
 import MapDropdownLayers from 'routes/map/components/MapDropdownLayers';
 
+const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
+
 let mapid = 'map4';
 let map: any;
 let isProblemActive = false;
@@ -1407,7 +1409,6 @@ useEffect(() => {
       });
     }
   }, [allLayers]);
-  const test = (item: any) => {};
   const showHighlighted = (key: string, cartodb_id: string) => {
     const styles = { ...(tileStyles as any) };
     if(key == 'stream_improvement_measure') {
@@ -1582,7 +1583,7 @@ useEffect(() => {
           menuOptions,
           popups,
           user,
-          test,
+          seeDetails,
           popup,
           map.map,
           showPopup,
@@ -1712,6 +1713,22 @@ useEffect(() => {
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
         </span>
         <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
+        {visible && (
+          // <DetailedModal
+          //   detailed={detailed}
+          //   type={data?.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
+          //   data={data}
+          //   visible={visible}
+          //   setVisible={setVisible}
+          // />
+          <DetailModal
+            visible={visible}
+            setVisible={setVisible}
+            data={data}
+            type={data.problemid ? FILTER_PROBLEMS_TRIGGER : FILTER_PROJECTS_TRIGGER}
+          />
+        )
+        }
         <div className="m-head">
           <MapDropdownLayers
             selectCheckboxes={selectCheckboxes}
