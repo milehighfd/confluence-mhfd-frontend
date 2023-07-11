@@ -290,11 +290,14 @@ const RequestView = ({ type, isFirstRendering }: {
   }
 
   return (
-    <Layout className="work" style={{ zIndex:1}}>
+    <Layout className="work">
       {(fakeLoading) && <LoadingViewOverall />}
       {
         <Row>
-          <Col xs={{ span: 24 }} className={"height-mobile"} lg={{ span: leftWidth }} style={{ transition: 'all 0.7s ease' }}>
+          <Col xs={{ span: 24 }}
+           className={"height-mobile"}
+            lg={{ span: leftWidth }}
+            style={{ transition: 'all 0.7s ease' }}>
             <WorkRequestMap
               isFirstRendering={isFirstRendering}
               leftWidth={leftWidth}
