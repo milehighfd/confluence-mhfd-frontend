@@ -500,6 +500,11 @@
         overflow: hidden
       }
 
+      hr{
+        opacity: 0.4;
+        width: 96%;
+      }
+
       .bodymap {
         text-align: center;
         padding: 10px 10px;
@@ -550,6 +555,22 @@
           &:hover {
             opacity: 0.5;
           }
+        }
+
+        #button-cancel {
+          margin-left: -1px;
+        }
+
+        #button-line{
+          padding-left: 20px;
+        }
+
+        #button-polygon{
+          padding-left: 22px;
+        }
+
+        a{
+          color: #11093C;
         }
       }
     }
@@ -2744,6 +2765,16 @@ hr.filters-line {
   text-align: left;
   padding-left: 16px;
   padding-top: 13px;
+
+  .info-circle-outlined{
+    margin-left: 35px;
+    color: #bfbfbf;   
+  }
+
+  .legend-problem-detail{
+    height: 100%;
+    width: 100%;
+  }
 
   h5 {
     margin-bottom: 10px;

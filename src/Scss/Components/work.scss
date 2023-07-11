@@ -8,6 +8,7 @@
 }
 .work{
   overflow-y: hidden;
+  z-index: 1;
   .mapboxgl-map{
     height: 100% !important;
   }
