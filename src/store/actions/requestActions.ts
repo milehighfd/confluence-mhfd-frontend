@@ -178,11 +178,35 @@ export const setDiff = (payload: any) => ({
 
 export const loadOneColumn = (board_id: any, position: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year } } = getState();
+    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
+    const countiesFilterList: any[] = filterMap['project_counties'];
+    const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+    const priorityFilterList = [
+      { label: '1', value: 0 },
+      { label: '2', value: 1 },
+      { label: '3', value: 2 },
+      { label: 'Over 3', value: 3 },
+      { label: 'Work Plan', value: 4 }
+    ];
+    const filters = {
+      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList.filter((_: any, index: number) => {
+        return countiesSelected[index];
+      }).map((r: any) => r.state_county_id),
+      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList.filter((_: any, index: number) => {
+        return jurisdictionSelected[index];
+      }).map((r: any) => r.code_local_government_id),
+      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList.filter((_: any, index: number) => {
+        return serviceAreasSelected[index];
+      }).map((r: any) => r.code_service_area_id),
+      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
+        return prioritySelected[index];
+      }).map((r: any) => r.value),
+    };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });
-    datasets.postData(BOARD_FOR_POSITIONS, { board_id, position })
+    datasets.postData(BOARD_FOR_POSITIONS, { board_id, position, filters })
     .then((projects) => {
       let sumByGroupMap = {}, groupTotal = {};
       if (position !== 0) {
@@ -203,9 +227,33 @@ export const loadOneColumn = (board_id: any, position: any) => {
   }
 }
 
-export const loadColumns = (board_id: any, filters?: any) => {
+export const loadColumns = (board_id: any) => {
   return (dispatch: any, getState: Function) => {
-    const { request: { tabKey, year }, router: { location } } = getState();
+    const { request: { tabKey, year, filterMap, countiesSelected, jurisdictionSelected, serviceAreasSelected, prioritySelected }, router: { location } } = getState();
+    const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
+    const countiesFilterList: any[] = filterMap['project_counties'];
+    const serviceAreasFilterList: any[] = filterMap['project_service_areas'];
+    const priorityFilterList = [
+      { label: '1', value: 0 },
+      { label: '2', value: 1 },
+      { label: '3', value: 2 },
+      { label: 'Over 3', value: 3 },
+      { label: 'Work Plan', value: 4 }
+    ];
+    const filters = {
+      project_counties: countiesSelected.every((r: any) => r) ? undefined : countiesFilterList.filter((_: any, index: number) => {
+        return countiesSelected[index];
+      }).map((r: any) => r.state_county_id),
+      project_local_governments: jurisdictionSelected.every((r: any) => r) ? undefined : jurisdictionFilterList.filter((_: any, index: number) => {
+        return jurisdictionSelected[index];
+      }).map((r: any) => r.code_local_government_id),
+      project_service_areas: serviceAreasSelected.every((r: any) => r) ? undefined :  serviceAreasFilterList.filter((_: any, index: number) => {
+        return serviceAreasSelected[index];
+      }).map((r: any) => r.code_service_area_id),
+      project_priorities: prioritySelected.every((r: any) => r) ? undefined : priorityFilterList.filter((_: any, index: number) => {
+        return prioritySelected[index];
+      }).map((r: any) => r.value),
+    };
     dispatch({
       type: types.REQUEST_START_LOADING_COLUMNS_2
     });

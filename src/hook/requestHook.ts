@@ -156,8 +156,8 @@ export const useRequestDispatch = () => {
   const _setDiff = useCallback((diff: any) => {
     dispatch(setDiff(diff));
   }, [dispatch]);
-  const _loadColumns = useCallback((board_id: any, filters?: any) => {
-    dispatch(loadColumns(board_id, filters));
+  const _loadColumns = useCallback((board_id: any) => {
+    dispatch(loadColumns(board_id));
   }, [dispatch]);
   const _loadOneColumn = useCallback((board_id: any, position: number) => {
     dispatch(loadOneColumn(board_id, position));
