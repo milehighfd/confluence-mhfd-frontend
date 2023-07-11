@@ -21,7 +21,6 @@ const AmountModal = ({ project, visible, setVisible }: {
   } = useRequestState();
   const { loadOneColumn } = useRequestDispatch();
   const isMaintenance = tabKey === 'Maintenance';
-  const indexProjectType = MaintenanceTypes.indexOf(projectsubtype);
 
   const [cost, setCost] = useState<any>({
     req1: null,
@@ -73,8 +72,6 @@ const AmountModal = ({ project, visible, setVisible }: {
         console.log(err);
       });
   }, [board_project_id, visible]);
-  const okayDisabled = isMaintenance && indexProjectType !== -1 &&
-    costDataList[indexProjectType].show && cost[`${costDataList[indexProjectType].key}`] === null;
   return (
     <Modal
       title="How much funding from MHFD is being requested for the following years:"
@@ -91,7 +88,6 @@ const AmountModal = ({ project, visible, setVisible }: {
         <Button
           className="btn-purple"
           onClick={handleOk}
-          // disabled={okayDisabled}
         >
           Save
         </Button>,

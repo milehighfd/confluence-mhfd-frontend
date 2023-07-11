@@ -215,6 +215,7 @@ const RequestView = ({ type, isFirstRendering }: {
         loadFilters(board.board_id);
       }
       /* TODO: this should be replaced */
+      console.log('Sub status', board.substatus);
       setBoardStatus(board.status);
       setBoardSubstatus(board.substatus);
       setBoardComment(board.comment);

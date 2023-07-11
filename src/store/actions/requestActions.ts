@@ -141,11 +141,6 @@ export const setCsaSelected = (payload: any) => ({
   payload
 });
 
-export const setSetPrioritySelected = (payload: any) => ({
-  type: types.REQUEST_SET_SET_PRIORITY_SELECTED,
-  payload
-});
-
 export const setLocalityType = (payload: any) => ({
   type: types.REQUEST_SET_LOCALITY_TYPE,
   payload
@@ -254,7 +249,7 @@ export const loadColumns = (board_id: any, filters?: any) => {
       const allProjects = dataArray.map(r => r[2]).flat();
       dispatch(groupProjects(allProjects));    
       
-      const mainKey = location.pathname.includes('work-plan') ?  (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
+      const mainKey = location.pathname.includes('work-plan') ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
       dispatch({
         type: types.REQUEST_SET_SUM_BY_COUNTY,
         payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(

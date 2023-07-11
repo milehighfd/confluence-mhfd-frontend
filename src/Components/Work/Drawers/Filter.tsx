@@ -53,10 +53,10 @@ const Filter = () => {
     loadColumns(namespaceId, filter);
   }
   const reset = (value: boolean) => {
-    setJurisdictionSelected(jurisdictionSelected.map(elem => value));
-    setCountiesSelected(countiesSelected.map(elem => value));
-    setPrioritySelected(prioritySelected.map(elem => value));
-    setServiceAreasSelected(serviceAreasSelected.map(elem => value));
+    setJurisdictionSelected(jurisdictionSelected.map(_ => value));
+    setCountiesSelected(countiesSelected.map(_ => value));
+    setPrioritySelected(prioritySelected.map(_ => value));
+    setServiceAreasSelected(serviceAreasSelected.map(_ => value));
   }
   let label;
   if (l === 'CODE_STATE_COUNTY') {

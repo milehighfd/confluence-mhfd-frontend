@@ -27,6 +27,8 @@ const Analytics = ({
   } = useRequestState();
   const { setShowAnalytics } = useRequestDispatch();
   const [totalSum, setTotalSum] = useState(0);
+  const [tcb, setTcb] = useState(totalCountyBudget);
+  const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
   const getLabel = () => {
     if (tabKey === 'Capital' || tabKey === 'Maintenance') {
       return "County"
@@ -34,23 +36,6 @@ const Analytics = ({
       return "Service Area"
     }
   }
-  const contentCounty = (
-    <div className="popver-info">
-      This graphic indicates the number of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
-    </div>
-  );
-  const contentDollars = (
-    <div className="popver-info">
-      This graphic indicates the dollar amount of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
-    </div>
-  );
-  const [tcb, setTcb] = useState(totalCountyBudget);
-  const [year, setYear] = useState(tabKey === 'Maintenance' ? 2000 : +initialYear);
-
-  useEffect(() => {
-    setTcb(totalCountyBudget);
-  }, [totalCountyBudget]);
-
   const clickUpdate = () => {
     datasets.putData(SERVER.UPDATE_BUDGET(boardId), {
       budget: tcb
@@ -61,6 +46,20 @@ const Analytics = ({
         console.log(e);
       });
   };
+  const contentCounty = (
+    <div className="popver-info">
+      This graphic indicates the number of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
+    </div>
+  );
+  const contentDollars = (
+    <div className="popver-info">
+      This graphic indicates the dollar amount of requests within each Jurisdiction {type === 'WORK_REQUEST' ? `broken out by ${getLabel()}` : ''}.
+    </div>
+  );
+
+  useEffect(() => {
+    setTcb(totalCountyBudget);
+  }, [totalCountyBudget]);
 
   useEffect(() => {
     let sum = 0;
@@ -78,10 +77,8 @@ const Analytics = ({
   for (var i = 0; i < 5; i++) {
     years.push(+initialYear + i);
   }
-
   let maxiQ = 0;
   let quantityData;
-
   let maxiA = 0;
   let amountData;
   let countiesNames = data.map((d: any) => d.locality).join(',');
@@ -144,7 +141,6 @@ const Analytics = ({
       }
     })
   }
-  
   return (
     <Drawer
       title={
@@ -250,7 +246,6 @@ const Analytics = ({
           />
         }
       </div>
-
       <h6 className="graph-title">Dollars Requested by {groupingType} <Popover content={contentDollars} placement="topRight" arrowPointAtCenter> <img src="/Icons/icon-19.svg" alt="" height="10px" /> </Popover></h6>
       <div className="graph" >
         {maxiA > 0 &&

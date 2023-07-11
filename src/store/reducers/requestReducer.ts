@@ -187,11 +187,6 @@ const requestReducer = (state = initialState, action: any) => {
         ...state,
         csaSelected: action.payload
       };
-    case types.REQUEST_SET_SET_PRIORITY_SELECTED:
-      return {
-        ...state,
-        prioritySelected: action.payload
-      };
     case types.REQUEST_SET_LOCALITY_TYPE:
       return {
         ...state,
