@@ -61,6 +61,9 @@ const RequestView = ({ type, isFirstRendering }: {
     setBoardComment,
     setShowFilters,
     setPrioritySelected,
+    setJurisdictionSelected,
+    setCountiesSelected,
+    setServiceAreasSelected,
     setLocalityType,
     setLocalities,
     setColumns,
@@ -327,7 +330,10 @@ const RequestView = ({ type, isFirstRendering }: {
                 activeKey={tabKey}
                 onChange={(key) => {
                   setTabKey(key);
-                  setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
+                  setPrioritySelected([]);
+                  setJurisdictionSelected([]);
+                  setCountiesSelected([]);
+                  setServiceAreasSelected([]);
                 }} className="tabs-map">
                 {
                   displayedTabKey.map((tk: string) => (

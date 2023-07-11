@@ -9,8 +9,12 @@ const Filter = () => {
     localityType: l,
     filterMap,
     namespaceId,
+    prioritySelected,
+    jurisdictionSelected,
+    countiesSelected,
+    serviceAreasSelected
   } = useRequestState();
-  const { setShowFilters, loadColumns } = useRequestDispatch();
+  const { setShowFilters, loadColumns, setPrioritySelected, setJurisdictionSelected, setCountiesSelected, setServiceAreasSelected } = useRequestDispatch();
 
   const jurisdictionFilterList: any[] = filterMap['project_local_governments'];
   const countiesFilterList: any[] = filterMap['project_counties'];
@@ -23,16 +27,19 @@ const Filter = () => {
     { label: 'Work Plan', value: 4 }
   ], []);
 
-  const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
-  const [countiesSelected, setCountiesSelected] = useState<any[]>([]);
-  const [serviceAreasSelected, setServiceAreasSelected] = useState<any[]>([]);
-  const [prioritySelected, setPrioritySelected] = useState<any[]>([]);
+  // const [jurisdictionSelected, setJurisdictionSelected] = useState<any[]>([]);
+  // const [countiesSelected, setCountiesSelected] = useState<any[]>([]);
+  // const [serviceAreasSelected, setServiceAreasSelected] = useState<any[]>([]);
+  // const [prioritySelected, setPrioritySelected] = useState<any[]>([]);
 
   useEffect(() => {
-    setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
-    setCountiesSelected(countiesFilterList.map((r: any) => true));
-    setPrioritySelected(priorityFilterList.map((r: any) => true));
-    setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true));
+    console.log('entraaaaa', jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList);
+    if(prioritySelected.length === 0) {
+      setJurisdictionSelected(jurisdictionFilterList.map((r: any) => true));
+      setCountiesSelected(countiesFilterList.map((r: any) => true));
+      setPrioritySelected(priorityFilterList.map((r: any) => true));
+      setServiceAreasSelected(serviceAreasFilterList.map((r: any) => true));
+    }
   }, [jurisdictionFilterList, countiesFilterList, priorityFilterList, serviceAreasFilterList]);
 
   const applyFilters = () => {
@@ -53,10 +60,10 @@ const Filter = () => {
     loadColumns(namespaceId, filter);
   }
   const reset = (value: boolean) => {
-    setJurisdictionSelected(jurisdictionSelected.map(_ => value));
-    setCountiesSelected(countiesSelected.map(_ => value));
-    setPrioritySelected(prioritySelected.map(_ => value));
-    setServiceAreasSelected(serviceAreasSelected.map(_ => value));
+    setJurisdictionSelected(jurisdictionSelected.map((_:any) => value));
+    setCountiesSelected(countiesSelected.map((_:any) => value));
+    setPrioritySelected(prioritySelected.map((_:any) => value));
+    setServiceAreasSelected(serviceAreasSelected.map((_:any) => value));
   }
   let label;
   if (l === 'CODE_STATE_COUNTY') {

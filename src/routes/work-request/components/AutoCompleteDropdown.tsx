@@ -28,6 +28,9 @@ const AutoCompleteDropdown = () => {
     setLocality,
     setLocalityFilter,
     setPrioritySelected,
+    setJurisdictionSelected,
+    setCountiesSelected,
+    setServiceAreasSelected,
     setLocalityType,
     setTabKey,
     setIsOnSelected,
@@ -48,7 +51,10 @@ const AutoCompleteDropdown = () => {
     setLocality(value);
     setIsOnSelected(true);
     setLocalityFilter(value);
-    setPrioritySelected(['1', '2', '3', 'Over 3', 'Work Plan']);
+    setPrioritySelected([]);
+    setJurisdictionSelected([]);
+    setCountiesSelected([]);
+    setServiceAreasSelected([]);
     let l = localities.find((p: any) => {
       return p.name === value;
     })
