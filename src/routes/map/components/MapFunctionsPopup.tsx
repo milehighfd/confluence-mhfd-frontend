@@ -106,6 +106,27 @@ export const measureFunction = (
     map.getSource('geojsonMeasure').setData(geojsonMeasures);
   }
 };
+/*
+  addPopupAndListeners(
+    MAPTYPES.CREATEPROJECTMAP,  maptype: any,
+    menuOptions,  menuOptions: any,
+    popups,  popups: any,
+    user,  userInformation: any,
+    test,  getDetailPage: any,
+    popup,  popup: any,
+    map.map,  map: any,
+    showPopup,  showPopup: any,
+    seeDetails,  seeDetails: any,
+    () => {},  createProject: any,
+    () => {},  measureCenterAndDelete: any,
+    e,
+    ids,
+    addRemoveComponent,
+    () => {},  openEdit?: any,
+    false,  isEditPopup?: any,
+    getComponentsFromProjProb,  getComponentsFromProjProb?: any,
+  );
+*/
 export const addPopupAndListeners = (
   maptype: any,
   menuOptions: any,
@@ -156,7 +177,6 @@ export const addPopupServiceCountyMunicipality = (
   menuOptions: any,
   popups: any,
   userInformation: any,
-  titleObject: any,
   searchPopup: any,
   map: any,
   showPopup: any,
@@ -210,7 +230,6 @@ export const addPopupsOnClick = async (
   coordX: any,
   coordY: any,
   e: any,
-  galleryProjects: any,
   mobile: any,
   menuOptions: any,
   popups: any,
@@ -308,19 +327,19 @@ export const addPopupsOnClick = async (
           // TODO component_count
           component_count: parseInt(
             dataFromDB?.GRADE_CONTROL_STRUCTURE +
-              dataFromDB?.PIPE_APPURTENANCES +
-              dataFromDB?.SPECIAL_ITEM_POINT +
-              dataFromDB?.SPECIAL_ITEM_LINEAR +
-              dataFromDB?.SPECIAL_ITEM_AREA +
-              dataFromDB?.CHANNEL_IMPROVEMENTS_LINEAR +
-              dataFromDB?.CHANNEL_IMPROVEMENTS_AREA +
-              dataFromDB?.REMOVAL_LINE +
-              dataFromDB?.REMOVAL_AREA +
-              dataFromDB?.STORM_DRAIN +
-              dataFromDB?.DETENTION_FACILITIES +
-              dataFromDB?.MAINTENANCE_TRAILS +
-              dataFromDB?.LAND_ACQUISITION +
-              dataFromDB?.LANDSCAPING_AREA,
+            dataFromDB?.PIPE_APPURTENANCES +
+            dataFromDB?.SPECIAL_ITEM_POINT +
+            dataFromDB?.SPECIAL_ITEM_LINEAR +
+            dataFromDB?.SPECIAL_ITEM_AREA +
+            dataFromDB?.CHANNEL_IMPROVEMENTS_LINEAR +
+            dataFromDB?.CHANNEL_IMPROVEMENTS_AREA +
+            dataFromDB?.REMOVAL_LINE +
+            dataFromDB?.REMOVAL_AREA +
+            dataFromDB?.STORM_DRAIN +
+            dataFromDB?.DETENTION_FACILITIES +
+            dataFromDB?.MAINTENANCE_TRAILS +
+            dataFromDB?.LAND_ACQUISITION +
+            dataFromDB?.LANDSCAPING_AREA,
           ),
           valueid: feature.properties.cartodb_id,
           project_id: dataFromDB.project_id,
@@ -345,19 +364,19 @@ export const addPopupsOnClick = async (
           // TODO component_count
           component_count: parseInt(
             dataFromDB?.GRADE_CONTROL_STRUCTURE +
-              dataFromDB?.PIPE_APPURTENANCES +
-              dataFromDB?.SPECIAL_ITEM_POINT +
-              dataFromDB?.SPECIAL_ITEM_LINEAR +
-              dataFromDB?.SPECIAL_ITEM_AREA +
-              dataFromDB?.CHANNEL_IMPROVEMENTS_LINEAR +
-              dataFromDB?.CHANNEL_IMPROVEMENTS_AREA +
-              dataFromDB?.REMOVAL_LINE +
-              dataFromDB?.REMOVAL_AREA +
-              dataFromDB?.STORM_DRAIN +
-              dataFromDB?.DETENTION_FACILITIES +
-              dataFromDB?.MAINTENANCE_TRAILS +
-              dataFromDB?.LAND_ACQUISITION +
-              dataFromDB?.LANDSCAPING_AREA,
+            dataFromDB?.PIPE_APPURTENANCES +
+            dataFromDB?.SPECIAL_ITEM_POINT +
+            dataFromDB?.SPECIAL_ITEM_LINEAR +
+            dataFromDB?.SPECIAL_ITEM_AREA +
+            dataFromDB?.CHANNEL_IMPROVEMENTS_LINEAR +
+            dataFromDB?.CHANNEL_IMPROVEMENTS_AREA +
+            dataFromDB?.REMOVAL_LINE +
+            dataFromDB?.REMOVAL_AREA +
+            dataFromDB?.STORM_DRAIN +
+            dataFromDB?.DETENTION_FACILITIES +
+            dataFromDB?.MAINTENANCE_TRAILS +
+            dataFromDB?.LAND_ACQUISITION +
+            dataFromDB?.LANDSCAPING_AREA,
           ),
           valueid: feature.properties.cartodb_id,
           project_id: dataFromDB.project_id,
@@ -394,8 +413,8 @@ export const addPopupsOnClick = async (
         value: feature.properties.estimated_cost
           ? feature.properties.estimated_cost
           : feature.properties.component_cost
-          ? feature.properties.component_cost
-          : '-1',
+            ? feature.properties.component_cost
+            : '-1',
         status: feature.properties.component_status ? feature.properties.component_status + '%' : '-',
         priority: feature.properties.problem_severity ? feature.properties.problem_severity + ' Priority' : '-',
         problemid: feature.properties.problem_id,
@@ -968,8 +987,8 @@ export const addPopupsOnClick = async (
         const problemid = feature.properties.problemid
           ? feature.properties.problemid
           : feature.properties.problem_id
-          ? feature.properties.problem_id
-          : '';
+            ? feature.properties.problem_id
+            : '';
         let problemname = '';
         if (problemid) {
           if (feature.source === STREAM_IMPROVEMENT_MEASURE) {

@@ -211,7 +211,7 @@ const RequestView = ({ type, isFirstRendering }: {
       } catch (e) {
         console.log('e', e)
       }
-      
+
       setBoard(board);
       loadColumns(board.board_id);
       if (type === "WORK_PLAN") {
@@ -251,12 +251,12 @@ const RequestView = ({ type, isFirstRendering }: {
     setDiff(diffTmp);
   }, [reqManager, sumTotal]);
 
-  const openEdit = (project: any, event: any) => {
+  const openEdit = (project: any) => {
     datasets.getData(
       SERVER.V2_DETAILED_PAGE(project.project_id),
       datasets.getToken()
     ).then((value: any) => {
-      setCompleteProjectData({...value, tabKey});
+      setCompleteProjectData({ ...value, tabKey });
       setTimeout(() => {
         setShowModalProject(true);
       }, 200);
@@ -295,7 +295,7 @@ const RequestView = ({ type, isFirstRendering }: {
       {
         <Row>
           <Col xs={{ span: 24 }}
-           className={"height-mobile"}
+            className={"height-mobile"}
             lg={{ span: leftWidth }}
             style={{ transition: 'all 0.7s ease' }}>
             <WorkRequestMap
@@ -304,7 +304,6 @@ const RequestView = ({ type, isFirstRendering }: {
               change={changes}
               locality={{ locality: locality, isOnSelected: isOnSelected }}
               setProblemId={setProblemId}
-              openModal={setShowCreateProject}
               openEdit={openEdit}
               currentTab={tabKey}
             />

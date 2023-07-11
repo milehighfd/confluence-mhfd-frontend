@@ -67,7 +67,6 @@ import store from 'store';
 import { Button, Popover } from 'antd';
 import { tileStyles_WR as tileStyles, COMPONENT_LAYERS_STYLE, NEARMAP_STYLE, USE_LAND_TILES_STYLE } from 'constants/mapStyles';
 import { useMapState, useMapDispatch } from 'hook/mapHook';
-import { useDetailedState } from 'hook/detailedHook';
 import { useProjectState, useProjectDispatch } from 'hook/projectHook';
 import { useProfileState, useProfileDispatch } from 'hook/profileHook';
 import { GlobalMapHook } from 'utils/globalMapHook';
@@ -119,7 +118,6 @@ const WorkRequestMap = ({
   change,
   locality,
   setProblemId,
-  openModal,
   openEdit,
   currentTab,
 }: {
@@ -128,7 +126,6 @@ const WorkRequestMap = ({
   change: any;
   locality: any;
   setProblemId: any;
-  openModal: any;
   openEdit: any;
   currentTab: any;
 }) => {
@@ -150,7 +147,6 @@ const WorkRequestMap = ({
     filterProblems,
     componentDetailIds,
     filterComponents,
-    galleryProjects,
     projectsids,
     autocomplete,
   } = useMapState();
@@ -346,7 +342,7 @@ const WorkRequestMap = ({
             }
           }
         },
-        (e: any) => {},
+        (e: any) => { },
       );
     }
   }, [zoomProject]);
@@ -409,7 +405,7 @@ const WorkRequestMap = ({
     const promises: Promise<any>[] = [];
     SELECT_ALL_FILTERS.forEach(layer => {
       if (typeof layer === 'object') {
-        if (layer.name !== USE_LAND_COVER_LABEL){
+        if (layer.name !== USE_LAND_COVER_LABEL) {
           layer.tiles.forEach((subKey: string) => {
             promises.push(loadData(subKey, layer.name));
           });
@@ -814,7 +810,7 @@ const WorkRequestMap = ({
               }
             });
           }
-        } 
+        }
       } else {
         if (layer !== 'border' && layer !== 'area_based_mask') {
           addLayersSource(layer, layerFilters[layer]);
@@ -1691,7 +1687,6 @@ const WorkRequestMap = ({
           coordX,
           coordY,
           e,
-          galleryProjects,
           mobile,
           menuOptions,
           popups,
@@ -1839,7 +1834,7 @@ const WorkRequestMap = ({
                   </div>
                 }
               >
-                <InfoCircleOutlined className='info-circle-outlined'/>
+                <InfoCircleOutlined className='info-circle-outlined' />
               </Popover>{' '}
             </h5>
             <div className="legendprob">

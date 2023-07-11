@@ -20,45 +20,19 @@ import {
   PROJECTS_TRIGGER,
   COMPONENT_LAYERS,
   STREAMS_FILTERS,
-  SELECT_ALL_FILTERS,
   FILTER_PROBLEMS_TRIGGER,
   FILTER_PROJECTS_TRIGGER,
   MHFD_PROJECTS,
   NEARMAP_TOKEN,
-  EFFECTIVE_REACHES,
   MENU_OPTIONS,
-  SERVICE_AREA_FILTERS,
   STREAMS_POINT,
   PROPSPROBLEMTABLES,
   MAPTYPES,
   initFilterProblems,
-  USE_LAND_COVER_LABEL,
-  USE_LAND_COVER_MAP,
-  FEMA_FLOOD_HAZARD,
-  USE_LAND_COVER,
-  COUNTIES_FILTERS,
-  MUNICIPALITIES_FILTERS,
-  SEMSWA_SERVICE_AREA,
-  WATERSHED_FILTERS,
-  NRCS_SOILS,
-  FLOODPLAINS_NON_FEMA_FILTERS,
-  ACTIVE_LOMS,
-  STREAM_MANAGEMENT_CORRIDORS,
-  ROUTINE_MAINTENANCE,
-  MEP_PROJECTS,
-  FLOOD_HAZARDS,
-  DWR_DAM_SAFETY,
-  RESEARCH_MONITORING,
-  CLIMB_TO_SAFETY,
 } from 'constants/constants';
 import {
-  COMPONENT_LAYERS_STYLE,
-  ROUTINE_MAINTENANCE_STYLES,
-  MEP_PROJECTS_STYLES,
   tileStyles,
-  widthLayersStream,
   NEARMAP_STYLE,
-  USE_LAND_TILES_STYLE,
 } from 'constants/mapStyles';
 import { addMapGeocoder, getMapBoundingBoxTrimmed } from 'utils/mapUtils';
 import { Input, AutoComplete } from 'antd';
@@ -73,7 +47,6 @@ import { useProfileState } from 'hook/profileHook';
 import { addGeojsonSource, removeGeojsonCluster } from 'routes/map/components/MapFunctionsCluster';
 import {
   flytoBoundsCoor,
-  getTitle,
   polyMask,
   depth,
   waitingInterval,
@@ -178,7 +151,6 @@ const Map = ({ leftWidth }: MapProps) => {
     autocomplete,
     currentPopup,
     layers: layerFilters,
-    galleryProjectsV2,
     selectedLayers,
     filterProblemOptions,
     filterProjectOptions,
@@ -715,15 +687,15 @@ const Map = ({ leftWidth }: MapProps) => {
 
     const styles = { ...tileStyles as any };
     styles[key].forEach((style: LayerStylesType, index: number) => {
-        if (map.getLayer(key + '_' + index)) {
-            map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
-            if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
-                mapService.showSelectedComponents(filterComponents.component_type.split(','));
-            }
-            if (key === PROBLEMS_TRIGGER) {
-              isProblemActive = true;
-            }
+      if (map.getLayer(key + '_' + index)) {
+        map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
+        if (COMPONENT_LAYERS.tiles.includes(key) && filterComponents) {
+          mapService.showSelectedComponents(filterComponents.component_type.split(','));
         }
+        if (key === PROBLEMS_TRIGGER) {
+          isProblemActive = true;
+        }
+      }
     });
     if (key === STREAMS_FILTERS) {
       styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
@@ -738,7 +710,7 @@ const Map = ({ leftWidth }: MapProps) => {
     const [intervalId, promise] = waitingInterval(map);
     promise.then(() => {
       applySkyMapLayer();
-      mapService.applyMapLayers(layerFilters,selectedLayers, showLayers, applyFilters, getProjectsFilteredIds, filterProblems, filterProjectOptions, addMapListeners);
+      mapService.applyMapLayers(layerFilters, selectedLayers, showLayers, applyFilters, getProjectsFilteredIds, filterProblems, filterProjectOptions, addMapListeners);
       if (areObjectsDifferent(initFilterProblems, filterProblems)) {
         applyProblemClusterLayer();
       }
@@ -835,7 +807,6 @@ const Map = ({ leftWidth }: MapProps) => {
     popup.remove();
   };
 
-
   const applySkyMapLayer = () => {
     if (!map.getLayer('sky')) {
       map.addLayer({
@@ -861,8 +832,6 @@ const Map = ({ leftWidth }: MapProps) => {
       map.addLayer(NEARMAP_STYLE, 'aerialway');
     }
   };
-
-
 
   const applyProblemClusterLayer = () => {
     const controller = new AbortController();
@@ -1176,6 +1145,7 @@ const Map = ({ leftWidth }: MapProps) => {
       }
     }
   };
+
   const hideOneHighlighted = (key: string) => {
     const styles = { ...(tileStyles as any) };
     styles[key].forEach((style: LayerStylesType, index: number) => {
@@ -1194,6 +1164,7 @@ const Map = ({ leftWidth }: MapProps) => {
       }
     });
   };
+
   const hideHighlighted = () => {
     const styles = { ...(tileStyles as any) };
     for (const key in styles) {
@@ -1446,15 +1417,14 @@ const Map = ({ leftWidth }: MapProps) => {
           coordX,
           coordY,
           e,
-          galleryProjectsV2,
           mobile,
           menuOptions,
           popups,
           mobileIds,
           ids,
           userInformation,
-          () => {},
-          () => {},
+          () => { },
+          () => { },
           [],
           MAPTYPES.MAINMAP,
         );
@@ -1653,14 +1623,13 @@ const Map = ({ leftWidth }: MapProps) => {
     console.log('onSelect:::', value);
     const keyword = value.split('?');
     const coord = keyword[0].split(',');
-    const titleObject = getTitle(keyword[1]);
     map.flyTo({ center: coord, zoom: 14.5 });
     const placeName = keyword[1];
     setKeyword(placeName);
     searchMarker.remove();
     searchMarker = new mapboxgl.Marker({ color: '#F4C754', scale: 0.7 });
     searchMarker.setLngLat(coord);
-    map.on('flyend', function() {
+    map.on('flyend', function () {
       console.log('flying = false;');
     });
     map.once('moveend', (e: any) => {
@@ -1738,7 +1707,6 @@ const Map = ({ leftWidth }: MapProps) => {
           menuOptions,
           popups,
           userInformation,
-          titleObject,
           searchPopup,
           map,
           showPopup,

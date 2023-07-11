@@ -86,7 +86,6 @@ const ListView = () => {
                   openEdit={openEdit}
                   currentTab={tabKey}
                   change={changes}
-                  openModal={setShowCreateProject}
                   setProblemId={setProblemId}
                   leftWidth={leftWidth}
                 />

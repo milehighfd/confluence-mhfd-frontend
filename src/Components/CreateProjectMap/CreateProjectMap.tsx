@@ -21,8 +21,6 @@ import {
   ROUTINE_WEED_CONTROL,
   ROUTINE_DEBRIS_AREA,
   ROUTINE_DEBRIS_LINEAR,
-  FILTER_PROBLEMS_TRIGGER,
-  FILTER_PROJECTS_TRIGGER,
   MHFD_PROJECTS,
   PROJECTS_POLYGONS,
   MEP_PROJECTS_TEMP_LOCATIONS,
@@ -99,8 +97,6 @@ const CreateProjectMap = (type: any) => {
     filterProblems,
     componentDetailIds,
     filterComponents,
-    galleryProjects,
-    detailed,
     projectsids,
   } = useMapState();
 
@@ -208,14 +204,7 @@ const CreateProjectMap = (type: any) => {
   const [dragEndCounter, setDragEndCounter] = useState(0);
   const [flagtoDraw, setFlagtoDraw] = useState(false);
   const [groupedProjectIdsType, setGroupedProjectIdsType] = useState<any>([]);
-  const [data, setData] = useState({
-    problemid: '',
-    id: '',
-    objectid: '',
-    value: '',
-    type: '',
-    cartoid: '',
-  });
+
   useEffect(() => {
     magicAddingVariable = isAddLocation;
   }, [isAddLocation]);
@@ -415,10 +404,6 @@ const CreateProjectMap = (type: any) => {
         poly = turf.multiPolygon(zoomareaSelected[0].coordinates?.coordinates, { name: 'zoomarea' });
       } else {
         poly = turf.polygon(zoomareaSelected[0].coordinates?.coordinates, { name: 'zoomarea' });
-      }
-      let bboxBounds = turf.bbox(poly);
-      if (map.map && zoomGeom !== undefined) {
-        // map.map.fitBounds(bboxBounds, { padding: 10, maxZoom: 13 });
       }
     }
   };
@@ -1345,8 +1330,7 @@ const CreateProjectMap = (type: any) => {
       });
     }
   };
-  const test = (item: any) => {
-    setData(item);
+  const existDetailedPage = (item: any) => {
     if (item.problemid) {
       existDetailedPageProblem(item.problemid);
     } else {
@@ -1456,76 +1440,56 @@ const CreateProjectMap = (type: any) => {
     }
     return;
   };
-  const seeDetails = (details: any, event: any) => {
-    if (details.problemid) {
-      setData({
-        id: '',
-        objectid: '',
-        cartoid: '',
-        type: '',
-        value: '',
-        problemid: details.problemid,
-      });
-    } else {
-      setData({
-        id: details.id !== '-' ? details.id : undefined,
-        objectid: details.objectid,
-        cartoid: details.valueid,
-        type: details.type,
-        value: details.valueid,
-        problemid: '',
-      });
-    }
-  };
+
   const AddMarkerEdit = (e: any) => {
-      popup.remove();
-      marker.setLngLat([e.lng, e.lat]).addTo(map.map);
-      let sendLine = {
-        geom: {
-          type: 'MultiLineString',
-          coordinates: [
-            [
-              [e.lng - 0.00003, e.lat],
-              [e.lng + 0.00003, e.lat],
-            ],
+    popup.remove();
+    marker.setLngLat([e.lng, e.lat]).addTo(map.map);
+    let sendLine = {
+      geom: {
+        type: 'MultiLineString',
+        coordinates: [
+          [
+            [e.lng - 0.00003, e.lat],
+            [e.lng + 0.00003, e.lat],
           ],
-        },
-      };
-      if (type.type === 'SPECIAL') {
-        saveSpecialLocation(sendLine);
-      } else if (type.type === 'ACQUISITION') {
-        saveAcquisitionLocation(sendLine);
-      }
-      isPopup = true;
+        ],
+      },
+    };
+    if (type.type === 'SPECIAL') {
+      saveSpecialLocation(sendLine);
+    } else if (type.type === 'ACQUISITION') {
+      saveAcquisitionLocation(sendLine);
+    }
+    isPopup = true;
   };
   const addMarker = (e: any) => {
     removeProjectLayer();
     e.originalEvent.stopPropagation();
-      map.removePopUpOffset();
-      popup.remove();
-      marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
-      let sendLine = {
-        geom: {
-          type: 'MultiLineString',
-          coordinates: [
-            [
-              [e.lngLat.lng - 0.00003, e.lngLat.lat],
-              [e.lngLat.lng + 0.00003, e.lngLat.lat],
-            ],
+    map.removePopUpOffset();
+    popup.remove();
+    marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
+    let sendLine = {
+      geom: {
+        type: 'MultiLineString',
+        coordinates: [
+          [
+            [e.lngLat.lng - 0.00003, e.lngLat.lat],
+            [e.lngLat.lng + 0.00003, e.lngLat.lat],
           ],
-        },
-      };
-      if (type.type === 'SPECIAL') {
-        saveSpecialLocation(sendLine);
-      } else if (type.type === 'ACQUISITION') {
-        saveAcquisitionLocation(sendLine);
-      }
-      getServiceAreaPoint(sendLine);
-      let eventToMove = EventService.getRef('move');
-      map.map.off('mousemove', eventToMove);
-      let eventToAddMarker = EventService.getRef('addmarker');
-      map.map.off('click', eventToAddMarker);
-      isPopup = true;
+        ],
+      },
+    };
+    if (type.type === 'SPECIAL') {
+      saveSpecialLocation(sendLine);
+    } else if (type.type === 'ACQUISITION') {
+      saveAcquisitionLocation(sendLine);
+    }
+    getServiceAreaPoint(sendLine);
+    let eventToMove = EventService.getRef('move');
+    map.map.off('mousemove', eventToMove);
+    let eventToAddMarker = EventService.getRef('addmarker');
+    map.map.off('click', eventToAddMarker);
+    isPopup = true;
   };
   const eventMove = (e: any) => {
     marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map.map);
@@ -1566,7 +1530,6 @@ const CreateProjectMap = (type: any) => {
       coordX,
       coordY,
       e,
-      galleryProjects,
       mobile,
       menuOptions,
       popups,
@@ -1588,17 +1551,17 @@ const CreateProjectMap = (type: any) => {
         menuOptions,
         popups,
         user,
-        test,
+        existDetailedPage,
         popup,
         map.map,
         showPopup,
-        seeDetails,
-        () => {},
-        () => {},
+        () => { },
+        () => { },
+        () => { },
         e,
         ids,
         addRemoveComponent,
-        () => {},
+        () => { },
         false,
         getComponentsFromProjProb,
       );
