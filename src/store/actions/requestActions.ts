@@ -517,7 +517,7 @@ export const handleMoveFromColumnToColumn = (payload: DragAndDropCards) => {
 
 export const recalculateTotals = () => {
   return (dispatch: any, getState: Function) => {
-    const { request: { columns2 } } = getState();
+    const { request: { columns2, tabKey } } = getState();
     const sums: any[] = [];
     const totals: any[] = [];
     const allProjects: any = [];
@@ -530,10 +530,12 @@ export const recalculateTotals = () => {
     dispatch(groupProjects(allProjects));
     const sumByGroupMapTotal = mergeSumByGroupMaps(sums);
     const totalByGroupMap = mergeTotalByGroupMaps(totals);
+    const mainKey = window.location.pathname.includes('work-plan') ? (tabKey === 'Study' ? 'project_service_areas' : 'project_counties') : 'project_local_governments' ;
+    console.log('window.location.pathname', window.location.pathname);
     dispatch({
       type: types.REQUEST_SET_SUM_BY_COUNTY,
-      payload: Object.keys(sumByGroupMapTotal['project_local_governments'] || {}).map(
-        (key: any) => sumByGroupMapTotal['project_local_governments'][key]
+      payload: Object.keys(sumByGroupMapTotal[mainKey] || {}).map(
+        (key: any) => sumByGroupMapTotal[mainKey][key]
       )
     });
     dispatch({
