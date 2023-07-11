@@ -126,6 +126,16 @@ export const setJurisdictionSelected = (payload: any) => ({
   payload
 });
 
+export const setCountiesSelected = (payload: any) => ({
+  type: types.REQUEST_SET_COUNTIES_SELECTED,
+  payload
+});
+
+export const setServiceAreasSelected = (payload: any) => ({
+  type: types.REQUEST_SET_SERVICEAREAS_SELECTED,
+  payload
+});
+
 export const setCsaSelected = (payload: any) => ({
   type: types.REQUEST_SET_CSA_SELECTED,
   payload

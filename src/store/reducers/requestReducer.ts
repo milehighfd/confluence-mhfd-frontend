@@ -26,8 +26,12 @@ const initialState = {
   showFilters: false,
   jurisdictionFilterList: [],
   csaFilterList: [],
-  prioritySelected: ['1', '2', '3', 'Over 3', 'Work Plan'],
+  // prioritySelected: ['1', '2', '3', 'Over 3', 'Work Plan'],
+  // jurisdictionSelected: [],
   jurisdictionSelected: [],
+  countiesSelected: [],
+  serviceAreasSelected: [],
+  prioritySelected: [],
   csaSelected: [],
   localityType: '',
   visibleCreateProject: false,
@@ -167,6 +171,16 @@ const requestReducer = (state = initialState, action: any) => {
       return {
         ...state,
         jurisdictionSelected: action.payload
+      };
+    case types.REQUEST_SET_COUNTIES_SELECTED:
+      return {
+        ...state,
+        countiesSelected: action.payload
+      };
+    case types.REQUEST_SET_SERVICEAREAS_SELECTED:
+      return {
+        ...state,
+        serviceAreasSelected: action.payload
       };
     case types.REQUEST_SET_CSA_SELECTED:
       return {

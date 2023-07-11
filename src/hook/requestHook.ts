@@ -25,6 +25,8 @@ import {
   setCsaFilterList,
   setPrioritySelected,
   setJurisdictionSelected,
+  setCountiesSelected,
+  setServiceAreasSelected,
   setCsaSelected,
   setLocalityType,
   setVisibleCreateProject,
@@ -124,6 +126,12 @@ export const useRequestDispatch = () => {
   const _setJurisdictionSelected = useCallback((jurisdictionSelected: any) => {
     dispatch(setJurisdictionSelected(jurisdictionSelected));
   }, [dispatch]);
+  const _setCountiesSelected = useCallback((countiesSelected: any) => {
+    dispatch(setCountiesSelected(countiesSelected));
+  }, [dispatch]);
+  const _setServiceAreasSelected = useCallback((serviceAreasSelected: any) => {
+    dispatch(setServiceAreasSelected(serviceAreasSelected));
+  }, [dispatch]);
   const _setCsaSelected = useCallback((csaSelected: any) => {
     dispatch(setCsaSelected(csaSelected));
   }, [dispatch]);
@@ -207,6 +215,8 @@ export const useRequestDispatch = () => {
     setCsaFilterList: _setCsaFilterList,
     setPrioritySelected: _setPrioritySelected,
     setJurisdictionSelected: _setJurisdictionSelected,
+    setCountiesSelected: _setCountiesSelected,
+    setServiceAreasSelected: _setServiceAreasSelected,
     setCsaSelected: _setCsaSelected,
     setLocalityType: _setLocalityType,
     setVisibleCreateProject: _setVisibleCreateProject,
