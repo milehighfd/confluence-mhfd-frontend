@@ -87,6 +87,122 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const { userInformation } = useProfileState();
 
   useEffect(() => {
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }
+    }
+  }, [userInformation]);
+
+  useEffect(() => {
+    setIsEdit(false);
+    if (data !== 'no data') {
+      setIsEdit(true);
+      setSwSave(true);
+      setDescription(data.description);
+      setCounty(parseCountiesToArray(data.project_counties));
+      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
+      setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
+      setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
+      setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
+      setNameProject(data.project_name);
+      setProjectId(data.project_id);
+      setEditsetprojectid(data.project_id);
+      setStudyReason(data?.project_details[0]?.code_study_reason_id);
+      setOtherReason(data?.project_details[0]?.comment);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (save === true) {
+      let serviceAreaIds:any=[];
+      let countyIds:any=[];
+      let jurisdictionIds:any=[];
+      const jurisdictionList:any = [];
+      const countyList:any = [];
+      const serviceAreaList:any = [];
+      groupOrganization.forEach((item:any) => {
+        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
+          jurisdictionList.push(item);
+        } else if (item.table === 'CODE_STATE_COUNTY') {
+          item.name = item.name.replace(' County', '');
+          countyList.push(item);
+        } else if (item.table === 'CODE_SERVICE_AREA') {
+          item.name = item.name.replace(' Service Area', '');
+          serviceAreaList.push(item);
+        }
+      });  
+      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
+      let countyA = county.map((element:any) => element.replace(' County', ''));        
+      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
+      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
+      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);       
+      let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      let study = new Project();
+      study.locality = _locality;
+      study.isWorkPlan = isWorkPlan;
+      study.year = _year ?? study.year;
+      study.projectname = nameProject;
+      study.description = description;
+      let csponsor = "";
+      if (cosponsor) {
+        cosponsor.forEach((element: any) => {
+          csponsor = csponsor + element + ",";
+        });
+        if (cosponsor.length !== 0) {
+          csponsor = csponsor.substring(0, csponsor.length - 1)
+        }
+      }
+      study.servicearea = serviceAreaIds;
+      study.county = countyIds;
+      study.jurisdiction = jurisdictionIds;
+      study.sponsor = sponsor;
+      study.cosponsor = csponsor;
+      study.ids = mhfd_codes;
+      study.files = files;
+      study.geom = mhfd_codes;
+      study.locality = locality ? locality : '';
+      study.editProject = editprojectid;
+      study.cover = '';
+      study.studyreason = studyreason ?? 1;
+      study.sendToWR = sendToWR;
+      study.otherReason = otherReason;
+      study.type = 'study';
+      let newStreamsArray: any = [];
+      for (let str in listStreams) {
+        newStreamsArray = [...newStreamsArray, ...listStreams[str]];
+      }
+      study.streams = newStreamsArray;
+      removeAttachment(deleteAttachmentsIds);
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
+      if (swSave) {
+        editProjectStudy(study);
+      } else {
+        saveProjectStudy(study);
+      }
+      setVisibleStudy(false);
+      setVisible(false);
+    }
+  }, [save]);
+
+  useEffect(() => {
+    if (description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
+      setDisable(false);
+    }
+    else {
+      setDisable(true);
+    }
+  }, [ids, description, county, serviceArea, sponsor, jurisdiction, streamsIntersectedIds, listStreams]);
+
+  useEffect(() => {
     setServiceAreaCounty({});
     setStreamsList([]);
     setJurisdictionSponsor(undefined);
@@ -98,6 +214,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
       setStreamsIds([]);
     }
   }, []);
+
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -205,108 +322,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     if(type === 'cosponsor'){
       return cosponsors;
     }
-  }
-
-  useEffect(() => {
-    setIsEdit(false);
-    if (data !== 'no data') {
-      setIsEdit(true);
-      setSwSave(true);
-      setDescription(data.description);
-      setCounty(parseCountiesToArray(data.project_counties));
-      setServiceArea(parseServiceAreaToArray(data.project_service_areas));
-      setjurisdiction(parseJurisdictionToArray(data.project_local_governments));
-      setCosponsor(parseSponsorCosponsorToArray(data.project_partners, 'cosponsor'));
-      setSponsor(parseSponsorCosponsorToArray(data.project_partners, 'sponsor'));
-      setNameProject(data.project_name);
-      setProjectId(data.project_id);
-      setEditsetprojectid(data.project_id);
-      setStudyReason(data?.project_details[0]?.code_study_reason_id);
-      setOtherReason(data?.project_details[0]?.comment);
-    }
-  }, [data]);
-  useEffect(() => {
-    if (save === true) {
-      let serviceAreaIds:any=[];
-      let countyIds:any=[];
-      let jurisdictionIds:any=[];
-      const jurisdictionList:any = [];
-      const countyList:any = [];
-      const serviceAreaList:any = [];
-      groupOrganization.forEach((item:any) => {
-        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
-          jurisdictionList.push(item);
-        } else if (item.table === 'CODE_STATE_COUNTY') {
-          item.name = item.name.replace(' County', '');
-          countyList.push(item);
-        } else if (item.table === 'CODE_SERVICE_AREA') {
-          item.name = item.name.replace(' Service Area', '');
-          serviceAreaList.push(item);
-        }
-      });
-  
-      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
-      let countyA = county.map((element:any) => element.replace(' County', ''));
-        
-      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
-      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
-      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
-       
-      let mhfd_codes = streamsIntersectedIds.map((str: any) => str.mhfd_code);
-      const params = new URLSearchParams(history.location.search)
-      const _year = params.get('year');
-      const _locality = params.get('locality');
-
-      let study = new Project();
-      study.locality = _locality;
-      study.isWorkPlan = isWorkPlan;
-      study.year = _year ?? study.year;
-      study.projectname = nameProject;
-      study.description = description;
-      let csponsor = "";
-      if (cosponsor) {
-        cosponsor.forEach((element: any) => {
-          csponsor = csponsor + element + ",";
-        });
-        if (cosponsor.length !== 0) {
-          csponsor = csponsor.substring(0, csponsor.length - 1)
-        }
-      }
-      study.servicearea = serviceAreaIds;
-      study.county = countyIds;
-      study.jurisdiction = jurisdictionIds;
-      study.sponsor = sponsor;
-      study.cosponsor = csponsor;
-      study.ids = mhfd_codes;
-      study.files = files;
-      study.geom = mhfd_codes;
-      study.locality = locality ? locality : '';
-      study.editProject = editprojectid;
-      study.cover = '';
-      study.studyreason = studyreason ?? 1;
-      study.sendToWR = sendToWR;
-      study.otherReason = otherReason;
-      study.type = 'study';
-      let newStreamsArray: any = [];
-      for (let str in listStreams) {
-        newStreamsArray = [...newStreamsArray, ...listStreams[str]];
-      }
-      study.streams = newStreamsArray;
-      removeAttachment(deleteAttachmentsIds);
-      files.forEach((file:any) => {
-        if(file._id) {
-          toggleAttachmentCover(0, file._id, file.isCover);
-        }
-      });
-      if (swSave) {
-        editProjectStudy(study);
-      } else {
-        saveProjectStudy(study);
-      }
-      setVisibleStudy(false);
-      setVisible(false);
-    }
-  }, [save]);
+  } 
 
   const projectReturn = useSelector((state: any) => ({
     state
@@ -315,15 +331,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   useEffect(() => {
     setIds(projectReturn.state.project.streamsIntersectedIds);
   }, [projectReturn.state.project]);
-
-  useEffect(() => {
-    if (description !== '' && county.length !== 0 && serviceArea.length !== 0 && jurisdiction.length !== 0) {
-      setDisable(false);
-    }
-    else {
-      setDisable(true);
-    }
-  }, [ids, description, county, serviceArea, sponsor, jurisdiction, streamsIntersectedIds, listStreams]);
 
   const onChange = (e: any) => {
     setNameProject(e.target.value);
@@ -410,14 +417,7 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     }
 
   }
-  useEffect(() => {
-    const CODE_LOCAL_GOVERNMENT = 3;
-    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
-      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
-        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
-      }
-    }
-  }, [userInformation]);
+  
   useEffect(() => {
     changeDrawState(isDrawState);
   }, [isDrawState]);

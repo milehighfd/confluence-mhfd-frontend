@@ -81,12 +81,156 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const isWorkPlan = location.pathname.includes('work-plan');
   const { userInformation } = useProfileState();
 
+  useEffect(() => {
+    const CODE_LOCAL_GOVERNMENT = 3;
+    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
+      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
+        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
+      }
+    }
+  }, [userInformation]);
+
+  useEffect(() => {
+    setIsEdit(false);
+    if (data !== 'no data') {
+      setIsEdit(true);
+      setSwSave(true);
+      setDescription(data?.description);
+      setNameProject(data?.project_name);
+      setCounty(parseCountiesToArray(data?.project_counties));
+      setServiceArea(parseServiceAreaToArray(data?.project_service_areas));
+      setjurisdiction(parseJurisdictionToArray(data?.project_local_governments));
+      setCosponsor(parseSponsorCosponsorToArray(data?.project_partners, 'cosponsor'));
+      setSponsor(parseSponsorCosponsorToArray(data?.project_partners, 'sponsor'));
+      setProjectId(data?.project_id);
+      setEditsetprojectid(data?.project_id);
+      if (data?.code_maintenance_eligibility_type_id === null) {
+        setEligibility('');
+      } else {
+        setEligibility(data?.code_maintenance_eligibility_type_id);
+      }
+      if (data?.project_details[0]?.maintenance_frequency === null) {
+        setFrequency('');
+      } else {
+        console.log(data?.project_details[0]?.maintenance_frequency, 'frequency')
+        if (data?.project_details[0]?.maintenance_frequency === 0) {
+          setFrequency('None');
+        }else{
+          setFrequency(data?.project_details[0]?.maintenance_frequency);
+        }        
+      }
+      if (data?.project_details[0]?.is_public_ownership === true) {
+        console.log(data?.project_details[0]?.is_public_ownership === true);
+        setOwnership(true);
+      } else {
+        console.log(data?.project_details[0]?.is_public_ownership === true);
+        setOwnership(false);
+      }
+
+      setTimeout(() => {
+        getGEOMByProjectId(data.project_id);
+      }, 2200);
+
+    } else {
+      setStreamIntersected({ geom: null });
+      setEditLocation(undefined);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (save === true) {      
+      let serviceAreaIds:any=[];
+      let countyIds:any=[];
+      let jurisdictionIds:any=[];
+      const jurisdictionList:any = [];
+      const countyList:any = [];
+      const serviceAreaList:any = [];      
+      groupOrganization.forEach((item:any) => {
+        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
+          jurisdictionList.push(item);
+        } else if (item.table === 'CODE_STATE_COUNTY') {
+          item.name = item.name.replace(' County', '');
+          countyList.push(item);
+        } else if (item.table === 'CODE_SERVICE_AREA') {
+          item.name = item.name.replace(' Service Area', '');
+          serviceAreaList.push(item);
+        }
+      });  
+      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
+      let countyA = county.map((element:any) => element.replace(' County', ''));        
+      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
+      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
+      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);       
+      const params = new URLSearchParams(history.location.search)
+      const _year = params.get('year');
+      const _locality = params.get('locality');
+      var maintenance = new Project();
+      maintenance.locality = _locality;
+      maintenance.isWorkPlan = isWorkPlan;
+      maintenance.year = _year ?? maintenance.year;
+      let csponsor = "";
+      if (cosponsor) {
+        cosponsor.forEach((element: any) => {
+          csponsor = csponsor + element + ",";
+        });
+        if (cosponsor.length != 0) {
+          csponsor = csponsor.substring(0, csponsor.length - 1)
+        }
+      }
+      maintenance.servicearea = serviceAreaIds || '';
+      maintenance.county = countyIds || '';
+      maintenance.jurisdiction = jurisdictionIds || '';
+      maintenance.sponsor = sponsor;
+      maintenance.cosponsor = csponsor;
+      maintenance.projectname = nameProject;
+      maintenance.description = description;
+      if (streamIntersected.geom) {
+        maintenance.geom = streamIntersected.geom;
+      }
+      maintenance.projectsubtype = subType;
+      if (frequency === 'None') {
+        maintenance.frequency = 0;
+      } else {
+        maintenance.frequency = frequency;
+      }
+      maintenance.maintenanceeligibility = eligibility;
+      maintenance.ownership = "" + ownership;
+      maintenance.files = files;
+      maintenance.editProject = editprojectid;
+      maintenance.cover = '';
+      maintenance.sendToWR = sendToWR;
+      maintenance.type = 'maintenance';
+      removeAttachment(deleteAttachmentsIds);
+      files.forEach((file:any) => {
+        if(file._id) {
+          toggleAttachmentCover(0, file._id, file.isCover);
+        }
+      });
+      if (swSave) {
+        editProjectMainetnance(maintenance);
+      } else {
+        saveProjectMaintenance(maintenance);
+      }
+      setVisibleMaintenance(false);
+      setVisible(false);
+    }
+  }, [save]);
+
+  useEffect(() => {
+    if (description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
+      setDisable(false);
+    }
+    else {
+      setDisable(true);
+    }
+  }, [geom, description, county, serviceArea, sponsor, cosponsor, nameProject, jurisdiction, streamIntersected.geom]);
   
   const parseStringToArray = (list: string) => {
     if (list) {
       return list.split(',');
     }
   }
+
   useEffect(() => {
     getTextWidth(nameProject);
   }, [nameProject]);
@@ -110,15 +254,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
       return 0;
     }
   }
-
-  useEffect(() => {
-    const CODE_LOCAL_GOVERNMENT = 3;
-    if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
-      if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
-        setSponsor(userInformation?.business_associate_contact?.business_address?.business_associate?.business_name);
-      }
-    }
-  }, [userInformation]);
 
   function titleCase(str:any) {
     var splitStr = str.toLowerCase().split(' ');
@@ -175,136 +310,7 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     if(type === 'cosponsor'){
       return cosponsors;
     }
-  }
-
-  useEffect(() => {
-    setIsEdit(false);
-    if (data !== 'no data') {
-      setIsEdit(true);
-      setSwSave(true);
-      setDescription(data?.description);
-      setNameProject(data?.project_name);
-      setCounty(parseCountiesToArray(data?.project_counties));
-      setServiceArea(parseServiceAreaToArray(data?.project_service_areas));
-      setjurisdiction(parseJurisdictionToArray(data?.project_local_governments));
-      setCosponsor(parseSponsorCosponsorToArray(data?.project_partners, 'cosponsor'));
-      setSponsor(parseSponsorCosponsorToArray(data?.project_partners, 'sponsor'));
-      setProjectId(data?.project_id);
-      setEditsetprojectid(data?.project_id);
-      if (data?.code_maintenance_eligibility_type_id === null) {
-        setEligibility('');
-      } else {
-        setEligibility(data?.code_maintenance_eligibility_type_id);
-      }
-      if (data?.project_details[0]?.maintenance_frequency === null) {
-        setFrequency('');
-      } else {
-        console.log(data?.project_details[0]?.maintenance_frequency, 'frequency')
-        if (data?.project_details[0]?.maintenance_frequency === 0) {
-          setFrequency('None');
-        }else{
-          setFrequency(data?.project_details[0]?.maintenance_frequency);
-        }        
-      }
-      if (data?.project_details[0]?.is_public_ownership === true) {
-        console.log(data?.project_details[0]?.is_public_ownership === true);
-        setOwnership(true);
-      } else {
-        console.log(data?.project_details[0]?.is_public_ownership === true);
-        setOwnership(false);
-      }
-
-      setTimeout(() => {
-        getGEOMByProjectId(data.project_id);
-      }, 2200);
-
-    } else {
-      setStreamIntersected({ geom: null });
-      setEditLocation(undefined);
-    }
-  }, [data]);
-  useEffect(() => {
-    if (save === true) {      
-      let serviceAreaIds:any=[];
-      let countyIds:any=[];
-      let jurisdictionIds:any=[];
-      const jurisdictionList:any = [];
-      const countyList:any = [];
-      const serviceAreaList:any = [];
-      
-      groupOrganization.forEach((item:any) => {
-        if (item.table === 'CODE_LOCAL_GOVERNMENT') {
-          jurisdictionList.push(item);
-        } else if (item.table === 'CODE_STATE_COUNTY') {
-          item.name = item.name.replace(' County', '');
-          countyList.push(item);
-        } else if (item.table === 'CODE_SERVICE_AREA') {
-          item.name = item.name.replace(' Service Area', '');
-          serviceAreaList.push(item);
-        }
-      });
-  
-      let serviceA = serviceArea.map((element:any) => element.replace(' Service Area', ''));
-      let countyA = county.map((element:any) => element.replace(' County', ''));
-        
-      serviceAreaIds = serviceAreaList.filter((service:any) => serviceA.includes(service.name)).map((service:any) => service.id);
-      countyIds = countyList.filter((countys:any) => countyA.includes(countys.name)).map((countyl:any) => countyl.id);
-      jurisdictionIds = jurisdictionList.filter((juris:any) => jurisdiction.includes(juris.name)).map((juris:any) => juris.id);
-       
-      const params = new URLSearchParams(history.location.search)
-      const _year = params.get('year');
-      const _locality = params.get('locality');
-      var maintenance = new Project();
-      maintenance.locality = _locality;
-      maintenance.isWorkPlan = isWorkPlan;
-      maintenance.year = _year ?? maintenance.year;
-      let csponsor = "";
-      if (cosponsor) {
-        cosponsor.forEach((element: any) => {
-          csponsor = csponsor + element + ",";
-        });
-        if (cosponsor.length != 0) {
-          csponsor = csponsor.substring(0, csponsor.length - 1)
-        }
-      }
-      maintenance.servicearea = serviceAreaIds || '';
-      maintenance.county = countyIds || '';
-      maintenance.jurisdiction = jurisdictionIds || '';
-      maintenance.sponsor = sponsor;
-      maintenance.cosponsor = csponsor;
-      maintenance.projectname = nameProject;
-      maintenance.description = description;
-      if (streamIntersected.geom) {
-        maintenance.geom = streamIntersected.geom;
-      }
-      maintenance.projectsubtype = subType;
-      if (frequency === 'None') {
-        maintenance.frequency = 0;
-      } else {
-        maintenance.frequency = frequency;
-      }
-      maintenance.maintenanceeligibility = eligibility;
-      maintenance.ownership = "" + ownership;
-      maintenance.files = files;
-      maintenance.editProject = editprojectid;
-      maintenance.cover = '';
-      maintenance.sendToWR = sendToWR;
-      maintenance.type = 'maintenance';
-      removeAttachment(deleteAttachmentsIds);
-      files.forEach((file:any) => {
-        if(file._id) {
-          toggleAttachmentCover(0, file._id, file.isCover);
-        }
-      });
-      if (swSave) {
-        editProjectMainetnance(maintenance);
-      } else {
-        saveProjectMaintenance(maintenance);
-      }
-      setVisibleMaintenance(false);
-      setVisible(false);
-    }
-  }, [save]);
+  } 
 
   const projectReturn = useSelector((state: any) => ({
     state
@@ -313,15 +319,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   useEffect(() => {
     setGeom(projectReturn.state.project.userPolygon);
   }, [projectReturn.state.project.userPolygon]);
-
-  useEffect(() => {
-    if (description != '' && county.length && serviceArea.length && jurisdiction.length && nameProject !== '') {
-      setDisable(false);
-    }
-    else {
-      setDisable(true);
-    }
-  }, [geom, description, county, serviceArea, sponsor, cosponsor, nameProject, jurisdiction, streamIntersected.geom]);
 
   useEffect(() => {
     setServiceAreaCounty({});
