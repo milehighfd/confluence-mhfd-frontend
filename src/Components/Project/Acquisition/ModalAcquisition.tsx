@@ -88,6 +88,16 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
 
   useEffect(() => {
+    setServiceAreaCounty({});
+    setJurisdictionSponsor(undefined);
+    setStreamIntersected({ geom: null });
+    setStreamsIds([]);
+    // return () => {
+    //   setGeom('');
+    // }
+  }, []);
+
+  useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
     if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
       if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
@@ -245,12 +255,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
     }
   }, [history]);
 
-  const parseStringToArray = (list: string) => {
-    if (list) {
-      return list.split(',');
-    }
-  }  
-
   function titleCase(str: any) {
     var splitStr = str.toLowerCase().split(' ');
     for (var i = 0; i < splitStr.length; i++) {
@@ -266,16 +270,6 @@ export const ModalAcquisition = ({ visibleAcquisition, setVisibleAcquisition, na
       setjurisdiction([])
     }
   },[isEditingPosition])
-
-  useEffect(() => {
-    setServiceAreaCounty({});
-    setJurisdictionSponsor(undefined);
-    setStreamIntersected({ geom: null });
-    setStreamsIds([]);
-    // return () => {
-    //   setGeom('');
-    // }
-  }, []);
 
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');

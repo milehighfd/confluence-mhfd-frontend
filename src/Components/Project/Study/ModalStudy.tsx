@@ -87,6 +87,19 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   const { userInformation } = useProfileState();
 
   useEffect(() => {
+    setServiceAreaCounty({});
+    setStreamsList([]);
+    setJurisdictionSponsor(undefined);
+    setStreamIntersected({ geom: null });
+    return () => {
+      setServiceArea([]);
+      setStreamsList([]);
+      setStreamIntersected({ geom: null });
+      setStreamsIds([]);
+    }
+  }, []);
+
+  useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
     if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
       if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
@@ -202,19 +215,6 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
     }
   }, [ids, description, county, serviceArea, sponsor, jurisdiction, streamsIntersectedIds, listStreams]);
 
-  useEffect(() => {
-    setServiceAreaCounty({});
-    setStreamsList([]);
-    setJurisdictionSponsor(undefined);
-    setStreamIntersected({ geom: null });
-    return () => {
-      setServiceArea([]);
-      setStreamsList([]);
-      setStreamIntersected({ geom: null });
-      setStreamsIds([]);
-    }
-  }, []);
-
   const getTextWidth = (text: any) => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -262,18 +262,14 @@ export const ModalStudy = ({ visibleStudy, setVisibleStudy, nameProject, setName
   useEffect(() => {
     forceUpdate();
   }, [keys]);
-  const parseStringToArray = (list: string) => {
-    if (list) {
-      return list.split(',');
-    }
-  }
+
   function titleCase(str:any) {
     var splitStr = str.toLowerCase().split(' ');
     for (var i = 0; i < splitStr.length; i++) {
         splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
     }
     return splitStr.join(' '); 
- }
+  }
 
   const parseCountiesToArray = (list: any) => {
     let counties:any = [];

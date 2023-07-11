@@ -82,6 +82,15 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   const { userInformation } = useProfileState();
 
   useEffect(() => {
+    setServiceAreaCounty({});
+    setJurisdictionSponsor(undefined);
+    if (subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal) {
+    }
+    setStreamIntersected({ geom: null });
+    setStreamsIds([]);
+  }, []);
+
+  useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
     if (userInformation?.business_associate_contact?.business_address?.business_associate?.code_business_associates_type_id === CODE_LOCAL_GOVERNMENT) {      
       if (userInformation?.business_associate_contact?.business_address?.business_associate?.business_name) {
@@ -225,12 +234,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
     }
   }, [geom, description, county, serviceArea, sponsor, cosponsor, nameProject, jurisdiction, streamIntersected.geom]);
   
-  const parseStringToArray = (list: string) => {
-    if (list) {
-      return list.split(',');
-    }
-  }
-
   useEffect(() => {
     getTextWidth(nameProject);
   }, [nameProject]);
@@ -319,15 +322,6 @@ export const ModalMaintenance = ({ visibleMaintenance, setVisibleMaintenance, na
   useEffect(() => {
     setGeom(projectReturn.state.project.userPolygon);
   }, [projectReturn.state.project.userPolygon]);
-
-  useEffect(() => {
-    setServiceAreaCounty({});
-    setJurisdictionSponsor(undefined);
-    if (subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Debris_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Vegetation_Management || subType === NEW_PROJECT_TYPES.MAINTENANCE_SUBTYPES.Sediment_Removal) {
-    }
-    setStreamIntersected({ geom: null });
-    setStreamsIds([]);
-  }, [])
 
   const apllyFrequency = (e: any) => {
     setFrequency(e);

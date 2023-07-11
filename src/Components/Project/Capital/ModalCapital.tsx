@@ -141,6 +141,21 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   const isWorkPlan = location.pathname.includes('work-plan');
   const { groupOrganization } = useProfileState();
 
+  //Delete all data when opening
+  useEffect(() => {
+    setServiceAreaCounty({});
+    setServiceArea([]);
+    setCounty([]);
+    setjurisdiction([]);
+    setJurisdictionSponsor(undefined);
+    setStreamIntersected({ geom: null });
+    setStreamsIds([]);
+    return () => {
+      setIndependentComponents([]);
+      setComponentsFromMap([]);
+    }
+  }, []);
+
   //Load Sponsor with Local Government if user is Local Government
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
@@ -299,21 +314,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
       setComponentIntersected([]);
     }
   }, [componentsFromMap]);
-
-  useEffect(()=>{
-    setServiceAreaCounty({});
-    setServiceArea([]);
-    setCounty([]);
-    setjurisdiction([]);
-    setJurisdictionSponsor(undefined);
-    setStreamIntersected({geom:null});
-    setStreamsIds([]); 
-    return () => {
-      setIndependentComponents([]);
-      setComponentsFromMap([]);
-    }
-  },[]);
-
+  
   function titleCase(str: any) {
     var splitStr = str.toLowerCase().split(' ');
     for (var i = 0; i < splitStr.length; i++) {
@@ -323,7 +324,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   }  
 
   useEffect(()=>{
-      setIndependentComponents(independentComponents);
+    setIndependentComponents(independentComponents);
   },[independentComponents]);
 
   useEffect(()=>{
@@ -389,7 +390,7 @@ export const ModalCapital = ({visibleCapital, setVisibleCapital, nameProject, se
   };
 
   const handleOk = (e: any) => {
-      setVisibleAlert( true);
+    setVisibleAlert( true);
   };
 
   const handleCancel = (e: any) => {

@@ -37,7 +37,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
     setServiceAreaCounty, 
     setJurisdictionSponsor, 
     setIsEdit,
-    setDeleteAttachmentsIds,
   } = useProjectDispatch();
   const {getAttachmentByProject} = useAttachmentDispatch();
   const { organization, groupOrganization } = useProfileState();
@@ -63,6 +62,13 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   const isWorkPlan = location.pathname.includes('work-plan');
   const { userInformation } = useProfileState();
   const [isEditingPosition,setIsEditingPosition ]= useState(false)
+
+  useEffect(()=>{
+    setStreamIntersected({geom:null});
+    setJurisdictionSponsor(undefined);
+    setStreamsIds([]);
+    setServiceAreaCounty({});
+  },[]);
 
   useEffect(() => {
     const CODE_LOCAL_GOVERNMENT = 3;
@@ -200,40 +206,35 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
   }, [history]);
 
   const { toggleAttachmentCover, removeAttachment } = useAttachmentDispatch();
-  const pageWidth  = document.documentElement.scrollWidth;
+  const pageWidth = document.documentElement.scrollWidth;
 
-  const parseStringToArray = (list:string) => {
-    if( list ){
-      return list.split(',');
-    }
- }
- const appUser = store.getState().appUser;
+  const appUser = store.getState().appUser;
   const showCheckBox = appUser.designation === ADMIN || appUser.designation === STAFF;
-  const [sendToWR,setsendToWR] = useState(!showCheckBox);
+  const [sendToWR, setsendToWR] = useState(!showCheckBox);
 
- useEffect(() => {
-  getTextWidth(nameProject);
-},[nameProject]);
+  useEffect(() => {
+    getTextWidth(nameProject);
+  }, [nameProject]);
 
- const getTextWidth = (text: any) => {
-  const canvas = document.createElement('canvas');
-  const context = canvas.getContext('2d');
-  let fontType = "16px sans-serif";
-  try {
-    if(context) {
-      context.font = fontType;
-      let length = context.measureText(text).width;
-      if(!isNaN(length)) {
-        setlengthName(length);
-      } else {
-        setlengthName(0);
+  const getTextWidth = (text: any) => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    let fontType = "16px sans-serif";
+    try {
+      if (context) {
+        context.font = fontType;
+        let length = context.measureText(text).width;
+        if (!isNaN(length)) {
+          setlengthName(length);
+        } else {
+          setlengthName(0);
+        }
       }
+    } catch (e) {
+      console.log("Error in getting width", context);
+      return 0;
     }
-  } catch (e) {
-    console.log("Error in getting width", context);
-    return 0;
   }
-}
 
   function titleCase(str: any) {
     var splitStr = str.toLowerCase().split(' ');
@@ -250,12 +251,6 @@ export const ModalSpecial = ({visibleSpecial, setVisibleSpecial, nameProject, se
       setjurisdiction([])
     }
   },[isEditingPosition])
-  useEffect(()=>{
-    setStreamIntersected({geom:null});
-    setJurisdictionSponsor(undefined);
-    setStreamsIds([]);
-    setServiceAreaCounty({});
-  },[]);
 
   const onChange = (e: any)=>{
     setNameProject(e.target.value);
