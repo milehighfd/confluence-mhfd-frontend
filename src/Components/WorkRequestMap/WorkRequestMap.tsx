@@ -1839,7 +1839,7 @@ const WorkRequestMap = ({
                   </div>
                 }
               >
-                <InfoCircleOutlined style={{ marginLeft: '35px', color: '#bfbfbf' }} />
+                <InfoCircleOutlined className='info-circle-outlined'/>
               </Popover>{' '}
             </h5>
             <div className="legendprob">
@@ -1862,7 +1862,7 @@ const WorkRequestMap = ({
           <b>Nearmap: March 19, 2023</b>
           <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>{' '}
         </span>
-        <div id={mapid} style={{ height: '100%', width: '100%' }}></div>
+        <div id={mapid} className='legend-problem-detail'></div>
         {visible && (
           <DetailModal
             visible={visible}
@@ -1903,7 +1903,7 @@ const WorkRequestMap = ({
                   <h4>Measure distances and areas</h4>
                   <button className="close-measure-button" onClick={() => setIsMeasuring(false)}></button>
                 </div>
-                <hr style={{ opacity: 0.4, width: '96%' }}></hr>
+                <hr></hr>
                 <div className="bodymap" onClick={() => setIsMeasuring(true)}>
                   <b>
                     <img className="img-measure-00" src="/Icons/fi_play-circle.svg" alt="Create new measurement"></img>
@@ -1920,7 +1920,7 @@ const WorkRequestMap = ({
                   <h4>Measure distances and areas</h4>
                   <button className="close-measure-button" onClick={() => setIsMeasuring(false)}></button>
                 </div>
-                <hr style={{ opacity: 0.4, width: '96%' }}></hr>
+                <hr></hr>
                 <div className="bodymapvalues">
                   {distanceValue == '0' && areaValue == '0' ? (
                     <span>Start creating a measurement by adding points to the map</span>
@@ -1941,22 +1941,22 @@ const WorkRequestMap = ({
                 <hr style={{ opacity: 0.4, width: '96%' }}></hr>
                 <p className="paragraph">
                   {!isdrawingmeasure && (
-                    <span className="button-c" style={{ marginLeft: '-1px' }} onClick={() => setIsMeasuring(false)}>
-                      <a style={{ color: '#11093C' }}>
+                    <span className="button-c" id='button-cancel' onClick={() => setIsMeasuring(false)}>
+                      <a>
                         <img className="img-measure-05"></img> <b>Cancel</b>
                       </a>
                     </span>
                   )}
                   {isdrawingmeasure && (
-                    <span className="button-c" style={{ paddingLeft: '20px' }} onClick={() => finishMeasure('line')}>
-                      <a style={{ color: '#11093C' }}>
+                    <span className="button-c" id='button-line' onClick={() => finishMeasure('line')}>
+                      <a>
                         <img className="img-measure-png-01" src="/Icons/icon-line.png"></img> <b>Finish Line</b>
                       </a>
                     </span>
                   )}
                   {isdrawingmeasure && (
-                    <span className="button-c" style={{ paddingLeft: '22px' }} onClick={() => finishMeasure('polygon')}>
-                      <a style={{ color: '#11093C' }}>
+                    <span className="button-c" id='button-polygon' onClick={() => finishMeasure('polygon')}>
+                      <a>
                         <img className="img-measure-png-02" src="/Icons/icon-polygon.png"></img> <b>Finish Polygon</b>
                       </a>
                     </span>
