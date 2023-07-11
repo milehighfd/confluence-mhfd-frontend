@@ -29,7 +29,7 @@ let coordY = -1;
 let popup = new mapboxgl.Popup({ closeButton: true });
 const Map = forwardRef(({ type }: { type: any }, ref) => {
   const { detailed } = useDetailedState();
-  const { resetDetailed, setSelectedPopup, getMapTables } = useMapDispatch();
+  const { resetDetailed, setSelectedPopup, getMapTables, getComponentsByProjid } = useMapDispatch();
   const { galleryProjectsV2, layers: layerFilters } = useMapState();
   const [, setZoomValue] = useState(0);
   const { userInformation } = useProfileState();
@@ -235,16 +235,16 @@ const Map = forwardRef(({ type }: { type: any }, ref) => {
       coordX,
       coordY,
       e,
-      galleryProjectsV2,
       mobile,
       menuOptions,
       popups,
       mobileIds,
       ids,
       userInformation,
-      () => {},
+      getComponentsByProjid,
       () => {},
       [],
+      'DETAIL_MAP'
     );
 
     if (popups.length) {

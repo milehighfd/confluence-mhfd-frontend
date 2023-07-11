@@ -25,7 +25,7 @@ const MapModal = ({
   activeTab:any
 }) => {
   const { detailed } = useDetailedState();
-  const { setSelectedPopup } = useMapDispatch();
+  const { setSelectedPopup, getComponentsByProjid } = useMapDispatch();
   const { galleryProjectsV2, layers } = useMapState();
   const { userInformation } = useProfileState();
   const [allLayers, setAllLayers] = useState<any[]>([]);
@@ -281,16 +281,16 @@ const eventclick = async (e: any) => {
     coordX,
     coordY,
     e,
-    galleryProjectsV2,
     mobile,
     menuOptions,
     popups,
     mobileIds,
     ids,
     userInformation,
-    () => {},
+    getComponentsByProjid,
     () => {},
     [],
+    'DETAIL_MAP'
   );
 
   if (popups.length) {
