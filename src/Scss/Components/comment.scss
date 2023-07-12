@@ -30,6 +30,7 @@
   border-top-color: #fff0;
 }
 
+//style navbar and comment
 .ll-00 {
   color: $white;
   border-radius: 50%;
@@ -45,7 +46,7 @@
   opacity: 0.5;
   margin-right: 14px;
 }
-
+//-style navbar and comment
 .comment-title {
   display: flex;
   position: relative;
@@ -55,25 +56,6 @@
     color: $purple00;
     width: 50%;
     margin-bottom: 0px;
-  }
-
-  .type-popover,
-  .type-popover:hover,
-  .type-popover:focus {
-    position: absolute;
-    right: 0px;
-    padding: 0px;
-    cursor: pointer;
-    font-size: 12px;
-    color: $opacity;
-    border: none;
-    box-shadow: none;
-    height: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1em;
   }
 
   .ant-btn .anticon {
@@ -177,6 +159,8 @@
 }
 
 .comment-drawer {
+  margin-left: 58px;
+  width: 0px;
   .ant-drawer-content-wrapper {
     width: 320px !important;
   }
@@ -235,6 +219,242 @@
     padding-right: 10px;
     padding-left: 7px;
   }
+//STYLE FOR COMMENT DRAWER
+  .ant-drawer-content-wrapper {
+    .ant-drawer-content {
+      overflow: hidden;
+  
+      .ant-drawer-wrapper-body {
+        overflow: hidden;
+  
+        .ant-drawer-header {
+          .ant-drawer-title {
+            .comment-title {
+              justify-content: space-between;
+              align-items: center;
+  
+              h5 {
+                font-size: 1em;
+                line-height: 18px;
+                font-family: "Ubuntu", sans-serif;
+                font-weight: 700;
+              }
+  
+              button.ant-btn {
+                margin: 0;
+                padding: 0;
+                border-color: #fff;
+                border-radius: 0;
+                box-shadow: none;
+  
+                .arrow-left {
+                  display: block;
+                  width: 24px;
+                  height: 24px;
+                  content: url("../../Icons/ic_arrow_left.svg") !important;
+                }
+              }
+  
+              button.ant-btn:hover {
+                .arrow-left {
+                  display: block;
+                  width: 24px;
+                  height: 24px;
+                  content: url("../../Icons/ic_arrow_left_hover.svg") !important;
+                }
+              }
+            }
+          }
+        }
+  
+        .ant-drawer-body {
+          .a-layers {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 12px 16px;
+  
+            .title {
+              display: block;
+              margin: 0;
+              padding: 0;
+              font-family: "Ubuntu", sans-serif;
+              font-size: 14px;
+              line-height: 1em;
+              font-weight: 500;
+              color: $purple00;
+            }
+  
+            .img-filter {
+              opacity: 1;
+              background: url('../../Icons/filter_active.png') no-repeat center;
+              background-size: contain;
+              height: 15px;
+              width: 20px;
+              margin-right: 4px;
+              margin-left: 4px;
+              margin-bottom: 3px;
+              position: absolute;
+              right: 35px;
+              bottom: 10px;
+  
+              &:hover {
+                background: url('../../Icons/filter_on_hover_2.png') no-repeat center;
+                background-size: contain;
+              }
+            }
+  
+            .hoverfilter {
+              background-color: #F60085;
+  
+              &:hover {
+                background-color: #F6BE0F;
+              }
+            }
+  
+            .filterCounter {
+              margin-right: 4px;
+              margin-left: 4px;
+              position: absolute;
+              right: 34px;
+              bottom: 9px;
+              bottom: 10px;
+              font-weight: bolder;
+              color: #5C538B;
+            }
+  
+            a.ant-dropdown-link.ant-dropdown-trigger {
+              display: block;
+              margin: 0;
+              padding: 0;
+  
+              span {
+                display: block;
+                margin: 0;
+                padding: 0;
+                width: 16px;
+                height: 16px;
+                content: url("../../Icons/ic_plus_default.svg");
+              }
+            }
+  
+            a.ant-dropdown-link.ant-dropdown-trigger:hover {
+              span {
+                display: block;
+                margin: 0;
+                padding: 0;
+                width: 16px;
+                height: 16px;
+                content: url("../../Icons/ic_plus_hover.svg");
+              }
+            }
+  
+            a.ant-dropdown-link.ant-dropdown-trigger.ant-dropdown-open {
+              display: block;
+              margin: 0;
+              padding: 0;
+  
+              span {
+                display: block;
+                margin: 0;
+                padding: 0;
+                width: 16px;
+                height: 16px;
+                content: url("../../Icons/ic_plus_hover.svg");
+              }
+            }
+  
+            a.ant-dropdown-link.ant-dropdown-trigger.inactive {
+              display: block;
+              margin: 0;
+              padding: 0;
+              cursor: pointer;
+  
+              span {
+                display: block;
+                margin: 0;
+                padding: 0;
+                width: 16px;
+                height: 16px;
+                content: url("../../Icons/ic_plus_inactive.svg");
+              }
+            }
+          }
+  
+          .insideMainNode {
+            height: 90%;
+            overflow-y: auto;
+          }
+  
+          .main-node {
+            padding-bottom: 60px;
+  
+            .s-item {
+              height: 40px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              color: rgb(136 132 157);
+              margin: 0px 5px;
+              border-radius: 8px;
+            }
+  
+            .s-item:hover {
+              background-color: #f8f8fa;
+            }
+  
+            .s-item.folder {
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+  
+              .ic-folder {
+                content: url("../../Icons/ic_folder.svg");
+                display: block;
+                width: 16px;
+                height: 16px;
+              }
+  
+              .f-title {
+                position: relative;
+                font-size: 14px;
+                line-height: 16px;
+                font-family: "Ubuntu", sans-serif;
+                font-weight: 400;
+                padding-left: 6px;
+              }
+  
+              .inputfolders {
+                border: 1px solid black;
+                margin-left: 5px;
+                border-radius: 0.25em;
+              }
+            }
+  
+            .f-title {
+              position: relative;
+              font-size: 14px;
+              line-height: 16px;
+              font-family: "Ubuntu", sans-serif;
+              font-weight: 400;
+              padding-left: 6px;
+              width: 100%;
+              display: flex;
+              align-items: center;
+              box-sizing: border-box;
+              flex-direction: row;
+              justify-content: space-between;
+            }
+  
+            .editing {
+              background-color: rgb(248 248 250) !important;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // POPUP MAP
@@ -276,7 +496,7 @@
     }
   }
 }
-
+// STYLE FOR POPUP MAP
 .divoptions {
   position: relative;
   float: right;
@@ -305,351 +525,11 @@
       background-color: #f7f7f9;
       opacity: 0.6;
     }
-  }
-}
-
-.divoptions-last {
-  position: absolute;
-  top: -12px;
-}
-
-#list-popup-comment,
-.list-popup-comment {
-  position: absolute;
-  background: white;
-  z-index: 200;
-  left: 61px;
-  top: 20px;
-  padding-left: 0px !important;
-  width: 237px;
-  border-radius: 4px;
-  text-align: left;
-  margin: 0px auto 0px auto;
-
-  .listofelements {
-    overflow-y: auto;
-    max-height: 155px;
-    padding-bottom: 4px;
-  }
-
-  .divoptions {
-    position: relative;
-    float: right;
-    right: 9px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    z-index: 222;
-    font-variant: tabular-nums;
-    font-weight: normal;
-    white-space: normal;
-    font-feature-settings: 'tnum', "tnum";
-    font-size: 12px;
-    color: $purple00;
-    font-family: "Ubuntu", sans-serif !important;
-    width: max-content;
-    padding: 5px;
-
-    li {
-      padding: 5px 10px;
-      opacity: 0.5;
-      font-size: 13px;
-      border-radius: 5px;
-
-      &:hover {
-        background-color: #f7f7f9;
-        opacity: 0.6;
-      }
+    img{
+      margin-top: -3px;
+      margin-right: 5px;
     }
   }
-
-  .divoptions-last {
-    position: absolute;
-    top: -12px;
-  }
-
-  .divcolors {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border-radius: 4px;
-    padding: 12px 10px;
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    z-index: 222;
-    max-width: 150px;
-
-    li {
-      display: flex;
-      padding: 0px;
-
-      &:hover {
-        background-color: transparent;
-      }
-    }
-
-    .img-circle {
-      opacity: 1;
-      -webkit-mask: url('../../Icons/circlecomment.svg') no-repeat center;
-      height: 20px;
-      width: 20px;
-      border-radius: 20px;
-      margin-right: 4px;
-      margin-left: 4px;
-      margin-bottom: 3px;
-
-      &:hover {
-        height: 17px;
-      }
-    }
-  }
-
-  #addLabelButton:hover {
-    background-color: white !important;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
-  }
-
-  .divcolors-last {
-    top: -35px;
-  }
-
-  .menu-wr {
-    float: right;
-    padding: 5px 10px 5px 10px;
-    position: absolute;
-    right: 0px;
-  }
-
-  .inputlabel {
-    border: none;
-    background: transparent;
-    width: 70%;
-    cursor: pointer;
-    padding-left: 7px;
-    background: #CFEBFE;
-    border-radius: 0.2em 0.2em 0.2em 0.2em;
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-size: 14px;
-    line-height: 16px;
-    color: $purple00;
-
-    &:focus {
-      background: #CFEBFE;
-      cursor: text;
-    }
-
-    &:read-only {
-      background: transparent;
-    }
-  }
-
-  .editinglist {
-    background-color: #7DC9FC !important;
-  }
-
-  .editinglist>.inputlabel {
-    background-color: white !important;
-  }
-
-  li {
-    display: block;
-    position: relative;
-    padding: 13px 0px 13px 12px;
-
-    &:hover>.img-edit {
-      display: inline;
-    }
-
-    &:hover>.inputlabel {
-      background-color: #f5f5f5;
-      font-weight: 600;
-      color: $purple00;
-    }
-
-    &:hover {
-      background-color: #f5f5f5;
-      font-family: 'Ubuntu';
-      font-style: normal;
-      align-items: center;
-    }
-
-    &:first-child {
-      border-top-left-radius: 9px;
-      border-top-right-radius: 0px;
-    }
-
-    .img-edit {
-      opacity: 1;
-      -webkit-mask: url('../../Icons/u_edit.svg') no-repeat center;
-      height: 20px;
-      width: 20px;
-      background-color: #393939;
-      position: absolute;
-      display: none;
-      right: 18px;
-    }
-
-    .img-check {
-      opacity: 1;
-      -webkit-mask: url('../../Icons/fi_check.svg') no-repeat center;
-      height: 20px;
-      width: 20px;
-      padding-top: 22px;
-      right: 18px;
-      top: 14px;
-      background-color: #393939;
-      position: absolute;
-      display: none;
-      z-index: 100;
-    }
-
-    .inputlabel:focus {
-      background-color: white;
-      border: 1px solid rgba(37, 24, 99, 0.9) !important;
-    }
-  }
-
-  #currentItemsinList {
-    padding-bottom: 8px !important;
-  }
-
-  #currentItemsinList>li:hover {
-    &:first-child {
-      border-top-left-radius: 9px;
-      border-top-right-radius: 9px;
-    }
-
-    &:last-child {
-      border-bottom-left-radius: 9px;
-      border-bottom-right-radius: 9px;
-    }
-  }
-
-  i {
-    font-size: 16px;
-    top: 2px;
-    position: relative !important;
-    font-size: 53px;
-    font-weight: bold;
-    top: 0 !important;
-
-  }
-
-  .img-circle {
-    opacity: 1;
-    -webkit-mask: url('../../Icons/circlecomment.svg') no-repeat center;
-    height: 20px;
-    width: 20px;
-    border-radius: 20px;
-    margin-right: 0px;
-    margin-bottom: 3px;
-  }
-
-  .addlabelbutton {
-    border: 1px solid rgba(37, 24, 99, 0.9) !important;
-    border-radius: 13px;
-    height: 36px !important;
-    width: 100%;
-    font-size: 14px !important;
-    background-color: white;
-
-    &:hover {
-      background-color: rgba(37, 24, 99, 0.9);
-      cursor: pointer;
-      color: white;
-      text-decoration: unset;
-    }
-
-    &:disabled {
-      background-color: white;
-      border: 1px solid rgba(37, 24, 99, 0.4);
-      color: rgba(37, 24, 99, 0.4);
-    }
-  }
-
-  .dot {
-    display: block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: #fff;
-    ;
-  }
-
-  .dot.selected {
-    content: url("../../Icons/ic-ok.svg");
-  }
-
-  .c-yellow {
-    background-color: #FFDD00;
-  }
-
-  .c-red {
-    background-color: #FF5A5F;
-  }
-
-  .c-black {
-    background-color: $purple;
-  }
-
-  .c-green {
-    background-color: #29C499;
-  }
-
-  .c-blue {
-    background-color: #66D4FF;
-  }
-
-  button.light {
-    border-radius: none;
-    color: coral;
-    font-family: "Inter-SemiBold", sans-serif;
-    font-size: 7px;
-    line-height: 14px;
-    border: 0;
-    cursor: pointer;
-    margin: 1em;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: 0;
-    object-fit: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
-    &:hover {
-      color: green;
-    }
-  }
-}
-
-.legend {
-  position: absolute;
-  left: 216px;
-  top: 33px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border-radius: 9px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-  button.light {
-    margin: 0;
-    padding: 0;
-    margin-right: 6px;
-    margin-left: 6px;
-    background-color: #fff;
-    font-size: 7px;
-  }
-}
-
-.legend.close {
-  display: none;
 }
 
 .mdi-circle-medium::before {
@@ -690,13 +570,6 @@
       width: 103%;
       font-size: 15px;
       padding-left: 8px;
-
-      #color-text {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 78%;
-      }
 
       .dr {
         display: flex;
@@ -794,24 +667,10 @@
   }
 }
 
-.popover-comment {
-  .ant-popover-inner-content {
-    padding: 0px;
-  }
-
-  ul {
-    padding: 0px !important;
-    width: 130px;
-  }
-
-  li {
-    display: block;
-    padding: 6px 0px !important;
-    font-size: 11px;
-    cursor: pointer;
-    border-bottom: 1px solid $light-purple;
-    margin: 0px 10px;
-  }
+.transition-map{
+  transition: all 0.7s;
+  z-index:1;
+  background:white;
 }
 
 .padding-comment {
@@ -828,29 +687,11 @@
     }
   }
 
-  #list-popup-comment,
-  .list-popup-comment {
-    .divoptions {
-      font-size: 15px !important;
-
-      img {
-        width: 13px;
-      }
-    }
-  }
-
   // GENERAL
   .comment-title {
     h5 {
       font-size: 21px;
       line-height: 23px;
-    }
-
-    .type-popover,
-    .type-popover:hover,
-    .type-popover:focus {
-      font-size: 16px;
-      height: 22px;
     }
 
     .ant-btn .anticon {
@@ -999,26 +840,34 @@
   }
 }
 
-// 2560x1440 DISPLAY
+// marker style 
+
+.marker-note {
+  -webkit-mask-image: url('../../Icons/circlecomment.svg');
+  mask-image: url('../../Icons/circlecomment.svg');
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #F6BE0F;
+  border: 2px solid rgba(255, 255, 255, 1);
+
+  &:hover {
+    width: 25px;
+    height: 25px;
+    mask-size: 25px;
+    border: 6px solid rgba(255, 255, 255, 1);
+  }
+}
+
+// 2560x2999px DISPLAY
 @media (min-width: 2500px) and (max-width: 2999px) {
   .divoptions {
     font-size: 18px !important;
 
     img {
       width: 16px;
-    }
-  }
-
-  #list-popup-comment,
-  .list-popup-comment {
-    width: 356px;
-
-    .divoptions {
-      font-size: 18px !important;
-
-      img {
-        width: 16px;
-      }
     }
   }
 
@@ -1032,20 +881,6 @@
       color: $purple00;
       width: 50%;
       margin-bottom: 0px;
-    }
-
-    .type-popover,
-    .type-popover:hover,
-    .type-popover:focus {
-      position: absolute;
-      right: 0px;
-      padding: 0px;
-      cursor: pointer;
-      font-size: 12px;
-      color: $opacity;
-      border: none;
-      box-shadow: none;
-      height: 20px;
     }
 
     .ant-btn .anticon {
@@ -1086,15 +921,8 @@
     height: 32px;
 
     h5 {
-      font-size: 28px;
+      font-size: 22px !important;
       line-height: 30px
-    }
-
-    .type-popover,
-    .type-popover:hover,
-    .type-popover:focus {
-      font-size: 21px;
-      height: 32px;
     }
 
     .ant-btn .anticon {
@@ -1145,12 +973,28 @@
 
   .comment-drawer {
     .ant-drawer-header {
-      padding: 20px 32px;
+      padding: 20px 20px;
       padding-right: 14px;
     }
 
     .ant-drawer-body {
       height: calc(100vh - 151px);
+      .a-layers .title {
+        font-size: 20px !important;
+      }
+      .main-node{
+        .s-item{
+          height: 50px !important;
+          .f-title{
+            font-size: 18px !important;
+            padding-left: 10px !important;
+          }
+          .ic-folder{
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
     }
 
     .ant-comment {
@@ -1189,8 +1033,13 @@
       height: 60px;
       width: 50px;
     }
+
   }
 
+  .ll-00 {
+    padding: 5px 5px 3px 6px;
+    font-size: 11px;
+  }
   // POPUP MAP
   .popup-comment {
     width: 490px;
@@ -1244,266 +1093,41 @@
   }
 }
 
-.ant-drawer-content-wrapper {
-  .ant-drawer-content {
-    overflow: hidden;
 
-    .ant-drawer-wrapper-body {
-      overflow: hidden;
 
-      .ant-drawer-header {
-        .ant-drawer-title {
-          .comment-title {
-            justify-content: space-between;
-            align-items: center;
-
-            h5 {
-              font-size: 1em;
-              line-height: 18px;
-              font-family: "Ubuntu", sans-serif;
-              font-weight: 700;
-            }
-
-            button.ant-btn {
-              margin: 0;
-              padding: 0;
-              border-color: #fff;
-              border-radius: 0;
-              box-shadow: none;
-
-              .arrow-left {
-                display: block;
-                width: 24px;
-                height: 24px;
-                content: url("../../Icons/ic_arrow_left.svg") !important;
-              }
-            }
-
-            button.ant-btn:hover {
-              .arrow-left {
-                display: block;
-                width: 24px;
-                height: 24px;
-                content: url("../../Icons/ic_arrow_left_hover.svg") !important;
-              }
-            }
-          }
+// 3800pxx5999px DISPLAY
+@media (min-width: 3800px) and (max-width: 5999px) {
+  .padding-comment{
+    padding-left: 556px !important;
+  }
+  .comment-drawer {
+    .ant-drawer-content-wrapper {
+      margin-left: 46px;
+      margin-top: 42px;
+      width: 554px !important;
+    }
+    .ant-drawer-title{
+      h5{
+        font-size: 32px !important;
+      }
+    }
+    .ant-drawer-body{
+      .main-node .s-item {
+        height: 60px !important;
+        .f-title {
+          font-size: 28px !important;
+          line-height: 34px !important;
         }
       }
-
-      .ant-drawer-body {
-        .a-layers {
-          position: relative;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          padding: 12px 16px;
-
-          .title {
-            display: block;
-            margin: 0;
-            padding: 0;
-            font-family: "Ubuntu", sans-serif;
-            font-size: 14px;
-            line-height: 1em;
-            font-weight: 500;
-            color: $purple00;
-          }
-
-          .img-filter {
-            opacity: 1;
-            background: url('../../Icons/filter_active.png') no-repeat center;
-            background-size: contain;
-            height: 15px;
-            width: 20px;
-            margin-right: 4px;
-            margin-left: 4px;
-            margin-bottom: 3px;
-            position: absolute;
-            right: 35px;
-            bottom: 10px;
-
-            &:hover {
-              background: url('../../Icons/filter_on_hover_2.png') no-repeat center;
-              background-size: contain;
-            }
-          }
-
-          .hoverfilter {
-            background-color: #F60085;
-
-            &:hover {
-              background-color: #F6BE0F;
-            }
-          }
-
-          .filterCounter {
-            margin-right: 4px;
-            margin-left: 4px;
-            position: absolute;
-            right: 34px;
-            bottom: 9px;
-            bottom: 10px;
-            font-weight: bolder;
-            color: #5C538B;
-          }
-
-          a.ant-dropdown-link.ant-dropdown-trigger {
-            display: block;
-            margin: 0;
-            padding: 0;
-
-            span {
-              display: block;
-              margin: 0;
-              padding: 0;
-              width: 16px;
-              height: 16px;
-              content: url("../../Icons/ic_plus_default.svg");
-            }
-          }
-
-          a.ant-dropdown-link.ant-dropdown-trigger:hover {
-            span {
-              display: block;
-              margin: 0;
-              padding: 0;
-              width: 16px;
-              height: 16px;
-              content: url("../../Icons/ic_plus_hover.svg");
-            }
-          }
-
-          a.ant-dropdown-link.ant-dropdown-trigger.ant-dropdown-open {
-            display: block;
-            margin: 0;
-            padding: 0;
-
-            span {
-              display: block;
-              margin: 0;
-              padding: 0;
-              width: 16px;
-              height: 16px;
-              content: url("../../Icons/ic_plus_hover.svg");
-            }
-          }
-
-          a.ant-dropdown-link.ant-dropdown-trigger.inactive {
-            display: block;
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-
-            span {
-              display: block;
-              margin: 0;
-              padding: 0;
-              width: 16px;
-              height: 16px;
-              content: url("../../Icons/ic_plus_inactive.svg");
-            }
-          }
-        }
-
-        .insideMainNode {
-          height: 90%;
-          overflow-y: auto;
-        }
-
-        .main-node {
-          padding-bottom: 60px;
-
-          .s-item {
-            height: 40px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            color: rgb(136 132 157);
-            margin: 0px 5px;
-            border-radius: 8px;
-          }
-
-          .s-item:hover {
-            background-color: #f8f8fa;
-          }
-
-          .s-item.folder {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-
-            .ic-folder {
-              content: url("../../Icons/ic_folder.svg");
-              display: block;
-              width: 16px;
-              height: 16px;
-            }
-
-            .f-title {
-              position: relative;
-              font-size: 14px;
-              line-height: 16px;
-              font-family: "Ubuntu", sans-serif;
-              font-weight: 400;
-              padding-left: 6px;
-            }
-
-            .inputfolders {
-              border: 1px solid black;
-              margin-left: 5px;
-              border-radius: 0.25em;
-            }
-          }
-
-          .f-title {
-            position: relative;
-            font-size: 14px;
-            line-height: 16px;
-            font-family: "Ubuntu", sans-serif;
-            font-weight: 400;
-            padding-left: 6px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            box-sizing: border-box;
-            flex-direction: row;
-            justify-content: space-between;
-          }
-
-          .editing {
-            background-color: rgb(248 248 250) !important;
-          }
+      .a-layers{
+        .title{
+          font-size: 42px !important;
         }
       }
     }
+    .ant-drawer-content{
+
+    }
   }
-}
 
-// marker style 
-
-.marker-note {
-  -webkit-mask-image: url('../../Icons/circlecomment.svg');
-  mask-image: url('../../Icons/circlecomment.svg');
-  background-size: cover;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: #F6BE0F;
-  border: 2px solid rgba(255, 255, 255, 1);
-
-  &:hover {
-    width: 25px;
-    height: 25px;
-    mask-size: 25px;
-    border: 6px solid rgba(255, 255, 255, 1);
-  }
-}
-
-@media (min-width: 3800px) and (max-width: 5999px) {
-  .comment-drawer .ant-drawer-content-wrapper {
-    margin-left: 46px;
-    margin-top: 42px;
-  }
 }

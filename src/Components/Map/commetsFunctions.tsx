@@ -20,7 +20,7 @@ const wait = (idDoc:any, cb: any) => {
 export const divDelete = (handleDelete: any) => {
   return <div className='divoptions'>
     <li id="deleteopt0 delete-comment-safe" value={0} onClick={handleDelete}>
-      <span ><img src="/Icons/icon-16.svg" alt="" width="10px" style={{marginTop: '-3px', marginRight: '5px'}} /> Delete</span>
+      <span ><img src="/Icons/icon-16.svg" alt="" width="10px" /> Delete</span>
     </li>
   </div>
 }
@@ -71,7 +71,7 @@ export const divListOfColors = (handleClick: any) => {
   return <div className='divcolors'>
     {
       listCircles.map((color) => <li value={color.color} onClick={() => handleClick(color)} key={color.labelDB}>
-        <img id={`circle${color.label}`} className='img-circle' style={{background:color.color}} />
+        <img id={`circle${color.label}`} className='img-circle' style={{background:color.color}} alt=''/>
       </li>)
     }
   </div>

@@ -175,8 +175,7 @@ const MapLayout = () => {
               <Row>
                 <Col
                   xs={{ span: 24 }}
-                  className={open ? "height-mobile padding-comment" : "height-mobile"}
-                  style={{ transition: 'all 0.7s' , zIndex:1, background:'white'}}
+                  className={open ? "padding-comment transition-map" : "transition-map"}
                   lg={leftWidth}
                 >
                   <Map
@@ -189,7 +188,6 @@ const MapLayout = () => {
                 <Col
                   xs={{ span: 24 }}
                   className="menu-mobile"
-                  style={{ transition: 'all 0.7s' }}
                   lg={24 - leftWidth}
                 >
                   <MapView />

@@ -321,6 +321,10 @@
       left: -7px;
     }
   }
+
+  .autocomplete-map{
+    width: 240px;
+  }
 }
 
 .ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled),
@@ -473,6 +477,10 @@
     background: $purple00;
   }
 
+  .btn-measurestyle{
+    border-radius: 4px;
+  }
+
   .measurecontainer {
     width: 300px;
     height: 100px;
@@ -551,12 +559,15 @@
         justify-items: start;
         margin-bottom: 5px;
 
+        a{
+          color: #11093C;
+        }
         .button-c {
           &:hover {
             opacity: 0.5;
           }
         }
-
+        
         #button-cancel {
           margin-left: -1px;
         }
@@ -569,8 +580,11 @@
           padding-left: 22px;
         }
 
-        a{
-          color: #11093C;
+        .drawingmeasuere{
+          padding-left: 20px;
+        }
+        .nodrawingmeasuere{
+          margin-left: -1px;
         }
       }
     }
@@ -866,7 +880,9 @@
   .popoveer-00 {
     color: $white;
     max-width: 260px;
-
+    .dark-text{
+      font-weight: 600;
+    }
     .notification-header {
       box-sizing: border-box;
       display: flex;
@@ -2746,6 +2762,9 @@ hr.filters-line {
   right: 45px;
   color: white;
   opacity: 0.7;
+  .text-zoomlevel{
+    padding-left: 10px;
+  }
 }
 
 
@@ -2765,16 +2784,6 @@ hr.filters-line {
   text-align: left;
   padding-left: 16px;
   padding-top: 13px;
-
-  .info-circle-outlined{
-    margin-left: 35px;
-    color: #bfbfbf;   
-  }
-
-  .legend-problem-detail{
-    height: 100%;
-    width: 100%;
-  }
 
   h5 {
     margin-bottom: 10px;
@@ -2811,6 +2820,11 @@ hr.filters-line {
     height: 32px;
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
+  }
+
+  .iconinfocircle{
+    margin-left: 35px;
+    color: #bfbfbf;
   }
 }
 

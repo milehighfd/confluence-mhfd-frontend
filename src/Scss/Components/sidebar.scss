@@ -98,6 +98,9 @@
 .menu-sidebar-hove:hover{
   background-color: #516065 !important;
 }
+.menu-mobile{
+  transition: all 0.7s ;
+}
 // RESPONSIVE MOBILE
 @media (max-width: 575.98px) {
   .ant-layout-sider{

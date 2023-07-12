@@ -29,6 +29,7 @@ import {
   PROPSPROBLEMTABLES,
   MAPTYPES,
   initFilterProblems,
+  WINDOW_WIDTH,
 } from 'constants/constants';
 import {
   tileStyles,
@@ -68,9 +69,6 @@ import useIsMobile from 'hook/custom/useIsMobile';
 import { areObjectsDifferent } from 'utils/comparators';
 import MapDropdownLayers from './MapDropdownLayers';
 import { useFilterContext } from 'utils/filterContext';
-
-const windowWidth: any = window.innerWidth;
-
 const SideBarComment = React.lazy(() => import('Components/Map/SideBarComment'));
 const ModalProjectView = React.lazy(() => import('Components/ProjectModal/ModalProjectView'));
 const DetailModal = React.lazy(() => import('routes/detail-page/components/DetailModal'));
@@ -1791,24 +1789,24 @@ const Map = ({ leftWidth }: MapProps) => {
               <Popover
                 content={
                   <div className="popoveer-00">
-                    <p style={{ fontWeight: '600' }}>Problem Types</p>
+                    <p className='dark-text'>Problem Types</p>
                     <p>
-                      <span style={{ fontWeight: '600' }}>Flood Hazard </span> Problems related to existing flood or
+                      <span className='dark-text'>Flood Hazard </span> Problems related to existing flood or
                       fluvial hazard to life and property.
                     </p>
                     <p>
-                      <span style={{ fontWeight: '600' }}>Stream Condition </span> Problems related to the physical,
+                      <span className='dark-text'>Stream Condition </span> Problems related to the physical,
                       environmental, and social function or condition of the stream in an urban context.
                     </p>
                     <p>
-                      <span style={{ fontWeight: '600' }}>Watershed Change </span> Problems related to flood waters that
+                      <span className='dark-text'>Watershed Change </span> Problems related to flood waters that
                       may pose safety or functional concerns related to people, property, and the environment due to
                       changing watershed conditions (land use, topography, regional detention, etc).
                     </p>
                   </div>
                 }
               >
-                <InfoCircleOutlined style={{ marginLeft: '35px', color: '#bfbfbf' }} />
+                <InfoCircleOutlined className='iconinfocircle' />
               </Popover>{' '}
             </h5>
             <div className="legendprob">
@@ -1828,7 +1826,7 @@ const Map = ({ leftWidth }: MapProps) => {
 
         <span className="zoomvaluemap">
           <b>Nearmap: March 19, 2023</b>
-          <b style={{ paddingLeft: '10px' }}>Zoom Level: {zoomValue}</b>
+          <b className='text-zoomlevel'>Zoom Level: {zoomValue}</b>
         </span>
         {!!visible && (
           <DetailModal
@@ -1850,19 +1848,19 @@ const Map = ({ leftWidth }: MapProps) => {
           />
           <AutoComplete
             dropdownMatchSelectWidth={true}
-            style={{ width: 240 }}
+            className='autocomplete-map'
             options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
             value={keyword}
-            listHeight={windowWidth > 2554 ? (windowWidth > 3799 ? 530 : 300) : 256}
+            listHeight={WINDOW_WIDTH > 2554 ? (WINDOW_WIDTH > 3799 ? 530 : 300) : 256}
           >
             <Input.Search allowClear placeholder="Stream or Location" />
           </AutoComplete>
         </div>
         <div className="measure-button">
           {!!!measuringState && (
-            <Button style={{ borderRadius: '4px' }} onClick={() => setMeasuringState(true)}>
+            <Button className='btn-measurestyle' onClick={() => setMeasuringState(true)}>
               <img className="img-icon" alt="" />
             </Button>
           )}
@@ -1873,7 +1871,7 @@ const Map = ({ leftWidth }: MapProps) => {
                   <h4>Measure distances and areas</h4>
                   <button className="close-measure-button" onClick={() => setIsMeasuring(false)}></button>
                 </div>
-                <hr style={{ opacity: 0.4, width: '96%' }}></hr>
+                <hr></hr>
                 <div className="bodymap" onClick={() => setIsMeasuring(true)}>
                   <b>
                     <img className="img-measure-00" src="/Icons/fi_play-circle.svg" alt="Create new measurement"></img>
@@ -1890,7 +1888,7 @@ const Map = ({ leftWidth }: MapProps) => {
                   <h4>Measure distances and areas</h4>
                   <button className="close-measure-button" onClick={() => setIsMeasuring(false)}></button>
                 </div>
-                <hr style={{ opacity: 0.4, width: '96%' }}></hr>
+                <hr></hr>
                 <div className="bodymapvalues">
                   {distanceValue == '0' && areaValue == '0' ? (
                     <span>Start creating a measurement by adding points to the map</span>
@@ -1908,27 +1906,27 @@ const Map = ({ leftWidth }: MapProps) => {
                     </>
                   )}
                 </div>
-                <hr style={{ opacity: 0.4, width: '96%' }}></hr>
+                <hr ></hr>
                 <p className="paragraph">
                   {!isdrawingmeasure && (
-                    <span className="button-c" style={{ marginLeft: '-1px' }} onClick={() => setIsMeasuring(false)}>
-                      <a style={{ color: '#11093C' }}>
+                    <span className="button-c nodrawingmeasuere" onClick={() => setIsMeasuring(false)}>
+                      <a>
                         <img className="img-measure-05" alt="Cancel"></img>
                         <b>Cancel</b>
                       </a>
                     </span>
                   )}
                   {isdrawingmeasure && (
-                    <span className="button-c" style={{ paddingLeft: '20px' }} onClick={() => finishMeasure('line')}>
-                      <a style={{ color: '#11093C' }}>
+                    <span className="button-c drawingmeasuere" onClick={() => finishMeasure('line')}>
+                      <a>
                         <img className="img-measure-png-01" src="/Icons/icon-line.png" alt="Finish Line"></img>
                         <b>Finish Line</b>
                       </a>
                     </span>
                   )}
                   {isdrawingmeasure && (
-                    <span className="button-c" style={{ paddingLeft: '22px' }} onClick={() => finishMeasure('polygon')}>
-                      <a style={{ color: '#11093C' }}>
+                    <span className="button-c drawingmeasuere" onClick={() => finishMeasure('polygon')}>
+                      <a>
                         <img className="img-measure-png-02" src="/Icons/icon-polygon.png" alt="Finish Polygon"></img>
                         <b>Finish Polygon</b>
                       </a>

@@ -23,7 +23,7 @@ export const NotesPopupDiv = ({note, handleClick, handleDelete, handleComments}:
               <i
                 id="colorable"
                 className="mdi mdi-circle-medium"
-                style={{ color: note?.color ? note.color.color : '#ffe121', width: '40px' }}
+                style={{ color: note?.color ? note.color.color : '#ffe121' }}
               ></i>
             </Dropdown>
             <Dropdown

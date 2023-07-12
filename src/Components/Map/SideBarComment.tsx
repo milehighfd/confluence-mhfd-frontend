@@ -247,7 +247,6 @@ const SideBarComment = ({
       onClose={onClose}
       visible={visible}
       className="comment-drawer"
-      style={{ marginLeft: '58px', width: '0px' }}
     >
       <h3>
       </h3>
