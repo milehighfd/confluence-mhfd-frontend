@@ -31,6 +31,22 @@
   width: 5px;
 }
 
+.navbar-options-box{
+  align-items:center;
+  display:flex;
+  justify-content:end;
+}
+
+//NAVBAR NOTIFICATIONS
+.notification-popoveer {
+  max-width: 1000000px;
+  width: 369px;
+}
+.notification-layout{
+  margin-bottom: 0px;
+}
+
+
 /* Track */
 .card-dropdown::-webkit-scrollbar-track {
   border-radius: 10px;
@@ -56,7 +72,8 @@
   border-radius: 10px;
 }
 
-.logo {
+.logo-navbar{
+  background-image: url("/Icons/logo-02.svg");
   width: 225px;
   height: 30px;
   float: left;
@@ -64,6 +81,11 @@
   background-size: cover;
   margin: 14px 0px;
 }
+
+.new-style-drop-navbar{
+  margin-top: -12px;
+}
+
 .header {
   height: 58px;
   padding: 0 20px !important;
@@ -125,7 +147,7 @@
   .ll-0{
     width: 2px;
     background: #ffffff;
-    margin-top: 14px;
+    margin-top: 7px;
     margin-bottom: 6px;
     padding: 11px 0.5px;
     opacity: 0.5;
@@ -377,6 +399,8 @@
   background: $green !important;
 }
 .tutorial-carousel{
+  top: 0;
+  height: 100vh;
   scroll-behavior: smooth;
   padding: 0px;
   margin: 0px;
@@ -798,6 +822,7 @@
   .ant-menu-dark.ant-menu-horizontal {
     width: 14vw !important;
   }
+
 }
 @media(min-width: 2000px) and (max-width: 2100px){
   .ant-menu-dark.ant-menu-horizontal {
@@ -850,6 +875,10 @@
   }
 }
 @media(min-width: 1900px) and (max-width: 2549px){
+  //navbar notification
+  .notification-popoveer {
+    width: 418px !important;
+  }
   .menu-drop-sub{
     font-size: 16px !important;
     padding: 5px 10px !important;
@@ -1094,6 +1123,11 @@
   }
 }
 @media(min-width: 2550px) and (max-width: 3799px){
+  //navbar notification
+  .notification-popoveer {
+    width: 610px !important;
+    padding: 10px !important;
+  }
   .tutorial{
     .ant-tabs-tab {
       font-size: 22px;
@@ -1377,6 +1411,10 @@
   }
 }
 @media(min-width: 3800px) and (max-width: 5999px){
+  //navbar notification
+  .notification-popoveer {
+    width: 697px !important;
+  }
   .new-style-drop-navbar {
     margin-top: 0px !important; 
     padding: 12px 0px !important;

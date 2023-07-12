@@ -48,16 +48,16 @@ const NavbarView = ({
   const appUser = useAppUserState();
   let displayedTabKey = tabKeys;
   const contentNotification = (
-    <div className="popoveer-00 notification-popoveer" style={{maxWidth:'1000000px', width:'369px'}}>
+    <div className="popoveer-00 notification-popoveer">
       <div className="notification-header">
-        <h2 style={{marginBottom:'0px'}}>NOTIFICATIONS</h2>
+        <h2 className='notification-layout'>NOTIFICATIONS</h2>
       </div>
       <Tabs defaultActiveKey={displayedTabKey[1]}
         activeKey={tabKey}
         onChange={(key) => setTabKey(key)} className="tabs-map">
         {
           displayedTabKey.map((tk: string) => (
-            <TabPane style={{ marginBottom: '0px' }}
+            <TabPane className='notification-layout'
               key={tk}>
               {notification?.map((item: any) => {
                 let check1 = moment.utc(item?.project_status_notification?.project_status?.planned_end_date, 'YYYY-MM-DD');
@@ -206,7 +206,6 @@ const NavbarView = ({
   const menu = (
     <Menu
       className="menu-login-dropdown new-style-drop-navbar"
-      style={{ marginTop: '-12px'}}
       items={items}
       onClick={({ key }) => {
         switch(key) {
@@ -234,9 +233,7 @@ const NavbarView = ({
   }
 
   return <Header className="header">
-    <div className="logo"
-      style={{ backgroundImage: 'url(/Icons/logo-02.svg)' }}
-    />
+    <div className="logo-navbar"/>
     {projectData?.project_id && <DetailModal
       visible={projectData?.project_id}
       setVisible={setDetailOpen}
@@ -246,7 +243,7 @@ const NavbarView = ({
     {openProfile && <ModalEditUserView updateUserInformation={updateUserInformation} user={user}
       isVisible={true} hideProfile={hideProfile} groupOrganization={groupOrganization} getGroupOrganization={getGroupOrganization} />}
     <h6>{value}</h6>
-    <div style={{alignItems:'center', display:'flex', justifyContent:'end'}}>
+    <div className="navbar-options-box">
       <Popover overlayClassName="popoveer-notification-box" placement="bottom" content={notification?.length > 0 ? contentNotification : content}>
         {locationPage.pathname === '/portfolio-list-view' ?
         (<span className="avatar-item">
@@ -256,7 +253,7 @@ const NavbarView = ({
         </span>):
         (<button className="notification-icon"></button>)}
       </Popover>
-      <label className="ll-0" style={{marginTop: '7px' }}></label>
+      <label className="ll-0"></label>
       <Dropdown overlay={menu}>
           <a className="ant-dropdown-link" href="/profile-view" onClick={e => e.preventDefault()} >
             {user.photo ?
@@ -445,7 +442,6 @@ const NavbarView = ({
      onOk={handleOk1}
      onCancel={handleCancel1}
      width="100vw"
-     style={{ top: '0', height: '100vh' }}
      className="tutorial-carousel tutorial"
      maskStyle={{
         backgroundColor: "#0000008f"
