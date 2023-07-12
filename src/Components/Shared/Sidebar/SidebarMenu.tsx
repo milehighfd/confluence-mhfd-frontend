@@ -24,7 +24,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   }, {
     className: Number(indexOf) === 1 ? 'menu-sidebar-hover':'',
     key: '1',
-    label: <Link style={{display: 'flex', alignItems: 'center'}}  to={'/map'} >
+    label: <Link to={'/map'} >
       <img className="img-h anticon" src="/Icons/menu-white-02.svg" alt="" width="22px" height="20px" />
       <img className="img-a anticon" src="/Icons/menu-green-02.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>map view</span>
@@ -33,7 +33,7 @@ const SidebarMenu = ({ collapsed }: { collapsed: boolean }) => {
   {
     key: '4',
     className: Number(indexOf) === 4 ? 'menu-sidebar-hover':'',
-    label: <Link style={{display: 'flex', alignItems: 'center'}} to={userApproved ? '/work-request' : '#'}>
+    label: <Link to={userApproved ? '/work-request' : '#'}>
       <img className={"img-h anticon"+(userApproved?'':'img-opaque')} src="/Icons/menu-white-14.svg" alt="" width="22px" height="22px" />
       <img className={"img-a anticon"+(userApproved?'':'img-opaque')} src="/Icons/menu-green-14.svg" alt="" width="22px" height="22px" />
       <span className={collapsed? 'menu-sidebar-colapse' : 'menu-sidebar'}>work request</span>
