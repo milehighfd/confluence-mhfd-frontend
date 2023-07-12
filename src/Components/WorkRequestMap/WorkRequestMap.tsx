@@ -540,7 +540,6 @@ const WorkRequestMap = ({
       setFirstRendering(false);
       return;
     }
-    console.log('Board projects', boardProjects);
     if (boardProjects && !boardProjects.ids) {
       setIdsBoardProjects(boardProjects);
     }
@@ -635,25 +634,9 @@ const WorkRequestMap = ({
     }
   };
   useEffect(() => {
-    // let historicBounds = getCurrent();
-    // if(locality){
-    //   setCoordinatesJurisdiction(locality.locality)
-    // }
     if (locality) {
       getGroupOrganizationZoomWithouBounds();
     }
-    // else if (historicBounds && historicBounds.bbox) {
-    //   globalMapId = historicBounds.id;
-    //   map.map.fitBounds([
-    //     [historicBounds.bbox[0], historicBounds.bbox[1]],
-    //     [historicBounds.bbox[2], historicBounds.bbox[3]],
-    //   ]);
-    //   // getGroupOrganizationZoomWithouBounds();
-    // }
-    // else {
-    //   console.log('qqqqqqqqqqq')
-    //   groupOrganizationZoom();
-    // }
   }, [groupOrganization, locality.locality]);
   useEffect(() => {
     if (data.problemid || data.cartoid) {
@@ -698,7 +681,6 @@ const WorkRequestMap = ({
   }, [map]);
 
   const createProject = (details: any) => {
-    console.log('create project');
     //clear();
     popup.remove();
     if (details.problemid) {
@@ -1044,16 +1026,6 @@ const WorkRequestMap = ({
       map.map.moveLayer('streams_5');
     }
   };
-  const applyComponentFilter = () => {
-    const styles = { ...(COMPONENT_LAYERS_STYLE as any) };
-    Object.keys(styles).forEach(element => {
-      for (let i = 0; i < styles[element].length; ++i) {
-        if (map.map.getLayer(element + '_' + i)) {
-          map.map.setFilter(element + '_' + i, ['!has', 'projectid']);
-        }
-      }
-    });
-  };
 
   const showLayers = (key: string) => {
     const styles = { ...(tileStyles as any) };
@@ -1357,14 +1329,14 @@ const WorkRequestMap = ({
     if (map) {
       const styles = { ...(tileStyles as any) };
       if (styles[key]) {
-        styles[key].forEach((style: LayerStylesType, index: number) => {
+        styles[key].forEach((_: LayerStylesType, index: number) => {
           if (map.map.getLayer(key + '_' + index)) {
             map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
           }
         });
       }
       if (key === STREAMS_FILTERS && styles[STREAMS_POINT]) {
-        styles[STREAMS_POINT].forEach((style: LayerStylesType, index: number) => {
+        styles[STREAMS_POINT].forEach((_: LayerStylesType, index: number) => {
           if (map.map.getLayer(STREAMS_POINT + '_' + index)) {
             map.map.setLayoutProperty(STREAMS_POINT + '_' + index, 'visibility', 'none');
           }
@@ -1418,6 +1390,7 @@ const WorkRequestMap = ({
             filter: ['in', ['get', 'projectid'], ['literal', []]],
             ...style,
           });
+          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'visible');
         } else {
           if (style.source_name) {
             map.map.addLayer({
@@ -1432,9 +1405,9 @@ const WorkRequestMap = ({
               ...style,
             });
           }
-        }
-        if (key) {
-          map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          if (key) {
+            map.map.setLayoutProperty(key + '_' + index, 'visibility', 'none');
+          }
         }
         if (!hovereableLayers.includes(key)) {
           return;
@@ -1541,7 +1514,7 @@ const WorkRequestMap = ({
     if (key == 'stream_improvement_measure') {
       key += '_copy';
     }
-    styles[key].forEach((style: LayerStylesType, index: number) => {
+    styles[key].forEach((_: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id', cartodb_id]);
       }
@@ -1549,7 +1522,7 @@ const WorkRequestMap = ({
   };
   const hideOneHighlighted = (key: string) => {
     const styles = { ...(tileStyles as any) };
-    styles[key].forEach((style: LayerStylesType, index: number) => {
+    styles[key].forEach((_: LayerStylesType, index: number) => {
       if (map.getLayer(key + '_' + index) && map.getLayoutProperty(key + '_' + index, 'visibility') !== 'none') {
         map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id']);
       }
@@ -1558,7 +1531,7 @@ const WorkRequestMap = ({
   const hideHighlighted = () => {
     const styles = { ...(tileStyles as any) };
     for (const key in styles) {
-      styles[key].forEach((style: LayerStylesType, index: number) => {
+      styles[key].forEach((_: LayerStylesType, index: number) => {
         if (map.getLayer(key + '_highlight_' + index)) {
           map.setFilter(key + '_highlight_' + index, ['in', 'cartodb_id']);
         }
@@ -1580,7 +1553,7 @@ const WorkRequestMap = ({
     }
     return;
   };
-  const seeDetails = (details: any, event: any) => {
+  const seeDetails = (details: any, _: any) => {
     if (details.problemid) {
       setData({
         id: '',
