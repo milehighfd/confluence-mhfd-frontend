@@ -1662,23 +1662,23 @@ const CreateProjectMap = (type: any) => {
           width="400px"
         >
           <div className="detailed">
-            <Row className="detailed-h" gutter={[16, 8]}>
+            <Row className="detailed-h-head" gutter={[16, 8]}>
               <Col xs={{ span: 44 }} lg={{ span: 20 }}>
-                <h1 style={{ marginTop: '15px' }}>Geometry Error</h1>
+                <h1>Geometry Error</h1>
               </Col>
-              <Col xs={{ span: 4 }} lg={{ span: 4 }} style={{ textAlign: 'end' }}>
+              <Col xs={{ span: 4 }} lg={{ span: 4 }} className='col-h-head'>
                 <Button className="btn-transparent" onClick={() => setShowIntersectionError(false)}>
                   <img src="/Icons/icon-62.svg" alt="" height="15px" />
                 </Button>
               </Col>
             </Row>
-            <Row className="detailed-h" gutter={[16, 8]} style={{ backgroundColor: 'white' }}>
-              <Col xs={{ span: 48 }} lg={{ span: 24 }} style={{ color: '#11093c' }}>
+            <Row className="detailed-h-body" gutter={[16, 8]}>
+              <Col xs={{ span: 48 }} lg={{ span: 24 }} className='col-h-body'>
                 Please draw your project geometry over the nearest blue stream line in order to proceed. You may
                 describe the actual location of your project in the 'Project Information' section if a blue stream line
                 does not exist in your project area.
               </Col>
-              <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} style={{ color: '#11093c', textAlign: 'end' }}>
+              <Col xs={{ span: 24 }} lg={{ span: 12, offset: 12 }} className='col-body-1'>
                 <button className="btn-purple" style={{ width: '95%' }} onClick={() => setShowIntersectionError(false)}>
                   Review your geometry
                 </button>
@@ -1712,7 +1712,7 @@ const CreateProjectMap = (type: any) => {
                   </div>
                 }
               >
-                <InfoCircleOutlined style={{ marginLeft: '35px', color: '#bfbfbf' }} />
+                <InfoCircleOutlined className='info-circle-outlined'/>
               </Popover>{' '}
             </h5>
             <div className="legendprob">
@@ -1731,7 +1731,7 @@ const CreateProjectMap = (type: any) => {
         ) : (
           ''
         )}
-        <div id="map3" style={{ height: '100%', width: '100%' }}></div>
+        <div id="map3"></div>
         <div className="m-head">
           <MapDropdownLayers
             selectCheckboxes={selectCheckboxes}
@@ -1741,7 +1741,7 @@ const CreateProjectMap = (type: any) => {
           />
           <AutoComplete
             dropdownMatchSelectWidth={true}
-            style={{ width: 200, backgroundColor: '#fafafa', borderRadius: '5px', height: '36px' }}
+            className='autocomplete-mhead'            
             options={mapSearch.length > 0 ? [...mapSearch.map(renderOption), {}] : mapSearch.map(renderOption)}
             onSelect={onSelect}
             onSearch={handleSearch}
