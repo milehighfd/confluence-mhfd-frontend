@@ -2,6 +2,18 @@
 @import "../Theme/styles.scss";
 
 // SIDEBAR
+
+.recaptcha{
+  z-index: 1000;
+}
+
+.menu-sidebar-colapse{
+  margin-left: -20px !important;
+}
+.menu-sidebar{
+  margin-left: -2px !important;
+}
+
 .ant-layout-sider{
   background: $dark !important;
 
@@ -33,10 +45,15 @@
   height: 36px;
   width: auto;
 }
+.img-opaque{
+  opacity: 0.2;
+}
 .img-a{
   display: none !important;
+  align-items: center;
 }
 .img-h{
+  align-items: center;
   height: 22px;
 }
 .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {

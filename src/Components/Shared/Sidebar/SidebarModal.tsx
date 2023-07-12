@@ -29,7 +29,6 @@ const SidebarModal = () => {
     onCancel={handleCancel}
     className="tutorial-mobile"
     width="100vw"
-    style={{height:'100%', top:'0px'}}
   >
     <div className="tuto-01">
       <div className="tuto-17">
