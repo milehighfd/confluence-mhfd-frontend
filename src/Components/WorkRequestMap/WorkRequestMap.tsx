@@ -442,7 +442,7 @@ const WorkRequestMap = ({
     filterProjectsDraft.status = '';
     // if (idsBoardProjects.length) {
     wait(() => {
-      map.isRendered(() => {
+      map.isStyleLoaded(() => {
         let requestData = { table: PROJECTS_DRAFT_MAP_STYLES.tiles[0] };
         const promises: Promise<any>[] = [];
         promises.push(postDataAsyn(SERVER.MAP_TABLES, requestData, getToken()));
@@ -455,7 +455,7 @@ const WorkRequestMap = ({
       });
     });
     // }
-  }, [idsBoardProjects]);
+  }, [idsBoardProjects, selectedLayersWR]);
 
   useEffect(() => {
     let mask;

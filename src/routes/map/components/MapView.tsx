@@ -726,25 +726,27 @@ const MapView = () => {
     const filterProjects = { ...filterProjectOptions } as any;
     for (const key in filterProjectOptions) {
       const tag = filterProjects[key];
-      if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
-        for (let index = 0; index < tag.length; index++) {
-          const element = tag[index];
-          if (element) {
-            countTagProjets += 1;
+      if (tag !== undefined) {	
+        if (key !== 'keyword' && key !== 'column' && key !== 'order' && key !== 'name' && key !== 'totalcost') {
+          for (let index = 0; index < tag.length; index++) {
+            const element = tag[index];
+            if (element) {
+              countTagProjets += 1;
+            }
           }
+        } else if (key === 'totalcost' && tag.length) {
+          countTagProjets += 1;
         }
-      } else if (key === 'totalcost' && tag.length) {
-        countTagProjets += 1;
-      }
-      const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
-      if (position >= 0) {
-        const tag = filterProjects[key];
-        const elements = [];
-        for (let index = 0; index < tag.length; index++) {
-          elements.push(tag[index]);
-        }
-        if (elements.length > 0) {
-          labelsFiltersProjects[position]['detail'] = elements as any;
+        const position = labelsFiltersProjects.findIndex((x: any) => x.name === key);
+        if (position >= 0) {
+          const tag = filterProjects[key];
+          const elements = [];
+          for (let index = 0; index < tag.length; index++) {
+            elements.push(tag[index]);
+          }
+          if (elements.length > 0) {
+            labelsFiltersProjects[position]['detail'] = elements as any;
+          }
         }
       }
     }
