@@ -839,8 +839,9 @@ export const changeTutorialStatus = (tutorialStatus: boolean) => {
   };
 };
 
-export const setTabMapActive = (tabMapActive: string) => {
+export const setTabActiveNavbar = (tabActiveNavbar: string) => {
   return (dispatch: Function) => {
-    dispatch({ type: types.SET_TAB_MAP_ACTIVE, tabMapActive });
+    console.log('inside action',tabActiveNavbar)
+    dispatch({ type: types.SET_TAB_ACTIVE_NAVBAR, tabActiveNavbar });
   };
 };

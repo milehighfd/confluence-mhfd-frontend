@@ -5,15 +5,14 @@ import PortafolioBody from 'routes/portfolio-view/components/PorfolioBody';
 import NavbarView from 'Components/Shared/Navbar/NavbarView';
 
 const PortfolioView = () => {
-  const [optionSelect, setOptionSelect] = useState('List');
 
   return (
     <Layout>
-      <NavbarView tabActive={optionSelect} />
+      <NavbarView />
       <Layout>
         <SidebarView></SidebarView>
         <Layout style={{ overflow: 'hidden', zIndex:'1' }} className="map-00 profile-00">
-          <PortafolioBody optionSelect={optionSelect} setOptionSelect={setOptionSelect} />
+          <PortafolioBody />
         </Layout>
       </Layout>
     </Layout>

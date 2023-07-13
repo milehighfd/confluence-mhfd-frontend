@@ -470,7 +470,7 @@ const initState = {
     favoritesLoader: 0,
     showComponents: [],
     places: [],
-    tabMapActive: 'MAP'
+    tabActiveNavbar: 'MAP'
 }
 
 const mapReducer = (state = initState, action: any) => {
@@ -871,10 +871,10 @@ const mapReducer = (state = initState, action: any) => {
                 showComponents: action.showComponents
             }
         }
-        case types.SET_TAB_MAP_ACTIVE: {
+        case types.SET_TAB_ACTIVE_NAVBAR: {
             return {
                 ...state,
-                tabMapActive: action.tabMapActive
+                tabActiveNavbar: action.tabActiveNavbar
             }
         }
         default:

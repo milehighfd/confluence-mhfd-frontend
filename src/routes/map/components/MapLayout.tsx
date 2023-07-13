@@ -37,13 +37,13 @@ const MapLayout = () => {
     updateSelectedLayers,
     getMapWithSublayers,
     getMapLayers,
-    setTabMapActive
+    setTabActiveNavbar
   } = useMapDispatch();
 
   const {
     selectedLayers,
     galleryProjectsV2,
-    tabMapActive
+    tabActiveNavbar
   } = useMapState();
   const {
     userInformation: {
@@ -96,7 +96,7 @@ const MapLayout = () => {
     setYearList,
   } = useRequestDispatch();
   const currentDataForBoard: BoardDataRequest = {
-    type: tabMapActive === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN',
+    type: tabActiveNavbar === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN',
     year: `${year}`,
     locality,
     projecttype: tabKey ? tabKey : tabKeys[0],
@@ -266,7 +266,7 @@ const MapLayout = () => {
       }
       {
         <Analytics
-          type={tabMapActive === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={tabActiveNavbar === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
         />
       }
       {
@@ -279,7 +279,7 @@ const MapLayout = () => {
           status={boardStatus}
           substatus={boardSubstatus}
           comment={boardComment}
-          type={tabMapActive === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
+          type={tabActiveNavbar === 'WORK_REQUEST' ? 'WORK_REQUEST': 'WORK_PLAN'}
           setAlertStatus={setAlertStatus}
           setShowAlert={setShowAlert}
           onUpdateHandler={onUpdateBoard}
@@ -315,10 +315,10 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className={open ? "padding-comment transition-map" : "transition-map"}
-                    lg={tabMapActive === 'MAP' ? leftWidthMap: { span: leftWidth }}
+                    lg={tabActiveNavbar === 'MAP' ? leftWidthMap: { span: leftWidth }}
                   >
                     <Map
-                      leftWidth={tabMapActive === 'MAP' ? leftWidthMap : leftWidth}
+                      leftWidth={tabActiveNavbar === 'MAP' ? leftWidthMap : leftWidth}
                     />
                     <Button className="btn-coll" onClick={updateWidth}>
                       <img style={rotationStyle} src="/Icons/icon-34.svg" alt="" width="18px" />
@@ -327,15 +327,15 @@ const MapLayout = () => {
                   <Col
                     xs={{ span: 24 }}
                     className="menu-mobile"
-                    lg={24 - (tabMapActive === 'MAP' ? leftWidthMap : leftWidth)}
+                    lg={24 - (tabActiveNavbar === 'MAP' ? leftWidthMap : leftWidth)}
                   >
-                   {tabMapActive === 'MAP' && <MapView />}
-                   {tabMapActive === 'WORK_REQUEST' && <RequestView
-                      type={tabMapActive}
+                   {tabActiveNavbar === 'MAP' && <MapView />}
+                   {tabActiveNavbar === 'WORK_REQUEST' && <RequestView
+                      type={tabActiveNavbar}
                       isFirstRendering={true}
                     />}
-                   {tabMapActive === 'WORK_PLAN' && <RequestView
-                      type={tabMapActive}
+                   {tabActiveNavbar === 'WORK_PLAN' && <RequestView
+                      type={tabActiveNavbar}
                       isFirstRendering={true}
                     />}
                   </Col>
